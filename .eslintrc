@@ -12,5 +12,9 @@
         },
         "sourceType": "module"
     },
-    "extends": "eslint:recommended"
+    "extends": "eslint:recommended",
+    "rules": {
+        "no-unused-vars": 0,
+        "no-console": 0
+    }
 }
