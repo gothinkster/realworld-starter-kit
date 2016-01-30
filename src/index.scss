@@ -1,3 +1,17 @@
-body {
+/*index css rules*/
+.appContainer {
     background-color: yellow;
+    height: 100vh;
+    width: 100vw;
+    /*flexbox rules*/
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+/*index's children css rules*/
+.helloWorld {
+    margin: auto;
+}
+.helloWorld2 {
+    margin: auto;
 }

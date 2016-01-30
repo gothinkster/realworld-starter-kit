@@ -5,17 +5,16 @@ import ReactDom from 'react-dom';
 import HelloWorld from './HelloWorld/HelloWorld';
 import HelloWorld2 from './HelloWorld2/HelloWorld2';
 //Scss (webpacked)
-require('./index.scss');
+import styles from './index.scss';
 
 const AppContainer = React.createClass({
     render: function(){
         return (
-            <div>
+            <div className={styles.appContainer}>
                 <HelloWorld />
                 <HelloWorld2 />
             </div>
-        
-        )
+        );
     }
 
 })
