@@ -6,11 +6,17 @@ Boilerplate for QS client-side projects.
 * ES6 support
 * Webpack with React/Redux hot reloading
 * Modular CSS/Sass (now with namespaces!)
-* flex-box centric design
+* Flexbox centric design
 * Mocha/Chai test support
-* .eslint preconfigured
+* Linting preconfigured with .eslint
+
+## Dependencies
+* NPM
+* React Dev Tools (optional)
+* Redux Dev Tools (optional)
 
 ## Setup and Installation
+
 As this is boilerplate, you probably want to fork the project.
 Given that these projects will be in the same organization, it has few additional steps.
 ```
