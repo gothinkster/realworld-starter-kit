@@ -5,14 +5,15 @@ import ReactDom from 'react-dom';
 import HelloWorld from './HelloWorld/HelloWorld';
 import HelloWorld2 from './HelloWorld2/HelloWorld2';
 //Scss (webpacked)
+require('./Toolbox/global.scss');
 import styles from './index.scss';
 
 const AppContainer = React.createClass({
     render: function(){
         return (
             <div className={styles.appContainer}>
-                <HelloWorld />
-                <HelloWorld2 />
+                <HelloWorld className={styles.helloWorld}/>
+                <HelloWorld2 className={styles.helloWorld2}/>
             </div>
         );
     }

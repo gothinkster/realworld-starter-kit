@@ -8,7 +8,7 @@ export default React.createClass({
     render: function() {
         return (
             <div className={styles.helloWorld}>
-                <h1>Hello World</h1>
+                <h1>Hello World 2</h1>
             </div>
         );
     }
