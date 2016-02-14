@@ -1,0 +1,25 @@
+.storyBoxHeadline {
+    /* child positioning props*/
+    margin-left: auto;
+    margin-right: auto;
+    height: 70%;
+    width: 60%;
+    /*flex-box parent props*/
+    /*styling (the rest of the CSS)*/
+    background-color: red;
+}
+
+.storyBoxFeatured {
+    width: 20%;
+    height: 70%;
+    background-color: purple;
+}
+
+.storyBoxNormal {
+    width: 25%;
+    height: 30%;
+    box-sizing: border-box;
+    background-color: white;
+    border: thin solid black;
+}
+

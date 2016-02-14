@@ -9,16 +9,23 @@ module.exports = {
         './src/index.jsx'
     ],
     module: {
+        preLoaders: [
+            {
+                test: /\.json$/, 
+                exclude: /node_modules/,
+                loader: 'json'
+            }
+        ],
         loaders:[
-        {
-            test: /\.scss$/,
-            loaders: ["style", "css?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]", "sass"]
-        },
-        {
-            test: /\.jsx?$/,
-            exclude: /node_modules/,
-            loader: 'react-hot!babel'
-        }
+            {
+                test: /\.scss$/,
+                loaders: ["style", "css?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]", "sass"]
+            },
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'react-hot!babel'
+            }
         ]
     },
     resolve: {

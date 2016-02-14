@@ -2,13 +2,13 @@
 import React from 'react';
 //subcomponents
 //Sass and assets 
-import styles from './HelloWorld.scss'
+import styles from './Header.scss'
+import globalStyles from '../Toolbox/global.scss'
 
 export default React.createClass({
     render: function() {
         return (
-            <div className={styles.helloWorld}>
-                <h1>Hello World</h1>
+            <div className={styles.header}>
             </div>
         );
     }

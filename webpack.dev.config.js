@@ -11,16 +11,24 @@ module.exports = {
         './src/index.jsx'
     ],
     module: {
+        preLoaders: [
+            {
+                test: /\.json$/, 
+                exclude: /node_modules/,
+                loader: 'json'
+            }
+        ],
         loaders:[
-        {
-            test: /\.scss$/,
-            loaders: ["style", "css?sourceMap&modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]", "sass?sourceMap"]
-        },
-        {
-            test: /\.jsx?$/,
-            exclude: /node_modules/,
-            loader: 'react-hot!babel'
-        }
+            {
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                loaders: ["style", "css?sourceMap&modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]", "sass?sourceMap"]
+            },
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'react-hot!babel'
+            }
         ]
     },
     resolve: {
