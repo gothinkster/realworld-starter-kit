@@ -1,8 +1,10 @@
 /*index css rules*/
+$story-background-color-accent: #EEE8D5;
 .appContainer {
-    background-color: yellow;
+    background-color: $story-background-color-accent;
     height: 100vh;
     width: 100vw;
+    overflow: auto;
     /*flexbox rules*/
     display: flex;
     flex-direction: row;

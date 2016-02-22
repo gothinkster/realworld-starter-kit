@@ -18,6 +18,11 @@ module.exports = {
         ],
         loaders:[
             {
+             test: /\.png$/,
+             exclude: /node_modules/,
+             loader: 'url-loader'
+            },
+            {
                 test: /\.scss$/,
                 loaders: ["style", "css?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]", "sass"]
             },

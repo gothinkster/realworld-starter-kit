@@ -20,6 +20,11 @@ module.exports = {
         ],
         loaders:[
             {
+             test: /\.png$/,
+             exclude: /node_modules/,
+             loader: 'url-loader'
+            },
+            {
                 test: /\.scss$/,
                 exclude: /node_modules/,
                 loaders: ["style", "css?sourceMap&modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]", "sass?sourceMap"]

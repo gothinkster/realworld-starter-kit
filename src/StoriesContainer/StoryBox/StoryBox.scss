@@ -1,25 +1,165 @@
+//sass variables for this component
+$story-background-color: #FDF6E3;
+$story-background-color-accent: #EEE8D5;
+$story-text-color: #657b83;
+$story-hover-color: #CCC8BC;
+
 .storyBoxHeadline {
     /* child positioning props*/
     margin-left: auto;
     margin-right: auto;
     height: 70%;
     width: 60%;
-    /*flex-box parent props*/
     /*styling (the rest of the CSS)*/
-    background-color: red;
+    background-color: $story-background-color;
+    color: $story-text-color;
+    box-sizing: border-box;
+    border-left: thin solid $story-background-color-accent;
+    border-right: thin solid $story-background-color-accent;
+}
+
+.storyBoxHeadline:hover {
+    background-color: $story-hover-color;
+    background-image: linear-gradient(to bottom, transparent, $story-hover-color);
+}
+
+.headlineImage{
+    content:url('../../testAssets/wireframe-placeholder.png');
+    height: 57.5%;
+    width: 95%;
+    margin: auto;
+    margin-top: 2.5%;
+}
+
+.headlineTitle{
+    height: 15%;
+    text-align: center;
+    font-size: xx-large;
+    font-family: "Times New Roman", Serif, Georgia;
+    font-weight: 800;
+}
+
+.headlineBlurbContainer{
+    position: relative;
+    height: 20%;
+    width: 95%;
+    overflow: hidden;
+}
+
+.headlineBlurbText{
+    position: absolute;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+    font-size: larger;
+}
+
+.headlineBlurbFadeover{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to bottom, transparent, $story-background-color);
 }
 
 .storyBoxFeatured {
     width: 20%;
     height: 70%;
-    background-color: purple;
+    background-color: $story-background-color;
+    color: $story-text-color;
+}
+
+.featuredImage {
+    content:url('../../testAssets/wireframe-placeholder.png');
+    height: 40%;
+    width: 90%;
+    margin: auto;
+    margin-top: 5%;
+}
+
+.featuredTitle {
+    height: 20%;
+    text-align: center;
+    font-size: x-large;
+    font-family: "Times New Roman", Serif, Georgia;
+    font-weight: 900;
+}
+    
+.featuredBlurbContainer{
+    position: relative;
+    height: 35%;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.featuredBlurbText{
+    position: absolute;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+    font-size: larger;
+}
+
+.featuredBlurbFadeover{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to bottom, transparent, $story-background-color);
 }
 
 .storyBoxNormal {
     width: 25%;
     height: 30%;
     box-sizing: border-box;
-    background-color: white;
-    border: thin solid black;
+    background-color: $story-background-color;
+    border-top: thin solid $story-background-color-accent;
+    color: $story-text-color;
 }
 
+.normalImage {
+    content:url('../../testAssets/wireframe-placeholder.png');
+    height: 70%;
+    width: 90%;
+    margin: auto;
+    margin-top: 5%;
+}
+
+.normalTitle {
+    height: 20%;
+    text-align: center;
+    font-size: large;
+    font-family: "Times New Roman", Serif, Georgia;
+    font-weight: 600;
+}
+    
+.normalBlurbContainer{
+    position: relative;
+    height: 35%;
+    width: 90%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.normalBlurbText{
+    position: absolute;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+    font-size: larger;
+}
+
+.normalBlurbFadeover{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to bottom, transparent, $story-background-color);
+}

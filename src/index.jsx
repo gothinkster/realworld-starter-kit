@@ -11,12 +11,12 @@ import reducer from './reducers/reducer'
 require('./Toolbox/global.scss');
 import styles from './index.scss';
 //Test component
-import {stories} from './stories.js';
+import {stories} from './testAssets/stories.js';
 
 const store=createStore(reducer);
 store.dispatch({
     type: 'SET_STORIES',
-    entries: require('./stories.js')
+    entries: require('./testAssets/stories.js')
 })
 
 const AppContainer = React.createClass({

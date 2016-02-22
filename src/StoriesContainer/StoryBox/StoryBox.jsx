@@ -6,22 +6,48 @@ import {List, Map} from 'immutable';
 import styles from './StoryBox.scss'
 import globalStyles from '../../Toolbox/global.scss'
 
-const setStoryType = function(storyType){
+const getStoryStyles = function(storyType){
     switch(storyType){
         case 'Headline':
-            return styles.storyBoxHeadline;
+            return [
+                    styles.storyBoxHeadline, 
+                    styles.headlineImage,
+                    styles.headlineTitle,
+                    styles.headlineBlurbContainer,
+                    styles.headlineBlurbText,
+                    styles.headlineBlurbFadeover
+            ];
         case 'Featured':
-            return styles.storyBoxFeatured;
+            return [
+                    styles.storyBoxFeatured,
+                    styles.featuredImage,
+                    styles.featuredTitle,
+                    styles.featuredBlurbContainer,
+                    styles.featuredBlurbText,
+                    styles.featuredBlurbFadeover
+            ];
         default:
-            return styles.storyBoxNormal;
+            return [
+                    styles.storyBoxNormal,
+                    styles.normalImage,
+                    styles.normalTitle,
+                    styles.normalBlurbContainer,
+                    styles.normalBlurbText,
+                    styles.fadeover
+            ];
     }
 }
 export default React.createClass({
     render: function() {
         const story = this.props.story;
         return (
-            <div className={setStoryType(story.type)}>
-                <h1>{story.title}</h1>
+            <div className={getStoryStyles(story.type)[0]}>
+                <div className={getStoryStyles(story.type)[1]}></div>
+                <div className={getStoryStyles(story.type)[2]}>{story.title}</div>
+                <div className={getStoryStyles(story.type)[3]}>
+                    <div className={getStoryStyles(story.type)[4]}>{story.text}</div>
+                    <div className={getStoryStyles(story.type)[5]}></div>
+                </div>
             </div>
         );
     }
