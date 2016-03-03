@@ -1,7 +1,18 @@
 import {List, Map} from 'immutable';
 
 export function setStories(state, stories){
-    return state.set('stories', List(stories))
+    return state.set('stories', stories);
 }
 
-export const INITIAL_STATE = Map();
+export function showModal(state){
+    return state.set('modalVisable', true);
+}
+
+export function hideModal(state){
+    return state.set('modalVisable', false);
+}
+
+export const INITIAL_STATE = Map({
+    "modalVisable": false,
+    "stories": List()
+});

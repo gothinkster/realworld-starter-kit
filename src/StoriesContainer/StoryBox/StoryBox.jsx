@@ -1,10 +1,7 @@
 //React and friends (3rd party libs)
 import React from 'react';
-import {List, Map} from 'immutable';
-//subcomponents
 //Sass and assets 
 import styles from './StoryBox.scss'
-import globalStyles from '../../Toolbox/global.scss'
 
 const getStoryStyles = function(storyType){
     switch(storyType){
@@ -37,18 +34,16 @@ const getStoryStyles = function(storyType){
             ];
     }
 }
-export default React.createClass({
-    render: function() {
-        const story = this.props.story;
-        return (
-            <div className={getStoryStyles(story.type)[0]}>
-                <div className={getStoryStyles(story.type)[1]}></div>
-                <div className={getStoryStyles(story.type)[2]}>{story.title}</div>
-                <div className={getStoryStyles(story.type)[3]}>
-                    <div className={getStoryStyles(story.type)[4]}>{story.text}</div>
-                    <div className={getStoryStyles(story.type)[5]}></div>
-                </div>
-            </div>
-        );
-    }
-});
+
+const StoryBox = ({story, onClick}) => (
+    <div className={getStoryStyles(story.type)[0]} onClick={onClick}>
+        <div className={getStoryStyles(story.type)[1]}></div>
+        <div className={getStoryStyles(story.type)[2]}>{story.title}</div>
+        <div className={getStoryStyles(story.type)[3]}>
+            <div className={getStoryStyles(story.type)[4]}>{story.text}</div>
+            <div className={getStoryStyles(story.type)[5]}></div>
+        </div>
+    </div>
+);
+
+export default StoryBox

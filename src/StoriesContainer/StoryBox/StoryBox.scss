@@ -18,9 +18,8 @@ $story-hover-color: #CCC8BC;
     border-right: thin solid $story-background-color-accent;
 }
 
-.storyBoxHeadline:hover {
+.storyBoxHeadline:hover{
     background-color: $story-hover-color;
-    background-image: linear-gradient(to bottom, transparent, $story-hover-color);
 }
 
 .headlineImage{
@@ -62,6 +61,10 @@ $story-hover-color: #CCC8BC;
     bottom: 0;
     left: 0;
     background-image: linear-gradient(to bottom, transparent, $story-background-color);
+}
+
+.storyBoxHeadline:hover .headlineBlurbFadeover{
+    background-image: linear-gradient(to bottom, transparent, $story-hover-color);
 }
 
 .storyBoxFeatured {
