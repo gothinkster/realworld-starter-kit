@@ -74,6 +74,10 @@ $story-hover-color: #CCC8BC;
     color: $story-text-color;
 }
 
+.storyBoxFeatured:hover{
+    background-color: $story-hover-color;
+}
+
 .featuredImage {
     content:url('../../testAssets/wireframe-placeholder.png');
     height: 40%;
@@ -116,6 +120,10 @@ $story-hover-color: #CCC8BC;
     background-image: linear-gradient(to bottom, transparent, $story-background-color);
 }
 
+.storyBoxFeatured:hover .featuredBlurbFadeover{
+    background-image: linear-gradient(to bottom, transparent, $story-hover-color);
+}
+
 .storyBoxNormal {
     width: 25%;
     height: 30%;
@@ -123,6 +131,10 @@ $story-hover-color: #CCC8BC;
     background-color: $story-background-color;
     border-top: thin solid $story-background-color-accent;
     color: $story-text-color;
+}
+
+.storyBoxNormal:hover{
+    background-color: $story-hover-color;
 }
 
 .normalImage {
@@ -166,3 +178,8 @@ $story-hover-color: #CCC8BC;
     left: 0;
     background-image: linear-gradient(to bottom, transparent, $story-background-color);
 }
+
+.storyBoxNormal:hover .normalBlurbFadeover{
+    background-image: linear-gradient(to bottom, transparent, $story-hover-color);
+}
+
