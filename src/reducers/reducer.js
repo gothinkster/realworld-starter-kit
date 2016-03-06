@@ -1,5 +1,5 @@
-import {setStories, showModal, hideModal, INITIAL_STATE} from '../actions/actionCreator';
-export default function reducer(state = INITIAL_STATE, action) {
+import {setStories, showModal, hideModal} from '../actions/actionCreator';
+export default function reducer(state, action) {
     switch(action.type){
         case 'SET_STORIES':
             return setStories(state, action.stories);
