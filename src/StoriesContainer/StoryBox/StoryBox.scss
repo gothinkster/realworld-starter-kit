@@ -23,10 +23,10 @@ $story-hover-color: #CCC8BC;
 }
 
 .headlineImage{
-    content:url('../../testAssets/wireframe-placeholder.png');
     height: 57.5%;
-    width: 95%;
-    margin: auto;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
     margin-top: 2.5%;
 }
 
@@ -42,6 +42,8 @@ $story-hover-color: #CCC8BC;
     position: relative;
     height: 20%;
     width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
     overflow: hidden;
 }
 
@@ -79,10 +81,10 @@ $story-hover-color: #CCC8BC;
 }
 
 .featuredImage {
-    content:url('../../testAssets/wireframe-placeholder.png');
     height: 40%;
     width: 90%;
-    margin: auto;
+    margin-left: 5%;
+    margin-right: 5%;
     margin-top: 5%;
 }
 
@@ -138,11 +140,11 @@ $story-hover-color: #CCC8BC;
 }
 
 .normalImage {
-    content:url('../../testAssets/wireframe-placeholder.png');
     height: 70%;
     width: 90%;
-    margin: auto;
-    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 2.5%;
 }
 
 .normalTitle {

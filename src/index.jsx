@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducer from './reducers/reducer';
+import {INITIAL_STATE} from './actions/actionCreator.js';
 //App components
 import Header from './Header/Header.jsx';
 import StoriesContainer from './StoriesContainer/StoriesContainer.jsx';
@@ -13,8 +14,10 @@ require('./Toolbox/global.scss');
 import styles from './index.scss';
 //Test component
 import {stories} from './testAssets/stories.js';
+import DevTools from './Toolbox/DevTools.jsx'
 
-const store=createStore(reducer);
+
+const store=createStore(reducer, INITIAL_STATE, DevTools.instrument());
 
 store.dispatch({
     type: 'SET_STORIES',
@@ -31,7 +34,10 @@ const AppContainer = () => (
 
 render(
     <Provider store={store}>
-        <AppContainer />
+        <div>
+            <AppContainer />
+            <DevTools />
+        </div>
     </Provider>,
     document.getElementById('app')
 )

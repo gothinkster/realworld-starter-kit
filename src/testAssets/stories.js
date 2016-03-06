@@ -2,30 +2,37 @@ const lipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
 export const stories =
     [
         {
+            "image": "http://lorempixel.com/200/200/",
             "type": "Featured",
             "title": "blarg smarg",
             "text": lipsum
         },
         {
+            "image": "http://lorempixel.com/200/200/",
             "type": "Headline",
             "title": "blah blah blah",
             "text": lipsum
         },
         {
+            "image": "http://lorempixel.com/200/200/",
             "type": "Featured",
             "title": "rawr rawr rawr",
             "text": lipsum
         },
         {
+            "image": "http://lorempixel.com/200/200/",
             "title": "how bout this one?"
         },
         {
+            "image": "http://lorempixel.com/200/200/",
             "title": "weeeeeee!"
         },
         {
+            "image": "http://lorempixel.com/200/200/",
             "title": "rawr!!"
         },
         {
+            "image": "http://lorempixel.com/200/200/",
             "title": "one more rawr!!"
         }
     ]
