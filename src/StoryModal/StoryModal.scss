@@ -1,22 +1,53 @@
-.storyModal {
-    /*flex-box child props*/
-    z-index: 12;
-    margin-left: auto;
-    margin-right: auto;
-    height: 100%;
+.storyModal{
     width: 100%;
-    /*flex-box parent props*/
-    /*styling (the rest of the CSS)*/
+    height: 100%;
 }
 
-.modalHeader{
-
+.storyModalHeadline{
+    width: 90%;
+    margin: auto;
+    margin-top: 2.5%;
+    font-size: 300%;
+    text-align: center;
+    border-bottom: thin solid lightgrey;
 }
 
-.modalBody{
+.storyModalImage{
+    width: 80%;
+    height: 60%;
+    margin-left: 10%;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    margin-right: 10%;
 
 }
+.storyModalBody{
+    font-size: 125%;
+    margin-left: 2.5%;
+    text-align: center;
+}
 
-.modalFooter{
+.storyModalCloseButton{
+    position: fixed;
+    right: 5.5%;
+    top: 6%;
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    width: 20px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 8px;
+    color: darkgrey;
+    font-size: xx-large;
+    z-index: 3;
+}
 
+.storyModalCloseButton:before{ 
+    content: "\00d7"; /* This will render the 'X' */
+}
+
+
+.storyModalCloseButton:hover{
+    color: darkred;
 }

@@ -10,7 +10,7 @@ import styles from './StoriesContainer.scss'
 const StoriesList = ({stories, onClick}) => (
     <div className={styles.StoriesContainer}>
         {stories.map((story,i) =>
-            <StoryBox key={i} story={story} onClick={onClick}/>
+            <StoryBox key={i} story={story} onClick={() => onClick(story)}/>
         )}
     </div>
 );
@@ -22,9 +22,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onClick: () => {
+        onClick: (story) => {
             dispatch({
-                type: 'SHOW_MODAL'
+                type: 'SHOW_MODAL',
+                story: story
             })
         }
     }

@@ -4,7 +4,7 @@ export default function reducer(state, action) {
         case 'SET_STORIES':
             return setStories(state, action.stories);
         case 'SHOW_MODAL':
-            return showModal(state);
+            return showModal(state, action.story);
         case 'HIDE_MODAL':
             return hideModal(state);
         default:

@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducer from './reducers/reducer';
-import {INITIAL_STATE} from './actions/actionCreator.js';
+import {INITIAL_STATE} from './actions/initialState.js';
 //App components
 import Header from './Header/Header.jsx';
 import StoriesContainer from './StoriesContainer/StoriesContainer.jsx';
@@ -21,7 +21,7 @@ const store=createStore(reducer, INITIAL_STATE, DevTools.instrument());
 
 store.dispatch({
     type: 'SET_STORIES',
-    stories: stories
+    stories: stories[Math.floor((Math.random()*stories.length))]
 });
 
 const AppContainer = () => (
