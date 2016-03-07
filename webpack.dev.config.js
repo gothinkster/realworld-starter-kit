@@ -37,7 +37,7 @@ module.exports = {
             {
                 test: /\.tff$/,
                 exclude: /node_modules/,
-                loader: 'file-loader?name=fonts/[name].[ext]'
+                loader: 'url-loader?limit=100000'
             }
         ]
     },
@@ -52,6 +52,8 @@ module.exports = {
     devServer: {
         contentBase: './dev_build',
         port: 8000,
+        noInfo: true,
+        open: true,
         hot: true
     },
     plugins: [
