@@ -9,6 +9,7 @@ export default React.createClass({
     render: function() {
         return (
             <div className={styles.header}>
+                Global News
             </div>
         );
     }

@@ -6,7 +6,7 @@ var pjson = require('./package.json');
 
 module.exports = {
     entry: [
-        'webpack-dev-server/client?http://localhost:8080',
+        'webpack-dev-server/client?http://localhost:8000',
         'webpack/hot/only-dev-server',
         './src/index.jsx'
     ],
@@ -33,6 +33,11 @@ module.exports = {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'react-hot!babel'
+            },
+            {
+                test: /\.tff$/,
+                exclude: /node_modules/,
+                loader: 'file-loader?name=fonts/[name].[ext]'
             }
         ]
     },
@@ -46,6 +51,7 @@ module.exports = {
     },
     devServer: {
         contentBase: './dev_build',
+        port: 8000,
         hot: true
     },
     plugins: [
