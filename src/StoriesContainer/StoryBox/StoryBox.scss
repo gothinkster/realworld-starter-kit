@@ -8,8 +8,8 @@ $story-hover-color: #CCC8BC;
     /* child positioning props*/
     margin-left: auto;
     margin-right: auto;
-    height: 70%;
-    width: 60%;
+    height: 100%;
+    width: 75%;
     /*styling (the rest of the CSS)*/
     background-color: $story-background-color;
     color: $story-text-color;
@@ -18,9 +18,9 @@ $story-hover-color: #CCC8BC;
     border-right: thin solid $story-background-color-accent;
 }
 
-.storyBoxHeadline:hover{
+/*.storyBoxHeadline:hover{
     background-color: $story-hover-color;
-}
+}*/
 
 .headlineImage{
     height: 57.5%;
@@ -55,7 +55,7 @@ $story-hover-color: #CCC8BC;
     font-size: larger;
 }
 
-.headlineBlurbFadeover{
+/*.headlineBlurbFadeover{
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -67,11 +67,11 @@ $story-hover-color: #CCC8BC;
 
 .storyBoxHeadline:hover .headlineBlurbFadeover{
     background-image: linear-gradient(to bottom, transparent, $story-hover-color);
-}
+}*/
 
 .storyBoxFeatured {
     width: 20%;
-    height: 70%;
+    height: 40%;
     background-color: $story-background-color;
     color: $story-text-color;
 }
@@ -127,8 +127,9 @@ $story-hover-color: #CCC8BC;
 }
 
 .storyBoxNormal {
-    width: 25%;
-    height: 30%;
+    width: 20%;
+    height: 25%;
+    margin-top: 2.5%;
     box-sizing: border-box;
     background-color: $story-background-color;
     border-top: thin solid $story-background-color-accent;
@@ -169,16 +170,6 @@ $story-hover-color: #CCC8BC;
     height: 100%;
     width: 100%;
     font-size: larger;
-}
-
-.normalBlurbFadeover{
-    position: absolute;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    bottom: 0;
-    left: 0;
-    background-image: linear-gradient(to bottom, transparent, $story-background-color);
 }
 
 .storyBoxNormal:hover .normalBlurbFadeover{

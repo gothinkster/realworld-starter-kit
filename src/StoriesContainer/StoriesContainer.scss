@@ -2,11 +2,12 @@
     /*flex-box child props*/
     margin-left: auto;
     margin-right: auto;
-    height: 80%;
+    height: 100%;
     width: 90%;
     margin-top: 1.5em;
     /*flex-box parent props*/
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     /*styling (the rest of the CSS)*/
 }

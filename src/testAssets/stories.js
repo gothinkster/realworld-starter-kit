@@ -4,12 +4,6 @@ export const stories =
     [
         {
             "image": "http://lorempixel.com/200/200/",
-            "type": "Featured",
-            "title": "blarg smarg",
-            "text": lipsum
-        },
-        {
-            "image": "http://lorempixel.com/200/200/",
             "type": "Headline",
             "title": "blah blah blah",
             "text": lipsum
@@ -27,25 +21,11 @@ export const stories =
         {
             "image": "http://lorempixel.com/200/200/",
             "title": "weeeeeee!"
-        },
-        {
-            "image": "http://lorempixel.com/200/200/",
-            "title": "rawr!!"
-        },
-        {
-            "image": "http://lorempixel.com/200/200/",
-            "title": "one more rawr!!"
         }
     ],
     [
         {
             "image": "http://lorempixel.com/200/200/",
-            "type": "Featured",
-            "title": "test for second stories set",
-            "text": lipsum
-        },
-        {
-            "image": "http://lorempixel.com/200/200/",
             "type": "Headline",
             "title": "blah blah blah",
             "text": lipsum
@@ -55,14 +35,6 @@ export const stories =
             "type": "Featured",
             "title": "rawr rawr rawr",
             "text": lipsum
-        },
-        {
-            "image": "http://lorempixel.com/200/200/",
-            "title": "how bout this one?"
-        },
-        {
-            "image": "http://lorempixel.com/200/200/",
-            "title": "weeeeeee!"
         },
         {
             "image": "http://lorempixel.com/200/200/",
