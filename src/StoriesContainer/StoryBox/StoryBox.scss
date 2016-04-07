@@ -10,6 +10,7 @@ $story-hover-color: #CCC8BC;
     margin-right: auto;
     height: 100%;
     width: 75%;
+    overflow: auto;
     /*styling (the rest of the CSS)*/
     background-color: $story-background-color;
     color: $story-text-color;
@@ -44,7 +45,6 @@ $story-hover-color: #CCC8BC;
     width: 95%;
     margin-left: 2.5%;
     margin-right: 2.5%;
-    overflow: hidden;
 }
 
 .headlineBlurbText{
@@ -76,9 +76,10 @@ $story-hover-color: #CCC8BC;
     color: $story-text-color;
 }
 
-.storyBoxFeatured:hover{
+/*.storyBoxFeatured:hover{
     background-color: $story-hover-color;
 }
+*/
 
 .featuredImage {
     height: 40%;
@@ -122,9 +123,9 @@ $story-hover-color: #CCC8BC;
     background-image: linear-gradient(to bottom, transparent, $story-background-color);
 }
 
-.storyBoxFeatured:hover .featuredBlurbFadeover{
+/*.storyBoxFeatured:hover .featuredBlurbFadeover{
     background-image: linear-gradient(to bottom, transparent, $story-hover-color);
-}
+}*/
 
 .storyBoxNormal {
     width: 20%;
@@ -136,9 +137,9 @@ $story-hover-color: #CCC8BC;
     color: $story-text-color;
 }
 
-.storyBoxNormal:hover{
+/*.storyBoxNormal:hover{
     background-color: $story-hover-color;
-}
+}*/
 
 .normalImage {
     height: 70%;
@@ -172,7 +173,7 @@ $story-hover-color: #CCC8BC;
     font-size: larger;
 }
 
-.storyBoxNormal:hover .normalBlurbFadeover{
+/*.storyBoxNormal:hover .normalBlurbFadeover{
     background-image: linear-gradient(to bottom, transparent, $story-hover-color);
-}
+}*/
 

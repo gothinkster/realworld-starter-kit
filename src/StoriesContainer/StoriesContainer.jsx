@@ -20,7 +20,7 @@ const mapStateToProps = (state) => {
     return {stories: state.get('stories')}
 };
 
-const mapDispatchToProps = (dispatch) => {
+/*const mapDispatchToProps = (dispatch) => {
     return {
         onClick: (story) => {
             dispatch({
@@ -29,8 +29,8 @@ const mapDispatchToProps = (dispatch) => {
             })
         }
     }
-}
+*/
 
-const StoriesContainer = connect(mapStateToProps, mapDispatchToProps)(StoriesList);
+const StoriesContainer = connect(mapStateToProps)(StoriesList);
 
 export default StoriesContainer;
