@@ -1,12 +1,10 @@
 //webpack and its dependencies
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-//package.json to pull in the project title
-var pjson = require('./package.json');
 
 module.exports = {
     entry: [
-        './src/index.jsx'
+        './src/index.js'
     ],
     module: {
         preLoaders: [
@@ -27,9 +25,9 @@ module.exports = {
                 loaders: ["style", "css?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]", "sass"]
             },
             {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
-                loader: 'react-hot!babel'
+                test: /\.js$/,
+                // exclude: /node_modules/,
+                loader: 'babel-loader?presets[]=es2015'
             },
             {
                 test: /\.tff?$/,
@@ -39,7 +37,7 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        extensions: ['', '.js']
     },
     output: {
         path: __dirname + '/dist',
@@ -48,9 +46,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: 'node_modules/html-webpack-template/index.html',
-            title: pjson.name,
-            appMountId: 'app'
+            template: './src/index.html'
         })
     ]
 };

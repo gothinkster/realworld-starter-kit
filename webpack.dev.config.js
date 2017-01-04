@@ -2,13 +2,14 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 //package.json to pull in the project title
-var pjson = require('./package.json');
 
 module.exports = {
+    devtool: '#inline-source-map',
+    debug: true,
     entry: [
         'webpack-dev-server/client?http://localhost:8000',
         'webpack/hot/only-dev-server',
-        './src/index.jsx'
+        './src/index.js'
     ],
     module: {
         preLoaders: [
@@ -30,9 +31,12 @@ module.exports = {
                 loaders: ["style", "css?sourceMap&modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]", "sass?sourceMap"]
             },
             {
-                test: /\.jsx?$/,
+                test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'react-hot!babel'
+                loader: 'babel',
+                query: {
+                    presets: ['es2015']
+                }
             },
             {
                 test: /\.tff$/,
@@ -42,7 +46,7 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        extensions: ['', '.js']
     },
     output: {
         path: __dirname + '/dev_build',
@@ -59,9 +63,8 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-            template: 'node_modules/html-webpack-template/index.html',
-            title: pjson.name,
-            appMountId: 'app'
+            template: './src/index.html'
+            // appMountId: 'app'
         })
     ]
 };
