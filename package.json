@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prod": "NODE_ENV=production webpack -p --config webpack.prod.config.js",
-    "dev": "webpack-dev-server -d --devtool eval --progress --config webpack.dev.config.js",
+    "dev": "webpack-dev-server --progress --config webpack.dev.config.js",
     "clean": "rm -fr dev_build dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -44,6 +44,6 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "slim-js": "^2.2.1"
+    "slim-js": "^2.5.1"
   }
 }

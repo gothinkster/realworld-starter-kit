@@ -4,7 +4,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 //package.json to pull in the project title
 
 module.exports = {
-    devtool: '#inline-source-map',
+    devtool: 'source-map',
     debug: true,
     entry: [
         'webpack-dev-server/client?http://localhost:8000',
@@ -32,7 +32,6 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                exclude: /node_modules/,
                 loader: 'babel',
                 query: {
                     presets: ['es2015']
