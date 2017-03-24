@@ -1,10 +1,11 @@
 import {Slim} from 'slim-js'
 
-Slim.tag('slim-app', class extends Slim {
+Slim.tag(
+    
+    'slim-app',
+    
+    `<h1>Hello, slim.js!</h1>`,
+    
+    class extends Slim {
 
-
-    get template() {
-        return `<div>Hello, world</div>`
-    }
-
-})
+    });
