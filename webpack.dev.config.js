@@ -57,7 +57,7 @@ module.exports = {
         port: 8000,
         noInfo: true,
         open: true,
-        hot: true
+        hot: false
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
