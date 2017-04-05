@@ -16,23 +16,9 @@ module.exports = {
         ],
         loaders:[
             {
-             test: /\.png$/,
-             exclude: /node_modules/,
-             loader: 'url-loader'
-            },
-            {
-                test: /\.scss$/,
-                loaders: ["style", "css?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]", "sass"]
-            },
-            {
                 test: /\.js$/,
                 // exclude: /node_modules/,
                 loader: 'babel-loader?presets[]=es2015'
-            },
-            {
-                test: /\.tff?$/,
-                exclude: /node_modules/,
-                loader: 'file-loader'
             }
         ]
     },
