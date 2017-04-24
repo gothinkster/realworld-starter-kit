@@ -8,7 +8,9 @@
     "parserOptions": {
         "ecmaVersion": 6,
         "ecmaFeatures": {
-            "jsx": true
+            "jsx": true,
+            "arrowFunctions": true,
+            "classes": true
         },
         "sourceType": "module"
     },
