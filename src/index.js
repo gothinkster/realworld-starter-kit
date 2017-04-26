@@ -1,2 +1,2 @@
 require('./index.scss')
-require('./slim-app')
+// require('./slim-app')
