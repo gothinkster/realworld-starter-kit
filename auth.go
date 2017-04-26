@@ -66,6 +66,7 @@ type UserJSON struct {
 
 func UserRouter(w http.ResponseWriter, r *http.Request) {
 	var err error
+	log.Println(r.Method, r.URL.Path)
 
 	switch r.Method {
 	case "POST":
