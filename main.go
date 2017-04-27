@@ -17,7 +17,7 @@ func main() {
 	}
 	defer db.Close()
 
-	InitUserTable()
+	InitUserTable(db)
 
 	http.HandleFunc("/api/users", UserRouter)
 

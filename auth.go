@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -54,6 +53,6 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) error {
 
 	db.Save(u)
 
-	fmt.Fprint(w, json.NewEncoder(w).Encode(u))
+	json.NewEncoder(w).Encode(u)
 	return nil
 }
