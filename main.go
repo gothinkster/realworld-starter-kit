@@ -3,15 +3,23 @@ package main
 import (
 	"log"
 	"net/http"
+
+	"github.com/jinzhu/gorm"
 )
 
+var db *gorm.DB
+
 func main() {
-	// TODO: Creation of tables in proper place
-	CreateUserTable()
+	var err error
+	db, err = gorm.Open("sqlite3", "conduit.db")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
 
 	http.HandleFunc("/api/users", UserRouter)
 
-	err := http.ListenAndServe(":8080", nil)
+	err = http.ListenAndServe(":8080", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
