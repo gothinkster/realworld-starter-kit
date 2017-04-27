@@ -17,6 +17,8 @@ func main() {
 	}
 	defer db.Close()
 
+	InitUserTable()
+
 	http.HandleFunc("/api/users", UserRouter)
 
 	err = http.ListenAndServe(":8080", nil)

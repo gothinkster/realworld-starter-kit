@@ -22,6 +22,10 @@ type UserJSON struct {
 	User `json:"user"`
 }
 
+func InitUserTable(db *gorm.DB) {
+	db.AutoMigrate(&User{})
+}
+
 func UserRouter(w http.ResponseWriter, r *http.Request) {
 	var err error
 	log.Println(r.Method, r.URL.Path)
@@ -48,8 +52,7 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) error {
 	}
 	defer r.Body.Close()
 
-	db.AutoMigrate(&User{})
-	db.Create(&u.User)
+	db.Save(u)
 
 	fmt.Fprint(w, json.NewEncoder(w).Encode(u))
 	return nil
