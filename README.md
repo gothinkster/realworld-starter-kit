@@ -15,6 +15,8 @@ For more information on how to this works with other frontends/backends, head ov
 
 # How it works
 
+    TODO
+
 > Describe the general architecture of your app here
 
 # Getting started
@@ -51,4 +53,6 @@ git remote rename origin upstream
 git remote add origin {YOUR_URL}
 ```
 
-After changes make a PR!
+- After your first change make a PR with `[WIP]` (work in progress) added to the title. 
+- When your ready for review assign one of us Gophers 🐹
+
