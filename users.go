@@ -16,12 +16,12 @@ type User struct {
 	Email      string `json:"email"`
 	Password   string `json:"password"`
 	Bio        string `json:"bio"`
-	Image      []byte `json:"image"`
+	Image      string `json:"image"`
+	Token      string `json:"token" gorm:"-"`
 }
 
 type UserJSON struct {
 	User `json:"user"`
-	JWT  string `json:"jwt"`
 }
 
 func InitUserTable(db *gorm.DB) {
@@ -54,8 +54,8 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) error {
 	}
 	defer r.Body.Close()
 
-	db.Save(u)
-	u.JWT, _ = auth.NewToken(u.Username)
+	db.Save(&u.User)
+	u.Token = auth.NewToken(u.Username)
 
 	json.NewEncoder(w).Encode(u)
 	return nil

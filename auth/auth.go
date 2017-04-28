@@ -17,7 +17,7 @@ type Claim struct {
 
 var secret = []byte("super_secret_key")
 
-func NewToken(username string) (string, error) {
+func NewToken(username string) string {
 	claims := Claim{
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(24 * time.Hour).Unix(),
@@ -26,7 +26,8 @@ func NewToken(username string) (string, error) {
 		username,
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString(secret)
+	ss, _ := token.SignedString(secret)
+	return ss
 }
 
 func validateToken(tokenString string) (*Claim, error) {
