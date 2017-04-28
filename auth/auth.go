@@ -58,7 +58,7 @@ func validateToken(tokenString string) (*Claims, error) {
 
 // CheckAuth ensures that the JWT provided in the header of
 // the request is valid, and then called the handler
-func CheckAuth(handle http.HandlerFunc) http.HandlerFunc {
+func CheckAuth(handler http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		auth := r.Header.Get("Authorization")
 		if auth == "" {
@@ -75,6 +75,6 @@ func CheckAuth(handle http.HandlerFunc) http.HandlerFunc {
 			return
 		}
 
-		handle(w, r)
+		handler(w, r)
 	}
 }
