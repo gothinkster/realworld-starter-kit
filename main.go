@@ -22,7 +22,7 @@ func main() {
 	InitUserTable(db)
 
 	http.HandleFunc("/api/users", UserRouter)
-	http.HandleFunc("/api/users/login", auth.ValidateJWT(someFunc))
+	http.HandleFunc("/api/users/login", auth.CheckAuth(someFunc))
 
 	err = http.ListenAndServe(":8080", nil)
 	if err != nil {

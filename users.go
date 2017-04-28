@@ -10,6 +10,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
+// User is the model and json repersentation of a user
 type User struct {
 	gorm.Model `json:"-"`
 	Username   string `json:"username"`
@@ -20,6 +21,8 @@ type User struct {
 	Token      string `json:"token" gorm:"-"`
 }
 
+// UserJSON is composed of a user and is used
+// for decoding and encoding users as json
 type UserJSON struct {
 	User `json:"user"`
 }
