@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/JackyChiu/realworld-starter-kit/auth"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
@@ -15,10 +16,12 @@ type User struct {
 	Email      string `json:"email"`
 	Password   string `json:"password"`
 	Bio        string `json:"bio"`
+	Image      []byte `json:"image"`
 }
 
 type UserJSON struct {
 	User `json:"user"`
+	JWT  string `json:"jwt"`
 }
 
 func InitUserTable(db *gorm.DB) {
@@ -52,6 +55,7 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) error {
 	defer r.Body.Close()
 
 	db.Save(u)
+	u.JWT, _ = auth.NewToken(u.Username)
 
 	json.NewEncoder(w).Encode(u)
 	return nil
