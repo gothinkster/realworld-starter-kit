@@ -30,7 +30,7 @@ func NewToken(username string) string {
 		username,
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	ss, _ := token.SignedString(secret)
+	ss, _ := token.SignedString([]byte(secret))
 	return ss
 }
 
@@ -41,7 +41,7 @@ func validateToken(tokenString string) (*Claims, error) {
 		if !ok {
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 		}
-		return secret, nil
+		return []byte(secret), nil
 	})
 
 	if err != nil {
