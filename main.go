@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/JackyChiu/realworld-starter-kit/handlers"
+	"github.com/JackyChiu/realworld-starter-kit/models"
 )
 
 const (
@@ -15,11 +16,13 @@ const (
 
 func main() {
 	logger := log.New(os.Stdout, "", log.LstdFlags|log.Lshortfile)
-	h := handlers.New(DIALECT, DATABASE, l)
+	h := handlers.New(DIALECT, DATABASE, logger)
+
+	models.Init(h.DB)
 
 	http.HandleFunc("/api/users", h.Users)
 
-	err = http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
