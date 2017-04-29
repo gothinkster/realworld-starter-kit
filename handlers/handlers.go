@@ -22,12 +22,11 @@ func New(dialect, dbName string, logger *log.Logger) *Handler {
 }
 
 func (h *Handler) Users(w http.ResponseWriter, r *http.Request) {
-	var err error
 	h.Logger.Println(r.Method, r.URL.Path)
 
 	switch r.Method {
 	case "POST":
-		//err = RegisterUser(w, r)
+		h.RegisterUser(w, r)
 	case "GET":
 		// TODO:
 		// Check auth
@@ -41,7 +40,7 @@ func (h *Handler) Users(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Login(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 	h.Logger.Println(r.Method, r.URL.Path)
 
 	switch r.Method {
