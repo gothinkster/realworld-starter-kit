@@ -2,8 +2,8 @@ package auth
 
 import (
 	"fmt"
-	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -17,7 +17,7 @@ type Claims struct {
 	Username string
 }
 
-var secret = []byte("super_secret_key")
+var secret = os.Getenv("JWT_SECRET")
 
 // NewToken creates a new JWT with a 24 hour expire date
 // and with the user's username in the claims
@@ -56,25 +56,19 @@ func validateToken(tokenString string) (*Claims, error) {
 	return claim, nil
 }
 
-// CheckAuth ensures that the JWT provided in the header of
-// the request is valid, and then called the handler
-func CheckAuth(handler http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		auth := r.Header.Get("Authorization")
-		if auth == "" {
-			http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
-			return
-		}
-
-		token := strings.TrimPrefix(auth, "Bearer ")
-		// TODO: Add context for claim?
-		_, err := validateToken(token)
-		if err != nil {
-			log.Println(err)
-			http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
-			return
-		}
-
-		handler(w, r)
+// Authorize ensures that the JWT provided in the header of
+// the request is valid, and then returns claims
+func Authorize(r *http.Request) (*Claims, error) {
+	auth := r.Header.Get("Authorization")
+	if auth == "" {
+		return nil, fmt.Errorf("Authorization header is empty")
 	}
+
+	token := strings.TrimPrefix(auth, "Bearer ")
+
+	claims, err := validateToken(token)
+	if err != nil {
+		return nil, err
+	}
+	return claims, nil
 }
