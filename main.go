@@ -20,7 +20,7 @@ func main() {
 
 	models.Init(h.DB)
 
-	http.HandleFunc("/api/users", h.Users)
+	http.HandleFunc("/api/users", h.UsersHandler)
 
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {

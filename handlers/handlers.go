@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
 type Handler struct {
@@ -21,7 +22,7 @@ func New(dialect, dbName string, logger *log.Logger) *Handler {
 	return &Handler{DB: db, Logger: logger}
 }
 
-func (h *Handler) Users(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) UsersHandler(w http.ResponseWriter, r *http.Request) {
 	h.Logger.Println(r.Method, r.URL.Path)
 
 	switch r.Method {

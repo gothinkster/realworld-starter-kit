@@ -11,39 +11,45 @@ import (
 type User struct {
 	Username string `json:"username"`
 	Email    string `json:"email"`
+	Token    string `json:"token"`
 	Bio      string `json:"bio"`
 	Image    string `json:"image"`
-	Token    string `json:"token"`
 }
 
-type UserReq struct {
-	models.User `json:"user"`
-}
-
-type UserRes struct {
-	User `json:"user"`
+type UserJSON struct {
+	User *User `json:"user"`
 }
 
 func (h *Handler) RegisterUser(w http.ResponseWriter, r *http.Request) {
-	var u UserReq
+	body := struct {
+		User struct {
+			Username string `json:"username"`
+			Email    string `json:"email"`
+			Password string `json:"password"`
+		} `json:"user"`
+	}{}
+	u := body.User
 
-	err := json.NewDecoder(r.Body).Decode(&u)
+	err := json.NewDecoder(r.Body).Decode(&body)
 	if err != nil {
-		return
+		h.Logger.Println(err)
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 	}
 	defer r.Body.Close()
 
-	h.DB.Save(&u.User)
+	m := models.User{
+		Username: u.Username,
+		Email:    u.Email,
+		Password: u.Password,
+	}
+	m.Save(h.DB)
 
-	res := UserRes{
-		User{
-			u.Username,
-			u.Email,
-			u.Bio,
-			u.Image,
-			auth.NewToken(u.Username),
+	res := &UserJSON{
+		&User{
+			Username: u.Username,
+			Email:    u.Email,
+			Token:    auth.NewToken(u.Username),
 		},
 	}
-
 	json.NewEncoder(w).Encode(res)
 }
