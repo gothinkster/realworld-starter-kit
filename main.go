@@ -18,7 +18,7 @@ func main() {
 	logger := log.New(os.Stdout, "", log.LstdFlags|log.Lshortfile)
 	h := handlers.New(DIALECT, DATABASE, logger)
 
-	models.Init(h.DB)
+	models.InitSchema(h.DB)
 
 	http.HandleFunc("/api/users", h.UsersHandler)
 

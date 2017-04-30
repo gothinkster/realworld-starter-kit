@@ -4,6 +4,6 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func Init(db *gorm.DB) {
+func InitSchema(db *gorm.DB) {
 	db.AutoMigrate(&User{})
 }
