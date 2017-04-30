@@ -12,6 +12,7 @@ import (
 const (
 	DATABASE string = "conduit.db"
 	DIALECT  string = "sqlite3"
+	PORT     string = ":8080"
 )
 
 func main() {
@@ -22,7 +23,7 @@ func main() {
 
 	http.HandleFunc("/api/users", h.UsersHandler)
 
-	err := http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(PORT, nil)
 	if err != nil {
 		log.Fatal(err)
 	}

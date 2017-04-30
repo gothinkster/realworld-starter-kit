@@ -28,7 +28,7 @@ func (h *Handler) RegisterUser(w http.ResponseWriter, r *http.Request) {
 			Password string `json:"password"`
 		} `json:"user"`
 	}{}
-	u := body.User
+	u := &body.User
 
 	err := json.NewDecoder(r.Body).Decode(&body)
 	if err != nil {
