@@ -4,22 +4,19 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/jinzhu/gorm"
+	"github.com/JackyChiu/realworld-starter-kit/auth"
+	"github.com/JackyChiu/realworld-starter-kit/models"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
 type Handler struct {
-	DB     *gorm.DB
+	DB     models.Datastorer
+	JWT    auth.Tokener
 	Logger *log.Logger
 }
 
-func New(dialect, dbName string, logger *log.Logger) *Handler {
-	db, err := gorm.Open(dialect, dbName)
-	if err != nil {
-		logger.Fatal(err)
-	}
-
-	return &Handler{DB: db, Logger: logger}
+func New(db *models.DB, jwt *auth.JWT, logger *log.Logger) *Handler {
+	return &Handler{db, jwt, logger}
 }
 
 func (h *Handler) UsersHandler(w http.ResponseWriter, r *http.Request) {

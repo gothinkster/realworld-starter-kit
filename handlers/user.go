@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/JackyChiu/realworld-starter-kit/auth"
 	"github.com/JackyChiu/realworld-starter-kit/models"
 )
 
@@ -38,13 +37,13 @@ func (h *Handler) RegisterUser(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	m := models.NewUser(u.Username, u.Email, u.Password)
-	m.Save(h.DB)
+	//m.Save(h.DB)
 
 	res := &UserJSON{
 		&User{
 			Username: m.Username,
 			Email:    m.Email,
-			Token:    auth.NewToken(m.Username),
+			Token:    h.JWT.NewToken(m.Username),
 		},
 	}
 	json.NewEncoder(w).Encode(res)
