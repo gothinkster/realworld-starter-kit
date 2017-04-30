@@ -11,8 +11,8 @@ module.exports = {
     }
 
     const [article] = await ctx.app.db('articles')
-      .where({slug})
       .select()
+      .where({slug})
 
     if (!article) {
       ctx.throw(404)
@@ -56,7 +56,20 @@ module.exports = {
       }
     }
 
+    let favorites = []
+
+    if (user) {
+      favorites = await ctx.app.db('favorites')
+        .where({user: user.id, article: article.id})
+        .select()
+
+      if (favorites.length > 0) {
+        article.favorited = true
+      }
+    }
+
     ctx.params.article = article
+    ctx.params.favorites = favorites
     ctx.params.author = author
     ctx.params.tagList = tagList
     ctx.params.tagsRelations = tagsRelations
@@ -146,12 +159,49 @@ module.exports = {
   favorite: {
 
     async post (ctx) {
-      // create favorite relation and increment counter
-      ctx.body = 'POST /articles:slug/favorite'
+      const {article} = ctx.params
+
+      if (article.favorited) {
+        ctx.body = {article: ctx.params.article}
+        return
+      }
+
+      await ctx.app.db('favorites').insert({
+        id: uuid(),
+        user: ctx.state.user.id,
+        article: article.id
+      })
+
+      await ctx.app.db('articles')
+        .increment('favorites_count', 1)
+        .where({id: article.id})
+
+      article.favorited = true
+      article.favorites_count = Number(article.favorites_count) + 1
+
+      ctx.body = {article: ctx.params.article}
     },
 
     async del (ctx) {
-      ctx.body = 'DELETE /articles:slug/favorite'
+      const {article} = ctx.params
+
+      if (!article.favorited) {
+        ctx.body = {article: ctx.params.article}
+        return
+      }
+
+      await ctx.app.db('favorites')
+        .del()
+        .where({user: ctx.state.user.id, article: article.id})
+
+      await ctx.app.db('articles')
+        .decrement('favorites_count', 1)
+        .where({id: article.id})
+
+      article.favorited = false
+      article.favorites_count = Number(article.favorites_count) - 1
+
+      ctx.body = {article: ctx.params.article}
     }
 
   },

@@ -16,8 +16,8 @@ router.get('/articles/:slug', ctrl.getOne)
 router.put('/articles/:slug', ctrl.put)
 router.del('/articles/:slug', ctrl.del)
 
-router.post('/articles/:slug/favorite', ctrl.favorite.post)
-router.del('/articles/:slug/favorite', ctrl.favorite.del)
+router.post('/articles/:slug/favorite', auth, ctrl.favorite.post)
+router.del('/articles/:slug/favorite', auth, ctrl.favorite.del)
 
 router.get('/articles/:slug/comments', ctrl.comments.get)
 router.post('/articles/:slug/comments', ctrl.comments.post)
