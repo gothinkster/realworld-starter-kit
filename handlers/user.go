@@ -33,11 +33,18 @@ func (h *Handler) RegisterUser(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		h.Logger.Println(err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		return
 	}
 	defer r.Body.Close()
 
 	m := models.NewUser(u.Username, u.Email, u.Password)
-	//m.Save(h.DB)
+	err = h.DB.CreateUser(m)
+	if err != nil {
+		h.Logger.Println(err)
+		// TODO: Error JSON
+		http.Error(w, err.Error(), http.StatusUnprocessableEntity)
+		return
+	}
 
 	res := &UserJSON{
 		&User{
