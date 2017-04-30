@@ -37,18 +37,14 @@ func (h *Handler) RegisterUser(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	m := models.User{
-		Username: u.Username,
-		Email:    u.Email,
-		Password: u.Password,
-	}
+	m := models.NewUser(u.Username, u.Email, u.Password)
 	m.Save(h.DB)
 
 	res := &UserJSON{
 		&User{
-			Username: u.Username,
-			Email:    u.Email,
-			Token:    auth.NewToken(u.Username),
+			Username: m.Username,
+			Email:    m.Email,
+			Token:    auth.NewToken(m.Username),
 		},
 	}
 	json.NewEncoder(w).Encode(res)

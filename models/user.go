@@ -16,6 +16,14 @@ type User struct {
 	Image     string
 }
 
+func NewUser(email, username, password string) *User {
+	return &User{
+		Email:    email,
+		Username: username,
+		Password: password,
+	}
+}
+
 func (u *User) Save(db *gorm.DB) {
 	db.Save(u)
 }
