@@ -17,7 +17,7 @@ exports.up = function (knex) {
       table.string('title').notNullable()
       table.string('body').notNullable()
       table.string('description').notNullable()
-      table.number('favorites_count').notNullable().defaultTo(0)
+      table.integer('favorites_count').notNullable().defaultTo(0)
       table.string('author').notNullable().references('users.id')
       table.timestamps(true, true)
     })

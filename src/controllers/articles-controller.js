@@ -2,6 +2,7 @@ const slug = require('slug')
 const uuid = require('uuid')
 const humps = require('humps')
 const _ = require('lodash')
+const {ForbiddenError} = require('lib/errors')
 
 module.exports = {
 
@@ -74,7 +75,9 @@ module.exports = {
     ctx.params.tagList = tagList
     ctx.params.tagsRelations = tagsRelations
 
-    return next()
+    await next()
+
+    delete ctx.params.author.id
   },
 
   async get (ctx) {
@@ -140,11 +143,35 @@ module.exports = {
   },
 
   async put (ctx) {
+    const {article} = ctx.params
+
+    if (article.author.id !== ctx.state.user.id) {
+      ctx.throw(403, new ForbiddenError(['not owned by user'], '', 'article'))
+    }
+
     ctx.body = 'PUT /articles/:slug'
   },
 
   async del (ctx) {
-    ctx.body = 'DELETE /articles/:slug'
+    const {article} = ctx.params
+
+    if (article.author.id !== ctx.state.user.id) {
+      ctx.throw(403, new ForbiddenError(['not owned by user'], '', 'article'))
+    }
+
+    await Promise.all([
+      ctx.app.db('favorites')
+        .del()
+        .where({user: ctx.state.user.id, article: article.id}),
+      ctx.app.db('articles_tags')
+        .del()
+        .where({article: article.id}),
+      ctx.app.db('articles')
+        .del()
+        .where({id: article.id})
+    ])
+
+    ctx.body = {}
   },
 
   feed: {
@@ -166,15 +193,16 @@ module.exports = {
         return
       }
 
-      await ctx.app.db('favorites').insert({
-        id: uuid(),
-        user: ctx.state.user.id,
-        article: article.id
-      })
-
-      await ctx.app.db('articles')
-        .increment('favorites_count', 1)
-        .where({id: article.id})
+      await Promise.all([
+        ctx.app.db('favorites').insert({
+          id: uuid(),
+          user: ctx.state.user.id,
+          article: article.id
+        }),
+        ctx.app.db('articles')
+          .increment('favorites_count', 1)
+          .where({id: article.id})
+      ])
 
       article.favorited = true
       article.favorites_count = Number(article.favorites_count) + 1
@@ -190,13 +218,14 @@ module.exports = {
         return
       }
 
-      await ctx.app.db('favorites')
-        .del()
-        .where({user: ctx.state.user.id, article: article.id})
-
-      await ctx.app.db('articles')
-        .decrement('favorites_count', 1)
-        .where({id: article.id})
+      await Promise.all([
+        ctx.app.db('favorites')
+          .del()
+          .where({user: ctx.state.user.id, article: article.id}),
+        ctx.app.db('articles')
+          .decrement('favorites_count', 1)
+          .where({id: article.id})
+      ])
 
       article.favorited = false
       article.favorites_count = Number(article.favorites_count) - 1
