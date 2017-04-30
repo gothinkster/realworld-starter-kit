@@ -3,6 +3,8 @@ package models
 import (
 	"fmt"
 	"time"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserStorer interface {
@@ -17,6 +19,13 @@ type User struct {
 	Password  string
 	Bio       string
 	Image     string
+}
+
+func (u *User) EncryptPassword() {
+	if u.Password != "" {
+		hash, _ := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
+		u.Password = string(hash)
+	}
 }
 
 func NewUser(email, username, password string) *User {
