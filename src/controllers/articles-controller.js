@@ -82,8 +82,109 @@ module.exports = {
   },
 
   async get (ctx) {
-    // ?tag=AngularJS ?author=jake ?favorited=jake ?limit=20 ?offset=0
-    ctx.body = 'GET /articles'
+    const {user} = ctx.state
+    const {offset, limit, tag, author, favorited} = ctx.query
+
+    let articlesQuery = ctx.app.db('articles')
+      .select()
+      .limit(limit)
+      .offset(offset)
+      .orderBy('created_at', 'desc')
+
+    let conutQuery = ctx.app.db('articles').count()
+
+    if (author && author.length > 0) {
+      articlesQuery = articlesQuery
+        .andWhere(
+          'author',
+          'in',
+          ctx.app.db('users').select('id').whereIn('username', author)
+        )
+
+      conutQuery = conutQuery
+        .andWhere(
+          'author',
+          'in',
+          ctx.app.db('users').select('id').whereIn('username', author)
+        )
+    }
+
+    if (favorited && favorited.length > 0) {
+      const subQuery = ctx.app.db('favorites')
+        .select('article')
+        .whereIn(
+          'user',
+          ctx.app.db('users').select('id').whereIn('username', favorited)
+        )
+
+      articlesQuery = articlesQuery.andWhere('id', 'in', subQuery)
+      conutQuery = conutQuery.andWhere('id', 'in', subQuery)
+    }
+
+    if (tag && tag.length > 0) {
+      const subQuery = ctx.app.db('articles_tags')
+        .select('article')
+        .whereIn(
+          'tag',
+          ctx.app.db('tags').select('id').whereIn('name', tag)
+        )
+
+      articlesQuery = articlesQuery.andWhere('id', 'in', subQuery)
+      conutQuery = conutQuery.andWhere('id', 'in', subQuery)
+    }
+
+    let [articles, [{'count(*)': articlesCount}]] = await Promise.all([
+      articlesQuery,
+      conutQuery
+    ])
+
+    articles = await Promise.all(articles.map(async a => {
+      const tagsRelations = await ctx.app.db('articles_tags')
+        .select()
+        .where({article: a.id})
+
+      let tagList = []
+
+      if (tagsRelations && tagsRelations.length > 0) {
+        tagList = await ctx.app.db('tags')
+          .select()
+          .whereIn('id', tagsRelations.map(r => r.tag))
+
+        tagList = tagList.map(t => t.name)
+      }
+
+      const [author] = await ctx.app.db('users')
+        .where({id: a.author})
+        .select('username', 'bio', 'image')
+
+      author.following = false
+
+      if (user && user.username !== author.username) {
+        const res = await ctx.app.db('followers')
+          .where({user: author.id, follower: user.id})
+          .select()
+
+        if (res.length > 0) {
+          author.following = true
+        }
+      }
+
+      let favorited = false
+
+      if (user) {
+        const favorites = await ctx.app.db('favorites')
+          .where({user: user.id, article: a.id})
+          .select()
+
+        if (favorites.length > 0) {
+          favorited = true
+        }
+      }
+
+      return Object.assign({}, a, {tagList, author, favorited})
+    }))
+
+    ctx.body = {articles, articlesCount}
   },
 
   async getOne (ctx) {

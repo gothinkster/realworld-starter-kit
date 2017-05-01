@@ -11,6 +11,7 @@ module.exports = {
       directory: path.join(ROOT, 'src/migrations'),
       tableName: 'migrations'
     },
+    debug: false,
     seeds: {
       directory: path.join(ROOT, 'src/seeds')
     },
