@@ -31,8 +31,8 @@ function getUsers () {
       password: bcrypt.hashSync('X12345678', 10),
       bio: faker.lorem.sentences(),
       image: faker.image.avatar(),
-      created_at: new Date(),
-      updated_at: new Date()
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
     }
   })
 }

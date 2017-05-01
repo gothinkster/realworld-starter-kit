@@ -110,8 +110,19 @@ module.exports = {
       )
     }
 
-    await ctx.app.db('articles')
-      .insert(humps.decamelizeKeys(_.omit(article, ['tagList'])))
+    try {
+      await ctx.app.db('articles')
+        .insert(humps.decamelizeKeys(_.omit(article, ['tagList'])))
+    } catch (err) {
+      if (err.message.includes('UNIQUE constraint failed: articles.slug')) {
+        article.slug = article.slug + '-' + uuid().substr(-6)
+
+        await ctx.app.db('articles')
+          .insert(humps.decamelizeKeys(_.omit(article, ['tagList'])))
+      } else {
+        throw err
+      }
+    }
 
     for (var i = 0; i < tags.length; i++) {
       try {
@@ -149,7 +160,94 @@ module.exports = {
       ctx.throw(403, new ForbiddenError(['not owned by user'], '', 'article'))
     }
 
-    ctx.body = 'PUT /articles/:slug'
+    const {body} = ctx.request
+    let {article: fields = {}} = body
+    const opts = {abortEarly: false}
+
+    let newArticle = Object.assign({}, article, fields)
+    newArticle.author = newArticle.author.id
+    newArticle = await ctx.app.schemas.article.validate(
+      humps.camelizeKeys(newArticle),
+      opts
+    )
+
+    if (fields.title) {
+      newArticle.slug = slug(_.get(newArticle, 'title', ''), {lower: true})
+    }
+
+    newArticle.updatedAt = new Date().toISOString()
+
+    try {
+      await ctx.app.db('articles')
+        .update(humps.decamelizeKeys(
+          _.pick(
+            newArticle,
+            ['title', 'slug', 'body', 'description', 'updatedAt']
+          )
+        ))
+        .where({id: article.id})
+    } catch (err) {
+      if (err.message.includes('UNIQUE constraint failed: articles.slug')) {
+        newArticle.slug = newArticle.slug + '-' + uuid().substr(-6)
+
+        await ctx.app.db('articles')
+          .update(humps.decamelizeKeys(
+            _.pick(
+              newArticle,
+              ['title', 'slug', 'body', 'description', 'updatedAt']
+            )
+          ))
+          .where({id: article.id})
+      } else {
+        throw err
+      }
+    }
+
+    if (fields.tagList && fields.tagList.length === 0) {
+      await ctx.app.db('articles_tags')
+        .del()
+        .where({article: article.id})
+    }
+
+    if (fields.tagList && fields.tagList.length > 0) {
+      if (_.difference(article.tagList).length || _.difference(fields.tagList).length) {
+        await ctx.app.db('articles_tags')
+          .del()
+          .where({article: article.id})
+
+        let tags = await Promise.all(
+          newArticle.tagList
+            .map(t => ({id: uuid(), name: t}))
+            .map(t => ctx.app.schemas.tag.validate(t, opts))
+        )
+
+        for (var i = 0; i < tags.length; i++) {
+          try {
+            await ctx.app.db('tags').insert(humps.decamelizeKeys(tags[i]))
+          } catch (err) {
+            if (!err.message.includes('UNIQUE constraint failed')) {
+              throw err
+            }
+          }
+        }
+
+        tags = await ctx.app.db('tags')
+          .select()
+          .whereIn('name', tags.map(t => t.name))
+
+        const relations = tags.map(t => ({
+          id: uuid(),
+          tag: t.id,
+          article: article.id
+        }))
+
+        await ctx.app.db('articles_tags').insert(relations)
+      }
+    }
+
+    newArticle.author = ctx.params.author
+    newArticle.favorited = article.favorited
+    ctx.body = {article: newArticle}
   },
 
   async del (ctx) {

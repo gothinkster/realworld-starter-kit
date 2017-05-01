@@ -47,7 +47,7 @@ module.exports = {
       user.password = await bcrypt.hash(user.password, 10)
     }
 
-    user.updatedAt = new Date()
+    user.updatedAt = new Date().toISOString()
 
     await ctx.app.db('users')
       .where({id: user.id})

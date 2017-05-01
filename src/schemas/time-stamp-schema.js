@@ -1,14 +1,25 @@
 const yup = require('yup')
+const isISO8601 = require('validator/lib/isISO8601').default
 
 const timeStampsSchema = yup.object().shape({
 
-  createdAt: yup.date()
+  createdAt: yup.string()
     .required()
-    .default(() => new Date()),
+    .test({
+      name: 'createdAt',
+      message: '${path} must be valid ISO8601 date', // eslint-disable-line
+      test: value => value ? isISO8601(value) : true
+    })
+    .default(() => new Date().toISOString()),
 
-  updatedAt: yup.date()
+  updatedAt: yup.string()
     .required()
-    .default(() => new Date())
+    .test({
+      name: 'updatedAt',
+      message: '${path} must be valid ISO8601 date', // eslint-disable-line
+      test: value => value ? isISO8601(value) : true
+    })
+    .default(() => new Date().toISOString())
 
 })
   .noUnknown()
