@@ -10,7 +10,7 @@ router.param('comment', ctrl.comments.byComment)
 router.get('/articles', ctrl.get)
 router.post('/articles', auth, ctrl.post)
 
-router.get('/articles/feed', ctrl.feed.get)
+router.get('/articles/feed', auth, ctrl.feed.get)
 
 router.get('/articles/:slug', ctrl.getOne)
 router.put('/articles/:slug', auth, ctrl.put)

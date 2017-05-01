@@ -2,6 +2,7 @@ const slug = require('slug')
 const uuid = require('uuid')
 const humps = require('humps')
 const _ = require('lodash')
+const comments = require('./comments-controller')
 const {ForbiddenError} = require('lib/errors')
 
 module.exports = {
@@ -275,8 +276,66 @@ module.exports = {
   feed: {
 
     async get (ctx) {
-      // ?limit=20 ?offset=0
-      ctx.body = 'GET /articles/feed'
+      const {user} = ctx.state
+      const {offset, limit} = ctx.query
+
+      const followed = await ctx.app.db('followers')
+        .select()
+        .where({follower: user.id})
+
+      if (followed.length === 0) {
+        ctx.body = {articles: [], articlesCount: 0}
+        return
+      }
+
+      let [articles, [{'count(*)': articlesCount}]] = await Promise.all([
+        ctx.app.db('articles')
+          .select()
+          .whereIn('author', followed.map(f => f.user))
+          .limit(limit)
+          .offset(offset)
+          .orderBy('created_at', 'desc'),
+        ctx.app.db('articles')
+          .count()
+          .whereIn('author', followed.map(f => f.user))
+      ])
+
+      articles = await Promise.all(articles.map(async a => {
+        const tagsRelations = await ctx.app.db('articles_tags')
+          .select()
+          .where({article: a.id})
+
+        let tagList = []
+
+        if (tagsRelations && tagsRelations.length > 0) {
+          tagList = await ctx.app.db('tags')
+            .select()
+            .whereIn('id', tagsRelations.map(r => r.tag))
+
+          tagList = tagList.map(t => t.name)
+        }
+
+        const [author] = await ctx.app.db('users')
+          .where({id: a.author})
+          .select('username', 'bio', 'image')
+        author.following = true
+
+        let favorited = false
+
+        if (user) {
+          const favorites = await ctx.app.db('favorites')
+            .where({user: user.id, article: a.id})
+            .select()
+
+          if (favorites.length > 0) {
+            favorited = true
+          }
+        }
+
+        return Object.assign({}, a, {tagList, author, favorited})
+      }))
+
+      ctx.body = {articles, articlesCount}
     }
 
   },
@@ -333,24 +392,5 @@ module.exports = {
 
   },
 
-  comments: {
-
-    async byComment (comment, ctx, next) {
-      return next()
-    },
-
-    async get (ctx) {
-      ctx.body = 'GET /articles/:slug/comments'
-    },
-
-    async post (ctx) {
-      ctx.body = 'POST /articles/:slug/comments'
-    },
-
-    async del (ctx) {
-      ctx.body = 'DELETE /articles/:slug/comments/:comment'
-    }
-
-  }
-
+  comments
 }
