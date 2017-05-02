@@ -228,27 +228,29 @@ module.exports = {
       }
     }
 
-    for (var i = 0; i < tags.length; i++) {
-      try {
-        await ctx.app.db('tags').insert(humps.decamelizeKeys(tags[i]))
-      } catch (err) {
-        if (!err.message.includes('UNIQUE constraint failed')) {
-          throw err
+    if (tags && tags.length) {
+      for (var i = 0; i < tags.length; i++) {
+        try {
+          await ctx.app.db('tags').insert(humps.decamelizeKeys(tags[i]))
+        } catch (err) {
+          if (!err.message.includes('UNIQUE constraint failed')) {
+            throw err
+          }
         }
       }
+
+      tags = await ctx.app.db('tags')
+        .select()
+        .whereIn('name', tags.map(t => t.name))
+
+      const relations = tags.map(t => ({
+        id: uuid(),
+        tag: t.id,
+        article: article.id
+      }))
+
+      await ctx.app.db('articles_tags').insert(relations)
     }
-
-    tags = await ctx.app.db('tags')
-      .select()
-      .whereIn('name', tags.map(t => t.name))
-
-    const relations = tags.map(t => ({
-      id: uuid(),
-      tag: t.id,
-      article: article.id
-    }))
-
-    await ctx.app.db('articles_tags').insert(relations)
 
     article.favorited = false
     article.author = _.pick(ctx.state.user, ['username', 'bio', 'image'])
