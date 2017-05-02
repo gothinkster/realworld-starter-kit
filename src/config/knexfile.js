@@ -5,8 +5,8 @@ require('dotenv').config({path: path.join(ROOT, '.env')})
 module.exports = {
 
   development: {
-    client: 'sqlite3',
-    connection: path.join(ROOT, 'data/dev.sqlite3'),
+    client: process.env.DB_CLIENT || 'sqlite3',
+    connection: process.env.DB_CONNECTION || path.join(ROOT, 'data/dev.sqlite3'),
     migrations: {
       directory: path.join(ROOT, 'src/migrations'),
       tableName: 'migrations'
@@ -19,8 +19,8 @@ module.exports = {
   },
 
   test: {
-    client: 'sqlite3',
-    connection: path.join(ROOT, 'data/test.sqlite3'),
+    client: process.env.DB_CLIENT || 'sqlite3',
+    connection: process.env.DB_CONNECTION || path.join(ROOT, 'data/test.sqlite3'),
     migrations: {
       directory: path.join(ROOT, 'src/migrations'),
       tableName: 'migrations'
@@ -32,8 +32,8 @@ module.exports = {
   },
 
   production: {
-    client: 'pg',
-    connection: process.env.DB_CONNECTION,
+    client: process.env.DB_CLIENT || 'sqlite3',
+    connection: process.env.DB_CONNECTION || path.join(ROOT, 'data/dev.sqlite3'),
     pool: {
       min: 2,
       max: 10

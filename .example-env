@@ -3,8 +3,5 @@ PORT = 3000
 SECRET = secret
 JWT_SECRET = secret
 
-#local
-#DB_CONNECTION = postgres://user:password@localhost:5432/db_name
-
-#staging
+#DB_CLIENT = sqlite
 #DB_CONNECTION = postgres://user:password@localhost:5432/db_name
