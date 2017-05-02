@@ -14,4 +14,4 @@ api.use(tags)
 
 router.use('/api', api.routes())
 
-module.exports = router.routes()
+module.exports = router

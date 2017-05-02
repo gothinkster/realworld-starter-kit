@@ -39,7 +39,8 @@ app.use(bodyParser(config.bodyParser))
 app.use(userMiddleware)
 app.use(pagerMiddleware)
 
-app.use(routes)
+app.use(routes.routes())
+app.use(routes.allowedMethods())
 
 const server = require('http-shutdown')(http.createServer(app.callback()))
 app.server = server
