@@ -32,7 +32,7 @@ module.exports = {
     comments = await Promise.all(comments.map(async c => {
       const [author] = await ctx.app.db('users')
         .where({id: c.author})
-        .select('username', 'bio', 'image')
+        .select('username', 'bio', 'image', 'id')
 
       author.following = false
 
@@ -45,6 +45,8 @@ module.exports = {
           author.following = true
         }
       }
+
+      delete author.id
 
       return Object.assign({}, c, {author})
     }))

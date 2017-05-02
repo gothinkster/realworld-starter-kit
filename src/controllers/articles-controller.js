@@ -155,14 +155,14 @@ module.exports = {
 
       const [author] = await ctx.app.db('users')
         .where({id: a.author})
-        .select('username', 'bio', 'image')
+        .select('username', 'bio', 'image', 'id')
 
       author.following = false
 
       if (user && user.username !== author.username) {
         const res = await ctx.app.db('followers')
-          .where({user: author.id, follower: user.id})
           .select()
+          .where({user: author.id, follower: user.id})
 
         if (res.length > 0) {
           author.following = true
@@ -180,6 +180,8 @@ module.exports = {
           favorited = true
         }
       }
+
+      delete author.id
 
       return Object.assign({}, a, {tagList, author, favorited})
     }))
@@ -419,6 +421,7 @@ module.exports = {
         const [author] = await ctx.app.db('users')
           .where({id: a.author})
           .select('username', 'bio', 'image')
+
         author.following = true
 
         let favorited = false
