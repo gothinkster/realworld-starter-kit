@@ -1,12 +1,8 @@
 const config = require('config')
-const db = require('knex')(config.db)
 const fs = require('fs')
 
 module.exports = function (app) {
-  app.db = db
-  let promise
-
-  if (!config.env.isProd) {
+  if (config.db.client === 'sqlite3') {
     try {
       fs.mkdirSync(config.server.data)
     } catch (err) {
@@ -15,6 +11,10 @@ module.exports = function (app) {
       }
     }
   }
+
+  const db = require('knex')(config.db)
+  app.db = db
+  let promise
 
   if (!config.env.isTest) {
     app.migration = true
