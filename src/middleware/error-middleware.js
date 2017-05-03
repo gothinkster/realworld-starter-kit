@@ -31,7 +31,7 @@ module.exports = async (ctx, next) => {
         ctx.status = _.defaultTo(err.status, 422)
         break
 
-      case err.code === 'SQLITE_CONSTRAINT':
+      case err.code === 'SQLITE_CONSTRAINT': {
         let path = 'unknown'
 
         if (err.message.includes('UNIQUE constraint failed')) {
@@ -44,12 +44,19 @@ module.exports = async (ctx, next) => {
 
         ctx.status = _.defaultTo(err.status, 422)
         break
+      }
 
-      case err.code === '23505': // PG UNIQUE
-        // TODO regex here
-        // err.code: '23505',
-        // err.detail: 'Key (username)=(johnjacob) already exists.',
+      case err.code === '23505': { // PG UNIQUE
+        let path = 'unknown'
+        const [key] = err.detail.match(/\(.+?\)/g)
+        if (key) {
+          path = key.substr(1, key.length - 2)
+        }
+
+        ctx.body.errors[path] = ['has already been taken']
+        ctx.status = _.defaultTo(err.status, 422)
         break
+      }
 
       default:
         ctx.status = _.defaultTo(err.status, 500)
