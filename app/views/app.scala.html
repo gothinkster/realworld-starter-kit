@@ -1,0 +1,17 @@
+@()(implicit config: play.api.Configuration)
+@import views.html.tags._
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Real World</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.min.css")">
+</head>
+  <body>
+       <div id="root">
+       </div>
+       @scalajs.html.scripts(projectName = "client", name => _asset(name).toString, name => getClass.getResource(s"/public/$name") != null)
+  </body>
+</html>
