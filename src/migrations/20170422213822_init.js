@@ -19,6 +19,7 @@ exports.up = function (knex) {
       table.string('description').notNullable()
       table.integer('favorites_count').notNullable().defaultTo(0)
       table.uuid('author').notNullable().references('users.id')
+        .onDelete('CASCADE')
       table.timestamps(true, true)
     })
 
@@ -26,6 +27,7 @@ exports.up = function (knex) {
       table.uuid('id').unique().primary().notNullable()
       table.text('body').notNullable()
       table.uuid('author').notNullable().references('users.id')
+        .onDelete('CASCADE')
       table.uuid('article').notNullable().references('articles.id')
         .onDelete('CASCADE')
       table.timestamps(true, true)
@@ -34,14 +36,18 @@ exports.up = function (knex) {
     .createTable('favorites', function (table) {
       table.uuid('id').unique().primary().notNullable()
       table.uuid('user').notNullable().references('users.id')
+        .onDelete('CASCADE')
       table.uuid('article').notNullable().references('articles.id')
+        .onDelete('CASCADE')
       table.timestamps(true, true)
     })
 
     .createTable('followers', function (table) {
       table.uuid('id').unique().primary().notNullable()
       table.uuid('user').notNullable().references('users.id')
+        .onDelete('CASCADE')
       table.uuid('follower').notNullable().references('users.id')
+        .onDelete('CASCADE')
       table.unique(['user', 'follower'])
       table.timestamps(true, true)
     })
@@ -55,7 +61,9 @@ exports.up = function (knex) {
     .createTable('articles_tags', function (table) {
       table.uuid('id').unique().primary().notNullable()
       table.uuid('article').notNullable().references('articles.id')
+        .onDelete('CASCADE')
       table.uuid('tag').notNullable().references('tags.id')
+        .onDelete('CASCADE')
       table.unique(['tag', 'article'])
       table.timestamps(true, true)
     })
