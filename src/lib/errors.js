@@ -7,7 +7,7 @@ class ServerError extends Error {}
 module.exports = {
   UnauthorizedError, // 401
   ForbiddenError, // 403
-  NotFoundError,
-  ValidationError,
-  ServerError
+  NotFoundError, // 404
+  ValidationError, // 422
+  ServerError // 500
 }
