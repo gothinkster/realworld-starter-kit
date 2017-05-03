@@ -27,6 +27,7 @@ exports.up = function (knex) {
       table.text('body').notNullable()
       table.uuid('author').notNullable().references('users.id')
       table.uuid('article').notNullable().references('articles.id')
+        .onDelete('CASCADE')
       table.timestamps(true, true)
     })
 
