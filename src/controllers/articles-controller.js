@@ -12,8 +12,8 @@ module.exports = {
       ctx.throw(404)
     }
 
-    const [article] = await ctx.app.db('articles')
-      .select()
+    const article = await ctx.app.db('articles')
+      .first()
       .where({slug})
 
     if (!article) {
@@ -38,9 +38,9 @@ module.exports = {
 
     article.favorited = false
 
-    const [author] = await ctx.app.db('users')
+    const author = await ctx.app.db('users')
+      .first('username', 'bio', 'image', 'id')
       .where({id: article.author})
-      .select('username', 'bio', 'image', 'id')
 
     article.author = author
 
@@ -133,10 +133,13 @@ module.exports = {
       conutQuery = conutQuery.andWhere('id', 'in', subQuery)
     }
 
-    let [articles, [{'count(*)': articlesCount}]] = await Promise.all([
+    let [articles, [countRes]] = await Promise.all([
       articlesQuery,
       conutQuery
     ])
+
+    let articlesCount = countRes.count || countRes['count(*)']
+    articlesCount = Number(articlesCount)
 
     articles = await Promise.all(articles.map(async a => {
       const tagsRelations = await ctx.app.db('articles_tags')
@@ -153,9 +156,9 @@ module.exports = {
         tagList = tagList.map(t => t.name)
       }
 
-      const [author] = await ctx.app.db('users')
+      const author = await ctx.app.db('users')
+        .first('username', 'bio', 'image', 'id')
         .where({id: a.author})
-        .select('username', 'bio', 'image', 'id')
 
       author.following = false
 
@@ -218,7 +221,10 @@ module.exports = {
       await ctx.app.db('articles')
         .insert(humps.decamelizeKeys(_.omit(article, ['tagList'])))
     } catch (err) {
-      if (err.message.includes('UNIQUE constraint failed: articles.slug')) {
+      if (
+        err.message.includes('UNIQUE constraint failed: articles.slug') ||
+        err.message.includes('unique constraint "articles_slug_unique')
+      ) {
         article.slug = article.slug + '-' + uuid().substr(-6)
 
         await ctx.app.db('articles')
@@ -233,7 +239,10 @@ module.exports = {
         try {
           await ctx.app.db('tags').insert(humps.decamelizeKeys(tags[i]))
         } catch (err) {
-          if (!err.message.includes('UNIQUE constraint failed')) {
+          if (
+            !err.message.includes('UNIQUE constraint failed') &&
+            !err.message.includes('unique constraint "tags_name_unique')
+          ) {
             throw err
           }
         }
@@ -293,7 +302,10 @@ module.exports = {
         ))
         .where({id: article.id})
     } catch (err) {
-      if (err.message.includes('UNIQUE constraint failed: articles.slug')) {
+      if (
+        err.message.includes('UNIQUE constraint failed: articles.slug') ||
+        err.message.includes('unique constraint "articles_slug_unique')
+      ) {
         newArticle.slug = newArticle.slug + '-' + uuid().substr(-6)
 
         await ctx.app.db('articles')
@@ -331,7 +343,10 @@ module.exports = {
           try {
             await ctx.app.db('tags').insert(humps.decamelizeKeys(tags[i]))
           } catch (err) {
-            if (!err.message.includes('UNIQUE constraint failed')) {
+            if (
+              !err.message.includes('UNIQUE constraint failed') &&
+              !err.message.includes('unique constraint "tags_name_unique')
+            ) {
               throw err
             }
           }
@@ -393,7 +408,7 @@ module.exports = {
         return
       }
 
-      let [articles, [{'count(*)': articlesCount}]] = await Promise.all([
+      let [articles, [countRes]] = await Promise.all([
         ctx.app.db('articles')
           .select()
           .whereIn('author', followed.map(f => f.user))
@@ -404,6 +419,9 @@ module.exports = {
           .count()
           .whereIn('author', followed.map(f => f.user))
       ])
+
+      let articlesCount = countRes.count || countRes['count(*)']
+      articlesCount = Number(articlesCount)
 
       articles = await Promise.all(articles.map(async a => {
         const tagsRelations = await ctx.app.db('articles_tags')
@@ -420,9 +438,9 @@ module.exports = {
           tagList = tagList.map(t => t.name)
         }
 
-        const [author] = await ctx.app.db('users')
+        const author = await ctx.app.db('users')
+          .first('username', 'bio', 'image')
           .where({id: a.author})
-          .select('username', 'bio', 'image')
 
         author.following = true
 
