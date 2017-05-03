@@ -9,8 +9,8 @@ module.exports = {
       ctx.throw(404)
     }
 
-    [comment] = await ctx.app.db('comments')
-      .select()
+    comment = await ctx.app.db('comments')
+      .first()
       .where({id: comment})
 
     if (!comment) {
@@ -31,16 +31,16 @@ module.exports = {
       .where({article: article.id})
 
     comments = await Promise.all(comments.map(async c => {
-      const [author] = await ctx.app.db('users')
+      const author = await ctx.app.db('users')
+        .first('username', 'bio', 'image', 'id')
         .where({id: c.author})
-        .select('username', 'bio', 'image', 'id')
 
       author.following = false
 
       if (user && user.username !== author.username) {
         const res = await ctx.app.db('followers')
-          .where({user: author.id, follower: user.id})
           .select()
+          .where({user: author.id, follower: user.id})
 
         if (res.length > 0) {
           author.following = true
