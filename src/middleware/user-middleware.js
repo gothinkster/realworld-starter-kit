@@ -2,9 +2,8 @@ const {has} = require('lodash')
 
 module.exports = async (ctx, next) => {
   if (has(ctx, 'state.jwt.sub.id')) {
-    [ctx.state.user] = await ctx.app.db('users')
-      .where({id: ctx.state.jwt.sub.id})
-      .select(
+    ctx.state.user = await ctx.app.db('users')
+      .first(
         'id',
         'email',
         'username',
@@ -13,6 +12,7 @@ module.exports = async (ctx, next) => {
         'created_at',
         'updated_at'
       )
+      .where({id: ctx.state.jwt.sub.id})
   }
 
   return next()

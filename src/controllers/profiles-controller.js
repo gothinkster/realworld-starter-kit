@@ -8,9 +8,9 @@ module.exports = {
       ctx.throw(404)
     }
 
-    [ctx.params.profile] = await ctx.app.db('users')
+    ctx.params.profile = await ctx.app.db('users')
+      .first('username', 'bio', 'image', 'id')
       .where({username})
-      .select('username', 'bio', 'image', 'id')
 
     if (!ctx.params.profile) {
       ctx.throw(404)
@@ -26,8 +26,8 @@ module.exports = {
 
     if (user && user.username !== profile.username) {
       const res = await ctx.app.db('followers')
-        .where({user: profile.id, follower: user.id})
         .select()
+        .where({user: profile.id, follower: user.id})
 
       if (res.length > 0) {
         profile.following = true

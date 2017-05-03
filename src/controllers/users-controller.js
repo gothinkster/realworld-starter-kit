@@ -68,9 +68,9 @@ module.exports = {
       )
     }
 
-    let [user] = await ctx.app.db('users')
+    let user = await ctx.app.db('users')
+      .first()
       .where({email: body.user.email})
-      .select()
 
     if (!user) {
       ctx.throw(
