@@ -45,6 +45,12 @@ module.exports = async (ctx, next) => {
         ctx.status = _.defaultTo(err.status, 422)
         break
 
+      case err.code === '23505': // PG UNIQUE
+        // TODO regex here
+        // err.code: '23505',
+        // err.detail: 'Key (username)=(johnjacob) already exists.',
+        break
+
       default:
         ctx.status = _.defaultTo(err.status, 500)
         break
