@@ -1,8 +1,8 @@
-# ![RealWorld Example App](logo.png)
+# ![RealWorld Example App](https://cloud.githubusercontent.com/assets/556934/25451584/460e73ec-2a88-11e7-8fc2-2a15bd0566dd.png)
 
 > ### Play Framework codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
 
-
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/gitterHQ/gitter)
 ### [Demo]()&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
 
 

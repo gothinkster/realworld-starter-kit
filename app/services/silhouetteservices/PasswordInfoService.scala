@@ -6,10 +6,6 @@ import com.mohiva.play.silhouette.persistence.daos.DelegableAuthInfoDAO
 
 import scala.concurrent.{ExecutionContext, Future}
 
-/**
- * Created by shubham.k on 28-02-2017.
- */
-
 class PasswordInfoService()(implicit val executionContext: ExecutionContext) extends DelegableAuthInfoDAO[PasswordInfo] {
   override def add(loginInfo: LoginInfo, authInfo: PasswordInfo) = ???
 

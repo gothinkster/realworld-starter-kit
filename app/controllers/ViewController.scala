@@ -6,9 +6,6 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import utils.auth.DefaultEnv
 import scala.concurrent.{ExecutionContext, Future}
 
-/**
- * Created by shubham.k on 27-02-2017.
- */
 class ViewController(
   val messagesApi: MessagesApi,
   silhouette: Silhouette[DefaultEnv],

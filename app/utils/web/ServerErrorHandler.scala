@@ -10,9 +10,6 @@ import play.core.SourceMapper
 
 import scala.concurrent.Future
 
-/**
- * Created by shubham.k on 03-01-2017.
- */
 class ServerErrorHandler(
     env: play.api.Environment, config: Configuration,
     sourceMapper: Option[SourceMapper], router: Option[Router]
