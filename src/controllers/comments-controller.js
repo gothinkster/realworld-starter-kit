@@ -1,5 +1,6 @@
 const humps = require('humps')
 const uuid = require('uuid')
+const _ = require('lodash')
 
 module.exports = {
 
@@ -57,7 +58,7 @@ module.exports = {
   async post (ctx) {
     const {body} = ctx.request
     const {user} = ctx.state
-    const {article, author} = ctx.params
+    const {article} = ctx.params
     let {comment = {}} = body
 
     const opts = {abortEarly: false}
@@ -70,7 +71,7 @@ module.exports = {
 
     await ctx.app.db('comments').insert(humps.decamelizeKeys(comment))
 
-    comment.author = author
+    comment.author = _.pick(user, ['username', 'bio', 'image', 'id'])
 
     ctx.body = {comment}
   },
