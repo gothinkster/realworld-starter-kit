@@ -10,6 +10,11 @@ const timeStampsSchema = yup.object().shape({
       message: '${path} must be valid ISO8601 date', // eslint-disable-line
       test: value => value ? isISO8601(new Date(value).toISOString()) : true
     })
+    .transform(function (value) {
+      return this.isType(value) && value !== null
+        ? new Date(value).toISOString()
+        : value
+    })
     .default(() => new Date().toISOString()),
 
   updatedAt: yup.string()
@@ -18,6 +23,11 @@ const timeStampsSchema = yup.object().shape({
       name: 'updatedAt',
       message: '${path} must be valid ISO8601 date', // eslint-disable-line
       test: value => value ? isISO8601(new Date(value).toISOString()) : true
+    })
+    .transform(function (value) {
+      return this.isType(value) && value !== null
+        ? new Date(value).toISOString()
+        : value
     })
     .default(() => new Date().toISOString())
 
