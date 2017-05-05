@@ -9,6 +9,7 @@ import (
 
 type UserStorer interface {
 	CreateUser(*User) error
+	FindUserByEmail(string) (*User, error)
 }
 
 type User struct {
@@ -21,19 +22,25 @@ type User struct {
 	Image     string
 }
 
-func (u *User) EncryptPassword() {
-	if u.Password != "" {
-		hash, _ := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
-		u.Password = string(hash)
-	}
+func (u *User) MatchPassword(password string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(password))
+	return err == nil
 }
 
-func NewUser(email, username, password string) *User {
+func EncryptPassword(password string) string {
+	hash, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	return string(hash)
+}
+
+func NewUser(email, username, password string) (*User, error) {
+	if email == "" || username == "" || password == "" {
+		return nil, fmt.Errorf("Provided with empty fields")
+	}
 	return &User{
 		Email:    email,
 		Username: username,
-		Password: password,
-	}
+		Password: EncryptPassword(password),
+	}, nil
 }
 
 func (db *DB) CreateUser(user *User) error {
@@ -52,4 +59,13 @@ func (db *DB) CreateUser(user *User) error {
 	db.Create(user)
 
 	return nil
+}
+
+func (db *DB) FindUserByEmail(email string) (*User, error) {
+	u := User{}
+	db.Find(&u, "email = ?", email)
+	if u == (User{}) {
+		return nil, fmt.Errorf("No user found with userame: ", email)
+	}
+	return &u, nil
 }
