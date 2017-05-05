@@ -29,6 +29,7 @@ func main() {
 	h := handlers.New(db, j, logger)
 
 	http.HandleFunc("/api/users", h.UsersHandler)
+	http.HandleFunc("/api/users/login", h.LoginHandler)
 
 	err = http.ListenAndServe(PORT, nil)
 	if err != nil {
