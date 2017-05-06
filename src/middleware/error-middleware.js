@@ -34,7 +34,7 @@ module.exports = async (ctx, next) => {
       case err.code === 'SQLITE_CONSTRAINT': {
         let path = 'unknown'
 
-        if (err.message.includes('UNIQUE constraint failed')) {
+        if (Number(err.errno) === 19) { // SQLITE3 UNIQUE
           const idx = err.message.lastIndexOf('.')
           if (idx !== -1) {
             path = err.message.substring(idx + 1, err.message.length)
@@ -46,7 +46,7 @@ module.exports = async (ctx, next) => {
         break
       }
 
-      case err.code === '23505': { // PG UNIQUE
+      case Number(err.code) === 23505: { // PG UNIQUE
         let path = 'unknown'
         const [key] = err.detail.match(/\(.+?\)/g)
         if (key) {

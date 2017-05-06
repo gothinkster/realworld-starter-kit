@@ -71,12 +71,7 @@ module.exports = {
         try {
           await ctx.app.db('followers').insert(follow)
         } catch (err) {
-          if (
-            !err.message.includes('UNIQUE constraint failed') &&
-            !err.message.includes(
-              'unique constraint "followers_user_follower_unique'
-            )
-          ) {
+          if (Number(err.errno) !== 19 && Number(err.code) !== 23505) {
             throw err
           }
         }

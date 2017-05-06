@@ -197,10 +197,7 @@ module.exports = {
       await ctx.app.db('articles')
         .insert(humps.decamelizeKeys(_.omit(article, ['tagList'])))
     } catch (err) {
-      if (
-        err.message.includes('UNIQUE constraint failed: articles.slug') ||
-        err.message.includes('unique constraint "articles_slug_unique')
-      ) {
+      if (Number(err.errno) === 19 || Number(err.code) === 23505) {
         article.slug = article.slug + '-' + uuid().substr(-6)
 
         await ctx.app.db('articles')
@@ -215,10 +212,7 @@ module.exports = {
         try {
           await ctx.app.db('tags').insert(humps.decamelizeKeys(tags[i]))
         } catch (err) {
-          if (
-            !err.message.includes('UNIQUE constraint failed') &&
-            !err.message.includes('unique constraint "tags_name_unique')
-          ) {
+          if (Number(err.errno) !== 19 && Number(err.code) !== 23505) {
             throw err
           }
         }
@@ -278,10 +272,7 @@ module.exports = {
         ))
         .where({id: article.id})
     } catch (err) {
-      if (
-        err.message.includes('UNIQUE constraint failed: articles.slug') ||
-        err.message.includes('unique constraint "articles_slug_unique')
-      ) {
+      if (Number(err.errno) === 19 || Number(err.code) === 23505) {
         newArticle.slug = newArticle.slug + '-' + uuid().substr(-6)
 
         await ctx.app.db('articles')
@@ -319,10 +310,7 @@ module.exports = {
           try {
             await ctx.app.db('tags').insert(humps.decamelizeKeys(tags[i]))
           } catch (err) {
-            if (
-              !err.message.includes('UNIQUE constraint failed') &&
-              !err.message.includes('unique constraint "tags_name_unique')
-            ) {
+            if (Number(err.errno) !== 19 && Number(err.code) !== 23505) {
               throw err
             }
           }
