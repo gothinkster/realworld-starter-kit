@@ -3,7 +3,7 @@ const uuid = require('uuid')
 const humps = require('humps')
 const _ = require('lodash')
 const comments = require('./comments-controller')
-const {ForbiddenError} = require('lib/errors')
+const {ValidationError} = require('lib/errors')
 
 const {getSelect} = require('lib/utils')
 const {articleFields, userFields, relationsMaps} = require('lib/relations-map')
@@ -248,7 +248,7 @@ module.exports = {
     const {article} = ctx.params
 
     if (article.author.id !== ctx.state.user.id) {
-      ctx.throw(403, new ForbiddenError(['not owned by user'], '', 'article'))
+      ctx.throw(403, new ValidationError(['not owned by user'], '', 'article'))
     }
 
     const {body} = ctx.request
@@ -351,7 +351,7 @@ module.exports = {
     const {article} = ctx.params
 
     if (article.author.id !== ctx.state.user.id) {
-      ctx.throw(403, new ForbiddenError(['not owned by user'], '', 'article'))
+      ctx.throw(403, new ValidationError(['not owned by user'], '', 'article'))
     }
 
     await Promise.all([
