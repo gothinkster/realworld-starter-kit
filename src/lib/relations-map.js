@@ -11,12 +11,12 @@ const articleFields = [
   'updated_at'
 ]
 
-// const commentFields = [
-//   'id',
-//   'body',
-//   'created_at',
-//   'updated_at'
-// ]
+const commentFields = [
+  'id',
+  'body',
+  'created_at',
+  'updated_at'
+]
 
 const relationsMaps = [
   {
@@ -28,6 +28,14 @@ const relationsMaps = [
     ],
     collections: [
       {name: 'tagList', mapId: 'tagMap', columnPrefix: 'tag_'}
+    ]
+  },
+  {
+    mapId: 'commentMap',
+    idProperty: 'id',
+    properties: [...commentFields],
+    associations: [
+      {name: 'author', mapId: 'userMap', columnPrefix: 'author_'}
     ]
   },
   {
@@ -45,3 +53,4 @@ const relationsMaps = [
 exports.relationsMaps = relationsMaps
 exports.userFields = userFields
 exports.articleFields = articleFields
+exports.commentFields = commentFields
