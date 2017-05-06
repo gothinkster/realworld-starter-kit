@@ -5,6 +5,10 @@ const _ = require('lodash')
 const comments = require('./comments-controller')
 const {ForbiddenError} = require('lib/errors')
 
+const {getSelect} = require('lib/utils')
+const {articleFields, userFields, relationsMaps} = require('lib/relations-map')
+const joinJs = require('join-js').default
+
 module.exports = {
 
   async bySlug (slug, ctx, next) {
@@ -86,27 +90,27 @@ module.exports = {
     const {offset, limit, tag, author, favorited} = ctx.query
 
     let articlesQuery = ctx.app.db('articles')
-      .select()
+      .select(
+        ...getSelect('articles', 'article', articleFields),
+        ...getSelect('users', 'author', userFields),
+        ...getSelect('articles_tags', 'tag', ['id']),
+        ...getSelect('tags', 'tag', ['id', 'name']),
+        'favorites.id as article_favorited',
+        'followers.id as author_following'
+      )
       .limit(limit)
       .offset(offset)
-      .orderBy('created_at', 'desc')
+      .orderBy('articles.created_at', 'desc')
 
     let conutQuery = ctx.app.db('articles').count()
 
     if (author && author.length > 0) {
-      articlesQuery = articlesQuery
-        .andWhere(
-          'author',
-          'in',
-          ctx.app.db('users').select('id').whereIn('username', author)
-        )
+      const subQuery = ctx.app.db('users')
+        .select('id')
+        .whereIn('username', author)
 
-      conutQuery = conutQuery
-        .andWhere(
-          'author',
-          'in',
-          ctx.app.db('users').select('id').whereIn('username', author)
-        )
+      articlesQuery = articlesQuery.andWhere('articles.author', 'in', subQuery)
+      conutQuery = conutQuery.andWhere('articles.author', 'in', subQuery)
     }
 
     if (favorited && favorited.length > 0) {
@@ -117,8 +121,8 @@ module.exports = {
           ctx.app.db('users').select('id').whereIn('username', favorited)
         )
 
-      articlesQuery = articlesQuery.andWhere('id', 'in', subQuery)
-      conutQuery = conutQuery.andWhere('id', 'in', subQuery)
+      articlesQuery = articlesQuery.andWhere('articles.id', 'in', subQuery)
+      conutQuery = conutQuery.andWhere('articles.id', 'in', subQuery)
     }
 
     if (tag && tag.length > 0) {
@@ -129,65 +133,37 @@ module.exports = {
           ctx.app.db('tags').select('id').whereIn('name', tag)
         )
 
-      articlesQuery = articlesQuery.andWhere('id', 'in', subQuery)
-      conutQuery = conutQuery.andWhere('id', 'in', subQuery)
+      articlesQuery = articlesQuery.andWhere('articles.id', 'in', subQuery)
+      conutQuery = conutQuery.andWhere('articles.id', 'in', subQuery)
     }
 
-    let [articles, [countRes]] = await Promise.all([
-      articlesQuery,
-      conutQuery
-    ])
+    articlesQuery = articlesQuery
+      .leftJoin('users', 'articles.author', 'users.id')
+      .leftJoin('articles_tags', 'articles.id', 'articles_tags.article')
+      .leftJoin('tags', 'articles_tags.tag', 'tags.id')
+      .leftJoin('favorites', function () {
+        this.on('articles.id', '=', 'favorites.article')
+          .andOn('favorites.user', '=', user && user.id)
+      })
+      .leftJoin('followers', function () {
+        this.on('articles.author', '=', 'followers.user')
+          .andOn('followers.follower', '=', user && user.id)
+      })
+
+    let [articles, [countRes]] = await Promise.all([articlesQuery, conutQuery])
+
+    articles = joinJs
+      .map(articles, relationsMaps, 'articleMap', 'article_')
+      .map(a => {
+        a.favorited = Boolean(a.favorited)
+        a.tagList = a.tagList.map(t => t.name)
+        a.author.following = Boolean(a.author.following)
+        delete a.author.id
+        return a
+      })
 
     let articlesCount = countRes.count || countRes['count(*)']
     articlesCount = Number(articlesCount)
-
-    articles = await Promise.all(articles.map(async a => {
-      const tagsRelations = await ctx.app.db('articles_tags')
-        .select()
-        .where({article: a.id})
-
-      let tagList = []
-
-      if (tagsRelations && tagsRelations.length > 0) {
-        tagList = await ctx.app.db('tags')
-          .select()
-          .whereIn('id', tagsRelations.map(r => r.tag))
-
-        tagList = tagList.map(t => t.name)
-      }
-
-      const author = await ctx.app.db('users')
-        .first('username', 'bio', 'image', 'id')
-        .where({id: a.author})
-
-      author.following = false
-
-      if (user && user.username !== author.username) {
-        const res = await ctx.app.db('followers')
-          .select()
-          .where({user: author.id, follower: user.id})
-
-        if (res.length > 0) {
-          author.following = true
-        }
-      }
-
-      let favorited = false
-
-      if (user) {
-        const favorites = await ctx.app.db('favorites')
-          .where({user: user.id, article: a.id})
-          .select()
-
-        if (favorites.length > 0) {
-          favorited = true
-        }
-      }
-
-      delete author.id
-
-      return Object.assign({}, a, {tagList, author, favorited})
-    }))
 
     ctx.body = {articles, articlesCount}
   },
@@ -399,65 +375,46 @@ module.exports = {
       const {user} = ctx.state
       const {offset, limit} = ctx.query
 
-      const followed = await ctx.app.db('followers')
-        .select()
+      const followedQuery = ctx.app.db('followers')
+        .pluck('user')
         .where({follower: user.id})
-
-      if (followed.length === 0) {
-        ctx.body = {articles: [], articlesCount: 0}
-        return
-      }
 
       let [articles, [countRes]] = await Promise.all([
         ctx.app.db('articles')
-          .select()
-          .whereIn('author', followed.map(f => f.user))
+          .select(
+            ...getSelect('articles', 'article', articleFields),
+            ...getSelect('users', 'author', userFields),
+            ...getSelect('articles_tags', 'tag', ['id']),
+            ...getSelect('tags', 'tag', ['id', 'name']),
+            'favorites.id as article_favorited'
+          )
+          .whereIn('articles.author', followedQuery)
           .limit(limit)
           .offset(offset)
-          .orderBy('created_at', 'desc'),
-        ctx.app.db('articles')
-          .count()
-          .whereIn('author', followed.map(f => f.user))
+          .orderBy('articles.created_at', 'desc')
+          .leftJoin('users', 'articles.author', 'users.id')
+          .leftJoin('articles_tags', 'articles.id', 'articles_tags.article')
+          .leftJoin('tags', 'articles_tags.tag', 'tags.id')
+          .leftJoin('favorites', function () {
+            this.on('articles.id', '=', 'favorites.article')
+              .andOn('favorites.user', '=', user && user.id)
+          }),
+
+        ctx.app.db('articles').count().whereIn('author', followedQuery)
       ])
+
+      articles = joinJs
+        .map(articles, relationsMaps, 'articleMap', 'article_')
+        .map(a => {
+          a.favorited = Boolean(a.favorited)
+          a.tagList = a.tagList.map(t => t.name)
+          a.author.following = true
+          delete a.author.id
+          return a
+        })
 
       let articlesCount = countRes.count || countRes['count(*)']
       articlesCount = Number(articlesCount)
-
-      articles = await Promise.all(articles.map(async a => {
-        const tagsRelations = await ctx.app.db('articles_tags')
-          .select()
-          .where({article: a.id})
-
-        let tagList = []
-
-        if (tagsRelations && tagsRelations.length > 0) {
-          tagList = await ctx.app.db('tags')
-            .select()
-            .whereIn('id', tagsRelations.map(r => r.tag))
-
-          tagList = tagList.map(t => t.name)
-        }
-
-        const author = await ctx.app.db('users')
-          .first('username', 'bio', 'image')
-          .where({id: a.author})
-
-        author.following = true
-
-        let favorited = false
-
-        if (user) {
-          const favorites = await ctx.app.db('favorites')
-            .where({user: user.id, article: a.id})
-            .select()
-
-          if (favorites.length > 0) {
-            favorited = true
-          }
-        }
-
-        return Object.assign({}, a, {tagList, author, favorited})
-      }))
 
       ctx.body = {articles, articlesCount}
     }
