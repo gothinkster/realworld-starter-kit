@@ -23,7 +23,7 @@ module.exports = {
       .leftJoin('followers', function () {
         this
           .on('users.id', '=', 'followers.user')
-          .andOn('followers.follower', '=', user && user.id)
+          .onIn('followers.follower', [user && user.id])
       })
 
     if (!ctx.params.profile || !ctx.params.profile.length) {

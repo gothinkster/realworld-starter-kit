@@ -143,11 +143,11 @@ module.exports = {
       .leftJoin('tags', 'articles_tags.tag', 'tags.id')
       .leftJoin('favorites', function () {
         this.on('articles.id', '=', 'favorites.article')
-          .andOn('favorites.user', '=', user && user.id)
+          .onIn('favorites.user', [user && user.id])
       })
       .leftJoin('followers', function () {
         this.on('articles.author', '=', 'followers.user')
-          .andOn('followers.follower', '=', user && user.id)
+          .onIn('followers.follower', [user && user.id])
       })
 
     let [articles, [countRes]] = await Promise.all([articlesQuery, conutQuery])
@@ -385,7 +385,7 @@ module.exports = {
           .leftJoin('tags', 'articles_tags.tag', 'tags.id')
           .leftJoin('favorites', function () {
             this.on('articles.id', '=', 'favorites.article')
-              .andOn('favorites.user', '=', user && user.id)
+              .onIn('favorites.user', [user && user.id])
           }),
 
         ctx.app.db('articles').count().whereIn('author', followedQuery)

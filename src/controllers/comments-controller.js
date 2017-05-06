@@ -38,7 +38,7 @@ module.exports = {
       .leftJoin('followers', function () {
         this
           .on('users.id', '=', 'followers.user')
-          .andOn('followers.follower', '=', user && user.id)
+          .onIn('followers.follower', [user && user.id])
       })
 
     comments = joinJs
