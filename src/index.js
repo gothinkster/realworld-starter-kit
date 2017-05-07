@@ -1,2 +1,4 @@
 require('./index.scss')
-// require('./slim-app')
+
+// IE11?
+// require('babel-polyfill');
