@@ -32,10 +32,7 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                loader: 'babel',
-                query: {
-                    presets: ['es2015']
-                }
+                loader: 'babel'
             },
             {
                 test: /\.tff$/,
