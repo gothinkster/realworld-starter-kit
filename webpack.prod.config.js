@@ -1,9 +1,14 @@
 //webpack and its dependencies
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+//package.json to pull in the project title
 
 module.exports = {
+    devtool: 'source-map',
+    debug: true,
     entry: [
+        'webpack-dev-server/client?http://localhost:8000',
+        'webpack/hot/only-dev-server',
         './src/index.js'
     ],
     module: {
@@ -16,9 +21,27 @@ module.exports = {
         ],
         loaders:[
             {
+                test: /\.html$/,
+                loader: 'raw-loader'
+            },
+            {
+             test: /\.png$/,
+             exclude: /node_modules/,
+             loader: 'url-loader'
+            },
+            {
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                loaders: ["style", "css?sourceMap&modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]", "sass?sourceMap"]
+            },
+            {
                 test: /\.js$/,
-                // exclude: /node_modules/,
-                loader: 'babel-loader?presets[]=es2015'
+                loader: 'babel'
+            },
+            {
+                test: /\.tff$/,
+                exclude: /node_modules/,
+                loader: 'url-loader?limit=100000'
             }
         ]
     },
@@ -30,9 +53,18 @@ module.exports = {
         publicPath: '/',
         filename: 'bundle.js'
     },
+    devServer: {
+        contentBase: './dist',
+        port: 8000,
+        noInfo: true,
+        open: true,
+        hot: false
+    },
     plugins: [
+        new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             template: './src/index.html'
+            // appMountId: 'app'
         })
     ]
 };
