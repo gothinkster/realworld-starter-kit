@@ -21,7 +21,9 @@
   },
   "homepage": "https://github.com/eavichay/slim-webpack-boilerplate",
   "devDependencies": {
+    "babel": "^6.23.0",
     "babel-core": "^6.4.5",
+    "babel-eslint": "^7.2.3",
     "babel-loader": "^6.2.1",
     "babel-plugin-transform-custom-element-classes": "^0.1.0",
     "babel-plugin-transform-decorators": "^6.24.1",
@@ -32,7 +34,7 @@
     "chai": "^3.4.1",
     "chai-immutable": "^1.5.3",
     "css-loader": "^0.23.1",
-    "eslint": "^2.0.0-beta.2",
+    "eslint": "^2.13.1",
     "file-loader": "^0.8.5",
     "html-webpack-plugin": "^2.7.2",
     "html-webpack-template": "^3.0.2",
@@ -48,6 +50,5 @@
     "webpack": "^1.12.12",
     "webpack-dev-server": "^1.14.1"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
