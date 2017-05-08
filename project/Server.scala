@@ -23,6 +23,8 @@ import sbt._
 import sbtassembly.AssemblyPlugin.autoImport._
 import webscalajs.WebScalaJS.autoImport.{devCommands, scalaJSPipeline, scalaJSProjects}
 
+import scalajsbundler.sbtplugin.WebScalaJSBundlerPlugin
+
 object Server {
   private[this] val dependencies = {
     import Dependencies._
@@ -64,7 +66,7 @@ object Server {
 
   lazy val server = (project in file(".") copy(id = Shared.projectId) )
     .enablePlugins(
-      SbtWeb, play.sbt.PlayScala
+      SbtWeb, play.sbt.PlayScala, WebScalaJSBundlerPlugin
     )
     .dependsOn(Shared.sharedJvm)
     .settings(serverSettings: _*)

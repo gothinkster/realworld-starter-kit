@@ -4,12 +4,15 @@ import sbt.Keys._
 import sbt._
 import webscalajs.ScalaJSWeb
 
+import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
+import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport.npmDependencies
+
 object Client {
   private[this] val clientSettings = Shared.commonSettings ++ Seq(
     name := "client",
-    resolvers += sbt.Resolver.bintrayRepo("denigma", "denigma-releases"),
     libraryDependencies ++= ClientDependencies.scalajsDependencies.value,
-    jsDependencies ++= ClientDependencies.jsDependencies.value,
+    // npm dependencies
+    npmDependencies in Compile ++= ClientDependencies.npmDependencies.value,
     // RuntimeDOM is needed for tests
     jsDependencies += RuntimeDOM % "test",
     // yes, we want to package JS dependencies
@@ -22,6 +25,6 @@ object Client {
 
   lazy val client = (project in file("client"))
     .settings(clientSettings: _*)
-    .enablePlugins(ScalaJSPlugin, ScalaJSWeb)
+    .enablePlugins(ScalaJSPlugin, ScalaJSWeb, ScalaJSBundlerPlugin)
     .dependsOn(Shared.sharedJs)
 }
