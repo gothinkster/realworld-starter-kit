@@ -16,16 +16,11 @@ class ViewController(
     extends BaseController(silhouette) with I18nSupport {
 
   def index = withoutSession("index") { implicit request =>
-    bundleUrl("client")
     Future(Ok(views.html.app(bundleUrl("client"))))
   }
 
   def bundleUrl(projectName: String): Option[String] = {
     val name = projectName.toLowerCase
-    println(Seq(s"$name-opt-bundle.js", s"$name-fastopt-bundle.js")
-      .find(name => getClass.getResource(s"/public/$name") != null)
-      .map(controllers.routes.Assets.versioned(_).url))
-
     Seq(s"$name-opt-bundle.js", s"$name-fastopt-bundle.js")
       .find(name => getClass.getResource(s"/public/$name") != null)
       .map(controllers.routes.Assets.versioned(_).url)
