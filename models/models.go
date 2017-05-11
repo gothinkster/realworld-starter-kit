@@ -6,6 +6,8 @@ import (
 
 type Datastorer interface {
 	UserStorer
+	ArticleStorer
+	TagStorer
 	InitSchema()
 }
 
@@ -18,9 +20,14 @@ func NewDB(dialect, dbName string) (*DB, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	return &DB{db}, nil
 }
 
 func (db *DB) InitSchema() {
+	db.AutoMigrate(&Favorite{})
 	db.AutoMigrate(&User{})
+	db.AutoMigrate(&Article{})
+	db.AutoMigrate(&Tag{})
+
 }

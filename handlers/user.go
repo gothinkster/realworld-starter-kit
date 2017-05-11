@@ -62,7 +62,6 @@ func (h *Handler) RegisterUser(w http.ResponseWriter, r *http.Request) {
 	}
 	json.NewEncoder(w).Encode(res)
 }
-
 func (h *Handler) LoginUser(w http.ResponseWriter, r *http.Request) {
 	body := struct {
 		User struct {

@@ -23,6 +23,7 @@ func main() {
 	if err != nil {
 		logger.Fatal(err)
 	}
+
 	db.InitSchema()
 
 	j := auth.NewJWT()
@@ -30,6 +31,8 @@ func main() {
 
 	http.HandleFunc("/api/users", h.UsersHandler)
 	http.HandleFunc("/api/users/login", h.LoginHandler)
+	http.HandleFunc("/api/articles", h.ArticlesHandler)
+	http.HandleFunc("/api/articles/", h.ArticlesHandler)
 
 	err = http.ListenAndServe(PORT, nil)
 	if err != nil {
