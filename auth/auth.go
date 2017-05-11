@@ -86,7 +86,7 @@ func (JWT) CheckRequest(r *http.Request) (*Claims, error) {
 		return nil, fmt.Errorf("Authorization header is empty")
 	}
 
-	token := strings.TrimPrefix(auth, "Bearer ")
+	token := strings.TrimPrefix(auth, "Token ")
 
 	claims, err := validateToken(token)
 	if err != nil {
