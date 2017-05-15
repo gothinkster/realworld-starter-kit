@@ -2,6 +2,7 @@ import play.api.{ApplicationLoader, BuiltInComponentsFromContext, LoggerConfigur
 import com.softwaremill.macwire.wire
 import controllers.{Assets, ViewController, WebJarAssets}
 import modules.SilhouetteModule
+import org.flywaydb.play.FlywayPlayComponents
 import play.api.ApplicationLoader.Context
 import play.api.http.{HttpErrorHandler, HttpRequestHandler}
 import play.api.mvc.EssentialFilter
@@ -22,7 +23,9 @@ class Loader(context: Context) extends BuiltInComponentsFromContext(context)
     with SecurityHeadersComponents
     with CORSComponents
     with CSRFComponents
-    with GzipFilterComponents {
+    with GzipFilterComponents
+    with FlywayPlayComponents {
+  flywayPlayInitializer
   LoggerConfigurator(context.environment.classLoader).foreach {
     _.configure(context.environment)
   }

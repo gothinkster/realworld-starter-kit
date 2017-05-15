@@ -37,4 +37,12 @@ object Dependencies {
     val ficus = "com.iheart" %% "ficus" % "1.4.0"
   }
 
+  object DatabaseUtils {
+    val flyway = "org.flywaydb" %% "flyway-play" % "3.1.0"
+    val scalalikeJDBC = "org.scalikejdbc" %% "scalikejdbc" % "2.5.1"
+    val quill = "io.getquill" %% "quill-async-postgres" % "1.2.1"
+    val postgres = "org.postgresql" % "postgresql" % "42.0.0"
+  }
+
+
 }
