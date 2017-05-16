@@ -6,7 +6,7 @@ process.once('SIGINT', shutDown)
 process.once('SIGTERM', shutDown) 
 
 
-app.server.listen(config.server.port, config.server.host, null, status)
+app.server.listen(config.server.port, config.server.host, null, serverStarted)
 
 function shutDown () {
   console.log('Shutdown')
@@ -20,10 +20,7 @@ function shutDown () {
   }
 }
 
-// let the user know if starting the server failed
-function status(error) {
-  if(error) {
-    console.log('There was an error starting the server', error)
-  }
-  console.log('Starting the server on: ' + config.server.host + ':' + config.server.port)
+// let the user know on which host and port server got successfully started
+function serverStarted () {
+  console.log('Started the server on: http://' + config.server.host + ':' + config.server.port)
 }
