@@ -3,7 +3,7 @@ scalacOptions ++= Seq( "-unchecked", "-deprecation" )
 resolvers += "Typesafe repository" at "https://repo.typesafe.com/typesafe/releases/"
 
 // The Play plugin
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.5.14")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.5.1")
 
 // SBT-Web plugins
 addSbtPlugin("com.typesafe.sbt" % "sbt-less" % "1.1.1")

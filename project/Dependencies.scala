@@ -35,6 +35,7 @@ object Dependencies {
 
   object Utils {
     val ficus = "com.iheart" %% "ficus" % "1.4.0"
+    val freeStyle = "io.frees" %% "freestyle" % "0.1.1"
   }
 
   object DatabaseUtils {

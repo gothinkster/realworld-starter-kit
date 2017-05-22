@@ -32,7 +32,7 @@ object Server {
       Play.playFilters,Play.playWebjars,
       Authentication.silhouette, Authentication.hasher, Authentication.persistence, Authentication.crypto,
       SharedDependencies.macwire, DatabaseUtils.flyway, DatabaseUtils.scalalikeJDBC, DatabaseUtils.postgres, DatabaseUtils.quill,
-      Play.scalajsScripts, Utils.ficus
+      Play.scalajsScripts, Utils.ficus, Utils.freeStyle
     )
   }
 
@@ -58,7 +58,8 @@ object Server {
 
     // Fat-Jar Assembly
     fullClasspath in assembly += Attributed.blank(PlayKeys.playPackageAssets.value),
-    mainClass in assembly := Some(Shared.projectName)
+    mainClass in assembly := Some(Shared.projectName),
+    addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
 
     // Code Quality
     //    scapegoatIgnoredFiles := Seq(".*/Row.scala", ".*/Routes.scala", ".*/ReverseRoutes.scala", ".*/JavaScriptReverseRoutes.scala", ".*/*.template.scala")
