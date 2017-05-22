@@ -147,6 +147,9 @@ alter table employees_salaries add constraint employees_salary_employee_fk FOREI
 alter table employees_salaries add constraint employees_salary_grade_fk FOREIGN KEY (employee_grade_id) references employees_grades(id)
     on delete cascade on update cascade;
 
+alter table employees_salaries add constraint employees_salary_designation_fk foreign key (employee_designation_id) references employees_designations(id)
+    on delete cascade on update cascade;
+
 create table if not exists employees_leaves(
     id uuid,
     employee_id uuid,
@@ -178,7 +181,7 @@ create sequence  if not exists enrollment_number_seq;
 create table if not exists students(
     id uuid,
     user_id uuid,
-    enrollment_serial char(6) not null default to_char(nextval('enrollment_number_seq'), '00000FM'),
+    enrollment_serial char(4) not null default to_char(nextval('enrollment_number_seq'), '0000FM'),
     date_of_enrollment date not null,
     created timestamp not null,
     primary key (id)
@@ -214,7 +217,7 @@ alter table student_admission add constraint student_admission_student_fk FOREIG
 create table if not exists semesters(
     id uuid,
     session varchar(20) not null,
-    type varchar (12) not null,
+    semester_type varchar (12) not null,
     created timestamp not null,
     primary key (id)
 );
@@ -263,6 +266,7 @@ create table if not exists courses_students(
     created timestamp not null,
     primary key (id)
 );
+
 
 alter table courses_semesters add constraint courses_students_courses_fk FOREIGN KEY (course_id) references courses(id)
     on delete cascade on update cascade;
