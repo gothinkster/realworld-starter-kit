@@ -20,7 +20,7 @@ object EmployeesGrades {
               name: String,
               payBandMin: Option[Int],
               payBandMax: Option[Int],
-              created: java.util.Date
+              created: java.time.LocalDateTime
             ): EmployeesGrades = {
     EmployeesGrades(
       Id(id),
@@ -39,6 +39,6 @@ object EmployeesGrades {
 
   case class PayBandMax(value: Int) extends AnyVal
 
-  case class Created(value: java.util.Date) extends AnyVal
+  case class Created(value: java.time.LocalDateTime) extends AnyVal
 
 }

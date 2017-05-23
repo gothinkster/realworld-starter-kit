@@ -9,7 +9,7 @@ package com.realworld.shared.models
 case class Courses(id: Courses.Id, code: Courses.Code, name: Courses.Name, created: Courses.Created)
 
 object Courses {
-  def create(id: java.util.UUID, code: String, name: String, created: java.util.Date): Courses = {
+  def create(id: java.util.UUID, code: String, name: String, created: java.time.LocalDateTime): Courses = {
     Courses(Id(id), Code(code), Name(name), Created(created))
   }
 
@@ -19,6 +19,6 @@ object Courses {
 
   case class Name(value: String) extends AnyVal
 
-  case class Created(value: java.util.Date) extends AnyVal
+  case class Created(value: java.time.LocalDateTime) extends AnyVal
 
 }

@@ -9,7 +9,7 @@ package com.realworld.shared.models
 case class Roles(id: Roles.Id, description: Roles.Description, created: Roles.Created)
 
 object Roles {
-  def create(id: java.util.UUID, description: String, created: java.util.Date): Roles = {
+  def create(id: java.util.UUID, description: String, created: java.time.LocalDateTime): Roles = {
     Roles(Id(id), Description(description), Created(created))
   }
 
@@ -17,7 +17,7 @@ object Roles {
 
   case class Description(value: String) extends AnyVal
 
-  case class Created(value: java.util.Date) extends AnyVal
+  case class Created(value: java.time.LocalDateTime) extends AnyVal
 
 }
 
@@ -32,7 +32,7 @@ case class Semesters(
                     )
 
 object Semesters {
-  def create(id: java.util.UUID, session: String, semesterType: String, created: java.util.Date): Semesters = {
+  def create(id: java.util.UUID, session: String, semesterType: String, created: java.time.LocalDateTime): Semesters = {
     Semesters(Id(id), Session(session), SemesterType(semesterType), Created(created))
   }
 
@@ -42,6 +42,6 @@ object Semesters {
 
   case class SemesterType(value: String) extends AnyVal
 
-  case class Created(value: java.util.Date) extends AnyVal
+  case class Created(value: java.time.LocalDateTime) extends AnyVal
 
 }

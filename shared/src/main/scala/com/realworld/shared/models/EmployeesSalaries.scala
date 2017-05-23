@@ -21,8 +21,8 @@ object EmployeesSalaries {
               employeeId: Option[java.util.UUID],
               employeeGradeId: Option[java.util.UUID],
               employeeDesignationId: Option[java.util.UUID],
-              appraisalDueOn: Option[java.util.Date],
-              created: java.util.Date
+              appraisalDueOn: Option[java.time.LocalDateTime],
+              created: java.time.LocalDateTime
             ): EmployeesSalaries = {
     EmployeesSalaries(
       Id(id),
@@ -36,8 +36,8 @@ object EmployeesSalaries {
 
   case class Id(value: java.util.UUID) extends AnyVal
 
-  case class AppraisalDueOn(value: java.util.Date) extends AnyVal
+  case class AppraisalDueOn(value: java.time.LocalDateTime) extends AnyVal
 
-  case class Created(value: java.util.Date) extends AnyVal
+  case class Created(value: java.time.LocalDateTime) extends AnyVal
 
 }

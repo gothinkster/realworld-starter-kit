@@ -24,7 +24,7 @@ object StudentsCoursesResults {
               grade: String,
               maximumMarks: String,
               marksObtained: String,
-              created: java.util.Date
+              created: java.time.LocalDateTime
             ): StudentsCoursesResults = {
     StudentsCoursesResults(
       Id(id),
@@ -45,6 +45,6 @@ object StudentsCoursesResults {
 
   case class MarksObtained(value: String) extends AnyVal
 
-  case class Created(value: java.util.Date) extends AnyVal
+  case class Created(value: java.time.LocalDateTime) extends AnyVal
 
 }

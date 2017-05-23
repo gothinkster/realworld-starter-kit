@@ -13,7 +13,7 @@ case class EmployeesDesignations(
                                 )
 
 object EmployeesDesignations {
-  def create(id: java.util.UUID, name: String, created: java.util.Date): EmployeesDesignations = {
+  def create(id: java.util.UUID, name: String, created: java.time.LocalDateTime): EmployeesDesignations = {
     EmployeesDesignations(Id(id), Name(name), Created(created))
   }
 
@@ -21,6 +21,6 @@ object EmployeesDesignations {
 
   case class Name(value: String) extends AnyVal
 
-  case class Created(value: java.util.Date) extends AnyVal
+  case class Created(value: java.time.LocalDateTime) extends AnyVal
 
 }

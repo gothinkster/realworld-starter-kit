@@ -4,13 +4,13 @@ package com.realworld.shared.models
   * Created by shubham on 22/5/17.
   */
 /////////////////////////////////////////////////////
-// Students
+// Users
 /////////////////////////////////////////////////////
-case class Students(id: Students.Id, userId: Option[User.Id], created: Students.Created)
+case class User(id: User.Id, roleId: Option[Roles.Id], created: User.Created)
 
-object Students {
-  def create(id: java.util.UUID, userId: Option[java.util.UUID], created: java.time.LocalDateTime): Students = {
-    Students(Id(id), userId.map(User.Id.apply), Created(created))
+object User {
+  def create(id: java.util.UUID, roleId: Option[java.util.UUID], created: java.time.LocalDateTime): User = {
+    User(Id(id), roleId.map(Roles.Id.apply), Created(created))
   }
 
   case class Id(value: java.util.UUID) extends AnyVal

@@ -20,7 +20,7 @@ object UniversityAllocatedLeaves {
               year: String,
               universityId: Option[java.util.UUID],
               numberOfLeaves: Int,
-              created: java.util.Date
+              created: java.time.LocalDateTime
             ): UniversityAllocatedLeaves = {
     UniversityAllocatedLeaves(
       Id(id),
@@ -37,6 +37,6 @@ object UniversityAllocatedLeaves {
 
   case class NumberOfLeaves(value: Int) extends AnyVal
 
-  case class Created(value: java.util.Date) extends AnyVal
+  case class Created(value: java.time.LocalDateTime) extends AnyVal
 
 }

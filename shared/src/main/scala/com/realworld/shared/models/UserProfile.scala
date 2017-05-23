@@ -7,7 +7,7 @@ package com.realworld.shared.models
 // UserProfile
 /////////////////////////////////////////////////////
 case class UserProfile(
-                        userId: Users.Id,
+                        userId: User.Id,
                         address: Option[UserProfile.Address],
                         phoneNumber: Option[UserProfile.PhoneNumber],
                         firstName: Option[UserProfile.FirstName],
@@ -30,10 +30,10 @@ object UserProfile {
               nationality: Option[String],
               fatherName: Option[String],
               motherName: Option[String],
-              created: java.util.Date
+              created: java.time.LocalDateTime
             ): UserProfile = {
     UserProfile(
-      Users.Id(userId),
+      User.Id(userId),
       address.map(Address.apply),
       phoneNumber.map(PhoneNumber.apply),
       firstName.map(FirstName.apply),
@@ -62,6 +62,6 @@ object UserProfile {
 
   case class MotherName(value: String) extends AnyVal
 
-  case class Created(value: java.util.Date) extends AnyVal
+  case class Created(value: java.time.LocalDateTime) extends AnyVal
 
 }

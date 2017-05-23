@@ -18,7 +18,7 @@ object StudentAdmission {
               id: java.util.UUID,
               departmentId: Option[java.util.UUID],
               studentId: Option[java.util.UUID],
-              created: java.util.Date
+              created: java.time.LocalDateTime
             ): StudentAdmission = {
     StudentAdmission(
       Id(id),
@@ -30,6 +30,6 @@ object StudentAdmission {
 
   case class Id(value: java.util.UUID) extends AnyVal
 
-  case class Created(value: java.util.Date) extends AnyVal
+  case class Created(value: java.time.LocalDateTime) extends AnyVal
 
 }

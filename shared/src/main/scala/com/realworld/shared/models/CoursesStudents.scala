@@ -18,7 +18,7 @@ object CoursesStudents {
               id: java.util.UUID,
               courseId: Option[java.util.UUID],
               studentId: Option[java.util.UUID],
-              created: java.util.Date
+              created: java.time.LocalDateTime
             ): CoursesStudents = {
     CoursesStudents(Id(id), courseId.map(CourseId.apply), studentId.map(Students.Id.apply), Created(created))
   }
@@ -27,6 +27,6 @@ object CoursesStudents {
 
   case class CourseId(value: java.util.UUID) extends AnyVal
 
-  case class Created(value: java.util.Date) extends AnyVal
+  case class Created(value: java.time.LocalDateTime) extends AnyVal
 
 }

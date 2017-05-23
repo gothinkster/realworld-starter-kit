@@ -7,7 +7,7 @@ package com.realworld.shared.models
 // PasswordInfo
 /////////////////////////////////////////////////////
 case class PasswordInfo(
-                         userId: Option[Users.Id],
+                         userId: Option[User.Id],
                          provider: PasswordInfo.Provider,
                          key: PasswordInfo.Key,
                          hasher: PasswordInfo.Hasher,
@@ -24,10 +24,10 @@ object PasswordInfo {
               hasher: String,
               password: String,
               salt: Option[String],
-              created: java.util.Date
+              created: java.time.LocalDateTime
             ): PasswordInfo = {
     PasswordInfo(
-      userId.map(Users.Id.apply),
+      userId.map(User.Id.apply),
       Provider(provider),
       Key(key),
       Hasher(hasher),
@@ -47,6 +47,6 @@ object PasswordInfo {
 
   case class Salt(value: String) extends AnyVal
 
-  case class Created(value: java.util.Date) extends AnyVal
+  case class Created(value: java.time.LocalDateTime) extends AnyVal
 
 }

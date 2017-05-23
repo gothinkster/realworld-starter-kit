@@ -22,7 +22,7 @@ object Departments {
               name: String,
               yearOfEstablishment: String,
               address: String,
-              created: java.util.Date
+              created: java.time.LocalDateTime
             ): Departments = {
     Departments(
       Id(id),
@@ -42,6 +42,6 @@ object Departments {
 
   case class Address(value: String) extends AnyVal
 
-  case class Created(value: java.util.Date) extends AnyVal
+  case class Created(value: java.time.LocalDateTime) extends AnyVal
 
 }
