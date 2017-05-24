@@ -1,13 +1,13 @@
 package com.realworld.shared.models
 
 /**
-  * Created by shubham on 22/5/17.
+  *.
   */
 /////////////////////////////////////////////////////
 // PasswordInfo
 /////////////////////////////////////////////////////
 case class PasswordInfo(
-                         userId: Option[User.Id],
+                         userId: User.Id,
                          provider: PasswordInfo.Provider,
                          key: PasswordInfo.Key,
                          hasher: PasswordInfo.Hasher,
@@ -18,7 +18,7 @@ case class PasswordInfo(
 
 object PasswordInfo {
   def create(
-              userId: Option[java.util.UUID],
+              userId: java.util.UUID,
               provider: String,
               key: String,
               hasher: String,
@@ -27,7 +27,7 @@ object PasswordInfo {
               created: java.time.LocalDateTime
             ): PasswordInfo = {
     PasswordInfo(
-      userId.map(User.Id.apply),
+      User.Id(userId),
       Provider(provider),
       Key(key),
       Hasher(hasher),

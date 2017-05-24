@@ -1,0 +1,117 @@
+error.email = Valid email required
+error.required = This field is required
+invalid.credentials = Invalid credentials!
+access.denied = Access denied!
+could.not.authenticate = Could not authenticate with social provider! Please try again!
+
+home.title = Home
+sign.up.title = Sign Up
+sign.in.title = Sign In
+forgot.password.title = Forgot Password
+reset.password.title = Reset Password
+change.password.title = Change Password
+activate.account.title = Activate Account
+
+toggle.navigation = Toggle navigation
+welcome.signed.in = Welcome, you are now signed in!
+
+sign.up.account = Sign up for a new account
+sign.in.credentials = Sign in with your credentials
+
+error = Error!
+info = Info!
+success = Success!
+home = Home
+first.name = First name
+last.name = Last name
+full.name = Full name
+email = Email
+email.error=valid email required e.g example@mail.com
+userName=User Name
+userName.error=username required!
+defaultAlias = Default Alias
+defaultAlias.error = default alias required!
+termsAndConditions=/"<a href="/@routes.SignInController.view"/>@Messages(/"terms.of.service"/)</a> and <a href=/"@routes.SignInController.view"/>@Messages(/"privacy.policy"/)</a>
+password = Password
+password.error=password required!
+send = Send
+change = Change
+reset = Reset
+sign.up = Sign up
+sign.in = Sign in
+sign.out = Sign out
+sign.in.now = Sign in now
+sign.up.now = Sign up now
+already.a.member = Already a member?
+not.a.member = Not a member?
+forgot.your.password = Forgot your password?
+forgot.password = Forgot password
+reset.password = Reset password
+change.password = Change password
+activate.account = Activate Account
+current.password = Current password
+new.password = New password
+bad.request = Bad Request!
+
+remember.me = Remember my login on this computer
+or.use.social = Or use your existing account on one of the following services to sign in:
+forgot.password.info = Please enter your email address and we will send you an email with further instructions to reset your password.
+strong.password.info = Strong passwords include numbers, letters and punctuation marks.
+current.password.invalid = The entered password is invalid. Please enter the correct password!
+activate.account.text1 = You can''t log in yet. We previously sent an activation email to you at:
+activate.account.text2 = Please follow the instructions in that email to activate your account.
+activate.account.text3 = Click <a href="{0}">here</a> to send the activation email again.
+
+sign.up.email.sent = You account is created and you can login now. We sent an activation mail to {0}. Please follow the instructions in the email to activate your account. If it doesn''t arrive, check your spam folder, or try to log in again to send another activation mail.
+activation.email.sent = We sent another activation email to you at {0}. It might take a few minutes for it to arrive; be sure to check your spam folder.
+reset.email.sent = We have sent you an email with further instructions to reset your password, on condition that the address was found in our system. If you do not receive an email within the next 5 minutes, then please recheck your entered email address and try it again.
+
+invalid.activation.link = The link isn't valid anymore! Please sign in to send the activation email again.
+invalid.reset.link = The link isn't valid anymore! Please request a new link to reset your password.
+
+password.reset = We have reset your password. You can now sign in with your credentials.
+account.activated = Your account is now activated! Please sign in to use your new account.
+password.changed = Your password has been changed.
+
+agree.to.terms = I understand and agree to the
+terms.of.service = Terms of Service
+terms.of.services.info= Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+privacy.policy = Privacy Policy
+privacy.policy.info=Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+copyrights= Copyrights
+copyrights.info=Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+legal=Legal
+legal.info=Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+google = Google
+facebook = Facebook
+twitter = Twitter
+vk = VK
+xing = Xing
+yahoo = Yahoo
+
+##########
+# Emails
+##########
+
+email.from = noreply@realworld.com>
+
+# Sign Up
+email.sign.up.subject = Welcome
+email.sign.up.hello = Hello {0},
+email.sign.up.html.text = Please follow <a href="{0}">this link</a> to confirm and activate your new account.
+email.sign.up.txt.text = Please follow the link to confirm and activate your new account: {0}
+
+# Already Signed Up
+email.already.signed.up.txt.text = You already have an account registered.
+
+# Reset Password
+email.reset.password.subject = Reset password
+email.reset.password.hello = Hello {0},
+email.reset.password.html.text = Please follow <a href="{0}">this link</a> to reset your password.
+email.reset.password.txt.text = Please follow the link to reset your password: {0}
+
+# Activate Account
+email.activate.account.subject = Activate account
+email.activate.account.hello = Hello {0},
+email.activate.account.html.text = Please follow <a href="{0}">this link</a> to confirm and activate your new account.
+email.activate.account.txt.text = Please follow the link to confirm and activate your new account: {0}

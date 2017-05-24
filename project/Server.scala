@@ -31,8 +31,8 @@ object Server {
     Seq(
       Play.playFilters,Play.playWebjars,
       Authentication.silhouette, Authentication.hasher, Authentication.persistence, Authentication.crypto,
-      SharedDependencies.macwire, DatabaseUtils.flyway, DatabaseUtils.scalalikeJDBC, DatabaseUtils.postgres, DatabaseUtils.quill,
-      Play.scalajsScripts, Utils.ficus, Utils.freeStyle
+      SharedDependencies.macwire, DatabaseUtils.flyway, DatabaseUtils.postgres,
+      DatabaseUtils.quill,DatabaseUtils.quillAsync,Play.scalajsScripts, Utils.ficus, Utils.freeStyle
     )
   }
 
@@ -65,14 +65,14 @@ object Server {
     //    scapegoatIgnoredFiles := Seq(".*/Row.scala", ".*/Routes.scala", ".*/ReverseRoutes.scala", ".*/JavaScriptReverseRoutes.scala", ".*/*.template.scala")
   )
 
-  lazy val server = (project in file(".") copy(id = Shared.projectId) )
+  lazy val server = (project in file("server"))
     .enablePlugins(
       SbtWeb, play.sbt.PlayScala, WebScalaJSBundlerPlugin
     )
+    .disablePlugins(PlayLayoutPlugin)
     .dependsOn(Shared.sharedJvm)
     .settings(serverSettings: _*)
     .settings(Packaging.settings: _*)
-
   //    Shared.withProjects(ret, Seq(Shared.sharedJvm, Utilities.metrics))
 
 }

@@ -1,7 +1,7 @@
 package com.realworld.shared.models
 
 /**
-  * Created by shubham on 22/5/17.
+  *.
   */
 /////////////////////////////////////////////////////
 // UniversityAllocatedLeaves
@@ -9,7 +9,7 @@ package com.realworld.shared.models
 case class UniversityAllocatedLeaves(
                                       id: UniversityAllocatedLeaves.Id,
                                       year: UniversityAllocatedLeaves.Year,
-                                      universityId: Option[Universities.Id],
+                                      universityId: University.Id,
                                       numberOfLeaves: UniversityAllocatedLeaves.NumberOfLeaves,
                                       created: UniversityAllocatedLeaves.Created
                                     )
@@ -18,14 +18,14 @@ object UniversityAllocatedLeaves {
   def create(
               id: java.util.UUID,
               year: String,
-              universityId: Option[java.util.UUID],
+              universityId: java.util.UUID,
               numberOfLeaves: Int,
               created: java.time.LocalDateTime
             ): UniversityAllocatedLeaves = {
     UniversityAllocatedLeaves(
       Id(id),
       Year(year),
-      universityId.map(Universities.Id.apply),
+      University.Id(universityId),
       NumberOfLeaves(numberOfLeaves),
       Created(created)
     )

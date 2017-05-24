@@ -1,1 +1,0 @@
-@(path: String)(implicit config: play.api.Configuration)@{config.getString("application.cdn").getOrElse("") + routes.Assets.versioned(path)}

@@ -1,7 +1,7 @@
 package com.realworld.shared.models
 
 /**
-  * Created by shubham on 22/5/17.
+  *.
   */
 /////////////////////////////////////////////////////
 // UserProfile

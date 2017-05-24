@@ -1,29 +1,29 @@
 package com.realworld.shared.models
 
 /**
-  * Created by shubham on 22/5/17.
+  *.
   */
 /////////////////////////////////////////////////////
 // StudentAdmission
 /////////////////////////////////////////////////////
 case class StudentAdmission(
                              id: StudentAdmission.Id,
-                             departmentId: Option[Departments.Id],
-                             studentId: Option[Students.Id],
+                             departmentId: Department.Id,
+                             studentId: Student.Id,
                              created: StudentAdmission.Created
                            )
 
 object StudentAdmission {
   def create(
               id: java.util.UUID,
-              departmentId: Option[java.util.UUID],
-              studentId: Option[java.util.UUID],
+              departmentId: java.util.UUID,
+              studentId: java.util.UUID,
               created: java.time.LocalDateTime
             ): StudentAdmission = {
     StudentAdmission(
       Id(id),
-      departmentId.map(Departments.Id.apply),
-      studentId.map(Students.Id.apply),
+      Department.Id(departmentId),
+      Student.Id(studentId),
       Created(created)
     )
   }

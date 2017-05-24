@@ -41,8 +41,9 @@ object Dependencies {
   object DatabaseUtils {
     val flyway = "org.flywaydb" %% "flyway-play" % "3.1.0"
     val scalalikeJDBC = "org.scalikejdbc" %% "scalikejdbc" % "2.5.1"
-    val quill = "io.getquill" %% "quill-async-postgres" % "1.2.1"
-    val postgres = "org.postgresql" % "postgresql" % "42.0.0"
+    val quill = "io.getquill" %% "quill-jdbc" % "1.2.1"
+    val quillAsync = "io.getquill" %% "quill-async-postgres" % "1.2.1"
+    val postgres = "org.postgresql" % "postgresql" % "9.4.1208"
   }
 
 

@@ -1,0 +1,14 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+#Modified routes
+
+# Views
+GET         /                                       controllers.ViewController.index
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /webjars/*file                          controllers.WebJarAssets.at(file)
+GET         /assets/fonts/*file                     controllers.Assets.at(path="/public/lib/font-awesome/fonts", file)
+GET         /assets/*file                           controllers.Assets.versioned(path="/public", file: Asset)
+
