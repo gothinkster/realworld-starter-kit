@@ -1,7 +1,5 @@
-import io.getquill.{PostgresAsyncContext, PostgresJdbcContext, SnakeCase}
+import io.getquill.{PostgresAsyncContext, SnakeCase}
 
 package object db {
-
-  type DbContext = PostgresJdbcContext[SnakeCase]
-
+  type DbContext = PostgresAsyncContext[SnakeCase]
 }

@@ -16,7 +16,7 @@ import services.silhouetteservices.SilhouetteIdentityService
 import utils.web.{Filters, RequestHandler, ServerErrorHandler}
 import utils.AppLogger
 import router.Routes
-import services.{UniversityDB, UserDB}
+import services.UniversityService
 
 import scala.concurrent.ExecutionContext
 
@@ -26,12 +26,8 @@ class Loader(context: Context) extends BuiltInComponentsFromContext(context)
     with CORSComponents
     with CSRFComponents
     with GzipFilterComponents
-    with FlywayPlayComponents /*with DatabaseModule*/ {
+    with FlywayPlayComponents with DatabaseModule {
   flywayPlayInitializer
-  lazy val userdb = wire[UserDB]
-  /*lazy val dbCtx = new PostgresJdbcContext[SnakeCase]("ctx")
-  lazy val userdb = wire[UserDB]
-  lazy val universitydb = wire[UniversityDB]*/
   LoggerConfigurator(context.environment.classLoader).foreach {
     _.configure(context.environment)
   }

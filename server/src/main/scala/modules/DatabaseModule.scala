@@ -1,17 +1,17 @@
 package modules
 
-import com.realworld.shared.models.User
 import com.softwaremill.macwire.wire
-import io.getquill.{PostgresAsyncContext, PostgresJdbcContext, SnakeCase}
-import org.flywaydb.play.FlywayPlayComponents
-import services.{UniversityDB, UserDB}
+import io.getquill.{PostgresAsyncContext, SnakeCase}
+import services.UniversityService
+
+import scala.concurrent.ExecutionContext
 
 /**
  * Created by shubham on 24/5/17.
  */
 trait DatabaseModule {
   // quill
-  lazy val dbCtx = new PostgresJdbcContext[SnakeCase]("ctx")
-  lazy val userdb = wire[UserDB]
-  lazy val universitydb = wire[UniversityDB]
+  implicit def executionContext: ExecutionContext
+  lazy val dbCtx = new PostgresAsyncContext[SnakeCase]("ctx")
+  lazy val universityService = wire[UniversityService]
 }
