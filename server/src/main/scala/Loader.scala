@@ -1,7 +1,7 @@
 import play.api.{ApplicationLoader, BuiltInComponentsFromContext, LoggerConfigurator, Mode}
 import com.softwaremill.macwire.wire
 import controllers.{Assets, ViewController, WebJarAssets}
-import io.getquill.{PostgresJdbcContext, SnakeCase}
+import io.getquill.{PostgresAsyncContext, PostgresJdbcContext, SnakeCase}
 import modules.{DatabaseModule, SilhouetteModule}
 import org.flywaydb.play.FlywayPlayComponents
 import play.api.ApplicationLoader.Context
@@ -54,6 +54,10 @@ class Loader(context: Context) extends BuiltInComponentsFromContext(context)
   lazy val filtersWire = wire[Filters]
   override lazy val httpFilters: Seq[EssentialFilter] = filtersWire.filters
 
+  /*// database
+  lazy val dbCtx = new PostgresAsyncContext[SnakeCase]("ctx")
+  lazy val universityService = wire[UniversityService]*/
+
   // actors
 
 }
@@ -61,12 +65,6 @@ class Loader(context: Context) extends BuiltInComponentsFromContext(context)
 class ServerLoader extends ApplicationLoader with AppLogger {
   log.info(s"Web gateway is loading.")
 
-  override def load(context: Context) = context.environment.mode match {
-    case Mode.Dev =>
-      new Loader(context).application
-    case _ =>
-      new Loader(context) {
-        // ovveride changes required in production
-      }.application
-  }
+  override def load(context: Context) = new Loader(context).application
+
 }

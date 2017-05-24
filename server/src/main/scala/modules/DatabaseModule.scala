@@ -12,6 +12,7 @@ import scala.concurrent.ExecutionContext
 trait DatabaseModule {
   // quill
   implicit def executionContext: ExecutionContext
+  // database
   lazy val dbCtx = new PostgresAsyncContext[SnakeCase]("ctx")
   lazy val universityService = wire[UniversityService]
 }

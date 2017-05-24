@@ -31,7 +31,7 @@ object Server {
     Seq(
       Play.playFilters,Play.playWebjars,
       Authentication.silhouette, Authentication.hasher, Authentication.persistence, Authentication.crypto,
-      SharedDependencies.macwire, DatabaseUtils.flyway, DatabaseUtils.postgres,
+      SharedDependencies.macwire, DatabaseUtils.flyway, DatabaseUtils.postgres,Testing.scalatestPlusPlay,
       DatabaseUtils.quill,DatabaseUtils.quillAsync,Play.scalajsScripts, Utils.ficus, Utils.freeStyle
     )
   }

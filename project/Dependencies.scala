@@ -46,5 +46,9 @@ object Dependencies {
     val postgres = "org.postgresql" % "postgresql" % "9.4.1208"
   }
 
+  object Testing {
+    val scalatestPlusPlay = "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0" % "test"
+  }
+
 
 }

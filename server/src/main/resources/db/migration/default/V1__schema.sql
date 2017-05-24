@@ -8,7 +8,7 @@ create table if not exists universities(
     code varchar(4) not null unique,
     name varchar(128) not null unique,
     year_of_establishment varchar(4) not null,
-    state varchar(20) not null, not null
+    state varchar(20) not null,
     address varchar(128) not null,
     created timestamp not null,
     primary key (id)
