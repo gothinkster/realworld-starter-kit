@@ -18,7 +18,7 @@ class UniversityService(val ctx: DbContext)(implicit val ec: ExecutionContext) e
   def create(university: University): Future[UUID] = {
     val id = java.util.UUID.randomUUID()
     val created = java.time.LocalDateTime.now()
-    run(universities.insert(lift(university.copy(id = University.Id(java.util.UUID.randomUUID()), created = University.Created(created))))).map {
+    run(universities.insert(lift(university.copy(id = University.Id(id), created = University.Created(created))))).map {
       _ => id
     }
   }

@@ -12,7 +12,7 @@ class UniversityServiceSpec extends PlaySpec with AppOneAppPerTest with BaseSpec
         "AMU","Aligarh Muslim University","1919","Uttar Pradesh", "Aligarh", java.time.LocalDateTime.now())).futureValue
       val userFound = db.universityService.findById(id).futureValue
       userFound shouldBe defined
-      userFound.foreach(_.code shouldBe "AMU")
+      userFound.foreach(_.code.value shouldBe "AMU")
     }
   }
 }

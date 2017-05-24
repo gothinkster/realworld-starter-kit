@@ -154,8 +154,8 @@ create table if not exists employees_leaves(
     id uuid,
     employee_id uuid not null,
     leave_type varchar(12) not null,
-    from date not null,
-    to date not null,
+    leave_from date not null,
+    leave_to date not null,
     created timestamp not null,
     primary key (id)
 );
