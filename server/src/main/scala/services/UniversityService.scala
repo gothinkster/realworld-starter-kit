@@ -9,8 +9,8 @@ import repositories.UniversitiesRepository
 import scala.concurrent.{ExecutionContext, Future}
 
 /**
-  * .
-  */
+ * .
+ */
 class UniversityService(val ctx: DbContext)(implicit val ec: ExecutionContext) extends UniversitiesRepository {
 
   import ctx._
@@ -18,15 +18,10 @@ class UniversityService(val ctx: DbContext)(implicit val ec: ExecutionContext) e
   def create(university: University): Future[UUID] = {
     val id = java.util.UUID.randomUUID()
     val created = java.time.LocalDateTime.now()
-    run(universities.insert(lift(university.copy(id = University.Id(id), created = University.Created(created))))).map {
+    run(universities.insert(lift(university.copy(id = id, created = created)))).map {
       _ => id
     }
   }
 
   def findById(uuid: UUID): Future[Option[University]] = run(byId(uuid)).map(_.headOption)
-
-
-  //  val university = quote(querySchema[University]("universities"))
-  //  def addUser(user: User) = ctx.run(users.)
-  //  def insertUniversity(university: University) =
 }

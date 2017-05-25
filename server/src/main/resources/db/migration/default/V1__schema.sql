@@ -19,7 +19,7 @@ create unique index code_idx on universities(code);
 create table if not exists faculties(
     id uuid,
     university_id uuid not null,
-    code varchar(4) not null unique ,
+    code varchar(4) not null,
     name varchar(128) not null,
     address_of_faculty varchar (128) not null,
     year_of_establishment varchar (4) not null,
