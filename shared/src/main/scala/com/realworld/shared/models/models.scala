@@ -16,8 +16,8 @@ case class CourseStudent(id: java.util.UUID, courseId: java.util.UUID, studentId
 case class Department(id: java.util.UUID, facultyId: java.util.UUID, name: String, yearOfEstablishment: String, address: String,
                       created: java.time.LocalDateTime)
 
-case class Employee( id: java.util.UUID, userId: java.util.UUID, departmentId: java.util.UUID, employeeSince: Option[java.time.LocalDateTime],
-                     created: java.time.LocalDateTime)
+case class Employee( id: java.util.UUID, registrationNumber: String, empGroup: String, userId: java.util.UUID, departmentId: java.util.UUID,
+                     employeeSince: Option[java.time.LocalDateTime], created: java.time.LocalDateTime)
 
 case class EmployeeDesignation(id: java.util.UUID, name: String, created: java.time.LocalDateTime)
 
@@ -33,8 +33,6 @@ case class Faculty( id: java.util.UUID, universityId: java.util.UUID, code: Stri
 
 case class PasswordInfo( userId: java.util.UUID, provider: String, key: String, hasher: String, password: String,
                          salt: Option[String], created: java.time.LocalDateTime)
-
-case class Role(id: java.util.UUID,name: String, description: String, created: java.time.LocalDateTime)
 
 case class Semester(id: java.util.UUID, session: String, semesterType: String, created: java.time.LocalDateTime)
 
@@ -52,7 +50,7 @@ case class University(id: java.util.UUID, code: String, name: String, yearOfEsta
 case class UniversityAllocatedLeaves(id: java.util.UUID, year: String, universityId: java.util.UUID, numberOfLeaves: Int,
                                      created: java.time.LocalDateTime)
 
-case class User(id: java.util.UUID, roleId: java.util.UUID, created: java.time.LocalDateTime)
+case class User(id: java.util.UUID, role: String, created: java.time.LocalDateTime)
 
 case class UserProfile(userId: java.util.UUID, address: Option[String], phoneNumber: Option[String], firstName: Option[String],
                         lastName: Option[String], imgUrl: Option[String], nationality: Option[String], fatherName: Option[String],

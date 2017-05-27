@@ -36,7 +36,7 @@ package object test {
 
 
 
-  trait BaseSpec extends ScalaFutures{
+  trait BaseSpec extends ScalaFutures {
     implicit override val patienceConfig = PatienceConfig(
       timeout = Span(2, Seconds),
       interval = Span(5, Millis)

@@ -1,11 +1,11 @@
 package services
 
 import com.realworld.shared.models.University
-import org.scalatestplus.play.PlaySpec
-import test.{BaseSpec, BaseDBSpec}
+import test.{BaseDBSpec, BaseSpec}
 import org.scalatest.Matchers._
+import org.scalatestplus.play.PlaySpec
 
-class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec  {
+class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec {
   "UniversityService" should {
     "create and find" in {
       val id = db.universityService.create(University(java.util.UUID.randomUUID(),

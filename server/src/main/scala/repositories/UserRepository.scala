@@ -2,7 +2,9 @@ package repositories
 
 import java.util.UUID
 
-import com.realworld.shared.models.{University, User}
+import com.realworld.shared.models.{User}
+
+import scala.concurrent.Future
 
 trait UserRepository extends Repository {
   import ctx._
@@ -11,6 +13,8 @@ trait UserRepository extends Repository {
   def byId(uuid: UUID) = quote {
     users.filter(_.id == lift(uuid))
   }
+
+  def createUserWithRole(role: String): Future[UUID]
   /*def byUserOCde (code : String) = quote {
     users.filter(_.userCode == lift (code))
   }*/

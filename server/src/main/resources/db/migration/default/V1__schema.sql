@@ -45,22 +45,11 @@ alter table departments add constraint department_faculty_fk FOREIGN KEY (facult
 
 create table if not exists users(
     id uuid,
-    role_id uuid not null,
+    role varchar(6) not null,
     created TIMESTAMP not null
 );
 
 alter table users add constraint user_id primary key(id);
-
-create table if not exists roles (
-    id uuid,
-    name varchar(8) not null unique,
-    description varchar(2048) not null,
-    created timestamp not null
-);
-alter table roles add constraint role_id primary key(id);
-
-alter table users add constraint user_role_fk
-    foreign key(role_id) references roles(id) on delete cascade on update cascade;
 
 
 create table if not exists password_info (
@@ -100,6 +89,7 @@ create sequence  if not exists employee_seq;
 create table if not exists employees(
     id uuid,
     registration_number char(4) not null default to_char(nextval('employee_seq'), '0000FM'),
+    emp_group varchar(2) not null,
     user_id uuid not null,
     department_id uuid not null,
     employee_since timestamp not null,
@@ -183,6 +173,7 @@ create table if not exists students(
     id uuid,
     user_id uuid not null,
     enrollment_number char(4) not null default to_char(nextval('enrollment_number_seq'), '0000FM'),
+    student_group char(4) not null,
     date_of_enrollment date not null,
     created timestamp not null,
     primary key (id)
