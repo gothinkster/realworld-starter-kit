@@ -20,8 +20,8 @@ object Client {
     skip in packageJSDependencies := false,
     // use Scala.js provided launcher code to start the client app
     scalaJSUseMainModuleInitializer := true,
-    scalaJSStage in Global := FastOptStage,
-    useYarn := true
+    scalaJSStage in Global := FastOptStage/*,
+    useYarn := true*/
 //    enableReloadWorkflow := true,
 //    emitSourceMaps := false
     //    scapegoatIgnoredFiles := Seq(".*/JsonUtils.scala", ".*/JsonSerializers.scala")

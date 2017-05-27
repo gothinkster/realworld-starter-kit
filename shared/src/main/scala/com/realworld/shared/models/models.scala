@@ -34,7 +34,7 @@ case class Faculty( id: java.util.UUID, universityId: java.util.UUID, code: Stri
 case class PasswordInfo( userId: java.util.UUID, provider: String, key: String, hasher: String, password: String,
                          salt: Option[String], created: java.time.LocalDateTime)
 
-case class Role(id: java.util.UUID, description: String, created: java.time.LocalDateTime)
+case class Role(id: java.util.UUID,name: String, description: String, created: java.time.LocalDateTime)
 
 case class Semester(id: java.util.UUID, session: String, semesterType: String, created: java.time.LocalDateTime)
 

@@ -50,9 +50,11 @@ package object test {
       override implicit def executionContext: ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
     }
     object DbSetup {
-      val config = fakeApplication().configuration.underlying.getConfig("db.default")
-      println(config.getString("password"))
-      val connectionString = "jdbc:postgresql:omis?user=omis&password=omis"
+      val dbConfig = fakeApplication().configuration.underlying.getConfig("db.default")
+      val url = dbConfig.getString("url")
+      val user = dbConfig.getString("username")
+      val password = dbConfig.getString("password")
+      val connectionString = s"${url}?user=${user}&password=${password}"
 
       def dbSetup(): Unit = {
         val flyway = new Flyway()
