@@ -2,7 +2,6 @@
 
 --CREATE DATABASE omis;
 
-
 create table if not exists universities(
     id uuid,
     code varchar(4) not null unique,
@@ -19,7 +18,7 @@ create unique index code_idx on universities(code);
 create table if not exists faculties(
     id uuid,
     university_id uuid not null,
-    code varchar(4) not null,
+    code varchar(10) not null,
     name varchar(128) not null,
     address_of_faculty varchar (128) not null,
     year_of_establishment varchar (4) not null,
@@ -33,6 +32,7 @@ alter table faculties add constraint faculty_university_fk FOREIGN KEY (universi
 create table if not exists departments(
     id uuid,
     faculty_id uuid not null,
+    code VARCHAR(10) not null,
     name varchar(128) not null,
     year_of_establishment varchar (4) not null,
     address varchar (128) not null,

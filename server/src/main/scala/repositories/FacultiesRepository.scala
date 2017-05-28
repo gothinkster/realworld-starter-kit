@@ -17,7 +17,7 @@ trait FacultiesRepository extends Repository {
   }
 
   def byCode(code: String) = quote {
-    faculties.filter(_.code ==lift(code))
+    faculties.filter(_.code == lift(code))
   }
 
 }

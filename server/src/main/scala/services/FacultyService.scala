@@ -22,7 +22,9 @@ class FacultyService(val ctx: DbContext)(implicit val ec: ExecutionContext) exte
       _ => id
     }
   }
-
+  def yo() = {
+    println("yo")
+  }
   def findById(uuid: UUID): Future[Option[Faculty]] = run(byId(uuid)).map(_.headOption)
   def findByCode(code: String): Future[Option[Faculty]] = run(byCode(code)).map(_.headOption)
 }

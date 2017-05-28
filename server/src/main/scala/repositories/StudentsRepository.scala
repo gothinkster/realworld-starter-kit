@@ -4,7 +4,7 @@ import java.util.UUID
 
 import com.realworld.shared.models.{Student, University}
 
-trait StudentRepository extends Repository {
+trait StudentsRepository extends Repository {
   import ctx._
   val students = quote(querySchema[Student]("students"))
 

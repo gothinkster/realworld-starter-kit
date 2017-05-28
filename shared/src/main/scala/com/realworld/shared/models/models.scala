@@ -13,7 +13,7 @@ case class CourseSemester(id: java.util.UUID, courseId: java.util.UUID, semester
 case class CourseStudent(id: java.util.UUID, courseId: java.util.UUID, studentId: java.util.UUID,
                          created: java.time.LocalDateTime)
 
-case class Department(id: java.util.UUID, facultyId: java.util.UUID, name: String, yearOfEstablishment: String, address: String,
+case class Department(id: java.util.UUID, facultyId: java.util.UUID, code: String, name: String, yearOfEstablishment: String, address: String,
                       created: java.time.LocalDateTime)
 
 case class Employee( id: java.util.UUID, registrationNumber: String, empGroup: String, userId: java.util.UUID, departmentId: java.util.UUID,
