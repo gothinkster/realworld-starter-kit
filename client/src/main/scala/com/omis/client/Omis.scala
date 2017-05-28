@@ -1,10 +1,11 @@
-package com.realworld.client
+package com.omis.client
 
-import com.realworld.client.router.ApplicationRouter
+import com.omis.client.router.ApplicationRouter
 import org.scalajs.dom
+
 import scala.scalajs.js
 
-object RealWorld extends js.JSApp {
+object Omis extends js.JSApp {
 
   def main(): Unit = {
     //    require()

@@ -1,6 +1,6 @@
-package com.realworld.client.views
+package com.omis.client.views
 
-import com.realworld.client.router.ApplicationRouter.Loc
+import com.omis.client.router.ApplicationRouter.Loc
 import japgolly.scalajs.react.extra.router.{Resolution, RouterCtl}
 import japgolly.scalajs.react.vdom.html_<^._
 

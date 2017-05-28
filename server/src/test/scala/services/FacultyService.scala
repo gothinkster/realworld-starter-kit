@@ -1,9 +1,9 @@
 package services
 
-import com.realworld.shared.models.Faculty
 import org.scalatestplus.play.PlaySpec
 import test.{BaseDBSpec, BaseSpec}
 import org.scalatest.Matchers._
+import repositories.Faculty
 
 /**
   * Created by shubham.k on 28-05-2017.

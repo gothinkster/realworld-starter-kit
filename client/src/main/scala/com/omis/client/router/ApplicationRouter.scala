@@ -1,6 +1,6 @@
-package com.realworld.client.router
+package com.omis.client.router
 
-import com.realworld.client.views.{Home, MainLayout}
+import com.omis.client.views._
 import japgolly.scalajs.react.extra.router._
 import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom
@@ -10,13 +10,18 @@ object ApplicationRouter {
 
   sealed trait Loc
   case object HomeLoc extends Loc
-  case object Doco extends Loc
+  case object LoginLoc extends Loc
+  case object RegisterLoc extends Loc
+  case object DashboardLoc extends Loc
 
   val routerConfig = RouterConfigDsl[Loc].buildConfig { dsl =>
     import dsl._
 
     (trimSlashes
-      | staticRoute(root, HomeLoc) ~> render(Home.component()))
+      | staticRoute(root, HomeLoc) ~> render(Home.component())
+      | staticRoute("login", LoginLoc) ~> render(Login.component(Login.Props()))
+      | staticRoute("register", RegisterLoc) ~> render(Register.component(Register.Props()))
+      | staticRoute("dashboard", DashboardLoc) ~> render(Dashboard.component(Dashboard.Props("admin"))))
       .notFound(redirectToPage(HomeLoc)(Redirect.Replace))
       .renderWith(MainLayout.layout)
       .verify(HomeLoc)

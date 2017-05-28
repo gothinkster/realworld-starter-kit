@@ -2,8 +2,6 @@ package repositories
 
 import java.util.UUID
 
-import com.realworld.shared.models.{Student, University}
-
 trait StudentsRepository extends Repository {
   import ctx._
   val students = quote(querySchema[Student]("students"))

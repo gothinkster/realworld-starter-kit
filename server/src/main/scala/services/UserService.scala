@@ -2,9 +2,8 @@ package services
 
 import java.util.UUID
 
-import com.realworld.shared.models.User
 import db.DbContext
-import repositories.UserRepository
+import repositories.{User, UserRepository}
 
 import scala.concurrent.{ExecutionContext, Future}
 

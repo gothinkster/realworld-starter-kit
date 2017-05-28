@@ -1,9 +1,6 @@
 package repositories
 
 import java.util.UUID
-
-import com.realworld.shared.models.{Employee, University}
-
 import scala.concurrent.Future
 
 trait EmployeeRepository extends Repository {

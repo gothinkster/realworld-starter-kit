@@ -1,10 +1,8 @@
 package services
 
 import java.util.UUID
-
-import com.realworld.shared.models.{Faculty, University}
 import db.DbContext
-import repositories.{FacultiesRepository, UniversitiesRepository}
+import repositories.{FacultiesRepository, Faculty, UniversitiesRepository}
 
 import scala.concurrent.{ExecutionContext, Future}
 

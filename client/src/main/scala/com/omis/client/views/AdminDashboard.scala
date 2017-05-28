@@ -1,25 +1,17 @@
-package com.realworld.client.views
+package com.omis.client.views
 
-import japgolly.scalajs.react.{BackendScope, ScalaComponent}
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.{BackendScope, ScalaComponent}
 
-object Home {
+object AdminDashboard {
 
-  case class State(placeholder: Long)
-
-  class Backend($: BackendScope[Unit, State]) {
-    def render(s: State): VdomElement =
+  case class State()
+  case class Props()
+  class Backend($: BackendScope[Props, State]) {
+    def render(s: State, p: Props): VdomElement =
       <.div(
         ^.className := "home-page",
-        <.div(
-          ^.className := "banner",
-          <.div(
-            ^.className := "container",
-            <.h1(^.className := "logo-font", "conduit"),
-            <.p("A place to share your knowledge.")
-          )
-        ),
         <.div(
           ^.className := "container page",
           <.div(
@@ -32,11 +24,7 @@ object Home {
                   ^.className := "nav nav-pills outline-active",
                   <.li(
                     ^.className := "nav-item",
-                    <.a(^.className := "nav-link disabled", ^.href := "", "Your Feed")
-                  ),
-                  <.li(
-                    ^.className := "nav-item",
-                    <.a(^.className := "nav-link active", ^.href := "", "Global Feed")
+                    <.a(^.className := "nav-link active", ^.href := "", "Feed")
                   )
                 )
               ),
@@ -50,7 +38,7 @@ object Home {
                   ),
                   <.div(
                     ^.className := "info",
-                    <.a(^.href := "", ^.className := "author", "Eric Simons"),
+                    <.a(^.href := "", ^.className := "author", "John Doe"),
                     <.span(^.className := "date", "January 20th")
                   ),
                   <.button(
@@ -60,8 +48,8 @@ object Home {
                   )
                 ),
                 <.a(^.href := "", ^.className := "preview-link",
-                  <.h1("How to build webapps that scale"),
-                  <.p("This is the description for the post."),
+                  <.h1("Leave Request Employee: AMU00001 From: 22/06/2017 To: 25/06/2017"),
+                  <.p("Heading to hometown during that period."),
                   <.span("Read more..."))
               ),
               <.div(
@@ -74,7 +62,7 @@ object Home {
                   ),
                   <.div(
                     ^.className := "info",
-                    <.a(^.href := "", ^.className := "author", "Albert Pai"),
+                    <.a(^.href := "", ^.className := "author", "Test employee"),
                     <.span(^.className := "date", "January 20th")
                   ),
                   <.button(
@@ -84,26 +72,19 @@ object Home {
                   )
                 ),
                 <.a(^.href := "", ^.className := "preview-link",
-                  <.h1("The song you won't ever stop singing. No matter how hard you try."),
-                  <.p("This is the description for the post."),
-                  <.span("Read more..."))
+                  <.h1("Profile Update Employee: AMU00001"),
+                  <.p("Please review the updated profile in the request menu"))
               )
             ),
             <.div(
               ^.className := "col-md-3",
               <.div(
                 ^.className := "sidebar",
-                <.p("Popular Tags"),
+                <.p("Links"),
                 <.div(
                   ^.className := "tag-list",
-                  <.a(^.href := "", ^.className := "tag-pill tag-default", "programming"),
-                  <.a(^.href := "", ^.className := "tag-pill tag-default", "javascript"),
-                  <.a(^.href := "", ^.className := "tag-pill tag-default", "emberjs"),
-                  <.a(^.href := "", ^.className := "tag-pill tag-default", "angularjs"),
-                  <.a(^.href := "", ^.className := "tag-pill tag-default", "react"),
-                  <.a(^.href := "", ^.className := "tag-pill tag-default", "mean"),
-                  <.a(^.href := "", ^.className := "tag-pill tag-default", "node"),
-                  <.a(^.href := "", ^.className := "tag-pill tag-default", "rails")
+                  <.a(^.href := "", ^.className := "tag-pill tag-default", "Employees"),
+                  <.a(^.href := "", ^.className := "tag-pill tag-default", "Profile Update Request")
                 )
               )
             )
@@ -112,10 +93,8 @@ object Home {
       )
   }
 
-  val component = ScalaComponent.builder[Unit]("Home")
-    .initialState(State(0))
+  val component = ScalaComponent.builder[Props]("StudentDashboard")
+    .initialState(State())
     .renderBackend[Backend]
     .build
-
-  def apply() = component()
 }

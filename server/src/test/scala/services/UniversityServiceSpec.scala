@@ -1,9 +1,10 @@
 package services
 
-import com.realworld.shared.models.{Faculty, University}
+import com.realworld.shared.models.University
 import test.{BaseDBSpec, BaseSpec}
 import org.scalatest.Matchers._
 import org.scalatestplus.play.PlaySpec
+import repositories.{Faculty, University}
 
 //todo improve these test
 class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec {

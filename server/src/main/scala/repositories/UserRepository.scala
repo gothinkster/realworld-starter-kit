@@ -2,8 +2,6 @@ package repositories
 
 import java.util.UUID
 
-import com.realworld.shared.models.{User}
-
 import scala.concurrent.Future
 
 trait UserRepository extends Repository {
