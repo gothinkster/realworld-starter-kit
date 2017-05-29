@@ -16,7 +16,7 @@ class ViewController(
     extends BaseController(silhouette) with I18nSupport {
 
   def index = withoutSession("index") { implicit request =>
-    Future(Ok(html.app(bundleUrl("client"))))
+    Future(Ok(html.app( /*bundleUrl("client")*/ )))
   }
 
   def bundleUrl(projectName: String): Option[String] = {

@@ -1,13 +1,15 @@
 package com.omis.client.views
 
+import com.omis.client.router.ApplicationRouter.Loc
+import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, ScalaComponent}
 
-object AdminDashboard {
+object Employees {
 
   case class State()
-  case class Props()
+  case class Props(routerCtl: RouterCtl[Loc])
   class Backend($: BackendScope[Props, State]) {
     def render(s: State, p: Props): VdomElement =
       <.div(
@@ -24,7 +26,7 @@ object AdminDashboard {
                   ^.className := "nav nav-pills outline-active",
                   <.li(
                     ^.className := "nav-item",
-                    <.a(^.className := "nav-link active", ^.href := "", "Feed")
+                    <.a(^.className := "nav-link active", ^.href := "", "Employees")
                   )
                 )
               ),
@@ -39,11 +41,11 @@ object AdminDashboard {
                   <.div(
                     ^.className := "info",
                     <.a(^.href := "", ^.className := "author", "John Doe"),
-                    <.span(^.className := "date", "January 20th")
+                    <.span(^.className := "date", "Employee since: January 20th, 1999")
                   ) /*,                  <.button(                    ^.className := "btn btn-outline-primary btn-sm pull-xs-right",                    <.i(^.className := "ion-heart"),                    "29"                  )*/
                 ),
                 <.a(^.href := "", ^.className := "preview-link",
-                  <.h1("Leave Request Employee: AMU00001 From: 22/06/2017 To: 25/06/2017"),
+                  <.h1("University Employee: AMU00001 From: 22/06/2017 To: 25/06/2017"),
                   <.p("Heading to hometown during that period."),
                   <.span("Read more..."))
               ),
@@ -73,8 +75,7 @@ object AdminDashboard {
                 <.p("Links"),
                 <.div(
                   ^.className := "tag-list",
-                  <.a(^.href := "", ^.className := "tag-pill tag-default", "Employees"),
-                  <.a(^.href := "", ^.className := "tag-pill tag-default", "Profile Update Requests")
+                  <.a(^.href := "", ^.className := "tag-pill tag-default", "Add Employee")
                 )
               )
             )

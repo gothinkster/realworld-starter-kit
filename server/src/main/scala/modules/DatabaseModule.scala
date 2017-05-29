@@ -19,4 +19,5 @@ trait DatabaseModule {
   lazy val departmentService = wire[DepartmentService]
   lazy val userService = wire[UserService]
   lazy val employeeService = wire[EmployeeService]
+  lazy val studentService = wire[StudentService]
 }

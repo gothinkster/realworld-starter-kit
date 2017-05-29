@@ -3,13 +3,15 @@ package com.omis.client.views
 /**
  * Created by shubham.k on 28-05-2017.
  */
+import com.omis.client.router.ApplicationRouter.Loc
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.extra._
+import japgolly.scalajs.react.extra.router.RouterCtl
 
 object Login {
 
-  case class Props()
+  case class Props(routerCtl: RouterCtl[Loc])
 
   //implicit val reusabilityProps: Reusability[Props] =
   //  Reusability.caseClass

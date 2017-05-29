@@ -43,9 +43,10 @@ create table if not exists departments(
 alter table departments add constraint department_faculty_fk FOREIGN KEY (faculty_id) references faculties(id)
     on delete cascade on update cascade;
 
+
 create table if not exists users(
     id uuid,
-    role varchar(6) not null,
+    role varchar(10) not null,
     created TIMESTAMP not null
 );
 

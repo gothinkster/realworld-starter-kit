@@ -1,7 +1,7 @@
 package com.omis.client.views
 
 import japgolly.scalajs.react.vdom.VdomElement
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.{<, _}
 import japgolly.scalajs.react.{BackendScope, ScalaComponent}
 
 object StudentDashboard {
@@ -34,18 +34,13 @@ object StudentDashboard {
                   ^.className := "article-meta",
                   <.a(
                     ^.href := "profile.html",
-                    <.img(^.src := "http://i.imgur.com/Qr71crq.jpg")
+                    <.img(^.src := "/assets/images/Qr71crq.jpg")
                   ),
                   <.div(
                     ^.className := "info",
                     <.a(^.href := "", ^.className := "author", "Prof. John Doe"),
                     <.span(^.className := "date", "January 20th")
-                  ),
-                  <.button(
-                    ^.className := "btn btn-outline-primary btn-sm pull-xs-right",
-                    <.i(^.className := "ion-heart"),
-                    "29"
-                  )
+                  ) /*,                  <.button(                    ^.className := "btn btn-outline-primary btn-sm pull-xs-right",                    <.i(^.className := "ion-heart"),                    "29"                  )*/
                 ),
                 <.a(^.href := "", ^.className := "preview-link",
                   <.h1("The assignment on postgres sql is due in three days"),
@@ -58,22 +53,18 @@ object StudentDashboard {
                   ^.className := "article-meta",
                   <.a(
                     ^.href := "profile.html",
-                    <.img(^.src := "http://i.imgur.com/N4VcUeJ.jpg")
+                    <.img(^.src := "/assets/images/N4VcUeJ.jpg")
                   ),
                   <.div(
                     ^.className := "info",
                     <.a(^.href := "", ^.className := "author", "Prof. Charles Xavier"),
                     <.span(^.className := "date", "January 20th")
-                  ),
-                  <.button(
-                    ^.className := "btn btn-outline-primary btn-sm pull-xs-right",
-                    <.i(^.className := "ion-heart"),
-                    "32"
-                  )
+                  ) /*,                  <.button(                    ^.className := "btn btn-outline-primary btn-sm pull-xs-right",                    <.i(^.className := "ion-heart"),                    "29"                  )*/
                 ),
                 <.a(^.href := "", ^.className := "preview-link",
-                  <.h1("Results for course winter semester announced"),
-                  <.p("Please use the link on the right to view the results"))
+                  <.h1("Results for winter semester announced"),
+                  <.p("Please use the link on the right to view the results"),
+                  <.span("Read more..."))
               )
             ),
             <.div(

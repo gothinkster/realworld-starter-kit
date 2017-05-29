@@ -11,4 +11,5 @@ GET         /                                       controllers.ViewController.i
 GET         /webjars/*file                          controllers.WebJarAssets.at(file)
 GET         /assets/fonts/*file                     controllers.Assets.at(path="/public/lib/font-awesome/fonts", file)
 GET         /assets/*file                           controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file                           controllers.Assets.versioned(path="/public", file: Asset)
 

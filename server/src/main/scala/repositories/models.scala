@@ -15,8 +15,8 @@ case class CourseStudent(id: java.util.UUID, courseId: java.util.UUID, studentId
 case class Department(id: java.util.UUID, facultyId: java.util.UUID, code: String, name: String, yearOfEstablishment: String, address: String,
   created: java.time.LocalDateTime)
 
-case class Employee(id: java.util.UUID, registrationNumber: String, empGroup: String, userId: java.util.UUID, departmentId: java.util.UUID,
-  employeeSince: Option[java.time.LocalDateTime], created: java.time.LocalDateTime)
+case class Employee(id: java.util.UUID, empGroup: String, userId: java.util.UUID, departmentId: java.util.UUID,
+  employeeSince: java.time.LocalDateTime, created: java.time.LocalDateTime)
 
 case class EmployeeDesignation(id: java.util.UUID, name: String, created: java.time.LocalDateTime)
 

@@ -1,7 +1,9 @@
 package services
 
+import java.util.UUID
+
 import db.DbContext
-import repositories.{Employee, EmployeeRepository}
+import repositories.{Employee, EmployeeRepository, Student}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -21,9 +23,6 @@ class EmployeeService(val ctx: DbContext, userService: UserService)(implicit val
     } yield {
       employees.headOption
     }
-    /*userService.createUserWithRole(role).map{
-      id => ctx.run(employees.insert(employee.copy(id = empId, created= created))).map(_ => run(byId(empId)).map(_.headOption))
-    }*/
-
   }
+  def findById(uuid: UUID): Future[Option[Employee]] = run(byId(uuid)).map(_.headOption)
 }

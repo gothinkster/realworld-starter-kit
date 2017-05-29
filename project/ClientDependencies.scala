@@ -15,11 +15,18 @@ object ClientDependencies {
     "org.scala-js" %%% "scalajs-dom" % "0.9.1"
   ))
 
-  /**Npm dependencies */
-  val npmDependencies = Def.setting((Seq(
-    "react" -> "15.5.4",
-    "react-dom" -> "15.5.4",
-    "expose-loader" -> "0.7.1"
-  )))
+//  /**Npm dependencies */
+//  val npmDependencies = Def.setting((Seq(
+//    "react" -> "15.5.4",
+//    "react-dom" -> "15.5.4",
+//    "expose-loader" -> "0.7.1"
+//  )))
+
+  /** Dependencies for external JS libs that are bundled into a single .js file according to dependency order */
+  val jsDependencies = Def.setting(Seq(
+    "org.webjars.npm" % "react" % "15.5.4" / "react-with-addons.min.js" commonJSName "React",
+    "org.webjars.npm" % "react-dom" % "15.5.4" / "react-dom.min.js" commonJSName "ReactDOM" dependsOn "react-with-addons.min.js"
+  ))
+
 
 }

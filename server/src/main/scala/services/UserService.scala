@@ -15,7 +15,7 @@ class UserService(val ctx: DbContext)(implicit val ec: ExecutionContext) extends
   override def createUserWithRole(role: String): Future[UUID] = {
     val id = UUID.randomUUID()
     val created = java.time.LocalDateTime.now()
-    run(users.insert(lift(User(UUID.randomUUID(), role, created)))).map(_ => id)
+    run(users.insert(lift(User(id, role, created)))).map(_ => id)
   }
   def yo() = println("yo from user service")
 }

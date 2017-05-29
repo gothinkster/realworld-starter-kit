@@ -141,7 +141,7 @@ Alternatively, if you want to make modifications to the theme, check out the [th
 
         <div class="article-preview">
           <div class="article-meta">
-            <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+            <a href="profile.html"><img src="/assets/images/Qr71crq.jpg" /></a>
             <div class="info">
               <a href="" class="author">Eric Simons</a>
               <span class="date">January 20th</span>
@@ -159,7 +159,7 @@ Alternatively, if you want to make modifications to the theme, check out the [th
 
         <div class="article-preview">
           <div class="article-meta">
-            <a href="profile.html"><img src="http://i.imgur.com/N4VcUeJ.jpg" /></a>
+            <a href="profile.html"><img src="/assets/images/N4VcUeJ.jpg" /></a>
             <div class="info">
               <a href="" class="author">Albert Pai</a>
               <span class="date">January 20th</span>
@@ -248,7 +248,7 @@ Alternatively, if you want to make modifications to the theme, check out the [th
       <div class="row">
 
         <div class="col-xs-12 col-md-10 offset-md-1">
-          <img src="http://i.imgur.com/Qr71crq.jpg" class="user-img" />
+          <img src="/assets/images/Qr71crq.jpg" class="user-img" />
           <h4>Eric Simons</h4>
           <p>
             Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda looks like Peeta from the Hunger Games
@@ -281,7 +281,7 @@ Alternatively, if you want to make modifications to the theme, check out the [th
 
         <div class="article-preview">
           <div class="article-meta">
-            <a href=""><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+            <a href=""><img src="/assets/images/Qr71crq.jpg" /></a>
             <div class="info">
               <a href="" class="author">Eric Simons</a>
               <span class="date">January 20th</span>
@@ -299,7 +299,7 @@ Alternatively, if you want to make modifications to the theme, check out the [th
 
         <div class="article-preview">
           <div class="article-meta">
-            <a href=""><img src="http://i.imgur.com/N4VcUeJ.jpg" /></a>
+            <a href=""><img src="/assets/images/N4VcUeJ.jpg" /></a>
             <div class="info">
               <a href="" class="author">Albert Pai</a>
               <span class="date">January 20th</span>
@@ -415,7 +415,7 @@ Alternatively, if you want to make modifications to the theme, check out the [th
       <h1>How to build webapps that scale</h1>
 
       <div class="article-meta">
-        <a href=""><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+        <a href=""><img src="/assets/images/Qr71crq.jpg" /></a>
         <div class="info">
           <a href="" class="author">Eric Simons</a>
           <span class="date">January 20th</span>
@@ -452,7 +452,7 @@ Alternatively, if you want to make modifications to the theme, check out the [th
 
     <div class="article-actions">
       <div class="article-meta">
-        <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+        <a href="profile.html"><img src="/assets/images/Qr71crq.jpg" /></a>
         <div class="info">
           <a href="" class="author">Eric Simons</a>
           <span class="date">January 20th</span>
@@ -481,7 +481,7 @@ Alternatively, if you want to make modifications to the theme, check out the [th
             <textarea class="form-control" placeholder="Write a comment..." rows="3"></textarea>
           </div>
           <div class="card-footer">
-            <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
+            <img src="/assets/images/Qr71crq.jpg" class="comment-author-img" />
             <button class="btn btn-sm btn-primary">
              Post Comment
             </button>
@@ -494,7 +494,7 @@ Alternatively, if you want to make modifications to the theme, check out the [th
           </div>
           <div class="card-footer">
             <a href="" class="comment-author">
-              <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
+              <img src="/assets/images/Qr71crq.jpg" class="comment-author-img" />
             </a>
             &nbsp;
             <a href="" class="comment-author">Jacob Schmidt</a>
@@ -508,7 +508,7 @@ Alternatively, if you want to make modifications to the theme, check out the [th
           </div>
           <div class="card-footer">
             <a href="" class="comment-author">
-              <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
+              <img src="/assets/images/Qr71crq.jpg" class="comment-author-img" />
             </a>
             &nbsp;
             <a href="" class="comment-author">Jacob Schmidt</a>

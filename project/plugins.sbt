@@ -18,7 +18,7 @@ addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.16")
 addSbtPlugin("com.vmunier" % "sbt-web-scalajs" % "1.0.4")
 
 // bundler
-addSbtPlugin("ch.epfl.scala" % "sbt-web-scalajs-bundler" % "0.6.0")
+//addSbtPlugin("ch.epfl.scala" % "sbt-web-scalajs-bundler" % "0.6.0")
 
 // App Packaging
 addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.1.5")

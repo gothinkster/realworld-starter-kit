@@ -1,16 +1,16 @@
 package services
 
-import com.realworld.shared.models.University
 import test.{BaseDBSpec, BaseSpec}
 import org.scalatest.Matchers._
 import org.scalatestplus.play.PlaySpec
-import repositories.{Faculty, University}
+import repositories.{Department, Employee, Faculty, University}
 
 //todo improve these test
 class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec {
   //todo remove mutable reference
   var universityId = java.util.UUID.randomUUID()
   var facultyId = java.util.UUID.randomUUID()
+  var departmentId = java.util.UUID.randomUUID()
   "UniversityService" should {
     "create and find" in {
       universityId = db.universityService.create(University(java.util.UUID.randomUUID(),
@@ -28,6 +28,28 @@ class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec {
       val facultyFound = db.facultyService.findById(facultyId).futureValue
       facultyFound shouldBe defined
       facultyFound.foreach(_.code shouldBe "AMUFCS")
+    }
+  }
+
+  "DepartmentService" should {
+    "create and find" in {
+      //      db.userServicep.yo()
+      departmentId = db.departmentService.create(Department(java.util.UUID.randomUUID(),
+        facultyId, "DCS", "Department Of Computer Application", "1995", "Aligarh Muslim University", java.time.LocalDateTime.now())).futureValue
+      val departmentFound = db.departmentService.findById(departmentId).futureValue
+      departmentFound shouldBe defined
+      departmentFound.foreach(_.code shouldBe "DCS")
+    }
+  }
+
+  "EmployeeService" should {
+    "create and find" in {
+      //      db.userServicep.yo()
+      val employee = db.employeeService.createEmpWithRole(Employee(java.util.UUID.randomUUID(),
+        "AG", java.util.UUID.randomUUID(), departmentId, java.time.LocalDateTime.now(), java.time.LocalDateTime.now()), "teacher").futureValue
+      employee shouldBe defined
+      println(employee)
+      employee.foreach(_.empGroup shouldBe "AG")
     }
   }
 }

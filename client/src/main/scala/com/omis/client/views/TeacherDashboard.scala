@@ -34,18 +34,13 @@ object TeacherDashboard {
                   ^.className := "article-meta",
                   <.a(
                     ^.href := "profile.html",
-                    <.img(^.src := "http://i.imgur.com/Qr71crq.jpg")
+                    <.img(^.src := "/assets/images/Qr71crq.jpg")
                   ),
                   <.div(
                     ^.className := "info",
                     <.a(^.href := "", ^.className := "author", "Admin"),
                     <.span(^.className := "date", "January 20th")
-                  ),
-                  <.button(
-                    ^.className := "btn btn-outline-primary btn-sm pull-xs-right",
-                    <.i(^.className := "ion-heart"),
-                    "29"
-                  )
+                  ) /*,                  <.button(                    ^.className := "btn btn-outline-primary btn-sm pull-xs-right",                    <.i(^.className := "ion-heart"),                    "29"                  )*/
                 ),
                 <.a(^.href := "", ^.className := "preview-link",
                   <.h1("Your leaves for 3 from 24th June to 27th June is rejected"),
@@ -58,18 +53,13 @@ object TeacherDashboard {
                   ^.className := "article-meta",
                   <.a(
                     ^.href := "profile.html",
-                    <.img(^.src := "http://i.imgur.com/N4VcUeJ.jpg")
+                    <.img(^.src := "/assets/images/N4VcUeJ.jpg")
                   ),
                   <.div(
                     ^.className := "info",
                     <.a(^.href := "", ^.className := "author", "Admin"),
                     <.span(^.className := "date", "January 20th")
-                  ),
-                  <.button(
-                    ^.className := "btn btn-outline-primary btn-sm pull-xs-right",
-                    <.i(^.className := "ion-heart"),
-                    "32"
-                  )
+                  ) /*,                  <.button(                    ^.className := "btn btn-outline-primary btn-sm pull-xs-right",                    <.i(^.className := "ion-heart"),                    "29"                  )*/
                 ),
                 <.a(^.href := "", ^.className := "preview-link",
                   <.h1("Your request for profile update is accepted"),
