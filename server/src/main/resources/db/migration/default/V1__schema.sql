@@ -47,6 +47,7 @@ alter table departments add constraint department_faculty_fk FOREIGN KEY (facult
 create table if not exists users(
     id uuid,
     role varchar(10) not null,
+    registration_id(10) not null,
     created TIMESTAMP not null
 );
 

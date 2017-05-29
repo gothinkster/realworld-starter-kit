@@ -1,6 +1,6 @@
 package com.omis.client.views
 
-import com.omis.client.router.ApplicationRouter.Loc
+import com.omis.client.router.ApplicationRouter.{Loc, NewEmployeeLoc}
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^._
@@ -45,9 +45,11 @@ object Employees {
                   ) /*,                  <.button(                    ^.className := "btn btn-outline-primary btn-sm pull-xs-right",                    <.i(^.className := "ion-heart"),                    "29"                  )*/
                 ),
                 <.a(^.href := "", ^.className := "preview-link",
-                  <.h1("University Employee: AMU00001 From: 22/06/2017 To: 25/06/2017"),
-                  <.p("Heading to hometown during that period."),
-                  <.span("Read more..."))
+                  <.h1("Employee Code: AMU0001"),
+                  <.p("Department: Computer Science"),
+                  <.p("Salary: 100000"),
+                  <.p("Employee Grade: B"),
+                  <.p("Pay group: 100000 - 120000"))
               ),
               <.div(
                 ^.className := "article-preview",
@@ -64,8 +66,11 @@ object Employees {
                   ) /*,                  <.button(                    ^.className := "btn btn-outline-primary btn-sm pull-xs-right",                    <.i(^.className := "ion-heart"),                    "29"                  )*/
                 ),
                 <.a(^.href := "", ^.className := "preview-link",
-                  <.h1("Profile Update Employee: AMU00001"),
-                  <.p("Please review the updated profile in the request menu"))
+                  <.h1("Employee Code: AMU0002"),
+                  <.p("Department: Computer Science"),
+                  <.p("Salary: 100000"),
+                  <.p("Employee Grade: B"),
+                  <.p("Pay group: 100000 - 120000"))
               )
             ),
             <.div(
@@ -75,7 +80,10 @@ object Employees {
                 <.p("Links"),
                 <.div(
                   ^.className := "tag-list",
-                  <.a(^.href := "", ^.className := "tag-pill tag-default", "Add Employee")
+                  p.routerCtl.link(NewEmployeeLoc)(
+                    ^.className := "tag-pill tag-default",
+                    "Add Employee"
+                  )
                 )
               )
             )

@@ -13,9 +13,9 @@ object Dashboard {
   class Backend($: BackendScope[Props, State]) {
     def render(s: State, p: Props): VdomElement =
       p.roleName match {
-        case "student" => StudentDashboard.component(StudentDashboard.Props())
-        case "teacher" => TeacherDashboard.component(TeacherDashboard.Props())
-        case "admin" => AdminDashboard.component(AdminDashboard.Props())
+        case "student" => StudentDashboard.component(StudentDashboard.Props(p.routerCtl))
+        case "teacher" => TeacherDashboard.component(TeacherDashboard.Props(p.routerCtl))
+        case "admin" => AdminDashboard.component(AdminDashboard.Props(p.routerCtl))
         case _ => <.div()
       }
   }

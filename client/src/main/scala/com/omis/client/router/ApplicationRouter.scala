@@ -15,6 +15,7 @@ object ApplicationRouter {
   case object DashboardLoc extends Loc
   case object ProfileLoc extends Loc
   case object SettingsLoc extends Loc
+  case object NewEmployeeLoc extends Loc
   case object CreateLoc extends Loc
   case object ArticleLoc extends Loc
   case object EmployeesLoc extends Loc
@@ -32,7 +33,8 @@ object ApplicationRouter {
       | staticRoute("profile", ProfileLoc) ~> renderR(ctl => Profile.component(Profile.Props(ctl)))
       | staticRoute("create", CreateLoc) ~> renderR(ctl => Create.component(Create.Props(ctl)))
       | staticRoute("article", ArticleLoc) ~> renderR(ctl => Article.component(Article.Props(ctl)))
-      | staticRoute("settings", SettingsLoc) ~> renderR(ctl => Settings.component(Settings.Props(ctl))))
+      | staticRoute("settings", SettingsLoc) ~> renderR(ctl => Settings.component(Settings.Props(ctl)))
+      | staticRoute("newemployee", NewEmployeeLoc) ~> renderR(ctl => NewEmployee.component(NewEmployee.Props(ctl))))
       .notFound(redirectToPage(HomeLoc)(Redirect.Replace))
       .renderWith(MainLayout.layout)
       .verify(HomeLoc)

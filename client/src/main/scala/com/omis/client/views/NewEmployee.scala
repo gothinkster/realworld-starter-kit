@@ -45,17 +45,29 @@ object NewEmployee {
                   ),
                   <.fieldset(
                     ^.className := "form-group",
+                    <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Department Code")
+                  ),
+                  <.fieldset(
+                    ^.className := "form-group",
+                    <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Employee Grade")
+                  ),
+                  <.fieldset(
+                    ^.className := "form-group",
+                    <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Salary")
+                  ),
+                  <.fieldset(
+                    ^.className := "form-group",
+                    <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Pay Scale")
+                  ),
+                  <.fieldset(
+                    ^.className := "form-group",
                     <.textarea(^.className := "form-control form-control-lg", ^.rows := 8, ^.placeholder := "Short bio")
                   ),
                   <.fieldset(
                     ^.className := "form-group",
-                    <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Email")
+                    <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Registration ID")
                   ),
-                  <.fieldset(
-                    ^.className := "form-group",
-                    <.input(^.className := "form-control form-control-lg", ^.`type` := "password", ^.placeholder := "Password")
-                  ),
-                  <.button(^.className := "btn btn-lg btn-primary pull-xs-right", "Update Settings")
+                  <.button(^.className := "btn btn-lg btn-primary pull-xs-right", "Add Employee")
                 )
               )
             )
