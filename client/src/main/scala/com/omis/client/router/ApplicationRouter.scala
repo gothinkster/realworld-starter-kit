@@ -23,6 +23,7 @@ object ApplicationRouter {
   case object ArticleLoc extends Loc
   case object EmployeesLoc extends Loc
   case object EmployeeLoc extends Loc
+  case object NewLeaveLoc extends Loc
 
   val routerConfig = RouterConfigDsl[Loc].buildConfig { dsl =>
     val testEmployee = Employee(UUID.randomUUID(), "John", "Doe", "AMU", "FCS", "DCS", "A", "1000000", "1000000-1200000",
@@ -40,7 +41,8 @@ object ApplicationRouter {
       | staticRoute("create", CreateLoc) ~> renderR(ctl => Create.component(Create.Props(ctl)))
       | staticRoute("article", ArticleLoc) ~> renderR(ctl => Article.component(Article.Props(ctl)))
       | staticRoute("settings", SettingsLoc) ~> renderR(ctl => Settings.component(Settings.Props(ctl)))
-      | staticRoute("newemployee", NewEmployeeLoc) ~> renderR(ctl => NewEmployee.component(NewEmployee.Props(ctl))))
+      | staticRoute("newemployee", NewEmployeeLoc) ~> renderR(ctl => NewEmployee.component(NewEmployee.Props(ctl)))
+      | staticRoute("newleave", NewLeaveLoc) ~> renderR(ctl => NewLeave.component(NewLeave.Props(ctl))))
       .notFound(redirectToPage(HomeLoc)(Redirect.Replace))
       .renderWith(MainLayout.layout)
       .verify(HomeLoc)

@@ -31,6 +31,7 @@ object Dependencies {
   }
 
   object WebJars {
+    val datepicker = "org.webjars" % "bootstrap-datepicker" % "1.6.4"
   }
 
   object Utils {
