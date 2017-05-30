@@ -63,10 +63,6 @@ object NewEmployee {
                     ^.className := "form-group",
                     <.textarea(^.className := "form-control form-control-lg", ^.rows := 8, ^.placeholder := "Short bio")
                   ),
-                  <.fieldset(
-                    ^.className := "form-group",
-                    <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Registration ID")
-                  ),
                   <.button(^.className := "btn btn-lg btn-primary pull-xs-right", "Add Employee")
                 )
               )

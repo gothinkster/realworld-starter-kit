@@ -1,6 +1,10 @@
 package com.omis.client.views
 
+import java.util.UUID
+
+import com.omis.Employee
 import com.omis.client.router.ApplicationRouter.{Loc, NewEmployeeLoc}
+import com.omis.client.views.modals.EditEmployee
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^._
@@ -8,9 +12,42 @@ import japgolly.scalajs.react.{BackendScope, ScalaComponent}
 
 object Employees {
 
-  case class State()
+  lazy val employeesSeq: Seq[Employee] = Seq(
+    Employee(UUID.randomUUID(), "John", "Doe", "AMU", "FCS", "DCS", "A", "1000000", "1000000-1200000",
+      "Btech Mtech and Phd Qualified", "January 29th 1999", "AMU0001", "/assets/images/Qr71crq.jpg"),
+    Employee(UUID.randomUUID(), "Charles", "Xavier", "AMU", "FCS", "DCS", "A", "1000000", "1000000-1200000",
+      "Btech Mtech Qualified", "January 29th 2001", "AMU0002", "/assets/images/N4VcUeJ.jpg")
+  )
+
+  case class State(employees: Seq[Employee] = employeesSeq)
+
   case class Props(routerCtl: RouterCtl[Loc])
+
   class Backend($: BackendScope[Props, State]) {
+    def renderEmployee(employee: Employee) = {
+      <.div(
+        ^.className := "article-preview",
+        <.div(
+          ^.className := "article-meta",
+          <.a(
+            ^.href := "profile.html",
+            <.img(^.src := employee.imgUrl)
+          ),
+          <.div(
+            ^.className := "info",
+            <.a(^.href := "", ^.className := "author", s"${employee.firstName} ${employee.lastName}"),
+            <.span(^.className := "date", s"Employee since: ${employee.since}")
+          ), EditEmployee(EditEmployee.Props(employee))
+        ),
+        <.a(^.href := "", ^.className := "preview-link",
+          <.h1(s"Employee Code: ${employee.registrationCode}"),
+          <.p("Department: Computer Science"),
+          <.p("Salary: 100000"),
+          <.p("Employee Grade: B"),
+          <.p("Pay group: 100000 - 120000"))
+      )
+    }
+
     def render(s: State, p: Props): VdomElement =
       <.div(
         ^.className := "home-page",
@@ -31,46 +68,7 @@ object Employees {
                 )
               ),
               <.div(
-                ^.className := "article-preview",
-                <.div(
-                  ^.className := "article-meta",
-                  <.a(
-                    ^.href := "profile.html",
-                    <.img(^.src := "/assets/images/Qr71crq.jpg")
-                  ),
-                  <.div(
-                    ^.className := "info",
-                    <.a(^.href := "", ^.className := "author", "John Doe"),
-                    <.span(^.className := "date", "Employee since: January 20th, 1999")
-                  ) /*,                  <.button(                    ^.className := "btn btn-outline-primary btn-sm pull-xs-right",                    <.i(^.className := "ion-heart"),                    "29"                  )*/
-                ),
-                <.a(^.href := "", ^.className := "preview-link",
-                  <.h1("Employee Code: AMU0001"),
-                  <.p("Department: Computer Science"),
-                  <.p("Salary: 100000"),
-                  <.p("Employee Grade: B"),
-                  <.p("Pay group: 100000 - 120000"))
-              ),
-              <.div(
-                ^.className := "article-preview",
-                <.div(
-                  ^.className := "article-meta",
-                  <.a(
-                    ^.href := "profile.html",
-                    <.img(^.src := "/assets/images/N4VcUeJ.jpg")
-                  ),
-                  <.div(
-                    ^.className := "info",
-                    <.a(^.href := "", ^.className := "author", "Test employee"),
-                    <.span(^.className := "date", "January 20th")
-                  ) /*,                  <.button(                    ^.className := "btn btn-outline-primary btn-sm pull-xs-right",                    <.i(^.className := "ion-heart"),                    "29"                  )*/
-                ),
-                <.a(^.href := "", ^.className := "preview-link",
-                  <.h1("Employee Code: AMU0002"),
-                  <.p("Department: Computer Science"),
-                  <.p("Salary: 100000"),
-                  <.p("Employee Grade: B"),
-                  <.p("Pay group: 100000 - 120000"))
+                s.employees map renderEmployee: _*
               )
             ),
             <.div(
