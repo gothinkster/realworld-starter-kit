@@ -5,7 +5,7 @@ import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
 import com.mohiva.play.silhouette.api.services._
 import com.mohiva.play.silhouette.api.util.{PasswordHasherRegistry, _}
 import com.mohiva.play.silhouette.api.{Environment, EventBus, Silhouette, SilhouetteProvider}
-import com.mohiva.play.silhouette.crypto.{JcaCookieSigner, JcaCookieSignerSettings}
+import com.mohiva.play.silhouette.crypto.{JcaCookieSigner, JcaCookieSignerSettings, JcaCrypter, JcaCrypterSettings}
 import com.mohiva.play.silhouette.impl.authenticators._
 import com.mohiva.play.silhouette.impl.util._
 import com.mohiva.play.silhouette.password.BCryptPasswordHasher
@@ -22,7 +22,8 @@ import com.mohiva.play.silhouette.impl.services._
 import play.api.cache.{CacheApi, EhCacheComponents}
 import play.api.libs.ws.WSClient
 import play.api.libs.ws.ahc.AhcWSComponents
-import services.silhouetteservices.{PasswordInfoService, SilhouetteIdentityService}
+import services.{PasswordInfoService, UserService}
+import net.ceedubs.ficus.readers.EnumerationReader._
 
 trait SilhouetteModule extends SilhouetteActionConfig with EhCacheComponents with AhcWSComponents {
 
@@ -32,14 +33,16 @@ trait SilhouetteModule extends SilhouetteActionConfig with EhCacheComponents wit
 
   def wsClient: WSClient
 
-  def silhouetteIdentityService: SilhouetteIdentityService
+  def userService: UserService
+
+  def passwordInfoService: PasswordInfoService
 
   lazy val cacheLayer = wire[PlayCacheLayer]
   lazy val httpLayer = wire[PlayHTTPLayer]
   lazy val settings = GravatarServiceSettings()
   lazy val avatarService = wire[GravatarService]
 
-  lazy val passwordInfoDAO = wire[PasswordInfoService]
+  //  lazy val passwordInfoDAO = wire[PasswordInfoService]
   lazy val authInfoRepository = wireWith(SilhouetteAuthInfoRepository.apply _)
   lazy val passwordHasher = new BCryptPasswordHasher
   lazy val passwordHasherRegistry = new PasswordHasherRegistry(passwordHasher, Nil)
@@ -51,26 +54,27 @@ trait SilhouetteModule extends SilhouetteActionConfig with EhCacheComponents wit
   lazy val idGenerator = new SecureRandomIDGenerator
   lazy val authenticatorEncoder = new Base64AuthenticatorEncoder()
   lazy val clock = Clock()
-
-  //  lazy val silhouetteIdentityService = wire[SilhouetteIdentityService]
   lazy val authenticatorService = wireWith(SilhouetteAuthenticatorService.apply _)
   lazy val eventBus = EventBus()
   lazy val silhouetteEnvironment = wireWith(SilhouetteEnvironment.apply _)
   lazy val silhouette: Silhouette[DefaultEnv] = wire[SilhouetteProvider[DefaultEnv]]
 
   object SilhouetteAuthenticatorService {
-    def apply(fingerprintGenerator: FingerprintGenerator, cookieSigner: JcaCookieSigner,
-      idGenerator: IDGenerator, authenticatorEncoder: AuthenticatorEncoder,
-      clock: Clock, configuration: Configuration): AuthenticatorService[CookieAuthenticator] = {
-      val config = configuration.underlying.as[CookieAuthenticatorSettings]("silhouette.authenticator")
-      new CookieAuthenticatorService(config, None, cookieSigner, authenticatorEncoder, fingerprintGenerator, idGenerator, clock)
+    def apply(
+      idGenerator: IDGenerator,
+      clock: Clock, configuration: Configuration
+    ): AuthenticatorService[JWTAuthenticator] = {
+      val config = configuration.underlying.as[JWTAuthenticatorSettings]("silhouette.authenticator")
+      val crypterConfig = configuration.underlying.as[JcaCrypterSettings]("silhouette.authenticator.crypter")
+      val encoder = new CrypterAuthenticatorEncoder(new JcaCrypter(crypterConfig))
+      new JWTAuthenticatorService(config, None, encoder, idGenerator, clock)
     }
   }
 
   object SilhouetteEnvironment {
     def apply(
-      userService: SilhouetteIdentityService,
-      authenticatorService: AuthenticatorService[CookieAuthenticator],
+      userService: UserService,
+      authenticatorService: AuthenticatorService[JWTAuthenticator],
       eventBus: EventBus
     ): Environment[DefaultEnv] = {
       Environment[DefaultEnv](userService, authenticatorService, Seq(), eventBus)

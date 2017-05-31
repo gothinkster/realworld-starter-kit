@@ -1,5 +1,10 @@
 package repositories
 
+import java.time.LocalDateTime
+import java.util.UUID
+
+import com.mohiva.play.silhouette.api
+
 case class Course(id: java.util.UUID, code: String, name: String,
   created: java.time.LocalDateTime)
 
@@ -16,7 +21,9 @@ case class Department(id: java.util.UUID, facultyId: java.util.UUID, code: Strin
   created: java.time.LocalDateTime)
 
 case class Employee(id: java.util.UUID, empGroup: String, userId: java.util.UUID, departmentId: java.util.UUID,
-  employeeSince: java.time.LocalDateTime, created: java.time.LocalDateTime)
+  employeeSince: java.time.LocalDateTime, created: java.time.LocalDateTime, registrationNumber: String = "")
+
+case class EmployeeRegDetails(id: java.util.UUID, registrationNumber: String, empGroup: String)
 
 case class EmployeeDesignation(id: java.util.UUID, name: String, created: java.time.LocalDateTime)
 
@@ -30,8 +37,7 @@ case class EmployeeSalary(id: java.util.UUID, employeeId: java.util.UUID, employ
 case class Faculty(id: java.util.UUID, universityId: java.util.UUID, code: String, name: String,
   addressOfFaculty: String, yearOfEstablishment: String, created: java.time.LocalDateTime)
 
-case class PasswordInfo(userId: java.util.UUID, provider: String, key: String, hasher: String, password: String,
-  salt: Option[String], created: java.time.LocalDateTime)
+case class UserPasswordInfo(userId: UUID, hasher: String, password: String, salt: Option[String], created: LocalDateTime)
 
 case class Semester(id: java.util.UUID, session: String, semesterType: String, created: java.time.LocalDateTime)
 
@@ -49,7 +55,9 @@ case class University(id: java.util.UUID, code: String, name: String, yearOfEsta
 case class UniversityAllocatedLeaves(id: java.util.UUID, year: String, universityId: java.util.UUID, numberOfLeaves: Int,
   created: java.time.LocalDateTime)
 
-case class User(id: java.util.UUID, role: String, created: java.time.LocalDateTime)
+case class User(id: java.util.UUID, role: String, created: java.time.LocalDateTime) extends api.Identity
+
+case class UserLoginInfo(userId: UUID, providerID: String = "credentials", providerKey: String)
 
 case class UserProfile(userId: java.util.UUID, address: Option[String], phoneNumber: Option[String], firstName: Option[String],
   lastName: Option[String], imgUrl: Option[String], nationality: Option[String], fatherName: Option[String],

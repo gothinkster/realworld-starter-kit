@@ -12,12 +12,9 @@ import play.filters.cors.CORSComponents
 import play.filters.csrf.CSRFComponents
 import play.filters.gzip.GzipFilterComponents
 import play.filters.headers.SecurityHeadersComponents
-import services.silhouetteservices.SilhouetteIdentityService
 import utils.web.{Filters, RequestHandler, ServerErrorHandler}
 import utils.AppLogger
 import router.Routes
-import services.UniversityService
-
 import scala.concurrent.ExecutionContext
 
 class Loader(context: Context) extends BuiltInComponentsFromContext(context)
@@ -31,8 +28,6 @@ class Loader(context: Context) extends BuiltInComponentsFromContext(context)
   LoggerConfigurator(context.environment.classLoader).foreach {
     _.configure(context.environment)
   }
-
-  lazy val silhouetteIdentityService = wire[SilhouetteIdentityService]
 
   implicit lazy val executionContext: ExecutionContext = actorSystem.dispatcher
   lazy val routerOption = None

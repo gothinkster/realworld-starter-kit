@@ -47,7 +47,8 @@ object Shared {
 
   lazy val shared = (crossProject.crossType(CrossType.Pure) in file("shared")).settings(commonSettings: _*).settings(
     libraryDependencies ++= Seq(
-      SharedDependencies.macwire
+      SharedDependencies.macwire,
+      "com.typesafe.play" %%% "play-json" % SharedDependencies.playJsonVersion
     )
   )
     .jvmSettings(
@@ -56,6 +57,7 @@ object Shared {
     )
     .jsSettings(
       libraryDependencies ++= Seq(
+
       )
     )
     .jsConfigure(_ enablePlugins ScalaJSWeb)

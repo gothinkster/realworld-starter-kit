@@ -47,12 +47,20 @@ alter table departments add constraint department_faculty_fk FOREIGN KEY (facult
 create table if not exists users(
     id uuid,
     role varchar(10) not null,
-    registration_id(10) not null,
     created TIMESTAMP not null
 );
 
 alter table users add constraint user_id primary key(id);
 
+create table if not exists login_info(
+    user_id uuid not null,
+    provider_id varchar (20) not null,
+    provider_key varchar (128) not null,
+    primary key(user_id)
+);
+
+alter table login_info add constraint user_identity_user_fk FOREIGN KEY (user_id) references users(id)
+    on delete cascade on update cascade;
 
 create table if not exists password_info (
     user_id uuid not null,

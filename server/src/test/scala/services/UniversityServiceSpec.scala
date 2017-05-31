@@ -11,6 +11,7 @@ class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec {
   var universityId = java.util.UUID.randomUUID()
   var facultyId = java.util.UUID.randomUUID()
   var departmentId = java.util.UUID.randomUUID()
+  var regCode = ""
   "UniversityService" should {
     "create and find" in {
       universityId = db.universityService.create(University(java.util.UUID.randomUUID(),
@@ -45,11 +46,22 @@ class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec {
   "EmployeeService" should {
     "create and find" in {
       //      db.userServicep.yo()
-      val employee = db.employeeService.createEmpWithRole(Employee(java.util.UUID.randomUUID(),
+      regCode = db.employeeService.createEmpWithRole(Employee(java.util.UUID.randomUUID(),
         "AG", java.util.UUID.randomUUID(), departmentId, java.time.LocalDateTime.now(), java.time.LocalDateTime.now()), "teacher").futureValue
-      employee shouldBe defined
-      println(employee)
-      employee.foreach(_.empGroup shouldBe "AG")
+      println(regCode)
+      regCode should have length(6)
+
     }
   }
+
+  "UserService" should {
+    "find user with the regcode" in {
+      val userIdentity = db.userService.findUserByProvideKey(regCode).futureValue
+
+      println(userIdentity)
+      userIdentity should matchPattern {case Some(userIdentity) => }
+    }
+  }
+
+
 }

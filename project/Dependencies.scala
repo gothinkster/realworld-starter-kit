@@ -26,6 +26,7 @@ object Dependencies {
   }
 
   object SharedDependencies {
+    val playJsonVersion = "2.6.0-M4"
     val macwireVersion = "2.3.0"
     val macwire = "com.softwaremill.macwire" %% "macros" % macwireVersion
   }
