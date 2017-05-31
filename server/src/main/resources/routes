@@ -7,6 +7,8 @@
 # Views
 GET         /                                       controllers.ViewController.index
 
+POST        /signup                                 controllers.RegistrationController.register
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /webjars/*file                          controllers.WebJarAssets.at(file)
 GET         /assets/fonts/*file                     controllers.Assets.at(path="/public/fonts", file)

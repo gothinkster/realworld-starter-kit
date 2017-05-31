@@ -16,14 +16,13 @@ class RegistrationController(userService: UserService, passwordInfoService: Pass
     val messagesApi: MessagesApi,
     hasherReg: PasswordHasherRegistry,
     silhouette: Silhouette[DefaultEnv])(implicit val ec: ExecutionContext) extends BaseController(silhouette) with I18nSupport {
-  def submit = Action.async(parse.json) { implicit request =>
+  def register = Action.async(parse.json) { implicit request =>
     request.body.validate[UserReg].map { data =>
       val loginInfo = LoginInfo(CredentialsProvider.ID, data.regCode)
       userService.retrieve(loginInfo).flatMap {
         case Some(user) =>
           val passwordInfo = hasherReg.current.hash(data.password)
           passwordInfoService.add(loginInfo, passwordInfo)
-          Future.successful(BadRequest(Json.obj("message" -> Messages("User already registered"))))
           for {
             _ <- passwordInfoService.add(loginInfo, passwordInfo)
             authenticator <- silhouette.env.authenticatorService.create(loginInfo)
