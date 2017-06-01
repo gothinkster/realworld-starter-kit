@@ -13,3 +13,9 @@ case class UserReg(regCode: String, password: String)
 object UserReg{
   implicit val format = Json.format[UserReg]
 }
+
+case class User(id: java.util.UUID, role: String, created: String)
+
+object User {
+  implicit val format = Json.format[User]
+}

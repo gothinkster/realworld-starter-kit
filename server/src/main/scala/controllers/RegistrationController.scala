@@ -1,6 +1,6 @@
 package controllers
 
-import com.mohiva.play.silhouette.api.util.PasswordHasherRegistry
+import com.mohiva.play.silhouette.api.util.{PasswordHasher, PasswordHasherRegistry}
 import com.mohiva.play.silhouette.api.{LoginEvent, LoginInfo, SignUpEvent, Silhouette}
 import com.mohiva.play.silhouette.impl.providers.CredentialsProvider
 import com.omis.UserReg
@@ -14,15 +14,14 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class RegistrationController(userService: UserService, passwordInfoService: PasswordInfoService,
     val messagesApi: MessagesApi,
-    hasherReg: PasswordHasherRegistry,
+    passwordHasher: PasswordHasher,
     silhouette: Silhouette[DefaultEnv])(implicit val ec: ExecutionContext) extends BaseController(silhouette) with I18nSupport {
   def register = Action.async(parse.json) { implicit request =>
     request.body.validate[UserReg].map { data =>
       val loginInfo = LoginInfo(CredentialsProvider.ID, data.regCode)
       userService.retrieve(loginInfo).flatMap {
         case Some(user) =>
-          val passwordInfo = hasherReg.current.hash(data.password)
-          passwordInfoService.add(loginInfo, passwordInfo)
+          val passwordInfo = passwordHasher.hash(data.password)
           for {
             _ <- passwordInfoService.add(loginInfo, passwordInfo)
             authenticator <- silhouette.env.authenticatorService.create(loginInfo)

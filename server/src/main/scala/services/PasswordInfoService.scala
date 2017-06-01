@@ -19,7 +19,7 @@ class PasswordInfoService(val ctx: DbContext, userService: UserService)(implicit
           user.id,
           authInfo.hasher,
           authInfo.password,
-          authInfo.salt,
+          /*authInfo.salt*/ Some("salt"),
           LocalDateTime.now()
         )
       )))

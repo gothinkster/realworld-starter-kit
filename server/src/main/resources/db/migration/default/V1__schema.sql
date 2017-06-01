@@ -54,7 +54,7 @@ alter table users add constraint user_id primary key(id);
 
 create table if not exists login_info(
     user_id uuid not null,
-    provider_id varchar (20) not null,
+    provider_i_d varchar (20) not null,
     provider_key varchar (128) not null,
     primary key(user_id)
 );
@@ -62,10 +62,10 @@ create table if not exists login_info(
 alter table login_info add constraint user_identity_user_fk FOREIGN KEY (user_id) references users(id)
     on delete cascade on update cascade;
 
+
+
 create table if not exists password_info (
     user_id uuid not null,
-    provider varchar(64) not null,
-    key varchar(2048) not null,
     hasher varchar(64) not null,
     password varchar(256) not null,
     salt varchar(256) not null,

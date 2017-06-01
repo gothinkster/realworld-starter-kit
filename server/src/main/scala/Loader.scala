@@ -1,6 +1,6 @@
 import play.api.{ApplicationLoader, BuiltInComponentsFromContext, LoggerConfigurator, Mode}
 import com.softwaremill.macwire.wire
-import controllers.{Assets, RegistrationController, ViewController, WebJarAssets}
+import controllers._
 import io.getquill.{PostgresAsyncContext, PostgresJdbcContext, SnakeCase}
 import modules.{DatabaseModule, SilhouetteModule}
 import org.flywaydb.play.FlywayPlayComponents
@@ -45,6 +45,7 @@ class Loader(context: Context) extends BuiltInComponentsFromContext(context)
   // controllers
   lazy val viewController: ViewController = wire[ViewController]
   lazy val registrationController: RegistrationController = wire[RegistrationController]
+  lazy val authController: AuthController = wire[AuthController]
 
   override lazy val httpRequestHandler: HttpRequestHandler = wire[RequestHandler]
   override lazy val httpErrorHandler: HttpErrorHandler = wire[ServerErrorHandler]

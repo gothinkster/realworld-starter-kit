@@ -57,11 +57,12 @@ class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec {
   "UserService" should {
     "find user with the regcode" in {
       val userIdentity = db.userService.findUserByProvideKey(regCode).futureValue
-
       println(userIdentity)
       userIdentity should matchPattern {case Some(userIdentity) => }
     }
+
   }
+
 
 
 }

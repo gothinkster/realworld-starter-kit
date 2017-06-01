@@ -9,7 +9,7 @@ import play.filters.headers.SecurityHeadersFilter
 /**
  * Provides filters.
  */
-class Filters(csrfFilter: CSRFFilter, /*corsFilter: CORSFilter, */ securityHeadersFilter: SecurityHeadersFilter,
+class Filters( /*csrfFilter: CSRFFilter, corsFilter: CORSFilter, */ securityHeadersFilter: SecurityHeadersFilter,
     gzipFilter: GzipFilter /*, customLoggerFilter: LoggingFilter*/ ) extends HttpFilters {
-  override def filters: Seq[EssentialFilter] = Seq(securityHeadersFilter, csrfFilter /*,corsFilter*/ , gzipFilter)
+  override def filters: Seq[EssentialFilter] = Seq(securityHeadersFilter /*, csrfFilter ,corsFilter*/ , gzipFilter)
 }
