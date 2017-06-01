@@ -65,11 +65,11 @@ package object test {
     }
 
     override protected def beforeAll(): Unit = {
-//      DbSetup.dbSetup()
+      DbSetup.dbSetup()
     }
 
     override protected def afterAll(): Unit = {
-//      DbSetup.dbSetup()
+      DbSetup.dbSetup()
     }
   }
 

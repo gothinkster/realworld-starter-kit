@@ -70,7 +70,7 @@ create table if not exists password_info (
     password varchar(256) not null,
     salt varchar(256) not null,
     created timestamp not null,
-    primary key (provider, key)
+    primary key (user_id)
 );
 
 

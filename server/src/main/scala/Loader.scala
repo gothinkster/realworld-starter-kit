@@ -24,8 +24,8 @@ class Loader(context: Context) extends BuiltInComponentsFromContext(context)
     with CORSComponents
     with CSRFComponents
     with GzipFilterComponents
-    /*with FlywayPlayComponents*/ with DatabaseModule {
-  /*flywayPlayInitializer*/
+    with FlywayPlayComponents with DatabaseModule {
+  flywayPlayInitializer
   LoggerConfigurator(context.environment.classLoader).foreach {
     _.configure(context.environment)
   }
