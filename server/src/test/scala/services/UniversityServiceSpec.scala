@@ -8,11 +8,11 @@ import repositories.{Department, Employee, Faculty, University}
 //todo improve these test
 class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec {
   //todo remove mutable reference
-  var universityId = java.util.UUID.randomUUID()
+  var universityId = java.util.UUID.fromString("de2283f9-71d9-4182-bbdb-55e5b3c7a28b")
   var facultyId = java.util.UUID.randomUUID()
   var departmentId = java.util.UUID.randomUUID()
   var regCode = ""
-  "UniversityService" should {
+  /*"UniversityService" should {
     "create and find" in {
       universityId = db.universityService.create(University(java.util.UUID.randomUUID(),
         "AMU", "Aligarh Muslim University", "1919", "Uttar Pradesh", "Aligarh", java.time.LocalDateTime.now())).futureValue
@@ -20,15 +20,15 @@ class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec {
       univFound shouldBe defined
       univFound.foreach(_.code shouldBe "AMU")
     }
-  }
+  }*/
   "FacultyService" should {
     "create and find" in {
       //      db.userServicep.yo()
       facultyId = db.facultyService.create(Faculty(java.util.UUID.randomUUID(),
-        universityId, "AMUFCS", "Faculty Of Computer Application", "Aligarh Muslim University", "1995", java.time.LocalDateTime.now())).futureValue
+        universityId, "AMUFCS", "Faculty Of Engineering", "Aligarh Muslim University", "1965", java.time.LocalDateTime.now())).futureValue
       val facultyFound = db.facultyService.findById(facultyId).futureValue
       facultyFound shouldBe defined
-      facultyFound.foreach(_.code shouldBe "AMUFCS")
+      facultyFound.foreach(_.code shouldBe "AMUFEE")
     }
   }
 
@@ -36,10 +36,10 @@ class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec {
     "create and find" in {
       //      db.userServicep.yo()
       departmentId = db.departmentService.create(Department(java.util.UUID.randomUUID(),
-        facultyId, "DCS", "Department Of Computer Application", "1995", "Aligarh Muslim University", java.time.LocalDateTime.now())).futureValue
+        facultyId, "FEE", "Department Of Electronics Engineering", "1965", "Aligarh Muslim University", java.time.LocalDateTime.now())).futureValue
       val departmentFound = db.departmentService.findById(departmentId).futureValue
       departmentFound shouldBe defined
-      departmentFound.foreach(_.code shouldBe "DCS")
+      departmentFound.foreach(_.code shouldBe "FEE")
     }
   }
 
@@ -47,7 +47,7 @@ class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec {
     "create and find" in {
       //      db.userServicep.yo()
       regCode = db.employeeService.createEmpWithRole(Employee(java.util.UUID.randomUUID(),
-        "AG", java.util.UUID.randomUUID(), departmentId, java.time.LocalDateTime.now(), java.time.LocalDateTime.now()), "teacher").futureValue
+        "AE", java.util.UUID.randomUUID(), departmentId, java.time.LocalDateTime.now(), java.time.LocalDateTime.now()), "admin").futureValue
       println(regCode)
       regCode should have length(6)
 

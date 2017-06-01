@@ -29,7 +29,7 @@ class RegistrationController(userService: UserService, passwordInfoService: Pass
           } yield {
             silhouette.env.eventBus.publish(SignUpEvent(user, request))
             silhouette.env.eventBus.publish(LoginEvent(user, request))
-            Ok(Json.obj("token" -> token))
+            Ok(token)
           }
         case None =>
           Future.successful(BadRequest(Json.obj("message" -> Messages("User not found."))))

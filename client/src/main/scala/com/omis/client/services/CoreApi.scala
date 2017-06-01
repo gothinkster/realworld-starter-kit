@@ -34,6 +34,10 @@ object CoreApi {
     ajaxPost(Json.stringify(Json.toJson[UserReg](userReg)), "login")
   }
 
+  def signUp(userReg: UserReg) = {
+    ajaxPost(Json.stringify(Json.toJson[UserReg](userReg)), "signup")
+  }
+
   def logout() = ajaxGet("logout")
 
   val authenticate = ajaxGet("authenticate")

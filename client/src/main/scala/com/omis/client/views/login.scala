@@ -3,20 +3,15 @@ package com.omis.client.views
 /**
  * Created by shubham.k on 28-05-2017.
  */
-import com.omis.client.handlers.LoginUser
-import com.omis.client.router.ApplicationRouter
-import com.omis.{User, UserReg}
+import com.omis.{UserReg}
 import com.omis.client.router.ApplicationRouter.Loc
-import com.omis.client.services.{CoreApi, OmisCircuit}
+import com.omis.client.services.{CoreApi}
 import japgolly.scalajs.react
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom.window
-
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import japgolly.scalajs.react.extra.router.RouterCtl
-import play.api.libs.json.Json
-import diode.AnyAction._
 import org.scalajs.dom
 
 object Login {
@@ -32,7 +27,6 @@ object Login {
 
     def updateRegCode(event: ReactEventFromInput) = {
       val value = event.target.value
-      println("yo")
       t.modState(s => s.copy(userReg = s.userReg.copy(regCode = value)))
     }
     def updatePassword(event: ReactEventFromInput) = {

@@ -22,6 +22,8 @@ object Omis extends js.JSApp {
       OmisCircuit.dispatch(LoginUser(user))
       dom.window.location.href = "/#/dashboard"
       //            window.location.replace("")
+    }.recover {
+      case _ => println("user not logged in")
     }
 
     ApplicationRouter.router().renderIntoDOM(dom.document.getElementById("root"))
