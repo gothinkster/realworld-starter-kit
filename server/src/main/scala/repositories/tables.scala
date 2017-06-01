@@ -23,8 +23,6 @@ case class Department(id: java.util.UUID, facultyId: java.util.UUID, code: Strin
 case class Employee(id: java.util.UUID, empGroup: String, userId: java.util.UUID, departmentId: java.util.UUID,
   employeeSince: java.time.LocalDateTime, created: java.time.LocalDateTime, registrationNumber: String = "")
 
-case class EmployeeRegDetails(id: java.util.UUID, registrationNumber: String, empGroup: String)
-
 case class EmployeeDesignation(id: java.util.UUID, name: String, created: java.time.LocalDateTime)
 
 case class EmployeeGrade(id: java.util.UUID, name: String, payBandMin: Option[Int], payBandMax: Option[Int],
@@ -58,7 +56,3 @@ case class UniversityAllocatedLeaves(id: java.util.UUID, year: String, universit
 case class User(id: java.util.UUID, role: String, created: java.time.LocalDateTime) extends api.Identity
 
 case class UserLoginInfo(userId: UUID, providerID: String = "credentials", providerKey: String)
-
-case class UserProfile(userId: java.util.UUID, address: Option[String], phoneNumber: Option[String], firstName: Option[String],
-  lastName: Option[String], imgUrl: Option[String], nationality: Option[String], fatherName: Option[String],
-  motherName: Option[String], created: java.time.LocalDateTime)

@@ -24,8 +24,8 @@ class Loader(context: Context) extends BuiltInComponentsFromContext(context)
     with CORSComponents
     with CSRFComponents
     with GzipFilterComponents
-    with FlywayPlayComponents with DatabaseModule {
-  flywayPlayInitializer
+    /*with FlywayPlayComponents*/ with DatabaseModule {
+  /*flywayPlayInitializer*/
   LoggerConfigurator(context.environment.classLoader).foreach {
     _.configure(context.environment)
   }
@@ -46,6 +46,7 @@ class Loader(context: Context) extends BuiltInComponentsFromContext(context)
   lazy val viewController: ViewController = wire[ViewController]
   lazy val registrationController: RegistrationController = wire[RegistrationController]
   lazy val authController: AuthController = wire[AuthController]
+  lazy val empController: EmployeeController = wire[EmployeeController]
 
   override lazy val httpRequestHandler: HttpRequestHandler = wire[RequestHandler]
   override lazy val httpErrorHandler: HttpErrorHandler = wire[ServerErrorHandler]

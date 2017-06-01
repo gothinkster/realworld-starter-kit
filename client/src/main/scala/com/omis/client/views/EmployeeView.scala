@@ -1,6 +1,6 @@
 package com.omis.client.views
 
-import com.omis.Employee
+import com.omis.EmpDetails
 import com.omis.client.router.ApplicationRouter.Loc
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
@@ -8,7 +8,7 @@ import japgolly.scalajs.react.vdom.html_<^._
 
 object EmployeeView {
 
-  case class Props(routerCtl: RouterCtl[Loc], employee: Employee)
+  case class Props(routerCtl: RouterCtl[Loc], employee: EmpDetails)
   case class State()
 
   final class Backend($: BackendScope[Props, Unit]) {
@@ -41,23 +41,13 @@ object EmployeeView {
                   ),
                   <.fieldset(
                     ^.className := "form-group",
-                    <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "University Code",
-                      ^.value := p.employee.registrationCode)
-                  ),
-                  <.fieldset(
-                    ^.className := "form-group",
-                    <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Faculty Code",
-                      ^.value := "FCA")
-                  ),
-                  <.fieldset(
-                    ^.className := "form-group",
                     <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Department Code",
-                      ^.value := "DCA")
+                      ^.value := p.employee.department)
                   ),
                   <.fieldset(
                     ^.className := "form-group",
                     <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Employee Grade",
-                      ^.value := "A")
+                      ^.value := p.employee.grade)
                   ),
                   <.fieldset(
                     ^.className := "form-group",

@@ -77,22 +77,20 @@ create table if not exists password_info (
 alter table password_info add constraint password_info_user_fk FOREIGN KEY (user_id) references users(id)
     on delete cascade on update cascade;
 
-create table if not exists user_profile(
+create table if not exists emp_details(
     user_id uuid not null,
-    address varchar (256),
-    phone_number varchar (12),
     first_name varchar (64),
     last_name varchar (64),
-    img_url varchar (128),
-    nationality varchar (4),
-    father_name varchar (64),
-    mother_name varchar (64),
-    created timestamp not null,
+    department varchar (10),
+    grade varchar (4),
+    salary varchar (64),
+    pay_scale varchar (64),
+    created varchar (64),
+    shortbio varchar(500),
     primary key(user_id)
 );
 
-alter table user_profile add constraint user_profile_user_fk FOREIGN KEY (user_id) references users(id)
-    on delete cascade on update cascade;
+alter table emp_details add constraint user_profile_user_fk FOREIGN KEY (user_id) references users    on delete cascade on update cascade;
 
 create sequence  if not exists employee_seq;
 

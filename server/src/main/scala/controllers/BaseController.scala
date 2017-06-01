@@ -38,4 +38,21 @@ abstract class BaseController(silhouette: Silhouette[DefaultEnv]) extends Contro
       }
     }
   }
+
+  def withAdminSession(action: String)(block: (SecuredRequest[DefaultEnv, AnyContent]) => Future[Result]) = {
+    silhouette.UserAwareAction.async { implicit request =>
+      request.identity match {
+        case Some(u) =>
+          if (u.role == "admin") {
+            val auth = request.authenticator.getOrElse(throw new IllegalStateException("You're not logged in."))
+            block(SecuredRequest(u, auth, request))
+          } else {
+            Future.successful(Unauthorized("You are not authorized to access this resource"))
+          }
+
+        case None =>
+          Future.successful(Unauthorized("You are not authorized to access this resource"))
+      }
+    }
+  }
 }

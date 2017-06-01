@@ -1,6 +1,6 @@
 package com.omis.client.services
 
-import com.omis.UserReg
+import com.omis.{EmpDetails, UserReg}
 import org.scalajs.dom.ext.Ajax
 import org.scalajs.dom.window
 import play.api.libs.json.Json
@@ -38,7 +38,13 @@ object CoreApi {
     ajaxPost(Json.stringify(Json.toJson[UserReg](userReg)), "signup")
   }
 
+  def addEmployee(empDetails: EmpDetails) = {
+    ajaxPost(Json.stringify(Json.toJson[EmpDetails](empDetails)), "createemp")
+  }
+
   def logout() = ajaxGet("logout")
+
+  def getAllEmp = ajaxGet("allemp")
 
   val authenticate = ajaxGet("authenticate")
 }

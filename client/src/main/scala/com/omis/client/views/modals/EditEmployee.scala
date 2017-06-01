@@ -3,7 +3,7 @@ package com.omis.client.views.modals
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.OnUnmount
 import japgolly.scalajs.react.vdom.html_<^._
-import com.omis.Employee
+import com.omis.EmpDetails
 import com.omis.client.components.Bootstrap._
 import japgolly.scalajs.react
 import scala.language.reflectiveCalls
@@ -11,7 +11,7 @@ import org.querki.jquery._
 
 object EditEmployee {
 
-  case class Props(teacher: Employee)
+  case class Props(teacher: EmpDetails)
 
   case class State(showEditTeacherForm: Boolean = false)
 
@@ -57,9 +57,9 @@ object EditEmployee {
 
 object EditTeacherForm {
 
-  case class Props(submitHandler: ( /*Boolean*/ ) => Callback, employee: Employee)
+  case class Props(submitHandler: ( /*Boolean*/ ) => Callback, employee: EmpDetails)
 
-  case class State(employee: Employee, closePopup: Boolean = false, selectizeInputId: String = "postNewJobSelectizeInput")
+  case class State(employee: EmpDetails, closePopup: Boolean = false, selectizeInputId: String = "postNewJobSelectizeInput")
 
   case class Backend(t: BackendScope[Props, State]) {
     def hide(event: ReactEventFromInput) = {
@@ -117,23 +117,13 @@ object EditTeacherForm {
                       ),
                       <.fieldset(
                         ^.className := "form-group",
-                        <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "University Code",
-                          ^.value := p.employee.registrationCode)
-                      ),
-                      <.fieldset(
-                        ^.className := "form-group",
-                        <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Faculty Code",
-                          ^.value := "FCA")
-                      ),
-                      <.fieldset(
-                        ^.className := "form-group",
                         <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Department Code",
-                          ^.value := "DCA")
+                          ^.value := p.employee.department)
                       ),
                       <.fieldset(
                         ^.className := "form-group",
                         <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Employee Grade",
-                          ^.value := "A")
+                          ^.value := p.employee.grade)
                       ),
                       <.fieldset(
                         ^.className := "form-group",

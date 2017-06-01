@@ -2,7 +2,7 @@ package com.omis.client.router
 
 import java.util.UUID
 
-import com.omis.Employee
+import com.omis.EmpDetails
 import com.omis.client.services.OmisCircuit
 import com.omis.client.views._
 import japgolly.scalajs.react.extra.router._
@@ -27,10 +27,11 @@ object ApplicationRouter {
   case object NewLeaveLoc extends Loc
 
   private val userProxy = OmisCircuit.connect(_.user)
+  private val empsProxy = OmisCircuit.connect(_.emps)
 
   val routerConfig = RouterConfigDsl[Loc].buildConfig { dsl =>
-    val testEmployee = Employee(UUID.randomUUID(), "John", "Doe", "AMU", "FCS", "DCS", "A", "1000000", "1000000-1200000",
-      "Btech Mtech and Phd Qualified", "January 29th 1999", "AMU0001", "/assets/images/Qr71crq.jpg")
+    val testEmployee = EmpDetails(UUID.randomUUID(), "John", "Doe", "DCS", "A", "1000000", "1000000-1200000",
+      "Btech Mtech and Phd Qualified", "January 29th 1999")
     import dsl._
 
     (trimSlashes
@@ -39,7 +40,7 @@ object ApplicationRouter {
       | staticRoute("register", RegisterLoc) ~> renderR(ctl => Register.component(Register.Props(ctl)))
       | staticRoute("dashboard", DashboardLoc) ~> renderR(ctl => userProxy(proxy => Dashboard.component(Dashboard.Props(ctl, proxy))))
       | staticRoute("employee", EmployeeLoc) ~> renderR(ctl => EmployeeView.component(EmployeeView.Props(ctl, testEmployee)))
-      | staticRoute("employees", EmployeesLoc) ~> renderR(ctl => Employees.component(Employees.Props(ctl)))
+      | staticRoute("employees", EmployeesLoc) ~> renderR(ctl => empsProxy(proxy => Employees.component(Employees.Props(ctl, proxy))))
       | staticRoute("profile", ProfileLoc) ~> renderR(ctl => Profile.component(Profile.Props(ctl)))
       | staticRoute("create", CreateLoc) ~> renderR(ctl => Create.component(Create.Props(ctl)))
       | staticRoute("article", ArticleLoc) ~> renderR(ctl => Article.component(Article.Props(ctl)))
