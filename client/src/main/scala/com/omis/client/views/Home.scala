@@ -14,13 +14,21 @@ object Home {
     def render(s: State, p: Props): VdomElement =
       <.div(
         ^.className := "home-page",
-        <.div(
-          ^.className := "banner",
-          <.div(
-            ^.className := "container",
-            <.h1(^.className := "logo-font", "OMIS"),
-            <.p("An open source employees and students management system")
-          )
+        <.header(
+          <.div(^.className := "container", ^.id := "maincontent",
+            <.div(
+              ^.className := "row",
+              <.div(
+                ^.className := "col-lg-12",
+                <.img(^.className := "img-responsive", ^.src := "/assets/images/profile.png", ^.alt := ""),
+                <.div(
+                  ^.className := "intro-text",
+                  <.h1(^.className := "name", "OMIS"),
+                  <.hr(^.className := "star-light"),
+                  <.span(^.className := "skills", "An open source employees and students management system")
+                )
+              )
+            ))
         )
       )
   }
