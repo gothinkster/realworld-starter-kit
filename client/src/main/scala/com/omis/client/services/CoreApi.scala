@@ -46,5 +46,7 @@ object CoreApi {
 
   def getAllEmp = ajaxGet("allemp")
 
+  def getEmp = ajaxGet("emp")
+
   val authenticate = ajaxGet("authenticate")
 }

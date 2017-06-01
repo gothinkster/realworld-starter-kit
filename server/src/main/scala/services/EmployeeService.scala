@@ -33,6 +33,8 @@ class EmployeeService(val ctx: DbContext, userService: UserService,
 
   def createEmpDetails(empDetails: EmpDetails) = ctx.run(empDet.insert(lift(empDetails)))
 
+  def findEmpDetailsById(uuid: UUID) = run(empDetailById(uuid)).map(_.headOption)
+
   def getALl() = ctx.run(quote(querySchema[EmpDetails]("emp_details")))
 
   def findById(uuid: UUID): Future[Option[Employee]] = run(byId(uuid)).map(_.headOption)

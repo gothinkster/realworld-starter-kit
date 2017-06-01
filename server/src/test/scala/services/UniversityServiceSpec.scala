@@ -56,16 +56,16 @@ class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec {
       //      db.userServicep.yo()
       regCode = db.employeeService.createEmpWithRole(Employee(java.util.UUID.randomUUID(),
         "AE", java.util.UUID.randomUUID(),java.util.UUID.randomUUID(), java.time.LocalDateTime.now(), java.time.LocalDateTime.now())
-        , "teacher",
+        , "admin",
         EmpDetails(java.util.UUID.randomUUID(),
-          "firstName1",
-          "lastName1",
+          "AdminYo",
+          "AdminYo",
           "FEE",
           "A1",
           "1000001",
           "100000-1200001",
-          "shortbio1",
-          "created"
+          "Short bio for admin",
+          "12th July 1997"
         )
 
       ).futureValue

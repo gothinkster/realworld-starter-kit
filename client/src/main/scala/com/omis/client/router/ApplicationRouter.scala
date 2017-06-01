@@ -28,6 +28,7 @@ object ApplicationRouter {
 
   private val userProxy = OmisCircuit.connect(_.user)
   private val empsProxy = OmisCircuit.connect(_.emps)
+  private val empProxy = OmisCircuit.connect(_.emp)
 
   val routerConfig = RouterConfigDsl[Loc].buildConfig { dsl =>
     val testEmployee = EmpDetails(UUID.randomUUID(), "John", "Doe", "DCS", "A", "1000000", "1000000-1200000",
@@ -39,7 +40,7 @@ object ApplicationRouter {
       | staticRoute("login", LoginLoc) ~> renderR(ctl => Login.component(Login.Props(ctl)))
       | staticRoute("register", RegisterLoc) ~> renderR(ctl => Register.component(Register.Props(ctl)))
       | staticRoute("dashboard", DashboardLoc) ~> renderR(ctl => userProxy(proxy => Dashboard.component(Dashboard.Props(ctl, proxy))))
-      | staticRoute("employee", EmployeeLoc) ~> renderR(ctl => EmployeeView.component(EmployeeView.Props(ctl, testEmployee)))
+      | staticRoute("employee", EmployeeLoc) ~> renderR(ctl => empProxy(proxy => EmployeeView.component(EmployeeView.Props(ctl, proxy))))
       | staticRoute("employees", EmployeesLoc) ~> renderR(ctl => empsProxy(proxy => Employees.component(Employees.Props(ctl, proxy))))
       | staticRoute("profile", ProfileLoc) ~> renderR(ctl => Profile.component(Profile.Props(ctl)))
       | staticRoute("create", CreateLoc) ~> renderR(ctl => Create.component(Create.Props(ctl)))

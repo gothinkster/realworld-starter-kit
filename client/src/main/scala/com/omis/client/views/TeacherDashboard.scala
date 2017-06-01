@@ -1,6 +1,6 @@
 package com.omis.client.views
 
-import com.omis.client.router.ApplicationRouter.Loc
+import com.omis.client.router.ApplicationRouter.{EmployeeLoc, Loc}
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^._
@@ -76,10 +76,11 @@ object TeacherDashboard {
                 <.p("Links"),
                 <.div(
                   ^.className := "tag-list",
-                  <.a(^.href := "", ^.className := "tag-pill tag-default", "Your Courses"),
-                  <.a(^.href := "", ^.className := "tag-pill tag-default", "Apply For Leave"),
-                  <.a(^.href := "", ^.className := "tag-pill tag-default", "View Salary Statement"),
-                  <.a(^.href := "", ^.className := "tag-pill tag-default", "Employee Information")
+                  p.routerCtl.link(EmployeeLoc)(
+                    ^.className := "tag-pill tag-default",
+                    "View Profile"
+                  ),
+                  <.a(^.href := "", ^.className := "tag-pill tag-default", "Apply For Leave")
                 )
               )
             )

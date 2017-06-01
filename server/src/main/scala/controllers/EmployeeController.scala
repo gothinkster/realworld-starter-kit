@@ -45,4 +45,15 @@ class EmployeeController(
         e => Ok(Json.toJson(e))
       }
   }
+
+  def getEmp = withSession("getProfile") {
+    req =>
+      {
+        println(req.identity.id)
+        employeeService.findEmpDetailsById(req.identity.id).map {
+          case Some(e) => Ok(Json.toJson(e))
+          case None => NotFound
+        }
+      }
+  }
 }

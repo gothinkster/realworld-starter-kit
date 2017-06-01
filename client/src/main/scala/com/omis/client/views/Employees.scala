@@ -78,7 +78,7 @@ object Employees {
               <.div(
                 p.proxy().render(employeesRootModel =>
                   <.div(
-                    employeesRootModel.empDetails map renderEmployee: _*
+                    employeesRootModel.emp map renderEmployee: _*
                   )),
                 p.proxy().renderFailed(ex => <.div()(
                   <.span(""), "Error in loading users"

@@ -15,5 +15,8 @@ trait EmployeeRepository extends Repository {
   def byId(uuid: UUID) = quote {
     employees.filter(_.id == lift(uuid))
   }
+  def empDetailById(uuid: UUID) = quote {
+    empDet.filter(_.userId == lift(uuid))
+  }
 
 }
