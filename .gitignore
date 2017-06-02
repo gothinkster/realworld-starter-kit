@@ -4,6 +4,20 @@
 /node_modules
 /bower_components
 
+# composer vendor dir
+/vendor
+
+# composer itself is not needed
+composer.phar
+
+# phpunit itself is not needed
+phpunit.phar
+# local phpunit config
+/phpunit.xml
+
+tests/_output/*
+tests/_support/_generated
+
 # IDEs and editors
 /.idea
 .project
