@@ -9,19 +9,19 @@ import repositories.{Department, Employee, Faculty, University}
 //todo improve these test
 class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec {
   //todo remove mutable reference
-  var universityId = java.util.UUID.fromString("de2283f9-71d9-4182-bbdb-55e5b3c7a28b")
-  var facultyId = java.util.UUID.randomUUID()
-  var departmentId = java.util.UUID.fromString("90110ff9-7a40-4096-8d18-8753a22a261e")
+  var universityId = java.util.UUID.randomUUID() /*java.util.UUID.fromString("de2283f9-71d9-4182-bbdb-55e5b3c7a28b")*/
+  var facultyId = java.util.UUID.randomUUID() /*java.util.UUID.randomUUID()*/
+  var departmentId = java.util.UUID.randomUUID() /*java.util.UUID.fromString("90110ff9-7a40-4096-8d18-8753a22a261e")*/
   var regCode = ""
-  /*"UniversityService" should {
+  "UniversityService" should {
     "create and find" in {
-      universityId = db.universityService.create(University(java.util.UUID.randomUUID(),
+      val universityId = db.universityService.create(University(java.util.UUID.randomUUID(),
         "AMU", "Aligarh Muslim University", "1919", "Uttar Pradesh", "Aligarh", java.time.LocalDateTime.now())).futureValue
       val univFound = db.universityService.findById(universityId).futureValue
       univFound shouldBe defined
       univFound.foreach(_.code shouldBe "AMU")
     }
-  }*/
+  }
   "FacultyService" should {
     "create and find" in {
       //      db.userServicep.yo()

@@ -5,7 +5,9 @@ import japgolly.scalajs.react.extra.OnUnmount
 import japgolly.scalajs.react.vdom.html_<^._
 import com.omis.EmpDetails
 import com.omis.client.components.Bootstrap._
+import com.omis.client.services.CoreApi
 import japgolly.scalajs.react
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import scala.language.reflectiveCalls
 import org.querki.jquery._
 
@@ -69,17 +71,48 @@ object EditTeacherForm {
 
     def submitForm(e: ReactEventFromInput): react.Callback = {
       e.preventDefault()
-      t.modState(s => s.copy(closePopup = true))
+      val state = t.state.runNow()
+      CoreApi.updateEmp(state.employee).map {
+        _ => t.modState(s => s.copy(closePopup = true)).runNow()
+      }.recover {
+        case _: Exception => t.modState(s => s.copy(closePopup = false)).runNow()
+      }
+      Callback.empty
     }
 
     def formClosed(state: State, props: Props): Callback = {
       props.submitHandler( /*state.postProject*/ )
     }
 
-    /*def updateName(event: ReactEventFromInput): react.Callback = {
-      val value = event.target.value
-      t.modState(s => s.copy(job = s.job.copy(name = value)))
-    }*/
+    def udpateFirstName(e: ReactEventFromInput): react.Callback = {
+      val value = e.target.value
+      println("yo sasur")
+      t.modState(s => s.copy(employee = s.employee.copy(firstName = value)))
+    }
+    def udpateLastName(e: ReactEventFromInput): react.Callback = {
+      val value = e.target.value
+      t.modState(s => s.copy(employee = s.employee.copy(lastName = value)))
+    }
+    def udpateDepartment(e: ReactEventFromInput): react.Callback = {
+      val value = e.target.value
+      t.modState(s => s.copy(employee = s.employee.copy(department = value)))
+    }
+    def udpateGrade(e: ReactEventFromInput): react.Callback = {
+      val value = e.target.value
+      t.modState(s => s.copy(employee = s.employee.copy(grade = value)))
+    }
+    def udpateSalary(e: ReactEventFromInput): react.Callback = {
+      val value = e.target.value
+      t.modState(s => s.copy(employee = s.employee.copy(salary = value)))
+    }
+    def udpatePayScale(e: ReactEventFromInput): react.Callback = {
+      val value = e.target.value
+      t.modState(s => s.copy(employee = s.employee.copy(payScale = value)))
+    }
+    def udpateShortbio(e: ReactEventFromInput): react.Callback = {
+      val value = e.target.value
+      t.modState(s => s.copy(employee = s.employee.copy(shortbio = value)))
+    }
 
     // scalastyle:off
     def render(s: State, p: Props) = {
@@ -96,6 +129,7 @@ object EditTeacherForm {
               ^.className := "container page",
               <.div(
                 ^.className := "row",
+                <.div("Error yo!!!"),
                 <.div(
                   ^.className := "col-md-12 col-xs-12",
                   <.form(
@@ -103,44 +137,44 @@ object EditTeacherForm {
                       /*<.fieldset(
                       ^.className := "form-group",
                       <.input(^.className := "form-control", ^.`type` := "text", ^.placeholder := "URL of profile picture", ^.value
-                      :=p.employee.URL of profile picture)
+                      :=s.employee.URL of profile picture)
                     ),*/
                       <.fieldset(
                         ^.className := "form-group",
                         <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "First Name",
-                          ^.value := p.employee.firstName)
+                          ^.value := s.employee.firstName, ^.onChange ==> udpateFirstName)
                       ),
                       <.fieldset(
                         ^.className := "form-group",
                         <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Last Name",
-                          ^.value := p.employee.lastName)
+                          ^.value := s.employee.lastName, ^.onChange ==> udpateLastName)
                       ),
                       <.fieldset(
                         ^.className := "form-group",
                         <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Department Code",
-                          ^.value := p.employee.department)
+                          ^.value := s.employee.department, ^.onChange ==> udpateDepartment)
                       ),
                       <.fieldset(
                         ^.className := "form-group",
                         <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Employee Grade",
-                          ^.value := p.employee.grade)
+                          ^.value := s.employee.grade, ^.onChange ==> udpateGrade)
                       ),
                       <.fieldset(
                         ^.className := "form-group",
                         <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Salary",
-                          ^.value := p.employee.salary)
+                          ^.value := s.employee.salary, ^.onChange ==> udpateSalary)
                       ),
                       <.fieldset(
                         ^.className := "form-group",
                         <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Pay Scale",
-                          ^.value := p.employee.payScale)
+                          ^.value := s.employee.payScale, ^.onChange ==> udpatePayScale)
                       ),
                       <.fieldset(
                         ^.className := "form-group",
                         <.textarea(^.className := "form-control form-control-lg", ^.rows := 8, ^.placeholder := "Short bio",
-                          ^.value := p.employee.shortbio)
+                          ^.value := s.employee.shortbio, ^.onChange ==> udpateShortbio)
                       ),
-                      <.button(^.className := "btn btn-lg btn-primary pull-xs-right", "Edit Employee")
+                      <.button(^.className := "btn btn-lg btn-primary pull-xs-right", "Edit Employee", ^.onClick ==> submitForm)
                     )
                   )
                 )

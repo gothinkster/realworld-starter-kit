@@ -13,9 +13,10 @@ import utils.auth.DefaultEnv
 import scala.concurrent.{ExecutionContext, Future}
 
 class RegistrationController(userService: UserService, passwordInfoService: PasswordInfoService,
-    val messagesApi: MessagesApi,
-    passwordHasher: PasswordHasher,
-    silhouette: Silhouette[DefaultEnv])(implicit val ec: ExecutionContext) extends BaseController(silhouette) with I18nSupport {
+  val messagesApi: MessagesApi,
+  passwordHasher: PasswordHasher,
+  silhouette: Silhouette[DefaultEnv])(implicit val ec: ExecutionContext)
+    extends BaseController(silhouette) with I18nSupport {
   def register = Action.async(parse.json) { implicit request =>
     request.body.validate[UserReg].map { data =>
       val loginInfo = LoginInfo(CredentialsProvider.ID, data.regCode)

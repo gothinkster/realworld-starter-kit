@@ -12,9 +12,11 @@ POST        /login                                  controllers.AuthController.l
 GET        /authenticate                                  controllers.AuthController.authenticate
 GET        /logout                                 controllers.AuthController.logout
 
-POST       /createemp                               controllers.EmployeeController.createEmp
-GET         /allemp                                 controllers.EmployeeController.getAllEmp
-GET         /emp                                 controllers.EmployeeController.getEmp
+POST        /employees/create                              controllers.EmployeeController.createEmp
+GET         /employees                                 controllers.EmployeeController.getAllEmp
+GET         /employees/:id                                 controllers.EmployeeController.getEmp(id: java.util.UUID)
+POST        /employees/:id                                 controllers.EmployeeController.updateEmp(id: java.util.UUID)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /webjars/*file                          controllers.WebJarAssets.at(file)

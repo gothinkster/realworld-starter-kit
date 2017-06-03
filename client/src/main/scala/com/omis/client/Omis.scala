@@ -20,7 +20,7 @@ object Omis extends js.JSApp {
     CoreApi.authenticate.map { e =>
       val user = Json.parse(e).validate[User].get
       OmisCircuit.dispatch(LoginUser(user))
-      dom.window.location.href = "/#/dashboard"
+      //      dom.window.location.href = "/#app/dashboard"
       //            window.location.replace("")
     }.recover {
       case _ => println("user not logged in")

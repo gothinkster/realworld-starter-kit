@@ -36,7 +36,7 @@ object ApplicationRouter {
     import dsl._
 
     (trimSlashes
-      | staticRoute(root, HomeLoc) ~> renderR(ctl => Home.component(Home.Props(ctl)))
+      | staticRoute(root, HomeLoc) ~> renderR(ctl => userProxy(proxy => Home.component(Home.Props(ctl, proxy))))
       | staticRoute("login", LoginLoc) ~> renderR(ctl => Login.component(Login.Props(ctl)))
       | staticRoute("register", RegisterLoc) ~> renderR(ctl => Register.component(Register.Props(ctl)))
       | staticRoute("dashboard", DashboardLoc) ~> renderR(ctl => userProxy(proxy => Dashboard.component(Dashboard.Props(ctl, proxy))))
@@ -52,8 +52,6 @@ object ApplicationRouter {
       .renderWith(MainLayout.layout)
       .verify(HomeLoc)
   }
-
-  val baseUrl = BaseUrl.fromWindowOrigin_/
 
   val router = Router(BaseUrl.fromWindowOrigin_/ + "#/", routerConfig)
 }

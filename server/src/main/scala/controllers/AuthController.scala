@@ -20,11 +20,12 @@ import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.{ExecutionContext, Future}
 
 class AuthController(userService: UserService, passwordInfoService: PasswordInfoService,
-    val messagesApi: MessagesApi,
-    passwordHasher: PasswordHasher,
-    silhouette: Silhouette[DefaultEnv],
-    credentialsProvider: CredentialsProvider,
-    configuration: Configuration, clock: Clock)(implicit val ec: ExecutionContext) extends BaseController(silhouette) with I18nSupport {
+  val messagesApi: MessagesApi,
+  passwordHasher: PasswordHasher,
+  silhouette: Silhouette[DefaultEnv],
+  credentialsProvider: CredentialsProvider,
+  configuration: Configuration, clock: Clock)(implicit val ec: ExecutionContext)
+    extends BaseController(silhouette) with I18nSupport {
   def login = Action.async(parse.json) { implicit request =>
     request.body.validate[UserReg].map { data =>
       credentialsProvider.authenticate(Credentials(data.regCode, data.password)).flatMap { loginInfo =>

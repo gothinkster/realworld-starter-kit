@@ -2,12 +2,9 @@ package com.omis.client.services
 
 import com.omis.{EmpDetails, UserReg}
 import org.scalajs.dom.ext.Ajax
-import org.scalajs.dom.window
 import play.api.libs.json.Json
-
 import scala.concurrent.Future
 import org.scalajs.dom.window
-
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
 /**
@@ -39,14 +36,18 @@ object CoreApi {
   }
 
   def addEmployee(empDetails: EmpDetails) = {
-    ajaxPost(Json.stringify(Json.toJson[EmpDetails](empDetails)), "createemp")
+    ajaxPost(Json.stringify(Json.toJson[EmpDetails](empDetails)), "employees/create")
   }
 
   def logout() = ajaxGet("logout")
 
-  def getAllEmp = ajaxGet("allemp")
+  def getAllEmp = ajaxGet("employees")
 
-  def getEmp = ajaxGet("emp")
+  def getEmp = ajaxGet(s"employees/${OmisCircuit.zoom(_.emp.get.empDetails.userId)}")
+
+  def updateEmp(empDetails: EmpDetails) = {
+    ajaxPost(Json.stringify(Json.toJson[EmpDetails](empDetails)), s"employees/${empDetails.userId}")
+  }
 
   val authenticate = ajaxGet("authenticate")
 }

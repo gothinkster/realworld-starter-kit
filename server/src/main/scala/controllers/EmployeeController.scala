@@ -1,5 +1,7 @@
 package controllers
 
+import java.util.UUID
+
 import com.mohiva.play.silhouette.api.Silhouette
 import com.omis.{EmpDetails, UserReg}
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
@@ -16,9 +18,10 @@ class EmployeeController(
   val messagesApi: MessagesApi, employeeService: EmployeeService
 )(implicit val ec: ExecutionContext)
     extends BaseController(silhouette) with I18nSupport {
-  def createEmp = silhouette.SecuredAction.async(parse.json) { req =>
-    if (req.identity.role == "admin") {
-      req.body.validate[EmpDetails].map { data =>
+  def createEmp = withAdminSession("") { req =>
+
+    unmarshalJsValue[EmpDetails](req) {
+      data =>
         val codeList = Seq("AE", "BG", "NQ", "ZB", "TA", "OM", "IE", "PL", "LE", "AR", "AV", "DA", "FO")
         val rand = new Random(System.currentTimeMillis())
         val random_index = rand.nextInt(codeList.length)
@@ -29,14 +32,7 @@ class EmployeeController(
         ), "teacher", data).flatMap(
           e => Future(Ok(e))
         )
-      }.recoverTotal {
-        case error =>
-          Future.successful(Unauthorized(Json.obj("message" -> Messages("Invalid data"))))
-      }
-    } else {
-      Future(Forbidden)
     }
-
   }
 
   def getAllEmp = withAdminSession("allEmp") {
@@ -46,14 +42,21 @@ class EmployeeController(
       }
   }
 
-  def getEmp = withSession("getProfile") {
-    req =>
+  def getEmp(id: UUID) = withSession("getProfile") {
+    _ =>
       {
-        println(req.identity.id)
-        employeeService.findEmpDetailsById(req.identity.id).map {
+        employeeService.findEmpDetailsById(id).map {
           case Some(e) => Ok(Json.toJson(e))
           case None => NotFound
         }
       }
   }
+
+  def updateEmp(id: UUID) = withAdminSession("updateEmployee") {
+    req =>
+      unmarshalJsValue[EmpDetails](req) {
+        data => employeeService.updateEmpDetails(data).map(e => Ok(Json.toJson(e)))
+      }
+  }
+
 }
