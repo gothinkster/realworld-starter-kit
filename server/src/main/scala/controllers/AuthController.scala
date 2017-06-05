@@ -68,7 +68,7 @@ class AuthController(userService: UserService, passwordInfoService: PasswordInfo
 
   def authenticate = withSession("authenticate") {
     req =>
-      Future(Ok(Json.toJson(User(req.identity.id, req.identity.role, req.identity.created.toString))))
+      Future(Ok(Json.toJson(User(req.identity.id, req.identity.role, req.identity.created.toString, req.identity.firstName, req.identity.lastName, req.identity.avatar))))
   }
 
   def logout = silhouette.SecuredAction.async { implicit request =>

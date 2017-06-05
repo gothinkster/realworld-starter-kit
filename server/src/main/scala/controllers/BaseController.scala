@@ -14,17 +14,20 @@ import scala.concurrent.{Future}
 abstract class BaseController(silhouette: Silhouette[DefaultEnv]) extends Controller with AppLogger {
 
   protected def unmarshalJsValue[R](request: SecuredRequest[DefaultEnv, AnyContent])(block: R => Future[Result])(implicit rds: Reads[R]): Future[Result] =
-    request.body.asJson match {
-      case Some(json) =>
-        json.validate[R](rds).fold(
-          valid = block,
-          invalid = e => {
-          val error = e.mkString
-          log.error(error)
-          Future.successful(BadRequest(error))
-        }
-        )
-      case None => Future.successful(BadRequest("Invalid data"))
+    {
+      println(request.body.asJson)
+      request.body.asJson match {
+        case Some(json) =>
+          json.validate[R](rds).fold(
+            valid = block,
+            invalid = e => {
+            val error = e.mkString
+            log.error(error)
+            Future.successful(BadRequest(error))
+          }
+          )
+        case None => Future.successful(BadRequest("Invalid data"))
+      }
     }
 
   def withoutSession(action: String)(block: UserAwareRequest[DefaultEnv, AnyContent] => Future[Result]) = {

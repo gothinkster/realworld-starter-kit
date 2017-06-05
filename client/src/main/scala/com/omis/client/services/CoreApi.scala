@@ -1,10 +1,12 @@
 package com.omis.client.services
 
-import com.omis.{EmpDetails, UserReg}
+import com.omis.{EmpRegModel, EmployeeModel, UserReg}
 import org.scalajs.dom.ext.Ajax
 import play.api.libs.json.Json
+
 import scala.concurrent.Future
 import org.scalajs.dom.window
+
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
 /**
@@ -35,18 +37,18 @@ object CoreApi {
     ajaxPost(Json.stringify(Json.toJson[UserReg](userReg)), "signup")
   }
 
-  def addEmployee(empDetails: EmpDetails) = {
-    ajaxPost(Json.stringify(Json.toJson[EmpDetails](empDetails)), "employees/create")
+  def addEmployee(empDetails: EmpRegModel) = {
+    ajaxPost(Json.stringify(Json.toJson[EmpRegModel](empDetails)), "employees/create")
   }
 
   def logout() = ajaxGet("logout")
 
   def getAllEmp = ajaxGet("employees")
 
-  def getEmp = ajaxGet(s"employees/${OmisCircuit.zoom(_.emp.get.empDetails.userId)}")
+  def getEmp = ajaxGet(s"employees/${OmisCircuit.zoom(_.emp.get.empDetails.empId)}")
 
-  def updateEmp(empDetails: EmpDetails) = {
-    ajaxPost(Json.stringify(Json.toJson[EmpDetails](empDetails)), s"employees/${empDetails.userId}")
+  def updateEmp(empDetails: EmployeeModel) = {
+    ajaxPost(Json.stringify(Json.toJson[EmployeeModel](empDetails)), s"employees/${empDetails.empId}")
   }
 
   val authenticate = ajaxGet("authenticate")

@@ -1,12 +1,13 @@
 package com.omis.client.handlers
 
-import com.omis.EmpDetails
+import com.omis.{EmployeeModel}
 import com.omis.client.RootModels.EmployeesRootModel
 import com.omis.client.services.CoreApi
 import diode.{ActionHandler, ActionResult, ModelRW}
 import diode.data.{Empty, Pot, PotActionRetriable, Ready}
 import diode.util.{Retry, RetryPolicy}
 import play.api.libs.json.Json
+
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
 case class RefreshEmployees(potResult: Pot[EmployeesRootModel] = Empty, retryPolicy: RetryPolicy = Retry(3))
@@ -23,7 +24,7 @@ class EmployeesHandler[M](modelRW: ModelRW[M, Pot[EmployeesRootModel]]) extends 
       val updateF = action.effectWithRetry {
         CoreApi.getAllEmp
       } { json =>
-        val empDetails = Json.parse(json).validate[Seq[EmpDetails]].getOrElse(Nil)
+        val empDetails = Json.parse(json).validate[Seq[EmployeeModel]].getOrElse(Nil)
         EmployeesRootModel(empDetails)
       }
       action.handleWith(this, updateF)(PotActionRetriable.handler())

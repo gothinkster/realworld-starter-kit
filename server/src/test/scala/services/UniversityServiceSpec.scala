@@ -1,6 +1,6 @@
 package services
 
-import com.omis.EmpDetails
+import com.omis.{EmpRegModel}
 import test.{BaseDBSpec, BaseSpec}
 import org.scalatest.Matchers._
 import org.scalatestplus.play.PlaySpec
@@ -15,13 +15,16 @@ class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec {
   var regCode = ""
   "UniversityService" should {
     "create and find" in {
-      val universityId = db.universityService.create(University(java.util.UUID.randomUUID(),
+      universityId = db.universityService.create(University(java.util.UUID.randomUUID(),
         "AMU", "Aligarh Muslim University", "1919", "Uttar Pradesh", "Aligarh", java.time.LocalDateTime.now())).futureValue
       val univFound = db.universityService.findById(universityId).futureValue
       univFound shouldBe defined
       univFound.foreach(_.code shouldBe "AMU")
     }
   }
+
+
+
   "FacultyService" should {
     "create and find" in {
       //      db.userServicep.yo()
@@ -29,7 +32,7 @@ class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec {
         universityId, "AMUFCS", "Faculty Of Engineering", "Aligarh Muslim University", "1965", java.time.LocalDateTime.now())).futureValue
       val facultyFound = db.facultyService.findById(facultyId).futureValue
       facultyFound shouldBe defined
-      facultyFound.foreach(_.code shouldBe "AMUFEE")
+      facultyFound.foreach(_.code shouldBe "AMUFCS")
     }
   }
 
@@ -54,21 +57,9 @@ class UniversityServiceSpec extends PlaySpec with BaseDBSpec with BaseSpec {
   "EmployeeService" should {
     "create and find" in {
       //      db.userServicep.yo()
-      regCode = db.employeeService.createEmpWithRole(Employee(java.util.UUID.randomUUID(),
-        "AE", java.util.UUID.randomUUID(),java.util.UUID.randomUUID(), java.time.LocalDateTime.now(), java.time.LocalDateTime.now())
-        , "admin",
-        EmpDetails(java.util.UUID.randomUUID(),
-          "AdminYo",
-          "AdminYo",
-          "FEE",
-          "A1",
-          "1000001",
-          "100000-1200001",
-          "Short bio for admin",
-          "12th July 1997"
-        )
-
-      ).futureValue
+      regCode = db.employeeService.createEmp(EmpRegModel(
+        "Admin","Admin","FEE", "A","2000000","2000000-4000000","Admin",java.time.LocalDate.now().toString,"admin","/assets/public_images/anonymous.png"
+      )).futureValue
       println(regCode)
       regCode should have length (6)
 

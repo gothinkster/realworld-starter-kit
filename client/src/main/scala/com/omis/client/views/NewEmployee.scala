@@ -2,73 +2,89 @@ package com.omis.client.views
 
 import java.util.UUID
 
-import com.omis.EmpDetails
+import com.omis.{EmpRegModel}
 import com.omis.client.router.ApplicationRouter.Loc
 import com.omis.client.services.CoreApi
 import japgolly.scalajs.react
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
+import org.querki.facades.bootstrap.datepicker._
+import org.querki.jquery.{JQueryEventObject, $}
 import org.scalajs.dom
+
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+
 object NewEmployee {
 
   case class Props(routerCtl: RouterCtl[Loc])
-  case class State(empDetails: EmpDetails, empAdded: Boolean = false, empCode: String = "")
 
-  final class Backend($: BackendScope[Props, State]) {
+  case class State(empDetails: EmpRegModel, empAdded: Boolean = false, empCode: String = "")
+
+  final class Backend(t: BackendScope[Props, State]) {
 
     def updateFirstName(e: ReactEventFromInput) = {
       val value = e.target.value
-      $.modState(s => s.copy(empDetails = s.empDetails.copy(firstName = value)))
+      t.modState(s => s.copy(empDetails = s.empDetails.copy(firstName = value)))
     }
 
     def updateLastName(e: ReactEventFromInput) = {
       val value = e.target.value
-      $.modState(s => s.copy(empDetails = s.empDetails.copy(lastName = value)))
+      t.modState(s => s.copy(empDetails = s.empDetails.copy(lastName = value)))
     }
 
     def updateDepartment(e: ReactEventFromInput) = {
       val value = e.target.value
-      $.modState(s => s.copy(empDetails = s.empDetails.copy(department = value)))
+      t.modState(s => s.copy(empDetails = s.empDetails.copy(department = value)))
     }
 
     def updateGrade(e: ReactEventFromInput) = {
       val value = e.target.value
-      $.modState(s => s.copy(empDetails = s.empDetails.copy(grade = value)))
+      t.modState(s => s.copy(empDetails = s.empDetails.copy(grade = value)))
     }
 
     def updateSalary(e: ReactEventFromInput) = {
       val value = e.target.value
-      $.modState(s => s.copy(empDetails = s.empDetails.copy(salary = value)))
+      t.modState(s => s.copy(empDetails = s.empDetails.copy(salary = value)))
     }
 
     def updatePayScale(e: ReactEventFromInput) = {
       val value = e.target.value
-      $.modState(s => s.copy(empDetails = s.empDetails.copy(payScale = value)))
+      t.modState(s => s.copy(empDetails = s.empDetails.copy(payScale = value)))
+    }
+    def updateRole(e: ReactEventFromInput) = {
+      val value = e.target.value
+      t.modState(s => s.copy(empDetails = s.empDetails.copy(role = value)))
     }
 
     def updateShortbio(e: ReactEventFromInput) = {
       val value = e.target.value
-      $.modState(s => s.copy(empDetails = s.empDetails.copy(shortbio = value)))
-    }
-
-    def updateCreated(e: ReactEventFromInput) = {
-      val value = e.target.value
-      $.modState(s => s.copy(empDetails = s.empDetails.copy(created = value)))
+      t.modState(s => s.copy(empDetails = s.empDetails.copy(shortbio = value)))
     }
 
     def addEmployee(e: ReactEventFromInput) = {
       e.preventDefault()
-      $.state.map {
+      t.state.map {
         s =>
-          CoreApi.addEmployee(s.empDetails).map {
+          CoreApi.addEmployee(s.empDetails.copy(avatar = "/assets/public_images/anonymous.png")).map {
             e =>
-              println(e)
-              $.modState(s => s.copy(empAdded = true, empCode = e)).runNow()
+              t.modState(s => s.copy(empAdded = true, empCode = e)).runNow()
           }
       } >> react.Callback.empty
 
+    }
+
+    def initializeDatepicker(): Unit = {
+      val baseOpts = BootstrapDatepickerOptions.
+        autoclose(true).
+        todayHighlight(true).
+        disableTouchKeyboard(true).
+        orientation(Orientation.Bottom)
+      $("#employeeSince").datepicker(baseOpts)
+      $("#employeeSince").on("changeDate", { rawEvt: JQueryEventObject =>
+        println($("#employeeSince").value().toString)
+        t.modState(s => s.copy(empDetails = s.empDetails.copy(employeeSince = $("#employeeSince").value().toString))).runNow()
+      })
     }
 
     def render(p: Props, s: State): VdomElement =
@@ -111,6 +127,13 @@ object NewEmployee {
                   <.fieldset(
                     ^.className := "form-group",
                     <.input((^.disabled := true) when s.empAdded == true, ^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Pay Scale", ^.onChange ==> updatePayScale)
+                  ), <.fieldset(
+                    ^.className := "form-group",
+                    <.input((^.disabled := true) when s.empAdded == true, ^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Role", ^.onChange ==> updateRole)
+                  ),
+                  <.fieldset(
+                    ^.className := "form-group",
+                    <.input((^.disabled := true) when s.empAdded == true, ^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Employee Since", VdomAttr("data-provide") := "datepicker", ^.id := "employeeSince")
                   ),
                   <.fieldset(
                     ^.className := "form-group",
@@ -126,9 +149,11 @@ object NewEmployee {
   }
 
   val component = ScalaComponent.builder[Props]("Settings")
-    .initialState(State(EmpDetails(UUID.randomUUID(), "John", "Doe", "DCS", "A", "1000000", "1000000-1200000",
-      "Btech Mtech and Phd Qualified", "January 29th 1999")))
+    .initialState(State(EmpRegModel("", "", "", "", "", "", "", "", "", "")))
     .renderBackend[Backend]
+    .componentDidMount(scope => Callback {
+      scope.backend.initializeDatepicker()
+    })
     //.configure(Reusability.shouldComponentUpdate)
     .build
 }

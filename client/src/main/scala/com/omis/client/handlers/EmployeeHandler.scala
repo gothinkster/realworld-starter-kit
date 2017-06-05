@@ -1,6 +1,6 @@
 package com.omis.client.handlers
 
-import com.omis.EmpDetails
+import com.omis.{EmployeeModel}
 import com.omis.client.RootModels.EmployeeRootModel
 import com.omis.client.services.CoreApi
 import diode.{ActionHandler, ActionResult, ModelRW}
@@ -25,7 +25,7 @@ class EmployeeHandler[M](modelRW: ModelRW[M, Pot[EmployeeRootModel]]) extends Ac
       val updateF = action.effectWithRetry {
         CoreApi.getEmp
       } { json =>
-        Json.parse(json).validate[EmpDetails].asEither match {
+        Json.parse(json).validate[EmployeeModel].asEither match {
           case Left(e) => throw JavaScriptException("Error in parsing content")
           case Right(empDetails) => EmployeeRootModel(empDetails)
         }

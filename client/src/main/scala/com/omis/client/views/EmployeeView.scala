@@ -1,10 +1,8 @@
 package com.omis.client.views
 
-import com.omis.EmpDetails
 import com.omis.client.RootModels.EmployeeRootModel
-import com.omis.client.handlers.{RefreshEmployee, RefreshEmployees}
+import com.omis.client.handlers.{RefreshEmployee}
 import com.omis.client.router.ApplicationRouter.Loc
-import com.omis.client.views.Employees.Props
 import diode.data.Pot
 import diode.react.ModelProxy
 import japgolly.scalajs.react._
@@ -55,22 +53,32 @@ object EmployeeView {
                     <.fieldset(
                       ^.className := "form-group",
                       <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Department Code",
-                        ^.value := emp.empDetails.department)
+                        ^.value := emp.empDetails.departmentCode, ^.disabled := true)
+                    ),
+                    <.fieldset(
+                      ^.className := "form-group",
+                      <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Department Name",
+                        ^.value := emp.empDetails.departmentName, ^.disabled := true)
+                    ),
+                    <.fieldset(
+                      ^.className := "form-group",
+                      <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Registration Code",
+                        ^.value := emp.empDetails.registrationCode, ^.disabled := true)
                     ),
                     <.fieldset(
                       ^.className := "form-group",
                       <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Employee Grade",
-                        ^.value := emp.empDetails.grade)
+                        ^.value := emp.empDetails.grade, ^.disabled := true)
                     ),
                     <.fieldset(
                       ^.className := "form-group",
                       <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Salary",
-                        ^.value := emp.empDetails.salary)
+                        ^.value := emp.empDetails.salary, ^.disabled := true)
                     ),
                     <.fieldset(
                       ^.className := "form-group",
                       <.input(^.className := "form-control form-control-lg", ^.`type` := "text", ^.placeholder := "Pay Scale",
-                        ^.value := emp.empDetails.payScale)
+                        ^.value := emp.empDetails.payScale, ^.disabled := true)
                     ),
                     <.fieldset(
                       ^.className := "form-group",

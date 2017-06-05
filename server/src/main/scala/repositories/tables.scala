@@ -5,13 +5,10 @@ import java.util.UUID
 
 import com.mohiva.play.silhouette.api
 
-case class Course(id: java.util.UUID, code: String, name: String,
+case class Course(id: java.util.UUID, code: String, name: String, departmentId: UUID,
   created: java.time.LocalDateTime)
 
 case class CourseInstructor(id: java.util.UUID, courseId: java.util.UUID, instructorId: java.util.UUID,
-  created: java.time.LocalDateTime)
-
-case class CourseSemester(id: java.util.UUID, courseId: java.util.UUID, semesterId: java.util.UUID,
   created: java.time.LocalDateTime)
 
 case class CourseStudent(id: java.util.UUID, courseId: java.util.UUID, studentId: java.util.UUID,
@@ -21,38 +18,20 @@ case class Department(id: java.util.UUID, facultyId: java.util.UUID, code: Strin
   created: java.time.LocalDateTime)
 
 case class Employee(id: java.util.UUID, empGroup: String, userId: java.util.UUID, departmentId: java.util.UUID,
-  employeeSince: java.time.LocalDateTime, created: java.time.LocalDateTime, registrationNumber: String = "")
-
-case class EmployeeDesignation(id: java.util.UUID, name: String, created: java.time.LocalDateTime)
-
-case class EmployeeGrade(id: java.util.UUID, name: String, payBandMin: Option[Int], payBandMax: Option[Int],
-  created: java.time.LocalDateTime)
-
-case class EmployeeSalary(id: java.util.UUID, employeeId: java.util.UUID, employeeGradeId: java.util.UUID,
-  employeeDesignationId: java.util.UUID, appraisalDueOn: Option[java.time.LocalDateTime],
-  created: java.time.LocalDateTime)
+  employeeSince: java.time.LocalDate, created: java.time.LocalDateTime, registrationNumber: String,
+  grade: String, salary: String, payScale: String, shortBio: String)
 
 case class Faculty(id: java.util.UUID, universityId: java.util.UUID, code: String, name: String,
   addressOfFaculty: String, yearOfEstablishment: String, created: java.time.LocalDateTime)
 
 case class UserPasswordInfo(userId: UUID, hasher: String, password: String, salt: Option[String], created: LocalDateTime)
 
-case class Semester(id: java.util.UUID, session: String, semesterType: String, created: java.time.LocalDateTime)
-
-case class Student(id: java.util.UUID, userId: java.util.UUID, created: java.time.LocalDateTime)
-
-case class StudentAdmission(id: java.util.UUID, departmentId: java.util.UUID, studentId: java.util.UUID,
-  created: java.time.LocalDateTime)
-
-case class StudentCourseResult(id: java.util.UUID, studentId: java.util.UUID, courseSemesterId: java.util.UUID, grade: String,
-  maximumMarks: String, marksObtained: String, created: java.time.LocalDateTime)
+case class Student(id: java.util.UUID, userId: java.util.UUID, registration_number: String, department_id: UUID,
+  student_group: String, date_of_enrollment: String, created: java.time.LocalDateTime)
 
 case class University(id: java.util.UUID, code: String, name: String, yearOfEstablishment: String, state: String, address: String,
   created: java.time.LocalDateTime)
 
-case class UniversityAllocatedLeaves(id: java.util.UUID, year: String, universityId: java.util.UUID, numberOfLeaves: Int,
-  created: java.time.LocalDateTime)
-
-case class User(id: java.util.UUID, role: String, created: java.time.LocalDateTime) extends api.Identity
+case class User(id: java.util.UUID, role: String, firstName: String, lastName: String, avatar: String, created: java.time.LocalDateTime) extends api.Identity
 
 case class UserLoginInfo(userId: UUID, providerID: String = "credentials", providerKey: String)

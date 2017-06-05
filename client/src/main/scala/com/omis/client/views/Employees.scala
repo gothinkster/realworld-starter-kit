@@ -1,8 +1,6 @@
 package com.omis.client.views
 
-import java.util.UUID
-
-import com.omis.EmpDetails
+import com.omis.{EmployeeModel}
 import com.omis.client.RootModels.EmployeesRootModel
 import com.omis.client.handlers.RefreshEmployees
 import com.omis.client.router.ApplicationRouter.{Loc, NewEmployeeLoc}
@@ -18,21 +16,14 @@ import diode.AnyAction._
 
 object Employees {
 
-  lazy val employeesSeq: Seq[EmpDetails] = Seq(
-    EmpDetails(UUID.randomUUID(), "John", "Doe", "DCS", "A", "1000000", "1000000-1200000",
-      "Btech Mtech and Phd Qualified", "January 29th 1999"),
-    EmpDetails(UUID.randomUUID(), "Charles", "Xavier", "DCS", "A", "1000000", "1000000-1200000",
-      "Btech Mtech Qualified", "January 29th 2001")
-  )
-
-  case class State(employees: Seq[EmpDetails] = employeesSeq)
+  case class State()
 
   case class Props(routerCtl: RouterCtl[Loc], proxy: ModelProxy[Pot[EmployeesRootModel]])
 
   class Backend($: BackendScope[Props, State]) {
     def componentDidMount(props: Props) = Callback.when(!props.proxy().isPending)(props.proxy.dispatchCB(RefreshEmployees()))
 
-    def renderEmployee(employee: EmpDetails) = {
+    def renderEmployee(employee: EmployeeModel) = {
       <.div(
         ^.className := "article-preview",
         <.div(
@@ -44,16 +35,21 @@ object Employees {
           <.div(
             ^.className := "info",
             <.a(^.href := "", ^.className := "author", s"${employee.firstName} ${employee.lastName}"),
-            <.span(^.className := "date", s"Employee since: ${employee.created}")
+            <.span(^.className := "date", s"Employee since: ${employee.employeeSince}")
           ), EditEmployee(EditEmployee.Props(employee))
         ),
         <.a(^.href := "", ^.className := "preview-link",
           <.h1(s"Employee: ${employee.firstName} ${employee.lastName}"),
-          <.p(s"Department: ${employee.department}"),
+          <.p(s"Department: ${employee.departmentName}"),
+          <.p(s"Department Code: ${employee.departmentCode}"),
+          <.p(s"Registration Code: ${employee.registrationCode}"),
           <.p(s"Salary: ${employee.salary}"),
           <.p(s"Employee Grade: ${employee.grade}"),
-          <.p(s"Pay group: ${employee.payScale}"))
+          <.p(s"Pay group: ${employee.payScale}"),
+          <.p(s"Short Bio: ${employee.shortbio}"),
+          <.p(s"Employee Since: ${employee.employeeSince}"))
       )
+
     }
 
     def render(s: State, p: Props): VdomElement =

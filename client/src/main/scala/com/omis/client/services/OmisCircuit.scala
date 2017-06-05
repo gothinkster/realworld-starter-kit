@@ -12,7 +12,7 @@ case class RootModel(user: UserRootModel, emps: Pot[EmployeesRootModel], emp: Po
 object OmisCircuit extends Circuit[RootModel] with ReactConnector[RootModel] {
   // initial application model
   override protected def initialModel = RootModel(
-    UserRootModel(User(java.util.UUID.randomUUID(), "", "")), Pot.empty, Pot.empty
+    UserRootModel(User(java.util.UUID.randomUUID(), "", "", "", "", "")), Pot.empty, Pot.empty
   )
 
   // combine all handlers into one

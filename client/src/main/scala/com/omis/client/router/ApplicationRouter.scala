@@ -1,13 +1,9 @@
 package com.omis.client.router
 
-import java.util.UUID
-
-import com.omis.EmpDetails
 import com.omis.client.services.OmisCircuit
 import com.omis.client.views._
 import japgolly.scalajs.react.extra.router._
 import japgolly.scalajs.react.vdom.html_<^._
-import org.scalajs.dom
 
 // scalastyle:off
 object ApplicationRouter {
@@ -31,8 +27,6 @@ object ApplicationRouter {
   private val empProxy = OmisCircuit.connect(_.emp)
 
   val routerConfig = RouterConfigDsl[Loc].buildConfig { dsl =>
-    val testEmployee = EmpDetails(UUID.randomUUID(), "John", "Doe", "DCS", "A", "1000000", "1000000-1200000",
-      "Btech Mtech and Phd Qualified", "January 29th 1999")
     import dsl._
 
     (trimSlashes
