@@ -1,3 +1,5 @@
+# ![Yii2 Example App](logo.png)
+
 Yii 2 Basic Project Template
 ============================
 
