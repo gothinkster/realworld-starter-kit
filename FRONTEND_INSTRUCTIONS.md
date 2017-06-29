@@ -72,9 +72,9 @@ Alternatively, if you want to make modifications to the theme, check out the [th
       <div class="container">
         <a class="navbar-brand" href="index.html">conduit</a>
         <ul class="nav navbar-nav pull-xs-right">
-          <!-- Add "active" class when you're on that page" -->
-          <li class="nav-item active">
-            <a class="nav-link" href="">Home</a>
+          <li class="nav-item">
+            <!-- Add "active" class when you're on that page" -->
+            <a class="nav-link active" href="">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="">
@@ -256,7 +256,7 @@ Alternatively, if you want to make modifications to the theme, check out the [th
           <button class="btn btn-sm btn-outline-secondary action-btn">
             <i class="ion-plus-round"></i>
             &nbsp;
-            Follow Eric Simons <span class="counter">(10)</span>
+            Follow Eric Simons 
           </button>
         </div>
 
@@ -271,10 +271,10 @@ Alternatively, if you want to make modifications to the theme, check out the [th
         <div class="articles-toggle">
           <ul class="nav nav-pills outline-active">
             <li class="nav-item">
-              <a class="nav-link active" href="">My Posts</a>
+              <a class="nav-link active" href="">My Articles</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">Favorited Posts</a>
+              <a class="nav-link" href="">Favorited Articles</a>
             </li>
           </ul>
         </div>
@@ -401,7 +401,6 @@ Alternatively, if you want to make modifications to the theme, check out the [th
 </div>
 
 
-<%= footer %>
 ```
 
 ### Article
