@@ -1,0 +1,26 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+#Modified routes
+
+# Views
+GET         /                                       controllers.ViewController.index
+
+POST        /signup                                 controllers.RegistrationController.register
+POST        /login                                  controllers.AuthController.login
+GET        /authenticate                                  controllers.AuthController.authenticate
+GET        /logout                                 controllers.AuthController.logout
+
+POST        /employees/create                              controllers.EmployeeController.createEmp
+GET         /employees                                 controllers.EmployeeController.getAllEmp
+GET         /employees/:id                                 controllers.EmployeeController.getEmp(id: java.util.UUID)
+POST        /employees/:id                                 controllers.EmployeeController.updateEmp(id: java.util.UUID)
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /webjars/*file                          controllers.WebJarAssets.at(file)
+GET         /assets/fonts/*file                     controllers.Assets.at(path="/public/fonts", file)
+GET         /assets/*file                           controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file                           controllers.Assets.versioned(path="/public", file: Asset)
+

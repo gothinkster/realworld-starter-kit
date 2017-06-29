@@ -1,17 +1,43 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+*.class
+*.log
 
-# dependencies
-/node_modules
-/bower_components
+# sbt specific
+.cache/
+.history
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
 
-# IDEs and editors
-/.idea
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
+.cache*
+.settings
 .project
 .classpath
-*.launch
-.settings/
+*/bin
 
+# IntelliJ IDEA
+.idea
+*.iml
+out
+*.sc
 
-#System Files
-.DS_Store
-Thumbs.db
+# GitBook
+doc/_book
+
+# web hook/service
+#.travis.yml
+
+#node modules
+node_modules/
+
+*.patch
+
+.toDelete
+
+public/

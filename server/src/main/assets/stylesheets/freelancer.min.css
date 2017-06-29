@@ -1,0 +1,35 @@
+header {
+    text-align: center;
+    background: #18BC9C;
+    color: #fff;
+}
+
+header .intro-text .name {
+    display: block;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 2em;
+}
+
+hr.star-light, hr.star-primary {
+    padding: 0;
+    border: none;
+    border-top: solid 5px;
+    text-align: center;
+    max-width: 250px;
+    margin: 25px auto 30px;
+}
+
+hr.star-light {
+    border-color: #fff;
+}
+header .intro-text .skills {
+    font-size: 1.25em;
+    font-weight: 300;
+}
+
+header .container {
+    padding-top: 200px;
+    padding-bottom: 100px;
+}
