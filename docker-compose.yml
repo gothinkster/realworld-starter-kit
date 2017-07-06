@@ -1,0 +1,26 @@
+realworld:
+  build: ./
+  volumes:
+    - "./:/var/www/html"
+  ports:
+    - "80:80"
+  links:
+    - realworld_db
+  environment:
+    PATH: $PATH:/root/composer/vendor/bin
+    MYSQL_PASSWORD: "realworld"
+    MYSQL_USER: "realworld"
+    MYSQL_DB: "realworld"
+    MYSQL_HOST: "realworld_db"
+    MYSQL_DB_TEST: "realworld_test"
+
+realworld_db:
+  image: mysql:5.7
+  volumes:
+    - "./setup-test-db.sh:/docker-entrypoint-initdb.d/setup-test-db.sh"
+  environment:
+    MYSQL_PASSWORD: "realworld"
+    MYSQL_ROOT_PASSWORD: "realworld"
+    MYSQL_USER: "realworld"
+    MYSQL_DATABASE: "realworld"
+    MYSQL_DB_TEST: "realworld_test"
