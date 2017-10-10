@@ -3,7 +3,7 @@ require('./index.scss')
 // IE11?
 // require('babel-polyfill');
 
-import {Slim} from "slim-js/src/Slim";
+import {Slim} from "slim-js/Slim";
 import {tag, template, useShadow, attribute} from "slim-js/Decorators";
 
 @tag('awesome-app')
