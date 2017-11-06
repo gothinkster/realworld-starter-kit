@@ -17,7 +17,8 @@
         "slim/php-view": "^2.0",
         "monolog/monolog": "^1.23",
         "illuminate/database": "^5.5",
-        "robmorgan/phinx": "dev-master#4c26aeb"
+        "robmorgan/phinx": "dev-master#4c26aeb",
+        "vlucas/phpdotenv": "^2.4"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.4"
@@ -37,6 +38,9 @@
         "process-timeout" : 0
     },
     "scripts": {
+        "post-install-cmd": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env'); \""
+        ],
         "start": "php -S localhost:8080 -t public public/index.php",
         "test": "phpunit"
     }
