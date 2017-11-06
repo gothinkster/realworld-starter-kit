@@ -15,3 +15,9 @@
 #System Files
 .DS_Store
 Thumbs.db
+
+#Slim .gitignore
+
+/vendor/
+/logs/*
+!/logs/README.md
