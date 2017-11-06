@@ -1,7 +1,11 @@
 <?php
 // DIC configuration
 
+/** @var Pimple\Container $container */
 $container = $app->getContainer();
+
+// App Service Providers
+$container->register(new \Conduit\Services\Database\EloquentServiceProvider());
 
 // view renderer
 $container['renderer'] = function ($c) {
@@ -16,34 +20,6 @@ $container['logger'] = function ($c) {
     $logger->pushProcessor(new Monolog\Processor\UidProcessor());
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
     return $logger;
-};
-
-
-// illuminate/database
-$container['db'] = function ($c) {
-
-    $config = $c->get('settings')['database'];
-
-    $capsule = new Illuminate\Database\Capsule\Manager;
-
-    $capsule->addConnection([
-        'driver'    => $config['driver'],
-        'host'      => $config['host'],
-        'database'  => $config['database'],
-        'username'  => $config['username'],
-        'password'  => $config['password'],
-        'charset'   => 'utf8',
-        'collation' => 'utf8_unicode_ci',
-        'prefix'    => '',
-    ]);
-
-// Make this Capsule instance available globally via static methods... (optional)
-    $capsule->setAsGlobal();
-
-// Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
-    $capsule->bootEloquent();
-
-    return $capsule;
 };
 
 // Jwt Middleware
