@@ -23,6 +23,7 @@ return [
             'database'  => 'conduit',
             'username'  => 'root',
             'password'  => '',
+            'port'      => '3360',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
