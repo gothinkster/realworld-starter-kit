@@ -47,5 +47,13 @@ return [
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
         ],
+
+        // jwt settings
+        'jwt' => [
+            'secret' => getenv('JWT_SECRET'),
+            'secure' => false,
+        ]
+
+
     ],
 ];

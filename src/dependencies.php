@@ -45,3 +45,11 @@ $container['db'] = function ($c) {
 
     return $capsule;
 };
+
+// Jwt Middleware
+$container['jwt'] = function ($c) {
+
+    $jws_settings = $c->get('settings')['jwt'];
+
+    return new \Slim\Middleware\JwtAuthentication($jws_settings);
+};
