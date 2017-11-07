@@ -25,7 +25,8 @@ class RegisterUsersTest extends BaseTestCase
         $body = json_decode((string)$response->getBody(), true);
 
         $this->assertEquals(200, $response->getStatusCode(), "Response must return 200 status code");
-        // Validate Database has new user;
+        $this->assertDatabaseHas('users', ['username' => 'newUser']);
+        unset($payload['user']['password']);
         $this->assertArraySubset($payload, $body, 'Return response must contains user data');
     }
 }

@@ -11,16 +11,13 @@ $app->group('/api', function () {
     /** @var \Slim\App $this */
     $this->post('/users', function (Request $request, Response $response, array $args) {
 
+        $user = new \Conduit\Models\User($request->getParams()['user']);
+        $user->token = 'some token';
+        $user->save();
+
         return $response->withJson(
             [
-                'user' => [
-                    'username' => 'newUser',
-                    'email'    => 'new@example.com',
-                    'password' => 'secret',
-                    'token'    => 'someToken',
-                    'bio'      => null,
-                    'image'    => null,
-                ],
+                'user' => $user->toArray(),
             ]);
     });
 

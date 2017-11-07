@@ -18,6 +18,7 @@ use Tests\UseDatabaseTrait;
 abstract class BaseTestCase extends TestCase
 {
 
+    /** @var  \Slim\App */
     protected $app;
 
     /**
