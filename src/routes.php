@@ -1,25 +1,16 @@
 <?php
 
+use Conduit\Controllers\Auth\RegisterController;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
 
 // Api Routes
 $app->group('/api', function () {
+    /** @var \Slim\App $this */
 
     // Auth Routes
-    /** @var \Slim\App $this */
-    $this->post('/users', function (Request $request, Response $response, array $args) {
-
-        $user = new \Conduit\Models\User($request->getParams()['user']);
-        $user->token = 'some token';
-        $user->save();
-
-        return $response->withJson(
-            [
-                'user' => $user->toArray(),
-            ]);
-    });
+    $this->post('/users', RegisterController::class . ':register')->setName('auth.register');
 
     // Articles Routes
     $this->get('/articles', function (Request $request, Response $response, array $args) {
