@@ -64,7 +64,7 @@ abstract class BaseTestCase extends TestCase
      * @param string            $requestUri    the request URI
      * @param array|object|null $requestData   the request data
      *
-     * @return \Slim\Http\Response
+     * @return \Psr\Http\Message\ResponseInterface|\Slim\Http\Response
      */
     public function runApp($requestMethod, $requestUri, $requestData = null)
     {
@@ -87,11 +87,13 @@ abstract class BaseTestCase extends TestCase
         // Set up a response object
         $response = new Response();
 
-        // Process the application
-        $response = $this->app->process($request, $response);
+        // Process the application and Return the response
+        return $this->app->process($request, $response);
+    }
 
-        // Return the response
-        return $response;
+    public function request($requestMethod, $requestUri, $requestData)
+    {
+        return $this->runApp($requestMethod, $requestUri, $requestData);
     }
 
     protected function createApplication()
