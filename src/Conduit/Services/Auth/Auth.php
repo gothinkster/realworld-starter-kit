@@ -2,6 +2,7 @@
 
 namespace Conduit\Services\Auth;
 
+use Conduit\Models\User;
 use DateTime;
 use Firebase\JWT\JWT;
 use Illuminate\Database\Capsule\Manager;
@@ -33,6 +34,10 @@ class Auth
 
     /**
      * Generate a new JWT token
+     *
+     * @param $username
+     *
+     * @return string
      */
     public function generateToken($username)
     {
@@ -51,5 +56,25 @@ class Auth
         $token = JWT::encode($payload, $secret, "HS256");
 
         return $token;
+    }
+
+    /**
+     * Attempt to find the user based on email and verify password
+     *
+     * @param $email
+     * @param $password
+     *
+     * @return bool|\Conduit\Models\User
+     */
+    public function attempt($email, $password) {
+        if ( ! $user = User::where('email', $email)->first()) {
+            return false;
+        }
+
+        if (password_verify($password, $user->password)) {
+            return $user;
+        }
+
+        return false;
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use Conduit\Controllers\Auth\LoginController;
 use Conduit\Controllers\Auth\RegisterController;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -11,6 +12,7 @@ $app->group('/api', function () {
 
     // Auth Routes
     $this->post('/users', RegisterController::class . ':register')->setName('auth.register');
+    $this->post('/users/login', LoginController::class . ':login')->setName('auth.login');
 
     // Articles Routes
     $this->get('/articles', function (Request $request, Response $response, array $args) {
