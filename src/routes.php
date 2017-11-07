@@ -9,6 +9,7 @@ use Slim\Http\Response;
 
 // Api Routes
 $app->group('/api', function () {
+    $jwtMiddleware = $this->getContainer()->get('jwt');
     /** @var \Slim\App $this */
 
     // Auth Routes
@@ -16,7 +17,7 @@ $app->group('/api', function () {
     $this->post('/users/login', LoginController::class . ':login')->setName('auth.login');
 
     // User Routes
-    $this->get('/user', UserController::class . ':show')->setName('user.show');
+    $this->get('/user', UserController::class . ':show')->add($jwtMiddleware)->setName('user.show');
 
     // Articles Routes
     $this->get('/articles', function (Request $request, Response $response, array $args) {

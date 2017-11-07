@@ -7,9 +7,12 @@ use DateTime;
 use Firebase\JWT\JWT;
 use Illuminate\Database\Capsule\Manager;
 use Slim\Collection;
+use Slim\Http\Request;
 
 class Auth
 {
+
+    const SUBJECT_IDENTIFIER = 'username';
 
     /**
      * @var \Illuminate\Database\Capsule\Manager
@@ -35,11 +38,13 @@ class Auth
     /**
      * Generate a new JWT token
      *
-     * @param $username
+     * @param \Conduit\Models\User $user
      *
      * @return string
+     * @internal param string $subjectIdentifier The username of the subject user.
+     *
      */
-    public function generateToken($username)
+    public function generateToken(User $user)
     {
         $now = new DateTime();
         $future = new DateTime("now +2 hours");
@@ -49,7 +54,7 @@ class Auth
             "exp" => $future->getTimeStamp(),
             "jti" => base64_encode(random_bytes(16)),
             'iss' => $this->appConfig['app']['url'],  // Issuer
-            "sub" => $username,
+            "sub" => $user->{self::SUBJECT_IDENTIFIER},
         ];
 
         $secret = $this->appConfig['jwt']['secret'];
@@ -66,7 +71,8 @@ class Auth
      *
      * @return bool|\Conduit\Models\User
      */
-    public function attempt($email, $password) {
+    public function attempt($email, $password)
+    {
         if ( ! $user = User::where('email', $email)->first()) {
             return false;
         }
@@ -77,4 +83,20 @@ class Auth
 
         return false;
     }
+
+    /**
+     * Retrieve a user by the JWT token from the request
+     *
+     * @param \Slim\Http\Request $request
+     *
+     * @return mixed
+     */
+    public function requestUser(Request $request)
+    {
+        // Should add more validation to the present and validity of the token?
+        if ($token = $request->getAttribute('token')) {
+            return User::where(static::SUBJECT_IDENTIFIER, '=', $token->sub)->first();
+        };
+    }
+
 }

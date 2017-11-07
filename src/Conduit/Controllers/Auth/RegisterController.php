@@ -52,7 +52,7 @@ class RegisterController
         }
 
         $user = new User($userParams);
-        $user->token = $this->auth->generateToken($user->username);
+        $user->token = $this->auth->generateToken($user);
         $user->password = password_hash($userParams['password'], PASSWORD_DEFAULT);
         $user->save();
 

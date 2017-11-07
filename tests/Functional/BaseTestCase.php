@@ -2,6 +2,8 @@
 
 namespace Tests\Functional;
 
+use Conduit\Models\User;
+use Faker\Factory;
 use PHPUnit\Framework\TestCase;
 use Slim\App;
 use Slim\Http\Request;
@@ -98,9 +100,56 @@ abstract class BaseTestCase extends TestCase
         return $this->app->process($request, $response);
     }
 
+    /**
+     * Make a request to the Api
+     *
+     * @param       $requestMethod
+     * @param       $requestUri
+     * @param null  $requestData
+     * @param array $headers
+     *
+     * @return \Psr\Http\Message\ResponseInterface|\Slim\Http\Response
+     */
     public function request($requestMethod, $requestUri, $requestData = null, $headers = [])
     {
         return $this->runApp($requestMethod, $requestUri, $requestData, $headers);
+    }
+
+    /**
+     * Generate a new JWT token for the given user
+     *
+     * @param \Conduit\Models\User $user
+     *
+     * @return mixed
+     */
+    public function getValidToken(User $user)
+    {
+        $user->update([
+            'token' =>
+                $token = $this->app->getContainer()->get('auth')->generateToken($user),
+        ]);
+
+        return $token;
+    }
+
+    /**
+     * Create a new User
+     *
+     * @param array $overrides
+     *
+     * @return User
+     */
+    public function createUser($overrides = [])
+    {
+        $faker = Factory::create();
+        $attributes = [
+            'username' => $faker->userName,
+            'email'    => $faker->email,
+            'password' => $password = password_hash($faker->password, PASSWORD_DEFAULT),
+        ];
+        $overrides['password'] = isset($overrides['password']) ? $overrides['password'] : $password;
+
+        return User::create(array_merge($attributes, $overrides));
     }
 
     protected function createApplication()

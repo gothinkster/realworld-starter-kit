@@ -13,14 +13,16 @@ class ManageUserTest extends BaseTestCase
     /** @test */
     public function returns_a_user_that_is_the_current_user()
     {
-        $headers = ['Authorization' => 'Token '];
+        $user = $this->createUser();
+        $token = $this->getValidToken($user);
+        $headers = ['HTTP_AUTHORIZATION' => 'Token ' . $token];
 
         $response = $this->request('GET', '/api/user', null, $headers);
 
         $body = json_decode((string)$response->getBody(), true);
 
         $this->assertEquals(200, $response->getStatusCode(), "Response must return 200 status code");
-        $this->assertEquals(1, 1);
+        $this->assertEquals($body['user']['username'], $user->username);
     }
 
     /** @test */

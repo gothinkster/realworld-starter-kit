@@ -43,7 +43,7 @@ class RegisterUsersTest extends BaseTestCase
         $response = $this->request('POST', '/api/users', $payload);
 
         $this->assertEquals(422, $response->getStatusCode());
-        $errors = json_decode((string) $response->getBody(), true);
+        $errors = json_decode((string)$response->getBody(), true);
         $this->assertArrayHasKey('username', $errors['errors']);
     }
 
@@ -61,7 +61,7 @@ class RegisterUsersTest extends BaseTestCase
         $response = $this->request('POST', '/api/users', $payload);
 
         $this->assertEquals(422, $response->getStatusCode());
-        $errors = json_decode((string) $response->getBody(), true);
+        $errors = json_decode((string)$response->getBody(), true);
         $this->assertArrayHasKey('email', $errors['errors']);
     }
 }
