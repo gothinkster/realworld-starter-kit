@@ -17,7 +17,7 @@ class CreateUsersTable extends BaseMigration
             $table->string('email')->unique();
             $table->string('username')->unique();
             $table->string('password');
-            $table->string('token');
+            $table->text('token');
             $table->string('bio')->nullable();
             $table->string('image')->nullable();
 

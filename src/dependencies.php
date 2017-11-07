@@ -6,6 +6,7 @@ $container = $app->getContainer();
 
 // App Service Providers
 $container->register(new \Conduit\Services\Database\EloquentServiceProvider());
+$container->register(new \Conduit\Services\Auth\AuthServiceProvider());
 
 // view renderer
 $container['renderer'] = function ($c) {
