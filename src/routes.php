@@ -7,6 +7,23 @@ use Slim\Http\Response;
 // Api Routes
 $app->group('/api', function () {
 
+    // Auth Routes
+    /** @var \Slim\App $this */
+    $this->post('/users', function (Request $request, Response $response, array $args) {
+
+        return $response->withJson(
+            [
+                'user' => [
+                    'username' => 'newUser',
+                    'email'    => 'new@example.com',
+                    'password' => 'secret',
+                    'token'    => 'someToken',
+                    'bio'      => null,
+                    'image'    => null,
+                ],
+            ]);
+    });
+
     // Articles Routes
     $this->get('/articles', function (Request $request, Response $response, array $args) {
         $articles = [
