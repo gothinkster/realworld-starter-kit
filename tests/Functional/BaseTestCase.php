@@ -7,6 +7,7 @@ use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Http\Environment;
+use Tests\UseDatabaseTrait;
 
 /**
  * This is an example class that shows how you could set up a method that
@@ -14,8 +15,9 @@ use Slim\Http\Environment;
  * tuned to the specifics of this skeleton app, so if your needs are
  * different, you'll need to change it.
  */
-class BaseTestCase extends TestCase
+abstract class BaseTestCase extends TestCase
 {
+
     /**
      * Use middleware when running application?
      *
@@ -24,11 +26,38 @@ class BaseTestCase extends TestCase
     protected $withMiddleware = true;
 
     /**
+     * Sets up the fixture, for example, open a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+        $traits = array_flip(class_uses_recursive(static::class));
+        if (isset($traits[UseDatabaseTrait::class])) {
+            $this->runMigration();
+        }
+    }
+
+    /**
+     * Tears down the fixture, for example, close a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown()
+    {
+        $traits = array_flip(class_uses_recursive(static::class));
+        if (isset($traits[UseDatabaseTrait::class])) {
+            $this->rollbackMigration();
+        }
+        parent::tearDown();
+    }
+
+    /**
      * Process the application given a request method and URI
      *
-     * @param string $requestMethod the request method (e.g. GET, POST, etc.)
-     * @param string $requestUri the request URI
-     * @param array|object|null $requestData the request data
+     * @param string            $requestMethod the request method (e.g. GET, POST, etc.)
+     * @param string            $requestUri    the request URI
+     * @param array|object|null $requestData   the request data
+     *
      * @return \Slim\Http\Response
      */
     public function runApp($requestMethod, $requestUri, $requestData = null)
@@ -37,7 +66,7 @@ class BaseTestCase extends TestCase
         $environment = Environment::mock(
             [
                 'REQUEST_METHOD' => $requestMethod,
-                'REQUEST_URI' => $requestUri
+                'REQUEST_URI'    => $requestUri,
             ]
         );
 

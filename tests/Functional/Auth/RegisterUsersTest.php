@@ -3,9 +3,12 @@
 namespace Tests\Functional\Auth;
 
 use Tests\Functional\BaseTestCase;
+use Tests\UseDatabaseTrait;
 
 class RegisterUsersTest extends BaseTestCase
 {
+
+    use UseDatabaseTrait;
 
     /** @test */
     public function it_creates_new_user_when_provided_with_all_required_parameters()
