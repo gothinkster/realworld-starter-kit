@@ -48,7 +48,7 @@ class LoginController
         $validation = $this->validateLoginRequest($userParams = $request->getParam('user'));
 
         if ($validation->failed()) {
-            return $response->withJson(['errors' => $validation->getErrors()], 422);
+            return $response->withJson(['errors' => ['email or password' => ['is invalid']]], 422);
         }
 
         if ($user = $this->auth->attempt($userParams['email'], $userParams['password'])) {
@@ -57,6 +57,8 @@ class LoginController
 
             return $response->withJson(['user' => $data]);
         };
+
+        return $response->withJson(['errors' => ['email or password' => ['is invalid']]], 422);
     }
 
     /**
