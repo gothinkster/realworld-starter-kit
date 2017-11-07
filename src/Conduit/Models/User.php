@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string         image
  * @property string         bio
  * @property string         token
+ * @property string           password
  * @property \Carbon\Carbon created_at
  * @property \Carbon\Carbon update_at
  */

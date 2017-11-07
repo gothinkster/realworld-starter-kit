@@ -40,11 +40,10 @@ class RegisterController
      *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
-     * @param array               $args
      *
-     * @return static
+     * @return \Slim\Http\Response
      */
-    public function register(Request $request, Response $response, array $args)
+    public function register(Request $request, Response $response)
     {
         $validation = $this->validateRegisterRequest($userParams = $request->getParam('user'));
 
@@ -54,6 +53,7 @@ class RegisterController
 
         $user = new User($userParams);
         $user->token = $this->auth->generateToken($user->username);
+        $user->password = password_hash($userParams['password'], PASSWORD_DEFAULT);
         $user->save();
 
         $resource = new Item($user, new UserTransformer());
