@@ -64,16 +64,23 @@ abstract class BaseTestCase extends TestCase
      * @param string            $requestUri    the request URI
      * @param array|object|null $requestData   the request data
      *
+     * @param array             $headers
+     *
      * @return \Psr\Http\Message\ResponseInterface|\Slim\Http\Response
      */
-    public function runApp($requestMethod, $requestUri, $requestData = null)
+    public function runApp($requestMethod, $requestUri, $requestData = null, $headers = [])
     {
         // Create a mock environment for testing with
         $environment = Environment::mock(
-            [
-                'REQUEST_METHOD' => $requestMethod,
-                'REQUEST_URI'    => $requestUri,
-            ]
+            array_merge(
+                [
+                    'REQUEST_METHOD'   => $requestMethod,
+                    'REQUEST_URI'      => $requestUri,
+                    'Content-Type'     => 'application/json',
+                    'X-Requested-With' => 'XMLHttpRequest',
+                ],
+                $headers
+            )
         );
 
         // Set up a request object based on the environment
@@ -91,9 +98,9 @@ abstract class BaseTestCase extends TestCase
         return $this->app->process($request, $response);
     }
 
-    public function request($requestMethod, $requestUri, $requestData)
+    public function request($requestMethod, $requestUri, $requestData = null, $headers = [])
     {
-        return $this->runApp($requestMethod, $requestUri, $requestData);
+        return $this->runApp($requestMethod, $requestUri, $requestData, $headers);
     }
 
     protected function createApplication()
