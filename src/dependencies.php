@@ -1,11 +1,21 @@
 <?php
 // DIC configuration
 
+/** @var Pimple\Container $container */
+
+use League\Fractal\Manager;
+use League\Fractal\Serializer\ArraySerializer;
+
 $container = $app->getContainer();
+
+// App Service Providers
+$container->register(new \Conduit\Services\Database\EloquentServiceProvider());
+$container->register(new \Conduit\Services\Auth\AuthServiceProvider());
 
 // view renderer
 $container['renderer'] = function ($c) {
     $settings = $c->get('settings')['renderer'];
+
     return new Slim\Views\PhpRenderer($settings['template_path']);
 };
 
@@ -15,35 +25,8 @@ $container['logger'] = function ($c) {
     $logger = new Monolog\Logger($settings['name']);
     $logger->pushProcessor(new Monolog\Processor\UidProcessor());
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
+
     return $logger;
-};
-
-
-// illuminate/database
-$container['db'] = function ($c) {
-
-    $config = $c->get('settings')['database'];
-
-    $capsule = new Illuminate\Database\Capsule\Manager;
-
-    $capsule->addConnection([
-        'driver'    => $config['driver'],
-        'host'      => $config['host'],
-        'database'  => $config['database'],
-        'username'  => $config['username'],
-        'password'  => $config['password'],
-        'charset'   => 'utf8',
-        'collation' => 'utf8_unicode_ci',
-        'prefix'    => '',
-    ]);
-
-// Make this Capsule instance available globally via static methods... (optional)
-    $capsule->setAsGlobal();
-
-// Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
-    $capsule->bootEloquent();
-
-    return $capsule;
 };
 
 // Jwt Middleware
@@ -52,4 +35,20 @@ $container['jwt'] = function ($c) {
     $jws_settings = $c->get('settings')['jwt'];
 
     return new \Slim\Middleware\JwtAuthentication($jws_settings);
+};
+
+\Respect\Validation\Validator::with('\\Conduit\\Validation\\Rules');
+
+// Request Validator
+$container['validator'] = function ($c) {
+
+    return new \Conduit\Validation\Validator();
+};
+
+// Fractal
+$container['fractal'] = function ($c) {
+    $manager = new Manager();
+    $manager->setSerializer(new ArraySerializer());
+
+    return $manager;
 };

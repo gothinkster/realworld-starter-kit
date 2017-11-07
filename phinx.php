@@ -1,10 +1,10 @@
 <?php
 
 require_once './vendor/autoload.php';
-$settings = require_once './src/settings.php';
+$settings = require './src/settings.php';
 $app = new \Slim\App($settings);
-require_once  './src/dependencies.php';
 $container = $app->getContainer();
+$container->register(new \Conduit\Services\Database\EloquentServiceProvider());
 $config = $container['settings']['database'];
 
 return [
@@ -25,7 +25,7 @@ return [
         'default_database'        => 'development',
         'development'             => [
             'name'       => $config['database'],
-            'connection' => $container->db->getConnection()->getPdo(),
+            'connection' => $container->get('db')->getConnection()->getPdo(),
         ],
         'production'              => [
             'adapter'   => $config['driver'],

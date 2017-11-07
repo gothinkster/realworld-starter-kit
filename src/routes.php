@@ -1,11 +1,24 @@
 <?php
 
+use Conduit\Controllers\Auth\LoginController;
+use Conduit\Controllers\Auth\RegisterController;
+use Conduit\Controllers\User\UserController;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
 
 // Api Routes
 $app->group('/api', function () {
+    $jwtMiddleware = $this->getContainer()->get('jwt');
+    /** @var \Slim\App $this */
+
+    // Auth Routes
+    $this->post('/users', RegisterController::class . ':register')->setName('auth.register');
+    $this->post('/users/login', LoginController::class . ':login')->setName('auth.login');
+
+    // User Routes
+    $this->get('/user', UserController::class . ':show')->add($jwtMiddleware)->setName('user.show');
+    $this->put('/user', UserController::class . ':update')->add($jwtMiddleware)->setName('user.update');
 
     // Articles Routes
     $this->get('/articles', function (Request $request, Response $response, array $args) {

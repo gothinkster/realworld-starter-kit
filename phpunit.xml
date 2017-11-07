@@ -1,7 +1,11 @@
 <phpunit bootstrap="vendor/autoload.php">
     <testsuites>
-        <testsuite name="SlimSkeleton">
+        <testsuite name="Conduit">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="DB_DATABASE" value="conduit_test"/>
+    </php>
 </phpunit>
