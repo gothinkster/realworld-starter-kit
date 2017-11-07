@@ -18,6 +18,8 @@ use Tests\UseDatabaseTrait;
 abstract class BaseTestCase extends TestCase
 {
 
+    protected $app;
+
     /**
      * Use middleware when running application?
      *
@@ -32,6 +34,8 @@ abstract class BaseTestCase extends TestCase
     protected function setUp()
     {
         parent::setUp();
+        $this->createApplication();
+
         $traits = array_flip(class_uses_recursive(static::class));
         if (isset($traits[UseDatabaseTrait::class])) {
             $this->runMigration();
@@ -48,6 +52,7 @@ abstract class BaseTestCase extends TestCase
         if (isset($traits[UseDatabaseTrait::class])) {
             $this->rollbackMigration();
         }
+        unset($this->app);
         parent::tearDown();
     }
 
@@ -81,11 +86,20 @@ abstract class BaseTestCase extends TestCase
         // Set up a response object
         $response = new Response();
 
+        // Process the application
+        $response = $this->app->process($request, $response);
+
+        // Return the response
+        return $response;
+    }
+
+    protected function createApplication()
+    {
         // Use the application settings
         $settings = require __DIR__ . '/../../src/settings.php';
 
         // Instantiate the application
-        $app = new App($settings);
+        $this->app = $app = new App($settings);
 
         // Set up dependencies
         require __DIR__ . '/../../src/dependencies.php';
@@ -97,11 +111,5 @@ abstract class BaseTestCase extends TestCase
 
         // Register routes
         require __DIR__ . '/../../src/routes.php';
-
-        // Process the application
-        $response = $app->process($request, $response);
-
-        // Return the response
-        return $response;
     }
 }
