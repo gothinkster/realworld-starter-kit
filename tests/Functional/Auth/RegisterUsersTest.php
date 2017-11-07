@@ -29,7 +29,7 @@ class RegisterUsersTest extends BaseTestCase
         unset($payload['user']['password']);
         $this->assertArraySubset($payload, $body, 'Return response must contains user data');
     }
-    
+
     /** @test */
     public function registration_requires_a_user_name()
     {

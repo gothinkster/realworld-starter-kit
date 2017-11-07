@@ -3,7 +3,9 @@
 namespace Conduit\Controllers\Auth;
 
 use Conduit\Models\User;
+use Conduit\Transformers\UserTransformer;
 use Interop\Container\ContainerInterface;
+use League\Fractal\Resource\Item;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Respect\Validation\Validator as v;
@@ -11,15 +13,13 @@ use Respect\Validation\Validator as v;
 class RegisterController
 {
 
-    /**
-     * @var \Conduit\Validation\Validator
-     */
+    /** @var \Conduit\Validation\Validator */
     protected $validator;
+    /** @var \Illuminate\Database\Capsule\Manager */
     protected $db;
-
-    /**
-     * @var \Conduit\Services\Auth\Auth
-     */
+    /** @var \League\Fractal\Manager */
+    protected $fractal;
+    /** @var \Conduit\Services\Auth\Auth */
     private $auth;
 
     /**
@@ -32,8 +32,18 @@ class RegisterController
         $this->auth = $container->get('auth');
         $this->validator = $container->get('validator');
         $this->db = $container->get('db');
+        $this->fractal = $container->get('fractal');
     }
 
+    /**
+     * Register New Users from POST Requests to /api/users
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     *
+     * @return static
+     */
     public function register(Request $request, Response $response, array $args)
     {
         $validation = $this->validateRegisterRequest($userParams = $request->getParam('user'));
@@ -46,9 +56,12 @@ class RegisterController
         $user->token = $this->auth->generateToken($user->username);
         $user->save();
 
+        $resource = new Item($user, new UserTransformer());
+        $user = $this->fractal->createData($resource)->toArray();
+
         return $response->withJson(
             [
-                'user' => $user->toArray(),
+                'user' => $user,
             ]);
     }
 

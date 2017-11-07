@@ -2,6 +2,10 @@
 // DIC configuration
 
 /** @var Pimple\Container $container */
+
+use League\Fractal\Manager;
+use League\Fractal\Serializer\ArraySerializer;
+
 $container = $app->getContainer();
 
 // App Service Providers
@@ -39,4 +43,12 @@ $container['jwt'] = function ($c) {
 $container['validator'] = function ($c) {
 
     return new \Conduit\Validation\Validator();
+};
+
+// Fractal
+$container['fractal'] = function ($c) {
+    $manager = new Manager();
+    $manager->setSerializer(new ArraySerializer());
+
+    return $manager;
 };
