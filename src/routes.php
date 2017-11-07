@@ -18,6 +18,7 @@ $app->group('/api', function () {
 
     // User Routes
     $this->get('/user', UserController::class . ':show')->add($jwtMiddleware)->setName('user.show');
+    $this->put('/user', UserController::class . ':update')->add($jwtMiddleware)->setName('user.update');
 
     // Articles Routes
     $this->get('/articles', function (Request $request, Response $response, array $args) {

@@ -26,37 +26,27 @@ class ManageUserTest extends BaseTestCase
     }
 
     /** @test */
-    public function registration_requires_a_user_name()
+    public function unauthenticated_requests_may_not_get_user_data()
     {
-        $payload = [
-            'user' => [
-                'email'    => 'new@example.com',
-                'password' => 'secret',
-            ],
-        ];
-
-        $response = $this->request('POST', '/api/users', $payload);
-
-        $this->assertEquals(422, $response->getStatusCode());
-        $errors = json_decode((string)$response->getBody(), true);
-        $this->assertArrayHasKey('username', $errors['errors']);
+        $response = $this->request('GET', '/api/user');
+        $this->assertEquals(401, $response->getStatusCode(), "Response must return 401 status code");
     }
 
     /** @test */
-    public function registration_requires_a_valid_email()
+    public function an_authenticated_user_can_update_his_details()
     {
+        $user = $this->createUserWithValidToken(['username' => 'superUserDo']);
+        $this->assertEquals('superUserDo', $user->username);
+        $headers = ['HTTP_AUTHORIZATION' => 'Token ' . $user->token];
+
         $payload = [
-            'user' => [
-                'username' => 'username',
-                'email'    => 'NotValid@email',
-                'password' => 'secret',
-            ],
+            'user' =>
+                ['username' => 'substituteUserAndDo'],
         ];
 
-        $response = $this->request('POST', '/api/users', $payload);
+        $response = $this->request('PUT', '/api/user', $payload, $headers);
 
-        $this->assertEquals(422, $response->getStatusCode());
-        $errors = json_decode((string)$response->getBody(), true);
-        $this->assertArrayHasKey('email', $errors['errors']);
+        $this->assertEquals(200, $response->getStatusCode(), "Response must return 200 status code");
+        $this->assertEquals('substituteUserAndDo', $user->fresh()->username);
     }
 }

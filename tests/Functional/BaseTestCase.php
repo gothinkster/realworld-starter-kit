@@ -152,6 +152,20 @@ abstract class BaseTestCase extends TestCase
         return User::create(array_merge($attributes, $overrides));
     }
 
+    /**
+     * Create A User with valid JWT Token
+     *
+     * @param array $overrides
+     * @return User
+     */
+    public function createUserWithValidToken($overrides = [])
+    {
+        $user = $this->createUser($overrides);
+        $this->getValidToken($user);
+
+        return $user->fresh();
+    }
+
     protected function createApplication()
     {
         // Use the application settings

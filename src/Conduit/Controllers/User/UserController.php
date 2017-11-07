@@ -37,4 +37,18 @@ class UserController
             return $response->withJson(['user' => $data]);
         };
     }
+
+    public function update(Request $request, Response $response)
+    {
+        if ($user = $this->auth->requestUser($request)) {
+            $requestParams = $request->getParam('user');
+
+            // TODO Image Upload
+            $user->update(array_only($requestParams, ['email', 'username', 'password', 'image', 'bio']));
+
+            $data = $this->fractal->createData(new Item($user, new UserTransformer()))->toArray();
+
+            return $response->withJson(['user' => $data]);
+        };
+    }
 }
