@@ -48,7 +48,10 @@ class ProfileController
 
     public function follow(Request $request, Response $response, array $args)
     {
-        $user = User::where('username', $args['username'])->firstOrFail();
+        $requestUser = $this->auth->requestUser($request);
+        $user = User::query()->where('username', $args['username'])->firstOrFail();
+
+        $requestUser->follow($user->id);
 
         return $response->withJson(
             [
@@ -56,7 +59,7 @@ class ProfileController
                     'username'  => $user->username,
                     'bio'       => $user->bio,
                     'image'     => $user->image,
-                    'following' => false,
+                    'following' => $requestUser->isFollowing($user->id),
                 ],
             ]
         );
