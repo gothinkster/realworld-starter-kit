@@ -3,6 +3,7 @@
 namespace Conduit\Controllers\User;
 
 use Conduit\Models\User;
+use Conduit\Transformers\ProfileTransformer;
 use Conduit\Transformers\UserTransformer;
 use Interop\Container\ContainerInterface;
 use League\Fractal\Resource\Item;
@@ -34,7 +35,11 @@ class ProfileController
     {
         $user = User::where('username', $args['username'])->firstOrFail();
         $requestUser = $this->auth->requestUser($request);
+        $followingStatus = false;
 
+        if ($requestUser) {
+            $followingStatus = $requestUser->isFollowing($user->id);
+        }
 
         return $response->withJson(
             [
@@ -42,7 +47,7 @@ class ProfileController
                     'username'  => $user->username,
                     'bio'       => $user->bio,
                     'image'     => $user->image,
-                    'following' => $requestUser->isFollowing($user->id),
+                    'following' => $followingStatus,
                 ],
             ]
         );
