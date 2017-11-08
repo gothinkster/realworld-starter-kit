@@ -34,4 +34,14 @@ trait UseDatabaseTrait
                 $data[$key]
             ));
     }
+
+    protected function assertDatabaseDoesNotHave($table, array $data)
+    {
+        $builder = $this->app->getContainer()->get('db')->table($table);
+        foreach ($data as $filed => $value) {
+            $builder->where($filed, $value);
+        }
+
+        $this->assertFalse($builder->count() > 0, 'Database has unwanted records in table ' . $table);
+    }
 }

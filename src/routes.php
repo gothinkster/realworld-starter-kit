@@ -39,6 +39,7 @@ $app->group('/api', function () {
     // Articles Routes
     $this->get('/articles/{slug}', ArticleController::class .  ':show')->setName('article.show');
     $this->put('/articles/{slug}', ArticleController::class .  ':update')->add($jwtMiddleware)->setName('article.update');
+    $this->delete('/articles/{slug}', ArticleController::class .  ':destroy')->add($jwtMiddleware)->setName('article.destroy');
     $this->post('/articles', ArticleController::class .  ':store')->add($jwtMiddleware)->setName('article.store');
 
     $this->get('/articles', function (Request $request, Response $response, array $args) {
