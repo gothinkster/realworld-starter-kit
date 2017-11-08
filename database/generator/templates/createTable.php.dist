@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+
+class $className extends BaseMigration
+{
+    
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        $this->schema->create('$tableName', function (Blueprint $table) {
+            $table->increments('id');
+            
+            
+            $table->timestamps();
+        });
+    }
+    
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        $this->schema->dropIfExists('$tableName');
+    }
+}

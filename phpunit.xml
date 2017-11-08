@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false">
+    <testsuites>
+        <testsuite name="Conduit">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+    <testsuite name="Feature Tests">
+        <directory suffix="Test.php">./tests/Feature</directory>
+    </testsuite>
+    <testsuite name="Unit Tests">
+        <directory suffix="Test.php">./tests/Unit</directory>
+    </testsuite>
+    <!--<logging>-->
+    <!--<log type="coverage-html" target="public/tests/coverage"/>-->
+    <!--<log type="testdox-html" target="public/tests/index.html"/>-->
+    <!--</logging>-->
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="DB_DATABASE" value="conduit_test"/>
+    </php>
+</phpunit>
