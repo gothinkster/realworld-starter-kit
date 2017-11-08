@@ -28,6 +28,15 @@ class CreateArticleTest extends BaseTestCase
         $this->assertEquals(200, $response->getStatusCode());
     }
 
+
+    /** @test */
+    public function un_unauthenticated_may_not_post_articles()
+    {
+        $response = $this->request('POST', '/api/articles');
+
+        $this->assertEquals(401, $response->getStatusCode());
+    }
+
     /** @test */
     public function create_article_require_title()
     {
