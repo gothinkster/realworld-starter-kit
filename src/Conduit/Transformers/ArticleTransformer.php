@@ -15,7 +15,7 @@ class ArticleTransformer extends TransformerAbstract
             "title"          => $article->title,
             "description"    => $article->description,
             "body"           => $article->body,
-            "tagList"        => ["dragons", "training"],
+            "tagList"        => optional($article->tags()->get(['title']))->pluck('title'),
             'createdAt'      => $article->created_at->toIso8601String(),
             'updatedAt'      => isset($user->update_at) ? $article->update_at->toIso8601String() : $article->update_at,
             "favorited"      => false,
