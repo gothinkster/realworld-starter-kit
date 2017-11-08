@@ -38,7 +38,15 @@ class ArticleController
         $this->db = $container->get('db');
     }
 
-
+    /**
+     * Return a single Article to get article endpoint
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     *
+     * @return \Slim\Http\Response
+     */
     public function show(Request $request, Response $response, array $args)
     {
         $article = Article::query()->where('slug', $args['slug'])->firstOrFail();
@@ -92,5 +100,44 @@ class ArticleController
 
         return $response->withJson(['article' => $data]);
 
+    }
+
+    /**
+     * Update Article Endpoint
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     *
+     * @return \Slim\Http\Response
+     */
+    public function update(Request $request, Response $response, array $args)
+    {
+        $article = Article::query()->where('slug', $args['slug'])->firstOrFail();
+        $requestUser = $this->auth->requestUser($request);
+
+        if (is_null($requestUser)) {
+            return $response->withJson([], 401);
+        }
+
+        if ($requestUser->id != $article->user_id) {
+            return $response->withJson(['message' => 'Forbidden'], 403);
+        }
+
+        $params = $request->getParam('article', []);
+
+        $article->update([
+            'title'       => isset($params['title']) ? $params['title'] : $article->title,
+            'description' => isset($params['description']) ? $params['description'] : $article->description,
+            'body'        => isset($params['body']) ? $params['body'] : $article->body,
+        ]);
+
+        if (isset($params['title'])) {
+            $article->slug = str_slug($params['title']);
+        }
+
+        $data = $this->fractal->createData(new Item($article, new ArticleTransformer()))->toArray();
+
+        return $response->withJson(['article' => $data]);
     }
 }
