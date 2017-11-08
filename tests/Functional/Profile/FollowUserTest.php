@@ -47,4 +47,25 @@ class FollowUserTest extends BaseTestCase
         );
         $this->assertTrue($requestUser->isFollowing($user->id));
     }
+
+
+    /** @test */
+    public function an_unauthenticated_users_can_not_post_follow_request()
+    {
+        $user = $this->createUser();
+
+        $response = $this->request('POST', "/api/profiles/$user->username/follow");
+
+        $this->assertEquals(401, $response->getStatusCode());
+    }
+
+    /** @test */
+    public function an_unauthenticated_users_can_not_send_unfollow_request()
+    {
+        $user = $this->createUser();
+
+        $response = $this->request('DELETE', "/api/profiles/$user->username/follow");
+
+        $this->assertEquals(401, $response->getStatusCode());
+    }
 }

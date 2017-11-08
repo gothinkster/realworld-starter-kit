@@ -65,4 +65,9 @@ class ProfileController
         );
     }
 
+    public function unfollow(Request $request, Response $response, array $args)
+    {
+        //
+    }
+
 }

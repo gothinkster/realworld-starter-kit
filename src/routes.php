@@ -30,6 +30,9 @@ $app->group('/api', function () {
     $this->post('/profiles/{username}/follow', ProfileController::class . ':follow')
         ->add($jwtMiddleware)
         ->setName('profile.follow');
+    $this->delete('/profiles/{username}/follow', ProfileController::class . ':unfollow')
+        ->add($jwtMiddleware)
+        ->setName('profile.unfollow');
 
 
     // Articles Routes
