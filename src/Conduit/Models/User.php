@@ -52,6 +52,11 @@ class User extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function favoriteArticles()
+    {
+        return $this->belongsToMany(Article::class, 'user_favorite');
+    }
+
     /**
      * Create Many-To-Many following relationship
      *

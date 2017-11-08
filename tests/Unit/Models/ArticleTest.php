@@ -43,4 +43,13 @@ class ArticleTest extends BaseTestCase
         $this->assertInstanceOf(BelongsTo::class, $article->user());
         $this->assertInstanceOf(User::class, $article->user()->getRelated());
     }
+
+    /** @test */
+    public function it_can_be_favorited_by_users()
+    {
+        $article = new Article();
+
+        $this->assertInstanceOf(BelongsToMany::class, $article->favorites());
+        $this->assertInstanceOf(User::class, $article->favorites()->getRelated());
+    }
 }
