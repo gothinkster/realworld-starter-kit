@@ -4,6 +4,7 @@ use Conduit\Controllers\Auth\LoginController;
 use Conduit\Controllers\Auth\RegisterController;
 use Conduit\Controllers\User\ProfileController;
 use Conduit\Controllers\User\UserController;
+use Conduit\Middleware\OptionalAuth;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -11,6 +12,7 @@ use Slim\Http\Response;
 // Api Routes
 $app->group('/api', function () {
     $jwtMiddleware = $this->getContainer()->get('jwt');
+    $optionalAuth = $this->getContainer()->get('optionalAuth');
     /** @var \Slim\App $this */
 
     // Auth Routes
@@ -22,7 +24,9 @@ $app->group('/api', function () {
     $this->put('/user', UserController::class . ':update')->add($jwtMiddleware)->setName('user.update');
 
     // Profile Routes
-    $this->get('/profiles/{username}', ProfileController::class . ':show')->setName('profile.show');
+    $this->get('/profiles/{username}', ProfileController::class . ':show')
+        ->add($optionalAuth)
+        ->setName('profile.show');
 
 
     // Articles Routes

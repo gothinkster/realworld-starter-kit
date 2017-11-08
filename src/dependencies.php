@@ -3,6 +3,7 @@
 
 /** @var Pimple\Container $container */
 
+use Conduit\Middleware\OptionalAuth;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\ArraySerializer;
 
@@ -35,6 +36,10 @@ $container['jwt'] = function ($c) {
     $jws_settings = $c->get('settings')['jwt'];
 
     return new \Slim\Middleware\JwtAuthentication($jws_settings);
+};
+
+$container['optionalAuth'] = function ($c) {
+  return new OptionalAuth($c);
 };
 
 \Respect\Validation\Validator::with('\\Conduit\\Validation\\Rules');
