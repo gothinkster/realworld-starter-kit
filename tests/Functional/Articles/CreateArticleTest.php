@@ -26,6 +26,7 @@ class CreateArticleTest extends BaseTestCase
         $response = $this->request('POST', '/api/articles', $payload, $headers);
 
         $this->assertEquals(200, $response->getStatusCode());
+        $this->assertDatabaseHas('articles', ['description' => 'Ever wonder how?']);
     }
 
 
