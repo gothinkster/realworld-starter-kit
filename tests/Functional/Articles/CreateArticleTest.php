@@ -116,4 +116,33 @@ class CreateArticleTest extends BaseTestCase
         $this->assertEquals(3, Article::where('title', 'How to train your dragon')->first()->tags()->count());
     }
 
+
+    /** @test */
+    public function creating_new_articles_does_not_duplicate_slugs()
+    {
+        $user = $this->createUserWithValidToken();
+        $headers = ['HTTP_AUTHORIZATION' => 'Token ' . $user->token];
+
+        $existingArticle = Article::create([
+            'title'       => $title = 'How to train your dragon',
+            'slug'        => str_slug($title),
+            'description' => 'Ever wonder how?',
+            'body'        => 'You have to believe',
+            'user_id'     => $user->id,
+        ]);
+
+        $payload = [
+            'article' => [
+                'title'       => 'How to train your dragon',
+                'description' => 'Ever wonder how?',
+                'body'        => 'You have to believe',
+            ],
+        ];
+
+        $response = $this->request('POST', '/api/articles', $payload, $headers);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertDatabaseHas('articles', ['description' => 'Ever wonder how?']);
+    }
+
 }

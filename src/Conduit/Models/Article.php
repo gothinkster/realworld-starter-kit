@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string         title
  * @property string         description
  * @property string         body
- * @property integer         user_id
+ * @property integer        user_id
  * @property \Carbon\Carbon created_at
  * @property \Carbon\Carbon update_at
  */
@@ -31,6 +31,19 @@ class Article extends Model
         'user_id',
     ];
 
+    public function setSlugAttribute($value)
+    {
+        $index = 0;
+        $slug = $value;
+        while (self::newQuery()
+            ->where('slug', $slug)
+            ->where('id', '!=', $this->id)
+            ->exists()) {
+            $slug = $value . '-' . ++$index;
+        }
+
+        return $this->attributes['slug'] = $slug;
+    }
 
     /********************
      *  Relationships

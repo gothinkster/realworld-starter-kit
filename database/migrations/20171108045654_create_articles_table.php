@@ -15,7 +15,7 @@ class CreateArticlesTable extends BaseMigration
         $this->schema->create('articles', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->string('title');
             $table->text('description');
             $table->text('body');
