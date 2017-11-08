@@ -66,7 +66,7 @@ class ProfileController
                     'username'  => $user->username,
                     'bio'       => $user->bio,
                     'image'     => $user->image,
-                    'following' => $requestUser->isFollowing($user->id),
+                    'following' => $user->isFollowedBy($requestUser),
                 ],
             ]
         );

@@ -13,8 +13,8 @@ class UserTransformer extends TransformerAbstract
         return [
             'id'        => (int)$user->id,
             'email'     => $user->email,
-            'createdAt' => isset($user->created_at) ? $user->created_at->toIso8601String() : $user->created_at,
-            'updatedAt' => isset($user->update_at) ? $user->update_at->toIso8601String() : $user->update_at,
+            'createdAt' => optional($user->created_at)->toIso8601String(),
+            'updatedAt' => optional($user->update_at)->toIso8601String(),
             'username'  => $user->username,
             'bio'       => $user->bio,
             'image'     => $user->image,

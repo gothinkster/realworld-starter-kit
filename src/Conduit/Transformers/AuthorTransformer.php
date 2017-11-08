@@ -29,7 +29,7 @@ class AuthorTransformer extends TransformerAbstract
             'username'  => $user->username,
             'bio'       => $user->bio,
             'image'     => $user->image,
-            'following' => $user->isFollowing($this->requestUserId),
+            'following' => $user->isFollowedBy($this->requestUserId),
         ];
     }
 }

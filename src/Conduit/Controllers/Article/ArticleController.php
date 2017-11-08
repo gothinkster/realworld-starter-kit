@@ -49,9 +49,11 @@ class ArticleController
      */
     public function show(Request $request, Response $response, array $args)
     {
+        $requestUserId = optional($this->auth->requestUser($request))->id;
+
         $article = Article::query()->where('slug', $args['slug'])->firstOrFail();
 
-        $data = $this->fractal->createData(new Item($article, new ArticleTransformer()))->toArray();
+        $data = $this->fractal->createData(new Item($article, new ArticleTransformer($requestUserId)))->toArray();
 
         return $response->withJson(['article' => $data]);
     }

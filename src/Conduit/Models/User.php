@@ -5,15 +5,15 @@ namespace Conduit\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property integer        id
- * @property string         email
- * @property string         username
- * @property string         image
- * @property string         bio
- * @property string         token
- * @property string         password
- * @property \Carbon\Carbon created_at
- * @property \Carbon\Carbon update_at
+ * @property integer                                  id
+ * @property string                                   email
+ * @property string                                   username
+ * @property string                                   image
+ * @property string                                   bio
+ * @property string                                   token
+ * @property string                                   password
+ * @property \Carbon\Carbon                           created_at
+ * @property \Carbon\Carbon                           update_at
  * @property \Illuminate\Database\Eloquent\Collection followings Users who are followed by this user
  */
 class User extends Model
@@ -100,7 +100,7 @@ class User extends Model
      *
      * @param $id
      *
-     * @return bool
+     * @return bool|\Conduit\Models\User
      */
     public function isFollowing($id = null)
     {
@@ -108,10 +108,39 @@ class User extends Model
             return false;
         }
 
+        if ($id instanceof self) {
+            $id = $id->id;
+        }
+
         return $this->newBaseQueryBuilder()
             ->from('users_following')
             ->where('user_id', $this->id)
-            ->where('following_user_id', $id)->exists();
+            ->where('following_user_id', $id)
+            ->exists();
+    }
+
+    /**
+     * Check if this user is followed by the user with the provided id
+     *
+     * @param $id
+     *
+     * @return bool|\Conduit\Models\User
+     */
+    public function isFollowedBy($id = null)
+    {
+        if (is_null($id)) {
+            return false;
+        }
+
+        if ($id instanceof self) {
+            $id = $id->id;
+        }
+
+        return $this->newBaseQueryBuilder()
+            ->from('users_following')
+            ->where('user_id', $id)
+            ->where('following_user_id', $this->id)
+            ->exists();
     }
 
 }

@@ -17,6 +17,21 @@ class ArticleTransformer extends TransformerAbstract
         'author',
     ];
 
+    /**
+     * @var integer|null
+     */
+    protected $requestUserId;
+
+    /**
+     * ArticleTransformer constructor.
+     *
+     * @param int $requestUserId
+     */
+    public function __construct($requestUserId = null)
+    {
+        $this->requestUserId = $requestUserId;
+    }
+
     public function transform(Article $article)
     {
         return [
@@ -46,7 +61,7 @@ class ArticleTransformer extends TransformerAbstract
     {
         $author = $article->user;
 
-        return $this->item($author, new AuthorTransformer());
+        return $this->item($author, new AuthorTransformer($this->requestUserId));
     }
 
 }

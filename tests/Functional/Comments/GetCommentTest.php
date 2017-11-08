@@ -35,7 +35,7 @@ class GetCommentTest extends BaseTestCase
     {
         $user = $this->createUser();
         $requestUser = $this->createUserWithValidToken();
-        $user->follow($requestUser->id);
+        $requestUser->follow($user->id);
         $headers = ['HTTP_AUTHORIZATION' => 'Token ' . $requestUser->token];
 
         $article = $this->createArticle(['user_id' => $user->id]);
