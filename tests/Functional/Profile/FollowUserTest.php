@@ -2,7 +2,7 @@
 
 namespace Tests\Profile;
 
-use Tests\Functional\BaseTestCase;
+use Tests\BaseTestCase;
 use Tests\UseDatabaseTrait;
 
 class FollowUserTest extends BaseTestCase

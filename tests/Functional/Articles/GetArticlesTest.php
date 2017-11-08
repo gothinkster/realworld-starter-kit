@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Articles;
 
-use Tests\Functional\BaseTestCase;
+use Tests\BaseTestCase;
 
 class GetArticlesTest extends BaseTestCase
 {

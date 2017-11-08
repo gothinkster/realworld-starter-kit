@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Auth;
 
-use Tests\Functional\BaseTestCase;
+use Tests\BaseTestCase;
 use Tests\UseDatabaseTrait;
 
 class ManageUserTest extends BaseTestCase

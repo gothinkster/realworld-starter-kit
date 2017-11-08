@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Functional;
+namespace Tests;
 
 use Conduit\Models\User;
 use Faker\Factory;
@@ -9,7 +9,6 @@ use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Http\Environment;
-use Tests\UseDatabaseTrait;
 
 /**
  * This is an example class that shows how you could set up a method that
@@ -169,20 +168,20 @@ abstract class BaseTestCase extends TestCase
     protected function createApplication()
     {
         // Use the application settings
-        $settings = require __DIR__ . '/../../src/settings.php';
+        $settings = require __DIR__ . '/../src/settings.php';
 
         // Instantiate the application
         $this->app = $app = new App($settings);
 
         // Set up dependencies
-        require __DIR__ . '/../../src/dependencies.php';
+        require ROOT .  'src/dependencies.php';
 
         // Register middleware
         if ($this->withMiddleware) {
-            require __DIR__ . '/../../src/middleware.php';
+            require ROOT .  'src/middleware.php';
         }
 
         // Register routes
-        require __DIR__ . '/../../src/routes.php';
+        require ROOT .  'src/routes.php';
     }
 }
