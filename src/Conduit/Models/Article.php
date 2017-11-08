@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string         description
  * @property string         body
  * @property integer        user_id
+ * @property \Illuminate\Database\Eloquent\Collection        comments
  * @property \Carbon\Carbon created_at
  * @property \Carbon\Carbon update_at
  */

@@ -50,7 +50,9 @@ class CommentController
      */
     public function index(Request $request, Response $response, array $args)
     {
-        //
+        $article = Article::query()->with('comments')->where('slug', $args['slug'])->firstOrFail();
+
+        return $response->withJson(['comments' => $article->comments->toArray()]);
     }
 
     /**

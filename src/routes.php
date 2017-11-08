@@ -73,6 +73,10 @@ $app->group('/api', function () {
     });
 
     // Comments
+    $this->get('/articles/{slug}/comments',
+        CommentController::class . ':index')
+        ->add($optionalAuth)
+        ->setName('comment.index');
     $this->post('/articles/{slug}/comments',
         CommentController::class . ':store')
         ->add($jwtMiddleware)
