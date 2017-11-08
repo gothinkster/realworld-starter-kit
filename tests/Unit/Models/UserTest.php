@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use Conduit\Models\Comment;
 use Conduit\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,6 +20,7 @@ class UserTest extends BaseTestCase
         $user = new User();
 
         $this->assertInstanceOf(HasMany::class, $user->comments());
+        $this->assertInstanceOf(Comment::class, $user->comments()->getRelated());
     }
 
     /** @test */
@@ -27,6 +29,7 @@ class UserTest extends BaseTestCase
         $user = new User();
 
         $this->assertInstanceOf(BelongsToMany::class, $user->followings());
+        $this->assertInstanceOf(User::class, $user->followings()->getRelated());
     }
 
     /** @test */

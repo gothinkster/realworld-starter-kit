@@ -3,6 +3,10 @@
 namespace Tests\Unit\Models;
 
 use Conduit\Models\Article;
+use Conduit\Models\Comment;
+use Conduit\Models\Tag;
+use Conduit\Models\User;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Tests\BaseTestCase;
@@ -19,6 +23,7 @@ class ArticleTest extends BaseTestCase
         $article = new Article();
 
         $this->assertInstanceOf(BelongsToMany::class, $article->tags());
+        $this->assertInstanceOf(Tag::class, $article->tags()->getRelated());
     }
 
     /** @test */
@@ -27,5 +32,15 @@ class ArticleTest extends BaseTestCase
         $article = new Article();
 
         $this->assertInstanceOf(HasMany::class, $article->comments());
+        $this->assertInstanceOf(Comment::class, $article->comments()->getRelated());
+    }
+
+    /** @test */
+    public function an_article_has_an_author()
+    {
+        $article = new Article();
+
+        $this->assertInstanceOf(BelongsTo::class, $article->user());
+        $this->assertInstanceOf(User::class, $article->user()->getRelated());
     }
 }

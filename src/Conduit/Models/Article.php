@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string         description
  * @property string         body
  * @property integer        user_id
+ * @property \Conduit\Models\User        user
  * @property \Illuminate\Database\Eloquent\Collection        comments
  * @property \Carbon\Carbon created_at
  * @property \Carbon\Carbon update_at
@@ -49,6 +50,11 @@ class Article extends Model
     /********************
      *  Relationships
      ********************/
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function tags()
     {
