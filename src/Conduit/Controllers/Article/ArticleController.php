@@ -51,10 +51,36 @@ class ArticleController
     public function index(Request $request, Response $response, array $args)
     {
         $requestUserId = optional($this->auth->requestUser($request))->id;
-        $query = Article::query()->with(['tags', 'user'])->limit(20);
+        $builder = Article::query()->latest()->with(['tags', 'user'])->limit(20);
 
-        $articlesCount = $query->count();
-        $articles = $query->get();
+        if ($author = $request->getParam('author')) {
+            $builder->whereHas('user', function ($query) use ($author) {
+                $query->where('username', $author);
+            });
+        }
+
+        if ($tag = $request->getParam('tag')) {
+            $builder->whereHas('tags', function ($query) use ($tag) {
+                $query->where('title', $tag);
+            });
+        }
+
+        if ($favoriteByUser = $request->getParam('favorited')) {
+            $builder->whereHas('favorites', function ($query) use ($favoriteByUser) {
+                $query->where('username', $favoriteByUser);
+            });
+        }
+
+        if ($limit = $request->getParam('limit')) {
+            $builder->limit($limit);
+        }
+
+        if ($offset = $request->getParam('offset')) {
+            $builder->offset($offset);
+        }
+
+        $articlesCount = $builder->count();
+        $articles = $builder->get();
 
         $data = $this->fractal->createData(new Collection($articles,
             new ArticleTransformer($requestUserId)))->toArray();
