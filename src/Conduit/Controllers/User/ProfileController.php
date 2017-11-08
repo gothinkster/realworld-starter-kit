@@ -45,4 +45,21 @@ class ProfileController
             ]
         );
     }
+
+    public function follow(Request $request, Response $response, array $args)
+    {
+        $user = User::where('username', $args['username'])->firstOrFail();
+
+        return $response->withJson(
+            [
+                'profile' => [
+                    'username'  => $user->username,
+                    'bio'       => $user->bio,
+                    'image'     => $user->image,
+                    'following' => false,
+                ],
+            ]
+        );
+    }
+
 }

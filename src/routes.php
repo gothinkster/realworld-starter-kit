@@ -27,6 +27,9 @@ $app->group('/api', function () {
     $this->get('/profiles/{username}', ProfileController::class . ':show')
         ->add($optionalAuth)
         ->setName('profile.show');
+    $this->post('/profiles/{username}/follow', ProfileController::class . ':follow')
+        ->add($jwtMiddleware)
+        ->setName('profile.follow');
 
 
     // Articles Routes
