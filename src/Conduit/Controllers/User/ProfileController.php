@@ -33,6 +33,8 @@ class ProfileController
     public function show(Request $request, Response $response, array $args)
     {
         $user = User::where('username', $args['username'])->firstOrFail();
+        $requestUser = $this->auth->requestUser($request);
+
 
         return $response->withJson(
             [
@@ -40,7 +42,7 @@ class ProfileController
                     'username'  => $user->username,
                     'bio'       => $user->bio,
                     'image'     => $user->image,
-                    'following' => false,
+                    'following' => $requestUser->isFollowing($user->id),
                 ],
             ]
         );

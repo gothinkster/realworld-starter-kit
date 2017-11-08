@@ -49,4 +49,24 @@ class ProfileTest extends BaseTestCase
             $response->getStatusCode(),
             "Response status code must be 401 because of an invalid token");
     }
+
+
+    /** @test */
+    public function get_profile_returns_correct_following_status()
+    {
+        $user = $this->createUser();
+        $requestUser = $this->createUserWithValidToken();
+        $headers = ['HTTP_AUTHORIZATION' => 'Token ' . $requestUser->token];
+
+        $response = $this->request('GET', '/api/profiles/' . $user->username, null, $headers);
+        $body = json_decode((string)$response->getBody(), true);
+        $this->assertFalse($body['profile']['following']);
+
+        $requestUser->follow($user->id);
+
+        $response = $this->request('GET', '/api/profiles/' . $user->username, null, $headers);
+        $body = json_decode((string)$response->getBody(), true);
+        $this->assertTrue($body['profile']['following']);
+    }
+
 }
