@@ -13,26 +13,26 @@ class UserTest extends BaseTestCase
     use UseDatabaseTrait;
 
     /** @test */
-    public function a_user_can_have_many_to_many_relationship_with_followers()
+    public function a_user_can_have_many_following_users()
     {
         $user = new User();
 
-        $this->assertInstanceOf(BelongsToMany::class, $user->followers());
+        $this->assertInstanceOf(BelongsToMany::class, $user->followings());
     }
 
     /** @test */
     public function a_user_can_follow_another_user()
     {
-        $followingUser = $this->createUser();
-        $followerUser = $this->createUser();
+        $user = $this->createUser();
+        $followedUser = $this->createUser();
 
-        $followerUser->follow($followingUser->id);
+        $user->follow($followedUser->id);
 
-        $this->assertCount(1, $followerUser->followers);
+        $this->assertCount(1, $user->followings);
     }
 
     /** @test */
-    public function a_user_can_tell_of_it_is_followed_by_another_user()
+    public function a_user_can_tell_if_it_follows_another_user()
     {
         $user = $this->createUser();
         $followedUser = $this->createUser();

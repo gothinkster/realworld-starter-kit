@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string         password
  * @property \Carbon\Carbon created_at
  * @property \Carbon\Carbon update_at
+ * @property \Illuminate\Database\Eloquent\Collection followings Users who are followed by this user
  */
 class User extends Model
 {
@@ -47,11 +48,11 @@ class User extends Model
      ********************/
 
     /**
-     * Create Many-To-Many followers relationship
+     * Create Many-To-Many following relationship
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function followers()
+    public function followings()
     {
         return $this->belongsToMany(
             User::class,
@@ -70,7 +71,7 @@ class User extends Model
      */
     public function follow($id)
     {
-        $this->followers()->attach($id);
+        $this->followings()->attach($id);
 
         return $this;
     }
@@ -84,7 +85,7 @@ class User extends Model
      */
     public function unFollow($id)
     {
-        $this->followers()->detach($id);
+        $this->followings()->detach($id);
 
         return $this;
     }
