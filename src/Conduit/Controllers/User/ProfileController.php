@@ -67,7 +67,21 @@ class ProfileController
 
     public function unfollow(Request $request, Response $response, array $args)
     {
-        //
+        $requestUser = $this->auth->requestUser($request);
+        $user = User::query()->where('username', $args['username'])->firstOrFail();
+
+        $requestUser->unFollow($user->id);
+
+        return $response->withJson(
+            [
+                'profile' => [
+                    'username'  => $user->username,
+                    'bio'       => $user->bio,
+                    'image'     => $user->image,
+                    'following' => $requestUser->isFollowing($user->id),
+                ],
+            ]
+        );
     }
 
 }

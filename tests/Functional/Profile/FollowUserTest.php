@@ -48,7 +48,6 @@ class FollowUserTest extends BaseTestCase
         $this->assertTrue($requestUser->isFollowing($user->id));
     }
 
-
     /** @test */
     public function an_unauthenticated_users_can_not_post_follow_request()
     {
@@ -66,6 +65,26 @@ class FollowUserTest extends BaseTestCase
 
         $response = $this->request('DELETE', "/api/profiles/$user->username/follow");
 
-        $this->assertEquals(401, $response->getStatusCode());
+        $this->assertEquals(401, $response->getStatusCode(), 'Status code should 401');
     }
+
+    /** @test */
+    public function an_unauthenticated_users_can_send_unfollow_request()
+    {
+        $user = $this->createUser();
+        $requestUser = $this->createUserWithValidToken();
+        $requestUser->follow($user->id);
+        $this->assertTrue($requestUser->isFollowing($user->id));
+        $headers = ['HTTP_AUTHORIZATION' => 'Token ' . $requestUser->token];
+
+        $response = $this->request(
+            'DELETE',
+            "/api/profiles/$user->username/follow",
+            null,
+            $headers);
+
+        $this->assertEquals(200, $response->getStatusCode(), 'Status code should 200');
+        $this->assertFalse($requestUser->fresh()->isFollowing($user->id));
+    }
+
 }
