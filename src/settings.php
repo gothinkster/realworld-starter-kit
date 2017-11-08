@@ -56,6 +56,7 @@ return [
             'secure' => false,
             "header" => "Authorization",
             "regexp" => "/Token\s+(.*)$/i",
+            'passthrough' => ['OPTIONS']
         ],
     ],
 ];
