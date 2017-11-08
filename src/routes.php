@@ -1,5 +1,6 @@
 <?php
 
+use Conduit\Controllers\Article\ArticleController;
 use Conduit\Controllers\Auth\LoginController;
 use Conduit\Controllers\Auth\RegisterController;
 use Conduit\Controllers\User\ProfileController;
@@ -36,6 +37,8 @@ $app->group('/api', function () {
 
 
     // Articles Routes
+    $this->get('/articles/{slug}', ArticleController::class .  ':show')->setName('article.show');
+
     $this->get('/articles', function (Request $request, Response $response, array $args) {
         $articles = [
             [

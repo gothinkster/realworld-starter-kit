@@ -22,7 +22,7 @@ class ShowSingleArticleTest extends BaseTestCase
             'author_id'      => $user->id,
         ]);
 
-        $response = $this->request('GET', "/api/articles/$article->id");
+        $response = $this->request('GET', "/api/articles/$article->slug");
         $body = json_decode((string)$response->getBody(), true);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertArrayHasKey('article', $body);
