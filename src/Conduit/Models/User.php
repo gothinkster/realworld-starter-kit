@@ -55,10 +55,37 @@ class User extends Model
     {
         return $this->belongsToMany(
             User::class,
-            'following_table',
+            'users_following',
             'user_id',
             'following_user_id')
             ->withTimestamps();
+    }
+
+    /**
+     * Create following relationship. This user will follow the user with the provided id
+     * @param $id
+     *
+     * @return self
+     */
+    public function follow($id)
+    {
+        $this->followers()->attach($id);
+
+        return $this;
+    }
+
+    /**
+     * Check if this user is following the user with the provided id
+     * @param $id
+     *
+     * @return bool
+     */
+    public function isFollowing($id)
+    {
+        return $this->newBaseQueryBuilder()
+            ->from('users_following')
+            ->where('user_id', $this->id)
+            ->where('following_user_id', $id)->exists();
     }
 
 }
