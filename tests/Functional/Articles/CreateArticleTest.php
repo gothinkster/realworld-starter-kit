@@ -28,4 +28,61 @@ class CreateArticleTest extends BaseTestCase
         $this->assertEquals(200, $response->getStatusCode());
     }
 
+    /** @test */
+    public function create_article_require_title()
+    {
+        $user = $this->createUserWithValidToken();
+        $headers = ['HTTP_AUTHORIZATION' => 'Token ' . $user->token];
+        $payload = [
+            'article' => [
+                'description' => 'Ever wonder how?',
+                'body'        => 'You have to believe',
+            ],
+        ];
+
+        $response = $this->request('POST', '/api/articles', $payload, $headers);
+        $body = json_decode((string)$response->getBody(), true);
+
+        $this->assertEquals(422, $response->getStatusCode());
+        $this->assertArrayHasKey('title', $body['errors']);
+    }
+
+    /** @test */
+    public function create_article_require_description()
+    {
+        $user = $this->createUserWithValidToken();
+        $headers = ['HTTP_AUTHORIZATION' => 'Token ' . $user->token];
+        $payload = [
+            'article' => [
+                'title' => 'How to train your dragon',
+                'body'  => 'You have to believe',
+            ],
+        ];
+
+        $response = $this->request('POST', '/api/articles', $payload, $headers);
+        $body = json_decode((string)$response->getBody(), true);
+
+        $this->assertEquals(422, $response->getStatusCode());
+        $this->assertArrayHasKey('description', $body['errors']);
+    }
+
+    /** @test */
+    public function create_article_require_body()
+    {
+        $user = $this->createUserWithValidToken();
+        $headers = ['HTTP_AUTHORIZATION' => 'Token ' . $user->token];
+        $payload = [
+            'article' => [
+                'title'       => 'How to train your dragon',
+                'description' => 'Ever wonder how?',
+            ],
+        ];
+
+        $response = $this->request('POST', '/api/articles', $payload, $headers);
+        $body = json_decode((string)$response->getBody(), true);
+
+        $this->assertEquals(422, $response->getStatusCode());
+        $this->assertArrayHasKey('body', $body['errors']);
+    }
+
 }

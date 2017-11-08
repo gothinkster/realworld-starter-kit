@@ -8,6 +8,7 @@ use Interop\Container\ContainerInterface;
 use League\Fractal\Resource\Item;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Respect\Validation\Validator as v;
 
 class ArticleController
 {
@@ -60,6 +61,17 @@ class ArticleController
 
         if (is_null($requestUser)) {
             return $response->withJson([], 401);
+        }
+
+        $this->validator->validateArray($data = $request->getParam('article'),
+            [
+                'title'       => v::notEmpty(),
+                'description' => v::notEmpty(),
+                'body'        => v::notEmpty(),
+            ]);
+
+        if ($this->validator->failed()) {
+            return $response->withJson(['errors' => $this->validator->getErrors()], 422);
         }
 
         $article = new Article($request->getParam('article'));

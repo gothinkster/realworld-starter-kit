@@ -7,6 +7,7 @@ use Respect\Validation\Exceptions\NestedValidationException;
 
 class Validator
 {
+
     /** @var array Validations errors */
     protected $errors = [];
 
