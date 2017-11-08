@@ -17,7 +17,7 @@ class BaseSeeder extends \Phinx\Seed\AbstractSeed
         $factories = glob(static::FACTORIES__PATH . '*.php');
         foreach ($factories as $factory) {
             /** @noinspection PhpIncludeInspection */
-            require_once $factory;
+            require $factory;
         }
     }
 }

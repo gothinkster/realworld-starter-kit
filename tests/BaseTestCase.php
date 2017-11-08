@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Conduit\Models\Article;
 use Conduit\Models\User;
 use Faker\Factory;
 use PHPUnit\Framework\TestCase;
@@ -151,10 +152,33 @@ abstract class BaseTestCase extends TestCase
         return User::create(array_merge($attributes, $overrides));
     }
 
+
+    /**
+     * Create a new Article
+     *
+     * @param array $overrides
+     *
+     * @return Article
+     */
+    public function createArticle($overrides = [])
+    {
+        $faker = Factory::create();
+        $attributes = [
+            'title'       => $title = $faker->sentence,
+            'slug'        => str_slug($title),
+            'description' => $faker->paragraph,
+            'body'        => $faker->paragraphs(3, true),
+            'user_id'     => isset($overrides['user_id']) ? $overrides['user_id'] : $this->createUserWithValidToken()->id,
+        ];
+
+        return Article::create(array_merge($attributes, $overrides));
+    }
+
     /**
      * Create A User with valid JWT Token
      *
      * @param array $overrides
+     *
      * @return User
      */
     public function createUserWithValidToken($overrides = [])
@@ -174,14 +198,14 @@ abstract class BaseTestCase extends TestCase
         $this->app = $app = new App($settings);
 
         // Set up dependencies
-        require ROOT .  'src/dependencies.php';
+        require ROOT . 'src/dependencies.php';
 
         // Register middleware
         if ($this->withMiddleware) {
-            require ROOT .  'src/middleware.php';
+            require ROOT . 'src/middleware.php';
         }
 
         // Register routes
-        require ROOT .  'src/routes.php';
+        require ROOT . 'src/routes.php';
     }
 }
