@@ -38,6 +38,7 @@ $app->group('/api', function () {
 
     // Articles Routes
     $this->get('/articles/{slug}', ArticleController::class .  ':show')->setName('article.show');
+    $this->post('/articles', ArticleController::class .  ':store')->add($jwtMiddleware)->setName('article.store');
 
     $this->get('/articles', function (Request $request, Response $response, array $args) {
         $articles = [
