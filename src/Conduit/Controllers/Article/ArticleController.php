@@ -3,6 +3,7 @@
 namespace Conduit\Controllers\Article;
 
 use Conduit\Models\Article;
+use Conduit\Models\Tag;
 use Conduit\Transformers\ArticleTransformer;
 use Interop\Container\ContainerInterface;
 use League\Fractal\Resource\Item;
@@ -78,6 +79,14 @@ class ArticleController
         $article->slug = str_slug($article->title);
         $article->user_id = $requestUser->id;
         $article->save();
+
+        $tagsId = [];
+        if (isset($data['tagList'])) {
+            foreach ($data['tagList'] as $tag) {
+                $tagsId[] = Tag::updateOrCreate(['title' => $tag], ['title' => $tag])->id;
+            }
+            $article->tags()->sync($tagsId);
+        }
 
         $data = $this->fractal->createData(new Item($article, new ArticleTransformer()))->toArray();
 

@@ -2,6 +2,7 @@
 
 namespace Tests\Functional\Articles;
 
+use Conduit\Models\Article;
 use Tests\BaseTestCase;
 use Tests\UseDatabaseTrait;
 
@@ -93,6 +94,26 @@ class CreateArticleTest extends BaseTestCase
 
         $this->assertEquals(422, $response->getStatusCode());
         $this->assertArrayHasKey('body', $body['errors']);
+    }
+
+    /** @test */
+    public function user_can_add_tags_when_creating_articles()
+    {
+        $user = $this->createUserWithValidToken();
+        $headers = ['HTTP_AUTHORIZATION' => 'Token ' . $user->token];
+        $payload = [
+            'article' => [
+                'title'       => 'How to train your dragon',
+                'description' => 'Ever wonder how?',
+                'body'        => 'You have to believe',
+                'tagList'     => ['reactjs', 'angularjs', 'dragons'],
+            ],
+        ];
+
+        $this->request('POST', '/api/articles', $payload, $headers);
+
+        $this->assertDatabaseHas('tags', ['title' => 'reactjs']);
+        $this->assertEquals(3, Article::where('title', 'How to train your dragon')->first()->tags()->count());
     }
 
 }
