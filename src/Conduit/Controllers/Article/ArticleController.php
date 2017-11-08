@@ -50,8 +50,19 @@ class ArticleController
      */
     public function index(Request $request, Response $response, array $args)
     {
-        $requestUserId = optional($this->auth->requestUser($request))->id;
+        // TODO Extract the login of filtering articles to its own class
+
+        $requestUserId = optional($requestUser = $this->auth->requestUser($request))->id;
         $builder = Article::query()->latest()->with(['tags', 'user'])->limit(20);
+
+
+        if ($request->getUri()->getPath() == '/api/articles/feed') {
+            if (is_null($requestUser)) {
+                return $response->withJson([], 401);
+            }
+            $ids = $requestUser->followings->pluck('id');
+            $builder->whereIn('user_id', $ids);
+        }
 
         if ($author = $request->getParam('author')) {
             $builder->whereHas('user', function ($query) use ($author) {
