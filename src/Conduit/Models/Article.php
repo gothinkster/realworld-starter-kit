@@ -17,6 +17,6 @@ class Article extends Model
         'title',
         'description',
         'body',
-        'author_id',
+        'user_id',
     ];
 }

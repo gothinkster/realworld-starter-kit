@@ -19,11 +19,10 @@ class CreateArticlesTable extends BaseMigration
             $table->string('title');
             $table->text('description');
             $table->text('body');
-            $table->string('author_id');
+            $table->unsignedInteger('user_id');
 
             $table->foreign('user_id')
-                ->references('id')->on('users')
-                ->onDelete('update');
+                ->references('id')->on('users');
 
             $table->timestamps();
         });

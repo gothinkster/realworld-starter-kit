@@ -19,7 +19,7 @@ class ShowSingleArticleTest extends BaseTestCase
             'title'          => 'How to train your dragon',
             'description'    => 'Ever wonder how?',
             'body'           => 'It takes a Jacobian',
-            'author_id'      => $user->id,
+            'user_id'      => $user->id,
         ]);
 
         $response = $this->request('GET', "/api/articles/$article->slug");
