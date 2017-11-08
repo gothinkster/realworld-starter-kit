@@ -42,4 +42,17 @@ class UserTest extends BaseTestCase
 
         $this->assertTrue($user->fresh()->isFollowing($followedUser->id));
     }
+
+    /** @test */
+    public function a_user_can_unfollow_followed_user()
+    {
+        $user = $this->createUser();
+        $followedUser = $this->createUser();
+        $user->follow($followedUser->id);
+        $this->assertTrue($user->fresh()->isFollowing($followedUser->id));
+
+        $user->unFollow($followedUser->id);
+
+        $this->assertFalse($user->fresh()->isFollowing($followedUser->id));
+    }
 }

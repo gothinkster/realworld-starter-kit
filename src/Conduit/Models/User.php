@@ -63,6 +63,7 @@ class User extends Model
 
     /**
      * Create following relationship. This user will follow the user with the provided id
+     *
      * @param $id
      *
      * @return self
@@ -70,6 +71,20 @@ class User extends Model
     public function follow($id)
     {
         $this->followers()->attach($id);
+
+        return $this;
+    }
+
+    /**
+     * Remove following relationship. This user will unfollow the user with the provided id
+     *
+     * @param $id
+     *
+     * @return self
+     */
+    public function unFollow($id)
+    {
+        $this->followers()->detach($id);
 
         return $this;
     }
