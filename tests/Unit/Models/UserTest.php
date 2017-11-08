@@ -55,4 +55,16 @@ class UserTest extends BaseTestCase
 
         $this->assertFalse($user->fresh()->isFollowing($followedUser->id));
     }
+
+    /** @test */
+    public function a_user_can_not_follow_another_user_twice()
+    {
+        $user = $this->createUser();
+        $followedUser = $this->createUser();
+        $user->follow($followedUser->id);
+        $this->assertCount(1, $user->followings);
+
+        $user->follow($followedUser->id);
+        $this->assertCount(1, $user->fresh()->followings);
+    }
 }

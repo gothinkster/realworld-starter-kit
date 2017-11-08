@@ -71,7 +71,7 @@ class User extends Model
      */
     public function follow($id)
     {
-        $this->followings()->attach($id);
+        $this->followings()->syncWithoutDetaching([$id]);
 
         return $this;
     }
