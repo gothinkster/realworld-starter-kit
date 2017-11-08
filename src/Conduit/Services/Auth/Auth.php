@@ -89,7 +89,7 @@ class Auth
      *
      * @param \Slim\Http\Request $request
      *
-     * @return mixed
+     * @return User|null
      */
     public function requestUser(Request $request)
     {

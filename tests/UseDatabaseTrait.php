@@ -23,7 +23,12 @@ trait UseDatabaseTrait
 
     protected function assertDatabaseHas($table, array $data)
     {
-        $this->assertTrue($this->app->getContainer()->get('db')->table($table)->where($data)->count() > 0,
+        $builder = $this->app->getContainer()->get('db')->table($table);
+        foreach ($data as $filed => $value) {
+            $builder->where($filed, $value);
+        }
+
+        $this->assertTrue($builder->count() > 0,
             sprintf("$table table does not have %s under the column %s",
                 $key = array_keys($data)[0],
                 $data[$key]

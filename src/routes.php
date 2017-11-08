@@ -2,7 +2,9 @@
 
 use Conduit\Controllers\Auth\LoginController;
 use Conduit\Controllers\Auth\RegisterController;
+use Conduit\Controllers\User\ProfileController;
 use Conduit\Controllers\User\UserController;
+use Conduit\Middleware\OptionalAuth;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -10,6 +12,7 @@ use Slim\Http\Response;
 // Api Routes
 $app->group('/api', function () {
     $jwtMiddleware = $this->getContainer()->get('jwt');
+    $optionalAuth = $this->getContainer()->get('optionalAuth');
     /** @var \Slim\App $this */
 
     // Auth Routes
@@ -19,6 +22,18 @@ $app->group('/api', function () {
     // User Routes
     $this->get('/user', UserController::class . ':show')->add($jwtMiddleware)->setName('user.show');
     $this->put('/user', UserController::class . ':update')->add($jwtMiddleware)->setName('user.update');
+
+    // Profile Routes
+    $this->get('/profiles/{username}', ProfileController::class . ':show')
+        ->add($optionalAuth)
+        ->setName('profile.show');
+    $this->post('/profiles/{username}/follow', ProfileController::class . ':follow')
+        ->add($jwtMiddleware)
+        ->setName('profile.follow');
+    $this->delete('/profiles/{username}/follow', ProfileController::class . ':unfollow')
+        ->add($jwtMiddleware)
+        ->setName('profile.unfollow');
+
 
     // Articles Routes
     $this->get('/articles', function (Request $request, Response $response, array $args) {
