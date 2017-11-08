@@ -97,12 +97,17 @@ class User extends Model
 
     /**
      * Check if this user is following the user with the provided id
+     *
      * @param $id
      *
      * @return bool
      */
-    public function isFollowing($id)
+    public function isFollowing($id = null)
     {
+        if (is_null($id)) {
+            return false;
+        }
+
         return $this->newBaseQueryBuilder()
             ->from('users_following')
             ->where('user_id', $this->id)

@@ -8,6 +8,15 @@ use League\Fractal\TransformerAbstract;
 class ArticleTransformer extends TransformerAbstract
 {
 
+    /**
+     * Include resources without needing it to be requested.
+     *
+     * @var array
+     */
+    protected $defaultIncludes = [
+        'author',
+    ];
+
     public function transform(Article $article)
     {
         return [
@@ -20,12 +29,24 @@ class ArticleTransformer extends TransformerAbstract
             'updatedAt'      => isset($user->update_at) ? $article->update_at->toIso8601String() : $article->update_at,
             "favorited"      => false,
             "favoritesCount" => 0,
-            "author"         => [
-                "username"  => "jake",
-                "bio"       => "I work at statefarm",
-                "image"     => "https://i.stack.imgur.com/xHWG8.jpg",
-                "following" => false,
-            ],
         ];
     }
+
+
+    /**
+     * Include Author
+     *
+     * @param \Conduit\Models\Article $article
+     *
+     * @return \League\Fractal\Resource\Item
+     * @internal param \Conduit\Models\Comment $comment
+     *
+     */
+    public function includeAuthor(Article $article)
+    {
+        $author = $article->user;
+
+        return $this->item($author, new AuthorTransformer());
+    }
+
 }
