@@ -8,6 +8,7 @@ use Conduit\Controllers\Auth\RegisterController;
 use Conduit\Controllers\User\ProfileController;
 use Conduit\Controllers\User\UserController;
 use Conduit\Middleware\OptionalAuth;
+use Conduit\Models\Tag;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -100,6 +101,13 @@ $app->group('/api',
             FavoriteController::class . ':destroy')
             ->add($jwtMiddleware)
             ->setName('favorite.destroy');
+
+        // Tags Route
+        $this->get('/tags', function (Request $request, Response $response) {
+            return $response->withJson([
+                'tags' => Tag::all('title')->pluck('title'),
+            ]);
+        });
     });
 
 
