@@ -4,6 +4,7 @@ namespace Tests\Unit\Models;
 
 use Conduit\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Tests\BaseTestCase;
 use Tests\UseDatabaseTrait;
 
@@ -11,6 +12,14 @@ class UserTest extends BaseTestCase
 {
 
     use UseDatabaseTrait;
+
+    /** @test */
+    public function a_user_can_have_many_comments()
+    {
+        $user = new User();
+
+        $this->assertInstanceOf(HasMany::class, $user->comments());
+    }
 
     /** @test */
     public function a_user_can_have_many_following_users()

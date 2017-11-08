@@ -1,6 +1,7 @@
 <?php
 
 use Conduit\Controllers\Article\ArticleController;
+use Conduit\Controllers\Article\CommentController;
 use Conduit\Controllers\Auth\LoginController;
 use Conduit\Controllers\Auth\RegisterController;
 use Conduit\Controllers\User\ProfileController;
@@ -70,6 +71,13 @@ $app->group('/api', function () {
             ],
             200);
     });
+
+    // Comments
+    $this->post('/articles/{slug}/comments',
+        CommentController::class . ':store')
+        ->add($jwtMiddleware)
+        ->setName('comment.store');
+
 });
 
 

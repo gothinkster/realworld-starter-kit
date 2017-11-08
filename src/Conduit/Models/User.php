@@ -47,6 +47,11 @@ class User extends Model
      *  Relationships
      ********************/
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     /**
      * Create Many-To-Many following relationship
      *
