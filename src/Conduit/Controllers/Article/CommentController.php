@@ -51,9 +51,13 @@ class CommentController
      */
     public function index(Request $request, Response $response, array $args)
     {
+        $requestUserId = optional($this->auth->requestUser($request))->id;
+
         $article = Article::query()->with('comments')->where('slug', $args['slug'])->firstOrFail();
 
-        $data = $this->fractal->createData(new Collection($article->comments, new CommentTransformer()))->toArray();
+        $data = $this->fractal->createData(new Collection($article->comments,
+            new CommentTransformer($requestUserId)))->toArray();
+
         return $response->withJson(['comments' => $data['data']]);
     }
 

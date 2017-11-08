@@ -4,6 +4,7 @@ namespace Conduit\Transformers;
 
 use Conduit\Models\Article;
 use Conduit\Models\Comment;
+use Conduit\Models\User;
 use League\Fractal\ItemResource;
 use League\Fractal\TransformerAbstract;
 
@@ -18,6 +19,21 @@ class CommentTransformer extends TransformerAbstract
     protected $defaultIncludes = [
         'author',
     ];
+
+    /**
+     * @var integer|null
+     */
+    protected $requestUserId;
+
+    /**
+     * CommentTransformer constructor.
+     *
+     * @param int $requestUserId
+     */
+    public function __construct($requestUserId = null)
+    {
+        $this->requestUserId = $requestUserId;
+    }
 
     public function transform(Comment $comment)
     {
@@ -40,6 +56,6 @@ class CommentTransformer extends TransformerAbstract
     {
         $author = $comment->user;
 
-        return $this->item($author, new AuthorTransformer());
+        return $this->item($author, new AuthorTransformer($this->requestUserId));
     }
 }
