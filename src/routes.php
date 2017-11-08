@@ -2,6 +2,7 @@
 
 use Conduit\Controllers\Auth\LoginController;
 use Conduit\Controllers\Auth\RegisterController;
+use Conduit\Controllers\User\ProfileController;
 use Conduit\Controllers\User\UserController;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -19,6 +20,10 @@ $app->group('/api', function () {
     // User Routes
     $this->get('/user', UserController::class . ':show')->add($jwtMiddleware)->setName('user.show');
     $this->put('/user', UserController::class . ':update')->add($jwtMiddleware)->setName('user.update');
+
+    // Profile Routes
+    $this->get('/profiles/{username}', ProfileController::class . ':show')->setName('profile.show');
+
 
     // Articles Routes
     $this->get('/articles', function (Request $request, Response $response, array $args) {
