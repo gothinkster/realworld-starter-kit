@@ -75,4 +75,28 @@ class Article extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    /**
+     * Check if given user has favorited this article
+     *
+     * @param null $id
+     *
+     * @return bool
+     */
+    public function isFavoritedByUser($id = null)
+    {
+        if (is_null($id)) {
+            return false;
+        }
+
+        if ($id instanceof self) {
+            $id = $id->id;
+        }
+
+        return $this->newBaseQueryBuilder()
+            ->from('user_favorite')
+            ->where('user_id', $id)
+            ->where('article_id', $this->id)
+            ->exists();
+    }
 }
