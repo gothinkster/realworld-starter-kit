@@ -6,6 +6,7 @@ use Conduit\Models\Article;
 use Conduit\Models\Tag;
 use Conduit\Transformers\ArticleTransformer;
 use Interop\Container\ContainerInterface;
+use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -36,6 +37,29 @@ class ArticleController
         $this->fractal = $container->get('fractal');
         $this->validator = $container->get('validator');
         $this->db = $container->get('db');
+    }
+
+    /**
+     * Return List of Articles
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     *
+     * @return \Slim\Http\Response
+     */
+    public function index(Request $request, Response $response, array $args)
+    {
+        $requestUserId = optional($this->auth->requestUser($request))->id;
+        $query = Article::query()->with(['tags', 'user'])->limit(20);
+
+        $articlesCount = $query->count();
+        $articles = $query->get();
+
+        $data = $this->fractal->createData(new Collection($articles,
+            new ArticleTransformer($requestUserId)))->toArray();
+
+        return $response->withJson(['articles' => $data['data'], 'articlesCount' => $articlesCount]);
     }
 
     /**
