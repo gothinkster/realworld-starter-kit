@@ -77,6 +77,10 @@ $app->group('/api', function () {
         CommentController::class . ':store')
         ->add($jwtMiddleware)
         ->setName('comment.store');
+    $this->delete('/articles/{slug}/comments/{id}',
+        CommentController::class . ':destroy')
+        ->add($jwtMiddleware)
+        ->setName('comment.destroy');
 
 });
 

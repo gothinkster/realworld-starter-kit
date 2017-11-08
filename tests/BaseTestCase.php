@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Conduit\Models\Article;
+use Conduit\Models\Comment;
 use Conduit\Models\User;
 use Faker\Factory;
 use PHPUnit\Framework\TestCase;
@@ -172,6 +173,25 @@ abstract class BaseTestCase extends TestCase
         ];
 
         return Article::create(array_merge($attributes, $overrides));
+    }
+
+    /**
+     * Create a new Comment
+     *
+     * @param array $overrides
+     *
+     * @return Comment
+     */
+    public function createComment($overrides = [])
+    {
+        $faker = Factory::create();
+        $attributes = [
+            'body'       => $faker->paragraphs(3, true),
+            'user_id'    => $user_id = isset($overrides['user_id']) ? $overrides['user_id'] : $this->createUserWithValidToken()->id,
+            'article_id' => isset($overrides['article_id']) ? $overrides['article_id'] : $this->createArticle(['user_id' => $user_id])->id,
+        ];
+
+        return Comment::create(array_merge($attributes, $overrides));
     }
 
     /**
