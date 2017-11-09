@@ -42,10 +42,10 @@ $container['optionalAuth'] = function ($c) {
   return new OptionalAuth($c);
 };
 
-\Respect\Validation\Validator::with('\\Conduit\\Validation\\Rules');
 
 // Request Validator
 $container['validator'] = function ($c) {
+    \Respect\Validation\Validator::with('\\Conduit\\Validation\\Rules');
 
     return new \Conduit\Validation\Validator();
 };
