@@ -42,6 +42,22 @@ class User extends Model
         'password',
     ];
 
+    /**
+     * Return Default Image Profile When User Does Not Have An Image
+     *
+     * @param $value
+     *
+     * @return string
+     */
+    public function getImageAttribute($value)
+    {
+        if (is_null($value)) {
+            return 'https://static.productionready.io/images/smiley-cyrus.jpg';
+        }
+
+        return $value;
+    }
+
 
     /********************
      *  Relationships

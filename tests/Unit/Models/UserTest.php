@@ -90,4 +90,15 @@ class UserTest extends BaseTestCase
         $this->assertInstanceOf(Article::class, $user->favoriteArticles()->getRelated());
 
     }
+
+    /** @test */
+    public function it_return_default_image_profile_when_user_does_not_have_an_image()
+    {
+        $defaultImageUrl = 'https://static.productionready.io/images/smiley-cyrus.jpg';
+        $userWithoutImage = $this->createUser();
+        $userWithImage = $this->createUser(['image' => 'http://image.jpg']);
+
+        $this->assertEquals($defaultImageUrl, $userWithoutImage->image);
+        $this->assertEquals('http://image.jpg', $userWithImage->image);
+    }
 }

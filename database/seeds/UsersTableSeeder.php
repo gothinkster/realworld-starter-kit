@@ -15,19 +15,9 @@ class UsersTableSeeder extends BaseSeeder
      */
     public function run()
     {
-        $this->factory->of(User::class)->create(
-            [
-                'username' => 'follower',
-                'email'    => 'follower@example.com',
-                'password' => password_hash(12344321, PASSWORD_DEFAULT),
-            ]);
-        $this->factory->of(User::class)->create(
-            [
-                'username' => 'following',
-                'email'    => 'following@example.com',
-                'password' => password_hash(12344321, PASSWORD_DEFAULT),
-            ]);
-
-        $this->factory->of(User::class)->times(10)->create();
+        $this->factory->of(User::class)->times(10)->create([
+            'password' => password_hash(12344321, PASSWORD_DEFAULT),
+            'image' => 'https://static.productionready.io/images/smiley-cyrus.jpg',
+        ]);
     }
 }

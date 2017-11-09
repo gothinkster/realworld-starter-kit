@@ -6,6 +6,7 @@ $this->factory->define(\Conduit\Models\User::class, function (\Faker\Generator $
             'email'    => $faker->email,
             'token'    => $faker->password,
             'password' => password_hash($faker->password, PASSWORD_DEFAULT),
+            'image' => 'https://static.productionready.io/images/smiley-cyrus.jpg',
         ];
     });
 
