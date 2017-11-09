@@ -75,7 +75,7 @@ class RegisterController
         return $this->validator->validateArray($values,
             [
                 'email'    => v::noWhitespace()->notEmpty()->email()->existsInTable($this->db->table('users'), 'email'),
-                'username' => v::noWhitespace()->notEmpty()->alpha()->existsInTable($this->db->table('users'),
+                'username' => v::noWhitespace()->notEmpty()->existsInTable($this->db->table('users'),
                     'username'),
                 'password' => v::noWhitespace()->notEmpty(),
             ]);

@@ -89,7 +89,6 @@ class UserController
                 'username' => v::optional(
                     v::noWhitespace()
                         ->notEmpty()
-                        ->alpha()
                         ->existsWhenUpdate($this->db->table('users'), 'username', $userId)
                 ),
                 'password' => v::optional(v::noWhitespace()->notEmpty()),
