@@ -28,8 +28,12 @@
     "babel-plugin-transform-jsx": "^2.0.0",
     "babel-preset-env": "^1.6.0",
     "clean-webpack-plugin": "^0.1.17",
+    "copy-webpack-plugin": "^4.2.0",
     "css-loader": "^0.28.7",
+    "file-loader": "^1.1.5",
+    "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.30.1",
+    "image-webpack-loader": "^3.4.2",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
@@ -39,7 +43,6 @@
     "webpack-dev-server": "^2.9.1"
   },
   "dependencies": {
-    "slim-js": "^3.0.6",
-    "slix": "^0.2.3"
+    "slim-js": "^3.1.0"
   }
 }

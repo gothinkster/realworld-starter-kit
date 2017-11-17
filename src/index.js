@@ -1,56 +1,73 @@
 require('./index.scss')
 
 // IE11?
-// require('babel-polyfill');
+// require('babel-polyfill')
 
-import {Slim} from "slim-js/Slim";
-import Slix, {bind as autobind} from "slix";
-import {tag, template, useShadow, attribute} from "slim-js/Decorators";
+import {Slim} from "slim-js/Slim"
+import {tag, template, useShadow} from "slim-js/Decorators"
+import Todo from './todo'
 
-const appModel = Slix.model('appModel', {
-    user: {
-        first: '',
-        last: ''
-    }
-});
+require('./extension-enterkey')
+
+const awesomeTemplate = require('./awesome-app.html')
 
 @tag('awesome-app')
-@template(`
-<h1 bind>[[myGreeting]]</h1>
-<h2 bind>Welcome to web components [[model.user.first]] [[model.user.last]]!</h2>
-<div>I am a native web component.<br/>Open the developer tools and try modifying my attributes, properties and see how the magic happens</div>
-<hr/>
-<input type="text" placeholder="First name" change="firstNameChangeHandler" />
-<input type="text" placeholder="Last name" change="lastNameChangeHandler" />
-`)
+@template(awesomeTemplate)
 @useShadow(true)
 class AwesomeApp extends Slim {
 
-    @attribute
-    myGreeting;
-
-    onBeforeCreated() {
-        this.model = appModel;
+    onBeforeCreated () {
+        this.todos = [
+            new Todo('Install slim.js'),
+            new Todo('Read the documentation'),
+            new Todo('Create awesome apps with latest technology')
+        ]
+        this.currentTodo = null
     }
 
-    @autobind(appModel, 'user.first')
-    modelFirstNameChanged() {
-        console.log(this.model.user.first);
-        this.update();
+    onCreated() {
+        console.log(this.tableBody)
+        this.sortable = dragula([this.tableBody])
     }
 
-    @autobind(appModel, 'user.last')
-    modelLastNameChanged() {
-        console.log(this.model.user.last);
-        this.update();
+    editTodo (e) {
+        this.currentTodo = e.target.todo
+        this.update('todo')
+        const inp = this.find('input[active="true"]')
+        inp.focus()
+        inp.setSelectionRange(0, inp.value.length)
     }
 
-    firstNameChangeHandler(e) {
-        this.model.user.first = e.target.value;
+    updateDescription (e) {
+        e.target.todo.description = e.target.value
+        this.currentTodo = null
+        this.update('todo')
     }
 
-    lastNameChangeHandler(e) {
-        this.model.user.last = e.target.value;
+    isSelected (todo) {
+        return todo === this.currentTodo
     }
 
+    todoClass (todo) {
+        return todo.done ? 'completed' : ''
+    }
+
+    toggleTodo (e) {
+        e.target.todo.done = e.target.checked
+        this.update('todo')
+    }
+
+    handleDelete (e) {
+        this.todos = this.todos.filter(todo => todo.id.toString() !== e.currentTarget.getAttribute('todo-id'))
+    }
+
+    handleNewInput () {
+        const newTodo = new Todo(this.todoInput.value || 'New Todo')
+        this.todoInput.value = ''
+        this.todos = this.todos.concat(newTodo)
+        console.log(this.tableBody)
+        dragula([this.tableBody]).on('dragend', () => {
+            console.log('end')
+        })
+    }
 }

@@ -1,0 +1,72 @@
+<nav>
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo center"><img src="./assets/slim3.png" />Welcome to slim.js</a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <li><a href="http://slimjs.com">Documentation</a></li>
+        <li><a href="https://github.com/eavichay/slim.js">Github</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <br/>
+    <div>
+        <div class="row">
+            <div class="col s11 input-field">
+                <input id="new-todo" s:id="todoInput" key.enter="handleNewInput" type="text" placeholder="What needs to be done?" />
+            </div>
+            <div class="col s1">
+                <a type="button" class="btn-floating btn-large waves-effect waves-light blue"
+                        click="handleNewInput" value="+"><i class="material-icons">add</i></a>
+            </div>
+        </div>
+        <table class="highlight">
+            <col width="15%" />
+            <col width="70%" />
+            <col width="15%" />
+            <tbody s:id="tableBody">
+                <tr s:repeat="todos as todo" change="toggleTodo">
+                    <td>
+                        <label>
+                            <input type="checkbox" class="filled-in"/>
+                            <span></span>
+                        </label>
+                    </td>
+                    <td>
+                        <span role="description" bind:active="isSelected(todo)" bind:class="todoClass(todo)" dblclick="editTodo" bind>{{todo.description}}</span>
+                        <input bind:active="isSelected(todo)" bind:default-value="todo.description" key.enter="updateDescription" blur="updateDescription"/>
+                    </td>
+                    <td class="right-align">
+                        <a type="button" class="btn-floating btn-large waves-effect waves-light red"
+                           bind:todo-id="todo.id" click="handleDelete" value="+"><i class="material-icons">delete</i></a>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.1/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+    .completed {
+        text-decoration: line-through;
+    }
+
+    .brand-logo img {
+        width: 32px;
+        height: 37px;
+        position: relative;
+        top: 10px;
+    }
+
+    span[role="description"] {
+        width: 100%;
+        display: inline-block;
+    }
+
+    input[active="false"] {
+        display: none;
+    }
+
+    span[active="true"] {
+        display: none;
+    }
+</style>
