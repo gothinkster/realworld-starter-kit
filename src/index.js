@@ -27,7 +27,6 @@ class AwesomeApp extends Slim {
 
     onCreated() {
         console.log(this.tableBody)
-        this.sortable = dragula([this.tableBody])
     }
 
     editTodo (e) {
@@ -42,6 +41,10 @@ class AwesomeApp extends Slim {
         e.target.todo.description = e.target.value
         this.currentTodo = null
         this.update('todo')
+    }
+
+    isChecked (todo) {
+        return todo.done ? 'checked' : ''
     }
 
     isSelected (todo) {
@@ -61,13 +64,13 @@ class AwesomeApp extends Slim {
         this.todos = this.todos.filter(todo => todo.id.toString() !== e.currentTarget.getAttribute('todo-id'))
     }
 
+    clearCompleted () {
+        this.todos = this.todos.filter(todo => !todo.done)
+    }
+
     handleNewInput () {
         const newTodo = new Todo(this.todoInput.value || 'New Todo')
         this.todoInput.value = ''
         this.todos = this.todos.concat(newTodo)
-        console.log(this.tableBody)
-        dragula([this.tableBody]).on('dragend', () => {
-            console.log('end')
-        })
     }
 }

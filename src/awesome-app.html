@@ -8,26 +8,24 @@
     </div>
 </nav>
 <div class="container">
-    <br/>
     <div>
         <div class="row">
-            <div class="col s11 input-field">
-                <input id="new-todo" s:id="todoInput" key.enter="handleNewInput" type="text" placeholder="What needs to be done?" />
-            </div>
-            <div class="col s1">
-                <a type="button" class="btn-floating btn-large waves-effect waves-light blue"
-                        click="handleNewInput" value="+"><i class="material-icons">add</i></a>
-            </div>
+            <a type="button" class="btn-floating btn-large waves-effect waves-light blue"
+               click="handleNewInput" value="+"><i class="material-icons">add</i></a>
+            <a type="button" class="btn-floating btn-large waves-effect waves-light blue"
+               click="clearCompleted"><i class="material-icons">done</i></a>
+            <input id="new-todo" s:id="todoInput" key.enter="handleNewInput" type="text" placeholder="What needs to be done?" />
         </div>
+        <br />
         <table class="highlight">
             <col width="15%" />
             <col width="70%" />
             <col width="15%" />
             <tbody s:id="tableBody">
-                <tr s:repeat="todos as todo" change="toggleTodo">
+                <tr s:repeat="todos as todo">
                     <td>
                         <label>
-                            <input type="checkbox" class="filled-in"/>
+                            <input bind:todo="todo" change="toggleTodo" type="checkbox" class="filled-in" bind:checked="isChecked(todo)"/>
                             <span></span>
                         </label>
                     </td>
