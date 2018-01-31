@@ -1,10 +1,4 @@
 {
     "presets": ["env"],
-    "plugins": ["transform-decorators-legacy", "transform-class-properties",
-        [
-            "transform-jsx", {
-                "function": "jsx"
-            }
-        ]
-    ]
+    "plugins": ["transform-decorators-legacy", "transform-class-properties"]
 }
