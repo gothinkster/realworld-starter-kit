@@ -1,0 +1,22 @@
+{
+    "apps": [
+        {
+            "name": "conduit",
+            "script": "server.js",
+            "log_date_format": "YYYY-MM-DD HH:mm Z",
+            "error_file": "./log/node-app.stderr.log",
+            "out_file": "./log/node-app.stdout.log",
+            "watch": false,
+            "merge_logs": true,
+            "exec_mode": "cluster",
+            "instances": 0,
+            "max_memory_restart": "1024M",
+            "env": {
+                "COMMON_VARIABLE": "true",
+                "PORT": "3000",
+                "HOST": "0.0.0.0",
+                "NODE_ENV": "production"
+            }
+        }
+    ]
+}

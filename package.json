@@ -1,0 +1,69 @@
+{
+  "name": "realworld-react-universal-hot",
+  "version": "0.0.1",
+  "description": "realworld-react-universal-hot",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "hot": "rm -rf ./dist && mkdir ./dist && NODE_ENV=development webpack -d --config=./webpack/config.server.js --mode=development && NODE_ENV=development webpack -d --config=./webpack/config.client.js --mode=development && node ./dev_server",
+    "build": "rm -rf ./dist && mkdir ./dist && NODE_ENV=production  webpack --config=./webpack/config.server.js --mode=production && NODE_ENV=production webpack -p --config=./webpack/config.client.js --mode=production",
+    "start": "NODE_ENV=production node ./server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apapacy/realworld-react-universal-hot.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "universal",
+    "hot"
+  ],
+  "author": "Ovcharenko A.V.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/apapacy/realworld-react-universal-hot/issues"
+  },
+  "homepage": "https://github.com/apapacy/realworld-react-universal-hot#readme",
+  "devDependencies": {
+    "babel-loader": "^7.1.3",
+    "babel-plugin-dynamic-import-node": "^1.2.0",
+    "babel-plugin-react-transform": "^3.0.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jest": "^22.4.2",
+    "react-test-renderer": "^16.2.0",
+    "react-transform": "0.0.3",
+    "react-transform-hmr": "^1.0.4"
+  },
+  "dependencies": {
+    "apicache": "^1.2.0",
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.2",
+    "cookie-encrypter": "^0.2.3",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "moment": "^2.21.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-loadable": "^5.3.1",
+    "react-markdown": "^3.2.2",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "react-tools": "^0.13.3",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
+    "webpack": "^4.1.0",
+    "webpack-cli": "^2.0.10",
+    "webpack-dev-middleware": "^3.0.0",
+    "webpack-hot-middleware": "^2.21.2",
+    "webpack-node-externals": "^1.6.0"
+  }
+}
