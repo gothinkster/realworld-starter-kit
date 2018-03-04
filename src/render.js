@@ -87,7 +87,6 @@ module.exports = (req, res, next) => {
           </script>
           <section id="app">${html}</section>
           <script src='${assets(stats.common)}'></script>
-          <script src='${assets(stats.main)}'></script>
           ${componentNames.map(componentName => `<script src='${assets(stats[componentName])}'></script>`)}
     `);
     res.end();
