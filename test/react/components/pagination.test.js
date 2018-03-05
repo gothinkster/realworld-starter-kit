@@ -67,7 +67,6 @@ test('Paginator for some route 1st page', () => {
     count: 101,
     pageLength: 10,
     page: 1,
-    match: { url: '/some' },
   };
   const component = mount(
     <StaticRouter location="/some" context={{}}>
@@ -86,7 +85,6 @@ test('Paginator for /some route 2nd page', () => {
     count: 101,
     pageLength: 10,
     page: 2,
-    match: { url: '/some/page/2' },
   };
   const component = mount(
     <StaticRouter location="/some/page/2" context={{}}>
