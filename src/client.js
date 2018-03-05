@@ -20,4 +20,3 @@ hydrate(
   </Provider>,
   document.getElementById('app') // eslint-disable-line
 );
-

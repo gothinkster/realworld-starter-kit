@@ -1,8 +1,8 @@
 import React from 'react';
 import moment from 'moment';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Link from '../asyncLink'; // eslint-disable-line
+import { connect } from 'react-redux';
+import Link from '../asyncLink';
 import { favorite } from '../../redux/services/articles';
 import Favorited from './favorited';
 

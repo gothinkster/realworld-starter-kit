@@ -1,6 +1,6 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
+import { withRouter } from 'react-router-dom';
 import Link from '../asyncLink'; // eslint-disable-line
 
 function prepareLink(match, page) {

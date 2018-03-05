@@ -1,8 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-
-import Link from '../asyncLink'; // eslint-disable-line
-// asyncLink contents dynamic import()
+import Link from '../asyncLink';
 
 const NavItem = ({ children, to, location }) => ( // eslint-disable-line react/prop-types
   <li className="nav-item" key={to}>

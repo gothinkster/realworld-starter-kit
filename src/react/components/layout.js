@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Link from '../asyncLink'; // eslint-disable-line
+import Link from '../asyncLink';
 import MenuItem from './menuItem';
 
 const Layout = ({ children, user }) => ( // eslint-disable-line react/prop-types

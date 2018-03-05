@@ -1,12 +1,12 @@
 import { Link, matchPath } from 'react-router-dom';
 import routes from './routes';
-import { getStore } from '../redux/store'
+import { getStore } from '../redux/store';
 
 function isModifiedEvent(event) {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
 
-function handleClick(event){
+function handleClick(event) {
   if (this.props.onClick) this.props.onClick(event);
 
   if (
@@ -16,8 +16,8 @@ function handleClick(event){
     !isModifiedEvent(event) // ignore clicks with modifier keys
   ) {
     event.preventDefault();
-    const { history, } = this.context.router;
-    const { replace, to, } = this.props;
+    const { history } = this.context.router;
+    const { replace, to } = this.props;
 
     function locate() { // eslint-disable-line no-inner-declarations
       if (replace) {
@@ -27,9 +27,7 @@ function handleClick(event){
       }
     }
     if (this.context.router.history.location.pathname) {
-      const routeTo = routes.find((route) =>
-        matchPath(this.props.to, route) ? route : null
-      );
+      const routeTo = routes.find(route => (matchPath(this.props.to, route) ? route : null));
       const match = matchPath(this.props.to, routeTo);
       const store = getStore();
       if (routeTo) {
@@ -38,7 +36,7 @@ function handleClick(event){
           .then(component => component.getInitialProps({
             match,
             store,
-            dispatch: store.dispatch
+            dispatch: store.dispatch,
           }))
           .then(() => locate());
       } else {
@@ -48,7 +46,7 @@ function handleClick(event){
       locate();
     }
   }
-};
+}
 
 class AsyncLink extends Link {
   constructor(...args) {

@@ -6,10 +6,10 @@ import { feed, tags } from '../../redux/services/articles';
 import ArticlePreview from '../components/articlePreview';
 import NavItem from '../components/navItem';
 import Pagination from '../components/pagination';
-import Link from '../asyncLink'; // eslint-disable-line
+import Link from '../asyncLink';
 
 class Home extends React.PureComponent {
-  static async getInitialProps({ req, store, dispatch, user, match }) {
+  static async getInitialProps({ req, dispatch, user, match }) {
     const promises = [];
     const page = Number(match.params.page) || 1;
     let filter;

@@ -1,5 +1,10 @@
 {
     "extends": "airbnb",
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "sourceType": "module",
+      "allowImportExportEverywhere": true
+    },
     "rules": {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "object-curly-newline": ["error", {

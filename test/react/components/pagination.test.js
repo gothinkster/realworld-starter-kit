@@ -1,6 +1,6 @@
 /* eslint-disable no-undef, function-paren-newline */
 import React from 'react';
-import { StaticRouter, Route } from 'react-router';
+import { StaticRouter, Route } from 'react-router-dom';
 import { configure, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import Adapter from 'enzyme-adapter-react-16';

@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import moment from 'moment';
 import { me } from '../../redux/services/user';
 import { article, deleteArticle, comments, addComment, deleteComment, follow, favorite } from '../../redux/services/article';
-import Link from '../asyncLink'; // eslint-disable-line
+import Link from '../asyncLink';
 import Following from '../components/following';
 import Favorited from '../components/favorited';
 import Comments from '../components/comments';

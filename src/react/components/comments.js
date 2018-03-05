@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import Link from '../asyncLink'; // eslint-disable-line
+import Link from '../asyncLink';
 
 const KEY_DEL = 46;
 

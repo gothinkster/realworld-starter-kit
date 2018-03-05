@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, matchPath } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import routes from '../routes';
-import { getStore } from '../../redux/store'
+import { getStore } from '../../redux/store';
 import { login, logout, signup, clearErrors } from '../../redux/services/user';
 import ErrorsList from '../components/errorsList';
 
@@ -54,9 +54,7 @@ class Login extends React.PureComponent {
       return;
     }
     this.passwordInput.value = '';
-    const routeTo = routes.find((route) =>
-      matchPath('/feed', route) ? route : null
-    );
+    const routeTo = routes.find(route => (matchPath('/feed', route) ? route : null));
     const match = matchPath('/feed', routeTo);
     const store = getStore();
     import(`./home`) // eslint-disable-line
@@ -64,10 +62,9 @@ class Login extends React.PureComponent {
       .then(component => component.getInitialProps({
         match,
         store,
-        dispatch: store.dispatch
+        dispatch: store.dispatch,
       }))
       .then(() => this.props.history.replace('/feed'));
-
   }
 
   isSignUp() {
@@ -157,6 +154,7 @@ Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
     replace: PropTypes.func,
+    action: PropTypes.string,
   }).isRequired,
 };
 
