@@ -30,9 +30,8 @@ For more information on how to this works with other frontends/backends, head ov
 
 ## Development mode
 
-> npm run hot
+> npm run hot, npm lint
 
 ## Production mode
 
 > npm run build, npm start
-
