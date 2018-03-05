@@ -15,10 +15,10 @@ class Home extends React.PureComponent {
     let filter;
     let value;
     if (req && !user) {
-      await dispatch(me({ req }));
+      promises.unshift(dispatch(me({ req })));
     }
     if (match.path.slice(0, 5) === '/feed') {
-      if (req && !store.getState().user.id) {
+      if (req && !req.signedCookies.token) {
         return { redirectUrl: '/' };
       }
       filter = 'feed';

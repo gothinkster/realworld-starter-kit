@@ -5,12 +5,13 @@ const bodyParser = require('body-parser');
 const apicache = require('apicache');
 const api = require('./src/api/routes');
 const render = require('./dist/render.bundle.js');
+const morgan = require('morgan');
 
 const port = Number(process.env.PORT) || 3000;
 const app = express();
 
 const nodeEnv = process.env.NODE_ENV || 'development';
-
+app.use(morgan('method :url :status :res[content-length] - :response-time ms'));
 const cache = apicache.options({
   appendKey: req => req.get('Authorization'),
   defaultDuration: 1000,
