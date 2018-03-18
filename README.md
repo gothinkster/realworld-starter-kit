@@ -1,7 +1,7 @@
 
 
 
-!!! Warning: This repo is no longer maintained. Please refer to the official implementation of vue-realworld https://github.com/gothinkster/vue-realworld-example-app
+!!! Warning: This repo is now hosted by gothinkster. You can find the latest implementation of vue-realworld [here](https://github.com/gothinkster/vue-realworld-example-app)
 
 
 ---
