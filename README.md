@@ -1,3 +1,10 @@
+
+
+
+!!! Warning: This repo is no longer maintained. Please refer to the official implementation of vue-realworld https://github.com/gothinkster/vue-realworld-example-app
+
+
+---
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 
