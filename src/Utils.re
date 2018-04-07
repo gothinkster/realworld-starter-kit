@@ -1,6 +1,6 @@
 let strEl = ReasonReact.stringToElement;
 
-let arrEl = ReasonReact.arrayToElement;
+let arrayEl = ReasonReact.arrayToElement;
 
 let nullEl = ReasonReact.nullElement;
 

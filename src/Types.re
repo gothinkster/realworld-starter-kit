@@ -1,6 +1,6 @@
 type author = {
   username: string,
-  bio: string,
+  bio: option(string),
   image: string,
   following: bool,
 };

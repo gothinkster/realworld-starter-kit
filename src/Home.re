@@ -1,25 +1,57 @@
 open Utils;
 
+type remoteArticles = RemoteData.t(list(Types.article), string);
+
+type remoteTags = RemoteData.t(list(string), string);
+
 type action =
-  | UpdateTags(list(string))
-  | UpdateArticles(list(Types.article));
+  | UpdateTags(remoteTags)
+  | UpdateArticles(remoteArticles);
 
 type state = {
-  articles: list(Types.article),
-  tags: list(string),
+  articles: remoteArticles,
+  tags: remoteTags,
 };
 
 let component = ReasonReact.reducerComponent("Home");
 
+let loadData = (_payload, {ReasonReact.send}) => {
+  send(UpdateArticles(RemoteData.Loading));
+  Js.Promise.(
+    API.listArticles()
+    |> then_(result => {
+         switch (result) {
+         | Js.Result.Ok(json) =>
+           let articles =
+             json
+             |> Json.Decode.(field("articles", array(Decoder.article)))
+             |> Belt.List.fromArray;
+           send(UpdateArticles(RemoteData.Success(articles)));
+         | Error(error) => Js.log2("failed to get list of articles", error)
+         };
+         ignore() |> resolve;
+       })
+  )
+  |> ignore;
+};
+
 let make = _children => {
   ...component,
-  initialState: () => {articles: [], tags: []},
+  initialState: () => {
+    articles: RemoteData.NotAsked,
+    tags: RemoteData.NotAsked,
+  },
   reducer: (action, state) =>
     switch (action) {
     | UpdateTags(tags) => ReasonReact.Update({...state, tags})
     | UpdateArticles(articles) => ReasonReact.Update({...state, articles})
     },
-  render: _self =>
+  didMount: ({handle}) => {
+    handle(loadData, ());
+    ReasonReact.NoUpdate;
+  },
+  render: ({state}) => {
+    let {articles} = state;
     <div className="home-page">
       <div className="banner">
         <div className="container">
@@ -44,53 +76,48 @@ let make = _children => {
                 </li>
               </ul>
             </div>
-            <div className="article-preview">
-              <div className="article-meta">
-                <a href="profile.html">
-                  <img src="http://i.imgur.com/Qr71crq.jpg" />
-                </a>
-                <div className="info">
-                  <a href="" className="author"> ("Eric Simons" |> strEl) </a>
-                  <span className="date"> ("January 20th" |> strEl) </span>
-                </div>
-                <button
-                  className="btn btn-outline-primary btn-sm pull-xs-right">
-                  <i className="ion-heart" />
-                  (" 29" |> strEl)
-                </button>
-              </div>
-              <a href="" className="preview-link">
-                <h1> ("How to build webapps that scale" |> strEl) </h1>
-                <p> ("This is the description for the post." |> strEl) </p>
-                <span> ("Read more..." |> strEl) </span>
-              </a>
-            </div>
-            <div className="article-preview">
-              <div className="article-meta">
-                <a href="profile.html">
-                  <img src="http://i.imgur.com/N4VcUeJ.jpg" />
-                </a>
-                <div className="info">
-                  <a href="" className="author"> ("Albert Pai" |> strEl) </a>
-                  <span className="date"> ("January 20th" |> strEl) </span>
-                </div>
-                <button
-                  className="btn btn-outline-primary btn-sm pull-xs-right">
-                  <i className="ion-heart" />
-                  (" 32" |> strEl)
-                </button>
-              </div>
-              <a href="" className="preview-link">
-                <h1>
-                  (
-                    "The song you won't ever stop singing. No matter how hard you try."
-                    |> strEl
-                  )
-                </h1>
-                <p> ("This is the description for the post." |> strEl) </p>
-                <span> ("Read more..." |> strEl) </span>
-              </a>
-            </div>
+            (
+              switch (articles) {
+              | NotAsked => "Initializing..." |> strEl
+              | Loading => "Loading..." |> strEl
+              | Failure(error) => "ERROR: " ++ error |> strEl
+              | Success(data) =>
+                data
+                |. Belt.List.mapU((. item: Types.article) =>
+                     <div key=item.slug className="article-preview">
+                       <div className="article-meta">
+                         <a href=("/#/profile/" ++ item.author.username)>
+                           <img src=item.author.image />
+                         </a>
+                         <div className="info">
+                           <a
+                             href=("/#/profile/" ++ item.author.username)
+                             className="author">
+                             (item.author.username |> strEl)
+                           </a>
+                           <span className="date">
+                             (item.createdAt |> Js.Date.toUTCString |> strEl)
+                           </span>
+                         </div>
+                         <button
+                           className="btn btn-outline-primary btn-sm pull-xs-right">
+                           <i className="ion-heart" />
+                           (item.favoritesCount |> string_of_int |> strEl)
+                         </button>
+                       </div>
+                       <a
+                         href=("/#/article/" ++ item.slug)
+                         className="preview-link">
+                         <h1> (item.title |> strEl) </h1>
+                         <p> (item.description |> strEl) </p>
+                         <span> ("Read more..." |> strEl) </span>
+                       </a>
+                     </div>
+                   )
+                |> Belt.List.toArray
+                |> arrayEl
+              }
+            )
           </div>
           <div className="col-md-3">
             <div className="sidebar">
@@ -125,5 +152,6 @@ let make = _children => {
           </div>
         </div>
       </div>
-    </div>,
+    </div>;
+  },
 };
