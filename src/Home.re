@@ -1,9 +1,24 @@
 open Utils;
 
-let component = ReasonReact.statelessComponent("Home");
+type action =
+  | UpdateTags(list(string))
+  | UpdateArticles(list(Types.article));
+
+type state = {
+  articles: list(Types.article),
+  tags: list(string),
+};
+
+let component = ReasonReact.reducerComponent("Home");
 
 let make = _children => {
   ...component,
+  initialState: () => {articles: [], tags: []},
+  reducer: (action, state) =>
+    switch (action) {
+    | UpdateTags(tags) => ReasonReact.Update({...state, tags})
+    | UpdateArticles(articles) => ReasonReact.Update({...state, articles})
+    },
   render: _self =>
     <div className="home-page">
       <div className="banner">
