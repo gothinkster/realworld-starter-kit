@@ -16,22 +16,36 @@ type state = {
 let component = ReasonReact.reducerComponent("Home");
 
 let loadData = (_payload, {ReasonReact.send}) => {
+  open Js.Promise;
   send(UpdateArticles(RemoteData.Loading));
-  Js.Promise.(
-    API.listArticles()
-    |> then_(result => {
-         switch (result) {
-         | Js.Result.Ok(json) =>
-           let articles =
-             json
-             |> Json.Decode.(field("articles", array(Decoder.article)))
-             |> Belt.List.fromArray;
-           send(UpdateArticles(RemoteData.Success(articles)));
-         | Error(error) => Js.log2("failed to get list of articles", error)
-         };
-         ignore() |> resolve;
-       })
-  )
+  send(UpdateTags(RemoteData.Loading));
+  API.listArticles()
+  |> then_(result => {
+       switch (result) {
+       | Js.Result.Ok(json) =>
+         let articles =
+           json
+           |> Json.Decode.(field("articles", array(Decoder.article)))
+           |> Belt.List.fromArray;
+         send(UpdateArticles(RemoteData.Success(articles)));
+       | Error(error) => Js.log2("failed to get list of articles", error)
+       };
+       ignore() |> resolve;
+     })
+  |> ignore;
+  API.tags()
+  |> then_(result => {
+       switch (result) {
+       | Js.Result.Ok(json) =>
+         let tags =
+           json
+           |> Json.Decode.(field("tags", array(string)))
+           |> Belt.List.fromArray;
+         send(UpdateTags(RemoteData.Success(tags)));
+       | Error(error) => Js.log2("failed to get list of tags", error)
+       };
+       ignore() |> resolve;
+     })
   |> ignore;
 };
 
@@ -51,7 +65,7 @@ let make = _children => {
     ReasonReact.NoUpdate;
   },
   render: ({state}) => {
-    let {articles} = state;
+    let {articles, tags} = state;
     <div className="home-page">
       <div className="banner">
         <div className="container">
@@ -102,7 +116,11 @@ let make = _children => {
                          <button
                            className="btn btn-outline-primary btn-sm pull-xs-right">
                            <i className="ion-heart" />
-                           (item.favoritesCount |> string_of_int |> strEl)
+                           (
+                             " "
+                             ++ (item.favoritesCount |> string_of_int)
+                             |> strEl
+                           )
                          </button>
                        </div>
                        <a
@@ -123,30 +141,25 @@ let make = _children => {
             <div className="sidebar">
               <p> ("Popular Tags" |> strEl) </p>
               <div className="tag-list">
-                <a href="" className="tag-pill tag-default">
-                  ("programming" |> strEl)
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  ("javascript" |> strEl)
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  ("emberjs" |> strEl)
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  ("angularjs" |> strEl)
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  ("react" |> strEl)
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  ("mean" |> strEl)
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  ("node" |> strEl)
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  ("rails" |> strEl)
-                </a>
+                (
+                  switch (tags) {
+                  | NotAsked => "Initializing..." |> strEl
+                  | Loading => "Loading..." |> strEl
+                  | Failure(error) => "ERROR: " ++ error |> strEl
+                  | Success(data) =>
+                    data
+                    |. Belt.List.mapU((. item) =>
+                         <a
+                           key=item
+                           href=("/#/?tag=" ++ item)
+                           className="tag-pill tag-default">
+                           (item |> strEl)
+                         </a>
+                       )
+                    |> Belt.List.toArray
+                    |> arrayEl
+                  }
+                )
               </div>
             </div>
           </div>

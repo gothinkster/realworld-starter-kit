@@ -8,6 +8,13 @@ let optToQueryString = (prefix, opt) =>
   | None => ""
   };
 
+let getResultIfOk = res =>
+  Js.Promise.(
+    res |> Response.ok ?
+      res |> Response.json |> then_(json => Js.Result.Ok(json) |> resolve) :
+      Js.Result.Error(res |> Response.statusText) |> resolve
+  );
+
 let listArticles = (~tag=?, ~author=?, ~favorited=?, ~limit=20, ~offset=0, ()) =>
   Js.Promise.(
     fetch(
@@ -21,11 +28,8 @@ let listArticles = (~tag=?, ~author=?, ~favorited=?, ~limit=20, ~offset=0, ()) =
       ++ optToQueryString("&author", author)
       ++ optToQueryString("&favorited", favorited),
     )
-    |> then_(res =>
-         res |> Response.ok ?
-           res
-           |> Response.json
-           |> then_(json => Js.Result.Ok(json) |> resolve) :
-           Js.Result.Error(res |> Response.statusText) |> resolve
-       )
+    |> then_(getResultIfOk)
   );
+
+let tags = () =>
+  Js.Promise.(fetch(host ++ "/api/tags") |> then_(getResultIfOk));
