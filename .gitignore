@@ -36,3 +36,10 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# bucklescript
+/lib
+/types
+.merlin
+*.bs.js
+.bsb.lock

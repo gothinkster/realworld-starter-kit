@@ -9,13 +9,18 @@
   "dependencies": {
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
-    "react-scripts": "2.0.0-next.b2fd8db8"
+    "react-scripts": "2.0.0-next.b2fd8db8",
+    "reason-react": "^0.3.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "build": "yarn build:bsb && yarn build:cra",
+    "build:bsb": "bsb -make-world -clean-world",
+    "build:cra": "react-scripts build",
+    "format:re": "find . -regex '.+\\.rei?' -exec refmt --in-place {} \\;",
+    "start": "concurrently --kill-others --names \"ReasonML,CRA\" --prefix-colors \"red.bgBlack.bold,yellow.bgBlack.bold\" \"yarn start:bsb\" \"yarn start:cra\"",
+    "start:bsb": "bsb -make-world -w",
+    "start:cra": "react-scripts start",
+    "test": "react-scripts test --env=jsdom"
   },
   "browserslist": {
     "development": [
@@ -23,6 +28,15 @@
       "last 2 firefox versions",
       "last 2 edge versions"
     ],
-    "production": [">1%", "last 4 versions", "Firefox ESR", "not ie < 11"]
+    "production": [
+      ">1%",
+      "last 4 versions",
+      "Firefox ESR",
+      "not ie < 11"
+    ]
+  },
+  "devDependencies": {
+    "bs-platform": "^2.2.3",
+    "concurrently": "^3.5.1"
   }
 }
