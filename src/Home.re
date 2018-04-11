@@ -223,20 +223,20 @@ let make = _children => {
                       |> ceil
                       |> int_of_float
                       |. Belt.List.makeBy(i => i + 1)
-                      |. Belt.List.mapU((. page) =>
+                      |. Belt.List.mapU((. page) => {
+                           let key = page |> string_of_int;
                            <li
+                             key
                              className=(
                                "page-item"
                                ++ (page === currentPage ? " active" : "")
                              )
                              onClick=(handle(changeCurrentPage(page)))>
-                             <a
-                               className="page-link"
-                               href=("#" ++ (page |> string_of_int))>
-                               (page |> string_of_int |> strEl)
+                             <a className="page-link" href=("#" ++ key)>
+                               (key |> strEl)
                              </a>
-                           </li>
-                         )
+                           </li>;
+                         })
                       |> Belt.List.toArray
                       |> arrayEl
                     )
