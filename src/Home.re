@@ -9,20 +9,25 @@ type selectedTag = option(string);
 type action =
   | SelectTag(selectedTag)
   | UpdateTags(remoteTags)
-  | UpdateArticles(remoteArticles);
+  | UpdateArticles((remoteArticles, float, int));
 
 type state = {
   articles: remoteArticles,
   tags: remoteTags,
   selectedTag,
+  articlesCount: float,
+  currentPage: int,
 };
+
+let pageNum = 10.;
 
 let component = ReasonReact.reducerComponent("Home");
 
-let loadData = (~tag=?, _payload, {ReasonReact.send, state}) => {
+let loadData = (~tag=?, ~page=1, _payload, {ReasonReact.send, state}) => {
   open Js.Promise;
-  send(UpdateArticles(RemoteData.Loading));
-  API.listArticles(~tag?, ())
+  let offset = (float_of_int(page) -. 1.) *. pageNum |> int_of_float;
+  send(UpdateArticles((RemoteData.Loading, 0., page)));
+  API.listArticles(~tag?, ~offset, ~limit=pageNum |> int_of_float, ())
   |> then_(result => {
        switch (result) {
        | Js.Result.Ok(json) =>
@@ -30,7 +35,15 @@ let loadData = (~tag=?, _payload, {ReasonReact.send, state}) => {
            json
            |> Json.Decode.(field("articles", array(Decoder.article)))
            |> Belt.List.fromArray;
-         send(UpdateArticles(RemoteData.Success(articles)));
+         let articlesCount =
+           json |> Json.Decode.(field("articlesCount", Json.Decode.float));
+         send(
+           UpdateArticles((
+             RemoteData.Success(articles),
+             articlesCount,
+             page,
+           )),
+         );
        | Error(error) => Js.log2("failed to get list of articles", error)
        };
        ignore() |> resolve;
@@ -64,12 +77,19 @@ let selectTag = (tag, event, {ReasonReact.send}) => {
   send(SelectTag(tag));
 };
 
+let changeCurrentPage = (page, event, {ReasonReact.handle, state}) => {
+  event |> ReactEventRe.Mouse.preventDefault;
+  handle(loadData(~tag=?state.selectedTag, ~page), ());
+};
+
 let make = _children => {
   ...component,
   initialState: () => {
     articles: RemoteData.NotAsked,
     tags: RemoteData.NotAsked,
     selectedTag: None,
+    articlesCount: 0.,
+    currentPage: 1,
   },
   reducer: (action, state) =>
     switch (action) {
@@ -79,14 +99,15 @@ let make = _children => {
         (({handle}) => handle(loadData(~tag=?selectedTag), ())),
       )
     | UpdateTags(tags) => ReasonReact.Update({...state, tags})
-    | UpdateArticles(articles) => ReasonReact.Update({...state, articles})
+    | UpdateArticles((articles, articlesCount, currentPage)) =>
+      ReasonReact.Update({...state, articles, articlesCount, currentPage})
     },
   didMount: ({handle}) => {
     handle(loadData, ());
     ReasonReact.NoUpdate;
   },
   render: ({state, handle}) => {
-    let {articles, tags, selectedTag} = state;
+    let {articles, tags, selectedTag, articlesCount, currentPage} = state;
     <div className="home-page">
       <div className="banner">
         <div className="container">
@@ -186,6 +207,41 @@ let make = _children => {
                    )
                 |> Belt.List.toArray
                 |> arrayEl
+              }
+            )
+            (
+              switch (articles) {
+              | NotAsked
+              | Loading
+              | Failure(_) => nullEl
+              | Success(_) =>
+                <nav>
+                  <ul className="pagination">
+                    (
+                      articlesCount
+                      /. pageNum
+                      |> ceil
+                      |> int_of_float
+                      |. Belt.List.makeBy(i => i + 1)
+                      |. Belt.List.mapU((. page) =>
+                           <li
+                             className=(
+                               "page-item"
+                               ++ (page === currentPage ? " active" : "")
+                             )
+                             onClick=(handle(changeCurrentPage(page)))>
+                             <a
+                               className="page-link"
+                               href=("#" ++ (page |> string_of_int))>
+                               (page |> string_of_int |> strEl)
+                             </a>
+                           </li>
+                         )
+                      |> Belt.List.toArray
+                      |> arrayEl
+                    )
+                  </ul>
+                </nav>
               }
             )
           </div>

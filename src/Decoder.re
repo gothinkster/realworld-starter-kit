@@ -10,7 +10,10 @@ let article = (json: Js.Json.t) : Types.article =>
   Json.Decode.{
     slug: json |> field("slug", string),
     title: json |> field("title", string),
-    description: json |> field("description", string),
+    description:
+      json
+      |> field("description", optional(string))
+      |. Belt.Option.getWithDefault(""),
     body: json |> field("body", string),
     tagList: json |> field("tagList", array(string)) |> Belt.List.fromArray,
     createdAt: json |> field("createdAt", date),
