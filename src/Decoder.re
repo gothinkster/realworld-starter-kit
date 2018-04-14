@@ -22,3 +22,11 @@ let article = (json: Js.Json.t) : Types.article =>
     favoritesCount: json |> field("favoritesCount", int),
     author: json |> field("author", author),
   };
+
+let profile = (json: Js.Json.t) : Types.profile =>
+  Json.Decode.{
+    username: json |> field("username", string),
+    bio: json |> field("bio", optional(string)),
+    image: json |> field("image", string),
+    following: json |> field("following", boolean) |> Js.to_bool,
+  };

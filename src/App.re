@@ -11,15 +11,10 @@ type route =
   | Settings
   | Editor
   | Article
-  | Profile(string, option(bool));
+  | Profile(Types.articleByAuthor);
 
 type action =
   | ChangeRoute(route);
-
-type state = {
-  route,
-  x: int,
-};
 
 let component = ReasonReact.reducerComponent("App");
 
@@ -28,16 +23,15 @@ let makeLinkClass = (current, target) =>
 
 let urlToRoute = (url: ReasonReact.Router.url) : route => {
   let hash = url.hash |> Js.String.split("/");
-  Js.Array.shift(hash) |> ignore;
   switch (hash) {
-  | [|"login"|] => Login
-  | [|"register"|] => Register
-  | [|"settings"|] => Settings
-  | [|"editor"|] => Editor
-  | [|"article"|] => Article
-  | [|"profile", author|] => Profile(author, None)
-  | [|"profile", author, favorites|] => Profile(author, Some(true))
-  | [|_|]
+  | [|"", "login"|] => Login
+  | [|"", "register"|] => Register
+  | [|"", "settings"|] => Settings
+  | [|"", "editor"|] => Editor
+  | [|"", "article"|] => Article
+  | [|"", "profile", author|] => Profile(Types.Author(author))
+  | [|"", "profile", author, "favorites"|] => Profile(Types.Favorited(author))
+  | [|"", _|]
   | [||]
   | _ => Home
   };
@@ -45,13 +39,11 @@ let urlToRoute = (url: ReasonReact.Router.url) : route => {
 
 let make = _children => {
   ...component,
-  initialState: () => {
-    route: urlToRoute(ReasonReact.Router.dangerouslyGetInitialUrl()),
-    x: 0,
-  },
-  reducer: (action, state) =>
+  initialState: () =>
+    urlToRoute(ReasonReact.Router.dangerouslyGetInitialUrl()),
+  reducer: (action, _state) =>
     switch (action) {
-    | ChangeRoute(route) => ReasonReact.Update({...state, route})
+    | ChangeRoute(state) => ReasonReact.Update(state)
     },
   subscriptions: self => [
     Sub(
@@ -63,7 +55,7 @@ let make = _children => {
     ),
   ],
   render: ({state}) => {
-    let linkCx = makeLinkClass(state.route);
+    let linkCx = makeLinkClass(state);
     <div>
       <nav className="navbar navbar-light">
         <div className="container">
@@ -93,12 +85,12 @@ let make = _children => {
         </div>
       </nav>
       (
-        switch (state.route) {
+        switch (state) {
         | Login
-        | Register => <Sign register=(state.route === Register) />
+        | Register => <Sign register=(state === Register) />
         | Settings => <Settings />
         | Editor => <Editor />
-        | Profile(author, favorites) => <Profile author favorites />
+        | Profile(author) => <Profile author />
         | Article => <Article />
         | Home => <Home />
         }

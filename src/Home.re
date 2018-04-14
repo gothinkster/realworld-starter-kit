@@ -1,19 +1,15 @@
 open Utils;
 
-type remoteArticles = RemoteData.t(list(Types.article), string);
-
-type remoteTags = RemoteData.t(list(string), string);
-
 type selectedTag = option(string);
 
 type action =
   | SelectTag(selectedTag)
-  | UpdateTags(remoteTags)
-  | UpdateArticles((remoteArticles, float, int));
+  | UpdateTags(Types.remoteTags)
+  | UpdateArticles((Types.remoteArticles, float, int));
 
 type state = {
-  articles: remoteArticles,
-  tags: remoteTags,
+  articles: Types.remoteArticles,
+  tags: Types.remoteTags,
   selectedTag,
   articlesCount: float,
   currentPage: int,
@@ -44,10 +40,21 @@ let loadData = (~tag=?, ~page=1, _payload, {ReasonReact.send, state}) => {
              page,
            )),
          );
-       | Error(error) => Js.log2("failed to get list of articles", error)
+       | Error(error) =>
+         send(UpdateArticles((RemoteData.Failure(error), 0., 1)))
        };
        ignore() |> resolve;
      })
+  |> catch(_error =>
+       send(
+         UpdateArticles((
+           RemoteData.Failure("failed to fetch list of articles"),
+           0.,
+           1,
+         )),
+       )
+       |> resolve
+     )
   |> ignore;
   switch (state.tags) {
   | NotAsked =>
@@ -61,10 +68,16 @@ let loadData = (~tag=?, ~page=1, _payload, {ReasonReact.send, state}) => {
              |> Json.Decode.(field("tags", array(string)))
              |> Belt.List.fromArray;
            send(UpdateTags(RemoteData.Success(tags)));
-         | Error(error) => Js.log2("failed to get list of tags", error)
+         | Error(error) => send(UpdateTags(RemoteData.Failure(error)))
          };
          ignore() |> resolve;
        })
+    |> catch(_error =>
+         send(
+           UpdateTags(RemoteData.Failure("failed to fetch list of tags")),
+         )
+         |> resolve
+       )
     |> ignore;
   | Loading
   | Success(_)

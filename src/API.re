@@ -25,11 +25,16 @@ let listArticles = (~tag=?, ~author=?, ~favorited=?, ~limit=20, ~offset=0, ()) =
       ++ "&offset="
       ++ string_of_int(offset)
       ++ optToQueryString("&tag=", tag)
-      ++ optToQueryString("&author", author)
-      ++ optToQueryString("&favorited", favorited),
+      ++ optToQueryString("&author=", author)
+      ++ optToQueryString("&favorited=", favorited),
     )
     |> then_(getResultIfOk)
   );
 
 let tags = () =>
   Js.Promise.(fetch(host ++ "/api/tags") |> then_(getResultIfOk));
+
+let profiles = (~author) =>
+  Js.Promise.(
+    fetch(host ++ "/api/profiles/" ++ author) |> then_(getResultIfOk)
+  );
