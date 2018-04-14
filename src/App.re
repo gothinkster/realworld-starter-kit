@@ -11,7 +11,7 @@ type route =
   | Settings
   | Editor
   | Article
-  | Profile;
+  | Profile(string, option(bool));
 
 type action =
   | ChangeRoute(route);
@@ -26,17 +26,22 @@ let component = ReasonReact.reducerComponent("App");
 let makeLinkClass = (current, target) =>
   "nav-link" ++ (current === target ? " active" : "");
 
-let urlToRoute = (url: ReasonReact.Router.url) : route =>
-  switch (url.hash) {
-  | "/login" => Login
-  | "/register" => Register
-  | "/settings" => Settings
-  | "/editor" => Editor
-  | "/article" => Article
-  | "/profile" => Profile
-  | "/"
+let urlToRoute = (url: ReasonReact.Router.url) : route => {
+  let hash = url.hash |> Js.String.split("/");
+  Js.Array.shift(hash) |> ignore;
+  switch (hash) {
+  | [|"login"|] => Login
+  | [|"register"|] => Register
+  | [|"settings"|] => Settings
+  | [|"editor"|] => Editor
+  | [|"article"|] => Article
+  | [|"profile", author|] => Profile(author, None)
+  | [|"profile", author, favorites|] => Profile(author, Some(true))
+  | [|_|]
+  | [||]
   | _ => Home
   };
+};
 
 let make = _children => {
   ...component,
@@ -93,7 +98,7 @@ let make = _children => {
         | Register => <Sign register=(state.route === Register) />
         | Settings => <Settings />
         | Editor => <Editor />
-        | Profile => <Profile />
+        | Profile(author, favorites) => <Profile author favorites />
         | Article => <Article />
         | Home => <Home />
         }
