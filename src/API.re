@@ -38,3 +38,13 @@ let profiles = (~author) =>
   Js.Promise.(
     fetch(host ++ "/api/profiles/" ++ author) |> then_(getResultIfOk)
   );
+
+let article = (~slug) =>
+  Js.Promise.(
+    fetch(host ++ "/api/articles/" ++ slug) |> then_(getResultIfOk)
+  );
+
+let comments = (~slug) =>
+  Js.Promise.(
+    fetch(host ++ "/api/articles/" ++ slug ++ "/comments") |> then_(getResultIfOk)
+  );

@@ -9,7 +9,87 @@ type state = {
   comments: Types.remoteComments,
 };
 
+module Card = {
+  let component = ReasonReact.statelessComponent("Card");
+  let make = (~data, _children) => {
+    ...component,
+    render: _self => {
+      let {createdAt, body, author}: Types.comment = data;
+      <div className="card">
+        <div className="card-block">
+          <p className="card-text"> (body |> strEl) </p>
+        </div>
+        <div className="card-footer">
+          <a href="" className="comment-author">
+            <img src=author.image className="comment-author-img" />
+          </a>
+          <a href="" className="comment-author">
+            (author.username |> strEl)
+          </a>
+          <span className="date-posted">
+            (createdAt |> Js.Date.toISOString |> strEl)
+          </span>
+          <span className="mod-options">
+            <i className="ion-edit" />
+            <i className="ion-trash-a" />
+          </span>
+        </div>
+      </div>;
+    },
+  };
+};
+
 let component = ReasonReact.reducerComponent("Article");
+
+let loadArticle = (slug, {ReasonReact.send}) => {
+  Js.Promise.(
+    API.article(~slug)
+    |> then_(result => {
+         switch (result) {
+         | Js.Result.Ok(json) =>
+           let article =
+             json |> Json.Decode.(field("article", Decoder.article));
+           send(UpdateArticle(RemoteData.Success(article)));
+         | Error(error) => send(UpdateArticle(RemoteData.Failure(error)))
+         };
+         ignore() |> resolve;
+       })
+    |> catch(_error => {
+         send(UpdateArticle(RemoteData.Failure("failed to fetch article")));
+         ignore() |> resolve;
+       })
+    |> ignore
+  );
+  ignore();
+};
+
+let loadComments = (slug, {ReasonReact.send}) => {
+  Js.Promise.(
+    API.comments(~slug)
+    |> then_(result => {
+         switch (result) {
+         | Js.Result.Ok(json) =>
+           let comments =
+             json
+             |> Json.Decode.(field("comments", array(Decoder.comment)))
+             |> Belt.List.fromArray;
+           send(UpdateComments(RemoteData.Success(comments)));
+         | Error(error) => send(UpdateComments(RemoteData.Failure(error)))
+         };
+         ignore() |> resolve;
+       })
+    |> catch(_error => {
+         send(
+           UpdateComments(
+             RemoteData.Failure("failed to fetch list of commnets"),
+           ),
+         );
+         ignore() |> resolve;
+       })
+    |> ignore
+  );
+  ignore();
+};
 
 let make = (~slug, _children) => {
   ...component,
@@ -22,70 +102,259 @@ let make = (~slug, _children) => {
     | UpdateComments(comments) => ReasonReact.Update({...state, comments})
     | UpdateArticle(article) => ReasonReact.Update({...state, article})
     },
+  didMount: ({handle}) => {
+    handle(loadArticle, slug);
+    handle(loadComments, slug);
+    ReasonReact.NoUpdate;
+  },
   render: ({state}) => {
     let {article, comments} = state;
     <div className="article-page">
       <div className="banner">
         <div className="container">
-          <h1> ("How to build webapps that scale" |> strEl) </h1>
+          <h1>
+            (
+              switch (article) {
+              | NotAsked => nullEl
+              | Loading => "..." |> strEl
+              | Success({title}) => title |> strEl
+              | Failure(_) => nullEl
+              }
+            )
+          </h1>
           <div className="article-meta">
-            <a href=""> <img src="http://i.imgur.com/Qr71crq.jpg" /> </a>
+            <a
+              href=(
+                switch (article) {
+                | NotAsked
+                | Loading => ""
+                | Success({author}) => "/#/profile/" ++ author.username
+                | Failure(_) => ""
+                }
+              )>
+              <img
+                src=(
+                  switch (article) {
+                  | NotAsked
+                  | Loading => "//placehold.it/100x100"
+                  | Success({author}) => author.image
+                  | Failure(_) => "//placehold.it/100x100"
+                  }
+                )
+              />
+            </a>
             <div className="info">
-              <a href="" className="author"> ("Eric Simons" |> strEl) </a>
-              <span className="date"> ("January 20th" |> strEl) </span>
+              <a
+                href=(
+                  switch (article) {
+                  | NotAsked
+                  | Loading => ""
+                  | Success({author}) => "/#/profile/" ++ author.username
+                  | Failure(_) => ""
+                  }
+                )
+                className="author">
+                (
+                  (
+                    switch (article) {
+                    | NotAsked
+                    | Loading => ""
+                    | Success({author}) => author.username
+                    | Failure(_) => ""
+                    }
+                  )
+                  |> strEl
+                )
+              </a>
+              <span className="date">
+                (
+                  switch (article) {
+                  | NotAsked
+                  | Loading => nullEl
+                  | Success({updatedAt}) =>
+                    updatedAt |> Js.Date.toISOString |> strEl
+                  | Failure(_) => nullEl
+                  }
+                )
+              </span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">
               <i className="ion-plus-round" />
-              (" Follow Eric Simons " |> strEl)
-              <span className="counter"> ("(10)" |> strEl) </span>
+              (
+                " Follow "
+                ++ (
+                  switch (article) {
+                  | NotAsked
+                  | Loading => ""
+                  | Success({author}) => author.username
+                  | Failure(_) => ""
+                  }
+                )
+                |> strEl
+              )
+              <span className="counter">
+                (
+                  "("
+                  ++ (
+                    switch (article) {
+                    | NotAsked
+                    | Loading => "-"
+                    | Success({favoritesCount}) =>
+                      favoritesCount |> string_of_int
+                    | Failure(_) => "-"
+                    }
+                  )
+                  ++ ")"
+                  |> strEl
+                )
+              </span>
             </button>
             <button className="btn btn-sm btn-outline-primary">
               <i className="ion-heart" />
               (" Favorite Post  " |> strEl)
-              <span className="counter"> ("(29)" |> strEl) </span>
+              <span className="counter">
+                (
+                  "("
+                  ++ (
+                    switch (article) {
+                    | NotAsked
+                    | Loading => "-"
+                    | Success({favoritesCount}) =>
+                      favoritesCount |> string_of_int
+                    | Failure(_) => "-"
+                    }
+                  )
+                  ++ ")"
+                  |> strEl
+                )
+              </span>
             </button>
           </div>
         </div>
       </div>
       <div className="container page">
         <div className="row article-content">
-          <div className="col-md-12">
-            <p>
-              (
-                "Web development technologies have evolved at an incredible clip over the past few years."
-                |> strEl
-              )
-            </p>
-            <h2 id="introducing-ionic">
-              ("Introducing RealWorld." |> strEl)
-            </h2>
-            <p>
-              (
-                "It's a great solution for learning how other frameworks work."
-                |> strEl
-              )
-            </p>
-          </div>
+          (
+            switch (article) {
+            | NotAsked => <div> ("Initilizing..." |> strEl) </div>
+            | Loading => <div> ("Loading..." |> strEl) </div>
+            | Success({body}) =>
+              <div
+                className="col-md-12"
+                dangerouslySetInnerHTML={"__html": body}
+              />
+            | Failure(error) => <div> (error |> strEl) </div>
+            }
+          )
         </div>
         <hr />
         <div className="article-actions">
           <div className="article-meta">
-            <a href="profile.html">
-              <img src="http://i.imgur.com/Qr71crq.jpg" />
+            <a
+              href=(
+                switch (article) {
+                | NotAsked
+                | Loading => ""
+                | Success({author}) => "/#/profile/" ++ author.username
+                | Failure(_) => ""
+                }
+              )>
+              <img
+                src=(
+                  switch (article) {
+                  | NotAsked
+                  | Loading => "//placehold.it/100x100"
+                  | Success({author}) => author.image
+                  | Failure(_) => "//placehold.it/100x100"
+                  }
+                )
+              />
             </a>
             <div className="info">
-              <a href="" className="author"> ("Eric Simons" |> strEl) </a>
-              <span className="date"> ("January 20th" |> strEl) </span>
+              <a
+                href=(
+                  switch (article) {
+                  | NotAsked
+                  | Loading => ""
+                  | Success({author}) => "/#/profile/" ++ author.username
+                  | Failure(_) => ""
+                  }
+                )
+                className="author">
+                (
+                  (
+                    switch (article) {
+                    | NotAsked
+                    | Loading => ""
+                    | Success({author}) => author.username
+                    | Failure(_) => ""
+                    }
+                  )
+                  |> strEl
+                )
+              </a>
+              <span className="date">
+                (
+                  switch (article) {
+                  | NotAsked
+                  | Loading => nullEl
+                  | Success({updatedAt}) =>
+                    updatedAt |> Js.Date.toISOString |> strEl
+                  | Failure(_) => nullEl
+                  }
+                )
+              </span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">
               <i className="ion-plus-round" />
-              (" Follow Eric Simons " |> strEl)
-              <span className="counter"> ("(10)" |> strEl) </span>
+              (
+                " Follow "
+                ++ (
+                  switch (article) {
+                  | NotAsked
+                  | Loading => ""
+                  | Success({author}) => author.username
+                  | Failure(_) => ""
+                  }
+                )
+                |> strEl
+              )
+              <span className="counter">
+                (
+                  "("
+                  ++ (
+                    switch (article) {
+                    | NotAsked
+                    | Loading => "-"
+                    | Success({favoritesCount}) =>
+                      favoritesCount |> string_of_int
+                    | Failure(_) => "-"
+                    }
+                  )
+                  ++ ")"
+                  |> strEl
+                )
+              </span>
             </button>
             <button className="btn btn-sm btn-outline-primary">
               <i className="ion-heart" />
               (" Favorite Post " |> strEl)
-              <span className="counter"> ("(29)" |> strEl) </span>
+              <span className="counter">
+                (
+                  "("
+                  ++ (
+                    switch (article) {
+                    | NotAsked
+                    | Loading => "-"
+                    | Success({favoritesCount}) =>
+                      favoritesCount |> string_of_int
+                    | Failure(_) => "-"
+                    }
+                  )
+                  ++ ")"
+                  |> strEl
+                )
+              </span>
             </button>
           </div>
         </div>
@@ -109,54 +378,20 @@ let make = (~slug, _children) => {
                 </button>
               </div>
             </form>
-            <div className="card">
-              <div className="card-block">
-                <p className="card-text">
-                  (
-                    "With supporting text below as a natural lead-in to additional content."
-                    |> strEl
-                  )
-                </p>
-              </div>
-              <div className="card-footer">
-                <a href="" className="comment-author">
-                  <img
-                    src="http://i.imgur.com/Qr71crq.jpg"
-                    className="comment-author-img"
-                  />
-                </a>
-                <a href="" className="comment-author">
-                  ("Jacob Schmidt" |> strEl)
-                </a>
-                <span className="date-posted"> ("Dec 29th" |> strEl) </span>
-              </div>
-            </div>
-            <div className="card">
-              <div className="card-block">
-                <p className="card-text">
-                  (
-                    "With supporting text below as a natural lead-in to additional content."
-                    |> strEl
-                  )
-                </p>
-              </div>
-              <div className="card-footer">
-                <a href="" className="comment-author">
-                  <img
-                    src="http://i.imgur.com/Qr71crq.jpg"
-                    className="comment-author-img"
-                  />
-                </a>
-                <a href="" className="comment-author">
-                  ("Jacob Schmidt" |> strEl)
-                </a>
-                <span className="date-posted"> ("Dec 29th" |> strEl) </span>
-                <span className="mod-options">
-                  <i className="ion-edit" />
-                  <i className="ion-trash-a" />
-                </span>
-              </div>
-            </div>
+            (
+              switch (comments) {
+              | NotAsked => "Initilizing..." |> strEl
+              | Loading => "Loading..." |> strEl
+              | Failure(error) => error |> strEl
+              | Success(data) =>
+                data
+                |. Belt.List.mapU((. comment: Types.comment) =>
+                     <Card key=(comment.id |> string_of_int) data=comment />
+                   )
+                |> Belt.List.toArray
+                |> arrayEl
+              }
+            )
           </div>
         </div>
       </div>

@@ -30,3 +30,12 @@ let profile = (json: Js.Json.t) : Types.profile =>
     image: json |> field("image", string),
     following: json |> field("following", boolean) |> Js.to_bool,
   };
+
+let comment = (json: Js.Json.t) : Types.comment =>
+  Json.Decode.{
+    id: json |> field("id", int),
+    createdAt: json |> field("createdAt", date),
+    updatedAt: json |> field("updatedAt", date),
+    body: json |> field("body", string),
+    author: json |> field("author", author),
+  };
