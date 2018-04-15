@@ -11,7 +11,7 @@ type state = {
 
 module Card = {
   let component = ReasonReact.statelessComponent("Card");
-  let make = (~data, _children) => {
+  let make = (~data, ~user: Types.remoteUser, _children) => {
     ...component,
     render: _self => {
       let {createdAt, body, author}: Types.comment = data;
@@ -20,19 +20,30 @@ module Card = {
           <p className="card-text"> (body |> strEl) </p>
         </div>
         <div className="card-footer">
-          <a href="" className="comment-author">
+          <a
+            href=("/#/profile/" ++ author.username) className="comment-author">
             <img src=author.image className="comment-author-img" />
           </a>
-          <a href="" className="comment-author">
+          (" " |> strEl)
+          <a
+            href=("/#/profile/" ++ author.username) className="comment-author">
             (author.username |> strEl)
           </a>
           <span className="date-posted">
             (createdAt |> Js.Date.toISOString |> strEl)
           </span>
-          <span className="mod-options">
-            <i className="ion-edit" />
-            <i className="ion-trash-a" />
-          </span>
+          (
+            switch (user) {
+            | NotAsked
+            | Loading => nullEl
+            | Failure(_) => nullEl
+            | Success(_data) =>
+              <span className="mod-options">
+                <i className="ion-edit" />
+                <i className="ion-trash-a" />
+              </span>
+            }
+          )
         </div>
       </div>;
     },
@@ -91,7 +102,7 @@ let loadComments = (slug, {ReasonReact.send}) => {
   ignore();
 };
 
-let make = (~slug, _children) => {
+let make = (~user: Types.remoteUser, ~slug, _children) => {
   ...component,
   initialState: () => {
     article: RemoteData.NotAsked,
@@ -194,7 +205,7 @@ let make = (~slug, _children) => {
               )
               <span className="counter">
                 (
-                  "("
+                  " ("
                   ++ (
                     switch (article) {
                     | NotAsked
@@ -209,12 +220,13 @@ let make = (~slug, _children) => {
                 )
               </span>
             </button>
+            (" " |> strEl)
             <button className="btn btn-sm btn-outline-primary">
               <i className="ion-heart" />
-              (" Favorite Post  " |> strEl)
+              (" Favorite Post " |> strEl)
               <span className="counter">
                 (
-                  "("
+                  " ("
                   ++ (
                     switch (article) {
                     | NotAsked
@@ -244,6 +256,27 @@ let make = (~slug, _children) => {
                 dangerouslySetInnerHTML={"__html": body}
               />
             | Failure(error) => <div> (error |> strEl) </div>
+            }
+          )
+          (
+            switch (article) {
+            | NotAsked
+            | Loading => nullEl
+            | Failure(_) => nullEl
+            | Success({tagList}) =>
+              <ul className="tag-list">
+                (
+                  tagList
+                  |. Belt.List.mapU((. item) =>
+                       <li
+                         key=item className="tag-default tag-pill tag-outline">
+                         (item |> strEl)
+                       </li>
+                     )
+                  |> Belt.List.toArray
+                  |> arrayEl
+                )
+              </ul>
             }
           )
         </div>
@@ -321,7 +354,7 @@ let make = (~slug, _children) => {
               )
               <span className="counter">
                 (
-                  "("
+                  " ("
                   ++ (
                     switch (article) {
                     | NotAsked
@@ -336,9 +369,10 @@ let make = (~slug, _children) => {
                 )
               </span>
             </button>
+            (" " |> strEl)
             <button className="btn btn-sm btn-outline-primary">
               <i className="ion-heart" />
-              (" Favorite Post " |> strEl)
+              (" Favorite Post" |> strEl)
               <span className="counter">
                 (
                   "("
@@ -360,24 +394,35 @@ let make = (~slug, _children) => {
         </div>
         <div className="row">
           <div className="col-xs-12 col-md-8 offset-md-2">
-            <form className="card comment-form">
-              <div className="card-block">
-                <textarea
-                  className="form-control"
-                  placeholder="Write a comment..."
-                  rows=3
-                />
-              </div>
-              <div className="card-footer">
-                <img
-                  src="http://i.imgur.com/Qr71crq.jpg"
-                  className="comment-author-img"
-                />
-                <button className="btn btn-sm btn-primary">
-                  ("Post Comment" |> strEl)
-                </button>
-              </div>
-            </form>
+            (
+              switch (user) {
+              | NotAsked =>
+                <p>
+                  <a href="#/login"> ("Sign in" |> strEl) </a>
+                  (" or " |> strEl)
+                  <a href="#/register"> ("sign up" |> strEl) </a>
+                  (" to add comments on this article." |> strEl)
+                </p>
+              | Loading => "Loading..." |> strEl
+              | Failure(error) => error |> strEl
+              | Success(data) =>
+                <form className="card comment-form">
+                  <div className="card-block">
+                    <textarea
+                      className="form-control"
+                      placeholder="Write a comment..."
+                      rows=3
+                    />
+                  </div>
+                  <div className="card-footer">
+                    <img src=data.username className="comment-author-img" />
+                    <button className="btn btn-sm btn-primary">
+                      ("Post Comment" |> strEl)
+                    </button>
+                  </div>
+                </form>
+              }
+            )
             (
               switch (comments) {
               | NotAsked => "Initilizing..." |> strEl
@@ -386,7 +431,11 @@ let make = (~slug, _children) => {
               | Success(data) =>
                 data
                 |. Belt.List.mapU((. comment: Types.comment) =>
-                     <Card key=(comment.id |> string_of_int) data=comment />
+                     <Card
+                       key=(comment.id |> string_of_int)
+                       data=comment
+                       user
+                     />
                    )
                 |> Belt.List.toArray
                 |> arrayEl

@@ -33,6 +33,14 @@ type comment = {
   author,
 };
 
+type user = {
+  email: string,
+  token: string,
+  username: string,
+  bio: option(string),
+  image: option(string),
+};
+
 type remoteArticles = RemoteData.t(list(article), string);
 
 type remoteComments = RemoteData.t(list(comment), string);
@@ -40,6 +48,8 @@ type remoteComments = RemoteData.t(list(comment), string);
 type remoteArticle = RemoteData.t(article, string);
 
 type remoteProfile = RemoteData.t(profile, string);
+
+type remoteUser = RemoteData.t(user, string);
 
 type remoteTags = RemoteData.t(list(string), string);
 

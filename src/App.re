@@ -16,6 +16,11 @@ type route =
 type action =
   | ChangeRoute(route);
 
+type state = {
+  route,
+  user: Types.remoteUser,
+};
+
 let component = ReasonReact.reducerComponent("App");
 
 let makeLinkClass = (current, target) =>
@@ -30,7 +35,8 @@ let urlToRoute = (url: ReasonReact.Router.url) : route => {
   | [|"", "editor"|] => Editor
   | [|"", "article", slug|] => Article(slug)
   | [|"", "profile", author|] => Profile(Types.Author(author))
-  | [|"", "profile", author, "favorites"|] => Profile(Types.Favorited(author))
+  | [|"", "profile", author, "favorites"|] =>
+    Profile(Types.Favorited(author))
   | [|"", _|]
   | [||]
   | _ => Home
@@ -39,11 +45,13 @@ let urlToRoute = (url: ReasonReact.Router.url) : route => {
 
 let make = _children => {
   ...component,
-  initialState: () =>
-    urlToRoute(ReasonReact.Router.dangerouslyGetInitialUrl()),
-  reducer: (action, _state) =>
+  initialState: () => {
+    route: urlToRoute(ReasonReact.Router.dangerouslyGetInitialUrl()),
+    user: RemoteData.NotAsked,
+  },
+  reducer: (action, state) =>
     switch (action) {
-    | ChangeRoute(state) => ReasonReact.Update(state)
+    | ChangeRoute(route) => ReasonReact.Update({...state, route})
     },
   subscriptions: self => [
     Sub(
@@ -55,7 +63,8 @@ let make = _children => {
     ),
   ],
   render: ({state}) => {
-    let linkCx = makeLinkClass(state);
+    let {route, user} = state;
+    let linkCx = makeLinkClass(route);
     <div>
       <nav className="navbar navbar-light">
         <div className="container">
@@ -85,13 +94,13 @@ let make = _children => {
         </div>
       </nav>
       (
-        switch (state) {
+        switch (route) {
         | Login
-        | Register => <Sign register=(state === Register) />
+        | Register => <Sign register=(route === Register) />
         | Settings => <Settings />
         | Editor => <Editor />
         | Profile(author) => <Profile author />
-        | Article(slug) => <Article slug />
+        | Article(slug) => <Article slug user />
         | Home => <Home />
         }
       )
