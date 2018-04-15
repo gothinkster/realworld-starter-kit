@@ -21,9 +21,10 @@ let component = ReasonReact.reducerComponent("Home");
 
 let loadData = (~tag=?, ~page=1, _payload, {ReasonReact.send, state}) => {
   open Js.Promise;
+  let limit = pageNum |> int_of_float;
   let offset = (float_of_int(page) -. 1.) *. pageNum |> int_of_float;
   send(UpdateArticles((RemoteData.Loading, 0., page)));
-  API.listArticles(~tag?, ~offset, ~limit=pageNum |> int_of_float, ())
+  API.listArticles(~tag?, ~offset, ~limit, ())
   |> then_(result => {
        switch (result) {
        | Js.Result.Ok(json) =>
@@ -90,10 +91,8 @@ let selectTag = (tag, event, {ReasonReact.send}) => {
   send(SelectTag(tag));
 };
 
-let changeCurrentPage = (page, event, {ReasonReact.handle, state}) => {
-  event |> ReactEventRe.Mouse.preventDefault;
+let changeCurrentPage = (page, {ReasonReact.handle, state}) =>
   handle(loadData(~tag=?state.selectedTag, ~page), ());
-};
 
 let make = _children => {
   ...component,
@@ -196,33 +195,12 @@ let make = _children => {
               | Loading
               | Failure(_) => nullEl
               | Success(_) =>
-                <nav>
-                  <ul className="pagination">
-                    (
-                      articlesCount
-                      /. pageNum
-                      |> ceil
-                      |> int_of_float
-                      |. Belt.List.makeBy(i => i + 1)
-                      |. Belt.List.mapU((. page) => {
-                           let key = page |> string_of_int;
-                           <li
-                             key
-                             className=(
-                               "page-item"
-                               ++ (page === currentPage ? " active" : "")
-                             )
-                             onClick=(handle(changeCurrentPage(page)))>
-                             <a className="page-link" href=("#" ++ key)>
-                               (key |> strEl)
-                             </a>
-                           </li>;
-                         })
-                      |> Belt.List.toArray
-                      |> arrayEl
-                    )
-                  </ul>
-                </nav>
+                <Pagination
+                  totalCount=articlesCount
+                  perPage=pageNum
+                  onPageClick=(handle(changeCurrentPage))
+                  currentPage
+                />
               }
             )
           </div>

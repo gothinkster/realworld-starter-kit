@@ -4,47 +4,29 @@ type state = {
   profile: Types.remoteProfile,
   articles: Types.remoteArticles,
   articlesCount: float,
+  currentPage: int,
 };
 
 type action =
   | UpdateProfile(Types.remoteProfile)
   | UpdateArticles((Types.remoteArticles, float));
 
+let pageNum = 10.;
+
+let getAuthorParam =
+  fun
+  | Types.Author(v) => (Some(v), None)
+  | Favorited(v) => (None, Some(v));
+
 let component = ReasonReact.reducerComponent("Profile");
 
-let loadProfile = (payload: Types.articleByAuthor, {ReasonReact.send}) => {
+let loadArticles =
+    (~author, ~favorited, ~page=1, _payload, {ReasonReact.send}) => {
   open Js.Promise;
-  {
-    let author =
-      switch (payload) {
-      | Author(v) => v
-      | Favorited(v) => v
-      };
-    send(UpdateProfile(RemoteData.Loading));
-    API.profiles(~author)
-    |> then_(result => {
-         switch (result) {
-         | Js.Result.Ok(json) =>
-           let profile =
-             json |> Json.Decode.(field("profile", Decoder.profile));
-           send(UpdateProfile(RemoteData.Success(profile)));
-         | Error(error) => send(UpdateProfile(RemoteData.Failure(error)))
-         };
-         ignore() |> resolve;
-       })
-    |> catch(_error =>
-         send(UpdateProfile(RemoteData.Failure("failed to fetch profile")))
-         |> resolve
-       )
-    |> ignore;
-  };
-  let (author, favorited) =
-    switch (payload) {
-    | Author(v) => (Some(v), None)
-    | Favorited(v) => (None, Some(v))
-    };
+  let limit = pageNum |> int_of_float;
+  let offset = (float_of_int(page) -. 1.) *. pageNum |> int_of_float;
   send(UpdateArticles((RemoteData.Loading, 0.)));
-  API.listArticles(~author?, ~favorited?, ())
+  API.listArticles(~author?, ~favorited?, ~offset, ~limit, ())
   |> then_(result => {
        switch (result) {
        | Js.Result.Ok(json) =>
@@ -74,12 +56,49 @@ let loadProfile = (payload: Types.articleByAuthor, {ReasonReact.send}) => {
   |> ignore;
 };
 
+let loadProfile =
+    (payload: Types.articleByAuthor, {ReasonReact.send, handle}) => {
+  open Js.Promise;
+  {
+    let author =
+      switch (payload) {
+      | Author(v) => v
+      | Favorited(v) => v
+      };
+    send(UpdateProfile(RemoteData.Loading));
+    API.profiles(~author)
+    |> then_(result => {
+         switch (result) {
+         | Js.Result.Ok(json) =>
+           let profile =
+             json |> Json.Decode.(field("profile", Decoder.profile));
+           send(UpdateProfile(RemoteData.Success(profile)));
+         | Error(error) => send(UpdateProfile(RemoteData.Failure(error)))
+         };
+         ignore() |> resolve;
+       })
+    |> catch(_error =>
+         send(UpdateProfile(RemoteData.Failure("failed to fetch profile")))
+         |> resolve
+       )
+    |> ignore;
+  };
+  let (author, favorited) = getAuthorParam(payload);
+  handle(loadArticles(~author, ~favorited), ());
+};
+
+let changeCurrentPage = (~payload, page, {ReasonReact.handle}) => {
+  let (author, favorited) = getAuthorParam(payload);
+  handle(loadArticles(~page, ~author, ~favorited), ());
+};
+
 let make = (~author: Types.articleByAuthor, _children) => {
   ...component,
   initialState: () => {
     profile: RemoteData.NotAsked,
     articles: RemoteData.NotAsked,
     articlesCount: 0.,
+    currentPage: 1,
   },
   reducer: (action, state) =>
     switch (action) {
@@ -91,8 +110,8 @@ let make = (~author: Types.articleByAuthor, _children) => {
     handle(loadProfile, author);
     ReasonReact.NoUpdate;
   },
-  render: ({state}) => {
-    let {articles, articlesCount, profile} = state;
+  render: ({state, handle}) => {
+    let {currentPage, articles, articlesCount, profile} = state;
     let authorVal =
       switch (author) {
       | Author(v) => v
@@ -211,6 +230,20 @@ let make = (~author: Types.articleByAuthor, _children) => {
                    )
                 |> Belt.List.toArray
                 |> arrayEl
+              }
+            )
+            (
+              switch (articles) {
+              | NotAsked
+              | Loading
+              | Failure(_) => nullEl
+              | Success(_) =>
+                <Pagination
+                  totalCount=articlesCount
+                  perPage=pageNum
+                  onPageClick=(handle(changeCurrentPage(~payload=author)))
+                  currentPage
+                />
               }
             )
           </div>
