@@ -9,7 +9,7 @@ type state = {
 
 type action =
   | UpdateProfile(Types.remoteProfile)
-  | UpdateArticles((Types.remoteArticles, float));
+  | UpdateArticles((Types.remoteArticles, float, int));
 
 let pageNum = 10.;
 
@@ -25,7 +25,7 @@ let loadArticles =
   open Js.Promise;
   let limit = pageNum |> int_of_float;
   let offset = (float_of_int(page) -. 1.) *. pageNum |> int_of_float;
-  send(UpdateArticles((RemoteData.Loading, 0.)));
+  send(UpdateArticles((RemoteData.Loading, 0., page)));
   API.listArticles(~author?, ~favorited?, ~offset, ~limit, ())
   |> then_(result => {
        switch (result) {
@@ -37,10 +37,14 @@ let loadArticles =
          let articlesCount =
            json |> Json.Decode.(field("articlesCount", Json.Decode.float));
          send(
-           UpdateArticles((RemoteData.Success(articles), articlesCount)),
+           UpdateArticles((
+             RemoteData.Success(articles),
+             articlesCount,
+             page,
+           )),
          );
        | Error(error) =>
-         send(UpdateArticles((RemoteData.Failure(error), 0.)))
+         send(UpdateArticles((RemoteData.Failure(error), 0., page)))
        };
        ignore() |> resolve;
      })
@@ -49,6 +53,7 @@ let loadArticles =
          UpdateArticles((
            RemoteData.Failure("failed to fetch list of articles by author"),
            0.,
+           page,
          )),
        )
        |> resolve
@@ -103,8 +108,8 @@ let make = (~author: Types.articleByAuthor, _children) => {
   reducer: (action, state) =>
     switch (action) {
     | UpdateProfile(profile) => ReasonReact.Update({...state, profile})
-    | UpdateArticles((articles, articlesCount)) =>
-      ReasonReact.Update({...state, articles, articlesCount})
+    | UpdateArticles((articles, articlesCount, currentPage)) =>
+      ReasonReact.Update({...state, articles, articlesCount, currentPage})
     },
   didMount: ({handle}) => {
     handle(loadProfile, author);
