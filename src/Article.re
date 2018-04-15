@@ -203,22 +203,6 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
                 )
                 |> strEl
               )
-              <span className="counter">
-                (
-                  " ("
-                  ++ (
-                    switch (article) {
-                    | NotAsked
-                    | Loading => "-"
-                    | Success({favoritesCount}) =>
-                      favoritesCount |> string_of_int
-                    | Failure(_) => "-"
-                    }
-                  )
-                  ++ ")"
-                  |> strEl
-                )
-              </span>
             </button>
             (" " |> strEl)
             <button className="btn btn-sm btn-outline-primary">
@@ -352,27 +336,11 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
                 )
                 |> strEl
               )
-              <span className="counter">
-                (
-                  " ("
-                  ++ (
-                    switch (article) {
-                    | NotAsked
-                    | Loading => "-"
-                    | Success({favoritesCount}) =>
-                      favoritesCount |> string_of_int
-                    | Failure(_) => "-"
-                    }
-                  )
-                  ++ ")"
-                  |> strEl
-                )
-              </span>
             </button>
             (" " |> strEl)
             <button className="btn btn-sm btn-outline-primary">
               <i className="ion-heart" />
-              (" Favorite Post" |> strEl)
+              (" Favorite Post " |> strEl)
               <span className="counter">
                 (
                   "("
