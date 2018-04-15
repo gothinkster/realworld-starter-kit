@@ -46,5 +46,9 @@ let article = (~slug) =>
 
 let comments = (~slug) =>
   Js.Promise.(
-    fetch(host ++ "/api/articles/" ++ slug ++ "/comments") |> then_(getResultIfOk)
+    fetch(host ++ "/api/articles/" ++ slug ++ "/comments")
+    |> then_(getResultIfOk)
   );
+
+let user = () =>
+  Js.Promise.(fetch(host ++ "/api/user") |> then_(getResultIfOk));

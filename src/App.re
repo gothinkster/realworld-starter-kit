@@ -14,6 +14,7 @@ type route =
   | Profile(Types.articleByAuthor);
 
 type action =
+  | UpdateUser(Types.remoteUser)
   | ChangeRoute(route);
 
 type state = {
@@ -43,6 +44,25 @@ let urlToRoute = (url: ReasonReact.Router.url) : route => {
   };
 };
 
+let getUser = (_payload, {ReasonReact.send}) => {
+  send(UpdateUser(RemoteData.Loading));
+  Js.Promise.(
+    API.user()
+    |> then_(result => {
+         switch (result) {
+         | Js.Result.Ok(json) => Js.log2("json", json)
+         | Error(error) => send(UpdateUser(RemoteData.Failure(error)))
+         };
+         ignore() |> resolve;
+       })
+    |> catch(_error => {
+         send(UpdateUser(RemoteData.Failure("failed to get user data")));
+         ignore() |> resolve;
+       })
+    |> ignore
+  );
+};
+
 let make = _children => {
   ...component,
   initialState: () => {
@@ -51,6 +71,7 @@ let make = _children => {
   },
   reducer: (action, state) =>
     switch (action) {
+    | UpdateUser(user) => ReasonReact.Update({...state, user})
     | ChangeRoute(route) => ReasonReact.Update({...state, route})
     },
   subscriptions: self => [
@@ -62,6 +83,10 @@ let make = _children => {
       ReasonReact.Router.unwatchUrl,
     ),
   ],
+  didMount: ({handle}) => {
+    handle(getUser, ());
+    ReasonReact.NoUpdate;
+  },
   render: ({state}) => {
     let {route, user} = state;
     let linkCx = makeLinkClass(route);
