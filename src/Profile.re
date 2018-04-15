@@ -7,6 +7,8 @@ type state = {
   currentPage: int,
 };
 
+type retainedProps = {author: Types.articleByAuthor};
+
 type action =
   | UpdateProfile(Types.remoteProfile)
   | UpdateArticles((Types.remoteArticles, float, int));
@@ -18,7 +20,7 @@ let getAuthorParam =
   | Types.Author(v) => (Some(v), None)
   | Favorited(v) => (None, Some(v));
 
-let component = ReasonReact.reducerComponent("Profile");
+let component = ReasonReact.reducerComponentWithRetainedProps("Profile");
 
 let loadArticles =
     (~author, ~favorited, ~page=1, _payload, {ReasonReact.send}) => {
@@ -105,6 +107,9 @@ let make = (~author: Types.articleByAuthor, _children) => {
     articlesCount: 0.,
     currentPage: 1,
   },
+  retainedProps: {
+    author: author,
+  },
   reducer: (action, state) =>
     switch (action) {
     | UpdateProfile(profile) => ReasonReact.Update({...state, profile})
@@ -115,6 +120,10 @@ let make = (~author: Types.articleByAuthor, _children) => {
     handle(loadProfile, author);
     ReasonReact.NoUpdate;
   },
+  didUpdate: ({oldSelf, newSelf}) =>
+    if (oldSelf.retainedProps.author !== newSelf.retainedProps.author) {
+      newSelf.handle(loadProfile, newSelf.retainedProps.author);
+    },
   render: ({state, handle}) => {
     let {currentPage, articles, articlesCount, profile} = state;
     let authorVal =
