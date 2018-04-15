@@ -10,7 +10,7 @@ type route =
   | Register
   | Settings
   | Editor
-  | Article
+  | Article(string)
   | Profile(Types.articleByAuthor);
 
 type action =
@@ -28,7 +28,7 @@ let urlToRoute = (url: ReasonReact.Router.url) : route => {
   | [|"", "register"|] => Register
   | [|"", "settings"|] => Settings
   | [|"", "editor"|] => Editor
-  | [|"", "article"|] => Article
+  | [|"", "article", slug|] => Article(slug)
   | [|"", "profile", author|] => Profile(Types.Author(author))
   | [|"", "profile", author, "favorites"|] => Profile(Types.Favorited(author))
   | [|"", _|]
@@ -91,7 +91,7 @@ let make = _children => {
         | Settings => <Settings />
         | Editor => <Editor />
         | Profile(author) => <Profile author />
-        | Article => <Article />
+        | Article(slug) => <Article slug />
         | Home => <Home />
         }
       )

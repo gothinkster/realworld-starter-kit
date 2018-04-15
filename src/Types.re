@@ -25,7 +25,19 @@ type profile = {
   following: bool,
 };
 
+type comment = {
+  id: int,
+  createdAt: Js.Date.t,
+  updatedAt: Js.Date.t,
+  body: string,
+  author,
+};
+
 type remoteArticles = RemoteData.t(list(article), string);
+
+type remoteComments = RemoteData.t(list(comment), string);
+
+type remoteArticle = RemoteData.t(article, string);
 
 type remoteProfile = RemoteData.t(profile, string);
 

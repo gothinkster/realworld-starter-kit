@@ -1,8 +1,165 @@
 open Utils;
 
-let component = ReasonReact.statelessComponent("Article");
+type action =
+  | UpdateComments(Types.remoteComments)
+  | UpdateArticle(Types.remoteArticle);
 
-let make = _children => {
+type state = {
+  article: Types.remoteArticle,
+  comments: Types.remoteComments,
+};
+
+let component = ReasonReact.reducerComponent("Article");
+
+let make = (~slug, _children) => {
   ...component,
-  render: _self => <div> ("Article" |> strEl) </div>,
+  initialState: () => {
+    article: RemoteData.NotAsked,
+    comments: RemoteData.NotAsked,
+  },
+  reducer: (action, state) =>
+    switch (action) {
+    | UpdateComments(comments) => ReasonReact.Update({...state, comments})
+    | UpdateArticle(article) => ReasonReact.Update({...state, article})
+    },
+  render: ({state}) => {
+    let {article, comments} = state;
+    <div className="article-page">
+      <div className="banner">
+        <div className="container">
+          <h1> ("How to build webapps that scale" |> strEl) </h1>
+          <div className="article-meta">
+            <a href=""> <img src="http://i.imgur.com/Qr71crq.jpg" /> </a>
+            <div className="info">
+              <a href="" className="author"> ("Eric Simons" |> strEl) </a>
+              <span className="date"> ("January 20th" |> strEl) </span>
+            </div>
+            <button className="btn btn-sm btn-outline-secondary">
+              <i className="ion-plus-round" />
+              (" Follow Eric Simons " |> strEl)
+              <span className="counter"> ("(10)" |> strEl) </span>
+            </button>
+            <button className="btn btn-sm btn-outline-primary">
+              <i className="ion-heart" />
+              (" Favorite Post  " |> strEl)
+              <span className="counter"> ("(29)" |> strEl) </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="container page">
+        <div className="row article-content">
+          <div className="col-md-12">
+            <p>
+              (
+                "Web development technologies have evolved at an incredible clip over the past few years."
+                |> strEl
+              )
+            </p>
+            <h2 id="introducing-ionic">
+              ("Introducing RealWorld." |> strEl)
+            </h2>
+            <p>
+              (
+                "It's a great solution for learning how other frameworks work."
+                |> strEl
+              )
+            </p>
+          </div>
+        </div>
+        <hr />
+        <div className="article-actions">
+          <div className="article-meta">
+            <a href="profile.html">
+              <img src="http://i.imgur.com/Qr71crq.jpg" />
+            </a>
+            <div className="info">
+              <a href="" className="author"> ("Eric Simons" |> strEl) </a>
+              <span className="date"> ("January 20th" |> strEl) </span>
+            </div>
+            <button className="btn btn-sm btn-outline-secondary">
+              <i className="ion-plus-round" />
+              (" Follow Eric Simons " |> strEl)
+              <span className="counter"> ("(10)" |> strEl) </span>
+            </button>
+            <button className="btn btn-sm btn-outline-primary">
+              <i className="ion-heart" />
+              (" Favorite Post " |> strEl)
+              <span className="counter"> ("(29)" |> strEl) </span>
+            </button>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-xs-12 col-md-8 offset-md-2">
+            <form className="card comment-form">
+              <div className="card-block">
+                <textarea
+                  className="form-control"
+                  placeholder="Write a comment..."
+                  rows=3
+                />
+              </div>
+              <div className="card-footer">
+                <img
+                  src="http://i.imgur.com/Qr71crq.jpg"
+                  className="comment-author-img"
+                />
+                <button className="btn btn-sm btn-primary">
+                  ("Post Comment" |> strEl)
+                </button>
+              </div>
+            </form>
+            <div className="card">
+              <div className="card-block">
+                <p className="card-text">
+                  (
+                    "With supporting text below as a natural lead-in to additional content."
+                    |> strEl
+                  )
+                </p>
+              </div>
+              <div className="card-footer">
+                <a href="" className="comment-author">
+                  <img
+                    src="http://i.imgur.com/Qr71crq.jpg"
+                    className="comment-author-img"
+                  />
+                </a>
+                <a href="" className="comment-author">
+                  ("Jacob Schmidt" |> strEl)
+                </a>
+                <span className="date-posted"> ("Dec 29th" |> strEl) </span>
+              </div>
+            </div>
+            <div className="card">
+              <div className="card-block">
+                <p className="card-text">
+                  (
+                    "With supporting text below as a natural lead-in to additional content."
+                    |> strEl
+                  )
+                </p>
+              </div>
+              <div className="card-footer">
+                <a href="" className="comment-author">
+                  <img
+                    src="http://i.imgur.com/Qr71crq.jpg"
+                    className="comment-author-img"
+                  />
+                </a>
+                <a href="" className="comment-author">
+                  ("Jacob Schmidt" |> strEl)
+                </a>
+                <span className="date-posted"> ("Dec 29th" |> strEl) </span>
+                <span className="mod-options">
+                  <i className="ion-edit" />
+                  <i className="ion-trash-a" />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>;
+  },
 };
