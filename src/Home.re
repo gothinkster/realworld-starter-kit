@@ -183,40 +183,8 @@ let make = _children => {
                 </div>
               | Success(data) =>
                 data
-                |. Belt.List.mapU((. item: Types.article) =>
-                     <div key=item.slug className="article-preview">
-                       <div className="article-meta">
-                         <a href=("/#/profile/" ++ item.author.username)>
-                           <img src=item.author.image />
-                         </a>
-                         <div className="info">
-                           <a
-                             href=("/#/profile/" ++ item.author.username)
-                             className="author">
-                             (item.author.username |> strEl)
-                           </a>
-                           <span className="date">
-                             (item.createdAt |> Js.Date.toUTCString |> strEl)
-                           </span>
-                         </div>
-                         <button
-                           className="btn btn-outline-primary btn-sm pull-xs-right">
-                           <i className="ion-heart" />
-                           (
-                             " "
-                             ++ (item.favoritesCount |> string_of_int)
-                             |> strEl
-                           )
-                         </button>
-                       </div>
-                       <a
-                         href=("/#/article/" ++ item.slug)
-                         className="preview-link">
-                         <h1> (item.title |> strEl) </h1>
-                         <p> (item.description |> strEl) </p>
-                         <span> ("Read more..." |> strEl) </span>
-                       </a>
-                     </div>
+                |. Belt.List.mapU((. value: Types.article) =>
+                     <ArticleItem key=value.slug value />
                    )
                 |> Belt.List.toArray
                 |> arrayEl

@@ -93,6 +93,11 @@ let make = (~author: Types.articleByAuthor, _children) => {
   },
   render: ({state}) => {
     let {articles, articlesCount, profile} = state;
+    let authorVal =
+      switch (author) {
+      | Author(v) => v
+      | Favorited(v) => v
+      };
     <div className="profile-page">
       <div className="user-info">
         <div className="container">
@@ -138,7 +143,7 @@ let make = (~author: Types.articleByAuthor, _children) => {
                 (
                   switch (profile) {
                   | NotAsked
-                  | Loading => nullEl
+                  | Loading => "..." |> strEl
                   | Success({username}) => " Follow " ++ username |> strEl
                   | Failure(_) => nullEl
                   }
@@ -154,68 +159,60 @@ let make = (~author: Types.articleByAuthor, _children) => {
             <div className="articles-toggle">
               <ul className="nav nav-pills outline-active">
                 <li className="nav-item">
-                  <a className="nav-link active" href="">
+                  <a
+                    className=(
+                      "nav-link"
+                      ++ (
+                        switch (author) {
+                        | Author(_) => " active"
+                        | Favorited(_) => ""
+                        }
+                      )
+                    )
+                    href=("/#/profile/" ++ authorVal)>
                     ("My Articles" |> strEl)
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="">
+                  <a
+                    className=(
+                      "nav-link"
+                      ++ (
+                        switch (author) {
+                        | Author(_) => ""
+                        | Favorited(_) => " active"
+                        }
+                      )
+                    )
+                    href=("/#/profile/" ++ authorVal ++ "/favorites")>
                     ("Favorited Articles" |> strEl)
                   </a>
                 </li>
               </ul>
             </div>
-            <div className="article-preview">
-              <div className="article-meta">
-                <a href=""> <img src="http://i.imgur.com/Qr71crq.jpg" /> </a>
-                <div className="info">
-                  <a href="" className="author"> ("Eric Simons" |> strEl) </a>
-                  <span className="date"> ("January 20th" |> strEl) </span>
+            (
+              switch (articles) {
+              | NotAsked =>
+                <div className="article-preview">
+                  ("Initializing..." |> strEl)
                 </div>
-                <button
-                  className="btn btn-outline-primary btn-sm pull-xs-right">
-                  <i className="ion-heart" />
-                  ("29" |> strEl)
-                </button>
-              </div>
-              <a href="" className="preview-link">
-                <h1> ("How to build webapps that scale" |> strEl) </h1>
-                <p> ("This is the description for the post." |> strEl) </p>
-                <span> ("Read more..." |> strEl) </span>
-              </a>
-            </div>
-            <div className="article-preview">
-              <div className="article-meta">
-                <a href=""> <img src="http://i.imgur.com/N4VcUeJ.jpg" /> </a>
-                <div className="info">
-                  <a href="" className="author"> ("Albert Pai" |> strEl) </a>
-                  <span className="date"> ("January 20th" |> strEl) </span>
+              | Loading =>
+                <div className="article-preview">
+                  ("Loading..." |> strEl)
                 </div>
-                <button
-                  className="btn btn-outline-primary btn-sm pull-xs-right">
-                  <i className="ion-heart" />
-                  ("32" |> strEl)
-                </button>
-              </div>
-              <a href="" className="preview-link">
-                <h1>
-                  (
-                    "The song you won't ever stop singing. No matter how hard you try."
-                    |> strEl
-                  )
-                </h1>
-                <p> ("This is the description for the post." |> strEl) </p>
-                <span> ("Read more..." |> strEl) </span>
-                <ul className="tag-list">
-                  <li className="tag-default tag-pill tag-outline">
-                    ("Music" |> strEl)
-                  </li>
-                  <li className="tag-default tag-pill tag-outline">
-                    ("Song" |> strEl)
-                  </li>
-                </ul>
-              </a>
-            </div>
+              | Failure(error) =>
+                <div className="article-preview">
+                  ("ERROR: " ++ error |> strEl)
+                </div>
+              | Success(data) =>
+                data
+                |. Belt.List.mapU((. value: Types.article) =>
+                     <ArticleItem key=value.slug value />
+                   )
+                |> Belt.List.toArray
+                |> arrayEl
+              }
+            )
           </div>
         </div>
       </div>
