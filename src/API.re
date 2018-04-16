@@ -50,5 +50,20 @@ let comments = (~slug) =>
     |> then_(getResultIfOk)
   );
 
-let user = () =>
-  Js.Promise.(fetch(host ++ "/api/user") |> then_(getResultIfOk));
+let user = (~token=?, ()) =>
+  Js.Promise.(
+    fetchWithInit(
+      host ++ "/api/user",
+      Fetch.RequestInit.make(
+        ~method_=Get,
+        ~headers=
+          token
+          |. Belt.Option.mapWithDefaultU(Js.Obj.empty(), (. v) =>
+               {"Authorization": v}
+             )
+          |> Fetch.HeadersInit.make,
+        (),
+      ),
+    )
+    |> then_(getResultIfOk)
+  );
