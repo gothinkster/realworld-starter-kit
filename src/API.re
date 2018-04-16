@@ -11,12 +11,16 @@ let getCookie = target =>
        |> Js.String.split(";")
        |> Js.Array.map(cookieStr =>
             switch (cookieStr |> Js.String.split("=")) {
-            | [|name, value|] => (name, value)
+            | [|name, value|] => (
+                name |> Js.String.trim,
+                value |> Js.String.trim,
+              )
             | [||]
             | _ => ("", "")
             }
           )
        |> Js.Array.find(((name, _value)) => target === name)
+       |. Belt.Option.mapU((. (_name, value)) => value)
      );
 
 let optToQueryString = (prefix, opt) =>
@@ -75,8 +79,8 @@ let user = () =>
         ~method_=Get,
         ~headers=
           getCookie("token")
-          |. Belt.Option.mapWithDefaultU(Js.Obj.empty(), (. v) =>
-               {"Authorization": v}
+          |. Belt.Option.mapWithDefaultU(Js.Obj.empty(), (. value) =>
+               {"authorization": value}
              )
           |> Fetch.HeadersInit.make,
         (),
