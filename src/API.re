@@ -2,6 +2,23 @@ open Fetch;
 
 let host = "https://conduit.productionready.io";
 
+let getCookie = target =>
+  Webapi.Dom.document
+  |> Webapi.Dom.Document.asHtmlDocument
+  |. Belt.Option.flatMapU((. htmlDocument) =>
+       htmlDocument
+       |> Webapi.Dom.HtmlDocument.cookie
+       |> Js.String.split(";")
+       |> Js.Array.map(cookieStr =>
+            switch (cookieStr |> Js.String.split("=")) {
+            | [|name, value|] => (name, value)
+            | [||]
+            | _ => ("", "")
+            }
+          )
+       |> Js.Array.find(((name, _value)) => target === name)
+     );
+
 let optToQueryString = (prefix, opt) =>
   switch (opt) {
   | Some(v) => prefix ++ v
@@ -50,14 +67,14 @@ let comments = (~slug) =>
     |> then_(getResultIfOk)
   );
 
-let user = (~token=?, ()) =>
+let user = () =>
   Js.Promise.(
     fetchWithInit(
       host ++ "/api/user",
       Fetch.RequestInit.make(
         ~method_=Get,
         ~headers=
-          token
+          getCookie("token")
           |. Belt.Option.mapWithDefaultU(Js.Obj.empty(), (. v) =>
                {"Authorization": v}
              )
