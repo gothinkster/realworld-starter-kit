@@ -126,11 +126,32 @@ let make = _children => {
                 </li>
               }
             )
-            <li className="nav-item">
-              <a className=(linkCx(Register)) href="/#/register">
-                ("Sign up" |> strEl)
-              </a>
-            </li>
+            (
+              switch (user) {
+              | NotAsked
+              | Loading
+              | Success(_) => nullEl
+              | Failure(_) =>
+                <li className="nav-item">
+                  <a className=(linkCx(Login)) href="/#/login">
+                    ("Sign in" |> strEl)
+                  </a>
+                </li>
+              }
+            )
+            (
+              switch (user) {
+              | NotAsked
+              | Loading
+              | Success(_) => nullEl
+              | Failure(_) =>
+                <li className="nav-item">
+                  <a className=(linkCx(Register)) href="/#/register">
+                    ("Sign up" |> strEl)
+                  </a>
+                </li>
+              }
+            )
           </ul>
         </div>
       </nav>
