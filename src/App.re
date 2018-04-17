@@ -98,18 +98,34 @@ let make = _children => {
             <li className="nav-item">
               <a className=(linkCx(Home)) href="/#/"> ("Home" |> strEl) </a>
             </li>
-            <li className="nav-item">
-              <a className=(linkCx(Editor)) href="/#/editor">
-                <i className="ion-compose" />
-                (" New Post" |> strEl)
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className=(linkCx(Settings)) href="/#/settings">
-                <i className="ion-gear-a" />
-                (" Settings" |> strEl)
-              </a>
-            </li>
+            (
+              switch (user) {
+              | NotAsked
+              | Loading => nullEl
+              | Failure(_) => nullEl
+              | Success(_) =>
+                <li className="nav-item">
+                  <a className=(linkCx(Editor)) href="/#/editor">
+                    <i className="ion-compose" />
+                    (" New Post" |> strEl)
+                  </a>
+                </li>
+              }
+            )
+            (
+              switch (user) {
+              | NotAsked
+              | Loading => nullEl
+              | Failure(_) => nullEl
+              | Success(_) =>
+                <li className="nav-item">
+                  <a className=(linkCx(Settings)) href="/#/settings">
+                    <i className="ion-gear-a" />
+                    (" Settings" |> strEl)
+                  </a>
+                </li>
+              }
+            )
             <li className="nav-item">
               <a className=(linkCx(Register)) href="/#/register">
                 ("Sign up" |> strEl)
