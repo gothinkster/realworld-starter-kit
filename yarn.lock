@@ -1170,9 +1170,9 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@glennsl/bs-json@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@glennsl/bs-json/-/bs-json-1.2.0.tgz#8a2175458cf425614d20bb5542a2eb92b09bd4fc"
+"@glennsl/bs-json@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@glennsl/bs-json/-/bs-json-1.3.1.tgz#64fc470cbe5e9779f49226a2d877169d3c67296a"
 
 "@types/node@*":
   version "9.6.2"
@@ -2008,13 +2008,13 @@ bs-fetch@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/bs-fetch/-/bs-fetch-0.2.1.tgz#165bed867009f2e91efb959ca1c0ff940d8cd19a"
 
-bs-platform@^2.2.3:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-2.2.3.tgz#d905ae10a5f3621e6a739041dfa0b58483a2174f"
+bs-platform@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-3.0.0.tgz#38f200730db52fdea37819376b6ac3dfb20244c0"
 
-bs-webapi@^0.8.3:
-  version "0.8.3"
-  resolved "https://registry.yarnpkg.com/bs-webapi/-/bs-webapi-0.8.3.tgz#b0e331146ab44396550fba70fccb0bbd114afba0"
+bs-webapi@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/bs-webapi/-/bs-webapi-0.9.0.tgz#6a89ab34c2fef9abd715e5f098fa0249c77ace4e"
 
 bser@^2.0.0:
   version "2.0.0"
@@ -6926,9 +6926,18 @@ react-dev-utils@6.0.0-next.b2fd8db8:
     strip-ansi "4.0.0"
     text-table "0.2.0"
 
-"react-dom@>=15.0.0 || >=16.0.0", react-dom@^16.3.1:
+"react-dom@>=15.0.0 || >=16.0.0":
   version "16.3.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.1.tgz#6a3c90a4fb62f915bdbcf6204422d93a7d4ca573"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
+
+react-dom@^16.3.2:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.2.tgz#cb90f107e09536d683d84ed5d4888e9640e0e4df"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -6991,9 +7000,18 @@ react-scripts@2.0.0-next.b2fd8db8:
   optionalDependencies:
     fsevents "1.1.3"
 
-"react@>=15.0.0 || >=16.0.0", react@^16.3.1:
+"react@>=15.0.0 || >=16.0.0":
   version "16.3.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.3.1.tgz#4a2da433d471251c69b6033ada30e2ed1202cfd8"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
+
+react@^16.3.2:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.3.2.tgz#fdc8420398533a1e58872f59091b272ce2f91ea9"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"

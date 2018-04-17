@@ -3,7 +3,7 @@ let author = (json: Js.Json.t) : Types.author =>
     username: json |> field("username", string),
     bio: json |> field("bio", optional(string)),
     image: json |> field("image", string),
-    following: json |> field("following", boolean) |> Js.to_bool,
+    following: json |> field("following", bool),
   };
 
 let article = (json: Js.Json.t) : Types.article =>
@@ -18,7 +18,7 @@ let article = (json: Js.Json.t) : Types.article =>
     tagList: json |> field("tagList", array(string)) |> Belt.List.fromArray,
     createdAt: json |> field("createdAt", date),
     updatedAt: json |> field("updatedAt", date),
-    favorited: json |> field("favorited", boolean) |> Js.to_bool,
+    favorited: json |> field("favorited", bool),
     favoritesCount: json |> field("favoritesCount", int),
     author: json |> field("author", author),
   };
@@ -28,7 +28,7 @@ let profile = (json: Js.Json.t) : Types.profile =>
     username: json |> field("username", string),
     bio: json |> field("bio", optional(string)),
     image: json |> field("image", string),
-    following: json |> field("following", boolean) |> Js.to_bool,
+    following: json |> field("following", bool),
   };
 
 let comment = (json: Js.Json.t) : Types.comment =>
