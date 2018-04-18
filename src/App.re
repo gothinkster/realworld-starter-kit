@@ -4,21 +4,12 @@ requireCSS("./App.css");
 
 let logo = requireAssetURI("./logo.svg");
 
-type route =
-  | Home
-  | Login
-  | Register
-  | Settings
-  | Editor
-  | Article(string)
-  | Profile(Types.articleByAuthor);
-
 type action =
   | UpdateUser(Types.remoteUser)
-  | ChangeRoute(route);
+  | ChangeRoute(Types.route);
 
 type state = {
-  route,
+  route: Types.route,
   user: Types.remoteUser,
 };
 
@@ -27,7 +18,7 @@ let component = ReasonReact.reducerComponent("App");
 let makeLinkClass = (current, target) =>
   "nav-link" ++ (current === target ? " active" : "");
 
-let urlToRoute = (url: ReasonReact.Router.url) : route => {
+let urlToRoute = (url: ReasonReact.Router.url) : Types.route => {
   let hash = url.hash |> Js.String.split("/");
   switch (hash) {
   | [|"", "login"|] => Login
@@ -157,8 +148,8 @@ let make = _children => {
       </nav>
       (
         switch (route) {
-        | Login
-        | Register => <Sign register=(route === Register) />
+        | Login => <Login />
+        | Register => <Register />
         | Settings => <Settings />
         | Editor => <Editor />
         | Profile(author) => <Profile author />

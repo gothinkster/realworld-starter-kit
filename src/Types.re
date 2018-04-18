@@ -1,3 +1,4 @@
+
 type author = {
   username: string,
   bio: option(string),
@@ -56,3 +57,12 @@ type remoteTags = RemoteData.t(list(string), string);
 type articleByAuthor =
   | Author(string)
   | Favorited(string);
+
+type route =
+  | Home
+  | Login
+  | Register
+  | Settings
+  | Editor
+  | Article(string)
+  | Profile(articleByAuthor);
