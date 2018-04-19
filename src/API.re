@@ -1,27 +1,8 @@
+open Utils;
+
 open Fetch;
 
 let host = "https://conduit.productionready.io";
-
-let getCookie = target =>
-  Webapi.Dom.document
-  |> Webapi.Dom.Document.asHtmlDocument
-  |. Belt.Option.flatMapU((. htmlDocument) =>
-       htmlDocument
-       |> Webapi.Dom.HtmlDocument.cookie
-       |> Js.String.split(";")
-       |> Js.Array.map(cookieStr =>
-            switch (cookieStr |> Js.String.split("=")) {
-            | [|name, value|] => (
-                name |> Js.String.trim,
-                value |> Js.String.trim,
-              )
-            | [||]
-            | _ => ("", "")
-            }
-          )
-       |> Js.Array.find(((name, _value)) => target === name)
-       |. Belt.Option.mapU((. (_name, value)) => value)
-     );
 
 let optToQueryString = (prefix, opt) =>
   switch (opt) {
@@ -29,16 +10,20 @@ let optToQueryString = (prefix, opt) =>
   | None => ""
   };
 
-let getResultIfOk = res =>
+let getResultIfOk = res => {
+  let isOk = res |> Response.ok;
   Js.Promise.(
-    res |> Response.ok ?
-      res |> Response.json |> then_(json => Js.Result.Ok(json) |> resolve) :
-      Js.Result.Error(res |> Response.statusText) |> resolve
+    res
+    |> Response.json
+    |> then_(json =>
+         (isOk ? Js.Result.Ok(json) : Js.Result.Error(json)) |> resolve
+       )
   );
+};
 
 let listArticles = (~tag=?, ~author=?, ~favorited=?, ~limit=20, ~offset=0, ()) =>
   Js.Promise.(
-    fetch(
+    fetchWithInit(
       host
       ++ "/api/articles"
       ++ "?limit="
@@ -48,26 +33,44 @@ let listArticles = (~tag=?, ~author=?, ~favorited=?, ~limit=20, ~offset=0, ()) =
       ++ optToQueryString("&tag=", tag)
       ++ optToQueryString("&author=", author)
       ++ optToQueryString("&favorited=", favorited),
+      Fetch.RequestInit.make(~credentials=Include, ()),
     )
     |> then_(getResultIfOk)
   );
 
 let tags = () =>
-  Js.Promise.(fetch(host ++ "/api/tags") |> then_(getResultIfOk));
+  Js.Promise.(
+    fetchWithInit(
+      host ++ "/api/tags",
+      Fetch.RequestInit.make(~credentials=Include, ()),
+    )
+    |> then_(getResultIfOk)
+  );
 
 let profiles = (~author) =>
   Js.Promise.(
-    fetch(host ++ "/api/profiles/" ++ author) |> then_(getResultIfOk)
+    fetchWithInit(
+      host ++ "/api/profiles/" ++ author,
+      Fetch.RequestInit.make(~credentials=Include, ()),
+    )
+    |> then_(getResultIfOk)
   );
 
 let article = (~slug) =>
   Js.Promise.(
-    fetch(host ++ "/api/articles/" ++ slug) |> then_(getResultIfOk)
+    fetchWithInit(
+      host ++ "/api/articles/" ++ slug,
+      Fetch.RequestInit.make(~credentials=Include, ()),
+    )
+    |> then_(getResultIfOk)
   );
 
 let comments = (~slug) =>
   Js.Promise.(
-    fetch(host ++ "/api/articles/" ++ slug ++ "/comments")
+    fetchWithInit(
+      host ++ "/api/articles/" ++ slug ++ "/comments",
+      Fetch.RequestInit.make(~credentials=Include, ()),
+    )
     |> then_(getResultIfOk)
   );
 
@@ -83,6 +86,42 @@ let user = () =>
                {"authorization": value}
              )
           |> Fetch.HeadersInit.make,
+        ~credentials=Include,
+        (),
+      ),
+    )
+    |> then_(getResultIfOk)
+  );
+
+let register = (~email, ~password, ~username) =>
+  Js.Promise.(
+    fetchWithInit(
+      host ++ "/api/users",
+      Fetch.RequestInit.make(
+        ~method_=Post,
+        ~headers=
+          Fetch.HeadersInit.make({
+            "Content-Type": "application/json; charset=utf-8",
+          }),
+        ~body=
+          Fetch.BodyInit.make(
+            Json.Encode.(
+              [
+                (
+                  "user",
+                  [
+                    ("username", username |> string),
+                    ("email", email |> string),
+                    ("password", password |> string),
+                  ]
+                  |> object_,
+                ),
+              ]
+              |> object_
+            )
+            |> Json.stringify,
+          ),
+        ~credentials=Include,
         (),
       ),
     )

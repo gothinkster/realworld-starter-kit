@@ -45,8 +45,14 @@ let loadArticles =
              page,
            )),
          );
-       | Error(error) =>
-         send(UpdateArticles((RemoteData.Failure(error), 0., page)))
+       | Error(_) =>
+         send(
+           UpdateArticles((
+             RemoteData.Failure("failed to fetch list of articles by author"),
+             0.,
+             page,
+           )),
+         )
        };
        ignore() |> resolve;
      })
@@ -80,7 +86,10 @@ let loadProfile =
            let profile =
              json |> Json.Decode.(field("profile", Decoder.profile));
            send(UpdateProfile(RemoteData.Success(profile)));
-         | Error(error) => send(UpdateProfile(RemoteData.Failure(error)))
+         | Error(_) =>
+           send(
+             UpdateProfile(RemoteData.Failure("failed to fetch profile")),
+           )
          };
          ignore() |> resolve;
        })

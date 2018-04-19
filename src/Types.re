@@ -1,3 +1,15 @@
+module User = {
+  type t = {
+    bio: option(string),
+    createdAt: Js.Date.t,
+    email: string,
+    id: int,
+    image: option(string),
+    token: string,
+    updatedAt: Js.Date.t,
+    username: string,
+  };
+};
 
 type author = {
   username: string,

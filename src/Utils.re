@@ -26,3 +26,51 @@ let getSomeErrors = (results, fields) => {
   | data => Some(data)
   };
 };
+
+let getFirstError =
+    (field: 'a, prefix: string, errors: option(array(string)))
+    : option(('a, string)) =>
+  errors
+  |. Belt.Option.mapU((. errors) =>
+       (
+         field,
+         errors
+         |. Belt.Array.get(0)
+         |. Belt.Option.getWithDefault("is unknown error")
+         |> (++)(prefix ++ " "),
+       )
+     );
+
+let setCookie = (key, value) => {
+  let cookie = key ++ "=" ++ value ++ ";";
+  Webapi.Dom.document
+  |> Webapi.Dom.Document.asHtmlDocument
+  |. Belt.Option.mapU((. htmlDocument) =>
+       htmlDocument
+       |> Webapi.Dom.HtmlDocument.cookie
+       |> (++)(cookie)
+       |> Webapi.Dom.HtmlDocument.setCookie(htmlDocument)
+     )
+  |> ignore;
+};
+
+let getCookie = target =>
+  Webapi.Dom.document
+  |> Webapi.Dom.Document.asHtmlDocument
+  |. Belt.Option.flatMapU((. htmlDocument) =>
+       htmlDocument
+       |> Webapi.Dom.HtmlDocument.cookie
+       |> Js.String.split(";")
+       |> Js.Array.map(cookieStr =>
+            switch (cookieStr |> Js.String.split("=")) {
+            | [|name, value|] => (
+                name |> Js.String.trim,
+                value |> Js.String.trim,
+              )
+            | [||]
+            | _ => ("", "")
+            }
+          )
+       |> Js.Array.find(((name, _value)) => target === name)
+       |. Belt.Option.mapU((. (_name, value)) => value)
+     );

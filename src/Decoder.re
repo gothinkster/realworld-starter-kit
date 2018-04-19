@@ -39,3 +39,15 @@ let comment = (json: Js.Json.t) : Types.comment =>
     body: json |> field("body", string),
     author: json |> field("author", author),
   };
+
+let user = (json: Js.Json.t) : Types.User.t =>
+  Json.Decode.{
+    email: json |> field("email", string),
+    token: json |> field("token", string),
+    username: json |> field("username", string),
+    bio: json |> field("bio", optional(string)),
+    image: json |> field("image", optional(string)),
+    id: json |> field("id", int),
+    createdAt: json |> field("createdAt", date),
+    updatedAt: json |> field("updatedAt", date),
+  };

@@ -41,8 +41,14 @@ let loadData = (~tag=?, ~page=1, _payload, {ReasonReact.send, state}) => {
              page,
            )),
          );
-       | Error(error) =>
-         send(UpdateArticles((RemoteData.Failure(error), 0., 1)))
+       | Error(_) =>
+         send(
+           UpdateArticles((
+             RemoteData.Failure("failed to fetch list of articles"),
+             0.,
+             1,
+           )),
+         )
        };
        ignore() |> resolve;
      })
@@ -69,7 +75,10 @@ let loadData = (~tag=?, ~page=1, _payload, {ReasonReact.send, state}) => {
              |> Json.Decode.(field("tags", array(string)))
              |> Belt.List.fromArray;
            send(UpdateTags(RemoteData.Success(tags)));
-         | Error(error) => send(UpdateTags(RemoteData.Failure(error)))
+         | Error(_) =>
+           send(
+             UpdateTags(RemoteData.Failure("failed to fetch list of tags")),
+           )
          };
          ignore() |> resolve;
        })

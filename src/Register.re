@@ -87,7 +87,49 @@ let make = _children => {
       initialState={username: "", email: "", password: ""}
       onSubmit=(
         (state, {notifyOnSuccess, notifyOnFailure, reset}) => {
-          Js.log2("register submit", state);
+          let {Form.username, email, password} = state;
+          Js.Promise.(
+            API.register(~username, ~email, ~password)
+            |> then_(result => {
+                 switch (result) {
+                 | Js.Result.Ok(json) =>
+                   let user =
+                     json |> Json.Decode.(field("user", Decoder.user));
+                   notifyOnSuccess(None);
+                   reset();
+                   setCookie("token", user.token);
+                   ReasonReact.Router.push("/#/");
+                 | Error(error) =>
+                   let errors =
+                     error
+                     |> Json.Decode.(field("errors", dict(array(string))));
+                   let fieldErrors =
+                     [
+                       errors
+                       |. Js.Dict.get("username")
+                       |> getFirstError(Form.Username, "Username"),
+                       errors
+                       |. Js.Dict.get("email")
+                       |> getFirstError(Form.Email, "Email"),
+                       errors
+                       |. Js.Dict.get("password")
+                       |> getFirstError(Form.Password, "Password"),
+                     ]
+                     |. Belt.List.keepMapU((. opt) => opt);
+                   notifyOnFailure(fieldErrors, None);
+                 };
+                 ignore() |> resolve;
+               })
+            |> catch(error => {
+                 Js.log2(
+                   "There has been a problem with fetch operation: ",
+                   error,
+                 );
+                 notifyOnFailure([], Some("failed to register new account"));
+                 ignore() |> resolve;
+               })
+            |> ignore
+          );
           ignore();
         }
       )>
@@ -138,7 +180,24 @@ let make = _children => {
                  )
                  onSubmit=(form.submit |> Formality.Dom.preventDefault)
                  errors=(
-                   [Username, Email, Password] |> getSomeErrors(form.results)
+                   switch (form.status) {
+                   | Editing =>
+                     [Username, Email, Password]
+                     |> getSomeErrors(form.results)
+                   | Submitting
+                   | Submitted => None
+                   | SubmissionFailed(fieldErrors, Some(message)) =>
+                     Some(
+                       fieldErrors
+                       |. Belt.List.mapU((. (_field, message)) => message)
+                       |. Belt.List.concat([message]),
+                     )
+                   | SubmissionFailed(fieldErrors, None) =>
+                     Some(
+                       fieldErrors
+                       |. Belt.List.mapU((. (_field, message)) => message),
+                     )
+                   }
                  )
                />
              )

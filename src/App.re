@@ -42,7 +42,8 @@ let getUser = (_payload, {ReasonReact.send}) => {
     |> then_(result => {
          switch (result) {
          | Js.Result.Ok(json) => Js.log2("json", json)
-         | Error(error) => send(UpdateUser(RemoteData.Failure(error)))
+         | Error(_) =>
+           send(UpdateUser(RemoteData.Failure("failed to get user data")))
          };
          ignore() |> resolve;
        })

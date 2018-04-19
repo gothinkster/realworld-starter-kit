@@ -70,7 +70,7 @@ let make = _children => {
     <FormContainer
       initialState={email: "", password: ""}
       onSubmit=(
-        (state, {notifyOnSuccess, notifyOnFailure, reset}) => {
+        (state, {notifyOnSuccess, notifyOnFailure}) => {
           Js.log2("login submit", state);
           ignore();
         }
@@ -111,7 +111,16 @@ let make = _children => {
                      |> form.change(Password)
                  )
                  onSubmit=(form.submit |> Formality.Dom.preventDefault)
-                 errors=([Email, Password] |> getSomeErrors(form.results))
+                 errors=(
+                   switch (form.status) {
+                   | Editing =>
+                     [Email, Password] |> getSomeErrors(form.results)
+                   | Submitting
+                   | Submitted => None
+                   | SubmissionFailed(_, None) => None
+                   | SubmissionFailed(_, Some(message)) => Some([message])
+                   }
+                 )
                />
              )
          )

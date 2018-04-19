@@ -61,7 +61,10 @@ let loadArticle = (slug, {ReasonReact.send}) => {
            let article =
              json |> Json.Decode.(field("article", Decoder.article));
            send(UpdateArticle(RemoteData.Success(article)));
-         | Error(error) => send(UpdateArticle(RemoteData.Failure(error)))
+         | Error(_) =>
+           send(
+             UpdateArticle(RemoteData.Failure("failed to fetch article")),
+           )
          };
          ignore() |> resolve;
        })
@@ -85,7 +88,12 @@ let loadComments = (slug, {ReasonReact.send}) => {
              |> Json.Decode.(field("comments", array(Decoder.comment)))
              |> Belt.List.fromArray;
            send(UpdateComments(RemoteData.Success(comments)));
-         | Error(error) => send(UpdateComments(RemoteData.Failure(error)))
+         | Error(_) =>
+           send(
+             UpdateComments(
+               RemoteData.Failure("failed to fetch list of commnets"),
+             ),
+           )
          };
          ignore() |> resolve;
        })
