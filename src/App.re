@@ -151,7 +151,7 @@ let make = _children => {
       </nav>
       (
         switch (route) {
-        | Login => <Login />
+        | Login => <Login onSuccessLogin=(handle(getUser)) />
         | Register => <Register onSuccessLogin=(handle(getUser)) />
         | Settings => <Settings />
         | Editor => <Editor />

@@ -64,14 +64,51 @@ module FormContainer = Formality.Make(Form);
 
 let component = ReasonReact.statelessComponent("Login");
 
-let make = _children => {
+let make = (~onSuccessLogin, _children) => {
   ...component,
   render: _self =>
     <FormContainer
       initialState={email: "", password: ""}
       onSubmit=(
-        (state, {notifyOnSuccess, notifyOnFailure}) => {
-          Js.log2("login submit", state);
+        (state, {notifyOnSuccess, notifyOnFailure, reset}) => {
+          let {Form.email, password} = state;
+          Js.Promise.(
+            API.login(~email, ~password)
+            |> then_(result => {
+                 switch (result) {
+                 | Js.Result.Ok(json) =>
+                   let user =
+                     json |> Json.Decode.(field("user", Decoder.user));
+                   notifyOnSuccess(None);
+                   reset();
+                   setCookie("token", user.token);
+                   onSuccessLogin();
+                   ReasonReact.Router.push("/#/");
+                 | Error(error) =>
+                   let errors =
+                     error
+                     |> Json.Decode.(field("errors", dict(array(string))));
+                   let fieldErrors =
+                     [
+                       errors
+                       |. Js.Dict.get("email or password")
+                       |> getFirstError(Form.Email, "Email or password"),
+                     ]
+                     |. Belt.List.keepMapU((. opt) => opt);
+                   notifyOnFailure(fieldErrors, None);
+                 };
+                 ignore() |> resolve;
+               })
+            |> catch(error => {
+                 Js.log2(
+                   "There has been a problem with fetch operation: ",
+                   error,
+                 );
+                 notifyOnFailure([], Some("failed to login"));
+                 ignore() |> resolve;
+               })
+            |> ignore
+          );
           ignore();
         }
       )>
@@ -114,11 +151,21 @@ let make = _children => {
                  errors=(
                    switch (form.status) {
                    | Editing =>
-                     [Email, Password] |> getSomeErrors(form.results)
+                     [Email, Password]
+                     |> getSomeErrors(form.results)
                    | Submitting
                    | Submitted => None
-                   | SubmissionFailed(_, None) => None
-                   | SubmissionFailed(_, Some(message)) => Some([message])
+                   | SubmissionFailed(fieldErrors, Some(message)) =>
+                     Some(
+                       fieldErrors
+                       |. Belt.List.mapU((. (_field, message)) => message)
+                       |. Belt.List.concat([message]),
+                     )
+                   | SubmissionFailed(fieldErrors, None) =>
+                     Some(
+                       fieldErrors
+                       |. Belt.List.mapU((. (_field, message)) => message),
+                     )
                    }
                  )
                />

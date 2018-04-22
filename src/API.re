@@ -127,3 +127,37 @@ let register = (~email, ~password, ~username) =>
     )
     |> then_(getResultIfOk)
   );
+
+let login = (~email, ~password) =>
+  Js.Promise.(
+    fetchWithInit(
+      host ++ "/api/users/login",
+      Fetch.RequestInit.make(
+        ~method_=Post,
+        ~headers=
+          Fetch.HeadersInit.make({
+            "Content-Type": "application/json; charset=utf-8",
+          }),
+        ~body=
+          Fetch.BodyInit.make(
+            Json.Encode.(
+              [
+                (
+                  "user",
+                  [
+                    ("email", email |> string),
+                    ("password", password |> string),
+                  ]
+                  |> object_,
+                ),
+              ]
+              |> object_
+            )
+            |> Json.stringify,
+          ),
+        ~credentials=Include,
+        (),
+      ),
+    )
+    |> then_(getResultIfOk)
+  );
