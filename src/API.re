@@ -83,7 +83,7 @@ let user = () =>
         ~headers=
           getCookie("token")
           |. Belt.Option.mapWithDefaultU(Js.Obj.empty(), (. value) =>
-               {"authorization": value}
+               {"Authorization": "Token " ++ value}
              )
           |> Fetch.HeadersInit.make,
         ~credentials=Include,

@@ -41,7 +41,9 @@ let getUser = (_payload, {ReasonReact.send}) => {
     API.user()
     |> then_(result => {
          switch (result) {
-         | Js.Result.Ok(json) => Js.log2("json", json)
+         | Js.Result.Ok(json) =>
+           let user = json |> Json.Decode.field("user", Decoder.user);
+           send(UpdateUser(RemoteData.Success(user)));
          | Error(_) =>
            send(UpdateUser(RemoteData.Failure("failed to get user data")))
          };
@@ -79,7 +81,7 @@ let make = _children => {
     handle(getUser, ());
     ReasonReact.NoUpdate;
   },
-  render: ({state}) => {
+  render: ({state, handle}) => {
     let {route, user} = state;
     let linkCx = makeLinkClass(route);
     <div>
@@ -150,7 +152,7 @@ let make = _children => {
       (
         switch (route) {
         | Login => <Login />
-        | Register => <Register />
+        | Register => <Register onSuccessLogin=(handle(getUser)) />
         | Settings => <Settings />
         | Editor => <Editor />
         | Profile(author) => <Profile author />

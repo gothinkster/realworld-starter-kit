@@ -41,18 +41,16 @@ let getFirstError =
        )
      );
 
-let setCookie = (key, value) => {
-  let cookie = key ++ "=" ++ value ++ ";";
+let setCookie = (key, value) =>
   Webapi.Dom.document
   |> Webapi.Dom.Document.asHtmlDocument
   |. Belt.Option.mapU((. htmlDocument) =>
        htmlDocument
        |> Webapi.Dom.HtmlDocument.cookie
-       |> (++)(cookie)
+       |> (++)(key ++ "=" ++ value ++ ";")
        |> Webapi.Dom.HtmlDocument.setCookie(htmlDocument)
      )
   |> ignore;
-};
 
 let getCookie = target =>
   Webapi.Dom.document
