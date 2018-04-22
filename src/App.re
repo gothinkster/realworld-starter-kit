@@ -152,7 +152,7 @@ let make = _children => {
       (
         switch (route) {
         | Login => <Login onSuccessLogin=(handle(getUser)) />
-        | Register => <Register onSuccessLogin=(handle(getUser)) />
+        | Register => <Register onSuccessRegister=(handle(getUser)) />
         | Settings => <Settings />
         | Editor => <Editor />
         | Profile(author) => <Profile author />

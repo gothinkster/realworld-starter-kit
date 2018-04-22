@@ -80,7 +80,7 @@ module FormContainer = Formality.Make(Form);
 
 let component = ReasonReact.statelessComponent("Register");
 
-let make = (~onSuccessLogin, _children) => {
+let make = (~onSuccessRegister, _children) => {
   ...component,
   render: _self =>
     <FormContainer
@@ -98,7 +98,7 @@ let make = (~onSuccessLogin, _children) => {
                    notifyOnSuccess(None);
                    reset();
                    setCookie("token", user.token);
-                   onSuccessLogin();
+                   onSuccessRegister();
                    ReasonReact.Router.push("/#/");
                  | Error(error) =>
                    let errors =
