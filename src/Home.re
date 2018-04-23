@@ -19,7 +19,89 @@ let pageNum = 10.;
 
 let component = ReasonReact.reducerComponent("Home");
 
-let loadData = (~tag=?, ~page=1, _payload, {ReasonReact.send, state}) => {
+let loadTags = (_payload, {ReasonReact.send, state}) => {
+  open Js.Promise;
+  switch (state.tags) {
+  | NotAsked =>
+    send(UpdateTags(RemoteData.Loading));
+    API.tags()
+    |> then_(result => {
+         switch (result) {
+         | Js.Result.Ok(json) =>
+           let tags =
+             json
+             |> Json.Decode.(field("tags", array(string)))
+             |> Belt.List.fromArray;
+           send(UpdateTags(RemoteData.Success(tags)));
+         | Error(_) =>
+           send(
+             UpdateTags(RemoteData.Failure("failed to fetch list of tags")),
+           )
+         };
+         ignore() |> resolve;
+       })
+    |> catch(_error =>
+         send(
+           UpdateTags(RemoteData.Failure("failed to fetch list of tags")),
+         )
+         |> resolve
+       )
+    |> ignore;
+  | Loading
+  | Success(_)
+  | Failure(_) => ignore()
+  };
+  ignore();
+};
+
+let loadYourFeed = (~page=1, _payload, {ReasonReact.send, handle}) => {
+  open Js.Promise;
+  let limit = pageNum |> int_of_float;
+  let offset = (float_of_int(page) -. 1.) *. pageNum |> int_of_float;
+  send(UpdateArticles((RemoteData.Loading, 0., page)));
+  API.listArticlesFeed(~offset, ~limit, ())
+  |> then_(result => {
+       switch (result) {
+       | Js.Result.Ok(json) =>
+         let articles =
+           json
+           |> Json.Decode.(field("articles", array(Decoder.article)))
+           |> Belt.List.fromArray;
+         let articlesCount =
+           json |> Json.Decode.(field("articlesCount", Json.Decode.float));
+         send(
+           UpdateArticles((
+             RemoteData.Success(articles),
+             articlesCount,
+             page,
+           )),
+         );
+       | Error(_) =>
+         send(
+           UpdateArticles((
+             RemoteData.Failure("failed to fetch list of articles"),
+             0.,
+             1,
+           )),
+         )
+       };
+       ignore() |> resolve;
+     })
+  |> catch(_error =>
+       send(
+         UpdateArticles((
+           RemoteData.Failure("failed to fetch list of articles"),
+           0.,
+           1,
+         )),
+       )
+       |> resolve
+     )
+  |> ignore;
+  handle(loadTags, ());
+};
+
+let loadGlobalFeed = (~tag=?, ~page=1, _payload, {ReasonReact.send, handle}) => {
   open Js.Promise;
   let limit = pageNum |> int_of_float;
   let offset = (float_of_int(page) -. 1.) *. pageNum |> int_of_float;
@@ -63,47 +145,37 @@ let loadData = (~tag=?, ~page=1, _payload, {ReasonReact.send, state}) => {
        |> resolve
      )
   |> ignore;
-  switch (state.tags) {
-  | NotAsked =>
-    send(UpdateTags(RemoteData.Loading));
-    API.tags()
-    |> then_(result => {
-         switch (result) {
-         | Js.Result.Ok(json) =>
-           let tags =
-             json
-             |> Json.Decode.(field("tags", array(string)))
-             |> Belt.List.fromArray;
-           send(UpdateTags(RemoteData.Success(tags)));
-         | Error(_) =>
-           send(
-             UpdateTags(RemoteData.Failure("failed to fetch list of tags")),
-           )
-         };
-         ignore() |> resolve;
-       })
-    |> catch(_error =>
-         send(
-           UpdateTags(RemoteData.Failure("failed to fetch list of tags")),
-         )
-         |> resolve
-       )
-    |> ignore;
-  | Loading
-  | Success(_)
-  | Failure(_) => ignore()
-  };
+  handle(loadTags, ());
 };
 
-let selectTag = (tag, event, {ReasonReact.send}) => {
+let selectTag = (~tag, ~user, event, {ReasonReact.send}) => {
   event |> ReactEventRe.Mouse.preventDefault;
   send(SelectTag(tag));
 };
 
-let changeCurrentPage = (page, {ReasonReact.handle, state}) =>
-  handle(loadData(~tag=?state.selectedTag, ~page), ());
+let changeCurrentPage = (~user, page, {ReasonReact.handle, state}) =>
+  switch (user) {
+  | RemoteData.NotAsked
+  | Loading => ignore()
+  | Success(_) => handle(loadYourFeed(~page), ())
+  | Failure(_) => handle(loadGlobalFeed(~tag=?state.selectedTag, ~page), ())
+  };
 
-let make = _children => {
+let initialData = (~user, _payload, {ReasonReact.state, handle}) => {
+  let {articles} = state;
+  switch (articles, user) {
+  | (NotAsked, RemoteData.Success(_)) => handle(loadYourFeed, ())
+  | (NotAsked, Failure(_)) => handle(loadGlobalFeed, ())
+  | (NotAsked, NotAsked | Loading)
+  | (
+      Loading | Success(_) | Failure(_),
+      NotAsked | Loading | Success(_) | Failure(_),
+    ) =>
+    ignore()
+  };
+};
+
+let make = (~user, _children) => {
   ...component,
   initialState: () => {
     articles: RemoteData.NotAsked,
@@ -117,15 +189,19 @@ let make = _children => {
     | SelectTag(selectedTag) =>
       ReasonReact.UpdateWithSideEffects(
         {...state, selectedTag},
-        (({handle}) => handle(loadData(~tag=?selectedTag), ())),
+        (({handle}) => handle(loadGlobalFeed(~tag=?selectedTag), ())),
       )
     | UpdateTags(tags) => ReasonReact.Update({...state, tags})
     | UpdateArticles((articles, articlesCount, currentPage)) =>
       ReasonReact.Update({...state, articles, articlesCount, currentPage})
     },
   didMount: ({handle}) => {
-    handle(loadData, ());
+    handle(initialData(~user), ());
     ReasonReact.NoUpdate;
+  },
+  didUpdate: ({newSelf}) => {
+    newSelf.handle(initialData(~user), ());
+    ignore();
   },
   render: ({state, handle}) => {
     let {articles, tags, selectedTag, articlesCount, currentPage} = state;
@@ -141,21 +217,58 @@ let make = _children => {
           <div className="col-md-9">
             <div className="feed-toggle">
               <ul className="nav nav-pills outline-active">
+                (
+                  switch (user) {
+                  | NotAsked
+                  | Loading
+                  | Failure(_) => nullEl
+                  | Success(_) =>
+                    <li className="nav-item">
+                      <a
+                        href="#"
+                        className=(
+                          "nav-link"
+                          ++ (
+                            switch (selectedTag, user) {
+                            | (None, Success(_)) => " active"
+                            | (None, NotAsked | Loading | Failure(_))
+                            | (
+                                Some(_),
+                                NotAsked | Loading | Success(_) | Failure(_),
+                              ) => ""
+                            }
+                          )
+                        )
+                        onClick=(
+                          switch (selectedTag) {
+                          | Some(_) => handle(selectTag(~tag=None, ~user))
+                          | None => ignore
+                          }
+                        )>
+                        ("Your Feed" |> strEl)
+                      </a>
+                    </li>
+                  }
+                )
                 <li className="nav-item">
                   <a
                     href="#"
                     className=(
                       "nav-link"
                       ++ (
-                        switch (selectedTag) {
-                        | None => " active"
-                        | Some(_) => ""
+                        switch (selectedTag, user) {
+                        | (None, NotAsked | Loading | Failure(_)) => " active"
+                        | (None, Success(_))
+                        | (
+                            Some(_),
+                            NotAsked | Loading | Success(_) | Failure(_),
+                          ) => ""
                         }
                       )
                     )
                     onClick=(
                       switch (selectedTag) {
-                      | Some(_) => handle(selectTag(None))
+                      | Some(_) => handle(selectTag(~tag=None, ~user))
                       | None => ignore
                       }
                     )>
@@ -207,7 +320,7 @@ let make = _children => {
                 <Pagination
                   totalCount=articlesCount
                   perPage=pageNum
-                  onPageClick=(handle(changeCurrentPage))
+                  onPageClick=(handle(changeCurrentPage(~user)))
                   currentPage
                 />
               }
@@ -229,7 +342,9 @@ let make = _children => {
                            key=item
                            className="tag-pill tag-default"
                            href="#"
-                           onClick=(handle(selectTag(Some(item))))>
+                           onClick=(
+                             handle(selectTag(~tag=Some(item), ~user))
+                           )>
                            (item |> strEl)
                          </a>
                        )

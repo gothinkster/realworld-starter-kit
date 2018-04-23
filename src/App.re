@@ -157,7 +157,7 @@ let make = _children => {
         | Editor => <Editor />
         | Profile(author) => <Profile author />
         | Article(slug) => <Article slug user />
-        | Home => <Home />
+        | Home => <Home user />
         }
       )
       <footer>

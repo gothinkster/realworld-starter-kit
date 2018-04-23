@@ -72,3 +72,10 @@ let getCookie = target =>
        |> Js.Array.find(((name, _value)) => target === name)
        |. Belt.Option.mapU((. (_name, value)) => value)
      );
+
+let remoteDataToStr =
+  fun
+  | RemoteData.NotAsked => "NotAsked"
+  | Loading => "Loading"
+  | Success(_) => "Success"
+  | Failure(_) => "Failure";

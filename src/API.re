@@ -21,6 +21,34 @@ let getResultIfOk = res => {
   );
 };
 
+let getJsonContentType = () => {
+  "Content-Type": "application/json; charset=utf-8",
+};
+
+let getAuthorizationHeader = () =>
+  getCookie("token")
+  |. Belt.Option.mapWithDefaultU(Js.Obj.empty(), (. value) =>
+       {"Authorization": "Token " ++ value}
+     );
+
+let listArticlesFeed = (~limit=20, ~offset=0, ()) =>
+  Js.Promise.(
+    fetchWithInit(
+      host
+      ++ "/api/articles/feed"
+      ++ "?limit="
+      ++ string_of_int(limit)
+      ++ "&offset="
+      ++ string_of_int(offset),
+      Fetch.RequestInit.make(
+        ~credentials=Include,
+        ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
+        (),
+      ),
+    )
+    |> then_(getResultIfOk)
+  );
+
 let listArticles = (~tag=?, ~author=?, ~favorited=?, ~limit=20, ~offset=0, ()) =>
   Js.Promise.(
     fetchWithInit(
@@ -80,12 +108,7 @@ let user = () =>
       host ++ "/api/user",
       Fetch.RequestInit.make(
         ~method_=Get,
-        ~headers=
-          getCookie("token")
-          |. Belt.Option.mapWithDefaultU(Js.Obj.empty(), (. value) =>
-               {"Authorization": "Token " ++ value}
-             )
-          |> Fetch.HeadersInit.make,
+        ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
         ~credentials=Include,
         (),
       ),
@@ -99,10 +122,7 @@ let register = (~email, ~password, ~username) =>
       host ++ "/api/users",
       Fetch.RequestInit.make(
         ~method_=Post,
-        ~headers=
-          Fetch.HeadersInit.make({
-            "Content-Type": "application/json; charset=utf-8",
-          }),
+        ~headers=getJsonContentType() |> Fetch.HeadersInit.make,
         ~body=
           Fetch.BodyInit.make(
             Json.Encode.(
@@ -134,10 +154,7 @@ let login = (~email, ~password) =>
       host ++ "/api/users/login",
       Fetch.RequestInit.make(
         ~method_=Post,
-        ~headers=
-          Fetch.HeadersInit.make({
-            "Content-Type": "application/json; charset=utf-8",
-          }),
+        ~headers=getJsonContentType() |> Fetch.HeadersInit.make,
         ~body=
           Fetch.BodyInit.make(
             Json.Encode.(
