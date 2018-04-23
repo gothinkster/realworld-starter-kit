@@ -1,8 +1,13 @@
 open Utils;
 
+type selectedFeed =
+  | Global
+  | Your;
+
 type selectedTag = option(string);
 
 type action =
+  | SelectFeed(selectedFeed)
   | SelectTag(selectedTag)
   | UpdateTags(Types.remoteTags)
   | UpdateArticles((Types.remoteArticles, float, int));
@@ -13,6 +18,7 @@ type state = {
   selectedTag,
   articlesCount: float,
   currentPage: int,
+  selectedFeed,
 };
 
 let pageNum = 10.;
@@ -148,7 +154,7 @@ let loadGlobalFeed = (~tag=?, ~page=1, _payload, {ReasonReact.send, handle}) => 
   handle(loadTags, ());
 };
 
-let selectTag = (~tag, ~user, event, {ReasonReact.send}) => {
+let selectTag = (~tag, event, {ReasonReact.send}) => {
   event |> ReactEventRe.Mouse.preventDefault;
   send(SelectTag(tag));
 };
@@ -161,11 +167,15 @@ let changeCurrentPage = (~user, page, {ReasonReact.handle, state}) =>
   | Failure(_) => handle(loadGlobalFeed(~tag=?state.selectedTag, ~page), ())
   };
 
-let initialData = (~user, _payload, {ReasonReact.state, handle}) => {
+let initialData = (~user, _payload, {ReasonReact.state, handle, send}) => {
   let {articles} = state;
   switch (articles, user) {
-  | (NotAsked, RemoteData.Success(_)) => handle(loadYourFeed, ())
-  | (NotAsked, Failure(_)) => handle(loadGlobalFeed, ())
+  | (NotAsked, RemoteData.Success(_)) =>
+    handle(loadYourFeed, ());
+    send(SelectFeed(Your));
+  | (NotAsked, Failure(_)) =>
+    handle(loadGlobalFeed, ());
+    send(SelectFeed(Global));
   | (NotAsked, NotAsked | Loading)
   | (
       Loading | Success(_) | Failure(_),
@@ -183,9 +193,12 @@ let make = (~user, _children) => {
     selectedTag: None,
     articlesCount: 0.,
     currentPage: 1,
+    selectedFeed: Global,
   },
   reducer: (action, state) =>
     switch (action) {
+    | SelectFeed(selectedFeed) =>
+      ReasonReact.Update({...state, selectedFeed})
     | SelectTag(selectedTag) =>
       ReasonReact.UpdateWithSideEffects(
         {...state, selectedTag},
@@ -241,7 +254,7 @@ let make = (~user, _children) => {
                         )
                         onClick=(
                           switch (selectedTag) {
-                          | Some(_) => handle(selectTag(~tag=None, ~user))
+                          | Some(_) => handle(selectTag(~tag=None))
                           | None => ignore
                           }
                         )>
@@ -268,7 +281,7 @@ let make = (~user, _children) => {
                     )
                     onClick=(
                       switch (selectedTag) {
-                      | Some(_) => handle(selectTag(~tag=None, ~user))
+                      | Some(_) => handle(selectTag(~tag=None))
                       | None => ignore
                       }
                     )>
@@ -342,9 +355,7 @@ let make = (~user, _children) => {
                            key=item
                            className="tag-pill tag-default"
                            href="#"
-                           onClick=(
-                             handle(selectTag(~tag=Some(item), ~user))
-                           )>
+                           onClick=(handle(selectTag(~tag=Some(item))))>
                            (item |> strEl)
                          </a>
                        )
