@@ -1,7 +1,7 @@
 import {Slim} from 'slim-js';
 import {template} from 'slim-js/Decorators';
 import model from '../model';
-import Bus from '../event-bus';
+import Bus, {Events, dispatch} from '../event-bus';
 
 @template(`
 <nav class="navbar navbar-light">
@@ -29,7 +29,7 @@ import Bus from '../event-bus';
             <a class="nav-link" href="#/register">Sign up</a>
         </li>
         <li s:if="user" class="nav-item">
-            <a class="nav-link" href="#/profile" bind>{{user.username}}</a>
+            <a class="nav-link" click="onOwnProfileClick" bind>{{user.username}}</a>
         </li>
     </ul>
     </div>
@@ -38,10 +38,12 @@ export default class AppHeader extends Slim {
   user = model.user;
 
   onAdded() {
-    Bus.on('model-changed', e => {
-      const {prop} = e.target;
+    Bus.on(Events.MODEL_CHANGE, e => {
       this.user = model.user;
-      this.commit(prop);
     });
+  }
+
+  onOwnProfileClick() {
+    dispatch(Events.NAVIGATE_OWN_PROFILE);
   }
 }

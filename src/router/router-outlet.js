@@ -2,29 +2,39 @@ import {tag, template} from 'slim-js/Decorators';
 import {Slim} from 'slim-js';
 import Router from './router';
 
-@template(`
+const PAGES = ['login', 'register', 'settings'];
+const PAGES_ID = ['profile'];
+
+@template(/*html*/ `
   <div s:switch="currentRoute">
     <home-page s:case="home"></home-page>
     <conduit-login s:case="login"></conduit-login>
     <conduit-register s:case="register"></conduit-register>
+    <conduit-settings s:case="settings"></conduit-settings>
+    <conduit-profile s:case="profile" bind:profile-id="routeParams"></conduit-profile>
   </div>
 `)
 export default class RouterOutlet extends Slim {
   currentRoute = '';
+  routeParams = null;
 
   constructor() {
     super();
-    Router.on('/profile/:id', (params, query) => {
-      this.currentRoute = 'profile';
-    });
 
     Router.on('/', () => (this.currentRoute = 'home'));
 
-    ['login', 'register'].forEach(route => {
+    for (let route of PAGES) {
       Router.on(`/${route}`, () => {
         this.currentRoute = route;
       });
-    });
+    }
+
+    for (let route of PAGES_ID) {
+      Router.on(`/${route}/@:id`, params => {
+        this.routeParams = params.id;
+        this.currentRoute = route;
+      });
+    }
 
     Router.resolve();
   }

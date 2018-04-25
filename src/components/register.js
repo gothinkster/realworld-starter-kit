@@ -2,7 +2,7 @@ import {template} from 'slim-js/Decorators';
 import {Slim} from 'slim-js';
 import API from '../api';
 
-@template(`
+@template(/*html*/ `
 <div class="auth-page">
   <div class="container page">
     <div class="row">

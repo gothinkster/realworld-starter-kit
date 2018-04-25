@@ -1,7 +1,7 @@
 import _agent from 'superagent';
 import CONFIG from '../config';
 
-const {endpoint: API_ROOT} = CONFIG;
+const {endpoint: API_ROOT, articlesPerPage} = CONFIG;
 const agent = _agent;
 
 let token = window.localStorage.getItem('jwt');
@@ -57,6 +57,11 @@ export default class API {
     return get(`/user`);
   }
 
+  static logout() {
+    window.localStorage.removeItem('jwt');
+    token = null;
+  }
+
   static login(email, password) {
     const data = {
       user: {
@@ -78,10 +83,31 @@ export default class API {
   }
 
   static updateUser(user) {
-    return put('/users', {user});
+    return put('/user', {user});
   }
+
+  // PROFILE
+  static getProfile(username) {
+    return get(`/profiles/${username}`);
+  }
+
+  // TAGS
 
   static getAllTags() {
     return get('/tags');
+  }
+
+  // ARTICLES
+
+  static getArticles(username = undefined, offset = 0) {
+    const authorParam = username ? `?author=${username}&` : '?';
+    const otherParams = `limit=${articlesPerPage}&offset=${offset}`;
+    return get(`/articles${authorParam}${otherParams}`);
+  }
+
+  static getFavArticles(username = undefined, offset = 0) {
+    const authorParam = username ? `?favorited=${username}&` : '?';
+    const otherParams = `limit=${articlesPerPage}&offset=${offset}`;
+    return get(`/articles${authorParam}${otherParams}`);
   }
 }
