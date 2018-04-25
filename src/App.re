@@ -146,6 +146,21 @@ let make = _children => {
                 </li>
               }
             )
+            (
+              switch (user) {
+              | NotAsked
+              | Loading
+              | Failure(_) => nullEl
+              | Success({username}) =>
+                <li className="nav-item">
+                  <a
+                    className=(linkCx(Profile(Author(username))))
+                    href=("/#/profile/" ++ username)>
+                    (username |> strEl)
+                  </a>
+                </li>
+              }
+            )
           </ul>
         </div>
       </nav>
