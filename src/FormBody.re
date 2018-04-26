@@ -36,23 +36,7 @@ let make =
                   <a href="/#/register"> ("Need an account?" |> strEl) </a>
               )
             </p>
-            (
-              switch (errors) {
-              | Some(data) =>
-                <ul className="error-messages">
-                  (
-                    data
-                    |. Belt.List.mapU((. item) =>
-                         <li key=item> (item |> strEl) </li>
-                       )
-                    |> Belt.List.toArray
-                    |> arrayEl
-                  )
-                </ul>
-              | Some([])
-              | None => nullEl
-              }
-            )
+            <Errors data=errors />
             <form onSubmit>
               (
                 register ?
