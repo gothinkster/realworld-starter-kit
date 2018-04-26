@@ -26,11 +26,12 @@ const {articlesPerPage: maxArticlesToDisplay, defaultProfileImage} = CONFIG;
       </div>
     </div>
   </div>
+  <div s:if="profileData">
   <article-list
     bind:profile-id="profileData.username"
-    bind:max-articles-to-display="maxArticlesToDisplay"
-    ></article-list>
+    bind:max-articles-to-display="maxArticlesToDisplay"></article-list>
     <hr/>
+  </div>
 </div>
 `)
 export default class Profile extends ReactiveElement {
