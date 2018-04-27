@@ -31,7 +31,7 @@ export default class RouterOutlet extends Slim {
 
     for (let route of PAGES_ID) {
       Router.on(`/${route}/@:id`, params => {
-        this.routeParams = params.id ? params.id : this.routeParams;
+        this.routeParams = params.id || undefined;
         this.currentRoute = route;
       });
     }
