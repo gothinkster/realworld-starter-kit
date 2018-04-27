@@ -178,3 +178,41 @@ let login = (~email, ~password) =>
     )
     |> then_(getResultIfOk)
   );
+
+let createArticle = (~title, ~description, ~body, ~tagList) =>
+  Js.Promise.(
+    fetchWithInit(
+      host ++ "/api/articles",
+      Fetch.RequestInit.make(
+        ~method_=Post,
+        ~headers=
+          Js.Obj.assign(getJsonContentType(), getAuthorizationHeader())
+          |> Fetch.HeadersInit.make,
+        ~body=
+          Fetch.BodyInit.make(
+            Json.Encode.(
+              [
+                (
+                  "article",
+                  [
+                    ("title", title |> string),
+                    ("description", description |> string),
+                    ("body", body |> string),
+                    (
+                      "tagList",
+                      tagList |> Belt.List.toArray |> array(string),
+                    ),
+                  ]
+                  |> object_,
+                ),
+              ]
+              |> object_
+            )
+            |> Json.stringify,
+          ),
+        ~credentials=Include,
+        (),
+      ),
+    )
+    |> then_(getResultIfOk)
+  );

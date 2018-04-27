@@ -106,7 +106,51 @@ let make = _children => {
       initialState={title: "", description: "", body: "", tagList: []}
       onSubmit=(
         (state, {notifyOnSuccess, notifyOnFailure, reset}) => {
-          Js.log(state);
+          let {Form.title, description, body, tagList} = state;
+          Js.Promise.(
+            API.createArticle(~title, ~description, ~body, ~tagList)
+            |> then_(result => {
+                 switch (result) {
+                 | Js.Result.Ok(json) =>
+                   let article: Types.article =
+                     Json.Decode.(json |> field("article", Decoder.article));
+                   notifyOnSuccess(None);
+                   reset();
+                   ReasonReact.Router.push("/#/article/" ++ article.slug);
+                 | Error(error) =>
+                   let errors =
+                     error
+                     |> Json.Decode.(field("errors", dict(array(string))));
+                   let fieldErrors =
+                     [
+                       errors
+                       |. Js.Dict.get("title")
+                       |> getFirstError(Form.Title, "Title"),
+                       errors
+                       |. Js.Dict.get("description")
+                       |> getFirstError(Form.Description, "Description"),
+                       errors
+                       |. Js.Dict.get("body")
+                       |> getFirstError(Form.Body, "Body"),
+                       errors
+                       |. Js.Dict.get("tagList")
+                       |> getFirstError(Form.TagList, "Tags"),
+                     ]
+                     |. Belt.List.keepMapU((. opt) => opt);
+                   notifyOnFailure(fieldErrors, None);
+                 };
+                 ignore() |> resolve;
+               })
+            |> catch(error => {
+                 Js.log2(
+                   "There has been a problem with fetch operation: ",
+                   error,
+                 );
+                 notifyOnFailure([], Some("failed to create new article"));
+                 ignore() |> resolve;
+               })
+            |> ignore
+          );
           ignore();
         }
       )>
