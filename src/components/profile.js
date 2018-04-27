@@ -65,7 +65,6 @@ export default class Profile extends ReactiveElement {
       const {profile: profileData} = await API.getProfile(profileId);
       profileData.image = profileData.image || defaultProfileImage;
       this.profileData = profileData;
-      console.log(this.profileData);
     }
   }
 }

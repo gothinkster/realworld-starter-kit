@@ -68,7 +68,6 @@ export default class ArticleList extends Slim {
   }
 
   filterAuthorArticles() {
-    console.log('ownArticles');
     this.selectedArticles = 'own';
     this.articles = this.ownArticles;
     this.changePage(0);
@@ -103,7 +102,6 @@ export default class ArticleList extends Slim {
 
   createPagination() {
     const length = Math.ceil(this.articles.total / this.maxArticlesToDisplay);
-    console.log(length);
     this.pagination =
       length > 1
         ? Array(length)
@@ -123,8 +121,7 @@ export default class ArticleList extends Slim {
   }
 
   changePage(e) {
-    const trigger = e.currentTarget;
-    console.log(trigger.data);
+    const trigger = typeof e === 'number' ? {data: e} : e.currentTarget;
     const page = typeof e === 'number' ? e : trigger.data - 1;
     if (this.currentPage === page) {
       return;

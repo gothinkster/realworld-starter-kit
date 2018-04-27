@@ -1,10 +1,12 @@
 import {template} from 'slim-js/Decorators';
 import {Slim} from 'slim-js';
+import Model from '../model';
+import {onEvent, Events} from '../event-bus';
 
-@template(`
+@template(/*html*/ `
 <div class="home-page">
 
-  <div class="banner">
+  <div s:if="!isLoggedIn" class="banner">
     <div class="container">
       <h1 class="logo-font">conduit</h1>
       <p>A place to share your knowledge.</p>
@@ -66,18 +68,7 @@ import {Slim} from 'slim-js';
 
       <div class="col-md-3">
         <div class="sidebar">
-          <p>Popular Tags</p>
-
-          <div class="tag-list">
-            <a href="" class="tag-pill tag-default">programming</a>
-            <a href="" class="tag-pill tag-default">javascript</a>
-            <a href="" class="tag-pill tag-default">emberjs</a>
-            <a href="" class="tag-pill tag-default">angularjs</a>
-            <a href="" class="tag-pill tag-default">react</a>
-            <a href="" class="tag-pill tag-default">mean</a>
-            <a href="" class="tag-pill tag-default">node</a>
-            <a href="" class="tag-pill tag-default">rails</a>
-          </div>
+          <tag-list></tag-list>
         </div>
       </div>
 
@@ -86,4 +77,22 @@ import {Slim} from 'slim-js';
 
 </div>
 `)
-export default class HomePage extends Slim {}
+export default class HomePage extends Slim {
+  isLoggedIn = false;
+
+  constructor() {
+    super();
+    onEvent(Events.MODEL_CHANGE, ({target: data}) => {
+      const {prop} = data;
+      if (prop === 'user') {
+        console.log(Model);
+        this.isLoggedIn = !!Model.user;
+        console.log(this.isLoggedIn);
+      }
+    });
+  }
+
+  onAdded() {
+    this.isLoggedIn = !!Model.user;
+  }
+}

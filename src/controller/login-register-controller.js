@@ -48,6 +48,3 @@ Bus.on(Events.INIT_APP, () => {
     })
     .finally(() => dispatch(Events.APP_READY));
 });
-
-// Automatic login on startup
-dispatch(Events.INIT_APP);

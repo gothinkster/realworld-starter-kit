@@ -1,10 +1,42 @@
 import _agent from 'superagent';
 import CONFIG from '../config';
+import {dispatch, Events} from './event-bus';
 
 const {endpoint: API_ROOT, articlesPerPage} = CONFIG;
-const agent = _agent;
-
-let token = window.localStorage.getItem('jwt');
+const agent = {
+  get: function() {
+    openPopup();
+    return _agent
+      .get(...arguments)
+      .use(useToken)
+      .then(closePopup)
+      .catch(err => closePopup(err, true));
+  },
+  post: function() {
+    openPopup();
+    return _agent
+      .post(...arguments)
+      .use(useToken)
+      .then(closePopup)
+      .catch(err => closePopup(err, true));
+  },
+  put: function() {
+    openPopup();
+    return _agent
+      .put(...arguments)
+      .use(useToken)
+      .then(closePopup)
+      .catch(err => closePopup(err, true));
+  },
+  del: function() {
+    openPopup();
+    return _agent
+      .del(...arguments)
+      .use(useToken)
+      .then(closePopup)
+      .catch(err => closePopup(err, true));
+  },
+};
 
 const useToken = req => {
   if (token) {
@@ -12,31 +44,30 @@ const useToken = req => {
   }
 };
 
+const openPopup = () => {
+  dispatch(Events.OPEN_MODAL, 'Loading data...');
+};
+
+const closePopup = (resolution, isError = false) => {
+  dispatch(Events.CLOSE_MODAL);
+  if (isError) {
+    throw resolution;
+  }
+  return Promise.resolve(resolution);
+};
+
+let token = window.localStorage.getItem('jwt');
+
 const parseBody = res => res.body;
 
-const get = url =>
-  agent
-    .get(`${API_ROOT}${url}`)
-    .use(useToken)
-    .then(parseBody);
+const get = url => agent.get(`${API_ROOT}${url}`).then(parseBody);
 
 const post = (url, body) =>
-  agent
-    .post(`${API_ROOT}${url}`, body)
-    .use(useToken)
-    .then(parseBody);
+  agent.post(`${API_ROOT}${url}`, body).then(parseBody);
 
-const put = (url, body) =>
-  agent
-    .put(`${API_ROOT}${url}`, body)
-    .use(useToken)
-    .then(parseBody);
+const put = (url, body) => agent.put(`${API_ROOT}${url}`, body).then(parseBody);
 
-const del = url =>
-  agent
-    .del(`${API_ROOT}${url}`)
-    .use(useToken)
-    .then(parseBody);
+const del = url => agent.del(`${API_ROOT}${url}`).then(parseBody);
 
 export default class API {
   static register(username, email, password) {
@@ -89,6 +120,14 @@ export default class API {
   // PROFILE
   static getProfile(username) {
     return get(`/profiles/${username}`);
+  }
+
+  static follow(username) {
+    return post(`/profiles/${username}/follow`);
+  }
+
+  static unfollow(username) {
+    return del(`/profiles/${username}/follow`);
   }
 
   // TAGS

@@ -28,4 +28,6 @@ export const Events = {
   NAVIGATE_OWN_PROFILE: 'go-own-profile',
   NAVIGATE_ARTICLE: 'go-article',
   MODEL_CHANGE: 'model-changed',
+  OPEN_MODAL: 'open-modal',
+  CLOSE_MODAL: 'close-modal',
 };

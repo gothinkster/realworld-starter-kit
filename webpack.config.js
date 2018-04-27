@@ -65,12 +65,16 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
-    // new CopyWebpackPlugin([
-    //     {
-    //         from: 'src/assets',
-    //         to: distFolder + '/assets'
-    //     }
-    // ]),
+    new CopyWebpackPlugin([
+      {
+        from: 'src/assets',
+        to: distFolder + '/assets',
+      },
+      {
+        from: 'src/favicon.ico',
+        to: distFolder,
+      },
+    ]),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       title: 'Development',
