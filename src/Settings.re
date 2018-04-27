@@ -1,5 +1,140 @@
 open Utils;
 
+module Form = {
+  type field =
+    | Image
+    | Username
+    | Password
+    | PasswordConfirmaion
+    | Email
+    | Bio;
+  type value = string;
+  type state = {
+    image: string,
+    username: string,
+    password: string,
+    passwordConfirmation: string,
+    email: string,
+    bio: string,
+  };
+  type message = string;
+  let get = (field, state) =>
+    switch (field) {
+    | Image => state.image
+    | Username => state.username
+    | Password => state.password
+    | PasswordConfirmaion => state.passwordConfirmation
+    | Email => state.email
+    | Bio => state.bio
+    };
+  let update = ((field, value), state) =>
+    switch (field, value) {
+    | (Image, image) => {...state, image}
+    | (Username, username) => {...state, username}
+    | (Password, password) => {...state, password}
+    | (PasswordConfirmaion, passwordConfirmation) => {
+        ...state,
+        passwordConfirmation,
+      }
+    | (Email, email) => {...state, email}
+    | (Bio, bio) => {...state, bio}
+    };
+  let valueEmpty = value => value === "";
+  let strategy = Formality.Strategy.OnFirstSuccessOrFirstBlur;
+  module Validators =
+    Formality.MakeValidators(
+      {
+        type t = field;
+      },
+    );
+  type validators =
+    Validators.t(Formality.validator(field, value, state, message));
+  let validators =
+    Formality.(
+      Validators.empty
+      |> Validators.add(
+           Image,
+           {
+             strategy,
+             dependents: None,
+             validate: (value, _state) =>
+               switch (value) {
+               | "" => Invalid("Image is empty")
+               | _ => Valid
+               },
+           },
+         )
+      |> Validators.add(
+           Username,
+           {
+             strategy,
+             dependents: None,
+             validate: (value, _state) =>
+               switch (value) {
+               | "" => Invalid("Username is empty")
+               | _ => Valid
+               },
+           },
+         )
+      |> Validators.add(
+           Password,
+           {
+             strategy,
+             dependents: Some([PasswordConfirmaion]),
+             validate: (value, _state) => {
+               let minLength = 3;
+               switch (value) {
+               | "" => Invalid("Password is empty")
+               | _ when String.length(value) < minLength =>
+                 Invalid({j|Password need $(minLength)+ characters|j})
+               | _ => Valid
+               };
+             },
+           },
+         )
+      |> Validators.add(
+           PasswordConfirmaion,
+           {
+             strategy,
+             dependents: None,
+             validate: (value, state) =>
+               switch (value) {
+               | "" => Invalid("Password is empty")
+               | _ when value !== state.password =>
+                 Invalid("Password doesn't match")
+               | _ => Valid
+               },
+           },
+         )
+      |> Validators.add(
+           Email,
+           {
+             strategy,
+             dependents: None,
+             validate: (value, _state) =>
+               switch (value) {
+               | "" => Invalid("Email is empty")
+               | _ => Valid
+               },
+           },
+         )
+      |> Validators.add(
+           Bio,
+           {
+             strategy,
+             dependents: None,
+             validate: (value, _state) =>
+               switch (value) {
+               | "" => Invalid("Bio is empty")
+               | _ => Valid
+               },
+           },
+         )
+    );
+};
+
+module FormContainer = Formality.Make(Form);
+
 let component = ReasonReact.statelessComponent("Settings");
 
 let make = _children => {
