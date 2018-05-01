@@ -1,41 +1,41 @@
-import {tag, template} from 'slim-js/Decorators';
-import {Slim} from 'slim-js';
-import Router from './router';
-
-const PAGES = ['login', 'register', 'settings'];
-const PAGES_ID = ['profile'];
+import {tag, template} from 'slim-js/Decorators'
+import {Slim} from 'slim-js'
+import Router from './router'
 
 @template(/*html*/ `
   <div s:switch="currentRoute">
-    <home-page s:case="home"></home-page>
+    <!-- <home-page s:case="home"></home-page> -->
     <conduit-login s:case="login"></conduit-login>
+    <profile-page s:id="profilePage" s:case="profile"></profile-page>
+    <home-page s:id="homePage" s:case="home"></home-page>
     <conduit-register s:case="register"></conduit-register>
     <conduit-settings s:case="settings"></conduit-settings>
-    <conduit-profile s:case="profile" bind:profile-id="routeParams"></conduit-profile>
   </div>
 `)
 export default class RouterOutlet extends Slim {
-  currentRoute = '';
-  routeParams;
+  currentRoute = ''
 
   constructor() {
-    super();
+    super()
+    Router.on('/', () => (this.currentRoute = 'home'))
 
-    Router.on('/', () => (this.currentRoute = 'home'));
+    Router.on('/:page', ({page}) => (this.currentRoute = page))
+    Router.on('/profile/@:id', ({id}) => {
+      this.currentRoute = 'profile'
+      this.profilePage.setAttribute('profile-id', id)
+    })
+    Router.on('/article/:id', params => {
+      this.currentRoute = 'article'
+      this.articlePage.articleId = params
+    })
+  }
 
-    for (let route of PAGES) {
-      Router.on(`/${route}`, () => {
-        this.currentRoute = route;
-      });
-    }
-
-    for (let route of PAGES_ID) {
-      Router.on(`/${route}/@:id`, params => {
-        this.routeParams = params.id || undefined;
-        this.currentRoute = route;
-      });
-    }
-
-    Router.resolve();
+  onCreated() {
+    Slim.bindOwn(this, 'currentRoute', () => {
+      console.log('Route detected', this.currentRoute)
+    })
+    Slim.asap(() => {
+      Router.resolve()
+    })
   }
 }

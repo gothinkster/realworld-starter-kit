@@ -1,2 +1,2 @@
-import './login-register-controller';
-import './navigation-controller';
+import './login-register-controller'
+import './navigation-controller'

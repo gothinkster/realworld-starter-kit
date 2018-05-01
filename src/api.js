@@ -1,73 +1,87 @@
-import _agent from 'superagent';
-import CONFIG from '../config';
-import {dispatch, Events} from './event-bus';
+import CONFIG from '../config'
+import {dispatch, Events} from './event-bus'
 
-const {endpoint: API_ROOT, articlesPerPage} = CONFIG;
+const encode = encodeURIComponent
+
+const makeFetch = (url, method = 'GET', data) => {
+  let headers = new Headers({
+    'content-type': 'application/json',
+    accept: 'application/json',
+    'front-end-library': 'slim-js',
+  })
+  if (token) {
+    headers.set('authorization', `Token ${token}`)
+  }
+  console.log(`%c Fetch: ${url}`, 'color: red')
+  return fetch(CONFIG.endpoint + url, {
+    headers,
+    body: data ? JSON.stringify(data) : undefined,
+    cache: 'no-cache',
+    method,
+  })
+    .then(r => {
+      console.log(`%c Fetch: ${url} ${r.status}`, 'color: green')
+      return r
+    })
+    .then(r => r.json())
+    .catch(err => {
+      console.log(err)
+      throw err
+    })
+}
+
+const _agent = {
+  get: url => makeFetch(url, 'GET'),
+  post: (url, data) => makeFetch(url, 'POST', data),
+  put: (url, data) => makeFetch(url, 'PUT', data),
+  del: url => makeFetch(url, 'DELETE'),
+}
+
+const {endpoint: API_ROOT, articlesPerPage} = CONFIG
 const agent = {
   get: function() {
-    openPopup();
+    openPopup()
     return _agent
       .get(...arguments)
-      .use(useToken)
       .then(closePopup)
-      .catch(err => closePopup(err, true));
+      .catch(err => closePopup(err, true))
   },
   post: function() {
-    openPopup();
+    openPopup()
     return _agent
       .post(...arguments)
-      .use(useToken)
       .then(closePopup)
-      .catch(err => closePopup(err, true));
+      .catch(err => closePopup(err, true))
   },
   put: function() {
-    openPopup();
+    openPopup()
     return _agent
       .put(...arguments)
-      .use(useToken)
       .then(closePopup)
-      .catch(err => closePopup(err, true));
+      .catch(err => closePopup(err, true))
   },
   del: function() {
-    openPopup();
+    openPopup()
     return _agent
       .del(...arguments)
-      .use(useToken)
       .then(closePopup)
-      .catch(err => closePopup(err, true));
+      .catch(err => closePopup(err, true))
   },
-};
-
-const useToken = req => {
-  if (token) {
-    req.set('authorization', `Token ${token}`);
-  }
-};
+}
 
 const openPopup = () => {
-  dispatch(Events.OPEN_MODAL, 'Loading data...');
-};
+  dispatch(Events.OPEN_MODAL, 'Loading data...')
+}
 
 const closePopup = (resolution, isError = false) => {
-  dispatch(Events.CLOSE_MODAL);
+  dispatch(Events.CLOSE_MODAL)
   if (isError) {
-    throw resolution;
+    throw resolution
   }
-  return Promise.resolve(resolution);
-};
+  return Promise.resolve(resolution)
+}
 
-let token = window.localStorage.getItem('jwt');
-
-const parseBody = res => res.body;
-
-const get = url => agent.get(`${API_ROOT}${url}`).then(parseBody);
-
-const post = (url, body) =>
-  agent.post(`${API_ROOT}${url}`, body).then(parseBody);
-
-const put = (url, body) => agent.put(`${API_ROOT}${url}`, body).then(parseBody);
-
-const del = url => agent.del(`${API_ROOT}${url}`).then(parseBody);
+let token = window.localStorage.getItem('jwt')
 
 export default class API {
   static register(username, email, password) {
@@ -77,76 +91,100 @@ export default class API {
         email,
         password,
       },
-    };
-    return post('/users', data);
+    }
+    return agent.post('/users', data)
   }
 
-  static autoLogin() {
+  static async autoLogin() {
+    console.log('has token? ' + !!token)
     if (!token) {
-      return Promise.reject();
+      throw new Error('No Token')
     }
-    return get(`/user`);
+    return agent
+      .get(`/user`)
+      .then(body => body.user)
+      .then(user => {
+        console.log(user)
+        return user
+      })
   }
 
   static logout() {
-    window.localStorage.removeItem('jwt');
-    token = null;
+    window.localStorage.removeItem('jwt')
+    token = null
   }
 
   static login(email, password) {
-    const data = {
-      user: {
-        email,
-        password,
-      },
-    };
-    return post('/users/login', data)
+    return agent
+      .post('/users/login', {user: {email, password}})
       .catch(err => {
-        window.localStorage.removeItem('jwt');
+        window.localStorage.removeItem('jwt')
+        throw err
       })
-      .then(body => {
-        if (body.user && body.user.token) {
-          token = body.user.token;
-          window.localStorage.setItem('jwt', token);
+      .then(({user}) => {
+        if (user && user.token) {
+          token = user.token
+          window.localStorage.setItem('jwt', token)
         }
-        return body;
-      });
+        console.log(user)
+        return user
+      })
+  }
+
+  static getUser(username) {
+    return agent.get(`/profiles/${username}`)
   }
 
   static updateUser(user) {
-    return put('/user', {user});
+    return agent.put('/user', {user})
   }
 
   // PROFILE
   static getProfile(username) {
-    return get(`/profiles/${username}`);
+    return agent.get(`/profiles/${username}`)
   }
 
   static follow(username) {
-    return post(`/profiles/${username}/follow`);
+    return agent.post(`/profiles/${username}/follow`)
   }
 
   static unfollow(username) {
-    return del(`/profiles/${username}/follow`);
+    return agent.del(`/profiles/${username}/follow`)
   }
 
   // TAGS
 
   static getAllTags() {
-    return get('/tags');
+    return agent.get('/tags')
   }
 
   // ARTICLES
 
-  static getArticles(username = undefined, offset = 0) {
-    const authorParam = username ? `?author=${username}&` : '?';
-    const otherParams = `limit=${articlesPerPage}&offset=${offset}`;
-    return get(`/articles${authorParam}${otherParams}`);
+  static getArticles(
+    username = undefined,
+    offset = 0,
+    limit = articlesPerPage
+  ) {
+    const authorParam = username ? `?author=${username}&` : '?'
+    const otherParams = `limit=${limit}&offset=${offset}`
+    return agent.get(`/articles${authorParam}${otherParams}`)
   }
 
-  static getFavArticles(username = undefined, offset = 0) {
-    const authorParam = username ? `?favorited=${username}&` : '?';
-    const otherParams = `limit=${articlesPerPage}&offset=${offset}`;
-    return get(`/articles${authorParam}${otherParams}`);
+  static getArticlesFeed(limit = articlesPerPage, offset = 0) {
+    return agent.get(`/articles/feed?limit=${limit}&offset=${offset}`)
+  }
+
+  static getFavArticles(
+    username = undefined,
+    offset = 0,
+    limit = articlesPerPage
+  ) {
+    const authorParam = username ? `?favorited=${username}&` : '?'
+    const otherParams = `limit=${limit}&offset=${offset}`
+    return agent.get(`/articles${authorParam}${otherParams}`)
+  }
+
+  static getArticlesByTag(tag, offset) {
+    return agent.get(`/articles?tag=${encode(tag)}&offset=${offset}`)
   }
 }

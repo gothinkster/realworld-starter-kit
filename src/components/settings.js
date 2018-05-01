@@ -1,7 +1,7 @@
-import {template} from 'slim-js/Decorators';
-import {Slim} from 'slim-js';
-import {dispatch} from '../event-bus';
-import Model from '../model';
+import {template} from 'slim-js/Decorators'
+import {Slim} from 'slim-js'
+import {dispatch, Events} from '../event-bus'
+import Model from '../model'
 
 @template(/*html*/ `
 <div class="settings-page">
@@ -54,50 +54,50 @@ import Model from '../model';
 </div>
 `)
 export default class Settings extends Slim {
-  email;
-  password;
-  username;
-  userBio;
-  profilePicture;
-  controls;
-  settingsForm;
+  email
+  password
+  username
+  userBio
+  profilePicture
+  controls
+  settingsForm
 
   constructor() {
-    super();
-    this.model = Model;
+    super()
+    this.model = Model
   }
 
-  onAdded() {
+  onCreated() {
     if (!Model.user) {
-      dispatch('go-home');
+      dispatch(Events.NAVIGATE_HOME)
     }
   }
 
   setControlsEnabled(value) {
     for (let control of this.settingsForm.elements) {
-      control.disabled = !value;
+      control.disabled = !value
     }
   }
 
   onUpdateSettingsError() {}
 
   onSubmit(e) {
-    e.preventDefault();
-    this.setControlsEnabled(false);
+    e.preventDefault()
+    this.setControlsEnabled(false)
     const payload = {
       bio: this.userBio.value,
       image: this.profilePicture.value,
       email: this.email.value,
-    };
-
-    if (this.password.value) {
-      payload.password = this.password.value;
     }
 
-    dispatch('update-settings', payload);
+    if (this.password.value) {
+      payload.password = this.password.value
+    }
+
+    dispatch('update-settings', payload)
   }
 
   onLogout() {
-    dispatch('logout');
+    dispatch('logout')
   }
 }

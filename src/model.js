@@ -1,21 +1,43 @@
-import Bus, {Events, dispatch} from './event-bus';
+import {Events, dispatch} from './event-bus'
+import UserStatus from './user-status'
 
 const model = {
-  user: null,
-  feed: [],
+  user: undefined,
   appInitialized: false,
-};
+  userStatus: UserStatus.UNKNOWN,
+  selectedProfile: undefined,
+  update: function(data) {
+    Object.keys(data).forEach(key => {
+      this[key] = data[key]
+    })
+  },
+}
+
+let promise
+const collect = (prop, value) => {
+  if (!promise) {
+    promise = Promise.resolve().finally(() => {
+      promise = undefined
+    })
+  }
+  promise.then(() => {
+    dispatch(Events.MODEL_CHANGE, {prop, value})
+  })
+}
 
 const handler = {
   set: (target, prop, value) => {
     if (target[prop] !== value) {
-      target[prop] = value;
-      dispatch(Events.MODEL_CHANGE, {prop, value});
+      console.log(`model change (${prop})`)
+      target[prop] = value
+      collect(prop, value)
+      // dispatch(Events.MODEL_CHANGE, {prop, value})
     }
-    return true;
+    return true
   },
-};
+}
 
-export default new Proxy(model, handler);
+const proxy = new Proxy(model, handler)
+export default proxy
 
-window.model = model;
+window.model = model

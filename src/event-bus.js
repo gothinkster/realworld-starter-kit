@@ -1,17 +1,22 @@
-import EventBus from 'eventbusjs';
+import EventBusClass from './lib/eventbus'
 
-EventBus.on = EventBus.addEventListener.bind(EventBus);
-EventBus.off = EventBus.removeEventListener.bind(EventBus);
+const EventBus = new EventBusClass()
 
-export default EventBus;
-export const dispatch = (event, target) => {
-  console.log(event, target);
-  EventBus.dispatch(event, target);
-};
-export const onEvent = EventBus.on.bind(EventBus);
-export const offEvent = EventBus.off.bind(EventBus);
+EventBus.on = EventBus.addEventListener.bind(EventBus)
+EventBus.off = EventBus.removeEventListener.bind(EventBus)
+
+export default EventBus
+export const dispatch = (event, payload) => {
+  console.log(`%c Event Dispatched: ${event}`, 'color: #aaaa00', payload)
+  if (typeof payload === 'object') {
+    console.info(payload)
+  }
+  EventBus.dispatch(event, payload)
+}
+export const onEvent = EventBus.on.bind(EventBus)
+export const offEvent = EventBus.off.bind(EventBus)
 export const onModelChanged = cb =>
-  onEvent(Events.MODEL_CHANGE, ({target}) => cb(target));
+  onEvent(Events.MODEL_CHANGE, data => cb(data))
 
 export const Events = {
   INIT_APP: 'initialize-app',
@@ -25,9 +30,11 @@ export const Events = {
   UPDATE_SETTINGS_FAILED: 'update-settings-failed',
   NAVIGATE_HOME: 'go-home',
   NAVIGATE_PROFILE: 'go-profile',
-  NAVIGATE_OWN_PROFILE: 'go-own-profile',
   NAVIGATE_ARTICLE: 'go-article',
   MODEL_CHANGE: 'model-changed',
   OPEN_MODAL: 'open-modal',
   CLOSE_MODAL: 'close-modal',
-};
+}
+
+window.dispatch = dispatch
+window.Events = Events

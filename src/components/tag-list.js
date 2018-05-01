@@ -1,6 +1,6 @@
-import {Slim} from 'slim-js';
-import {template} from 'slim-js/Decorators';
-import API from '../api';
+import {Slim} from 'slim-js'
+import {template} from 'slim-js/Decorators'
+import API from '../api'
 
 @template(/*html*/ `
 <p>Popular Tags</p>
@@ -13,11 +13,11 @@ import API from '../api';
 `)
 export default class TagList extends Slim {
   onCreated() {
-    API.getAllTags().then(({tags}) => (this.tags = tags));
+    API.getAllTags().then(({tags}) => (this.tags = tags))
   }
 
   onTagClick({target}) {
-    const {tag} = target;
-    console.log(tag);
+    const {tag} = target
+    this.callAttribute('on-tag-select', tag)
   }
 }

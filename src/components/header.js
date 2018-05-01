@@ -1,10 +1,13 @@
-import {Slim} from 'slim-js';
-import {template} from 'slim-js/Decorators';
-import model from '../model';
-import Bus, {Events, dispatch} from '../event-bus';
+import {Slim} from 'slim-js'
+import {template, tag} from 'slim-js/Decorators'
+import model from '../model'
+import {Events, dispatch, onEvent} from '../event-bus'
+import bindable from '../decorators/bindable'
 
-@template(`
+@tag('app-header')
+@template(/*html*/ `
 <nav class="navbar navbar-light">
+    <div bind>{{myUser}}</div>
     <div class="container">
     <a class="navbar-brand" href="/#">conduit</a>
     <ul class="nav navbar-nav pull-xs-right">
@@ -34,16 +37,17 @@ import Bus, {Events, dispatch} from '../event-bus';
     </ul>
     </div>
 </nav>`)
-export default class AppHeader extends Slim {
-  user = model.user;
+class AppHeader extends Slim {
+  @bindable('user') myUser
 
-  onAdded() {
-    Bus.on(Events.MODEL_CHANGE, e => {
-      this.user = model.user;
-    });
+  constructor() {
+    super()
+    // onEvent(Events.MODEL_CHANGE, () => {
+    //   this.user = model.user
+    // })
   }
 
   onOwnProfileClick() {
-    dispatch(Events.NAVIGATE_OWN_PROFILE);
+    dispatch(Events.NAVIGATE_OWN_PROFILE)
   }
 }

@@ -1,50 +1,57 @@
-import Bus, {dispatch, Events} from '../event-bus';
-import API from '../api';
-import Router from '../router/router';
-import Model from '../model';
+import {dispatch, Events, onEvent} from '../event-bus'
+import API from '../api'
+import Model from '../model'
+import UserStatus from '../user-status'
 
-Bus.on(Events.LOGIN, e => {
-  const {target: user} = e;
+onEvent(Events.LOGIN, user => {
   API.login(user.email, user.password)
     .catch(err => dispatch(Events.LOGIN_FAILED, err))
-    .then(data => dispatch(Events.LOGIN_SUCCESS, data));
-});
+    .then(data => dispatch(Events.LOGIN_SUCCESS, data))
+})
 
-Bus.on(Events.LOGIN_SUCCESS, event => {
-  const {email, password, bio, id, username, token} = event.target.user;
+onEvent(Events.LOGIN_SUCCESS, user => {
+  console.log(user)
+  const {email, password, bio, id, username, token} = user
   Model.user = {
     email,
     password,
     bio,
     id,
     username,
-  };
-  Router.navigate('/');
-});
+  }
+  Model.userStatus = UserStatus.LOGGED_IN
+  dispatch(Events.NAVIGATE_HOME)
+})
 
-Bus.on(Events.LOGIN_FAILED, () => {
-  Model.user = null;
-});
+onEvent(Events.LOGIN_FAILED, () => {
+  Model.user = null
+  Model.userStatus = UserStatus.LOGGED_OUT
+})
 
-Bus.on(Events.UPDATE_SETTINGS, ({target: user}) => {
+onEvent(Events.UPDATE_SETTINGS, user => {
   API.updateUser(user)
-    .then(({user}) => (Model.user = user))
+    .then(user => (Model.user = user))
     .then(() => dispatch(Events.UPDATE_SETTINGS_SUCCESS))
-    .catch(err => dispatch(Events.UPDATE_SETTINGS_FAILED, err));
-});
+    .catch(err => dispatch(Events.UPDATE_SETTINGS_FAILED, err))
+})
 
-Bus.on(Events.LOGOUT, () => {
-  Model.user = null;
-  API.logout();
-  dispatch(Events.INIT_APP);
-});
+onEvent(Events.LOGOUT, () => {
+  API.logout()
+  Model.user = null
+  dispatch(Events.INIT_APP)
+})
 
-Bus.on(Events.INIT_APP, () => {
+onEvent(Events.INIT_APP, () => {
   API.autoLogin()
-    .then(({user}) => (Model.user = user))
-    .catch(() => {
-      Model.user = null;
-      dispatch(Events.NAVIGATE_HOME);
+    .then(user => {
+      dispatch(Events.LOGIN_SUCCESS, user)
+      dispatch(Events.APP_READY)
     })
-    .finally(() => dispatch(Events.APP_READY));
-});
+    .catch(() => {
+      Model.user = undefined
+      Model.userStatus = UserStatus.LOGGED_OUT
+      dispatch(Events.LOGIN_FAILED)
+      dispatch(Events.NAVIGATE_HOME)
+      dispatch(Events.APP_READY)
+    })
+})

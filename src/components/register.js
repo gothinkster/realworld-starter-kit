@@ -1,6 +1,6 @@
-import {template} from 'slim-js/Decorators';
-import {Slim} from 'slim-js';
-import API from '../api';
+import {template} from 'slim-js/Decorators'
+import {Slim} from 'slim-js'
+import API from '../api'
 
 @template(/*html*/ `
 <div class="auth-page">
@@ -39,16 +39,16 @@ import API from '../api';
 `)
 export default class Register extends Slim {
   handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
     Promise.resolve()
       .then(() => {
-        this.email.disabled = true;
-        this.password.disabled = true;
+        this.email.disabled = true
+        this.password.disabled = true
       })
       .then(() =>
         API.register(this.username.value, this.email.value, this.password.value)
       )
       .then(() => alert('ok'))
-      .catch(() => alert('error'));
+      .catch(() => alert('error'))
   }
 }

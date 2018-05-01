@@ -1,4 +1,8 @@
 {
-    "presets": ["es2016"],
+    "presets": [["env", {
+        "targets": {
+            "browsers": ["chrome >= 64"]
+        }
+    }]],
     "plugins": ["transform-decorators-legacy", "transform-class-properties"]
 }

@@ -1,11 +1,11 @@
-import Bus, {Events, dispatch} from '../event-bus';
-import Router from '../router/router';
-import Model from '../model';
+import {onEvent, Events, dispatch} from '../event-bus'
+import Router from '../router/router'
+import Model from '../model'
 
-Bus.on(Events.NAVIGATE_HOME, () => Router.navigate('/'));
-Bus.on(Events.NAVIGATE_OWN_PROFILE, () => {
-  dispatch(Events.NAVIGATE_PROFILE, Model.user.username);
-});
-Bus.on(Events.NAVIGATE_PROFILE, ({target: username}) => {
-  Router.navigate(`/profile/@${username}`);
-});
+onEvent(Events.NAVIGATE_HOME, () => Router.navigate('/'))
+onEvent(Events.NAVIGATE_PROFILE, username => {
+  Router.navigate(`/profile/@${username}`)
+})
+onEvent(Events.NAVIGATE_ARTICLE, articleId => {
+  Router.navigate(`/article/@${articleId}`)
+})

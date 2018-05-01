@@ -1,9 +1,12 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-const distFolder = path.resolve(__dirname, 'dist');
+const distFolder = path.resolve(__dirname, 'dist')
 
 module.exports = {
   entry: './src/index.js',
@@ -11,49 +14,22 @@ module.exports = {
     path: distFolder,
     filename: '[name].bundle.js',
   },
+  resolve: {
+    alias: {
+      'slim-js/Decorators$': path.resolve(
+        __dirname,
+        './node_modules/slim-js/Decorators.js'
+      ),
+      'slim-js': path.resolve(__dirname, './node_modules/slim-js/src/Slim.js'),
+      // 'slim-js': path.resolve(__dirname, './src/Slim.js'),
+    },
+  },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
-      },
-      {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-      },
-      {
-        test: /\.(scss|css|sass)$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-      {
-        test: /\.html?$/,
-        loader: 'html-loader',
-      },
-      {
-        test: /\.(png|jpe?g|gif|svg)$/,
-        loaders: [
-          'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
-          {
-            loader:
-              'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false',
-            query: {
-              mozjpeg: {
-                progressive: true,
-              },
-              gifsicle: {
-                interlaced: false,
-              },
-              optipng: {
-                optimizationLevel: 4,
-              },
-              pngquant: {
-                quality: '75-90',
-                speed: 3,
-              },
-            },
-          },
-        ],
       },
     ],
   },
@@ -79,5 +55,7 @@ module.exports = {
       template: './src/index.html',
       title: 'Development',
     }),
+    new BundleAnalyzerPlugin(),
+    process.NODE_ENV === 'production' ? new UglifyJsPlugin() : () => {},
   ],
-};
+}

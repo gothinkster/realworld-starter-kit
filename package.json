@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "start": "webpack-dev-server --watch --open --progress --colors --config webpack.config.js",
+    "start": "webpack-dev-server --profile --watch --progress --colors --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -39,8 +39,11 @@
     "style-loader": "^0.19.0",
     "ts-loader": "^2.3.7",
     "typescript": "^2.5.3",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.9.1"
+    "webpack-bundle-analyzer": "^2.11.1",
+    "webpack-dev-server": "^2.9.1",
+    "webpack-visualizer-plugin": "^0.1.11"
   },
   "dependencies": {
     "eventbusjs": "^0.2.0",
