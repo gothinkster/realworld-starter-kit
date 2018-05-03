@@ -125,10 +125,7 @@ let make = (~author: Types.articleByAuthor, _children) => {
     | UpdateArticles((articles, articlesCount, currentPage)) =>
       ReasonReact.Update({...state, articles, articlesCount, currentPage})
     },
-  didMount: ({handle}) => {
-    handle(loadProfile, author);
-    ReasonReact.NoUpdate;
-  },
+  didMount: ({handle}) => handle(loadProfile, author),
   didUpdate: ({oldSelf, newSelf}) =>
     if (oldSelf.retainedProps.author !== newSelf.retainedProps.author) {
       newSelf.handle(loadProfile, newSelf.retainedProps.author);

@@ -77,10 +77,7 @@ let make = _children => {
       ReasonReact.Router.unwatchUrl,
     ),
   ],
-  didMount: ({handle}) => {
-    handle(getUser, ());
-    ReasonReact.NoUpdate;
-  },
+  didMount: ({handle}) => handle(getUser, ()),
   render: ({state, handle}) => {
     let {route, user} = state;
     let linkCx = makeLinkClass(route);

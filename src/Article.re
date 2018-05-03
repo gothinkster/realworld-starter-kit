@@ -124,7 +124,6 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
   didMount: ({handle}) => {
     handle(loadArticle, slug);
     handle(loadComments, slug);
-    ReasonReact.NoUpdate;
   },
   render: ({state}) => {
     let {article, comments} = state;

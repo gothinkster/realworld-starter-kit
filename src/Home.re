@@ -224,14 +224,8 @@ let make = (~user, _children) => {
     | UpdateArticles((articles, articlesCount, currentPage)) =>
       ReasonReact.Update({...state, articles, articlesCount, currentPage})
     },
-  didMount: ({handle}) => {
-    handle(initialData(~user), ());
-    ReasonReact.NoUpdate;
-  },
-  didUpdate: ({newSelf}) => {
-    newSelf.handle(initialData(~user), ());
-    ignore();
-  },
+  didMount: ({handle}) => handle(initialData(~user), ()),
+  didUpdate: ({newSelf}) => newSelf.handle(initialData(~user), ()),
   render: ({state, handle}) => {
     let {
       articles,

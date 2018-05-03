@@ -1,8 +1,8 @@
-let strEl = ReasonReact.stringToElement;
+let strEl = ReasonReact.string;
 
-let arrayEl = ReasonReact.arrayToElement;
+let arrayEl = ReasonReact.array;
 
-let nullEl = ReasonReact.nullElement;
+let nullEl = ReasonReact.null;
 
 [@bs.val] external requireCSS : string => unit = "require";
 
