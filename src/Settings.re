@@ -99,9 +99,9 @@ module Form = {
              dependents: None,
              validate: (value, state) =>
                switch (value) {
-               | "" => Invalid("Password is empty")
+               | "" => Invalid("Password confirmation is empty")
                | _ when value !== state.password =>
-                 Invalid("Password doesn't match")
+                 Invalid("Password confirmation doesn't match")
                | _ => Valid
                },
            },
