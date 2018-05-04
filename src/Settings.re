@@ -5,7 +5,6 @@ module Form = {
     | Image
     | Username
     | Password
-    | PasswordConfirmaion
     | Email
     | Bio;
   type value = string;
@@ -13,7 +12,6 @@ module Form = {
     image: string,
     username: string,
     password: string,
-    passwordConfirmation: string,
     email: string,
     bio: string,
   };
@@ -23,7 +21,6 @@ module Form = {
     | Image => state.image
     | Username => state.username
     | Password => state.password
-    | PasswordConfirmaion => state.passwordConfirmation
     | Email => state.email
     | Bio => state.bio
     };
@@ -32,10 +29,6 @@ module Form = {
     | (Image, image) => {...state, image}
     | (Username, username) => {...state, username}
     | (Password, password) => {...state, password}
-    | (PasswordConfirmaion, passwordConfirmation) => {
-        ...state,
-        passwordConfirmation,
-      }
     | (Email, email) => {...state, email}
     | (Bio, bio) => {...state, bio}
     };
@@ -59,7 +52,8 @@ module Form = {
              dependents: None,
              validate: (value, _state) =>
                switch (value) {
-               | "" => Invalid("Image is empty")
+               | v when ! Js.String.startsWith("http", v) =>
+                 Invalid("Image URL didn't starts with 'http'")
                | _ => Valid
                },
            },
@@ -71,7 +65,6 @@ module Form = {
              dependents: None,
              validate: (value, _state) =>
                switch (value) {
-               | "" => Invalid("Username is empty")
                | _ => Valid
                },
            },
@@ -80,30 +73,15 @@ module Form = {
            Password,
            {
              strategy,
-             dependents: Some([PasswordConfirmaion]),
+             dependents: None,
              validate: (value, _state) => {
                let minLength = 3;
                switch (value) {
-               | "" => Invalid("Password is empty")
-               | _ when String.length(value) < minLength =>
+               | v when String.length(v) > 0 && String.length(v) < minLength =>
                  Invalid({j|Password need $(minLength)+ characters|j})
                | _ => Valid
                };
              },
-           },
-         )
-      |> Validators.add(
-           PasswordConfirmaion,
-           {
-             strategy,
-             dependents: None,
-             validate: (value, state) =>
-               switch (value) {
-               | "" => Invalid("Password confirmation is empty")
-               | _ when value !== state.password =>
-                 Invalid("Password confirmation doesn't match")
-               | _ => Valid
-               },
            },
          )
       |> Validators.add(
@@ -114,6 +92,8 @@ module Form = {
              validate: (value, _state) =>
                switch (value) {
                | "" => Invalid("Email is empty")
+               | v when ! Js.Re.test(v, Regex.validEmail) =>
+                 Invalid("Email is invalid")
                | _ => Valid
                },
            },
@@ -125,7 +105,6 @@ module Form = {
              dependents: None,
              validate: (value, _state) =>
                switch (value) {
-               | "" => Invalid("Bio is empty")
                | _ => Valid
                },
            },
@@ -167,7 +146,6 @@ let make = (~user: Types.remoteUser, _children) => {
           image: v.image |. Belt.Option.getWithDefault(""),
           username: v.username,
           password: "",
-          passwordConfirmation: "",
           email: v.email,
           bio: v.bio |. Belt.Option.getWithDefault(""),
         }
@@ -182,14 +160,7 @@ let make = (~user: Types.remoteUser, _children) => {
                let errors =
                  switch (form.status) {
                  | Editing =>
-                   [
-                     Form.Image,
-                     Username,
-                     Password,
-                     PasswordConfirmaion,
-                     Email,
-                     Bio,
-                   ]
+                   [Form.Image, Username, Password, Email, Bio]
                    |> getSomeErrors(form.results)
                  | Submitting
                  | Submitted => None
