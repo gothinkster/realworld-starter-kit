@@ -120,14 +120,14 @@ module FormContainer = Formality.Make(Form);
 
 module Placeholder = {
   let component = ReasonReact.statelessComponent("Placeholder");
-  let make = _children => {
+  let make = (~message="Loading...", _children) => {
     ...component,
     render: _self =>
       <div className="settings-page">
         <div className="container page">
           <div className="row">
             <div className="col-md-6 offset-md-3 col-xs-12">
-              ("Loading..." |> strEl)
+              (message |> strEl)
             </div>
           </div>
         </div>
@@ -148,7 +148,9 @@ let make = (~user: Types.remoteUser, _children) => {
     switch (user) {
     | NotAsked
     | Loading => <Placeholder />
-    | Failure(_) => <Placeholder />
+    | Failure(message) => 
+  ReasonReact.Router.push("/#/");
+    <Placeholder message />
     | Success(v) =>
       <FormContainer
         initialState={
