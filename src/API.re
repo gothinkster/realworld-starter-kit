@@ -116,6 +116,42 @@ let user = () =>
     |> then_(getResultIfOk)
   );
 
+let updateUser = (~email, ~username, ~password, ~image, ~bio) =>
+  Js.Promise.(
+    fetchWithInit(
+      host ++ "/api/user",
+      Fetch.RequestInit.make(
+        ~method_=Put,
+        ~headers=
+          Js.Obj.assign(getJsonContentType(), getAuthorizationHeader())
+          |> Fetch.HeadersInit.make,
+        ~body=
+          Fetch.BodyInit.make(
+            Json.Encode.(
+              [
+                (
+                  "user",
+                  [
+                    ("email", email |> string),
+                    ("username", username |> string),
+                    ("password", password |> string),
+                    ("image", image |> string),
+                    ("bio", bio |> string),
+                  ]
+                  |> object_,
+                ),
+              ]
+              |> object_
+            )
+            |> Json.stringify,
+          ),
+        ~credentials=Include,
+        (),
+      ),
+    )
+    |> then_(getResultIfOk)
+  );
+
 let register = (~email, ~password, ~username) =>
   Js.Promise.(
     fetchWithInit(

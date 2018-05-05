@@ -163,7 +163,55 @@ let make = (~user: Types.remoteUser, _children) => {
         }
         onSubmit=(
           (state, {notifyOnSuccess, notifyOnFailure, reset}) => {
-            Js.log(state);
+            let {Form.email, username, password, image, bio} = state;
+            Js.Promise.(
+              API.updateUser(~email, ~username, ~password, ~image, ~bio)
+              |> then_(result => {
+                   switch (result) {
+                   | Js.Result.Ok(_) =>
+                     notifyOnSuccess(None);
+                     reset();
+                     ReasonReact.Router.push("/#/profile/" ++ username);
+                   | Error(error) =>
+                     let errors =
+                       error
+                       |> Json.Decode.(field("errors", dict(array(string))));
+                     let fieldErrors =
+                       [
+                         errors
+                         |. Js.Dict.get("email")
+                         |> getFirstError(Form.Email, "Email"),
+                         errors
+                         |. Js.Dict.get("username")
+                         |> getFirstError(Form.Username, "Username"),
+                         errors
+                         |. Js.Dict.get("password")
+                         |> getFirstError(Form.Password, "Password"),
+                         errors
+                         |. Js.Dict.get("image")
+                         |> getFirstError(Form.Image, "Image"),
+                         errors
+                         |. Js.Dict.get("bio")
+                         |> getFirstError(Form.Bio, "Bio"),
+                       ]
+                       |. Belt.List.keepMapU((. opt) => opt);
+                     notifyOnFailure(fieldErrors, None);
+                   };
+                   ignore() |> resolve;
+                 })
+              |> catch(error => {
+                   Js.log2(
+                     "There has been a problem with fetch operation: ",
+                     error,
+                   );
+                   notifyOnFailure(
+                     [],
+                     Some("failed to update account settings"),
+                   );
+                   ignore() |> resolve;
+                 })
+              |> ignore
+            );
             ignore();
           }
         )>
