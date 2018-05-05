@@ -52,8 +52,9 @@ module Form = {
              dependents: None,
              validate: (value, _state) =>
                switch (value) {
-               | v when ! Js.String.startsWith("http", v) =>
+               | v when v !== "" && ! Js.String.startsWith("http", v) =>
                  Invalid("Image URL didn't starts with 'http'")
+               | ""
                | _ => Valid
                },
            },
@@ -148,9 +149,9 @@ let make = (~user: Types.remoteUser, _children) => {
     switch (user) {
     | NotAsked
     | Loading => <Placeholder />
-    | Failure(message) => 
-  ReasonReact.Router.push("/#/");
-    <Placeholder message />
+    | Failure(message) =>
+      ReasonReact.Router.push("/#/");
+      <Placeholder message />;
     | Success(v) =>
       <FormContainer
         initialState={
