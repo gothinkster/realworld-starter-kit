@@ -65,6 +65,7 @@ module Form = {
              dependents: None,
              validate: (value, _state) =>
                switch (value) {
+               | "" => Invalid("Username is empty")
                | _ => Valid
                },
            },
@@ -75,10 +76,13 @@ module Form = {
              strategy,
              dependents: None,
              validate: (value, _state) => {
-               let minLength = 3;
+               let minLength = 8;
                switch (value) {
+               | "" => Invalid("Password is empty")
                | v when String.length(v) > 0 && String.length(v) < minLength =>
-                 Invalid({j|Password need $(minLength)+ characters|j})
+                 Invalid(
+                   {j|Password is too short (minimum is $(minLength)+ characters)|j},
+                 )
                | _ => Valid
                };
              },
@@ -131,11 +135,16 @@ module Placeholder = {
   };
 };
 
+let logout = (_event, _self) => {
+  setCookie("token", "");
+  ReasonReact.Router.push("/#/");
+};
+
 let component = ReasonReact.statelessComponent("Settings");
 
 let make = (~user: Types.remoteUser, _children) => {
   ...component,
-  render: _self =>
+  render: ({handle}) =>
     switch (user) {
     | NotAsked
     | Loading => <Placeholder />
@@ -298,6 +307,12 @@ let make = (~user: Types.remoteUser, _children) => {
                            </button>
                          </fieldset>
                        </form>
+                       <hr />
+                       <button
+                         className="btn btn-outline-danger"
+                         onClick=(handle(logout))>
+                         ("Or click here to logout." |> strEl)
+                       </button>
                      </div>
                    </div>
                  </div>
