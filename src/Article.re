@@ -19,25 +19,27 @@ module FollowOrEditButton = {
         _children,
       ) => {
     ...component,
-    render: _self =>
+    render: _self => {
+      let (isAuthor, username) =
+        switch (user, article) {
+        | (
+            RemoteData.NotAsked | Loading | Failure(_),
+            RemoteData.NotAsked | Loading | Failure(_),
+          )
+        | (Success(_), NotAsked | Loading | Failure(_)) => (false, "...")
+        | (Success(userVal), Success(articleVal))
+            when userVal.username === articleVal.author.username => (
+            true,
+            "",
+          )
+        | (NotAsked | Loading | Failure(_), Success({author: {username}}))
+        | (Success(_), Success({author: {username}})) => (false, username)
+        };
       <button className>
-        <i className="ion-plus-round" />
-        (
-          switch (user, article) {
-          | (
-              RemoteData.NotAsked | Loading | Failure(_),
-              RemoteData.NotAsked | Loading | Failure(_),
-            )
-          | (Success(_), NotAsked | Loading | Failure(_)) => " ... " |> strEl
-          | (Success(userVal), Success(articleVal))
-              when userVal.username === articleVal.author.username =>
-            " Edit Article " |> strEl
-          | (NotAsked | Loading | Failure(_), Success({author: {username}}))
-          | (Success(_), Success({author: {username}})) =>
-            " Follow " ++ username |> strEl
-          }
-        )
-      </button>,
+        <i className=(isAuthor ? "ion-edit" : "ion-plus-round") />
+        ((isAuthor ? " Edit Article " : " Follow " ++ username) |> strEl)
+      </button>;
+    },
   };
 };
 
