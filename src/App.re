@@ -165,7 +165,10 @@ let make = _children => {
         switch (route) {
         | Login => <Login onSuccessLogin=(handle(getUser)) />
         | Register => <Register onSuccessRegister=(handle(getUser)) />
-        | Settings => <Settings user />
+        | Settings =>
+          <PrivateRoute user>
+            ...(userData => <Settings user=userData />)
+          </PrivateRoute>
         | Editor => <Editor />
         | Profile(author) => <Profile author />
         | Article(slug) => <Article slug user />
