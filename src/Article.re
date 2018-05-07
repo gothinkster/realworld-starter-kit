@@ -9,6 +9,26 @@ type state = {
   comments: Types.remoteComments,
 };
 
+module Img = {
+  let component = ReasonReact.statelessComponent("Img");
+  let make = (~src=None, ~width=30, ~height=30, ~className="", _children) => {
+    ...component,
+    render: _self =>
+      <img
+        className
+        src=(
+          src
+          |. Belt.Option.getWithDefault(
+               "//placehold.it/"
+               ++ string_of_int(width)
+               ++ "x"
+               ++ string_of_int(height),
+             )
+        )
+      />,
+  };
+};
+
 module Card = {
   let component = ReasonReact.statelessComponent("Card");
   let make = (~data, ~user: Types.remoteUser, _children) => {
@@ -22,7 +42,7 @@ module Card = {
         <div className="card-footer">
           <a
             href=("/#/profile/" ++ author.username) className="comment-author">
-            <img src=author.image className="comment-author-img" />
+            <Img src=(Some(author.image)) className="comment-author-img" />
           </a>
           (" " |> strEl)
           <a
@@ -150,16 +170,14 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
                 | Failure(_) => ""
                 }
               )>
-              <img
-                src=(
-                  switch (article) {
-                  | NotAsked
-                  | Loading => "//placehold.it/100x100"
-                  | Success({author}) => author.image
-                  | Failure(_) => "//placehold.it/100x100"
-                  }
-                )
-              />
+              (
+                switch (article) {
+                | NotAsked
+                | Loading => <Img />
+                | Success({author}) => <Img src=(Some(author.image)) />
+                | Failure(_) => <Img />
+                }
+              )
             </a>
             <div className="info">
               <a
@@ -283,16 +301,14 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
                 | Failure(_) => ""
                 }
               )>
-              <img
-                src=(
-                  switch (article) {
-                  | NotAsked
-                  | Loading => "//placehold.it/100x100"
-                  | Success({author}) => author.image
-                  | Failure(_) => "//placehold.it/100x100"
-                  }
-                )
-              />
+              (
+                switch (article) {
+                | NotAsked
+                | Loading => <Img />
+                | Success({author}) => <Img src=(Some(author.image)) />
+                | Failure(_) => <Img />
+                }
+              )
             </a>
             <div className="info">
               <a
@@ -390,7 +406,7 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
                     />
                   </div>
                   <div className="card-footer">
-                    <img src=data.username className="comment-author-img" />
+                    <Img src=data.image className="comment-author-img" />
                     <button className="btn btn-sm btn-primary">
                       ("Post Comment" |> strEl)
                     </button>
