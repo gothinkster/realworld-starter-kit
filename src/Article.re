@@ -9,6 +9,38 @@ type state = {
   comments: Types.remoteComments,
 };
 
+module FollowOrEditButton = {
+  let component = ReasonReact.statelessComponent("FollowOrEditButton");
+  let make =
+      (
+        ~user: Types.remoteUser,
+        ~article: Types.remoteArticle,
+        ~className="",
+        _children,
+      ) => {
+    ...component,
+    render: _self =>
+      <button className>
+        <i className="ion-plus-round" />
+        (
+          switch (user, article) {
+          | (
+              RemoteData.NotAsked | Loading | Failure(_),
+              RemoteData.NotAsked | Loading | Failure(_),
+            )
+          | (Success(_), NotAsked | Loading | Failure(_)) => " ... " |> strEl
+          | (Success(userVal), Success(articleVal))
+              when userVal.username === articleVal.author.username =>
+            " Edit Article " |> strEl
+          | (NotAsked | Loading | Failure(_), Success({author: {username}}))
+          | (Success(_), Success({author: {username}})) =>
+            " Follow " ++ username |> strEl
+          }
+        )
+      </button>,
+  };
+};
+
 module Img = {
   let component = ReasonReact.statelessComponent("Img");
   let make = (~src=None, ~width=30, ~height=30, ~className="", _children) => {
@@ -214,21 +246,11 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
                 )
               </span>
             </div>
-            <button className="btn btn-sm btn-outline-secondary">
-              <i className="ion-plus-round" />
-              (
-                " Follow "
-                ++ (
-                  switch (article) {
-                  | NotAsked
-                  | Loading => ""
-                  | Success({author}) => author.username
-                  | Failure(_) => ""
-                  }
-                )
-                |> strEl
-              )
-            </button>
+            <FollowOrEditButton
+              className="btn btn-sm btn-outline-secondary"
+              user
+              article
+            />
             (" " |> strEl)
             <button className="btn btn-sm btn-outline-primary">
               <i className="ion-heart" />
@@ -345,21 +367,11 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
                 )
               </span>
             </div>
-            <button className="btn btn-sm btn-outline-secondary">
-              <i className="ion-plus-round" />
-              (
-                " Follow "
-                ++ (
-                  switch (article) {
-                  | NotAsked
-                  | Loading => ""
-                  | Success({author}) => author.username
-                  | Failure(_) => ""
-                  }
-                )
-                |> strEl
-              )
-            </button>
+            <FollowOrEditButton
+              className="btn btn-sm btn-outline-secondary"
+              user
+              article
+            />
             (" " |> strEl)
             <button className="btn btn-sm btn-outline-primary">
               <i className="ion-heart" />
