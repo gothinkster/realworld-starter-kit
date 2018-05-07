@@ -9,13 +9,56 @@ type state = {
   comments: Types.remoteComments,
 };
 
+module FavoriteOrDeleteButton = {
+  let component = ReasonReact.statelessComponent("FavoriteOrDeleteButton");
+  let make =
+      (
+        ~user: Types.remoteUser,
+        ~article: Types.remoteArticle,
+        ~favoriteClassName="",
+        ~deleteClassName="",
+        _children,
+      ) => {
+    ...component,
+    render: _self => {
+      let (isAuthor, favoritesCount) =
+        switch (user, article) {
+        | (
+            RemoteData.NotAsked | Loading | Failure(_),
+            RemoteData.NotAsked | Loading | Failure(_),
+          )
+        | (Success(_), NotAsked | Loading | Failure(_)) => (false, 0)
+        | (Success(userVal), Success(articleVal))
+            when userVal.username === articleVal.author.username => (
+            true,
+            0,
+          )
+        | (NotAsked | Loading | Failure(_), Success({favoritesCount}))
+        | (Success(_), Success({favoritesCount})) => (false, favoritesCount)
+        };
+      <button className=(isAuthor ? deleteClassName : favoriteClassName)>
+        <i className=(isAuthor ? "ion-trash-a" : "ion-heart") />
+        ((isAuthor ? " Delete Article " : " Favorite Post ") |> strEl)
+        (
+          isAuthor ?
+            nullEl :
+            <span className="counter">
+              (" (" ++ string_of_int(favoritesCount) ++ ")" |> strEl)
+            </span>
+        )
+      </button>;
+    },
+  };
+};
+
 module FollowOrEditButton = {
   let component = ReasonReact.statelessComponent("FollowOrEditButton");
   let make =
       (
         ~user: Types.remoteUser,
         ~article: Types.remoteArticle,
-        ~className="",
+        ~followClassName="",
+        ~editClassName="",
         _children,
       ) => {
     ...component,
@@ -35,7 +78,7 @@ module FollowOrEditButton = {
         | (NotAsked | Loading | Failure(_), Success({author: {username}}))
         | (Success(_), Success({author: {username}})) => (false, username)
         };
-      <button className>
+      <button className=(isAuthor ? editClassName : followClassName)>
         <i className=(isAuthor ? "ion-edit" : "ion-plus-round") />
         ((isAuthor ? " Edit Article " : " Follow " ++ username) |> strEl)
       </button>;
@@ -249,31 +292,18 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
               </span>
             </div>
             <FollowOrEditButton
-              className="btn btn-sm btn-outline-secondary"
+              followClassName="btn btn-sm btn-outline-secondary"
+              editClassName="btn btn-sm btn-outline-secondary"
               user
               article
             />
             (" " |> strEl)
-            <button className="btn btn-sm btn-outline-primary">
-              <i className="ion-heart" />
-              (" Favorite Post " |> strEl)
-              <span className="counter">
-                (
-                  " ("
-                  ++ (
-                    switch (article) {
-                    | NotAsked
-                    | Loading => "-"
-                    | Success({favoritesCount}) =>
-                      favoritesCount |> string_of_int
-                    | Failure(_) => "-"
-                    }
-                  )
-                  ++ ")"
-                  |> strEl
-                )
-              </span>
-            </button>
+            <FavoriteOrDeleteButton
+              favoriteClassName="btn btn-sm btn-outline-primary"
+              deleteClassName="btn btn-sm btn-outline-danger"
+              user
+              article
+            />
           </div>
         </div>
       </div>
@@ -370,31 +400,18 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
               </span>
             </div>
             <FollowOrEditButton
-              className="btn btn-sm btn-outline-secondary"
+              followClassName="btn btn-sm btn-outline-secondary"
+              editClassName="btn btn-sm btn-outline-secondary"
               user
               article
             />
             (" " |> strEl)
-            <button className="btn btn-sm btn-outline-primary">
-              <i className="ion-heart" />
-              (" Favorite Post " |> strEl)
-              <span className="counter">
-                (
-                  "("
-                  ++ (
-                    switch (article) {
-                    | NotAsked
-                    | Loading => "-"
-                    | Success({favoritesCount}) =>
-                      favoritesCount |> string_of_int
-                    | Failure(_) => "-"
-                    }
-                  )
-                  ++ ")"
-                  |> strEl
-                )
-              </span>
-            </button>
+            <FavoriteOrDeleteButton
+              favoriteClassName="btn btn-sm btn-outline-primary"
+              deleteClassName="btn btn-sm btn-outline-danger"
+              user
+              article
+            />
           </div>
         </div>
         <div className="row">
