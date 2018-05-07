@@ -17,6 +17,8 @@ module FavoriteOrDeleteButton = {
         ~article: Types.remoteArticle,
         ~favoriteClassName="",
         ~deleteClassName="",
+        ~onFavoriteClick=_event => ignore(),
+        ~onDeleteClick=_event => ignore(),
         _children,
       ) => {
     ...component,
@@ -36,7 +38,9 @@ module FavoriteOrDeleteButton = {
         | (NotAsked | Loading | Failure(_), Success({favoritesCount}))
         | (Success(_), Success({favoritesCount})) => (false, favoritesCount)
         };
-      <button className=(isAuthor ? deleteClassName : favoriteClassName)>
+      <button
+        className=(isAuthor ? deleteClassName : favoriteClassName)
+        onClick=(isAuthor ? onDeleteClick : onFavoriteClick)>
         <i className=(isAuthor ? "ion-trash-a" : "ion-heart") />
         ((isAuthor ? " Delete Article " : " Favorite Post ") |> strEl)
         (
@@ -59,6 +63,8 @@ module FollowOrEditButton = {
         ~article: Types.remoteArticle,
         ~followClassName="",
         ~editClassName="",
+        ~onFollowClick=_event => ignore(),
+        ~onEditClick=_event => ignore(),
         _children,
       ) => {
     ...component,
@@ -78,7 +84,9 @@ module FollowOrEditButton = {
         | (NotAsked | Loading | Failure(_), Success({author: {username}}))
         | (Success(_), Success({author: {username}})) => (false, username)
         };
-      <button className=(isAuthor ? editClassName : followClassName)>
+      <button
+        className=(isAuthor ? editClassName : followClassName)
+        onClick=(isAuthor ? onEditClick : onFollowClick)>
         <i className=(isAuthor ? "ion-edit" : "ion-plus-round") />
         ((isAuthor ? " Edit Article " : " Follow " ++ username) |> strEl)
       </button>;
