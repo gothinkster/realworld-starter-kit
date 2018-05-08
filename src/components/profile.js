@@ -1,16 +1,17 @@
-import {template} from 'slim-js/Decorators'
+import {template, tag} from 'slim-js/Decorators'
 import {Slim} from 'slim-js'
-import ArticlesView from './articles-view'
 import ReactiveElement from '../common/ReactiveElement'
 import {dispatch, onEvent, offEvent, Events} from '../event-bus'
 import API from '../api'
 import Model from '../model'
 
 import CONFIG from '../../config'
-const {articlesPerPage: maxArticlesToDisplay, defaultProfileImage} = CONFIG
+import bindable from '../decorators/bindable';
+import feedType from '../enums/feed-type';
+const {articlesPerPage: maxArticlesToDisplay} = CONFIG
 
+@tag('profile-page')
 @template(/*html*/ `
-<h2>Profile</h2>
 <div class="profile-page">
   <div s:if="profileData" class="user-info">
     <div class="container">
@@ -28,53 +29,44 @@ const {articlesPerPage: maxArticlesToDisplay, defaultProfileImage} = CONFIG
     </div>
   </div>
   <article-list
-        bind:tabs="tabs"
-        bind:articles="articles"
-        on-tab-select="handleTabSelected"
-        on-change-page="handlePageChanged"></article-list>
+    bind:tabs="tabs"
+    bind:max-articles-to-display="maxArticlesToDisplay">
+  </article-list>
 </div>`)
-export default class Profile extends ArticlesView {
-  profileData
+export default class Profile extends Slim {
+  @bindable('profile', ['profileChanged']) profileData
+  routeParams
+  profileId
+  tabs
 
-  constructor() {
-    super()
-    onEvent(Events.MODEL_CHANGE, ({prop, value}) => {
-      if (prop === 'user' && value) {
-        this.profileData = value
-      }
+  onAdded () {
+    const {/* @type string */ profileId} = this.routeParams
+    if (profileId.startsWith('@')) {
+      this.profileId = profileId.slice(1)
+    } else {
+      this.profileId = profileId
+    }
+    dispatch(Events.GET_PROFILE, this.profileId)
+    dispatch(Events.GET_ARTICLES, {
+      profileId: this.profileId,
+      offset: 0,
+      type: feedType.PROFILE_FEED
     })
   }
 
-  static get observedAttributes() {
-    return ['profile-id']
+  profileChanged() {
+    this.tabs = [
+      {
+        name: 'My Articles',
+        type: feedType.PROFILE_FEED,
+        profileId: this.profileId
+      },
+      {
+        name: 'Favourited Articles',
+        type: feedType.FAV_FEED,
+        profileId: this.profileId
+      }
+    ]
   }
 
-  static get template() {
-    return Object.getPrototypeOf(this).template
-  }
-
-  async profileIdChanged(profileId) {
-    try {
-      if (profileId === this.profileData.username) return
-    } catch (err) {}
-    let profile
-    if (String(profileId) === 'null' || String(profileId) === 'undefined')
-      return
-    if (Model.user && profileId === Model.user.username) {
-      profile = Model.user
-      this.tabs = [
-        {name: 'Your Feed', count: 0, type: 'own'},
-        {name: 'Global Feed', count: 0, type: 'global'},
-      ]
-    } else {
-      const data = await API.getUser(profileId)
-      profile = data.profile
-      this.tabs = [
-        {name: `${profileId}'s Feed`, count: 0, type: 'profile', profileId},
-      ]
-    }
-    profile.image = profile.image || defaultProfileImage
-    this.profileData = profile
-    this.handleTabSelected(this.tabs[0])
-  }
 }

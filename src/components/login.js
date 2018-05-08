@@ -1,8 +1,9 @@
-import {template} from 'slim-js/Decorators';
-import {Slim} from 'slim-js';
-import {dispatch, offEvent, onEvent} from '../event-bus';
+import {template, tag} from 'slim-js/Decorators'
+import {Slim} from 'slim-js'
+import {dispatch, offEvent, onEvent} from '../event-bus'
 
-@template(`
+@tag('login-page')
+@template(/*html*/ `
 <div class="auth-page">
   <div class="container page">
     <div class="row">
@@ -34,48 +35,48 @@ import {dispatch, offEvent, onEvent} from '../event-bus';
 </div>
 `)
 export default class Login extends Slim {
-  isLoginFailed = false;
+  isLoginFailed = false
 
   constructor() {
-    super();
+    super()
   }
 
   initialize() {
-    this._onLoginFailed = this.onLoginFailed.bind(this);
-    this._onLoginSuccess = this.onLoginSuccess.bind(this);
-    this.isLoginFailed = false;
-    onEvent('login-failed', this._onLoginFailed);
-    onEvent('login-success', this._onLoginSuccess);
-    this.password.value = 'test1234';
-    this.email.value = 'eavichay@gmail.com';
+    this._onLoginFailed = this.onLoginFailed.bind(this)
+    this._onLoginSuccess = this.onLoginSuccess.bind(this)
+    this.isLoginFailed = false
+    onEvent('login-failed', this._onLoginFailed)
+    onEvent('login-success', this._onLoginSuccess)
+    this.password.value = 'test1234'
+    this.email.value = 'eavichay@gmail.com'
   }
 
   setControlsEnabled(value) {
-    this.password.disabled = this.email.disabled = this.submitBtn.disabled = !value;
+    this.password.disabled = this.email.disabled = this.submitBtn.disabled = !value
   }
 
   onRender() {
-    this.initialize();
+    this.initialize()
   }
 
   onRemoved() {
-    offEvent('login-failed', this._onLoginFailed);
-    offEvent('login-success', this._onLoginSuccess);
+    offEvent('login-failed', this._onLoginFailed)
+    offEvent('login-success', this._onLoginSuccess)
   }
 
   onLoginFailed(errorEvent) {
-    this.isLoginFailed = true;
-    this.setControlsEnabled(true);
+    this.isLoginFailed = true
+    this.setControlsEnabled(true)
   }
 
   onLoginSuccess(data) {}
 
   handleSubmit(e) {
-    e.preventDefault();
-    this.setControlsEnabled(false);
+    e.preventDefault()
+    this.setControlsEnabled(false)
     dispatch('login', {
       email: this.email.value,
       password: this.password.value,
-    });
+    })
   }
 }

@@ -1,14 +1,15 @@
-import {Slim} from 'slim-js';
-import {template} from 'slim-js/Decorators';
-import {Events, dispatch} from '../event-bus';
-import Config from '../../config';
+import {Slim} from 'slim-js'
+import {template, tag} from 'slim-js/Decorators'
+import {Events, dispatch} from '../event-bus'
+import Config from '../../config'
 
 const parseDateOptions = {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
-};
+}
 
+@tag('article-preview')
 @template(/*html*/ `
 <div s:if="data" class="article-preview">
   <div class="article-meta" click="navigateToProfile">
@@ -29,26 +30,26 @@ const parseDateOptions = {
 </div>
 `)
 export default class ArticlePreview extends Slim {
-  data;
+  data
 
   parseDate(dateString) {
-    const d = new Date();
-    return d.toLocaleDateString('en-US', parseDateOptions);
+    const d = new Date()
+    return d.toLocaleDateString('en-US', parseDateOptions)
   }
 
   navigateToProfile() {
-    dispatch(Events.NAVIGATE_PROFILE, this.data.author.username);
+    dispatch(Events.NAVIGATE_PROFILE, this.data.author.username)
   }
 
   navigateToArticle() {
-    dispatch(Events.NAVIGATE_ARTICLE, this.data.slug);
+    dispatch(Events.NAVIGATE_ARTICLE, this.data.slug)
   }
 
   getProfileImage() {
     if (this.data && this.data.image) {
-      return this.data.image;
+      return this.data.image
     } else {
-      return Config.defaultProfileImage;
+      return Config.defaultProfileImage
     }
   }
 }
@@ -76,4 +77,4 @@ const stub = {
     },
   ],
   articlesCount: 1,
-};
+}

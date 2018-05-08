@@ -7,7 +7,6 @@ import bindable from '../decorators/bindable'
 @tag('app-header')
 @template(/*html*/ `
 <nav class="navbar navbar-light">
-    <div bind>{{myUser}}</div>
     <div class="container">
     <a class="navbar-brand" href="/#">conduit</a>
     <ul class="nav navbar-nav pull-xs-right">
@@ -15,7 +14,7 @@ import bindable from '../decorators/bindable'
         <!-- Add "active" class when you're on that page" -->
         <a class="nav-link active" href="#/">Home</a>
         </li>
-        <li s:if="user" class="nav-item">
+        <li s:if="userProfile" class="nav-item">
             <a class="nav-link" href="#/">
                 <i class="ion-compose"></i>&nbsp;New Post
             </a>
@@ -25,29 +24,26 @@ import bindable from '../decorators/bindable'
                 <i class="ion-gear-a"></i>&nbsp;Settings
             </a>
         </li>
-        <li s:if="!user" class="nav-item">
+        <li s:if="!userProfile" class="nav-item">
             <a class="nav-link" href="#/login">Sign In</a>
         </li>
-        <li s:if="!user" class="nav-item">
+        <li s:if="!userProfile" class="nav-item">
             <a class="nav-link" href="#/register">Sign up</a>
         </li>
-        <li s:if="user" class="nav-item">
-            <a class="nav-link" click="onOwnProfileClick" bind>{{user.username}}</a>
+        <li s:if="userProfile" class="nav-item">
+            <a class="nav-link" click="onOwnProfileClick" bind>{{userProfile.username}}</a>
         </li>
     </ul>
     </div>
 </nav>`)
 class AppHeader extends Slim {
-  @bindable('user') myUser
+  @bindable('user') userProfile
 
   constructor() {
     super()
-    // onEvent(Events.MODEL_CHANGE, () => {
-    //   this.user = model.user
-    // })
   }
 
   onOwnProfileClick() {
-    dispatch(Events.NAVIGATE_OWN_PROFILE)
+    dispatch(Events.NAVIGATE_PROFILE, this.userProfile.username)
   }
 }

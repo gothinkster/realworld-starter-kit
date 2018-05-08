@@ -1,16 +1,11 @@
 import {Events, dispatch} from './event-bus'
-import UserStatus from './user-status'
 
+// single-store schema
 const model = {
   user: undefined,
-  appInitialized: false,
-  userStatus: UserStatus.UNKNOWN,
-  selectedProfile: undefined,
-  update: function(data) {
-    Object.keys(data).forEach(key => {
-      this[key] = data[key]
-    })
-  },
+  articles: undefined,
+  articlesCount: 0,
+  profile: undefined
 }
 
 let promise
@@ -28,7 +23,7 @@ const collect = (prop, value) => {
 const handler = {
   set: (target, prop, value) => {
     if (target[prop] !== value) {
-      console.log(`model change (${prop})`)
+      // logger.log(`model change (${prop})`)
       target[prop] = value
       collect(prop, value)
       // dispatch(Events.MODEL_CHANGE, {prop, value})

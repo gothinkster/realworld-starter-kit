@@ -12,7 +12,7 @@ const makeFetch = (url, method = 'GET', data) => {
   if (token) {
     headers.set('authorization', `Token ${token}`)
   }
-  console.log(`%c Fetch: ${url}`, 'color: red')
+  // logger.log(`%c Fetch: ${url}`, 'color: red')
   return fetch(CONFIG.endpoint + url, {
     headers,
     body: data ? JSON.stringify(data) : undefined,
@@ -20,12 +20,12 @@ const makeFetch = (url, method = 'GET', data) => {
     method,
   })
     .then(r => {
-      console.log(`%c Fetch: ${url} ${r.status}`, 'color: green')
+      // logger.log(`%c Fetch: ${url} ${r.status}`, 'color: green')
       return r
     })
     .then(r => r.json())
     .catch(err => {
-      console.log(err)
+      logger.log(err)
       throw err
     })
 }
@@ -70,7 +70,7 @@ const agent = {
 }
 
 const openPopup = () => {
-  dispatch(Events.OPEN_MODAL, 'Loading data...')
+  dispatch(Events.OPEN_MODAL, 'Ok, hold on 👍...')
 }
 
 const closePopup = (resolution, isError = false) => {
@@ -96,7 +96,7 @@ export default class API {
   }
 
   static async autoLogin() {
-    console.log('has token? ' + !!token)
+    // logger.log('has token? ' + !!token)
     if (!token) {
       throw new Error('No Token')
     }
@@ -104,7 +104,7 @@ export default class API {
       .get(`/user`)
       .then(body => body.user)
       .then(user => {
-        console.log(user)
+        // logger.log(user)
         return user
       })
   }
@@ -126,7 +126,7 @@ export default class API {
           token = user.token
           window.localStorage.setItem('jwt', token)
         }
-        console.log(user)
+        // logger.log(user)
         return user
       })
   }

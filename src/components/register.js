@@ -1,7 +1,8 @@
-import {template} from 'slim-js/Decorators'
+import {template, tag} from 'slim-js/Decorators'
 import {Slim} from 'slim-js'
 import API from '../api'
 
+@tag('register-page')
 @template(/*html*/ `
 <div class="auth-page">
   <div class="container page">

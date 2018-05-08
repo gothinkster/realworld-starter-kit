@@ -7,16 +7,18 @@ EventBus.off = EventBus.removeEventListener.bind(EventBus)
 
 export default EventBus
 export const dispatch = (event, payload) => {
-  console.log(`%c Event Dispatched: ${event}`, 'color: #aaaa00', payload)
+  logger.log(`%c Event Dispatched: ${event}`, 'color: #aaaa00', payload)
   if (typeof payload === 'object') {
     console.info(payload)
   }
   EventBus.dispatch(event, payload)
 }
+export const delay = () => {
+  return Promise.resolve()
+}
 export const onEvent = EventBus.on.bind(EventBus)
 export const offEvent = EventBus.off.bind(EventBus)
-export const onModelChanged = cb =>
-  onEvent(Events.MODEL_CHANGE, data => cb(data))
+export const onModelChanged = cb => onEvent(Events.MODEL_CHANGE, cb)
 
 export const Events = {
   INIT_APP: 'initialize-app',
@@ -34,6 +36,8 @@ export const Events = {
   MODEL_CHANGE: 'model-changed',
   OPEN_MODAL: 'open-modal',
   CLOSE_MODAL: 'close-modal',
+  GET_ARTICLES: 'get-articles',
+  GET_PROFILE: 'get-profile'
 }
 
 window.dispatch = dispatch

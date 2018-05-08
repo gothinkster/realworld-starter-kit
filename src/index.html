@@ -1,51 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="apple-touch-icon" sizes="57x57" href="./assets/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="./assets/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="./assets/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="./assets/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="./assets/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="./assets/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="./assets/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="./assets/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="./assets/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="./assets/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="./assets/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    <meta charset="UTF-8">
-    <title>Conduit - Slim.js</title>
-    <style>
-        *[click]:not(:disabled) {
-            cursor: pointer;
-        }
-        .article-count {
-            font-size: 80%;
-            padding-left: 0.5rem;
-            position: relative;
-        }
 
-        dialog[open] {
-            position: fixed;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(255,255,255,0.8);
-            z-index: 9;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border: none;
-        }
-    </style>
-</head>
-<body>
-    <conduit-app></conduit-app>
-    <!-- <a href="https://github.com/eavichay/slimjs-realworld-example-app" target="_blank" style="position:fixed;bottom:0;width:100%;background:linear-gradient(#485563, #29323c);text-align: center;padding:15px;box-shadow:0 5px 5px 5px rgba(0,0,0,0.4);z-index:999;color:#fff;font-size:1.5rem;display:block"><i class="ion-social-github"></i>&nbsp;&nbsp;Fork on GitHub</a> -->
-</body>
+    <head>
+        <link rel="apple-touch-icon" sizes="57x57" href="./assets/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="./assets/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="./assets/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="./assets/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="./assets/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="./assets/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="./assets/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="./assets/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="./assets/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="./assets/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
+        <link rel="manifest" href="/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="./assets/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        <meta charset="UTF-8">
+        <title>Conduit - Slim.js</title>
+        <style>
+            *[click]:not(:disabled) {
+                cursor: pointer;
+            }
+
+            .article-count {
+                font-size: 80%;
+                padding-left: 0.5rem;
+                position: relative;
+            }
+
+            dialog {
+                position: fixed;
+                width: 100vw;
+                height: 100vh;
+                background: transparent;
+                z-index: 9;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                border: none;
+                transition: .25s;
+                transition-delay: 1s;
+                transform: scale(0);
+                background-image: radial-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0))
+            }
+
+            dialog>.container,
+            placeholder.container {
+                text-shadow: 0 1px 3px #5cb85c;
+                color: #2b572b;
+                font-size: 4rem;
+                padding: 2rem;
+            }
+
+            dialog[open] {
+                transform: scale(1);
+                transition-delay: 2s;
+                transition-timing-function: cubic-bezier(.85, 0, .35, 1.58)
+            }
+        </style>
+    </head>
+
+    <body>
+        <conduit-app>
+            <placeholder class="container" style="text-align: center; display: block; width: 100%">
+                Ok, hold on 👍...
+                <br/> The app is loading
+            </placeholder>
+        </conduit-app>
+        <!-- <a href="https://github.com/eavichay/slimjs-realworld-example-app" target="_blank" style="position:fixed;bottom:0;width:100%;background:linear-gradient(#485563, #29323c);text-align: center;padding:15px;box-shadow:0 5px 5px 5px rgba(0,0,0,0.4);z-index:999;color:#fff;font-size:1.5rem;display:block"><i class="ion-social-github"></i>&nbsp;&nbsp;Fork on GitHub</a> -->
+    </body>
+
 </html>
