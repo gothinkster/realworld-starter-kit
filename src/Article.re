@@ -215,6 +215,26 @@ let loadComments = (slug, {ReasonReact.send}) => {
   ignore();
 };
 
+let redirectToEditorPage = (article: Types.remoteArticle) => {
+  switch (article) {
+  | Loading
+  | NotAsked
+  | Failure(_) => ignore()
+  | Success({slug}) => ReasonReact.Router.push("/#/editor/" ++ slug)
+  };
+  ignore();
+};
+
+let followUser = (user: Types.remoteUser) => {
+  switch (user) {
+  | Loading
+  | NotAsked
+  | Failure(_) => ignore()
+  | Success(v) => Js.log(v)
+  };
+  ignore();
+};
+
 let make = (~user: Types.remoteUser, ~slug, _children) => {
   ...component,
   initialState: () => {
@@ -304,6 +324,8 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
               editClassName="btn btn-sm btn-outline-secondary"
               user
               article
+              onEditClick=(_event => redirectToEditorPage(article))
+              onFollowClick=(_event => followUser(user))
             />
             (" " |> strEl)
             <FavoriteOrDeleteButton
