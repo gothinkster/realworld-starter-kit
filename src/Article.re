@@ -215,6 +215,26 @@ let loadComments = (slug, {ReasonReact.send}) => {
   ignore();
 };
 
+let favoriteArticle = (article: Types.remoteArticle) => {
+  switch (article) {
+  | Loading
+  | NotAsked
+  | Failure(_) => ignore()
+  | Success({slug}) => Js.log("favorite:" ++ slug)
+  };
+  ignore();
+};
+
+let deleteArticle = (article: Types.remoteArticle) => {
+  switch (article) {
+  | Loading
+  | NotAsked
+  | Failure(_) => ignore()
+  | Success({slug}) => Js.log("delete: " ++ slug)
+  };
+  ignore();
+};
+
 let redirectToEditorPage = (article: Types.remoteArticle) => {
   switch (article) {
   | Loading
@@ -230,7 +250,7 @@ let followUser = (user: Types.remoteUser) => {
   | Loading
   | NotAsked
   | Failure(_) => ignore()
-  | Success(v) => Js.log(v)
+  | Success({username}) => Js.log("follow user: " ++ username)
   };
   ignore();
 };
@@ -333,6 +353,8 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
               deleteClassName="btn btn-sm btn-outline-danger"
               user
               article
+              onFavoriteClick=(_event => favoriteArticle(article))
+              onDeleteClick=(_event => deleteArticle(article))
             />
           </div>
         </div>
