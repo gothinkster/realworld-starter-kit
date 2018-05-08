@@ -27,10 +27,15 @@ onEvent (Events.LOGIN_FAILED, () => {
 
 onEvent (Events.UPDATE_SETTINGS, user => {
   API.updateUser (user)
-    .then (user => (Model.user = user))
-    .then (() => dispatch (Events.UPDATE_SETTINGS_SUCCESS))
+    .then (data => dispatch (Events.UPDATE_SETTINGS_SUCCESS, data))
     .catch (err => dispatch (Events.UPDATE_SETTINGS_FAILED, err));
 });
+
+onEvent(Events.UPDATE_SETTINGS_SUCCESS, userData => {
+  const {username} = Model.user
+  Model.user = Object.assign({username}, userData)
+  dispatch(Events.NAVIGATE_PROFILE, username)
+})
 
 onEvent (Events.LOGOUT, () => {
   API.logout ();

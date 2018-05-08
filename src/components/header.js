@@ -19,7 +19,7 @@ import bindable from '../decorators/bindable'
                 <i class="ion-compose"></i>&nbsp;New Post
             </a>
         </li>
-        <li s:if="user" class="nav-item">
+        <li s:if="userProfile" class="nav-item">
             <a class="nav-link" href="#/settings">
                 <i class="ion-gear-a"></i>&nbsp;Settings
             </a>

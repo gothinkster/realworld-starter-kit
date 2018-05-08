@@ -1,8 +1,9 @@
-import {template} from 'slim-js/Decorators'
+import {template, tag} from 'slim-js/Decorators'
 import {Slim} from 'slim-js'
 import {dispatch, Events} from '../event-bus'
 import Model from '../model'
 
+@tag('settings-page')
 @template(/*html*/ `
 <div class="settings-page">
   <div class="container page">

@@ -6,6 +6,7 @@ import './extension-enterkey'
 // application components
 import './components/header'
 import './components/register'
+import './components/settings'
 import './components/newton-spinner'
 import './components/loading-modal'
 import './components/home'
