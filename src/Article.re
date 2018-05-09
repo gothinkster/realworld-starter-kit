@@ -456,6 +456,8 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
               editClassName="btn btn-sm btn-outline-secondary"
               user
               article
+              onEditClick=(_event => redirectToEditorPage(article))
+              onFollowClick=(_event => followUser(user))
             />
             (" " |> strEl)
             <FavoriteOrDeleteButton
@@ -463,6 +465,8 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
               deleteClassName="btn btn-sm btn-outline-danger"
               user
               article
+              onFavoriteClick=(_event => favoriteArticle(article))
+              onDeleteClick=(_event => deleteArticle(article))
             />
           </div>
         </div>
