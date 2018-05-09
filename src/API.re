@@ -93,6 +93,20 @@ let article = (~slug) =>
     |> then_(getResultIfOk)
   );
 
+let deleteArticle = slug =>
+  Js.Promise.(
+    fetchWithInit(
+      host ++ "/api/articles/" ++ slug,
+      Fetch.RequestInit.make(
+        ~method_=Delete,
+        ~credentials=Include,
+        ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
+        (),
+      ),
+    )
+    |> then_(getResultIfOk)
+  );
+
 let comments = (~slug) =>
   Js.Promise.(
     fetchWithInit(

@@ -230,7 +230,18 @@ let deleteArticle = (article: Types.remoteArticle) => {
   | Loading
   | NotAsked
   | Failure(_) => ignore()
-  | Success({slug}) => Js.log("delete: " ++ slug)
+  | Success({slug}) =>
+    Js.Promise.(
+      API.deleteArticle(slug)
+      |> then_(result => {
+           switch (result) {
+           | Js.Result.Ok(_) => ReasonReact.Router.push("/#/")
+           | Error(error) => Js.log(error)
+           };
+           ignore() |> resolve;
+         })
+    )
+    |> ignore
   };
   ignore();
 };
