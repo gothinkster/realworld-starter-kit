@@ -485,7 +485,8 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
           <div className="col-xs-12 col-md-8 offset-md-2">
             (
               switch (user) {
-              | NotAsked =>
+              | NotAsked
+              | Failure(_) =>
                 <p>
                   <a href="#/login"> ("Sign in" |> strEl) </a>
                   (" or " |> strEl)
@@ -493,7 +494,6 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
                   (" to add comments on this article." |> strEl)
                 </p>
               | Loading => "Loading..." |> strEl
-              | Failure(error) => error |> strEl
               | Success(data) =>
                 <form className="card comment-form">
                   <div className="card-block">
