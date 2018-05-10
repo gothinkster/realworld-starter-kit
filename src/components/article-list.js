@@ -14,7 +14,10 @@ import {dispatch, Events} from '../event-bus';
       <div class="articles-toggle">
         <ul class="nav nav-pills outline-active">
           <li class="nav-item" s:repeat="tabs as tab">
-            <a role="tab" bind:tab="tab" click="handleTabClick" class="nav-link"><span bind:tab="tab" bind>{{tab.name}}</span></a>
+            <a role="tab" bind:tab="tab" class="nav-link">
+              <span bind:tab="tab" click="handleTabClick" bind>{{tab.name}}</span>
+              <span s:if="tab.removable" click="handleTabCloseClick">&nbsp;&nbsp;<i class="ion-close-round"></i></span>
+            </a>
           </li>
         </ul>
       </div>
@@ -55,12 +58,13 @@ export default class ArticleList extends Slim {
       }
       Promise.resolve ()
         .then (() => {
+          let targetTab = this.tabs[0]
           for (let tab of this.tabs) {
             if (tab.type === feedType.TAGGED_FEED) {
-              return tab;
+              targetTab = tab
             }
           }
-          return this.tabs[0];
+          return targetTab;
         })
         .then (tab => {
           this.changeTab (tab);
@@ -86,13 +90,7 @@ export default class ArticleList extends Slim {
     }
     this.currentTab = tab;
     Slim.asap(() => {
-      this.findAll ('a[role="tab"]').forEach (tabElement => {
-        if (tabElement.tab === this.currentTab) {
-          tabElement.classList.add ('active');
-        } else {
-          tabElement.classList.remove ('active');
-        }
-      });
+      this.applyTabEffects()
     })
     this.currentPage = null
     this.changePage (0);
@@ -102,8 +100,23 @@ export default class ArticleList extends Slim {
     dispatch (Events.GET_ARTICLES, {
       offset: this.maxArticlesToDisplay * this.currentPage,
       type: this.currentTab.type,
+      tag: this.currentTab.tag,
       profileId: this.currentTab.profileId,
     });
+  }
+
+  handleTabCloseClick(event) {
+    event.preventDefault()
+    const {currentTarget} = event
+    const {tab} = currentTarget
+    const currentTabRemoved = tab === this.currentTab
+    const idx = this.tabs.indexOf(tab)
+    this.tabs.splice(idx, 1)
+    this.tabs = this.tabs
+    if (currentTabRemoved) {
+      this.changeTab(this.tabs[0])
+    }
+    this.applyTabEffects()
   }
 
   handleTabClick({currentTarget}) {
@@ -131,6 +144,16 @@ export default class ArticleList extends Slim {
     }
     this.currentPage = page;
     this.callForArticles()
+  }
+
+  applyTabEffects() {
+    this.findAll ('a[role="tab"]').forEach (tabElement => {
+      if (tabElement.tab === this.currentTab) {
+        tabElement.classList.add ('active');
+      } else {
+        tabElement.classList.remove ('active');
+      }
+    });
   }
 
   applyPaginationEffects () {

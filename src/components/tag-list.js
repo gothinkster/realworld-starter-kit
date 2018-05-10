@@ -1,7 +1,10 @@
 import {Slim} from 'slim-js'
-import {template} from 'slim-js/Decorators'
+import {template, tag} from 'slim-js/Decorators'
 import API from '../api'
+import bindable from '../decorators/bindable';
+import { dispatch, Events } from '../event-bus';
 
+@tag('tag-list')
 @template(/*html*/ `
 <p>Popular Tags</p>
 <div class="tag-list">
@@ -12,8 +15,10 @@ import API from '../api'
 </div>
 `)
 export default class TagList extends Slim {
-  onCreated() {
-    API.getAllTags().then(({tags}) => (this.tags = tags))
+  @bindable('tags') tags
+
+  onAdded () {
+    dispatch(Events.GET_TAGS)
   }
 
   onTagClick({target}) {

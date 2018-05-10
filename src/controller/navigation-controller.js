@@ -6,6 +6,6 @@ onEvent(Events.NAVIGATE_HOME, () => Router.navigate('/'))
 onEvent(Events.NAVIGATE_PROFILE, username => {
   Router.navigate(`/profile/@${username}`)
 })
-onEvent(Events.NAVIGATE_ARTICLE, articleId => {
-  Router.navigate(`/article/@${articleId}`)
+onEvent(Events.NAVIGATE_ARTICLE, slug => {
+  Router.navigate(`/article/${slug}`)
 })

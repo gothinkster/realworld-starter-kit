@@ -37,7 +37,13 @@ export const Events = {
   OPEN_MODAL: 'open-modal',
   CLOSE_MODAL: 'close-modal',
   GET_ARTICLES: 'get-articles',
-  GET_PROFILE: 'get-profile'
+  GET_ARTICLE: 'get-article',
+  GET_PROFILE: 'get-profile',
+  GET_TAGS: 'get-tags',
+  FAVOR_ARTICLE: 'add-favorite',
+  UNFAVOR_ARTICLE: 'remove-favorite',
+  FOLLOW: 'follow-user',
+  UNFOLLOW: 'unfollow-user'
 }
 
 window.dispatch = dispatch

@@ -20,6 +20,7 @@ import './extension-enterkey'
       <route path="/" component="home-page"></route>
       <route path="/settings" component="settings-page"></route>
       <route path="/register" component="register-page"></route>
+      <route path="/article/:slug" component="article-page"></route>
     </slim-router>
     <app-footer></app-footer>
 `)

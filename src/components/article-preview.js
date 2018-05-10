@@ -12,7 +12,7 @@ const parseDateOptions = {
 @tag('article-preview')
 @template(/*html*/ `
 <div s:if="data" class="article-preview">
-  <div class="article-meta" click="navigateToProfile">
+  <div class="article-meta" >
     <a><img bind:src="getProfileImage(data)" /></a>
     <div class="info">
       <a class="author" bind>{{data.author.username}}</a>
@@ -52,29 +52,4 @@ export default class ArticlePreview extends Slim {
       return Config.defaultProfileImage
     }
   }
-}
-
-//
-
-const stub = {
-  articles: [
-    {
-      title: 'my test',
-      slug: 'my-test-v3ohuo',
-      body: 'this is a test',
-      createdAt: '2018-04-23T20:28:43.525Z',
-      updatedAt: '2018-04-23T20:28:43.525Z',
-      tagList: ['test'],
-      description: 'testing',
-      author: {
-        username: 'subiboi',
-        bio: null,
-        image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
-        following: false,
-      },
-      favorited: false,
-      favoritesCount: 0,
-    },
-  ],
-  articlesCount: 1,
 }

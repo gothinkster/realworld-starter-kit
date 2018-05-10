@@ -6,6 +6,7 @@ import FeedTypes from '../enums/feed-type'
 import {dispatch, Events} from '../event-bus'
 
 import {articlesPerPage, articlesByTagPerPage} from '../../config'
+import feedType from '../enums/feed-type';
 
 const globalTab = {
   name: 'Global Feed',
@@ -33,20 +34,6 @@ const globalTab = {
           bind:tabs="tabs"
           bind:max-articles-to-display="maxArticlesToDisplay">
         </article-list>
-        <!-- <div class="feed-toggle">
-          <ul class="nav nav-pills outline-active">
-            <li s:if="isLoggedIn" class="nav-item">
-              <a s:id="defaultTab" click="handleTabSelect" class="nav-link" href="#/" bind>Your Feed</a>
-            </li>
-            <li class="nav-item">
-              <a s:id="globalTab" click="handleTabSelect" class="nav-link" href="#/">Global Feed</a>
-            </li>
-            <li s:if="selectedTag" class="nav-item active" >
-              <a s:id="taggedTab" click="handleTabSelect" class="nav-link" href="#/" bind>{{selectedTag}}</a>
-            </li>
-          </ul>
-        </div> -->
-        <!-- <article-preview s:repeat="articles"></article-preview> -->
       </div>
       <div class="col-md-3">
         <div class="sidebar">
@@ -85,12 +72,20 @@ export default class HomePage extends Slim {
     })
   }
   handleTagSelected(tag) {
+    for (let tab of this.tabs) {
+      if (tab.name === '#' + tag) {
+        return
+      }
+    }
+    const newTab = {
+      name: '#' + tag,
+      type: feedType.TAGGED_FEED,
+      tag: tag,
+      removable: true
+    }
     this.tabs = [
       ...this.tabs,
-      {
-        name: tag,
-        type: FeedTypes.TAGGED_FEED,
-      },
+      newTab,
     ]
   }
 }

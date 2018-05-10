@@ -5,6 +5,7 @@ import {onModelChanged, offEvent, Events, onEvent} from '../event-bus';
 export default function bindable (name, callbacks) {
   return function (prototype, key, descriptor) {
     let fn;
+    name = name || key
     const oOnRemoved = prototype.onRemoved;
     const oOnAdded = prototype.onAdded;
     const modelUpdated = function({prop, value}) {

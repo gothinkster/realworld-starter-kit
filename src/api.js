@@ -160,6 +160,11 @@ export default class API {
 
   // ARTICLES
 
+  static getArticle(slug) {
+    return agent.get(`/articles/${slug}`)
+      .then(data => data.article)
+  }
+
   static getArticles(
     username = undefined,
     offset = 0,
@@ -186,5 +191,13 @@ export default class API {
 
   static getArticlesByTag(tag, offset) {
     return agent.get(`/articles?tag=${encode(tag)}&offset=${offset}`)
+  }
+
+  static favArticle(slug) {
+    return agent.post(`/articles/${slug}/favorite`)
+  }
+
+  static unfavArticle(slug) {
+    return agent.del(`/articles/${slug}/favorite`)
   }
 }

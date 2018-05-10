@@ -5,7 +5,8 @@ const model = {
   user: undefined,
   articles: undefined,
   articlesCount: 0,
-  profile: undefined
+  profile: undefined,
+  article: undefined
 }
 
 let promise

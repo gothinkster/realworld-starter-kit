@@ -1,7 +1,7 @@
 import {template, tag} from 'slim-js/Decorators'
 import {Slim} from 'slim-js'
 import {dispatch, Events} from '../event-bus'
-import Model from '../model'
+import bindable from '../decorators/bindable';
 
 @tag('settings-page')
 @template(/*html*/ `
@@ -18,28 +18,28 @@ import Model from '../model'
                 <input s:id="profilePicture" class="form-control" type="text"
                   name="profilePicture"
                   placeholder="URL of profile picture"
-                  bind:value="model.user.image">
+                  bind:value="user.image">
               </fieldset>
               <fieldset class="form-group">
                 <input s:id="username" class="form-control form-control-lg" type="text"
                   name="username"
-                  bind:value="model.user.username"
+                  bind:value="user.username"
                   placeholder="Your Name">
               </fieldset>
               <fieldset class="form-group">
                 <textarea s:id="userBio" class="form-control form-control-lg" rows="8"
                   name="userBio"
-                  bind:value="model.user.bio"
+                  bind:value="user.bio"
                   placeholder="Short bio about you"></textarea>
               </fieldset>
               <fieldset class="form-group">
                 <input s:id="email" class="form-control form-control-lg" type="text"
                   name="email"
-                  bind:value="model.user.email"
+                  bind:value="user.email"
                   placeholder="Email">
               </fieldset>
               <fieldset class="form-group">
-                <input s:id="password" class="form-control form-control-lg" type="password" name="password" placeholder="New Password">
+                <input s:id="password" class="form-control form-control-lg" type="password" name="password" placeholder="Change Password">
               </fieldset>
               <button s:id="submitBtn" click="onSubmit" class="btn btn-lg btn-primary pull-xs-right">
                 Update Settings
@@ -62,14 +62,14 @@ export default class Settings extends Slim {
   profilePicture
   controls
   settingsForm
+  @bindable('user') user
 
   constructor() {
     super()
-    this.model = Model
   }
 
   onCreated() {
-    if (!Model.user) {
+    if (!this.user) {
       dispatch(Events.NAVIGATE_HOME)
     }
   }
