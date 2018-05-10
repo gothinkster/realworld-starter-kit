@@ -1,6 +1,7 @@
 open Utils;
 
 type action =
+  | AppendNewComment(Types.comment)
   | UpdateComments(Types.remoteComments)
   | UpdateArticle(Types.remoteArticle);
 
@@ -94,26 +95,6 @@ module FollowOrEditButton = {
   };
 };
 
-module Img = {
-  let component = ReasonReact.statelessComponent("Img");
-  let make = (~src=None, ~width=30, ~height=30, ~className="", _children) => {
-    ...component,
-    render: _self =>
-      <img
-        className
-        src=(
-          src
-          |. Belt.Option.getWithDefault(
-               "//placehold.it/"
-               ++ string_of_int(width)
-               ++ "x"
-               ++ string_of_int(height),
-             )
-        )
-      />,
-  };
-};
-
 module Card = {
   let component = ReasonReact.statelessComponent("Card");
   let make = (~data, ~user: Types.remoteUser, _children) => {
@@ -154,8 +135,6 @@ module Card = {
     },
   };
 };
-
-let component = ReasonReact.reducerComponent("Article");
 
 let loadArticle = (slug, {ReasonReact.send}) => {
   Js.Promise.(
@@ -266,6 +245,41 @@ let followUser = (user: Types.remoteUser) => {
   ignore();
 };
 
+let addComments = (~slug, ~submissionCallbacks, state, {ReasonReact.send}) => {
+  open Js.Promise;
+  let {Formality__Form.Validation.notifyOnFailure, notifyOnSuccess, reset} = submissionCallbacks;
+  API.addCommentsToAnArticle(~slug, ~body=state)
+  |> then_(result => {
+       switch (result) {
+       | Js.Result.Ok(json) =>
+	 let comment = json |> Json.Decode.(field("comment", Decoder.comment));
+         notifyOnSuccess(None);
+         reset();
+	 send(AppendNewComment(comment))
+       | Error(error) =>
+         let errors =
+           error |> Json.Decode.(field("errors", dict(array(string))));
+         let fieldErrors =
+           [
+             errors
+             |. Js.Dict.get("body")
+             |> getFirstError(Comment.Form.Body, "Comment"),
+           ]
+           |. Belt.List.keepMapU((. opt) => opt);
+         notifyOnFailure(fieldErrors, None);
+       };
+       ignore() |> resolve;
+     })
+  |> catch(error => {
+       Js.log2("There has been a problem with fetch operation: ", error);
+       notifyOnFailure([], Some("failed to add comment to article"));
+       ignore() |> resolve;
+     })
+  |> ignore;
+};
+
+let component = ReasonReact.reducerComponent("Article");
+
 let make = (~user: Types.remoteUser, ~slug, _children) => {
   ...component,
   initialState: () => {
@@ -274,6 +288,15 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
   },
   reducer: (action, state) =>
     switch (action) {
+    | AppendNewComment(comment) =>
+      let comments =
+        switch (state.comments) {
+        | NotAsked
+        | Loading
+        | Failure(_) => state.comments
+        | Success(comments) => RemoteData.Success([comment, ...comments])
+        };
+      ReasonReact.Update({...state, comments});
     | UpdateComments(comments) => ReasonReact.Update({...state, comments})
     | UpdateArticle(article) => ReasonReact.Update({...state, article})
     },
@@ -281,7 +304,7 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
     handle(loadArticle, slug);
     handle(loadComments, slug);
   },
-  render: ({state}) => {
+  render: ({state, handle}) => {
     let {article, comments} = state;
     <div className="article-page">
       <div className="banner">
@@ -483,35 +506,25 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
         </div>
         <div className="row">
           <div className="col-xs-12 col-md-8 offset-md-2">
-            (
-              switch (user) {
-              | NotAsked
-              | Failure(_) =>
-                <p>
-                  <a href="#/login"> ("Sign in" |> strEl) </a>
-                  (" or " |> strEl)
-                  <a href="#/register"> ("sign up" |> strEl) </a>
-                  (" to add comments on this article." |> strEl)
-                </p>
-              | Loading => "Loading..." |> strEl
-              | Success(data) =>
-                <form className="card comment-form">
-                  <div className="card-block">
-                    <textarea
-                      className="form-control"
-                      placeholder="Write a comment..."
-                      rows=3
-                    />
-                  </div>
-                  <div className="card-footer">
-                    <Img src=data.image className="comment-author-img" />
-                    <button className="btn btn-sm btn-primary">
-                      ("Post Comment" |> strEl)
-                    </button>
-                  </div>
-                </form>
-              }
-            )
+            <Comment
+              user
+              onSubmit=(
+                (state, submissionCallbacks) =>
+                  handle(
+                    addComments(
+                      ~slug=
+                        switch (article) {
+                        | NotAsked
+                        | Loading
+                        | Failure(_) => ""
+                        | Success({slug}) => slug
+                        },
+                      ~submissionCallbacks,
+                    ),
+                    state,
+                  )
+              )
+            />
             (
               switch (comments) {
               | NotAsked => "Initilizing..." |> strEl

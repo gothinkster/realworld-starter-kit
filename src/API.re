@@ -116,6 +116,30 @@ let comments = (~slug) =>
     |> then_(getResultIfOk)
   );
 
+let addCommentsToAnArticle = (~slug, ~body) =>
+  Js.Promise.(
+    fetchWithInit(
+      host ++ "/api/articles/" ++ slug ++ "/comments",
+      Fetch.RequestInit.make(
+        ~method_=Post,
+        ~credentials=Include,
+        ~headers=
+          Js.Obj.assign(getJsonContentType(), getAuthorizationHeader())
+          |> Fetch.HeadersInit.make,
+        ~body=
+          Fetch.BodyInit.make(
+            Json.Encode.(
+              [("comment", [("body", body |> string)] |> object_)]
+              |> object_
+            )
+            |> Json.stringify,
+          ),
+        (),
+      ),
+    )
+    |> then_(getResultIfOk)
+  );
+
 let user = () =>
   Js.Promise.(
     fetchWithInit(

@@ -151,8 +151,7 @@ let make = (~onSuccessLogin, _children) => {
                  errors=(
                    switch (form.status) {
                    | Editing =>
-                     [Email, Password]
-                     |> getSomeErrors(form.results)
+                     [Email, Password] |> getSomeErrors(form.results)
                    | Submitting
                    | Submitted => None
                    | SubmissionFailed(fieldErrors, Some(message)) =>
