@@ -2,8 +2,9 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+//   .BundleAnalyzerPlugin
+const Visualizer = require('webpack-visualizer-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const distFolder = path.resolve(__dirname, 'dist')
@@ -55,7 +56,10 @@ module.exports = {
       template: './src/index.html',
       title: 'Development',
     }),
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
+    new Visualizer({
+      filename: './stats.html'
+    }),
     process.NODE_ENV === 'production' ? new UglifyJsPlugin() : () => {},
   ],
 }

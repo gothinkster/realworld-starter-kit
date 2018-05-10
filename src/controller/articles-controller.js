@@ -8,6 +8,37 @@ const setArticles = ({articles, articlesCount}) => {
   Model.articles = articles
 }
 
+const formatDate = date => 
+  new Date(date).toLocaleString('en-US', {
+    month: 'long',
+    day: '2-digit',
+    year: 'numeric'
+  });
+
+const getComments = async (slug) => {
+  const {comments} = await API.getComments(slug)
+  const {user} = Model
+  const username = user ? user.username : undefined
+  for (let comment of comments) {
+    comment.isOwner = comment.author.username === username
+    comment.createdAt = formatDate(comment.createdAt)
+    comment.articleId = slug
+  }
+  Model.comments = undefined
+  Model.comments = [...comments]
+}
+
+onEvent(Events.POST_COMMENT, async ({slug, comment}) => {
+  await API.postComment(slug, comment)
+  getComments(slug)
+})
+
+onEvent(Events.TRASH_COMMENT, async (comment) => {
+  const {id, articleId} = comment
+  await API.trashComment(articleId, id)
+  getComments(articleId)
+})
+
 onEvent(Events.FAVOR_ARTICLE, () => {
   const { article } = Model
   const count = parseInt(article.favoritesCount) + 1
@@ -39,15 +70,12 @@ onEvent(Events.GET_TAGS, () => {
 
 onEvent(Events.GET_ARTICLE, slug => {
   Model.article = undefined
+  Model.comments = undefined
+  getComments(slug)
   API
     .getArticle(slug)
     .then(article => {
-      const d = new Date(article.createdAt)
-      article.createdAt = d.toLocaleString('en-US', {
-        month: 'long',
-        day: '2-digit',
-        year: 'numeric'
-      });
+      article.createdAt = formatDate(article.createdAt)
       article.favoritesCount = article.favoritesCount.toString()
       return article
     })

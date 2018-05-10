@@ -43,7 +43,9 @@ export const Events = {
   FAVOR_ARTICLE: 'add-favorite',
   UNFAVOR_ARTICLE: 'remove-favorite',
   FOLLOW: 'follow-user',
-  UNFOLLOW: 'unfollow-user'
+  UNFOLLOW: 'unfollow-user',
+  POST_COMMENT: 'post-comment',
+  TRASH_COMMENT: 'trash-comment'
 }
 
 window.dispatch = dispatch

@@ -15,6 +15,8 @@ import './components/login'
 import './components/article-list'
 import './components/article-page/article-page'
 import './components/article-preview'
+import './components/article-page/article-comment'
+import './components/markdown-view'
 import './components/profile'
 import './router/slim-router'
 

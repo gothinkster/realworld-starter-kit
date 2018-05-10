@@ -200,4 +200,20 @@ export default class API {
   static unfavArticle(slug) {
     return agent.del(`/articles/${slug}/favorite`)
   }
+
+  static getComments(slug) {
+    return agent.get(`/articles/${slug}/comments`)
+  }
+
+  static postComment(slug, body) {
+    return agent.post(`/articles/${slug}/comments`, {
+      comment: {
+        body
+      }
+    })
+  }
+
+  static trashComment(slug, id) {
+    return agent.del(`/articles/${slug}/comments/${id}`)
+  }
 }

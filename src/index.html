@@ -2,6 +2,12 @@
 <html lang="en">
 
     <head>
+        <script id="marked-lib" src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" async onload="__resolveMarkedReady()"></script>
+        <script>
+            window._markedReady = new Promise((resolve) => {
+                window.__resolveMarkedReady = resolve
+            })
+        </script>
         <link rel="apple-touch-icon" sizes="57x57" href="./assets/apple-icon-57x57.png">
         <link rel="apple-touch-icon" sizes="60x60" href="./assets/apple-icon-60x60.png">
         <link rel="apple-touch-icon" sizes="72x72" href="./assets/apple-icon-72x72.png">

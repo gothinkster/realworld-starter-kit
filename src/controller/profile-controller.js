@@ -15,6 +15,10 @@ onEvent(Events.GET_PROFILE, (username) => {
 })
 
 onEvent(Events.FOLLOW, username => {
+  if (Model.article) {
+    Model.article.author.following = true
+      Model.article = Object.assign({}, Model.article)
+  }
   API.follow(username)
     .then(({profile}) => {
       if (Model.article && Model.article.author.username === username) {
@@ -26,6 +30,10 @@ onEvent(Events.FOLLOW, username => {
 })
 
 onEvent(Events.UNFOLLOW, username => {
+  if (Model.article) {
+    Model.article.author.following = false
+      Model.article = Object.assign({}, Model.article)
+  }
   API.unfollow(username)
     .then(({profile}) => {
       if (Model.article && Model.article.author.username === username) {
