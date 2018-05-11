@@ -140,6 +140,20 @@ let addCommentsToAnArticle = (~slug, ~body) =>
     |> then_(getResultIfOk)
   );
 
+let deleteComment = (~slug, ~id) =>
+  Js.Promise.(
+    fetchWithInit(
+      host ++ "/api/articles/" ++ slug ++ "/comments/" ++ string_of_int(id),
+      Fetch.RequestInit.make(
+        ~method_=Delete,
+        ~credentials=Include,
+        ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
+        (),
+      ),
+    )
+    |> then_(getResultIfOk)
+  );
+
 let user = () =>
   Js.Promise.(
     fetchWithInit(

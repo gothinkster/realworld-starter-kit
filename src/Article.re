@@ -1,13 +1,16 @@
 open Utils;
 
 type action =
-  | AppendNewComment(Types.comment)
+  | RemoveComment(int)
+  | AddHidingDeleteIcon(int)
+  | PrependNewComment(Types.comment)
   | UpdateComments(Types.remoteComments)
   | UpdateArticle(Types.remoteArticle);
 
 type state = {
   article: Types.remoteArticle,
   comments: Types.remoteComments,
+  hidingDeleteIcons: list(int),
 };
 
 module FavoriteOrDeleteButton = {
@@ -95,9 +98,16 @@ module FollowOrEditButton = {
   };
 };
 
-module Card = {
-  let component = ReasonReact.statelessComponent("Card");
-  let make = (~data, ~user: Types.remoteUser, _children) => {
+module CommentCard = {
+  let component = ReasonReact.statelessComponent("CommentCard");
+  let make =
+      (
+        ~hideDeleteIcon=false,
+        ~onDeleteClick,
+        ~data,
+        ~user: Types.remoteUser,
+        _children,
+      ) => {
     ...component,
     render: _self => {
       let {createdAt, body, author}: Types.comment = data;
@@ -120,14 +130,15 @@ module Card = {
           </span>
           (
             switch (user) {
-            | NotAsked
-            | Loading => nullEl
-            | Failure(_) => nullEl
-            | Success(_data) =>
+            | Success(userVal)
+                when userVal.username === author.username && ! hideDeleteIcon =>
               <span className="mod-options">
-                <i className="ion-edit" />
-                <i className="ion-trash-a" />
+                <i className="ion-trash-a" onClick=onDeleteClick />
               </span>
+            | NotAsked
+            | Loading
+            | Failure(_)
+            | Success(_) => nullEl
             }
           )
         </div>
@@ -252,10 +263,10 @@ let addComments = (~slug, ~submissionCallbacks, state, {ReasonReact.send}) => {
   |> then_(result => {
        switch (result) {
        | Js.Result.Ok(json) =>
-	 let comment = json |> Json.Decode.(field("comment", Decoder.comment));
+         let comment = json |> Json.Decode.field("comment", Decoder.comment);
          notifyOnSuccess(None);
          reset();
-	 send(AppendNewComment(comment))
+	 send(PrependNewComment(comment));
        | Error(error) =>
          let errors =
            error |> Json.Decode.(field("errors", dict(array(string))));
@@ -278,6 +289,25 @@ let addComments = (~slug, ~submissionCallbacks, state, {ReasonReact.send}) => {
   |> ignore;
 };
 
+let deleteComment = (~slug, ~id, _event, {ReasonReact.send}) => {
+  open Js.Promise;
+  send(AddHidingDeleteIcon(id));
+  API.deleteComment(~slug, ~id)
+  |> then_(result => {
+       switch (result) {
+       | Js.Result.Ok(_) => send(RemoveComment(id))
+       | Error(error) => Js.log2("failed to delete comment", error)
+       };
+       ignore() |> resolve;
+     })
+  |> catch(error => {
+       Js.log2("There has been a problem with fetch operation: ", error);
+       ignore() |> resolve;
+     })
+  |> ignore;
+  ignore();
+};
+
 let component = ReasonReact.reducerComponent("Article");
 
 let make = (~user: Types.remoteUser, ~slug, _children) => {
@@ -285,10 +315,26 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
   initialState: () => {
     article: RemoteData.NotAsked,
     comments: RemoteData.NotAsked,
+    hidingDeleteIcons: [],
   },
   reducer: (action, state) =>
     switch (action) {
-    | AppendNewComment(comment) =>
+    | RemoveComment(id) =>
+      let comments =
+        switch (state.comments) {
+        | NotAsked
+        | Loading
+        | Failure(_) => state.comments
+        | Success(comments) =>
+          RemoteData.Success(comments |. Belt.List.keep(x => x.id !== id))
+        };
+      ReasonReact.Update({...state, comments});
+    | AddHidingDeleteIcon(id) =>
+      ReasonReact.Update({
+        ...state,
+        hidingDeleteIcons: [id, ...state.hidingDeleteIcons],
+      })
+    | PrependNewComment(comment) =>
       let comments =
         switch (state.comments) {
         | NotAsked
@@ -305,7 +351,7 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
     handle(loadComments, slug);
   },
   render: ({state, handle}) => {
-    let {article, comments} = state;
+    let {article, comments, hidingDeleteIcons} = state;
     <div className="article-page">
       <div className="banner">
         <div className="container">
@@ -531,16 +577,20 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
               | Loading => "Loading..." |> strEl
               | Failure(error) => error |> strEl
               | Success(data) =>
+                let shouldHideDeleteIcon = hidingDeleteIcons |> Belt.List.some;
                 data
-                |. Belt.List.mapU((. comment: Types.comment) =>
-                     <Card
-                       key=(comment.id |> string_of_int)
+                |. Belt.List.mapU((. comment) => {
+                     let {Types.id} = comment;
+                     <CommentCard
+                       key=(id |> string_of_int)
                        data=comment
                        user
-                     />
-                   )
+                       onDeleteClick=(handle(deleteComment(~slug, ~id)))
+                       hideDeleteIcon=(shouldHideDeleteIcon(x => x === id))
+                     />;
+                   })
                 |> Belt.List.toArray
-                |> arrayEl
+                |> arrayEl;
               }
             )
           </div>
