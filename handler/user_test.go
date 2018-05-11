@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	userJSON = `{"user":{"username":"alice","email":"alice@realworld.io","password":"secret"}}`
+	userJSON = `{"user":{"username":"alice","email":"alice@realworld.io", "bio":"", "image":"","token":"secret"}}`
 )
 
 type Validator struct {
@@ -24,9 +24,13 @@ func (v *Validator) Validate(i interface{}) error {
 }
 
 func TestRegister(t *testing.T) {
+	var (
+		reqJSON = `{"user":{"username":"alice","email":"alice@realworld.io","password":"secret"}}`
+		resJSON = `{"user":{"username":"alice","email":"alice@realworld.io","bio":null,"image":null,"token":"([a-zA-Z0-9-_.]{115})"}}`
+	)
 	e := echo.New()
 	e.Validator = &Validator{validator: validator.New()}
-	req := httptest.NewRequest(echo.POST, "/api/users", strings.NewReader(userJSON))
+	req := httptest.NewRequest(echo.POST, "/api/users", strings.NewReader(reqJSON))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
@@ -34,6 +38,6 @@ func TestRegister(t *testing.T) {
 
 	if assert.NoError(t, h.Register(c)) {
 		assert.Equal(t, http.StatusCreated, rec.Code)
-		//assert.Equal(t, userJSON, rec.Body.String())
+		assert.Regexp(t, resJSON, rec.Body.String())
 	}
 }

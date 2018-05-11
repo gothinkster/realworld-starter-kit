@@ -29,17 +29,17 @@ type registerRes struct {
 func (h *Handler) Register(c echo.Context) error {
 	req := &registerReq{}
 	if err := c.Bind(req); err != nil {
-		return err
+		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
 	}
 	if err := c.Validate(req); err != nil {
-		return err
+		return c.JSON(http.StatusUnprocessableEntity, NewValidatorError(err))
 	}
 	u := new(models.User)
 	u.Username = req.User.Username
 	u.Email = req.User.Email
 	u.Password = req.User.Password
 	if err := h.db.Create(u).Error; err != nil {
-		c.JSON(http.StatusUnprocessableEntity, err)
+		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
 	}
 	res := new(registerRes)
 	res.User.Username = u.Username
@@ -49,6 +49,28 @@ func (h *Handler) Register(c echo.Context) error {
 	res.User.Token = generateJWT(u.ID)
 
 	return c.JSON(http.StatusCreated, res)
+}
+
+func (h *Handler) Login(c echo.Context) error {
+	return c.JSON(http.StatusOK, "login user")
+}
+
+func (h *Handler) CurrentUser(c echo.Context) error {
+	return c.JSON(http.StatusOK, "get current user")
+}
+
+func (h *Handler) UpdateUser(c echo.Context) error {
+	return c.JSON(http.StatusOK, "update user")
+}
+
+func (h *Handler) GetProfile(c echo.Context) error {
+	return c.JSON(http.StatusOK, "Get Profile")
+}
+func (h *Handler) Follow(c echo.Context) error {
+	return c.JSON(http.StatusOK, "Follow user")
+}
+func (h *Handler) Unfollow(c echo.Context) error {
+	return c.JSON(http.StatusOK, "Unfollow user")
 }
 
 var secret = []byte("!!SECRET!!")
