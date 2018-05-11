@@ -68,16 +68,14 @@ let make = _children => {
     | UpdateUser(user) => ReasonReact.Update({...state, user})
     | ChangeRoute(route) => ReasonReact.Update({...state, route})
     },
-  subscriptions: self => [
-    Sub(
-      () =>
-        ReasonReact.Router.watchUrl(url =>
-          self.send(ChangeRoute(urlToRoute(url)))
-        ),
-      ReasonReact.Router.unwatchUrl,
-    ),
-  ],
-  didMount: ({handle}) => handle(getUser, ()),
+  didMount: ({send, onUnmount, handle}) => {
+    let urlWatcherId =
+      ReasonReact.Router.watchUrl(url =>
+        send(ChangeRoute(urlToRoute(url)))
+      );
+    onUnmount(() => ReasonReact.Router.unwatchUrl(urlWatcherId));
+    handle(getUser, ());
+  },
   render: ({state, handle}) => {
     let {route, user} = state;
     let linkCx = makeLinkClass(route);
