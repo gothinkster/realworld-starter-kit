@@ -67,6 +67,6 @@ type route =
   | Login
   | Register
   | Settings
-  | Editor
+  | Editor(option(string))
   | Article(string)
   | Profile(articleByAuthor);

@@ -1,7 +1,5 @@
 open Utils;
 
-open Fetch;
-
 let host = "https://conduit.productionready.io";
 
 let optToQueryString = (prefix, opt) =>
@@ -11,10 +9,10 @@ let optToQueryString = (prefix, opt) =>
   };
 
 let getResultIfOk = res => {
-  let isOk = res |> Response.ok;
+  let isOk = res |> Fetch.Response.ok;
   Js.Promise.(
     res
-    |> Response.json
+    |> Fetch.Response.json
     |> then_(json =>
          (isOk ? Js.Result.Ok(json) : Js.Result.Error(json)) |> resolve
        )
@@ -33,7 +31,7 @@ let getAuthorizationHeader = () =>
 
 let listArticlesFeed = (~limit=20, ~offset=0, ()) =>
   Js.Promise.(
-    fetchWithInit(
+    Fetch.fetchWithInit(
       host
       ++ "/api/articles/feed"
       ++ "?limit="
@@ -51,7 +49,7 @@ let listArticlesFeed = (~limit=20, ~offset=0, ()) =>
 
 let listArticles = (~tag=?, ~author=?, ~favorited=?, ~limit=20, ~offset=0, ()) =>
   Js.Promise.(
-    fetchWithInit(
+    Fetch.fetchWithInit(
       host
       ++ "/api/articles"
       ++ "?limit="
@@ -68,7 +66,7 @@ let listArticles = (~tag=?, ~author=?, ~favorited=?, ~limit=20, ~offset=0, ()) =
 
 let tags = () =>
   Js.Promise.(
-    fetchWithInit(
+    Fetch.fetchWithInit(
       host ++ "/api/tags",
       Fetch.RequestInit.make(~credentials=Include, ()),
     )
@@ -77,16 +75,16 @@ let tags = () =>
 
 let profiles = (~author) =>
   Js.Promise.(
-    fetchWithInit(
+    Fetch.fetchWithInit(
       host ++ "/api/profiles/" ++ author,
       Fetch.RequestInit.make(~credentials=Include, ()),
     )
     |> then_(getResultIfOk)
   );
 
-let article = (~slug) =>
+let getArticle = (~slug) =>
   Js.Promise.(
-    fetchWithInit(
+    Fetch.fetchWithInit(
       host ++ "/api/articles/" ++ slug,
       Fetch.RequestInit.make(~credentials=Include, ()),
     )
@@ -95,7 +93,7 @@ let article = (~slug) =>
 
 let deleteArticle = slug =>
   Js.Promise.(
-    fetchWithInit(
+    Fetch.fetchWithInit(
       host ++ "/api/articles/" ++ slug,
       Fetch.RequestInit.make(
         ~method_=Delete,
@@ -109,7 +107,7 @@ let deleteArticle = slug =>
 
 let comments = (~slug) =>
   Js.Promise.(
-    fetchWithInit(
+    Fetch.fetchWithInit(
       host ++ "/api/articles/" ++ slug ++ "/comments",
       Fetch.RequestInit.make(~credentials=Include, ()),
     )
@@ -118,7 +116,7 @@ let comments = (~slug) =>
 
 let addCommentsToAnArticle = (~slug, ~body) =>
   Js.Promise.(
-    fetchWithInit(
+    Fetch.fetchWithInit(
       host ++ "/api/articles/" ++ slug ++ "/comments",
       Fetch.RequestInit.make(
         ~method_=Post,
@@ -142,7 +140,7 @@ let addCommentsToAnArticle = (~slug, ~body) =>
 
 let deleteComment = (~slug, ~id) =>
   Js.Promise.(
-    fetchWithInit(
+    Fetch.fetchWithInit(
       host ++ "/api/articles/" ++ slug ++ "/comments/" ++ string_of_int(id),
       Fetch.RequestInit.make(
         ~method_=Delete,
@@ -156,7 +154,7 @@ let deleteComment = (~slug, ~id) =>
 
 let user = () =>
   Js.Promise.(
-    fetchWithInit(
+    Fetch.fetchWithInit(
       host ++ "/api/user",
       Fetch.RequestInit.make(
         ~method_=Get,
@@ -170,7 +168,7 @@ let user = () =>
 
 let updateUser = (~email, ~username, ~password, ~image, ~bio) =>
   Js.Promise.(
-    fetchWithInit(
+    Fetch.fetchWithInit(
       host ++ "/api/user",
       Fetch.RequestInit.make(
         ~method_=Put,
@@ -206,7 +204,7 @@ let updateUser = (~email, ~username, ~password, ~image, ~bio) =>
 
 let register = (~email, ~password, ~username) =>
   Js.Promise.(
-    fetchWithInit(
+    Fetch.fetchWithInit(
       host ++ "/api/users",
       Fetch.RequestInit.make(
         ~method_=Post,
@@ -238,7 +236,7 @@ let register = (~email, ~password, ~username) =>
 
 let login = (~email, ~password) =>
   Js.Promise.(
-    fetchWithInit(
+    Fetch.fetchWithInit(
       host ++ "/api/users/login",
       Fetch.RequestInit.make(
         ~method_=Post,
@@ -269,7 +267,7 @@ let login = (~email, ~password) =>
 
 let createArticle = (~title, ~description, ~body, ~tagList) =>
   Js.Promise.(
-    fetchWithInit(
+    Fetch.fetchWithInit(
       host ++ "/api/articles",
       Fetch.RequestInit.make(
         ~method_=Post,
@@ -304,3 +302,45 @@ let createArticle = (~title, ~description, ~body, ~tagList) =>
     )
     |> then_(getResultIfOk)
   );
+
+let updateArticle = (~slug, ~title, ~description, ~body, ~tagList) => {
+  let article =
+    Json.Encode.[
+      switch (title) {
+      | None => []
+      | Some(v) => [("title", v |> string)]
+      },
+      switch (description) {
+      | None => []
+      | Some(v) => [("description", v |> string)]
+      },
+      switch (body) {
+      | None => []
+      | Some(v) => [("body", v |> string)]
+      },
+      switch (tagList) {
+      | None => []
+      | Some(v) => [("tagList", v |> Belt.List.toArray |> array(string))]
+      },
+    ]
+    |> Belt.List.flatten
+    |> Json.Encode.object_;
+  Js.Promise.(
+    Fetch.fetchWithInit(
+      host ++ "/api/articles" ++ slug,
+      Fetch.RequestInit.make(
+        ~method_=Put,
+        ~headers=
+          Js.Obj.assign(getJsonContentType(), getAuthorizationHeader())
+          |> Fetch.HeadersInit.make,
+        ~body=
+          Fetch.BodyInit.make(
+            Json.Encode.([("article", article)] |> object_) |> Json.stringify,
+          ),
+        ~credentials=Include,
+        (),
+      ),
+    )
+    |> then_(getResultIfOk)
+  );
+};

@@ -149,7 +149,7 @@ module CommentCard = {
 
 let loadArticle = (slug, {ReasonReact.send}) => {
   Js.Promise.(
-    API.article(~slug)
+    API.getArticle(~slug)
     |> then_(result => {
          switch (result) {
          | Js.Result.Ok(json) =>
@@ -266,7 +266,7 @@ let addComments = (~slug, ~submissionCallbacks, state, {ReasonReact.send}) => {
          let comment = json |> Json.Decode.field("comment", Decoder.comment);
          notifyOnSuccess(None);
          reset();
-	 send(PrependNewComment(comment));
+         send(PrependNewComment(comment));
        | Error(error) =>
          let errors =
            error |> Json.Decode.(field("errors", dict(array(string))));

@@ -24,7 +24,8 @@ let urlToRoute = (url: ReasonReact.Router.url) : Types.route => {
   | [|"", "login"|] => Login
   | [|"", "register"|] => Register
   | [|"", "settings"|] => Settings
-  | [|"", "editor"|] => Editor
+  | [|"", "editor"|] => Editor(None)
+  | [|"", "editor", slug|] => Editor(Some(slug))
   | [|"", "article", slug|] => Article(slug)
   | [|"", "profile", author|] => Profile(Types.Author(author))
   | [|"", "profile", author, "favorites"|] =>
@@ -94,7 +95,17 @@ let make = _children => {
               | Failure(_) => nullEl
               | Success(_) =>
                 <li className="nav-item">
-                  <a className=(linkCx(Editor)) href="/#/editor">
+                  <a
+                    className=(
+                      "nav-link"
+                      ++ (
+                        switch (route) {
+                        | Editor(_) => " active"
+                        | _ => ""
+                        }
+                      )
+                    )
+                    href="/#/editor">
                     <i className="ion-compose" />
                     (" New Post" |> strEl)
                   </a>
@@ -167,7 +178,7 @@ let make = _children => {
           <PrivateRoute user>
             ...(userData => <Settings user=userData />)
           </PrivateRoute>
-        | Editor => <Editor />
+        | Editor(slug) => <Editor slug />
         | Profile(author) => <Profile author />
         | Article(slug) => <Article slug user />
         | Home => <Home user />
