@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-var secret = []byte("!!SECRET!!")
+var JWTSecret = []byte("!!SECRET!!")
 
 type registerReq struct {
 	User struct {
@@ -91,7 +91,8 @@ func (h *Handler) Login(c echo.Context) error {
 }
 
 func (h *Handler) CurrentUser(c echo.Context) error {
-	return c.JSON(http.StatusOK, "get current user")
+	userIDFromToken(c)
+	return c.JSON(http.StatusOK, userIDFromToken(c))
 }
 
 func (h *Handler) UpdateUser(c echo.Context) error {
@@ -113,6 +114,11 @@ func generateJWT(id uint) string {
 	claims := token.Claims.(jwt.MapClaims)
 	claims["id"] = id
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
-	t, _ := token.SignedString(secret)
+	t, _ := token.SignedString(JWTSecret)
 	return t
+}
+
+func userIDFromToken(c echo.Context) uint {
+	id := c.Get("user").(uint)
+	return id
 }
