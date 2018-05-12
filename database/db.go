@@ -8,7 +8,7 @@ import (
 )
 
 func New() *gorm.DB {
-	db, err := gorm.Open("sqlite3", "./realworld.storage")
+	db, err := gorm.Open("sqlite3", "./realworld.db")
 	if err != nil {
 		fmt.Println("storage err: ", err)
 	}

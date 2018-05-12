@@ -1,9 +1,9 @@
 package models
 
 import (
+	"errors"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
-	"errors"
 )
 
 type User struct {
@@ -15,7 +15,7 @@ type User struct {
 	Image    *string
 }
 
-func (u *User) hashPassword(p string) error {
+func (u *User) HashPassword(p string) error {
 	if len(p) == 0 {
 		return errors.New("password should not be empty!")
 	}
@@ -23,4 +23,10 @@ func (u *User) hashPassword(p string) error {
 	passwordHash, _ := bcrypt.GenerateFromPassword(bytePassword, bcrypt.DefaultCost)
 	u.Password = string(passwordHash)
 	return nil
+}
+
+func (u *User) CheckPassword(p string) error {
+	bytePassword := []byte(p)
+	byteHashedPassword := []byte(u.Password)
+	return bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
 }

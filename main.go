@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/xesina/golang-echo-realworld-example-app/handler"
 	"github.com/xesina/golang-echo-realworld-example-app/database"
+	"github.com/xesina/golang-echo-realworld-example-app/handler"
 	"github.com/xesina/golang-echo-realworld-example-app/router"
 )
 
 func main() {
 	db := database.New()
-	db.AutoMigrate()
+	database.AutoMigrate(db)
 	h := handler.New(db)
 	r := router.New()
 
