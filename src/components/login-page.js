@@ -47,8 +47,6 @@ export default class Login extends Slim {
     this.isLoginFailed = false
     onEvent('login-failed', this._onLoginFailed)
     onEvent('login-success', this._onLoginSuccess)
-    this.password.value = 'test1234'
-    this.email.value = 'eavichay@gmail.com'
   }
 
   setControlsEnabled(value) {
