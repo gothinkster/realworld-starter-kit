@@ -10,12 +10,14 @@ module Form = {
     | Title
     | Description
     | Body
+    | NewTag
     | TagList;
   type value = string;
   type state = {
     title: string,
     description: string,
     body: string,
+    newTag: string,
     tagList: list(string),
   };
   type message = string;
@@ -24,6 +26,7 @@ module Form = {
     | Title => state.title
     | Description => state.description
     | Body => state.body
+    | NewTag => state.newTag
     | TagList => state.tagList |> Belt.List.toArray |> Js.Array.joinWith(",")
     };
   let update = ((field, value), state) =>
@@ -31,9 +34,14 @@ module Form = {
     | (Title, title) => {...state, title}
     | (Description, description) => {...state, description}
     | (Body, body) => {...state, body}
+    | (NewTag, newTag) => {...state, newTag}
     | (TagList, tagList) => {
         ...state,
-        tagList: tagList |> Js.String.split(",") |> Belt.List.fromArray,
+        tagList:
+          switch (tagList) {
+          | "" => []
+          | _ => tagList |> Js.String.split(",") |> Belt.List.fromArray
+          },
       }
     };
   let valueEmpty = value => value === "";
@@ -86,13 +94,25 @@ module Form = {
            },
          )
       |> Validators.add(
-           TagList,
+           NewTag,
            {
              strategy,
              dependents: None,
              validate: (value, _state) =>
                switch (value) {
                | "" => Invalid("Tag is empty")
+               | _ => Valid
+               },
+           },
+         )
+      |> Validators.add(
+           TagList,
+           {
+             strategy,
+             dependents: None,
+             validate: (value, _state) =>
+               switch (value) {
+               | "" => Invalid("List of tag is empty")
                | _ => Valid
                },
            },
@@ -209,12 +229,14 @@ let make = (~slug, _children) => {
           Form.title: "",
           description: "",
           body: "",
+          newTag: "",
           tagList: [],
         }
       | (Some(_), Success({Types.title, description, body, tagList})) => {
           Form.title,
           description,
           body,
+          newTag: "",
           tagList,
         }
       };
@@ -325,25 +347,84 @@ let make = (~slug, _children) => {
                                className="form-control"
                                placeholder="Enter tags"
                                disabled=form.submitting
-                               value=(
-                                 form.state.tagList
-                                 |> Belt.List.toArray
-                                 |> Js.Array.joinWith(",")
-                               )
+                               value=form.state.newTag
                                onChange=(
                                  event =>
                                    event
                                    |> Formality.Dom.toValueOnChange
-                                   |> form.change(TagList)
+                                   |> form.change(NewTag)
                                )
                                onBlur=(
                                  event =>
                                    event
                                    |> Formality.Dom.toValueOnBlur
-                                   |> form.change(TagList)
+                                   |> form.change(NewTag)
+                               )
+                               onKeyDown=(
+                                 event =>
+                                   switch (
+                                     event |> ReactEventRe.Keyboard.keyCode
+                                   ) {
+                                   | 13 =>
+                                     event
+                                     |> ReactEventRe.Keyboard.preventDefault;
+                                     let newTag =
+                                       form.state.newTag |> Js.String.trim;
+                                     let haveDuplicated =
+                                       form.state.tagList
+                                       |. Belt.List.has(newTag, (===));
+                                     let isEmpty = newTag === "";
+                                     if (haveDuplicated || isEmpty) {
+                                       ignore();
+                                     } else {
+                                       [
+                                         form.state.newTag,
+                                         ...form.state.tagList,
+                                       ]
+                                       |> Belt.List.toArray
+                                       |> Js.Array.joinWith(",")
+                                       |> form.change(TagList);
+                                       "" |> form.change(NewTag);
+                                     };
+                                   | _ => ignore()
+                                   }
                                )
                              />
-                             <div className="tag-list" />
+                             (
+                               switch (form.state.tagList) {
+                               | [] => nullEl
+                               | v =>
+                                 <div className="tag-list">
+                                   (
+                                     v
+                                     |. Belt.List.mapWithIndex((i, tag) =>
+                                          <span
+                                            key=(
+                                              string_of_int(i) ++ "." ++ tag
+                                            )
+                                            className="tag-default tag-pill">
+                                            <i
+                                              className="ion-close-round"
+                                              onClick=(
+                                                _event =>
+                                                  v
+                                                  |. Belt.List.keep(x =>
+                                                       x !== tag
+                                                     )
+                                                  |> Belt.List.toArray
+                                                  |> Js.Array.joinWith(",")
+                                                  |> form.change(TagList)
+                                              )
+                                            />
+                                            (tag |> strEl)
+                                          </span>
+                                        )
+                                     |> Belt.List.toArray
+                                     |> arrayEl
+                                   )
+                                 </div>
+                               }
+                             )
                            </fieldset>
                            <button
                              disabled=form.submitting
