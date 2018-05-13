@@ -35,6 +35,16 @@ type loginReq struct {
 	} `json:"user"`
 }
 
+type updateReq struct {
+	User struct {
+		Username string  `json:"username"`
+		Email    string  `json:"email" validate:"email"`
+		Password string  `json:"password"`
+		Bio      *string `json:"bio"`
+		Image    *string `json:"image"`
+	} `json:"user"`
+}
+
 func (h *Handler) Register(c echo.Context) error {
 	req := &registerReq{}
 	if err := c.Bind(req); err != nil {
@@ -91,12 +101,52 @@ func (h *Handler) Login(c echo.Context) error {
 }
 
 func (h *Handler) CurrentUser(c echo.Context) error {
-	userIDFromToken(c)
-	return c.JSON(http.StatusOK, userIDFromToken(c))
+	var u models.User
+	h.db.First(&u, userIDFromToken(c))
+	res := new(registerRes)
+	res.User.Username = u.Username
+	res.User.Email = u.Email
+	res.User.Bio = u.Bio
+	res.User.Image = u.Image
+	res.User.Token = generateJWT(u.ID)
+	return c.JSON(http.StatusOK, res)
 }
 
 func (h *Handler) UpdateUser(c echo.Context) error {
-	return c.JSON(http.StatusOK, "update user")
+	var u models.User
+	h.db.First(&u, userIDFromToken(c))
+	req := &updateReq{}
+	req.User.Username = u.Username
+	req.User.Email = u.Email
+	req.User.Password = u.Password
+	req.User.Bio = u.Bio
+	req.User.Image = u.Image
+	if err := c.Bind(req); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+	}
+	if err := c.Validate(req); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, NewValidatorError(err))
+	}
+	u.Username = req.User.Username
+	u.Email = req.User.Email
+	if req.User.Password != u.Password {
+		if err := u.HashPassword(req.User.Password); err != nil {
+			return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+		}
+	}
+	u.Bio = req.User.Bio
+	u.Image = req.User.Image
+
+	if err := h.db.Model(&u).Update(&u).Error; err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+	}
+	res := new(registerRes)
+	res.User.Username = u.Username
+	res.User.Email = u.Email
+	res.User.Bio = u.Bio
+	res.User.Image = u.Image
+	res.User.Token = generateJWT(u.ID)
+	return c.JSON(http.StatusOK, res)
 }
 
 func (h *Handler) GetProfile(c echo.Context) error {
