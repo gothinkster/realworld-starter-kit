@@ -1,6 +1,5 @@
 import {template, tag} from 'slim-js/Decorators'
 import {Slim} from 'slim-js'
-import ReactiveElement from '../common/ReactiveElement'
 import {dispatch, onEvent, offEvent, Events} from '../event-bus'
 import API from '../api'
 import Model from '../model'
@@ -20,9 +19,17 @@ const {articlesPerPage: maxArticlesToDisplay} = CONFIG
           <img bind:src="profileData.image" class="user-img" />
           <h4 bind>{{profileData.username}}</h4>
           <p bind>{{profileData.bio}}</p>
-          <button class="btn btn-sm btn-outline-secondary action-btn">
+          <button s:if="!profileData.following"
+            click="follow"
+            class="btn btn-sm btn-outline-primary">
             <i class="ion-plus-round"></i>
-            <span bind>&nbsp; Follow {{profileData.username}}</span>
+            <span bind>&nbsp;Follow {{profileData.username}}</span>
+          </button>
+          <button s:if="profileData.following"
+            click="unfollow"
+            class="btn btn-sm btn-secondary">
+            <i class="ion-minus-round"></i>
+            <span bind>&nbsp;Unfollow {{profileData.username}}</span>
           </button>
         </div>
       </div>
@@ -34,10 +41,23 @@ const {articlesPerPage: maxArticlesToDisplay} = CONFIG
   </article-list>
 </div>`)
 export default class Profile extends Slim {
+
   @bindable('profile', ['profileChanged']) profileData
   routeParams
   profileId
   tabs
+
+  follow() {
+    this.profileData.following = true
+    dispatch(Events.FOLLOW, this.profileData.username)
+    Slim.commit(this, 'profileData')
+  }
+
+  unfollow() {
+    this.profileData.following = false
+    dispatch(Events.UNFOLLOW, this.profileData.username)
+    Slim.commit(this, 'profileData')
+  }
 
   onAdded () {
     const {/* @type string */ profileId} = this.routeParams

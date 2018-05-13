@@ -4,7 +4,7 @@ import Router from './router';
 import {onEvent, Events} from '../event-bus';
 
 @tag ('slim-router')
-@template ('<container s:id="container"></container>')
+@template ('&nbsp')
 export default class SlimRouter extends Slim {
   routes = {};
   currentComponent;
@@ -35,10 +35,11 @@ export default class SlimRouter extends Slim {
     if (this.currentComponent) {
       this.currentComponent.remove ();
     }
+    // await lazyLoad(component)
     this.currentComponent = document.createElement (component);
     this.currentComponent.routeParams = params;
     if (this.currentComponent.hasOwnProperty ('routeParams')) {
-      this.container.appendChild (this.currentComponent);
+      this.appendChild (this.currentComponent);
     }
   }
 }

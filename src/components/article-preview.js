@@ -14,7 +14,7 @@ const parseDateOptions = {
 <div s:if="data" class="article-preview">
   <div class="article-meta" >
     <a><img bind:src="getProfileImage(data)" /></a>
-    <div class="info">
+    <div class="info" click="navigateToProfile">
       <a class="author" bind>{{data.author.username}}</a>
       <span class="date" bind>{{parseDate(data.createdAt)}}</span>
     </div>
@@ -26,6 +26,11 @@ const parseDateOptions = {
     <h1 bind>{{data.title}}</h1>
     <p bind>{{data.description}}</p>
     <span>Read more...</span>
+    <ul class="tag-list">
+      <li class="tag-default tag-pill tag-outline ng-binding ng-scope"
+        s:repeat="data.tagList as tag"
+        bind>{{tag}}</li>
+    <ul>
   </a>
 </div>
 `)

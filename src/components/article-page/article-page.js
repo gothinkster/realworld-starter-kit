@@ -34,18 +34,20 @@ import './article-header'
         <div class="info">
           <a click="navToProfile" class="author" bind>{{article.author.username}}</a>
         </div>
-        
+        <a s:if="isOwner" class="btn btn-outline-secondary btn-sm" bind:href="editArticleURL"><i class="ion-edit"></i>&nbsp;Edit Article</a>
+        <button s:if="isOwner" class="btn btn-outline-danger btn-sm" 
+          click="deleteArticle"><i class="ion-trash-a"></i> Delete Article</button>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12 col-md-8 offset-md-2">
         <form class="card comment-form" submit="postComment">
           <div class="card-block">
-            <textarea s:id="commentText" class="form-control" placeholder="Write a comment..." rows="3"></textarea>
+            <textarea input="onCommentInput" s:id="commentText" class="form-control" placeholder="Write a comment..." rows="3"></textarea>
           </div>
           <div class="card-footer">
             <img bind:src="article.author.image" class="comment-author-img" />
-            <input type="submit" class="btn btn-sm btn-primary" value="Post Comment" />
+            <input s:id="submitButton" disabled="disabled" type="submit" class="btn btn-sm btn-primary" value="Post Comment" />
           </div>
         </form>
         <article-comment s:repeat="comments"></article-comment>
@@ -56,18 +58,31 @@ import './article-header'
 `)
 class SlimComponent extends Slim {
   routeParams
+  isOwner
+  editArticleURL
   
-  @bindable() article
+  @bindable('article', ['checkOwnership']) article
   @bindable('comments', ['onCommentsData']) comments
+  @bindable('user', ['checkOwnership']) user
   
   onAdded () {
     const {slug} = this.routeParams
     dispatch(Events.GET_ARTICLE, slug)
+    this.checkOwnership()
+  }
+
+  checkOwnership () {
+    const {article, user} = this
+    if (article) {
+      this.editArticleURL = '#/editor/' + article.slug
+    }
+    this.isOwner = (user && article && article.author.username === user.username)
   }
 
   onCommentsData () {
     if (this.commentText) {
       this.commentText.value = null
+      this.submitButton.setAttribute('disabled', 'disabled')
     }
   }
 
@@ -80,18 +95,16 @@ class SlimComponent extends Slim {
       slug
     })
   }
-}
 
+  onCommentInput() {
+    if (this.commentText.value) {
+      this.submitButton.removeAttribute('disabled')
+    } else {
+      this.submitButton.setAttribute('disabled', 'disabled')
+    }
+  }
 
-const stub = {
-  "title":"dasd",
-  "slug":"dasd-k0jekh",
-  "body":"dasda",
-  "createdAt":"2018-05-09T15:41:22.402Z",
-  "updatedAt":"2018-05-09T15:41:22.402Z",
-  "tagList":["caramel","baby","sugar","happiness","clean","well","cookies","animation","japan","cars","sushi","money","flowers","coffee","tags","as","test","training","dragons"],
-  "description":"das",
-  "author":{"username":"lethanhhuu123","bio":"le thanh huu ne`","image":"https://static.productionready.io/images/smiley-cyrus.jpg","following":false},
-  "favorited":false,
-  "favoritesCount":0
+  deleteArticle() {
+    dispatch(Events.TRASH_ARTICLE, article.slug)
+  }
 }

@@ -15,7 +15,7 @@ import bindable from '../decorators/bindable'
         <a class="nav-link active" href="#/">Home</a>
         </li>
         <li s:if="userProfile" class="nav-item">
-            <a class="nav-link" href="#/">
+            <a class="nav-link" href="#/editor">
                 <i class="ion-compose"></i>&nbsp;New Post
             </a>
         </li>

@@ -1,28 +1,28 @@
 import './logger'
-
-// slim.js extension
-import './extension-enterkey'
+import './components/newton-spinner'
+import './router/slim-router'
+import './controller/index'
 
 // application components
-import './components/header'
-import './components/register'
-import './components/settings'
-import './components/tag-list'
-import './components/newton-spinner'
+import './components/app-header'
+import './components/app-footer'
 import './components/loading-modal'
-import './components/home'
-import './components/login'
-import './components/article-list'
-import './components/article-page/article-page'
-import './components/article-preview'
-import './components/article-page/article-comment'
-import './components/markdown-view'
-import './components/profile'
-import './router/slim-router'
 
-// controllers
-import './controller/index'
+// application pages
+import './components/home-page'
+import './components/article-preview'
+import './components/article-list'
+import './components/editor-page'
+import './components/login-page'
+import './components/markdown-view'
+import './components/profile-page'
+import './components/register-page'
+import './components/settings-page'
+import './components/tag-list'
+import './components/article-page'
+
 
 // root component
 import './conduit-app'
+
 

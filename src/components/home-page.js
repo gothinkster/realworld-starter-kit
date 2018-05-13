@@ -8,6 +8,8 @@ import {dispatch, Events} from '../event-bus'
 import {articlesPerPage, articlesByTagPerPage} from '../../config'
 import feedType from '../enums/feed-type';
 
+import './article-list'
+
 const globalTab = {
   name: 'Global Feed',
   type: FeedTypes.GLOBAL_FEED,

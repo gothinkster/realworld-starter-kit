@@ -1,19 +1,50 @@
 const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-//   .BundleAnalyzerPlugin
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const Visualizer = require('webpack-visualizer-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const distFolder = path.resolve(__dirname, 'dist')
 
+const IS_PRODUCTION = process.env.NODE_ENV === 'production'
+
+const productionPlugins = [
+    new webpack.optimize.SplitChunksPlugin(
+      {
+        splitChunks: {
+          cacheGroups: {
+              commons: {
+                  name: "commons",
+                  chunks: "initial",
+                  minChunks: 2
+              }
+          }
+      }
+    }),
+    new UglifyJsPlugin()
+]
+
+const devPlugins = []
+
+const envPlugins = IS_PRODUCTION ? productionPlugins : devPlugins
+
+
+// if (IS_PRODUCTION) {
+//   console.log('************* PRODUCTION BUILD ***************')
+// }
+
+
 module.exports = {
+  mode: IS_PRODUCTION ? 'production' : 'development',
+  node: false,
   entry: './src/index.js',
   output: {
     path: distFolder,
     filename: '[name].bundle.js',
+    chunkFilename: 'app-[name].bundle.js'
   },
   resolve: {
     alias: {
@@ -22,7 +53,6 @@ module.exports = {
         './node_modules/slim-js/Decorators.js'
       ),
       'slim-js': path.resolve(__dirname, './node_modules/slim-js/src/Slim.js'),
-      // 'slim-js': path.resolve(__dirname, './src/Slim.js'),
     },
   },
   module: {
@@ -34,7 +64,7 @@ module.exports = {
       },
     ],
   },
-  devtool: 'source-map',
+  devtool: IS_PRODUCTION ? false : 'source-map',
   target: 'web',
   stats: 'errors-only',
   devServer: {
@@ -56,10 +86,6 @@ module.exports = {
       template: './src/index.html',
       title: 'Development',
     }),
-    // new BundleAnalyzerPlugin(),
-    new Visualizer({
-      filename: './stats.html'
-    }),
-    process.NODE_ENV === 'production' ? new UglifyJsPlugin() : () => {},
+    ...envPlugins
   ],
 }

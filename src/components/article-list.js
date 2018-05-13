@@ -6,6 +6,7 @@ import bindable from '../decorators/bindable';
 import feedType from '../enums/feed-type';
 import {dispatch, Events} from '../event-bus';
 
+
 @tag ('article-list')
 @template (/*html*/ `
 <div class="container">

@@ -213,7 +213,37 @@ export default class API {
     })
   }
 
+  static postArticle(article) {
+    return agent.post('/articles', {article})
+  }
+
+  static trashArticle(slug) {
+    return agent.del(`/articles/${slug}`)
+  }
+
+  static updateArticle(article) {
+    return agent.put(`/articles/${slug}`, {article})
+  }
+
   static trashComment(slug, id) {
     return agent.del(`/articles/${slug}/comments/${id}`)
   }
 }
+
+
+
+/*
+{title: "Test article", description: "Testing how to post an article", body: "# Markdown↵In your face",…}
+body
+:
+"# Markdown↵In your face"
+description
+:
+"Testing how to post an article"
+tagList
+:
+[]
+title
+:
+"Test article"
+*/

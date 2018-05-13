@@ -1,7 +1,10 @@
-import {onEvent, Events} from '../event-bus';
+import {onEvent, Events, dispatch} from '../event-bus';
 import feedType from '../enums/feed-type';
 import API from '../api';
 import Model from '../model';
+
+import CONFIG from '../../config'
+const {defaultProfileImage} = CONFIG;
 
 const setArticles = ({articles, articlesCount}) => {
   Model.articlesCount = articlesCount
@@ -15,6 +18,13 @@ const formatDate = date =>
     year: 'numeric'
   });
 
+const sanitizeArticleDates = article => {
+  article.createdAt = formatDate(article.createdAt)
+  article.favoritesCount = article.favoritesCount.toString()
+  article.author.image = article.author.image || defaultProfileImage
+  return article
+}
+
 const getComments = async (slug) => {
   const {comments} = await API.getComments(slug)
   const {user} = Model
@@ -27,6 +37,29 @@ const getComments = async (slug) => {
   Model.comments = undefined
   Model.comments = [...comments]
 }
+
+onEvent(Events.POST_ARTICLE, async article => {
+  Model.article = undefined
+  API
+    .postArticle(article)
+    .then(({article}) => sanitizeArticleDates(article))
+    .then(article => Model.article = article)
+    .then(() => {
+      dispatch(Events.NAVIGATE_ARTICLE, Model.article.slug)
+    })
+})
+
+onEvent(Events.TRASH_ARTICLE, slug => {
+  Model.article = undefined
+  API.trashArticle(slug)
+  dispatch(Events.NAVIGATE_HOME)
+})
+
+onEvent(Events.EDIT_ARTICLE, article => {
+  API
+    .updateArticle(article)
+    .then(() => dispatch(Events.NAVIGATE_HOME))
+})
 
 onEvent(Events.POST_COMMENT, async ({slug, comment}) => {
   await API.postComment(slug, comment)
@@ -69,17 +102,18 @@ onEvent(Events.GET_TAGS, () => {
 })
 
 onEvent(Events.GET_ARTICLE, slug => {
+  const articleAlreadyLoaded = Model.article && Model.article.slug === slug
+  const oArticle = Model.article
   Model.article = undefined
+  if (!articleAlreadyLoaded) {
+    API
+      .getArticle(slug)
+      .then(article => sanitizeArticleDates(article))
+      .then(article => Model.article = article)
+  }
+  Model.article = oArticle
   Model.comments = undefined
   getComments(slug)
-  API
-    .getArticle(slug)
-    .then(article => {
-      article.createdAt = formatDate(article.createdAt)
-      article.favoritesCount = article.favoritesCount.toString()
-      return article
-    })
-    .then(article => Model.article = article)
 })
 
 onEvent (Events.GET_ARTICLES, options => {

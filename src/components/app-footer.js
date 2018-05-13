@@ -1,6 +1,7 @@
-import {template} from 'slim-js/Decorators';
+import {template, tag} from 'slim-js/Decorators';
 import {Slim} from 'slim-js';
 
+@tag('app-footer')
 @template(`
 <footer>
     <div class="container">

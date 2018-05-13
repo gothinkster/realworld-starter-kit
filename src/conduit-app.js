@@ -21,6 +21,8 @@ import './extension-enterkey'
       <route path="/settings" component="settings-page"></route>
       <route path="/register" component="register-page"></route>
       <route path="/article/:slug" component="article-page"></route>
+      <route path="/editor" component="editor-page"></route>
+      <route path="/editor/:slug" component="editor-page"></route>
     </slim-router>
     <app-footer></app-footer>
 `)
