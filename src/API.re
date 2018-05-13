@@ -327,7 +327,7 @@ let updateArticle = (~slug, ~title, ~description, ~body, ~tagList) => {
     |> Json.Encode.object_;
   Js.Promise.(
     Fetch.fetchWithInit(
-      host ++ "/api/articles" ++ slug,
+      host ++ "/api/articles/" ++ slug,
       Fetch.RequestInit.make(
         ~method_=Put,
         ~headers=
