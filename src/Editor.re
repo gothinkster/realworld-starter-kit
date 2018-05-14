@@ -100,7 +100,7 @@ module Form = {
              dependents: None,
              validate: (value, _state) =>
                switch (value) {
-               | "" => Invalid("Tag is empty")
+               | ""
                | _ => Valid
                },
            },
@@ -112,7 +112,7 @@ module Form = {
              dependents: None,
              validate: (value, _state) =>
                switch (value) {
-               | "" => Invalid("List of tag is empty")
+               | ""
                | _ => Valid
                },
            },
