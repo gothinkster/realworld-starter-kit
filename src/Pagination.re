@@ -1,6 +1,6 @@
 open Utils;
 
-let component = ReasonReact.statelessComponent("ArticleItem");
+let component = ReasonReact.statelessComponent("Pagination");
 
 let make = (~currentPage, ~totalCount, ~perPage, ~onPageClick, _children) => {
   ...component,
