@@ -5,6 +5,8 @@ type action =
 
 type state = Types.remoteArticle;
 
+type retainedProps = {slug: option(string)};
+
 module Form = {
   type field =
     | Title
@@ -207,10 +209,13 @@ let upsertArticle =
   ignore();
 };
 
-let component = ReasonReact.reducerComponent("Editor");
+let component = ReasonReact.reducerComponentWithRetainedProps("Editor");
 
 let make = (~slug, _children) => {
   ...component,
+  retainedProps: {
+    slug: slug,
+  },
   initialState: () => RemoteData.NotAsked,
   reducer: (action, _state) =>
     switch (action) {
@@ -221,6 +226,16 @@ let make = (~slug, _children) => {
     | Some(slugVal) => handle(loadArticle, slugVal)
     | None => ignore()
     },
+  didUpdate: ({oldSelf, newSelf}) => {
+    let slugChanged =
+      oldSelf.retainedProps.slug !== newSelf.retainedProps.slug;
+    if (slugChanged) {
+      switch (newSelf.retainedProps.slug) {
+      | Some(slugVal) => newSelf.handle(loadArticle, slugVal)
+      | None => newSelf.send(UpdateArticle(RemoteData.NotAsked))
+      };
+    };
+  },
   render: ({state}) => {
     let initialState =
       switch (slug, state) {
@@ -241,8 +256,11 @@ let make = (~slug, _children) => {
         }
       };
     switch (slug, state) {
+    /* reset to null element when change route to /#/editor from /#/editor/:slug */
+    | (None, Success(_))
+    /* don't render anything while loading article by slug */
     | (Some(_), RemoteData.NotAsked | Loading | Failure(_)) => nullEl
-    | (None, NotAsked | Loading | Success(_) | Failure(_))
+    | (None, NotAsked | Loading | Failure(_))
     | (Some(_), Success(_)) =>
       <FormContainer initialState onSubmit=(upsertArticle(slug))>
         ...(
