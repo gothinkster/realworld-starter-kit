@@ -108,7 +108,8 @@ let changeCurrentPage = (~payload, page, {ReasonReact.handle}) => {
   handle(loadArticles(~page, ~author, ~favorited), ());
 };
 
-let make = (~author: Types.articleByAuthor, _children) => {
+let make =
+    (~user: Types.remoteUser, ~author: Types.articleByAuthor, _children) => {
   ...component,
   initialState: () => {
     profile: RemoteData.NotAsked,
@@ -146,9 +147,9 @@ let make = (~author: Types.articleByAuthor, _children) => {
                 src=(
                   switch (profile) {
                   | NotAsked
-                  | Loading => "//placehold.it/100x100"
-                  | Success({image}) => image
+                  | Loading
                   | Failure(_) => "//placehold.it/100x100"
+                  | Success({image}) => image
                   }
                 )
                 className="user-img"
@@ -157,9 +158,9 @@ let make = (~author: Types.articleByAuthor, _children) => {
                 (
                   switch (profile) {
                   | NotAsked
-                  | Loading => nullEl
-                  | Success({username}) => username |> strEl
+                  | Loading
                   | Failure(_) => nullEl
+                  | Success({username}) => username |> strEl
                   }
                 )
               </h4>
@@ -167,24 +168,45 @@ let make = (~author: Types.articleByAuthor, _children) => {
                 (
                   switch (profile) {
                   | NotAsked
-                  | Loading => nullEl
+                  | Loading
+                  | Failure(_) => nullEl
                   | Success({bio}) =>
                     switch (bio) {
                     | Some(v) => v |> strEl
                     | None => nullEl
                     }
-                  | Failure(_) => nullEl
                   }
                 )
               </p>
               <button className="btn btn-sm btn-outline-secondary action-btn">
-                <i className="ion-plus-round" />
                 (
-                  switch (profile) {
-                  | NotAsked
-                  | Loading => "..." |> strEl
-                  | Success({username}) => " Follow " ++ username |> strEl
-                  | Failure(_) => nullEl
+                  switch (profile, user) {
+                  | (Success(profileVal), Success(userVal))
+                      when userVal.username === profileVal.username =>
+                    <i className="ion-gear-a" />
+                  | (
+                      NotAsked | Loading | Success(_) | Failure(_),
+                      NotAsked | Loading | Success(_) | Failure(_),
+                    ) =>
+                    <i className="ion-plus-round" />
+                  }
+                )
+                (
+                  switch (profile, user) {
+                  | (Success(profileVal), Success(userVal))
+                      when userVal.username === profileVal.username =>
+                    " Edit Profile Settings" |> strEl
+                  | (
+                      Success(profileVal),
+                      NotAsked | Loading | Success(_) | Failure(_),
+                    ) =>
+                    " Follow " ++ profileVal.username |> strEl
+                  | (
+                      NotAsked | Loading,
+                      NotAsked | Loading | Success(_) | Failure(_),
+                    ) =>
+                    " ... " |> strEl
+                  | (Failure(_), NotAsked | Loading | Success(_) | Failure(_)) => nullEl
                   }
                 )
               </button>

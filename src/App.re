@@ -179,7 +179,7 @@ let make = _children => {
             ...(userData => <Settings user=userData />)
           </PrivateRoute>
         | Editor(slug) => <Editor slug />
-        | Profile(author) => <Profile author />
+        | Profile(author) => <Profile author user />
         | Article(slug) => <Article slug user />
         | Home => <Home user />
         }
