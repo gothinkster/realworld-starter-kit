@@ -77,7 +77,39 @@ let profiles = (~author) =>
   Js.Promise.(
     Fetch.fetchWithInit(
       host ++ "/api/profiles/" ++ author,
-      Fetch.RequestInit.make(~credentials=Include, ()),
+      Fetch.RequestInit.make(
+        ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
+        ~credentials=Include,
+        (),
+      ),
+    )
+    |> then_(getResultIfOk)
+  );
+
+let followUser = username =>
+  Js.Promise.(
+    Fetch.fetchWithInit(
+      host ++ "/api/profiles/" ++ username ++ "/follow",
+      Fetch.RequestInit.make(
+        ~method_=Post,
+        ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
+        ~credentials=Include,
+        (),
+      ),
+    )
+    |> then_(getResultIfOk)
+  );
+
+let unfollowUser = username =>
+  Js.Promise.(
+    Fetch.fetchWithInit(
+      host ++ "/api/profiles/" ++ username ++ "/follow",
+      Fetch.RequestInit.make(
+        ~method_=Delete,
+        ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
+        ~credentials=Include,
+        (),
+      ),
     )
     |> then_(getResultIfOk)
   );

@@ -1,6 +1,7 @@
 open Utils;
 
 type state = {
+  followAction: Types.remoteAction,
   profile: Types.remoteProfile,
   articles: Types.remoteArticles,
   articlesCount: float,
@@ -10,6 +11,7 @@ type state = {
 type retainedProps = {author: Types.articleByAuthor};
 
 type action =
+  | UpdateFollowAction(Types.remoteAction)
   | UpdateProfile(Types.remoteProfile)
   | UpdateArticles((Types.remoteArticles, float, int));
 
@@ -19,8 +21,6 @@ let getAuthorParam =
   fun
   | Types.Author(v) => (Some(v), None)
   | Favorited(v) => (None, Some(v));
-
-let component = ReasonReact.reducerComponentWithRetainedProps("Profile");
 
 let loadArticles =
     (~author, ~favorited, ~page=1, _payload, {ReasonReact.send}) => {
@@ -108,10 +108,51 @@ let changeCurrentPage = (~payload, page, {ReasonReact.handle}) => {
   handle(loadArticles(~page, ~author, ~favorited), ());
 };
 
+let followAuthorOrRedirectToSetting =
+    (
+      ~profile: Types.remoteProfile,
+      ~user: Types.remoteUser,
+      _event,
+      {ReasonReact.send},
+    ) =>
+  switch (profile, user) {
+  | (Success(profileVal), Success(userVal))
+      when userVal.username === profileVal.username =>
+    ReasonReact.Router.push("/#/settings")
+  | (Success(profileVal), NotAsked | Loading | Success(_) | Failure(_)) =>
+    let {Types.following, username} = profileVal;
+    send(UpdateFollowAction(RemoteData.Loading));
+    Js.Promise.(
+      (following ? API.unfollowUser(username) : API.followUser(username))
+      |> then_(_result => {
+           send(
+             UpdateProfile(
+               RemoteData.Success({...profileVal, following: ! following}),
+             ),
+           );
+           send(UpdateFollowAction(RemoteData.NotAsked));
+           ignore() |> resolve;
+         })
+      |> catch(_error => {
+           send(UpdateFollowAction(RemoteData.NotAsked));
+           ignore() |> resolve;
+         })
+      |> ignore
+    );
+  | (
+      NotAsked | Loading | Failure(_),
+      NotAsked | Loading | Success(_) | Failure(_),
+    ) =>
+    ignore()
+  };
+
+let component = ReasonReact.reducerComponentWithRetainedProps("Profile");
+
 let make =
     (~user: Types.remoteUser, ~author: Types.articleByAuthor, _children) => {
   ...component,
   initialState: () => {
+    followAction: RemoteData.NotAsked,
     profile: RemoteData.NotAsked,
     articles: RemoteData.NotAsked,
     articlesCount: 0.,
@@ -122,6 +163,8 @@ let make =
   },
   reducer: (action, state) =>
     switch (action) {
+    | UpdateFollowAction(followAction) =>
+      ReasonReact.Update({...state, followAction})
     | UpdateProfile(profile) => ReasonReact.Update({...state, profile})
     | UpdateArticles((articles, articlesCount, currentPage)) =>
       ReasonReact.Update({...state, articles, articlesCount, currentPage})
@@ -132,7 +175,7 @@ let make =
       newSelf.handle(loadProfile, newSelf.retainedProps.author);
     },
   render: ({state, handle}) => {
-    let {currentPage, articles, articlesCount, profile} = state;
+    let {followAction, currentPage, articles, articlesCount, profile} = state;
     let authorVal =
       switch (author) {
       | Author(v) => v
@@ -178,7 +221,19 @@ let make =
                   }
                 )
               </p>
-              <button className="btn btn-sm btn-outline-secondary action-btn">
+              <button
+                className="btn btn-sm btn-outline-secondary action-btn"
+                onClick=(
+                  handle(followAuthorOrRedirectToSetting(~user, ~profile))
+                )
+                disabled=(
+                  switch (followAction) {
+                  | NotAsked
+                  | Success(_)
+                  | Failure(_) => false
+                  | Loading => true
+                  }
+                )>
                 (
                   switch (profile, user) {
                   | (Success(profileVal), Success(userVal))
@@ -197,10 +252,12 @@ let make =
                       when userVal.username === profileVal.username =>
                     " Edit Profile Settings" |> strEl
                   | (
-                      Success(profileVal),
+                      Success({following, username}),
                       NotAsked | Loading | Success(_) | Failure(_),
                     ) =>
-                    " Follow " ++ profileVal.username |> strEl
+                    (following ? " Unfollow " : " Follow ")
+                    ++ username
+                    |> strEl
                   | (
                       NotAsked | Loading,
                       NotAsked | Loading | Success(_) | Failure(_),

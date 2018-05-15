@@ -58,6 +58,8 @@ type remoteUser = RemoteData.t(User.t, string);
 
 type remoteTags = RemoteData.t(list(string), string);
 
+type remoteAction = RemoteData.t(string, string);
+
 type articleByAuthor =
   | Author(string)
   | Favorited(string);
