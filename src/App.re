@@ -157,11 +157,15 @@ let make = _children => {
               | NotAsked
               | Loading
               | Failure(_) => nullEl
-              | Success({username}) =>
+              | Success({username, image}) =>
                 <li className="nav-item">
                   <a
                     className=(linkCx(Profile(Author(username))))
                     href=("/#/profile/" ++ username)>
+                    (switch (image) {
+                    | Some(src) => <img className="user-pic" src />
+                    | None => nullEl
+                    })
                     (username |> strEl)
                   </a>
                 </li>
