@@ -1,24 +1,21 @@
 open Utils;
 
-type selectedFeed =
+type feed =
+  | Tag(string)
   | Global
   | Your;
 
-type selectedTag = option(string);
-
 type action =
-  | SelectFeed(selectedFeed, int, selectedTag)
-  | SelectTag(selectedTag)
+  | ChangeFeed(feed, int)
   | UpdateTags(Types.remoteTags)
   | UpdateArticles((Types.remoteArticles, float, int));
 
 type state = {
   articles: Types.remoteArticles,
   tags: Types.remoteTags,
-  selectedTag,
   articlesCount: float,
   currentPage: int,
-  selectedFeed,
+  feed,
 };
 
 let pageNum = 10.;
@@ -154,27 +151,29 @@ let loadGlobalFeed = (~tag=?, ~page=1, _payload, {ReasonReact.send, handle}) => 
   handle(loadTags, ());
 };
 
-let selectTag = (~tag, event, {ReasonReact.send}) => {
+let onYourFeedClick = (~feed, event, {ReasonReact.send}) => {
   event |> ReactEventRe.Mouse.preventDefault;
-  send(SelectTag(tag));
+  switch (feed) {
+  | Your => ignore()
+  | Tag(_)
+  | Global => send(ChangeFeed(Your, 1))
+  };
 };
 
-let selectFeed = (~feed, ~tag, ~page, _paylod, {ReasonReact.send}) =>
-  send(SelectFeed(feed, page, tag));
-
-let changeCurrentPage = (~feed, page, {ReasonReact.send, state}) =>
+let onGlobalFeedClick = (~feed, event, {ReasonReact.send}) => {
+  event |> ReactEventRe.Mouse.preventDefault;
   switch (feed) {
-  | Your => send(SelectFeed(Your, page, None))
-  | Global => send(SelectFeed(Global, page, state.selectedTag))
+  | Global => ignore()
+  | Tag(_)
+  | Your => send(ChangeFeed(Global, 1))
   };
+};
 
-let initialData = (~user, _payload, {ReasonReact.state, handle}) => {
+let initialData = (~user, _payload, {ReasonReact.state, send}) => {
   let {articles} = state;
   switch (articles, user) {
-  | (NotAsked, RemoteData.Success(_)) =>
-    handle(selectFeed(~feed=Your, ~page=1, ~tag=None), ())
-  | (NotAsked, Failure(_)) =>
-    handle(selectFeed(~feed=Global, ~page=1, ~tag=None), ())
+  | (NotAsked, RemoteData.Success(_)) => send(ChangeFeed(Your, 1))
+  | (NotAsked, Failure(_)) => send(ChangeFeed(Global, 1))
   | (NotAsked, NotAsked | Loading)
   | (
       Loading | Success(_) | Failure(_),
@@ -189,35 +188,24 @@ let make = (~user, _children) => {
   initialState: () => {
     articles: RemoteData.NotAsked,
     tags: RemoteData.NotAsked,
-    selectedTag: None,
     articlesCount: 0.,
     currentPage: 1,
-    selectedFeed: Global,
+    feed: Global,
   },
   reducer: (action, state) =>
     switch (action) {
-    | SelectFeed(selectedFeed, page, tag) =>
+    | ChangeFeed(feed, page) =>
       ReasonReact.UpdateWithSideEffects(
-        {...state, selectedFeed},
+        {...state, feed, currentPage: page},
         (
           ({handle}) => {
-            switch (selectedFeed) {
-            | Global => handle(loadGlobalFeed(~tag?, ~page), ())
+            switch (feed) {
+            | Global => handle(loadGlobalFeed(~page), ())
             | Your => handle(loadYourFeed(~page), ())
+            | Tag(tag) => handle(loadGlobalFeed(~page, ~tag), ())
             };
             ignore();
           }
-        ),
-      )
-    | SelectTag(selectedTag) =>
-      ReasonReact.UpdateWithSideEffects(
-        {...state, selectedTag},
-        (
-          ({handle}) =>
-            switch (state.selectedFeed) {
-            | Your => ignore()
-            | Global => handle(loadGlobalFeed(~tag=?selectedTag), ())
-            }
         ),
       )
     | UpdateTags(tags) => ReasonReact.Update({...state, tags})
@@ -226,15 +214,8 @@ let make = (~user, _children) => {
     },
   didMount: ({handle}) => handle(initialData(~user), ()),
   didUpdate: ({newSelf}) => newSelf.handle(initialData(~user), ()),
-  render: ({state, handle}) => {
-    let {
-      articles,
-      tags,
-      selectedTag,
-      articlesCount,
-      currentPage,
-      selectedFeed,
-    } = state;
+  render: ({state, handle, send}) => {
+    let {articles, tags, articlesCount, currentPage, feed} = state;
     <div className="home-page">
       <div className="banner">
         <div className="container">
@@ -257,32 +238,9 @@ let make = (~user, _children) => {
                       <a
                         href="#"
                         className=(
-                          "nav-link"
-                          ++ (
-                            switch (selectedTag, selectedFeed) {
-                            | (None, Your) => " active"
-                            | (None, Global)
-                            | (Some(_), Your | Global) => ""
-                            }
-                          )
+                          "nav-link" ++ (feed === Your ? " active" : "")
                         )
-                        onClick=(
-                          switch (selectedTag, selectedFeed) {
-                          | (Some(_) | None, Your) => (
-                              event =>
-                                event |> ReactEventRe.Mouse.preventDefault
-                            )
-                          | (Some(_) | None, Global) => (
-                              event => {
-                                event |> ReactEventRe.Mouse.preventDefault;
-                                handle(
-                                  selectFeed(~feed=Your, ~page=1, ~tag=None),
-                                  (),
-                                );
-                              }
-                            )
-                          }
-                        )>
+                        onClick=(handle(onYourFeedClick(~feed)))>
                         ("Your Feed" |> strEl)
                       </a>
                     </li>
@@ -292,43 +250,22 @@ let make = (~user, _children) => {
                   <a
                     href="#"
                     className=(
-                      "nav-link"
-                      ++ (
-                        switch (selectedTag, selectedFeed) {
-                        | (None, Global) => " active"
-                        | (None, Your)
-                        | (Some(_), Your | Global) => ""
-                        }
-                      )
+                      "nav-link" ++ (feed === Global ? " active" : "")
                     )
-                    onClick=(
-                      switch (selectedTag, selectedFeed) {
-                      | (Some(_) | None, Global) => (
-                          event => event |> ReactEventRe.Mouse.preventDefault
-                        )
-                      | (Some(_) | None, Your) => (
-                          event => {
-                            event |> ReactEventRe.Mouse.preventDefault;
-                            handle(
-                              selectFeed(~feed=Global, ~page=1, ~tag=None),
-                              (),
-                            );
-                          }
-                        )
-                      }
-                    )>
+                    onClick=(handle(onGlobalFeedClick(~feed)))>
                     ("Global Feed" |> strEl)
                   </a>
                 </li>
                 (
-                  switch (selectedTag) {
-                  | Some(tag) =>
+                  switch (feed) {
+                  | Tag(tag) =>
                     <li className="nav-item">
                       <a className="nav-link active">
                         ("#" ++ tag |> strEl)
                       </a>
                     </li>
-                  | None => nullEl
+                  | Your
+                  | Global => nullEl
                   }
                 )
               </ul>
@@ -365,7 +302,7 @@ let make = (~user, _children) => {
                 <Pagination
                   totalCount=articlesCount
                   perPage=pageNum
-                  onPageClick=(handle(changeCurrentPage(~feed=selectedFeed)))
+                  onPageClick=(page => send(ChangeFeed(feed, page)))
                   currentPage
                 />
               }
@@ -387,7 +324,12 @@ let make = (~user, _children) => {
                            key=item
                            className="tag-pill tag-default"
                            href="#"
-                           onClick=(handle(selectTag(~tag=Some(item))))>
+                           onClick=(
+                             event => {
+                               event |> ReactEventRe.Mouse.preventDefault;
+                               send(ChangeFeed(Tag(item), 1));
+                             }
+                           )>
                            (item |> strEl)
                          </a>
                        )
