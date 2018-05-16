@@ -162,10 +162,12 @@ let make = _children => {
                   <a
                     className=(linkCx(Profile(Author(username))))
                     href=("/#/profile/" ++ username)>
-                    (switch (image) {
-                    | Some(src) => <img className="user-pic" src />
-                    | None => nullEl
-                    })
+                    (
+                      switch (image) {
+                      | Some(src) => <img className="user-pic" src />
+                      | None => nullEl
+                      }
+                    )
                     (username |> strEl)
                   </a>
                 </li>
