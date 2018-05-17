@@ -6,13 +6,16 @@ type state = {
   articles: Types.remoteArticles,
   articlesCount: float,
   currentPage: int,
+  togglingFavorites: Belt.Map.String.t(Types.remoteAction),
 };
 
 type retainedProps = {author: Types.articleByAuthor};
 
 type action =
+  | ToggleFavorite(string, Types.remoteAction)
   | UpdateFollowAction(Types.remoteAction)
   | UpdateProfile(Types.remoteProfile)
+  | UpdateArticle(string, Types.article)
   | UpdateArticles((Types.remoteArticles, float, int));
 
 let pageNum = 10.;
@@ -146,6 +149,28 @@ let followAuthorOrRedirectToSetting =
     ignore()
   };
 
+let favoriteArticle = ((slug, favorited), {ReasonReact.send}) => {
+  open Js.Promise;
+  send(ToggleFavorite(slug, RemoteData.Loading));
+  (favorited ? API.favoriteArticle(slug) : API.unfavoriteArticle(slug))
+  |> then_(result => {
+       switch (result) {
+       | Js.Result.Ok(json) =>
+         let article = json |> Json.Decode.field("article", Decoder.article);
+         send(UpdateArticle(slug, article));
+       | Error(error) => Js.log(error)
+       };
+       send(ToggleFavorite(slug, RemoteData.NotAsked));
+       ignore() |> resolve;
+     })
+  |> catch(error => {
+       Js.log(error);
+       send(ToggleFavorite(slug, RemoteData.NotAsked));
+       ignore() |> resolve;
+     })
+  |> ignore;
+};
+
 let component = ReasonReact.reducerComponentWithRetainedProps("Profile");
 
 let make =
@@ -157,15 +182,31 @@ let make =
     articles: RemoteData.NotAsked,
     articlesCount: 0.,
     currentPage: 1,
+    togglingFavorites: Belt.Map.String.empty,
   },
   retainedProps: {
     author: author,
   },
   reducer: (action, state) =>
     switch (action) {
+    | ToggleFavorite(slug, value) =>
+      let togglingFavorites =
+        state.togglingFavorites
+        |. Belt.Map.String.update(slug, _previous => Some(value));
+      ReasonReact.Update({...state, togglingFavorites});
     | UpdateFollowAction(followAction) =>
       ReasonReact.Update({...state, followAction})
     | UpdateProfile(profile) => ReasonReact.Update({...state, profile})
+    | UpdateArticle(slug, article) =>
+      let articles =
+        state.articles
+        |> RemoteData.map(articles =>
+             articles
+             |. Belt.List.map((x: Types.article) =>
+                  x.slug === slug ? article : x
+                )
+           );
+      ReasonReact.Update({...state, articles});
     | UpdateArticles((articles, articlesCount, currentPage)) =>
       ReasonReact.Update({...state, articles, articlesCount, currentPage})
     },
@@ -175,7 +216,14 @@ let make =
       newSelf.handle(loadProfile, newSelf.retainedProps.author);
     },
   render: ({state, handle}) => {
-    let {followAction, currentPage, articles, articlesCount, profile} = state;
+    let {
+      followAction,
+      currentPage,
+      articles,
+      articlesCount,
+      profile,
+      togglingFavorites,
+    } = state;
     let authorVal =
       switch (author) {
       | Author(v) => v
@@ -325,7 +373,19 @@ let make =
               | Success(data) =>
                 data
                 |. Belt.List.mapU((. value: Types.article) =>
-                     <ArticleItem key=value.slug value />
+                     <ArticleItem
+                       key=value.slug
+                       value
+                       onFavoriteClick=(handle(favoriteArticle))
+                       favoriteDisabled=(
+                         togglingFavorites
+                         |.
+                         Belt.Map.String.getWithDefault(
+                           value.slug,
+                           RemoteData.NotAsked,
+                         ) === RemoteData.Loading
+                       )
+                     />
                    )
                 |> Belt.List.toArray
                 |> arrayEl

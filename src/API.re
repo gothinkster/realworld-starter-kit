@@ -141,6 +141,34 @@ let deleteArticle = slug =>
     |> then_(getResultIfOk)
   );
 
+let favoriteArticle = slug =>
+  Js.Promise.(
+    Fetch.fetchWithInit(
+      host ++ "/api/articles/" ++ slug ++ "/favorite",
+      Fetch.RequestInit.make(
+        ~method_=Post,
+        ~credentials=Include,
+        ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
+        (),
+      ),
+    )
+    |> then_(getResultIfOk)
+  );
+
+let unfavoriteArticle = slug =>
+  Js.Promise.(
+    Fetch.fetchWithInit(
+      host ++ "/api/articles/" ++ slug ++ "/favorite",
+      Fetch.RequestInit.make(
+        ~method_=Delete,
+        ~credentials=Include,
+        ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
+        (),
+      ),
+    )
+    |> then_(getResultIfOk)
+  );
+
 let comments = (~slug) =>
   Js.Promise.(
     Fetch.fetchWithInit(

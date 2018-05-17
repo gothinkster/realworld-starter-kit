@@ -2,7 +2,7 @@ open Utils;
 
 let component = ReasonReact.statelessComponent("ArticleItem");
 
-let make = (~value, _children) => {
+let make = (~value, ~onFavoriteClick, ~favoriteDisabled=false, _children) => {
   ...component,
   render: _self => {
     let {
@@ -31,7 +31,13 @@ let make = (~value, _children) => {
           className=(
             "btn  btn-sm pull-xs-right "
             ++ (favorited ? "btn-primary" : "btn-outline-primary")
-          )>
+          )
+          onClick=(
+            _event =>
+              favoriteDisabled ?
+                ignore() : onFavoriteClick((slug, ! favorited))
+          )
+          disabled=favoriteDisabled>
           <i className="ion-heart" />
           (" " ++ (favoritesCount |> string_of_int) |> strEl)
         </button>

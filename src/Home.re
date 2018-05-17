@@ -20,8 +20,6 @@ type state = {
 
 let pageNum = 10.;
 
-let component = ReasonReact.reducerComponent("Home");
-
 let loadTags = (_payload, {ReasonReact.send, state}) => {
   open Js.Promise;
   switch (state.tags) {
@@ -183,6 +181,25 @@ let initialData = (~user, _payload, {ReasonReact.state, send}) => {
   };
 };
 
+let favoriteArticle = ((slug, favorited), {ReasonReact.send}) =>
+  Js.Promise.(
+    (favorited ? API.favoriteArticle(slug) : API.unfavoriteArticle(slug))
+    |> then_(result => {
+         switch (result) {
+         | Js.Result.Ok(json) => Js.log(json)
+         | Error(error) => Js.log(error)
+         };
+         ignore() |> resolve;
+       })
+    |> catch(error => {
+         Js.log(error);
+         ignore() |> resolve;
+       })
+    |> ignore
+  );
+
+let component = ReasonReact.reducerComponent("Home");
+
 let make = (~user, _children) => {
   ...component,
   initialState: () => {
@@ -287,7 +304,11 @@ let make = (~user, _children) => {
               | Success(data) =>
                 data
                 |. Belt.List.mapU((. value: Types.article) =>
-                     <ArticleItem key=value.slug value />
+                     <ArticleItem
+                       key=value.slug
+                       value
+                       onFavoriteClick=(handle(favoriteArticle))
+                     />
                    )
                 |> Belt.List.toArray
                 |> arrayEl
