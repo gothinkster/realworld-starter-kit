@@ -70,7 +70,9 @@ let getCookie = target =>
             }
           )
        |> Js.Array.find(((name, _value)) => target === name)
-       |. Belt.Option.mapU((. (_name, value)) => value)
+       |. Belt.Option.flatMapU((. (_name, value)) =>
+            value === "" ? None : Some(value)
+          )
      );
 
 let remoteDataToStr =
