@@ -158,13 +158,13 @@ let favoriteArticle = ((slug, favorited), {ReasonReact.send}) => {
        | Js.Result.Ok(json) =>
          let article = json |> Json.Decode.field("article", Decoder.article);
          send(UpdateArticle(slug, article));
-       | Error(error) => Js.log(error)
+       | Error(error) => Js.log2("failed to toggle favorite article", error)
        };
        send(ToggleFavorite(slug, RemoteData.NotAsked));
        ignore() |> resolve;
      })
   |> catch(error => {
-       Js.log(error);
+       Js.log2("failed to toggle favorite article: ", error);
        send(ToggleFavorite(slug, RemoteData.NotAsked));
        ignore() |> resolve;
      })

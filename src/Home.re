@@ -6,8 +6,10 @@ type feed =
   | Your;
 
 type action =
+  | ToggleFavorite(string, Types.remoteAction)
   | ChangeFeed(feed, int)
   | UpdateTags(Types.remoteTags)
+  | UpdateArticle(string, Types.article)
   | UpdateArticles((Types.remoteArticles, float, int));
 
 type state = {
@@ -16,6 +18,7 @@ type state = {
   articlesCount: float,
   currentPage: int,
   feed,
+  togglingFavorites: Belt.Map.String.t(Types.remoteAction),
 };
 
 let pageNum = 10.;
@@ -181,22 +184,28 @@ let initialData = (~user, _payload, {ReasonReact.state, send}) => {
   };
 };
 
-let favoriteArticle = ((slug, favorited), {ReasonReact.send}) =>
-  Js.Promise.(
-    (favorited ? API.favoriteArticle(slug) : API.unfavoriteArticle(slug))
-    |> then_(result => {
-         switch (result) {
-         | Js.Result.Ok(json) => Js.log(json)
-         | Error(error) => Js.log(error)
-         };
-         ignore() |> resolve;
-       })
-    |> catch(error => {
-         Js.log(error);
-         ignore() |> resolve;
-       })
-    |> ignore
-  );
+let favoriteArticle = ((slug, favorited), {ReasonReact.send}) => {
+  open Js.Promise;
+  send(ToggleFavorite(slug, RemoteData.Loading));
+  (favorited ? API.favoriteArticle(slug) : API.unfavoriteArticle(slug))
+  |> then_(result => {
+       switch (result) {
+       | Js.Result.Ok(json) =>
+         let article = json |> Json.Decode.field("article", Decoder.article);
+         send(UpdateArticle(slug, article));
+       | Error(error) =>
+         Js.log2("failed to toggle favorite article: ", error)
+       };
+       send(ToggleFavorite(slug, RemoteData.NotAsked));
+       ignore() |> resolve;
+     })
+  |> catch(error => {
+       Js.log2("failed to toggle favorite article: ", error);
+       send(ToggleFavorite(slug, RemoteData.NotAsked));
+       ignore() |> resolve;
+     })
+  |> ignore;
+};
 
 let component = ReasonReact.reducerComponent("Home");
 
@@ -208,9 +217,15 @@ let make = (~user, _children) => {
     articlesCount: 0.,
     currentPage: 1,
     feed: Global,
+    togglingFavorites: Belt.Map.String.empty,
   },
   reducer: (action, state) =>
     switch (action) {
+    | ToggleFavorite(slug, value) =>
+      let togglingFavorites =
+        state.togglingFavorites
+        |. Belt.Map.String.update(slug, _previous => Some(value));
+      ReasonReact.Update({...state, togglingFavorites});
     | ChangeFeed(feed, page) =>
       ReasonReact.UpdateWithSideEffects(
         {...state, feed, currentPage: page},
@@ -226,13 +241,23 @@ let make = (~user, _children) => {
         ),
       )
     | UpdateTags(tags) => ReasonReact.Update({...state, tags})
+    | UpdateArticle(slug, article) =>
+      let articles =
+        state.articles
+        |> RemoteData.map(articles =>
+             articles
+             |. Belt.List.map((x: Types.article) =>
+                  x.slug === slug ? article : x
+                )
+           );
+      ReasonReact.Update({...state, articles});
     | UpdateArticles((articles, articlesCount, currentPage)) =>
       ReasonReact.Update({...state, articles, articlesCount, currentPage})
     },
   didMount: ({handle}) => handle(initialData(~user), ()),
   didUpdate: ({newSelf}) => newSelf.handle(initialData(~user), ()),
   render: ({state, handle, send}) => {
-    let {articles, tags, articlesCount, currentPage, feed} = state;
+    let {articles, tags, articlesCount, currentPage, feed, togglingFavorites} = state;
     <div className="home-page">
       <div className="banner">
         <div className="container">
@@ -308,6 +333,14 @@ let make = (~user, _children) => {
                        key=value.slug
                        value
                        onFavoriteClick=(handle(favoriteArticle))
+                       favoriteDisabled=(
+                         togglingFavorites
+                         |.
+                         Belt.Map.String.getWithDefault(
+                           value.slug,
+                           RemoteData.NotAsked,
+                         ) === RemoteData.Loading
+                       )
                      />
                    )
                 |> Belt.List.toArray
