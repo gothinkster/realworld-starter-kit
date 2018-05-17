@@ -59,7 +59,11 @@ let listArticles = (~tag=?, ~author=?, ~favorited=?, ~limit=20, ~offset=0, ()) =
       ++ optToQueryString("&tag=", tag)
       ++ optToQueryString("&author=", author)
       ++ optToQueryString("&favorited=", favorited),
-      Fetch.RequestInit.make(~credentials=Include, ()),
+      Fetch.RequestInit.make(
+        ~credentials=Include,
+        ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
+        (),
+      ),
     )
     |> then_(getResultIfOk)
   );

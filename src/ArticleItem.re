@@ -5,7 +5,15 @@ let component = ReasonReact.statelessComponent("ArticleItem");
 let make = (~value, _children) => {
   ...component,
   render: _self => {
-    let {title, description, slug, createdAt, author, favoritesCount}: Types.article = value;
+    let {
+      Types.title,
+      description,
+      slug,
+      createdAt,
+      author,
+      favoritesCount,
+      favorited,
+    } = value;
     <div className="article-preview">
       <div className="article-meta">
         <a href=("/#/profile/" ++ author.username)>
@@ -19,7 +27,11 @@ let make = (~value, _children) => {
             (createdAt |> Js.Date.toUTCString |> strEl)
           </span>
         </div>
-        <button className="btn btn-outline-primary btn-sm pull-xs-right">
+        <button
+          className=(
+            "btn  btn-sm pull-xs-right "
+            ++ (favorited ? "btn-primary" : "btn-outline-primary")
+          )>
           <i className="ion-heart" />
           (" " ++ (favoritesCount |> string_of_int) |> strEl)
         </button>
