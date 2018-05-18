@@ -2,7 +2,7 @@
 
 > ### ReasonReact (ReasonML) codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
 
-### [Demo](https://reason-react-realworld-example-app.surge.sh/)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/jihchi/reason-react-realworld-example-app)
+### [Demo](https://reason-react-realworld-example-app.surge.sh/)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworl)
 
 This codebase was created to demonstrate a fully fledged fullstack application built with **ReasonReact (ReasonML)** including CRUD operations, authentication, routing, pagination, and more.
 
@@ -24,6 +24,10 @@ Basically its just like React single-page-application but written in ReasonML wi
 * JSON decode / encode - [`@glennsl/bs-json`](https://github.com/glennsl/bs-json)
 
 # Getting started
+
+You can view a live demo over at https://reason-react-realworld-example-app.surge.sh/
+
+To get the frontend running locally:
 
 ```bash
 git clone https://github.com/jihchi/reason-react-realworld-example-app.git
