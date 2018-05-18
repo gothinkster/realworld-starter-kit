@@ -118,58 +118,69 @@ let followAuthorOrRedirectToSetting =
       _event,
       {ReasonReact.send},
     ) =>
-  switch (profile, user) {
-  | (Success(profileVal), Success(userVal))
-      when userVal.username === profileVal.username =>
-    ReasonReact.Router.push("/#/settings")
-  | (Success(profileVal), NotAsked | Loading | Success(_) | Failure(_)) =>
-    let {Types.following, username} = profileVal;
-    send(UpdateFollowAction(RemoteData.Loading));
-    Js.Promise.(
-      (following ? API.unfollowUser(username) : API.followUser(username))
-      |> then_(_result => {
-           send(
-             UpdateProfile(
-               RemoteData.Success({...profileVal, following: ! following}),
-             ),
-           );
-           send(UpdateFollowAction(RemoteData.NotAsked));
-           ignore() |> resolve;
-         })
-      |> catch(_error => {
-           send(UpdateFollowAction(RemoteData.NotAsked));
-           ignore() |> resolve;
-         })
-      |> ignore
-    );
-  | (
-      NotAsked | Loading | Failure(_),
-      NotAsked | Loading | Success(_) | Failure(_),
-    ) =>
-    ignore()
+  switch (user) {
+  | RemoteData.NotAsked
+  | Loading
+  | Failure(_) => ReasonReact.Router.push("/#/login")
+  | Success(userVal) =>
+    switch (profile) {
+    | Success(profileVal) when userVal.username === profileVal.username =>
+      ReasonReact.Router.push("/#/settings")
+    | Success(profileVal) =>
+      let {Types.following, username} = profileVal;
+      send(UpdateFollowAction(RemoteData.Loading));
+      Js.Promise.(
+        (following ? API.unfollowUser(username) : API.followUser(username))
+        |> then_(_result => {
+             send(
+               UpdateProfile(
+                 RemoteData.Success({...profileVal, following: ! following}),
+               ),
+             );
+             send(UpdateFollowAction(RemoteData.NotAsked));
+             ignore() |> resolve;
+           })
+        |> catch(_error => {
+             send(UpdateFollowAction(RemoteData.NotAsked));
+             ignore() |> resolve;
+           })
+        |> ignore
+      );
+    | NotAsked
+    | Loading
+    | Failure(_) => ignore()
+    }
   };
 
-let favoriteArticle = ((slug, favorited), {ReasonReact.send}) => {
-  open Js.Promise;
-  send(ToggleFavorite(slug, RemoteData.Loading));
-  (favorited ? API.favoriteArticle(slug) : API.unfavoriteArticle(slug))
-  |> then_(result => {
-       switch (result) {
-       | Js.Result.Ok(json) =>
-         let article = json |> Json.Decode.field("article", Decoder.article);
-         send(UpdateArticle(slug, article));
-       | Error(error) => Js.log2("failed to toggle favorite article", error)
-       };
-       send(ToggleFavorite(slug, RemoteData.NotAsked));
-       ignore() |> resolve;
-     })
-  |> catch(error => {
-       Js.log2("failed to toggle favorite article: ", error);
-       send(ToggleFavorite(slug, RemoteData.NotAsked));
-       ignore() |> resolve;
-     })
-  |> ignore;
-};
+let favoriteArticle = (~user, (slug, favorited), {ReasonReact.send}) =>
+  Js.Promise.(
+    switch (user) {
+    | RemoteData.NotAsked
+    | Loading
+    | Failure(_) => ReasonReact.Router.push("/#/login")
+    | Success(_) =>
+      send(ToggleFavorite(slug, RemoteData.Loading));
+      (favorited ? API.favoriteArticle(slug) : API.unfavoriteArticle(slug))
+      |> then_(result => {
+           switch (result) {
+           | Js.Result.Ok(json) =>
+             let article =
+               json |> Json.Decode.field("article", Decoder.article);
+             send(UpdateArticle(slug, article));
+           | Error(error) =>
+             Js.log2("failed to toggle favorite article", error)
+           };
+           send(ToggleFavorite(slug, RemoteData.NotAsked));
+           ignore() |> resolve;
+         })
+      |> catch(error => {
+           Js.log2("failed to toggle favorite article: ", error);
+           send(ToggleFavorite(slug, RemoteData.NotAsked));
+           ignore() |> resolve;
+         })
+      |> ignore;
+    }
+  );
 
 let component = ReasonReact.reducerComponentWithRetainedProps("Profile");
 
@@ -376,7 +387,7 @@ let make =
                      <ArticleItem
                        key=value.slug
                        value
-                       onFavoriteClick=(handle(favoriteArticle))
+                       onFavoriteClick=(handle(favoriteArticle(~user)))
                        favoriteDisabled=(
                          togglingFavorites
                          |.

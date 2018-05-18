@@ -184,28 +184,35 @@ let initialData = (~user, _payload, {ReasonReact.state, send}) => {
   };
 };
 
-let favoriteArticle = ((slug, favorited), {ReasonReact.send}) => {
-  open Js.Promise;
-  send(ToggleFavorite(slug, RemoteData.Loading));
-  (favorited ? API.favoriteArticle(slug) : API.unfavoriteArticle(slug))
-  |> then_(result => {
-       switch (result) {
-       | Js.Result.Ok(json) =>
-         let article = json |> Json.Decode.field("article", Decoder.article);
-         send(UpdateArticle(slug, article));
-       | Error(error) =>
-         Js.log2("failed to toggle favorite article: ", error)
-       };
-       send(ToggleFavorite(slug, RemoteData.NotAsked));
-       ignore() |> resolve;
-     })
-  |> catch(error => {
-       Js.log2("failed to toggle favorite article: ", error);
-       send(ToggleFavorite(slug, RemoteData.NotAsked));
-       ignore() |> resolve;
-     })
-  |> ignore;
-};
+let favoriteArticle = (~user, (slug, favorited), {ReasonReact.send}) =>
+  Js.Promise.(
+    switch (user) {
+    | RemoteData.NotAsked
+    | Loading
+    | Failure(_) => ReasonReact.Router.push("/#/login")
+    | Success(_) =>
+      send(ToggleFavorite(slug, RemoteData.Loading));
+      (favorited ? API.favoriteArticle(slug) : API.unfavoriteArticle(slug))
+      |> then_(result => {
+           switch (result) {
+           | Js.Result.Ok(json) =>
+             let article =
+               json |> Json.Decode.field("article", Decoder.article);
+             send(UpdateArticle(slug, article));
+           | Error(error) =>
+             Js.log2("failed to toggle favorite article: ", error)
+           };
+           send(ToggleFavorite(slug, RemoteData.NotAsked));
+           ignore() |> resolve;
+         })
+      |> catch(error => {
+           Js.log2("failed to toggle favorite article: ", error);
+           send(ToggleFavorite(slug, RemoteData.NotAsked));
+           ignore() |> resolve;
+         })
+      |> ignore;
+    }
+  );
 
 let component = ReasonReact.reducerComponent("Home");
 
@@ -332,7 +339,7 @@ let make = (~user, _children) => {
                      <ArticleItem
                        key=value.slug
                        value
-                       onFavoriteClick=(handle(favoriteArticle))
+                       onFavoriteClick=(handle(favoriteArticle(~user)))
                        favoriteDisabled=(
                          togglingFavorites
                          |.
