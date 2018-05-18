@@ -1,0 +1,3 @@
+{
+  "{src,examples,__tests__}/**/*.{re,rei}": ["refmt --in-place", "git add"]
+}

@@ -23,10 +23,22 @@
     "build:cra": "react-scripts build",
     "coverage": "yarn test --coverage",
     "format:re": "find . -regex '.+\\.rei?' -exec refmt --in-place {} \\;",
+    "pre-commit": "lint-staged && yarn test:ci",
     "start": "concurrently --kill-others --names \"ReasonML,CRA\" --prefix-colors \"red.bgBlack.bold,yellow.bgBlack.bold\" \"yarn start:bsb\" \"yarn start:cra\"",
     "start:bsb": "bsb -make-world -w",
     "start:cra": "react-scripts start",
-    "test": "react-scripts test --env=jsdom"
+    "test": "react-scripts test --env=jsdom",
+    "test:ci": "CI=true yarn test"
+  },
+  "devDependencies": {
+    "@glennsl/bs-jest": "^0.4.2",
+    "bs-platform": "^3.0.0",
+    "concurrently": "^3.5.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
+    "husky": "^1.0.0-rc.6",
+    "lint-staged": "^7.1.0"
   },
   "browserslist": {
     "development": [
@@ -40,13 +52,5 @@
       "Firefox ESR",
       "not ie < 11"
     ]
-  },
-  "devDependencies": {
-    "@glennsl/bs-jest": "^0.4.2",
-    "bs-platform": "^3.0.0",
-    "concurrently": "^3.5.1",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
-    "enzyme-to-json": "^3.3.4"
   }
 }
