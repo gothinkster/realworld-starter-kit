@@ -21,6 +21,7 @@
     "build": "yarn build:bsb && yarn build:cra",
     "build:bsb": "bsb -make-world -clean-world",
     "build:cra": "react-scripts build",
+    "coverage": "yarn test --coverage",
     "format:re": "find . -regex '.+\\.rei?' -exec refmt --in-place {} \\;",
     "start": "concurrently --kill-others --names \"ReasonML,CRA\" --prefix-colors \"red.bgBlack.bold,yellow.bgBlack.bold\" \"yarn start:bsb\" \"yarn start:cra\"",
     "start:bsb": "bsb -make-world -w",
@@ -41,7 +42,11 @@
     ]
   },
   "devDependencies": {
+    "@glennsl/bs-jest": "^0.4.2",
     "bs-platform": "^3.0.0",
-    "concurrently": "^3.5.1"
+    "concurrently": "^3.5.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4"
   }
 }
