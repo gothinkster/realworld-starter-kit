@@ -6,6 +6,21 @@
     "url": "https://github.com/jihchi/reason-react-realworld-example-app.git"
   },
   "license": "MIT",
+  "scripts": {
+    "build": "yarn build:bsb && yarn build:cra",
+    "build:bsb": "bsb -make-world -clean-world",
+    "build:cra": "react-scripts build",
+    "coverage": "yarn test --coverage",
+    "format:md": "prettier --write --parser markdown",
+    "format:json": "prettier --write --parser json",
+    "format:re": "find . -regex '.+\\.rei?' -exec refmt --in-place {} \\;",
+    "pre-commit": "lint-staged && yarn test:ci",
+    "start": "concurrently --kill-others --names \"ReasonML,CRA\" --prefix-colors \"red.bgBlack.bold,yellow.bgBlack.bold\" \"yarn start:bsb\" \"yarn start:cra\"",
+    "start:bsb": "bsb -make-world -w",
+    "start:cra": "react-scripts start",
+    "test": "react-scripts test --env=jsdom",
+    "test:ci": "CI=true yarn test"
+  },
   "dependencies": {
     "@glennsl/bs-json": "^1.3.1",
     "bs-fetch": "^0.2.1",
@@ -17,19 +32,6 @@
     "reason-react": "^0.4.1",
     "remotedata-re": "^0.1.3"
   },
-  "scripts": {
-    "build": "yarn build:bsb && yarn build:cra",
-    "build:bsb": "bsb -make-world -clean-world",
-    "build:cra": "react-scripts build",
-    "coverage": "yarn test --coverage",
-    "format:re": "find . -regex '.+\\.rei?' -exec refmt --in-place {} \\;",
-    "pre-commit": "lint-staged && yarn test:ci",
-    "start": "concurrently --kill-others --names \"ReasonML,CRA\" --prefix-colors \"red.bgBlack.bold,yellow.bgBlack.bold\" \"yarn start:bsb\" \"yarn start:cra\"",
-    "start:bsb": "bsb -make-world -w",
-    "start:cra": "react-scripts start",
-    "test": "react-scripts test --env=jsdom",
-    "test:ci": "CI=true yarn test"
-  },
   "devDependencies": {
     "@glennsl/bs-jest": "^0.4.2",
     "bs-platform": "^3.0.0",
@@ -38,7 +40,8 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.4",
     "husky": "^1.0.0-rc.6",
-    "lint-staged": "^7.1.0"
+    "lint-staged": "^7.1.0",
+    "prettier": "^1.12.1"
   },
   "browserslist": {
     "development": [

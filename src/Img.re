@@ -1,5 +1,3 @@
-open Utils;
-
 let component = ReasonReact.statelessComponent("Img");
 
 let make = (~src=None, ~width=30, ~height=30, ~className="", _children) => {
