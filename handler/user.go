@@ -58,16 +58,53 @@ func (h *Handler) UpdateUser(c echo.Context) error {
 }
 
 func (h *Handler) GetProfile(c echo.Context) error {
-	return c.JSON(http.StatusOK, "Get Profile")
+	username := c.Param("username")
+	var u models.User
+	if err := h.db.Where(&models.User{Username: username}).Preload("Followers").First(&u).Error; err != nil {
+		return c.JSON(http.StatusNotFound, NewError(err))
+	}
+	return c.JSON(http.StatusOK, newProfileResponse(c, &u))
 }
+
 func (h *Handler) Follow(c echo.Context) error {
-	return c.JSON(http.StatusOK, "Follow user")
+	var u models.User
+	username := c.Param("username")
+	followerID := userIDFromToken(c)
+	if err := h.db.Where(&models.User{Username: username}).First(&u).Error; err != nil {
+		return c.JSON(http.StatusNotFound, NewError(err))
+	}
+	if err := h.db.Model(&u).Association("Followers").Replace(&models.Follow{FollowerID: followerID, FollowingID: u.ID}).Error; err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+	}
+	return c.JSON(http.StatusOK, newProfileResponse(c, &u))
 }
 func (h *Handler) Unfollow(c echo.Context) error {
-	return c.JSON(http.StatusOK, "Unfollow user")
+	var u models.User
+	username := c.Param("username")
+	followerID := userIDFromToken(c)
+	if err := h.db.Where(&models.User{Username: username}).First(&u).Error; err != nil {
+		return c.JSON(http.StatusNotFound, NewError(err))
+	}
+
+	f := models.Follow{
+		FollowerID:  followerID,
+		FollowingID: u.ID,
+	}
+	if err := h.db.Model(&u).Association("Followers").Find(&f).Error; err != nil {
+		return c.JSON(http.StatusNotFound, NewError(err))
+	}
+
+	if err := h.db.Delete(f).Error; err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+	}
+
+	return c.JSON(http.StatusOK, newProfileResponse(c, &u))
 }
 
 func userIDFromToken(c echo.Context) uint {
-	id := c.Get("user").(uint)
+	id, ok := c.Get("user").(uint)
+	if !ok {
+		return 0
+	}
 	return id
 }

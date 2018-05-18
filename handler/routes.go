@@ -43,7 +43,7 @@ func (h *Handler) RegisterRoutes(e *echo.Echo) {
 	articles.POST("/:slug/favorite", h.Favorite)
 	articles.DELETE("/:slug/favorite", h.Unfavorite)
 	articles.GET("", h.Articles)
-	articles.GET("/:slug", h.GetArticles)
+	articles.GET("/:slug", h.GetArticle)
 	articles.GET("/:slug/comments", h.GetComments)
 
 	tags := v1.Group("/tags")

@@ -33,8 +33,15 @@ func testDB() *gorm.DB {
 
 // Migrate the schema of database if needed
 func AutoMigrate() {
-	if err := db.AutoMigrate(&models.User{}).Error; err != nil {
-		log.Fatal(err)
+	db := db.AutoMigrate(
+		&models.User{},
+		&models.Follow{},
+		&models.Article{},
+		&models.Comment{},
+		models.Tag{},
+	)
+	if db.Error != nil {
+		log.Fatal(db.Error)
 	}
 }
 
@@ -69,11 +76,48 @@ func loadFixtures() error {
 		Bio:      &bio,
 		Image:    &image,
 	}
-	if err := u.HashPassword("secret"); err != nil {
+	_ = u.HashPassword("secret")
+	if err := db.Create(&u).Error; err != nil {
 		return err
 	}
 
+	bio = "user2 bio"
+	image = "http://realworld.io/user2.jpg"
+	u = models.User{
+		Username: "user2",
+		Email:    "user2@realworld.io",
+		Bio:      &bio,
+		Image:    &image,
+	}
+	_ = u.HashPassword("secret")
 	if err := db.Create(&u).Error; err != nil {
+		return err
+	}
+	db.Model(&u).Association("Followings").Replace(models.Follow{FollowerID: 2, FollowingID: 1})
+
+	a := models.Article{
+		Slug:        "article1-slug",
+		Title:       "article1 title",
+		Description: "article1 description",
+		Body:        "article1 body",
+		AuthorID:    1,
+		Comments: []models.Comment{
+			{
+				UserID:    1,
+				Body:      "article1 comment1",
+				ArticleID: 1,
+			},
+		},
+		Favorites: []models.User{
+			u,
+		},
+		Tags: []models.Tag{
+			{
+				Tag: "tag1",
+			},
+		},
+	}
+	if err := db.Create(&a).Error; err != nil {
 		return err
 	}
 	return nil

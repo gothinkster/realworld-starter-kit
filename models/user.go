@@ -8,11 +8,21 @@ import (
 
 type User struct {
 	gorm.Model
-	Username string `gorm:"unique_index;not null"`
-	Email    string `gorm:"unique_index;not null"`
-	Password string `gorm:"not null"`
-	Bio      *string
-	Image    *string
+	Username   string    `gorm:"unique_index;not null"`
+	Email      string    `gorm:"unique_index;not null"`
+	Password   string    `gorm:"not null"`
+	Bio        *string
+	Image      *string
+	Followers  []Follow  `gorm:"foreignkey:FollowingID"`
+	Followings []Follow  `gorm:"foreignkey:FollowerID"`
+	Favorites  []Article `gorm:"many2many:favorites;"`
+}
+
+type Follow struct {
+	Follower    User
+	FollowerID  uint `gorm:"primary_key" sql:"type:int not null"`
+	Following   User
+	FollowingID uint `gorm:"primary_key" sql:"type:int not null"`
 }
 
 func (u *User) HashPassword(p string) error {
@@ -29,4 +39,17 @@ func (u *User) CheckPassword(p string) error {
 	bytePassword := []byte(p)
 	byteHashedPassword := []byte(u.Password)
 	return bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
+}
+
+// FollowedBy Followings should be pre loaded
+func (u *User) FollowedBy(id uint) bool {
+	if u.Followers == nil {
+		return false
+	}
+	for _, f := range u.Followers {
+		if f.FollowerID == id {
+			return true
+		}
+	}
+	return false
 }

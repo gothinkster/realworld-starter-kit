@@ -6,11 +6,11 @@ import (
 	"github.com/xesina/golang-echo-realworld-example-app/handler"
 	"net/http"
 	"net/http/httptest"
-	"strings"
 	"testing"
 	"github.com/xesina/golang-echo-realworld-example-app/router"
 	"github.com/xesina/golang-echo-realworld-example-app/utils"
 	"github.com/xesina/golang-echo-realworld-example-app/router/middleware"
+	"strings"
 )
 
 var (
@@ -128,5 +128,170 @@ func TestUpdateUserMultipleFields(t *testing.T) {
 	if assert.NoError(t, err) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 		assert.Regexp(t, user1UpdatedRes, rec.Body.String())
+	}
+}
+
+// user1 viewing her own profile
+func TestGetProfile(t *testing.T) {
+	tearDown()
+	setup()
+	var (
+		user1ProfileRes = `{"profile":{"username":"user1","bio":"user1 bio","image":"http://realworld.io/user1.jpg","following":false}}`
+	)
+	jwtMiddleware := middleware.JWT(utils.JWTSecret)
+	e := router.New()
+	req := httptest.NewRequest(echo.GET, "/s", nil)
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	req.Header.Set(echo.HeaderAuthorization, authHeader(utils.GenerateJWT(1)))
+	rec := httptest.NewRecorder()
+	h := handler.New(db)
+	c := e.NewContext(req, rec)
+	c.SetPath("/api/profiles/:username")
+	c.SetParamNames("username")
+	c.SetParamValues("user1")
+	err := jwtMiddleware(func(context echo.Context) error {
+		return h.GetProfile(c)
+	})(c)
+
+	if assert.NoError(t, err) {
+		assert.Equal(t, http.StatusOK, rec.Code)
+		assert.Regexp(t, user1ProfileRes, rec.Body.String())
+	}
+}
+
+// user1 trying to view non-existing profile
+func TestGetInvalidProfile(t *testing.T) {
+	tearDown()
+	setup()
+	var (
+		errRes = `{"errors":{"body":"record not found"}}`
+	)
+	jwtMiddleware := middleware.JWT(utils.JWTSecret)
+	e := router.New()
+	req := httptest.NewRequest(echo.GET, "/", nil)
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	req.Header.Set(echo.HeaderAuthorization, authHeader(utils.GenerateJWT(1)))
+	rec := httptest.NewRecorder()
+	h := handler.New(db)
+	c := e.NewContext(req, rec)
+	c.SetPath("/api/profiles/:username")
+	c.SetParamNames("username")
+	c.SetParamValues("unknown")
+	err := jwtMiddleware(func(context echo.Context) error {
+		return h.GetProfile(c)
+	})(c)
+
+	if assert.NoError(t, err) {
+		assert.Equal(t, http.StatusNotFound, rec.Code)
+		assert.Regexp(t, errRes, rec.Body.String())
+	}
+}
+
+// user2 viewing user1 profile while she following him
+func TestGetProfileByFollower(t *testing.T) {
+	tearDown()
+	setup()
+	var (
+		user1ProfileRes = `{"profile":{"username":"user1","bio":"user1 bio","image":"http://realworld.io/user1.jpg","following":true}}`
+	)
+	jwtMiddleware := middleware.JWT(utils.JWTSecret)
+	e := router.New()
+	req := httptest.NewRequest(echo.GET, "/", nil)
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	req.Header.Set(echo.HeaderAuthorization, authHeader(utils.GenerateJWT(2)))
+	rec := httptest.NewRecorder()
+	h := handler.New(db)
+	c := e.NewContext(req, rec)
+	c.SetPath("/api/profiles/:username")
+	c.SetParamNames("username")
+	c.SetParamValues("user1")
+	err := jwtMiddleware(func(context echo.Context) error {
+		return h.GetProfile(c)
+	})(c)
+
+	if assert.NoError(t, err) {
+		assert.Equal(t, http.StatusOK, rec.Code)
+		assert.Regexp(t, user1ProfileRes, rec.Body.String())
+	}
+}
+
+//user1 follows user2
+func TestFollow(t *testing.T) {
+	tearDown()
+	setup()
+	var (
+		user2ProfileRes = `{"profile":{"username":"user2","bio":"user2 bio","image":"http://realworld.io/user2.jpg","following":true}}`
+	)
+	jwtMiddleware := middleware.JWT(utils.JWTSecret)
+	e := router.New()
+	req := httptest.NewRequest(echo.POST, "/", nil)
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	req.Header.Set(echo.HeaderAuthorization, authHeader(utils.GenerateJWT(1)))
+	rec := httptest.NewRecorder()
+	h := handler.New(db)
+	c := e.NewContext(req, rec)
+	c.SetPath("/api/profiles/:username/follow")
+	c.SetParamNames("username")
+	c.SetParamValues("user2")
+	err := jwtMiddleware(func(context echo.Context) error {
+		return h.Follow(c)
+	})(c)
+	if assert.NoError(t, err) {
+		assert.Equal(t, http.StatusOK, rec.Code)
+		assert.Regexp(t, user2ProfileRes, rec.Body.String())
+	}
+}
+
+// user1 trying to follows non-existing unknown user
+func TestFollowInvalidUser(t *testing.T) {
+	tearDown()
+	setup()
+	var (
+		user2ProfileRes = `{"errors":{"body":"record not found"}}`
+	)
+	jwtMiddleware := middleware.JWT(utils.JWTSecret)
+	e := router.New()
+	req := httptest.NewRequest(echo.POST, "/", nil)
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	req.Header.Set(echo.HeaderAuthorization, authHeader(utils.GenerateJWT(1)))
+	rec := httptest.NewRecorder()
+	h := handler.New(db)
+	c := e.NewContext(req, rec)
+	c.SetPath("/api/profiles/:username/follow")
+	c.SetParamNames("username")
+	c.SetParamValues("unknown")
+	err := jwtMiddleware(func(context echo.Context) error {
+		return h.Follow(c)
+	})(c)
+	if assert.NoError(t, err) {
+		assert.Equal(t, http.StatusNotFound, rec.Code)
+		assert.Regexp(t, user2ProfileRes, rec.Body.String())
+	}
+}
+
+// user2 follows user1
+func TestUnfollow(t *testing.T) {
+	tearDown()
+	setup()
+	var (
+		user1ProfileRes = `{"profile":{"username":"user1","bio":"user1 bio","image":"http://realworld.io/user1.jpg","following":false}}`
+	)
+	jwtMiddleware := middleware.JWT(utils.JWTSecret)
+	e := router.New()
+	req := httptest.NewRequest(echo.DELETE, "/", nil)
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	req.Header.Set(echo.HeaderAuthorization, authHeader(utils.GenerateJWT(2)))
+	rec := httptest.NewRecorder()
+	h := handler.New(db)
+	c := e.NewContext(req, rec)
+	c.SetPath("/api/profiles/:username/follow")
+	c.SetParamNames("username")
+	c.SetParamValues("user1")
+	err := jwtMiddleware(func(context echo.Context) error {
+		return h.Unfollow(c)
+	})(c)
+	if assert.NoError(t, err) {
+		assert.Equal(t, http.StatusOK, rec.Code)
+		assert.Regexp(t, user1ProfileRes, rec.Body.String())
 	}
 }
