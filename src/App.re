@@ -5,6 +5,7 @@ requireCSS("./App.css");
 let logo = requireAssetURI("./logo.svg");
 
 type action =
+  | Logout
   | UpdateUser(Types.remoteUser)
   | ChangeRoute(Types.route);
 
@@ -12,8 +13,6 @@ type state = {
   route: Types.route,
   user: Types.remoteUser,
 };
-
-let component = ReasonReact.reducerComponent("App");
 
 let makeLinkClass = (current, target) =>
   "nav-link" ++ (current === target ? " active" : "");
@@ -58,6 +57,10 @@ let getUser = (_payload, {ReasonReact.send}) => {
   );
 };
 
+let logoutUser = (_payload, {ReasonReact.send}) => send(Logout);
+
+let component = ReasonReact.reducerComponent("App");
+
 let make = _children => {
   ...component,
   initialState: () => {
@@ -66,8 +69,26 @@ let make = _children => {
   },
   reducer: (action, state) =>
     switch (action) {
+    | Logout =>
+      setCookie("token", "");
+      ReasonReact.UpdateWithSideEffects(
+        {...state, user: RemoteData.NotAsked},
+        (_self => ReasonReact.Router.push("/#/")),
+      );
     | UpdateUser(user) => ReasonReact.Update({...state, user})
-    | ChangeRoute(route) => ReasonReact.Update({...state, route})
+    | ChangeRoute(route) =>
+      ReasonReact.UpdateWithSideEffects(
+        {...state, route},
+        (
+          ({handle, state}) =>
+            switch (state.user) {
+            | RemoteData.NotAsked => handle(getUser, ())
+            | Loading
+            | Success(_)
+            | Failure(_) => ignore()
+            }
+        ),
+      )
     },
   didMount: ({send, onUnmount, handle}) => {
     let urlWatcherId =
@@ -182,7 +203,13 @@ let make = _children => {
         | Register => <Register onSuccessRegister=(handle(getUser)) />
         | Settings =>
           <PrivateRoute user>
-            ...(userData => <Settings user=userData />)
+            ...(
+                 userData =>
+                   <Settings
+                     user=userData
+                     onLogoutClick=(handle(logoutUser))
+                   />
+               )
           </PrivateRoute>
         | Editor(slug) => <Editor slug />
         | Profile(author) => <Profile author user />

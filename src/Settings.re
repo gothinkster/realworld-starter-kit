@@ -136,16 +136,11 @@ module Placeholder = {
   };
 };
 
-let logout = (_event, _self) => {
-  setCookie("token", "");
-  ReasonReact.Router.push("/#/");
-};
-
 let component = ReasonReact.statelessComponent("Settings");
 
-let make = (~user: Types.User.t, _children) => {
+let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
   ...component,
-  render: ({handle}) =>
+  render: _self =>
     <FormContainer
       initialState={
         image: user.image |. Belt.Option.getWithDefault(""),
@@ -354,7 +349,7 @@ let make = (~user: Types.User.t, _children) => {
                      <hr />
                      <button
                        className="btn btn-outline-danger"
-                       onClick=(handle(logout))>
+                       onClick=onLogoutClick>
                        ("Or click here to logout." |> strEl)
                      </button>
                    </div>
