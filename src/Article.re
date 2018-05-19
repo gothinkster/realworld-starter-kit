@@ -1,6 +1,8 @@
 open Utils;
 
 type action =
+  | UpdateFollowAction(Types.remoteAction)
+  | UpdateFavoriteAction(Types.remoteAction)
   | RemoveComment(int)
   | AddHidingDeleteIcon(int)
   | PrependNewComment(Types.comment)
@@ -8,6 +10,8 @@ type action =
   | UpdateArticle(Types.remoteArticle);
 
 type state = {
+  followAction: Types.remoteAction,
+  favoriteAction: Types.remoteAction,
   article: Types.remoteArticle,
   comments: Types.remoteComments,
   hidingDeleteIcons: list(int),
@@ -36,6 +40,7 @@ module FavoriteOrDeleteButton = {
   let component = ReasonReact.statelessComponent("FavoriteOrDeleteButton");
   let make =
       (
+        ~disabled=false,
         ~user: Types.remoteUser,
         ~article: Types.remoteArticle,
         ~favoriteClassName="",
@@ -58,12 +63,17 @@ module FavoriteOrDeleteButton = {
       <button
         className=(isAuthor ? deleteClassName : favoriteClassName)
         onClick=(
-          switch (isLogon, isAuthor) {
-          | (false, true | false) => redirectToLoginPage
-          | (true, true) => onDeleteClick
-          | (true, false) => onFavoriteClick
-          }
-        )>
+          disabled ?
+            ignore :
+            (
+              switch (isLogon, isAuthor) {
+              | (false, true | false) => redirectToLoginPage
+              | (true, true) => onDeleteClick
+              | (true, false) => onFavoriteClick
+              }
+            )
+        )
+        disabled>
         <i className=(isAuthor ? "ion-trash-a" : "ion-heart") />
         ((isAuthor ? " Delete Article " : " Favorite Post ") |> strEl)
         (
@@ -82,6 +92,7 @@ module FollowOrEditButton = {
   let component = ReasonReact.statelessComponent("FollowOrEditButton");
   let make =
       (
+        ~disabled=false,
         ~user: Types.remoteUser,
         ~article: Types.remoteArticle,
         ~followClassName="",
@@ -104,12 +115,17 @@ module FollowOrEditButton = {
       <button
         className=(isAuthor ? editClassName : followClassName)
         onClick=(
-          switch (isLogon, isAuthor) {
-          | (false, true | false) => redirectToLoginPage
-          | (true, true) => onEditClick
-          | (true, false) => onFollowClick
-          }
-        )>
+          disabled ?
+            ignore :
+            (
+              switch (isLogon, isAuthor) {
+              | (false, true | false) => redirectToLoginPage
+              | (true, true) => onEditClick
+              | (true, false) => onFollowClick
+              }
+            )
+        )
+        disabled>
         <i className=(isAuthor ? "ion-edit" : "ion-plus-round") />
         ((isAuthor ? " Edit Article " : " Follow " ++ username) |> strEl)
       </button>;
@@ -224,17 +240,33 @@ let loadComments = (slug, {ReasonReact.send}) => {
   ignore();
 };
 
-let favoriteArticle = (article: Types.remoteArticle) => {
+let favoriteArticle =
+    (~article: Types.remoteArticle, _payload, {ReasonReact.send}) =>
   switch (article) {
   | Loading
   | NotAsked
   | Failure(_) => ignore()
-  | Success({slug}) => Js.log("favorite:" ++ slug)
+  | Success({slug}) =>
+    open Js.Promise;
+    send(UpdateFavoriteAction(RemoteData.Loading));
+    API.favoriteArticle(slug)
+    |> then_(result => {
+         switch (result) {
+         | Js.Result.Ok(json) => Js.log(json)
+         | Error(error) => Js.log2("failed to favorite article", error)
+         };
+         send(UpdateFavoriteAction(RemoteData.NotAsked));
+         ignore() |> resolve;
+       })
+    |> catch(error => {
+         Js.log2("failed to favorite article", error);
+         send(UpdateFavoriteAction(RemoteData.NotAsked));
+         ignore() |> resolve;
+       })
+    |> ignore;
   };
-  ignore();
-};
 
-let deleteArticle = (article: Types.remoteArticle) => {
+let deleteArticle = (~article: Types.remoteArticle, _payload, _self) => {
   switch (article) {
   | Loading
   | NotAsked
@@ -255,25 +287,39 @@ let deleteArticle = (article: Types.remoteArticle) => {
   ignore();
 };
 
-let redirectToEditorPage = (article: Types.remoteArticle) => {
+let redirectToEditorPage = (~article: Types.remoteArticle, _payload, _self) =>
   switch (article) {
   | Loading
   | NotAsked
   | Failure(_) => ignore()
   | Success({slug}) => ReasonReact.Router.push("/#/editor/" ++ slug)
   };
-  ignore();
-};
 
-let followUser = (user: Types.remoteUser) => {
-  switch (user) {
+let followUser =
+    (~article: Types.remoteArticle, _payload, {ReasonReact.send}) =>
+  switch (article) {
   | Loading
   | NotAsked
   | Failure(_) => ignore()
-  | Success({username}) => Js.log("follow user: " ++ username)
+  | Success({author: {username}}) =>
+    open Js.Promise;
+    send(UpdateFollowAction(RemoteData.Loading));
+    API.followUser(username)
+    |> then_(result => {
+         switch (result) {
+         | Js.Result.Ok(json) => Js.log(json)
+         | Error(error) => Js.log2("failed to follow user", error)
+         };
+         send(UpdateFollowAction(RemoteData.NotAsked));
+         ignore() |> resolve;
+       })
+    |> catch(error => {
+         Js.log2("failed to follow user", error);
+         send(UpdateFollowAction(RemoteData.NotAsked));
+         ignore() |> resolve;
+       })
+    |> ignore;
   };
-  ignore();
-};
 
 let addComments = (~slug, ~submissionCallbacks, state, {ReasonReact.send}) => {
   open Js.Promise;
@@ -332,12 +378,18 @@ let component = ReasonReact.reducerComponent("Article");
 let make = (~user: Types.remoteUser, ~slug, _children) => {
   ...component,
   initialState: () => {
+    followAction: RemoteData.NotAsked,
+    favoriteAction: RemoteData.NotAsked,
     article: RemoteData.NotAsked,
     comments: RemoteData.NotAsked,
     hidingDeleteIcons: [],
   },
   reducer: (action, state) =>
     switch (action) {
+    | UpdateFollowAction(followAction) =>
+      ReasonReact.Update({...state, followAction})
+    | UpdateFavoriteAction(favoriteAction) =>
+      ReasonReact.Update({...state, favoriteAction})
     | RemoveComment(id) =>
       let comments =
         switch (state.comments) {
@@ -370,7 +422,7 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
     handle(loadComments, slug);
   },
   render: ({state, handle}) => {
-    let {article, comments, hidingDeleteIcons} = state;
+    let {followAction, favoriteAction, article, comments, hidingDeleteIcons} = state;
     <div className="article-page">
       <div className="banner">
         <div className="container">
@@ -443,8 +495,9 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
               editClassName="btn btn-sm btn-outline-secondary"
               user
               article
-              onEditClick=(_event => redirectToEditorPage(article))
-              onFollowClick=(_event => followUser(user))
+              onEditClick=(handle(redirectToEditorPage(~article)))
+              onFollowClick=(handle(followUser(~article)))
+              disabled=(followAction |> RemoteData.isLoading)
             />
             (" " |> strEl)
             <FavoriteOrDeleteButton
@@ -452,8 +505,9 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
               deleteClassName="btn btn-sm btn-outline-danger"
               user
               article
-              onFavoriteClick=(_event => favoriteArticle(article))
-              onDeleteClick=(_event => deleteArticle(article))
+              onFavoriteClick=(handle(favoriteArticle(~article)))
+              onDeleteClick=(handle(deleteArticle(~article)))
+              disabled=(favoriteAction |> RemoteData.isLoading)
             />
           </div>
         </div>
@@ -555,8 +609,9 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
               editClassName="btn btn-sm btn-outline-secondary"
               user
               article
-              onEditClick=(_event => redirectToEditorPage(article))
-              onFollowClick=(_event => followUser(user))
+              onEditClick=(handle(redirectToEditorPage(~article)))
+              onFollowClick=(handle(followUser(~article)))
+              disabled=(followAction |> RemoteData.isLoading)
             />
             (" " |> strEl)
             <FavoriteOrDeleteButton
@@ -564,8 +619,9 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
               deleteClassName="btn btn-sm btn-outline-danger"
               user
               article
-              onFavoriteClick=(_event => favoriteArticle(article))
-              onDeleteClick=(_event => deleteArticle(article))
+              onFavoriteClick=(handle(favoriteArticle(~article)))
+              onDeleteClick=(handle(deleteArticle(~article)))
+              disabled=(favoriteAction |> RemoteData.isLoading)
             />
           </div>
         </div>
