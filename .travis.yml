@@ -6,6 +6,6 @@ cache:
   directories:
     - node_modules
 before_script:
-  - "yarn build"
+  - "yarn build:bsb"
 script:
   - "yarn test:ci"
