@@ -13,6 +13,23 @@ type state = {
   hidingDeleteIcons: list(int),
 };
 
+let isAuthor = (~user: Types.remoteUser, ~article: Types.remoteArticle) =>
+  switch (user) {
+  | RemoteData.NotAsked
+  | Loading
+  | Failure(_) => false
+  | Success(userVal) =>
+    switch (article) {
+    | RemoteData.Success(articleVal)
+        when articleVal.author.username === userVal.username =>
+      true
+    | NotAsked
+    | Loading
+    | Success(_)
+    | Failure(_) => false
+    }
+  };
+
 module FavoriteOrDeleteButton = {
   let component = ReasonReact.statelessComponent("FavoriteOrDeleteButton");
   let make =
@@ -27,20 +44,13 @@ module FavoriteOrDeleteButton = {
       ) => {
     ...component,
     render: _self => {
-      let (isAuthor, favoritesCount) =
-        switch (user, article) {
-        | (
-            RemoteData.NotAsked | Loading | Failure(_),
-            RemoteData.NotAsked | Loading | Failure(_),
-          )
-        | (Success(_), NotAsked | Loading | Failure(_)) => (false, 0)
-        | (Success(userVal), Success(articleVal))
-            when userVal.username === articleVal.author.username => (
-            true,
-            0,
-          )
-        | (NotAsked | Loading | Failure(_), Success({favoritesCount}))
-        | (Success(_), Success({favoritesCount})) => (false, favoritesCount)
+      let isAuthor = isAuthor(~user, ~article);
+      let favoritesCount =
+        switch (article) {
+        | RemoteData.NotAsked
+        | Loading
+        | Failure(_) => 0
+        | Success({favoritesCount}) => favoritesCount
         };
       <button
         className=(isAuthor ? deleteClassName : favoriteClassName)
@@ -73,20 +83,13 @@ module FollowOrEditButton = {
       ) => {
     ...component,
     render: _self => {
-      let (isAuthor, username) =
-        switch (user, article) {
-        | (
-            RemoteData.NotAsked | Loading | Failure(_),
-            RemoteData.NotAsked | Loading | Failure(_),
-          )
-        | (Success(_), NotAsked | Loading | Failure(_)) => (false, "...")
-        | (Success(userVal), Success(articleVal))
-            when userVal.username === articleVal.author.username => (
-            true,
-            "",
-          )
-        | (NotAsked | Loading | Failure(_), Success({author: {username}}))
-        | (Success(_), Success({author: {username}})) => (false, username)
+      let isAuthor = isAuthor(~user, ~article);
+      let username =
+        switch (article) {
+        | RemoteData.NotAsked
+        | Loading
+        | Failure(_) => ""
+        | Success({author: {username}}) => username
         };
       <button
         className=(isAuthor ? editClassName : followClassName)
