@@ -13,6 +13,8 @@ type state = {
   hidingDeleteIcons: list(int),
 };
 
+let redirectToLoginPage = _never => ReasonReact.Router.push("/#/login");
+
 let isAuthor = (~user: Types.remoteUser, ~article: Types.remoteArticle) =>
   switch (user) {
   | RemoteData.NotAsked
@@ -44,6 +46,7 @@ module FavoriteOrDeleteButton = {
       ) => {
     ...component,
     render: _self => {
+      let isLogon = user |> RemoteData.isSuccess;
       let isAuthor = isAuthor(~user, ~article);
       let favoritesCount =
         switch (article) {
@@ -54,7 +57,13 @@ module FavoriteOrDeleteButton = {
         };
       <button
         className=(isAuthor ? deleteClassName : favoriteClassName)
-        onClick=(isAuthor ? onDeleteClick : onFavoriteClick)>
+        onClick=(
+          switch (isLogon, isAuthor) {
+          | (false, true | false) => redirectToLoginPage
+          | (true, true) => onDeleteClick
+          | (true, false) => onFavoriteClick
+          }
+        )>
         <i className=(isAuthor ? "ion-trash-a" : "ion-heart") />
         ((isAuthor ? " Delete Article " : " Favorite Post ") |> strEl)
         (
@@ -83,6 +92,7 @@ module FollowOrEditButton = {
       ) => {
     ...component,
     render: _self => {
+      let isLogon = user |> RemoteData.isSuccess;
       let isAuthor = isAuthor(~user, ~article);
       let username =
         switch (article) {
@@ -93,7 +103,13 @@ module FollowOrEditButton = {
         };
       <button
         className=(isAuthor ? editClassName : followClassName)
-        onClick=(isAuthor ? onEditClick : onFollowClick)>
+        onClick=(
+          switch (isLogon, isAuthor) {
+          | (false, true | false) => redirectToLoginPage
+          | (true, true) => onEditClick
+          | (true, false) => onFollowClick
+          }
+        )>
         <i className=(isAuthor ? "ion-edit" : "ion-plus-round") />
         ((isAuthor ? " Edit Article " : " Follow " ++ username) |> strEl)
       </button>;
