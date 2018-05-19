@@ -1,5 +1,7 @@
 # ![RealWorld Example App](logo.png)
 
+[![Travis build status](https://travis-ci.org/bs-puppeteer/bs-puppeteer.svg?branch=master)](https://travis-ci.org/jihchi/reason-react-realworld-example-app)
+
 > ### ReasonReact (ReasonML) codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
 
 ### [Demo](https://reason-react-realworld-example-app.surge.sh/)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
