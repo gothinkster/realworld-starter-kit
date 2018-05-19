@@ -1,9 +1,5 @@
 open Utils;
 
-requireCSS("./App.css");
-
-let logo = requireAssetURI("./logo.svg");
-
 type action =
   | Logout
   | UpdateUser(Types.remoteUser)
