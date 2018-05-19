@@ -1,6 +1,8 @@
 open Utils;
 
 type action =
+  | ToggleArticleAuthorFollowing(bool)
+  | ToggleArticleFavorite(bool)
   | UpdateFollowAction(Types.remoteAction)
   | UpdateFavoriteAction(Types.remoteAction)
   | RemoveComment(int)
@@ -43,8 +45,6 @@ module FavoriteOrDeleteButton = {
         ~disabled=false,
         ~user: Types.remoteUser,
         ~article: Types.remoteArticle,
-        ~favoriteClassName="",
-        ~deleteClassName="",
         ~onFavoriteClick=_event => ignore(),
         ~onDeleteClick=_event => ignore(),
         _children,
@@ -53,15 +53,22 @@ module FavoriteOrDeleteButton = {
     render: _self => {
       let isLogon = user |> RemoteData.isSuccess;
       let isAuthor = isAuthor(~user, ~article);
-      let favoritesCount =
+      let (favoritesCount, favorited) =
         switch (article) {
         | RemoteData.NotAsked
         | Loading
-        | Failure(_) => 0
-        | Success({favoritesCount}) => favoritesCount
+        | Failure(_) => (0, false)
+        | Success({favoritesCount, favorited}) => (favoritesCount, favorited)
         };
       <button
-        className=(isAuthor ? deleteClassName : favoriteClassName)
+        className=(
+          switch (isAuthor, favorited) {
+          | (true, true | false) => "btn btn-sm btn-outline-danger"
+          | (false, favorited) =>
+            "btn btn-sm "
+            ++ (favorited ? "btn-primary" : "btn-outline-primary")
+          }
+        )
         onClick=(
           disabled ?
             ignore :
@@ -75,7 +82,16 @@ module FavoriteOrDeleteButton = {
         )
         disabled>
         <i className=(isAuthor ? "ion-trash-a" : "ion-heart") />
-        ((isAuthor ? " Delete Article " : " Favorite Post ") |> strEl)
+        (
+          (
+            switch (isAuthor, favorited) {
+            | (true, true | false) => " Delete Article "
+            | (false, favorited) =>
+              favorited ? " Unfavorite Post " : " Favorite Post "
+            }
+          )
+          |> strEl
+        )
         (
           isAuthor ?
             nullEl :
@@ -95,8 +111,6 @@ module FollowOrEditButton = {
         ~disabled=false,
         ~user: Types.remoteUser,
         ~article: Types.remoteArticle,
-        ~followClassName="",
-        ~editClassName="",
         ~onFollowClick=_event => ignore(),
         ~onEditClick=_event => ignore(),
         _children,
@@ -105,15 +119,22 @@ module FollowOrEditButton = {
     render: _self => {
       let isLogon = user |> RemoteData.isSuccess;
       let isAuthor = isAuthor(~user, ~article);
-      let username =
+      let (username, following) =
         switch (article) {
         | RemoteData.NotAsked
         | Loading
-        | Failure(_) => ""
-        | Success({author: {username}}) => username
+        | Failure(_) => ("", false)
+        | Success({author: {username, following}}) => (username, following)
         };
       <button
-        className=(isAuthor ? editClassName : followClassName)
+        className=(
+          switch (isAuthor, following) {
+          | (true, true | false) => "btn btn-sm btn-outline-secondary"
+          | (false, following) =>
+            "btn btn-sm "
+            ++ (following ? "btn-secondary" : "btn-outline-secondary")
+          }
+        )
         onClick=(
           disabled ?
             ignore :
@@ -127,7 +148,16 @@ module FollowOrEditButton = {
         )
         disabled>
         <i className=(isAuthor ? "ion-edit" : "ion-plus-round") />
-        ((isAuthor ? " Edit Article " : " Follow " ++ username) |> strEl)
+        (
+          (
+            switch (isAuthor, following) {
+            | (true, true | false) => " Edit Article "
+            | (false, following) =>
+              (following ? " Unfollow " : " Follow ") ++ username
+            }
+          )
+          |> strEl
+        )
       </button>;
     },
   };
@@ -252,7 +282,10 @@ let favoriteArticle =
     API.favoriteArticle(slug)
     |> then_(result => {
          switch (result) {
-         | Js.Result.Ok(json) => Js.log(json)
+         | Js.Result.Ok(json) =>
+           let {favorited}: Types.article =
+             json |> Json.Decode.(field("article", Decoder.article));
+           send(ToggleArticleFavorite(favorited));
          | Error(error) => Js.log2("failed to favorite article", error)
          };
          send(UpdateFavoriteAction(RemoteData.NotAsked));
@@ -307,7 +340,10 @@ let followUser =
     API.followUser(username)
     |> then_(result => {
          switch (result) {
-         | Js.Result.Ok(json) => Js.log(json)
+         | Js.Result.Ok(json) =>
+           let {following}: Types.profile =
+             json |> Json.Decode.(field("profile", Decoder.profile));
+           send(ToggleArticleAuthorFollowing(following));
          | Error(error) => Js.log2("failed to follow user", error)
          };
          send(UpdateFollowAction(RemoteData.NotAsked));
@@ -386,6 +422,38 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
   },
   reducer: (action, state) =>
     switch (action) {
+    | ToggleArticleAuthorFollowing(following) =>
+      ReasonReact.Update({
+        ...state,
+        article:
+          state.article
+          |> RemoteData.map(article => {
+               let {author}: Types.article = article;
+               {
+                 ...article,
+                 author: {
+                   ...author,
+                   following,
+                 },
+               };
+             }),
+      })
+    | ToggleArticleFavorite(favorited) =>
+      ReasonReact.Update({
+        ...state,
+        article:
+          state.article
+          |> RemoteData.map(article =>
+               {
+                 ...article,
+                 Types.favorited,
+                 favoritesCount:
+                   favorited ?
+                     Types.(article.favoritesCount) + 1 :
+                     article.favoritesCount - 1,
+               }
+             ),
+      })
     | UpdateFollowAction(followAction) =>
       ReasonReact.Update({...state, followAction})
     | UpdateFavoriteAction(favoriteAction) =>
@@ -491,8 +559,6 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
               </span>
             </div>
             <FollowOrEditButton
-              followClassName="btn btn-sm btn-outline-secondary"
-              editClassName="btn btn-sm btn-outline-secondary"
               user
               article
               onEditClick=(handle(redirectToEditorPage(~article)))
@@ -501,8 +567,6 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
             />
             (" " |> strEl)
             <FavoriteOrDeleteButton
-              favoriteClassName="btn btn-sm btn-outline-primary"
-              deleteClassName="btn btn-sm btn-outline-danger"
               user
               article
               onFavoriteClick=(handle(favoriteArticle(~article)))
@@ -605,8 +669,6 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
               </span>
             </div>
             <FollowOrEditButton
-              followClassName="btn btn-sm btn-outline-secondary"
-              editClassName="btn btn-sm btn-outline-secondary"
               user
               article
               onEditClick=(handle(redirectToEditorPage(~article)))
@@ -615,8 +677,6 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
             />
             (" " |> strEl)
             <FavoriteOrDeleteButton
-              favoriteClassName="btn btn-sm btn-outline-primary"
-              deleteClassName="btn btn-sm btn-outline-danger"
               user
               article
               onFavoriteClick=(handle(favoriteArticle(~article)))

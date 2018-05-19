@@ -122,7 +122,11 @@ let getArticle = (~slug) =>
   Js.Promise.(
     Fetch.fetchWithInit(
       host ++ "/api/articles/" ++ slug,
-      Fetch.RequestInit.make(~credentials=Include, ()),
+      Fetch.RequestInit.make(
+        ~credentials=Include,
+        ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
+        (),
+      ),
     )
     |> then_(getResultIfOk)
   );
