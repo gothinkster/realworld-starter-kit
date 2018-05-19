@@ -276,10 +276,10 @@ let favoriteArticle =
   | Loading
   | NotAsked
   | Failure(_) => ignore()
-  | Success({slug}) =>
+  | Success({slug, favorited}) =>
     open Js.Promise;
     send(UpdateFavoriteAction(RemoteData.Loading));
-    API.favoriteArticle(slug)
+    (favorited ? API.unfavoriteArticle(slug) : API.favoriteArticle(slug))
     |> then_(result => {
          switch (result) {
          | Js.Result.Ok(json) =>
@@ -334,10 +334,10 @@ let followUser =
   | Loading
   | NotAsked
   | Failure(_) => ignore()
-  | Success({author: {username}}) =>
+  | Success({author: {username, following}}) =>
     open Js.Promise;
     send(UpdateFollowAction(RemoteData.Loading));
-    API.followUser(username)
+    (following ? API.unfollowUser(username) : API.followUser(username))
     |> then_(result => {
          switch (result) {
          | Js.Result.Ok(json) =>
