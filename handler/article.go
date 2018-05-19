@@ -50,16 +50,71 @@ func (h *Handler) Articles(c echo.Context) error {
 }
 
 func (h *Handler) Feed(c echo.Context) error {
-	return c.JSON(http.StatusOK, "Feed Articles")
+	offset, err := strconv.Atoi(c.QueryParam("offset"))
+	if err != nil {
+		offset = 0
+	}
+	limit, err := strconv.Atoi(c.QueryParam("limit"))
+	if err != nil {
+		limit = 20
+	}
+	var articles []models.Article
+	var count int
+	var u models.User
+	if err := h.db.First(&u, userIDFromToken(c)).Error; err != nil {
+		return c.JSON(http.StatusNotFound, NewError(err))
+	}
+	var followings []models.Follow
+	h.db.Model(&u).Preload("Following").Preload("Follower").Association("Followings").Find(&followings)
+	var ids []uint
+	for _, i := range followings {
+		ids = append(ids, i.FollowingID)
+	}
+	h.db.Where("author_id in (?)", ids).Preload("Favorites").Preload("Tags").Preload("Author").Offset(offset).Limit(limit).Find(&articles)
+	h.db.Where(&models.Article{AuthorID: u.ID}).Model(&models.Article{}).Count(&count)
+
+	return c.JSON(http.StatusOK, newArticleListResponse(c, articles, count))
 }
+
 func (h *Handler) GetArticle(c echo.Context) error {
-	return c.JSON(http.StatusOK, "Get Articles")
+	var article models.Article
+	slug := c.Param("slug")
+	err := h.db.Where(&models.Article{Slug: slug}).Preload("Favorites").Preload("Tags").Preload("Author").Find(&article).Error
+	if err != nil {
+		return c.JSON(http.StatusNotFound, NewError(err))
+	}
+	return c.JSON(http.StatusOK, newArticleResponse(c, &article))
 }
 func (h *Handler) CreateArticle(c echo.Context) error {
-	return c.JSON(http.StatusOK, "create article")
+	var a models.Article
+	req := &articleCreateRequest{}
+	if err := req.bind(c, &a); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+	}
+	a.AuthorID = userIDFromToken(c)
+	if err := h.db.Create(&a).Error; err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+	}
+	h.db.Where(a.ID).Preload("Favorites").Preload("Tags").Preload("Author").Find(&a)
+	return c.JSON(http.StatusCreated, newArticleResponse(c, &a))
 }
 func (h *Handler) UpdateArticle(c echo.Context) error {
-	return c.JSON(http.StatusOK, "update article")
+	slug := c.Param("slug")
+	var a models.Article
+	err := h.db.Where(&models.Article{Slug: slug, AuthorID: userIDFromToken(c)}).Preload("Tags").Find(&a).Error
+	if err != nil {
+		return c.JSON(http.StatusNotFound, NewError(err))
+	}
+	req := &articleUpdateRequest{}
+	req.populate(&a)
+	if err := req.bind(c, &a); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+	}
+	if err := h.db.Model(&a).Update(&a).Error; err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+	}
+	h.db.Where(a.ID).Preload("Favorites").Preload("Tags").Preload("Author").Find(&a)
+	return c.JSON(http.StatusCreated, newArticleResponse(c, &a))
 }
 func (h *Handler) DeleteArticle(c echo.Context) error {
 	return c.JSON(http.StatusOK, "delete article")

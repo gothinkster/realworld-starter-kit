@@ -5,6 +5,7 @@ import (
 	"github.com/labstack/echo"
 	"github.com/xesina/golang-echo-realworld-example-app/utils"
 	"time"
+	"github.com/gosimple/slug"
 )
 
 type userResponse struct {
@@ -159,18 +160,38 @@ type singleArticleResponse struct {
 }
 
 type articleListResponse struct {
-	Articles      []articleResponse `json:"articles"`
-	ArticlesCount int               `json:"articlesCount"`
+	Articles      []*articleResponse `json:"articles"`
+	ArticlesCount int                `json:"articlesCount"`
 }
 
-func newArticleResponse(c echo.Context, article models.Article) *singleArticleResponse {
+func newArticleResponse(c echo.Context, a *models.Article) *singleArticleResponse {
 	ar := new(articleResponse)
+	ar.Slug = a.Slug
+	ar.Title = a.Title
+	ar.Description = a.Description
+	ar.Body = a.Body
+	ar.CreatedAt = a.CreatedAt
+	ar.UpdatedAt = a.UpdatedAt
+	for _, t := range a.Tags {
+		ar.TagList = append(ar.TagList, t.Tag)
+	}
+	for _, u := range a.Favorites {
+		if u.ID == userIDFromToken(c) {
+			ar.Favorited = true
+		}
+	}
+	ar.FavoritesCount = len(a.Favorites)
+	ar.Author.Username = a.Author.Username
+	ar.Author.Image = a.Author.Image
+	ar.Author.Bio = a.Author.Bio
+	ar.Author.Following = a.Author.FollowedBy(userIDFromToken(c))
 	return &singleArticleResponse{ar}
 }
 
 func newArticleListResponse(c echo.Context, articles []models.Article, count int) *articleListResponse {
 	r := new(articleListResponse)
 	ar := articleResponse{}
+	r.Articles = make([]*articleResponse, 0)
 	for _, a := range articles {
 		ar.Slug = a.Slug
 		ar.Title = a.Title
@@ -192,8 +213,71 @@ func newArticleListResponse(c echo.Context, articles []models.Article, count int
 		ar.Author.Bio = a.Author.Bio
 		ar.Author.Following = a.Author.FollowedBy(userIDFromToken(c))
 
-		r.Articles = append(r.Articles, ar)
+		r.Articles = append(r.Articles, &ar)
 	}
 	r.ArticlesCount = count
 	return r
+}
+
+type articleCreateRequest struct {
+	Article struct {
+		Title       string   `json:"title" validate:"required"`
+		Description string   `json:"description" validate:"required"`
+		Body        string   `json:"body" validate:"required"`
+		Tags        []string `json:"tagList, omitempty"`
+	} `json:"article"`
+}
+
+func (r *articleCreateRequest) bind(c echo.Context, a *models.Article) error {
+	if err := c.Bind(r); err != nil {
+		return err
+	}
+	if err := c.Validate(r); err != nil {
+		return err
+	}
+	a.Title = r.Article.Title
+	a.Slug = slug.Make(r.Article.Title)
+	a.Description = r.Article.Description
+	a.Body = r.Article.Body
+	if r.Article.Tags != nil {
+		for _, t := range r.Article.Tags {
+			a.Tags = append(a.Tags, models.Tag{Tag: t})
+		}
+	}
+	return nil
+}
+
+type articleUpdateRequest struct {
+	Article struct {
+		Title       string   `json:"title"`
+		Description string   `json:"description"`
+		Body        string   `json:"body"`
+		Tags        []string `json:"tagList"`
+	} `json:"article"`
+}
+
+func (r *articleUpdateRequest) populate(a *models.Article) {
+	r.Article.Title = a.Title
+	r.Article.Description = a.Description
+	r.Article.Body = a.Body
+	for _, t := range a.Tags {
+		r.Article.Tags = append(r.Article.Tags, t.Tag)
+	}
+}
+
+func (r *articleUpdateRequest) bind(c echo.Context, a *models.Article) error {
+	if err := c.Bind(r); err != nil {
+		return err
+	}
+	if err := c.Validate(r); err != nil {
+		return err
+	}
+	a.Title = r.Article.Title
+	a.Slug = slug.Make(a.Title)
+	a.Description = r.Article.Description
+	a.Body = r.Article.Body
+	for _, t := range r.Article.Tags {
+		a.Tags = append(a.Tags, models.Tag{Tag: t})
+	}
+	return nil
 }

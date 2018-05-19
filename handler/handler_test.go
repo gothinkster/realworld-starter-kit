@@ -115,6 +115,9 @@ func loadFixtures() error {
 			{
 				Tag: "tag1",
 			},
+			{
+				Tag: "tag2",
+			},
 		},
 	}
 	if err := db.Create(&a).Error; err != nil {
