@@ -281,3 +281,86 @@ func (r *articleUpdateRequest) bind(c echo.Context, a *models.Article) error {
 	}
 	return nil
 }
+
+type createCommentRequest struct {
+	Comment struct {
+		Body string `json:"body" validate:"required"`
+	} `json:"comment"`
+}
+
+func (r *createCommentRequest) bind(c echo.Context, cm *models.Comment) error {
+	if err := c.Bind(r); err != nil {
+		return err
+	}
+	if err := c.Validate(r); err != nil {
+		return err
+	}
+	cm.Body = r.Comment.Body
+	cm.UserID = userIDFromToken(c)
+	return nil
+}
+
+type commentResponse struct {
+	ID        uint      `json:"id"`
+	Body      string    `json:"body"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
+	Author struct {
+		Username  string  `json:"username"`
+		Bio       *string `json:"bio"`
+		Image     *string `json:"image"`
+		Following bool    `json:"following"`
+	} `json:"author"`
+}
+
+type singleCommentResponse struct {
+	Comment *commentResponse `json:"comment"`
+}
+
+type commentListResponse struct {
+	Comments []commentResponse `json:"comments"`
+}
+
+func newCommentResponse(c echo.Context, cm *models.Comment) *singleCommentResponse {
+	comment := new(commentResponse)
+	comment.ID = cm.ID
+	comment.Body = cm.Body
+	comment.CreatedAt = cm.CreatedAt
+	comment.UpdatedAt = cm.UpdatedAt
+	comment.Author.Username = cm.User.Username
+	comment.Author.Image = cm.User.Image
+	comment.Author.Bio = cm.User.Bio
+	comment.Author.Following = cm.User.FollowedBy(userIDFromToken(c))
+	return &singleCommentResponse{comment}
+}
+
+func newCommentListResponse(c echo.Context, comments []models.Comment) *commentListResponse {
+	r := new(commentListResponse)
+	cr := commentResponse{}
+	r.Comments = make([]commentResponse, 0)
+	for _, i := range comments {
+		cr.ID = i.ID
+		cr.Body = i.Body
+		cr.CreatedAt = i.CreatedAt
+		cr.UpdatedAt = i.UpdatedAt
+		cr.Author.Username = i.User.Username
+		cr.Author.Image = i.User.Image
+		cr.Author.Bio = i.User.Bio
+		cr.Author.Following = i.User.FollowedBy(userIDFromToken(c))
+
+		r.Comments = append(r.Comments, cr)
+	}
+	return r
+}
+
+type tagListResponse struct {
+	Tags []string `json:"tags"`
+}
+
+func newTagListResponse(c echo.Context, tags []models.Tag) *tagListResponse {
+	r := new(tagListResponse)
+	for _, t := range tags {
+		r.Tags = append(r.Tags, t.Tag)
+	}
+	return r
+}

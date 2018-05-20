@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"github.com/xesina/golang-echo-realworld-example-app/models"
 	"strconv"
+	"errors"
 )
 
 func (h *Handler) Articles(c echo.Context) error {
@@ -117,26 +118,103 @@ func (h *Handler) UpdateArticle(c echo.Context) error {
 	return c.JSON(http.StatusCreated, newArticleResponse(c, &a))
 }
 func (h *Handler) DeleteArticle(c echo.Context) error {
-	return c.JSON(http.StatusOK, "delete article")
+	slug := c.Param("slug")
+	var a models.Article
+	err := h.db.Where(&models.Article{Slug: slug, AuthorID: userIDFromToken(c)}).First(&a).Error
+	if err != nil {
+		return c.JSON(http.StatusNotFound, NewError(err))
+	}
+	err = h.db.Delete(&a).Error
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, NewError(err))
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{"result": "ok"})
 }
 
 func (h *Handler) AddComment(c echo.Context) error {
-	return c.JSON(http.StatusOK, "add Comments to an Article")
+	slug := c.Param("slug")
+	var a models.Article
+	err := h.db.Where(&models.Article{Slug: slug}).First(&a).Error
+	if err != nil {
+		return c.JSON(http.StatusNotFound, NewError(err))
+	}
+	var cm models.Comment
+	req := &createCommentRequest{}
+	if err := req.bind(c, &cm); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+	}
+	err = h.db.Model(&a).Association("Comments").Append(&cm).Error
+	if err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+	}
+	h.db.Where(cm.ID).Preload("User").First(&cm)
+	return c.JSON(http.StatusCreated, newCommentResponse(c, &cm))
 }
+
 func (h *Handler) GetComments(c echo.Context) error {
-	return c.JSON(http.StatusOK, "Get Comments from an Article")
+	slug := c.Param("slug")
+	var a models.Article
+	err := h.db.Where(&models.Article{Slug: slug}).Preload("Comments").Preload("Comments.User").First(&a).Error
+	if err != nil {
+		return c.JSON(http.StatusNotFound, NewError(err))
+	}
+	return c.JSON(http.StatusOK, newCommentListResponse(c, a.Comments))
 }
+
 func (h *Handler) DeleteComment(c echo.Context) error {
-	return c.JSON(http.StatusOK, "delete Comment")
+	id64, err := strconv.ParseUint(c.Param("id"), 10, 32)
+	id := uint(id64)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, NewError(err))
+	}
+	var cm models.Comment
+	err = h.db.Where(id).First(&cm).Error
+	if err != nil {
+		return c.JSON(http.StatusNotFound, NewError(err))
+	}
+	if cm.UserID != userIDFromToken(c) {
+		return c.JSON(http.StatusUnauthorized, NewError(errors.New("unauthorized action")))
+	}
+	err = h.db.Delete(&cm).Error
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, NewError(err))
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{"result": "ok"})
 }
 
 func (h *Handler) Favorite(c echo.Context) error {
-	return c.JSON(http.StatusOK, "favorite article")
+	var article models.Article
+	slug := c.Param("slug")
+	err := h.db.Where(&models.Article{Slug: slug}).Preload("Favorites").Preload("Tags").Preload("Author").Find(&article).Error
+	if err != nil {
+		return c.JSON(http.StatusNotFound, NewError(err))
+	}
+	user := models.User{}
+	user.ID = userIDFromToken(c)
+	err = h.db.Model(&article).Association("Favorites").Append(&user).Error
+	if err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+	}
+	return c.JSON(http.StatusOK, newArticleResponse(c, &article))
 }
 func (h *Handler) Unfavorite(c echo.Context) error {
-	return c.JSON(http.StatusOK, "unfavorite Article")
+	var article models.Article
+	slug := c.Param("slug")
+	err := h.db.Where(&models.Article{Slug: slug}).Preload("Favorites").Preload("Tags").Preload("Author").Find(&article).Error
+	if err != nil {
+		return c.JSON(http.StatusNotFound, NewError(err))
+	}
+	user := models.User{}
+	user.ID = userIDFromToken(c)
+	err = h.db.Model(&article).Association("Favorites").Delete(&user).Error
+	if err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+	}
+	return c.JSON(http.StatusOK, newArticleResponse(c, &article))
 }
 
 func (h *Handler) Tags(c echo.Context) error {
-	return c.JSON(http.StatusOK, "get tags")
+	var tags []models.Tag
+	h.db.Find(&tags)
+	return c.JSON(http.StatusOK, newTagListResponse(c, tags))
 }
