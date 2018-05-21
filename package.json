@@ -24,8 +24,8 @@
     "test:ci": "CI=true yarn test"
   },
   "dependencies": {
-    "@glennsl/bs-json": "^1.3.1",
-    "bs-fetch": "^0.2.1",
+    "@glennsl/bs-json": "^2.0.0",
+    "bs-fetch": "^0.3.0",
     "bs-webapi": "^0.9.0",
     "re-formality": "^0.9.0",
     "react": "^16.3.2",
@@ -36,13 +36,13 @@
   },
   "devDependencies": {
     "@glennsl/bs-jest": "^0.4.2",
-    "bs-platform": "^3.0.0",
+    "bs-platform": "^3.1.0",
     "concurrently": "^3.5.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.4",
     "husky": "^1.0.0-rc.6",
-    "lint-staged": "^7.1.0",
+    "lint-staged": "^7.1.2",
     "prettier": "^1.12.1"
   },
   "browserslist": {
