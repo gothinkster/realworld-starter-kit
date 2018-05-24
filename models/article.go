@@ -12,7 +12,7 @@ type Article struct {
 	AuthorID    uint
 	Comments    []Comment
 	Favorites   []User `gorm:"many2many:favorites;"`
-	Tags        []Tag  `gorm:"many2many:article_tags;"`
+	Tags        []Tag  `gorm:"many2many:article_tags;association_autocreate:false"`
 }
 type Comment struct {
 	gorm.Model

@@ -166,6 +166,7 @@ type articleListResponse struct {
 
 func newArticleResponse(c echo.Context, a *models.Article) *singleArticleResponse {
 	ar := new(articleResponse)
+	ar.TagList = make([]string, 0)
 	ar.Slug = a.Slug
 	ar.Title = a.Title
 	ar.Description = a.Description
@@ -190,9 +191,11 @@ func newArticleResponse(c echo.Context, a *models.Article) *singleArticleRespons
 
 func newArticleListResponse(c echo.Context, articles []models.Article, count int) *articleListResponse {
 	r := new(articleListResponse)
-	ar := articleResponse{}
 	r.Articles = make([]*articleResponse, 0)
+
 	for _, a := range articles {
+		ar := new(articleResponse)
+		ar.TagList = make([]string, 0)
 		ar.Slug = a.Slug
 		ar.Title = a.Title
 		ar.Description = a.Description
@@ -212,8 +215,7 @@ func newArticleListResponse(c echo.Context, articles []models.Article, count int
 		ar.Author.Image = a.Author.Image
 		ar.Author.Bio = a.Author.Bio
 		ar.Author.Following = a.Author.FollowedBy(userIDFromToken(c))
-
-		r.Articles = append(r.Articles, &ar)
+		r.Articles = append(r.Articles, ar)
 	}
 	r.ArticlesCount = count
 	return r
@@ -260,9 +262,6 @@ func (r *articleUpdateRequest) populate(a *models.Article) {
 	r.Article.Title = a.Title
 	r.Article.Description = a.Description
 	r.Article.Body = a.Body
-	for _, t := range a.Tags {
-		r.Article.Tags = append(r.Article.Tags, t.Tag)
-	}
 }
 
 func (r *articleUpdateRequest) bind(c echo.Context, a *models.Article) error {
@@ -276,9 +275,6 @@ func (r *articleUpdateRequest) bind(c echo.Context, a *models.Article) error {
 	a.Slug = slug.Make(a.Title)
 	a.Description = r.Article.Description
 	a.Body = r.Article.Body
-	for _, t := range r.Article.Tags {
-		a.Tags = append(a.Tags, models.Tag{Tag: t})
-	}
 	return nil
 }
 
