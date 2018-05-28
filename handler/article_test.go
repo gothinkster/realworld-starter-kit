@@ -1,12 +1,13 @@
 package handler_test
 
 import (
-	"github.com/labstack/echo"
-	"github.com/stretchr/testify/assert"
-	"github.com/xesina/golang-echo-realworld-example-app/handler"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/labstack/echo"
+	"github.com/stretchr/testify/assert"
+	"github.com/xesina/golang-echo-realworld-example-app/handler"
 	"github.com/xesina/golang-echo-realworld-example-app/router"
 )
 

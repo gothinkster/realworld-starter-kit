@@ -1,9 +1,10 @@
 package handler
 
 import (
+	"net/http"
+
 	"github.com/labstack/echo"
 	"github.com/xesina/golang-echo-realworld-example-app/models"
-	"net/http"
 )
 
 func (h *Handler) Register(c echo.Context) error {

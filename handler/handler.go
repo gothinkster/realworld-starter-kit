@@ -1,10 +1,11 @@
 package handler
 
 import (
-	"github.com/jinzhu/gorm"
 	"fmt"
-	"gopkg.in/go-playground/validator.v9"
+
+	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo"
+	"gopkg.in/go-playground/validator.v9"
 )
 
 type Handler struct {

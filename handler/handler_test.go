@@ -1,12 +1,13 @@
 package handler_test
 
 import (
+	"log"
+	"os"
+	"testing"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/xesina/golang-echo-realworld-example-app/models"
-	"os"
-	"testing"
-	"log"
 )
 
 var (

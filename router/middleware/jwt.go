@@ -1,10 +1,11 @@
 package middleware
 
 import (
-	"github.com/labstack/echo"
-	"net/http"
-	"github.com/dgrijalva/jwt-go"
 	"fmt"
+	"net/http"
+
+	"github.com/dgrijalva/jwt-go"
+	"github.com/labstack/echo"
 )
 
 type (
@@ -12,7 +13,7 @@ type (
 		Skipper    Skipper
 		SigningKey interface{}
 	}
-	Skipper func(c echo.Context) bool
+	Skipper      func(c echo.Context) bool
 	jwtExtractor func(echo.Context) (string, error)
 )
 
@@ -31,14 +32,15 @@ func JWTWithConfig(config JWTConfig) echo.MiddlewareFunc {
 	extractor := jwtFromHeader("Authorization", "Token")
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
-			if config.Skipper != nil {
-				if config.Skipper(c) {
-					return next(c)
-				}
-			}
 			auth, err := extractor(c)
 			if err != nil {
-				return err
+				if config.Skipper != nil {
+					if config.Skipper(c) {
+						return next(c)
+					}
+				} else {
+					return err
+				}
 			}
 			token, err := jwt.Parse(auth, func(token *jwt.Token) (interface{}, error) {
 				if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {

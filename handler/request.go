@@ -1,11 +1,12 @@
 package handler
 
 import (
-	"github.com/xesina/golang-echo-realworld-example-app/models"
-	"github.com/labstack/echo"
-	"github.com/xesina/golang-echo-realworld-example-app/utils"
 	"time"
+
 	"github.com/gosimple/slug"
+	"github.com/labstack/echo"
+	"github.com/xesina/golang-echo-realworld-example-app/models"
+	"github.com/xesina/golang-echo-realworld-example-app/utils"
 )
 
 type userResponse struct {
@@ -147,7 +148,7 @@ type articleResponse struct {
 	UpdatedAt      time.Time `json:"updatedAt"`
 	Favorited      bool      `json:"favorited"`
 	FavoritesCount int       `json:"favoritesCount"`
-	Author struct {
+	Author         struct {
 		Username  string  `json:"username"`
 		Bio       *string `json:"bio"`
 		Image     *string `json:"image"`
@@ -192,7 +193,6 @@ func newArticleResponse(c echo.Context, a *models.Article) *singleArticleRespons
 func newArticleListResponse(c echo.Context, articles []models.Article, count int) *articleListResponse {
 	r := new(articleListResponse)
 	r.Articles = make([]*articleResponse, 0)
-
 	for _, a := range articles {
 		ar := new(articleResponse)
 		ar.TagList = make([]string, 0)
@@ -301,7 +301,7 @@ type commentResponse struct {
 	Body      string    `json:"body"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
-	Author struct {
+	Author    struct {
 		Username  string  `json:"username"`
 		Bio       *string `json:"bio"`
 		Image     *string `json:"image"`
@@ -353,7 +353,7 @@ type tagListResponse struct {
 	Tags []string `json:"tags"`
 }
 
-func newTagListResponse(c echo.Context, tags []models.Tag) *tagListResponse {
+func newTagListResponse(tags []models.Tag) *tagListResponse {
 	r := new(tagListResponse)
 	for _, t := range tags {
 		r.Tags = append(r.Tags, t.Tag)

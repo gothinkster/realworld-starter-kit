@@ -1,12 +1,13 @@
 package handler
 
 import (
-	"github.com/labstack/echo"
-	"net/http"
-	"github.com/xesina/golang-echo-realworld-example-app/models"
-	"strconv"
 	"errors"
+	"net/http"
+	"strconv"
+
 	"github.com/jinzhu/gorm"
+	"github.com/labstack/echo"
+	"github.com/xesina/golang-echo-realworld-example-app/models"
 )
 
 func (h *Handler) Articles(c echo.Context) error {
@@ -250,5 +251,5 @@ func (h *Handler) Unfavorite(c echo.Context) error {
 func (h *Handler) Tags(c echo.Context) error {
 	var tags []models.Tag
 	h.db.Find(&tags)
-	return c.JSON(http.StatusOK, newTagListResponse(c, tags))
+	return c.JSON(http.StatusOK, newTagListResponse(tags))
 }

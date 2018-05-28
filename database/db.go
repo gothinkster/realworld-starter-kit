@@ -1,10 +1,11 @@
 package database
 
 import (
-	"github.com/jinzhu/gorm"
 	"fmt"
-	"github.com/xesina/golang-echo-realworld-example-app/models"
+
+	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	"github.com/xesina/golang-echo-realworld-example-app/models"
 )
 
 func New() *gorm.DB {
