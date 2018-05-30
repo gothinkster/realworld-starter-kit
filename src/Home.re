@@ -31,7 +31,7 @@ let loadTags = (_payload, {ReasonReact.send, state}) => {
     API.tags()
     |> then_(result => {
          switch (result) {
-         | Js.Result.Ok(json) =>
+         | Belt.Result.Ok(json) =>
            let tags =
              json
              |> Json.Decode.(field("tags", array(string)))
@@ -66,7 +66,7 @@ let loadYourFeed = (~page=1, _payload, {ReasonReact.send, handle}) => {
   API.listArticlesFeed(~offset, ~limit, ())
   |> then_(result => {
        switch (result) {
-       | Js.Result.Ok(json) =>
+       | Belt.Result.Ok(json) =>
          let articles =
            json
            |> Json.Decode.(field("articles", array(Decoder.article)))
@@ -113,7 +113,7 @@ let loadGlobalFeed = (~tag=?, ~page=1, _payload, {ReasonReact.send, handle}) => 
   API.listArticles(~tag?, ~offset, ~limit, ())
   |> then_(result => {
        switch (result) {
-       | Js.Result.Ok(json) =>
+       | Belt.Result.Ok(json) =>
          let articles =
            json
            |> Json.Decode.(field("articles", array(Decoder.article)))
@@ -195,7 +195,7 @@ let favoriteArticle = (~user, (slug, favorited), {ReasonReact.send}) =>
       (favorited ? API.favoriteArticle(slug) : API.unfavoriteArticle(slug))
       |> then_(result => {
            switch (result) {
-           | Js.Result.Ok(json) =>
+           | Belt.Result.Ok(json) =>
              let article =
                json |> Json.Decode.field("article", Decoder.article);
              send(UpdateArticle(slug, article));

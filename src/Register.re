@@ -27,11 +27,9 @@ module Form = {
   let valueEmpty = value => value === "";
   let strategy = Formality.Strategy.OnFirstSuccessOrFirstBlur;
   module Validators =
-    Formality.MakeValidators(
-      {
-        type t = field;
-      },
-    );
+    Formality.MakeValidators({
+      type t = field;
+    });
   type validators =
     Validators.t(Formality.validator(field, value, state, message));
   let validators =
@@ -92,7 +90,7 @@ let make = (~onSuccessRegister, _children) => {
             API.register(~username, ~email, ~password)
             |> then_(result => {
                  switch (result) {
-                 | Js.Result.Ok(json) =>
+                 | Belt.Result.Ok(json) =>
                    let user =
                      json |> Json.Decode.(field("user", Decoder.user));
                    notifyOnSuccess(None);

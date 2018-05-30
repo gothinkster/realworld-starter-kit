@@ -37,7 +37,7 @@ let getUser = (_payload, {ReasonReact.send}) => {
     API.user()
     |> then_(result => {
          switch (result) {
-         | Js.Result.Ok(json) =>
+         | Belt.Result.Ok(json) =>
            let user = json |> Json.Decode.field("user", Decoder.user);
            send(UpdateUser(RemoteData.Success(user)));
          | Error(_) =>

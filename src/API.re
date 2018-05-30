@@ -9,14 +9,12 @@ let optToQueryString = (prefix, opt) =>
   };
 
 let getResultIfOk = res => {
+  open Js.Promise;
+  open Belt.Result;
   let isOk = res |> Fetch.Response.ok;
-  Js.Promise.(
-    res
-    |> Fetch.Response.json
-    |> then_(json =>
-         (isOk ? Js.Result.Ok(json) : Js.Result.Error(json)) |> resolve
-       )
-  );
+  res
+  |> Fetch.Response.json
+  |> then_(json => (isOk ? Ok(json) : Error(json)) |> resolve);
 };
 
 let getJsonContentType = () => {

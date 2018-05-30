@@ -217,7 +217,7 @@ let loadArticle = (slug, {ReasonReact.send}) => {
     API.getArticle(~slug)
     |> then_(result => {
          switch (result) {
-         | Js.Result.Ok(json) =>
+         | Belt.Result.Ok(json) =>
            let article =
              json |> Json.Decode.(field("article", Decoder.article));
            send(UpdateArticle(RemoteData.Success(article)));
@@ -242,7 +242,7 @@ let loadComments = (slug, {ReasonReact.send}) => {
     API.comments(~slug)
     |> then_(result => {
          switch (result) {
-         | Js.Result.Ok(json) =>
+         | Belt.Result.Ok(json) =>
            let comments =
              json
              |> Json.Decode.(field("comments", array(Decoder.comment)))
@@ -282,7 +282,7 @@ let favoriteArticle =
     (favorited ? API.unfavoriteArticle(slug) : API.favoriteArticle(slug))
     |> then_(result => {
          switch (result) {
-         | Js.Result.Ok(json) =>
+         | Belt.Result.Ok(json) =>
            let {favorited}: Types.article =
              json |> Json.Decode.(field("article", Decoder.article));
            send(ToggleArticleFavorite(favorited));
@@ -309,7 +309,7 @@ let deleteArticle = (~article: Types.remoteArticle, _payload, _self) => {
       API.deleteArticle(slug)
       |> then_(result => {
            switch (result) {
-           | Js.Result.Ok(_) => ReasonReact.Router.push("/#/")
+           | Belt.Result.Ok(_) => ReasonReact.Router.push("/#/")
            | Error(error) => Js.log(error)
            };
            ignore() |> resolve;
@@ -340,7 +340,7 @@ let followUser =
     (following ? API.unfollowUser(username) : API.followUser(username))
     |> then_(result => {
          switch (result) {
-         | Js.Result.Ok(json) =>
+         | Belt.Result.Ok(json) =>
            let {following}: Types.profile =
              json |> Json.Decode.(field("profile", Decoder.profile));
            send(ToggleArticleAuthorFollowing(following));
@@ -363,7 +363,7 @@ let addComments = (~slug, ~submissionCallbacks, state, {ReasonReact.send}) => {
   API.addCommentsToAnArticle(~slug, ~body=state)
   |> then_(result => {
        switch (result) {
-       | Js.Result.Ok(json) =>
+       | Belt.Result.Ok(json) =>
          let comment = json |> Json.Decode.field("comment", Decoder.comment);
          notifyOnSuccess(None);
          reset();
@@ -396,7 +396,7 @@ let deleteComment = (~slug, ~id, _event, {ReasonReact.send}) => {
   API.deleteComment(~slug, ~id)
   |> then_(result => {
        switch (result) {
-       | Js.Result.Ok(_) => send(RemoveComment(id))
+       | Belt.Result.Ok(_) => send(RemoveComment(id))
        | Error(error) => Js.log2("failed to delete comment", error)
        };
        ignore() |> resolve;

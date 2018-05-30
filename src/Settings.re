@@ -35,11 +35,9 @@ module Form = {
   let valueEmpty = value => value === "";
   let strategy = Formality.Strategy.OnFirstSuccessOrFirstBlur;
   module Validators =
-    Formality.MakeValidators(
-      {
-        type t = field;
-      },
-    );
+    Formality.MakeValidators({
+      type t = field;
+    });
   type validators =
     Validators.t(Formality.validator(field, value, state, message));
   let validators =
@@ -156,7 +154,7 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
             API.updateUser(~email, ~username, ~password, ~image, ~bio)
             |> then_(result => {
                  switch (result) {
-                 | Js.Result.Ok(_) =>
+                 | Belt.Result.Ok(_) =>
                    notifyOnSuccess(None);
                    reset();
                    ReasonReact.Router.push("/#/profile/" ++ username);

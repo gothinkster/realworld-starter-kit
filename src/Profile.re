@@ -34,7 +34,7 @@ let loadArticles =
   API.listArticles(~author?, ~favorited?, ~offset, ~limit, ())
   |> then_(result => {
        switch (result) {
-       | Js.Result.Ok(json) =>
+       | Belt.Result.Ok(json) =>
          let articles =
            json
            |> Json.Decode.(field("articles", array(Decoder.article)))
@@ -85,7 +85,7 @@ let loadProfile =
     API.profiles(~author)
     |> then_(result => {
          switch (result) {
-         | Js.Result.Ok(json) =>
+         | Belt.Result.Ok(json) =>
            let profile =
              json |> Json.Decode.(field("profile", Decoder.profile));
            send(UpdateProfile(RemoteData.Success(profile)));
@@ -163,7 +163,7 @@ let favoriteArticle = (~user, (slug, favorited), {ReasonReact.send}) =>
       (favorited ? API.favoriteArticle(slug) : API.unfavoriteArticle(slug))
       |> then_(result => {
            switch (result) {
-           | Js.Result.Ok(json) =>
+           | Belt.Result.Ok(json) =>
              let article =
                json |> Json.Decode.field("article", Decoder.article);
              send(UpdateArticle(slug, article));

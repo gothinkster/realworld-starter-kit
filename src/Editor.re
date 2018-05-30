@@ -49,11 +49,9 @@ module Form = {
   let valueEmpty = value => value === "";
   let strategy = Formality.Strategy.OnFirstSuccessOrFirstBlur;
   module Validators =
-    Formality.MakeValidators(
-      {
-        type t = field;
-      },
-    );
+    Formality.MakeValidators({
+      type t = field;
+    });
   type validators =
     Validators.t(Formality.validator(field, value, state, message));
   let validators =
@@ -130,7 +128,7 @@ let loadArticle = (slug, {ReasonReact.send}) => {
     API.getArticle(~slug)
     |> then_(result => {
          switch (result) {
-         | Js.Result.Ok(json) =>
+         | Belt.Result.Ok(json) =>
            let article =
              json |> Json.Decode.(field("article", Decoder.article));
            send(UpdateArticle(Success(article)));
@@ -170,7 +168,7 @@ let upsertArticle =
     )
     |> then_(result => {
          switch (result) {
-         | Js.Result.Ok(json) =>
+         | Belt.Result.Ok(json) =>
            let article: Types.article =
              Json.Decode.(json |> field("article", Decoder.article));
            notifyOnSuccess(None);
