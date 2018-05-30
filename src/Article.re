@@ -214,7 +214,7 @@ module CommentCard = {
 
 let loadArticle = (slug, {ReasonReact.send}) => {
   Js.Promise.(
-    API.getArticle(~slug)
+    API.getArticle(~slug, ())
     |> then_(result => {
          switch (result) {
          | Belt.Result.Ok(json) =>
@@ -239,7 +239,7 @@ let loadArticle = (slug, {ReasonReact.send}) => {
 
 let loadComments = (slug, {ReasonReact.send}) => {
   Js.Promise.(
-    API.comments(~slug)
+    API.comments(~slug, ())
     |> then_(result => {
          switch (result) {
          | Belt.Result.Ok(json) =>
@@ -279,7 +279,10 @@ let favoriteArticle =
   | Success({slug, favorited}) =>
     open Js.Promise;
     send(UpdateFavoriteAction(RemoteData.Loading));
-    (favorited ? API.unfavoriteArticle(slug) : API.favoriteArticle(slug))
+    (
+      favorited ?
+        API.unfavoriteArticle(~slug, ()) : API.favoriteArticle(~slug, ())
+    )
     |> then_(result => {
          switch (result) {
          | Belt.Result.Ok(json) =>
@@ -306,7 +309,7 @@ let deleteArticle = (~article: Types.remoteArticle, _payload, _self) => {
   | Failure(_) => ignore()
   | Success({slug}) =>
     Js.Promise.(
-      API.deleteArticle(slug)
+      API.deleteArticle(~slug, ())
       |> then_(result => {
            switch (result) {
            | Belt.Result.Ok(_) => ReasonReact.Router.push("/#/")
@@ -337,7 +340,10 @@ let followUser =
   | Success({author: {username, following}}) =>
     open Js.Promise;
     send(UpdateFollowAction(RemoteData.Loading));
-    (following ? API.unfollowUser(username) : API.followUser(username))
+    (
+      following ?
+        API.unfollowUser(~username, ()) : API.followUser(~username, ())
+    )
     |> then_(result => {
          switch (result) {
          | Belt.Result.Ok(json) =>
@@ -360,7 +366,7 @@ let followUser =
 let addComments = (~slug, ~submissionCallbacks, state, {ReasonReact.send}) => {
   open Js.Promise;
   let {Formality__Form.Validation.notifyOnFailure, notifyOnSuccess, reset} = submissionCallbacks;
-  API.addCommentsToAnArticle(~slug, ~body=state)
+  API.addCommentsToAnArticle(~slug, ~body=state, ())
   |> then_(result => {
        switch (result) {
        | Belt.Result.Ok(json) =>
@@ -393,7 +399,7 @@ let addComments = (~slug, ~submissionCallbacks, state, {ReasonReact.send}) => {
 let deleteComment = (~slug, ~id, _event, {ReasonReact.send}) => {
   open Js.Promise;
   send(AddHidingDeleteIcon(id));
-  API.deleteComment(~slug, ~id)
+  API.deleteComment(~slug, ~id, ())
   |> then_(result => {
        switch (result) {
        | Belt.Result.Ok(_) => send(RemoveComment(id))

@@ -192,7 +192,10 @@ let favoriteArticle = (~user, (slug, favorited), {ReasonReact.send}) =>
     | Failure(_) => ReasonReact.Router.push("/#/login")
     | Success(_) =>
       send(ToggleFavorite(slug, RemoteData.Loading));
-      (favorited ? API.favoriteArticle(slug) : API.unfavoriteArticle(slug))
+      (
+        favorited ?
+          API.favoriteArticle(~slug, ()) : API.unfavoriteArticle(~slug, ())
+      )
       |> then_(result => {
            switch (result) {
            | Belt.Result.Ok(json) =>

@@ -71,7 +71,7 @@ let make = (~onSuccessLogin, _children) => {
         (state, {notifyOnSuccess, notifyOnFailure, reset}) => {
           let {Form.email, password} = state;
           Js.Promise.(
-            API.login(~email, ~password)
+            API.login(~email, ~password, ())
             |> then_(result => {
                  switch (result) {
                  | Belt.Result.Ok(json) =>

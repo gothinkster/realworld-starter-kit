@@ -82,7 +82,7 @@ let loadProfile =
       | Favorited(v) => v
       };
     send(UpdateProfile(RemoteData.Loading));
-    API.profiles(~author)
+    API.profiles(~author, ())
     |> then_(result => {
          switch (result) {
          | Belt.Result.Ok(json) =>
@@ -130,7 +130,10 @@ let followAuthorOrRedirectToSetting =
       let {Types.following, username} = profileVal;
       send(UpdateFollowAction(RemoteData.Loading));
       Js.Promise.(
-        (following ? API.unfollowUser(username) : API.followUser(username))
+        (
+          following ?
+            API.unfollowUser(~username, ()) : API.followUser(~username, ())
+        )
         |> then_(_result => {
              send(
                UpdateProfile(
@@ -160,7 +163,10 @@ let favoriteArticle = (~user, (slug, favorited), {ReasonReact.send}) =>
     | Failure(_) => ReasonReact.Router.push("/#/login")
     | Success(_) =>
       send(ToggleFavorite(slug, RemoteData.Loading));
-      (favorited ? API.favoriteArticle(slug) : API.unfavoriteArticle(slug))
+      (
+        favorited ?
+          API.favoriteArticle(~slug, ()) : API.unfavoriteArticle(~slug, ())
+      )
       |> then_(result => {
            switch (result) {
            | Belt.Result.Ok(json) =>

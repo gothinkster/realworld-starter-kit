@@ -83,7 +83,7 @@ let tags = () => {
   |> then_(getResultIfOk);
 };
 
-let profiles = (~author) => {
+let profiles = (~author, ()) => {
   open Js.Promise;
   let url = host ++ "/api/profiles/" ++ author;
 
@@ -98,7 +98,7 @@ let profiles = (~author) => {
   |> then_(getResultIfOk);
 };
 
-let followUser = username => {
+let followUser = (~username, ()) => {
   open Js.Promise;
   let url = host ++ "/api/profiles/" ++ username ++ "/follow";
 
@@ -114,7 +114,7 @@ let followUser = username => {
   |> then_(getResultIfOk);
 };
 
-let unfollowUser = username => {
+let unfollowUser = (~username, ()) => {
   open Js.Promise;
   let url = host ++ "/api/profiles/" ++ username ++ "/follow";
 
@@ -130,7 +130,7 @@ let unfollowUser = username => {
   |> then_(getResultIfOk);
 };
 
-let getArticle = (~slug) => {
+let getArticle = (~slug, ()) => {
   open Js.Promise;
   let url = host ++ "/api/articles/" ++ slug;
 
@@ -145,7 +145,7 @@ let getArticle = (~slug) => {
   |> then_(getResultIfOk);
 };
 
-let deleteArticle = slug => {
+let deleteArticle = (~slug, ()) => {
   open Js.Promise;
   let url = host ++ "/api/articles/" ++ slug;
 
@@ -161,7 +161,7 @@ let deleteArticle = slug => {
   |> then_(getResultIfOk);
 };
 
-let favoriteArticle = slug => {
+let favoriteArticle = (~slug, ()) => {
   open Js.Promise;
   let url = host ++ "/api/articles/" ++ slug ++ "/favorite";
 
@@ -177,7 +177,7 @@ let favoriteArticle = slug => {
   |> then_(getResultIfOk);
 };
 
-let unfavoriteArticle = slug => {
+let unfavoriteArticle = (~slug, ()) => {
   open Js.Promise;
   let url = host ++ "/api/articles/" ++ slug ++ "/favorite";
 
@@ -193,7 +193,7 @@ let unfavoriteArticle = slug => {
   |> then_(getResultIfOk);
 };
 
-let comments = (~slug) => {
+let comments = (~slug, ()) => {
   open Js.Promise;
   let url = host ++ "/api/articles/" ++ slug ++ "/comments";
 
@@ -202,7 +202,7 @@ let comments = (~slug) => {
   |> then_(getResultIfOk);
 };
 
-let addCommentsToAnArticle = (~slug, ~body) => {
+let addCommentsToAnArticle = (~slug, ~body, ()) => {
   open Js.Promise;
   let url = host ++ "/api/articles/" ++ slug ++ "/comments";
 
@@ -228,7 +228,7 @@ let addCommentsToAnArticle = (~slug, ~body) => {
   |> then_(getResultIfOk);
 };
 
-let deleteComment = (~slug, ~id) => {
+let deleteComment = (~slug, ~id, ()) => {
   open Js.Promise;
   let url =
     host ++ "/api/articles/" ++ slug ++ "/comments/" ++ string_of_int(id);
@@ -261,7 +261,7 @@ let user = () => {
   |> then_(getResultIfOk);
 };
 
-let updateUser = (~email, ~username, ~password, ~image, ~bio) => {
+let updateUser = (~email, ~username, ~password, ~image, ~bio, ()) => {
   open Js.Promise;
   let url = host ++ "/api/user";
 
@@ -299,7 +299,7 @@ let updateUser = (~email, ~username, ~password, ~image, ~bio) => {
   |> then_(getResultIfOk);
 };
 
-let register = (~email, ~password, ~username) => {
+let register = (~email, ~password, ~username, ()) => {
   open Js.Promise;
   let url = host ++ "/api/users";
 
@@ -333,7 +333,7 @@ let register = (~email, ~password, ~username) => {
   |> then_(getResultIfOk);
 };
 
-let login = (~email, ~password) => {
+let login = (~email, ~password, ()) => {
   open Js.Promise;
   let url = host ++ "/api/users/login";
 
@@ -366,7 +366,7 @@ let login = (~email, ~password) => {
   |> then_(getResultIfOk);
 };
 
-let createArticle = (~title, ~description, ~body, ~tagList) => {
+let createArticle = (~title, ~description, ~body, ~tagList, ()) => {
   open Js.Promise;
   let url = host ++ "/api/articles";
 
@@ -406,7 +406,7 @@ let createArticle = (~title, ~description, ~body, ~tagList) => {
   |> then_(getResultIfOk);
 };
 
-let updateArticle = (~slug, ~title, ~description, ~body, ~tagList) => {
+let updateArticle = (~slug, ~title, ~description, ~body, ~tagList, ()) => {
   open Js.Promise;
   let url = host ++ "/api/articles/" ++ slug;
   let article =

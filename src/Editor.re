@@ -125,7 +125,7 @@ module FormContainer = Formality.Make(Form);
 let loadArticle = (slug, {ReasonReact.send}) => {
   send(UpdateArticle(Loading));
   Js.Promise.(
-    API.getArticle(~slug)
+    API.getArticle(~slug, ())
     |> then_(result => {
          switch (result) {
          | Belt.Result.Ok(json) =>
@@ -162,8 +162,9 @@ let upsertArticle =
           ~description=Some(description),
           ~body=Some(body),
           ~tagList=Some(tagList),
+          (),
         )
-      | None => API.createArticle(~title, ~description, ~body, ~tagList)
+      | None => API.createArticle(~title, ~description, ~body, ~tagList, ())
       }
     )
     |> then_(result => {

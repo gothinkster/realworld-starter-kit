@@ -87,7 +87,7 @@ let make = (~onSuccessRegister, _children) => {
         (state, {notifyOnSuccess, notifyOnFailure, reset}) => {
           let {Form.username, email, password} = state;
           Js.Promise.(
-            API.register(~username, ~email, ~password)
+            API.register(~username, ~email, ~password, ())
             |> then_(result => {
                  switch (result) {
                  | Belt.Result.Ok(json) =>

@@ -151,7 +151,7 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
         (state, {notifyOnSuccess, notifyOnFailure, reset}) => {
           let {Form.email, username, password, image, bio} = state;
           Js.Promise.(
-            API.updateUser(~email, ~username, ~password, ~image, ~bio)
+            API.updateUser(~email, ~username, ~password, ~image, ~bio, ())
             |> then_(result => {
                  switch (result) {
                  | Belt.Result.Ok(_) =>
