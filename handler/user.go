@@ -74,7 +74,7 @@ func (h *Handler) Follow(c echo.Context) error {
 	if err := h.db.Where(&models.User{Username: username}).First(&u).Error; err != nil {
 		return c.JSON(http.StatusNotFound, NewError(err))
 	}
-	if err := h.db.Model(&u).Association("Followers").Replace(&models.Follow{FollowerID: followerID, FollowingID: u.ID}).Error; err != nil {
+	if err := h.db.Model(&u).Association("Followers").Append(&models.Follow{FollowerID: followerID, FollowingID: u.ID}).Error; err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
 	}
 	return c.JSON(http.StatusOK, newProfileResponse(c, &u))
