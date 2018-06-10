@@ -6,18 +6,33 @@
 ### [Demo](https://github.com/gothinkster/realworld)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
 
 
-This codebase was created to demonstrate a fully fledged fullstack application built with **[YOUR_FRAMEWORK]** including CRUD operations, authentication, routing, pagination, and more.
+This codebase was created to demonstrate a fully fledged fullstack application built with **Golang/Echo** including CRUD operations, authentication, routing, pagination, and more.
 
-We've gone to great lengths to adhere to the **Golang/Echo** community styleguides & best practices.
+## Getting started
 
-For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
+### Install Golang 
+Please check the official golang installation guide before you start. [Official Documentation](https://golang.org/doc/install)
 
+### Install dep
+https://golang.github.io/dep/docs/installation.html
 
-# How it works
+### Install dependencies
+```
+dep ensure
+```
 
-> Describe the general architecture of your app here
+### Run
+```
+go run main.go
+```
 
-# Getting started
+### Build
+```
+go build
+```
 
-> npm install, npm start, etc.
+### Tests
+```
+go test ./...
+```
 

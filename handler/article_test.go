@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	articlesRes = `{"articles":\[{"slug":"article1-slug","title":"article1 title","description":"article1 description","body":"article1 body","tagList":\["tag1","tag2"],"createdAt":".*","updatedAt":".*","favorited":false,"favoritesCount":1,"author":{"username":"user1","bio":"user1 bio","image":"http://realworld.io/user1.jpg","following":false}}],"articlesCount":1}`
+	articlesRes = `{"articles":\[{"slug":"article1-slug","title":"article1 title","description":"article1 description","body":"article1 body","tagList":\[],"createdAt":".*","updatedAt":".*","favorited":false,"favoritesCount":1,"author":{"username":"user1","bio":"user1 bio","image":"http://realworld.io/user1.jpg","following":false}}],"articlesCount":1}`
 )
 
 func TestListArticles(t *testing.T) {
