@@ -8,6 +8,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo"
 	"github.com/xesina/golang-echo-realworld-example-app/models"
+	"github.com/xesina/golang-echo-realworld-example-app/utils"
 )
 
 func (h *Handler) Articles(c echo.Context) error {
@@ -65,7 +66,7 @@ func (h *Handler) Feed(c echo.Context) error {
 	var count int
 	var u models.User
 	if err := h.db.First(&u, userIDFromToken(c)).Error; err != nil {
-		return c.JSON(http.StatusNotFound, NewError(err))
+		return c.JSON(http.StatusNotFound, utils.NewError(err))
 	}
 	var followings []models.Follow
 	h.db.Model(&u).Preload("Following").Preload("Follower").Association("Followings").Find(&followings)
@@ -84,7 +85,7 @@ func (h *Handler) GetArticle(c echo.Context) error {
 	slug := c.Param("slug")
 	err := h.db.Where(&models.Article{Slug: slug}).Preload("Favorites").Preload("Tags").Preload("Author").Find(&article).Error
 	if err != nil {
-		return c.JSON(http.StatusNotFound, NewError(err))
+		return c.JSON(http.StatusNotFound, utils.NewError(err))
 	}
 	return c.JSON(http.StatusOK, newArticleResponse(c, &article))
 }
@@ -92,28 +93,28 @@ func (h *Handler) CreateArticle(c echo.Context) error {
 	var a models.Article
 	req := &articleCreateRequest{}
 	if err := req.bind(c, &a); err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
 	a.AuthorID = userIDFromToken(c)
 	// begin a transaction
 	tx := h.db.Begin()
 	if err := tx.Create(&a).Error; err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
 	for _, t := range a.Tags {
 		err := tx.Where(&models.Tag{Tag: t.Tag}).First(&t).Error
 		if err != nil && !gorm.IsRecordNotFoundError(err) {
 			tx.Rollback()
-			return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+			return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 		}
 		if err := tx.Model(&a).Association("Tags").Append(t).Error; err != nil {
 			tx.Rollback()
-			return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+			return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 		}
 	}
 	if err := tx.Where(a.ID).Preload("Favorites").Preload("Tags").Preload("Author").Find(&a).Error; err != nil {
 		tx.Rollback()
-		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
 	tx.Commit()
 	return c.JSON(http.StatusCreated, newArticleResponse(c, &a))
@@ -123,16 +124,16 @@ func (h *Handler) UpdateArticle(c echo.Context) error {
 	var a models.Article
 	err := h.db.Where(&models.Article{Slug: slug, AuthorID: userIDFromToken(c)}).Find(&a).Error
 	if err != nil {
-		return c.JSON(http.StatusNotFound, NewError(err))
+		return c.JSON(http.StatusNotFound, utils.NewError(err))
 	}
 	req := &articleUpdateRequest{}
 	req.populate(&a)
 	if err := req.bind(c, &a); err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
 	tx := h.db.Begin()
 	if err := tx.Model(&a).Update(&a).Error; err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
 	tags := make([]models.Tag, 0)
 	for _, t := range req.Article.Tags {
@@ -140,13 +141,13 @@ func (h *Handler) UpdateArticle(c echo.Context) error {
 		err := tx.Where(&tag).First(&tag).Error
 		if err != nil && !gorm.IsRecordNotFoundError(err) {
 			tx.Rollback()
-			return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+			return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 		}
 		tags = append(tags, tag)
 	}
 	if err := tx.Model(&a).Association("Tags").Replace(tags).Error; err != nil {
 		tx.Rollback()
-		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
 	tx.Where(a.ID).Preload("Favorites").Preload("Tags").Preload("Author").Find(&a)
 	tx.Commit()
@@ -157,11 +158,11 @@ func (h *Handler) DeleteArticle(c echo.Context) error {
 	var a models.Article
 	err := h.db.Where(&models.Article{Slug: slug, AuthorID: userIDFromToken(c)}).First(&a).Error
 	if err != nil {
-		return c.JSON(http.StatusNotFound, NewError(err))
+		return c.JSON(http.StatusNotFound, utils.NewError(err))
 	}
 	err = h.db.Delete(&a).Error
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, NewError(err))
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{"result": "ok"})
 }
@@ -171,16 +172,16 @@ func (h *Handler) AddComment(c echo.Context) error {
 	var a models.Article
 	err := h.db.Where(&models.Article{Slug: slug}).First(&a).Error
 	if err != nil {
-		return c.JSON(http.StatusNotFound, NewError(err))
+		return c.JSON(http.StatusNotFound, utils.NewError(err))
 	}
 	var cm models.Comment
 	req := &createCommentRequest{}
 	if err := req.bind(c, &cm); err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
 	err = h.db.Model(&a).Association("Comments").Append(&cm).Error
 	if err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
 	h.db.Where(cm.ID).Preload("User").First(&cm)
 	return c.JSON(http.StatusCreated, newCommentResponse(c, &cm))
@@ -191,7 +192,7 @@ func (h *Handler) GetComments(c echo.Context) error {
 	var a models.Article
 	err := h.db.Where(&models.Article{Slug: slug}).Preload("Comments").Preload("Comments.User").First(&a).Error
 	if err != nil {
-		return c.JSON(http.StatusNotFound, NewError(err))
+		return c.JSON(http.StatusNotFound, utils.NewError(err))
 	}
 	return c.JSON(http.StatusOK, newCommentListResponse(c, a.Comments))
 }
@@ -200,19 +201,19 @@ func (h *Handler) DeleteComment(c echo.Context) error {
 	id64, err := strconv.ParseUint(c.Param("id"), 10, 32)
 	id := uint(id64)
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, NewError(err))
+		return c.JSON(http.StatusBadRequest, utils.NewError(err))
 	}
 	var cm models.Comment
 	err = h.db.Where(id).First(&cm).Error
 	if err != nil {
-		return c.JSON(http.StatusNotFound, NewError(err))
+		return c.JSON(http.StatusNotFound, utils.NewError(err))
 	}
 	if cm.UserID != userIDFromToken(c) {
-		return c.JSON(http.StatusUnauthorized, NewError(errors.New("unauthorized action")))
+		return c.JSON(http.StatusUnauthorized, utils.NewError(errors.New("unauthorized action")))
 	}
 	err = h.db.Delete(&cm).Error
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, NewError(err))
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{"result": "ok"})
 }
@@ -222,13 +223,13 @@ func (h *Handler) Favorite(c echo.Context) error {
 	slug := c.Param("slug")
 	err := h.db.Where(&models.Article{Slug: slug}).Preload("Favorites").Preload("Tags").Preload("Author").Find(&article).Error
 	if err != nil {
-		return c.JSON(http.StatusNotFound, NewError(err))
+		return c.JSON(http.StatusNotFound, utils.NewError(err))
 	}
 	user := models.User{}
 	user.ID = userIDFromToken(c)
 	err = h.db.Model(&article).Association("Favorites").Append(&user).Error
 	if err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
 	return c.JSON(http.StatusOK, newArticleResponse(c, &article))
 }
@@ -237,13 +238,13 @@ func (h *Handler) Unfavorite(c echo.Context) error {
 	slug := c.Param("slug")
 	err := h.db.Where(&models.Article{Slug: slug}).Preload("Favorites").Preload("Tags").Preload("Author").Find(&article).Error
 	if err != nil {
-		return c.JSON(http.StatusNotFound, NewError(err))
+		return c.JSON(http.StatusNotFound, utils.NewError(err))
 	}
 	user := models.User{}
 	user.ID = userIDFromToken(c)
 	err = h.db.Model(&article).Association("Favorites").Delete(&user).Error
 	if err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, NewError(err))
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
 	return c.JSON(http.StatusOK, newArticleResponse(c, &article))
 }

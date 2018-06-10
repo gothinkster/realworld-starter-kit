@@ -2,10 +2,10 @@ package middleware
 
 import (
 	"fmt"
-	"net/http"
-
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
+	"github.com/xesina/golang-echo-realworld-example-app/utils"
+	"net/http"
 )
 
 type (
@@ -38,9 +38,8 @@ func JWTWithConfig(config JWTConfig) echo.MiddlewareFunc {
 					if config.Skipper(c) {
 						return next(c)
 					}
-				} else {
-					return err
 				}
+				return c.JSON(http.StatusUnauthorized, utils.NewError(err))
 			}
 			token, err := jwt.Parse(auth, func(token *jwt.Token) (interface{}, error) {
 				if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
@@ -49,18 +48,14 @@ func JWTWithConfig(config JWTConfig) echo.MiddlewareFunc {
 				return config.SigningKey, nil
 			})
 			if err != nil {
-				return ErrJWTInvalid
+				return c.JSON(http.StatusForbidden, utils.NewError(ErrJWTInvalid))
 			}
 			if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 				userID := uint(claims["id"].(float64))
 				c.Set("user", userID)
 				return next(c)
 			}
-			return &echo.HTTPError{
-				Code:     ErrJWTInvalid.Code,
-				Message:  ErrJWTInvalid.Message,
-				Internal: err,
-			}
+			return c.JSON(http.StatusForbidden, utils.NewError(ErrJWTInvalid))
 		}
 	}
 }

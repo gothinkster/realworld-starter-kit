@@ -25,10 +25,38 @@
 #   unused-packages = true
 
 
-[prune]
-  go-tests = true
-  unused-packages = true
+[[constraint]]
+  name = "github.com/dgrijalva/jwt-go"
+  version = "3.2.0"
+
+[[constraint]]
+  name = "github.com/gosimple/slug"
+  version = "1.1.1"
+
+[[constraint]]
+  name = "github.com/jinzhu/gorm"
+  version = "1.9.1"
 
 [[constraint]]
   name = "github.com/labstack/echo"
-  version = "3.1.0"
+  version = "3.3.5"
+
+[[constraint]]
+  name = "github.com/labstack/gommon"
+  version = "0.2.5"
+
+[[constraint]]
+  name = "github.com/stretchr/testify"
+  version = "1.2.2"
+
+[[constraint]]
+  branch = "master"
+  name = "golang.org/x/crypto"
+
+[[constraint]]
+  name = "gopkg.in/go-playground/validator.v9"
+  version = "9.17.1"
+
+[prune]
+  go-tests = true
+  unused-packages = true
