@@ -3,10 +3,7 @@ open Utils;
 let host = "https://conduit.productionready.io";
 
 let optToQueryString = (prefix, opt) =>
-  switch (opt) {
-  | Some(v) => prefix ++ v
-  | None => ""
-  };
+  opt |. Belt.Option.mapWithDefault("", (++)(prefix));
 
 let getResultIfOk = res => {
   open Js.Promise;
@@ -19,18 +16,53 @@ let getResultIfOk = res => {
   |> then_(json => (isOk ? Ok(json) : Error(json)) |> resolve);
 };
 
-let getJsonContentType = () => {
-  "Content-Type": "application/json; charset=utf-8",
-};
+let makeFetchInit =
+    (
+      ~body=?,
+      ~method_=Fetch.Get,
+      ~includeCookie=true,
+      ~authorization=false,
+      ~jsonContentType=false,
+      (),
+    ) => {
+  let headers = {
+    let obj = ref(Js.Obj.empty());
 
-let getAuthorizationHeader = () =>
-  getCookie("token")
-  |. Belt.Option.mapWithDefault(Js.Obj.empty(), value =>
-       {"Authorization": "Token " ++ value}
-     );
+    if (authorization) {
+      obj :=
+        Js.Obj.assign(
+          obj^,
+          getCookie("token")
+          |. Belt.Option.mapWithDefault(Js.Obj.empty(), value =>
+               {"Authorization": "Token " ++ value}
+             ),
+        );
+    };
+
+    if (jsonContentType) {
+      obj :=
+        Js.Obj.assign(
+          obj^,
+          {"Content-Type": "application/json; charset=utf-8"},
+        );
+    };
+
+    obj^;
+  };
+  let credentials = includeCookie ? None : Some(Fetch.Include);
+
+  Fetch.RequestInit.make(
+    ~body?,
+    ~method_,
+    ~credentials?,
+    ~headers=headers |> Fetch.HeadersInit.make,
+    (),
+  );
+};
 
 let listArticlesFeed = (~limit=20, ~offset=0, ()) => {
   open Js.Promise;
+
   let url =
     host
     ++ "/api/articles/feed"
@@ -40,18 +72,13 @@ let listArticlesFeed = (~limit=20, ~offset=0, ()) => {
     ++ string_of_int(offset);
 
   url
-  |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
-         ~credentials=Include,
-         ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
-         (),
-       ),
-     )
+  |. Fetch.fetchWithInit(makeFetchInit(~authorization=true, ()))
   |> then_(getResultIfOk);
 };
 
 let listArticles = (~tag=?, ~author=?, ~favorited=?, ~limit=20, ~offset=0, ()) => {
   open Js.Promise;
+
   let url =
     host
     ++ "/api/articles"
@@ -64,13 +91,7 @@ let listArticles = (~tag=?, ~author=?, ~favorited=?, ~limit=20, ~offset=0, ()) =
     ++ optToQueryString("&favorited=", favorited);
 
   url
-  |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
-         ~credentials=Include,
-         ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
-         (),
-       ),
-     )
+  |. Fetch.fetchWithInit(makeFetchInit(~authorization=true, ()))
   |> then_(getResultIfOk);
 };
 
@@ -78,9 +99,7 @@ let tags = () => {
   open Js.Promise;
   let url = host ++ "/api/tags";
 
-  url
-  |. Fetch.fetchWithInit(Fetch.RequestInit.make(~credentials=Include, ()))
-  |> then_(getResultIfOk);
+  url |. Fetch.fetchWithInit(makeFetchInit()) |> then_(getResultIfOk);
 };
 
 let profiles = (~author, ()) => {
@@ -88,13 +107,7 @@ let profiles = (~author, ()) => {
   let url = host ++ "/api/profiles/" ++ author;
 
   url
-  |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
-         ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
-         ~credentials=Include,
-         (),
-       ),
-     )
+  |. Fetch.fetchWithInit(makeFetchInit(~authorization=true, ()))
   |> then_(getResultIfOk);
 };
 
@@ -104,12 +117,7 @@ let followUser = (~username, ()) => {
 
   url
   |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
-         ~method_=Post,
-         ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
-         ~credentials=Include,
-         (),
-       ),
+       makeFetchInit(~method_=Post, ~authorization=true, ()),
      )
   |> then_(getResultIfOk);
 };
@@ -120,12 +128,7 @@ let unfollowUser = (~username, ()) => {
 
   url
   |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
-         ~method_=Delete,
-         ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
-         ~credentials=Include,
-         (),
-       ),
+       makeFetchInit(~method_=Delete, ~authorization=true, ()),
      )
   |> then_(getResultIfOk);
 };
@@ -135,13 +138,7 @@ let getArticle = (~slug, ()) => {
   let url = host ++ "/api/articles/" ++ slug;
 
   url
-  |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
-         ~credentials=Include,
-         ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
-         (),
-       ),
-     )
+  |. Fetch.fetchWithInit(makeFetchInit(~authorization=true, ()))
   |> then_(getResultIfOk);
 };
 
@@ -151,12 +148,7 @@ let deleteArticle = (~slug, ()) => {
 
   url
   |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
-         ~method_=Delete,
-         ~credentials=Include,
-         ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
-         (),
-       ),
+       makeFetchInit(~method_=Delete, ~authorization=true, ()),
      )
   |> then_(getResultIfOk);
 };
@@ -167,12 +159,7 @@ let favoriteArticle = (~slug, ()) => {
 
   url
   |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
-         ~method_=Post,
-         ~credentials=Include,
-         ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
-         (),
-       ),
+       makeFetchInit(~method_=Post, ~authorization=true, ()),
      )
   |> then_(getResultIfOk);
 };
@@ -183,12 +170,7 @@ let unfavoriteArticle = (~slug, ()) => {
 
   url
   |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
-         ~method_=Delete,
-         ~credentials=Include,
-         ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
-         (),
-       ),
+       makeFetchInit(~method_=Delete, ~authorization=true, ()),
      )
   |> then_(getResultIfOk);
 };
@@ -197,9 +179,7 @@ let comments = (~slug, ()) => {
   open Js.Promise;
   let url = host ++ "/api/articles/" ++ slug ++ "/comments";
 
-  url
-  |. Fetch.fetchWithInit(Fetch.RequestInit.make(~credentials=Include, ()))
-  |> then_(getResultIfOk);
+  url |. Fetch.fetchWithInit(makeFetchInit()) |> then_(getResultIfOk);
 };
 
 let addCommentsToAnArticle = (~slug, ~body, ()) => {
@@ -208,12 +188,10 @@ let addCommentsToAnArticle = (~slug, ~body, ()) => {
 
   url
   |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
+       makeFetchInit(
          ~method_=Post,
-         ~credentials=Include,
-         ~headers=
-           Js.Obj.assign(getJsonContentType(), getAuthorizationHeader())
-           |> Fetch.HeadersInit.make,
+         ~authorization=true,
+         ~jsonContentType=true,
          ~body=
            Fetch.BodyInit.make(
              Json.Encode.(
@@ -235,12 +213,7 @@ let deleteComment = (~slug, ~id, ()) => {
 
   url
   |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
-         ~method_=Delete,
-         ~credentials=Include,
-         ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
-         (),
-       ),
+       makeFetchInit(~method_=Delete, ~authorization=true, ()),
      )
   |> then_(getResultIfOk);
 };
@@ -250,14 +223,7 @@ let user = () => {
   let url = host ++ "/api/user";
 
   url
-  |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
-         ~method_=Get,
-         ~headers=getAuthorizationHeader() |> Fetch.HeadersInit.make,
-         ~credentials=Include,
-         (),
-       ),
-     )
+  |. Fetch.fetchWithInit(makeFetchInit(~authorization=true, ()))
   |> then_(getResultIfOk);
 };
 
@@ -267,11 +233,10 @@ let updateUser = (~email, ~username, ~password, ~image, ~bio, ()) => {
 
   url
   |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
+       makeFetchInit(
          ~method_=Put,
-         ~headers=
-           Js.Obj.assign(getJsonContentType(), getAuthorizationHeader())
-           |> Fetch.HeadersInit.make,
+         ~jsonContentType=true,
+         ~authorization=true,
          ~body=
            Fetch.BodyInit.make(
              Json.Encode.(
@@ -292,7 +257,6 @@ let updateUser = (~email, ~username, ~password, ~image, ~bio, ()) => {
              )
              |> Json.stringify,
            ),
-         ~credentials=Include,
          (),
        ),
      )
@@ -305,9 +269,9 @@ let register = (~email, ~password, ~username, ()) => {
 
   url
   |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
+       makeFetchInit(
          ~method_=Post,
-         ~headers=getJsonContentType() |> Fetch.HeadersInit.make,
+         ~authorization=true,
          ~body=
            Fetch.BodyInit.make(
              Json.Encode.(
@@ -326,7 +290,6 @@ let register = (~email, ~password, ~username, ()) => {
              )
              |> Json.stringify,
            ),
-         ~credentials=Include,
          (),
        ),
      )
@@ -339,9 +302,9 @@ let login = (~email, ~password, ()) => {
 
   url
   |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
+       makeFetchInit(
          ~method_=Post,
-         ~headers=getJsonContentType() |> Fetch.HeadersInit.make,
+         ~jsonContentType=true,
          ~body=
            Fetch.BodyInit.make(
              Json.Encode.(
@@ -359,7 +322,6 @@ let login = (~email, ~password, ()) => {
              )
              |> Json.stringify,
            ),
-         ~credentials=Include,
          (),
        ),
      )
@@ -372,11 +334,10 @@ let createArticle = (~title, ~description, ~body, ~tagList, ()) => {
 
   url
   |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
+       makeFetchInit(
          ~method_=Post,
-         ~headers=
-           Js.Obj.assign(getJsonContentType(), getAuthorizationHeader())
-           |> Fetch.HeadersInit.make,
+         ~jsonContentType=true,
+         ~authorization=true,
          ~body=
            Fetch.BodyInit.make(
              Json.Encode.(
@@ -399,7 +360,6 @@ let createArticle = (~title, ~description, ~body, ~tagList, ()) => {
              )
              |> Json.stringify,
            ),
-         ~credentials=Include,
          (),
        ),
      )
@@ -433,17 +393,15 @@ let updateArticle = (~slug, ~title, ~description, ~body, ~tagList, ()) => {
 
   url
   |. Fetch.fetchWithInit(
-       Fetch.RequestInit.make(
+       makeFetchInit(
          ~method_=Put,
-         ~headers=
-           Js.Obj.assign(getJsonContentType(), getAuthorizationHeader())
-           |> Fetch.HeadersInit.make,
+         ~jsonContentType=true,
+         ~authorization=true,
          ~body=
            Fetch.BodyInit.make(
              Json.Encode.([("article", article)] |> object_)
              |> Json.stringify,
            ),
-         ~credentials=Include,
          (),
        ),
      )
