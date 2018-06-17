@@ -119,6 +119,7 @@ func (h *Handler) CreateArticle(c echo.Context) error {
 	tx.Commit()
 	return c.JSON(http.StatusCreated, newArticleResponse(c, &a))
 }
+
 func (h *Handler) UpdateArticle(c echo.Context) error {
 	slug := c.Param("slug")
 	var a models.Article
@@ -198,24 +199,24 @@ func (h *Handler) GetComments(c echo.Context) error {
 }
 
 func (h *Handler) DeleteComment(c echo.Context) error {
-	id64, err := strconv.ParseUint(c.Param("id"), 10, 32)
-	id := uint(id64)
-	if err != nil {
-		return c.JSON(http.StatusBadRequest, utils.NewError(err))
-	}
-	var cm models.Comment
-	err = h.db.Where(id).First(&cm).Error
-	if err != nil {
-		return c.JSON(http.StatusNotFound, utils.NewError(err))
-	}
-	if cm.UserID != userIDFromToken(c) {
-		return c.JSON(http.StatusUnauthorized, utils.NewError(errors.New("unauthorized action")))
-	}
-	err = h.db.Delete(&cm).Error
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
-	}
-	return c.JSON(http.StatusOK, map[string]interface{}{"result": "ok"})
+		id64, err := strconv.ParseUint(c.Param("id"), 10, 32)
+		id := uint(id64)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, utils.NewError(err))
+		}
+		var cm models.Comment
+		err = h.db.Where(id).First(&cm).Error
+		if err != nil {
+			return c.JSON(http.StatusNotFound, utils.NewError(err))
+		}
+		if cm.UserID != userIDFromToken(c) {
+			return c.JSON(http.StatusUnauthorized, utils.NewError(errors.New("unauthorized action")))
+		}
+		err = h.db.Delete(&cm).Error
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+		}
+		return c.JSON(http.StatusOK, map[string]interface{}{"result": "ok"})
 }
 
 func (h *Handler) Favorite(c echo.Context) error {
