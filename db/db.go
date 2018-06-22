@@ -1,11 +1,11 @@
-package database
+package db
 
 import (
 	"fmt"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
-	"github.com/xesina/golang-echo-realworld-example-app/models"
+	"github.com/xesina/golang-echo-realworld-example-app/model"
 )
 
 func New() *gorm.DB {
@@ -21,10 +21,10 @@ func New() *gorm.DB {
 //TODO: err check
 func AutoMigrate(db *gorm.DB) {
 	db.AutoMigrate(
-		&models.User{},
-		&models.Follow{},
-		&models.Article{},
-		&models.Comment{},
-		models.Tag{},
+		&model.User{},
+		&model.Follow{},
+		&model.Article{},
+		&model.Comment{},
+		&model.Tag{},
 	)
 }

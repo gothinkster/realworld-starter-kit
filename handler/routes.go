@@ -6,12 +6,10 @@ import (
 	"github.com/xesina/golang-echo-realworld-example-app/utils"
 )
 
-func (h *Handler) RegisterRoutes(e *echo.Echo) {
+func (h *Handler) Register(v1 *echo.Group) {
 	jwtMiddleware := middleware.JWT(utils.JWTSecret)
-
-	v1 := e.Group("/api")
 	guestUsers := v1.Group("/users")
-	guestUsers.POST("", h.Register)
+	guestUsers.POST("", h.SignUp)
 	guestUsers.POST("/login", h.Login)
 
 	user := v1.Group("/user", jwtMiddleware)

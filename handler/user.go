@@ -1,108 +1,114 @@
 package handler
 
 import (
-	"net/http"
-
 	"github.com/labstack/echo"
-	"github.com/xesina/golang-echo-realworld-example-app/models"
+	"github.com/xesina/golang-echo-realworld-example-app/model"
 	"github.com/xesina/golang-echo-realworld-example-app/utils"
+	"net/http"
 )
 
-func (h *Handler) Register(c echo.Context) error {
-	var u models.User
+func (h *Handler) SignUp(c echo.Context) error {
+	var u model.User
 	req := &userRegisterRequest{}
 	if err := req.bind(c, &u); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
-	if err := h.db.Create(&u).Error; err != nil {
+	if err := h.userStore.Create(&u); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
 	return c.JSON(http.StatusCreated, newUserResponse(&u))
 }
 
 func (h *Handler) Login(c echo.Context) error {
-	var u models.User
 	req := &userLoginRequest{}
-	if err := req.bind(c, &u); err != nil {
+	if err := req.bind(c); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
-	if err := h.db.Where(&models.User{Email: u.Email}).First(&u).Error; err != nil {
-		//TODO: Return appropriate error
+	u, err := h.userStore.GetByEmail(req.User.Email)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if u == nil {
 		return c.JSON(http.StatusForbidden, utils.NewError(err))
 	}
-	if err := u.CheckPassword(req.User.Password); err != nil {
-		//TODO: Return appropriate error
-		return c.JSON(http.StatusForbidden, utils.NewError(err))
+	if !u.CheckPassword(req.User.Password) {
+		return c.JSON(http.StatusForbidden, utils.AccessForbidden())
 	}
-	return c.JSON(http.StatusOK, newUserResponse(&u))
+	return c.JSON(http.StatusOK, newUserResponse(u))
 }
 
 func (h *Handler) CurrentUser(c echo.Context) error {
-	var u models.User
-	if err := h.db.First(&u, userIDFromToken(c)).Error; err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	u, err := h.userStore.GetByID(userIDFromToken(c))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
 	}
-	return c.JSON(http.StatusOK, newUserResponse(&u))
+	if u == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	return c.JSON(http.StatusOK, newUserResponse(u))
 }
 
 func (h *Handler) UpdateUser(c echo.Context) error {
-	var u models.User
-	h.db.First(&u, userIDFromToken(c))
+	u, err := h.userStore.GetByID(userIDFromToken(c))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if u == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
 	req := newUserUpdateRequest()
-	req.populate(&u)
-	if err := req.bind(c, &u); err != nil {
+	req.populate(u)
+	if err := req.bind(c, u); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
-	if err := h.db.Model(&u).Update(&u).Error; err != nil {
+	if err := h.userStore.Update(u); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
-	return c.JSON(http.StatusOK, newUserResponse(&u))
+	return c.JSON(http.StatusOK, newUserResponse(u))
 }
 
 func (h *Handler) GetProfile(c echo.Context) error {
 	username := c.Param("username")
-	var u models.User
-	if err := h.db.Where(&models.User{Username: username}).Preload("Followers").First(&u).Error; err != nil {
-		return c.JSON(http.StatusNotFound, utils.NewError(err))
+	u, err := h.userStore.GetByUsername(username)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
 	}
-	return c.JSON(http.StatusOK, newProfileResponse(c, &u))
+	if u == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	return c.JSON(http.StatusOK, newProfileResponse(h.userStore, userIDFromToken(c), u))
 }
 
 func (h *Handler) Follow(c echo.Context) error {
-	var u models.User
-	username := c.Param("username")
 	followerID := userIDFromToken(c)
-	if err := h.db.Where(&models.User{Username: username}).First(&u).Error; err != nil {
-		return c.JSON(http.StatusNotFound, utils.NewError(err))
+	username := c.Param("username")
+	u, err := h.userStore.GetByUsername(username)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
 	}
-	if err := h.db.Model(&u).Association("Followers").Append(&models.Follow{FollowerID: followerID, FollowingID: u.ID}).Error; err != nil {
+	if u == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	if err := h.userStore.AddFollower(u, followerID); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
-	return c.JSON(http.StatusOK, newProfileResponse(c, &u))
+	return c.JSON(http.StatusOK, newProfileResponse(h.userStore, userIDFromToken(c), u))
 }
 func (h *Handler) Unfollow(c echo.Context) error {
-	var u models.User
-	username := c.Param("username")
 	followerID := userIDFromToken(c)
-	if err := h.db.Where(&models.User{Username: username}).First(&u).Error; err != nil {
-		return c.JSON(http.StatusNotFound, utils.NewError(err))
+	username := c.Param("username")
+	u, err := h.userStore.GetByUsername(username)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
 	}
-
-	f := models.Follow{
-		FollowerID:  followerID,
-		FollowingID: u.ID,
+	if u == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
 	}
-	if err := h.db.Model(&u).Association("Followers").Find(&f).Error; err != nil {
-		return c.JSON(http.StatusNotFound, utils.NewError(err))
-	}
-
-	if err := h.db.Delete(f).Error; err != nil {
+	if err := h.userStore.RemoveFollower(u, followerID); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
-
-	return c.JSON(http.StatusOK, newProfileResponse(c, &u))
+	return c.JSON(http.StatusOK, newProfileResponse(h.userStore, userIDFromToken(c), u))
 }
-
 func userIDFromToken(c echo.Context) uint {
 	id, ok := c.Get("user").(uint)
 	if !ok {

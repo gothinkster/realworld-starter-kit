@@ -1,6 +1,8 @@
-package models
+package model
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/jinzhu/gorm"
+)
 
 type Article struct {
 	gorm.Model
@@ -14,6 +16,7 @@ type Article struct {
 	Favorites   []User `gorm:"many2many:favorites;"`
 	Tags        []Tag  `gorm:"many2many:article_tags;association_autocreate:false"`
 }
+
 type Comment struct {
 	gorm.Model
 	Article   Article
