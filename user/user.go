@@ -1,63 +1,16 @@
 package user
 
 import (
-	"errors"
-	"github.com/jinzhu/gorm"
-	"github.com/xesina/golang-echo-realworld-example-app/article"
-	"golang.org/x/crypto/bcrypt"
+	"github.com/xesina/golang-echo-realworld-example-app/model"
 )
 
-type User struct {
-	gorm.Model
-	Username   string            `gorm:"unique_index;not null"`
-	Email      string            `gorm:"unique_index;not null"`
-	Password   string            `gorm:"not null"`
-	Bio        *string
-	Image      *string
-	Followers  []Follow          `gorm:"foreignkey:FollowingID"`
-	Followings []Follow          `gorm:"foreignkey:FollowerID"`
-	Favorites  []article.Article `gorm:"many2many:favorites;"`
-}
-
-type Follow struct {
-	Follower    User
-	FollowerID  uint `gorm:"primary_key" sql:"type:int not null"`
-	Following   User
-	FollowingID uint `gorm:"primary_key" sql:"type:int not null"`
-}
-
-func (u *User) HashPassword(plain string) (string, error) {
-	if len(plain) == 0 {
-		return "", errors.New("password should not be empty")
-	}
-	h, err := bcrypt.GenerateFromPassword([]byte(plain), bcrypt.DefaultCost)
-	return string(h), err
-}
-
-func (u *User) CheckPassword(plain string) bool {
-	err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(plain))
-	return err == nil
-}
-
-// FollowedBy Followings should be pre loaded
-func (u *User) FollowedBy(id uint) bool {
-	if u.Followers == nil {
-		return false
-	}
-	for _, f := range u.Followers {
-		if f.FollowerID == id {
-			return true
-		}
-	}
-	return false
-}
-
-type Storage interface {
-	GetByID(uint) (*User, error)
-	GetByEmail(string) (*User, error)
-	GetByUsername(string) (*User, error)
-	Create(*User) error
-	Update(*User) error
-	AddFollower(user *User, followerID uint) error
-	RemoveFollower(user *User, followerID uint) error
+type Store interface {
+	GetByID(uint) (*model.User, error)
+	GetByEmail(string) (*model.User, error)
+	GetByUsername(string) (*model.User, error)
+	Create(*model.User) error
+	Update(*model.User) error
+	AddFollower(user *model.User, followerID uint) error
+	RemoveFollower(user *model.User, followerID uint) error
+	IsFollower(userID, followerID uint) (bool, error)
 }

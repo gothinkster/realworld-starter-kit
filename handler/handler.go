@@ -1,15 +1,18 @@
 package handler
 
 import (
-	"github.com/jinzhu/gorm"
+	"github.com/xesina/golang-echo-realworld-example-app/article"
+	"github.com/xesina/golang-echo-realworld-example-app/user"
 )
 
 type Handler struct {
-	db *gorm.DB
+	userStore    user.Store
+	articleStore article.Store
 }
 
-func New(db *gorm.DB) *Handler {
+func NewHandler(us user.Store, as article.Store) *Handler {
 	return &Handler{
-		db: db,
+		userStore:    us,
+		articleStore: as,
 	}
 }

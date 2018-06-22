@@ -1,15 +1,25 @@
 package handler
 
 import (
-	"errors"
-	"net/http"
-	"strconv"
-
-	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo"
-	"github.com/xesina/golang-echo-realworld-example-app/models"
 	"github.com/xesina/golang-echo-realworld-example-app/utils"
+	"net/http"
+	"github.com/xesina/golang-echo-realworld-example-app/model"
+	"strconv"
+	"errors"
 )
+
+func (h *Handler) GetArticle(c echo.Context) error {
+	slug := c.Param("slug")
+	a, err := h.articleStore.GetBySlug(slug)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if a == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	return c.JSON(http.StatusOK, newArticleResponse(c, a))
+}
 
 func (h *Handler) Articles(c echo.Context) error {
 	tag := c.QueryParam("tag")
@@ -23,37 +33,35 @@ func (h *Handler) Articles(c echo.Context) error {
 	if err != nil {
 		limit = 20
 	}
-	var articles []models.Article
+	var articles []model.Article
 	var count int
 	if tag != "" {
-		var t models.Tag
-		err := h.db.Where(&models.Tag{Tag: tag}).First(&t).Error
-		if err == nil {
-			h.db.Model(&t).Preload("Favorites").Preload("Tags").Preload("Author").Offset(offset).Limit(limit).Association("Articles").Find(&articles)
-			count = h.db.Model(&t).Association("Articles").Count()
+		articles, count, err = h.articleStore.ListByTag(tag, offset, limit)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, nil)
 		}
 	} else if author != "" {
-		var u models.User
-		err := h.db.Where(&models.User{Username: author}).First(&u).Error
-		if err == nil {
-			h.db.Where(&models.Article{AuthorID: u.ID}).Preload("Favorites").Preload("Tags").Preload("Author").Offset(offset).Limit(limit).Find(&articles)
-			h.db.Where(&models.Article{AuthorID: u.ID}).Model(&models.Article{}).Count(&count)
+		articles, count, err = h.articleStore.ListByAuthor(author, offset, limit)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, nil)
 		}
 	} else if favoritedBy != "" {
-		var u models.User
-		err := h.db.Where(&models.User{Username: favoritedBy}).First(&u).Error
-		if err == nil {
-			h.db.Model(&u).Preload("Favorites").Preload("Tags").Preload("Author").Offset(offset).Limit(limit).Association("Favorites").Find(&articles)
-			count = h.db.Model(&u).Association("Favorites").Count()
+		articles, count, err = h.articleStore.ListByWhoFavorited(favoritedBy, offset, limit)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, nil)
 		}
 	} else {
-		h.db.Model(&articles).Count(&count)
-		h.db.Preload("Favorites").Preload("Tags").Preload("Author").Offset(offset).Limit(limit).Find(&articles)
+		articles, count, err = h.articleStore.List(offset, limit)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, nil)
+		}
 	}
-	return c.JSON(http.StatusOK, newArticleListResponse(c, articles, count))
+	return c.JSON(http.StatusOK, newArticleListResponse(h.userStore, userIDFromToken(c), articles, count))
 }
 
 func (h *Handler) Feed(c echo.Context) error {
+	var articles []model.Article
+	var count int
 	offset, err := strconv.Atoi(c.QueryParam("offset"))
 	if err != nil {
 		offset = 0
@@ -62,106 +70,57 @@ func (h *Handler) Feed(c echo.Context) error {
 	if err != nil {
 		limit = 20
 	}
-	var articles []models.Article
-	var count int
-	var u models.User
-	if err := h.db.First(&u, userIDFromToken(c)).Error; err != nil {
-		return c.JSON(http.StatusNotFound, utils.NewError(err))
-	}
-	var followings []models.Follow
-	h.db.Model(&u).Preload("Following").Preload("Follower").Association("Followings").Find(&followings)
-	var ids []uint
-	for _, i := range followings {
-		ids = append(ids, i.FollowingID)
-	}
-	h.db.Where("author_id in (?)", ids).Preload("Favorites").Preload("Tags").Preload("Author").Offset(offset).Limit(limit).Find(&articles)
-	h.db.Where(&models.Article{AuthorID: u.ID}).Model(&models.Article{}).Count(&count)
-
-	return c.JSON(http.StatusOK, newArticleListResponse(c, articles, count))
-}
-
-func (h *Handler) GetArticle(c echo.Context) error {
-	var article models.Article
-	slug := c.Param("slug")
-	err := h.db.Where(&models.Article{Slug: slug}).Preload("Favorites").Preload("Tags").Preload("Author").Find(&article).Error
+	articles, count, err = h.articleStore.ListFeed(userIDFromToken(c), offset, limit)
 	if err != nil {
-		return c.JSON(http.StatusNotFound, utils.NewError(err))
+		return c.JSON(http.StatusInternalServerError, nil)
 	}
-	return c.JSON(http.StatusOK, newArticleResponse(c, &article))
+	return c.JSON(http.StatusOK, newArticleListResponse(h.userStore, userIDFromToken(c), articles, count))
 }
+
 func (h *Handler) CreateArticle(c echo.Context) error {
-	var a models.Article
+	var a model.Article
 	req := &articleCreateRequest{}
 	if err := req.bind(c, &a); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
 	a.AuthorID = userIDFromToken(c)
-	// begin a transaction
-	tx := h.db.Begin()
-	if err := tx.Create(&a).Error; err != nil {
+	err := h.articleStore.CreateArticle(&a)
+	if err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
-	for _, t := range a.Tags {
-		err := tx.Where(&models.Tag{Tag: t.Tag}).First(&t).Error
-		if err != nil && !gorm.IsRecordNotFoundError(err) {
-			tx.Rollback()
-			return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
-		}
-		if err := tx.Model(&a).Association("Tags").Append(t).Error; err != nil {
-			tx.Rollback()
-			return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
-		}
-	}
-	if err := tx.Where(a.ID).Preload("Favorites").Preload("Tags").Preload("Author").Find(&a).Error; err != nil {
-		tx.Rollback()
-		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
-	}
-	tx.Commit()
 	return c.JSON(http.StatusCreated, newArticleResponse(c, &a))
 }
 
 func (h *Handler) UpdateArticle(c echo.Context) error {
 	slug := c.Param("slug")
-	var a models.Article
-	err := h.db.Where(&models.Article{Slug: slug, AuthorID: userIDFromToken(c)}).Find(&a).Error
+	a, err := h.articleStore.GetUserArticleBySlug(userIDFromToken(c), slug)
 	if err != nil {
-		return c.JSON(http.StatusNotFound, utils.NewError(err))
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if a == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
 	}
 	req := &articleUpdateRequest{}
-	req.populate(&a)
-	if err := req.bind(c, &a); err != nil {
+	req.populate(a)
+	if err := req.bind(c, a); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
-	tx := h.db.Begin()
-	if err := tx.Model(&a).Update(&a).Error; err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	if err = h.articleStore.UpdateArticle(a, req.Article.Tags); err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
 	}
-	tags := make([]models.Tag, 0)
-	for _, t := range req.Article.Tags {
-		tag := models.Tag{Tag: t}
-		err := tx.Where(&tag).First(&tag).Error
-		if err != nil && !gorm.IsRecordNotFoundError(err) {
-			tx.Rollback()
-			return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
-		}
-		tags = append(tags, tag)
-	}
-	if err := tx.Model(&a).Association("Tags").Replace(tags).Error; err != nil {
-		tx.Rollback()
-		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
-	}
-	tx.Where(a.ID).Preload("Favorites").Preload("Tags").Preload("Author").Find(&a)
-	tx.Commit()
-	return c.JSON(http.StatusCreated, newArticleResponse(c, &a))
+	return c.JSON(http.StatusCreated, newArticleResponse(c, a))
 }
+
 func (h *Handler) DeleteArticle(c echo.Context) error {
 	slug := c.Param("slug")
-	var a models.Article
-	err := h.db.Where(&models.Article{Slug: slug, AuthorID: userIDFromToken(c)}).First(&a).Error
+	a, err := h.articleStore.GetUserArticleBySlug(userIDFromToken(c), slug)
 	if err != nil {
-		return c.JSON(http.StatusNotFound, utils.NewError(err))
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
 	}
-	err = h.db.Delete(&a).Error
+	if a == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	err = h.articleStore.DeleteArticle(a)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
 	}
@@ -170,88 +129,89 @@ func (h *Handler) DeleteArticle(c echo.Context) error {
 
 func (h *Handler) AddComment(c echo.Context) error {
 	slug := c.Param("slug")
-	var a models.Article
-	err := h.db.Where(&models.Article{Slug: slug}).First(&a).Error
+	a, err := h.articleStore.GetBySlug(slug)
 	if err != nil {
-		return c.JSON(http.StatusNotFound, utils.NewError(err))
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
 	}
-	var cm models.Comment
+	if a == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	var cm model.Comment
 	req := &createCommentRequest{}
 	if err := req.bind(c, &cm); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
-	err = h.db.Model(&a).Association("Comments").Append(&cm).Error
-	if err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	if err = h.articleStore.AddComment(a, &cm); err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
 	}
-	h.db.Where(cm.ID).Preload("User").First(&cm)
 	return c.JSON(http.StatusCreated, newCommentResponse(c, &cm))
 }
 
 func (h *Handler) GetComments(c echo.Context) error {
 	slug := c.Param("slug")
-	var a models.Article
-	err := h.db.Where(&models.Article{Slug: slug}).Preload("Comments").Preload("Comments.User").First(&a).Error
+	cm, err := h.articleStore.GetCommentsBySlug(slug)
 	if err != nil {
-		return c.JSON(http.StatusNotFound, utils.NewError(err))
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
 	}
-	return c.JSON(http.StatusOK, newCommentListResponse(c, a.Comments))
+	return c.JSON(http.StatusOK, newCommentListResponse(c, cm))
 }
 
 func (h *Handler) DeleteComment(c echo.Context) error {
-		id64, err := strconv.ParseUint(c.Param("id"), 10, 32)
-		id := uint(id64)
-		if err != nil {
-			return c.JSON(http.StatusBadRequest, utils.NewError(err))
-		}
-		var cm models.Comment
-		err = h.db.Where(id).First(&cm).Error
-		if err != nil {
-			return c.JSON(http.StatusNotFound, utils.NewError(err))
-		}
-		if cm.UserID != userIDFromToken(c) {
-			return c.JSON(http.StatusUnauthorized, utils.NewError(errors.New("unauthorized action")))
-		}
-		err = h.db.Delete(&cm).Error
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, utils.NewError(err))
-		}
-		return c.JSON(http.StatusOK, map[string]interface{}{"result": "ok"})
+	id64, err := strconv.ParseUint(c.Param("id"), 10, 32)
+	id := uint(id64)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, utils.NewError(err))
+	}
+	cm, err := h.articleStore.GetCommentByID(id)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if cm == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	if cm.UserID != userIDFromToken(c) {
+		return c.JSON(http.StatusUnauthorized, utils.NewError(errors.New("unauthorized action")))
+	}
+	if err := h.articleStore.DeleteComment(cm); err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{"result": "ok"})
 }
 
 func (h *Handler) Favorite(c echo.Context) error {
-	var article models.Article
 	slug := c.Param("slug")
-	err := h.db.Where(&models.Article{Slug: slug}).Preload("Favorites").Preload("Tags").Preload("Author").Find(&article).Error
+	a, err := h.articleStore.GetBySlug(slug)
 	if err != nil {
-		return c.JSON(http.StatusNotFound, utils.NewError(err))
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
 	}
-	user := models.User{}
-	user.ID = userIDFromToken(c)
-	err = h.db.Model(&article).Association("Favorites").Append(&user).Error
-	if err != nil {
+	if a == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	if err := h.articleStore.AddFavorite(a, userIDFromToken(c)); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
-	return c.JSON(http.StatusOK, newArticleResponse(c, &article))
+	return c.JSON(http.StatusOK, newArticleResponse(c, a))
 }
+
 func (h *Handler) Unfavorite(c echo.Context) error {
-	var article models.Article
 	slug := c.Param("slug")
-	err := h.db.Where(&models.Article{Slug: slug}).Preload("Favorites").Preload("Tags").Preload("Author").Find(&article).Error
+	a, err := h.articleStore.GetBySlug(slug)
 	if err != nil {
-		return c.JSON(http.StatusNotFound, utils.NewError(err))
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
 	}
-	user := models.User{}
-	user.ID = userIDFromToken(c)
-	err = h.db.Model(&article).Association("Favorites").Delete(&user).Error
-	if err != nil {
+	if a == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	if err := h.articleStore.RemoveFavorite(a, userIDFromToken(c)); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
-	return c.JSON(http.StatusOK, newArticleResponse(c, &article))
+	return c.JSON(http.StatusOK, newArticleResponse(c, a))
 }
 
 func (h *Handler) Tags(c echo.Context) error {
-	var tags []models.Tag
-	h.db.Find(&tags)
+	tags, err := h.articleStore.ListTags()
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
 	return c.JSON(http.StatusOK, newTagListResponse(tags))
 }
