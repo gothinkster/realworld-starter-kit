@@ -13,13 +13,16 @@ import (
 	"github.com/xesina/golang-echo-realworld-example-app/model"
 	"github.com/xesina/golang-echo-realworld-example-app/user"
 	"github.com/xesina/golang-echo-realworld-example-app/article"
+	"github.com/labstack/echo"
+	"github.com/xesina/golang-echo-realworld-example-app/router"
 )
 
 var (
-	d  *gorm.DB
-	us user.Store
-	as article.Store
-	h  *Handler
+	d   *gorm.DB
+	us  user.Store
+	as  article.Store
+	h   *Handler
+	e *echo.Echo
 )
 
 func TestMain(m *testing.M) {
@@ -39,6 +42,7 @@ func setup() {
 	us = store.NewUserStore(d)
 	as = store.NewArticleStore(d)
 	h = NewHandler(us, as)
+	e = router.New()
 	loadFixtures()
 }
 

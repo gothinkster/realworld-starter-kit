@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"github.com/xesina/golang-echo-realworld-example-app/router"
 	"net/http/httptest"
 	"github.com/labstack/echo"
 	"strings"
@@ -18,7 +17,6 @@ func TestSignUpCaseSuccess(t *testing.T) {
 	var (
 		reqJSON = `{"user":{"username":"alice","email":"alice@realworld.io","password":"secret"}}`
 	)
-	e := router.New()
 	req := httptest.NewRequest(echo.POST, "/api/users", strings.NewReader(reqJSON))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
@@ -40,7 +38,6 @@ func TestLoginCaseSuccess(t *testing.T) {
 	var (
 		reqJSON = `{"user":{"email":"user1@realworld.io","password":"secret"}}`
 	)
-	e := router.New()
 	req := httptest.NewRequest(echo.POST, "/api/users/login", strings.NewReader(reqJSON))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
@@ -60,7 +57,6 @@ func TestLoginCaseFailed(t *testing.T) {
 	var (
 		reqJSON = `{"user":{"email":"userx@realworld.io","password":"secret"}}`
 	)
-	e := router.New()
 	req := httptest.NewRequest(echo.POST, "/api/users/login", strings.NewReader(reqJSON))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
@@ -73,7 +69,6 @@ func TestCurrentUserCaseSuccess(t *testing.T) {
 	tearDown()
 	setup()
 	jwtMiddleware := middleware.JWT(utils.JWTSecret)
-	e := router.New()
 	req := httptest.NewRequest(echo.GET, "/api/users/login", nil)
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	req.Header.Set(echo.HeaderAuthorization, authHeader(utils.GenerateJWT(1)))
@@ -95,7 +90,6 @@ func TestCurrentUserCaseInvalid(t *testing.T) {
 	tearDown()
 	setup()
 	jwtMiddleware := middleware.JWT(utils.JWTSecret)
-	e := router.New()
 	req := httptest.NewRequest(echo.GET, "/api/users/login", nil)
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	req.Header.Set(echo.HeaderAuthorization, authHeader(utils.GenerateJWT(100)))
@@ -115,7 +109,6 @@ func TestUpdateUserEmail(t *testing.T) {
 		user1UpdateReq = `{"user":{"email":"user1@user1.me"}}`
 	)
 	jwtMiddleware := middleware.JWT(utils.JWTSecret)
-	e := router.New()
 	req := httptest.NewRequest(echo.PUT, "/api/user", strings.NewReader(user1UpdateReq))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	req.Header.Set(echo.HeaderAuthorization, authHeader(utils.GenerateJWT(1)))
@@ -140,7 +133,6 @@ func TestUpdateUserMultipleFields(t *testing.T) {
 		user1UpdateReq = `{"user":{"username":"user11","email":"user11@user11.me","bio":"user11 bio"}}`
 	)
 	jwtMiddleware := middleware.JWT(utils.JWTSecret)
-	e := router.New()
 	req := httptest.NewRequest(echo.PUT, "/api/user", strings.NewReader(user1UpdateReq))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	req.Header.Set(echo.HeaderAuthorization, authHeader(utils.GenerateJWT(1)))
@@ -163,7 +155,6 @@ func TestGetProfileCaseSuccess(t *testing.T) {
 	tearDown()
 	setup()
 	jwtMiddleware := middleware.JWT(utils.JWTSecret)
-	e := router.New()
 	req := httptest.NewRequest(echo.GET, "/api/profiles/:username", nil)
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	req.Header.Set(echo.HeaderAuthorization, authHeader(utils.GenerateJWT(1)))
@@ -189,7 +180,6 @@ func TestGetProfileCaseNotFound(t *testing.T) {
 	tearDown()
 	setup()
 	jwtMiddleware := middleware.JWT(utils.JWTSecret)
-	e := router.New()
 	req := httptest.NewRequest(echo.GET, "/api/profiles/:username", nil)
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	req.Header.Set(echo.HeaderAuthorization, authHeader(utils.GenerateJWT(1)))
@@ -209,7 +199,6 @@ func TestFollowCaseSuccess(t *testing.T) {
 	tearDown()
 	setup()
 	jwtMiddleware := middleware.JWT(utils.JWTSecret)
-	e := router.New()
 	req := httptest.NewRequest(echo.POST, "/", nil)
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	req.Header.Set(echo.HeaderAuthorization, authHeader(utils.GenerateJWT(1)))
@@ -235,7 +224,6 @@ func TestFollowCaseInvalidUser(t *testing.T) {
 	tearDown()
 	setup()
 	jwtMiddleware := middleware.JWT(utils.JWTSecret)
-	e := router.New()
 	req := httptest.NewRequest(echo.POST, "/", nil)
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	req.Header.Set(echo.HeaderAuthorization, authHeader(utils.GenerateJWT(1)))
@@ -255,7 +243,6 @@ func TestUnfollow(t *testing.T) {
 	tearDown()
 	setup()
 	jwtMiddleware := middleware.JWT(utils.JWTSecret)
-	e := router.New()
 	req := httptest.NewRequest(echo.DELETE, "/api/profiles/:username/follow", nil)
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	req.Header.Set(echo.HeaderAuthorization, authHeader(utils.GenerateJWT(1)))
