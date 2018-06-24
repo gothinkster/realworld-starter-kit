@@ -29,7 +29,7 @@ func (h *Handler) Login(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
 	}
 	if u == nil {
-		return c.JSON(http.StatusForbidden, utils.NewError(err))
+		return c.JSON(http.StatusForbidden, utils.AccessForbidden())
 	}
 	if !u.CheckPassword(req.User.Password) {
 		return c.JSON(http.StatusForbidden, utils.AccessForbidden())
