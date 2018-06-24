@@ -18,11 +18,11 @@ import (
 )
 
 var (
-	d   *gorm.DB
-	us  user.Store
-	as  article.Store
-	h   *Handler
-	e *echo.Echo
+	d  *gorm.DB
+	us user.Store
+	as article.Store
+	h  *Handler
+	e  *echo.Echo
 )
 
 func TestMain(m *testing.M) {
@@ -87,47 +87,32 @@ func loadFixtures() error {
 	}
 	us.AddFollower(&u2, u1.ID)
 
-	//bio = "user2 bio"
-	//image = "http://realworld.io/user2.jpg"
-	//u = models.User{
-	//	Username: "user2",
-	//	Email:    "user2@realworld.io",
-	//	Bio:      &bio,
-	//	Image:    &image,
-	//}
-	//_ = u.HashPassword("secret")
-	//if err := db.Create(&u).Error; err != nil {
-	//	return err
-	//}
-	//db.Model(&u).Association("Followings").Replace(models.Follow{FollowerID: 2, FollowingID: 1})
-	//
-	//a := models.Article{
-	//	Slug:        "article1-slug",
-	//	Title:       "article1 title",
-	//	Description: "article1 description",
-	//	Body:        "article1 body",
-	//	AuthorID:    1,
-	//	Comments: []models.Comment{
-	//		{
-	//			UserID:    1,
-	//			Body:      "article1 comment1",
-	//			ArticleID: 1,
-	//		},
-	//	},
-	//	Favorites: []models.User{
-	//		u,
-	//	},
-	//	Tags: []models.Tag{
-	//		{
-	//			Tag: "tag1",
-	//		},
-	//		{
-	//			Tag: "tag2",
-	//		},
-	//	},
-	//}
-	//if err := db.Create(&a).Error; err != nil {
-	//	return err
-	//}
+	a := model.Article{
+		Slug:        "article1-slug",
+		Title:       "article1 title",
+		Description: "article1 description",
+		Body:        "article1 body",
+		AuthorID:    1,
+		Comments: []model.Comment{
+			{
+				UserID:    1,
+				Body:      "article1 comment1",
+				ArticleID: 1,
+			},
+		},
+		Favorites: []model.User{
+			u2,
+		},
+		Tags: []model.Tag{
+			{
+				Tag: "tag1",
+			},
+			{
+				Tag: "tag2",
+			},
+		},
+	}
+	as.CreateArticle(&a)
+
 	return nil
 }
