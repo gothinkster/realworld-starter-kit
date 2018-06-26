@@ -93,16 +93,6 @@ func loadFixtures() error {
 		Description: "article1 description",
 		Body:        "article1 body",
 		AuthorID:    1,
-		Comments: []model.Comment{
-			{
-				UserID:    1,
-				Body:      "article1 comment1",
-				ArticleID: 1,
-			},
-		},
-		Favorites: []model.User{
-			u2,
-		},
 		Tags: []model.Tag{
 			{
 				Tag: "tag1",
@@ -113,6 +103,34 @@ func loadFixtures() error {
 		},
 	}
 	as.CreateArticle(&a)
+	as.AddComment(&a, &model.Comment{
+		Body:      "article1 comment1",
+		ArticleID: 1,
+		UserID:    1,
+	})
+
+	a2 := model.Article{
+		Slug:        "article2-slug",
+		Title:       "article2 title",
+		Description: "article2 description",
+		Body:        "article2 body",
+		AuthorID:    2,
+		Favorites: []model.User{
+			u1,
+		},
+		Tags: []model.Tag{
+			{
+				Tag: "tag1",
+			},
+		},
+	}
+	as.CreateArticle(&a2)
+	as.AddComment(&a2, &model.Comment{
+		Body:      "article2 comment1 by user1",
+		ArticleID: 2,
+		UserID:    1,
+	})
+	as.AddFavorite(&a2, 1)
 
 	return nil
 }
