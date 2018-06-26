@@ -108,7 +108,7 @@ func (h *Handler) UpdateArticle(c echo.Context) error {
 	if err = h.articleStore.UpdateArticle(a, req.Article.Tags); err != nil {
 		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
 	}
-	return c.JSON(http.StatusCreated, newArticleResponse(c, a))
+	return c.JSON(http.StatusOK, newArticleResponse(c, a))
 }
 
 func (h *Handler) DeleteArticle(c echo.Context) error {
