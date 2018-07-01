@@ -1,5 +1,6 @@
 {
-  "{src,examples,__tests__}/**/*.{re,rei}": ["refmt --in-place", "git add"],
+  "{src,examples,__tests__}/**/*.{re,rei}": ["yarn format:re", "git add"],
   "**/*.md": ["yarn format:md", "git add"],
-  "**/.*rc": ["yarn format:json", "git add"]
+  "**/.*rc": ["yarn format:json", "git add"],
+  "**/*.json": ["yarn format:json", "git add"]
 }
