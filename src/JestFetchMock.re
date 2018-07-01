@@ -6,6 +6,7 @@ module Error = {
 
 module Mock = {
   [@bs.val] external calls : array(array('a)) = "fetch.mock.calls";
+  [@bs.val] external callsLength : int = "fetch.mock.calls.length";
 };
 
 type initOptions = {

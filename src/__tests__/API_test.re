@@ -83,14 +83,15 @@ describe("getResultIfOk", () => {
 describe("makeFetchInit", () => {
   let origToken = ref(None);
 
-  beforeEach(() => {
+  beforeAll(() => {
     origToken := Utils.getCookie("token");
     ignore();
   });
+
   afterEach(() => {
     switch (origToken^) {
     | Some(token) => Utils.setCookie("token", token)
-    | None => ignore()
+    | None => Utils.setCookie("token", "")
     };
     ignore();
   });
@@ -115,5 +116,67 @@ describe("makeFetchInit", () => {
   test("add \"Content-Type: application/json; charset=utf-8\" to header", () => {
     let actual = API.makeFetchInit(~jsonContentType=true, ());
     actual |> expect |> toMatchSnapshot;
+  });
+});
+
+describe("listArticlesFeed", () => {
+  beforeEach(() => {
+    JestFetchMock.resetMocks();
+    ignore();
+  });
+
+  testPromise("default", () => {
+    JestFetchMock.mockResponse(
+      ~body={js|"ok"|js},
+      ~status=200,
+      ~statusText="200",
+      (),
+    );
+
+    API.listArticlesFeed()
+    |> then_(_ =>
+         JestFetchMock.Mock.calls[0][0]
+         |> expect
+         |> toEqual(
+              "https://conduit.productionready.io/api/articles/feed?limit=20&offset=0",
+            )
+         |> resolve
+       );
+  });
+  testPromise("limit 5", () => {
+    JestFetchMock.mockResponse(
+      ~body={js|"ok"|js},
+      ~status=200,
+      ~statusText="200",
+      (),
+    );
+
+    API.listArticlesFeed(~limit=5, ())
+    |> then_(_ =>
+         JestFetchMock.Mock.calls[0][0]
+         |> expect
+         |> toEqual(
+              "https://conduit.productionready.io/api/articles/feed?limit=5&offset=0",
+            )
+         |> resolve
+       );
+  });
+  testPromise("offset 10", () => {
+    JestFetchMock.mockResponse(
+      ~body={js|"ok"|js},
+      ~status=200,
+      ~statusText="200",
+      (),
+    );
+
+    API.listArticlesFeed(~offset=10, ())
+    |> then_(_ =>
+         JestFetchMock.Mock.calls[0][0]
+         |> expect
+         |> toEqual(
+              "https://conduit.productionready.io/api/articles/feed?limit=20&offset=10",
+            )
+         |> resolve
+       );
   });
 });
