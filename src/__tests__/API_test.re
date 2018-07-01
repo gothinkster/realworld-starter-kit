@@ -122,17 +122,20 @@ describe("makeFetchInit", () => {
 describe("listArticlesFeed", () => {
   beforeEach(() => {
     JestFetchMock.resetMocks();
-    ignore();
-  });
-
-  testPromise("default", () => {
     JestFetchMock.mockResponse(
       ~body={js|"ok"|js},
       ~status=200,
       ~statusText="200",
       (),
     );
+  });
 
+  afterAll(() => {
+    JestFetchMock.resetMocks();
+    ignore();
+  });
+
+  testPromise("default", () =>
     API.listArticlesFeed()
     |> then_(_ =>
          JestFetchMock.Mock.calls[0][0]
@@ -141,16 +144,9 @@ describe("listArticlesFeed", () => {
               "https://conduit.productionready.io/api/articles/feed?limit=20&offset=0",
             )
          |> resolve
-       );
-  });
-  testPromise("limit 5", () => {
-    JestFetchMock.mockResponse(
-      ~body={js|"ok"|js},
-      ~status=200,
-      ~statusText="200",
-      (),
-    );
-
+       )
+  );
+  testPromise("limit 5", () =>
     API.listArticlesFeed(~limit=5, ())
     |> then_(_ =>
          JestFetchMock.Mock.calls[0][0]
@@ -159,16 +155,9 @@ describe("listArticlesFeed", () => {
               "https://conduit.productionready.io/api/articles/feed?limit=5&offset=0",
             )
          |> resolve
-       );
-  });
-  testPromise("offset 10", () => {
-    JestFetchMock.mockResponse(
-      ~body={js|"ok"|js},
-      ~status=200,
-      ~statusText="200",
-      (),
-    );
-
+       )
+  );
+  testPromise("offset 10", () =>
     API.listArticlesFeed(~offset=10, ())
     |> then_(_ =>
          JestFetchMock.Mock.calls[0][0]
@@ -177,6 +166,108 @@ describe("listArticlesFeed", () => {
               "https://conduit.productionready.io/api/articles/feed?limit=20&offset=10",
             )
          |> resolve
-       );
+       )
+  );
+});
+
+describe("listArticles", () => {
+  beforeEach(() => {
+    JestFetchMock.resetMocks();
+    JestFetchMock.mockResponse(
+      ~body={js|"ok"|js},
+      ~status=200,
+      ~statusText="200",
+      (),
+    );
   });
+
+  afterAll(() => {
+    JestFetchMock.resetMocks();
+    ignore();
+  });
+
+  testPromise("default", () =>
+    API.listArticles()
+    |> then_(_ =>
+         JestFetchMock.Mock.calls[0][0]
+         |> expect
+         |> toEqual(
+              "https://conduit.productionready.io/api/articles?limit=20&offset=0",
+            )
+         |> resolve
+       )
+  );
+  testPromise("all combined", () =>
+    API.listArticles(
+      ~tag="@tag@",
+      ~author="@author@",
+      ~favorited="@favorited@",
+      ~limit=5,
+      ~offset=10,
+      (),
+    )
+    |> then_(_ =>
+         JestFetchMock.Mock.calls[0][0]
+         |> expect
+         |> toEqual(
+              "https://conduit.productionready.io/api/articles?limit=5&offset=10&tag=@tag@&author=@author@&favorited=@favorited@",
+            )
+         |> resolve
+       )
+  );
+  testPromise("tag `@tag@`", () =>
+    API.listArticles(~tag="@tag@", ())
+    |> then_(_ =>
+         JestFetchMock.Mock.calls[0][0]
+         |> expect
+         |> toEqual(
+              "https://conduit.productionready.io/api/articles?limit=20&offset=0&tag=@tag@",
+            )
+         |> resolve
+       )
+  );
+  testPromise("author `@author@`", () =>
+    API.listArticles(~author="@author@", ())
+    |> then_(_ =>
+         JestFetchMock.Mock.calls[0][0]
+         |> expect
+         |> toEqual(
+              "https://conduit.productionready.io/api/articles?limit=20&offset=0&author=@author@",
+            )
+         |> resolve
+       )
+  );
+  testPromise("favorited `@favorited@`", () =>
+    API.listArticles(~favorited="@favorited@", ())
+    |> then_(_ =>
+         JestFetchMock.Mock.calls[0][0]
+         |> expect
+         |> toEqual(
+              "https://conduit.productionready.io/api/articles?limit=20&offset=0&favorited=@favorited@",
+            )
+         |> resolve
+       )
+  );
+  testPromise("limit 5", () =>
+    API.listArticles(~limit=5, ())
+    |> then_(_ =>
+         JestFetchMock.Mock.calls[0][0]
+         |> expect
+         |> toEqual(
+              "https://conduit.productionready.io/api/articles?limit=5&offset=0",
+            )
+         |> resolve
+       )
+  );
+  testPromise("offset 10", () =>
+    API.listArticles(~offset=10, ())
+    |> then_(_ =>
+         JestFetchMock.Mock.calls[0][0]
+         |> expect
+         |> toEqual(
+              "https://conduit.productionready.io/api/articles?limit=20&offset=10",
+            )
+         |> resolve
+       )
+  );
 });
