@@ -45,7 +45,6 @@ describe("getResultIfOk", () => {
          actual |> expect |> toEqual(expected) |> resolve;
        });
   });
-
   testPromise(
     "returns Error if Fetch response is not ok and status is 400", () => {
     JestFetchMock.mockResponse(
@@ -64,7 +63,6 @@ describe("getResultIfOk", () => {
          actual |> expect |> toEqual(expected) |> resolve;
        });
   });
-
   testPromise(
     "returns Error if Fetch response is not ok and status is 500", () => {
     JestFetchMock.mockResponse(
@@ -82,5 +80,43 @@ describe("getResultIfOk", () => {
            "not ok 500" |. Json.Encode.string |. Belt.Result.Error;
          actual |> expect |> toEqual(expected) |> resolve;
        });
+  });
+});
+
+describe("makeFetchInit", () => {
+  let origToken = ref(None);
+
+  beforeEach(() => {
+    origToken := Utils.getCookie("token");
+    ignore();
+  });
+  afterEach(() => {
+    switch (origToken^) {
+    | Some(token) => Utils.setCookie("token", token)
+    | None => ignore()
+    };
+    ignore();
+  });
+
+  test("no argument", () => {
+    let actual = API.makeFetchInit();
+    actual |> expect |> toMatchSnapshot;
+  });
+  test("custom method with POST", () => {
+    let actual = API.makeFetchInit(~method_=Post, ());
+    actual |> expect |> toMatchSnapshot;
+  });
+  test("should not include credential", () => {
+    let actual = API.makeFetchInit(~includeCookie=false, ());
+    actual |> expect |> toMatchSnapshot;
+  });
+  test("add \"Authorization: Token \" to header", () => {
+    Utils.setCookie("token", "@@unit test@@");
+    let actual = API.makeFetchInit(~authorization=true, ());
+    actual |> expect |> toMatchSnapshot;
+  });
+  test("add \"Content-Type: application/json; charset=utf-8\" to header", () => {
+    let actual = API.makeFetchInit(~jsonContentType=true, ());
+    actual |> expect |> toMatchSnapshot;
   });
 });

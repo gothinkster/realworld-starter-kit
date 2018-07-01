@@ -49,7 +49,7 @@ let makeFetchInit =
 
     obj^;
   };
-  let credentials = includeCookie ? None : Some(Fetch.Include);
+  let credentials = includeCookie ? Some(Fetch.Include) : None;
 
   Fetch.RequestInit.make(
     ~body?,
