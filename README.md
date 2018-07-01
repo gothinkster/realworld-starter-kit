@@ -16,14 +16,14 @@ For more information on how to this works with other frontends/backends, head ov
 
 Basically its just like React single-page-application but written in ReasonML with ReasonReact.
 
-* App bootstraped with [react-scripts@2.0](https://github.com/facebook/create-react-app/issues/3815)
-* Along with [BuckleScript 3.0](https://bucklescript.github.io/)
-* Routing - ReasonReact's [Router](https://reasonml.github.io/reason-react/docs/en/router.html)
-* AJAX - fetch with [`bs-fetch`](https://github.com/reasonml-community/bs-fetch)
-* Unit test - jest with [`@glennsl/bs-jest`](https://github.com/glennsl/bs-jest) plus [Enzyme](https://github.com/airbnb/enzyme)
-* Form & Validation - [`re-formality`](https://github.com/alexfedoseev/re-formality)
-* Type for asynchorous data - [`remotedata-re`](https://github.com/lrosa007/remotedata-re)
-* JSON decode / encode - [`@glennsl/bs-json`](https://github.com/glennsl/bs-json)
+- App bootstraped with [react-scripts@2.0](https://github.com/facebook/create-react-app/issues/3815)
+- Along with [BuckleScript 3.0](https://bucklescript.github.io/)
+- Routing - ReasonReact's [Router](https://reasonml.github.io/reason-react/docs/en/router.html)
+- AJAX - fetch with [`bs-fetch`](https://github.com/reasonml-community/bs-fetch)
+- Unit test - jest with [`@glennsl/bs-jest`](https://github.com/glennsl/bs-jest) plus [Enzyme](https://github.com/airbnb/enzyme)
+- Form & Validation - [`re-formality`](https://github.com/alexfedoseev/re-formality)
+- Type for asynchorous data - [`remotedata-re`](https://github.com/lrosa007/remotedata-re)
+- JSON decode / encode - [`@glennsl/bs-json`](https://github.com/glennsl/bs-json)
 
 # Getting started
 
