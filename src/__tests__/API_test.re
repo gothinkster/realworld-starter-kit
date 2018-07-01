@@ -1,6 +1,7 @@
 open Jest;
-
 open Expect;
+open Belt.Result;
+open Js.Promise;
 
 describe("optToQueryString", () => {
   test("None returns empty string", () => {
@@ -22,8 +23,6 @@ describe("optToQueryString", () => {
 });
 
 describe("getResultIfOk", () => {
-  open Js.Promise;
-
   beforeEach(() => {
     JestFetchMock.resetMocks();
     ignore();
@@ -41,7 +40,7 @@ describe("getResultIfOk", () => {
     |. Fetch.fetchWithInit(API.makeFetchInit())
     |> then_(API.getResultIfOk)
     |> then_(actual => {
-         let expected = "ok" |. Json.Encode.string |. Belt.Result.Ok;
+         let expected = "ok" |. Json.Encode.string |. Ok;
          actual |> expect |> toEqual(expected) |> resolve;
        });
   });
@@ -58,8 +57,7 @@ describe("getResultIfOk", () => {
     |. Fetch.fetchWithInit(API.makeFetchInit())
     |> then_(API.getResultIfOk)
     |> then_(actual => {
-         let expected =
-           "not ok 400" |. Json.Encode.string |. Belt.Result.Error;
+         let expected = "not ok 400" |. Json.Encode.string |. Error;
          actual |> expect |> toEqual(expected) |> resolve;
        });
   });
@@ -76,8 +74,7 @@ describe("getResultIfOk", () => {
     |. Fetch.fetchWithInit(API.makeFetchInit())
     |> then_(API.getResultIfOk)
     |> then_(actual => {
-         let expected =
-           "not ok 500" |. Json.Encode.string |. Belt.Result.Error;
+         let expected = "not ok 500" |. Json.Encode.string |. Error;
          actual |> expect |> toEqual(expected) |> resolve;
        });
   });
