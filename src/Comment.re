@@ -17,11 +17,9 @@ module Form = {
   let valueEmpty = value => value === "";
   let strategy = Formality.Strategy.OnFirstSuccessOrFirstBlur;
   module Validators =
-    Formality.MakeValidators(
-      {
-        type t = field;
-      },
-    );
+    Formality.MakeValidators({
+      type t = field;
+    });
   type validators =
     Validators.t(Formality.validator(field, value, state, message));
   let validators =
