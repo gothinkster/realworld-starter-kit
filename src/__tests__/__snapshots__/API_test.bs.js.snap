@@ -6,9 +6,7 @@ Object {
   "headers": Object {
     "Authorization": "Token @@unit test@@",
   },
-  "integrity": "",
   "method": "GET",
-  "referrerPolicy": "",
 }
 `;
 
@@ -18,9 +16,7 @@ Object {
   "headers": Object {
     "Content-Type": "application/json; charset=utf-8",
   },
-  "integrity": "",
   "method": "GET",
-  "referrerPolicy": "",
 }
 `;
 
@@ -28,9 +24,7 @@ exports[`makeFetchInit custom method with POST 1`] = `
 Object {
   "credentials": "include",
   "headers": Object {},
-  "integrity": "",
   "method": "POST",
-  "referrerPolicy": "",
 }
 `;
 
@@ -38,17 +32,13 @@ exports[`makeFetchInit no argument 1`] = `
 Object {
   "credentials": "include",
   "headers": Object {},
-  "integrity": "",
   "method": "GET",
-  "referrerPolicy": "",
 }
 `;
 
 exports[`makeFetchInit should not include credential 1`] = `
 Object {
   "headers": Object {},
-  "integrity": "",
   "method": "GET",
-  "referrerPolicy": "",
 }
 `;
