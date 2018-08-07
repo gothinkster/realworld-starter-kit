@@ -35,7 +35,7 @@ let make = (~value, ~onFavoriteClick, ~favoriteDisabled=false, _children) => {
           onClick=(
             _event =>
               favoriteDisabled ?
-                ignore() : onFavoriteClick((slug, ! favorited))
+                ignore() : onFavoriteClick((slug, !favorited))
           )
           disabled=favoriteDisabled>
           <i className="ion-heart" />

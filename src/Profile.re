@@ -137,7 +137,7 @@ let followAuthorOrRedirectToSetting =
         |> then_(_result => {
              send(
                UpdateProfile(
-                 RemoteData.Success({...profileVal, following: ! following}),
+                 RemoteData.Success({...profileVal, following: !following}),
                ),
              );
              send(UpdateFollowAction(RemoteData.NotAsked));
@@ -209,7 +209,7 @@ let make =
     | ToggleFavorite(slug, value) =>
       let togglingFavorites =
         state.togglingFavorites
-        |. Belt.Map.String.update(slug, _previous => Some(value));
+        ->(Belt.Map.String.update(slug, _previous => Some(value)));
       ReasonReact.Update({...state, togglingFavorites});
     | UpdateFollowAction(followAction) =>
       ReasonReact.Update({...state, followAction})
@@ -219,9 +219,11 @@ let make =
         state.articles
         |> RemoteData.map(articles =>
              articles
-             |. Belt.List.map((x: Types.article) =>
-                  x.slug === slug ? article : x
-                )
+             ->(
+                 Belt.List.map((x: Types.article) =>
+                   x.slug === slug ? article : x
+                 )
+               )
            );
       ReasonReact.Update({...state, articles});
     | UpdateArticles((articles, articlesCount, currentPage)) =>
@@ -389,21 +391,25 @@ let make =
                 </div>
               | Success(data) =>
                 data
-                |. Belt.List.mapU((. value: Types.article) =>
-                     <ArticleItem
-                       key=value.slug
-                       value
-                       onFavoriteClick=(handle(favoriteArticle(~user)))
-                       favoriteDisabled=(
-                         togglingFavorites
-                         |.
-                         Belt.Map.String.getWithDefault(
-                           value.slug,
-                           RemoteData.NotAsked,
-                         ) === RemoteData.Loading
-                       )
-                     />
-                   )
+                ->(
+                    Belt.List.mapU((. value: Types.article) =>
+                      <ArticleItem
+                        key=value.slug
+                        value
+                        onFavoriteClick=(handle(favoriteArticle(~user)))
+                        favoriteDisabled=(
+                          togglingFavorites
+                          ->(
+                              Belt.Map.String.getWithDefault(
+                                value.slug,
+                                RemoteData.NotAsked,
+                              )
+                            )
+                          === RemoteData.Loading
+                        )
+                      />
+                    )
+                  )
                 |> Belt.List.toArray
                 |> arrayEl
               }

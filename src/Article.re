@@ -196,7 +196,7 @@ module CommentCard = {
           (
             switch (user) {
             | Success(userVal)
-                when userVal.username === author.username && ! hideDeleteIcon =>
+                when userVal.username === author.username && !hideDeleteIcon =>
               <span className="mod-options">
                 <i className="ion-trash-a" onClick=onDeleteClick />
               </span>
@@ -379,11 +379,10 @@ let addComments = (~slug, ~submissionCallbacks, state, {ReasonReact.send}) => {
            error |> Json.Decode.(field("errors", dict(array(string))));
          let fieldErrors =
            [
-             errors
-             |. Js.Dict.get("body")
+             errors->(Js.Dict.get("body"))
              |> getFirstError(Comment.Form.Body, "Comment"),
            ]
-           |. Belt.List.keepMapU((. opt) => opt);
+           ->(Belt.List.keepMapU((. opt) => opt));
          notifyOnFailure(fieldErrors, None);
        };
        ignore() |> resolve;
@@ -471,7 +470,7 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
         | Loading
         | Failure(_) => state.comments
         | Success(comments) =>
-          RemoteData.Success(comments |. Belt.List.keep(x => x.id !== id))
+          RemoteData.Success(comments->(Belt.List.keep(x => x.id !== id)))
         };
       ReasonReact.Update({...state, comments});
     | AddHidingDeleteIcon(id) =>
@@ -605,12 +604,15 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
               <ul className="tag-list">
                 (
                   tagList
-                  |. Belt.List.mapU((. item) =>
-                       <li
-                         key=item className="tag-default tag-pill tag-outline">
-                         (item |> strEl)
-                       </li>
-                     )
+                  ->(
+                      Belt.List.mapU((. item) =>
+                        <li
+                          key=item
+                          className="tag-default tag-pill tag-outline">
+                          (item |> strEl)
+                        </li>
+                      )
+                    )
                   |> Belt.List.toArray
                   |> arrayEl
                 )
@@ -720,16 +722,18 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
               | Success(data) =>
                 let shouldHideDeleteIcon = hidingDeleteIcons |> Belt.List.some;
                 data
-                |. Belt.List.mapU((. comment) => {
-                     let {Types.id} = comment;
-                     <CommentCard
-                       key=(id |> string_of_int)
-                       data=comment
-                       user
-                       onDeleteClick=(handle(deleteComment(~slug, ~id)))
-                       hideDeleteIcon=(shouldHideDeleteIcon(x => x === id))
-                     />;
-                   })
+                ->(
+                    Belt.List.mapU((. comment) => {
+                      let {Types.id} = comment;
+                      <CommentCard
+                        key=(id |> string_of_int)
+                        data=comment
+                        user
+                        onDeleteClick=(handle(deleteComment(~slug, ~id)))
+                        hideDeleteIcon=(shouldHideDeleteIcon(x => x === id))
+                      />;
+                    })
+                  )
                 |> Belt.List.toArray
                 |> arrayEl;
               }

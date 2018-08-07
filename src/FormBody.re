@@ -43,7 +43,7 @@ let make =
                   <fieldset className="form-group">
                     <input
                       className="form-control form-control-lg"
-                      _type="text"
+                      type_="text"
                       placeholder="Your Name"
                       value=username
                       onChange=onUsernameChange
@@ -56,7 +56,7 @@ let make =
               <fieldset className="form-group">
                 <input
                   className="form-control form-control-lg"
-                  _type="text"
+                  type_="text"
                   placeholder="Email"
                   value=email
                   onChange=onEmailChange
@@ -67,7 +67,7 @@ let make =
               <fieldset className="form-group">
                 <input
                   className="form-control form-control-lg"
-                  _type="password"
+                  type_="password"
                   placeholder="Password"
                   value=password
                   onChange=onPasswordChange

@@ -50,7 +50,7 @@ module Form = {
              dependents: None,
              validate: (value, _state) =>
                switch (value) {
-               | v when v !== "" && ! Js.String.startsWith("http", v) =>
+               | v when v !== "" && !Js.String.startsWith("http", v) =>
                  Invalid("Image URL didn't starts with 'http'")
                | ""
                | _ => Valid
@@ -95,7 +95,7 @@ module Form = {
              validate: (value, _state) =>
                switch (value) {
                | "" => Invalid("Email is empty")
-               | v when ! Js.Re.test(v, Regex.validEmail) =>
+               | v when !Js.Re.test(v, Regex.validEmail) =>
                  Invalid("Email is invalid")
                | _ => Valid
                },
@@ -141,11 +141,11 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
   render: _self =>
     <FormContainer
       initialState={
-        image: user.image |. Belt.Option.getWithDefault(""),
+        image: user.image->(Belt.Option.getWithDefault("")),
         username: user.username,
         password: "",
         email: user.email,
-        bio: user.bio |. Belt.Option.getWithDefault(""),
+        bio: user.bio->(Belt.Option.getWithDefault("")),
       }
       onSubmit=(
         (state, {notifyOnSuccess, notifyOnFailure, reset}) => {
@@ -164,23 +164,18 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
                      |> Json.Decode.(field("errors", dict(array(string))));
                    let fieldErrors =
                      [
-                       errors
-                       |. Js.Dict.get("email")
+                       errors->(Js.Dict.get("email"))
                        |> getFirstError(Form.Email, "Email"),
-                       errors
-                       |. Js.Dict.get("username")
+                       errors->(Js.Dict.get("username"))
                        |> getFirstError(Form.Username, "Username"),
-                       errors
-                       |. Js.Dict.get("password")
+                       errors->(Js.Dict.get("password"))
                        |> getFirstError(Form.Password, "Password"),
-                       errors
-                       |. Js.Dict.get("image")
+                       errors->(Js.Dict.get("image"))
                        |> getFirstError(Form.Image, "Image"),
-                       errors
-                       |. Js.Dict.get("bio")
+                       errors->(Js.Dict.get("bio"))
                        |> getFirstError(Form.Bio, "Bio"),
                      ]
-                     |. Belt.List.keepMapU((. opt) => opt);
+                     ->(Belt.List.keepMapU((. opt) => opt));
                    notifyOnFailure(fieldErrors, None);
                  };
                  ignore() |> resolve;
@@ -213,13 +208,13 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
                | SubmissionFailed(fieldErrors, Some(message)) =>
                  Some(
                    fieldErrors
-                   |. Belt.List.mapU((. (_field, message)) => message)
-                   |. Belt.List.concat([message]),
+                   ->(Belt.List.mapU((. (_field, message)) => message))
+                   ->(Belt.List.concat([message])),
                  )
                | SubmissionFailed(fieldErrors, None) =>
                  Some(
                    fieldErrors
-                   |. Belt.List.mapU((. (_field, message)) => message),
+                   ->(Belt.List.mapU((. (_field, message)) => message)),
                  )
                };
              <div className="settings-page">
@@ -236,7 +231,7 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
                          <fieldset className="form-group">
                            <input
                              className="form-control"
-                             _type="text"
+                             type_="text"
                              placeholder="URL of profile picture"
                              disabled=form.submitting
                              value=form.state.image
@@ -257,7 +252,7 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
                          <fieldset className="form-group">
                            <input
                              className="form-control form-control-lg"
-                             _type="text"
+                             type_="text"
                              placeholder="Your Name"
                              disabled=form.submitting
                              value=form.state.username
@@ -299,7 +294,7 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
                          <fieldset className="form-group">
                            <input
                              className="form-control form-control-lg"
-                             _type="text"
+                             type_="text"
                              placeholder="Email"
                              disabled=form.submitting
                              value=form.state.email
@@ -320,7 +315,7 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
                          <fieldset className="form-group">
                            <input
                              className="form-control form-control-lg"
-                             _type="password"
+                             type_="password"
                              placeholder="Password"
                              disabled=form.submitting
                              value=form.state.password

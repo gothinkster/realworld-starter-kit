@@ -180,20 +180,16 @@ let upsertArticle =
              error |> Json.Decode.(field("errors", dict(array(string))));
            let fieldErrors =
              [
-               errors
-               |. Js.Dict.get("title")
+               errors->(Js.Dict.get("title"))
                |> getFirstError(Form.Title, "Title"),
-               errors
-               |. Js.Dict.get("description")
+               errors->(Js.Dict.get("description"))
                |> getFirstError(Form.Description, "Description"),
-               errors
-               |. Js.Dict.get("body")
+               errors->(Js.Dict.get("body"))
                |> getFirstError(Form.Body, "Body"),
-               errors
-               |. Js.Dict.get("tagList")
+               errors->(Js.Dict.get("tagList"))
                |> getFirstError(Form.TagList, "Tags"),
              ]
-             |. Belt.List.keepMapU((. opt) => opt);
+             ->(Belt.List.keepMapU((. opt) => opt));
            notifyOnFailure(fieldErrors, None);
          };
          ignore() |> resolve;
@@ -274,13 +270,13 @@ let make = (~slug, _children) => {
                  | SubmissionFailed(fieldErrors, Some(message)) =>
                    Some(
                      fieldErrors
-                     |. Belt.List.mapU((. (_field, message)) => message)
-                     |. Belt.List.concat([message]),
+                     ->(Belt.List.mapU((. (_field, message)) => message))
+                     ->(Belt.List.concat([message])),
                    )
                  | SubmissionFailed(fieldErrors, None) =>
                    Some(
                      fieldErrors
-                     |. Belt.List.mapU((. (_field, message)) => message),
+                     ->(Belt.List.mapU((. (_field, message)) => message)),
                    )
                  };
                <div className="editor-page">
@@ -297,7 +293,7 @@ let make = (~slug, _children) => {
                          <fieldset>
                            <fieldset className="form-group">
                              <input
-                               _type="text"
+                               type_="text"
                                className="form-control form-control-lg"
                                placeholder="Article Title"
                                disabled=form.submitting
@@ -318,7 +314,7 @@ let make = (~slug, _children) => {
                            </fieldset>
                            <fieldset className="form-group">
                              <input
-                               _type="text"
+                               type_="text"
                                className="form-control"
                                placeholder="What's this article about?"
                                disabled=form.submitting
@@ -360,7 +356,7 @@ let make = (~slug, _children) => {
                            </fieldset>
                            <fieldset className="form-group">
                              <input
-                               _type="text"
+                               type_="text"
                                className="form-control"
                                placeholder="Enter tags"
                                disabled=form.submitting
@@ -379,17 +375,14 @@ let make = (~slug, _children) => {
                                )
                                onKeyDown=(
                                  event =>
-                                   switch (
-                                     event |> ReactEventRe.Keyboard.keyCode
-                                   ) {
+                                   switch (event->ReactEvent.Keyboard.keyCode) {
                                    | 13 =>
-                                     event
-                                     |> ReactEventRe.Keyboard.preventDefault;
+                                     event->ReactEvent.Keyboard.preventDefault;
                                      let newTag =
                                        form.state.newTag |> Js.String.trim;
                                      let haveDuplicated =
                                        form.state.tagList
-                                       |. Belt.List.has(newTag, (===));
+                                       ->(Belt.List.has(newTag, (===)));
                                      let isEmpty = newTag === "";
                                      if (haveDuplicated || isEmpty) {
                                        ignore();
@@ -414,28 +407,32 @@ let make = (~slug, _children) => {
                                  <div className="tag-list">
                                    (
                                      v
-                                     |. Belt.List.mapWithIndex((i, tag) =>
-                                          <span
-                                            key=(
-                                              string_of_int(i) ++ "." ++ tag
-                                            )
-                                            className="tag-default tag-pill">
-                                            <i
-                                              className="ion-close-round"
-                                              onClick=(
-                                                _event =>
-                                                  v
-                                                  |. Belt.List.keep(x =>
-                                                       x !== tag
+                                     ->(
+                                         Belt.List.mapWithIndex((i, tag) =>
+                                           <span
+                                             key=(
+                                               string_of_int(i) ++ "." ++ tag
+                                             )
+                                             className="tag-default tag-pill">
+                                             <i
+                                               className="ion-close-round"
+                                               onClick=(
+                                                 _event =>
+                                                   v
+                                                   ->(
+                                                       Belt.List.keep(x =>
+                                                         x !== tag
+                                                       )
                                                      )
-                                                  |> Belt.List.toArray
-                                                  |> Js.Array.joinWith(",")
-                                                  |> form.change(TagList)
-                                              )
-                                            />
-                                            (tag |> strEl)
-                                          </span>
-                                        )
+                                                   |> Belt.List.toArray
+                                                   |> Js.Array.joinWith(",")
+                                                   |> form.change(TagList)
+                                               )
+                                             />
+                                             (tag |> strEl)
+                                           </span>
+                                         )
+                                       )
                                      |> Belt.List.toArray
                                      |> arrayEl
                                    )

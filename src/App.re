@@ -13,7 +13,7 @@ type state = {
 let makeLinkClass = (current, target) =>
   "nav-link" ++ (current === target ? " active" : "");
 
-let urlToRoute = (url: ReasonReact.Router.url) : Types.route => {
+let urlToRoute = (url: ReasonReact.Router.url): Types.route => {
   let hash = url.hash |> Js.String.split("/");
   switch (hash) {
   | [|"", "login"|] => Login

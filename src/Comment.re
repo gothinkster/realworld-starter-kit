@@ -70,13 +70,13 @@ let make =
                  | SubmissionFailed(fieldErrors, Some(message)) =>
                    Some(
                      fieldErrors
-                     |. Belt.List.mapU((. (_field, message)) => message)
-                     |. Belt.List.concat([message]),
+                     ->(Belt.List.mapU((. (_field, message)) => message))
+                     ->(Belt.List.concat([message])),
                    )
                  | SubmissionFailed(fieldErrors, None) =>
                    Some(
                      fieldErrors
-                     |. Belt.List.mapU((. (_field, message)) => message),
+                     ->(Belt.List.mapU((. (_field, message)) => message)),
                    )
                  };
                <Fragment>

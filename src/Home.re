@@ -153,7 +153,7 @@ let loadGlobalFeed = (~tag=?, ~page=1, _payload, {ReasonReact.send, handle}) => 
 };
 
 let onYourFeedClick = (~feed, event, {ReasonReact.send}) => {
-  event |> ReactEventRe.Mouse.preventDefault;
+  event->ReactEvent.Mouse.preventDefault;
   switch (feed) {
   | Your => ignore()
   | Tag(_)
@@ -162,7 +162,7 @@ let onYourFeedClick = (~feed, event, {ReasonReact.send}) => {
 };
 
 let onGlobalFeedClick = (~feed, event, {ReasonReact.send}) => {
-  event |> ReactEventRe.Mouse.preventDefault;
+  event->ReactEvent.Mouse.preventDefault;
   switch (feed) {
   | Global => ignore()
   | Tag(_)
@@ -234,7 +234,7 @@ let make = (~user, _children) => {
     | ToggleFavorite(slug, value) =>
       let togglingFavorites =
         state.togglingFavorites
-        |. Belt.Map.String.update(slug, _previous => Some(value));
+        ->(Belt.Map.String.update(slug, _previous => Some(value)));
       ReasonReact.Update({...state, togglingFavorites});
     | ChangeFeed(feed, page) =>
       ReasonReact.UpdateWithSideEffects(
@@ -256,9 +256,11 @@ let make = (~user, _children) => {
         state.articles
         |> RemoteData.map(articles =>
              articles
-             |. Belt.List.map((x: Types.article) =>
-                  x.slug === slug ? article : x
-                )
+             ->(
+                 Belt.List.map((x: Types.article) =>
+                   x.slug === slug ? article : x
+                 )
+               )
            );
       ReasonReact.Update({...state, articles});
     | UpdateArticles((articles, articlesCount, currentPage)) =>
@@ -338,21 +340,25 @@ let make = (~user, _children) => {
                 </div>
               | Success(data) =>
                 data
-                |. Belt.List.mapU((. value: Types.article) =>
-                     <ArticleItem
-                       key=value.slug
-                       value
-                       onFavoriteClick=(handle(favoriteArticle(~user)))
-                       favoriteDisabled=(
-                         togglingFavorites
-                         |.
-                         Belt.Map.String.getWithDefault(
-                           value.slug,
-                           RemoteData.NotAsked,
-                         ) === RemoteData.Loading
-                       )
-                     />
-                   )
+                ->(
+                    Belt.List.mapU((. value: Types.article) =>
+                      <ArticleItem
+                        key=value.slug
+                        value
+                        onFavoriteClick=(handle(favoriteArticle(~user)))
+                        favoriteDisabled=(
+                          togglingFavorites
+                          ->(
+                              Belt.Map.String.getWithDefault(
+                                value.slug,
+                                RemoteData.NotAsked,
+                              )
+                            )
+                          === RemoteData.Loading
+                        )
+                      />
+                    )
+                  )
                 |> Belt.List.toArray
                 |> arrayEl
               }
@@ -383,20 +389,22 @@ let make = (~user, _children) => {
                   | Failure(error) => "ERROR: " ++ error |> strEl
                   | Success(data) =>
                     data
-                    |. Belt.List.mapU((. item) =>
-                         <a
-                           key=item
-                           className="tag-pill tag-default"
-                           href="#"
-                           onClick=(
-                             event => {
-                               event |> ReactEventRe.Mouse.preventDefault;
-                               send(ChangeFeed(Tag(item), 1));
-                             }
-                           )>
-                           (item |> strEl)
-                         </a>
-                       )
+                    ->(
+                        Belt.List.mapU((. item) =>
+                          <a
+                            key=item
+                            className="tag-pill tag-default"
+                            href="#"
+                            onClick=(
+                              event => {
+                                event->ReactEvent.Mouse.preventDefault;
+                                send(ChangeFeed(Tag(item), 1));
+                              }
+                            )>
+                            (item |> strEl)
+                          </a>
+                        )
+                      )
                     |> Belt.List.toArray
                     |> arrayEl
                   }

@@ -1,4 +1,4 @@
-let author = (json: Js.Json.t) : Types.author =>
+let author = (json: Js.Json.t): Types.author =>
   Json.Decode.{
     username: json |> field("username", string),
     bio: json |> field("bio", optional(string)),
@@ -6,14 +6,13 @@ let author = (json: Js.Json.t) : Types.author =>
     following: json |> field("following", bool),
   };
 
-let article = (json: Js.Json.t) : Types.article =>
+let article = (json: Js.Json.t): Types.article =>
   Json.Decode.{
     slug: json |> field("slug", string),
     title: json |> field("title", string),
     description:
-      json
-      |> field("description", optional(string))
-      |. Belt.Option.getWithDefault(""),
+      (json |> field("description", optional(string)))
+      ->(Belt.Option.getWithDefault("")),
     body: json |> field("body", string),
     tagList: json |> field("tagList", array(string)) |> Belt.List.fromArray,
     createdAt: json |> field("createdAt", date),
@@ -23,7 +22,7 @@ let article = (json: Js.Json.t) : Types.article =>
     author: json |> field("author", author),
   };
 
-let profile = (json: Js.Json.t) : Types.profile =>
+let profile = (json: Js.Json.t): Types.profile =>
   Json.Decode.{
     username: json |> field("username", string),
     bio: json |> field("bio", optional(string)),
@@ -31,7 +30,7 @@ let profile = (json: Js.Json.t) : Types.profile =>
     following: json |> field("following", bool),
   };
 
-let comment = (json: Js.Json.t) : Types.comment =>
+let comment = (json: Js.Json.t): Types.comment =>
   Json.Decode.{
     id: json |> field("id", int),
     createdAt: json |> field("createdAt", date),
@@ -40,7 +39,7 @@ let comment = (json: Js.Json.t) : Types.comment =>
     author: json |> field("author", author),
   };
 
-let user = (json: Js.Json.t) : Types.User.t =>
+let user = (json: Js.Json.t): Types.User.t =>
   Json.Decode.{
     email: json |> field("email", string),
     token: json |> field("token", string),

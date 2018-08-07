@@ -104,17 +104,14 @@ let make = (~onSuccessRegister, _children) => {
                      |> Json.Decode.(field("errors", dict(array(string))));
                    let fieldErrors =
                      [
-                       errors
-                       |. Js.Dict.get("username")
+                       errors->(Js.Dict.get("username"))
                        |> getFirstError(Form.Username, "Username"),
-                       errors
-                       |. Js.Dict.get("email")
+                       errors->(Js.Dict.get("email"))
                        |> getFirstError(Form.Email, "Email"),
-                       errors
-                       |. Js.Dict.get("password")
+                       errors->(Js.Dict.get("password"))
                        |> getFirstError(Form.Password, "Password"),
                      ]
-                     |. Belt.List.keepMapU((. opt) => opt);
+                     ->(Belt.List.keepMapU((. opt) => opt));
                    notifyOnFailure(fieldErrors, None);
                  };
                  ignore() |> resolve;
@@ -188,13 +185,13 @@ let make = (~onSuccessRegister, _children) => {
                    | SubmissionFailed(fieldErrors, Some(message)) =>
                      Some(
                        fieldErrors
-                       |. Belt.List.mapU((. (_field, message)) => message)
-                       |. Belt.List.concat([message]),
+                       ->(Belt.List.mapU((. (_field, message)) => message))
+                       ->(Belt.List.concat([message])),
                      )
                    | SubmissionFailed(fieldErrors, None) =>
                      Some(
                        fieldErrors
-                       |. Belt.List.mapU((. (_field, message)) => message),
+                       ->(Belt.List.mapU((. (_field, message)) => message)),
                      )
                    }
                  )

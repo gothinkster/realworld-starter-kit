@@ -9,8 +9,7 @@ let make = (~data, _children) => {
     | Some(v) =>
       <ul className="error-messages">
         (
-          v
-          |. Belt.List.mapU((. item) => <li key=item> (item |> strEl) </li>)
+          v->(Belt.List.mapU((. item) => <li key=item> (item |> strEl) </li>))
           |> Belt.List.toArray
           |> arrayEl
         )
