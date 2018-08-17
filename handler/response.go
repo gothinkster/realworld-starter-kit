@@ -2,10 +2,11 @@ package handler
 
 import (
 	"time"
+
 	"github.com/labstack/echo"
 	"github.com/xesina/golang-echo-realworld-example-app/model"
-	"github.com/xesina/golang-echo-realworld-example-app/utils"
 	"github.com/xesina/golang-echo-realworld-example-app/user"
+	"github.com/xesina/golang-echo-realworld-example-app/utils"
 )
 
 type userResponse struct {
@@ -56,7 +57,7 @@ type articleResponse struct {
 	UpdatedAt      time.Time `json:"updatedAt"`
 	Favorited      bool      `json:"favorited"`
 	FavoritesCount int       `json:"favoritesCount"`
-	Author struct {
+	Author         struct {
 		Username  string  `json:"username"`
 		Bio       *string `json:"bio"`
 		Image     *string `json:"image"`
@@ -134,7 +135,7 @@ type commentResponse struct {
 	Body      string    `json:"body"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
-	Author struct {
+	Author    struct {
 		Username  string  `json:"username"`
 		Bio       *string `json:"bio"`
 		Image     *string `json:"image"`

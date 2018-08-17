@@ -1,12 +1,13 @@
 package handler
 
 import (
-	"github.com/labstack/echo"
-	"github.com/xesina/golang-echo-realworld-example-app/utils"
-	"net/http"
-	"github.com/xesina/golang-echo-realworld-example-app/model"
-	"strconv"
 	"errors"
+	"net/http"
+	"strconv"
+
+	"github.com/labstack/echo"
+	"github.com/xesina/golang-echo-realworld-example-app/model"
+	"github.com/xesina/golang-echo-realworld-example-app/utils"
 )
 
 func (h *Handler) GetArticle(c echo.Context) error {
@@ -88,6 +89,7 @@ func (h *Handler) CreateArticle(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
+
 	return c.JSON(http.StatusCreated, newArticleResponse(c, &a))
 }
 

@@ -1,16 +1,17 @@
 package handler
 
 import (
+	"encoding/json"
+	"net/http"
 	"net/http/httptest"
+	"strings"
+	"testing"
+
 	"github.com/labstack/echo"
 	"github.com/stretchr/testify/assert"
-	"testing"
-	"net/http"
 	"github.com/xesina/golang-echo-realworld-example-app/router"
-	"encoding/json"
-	"github.com/xesina/golang-echo-realworld-example-app/utils"
 	"github.com/xesina/golang-echo-realworld-example-app/router/middleware"
-	"strings"
+	"github.com/xesina/golang-echo-realworld-example-app/utils"
 )
 
 func TestListArticlesCaseSuccess(t *testing.T) {

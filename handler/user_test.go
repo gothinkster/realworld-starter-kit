@@ -1,14 +1,15 @@
 package handler
 
 import (
-	"net/http/httptest"
-	"github.com/labstack/echo"
-	"strings"
-	"github.com/stretchr/testify/assert"
-	"testing"
 	"net/http"
-	"github.com/xesina/golang-echo-realworld-example-app/utils"
+	"net/http/httptest"
+	"strings"
+	"testing"
+
+	"github.com/labstack/echo"
+	"github.com/stretchr/testify/assert"
 	"github.com/xesina/golang-echo-realworld-example-app/router/middleware"
+	"github.com/xesina/golang-echo-realworld-example-app/utils"
 )
 
 func TestSignUpCaseSuccess(t *testing.T) {
