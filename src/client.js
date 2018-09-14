@@ -1,3 +1,4 @@
+import { AppContainer } from 'react-hot-loader';
 import React from 'react';
 import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -13,10 +14,16 @@ const store = createStore(preloadedState);
 window.onload= () => store.dispatch(setHydrated()); // eslint-disable-line
 
 hydrate(
-  <Provider store={store}>
-    <BrowserRouter>
-      <AppRouter />
-    </BrowserRouter>
-  </Provider>,
+  <AppContainer>
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </Provider>
+  </AppContainer>,
   document.getElementById('app') // eslint-disable-line
 );
+
+if (module.hot) {
+  hot.module(AppRouter);
+}

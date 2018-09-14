@@ -5,7 +5,6 @@ const routes = require('../src/react/routes');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isDevelopment = nodeEnv === 'development';
 
-const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000';
 const entry = {};
 
 for (let i = 0; i < routes.length; i += 1) {
@@ -14,7 +13,7 @@ for (let i = 0; i < routes.length; i += 1) {
     `../src/react/${routes[i].componentName}.js`,
   ];
   if (isDevelopment) {
-    entry[routes[i].componentName].unshift(hotMiddlewareScript);
+    entry[routes[i].componentName].unshift('webpack-hot-middleware/client');
   }
 }
 
@@ -36,7 +35,7 @@ module.exports = {
     rules: [{
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loader: 'babel-loader',
+      loader: require.resolve('babel-loader'),
       options: {
         cacheDirectory: isDevelopment,
         babelrc: false,
@@ -47,19 +46,20 @@ module.exports = {
           'stage-0',
           'stage-3',
         ],
-        plugins: [
-          'transform-runtime',
-          'syntax-dynamic-import',
-        ].concat(isDevelopment ? [
-          // 'react-hot-loader/babel', -- server rendering troubles
-          ['react-transform', {
+        plugins: (isDevelopment ? [
+          'react-hot-loader/babel',
+          // 'react-hot-loader/babel', //-- server rendering troubles
+          /* ['react-transform', {
             transforms: [{
               transform: 'react-transform-hmr', // deprecated now but see above 'react-hot-loader/babel'
               imports: ['react'],
               locals: ['module'],
             }],
-          }],
+          }], */
         ] : [
+        ]).concat([
+          'transform-runtime',
+          'syntax-dynamic-import',
         ]),
       },
     }],

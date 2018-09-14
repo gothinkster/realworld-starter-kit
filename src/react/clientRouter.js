@@ -1,10 +1,11 @@
+import { hot } from 'react-hot-loader';
 import React from 'react';
 import Loadable from 'react-loadable';
 import { Route, Switch } from 'react-router-dom';
 import routes from './routes';
 import Layout from './components/layout';
 
-export default () => (
+export default hot(module)(() => (
   <Layout>
     <Switch>
       {
@@ -20,4 +21,4 @@ export default () => (
       }
     </Switch>
   </Layout>
-);
+));
