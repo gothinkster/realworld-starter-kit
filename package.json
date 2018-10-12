@@ -9,7 +9,7 @@
   "scripts": {
     "build": "yarn build:bsb && yarn build:cra",
     "build:bsb": "bsb -make-world",
-    "build:cra": "react-scripts build",
+    "build:cra": "react-app-rewired build",
     "coverage": "yarn test --coverage",
     "deploy": "cd build && surge --domain reason-react-realworld-example-app.surge.sh",
     "format": "yarn format:json **/*.json && yarn format:md **/*.md && find ./src/ -regex '.+\\.rei?' -exec yarn format:re {} \\;",
@@ -20,8 +20,8 @@
     "pretest": "yarn build:bsb",
     "start": "concurrently --kill-others --names \"ReasonML,CRA\" --prefix-colors \"red.bgBlack.bold,yellow.bgBlack.bold\" \"yarn start:bsb\" \"yarn start:cra\"",
     "start:bsb": "yarn build:bsb -clean-world -w",
-    "start:cra": "react-scripts start",
-    "test": "react-scripts test --env=jsdom",
+    "start:cra": "react-app-rewired start",
+    "test": "react-app-rewired test --env=jsdom",
     "test:ci": "CI=true yarn test"
   },
   "husky": {
@@ -45,13 +45,16 @@
     "@glennsl/bs-jest": "^0.4.4",
     "bs-platform": "4.0.6",
     "concurrently": "^4.0.1",
+    "customize-cra": "^0.1.1",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
     "enzyme-to-json": "^3.3.4",
     "husky": "^1.1.2",
     "jest-fetch-mock": "^1.6.6",
     "lint-staged": "^7.3.0",
-    "prettier": "^1.14.3"
+    "prettier": "^1.14.3",
+    "react-app-rewired": "^1.6.2",
+    "react-hot-loader": "^4.3.11"
   },
   "browserslist": {
     "development": [
