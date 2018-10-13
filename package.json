@@ -52,17 +52,17 @@
   },
   "devDependencies": {
     "@glennsl/bs-jest": "^0.4.4",
+    "bs-dom-testing-library": "^0.3.0",
     "bs-platform": "4.0.6",
+    "bs-react-testing-library": "^0.4.0",
     "concurrently": "^4.0.1",
     "customize-cra": "^0.1.1",
-    "enzyme": "^3.7.0",
-    "enzyme-adapter-react-16": "^1.6.0",
-    "enzyme-to-json": "^3.3.4",
     "husky": "^1.1.2",
     "jest-fetch-mock": "^1.6.6",
     "lint-staged": "^7.3.0",
     "prettier": "^1.14.3",
     "react-app-rewired": "^1.6.2",
-    "react-hot-loader": "^4.3.11"
+    "react-hot-loader": "^4.3.11",
+    "react-testing-library": "^5.2.0"
   }
 }

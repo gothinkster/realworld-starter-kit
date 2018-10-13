@@ -1,129 +1,340 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App component renders without crashing 1`] = `
-<div>
-  <nav
-    className="navbar navbar-light"
-  >
-    <div
-      className="container"
-    >
-      <a
-        className="navbar-brand"
-        href="/#/"
-      >
-        conduit
-      </a>
-      <ul
-        className="nav navbar-nav pull-xs-right"
-      >
-        <li
-          className="nav-item"
-        >
-          <a
-            className="nav-link active"
-            href="/#/"
-          >
-            Home
-          </a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <div
-    className="home-page"
-  >
-    <div
-      className="banner"
-    >
-      <div
-        className="container"
-      >
-        <h1
-          className="logo-font"
-        >
-          conduit
-        </h1>
-        <p>
-          A place to share your knowledge.
-        </p>
-      </div>
-    </div>
-    <div
-      className="container page"
-    >
-      <div
-        className="row"
-      >
-        <div
-          className="col-md-9"
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div>
+        <nav
+          class="navbar navbar-light"
         >
           <div
-            className="feed-toggle"
+            class="container"
           >
+            <a
+              class="navbar-brand"
+              href="/#/"
+            >
+              conduit
+            </a>
             <ul
-              className="nav nav-pills outline-active"
+              class="nav navbar-nav pull-xs-right"
             >
               <li
-                className="nav-item"
+                class="nav-item"
               >
                 <a
-                  className="nav-link active"
-                  href="#"
-                  onClick={[Function]}
+                  class="nav-link active"
+                  href="/#/"
                 >
-                  Global Feed
+                  Home
+                </a>
+              </li>
+              <li
+                class="nav-item"
+              >
+                <a
+                  class="nav-link"
+                  href="/#/login"
+                >
+                  Sign in
+                </a>
+              </li>
+              <li
+                class="nav-item"
+              >
+                <a
+                  class="nav-link"
+                  href="/#/register"
+                >
+                  Sign up
                 </a>
               </li>
             </ul>
           </div>
+        </nav>
+        <div
+          class="home-page"
+        >
           <div
-            className="article-preview"
+            class="banner"
           >
-            Initializing...
+            <div
+              class="container"
+            >
+              <h1
+                class="logo-font"
+              >
+                conduit
+              </h1>
+              <p>
+                A place to share your knowledge.
+              </p>
+            </div>
+          </div>
+          <div
+            class="container page"
+          >
+            <div
+              class="row"
+            >
+              <div
+                class="col-md-9"
+              >
+                <div
+                  class="feed-toggle"
+                >
+                  <ul
+                    class="nav nav-pills outline-active"
+                  >
+                    <li
+                      class="nav-item"
+                    >
+                      <a
+                        class="nav-link active"
+                        href="#"
+                      >
+                        Global Feed
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div
+                  class="article-preview"
+                >
+                  ERROR: failed to fetch list of articles
+                </div>
+              </div>
+              <div
+                class="col-md-3"
+              >
+                <div
+                  class="sidebar"
+                >
+                  <p>
+                    Popular Tags
+                  </p>
+                  <div
+                    class="tag-list"
+                  >
+                    ERROR: failed to fetch list of tags
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer>
+          <div
+            class="container"
+          >
+            <a
+              class="logo-font"
+              href="/"
+            >
+              conduit
+            </a>
+            <span
+              class="attribution"
+            >
+              An interactive learning project from 
+              <a
+                href="https://thinkster.io"
+              >
+                Thinkster
+              </a>
+              . Code & design licensed under MIT.
+            </span>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div>
+      <nav
+        class="navbar navbar-light"
+      >
+        <div
+          class="container"
+        >
+          <a
+            class="navbar-brand"
+            href="/#/"
+          >
+            conduit
+          </a>
+          <ul
+            class="nav navbar-nav pull-xs-right"
+          >
+            <li
+              class="nav-item"
+            >
+              <a
+                class="nav-link active"
+                href="/#/"
+              >
+                Home
+              </a>
+            </li>
+            <li
+              class="nav-item"
+            >
+              <a
+                class="nav-link"
+                href="/#/login"
+              >
+                Sign in
+              </a>
+            </li>
+            <li
+              class="nav-item"
+            >
+              <a
+                class="nav-link"
+                href="/#/register"
+              >
+                Sign up
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div
+        class="home-page"
+      >
+        <div
+          class="banner"
+        >
+          <div
+            class="container"
+          >
+            <h1
+              class="logo-font"
+            >
+              conduit
+            </h1>
+            <p>
+              A place to share your knowledge.
+            </p>
           </div>
         </div>
         <div
-          className="col-md-3"
+          class="container page"
         >
           <div
-            className="sidebar"
+            class="row"
           >
-            <p>
-              Popular Tags
-            </p>
             <div
-              className="tag-list"
+              class="col-md-9"
             >
-              Initializing...
+              <div
+                class="feed-toggle"
+              >
+                <ul
+                  class="nav nav-pills outline-active"
+                >
+                  <li
+                    class="nav-item"
+                  >
+                    <a
+                      class="nav-link active"
+                      href="#"
+                    >
+                      Global Feed
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div
+                class="article-preview"
+              >
+                ERROR: failed to fetch list of articles
+              </div>
+            </div>
+            <div
+              class="col-md-3"
+            >
+              <div
+                class="sidebar"
+              >
+                <p>
+                  Popular Tags
+                </p>
+                <div
+                  class="tag-list"
+                >
+                  ERROR: failed to fetch list of tags
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <footer>
-    <div
-      className="container"
-    >
-      <a
-        className="logo-font"
-        href="/"
-      >
-        conduit
-      </a>
-      <span
-        className="attribution"
-      >
-        An interactive learning project from 
-        <a
-          href="https://thinkster.io"
+      <footer>
+        <div
+          class="container"
         >
-          Thinkster
-        </a>
-        . Code & design licensed under MIT.
-      </span>
+          <a
+            class="logo-font"
+            href="/"
+          >
+            conduit
+          </a>
+          <span
+            class="attribution"
+          >
+            An interactive learning project from 
+            <a
+              href="https://thinkster.io"
+            >
+              Thinkster
+            </a>
+            . Code & design licensed under MIT.
+          </span>
+        </div>
+      </footer>
     </div>
-  </footer>
-</div>
+  </div>,
+  "debug": [Function],
+  "getAllByAltText": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllBySelectText": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getAllByValue": [Function],
+  "getByAltText": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getBySelectText": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "getByValue": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllBySelectText": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryAllByValue": [Function],
+  "queryByAltText": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryBySelectText": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "queryByValue": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;

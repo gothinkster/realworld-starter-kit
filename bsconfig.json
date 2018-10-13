@@ -28,7 +28,11 @@
     "remotedata-re",
     "reason-react"
   ],
-  "bs-dev-dependencies": ["@glennsl/bs-jest"],
+  "bs-dev-dependencies": [
+    "@glennsl/bs-jest",
+    "bs-dom-testing-library",
+    "bs-react-testing-library"
+  ],
   "bsc-flags": ["-bs-super-errors"],
   "refmt": 3
 }

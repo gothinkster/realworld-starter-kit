@@ -36,11 +36,10 @@ describe("getResultIfOk", () => {
       (),
     );
 
-    API.host
-    |. Fetch.fetchWithInit(API.makeFetchInit())
+    API.host->(Fetch.fetchWithInit(API.makeFetchInit()))
     |> then_(API.getResultIfOk)
     |> then_(actual => {
-         let expected = "ok" |. Json.Encode.string |. Ok;
+         let expected = "ok"->Json.Encode.string->Ok;
          actual |> expect |> toEqual(expected) |> resolve;
        });
   });
@@ -53,11 +52,10 @@ describe("getResultIfOk", () => {
       (),
     );
 
-    API.host
-    |. Fetch.fetchWithInit(API.makeFetchInit())
+    API.host->(Fetch.fetchWithInit(API.makeFetchInit()))
     |> then_(API.getResultIfOk)
     |> then_(actual => {
-         let expected = "not ok 400" |. Json.Encode.string |. Error;
+         let expected = "not ok 400"->Json.Encode.string->Error;
          actual |> expect |> toEqual(expected) |> resolve;
        });
   });
@@ -70,11 +68,10 @@ describe("getResultIfOk", () => {
       (),
     );
 
-    API.host
-    |. Fetch.fetchWithInit(API.makeFetchInit())
+    API.host->(Fetch.fetchWithInit(API.makeFetchInit()))
     |> then_(API.getResultIfOk)
     |> then_(actual => {
-         let expected = "not ok 500" |. Json.Encode.string |. Error;
+         let expected = "not ok 500"->Json.Encode.string->Error;
          actual |> expect |> toEqual(expected) |> resolve;
        });
   });
