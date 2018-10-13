@@ -126,7 +126,7 @@ module Placeholder = {
         <div className="container page">
           <div className="row">
             <div className="col-md-6 offset-md-3 col-xs-12">
-              (message |> strEl)
+              {message |> strEl}
             </div>
           </div>
         </div>
@@ -147,7 +147,7 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
         email: user.email,
         bio: user.bio->(Belt.Option.getWithDefault("")),
       }
-      onSubmit=(
+      onSubmit={
         (state, {notifyOnSuccess, notifyOnFailure, reset}) => {
           let {Form.email, username, password, image, bio} = state;
           Js.Promise.(
@@ -195,8 +195,8 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
           );
           ignore();
         }
-      )>
-      ...(
+      }>
+      ...{
            form => {
              let errors =
                switch (form.status) {
@@ -213,8 +213,11 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
                  )
                | SubmissionFailed(fieldErrors, None) =>
                  Some(
-                   fieldErrors
-                   ->(Belt.List.mapU((. (_field, message)) => message)),
+                   fieldErrors->(
+                                  Belt.List.mapU((. (_field, message)) =>
+                                    message
+                                  )
+                                ),
                  )
                };
              <div className="settings-page">
@@ -222,31 +225,31 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
                  <div className="row">
                    <div className="col-md-6 offset-md-3 col-xs-12">
                      <h1 className="text-xs-center">
-                       ("Your Settings" |> strEl)
+                       {"Your Settings" |> strEl}
                      </h1>
                      <Errors data=errors />
                      <form
-                       onSubmit=(form.submit |> Formality.Dom.preventDefault)>
+                       onSubmit={form.submit |> Formality.Dom.preventDefault}>
                        <fieldset>
                          <fieldset className="form-group">
                            <input
                              className="form-control"
                              type_="text"
                              placeholder="URL of profile picture"
-                             disabled=form.submitting
-                             value=form.state.image
-                             onChange=(
+                             disabled={form.submitting}
+                             value={form.state.image}
+                             onChange={
                                event =>
                                  event
                                  |> Formality.Dom.toValueOnChange
                                  |> form.change(Image)
-                             )
-                             onBlur=(
+                             }
+                             onBlur={
                                event =>
                                  event
                                  |> Formality.Dom.toValueOnBlur
                                  |> form.change(Image)
-                             )
+                             }
                            />
                          </fieldset>
                          <fieldset className="form-group">
@@ -254,20 +257,20 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
                              className="form-control form-control-lg"
                              type_="text"
                              placeholder="Your Name"
-                             disabled=form.submitting
-                             value=form.state.username
-                             onChange=(
+                             disabled={form.submitting}
+                             value={form.state.username}
+                             onChange={
                                event =>
                                  event
                                  |> Formality.Dom.toValueOnChange
                                  |> form.change(Username)
-                             )
-                             onBlur=(
+                             }
+                             onBlur={
                                event =>
                                  event
                                  |> Formality.Dom.toValueOnBlur
                                  |> form.change(Username)
-                             )
+                             }
                            />
                          </fieldset>
                          <fieldset className="form-group">
@@ -275,20 +278,20 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
                              className="form-control form-control-lg"
                              rows=8
                              placeholder="Short bio about you"
-                             disabled=form.submitting
-                             value=form.state.bio
-                             onChange=(
+                             disabled={form.submitting}
+                             value={form.state.bio}
+                             onChange={
                                event =>
                                  event
                                  |> Formality.Dom.toValueOnChange
                                  |> form.change(Bio)
-                             )
-                             onBlur=(
+                             }
+                             onBlur={
                                event =>
                                  event
                                  |> Formality.Dom.toValueOnBlur
                                  |> form.change(Bio)
-                             )
+                             }
                            />
                          </fieldset>
                          <fieldset className="form-group">
@@ -296,20 +299,20 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
                              className="form-control form-control-lg"
                              type_="text"
                              placeholder="Email"
-                             disabled=form.submitting
-                             value=form.state.email
-                             onChange=(
+                             disabled={form.submitting}
+                             value={form.state.email}
+                             onChange={
                                event =>
                                  event
                                  |> Formality.Dom.toValueOnChange
                                  |> form.change(Email)
-                             )
-                             onBlur=(
+                             }
+                             onBlur={
                                event =>
                                  event
                                  |> Formality.Dom.toValueOnBlur
                                  |> form.change(Email)
-                             )
+                             }
                            />
                          </fieldset>
                          <fieldset className="form-group">
@@ -317,25 +320,25 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
                              className="form-control form-control-lg"
                              type_="password"
                              placeholder="Password"
-                             disabled=form.submitting
-                             value=form.state.password
-                             onChange=(
+                             disabled={form.submitting}
+                             value={form.state.password}
+                             onChange={
                                event =>
                                  event
                                  |> Formality.Dom.toValueOnChange
                                  |> form.change(Password)
-                             )
-                             onBlur=(
+                             }
+                             onBlur={
                                event =>
                                  event
                                  |> Formality.Dom.toValueOnBlur
                                  |> form.change(Password)
-                             )
+                             }
                            />
                          </fieldset>
                          <button
                            className="btn btn-lg btn-primary pull-xs-right">
-                           ("Update Settings" |> strEl)
+                           {"Update Settings" |> strEl}
                          </button>
                        </fieldset>
                      </form>
@@ -343,13 +346,13 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
                      <button
                        className="btn btn-outline-danger"
                        onClick=onLogoutClick>
-                       ("Or click here to logout." |> strEl)
+                       {"Or click here to logout." |> strEl}
                      </button>
                    </div>
                  </div>
                </div>
              </div>;
            }
-         )
+         }
     </FormContainer>,
 };

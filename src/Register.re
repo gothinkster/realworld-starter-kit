@@ -83,7 +83,7 @@ let make = (~onSuccessRegister, _children) => {
   render: _self =>
     <FormContainer
       initialState={username: "", email: "", password: ""}
-      onSubmit=(
+      onSubmit={
         (state, {notifyOnSuccess, notifyOnFailure, reset}) => {
           let {Form.username, email, password} = state;
           Js.Promise.(
@@ -128,54 +128,54 @@ let make = (~onSuccessRegister, _children) => {
           );
           ignore();
         }
-      )>
-      ...(
+      }>
+      ...{
            form =>
              Form.(
                <FormBody
                  route=Types.Register
-                 submitting=form.submitting
-                 username=form.state.username
-                 onUsernameChange=(
+                 submitting={form.submitting}
+                 username={form.state.username}
+                 onUsernameChange={
                    event =>
                      event
                      |> Formality.Dom.toValueOnChange
                      |> form.change(Username)
-                 )
-                 onUsernameBlur=(
+                 }
+                 onUsernameBlur={
                    event =>
                      event
                      |> Formality.Dom.toValueOnBlur
                      |> form.change(Username)
-                 )
-                 email=form.state.email
-                 onEmailChange=(
+                 }
+                 email={form.state.email}
+                 onEmailChange={
                    event =>
                      event
                      |> Formality.Dom.toValueOnChange
                      |> form.change(Email)
-                 )
-                 onEmailBlur=(
+                 }
+                 onEmailBlur={
                    event =>
                      event
                      |> Formality.Dom.toValueOnBlur
                      |> form.change(Email)
-                 )
-                 password=form.state.password
-                 onPasswordChange=(
+                 }
+                 password={form.state.password}
+                 onPasswordChange={
                    event =>
                      event
                      |> Formality.Dom.toValueOnChange
                      |> form.change(Password)
-                 )
-                 onPasswordBlur=(
+                 }
+                 onPasswordBlur={
                    event =>
                      event
                      |> Formality.Dom.toValueOnBlur
                      |> form.change(Password)
-                 )
-                 onSubmit=(form.submit |> Formality.Dom.preventDefault)
-                 errors=(
+                 }
+                 onSubmit={form.submit |> Formality.Dom.preventDefault}
+                 errors={
                    switch (form.status) {
                    | Editing =>
                      [Username, Email, Password]
@@ -190,13 +190,16 @@ let make = (~onSuccessRegister, _children) => {
                      )
                    | SubmissionFailed(fieldErrors, None) =>
                      Some(
-                       fieldErrors
-                       ->(Belt.List.mapU((. (_field, message)) => message)),
+                       fieldErrors->(
+                                      Belt.List.mapU((. (_field, message)) =>
+                                        message
+                                      )
+                                    ),
                      )
                    }
-                 )
+                 }
                />
              )
-         )
+         }
     </FormContainer>,
 };

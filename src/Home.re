@@ -342,34 +342,41 @@ let make = (~user, _children) => {
                 <div className="article-preview">
                   {"Initializing..." |> strEl}
                 </div>
-              | Loading(_) =>
-                <div className="article-preview">
-                  {"Loading..." |> strEl}
-                </div>
               | Failure(error) =>
                 <div className="article-preview">
                   {"ERROR: " ++ error |> strEl}
                 </div>
+              | Loading(data)
               | Success(data) =>
-                data->(
-                        Belt.List.mapU((. value: Types.article) =>
-                          <ArticleItem
-                            key={value.slug}
-                            value
-                            onFavoriteClick={handle(favoriteArticle(~user))}
-                            favoriteDisabled={
-                              togglingFavorites
-                              ->Belt.Map.String.getWithDefault(
-                                  value.slug,
-                                  RemoteData.NotAsked,
-                                )
-                              ->RemoteData.isLoading
-                            }
-                          />
-                        )
+                <>
+                  {
+                    articles->RemoteData.isLoading ?
+                      <div className="article-preview">
+                        {"Loading..." |> strEl}
+                      </div> :
+                      nullEl
+                  }
+                  {
+                    data
+                    ->Belt.List.mapU((. value: Types.article) =>
+                        <ArticleItem
+                          key={value.slug}
+                          value
+                          onFavoriteClick={handle(favoriteArticle(~user))}
+                          favoriteDisabled={
+                            togglingFavorites
+                            ->Belt.Map.String.getWithDefault(
+                                value.slug,
+                                RemoteData.NotAsked,
+                              )
+                            ->RemoteData.isLoading
+                          }
+                        />
                       )
-                |> Belt.List.toArray
-                |> arrayEl
+                    ->Belt.List.toArray
+                    ->arrayEl
+                  }
+                </>
               }
             }
             {

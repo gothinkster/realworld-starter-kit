@@ -7,7 +7,7 @@ let make = (~currentPage, ~totalCount, ~perPage, ~onPageClick, _children) => {
   render: _self =>
     <nav>
       <ul className="pagination">
-        (
+        {
           (totalCount /. perPage |> ceil |> int_of_float)
           ->(Belt.List.makeBy(i => i + 1))
           ->(
@@ -15,24 +15,24 @@ let make = (~currentPage, ~totalCount, ~perPage, ~onPageClick, _children) => {
                 let key = page |> string_of_int;
                 <li
                   key
-                  className=(
+                  className={
                     "page-item" ++ (page === currentPage ? " active" : "")
-                  )
-                  onClick=(
+                  }
+                  onClick={
                     event => {
                       event->ReactEvent.Mouse.preventDefault;
                       onPageClick(page);
                     }
-                  )>
-                  <a className="page-link" href=("#" ++ key)>
-                    (key |> strEl)
+                  }>
+                  <a className="page-link" href={"#" ++ key}>
+                    {key |> strEl}
                   </a>
                 </li>;
               })
             )
           |> Belt.List.toArray
           |> arrayEl
-        )
+        }
       </ul>
     </nav>,
 };
