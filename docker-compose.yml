@@ -1,0 +1,37 @@
+version: "3"
+services:
+  go:
+    build:
+      context: .
+      dockerfile: docker/go/Dockerfile
+    command: revel run github.com/klim0v/golang-revel-realworld-starter-kit
+    working_dir: /go
+    networks:
+    - reverse-proxy
+    - back
+    environment:
+    - VIRTUAL_HOST=${BASE_DOMAIN}
+    - VIRTUAL_PORT=9000
+    env_file:
+    - .env
+    volumes:
+    - ./:/go/src/github.com/klim0v/golang-revel-realworld-starter-kit
+    expose:
+    - 9000
+
+  db:
+    image: mysql:5.7
+    volumes:
+    - ./docker/runtime/mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: database
+      MYSQL_ROOT_PASSWORD: 123123
+    networks:
+    - back
+
+networks:
+  reverse-proxy:
+    external:
+      name: reverse-proxy
+  back:
+    driver: bridge

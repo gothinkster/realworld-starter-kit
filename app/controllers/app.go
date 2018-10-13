@@ -1,13 +1,7 @@
 package controllers
 
-import (
-	"github.com/revel/revel"
-)
+import "github.com/revel/revel"
 
-type App struct {
+type ApplicationController struct {
 	*revel.Controller
-}
-
-func (c App) Index() revel.Result {
-	return c.Render()
 }

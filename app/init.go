@@ -1,7 +1,12 @@
 package app
 
 import (
+	"database/sql"
+	"github.com/klim0v/golang-revel-realworld-starter-kit/app/models"
+	rgorp "github.com/revel/modules/orm/gorp/app"
+	_ "github.com/revel/modules/static"
 	"github.com/revel/revel"
+	"gopkg.in/gorp.v2"
 )
 
 var (
@@ -10,7 +15,46 @@ var (
 
 	// BuildTime revel app build-time (ldflags)
 	BuildTime string
+
+	Dbm *gorp.DbMap
 )
+
+func InitDB() {
+	db, err := sql.Open("mysql", revel.Config.StringDefault("db.connection", ""))
+	if err != nil {
+		panic(err)
+	}
+	Dbm = &gorp.DbMap{Db: db, Dialect: gorp.MySQLDialect{Engine: "InnoDB", Encoding: "UTF8"}}
+
+	t := Dbm.AddTable(models.User{}).SetKeys(true, "ID")
+	t.ColMap("Password").Transient = true
+	t.ColMap("Username").SetUnique(true)
+	t.ColMap("Email").SetUnique(true)
+
+	t = Dbm.AddTable(models.Comment{}).SetKeys(true, "ID")
+	t.ColMap("User").Transient = true
+	t.ColMap("Article").Transient = true
+
+	t = Dbm.AddTable(models.Article{}).SetKeys(true, "ID")
+	t.ColMap("User").Transient = true
+	t.ColMap("Slug").SetUnique(true)
+
+	t = Dbm.AddTable(models.Favorite{}).SetKeys(true, "ID")
+	t.ColMap("User").Transient = true
+	t.ColMap("Article").Transient = true
+
+	t = Dbm.AddTable(models.Tag{}).SetKeys(true, "ID")
+	t.ColMap("Name").SetUnique(true)
+
+	rgorp.Db.TraceOn(revel.AppLog)
+	Dbm.CreateTables()
+	Dbm.CreateIndex()
+
+	err = Dbm.Db.Ping()
+	if err != nil {
+		panic(err)
+	}
+}
 
 func init() {
 	// Filters is the default set of global filters.
@@ -34,7 +78,7 @@ func init() {
 	// revel.DevMode and revel.RunMode only work inside of OnAppStart. See Example Startup Script
 	// ( order dependent )
 	// revel.OnAppStart(ExampleStartupScript)
-	// revel.OnAppStart(InitDB)
+	revel.OnAppStart(InitDB)
 	// revel.OnAppStart(FillCache)
 }
 
