@@ -1,11 +1,26 @@
 {
   "name": "reason-react-realworld-example-app",
   "version": "0.1.0",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/jihchi/reason-react-realworld-example-app.git"
   },
-  "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn test:ci"
+    }
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
   "scripts": {
     "build": "yarn build:bsb && yarn build:cra",
     "build:bsb": "bsb -make-world",
@@ -18,17 +33,11 @@
     "format:re": "bsrefmt --in-place",
     "predeploy": "yarn build",
     "pretest": "yarn build:bsb",
-    "start": "concurrently --kill-others --names \"ReasonML,CRA\" --prefix-colors \"red.bgBlack.bold,yellow.bgBlack.bold\" \"yarn start:bsb\" \"yarn start:cra\"",
+    "start": "concurrently --kill-others-on-fail --names \"ReasonML,CRA\" --prefix-colors \"red.bgBlack.bold,yellow.bgBlack.bold\" \"yarn start:bsb\" \"yarn start:cra\"",
     "start:bsb": "yarn build:bsb -clean-world -w",
     "start:cra": "react-app-rewired start",
-    "test": "react-app-rewired test --env=jsdom",
+    "test": "react-app-rewired test",
     "test:ci": "CI=true yarn test"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn test:ci"
-    }
   },
   "dependencies": {
     "@glennsl/bs-json": "^3.0.0",
@@ -55,17 +64,5 @@
     "prettier": "^1.14.3",
     "react-app-rewired": "^1.6.2",
     "react-hot-loader": "^4.3.11"
-  },
-  "browserslist": {
-    "development": [
-      "last 2 chrome versions",
-      "last 2 firefox versions",
-      "last 2 edge versions"
-    ],
-    "production": [
-      ">0.25%",
-      "not op_mini all",
-      "ie 11"
-    ]
   }
 }
