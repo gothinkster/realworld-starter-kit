@@ -1,4 +1,7 @@
 import { hot } from 'react-hot-loader';
+import React, { StrictMode } from 'react';
 import App from './App.bs';
 
-export default hot(module)(App);
+const HotApp = () => <StrictMode><App /></StrictMode>
+
+export default hot(module)(HotApp);
