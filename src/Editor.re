@@ -123,7 +123,7 @@ module Form = {
 module FormContainer = Formality.Make(Form);
 
 let loadArticle = (slug, {ReasonReact.send}) => {
-  send(UpdateArticle(Loading));
+  send(UpdateArticle(Loading()));
   Js.Promise.(
     API.getArticle(~slug, ())
     |> then_(result => {
@@ -234,8 +234,8 @@ let make = (~slug, _children) => {
   render: ({state}) => {
     let initialState =
       switch (slug, state) {
-      | (None, RemoteData.NotAsked | Loading | Success(_) | Failure(_))
-      | (Some(_), NotAsked | Loading | Failure(_)) => {
+      | (None, RemoteData.NotAsked | Loading(_) | Success(_) | Failure(_))
+      | (Some(_), NotAsked | Loading(_) | Failure(_)) => {
           Form.title: "",
           description: "",
           body: "",
@@ -254,10 +254,10 @@ let make = (~slug, _children) => {
     /* reset to null element when change route to /#/editor from /#/editor/:slug */
     | (None, Success(_))
     /* don't render anything while loading article by slug */
-    | (Some(_), RemoteData.NotAsked | Loading | Failure(_)) => nullEl
-    | (None, NotAsked | Loading | Failure(_))
+    | (Some(_), RemoteData.NotAsked | Loading(_) | Failure(_)) => nullEl
+    | (None, NotAsked | Loading(_) | Failure(_))
     | (Some(_), Success(_)) =>
-      <FormContainer initialState onSubmit=(upsertArticle(slug))>
+      <FormContainer initialState onSubmit={upsertArticle(slug)}>
         ...(
              form => {
                let errors =
@@ -275,8 +275,11 @@ let make = (~slug, _children) => {
                    )
                  | SubmissionFailed(fieldErrors, None) =>
                    Some(
-                     fieldErrors
-                     ->(Belt.List.mapU((. (_field, message)) => message)),
+                     fieldErrors->(
+                                    Belt.List.mapU((. (_field, message)) =>
+                                      message
+                                    )
+                                  ),
                    )
                  };
                <div className="editor-page">
@@ -289,27 +292,27 @@ let make = (~slug, _children) => {
                    <div className="row">
                      <div className="col-md-10 offset-md-1 col-xs-12">
                        <form
-                         onSubmit=(form.submit |> Formality.Dom.preventDefault)>
+                         onSubmit={form.submit |> Formality.Dom.preventDefault}>
                          <fieldset>
                            <fieldset className="form-group">
                              <input
                                type_="text"
                                className="form-control form-control-lg"
                                placeholder="Article Title"
-                               disabled=form.submitting
-                               value=form.state.title
-                               onChange=(
+                               disabled={form.submitting}
+                               value={form.state.title}
+                               onChange={
                                  event =>
                                    event
                                    |> Formality.Dom.toValueOnChange
                                    |> form.change(Title)
-                               )
-                               onBlur=(
+                               }
+                               onBlur={
                                  event =>
                                    event
                                    |> Formality.Dom.toValueOnBlur
                                    |> form.change(Title)
-                               )
+                               }
                              />
                            </fieldset>
                            <fieldset className="form-group">
@@ -317,20 +320,20 @@ let make = (~slug, _children) => {
                                type_="text"
                                className="form-control"
                                placeholder="What's this article about?"
-                               disabled=form.submitting
-                               value=form.state.description
-                               onChange=(
+                               disabled={form.submitting}
+                               value={form.state.description}
+                               onChange={
                                  event =>
                                    event
                                    |> Formality.Dom.toValueOnChange
                                    |> form.change(Description)
-                               )
-                               onBlur=(
+                               }
+                               onBlur={
                                  event =>
                                    event
                                    |> Formality.Dom.toValueOnBlur
                                    |> form.change(Description)
-                               )
+                               }
                              />
                            </fieldset>
                            <fieldset className="form-group">
@@ -338,20 +341,20 @@ let make = (~slug, _children) => {
                                className="form-control"
                                rows=8
                                placeholder="Write your article (in markdown)"
-                               disabled=form.submitting
-                               value=form.state.body
-                               onChange=(
+                               disabled={form.submitting}
+                               value={form.state.body}
+                               onChange={
                                  event =>
                                    event
                                    |> Formality.Dom.toValueOnChange
                                    |> form.change(Body)
-                               )
-                               onBlur=(
+                               }
+                               onBlur={
                                  event =>
                                    event
                                    |> Formality.Dom.toValueOnBlur
                                    |> form.change(Body)
-                               )
+                               }
                              />
                            </fieldset>
                            <fieldset className="form-group">
@@ -359,21 +362,21 @@ let make = (~slug, _children) => {
                                type_="text"
                                className="form-control"
                                placeholder="Enter tags"
-                               disabled=form.submitting
-                               value=form.state.newTag
-                               onChange=(
+                               disabled={form.submitting}
+                               value={form.state.newTag}
+                               onChange={
                                  event =>
                                    event
                                    |> Formality.Dom.toValueOnChange
                                    |> form.change(NewTag)
-                               )
-                               onBlur=(
+                               }
+                               onBlur={
                                  event =>
                                    event
                                    |> Formality.Dom.toValueOnBlur
                                    |> form.change(NewTag)
-                               )
-                               onKeyDown=(
+                               }
+                               onKeyDown={
                                  event =>
                                    switch (event->ReactEvent.Keyboard.keyCode) {
                                    | 13 =>
@@ -398,52 +401,50 @@ let make = (~slug, _children) => {
                                      };
                                    | _ => ignore()
                                    }
-                               )
+                               }
                              />
-                             (
+                             {
                                switch (form.state.tagList) {
                                | [] => nullEl
                                | v =>
                                  <div className="tag-list">
-                                   (
-                                     v
-                                     ->(
-                                         Belt.List.mapWithIndex((i, tag) =>
-                                           <span
-                                             key=(
-                                               string_of_int(i) ++ "." ++ tag
-                                             )
-                                             className="tag-default tag-pill">
-                                             <i
-                                               className="ion-close-round"
-                                               onClick=(
-                                                 _event =>
-                                                   v
-                                                   ->(
-                                                       Belt.List.keep(x =>
-                                                         x !== tag
+                                   {
+                                     v->(
+                                          Belt.List.mapWithIndex((i, tag) =>
+                                            <span
+                                              key={
+                                                string_of_int(i) ++ "." ++ tag
+                                              }
+                                              className="tag-default tag-pill">
+                                              <i
+                                                className="ion-close-round"
+                                                onClick=(
+                                                  _event =>
+                                                    v->(
+                                                         Belt.List.keep(x =>
+                                                           x !== tag
+                                                         )
                                                        )
-                                                     )
-                                                   |> Belt.List.toArray
-                                                   |> Js.Array.joinWith(",")
-                                                   |> form.change(TagList)
-                                               )
-                                             />
-                                             (tag |> strEl)
-                                           </span>
-                                         )
-                                       )
+                                                    |> Belt.List.toArray
+                                                    |> Js.Array.joinWith(",")
+                                                    |> form.change(TagList)
+                                                )
+                                              />
+                                              {tag |> strEl}
+                                            </span>
+                                          )
+                                        )
                                      |> Belt.List.toArray
                                      |> arrayEl
-                                   )
+                                   }
                                  </div>
                                }
-                             )
+                             }
                            </fieldset>
                            <button
-                             disabled=form.submitting
+                             disabled={form.submitting}
                              className="btn btn-lg pull-xs-right btn-primary">
-                             ("Publish Article" |> strEl)
+                             {"Publish Article" |> strEl}
                            </button>
                          </fieldset>
                        </form>

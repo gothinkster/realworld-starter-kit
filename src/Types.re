@@ -46,19 +46,19 @@ type comment = {
   author,
 };
 
-type remoteArticles = RemoteData.t(list(article), string);
+type remoteArticles = RemoteData.t(list(article), list(article), string);
 
-type remoteComments = RemoteData.t(list(comment), string);
+type remoteComments = RemoteData.t(list(comment), unit, string);
 
-type remoteArticle = RemoteData.t(article, string);
+type remoteArticle = RemoteData.t(article, unit, string);
 
-type remoteProfile = RemoteData.t(profile, string);
+type remoteProfile = RemoteData.t(profile, unit, string);
 
-type remoteUser = RemoteData.t(User.t, string);
+type remoteUser = RemoteData.t(User.t, unit, string);
 
-type remoteTags = RemoteData.t(list(string), string);
+type remoteTags = RemoteData.t(list(string), unit, string);
 
-type remoteAction = RemoteData.t(string, string);
+type remoteAction = RemoteData.t(string, unit, string);
 
 type articleByAuthor =
   | Author(string)

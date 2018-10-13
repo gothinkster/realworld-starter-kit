@@ -7,7 +7,7 @@ let make = (~user, children) => {
   render: _self =>
     switch (user) {
     | RemoteData.NotAsked
-    | Loading => nullEl
+    | Loading(_) => nullEl
     | Success(v) => children(v)
     | Failure(_) =>
       ReasonReact.Router.push("/#/");

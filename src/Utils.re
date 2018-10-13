@@ -13,13 +13,12 @@ let id = a => a;
 let getSomeErrors = (results, fields) => {
   let validation =
     fields
-    ->Belt.List.mapU(
-        (. field) =>
-          switch (field |> results) {
-          | Some(Formality.Invalid(message)) => [message]
-          | Some(Valid)
-          | None => []
-          },
+    ->Belt.List.mapU((. field) =>
+        switch (field |> results) {
+        | Some(Formality.Invalid(message)) => [message]
+        | Some(Valid)
+        | None => []
+        }
       )
     ->Belt.List.flatten;
   switch (validation) {
@@ -31,18 +30,17 @@ let getSomeErrors = (results, fields) => {
 let getFirstError =
     (field: 'a, prefix: string, errors: option(array(string)))
     : option(('a, string)) =>
-  errors
-  ->(
-      Belt.Option.mapU((. errors) =>
-        (
-          field,
-          errors
-          ->(Belt.Array.get(0))
-          ->(Belt.Option.getWithDefault("is unknown error"))
-          |> (++)(prefix ++ " "),
-        )
-      )
-    );
+  errors->(
+            Belt.Option.mapU((. errors) =>
+              (
+                field,
+                errors
+                ->(Belt.Array.get(0))
+                ->(Belt.Option.getWithDefault("is unknown error"))
+                |> (++)(prefix ++ " "),
+              )
+            )
+          );
 
 let setCookie = (key, value) =>
   (Webapi.Dom.document |> Webapi.Dom.Document.asHtmlDocument)
@@ -83,10 +81,3 @@ let getCookie = target =>
           )
       )
     );
-
-let remoteDataToStr =
-  fun
-  | RemoteData.NotAsked => "NotAsked"
-  | Loading => "Loading"
-  | Success(_) => "Success"
-  | Failure(_) => "Failure";

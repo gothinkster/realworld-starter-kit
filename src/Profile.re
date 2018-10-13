@@ -26,11 +26,17 @@ let getAuthorParam =
   | Favorited(v) => (None, Some(v));
 
 let loadArticles =
-    (~author, ~favorited, ~page=1, _payload, {ReasonReact.send}) => {
+    (~author, ~favorited, ~page=1, _payload, {ReasonReact.send, state}) => {
   open Js.Promise;
   let limit = pageNum |> int_of_float;
   let offset = (float_of_int(page) -. 1.) *. pageNum |> int_of_float;
-  send(UpdateArticles((RemoteData.Loading, 0., page)));
+  send(
+    UpdateArticles((
+      RemoteData.Loading(state.articles |> RemoteData.withDefault([])),
+      0.,
+      page,
+    )),
+  );
   API.listArticles(~author?, ~favorited?, ~offset, ~limit, ())
   |> then_(result => {
        switch (result) {
@@ -81,7 +87,7 @@ let loadProfile =
       | Author(v) => v
       | Favorited(v) => v
       };
-    send(UpdateProfile(RemoteData.Loading));
+    send(UpdateProfile(RemoteData.Loading()));
     API.profiles(~author, ())
     |> then_(result => {
          switch (result) {
@@ -120,7 +126,7 @@ let followAuthorOrRedirectToSetting =
     ) =>
   switch (user) {
   | RemoteData.NotAsked
-  | Loading
+  | Loading(_)
   | Failure(_) => ReasonReact.Router.push("/#/login")
   | Success(userVal) =>
     switch (profile) {
@@ -128,7 +134,7 @@ let followAuthorOrRedirectToSetting =
       ReasonReact.Router.push("/#/settings")
     | Success(profileVal) =>
       let {Types.following, username} = profileVal;
-      send(UpdateFollowAction(RemoteData.Loading));
+      send(UpdateFollowAction(RemoteData.Loading()));
       Js.Promise.(
         (
           following ?
@@ -150,7 +156,7 @@ let followAuthorOrRedirectToSetting =
         |> ignore
       );
     | NotAsked
-    | Loading
+    | Loading(_)
     | Failure(_) => ignore()
     }
   };
@@ -159,10 +165,10 @@ let favoriteArticle = (~user, (slug, favorited), {ReasonReact.send}) =>
   Js.Promise.(
     switch (user) {
     | RemoteData.NotAsked
-    | Loading
+    | Loading(_)
     | Failure(_) => ReasonReact.Router.push("/#/login")
     | Success(_) =>
-      send(ToggleFavorite(slug, RemoteData.Loading));
+      send(ToggleFavorite(slug, RemoteData.Loading()));
       (
         favorited ?
           API.favoriteArticle(~slug, ()) : API.unfavoriteArticle(~slug, ())
@@ -218,12 +224,11 @@ let make =
       let articles =
         state.articles
         |> RemoteData.map(articles =>
-             articles
-             ->(
-                 Belt.List.map((x: Types.article) =>
-                   x.slug === slug ? article : x
-                 )
-               )
+             articles->(
+                         Belt.List.map((x: Types.article) =>
+                           x.slug === slug ? article : x
+                         )
+                       )
            );
       ReasonReact.Update({...state, articles});
     | UpdateArticles((articles, articlesCount, currentPage)) =>
@@ -254,31 +259,31 @@ let make =
           <div className="row">
             <div className="col-xs-12 col-md-10 offset-md-1">
               <img
-                src=(
+                src={
                   switch (profile) {
                   | NotAsked
-                  | Loading
+                  | Loading(_)
                   | Failure(_) => "//placehold.it/100x100"
                   | Success({image}) => image
                   }
-                )
+                }
                 className="user-img"
               />
               <h4>
-                (
+                {
                   switch (profile) {
                   | NotAsked
-                  | Loading
+                  | Loading(_)
                   | Failure(_) => nullEl
                   | Success({username}) => username |> strEl
                   }
-                )
+                }
               </h4>
               <p>
-                (
+                {
                   switch (profile) {
                   | NotAsked
-                  | Loading
+                  | Loading(_)
                   | Failure(_) => nullEl
                   | Success({bio}) =>
                     switch (bio) {
@@ -286,53 +291,56 @@ let make =
                     | None => nullEl
                     }
                   }
-                )
+                }
               </p>
               <button
                 className="btn btn-sm btn-outline-secondary action-btn"
-                onClick=(
+                onClick={
                   handle(followAuthorOrRedirectToSetting(~user, ~profile))
-                )
-                disabled=(
+                }
+                disabled={
                   switch (followAction) {
                   | NotAsked
                   | Success(_)
                   | Failure(_) => false
-                  | Loading => true
+                  | Loading(_) => true
                   }
-                )>
-                (
+                }>
+                {
                   switch (profile, user) {
                   | (Success(profileVal), Success(userVal))
                       when userVal.username === profileVal.username =>
                     <i className="ion-gear-a" />
                   | (
-                      NotAsked | Loading | Success(_) | Failure(_),
-                      NotAsked | Loading | Success(_) | Failure(_),
+                      NotAsked | Loading(_) | Success(_) | Failure(_),
+                      NotAsked | Loading(_) | Success(_) | Failure(_),
                     ) =>
                     <i className="ion-plus-round" />
                   }
-                )
-                (
+                }
+                {
                   switch (profile, user) {
                   | (Success(profileVal), Success(userVal))
                       when userVal.username === profileVal.username =>
                     " Edit Profile Settings" |> strEl
                   | (
                       Success({following, username}),
-                      NotAsked | Loading | Success(_) | Failure(_),
+                      NotAsked | Loading(_) | Success(_) | Failure(_),
                     ) =>
                     (following ? " Unfollow " : " Follow ")
                     ++ username
                     |> strEl
                   | (
-                      NotAsked | Loading,
-                      NotAsked | Loading | Success(_) | Failure(_),
+                      NotAsked | Loading(_),
+                      NotAsked | Loading(_) | Success(_) | Failure(_),
                     ) =>
                     " ... " |> strEl
-                  | (Failure(_), NotAsked | Loading | Success(_) | Failure(_)) => nullEl
+                  | (
+                      Failure(_),
+                      NotAsked | Loading(_) | Success(_) | Failure(_),
+                    ) => nullEl
                   }
-                )
+                }
               </button>
             </div>
           </div>
@@ -345,7 +353,7 @@ let make =
               <ul className="nav nav-pills outline-active">
                 <li className="nav-item">
                   <a
-                    className=(
+                    className={
                       "nav-link"
                       ++ (
                         switch (author) {
@@ -353,14 +361,14 @@ let make =
                         | Favorited(_) => ""
                         }
                       )
-                    )
-                    href=("/#/profile/" ++ authorVal)>
-                    ("My Articles" |> strEl)
+                    }
+                    href={"/#/profile/" ++ authorVal}>
+                    {"My Articles" |> strEl}
                   </a>
                 </li>
                 <li className="nav-item">
                   <a
-                    className=(
+                    className={
                       "nav-link"
                       ++ (
                         switch (author) {
@@ -368,66 +376,63 @@ let make =
                         | Favorited(_) => " active"
                         }
                       )
-                    )
-                    href=("/#/profile/" ++ authorVal ++ "/favorites")>
-                    ("Favorited Articles" |> strEl)
+                    }
+                    href={"/#/profile/" ++ authorVal ++ "/favorites"}>
+                    {"Favorited Articles" |> strEl}
                   </a>
                 </li>
               </ul>
             </div>
-            (
+            {
               switch (articles) {
               | NotAsked =>
                 <div className="article-preview">
-                  ("Initializing..." |> strEl)
+                  {"Initializing..." |> strEl}
                 </div>
-              | Loading =>
+              | Loading(_) =>
                 <div className="article-preview">
-                  ("Loading..." |> strEl)
+                  {"Loading..." |> strEl}
                 </div>
               | Failure(error) =>
                 <div className="article-preview">
-                  ("ERROR: " ++ error |> strEl)
+                  {"ERROR: " ++ error |> strEl}
                 </div>
               | Success(data) =>
-                data
-                ->(
-                    Belt.List.mapU((. value: Types.article) =>
-                      <ArticleItem
-                        key=value.slug
-                        value
-                        onFavoriteClick=(handle(favoriteArticle(~user)))
-                        favoriteDisabled=(
-                          togglingFavorites
-                          ->(
-                              Belt.Map.String.getWithDefault(
-                                value.slug,
-                                RemoteData.NotAsked,
-                              )
-                            )
-                          === RemoteData.Loading
+                data->(
+                        Belt.List.mapU((. value: Types.article) =>
+                          <ArticleItem
+                            key={value.slug}
+                            value
+                            onFavoriteClick={handle(favoriteArticle(~user))}
+                            favoriteDisabled={
+                              togglingFavorites
+                              ->Belt.Map.String.getWithDefault(
+                                  value.slug,
+                                  RemoteData.NotAsked,
+                                )
+                              ->RemoteData.isLoading
+                            }
+                          />
                         )
-                      />
-                    )
-                  )
+                      )
                 |> Belt.List.toArray
                 |> arrayEl
               }
-            )
-            (
+            }
+            {
               switch (articles) {
               | NotAsked
-              | Loading
+              | Loading(_)
               | Failure(_) => nullEl
               | Success(_) =>
                 <Pagination
                   totalCount=articlesCount
                   perPage=pageNum
-                  onPageClick=(handle(changeCurrentPage(~payload=author)))
+                  onPageClick={handle(changeCurrentPage(~payload=author))}
                   currentPage
                 />
               }
-            )
+            }
           </div>
         </div>
       </div>

@@ -24,7 +24,7 @@ let redirectToLoginPage = _never => ReasonReact.Router.push("/#/login");
 let isAuthor = (~user: Types.remoteUser, ~article: Types.remoteArticle) =>
   switch (user) {
   | RemoteData.NotAsked
-  | Loading
+  | Loading(_)
   | Failure(_) => false
   | Success(userVal) =>
     switch (article) {
@@ -32,7 +32,7 @@ let isAuthor = (~user: Types.remoteUser, ~article: Types.remoteArticle) =>
         when articleVal.author.username === userVal.username =>
       true
     | NotAsked
-    | Loading
+    | Loading(_)
     | Success(_)
     | Failure(_) => false
     }
@@ -56,20 +56,20 @@ module FavoriteOrDeleteButton = {
       let (favoritesCount, favorited) =
         switch (article) {
         | RemoteData.NotAsked
-        | Loading
+        | Loading(_)
         | Failure(_) => (0, false)
         | Success({favoritesCount, favorited}) => (favoritesCount, favorited)
         };
       <button
-        className=(
+        className={
           switch (isAuthor, favorited) {
           | (true, true | false) => "btn btn-sm btn-outline-danger"
           | (false, favorited) =>
             "btn btn-sm "
             ++ (favorited ? "btn-primary" : "btn-outline-primary")
           }
-        )
-        onClick=(
+        }
+        onClick={
           disabled ?
             ignore :
             (
@@ -79,10 +79,10 @@ module FavoriteOrDeleteButton = {
               | (true, false) => onFavoriteClick
               }
             )
-        )
+        }
         disabled>
-        <i className=(isAuthor ? "ion-trash-a" : "ion-heart") />
-        (
+        <i className={isAuthor ? "ion-trash-a" : "ion-heart"} />
+        {
           (
             switch (isAuthor, favorited) {
             | (true, true | false) => " Delete Article "
@@ -91,14 +91,14 @@ module FavoriteOrDeleteButton = {
             }
           )
           |> strEl
-        )
-        (
+        }
+        {
           isAuthor ?
             nullEl :
             <span className="counter">
-              (" (" ++ string_of_int(favoritesCount) ++ ")" |> strEl)
+              {" (" ++ string_of_int(favoritesCount) ++ ")" |> strEl}
             </span>
-        )
+        }
       </button>;
     },
   };
@@ -122,20 +122,20 @@ module FollowOrEditButton = {
       let (username, following) =
         switch (article) {
         | RemoteData.NotAsked
-        | Loading
+        | Loading(_)
         | Failure(_) => ("", false)
         | Success({author: {username, following}}) => (username, following)
         };
       <button
-        className=(
+        className={
           switch (isAuthor, following) {
           | (true, true | false) => "btn btn-sm btn-outline-secondary"
           | (false, following) =>
             "btn btn-sm "
             ++ (following ? "btn-secondary" : "btn-outline-secondary")
           }
-        )
-        onClick=(
+        }
+        onClick={
           disabled ?
             ignore :
             (
@@ -145,10 +145,10 @@ module FollowOrEditButton = {
               | (true, false) => onFollowClick
               }
             )
-        )
+        }
         disabled>
-        <i className=(isAuthor ? "ion-edit" : "ion-plus-round") />
-        (
+        <i className={isAuthor ? "ion-edit" : "ion-plus-round"} />
+        {
           (
             switch (isAuthor, following) {
             | (true, true | false) => " Edit Article "
@@ -157,7 +157,7 @@ module FollowOrEditButton = {
             }
           )
           |> strEl
-        )
+        }
       </button>;
     },
   };
@@ -178,22 +178,22 @@ module CommentCard = {
       let {createdAt, body, author}: Types.comment = data;
       <div className="card">
         <div className="card-block">
-          <p className="card-text"> (body |> strEl) </p>
+          <p className="card-text"> {body |> strEl} </p>
         </div>
         <div className="card-footer">
           <a
-            href=("/#/profile/" ++ author.username) className="comment-author">
-            <Img src=(Some(author.image)) className="comment-author-img" />
+            href={"/#/profile/" ++ author.username} className="comment-author">
+            <Img src={Some(author.image)} className="comment-author-img" />
           </a>
-          (" " |> strEl)
+          {" " |> strEl}
           <a
-            href=("/#/profile/" ++ author.username) className="comment-author">
-            (author.username |> strEl)
+            href={"/#/profile/" ++ author.username} className="comment-author">
+            {author.username |> strEl}
           </a>
           <span className="date-posted">
-            (createdAt |> Js.Date.toISOString |> strEl)
+            {createdAt |> Js.Date.toISOString |> strEl}
           </span>
-          (
+          {
             switch (user) {
             | Success(userVal)
                 when userVal.username === author.username && !hideDeleteIcon =>
@@ -201,11 +201,11 @@ module CommentCard = {
                 <i className="ion-trash-a" onClick=onDeleteClick />
               </span>
             | NotAsked
-            | Loading
+            | Loading(_)
             | Failure(_)
             | Success(_) => nullEl
             }
-          )
+          }
         </div>
       </div>;
     },
@@ -273,12 +273,12 @@ let loadComments = (slug, {ReasonReact.send}) => {
 let favoriteArticle =
     (~article: Types.remoteArticle, _payload, {ReasonReact.send}) =>
   switch (article) {
-  | Loading
   | NotAsked
+  | Loading(_)
   | Failure(_) => ignore()
   | Success({slug, favorited}) =>
     open Js.Promise;
-    send(UpdateFavoriteAction(RemoteData.Loading));
+    send(UpdateFavoriteAction(RemoteData.Loading()));
     (
       favorited ?
         API.unfavoriteArticle(~slug, ()) : API.favoriteArticle(~slug, ())
@@ -304,8 +304,8 @@ let favoriteArticle =
 
 let deleteArticle = (~article: Types.remoteArticle, _payload, _self) => {
   switch (article) {
-  | Loading
   | NotAsked
+  | Loading(_)
   | Failure(_) => ignore()
   | Success({slug}) =>
     Js.Promise.(
@@ -325,8 +325,8 @@ let deleteArticle = (~article: Types.remoteArticle, _payload, _self) => {
 
 let redirectToEditorPage = (~article: Types.remoteArticle, _payload, _self) =>
   switch (article) {
-  | Loading
   | NotAsked
+  | Loading(_)
   | Failure(_) => ignore()
   | Success({slug}) => ReasonReact.Router.push("/#/editor/" ++ slug)
   };
@@ -334,12 +334,12 @@ let redirectToEditorPage = (~article: Types.remoteArticle, _payload, _self) =>
 let followUser =
     (~article: Types.remoteArticle, _payload, {ReasonReact.send}) =>
   switch (article) {
-  | Loading
   | NotAsked
+  | Loading(_)
   | Failure(_) => ignore()
   | Success({author: {username, following}}) =>
     open Js.Promise;
-    send(UpdateFollowAction(RemoteData.Loading));
+    send(UpdateFollowAction(RemoteData.Loading()));
     (
       following ?
         API.unfollowUser(~username, ()) : API.followUser(~username, ())
@@ -467,7 +467,7 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
       let comments =
         switch (state.comments) {
         | NotAsked
-        | Loading
+        | Loading(_)
         | Failure(_) => state.comments
         | Success(comments) =>
           RemoteData.Success(comments->(Belt.List.keep(x => x.id !== id)))
@@ -482,7 +482,7 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
       let comments =
         switch (state.comments) {
         | NotAsked
-        | Loading
+        | Loading(_)
         | Failure(_) => state.comments
         | Success(comments) => RemoteData.Success([comment, ...comments])
         };
@@ -500,196 +500,195 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
       <div className="banner">
         <div className="container">
           <h1>
-            (
+            {
               switch (article) {
               | NotAsked => nullEl
-              | Loading => "..." |> strEl
+              | Loading(_) => "..." |> strEl
               | Success({title}) => title |> strEl
               | Failure(_) => nullEl
               }
-            )
+            }
           </h1>
           <div className="article-meta">
             <a
-              href=(
+              href={
                 switch (article) {
                 | NotAsked
-                | Loading => ""
-                | Success({author}) => "/#/profile/" ++ author.username
+                | Loading(_)
                 | Failure(_) => ""
+                | Success({author}) => "/#/profile/" ++ author.username
                 }
-              )>
-              (
+              }>
+              {
                 switch (article) {
                 | NotAsked
-                | Loading => <Img />
-                | Success({author}) => <Img src=(Some(author.image)) />
+                | Loading(_)
                 | Failure(_) => <Img />
+                | Success({author}) => <Img src={Some(author.image)} />
                 }
-              )
+              }
             </a>
             <div className="info">
               <a
-                href=(
+                href={
                   switch (article) {
                   | NotAsked
-                  | Loading => ""
-                  | Success({author}) => "/#/profile/" ++ author.username
+                  | Loading(_)
                   | Failure(_) => ""
+                  | Success({author}) => "/#/profile/" ++ author.username
                   }
-                )
+                }
                 className="author">
-                (
+                {
                   (
                     switch (article) {
                     | NotAsked
-                    | Loading => ""
-                    | Success({author}) => author.username
+                    | Loading(_)
                     | Failure(_) => ""
+                    | Success({author}) => author.username
                     }
                   )
                   |> strEl
-                )
+                }
               </a>
               <span className="date">
-                (
+                {
                   switch (article) {
                   | NotAsked
-                  | Loading => nullEl
+                  | Loading(_)
+                  | Failure(_) => nullEl
                   | Success({updatedAt}) =>
                     updatedAt |> Js.Date.toISOString |> strEl
-                  | Failure(_) => nullEl
                   }
-                )
+                }
               </span>
             </div>
             <FollowOrEditButton
               user
               article
-              onEditClick=(handle(redirectToEditorPage(~article)))
-              onFollowClick=(handle(followUser(~article)))
-              disabled=(followAction |> RemoteData.isLoading)
+              onEditClick={handle(redirectToEditorPage(~article))}
+              onFollowClick={handle(followUser(~article))}
+              disabled={followAction |> RemoteData.isLoading}
             />
-            (" " |> strEl)
+            {" " |> strEl}
             <FavoriteOrDeleteButton
               user
               article
-              onFavoriteClick=(handle(favoriteArticle(~article)))
-              onDeleteClick=(handle(deleteArticle(~article)))
-              disabled=(favoriteAction |> RemoteData.isLoading)
+              onFavoriteClick={handle(favoriteArticle(~article))}
+              onDeleteClick={handle(deleteArticle(~article))}
+              disabled={favoriteAction |> RemoteData.isLoading}
             />
           </div>
         </div>
       </div>
       <div className="container page">
         <div className="row article-content">
-          (
+          {
             switch (article) {
-            | NotAsked => <div> ("Initilizing..." |> strEl) </div>
-            | Loading => <div> ("Loading..." |> strEl) </div>
+            | NotAsked => <div> {"Initilizing..." |> strEl} </div>
+            | Loading(_) => <div> {"Loading..." |> strEl} </div>
             | Success({body}) =>
               <div
                 className="col-md-12"
                 dangerouslySetInnerHTML={"__html": body}
               />
-            | Failure(error) => <div> (error |> strEl) </div>
+            | Failure(error) => <div> {error |> strEl} </div>
             }
-          )
-          (
+          }
+          {
             switch (article) {
             | NotAsked
-            | Loading => nullEl
+            | Loading(_)
             | Failure(_) => nullEl
             | Success({tagList}) =>
               <ul className="tag-list">
-                (
-                  tagList
-                  ->(
-                      Belt.List.mapU((. item) =>
-                        <li
-                          key=item
-                          className="tag-default tag-pill tag-outline">
-                          (item |> strEl)
-                        </li>
-                      )
-                    )
+                {
+                  tagList->(
+                             Belt.List.mapU((. item) =>
+                               <li
+                                 key=item
+                                 className="tag-default tag-pill tag-outline">
+                                 {item |> strEl}
+                               </li>
+                             )
+                           )
                   |> Belt.List.toArray
                   |> arrayEl
-                )
+                }
               </ul>
             }
-          )
+          }
         </div>
         <hr />
         <div className="article-actions">
           <div className="article-meta">
             <a
-              href=(
+              href={
                 switch (article) {
                 | NotAsked
-                | Loading => ""
-                | Success({author}) => "/#/profile/" ++ author.username
+                | Loading(_)
                 | Failure(_) => ""
+                | Success({author}) => "/#/profile/" ++ author.username
                 }
-              )>
-              (
+              }>
+              {
                 switch (article) {
                 | NotAsked
-                | Loading => <Img />
-                | Success({author}) => <Img src=(Some(author.image)) />
+                | Loading(_)
                 | Failure(_) => <Img />
+                | Success({author}) => <Img src={Some(author.image)} />
                 }
-              )
+              }
             </a>
             <div className="info">
               <a
-                href=(
+                href={
                   switch (article) {
                   | NotAsked
-                  | Loading => ""
-                  | Success({author}) => "/#/profile/" ++ author.username
+                  | Loading(_)
                   | Failure(_) => ""
+                  | Success({author}) => "/#/profile/" ++ author.username
                   }
-                )
+                }
                 className="author">
-                (
+                {
                   (
                     switch (article) {
                     | NotAsked
-                    | Loading => ""
-                    | Success({author}) => author.username
+                    | Loading(_)
                     | Failure(_) => ""
+                    | Success({author}) => author.username
                     }
                   )
                   |> strEl
-                )
+                }
               </a>
               <span className="date">
-                (
+                {
                   switch (article) {
                   | NotAsked
-                  | Loading => nullEl
+                  | Loading(_)
+                  | Failure(_) => nullEl
                   | Success({updatedAt}) =>
                     updatedAt |> Js.Date.toISOString |> strEl
-                  | Failure(_) => nullEl
                   }
-                )
+                }
               </span>
             </div>
             <FollowOrEditButton
               user
               article
-              onEditClick=(handle(redirectToEditorPage(~article)))
-              onFollowClick=(handle(followUser(~article)))
-              disabled=(followAction |> RemoteData.isLoading)
+              onEditClick={handle(redirectToEditorPage(~article))}
+              onFollowClick={handle(followUser(~article))}
+              disabled={followAction |> RemoteData.isLoading}
             />
-            (" " |> strEl)
+            {" " |> strEl}
             <FavoriteOrDeleteButton
               user
               article
-              onFavoriteClick=(handle(favoriteArticle(~article)))
-              onDeleteClick=(handle(deleteArticle(~article)))
-              disabled=(favoriteAction |> RemoteData.isLoading)
+              onFavoriteClick={handle(favoriteArticle(~article))}
+              onDeleteClick={handle(deleteArticle(~article))}
+              disabled={favoriteAction |> RemoteData.isLoading}
             />
           </div>
         </div>
@@ -697,14 +696,14 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
           <div className="col-xs-12 col-md-8 offset-md-2">
             <Comment
               user
-              onSubmit=(
+              onSubmit={
                 (state, submissionCallbacks) =>
                   handle(
                     addComments(
                       ~slug=
                         switch (article) {
                         | NotAsked
-                        | Loading
+                        | Loading(_)
                         | Failure(_) => ""
                         | Success({slug}) => slug
                         },
@@ -712,32 +711,33 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
                     ),
                     state,
                   )
-              )
+              }
             />
-            (
+            {
               switch (comments) {
               | NotAsked => "Initilizing..." |> strEl
-              | Loading => "Loading..." |> strEl
+              | Loading(_) => "Loading..." |> strEl
               | Failure(error) => error |> strEl
               | Success(data) =>
                 let shouldHideDeleteIcon = hidingDeleteIcons |> Belt.List.some;
-                data
-                ->(
-                    Belt.List.mapU((. comment) => {
-                      let {Types.id} = comment;
-                      <CommentCard
-                        key=(id |> string_of_int)
-                        data=comment
-                        user
-                        onDeleteClick=(handle(deleteComment(~slug, ~id)))
-                        hideDeleteIcon=(shouldHideDeleteIcon(x => x === id))
-                      />;
-                    })
-                  )
+                data->(
+                        Belt.List.mapU((. comment) => {
+                          let {Types.id} = comment;
+                          <CommentCard
+                            key={id |> string_of_int}
+                            data=comment
+                            user
+                            onDeleteClick={handle(deleteComment(~slug, ~id))}
+                            hideDeleteIcon={
+                              shouldHideDeleteIcon(x => x === id)
+                            }
+                          />;
+                        })
+                      )
                 |> Belt.List.toArray
                 |> arrayEl;
               }
-            )
+            }
           </div>
         </div>
       </div>

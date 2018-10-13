@@ -52,12 +52,12 @@ let make =
     | RemoteData.NotAsked
     | Failure(_) =>
       <p>
-        <a href="#/login"> ("Sign in" |> strEl) </a>
-        (" or " |> strEl)
-        <a href="#/register"> ("sign up" |> strEl) </a>
-        (" to add comments on this article." |> strEl)
+        <a href="#/login"> {"Sign in" |> strEl} </a>
+        {" or " |> strEl}
+        <a href="#/register"> {"sign up" |> strEl} </a>
+        {" to add comments on this article." |> strEl}
       </p>
-    | Loading => "Loading..." |> strEl
+    | Loading(_) => "Loading..." |> strEl
     | Success({Types.User.image}) =>
       <FormContainer initialState="" onSubmit>
         ...(
@@ -75,40 +75,43 @@ let make =
                    )
                  | SubmissionFailed(fieldErrors, None) =>
                    Some(
-                     fieldErrors
-                     ->(Belt.List.mapU((. (_field, message)) => message)),
+                     fieldErrors->(
+                                    Belt.List.mapU((. (_field, message)) =>
+                                      message
+                                    )
+                                  ),
                    )
                  };
                <Fragment>
                  <Errors data=errors />
                  <form
                    className="card comment-form"
-                   onSubmit=(form.submit |> Formality.Dom.preventDefault)>
+                   onSubmit={form.submit |> Formality.Dom.preventDefault}>
                    <div className="card-block">
                      <textarea
                        className="form-control"
                        placeholder="Write a comment..."
                        rows=3
-                       disabled=form.submitting
-                       value=form.state
-                       onChange=(
+                       disabled={form.submitting}
+                       value={form.state}
+                       onChange={
                          event =>
                            event
                            |> Formality.Dom.toValueOnChange
                            |> form.change(Body)
-                       )
-                       onBlur=(
+                       }
+                       onBlur={
                          event =>
                            event
                            |> Formality.Dom.toValueOnBlur
                            |> form.change(Body)
-                       )
+                       }
                      />
                    </div>
                    <div className="card-footer">
                      <Img src=image className="comment-author-img" />
                      <button className="btn btn-sm btn-primary">
-                       ("Post Comment" |> strEl)
+                       {"Post Comment" |> strEl}
                      </button>
                    </div>
                  </form>

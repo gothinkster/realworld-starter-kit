@@ -32,7 +32,7 @@ let urlToRoute = (url: ReasonReact.Router.url): Types.route => {
 };
 
 let getUser = (_payload, {ReasonReact.send}) => {
-  send(UpdateUser(RemoteData.Loading));
+  send(UpdateUser(RemoteData.Loading()));
   Js.Promise.(
     API.user()
     |> then_(result => {
@@ -79,7 +79,7 @@ let make = _children => {
           ({handle, state}) =>
             switch (state.user) {
             | RemoteData.NotAsked => handle(getUser, ())
-            | Loading
+            | Loading(_)
             | Success(_)
             | Failure(_) => ignore()
             }
@@ -100,20 +100,20 @@ let make = _children => {
     <div>
       <nav className="navbar navbar-light">
         <div className="container">
-          <a className="navbar-brand" href="/#/"> ("conduit" |> strEl) </a>
+          <a className="navbar-brand" href="/#/"> {"conduit" |> strEl} </a>
           <ul className="nav navbar-nav pull-xs-right">
             <li className="nav-item">
-              <a className=(linkCx(Home)) href="/#/"> ("Home" |> strEl) </a>
+              <a className={linkCx(Home)} href="/#/"> {"Home" |> strEl} </a>
             </li>
-            (
+            {
               switch (user) {
               | NotAsked
-              | Loading => nullEl
+              | Loading(_)
               | Failure(_) => nullEl
               | Success(_) =>
                 <li className="nav-item">
                   <a
-                    className=(
+                    className={
                       "nav-link"
                       ++ (
                         switch (route) {
@@ -121,89 +121,89 @@ let make = _children => {
                         | _ => ""
                         }
                       )
-                    )
+                    }
                     href="/#/editor">
                     <i className="ion-compose" />
-                    (" New Post" |> strEl)
+                    {" New Post" |> strEl}
                   </a>
                 </li>
               }
-            )
-            (
+            }
+            {
               switch (user) {
               | NotAsked
-              | Loading => nullEl
+              | Loading(_)
               | Failure(_) => nullEl
               | Success(_) =>
                 <li className="nav-item">
-                  <a className=(linkCx(Settings)) href="/#/settings">
+                  <a className={linkCx(Settings)} href="/#/settings">
                     <i className="ion-gear-a" />
-                    (" Settings" |> strEl)
+                    {" Settings" |> strEl}
                   </a>
                 </li>
               }
-            )
-            (
+            }
+            {
               switch (user) {
               | NotAsked
-              | Loading
+              | Loading(_)
               | Success(_) => nullEl
               | Failure(_) =>
                 <li className="nav-item">
-                  <a className=(linkCx(Login)) href="/#/login">
-                    ("Sign in" |> strEl)
+                  <a className={linkCx(Login)} href="/#/login">
+                    {"Sign in" |> strEl}
                   </a>
                 </li>
               }
-            )
-            (
+            }
+            {
               switch (user) {
               | NotAsked
-              | Loading
+              | Loading(_)
               | Success(_) => nullEl
               | Failure(_) =>
                 <li className="nav-item">
-                  <a className=(linkCx(Register)) href="/#/register">
-                    ("Sign up" |> strEl)
+                  <a className={linkCx(Register)} href="/#/register">
+                    {"Sign up" |> strEl}
                   </a>
                 </li>
               }
-            )
-            (
+            }
+            {
               switch (user) {
               | NotAsked
-              | Loading
+              | Loading(_)
               | Failure(_) => nullEl
               | Success({username, image}) =>
                 <li className="nav-item">
                   <a
-                    className=(linkCx(Profile(Author(username))))
-                    href=("/#/profile/" ++ username)>
-                    (
+                    className={linkCx(Profile(Author(username)))}
+                    href={"/#/profile/" ++ username}>
+                    {
                       switch (image) {
                       | Some(src) => <img className="user-pic" src />
                       | None => nullEl
                       }
-                    )
-                    (username |> strEl)
+                    }
+                    {username |> strEl}
                   </a>
                 </li>
               }
-            )
+            }
           </ul>
         </div>
       </nav>
-      (
+      {
         switch (route) {
-        | Login => <Login onSuccessLogin=(handle(getUser)) />
-        | Register => <Register onSuccessRegister=(handle(getUser)) />
+        | Login => <Login onSuccessLogin={handle(getUser)} />
+        | Register => <Register onSuccessRegister={handle(getUser)} />
         | Settings =>
           <PrivateRoute user>
             ...(
                  userData =>
                    <Settings
                      user=userData
-                     onLogoutClick=(handle(logoutUser))
+                     onLogoutClick={handle(logoutUser)}
                    />
                )
           </PrivateRoute>
@@ -212,14 +212,14 @@ let make = _children => {
         | Article(slug) => <Article slug user />
         | Home => <Home user />
         }
-      )
+      }
       <footer>
         <div className="container">
-          <a href="/" className="logo-font"> ("conduit" |> strEl) </a>
+          <a href="/" className="logo-font"> {"conduit" |> strEl} </a>
           <span className="attribution">
-            ("An interactive learning project from " |> strEl)
-            <a href="https://thinkster.io"> ("Thinkster" |> strEl) </a>
-            (". Code & design licensed under MIT." |> strEl)
+            {"An interactive learning project from " |> strEl}
+            <a href="https://thinkster.io"> {"Thinkster" |> strEl} </a>
+            {". Code & design licensed under MIT." |> strEl}
           </span>
         </div>
       </footer>
