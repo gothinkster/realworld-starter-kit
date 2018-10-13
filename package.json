@@ -32,7 +32,7 @@
     "format:md": "prettier --write --parser markdown",
     "format:re": "bsrefmt --in-place",
     "predeploy": "yarn build",
-    "pretest": "yarn build:bsb",
+    "pretest": "yarn build:bsb -clean-world",
     "start": "concurrently --kill-others-on-fail --names \"ReasonML,CRA\" --prefix-colors \"red.bgBlack.bold,yellow.bgBlack.bold\" \"yarn start:bsb\" \"yarn start:cra\"",
     "start:bsb": "yarn build:bsb -clean-world -w",
     "start:cra": "react-app-rewired start",
