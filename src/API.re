@@ -3,7 +3,7 @@ open Utils;
 let host = "https://conduit.productionready.io";
 
 let optToQueryString = (prefix, opt) =>
-  opt->(Belt.Option.mapWithDefault("", (++)(prefix)));
+  opt->Belt.Option.mapWithDefault("", (++)(prefix));
 
 let getResultIfOk = res => {
   open Js.Promise;
@@ -25,42 +25,23 @@ let makeFetchInit =
       ~jsonContentType=false,
       (),
     ) => {
-  let headers = {
-    let obj = ref(Js.Obj.empty());
-
-    if (authorization) {
-      obj :=
-        Js.Obj.assign(
-          obj^,
-          getCookie("token")
-          ->(
-              Belt.Option.mapWithDefault(Js.Obj.empty(), value =>
-                {"Authorization": "Token " ++ value}
-              )
-            ),
-        );
-    };
-
-    if (jsonContentType) {
-      obj :=
-        Js.Obj.assign(
-          obj^,
-          {"Content-Type": "application/json; charset=utf-8"},
-        );
-    };
-
-    obj^;
-  };
-
+  let headers =
+    [
+      authorization ?
+        getCookie("token")
+        ->Belt.Option.mapWithDefault([], token =>
+            [("Authorization", "Token " ++ token)]
+          ) :
+        [],
+      jsonContentType ?
+        [("Content-Type", "application/json; charset=utf-8")] : [],
+    ]
+    ->Belt.List.flatten
+    ->Belt.List.toArray
+    ->Fetch.HeadersInit.makeWithArray;
   let credentials = includeCookie ? Some(Fetch.Include) : None;
 
-  Fetch.RequestInit.make(
-    ~body?,
-    ~method_,
-    ~credentials?,
-    ~headers=headers |> Fetch.HeadersInit.make,
-    (),
-  );
+  Fetch.RequestInit.make(~body?, ~method_, ~credentials?, ~headers, ());
 };
 
 let listArticlesFeed = (~limit=20, ~offset=0, ()) => {
