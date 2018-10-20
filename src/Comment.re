@@ -82,7 +82,7 @@ let make =
                                   ),
                    )
                  };
-               <Fragment>
+               <>
                  <Errors data=errors />
                  <form
                    className="card comment-form"
@@ -115,7 +115,7 @@ let make =
                      </button>
                    </div>
                  </form>
-               </Fragment>;
+               </>;
              }
            )
       </FormContainer>
