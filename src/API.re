@@ -44,65 +44,50 @@ let makeFetchInit =
   Fetch.RequestInit.make(~body?, ~method_, ~credentials?, ~headers, ());
 };
 
-let listArticlesFeed = (~limit=20, ~offset=0, ()) => {
-  open Js.Promise;
+let listArticlesFeed = (~limit=20, ~offset=0, ()) =>
+  Fetch.fetchWithInit(
+    Printf.sprintf(
+      "%s/api/articles/feed?limit=%d&offset=%d",
+      host,
+      limit,
+      offset,
+    ),
+    makeFetchInit(~authorization=true, ()),
+  )
+  |> Js.Promise.then_(getResultIfOk);
 
-  let url =
-    host
-    ++ "/api/articles/feed"
-    ++ "?limit="
-    ++ string_of_int(limit)
-    ++ "&offset="
-    ++ string_of_int(offset);
+let listArticles = (~tag=?, ~author=?, ~favorited=?, ~limit=20, ~offset=0, ()) =>
+  Fetch.fetchWithInit(
+    Printf.sprintf(
+      "%s/api/articles?limit=%d&offset=%d%s%s%s",
+      host,
+      limit,
+      offset,
+      optToQueryString("&tag=", tag),
+      optToQueryString("&author=", author),
+      optToQueryString("&favorited=", favorited),
+    ),
+    makeFetchInit(~authorization=true, ()),
+  )
+  |> Js.Promise.then_(getResultIfOk);
 
-  url->(Fetch.fetchWithInit(makeFetchInit(~authorization=true, ())))
-  |> then_(getResultIfOk);
-};
+let tags = () =>
+  Fetch.fetchWithInit(Printf.sprintf("%s/api/tags", host), makeFetchInit())
+  |> Js.Promise.then_(getResultIfOk);
 
-let listArticles = (~tag=?, ~author=?, ~favorited=?, ~limit=20, ~offset=0, ()) => {
-  open Js.Promise;
+let profiles = (~author, ()) =>
+  Fetch.fetchWithInit(
+    Printf.sprintf("%s/api/profiles/%s", host, author),
+    makeFetchInit(~authorization=true, ()),
+  )
+  |> Js.Promise.then_(getResultIfOk);
 
-  let url =
-    host
-    ++ "/api/articles"
-    ++ "?limit="
-    ++ string_of_int(limit)
-    ++ "&offset="
-    ++ string_of_int(offset)
-    ++ optToQueryString("&tag=", tag)
-    ++ optToQueryString("&author=", author)
-    ++ optToQueryString("&favorited=", favorited);
-
-  url->(Fetch.fetchWithInit(makeFetchInit(~authorization=true, ())))
-  |> then_(getResultIfOk);
-};
-
-let tags = () => {
-  open Js.Promise;
-  let url = host ++ "/api/tags";
-
-  url->(Fetch.fetchWithInit(makeFetchInit())) |> then_(getResultIfOk);
-};
-
-let profiles = (~author, ()) => {
-  open Js.Promise;
-  let url = host ++ "/api/profiles/" ++ author;
-
-  url->(Fetch.fetchWithInit(makeFetchInit(~authorization=true, ())))
-  |> then_(getResultIfOk);
-};
-
-let followUser = (~username, ()) => {
-  open Js.Promise;
-  let url = host ++ "/api/profiles/" ++ username ++ "/follow";
-
-  url->(
-         Fetch.fetchWithInit(
-           makeFetchInit(~method_=Post, ~authorization=true, ()),
-         )
-       )
-  |> then_(getResultIfOk);
-};
+let followUser = (~username, ()) =>
+  Fetch.fetchWithInit(
+    Printf.sprintf("%s/api/profiles/%s/follow", host, username),
+    makeFetchInit(~method_=Post, ~authorization=true, ()),
+  )
+  |> Js.Promise.then_(getResultIfOk);
 
 let unfollowUser = (~username, ()) => {
   open Js.Promise;
