@@ -89,297 +89,252 @@ let followUser = (~username, ()) =>
   )
   |> Js.Promise.then_(getResultIfOk);
 
-let unfollowUser = (~username, ()) => {
-  open Js.Promise;
-  let url = host ++ "/api/profiles/" ++ username ++ "/follow";
+let unfollowUser = (~username, ()) =>
+  Printf.sprintf("%s/api/profiles/%s/follow", host, username)
+  ->Fetch.fetchWithInit(
+      makeFetchInit(~method_=Delete, ~authorization=true, ()),
+    )
+  |> Js.Promise.then_(getResultIfOk);
 
-  url->(
-         Fetch.fetchWithInit(
-           makeFetchInit(~method_=Delete, ~authorization=true, ()),
-         )
-       )
-  |> then_(getResultIfOk);
-};
+let getArticle = (~slug, ()) =>
+  Printf.sprintf("%s/api/articles/%s", host, slug)
+  ->Fetch.fetchWithInit(makeFetchInit(~authorization=true, ()))
+  |> Js.Promise.then_(getResultIfOk);
 
-let getArticle = (~slug, ()) => {
-  open Js.Promise;
-  let url = host ++ "/api/articles/" ++ slug;
+let deleteArticle = (~slug, ()) =>
+  Printf.sprintf("%s/api/articles/%s", host, slug)
+  ->Fetch.fetchWithInit(
+      makeFetchInit(~method_=Delete, ~authorization=true, ()),
+    )
+  |> Js.Promise.then_(getResultIfOk);
 
-  url->(Fetch.fetchWithInit(makeFetchInit(~authorization=true, ())))
-  |> then_(getResultIfOk);
-};
+let favoriteArticle = (~slug, ()) =>
+  Printf.sprintf("%s/api/articles/%s/favorite", host, slug)
+  ->Fetch.fetchWithInit(
+      makeFetchInit(~method_=Post, ~authorization=true, ()),
+    )
+  |> Js.Promise.then_(getResultIfOk);
 
-let deleteArticle = (~slug, ()) => {
-  open Js.Promise;
-  let url = host ++ "/api/articles/" ++ slug;
+let unfavoriteArticle = (~slug, ()) =>
+  Printf.sprintf("%s/api/articles/%s/favorite", host, slug)
+  ->Fetch.fetchWithInit(
+      makeFetchInit(~method_=Delete, ~authorization=true, ()),
+    )
+  |> Js.Promise.then_(getResultIfOk);
 
-  url->(
-         Fetch.fetchWithInit(
-           makeFetchInit(~method_=Delete, ~authorization=true, ()),
-         )
-       )
-  |> then_(getResultIfOk);
-};
+let comments = (~slug, ()) =>
+  Printf.sprintf("%s/api/articles/%s/comments", host, slug)
+  ->Fetch.fetchWithInit(makeFetchInit())
+  |> Js.Promise.then_(getResultIfOk);
 
-let favoriteArticle = (~slug, ()) => {
-  open Js.Promise;
-  let url = host ++ "/api/articles/" ++ slug ++ "/favorite";
+let addCommentsToAnArticle = (~slug, ~body, ()) =>
+  "%s/api/articles/%s/comments"
+  ->Printf.sprintf(host, slug)
+  ->Fetch.fetchWithInit(
+      makeFetchInit(
+        ~method_=Post,
+        ~authorization=true,
+        ~jsonContentType=true,
+        ~body=
+          Fetch.BodyInit.make(
+            Json.Encode.(
+              [("comment", [("body", body |> string)] |> object_)]
+              |> object_
+            )
+            |> Json.stringify,
+          ),
+        (),
+      ),
+    )
+  |> Js.Promise.then_(getResultIfOk);
 
-  url->(
-         Fetch.fetchWithInit(
-           makeFetchInit(~method_=Post, ~authorization=true, ()),
-         )
-       )
-  |> then_(getResultIfOk);
-};
+let deleteComment = (~slug, ~id, ()) =>
+  "%s/api/articles/%s/comments/%d"
+  ->Printf.sprintf(host, slug, id)
+  ->Fetch.fetchWithInit(
+      makeFetchInit(~method_=Delete, ~authorization=true, ()),
+    )
+  |> Js.Promise.then_(getResultIfOk);
 
-let unfavoriteArticle = (~slug, ()) => {
-  open Js.Promise;
-  let url = host ++ "/api/articles/" ++ slug ++ "/favorite";
+let user = () =>
+  "%s/api/user"
+  ->Printf.sprintf(host)
+  ->Fetch.fetchWithInit(makeFetchInit(~authorization=true, ()))
+  |> Js.Promise.then_(getResultIfOk);
 
-  url->(
-         Fetch.fetchWithInit(
-           makeFetchInit(~method_=Delete, ~authorization=true, ()),
-         )
-       )
-  |> then_(getResultIfOk);
-};
+let updateUser = (~email, ~username, ~password, ~image, ~bio, ()) =>
+  "%s/api/user"
+  ->Printf.sprintf(host)
+  ->Fetch.fetchWithInit(
+      makeFetchInit(
+        ~method_=Put,
+        ~jsonContentType=true,
+        ~authorization=true,
+        ~body=
+          Fetch.BodyInit.make(
+            Json.Encode.(
+              [
+                (
+                  "user",
+                  [
+                    ("email", email |> string),
+                    ("username", username |> string),
+                    ("password", password |> string),
+                    ("image", image |> string),
+                    ("bio", bio |> string),
+                  ]
+                  |> object_,
+                ),
+              ]
+              |> object_
+            )
+            |> Json.stringify,
+          ),
+        (),
+      ),
+    )
+  |> Js.Promise.then_(getResultIfOk);
 
-let comments = (~slug, ()) => {
-  open Js.Promise;
-  let url = host ++ "/api/articles/" ++ slug ++ "/comments";
+let register = (~email, ~password, ~username, ()) =>
+  "%s/api/users"
+  ->Printf.sprintf(host)
+  ->Fetch.fetchWithInit(
+      makeFetchInit(
+        ~method_=Post,
+        ~authorization=true,
+        ~body=
+          Fetch.BodyInit.make(
+            Json.Encode.(
+              [
+                (
+                  "user",
+                  [
+                    ("username", username |> string),
+                    ("email", email |> string),
+                    ("password", password |> string),
+                  ]
+                  |> object_,
+                ),
+              ]
+              |> object_
+            )
+            |> Json.stringify,
+          ),
+        (),
+      ),
+    )
+  |> Js.Promise.then_(getResultIfOk);
 
-  url->(Fetch.fetchWithInit(makeFetchInit())) |> then_(getResultIfOk);
-};
+let login = (~email, ~password, ()) =>
+  "%s/api/users/login"
+  ->Printf.sprintf(host)
+  ->Fetch.fetchWithInit(
+      makeFetchInit(
+        ~method_=Post,
+        ~jsonContentType=true,
+        ~body=
+          Fetch.BodyInit.make(
+            Json.Encode.(
+              [
+                (
+                  "user",
+                  [
+                    ("email", email |> string),
+                    ("password", password |> string),
+                  ]
+                  |> object_,
+                ),
+              ]
+              |> object_
+            )
+            |> Json.stringify,
+          ),
+        (),
+      ),
+    )
+  |> Js.Promise.then_(getResultIfOk);
 
-let addCommentsToAnArticle = (~slug, ~body, ()) => {
-  open Js.Promise;
-  let url = host ++ "/api/articles/" ++ slug ++ "/comments";
+let createArticle = (~title, ~description, ~body, ~tagList, ()) =>
+  "%s/api/articles"
+  ->Printf.sprintf(host)
+  ->Fetch.fetchWithInit(
+      makeFetchInit(
+        ~method_=Post,
+        ~jsonContentType=true,
+        ~authorization=true,
+        ~body=
+          Fetch.BodyInit.make(
+            Json.Encode.(
+              [
+                (
+                  "article",
+                  [
+                    ("title", title |> string),
+                    ("description", description |> string),
+                    ("body", body |> string),
+                    (
+                      "tagList",
+                      tagList |> Belt.List.toArray |> array(string),
+                    ),
+                  ]
+                  |> object_,
+                ),
+              ]
+              |> object_
+            )
+            |> Json.stringify,
+          ),
+        (),
+      ),
+    )
+  |> Js.Promise.then_(getResultIfOk);
 
-  url->(
-         Fetch.fetchWithInit(
-           makeFetchInit(
-             ~method_=Post,
-             ~authorization=true,
-             ~jsonContentType=true,
-             ~body=
-               Fetch.BodyInit.make(
-                 Json.Encode.(
-                   [("comment", [("body", body |> string)] |> object_)]
-                   |> object_
-                 )
-                 |> Json.stringify,
-               ),
-             (),
-           ),
-         )
-       )
-  |> then_(getResultIfOk);
-};
-
-let deleteComment = (~slug, ~id, ()) => {
-  open Js.Promise;
-  let url =
-    host ++ "/api/articles/" ++ slug ++ "/comments/" ++ string_of_int(id);
-
-  url->(
-         Fetch.fetchWithInit(
-           makeFetchInit(~method_=Delete, ~authorization=true, ()),
-         )
-       )
-  |> then_(getResultIfOk);
-};
-
-let user = () => {
-  open Js.Promise;
-  let url = host ++ "/api/user";
-
-  url->(Fetch.fetchWithInit(makeFetchInit(~authorization=true, ())))
-  |> then_(getResultIfOk);
-};
-
-let updateUser = (~email, ~username, ~password, ~image, ~bio, ()) => {
-  open Js.Promise;
-  let url = host ++ "/api/user";
-
-  url->(
-         Fetch.fetchWithInit(
-           makeFetchInit(
-             ~method_=Put,
-             ~jsonContentType=true,
-             ~authorization=true,
-             ~body=
-               Fetch.BodyInit.make(
-                 Json.Encode.(
-                   [
-                     (
-                       "user",
-                       [
-                         ("email", email |> string),
-                         ("username", username |> string),
-                         ("password", password |> string),
-                         ("image", image |> string),
-                         ("bio", bio |> string),
-                       ]
-                       |> object_,
-                     ),
-                   ]
-                   |> object_
-                 )
-                 |> Json.stringify,
-               ),
-             (),
-           ),
-         )
-       )
-  |> then_(getResultIfOk);
-};
-
-let register = (~email, ~password, ~username, ()) => {
-  open Js.Promise;
-  let url = host ++ "/api/users";
-
-  url->(
-         Fetch.fetchWithInit(
-           makeFetchInit(
-             ~method_=Post,
-             ~authorization=true,
-             ~body=
-               Fetch.BodyInit.make(
-                 Json.Encode.(
-                   [
-                     (
-                       "user",
-                       [
-                         ("username", username |> string),
-                         ("email", email |> string),
-                         ("password", password |> string),
-                       ]
-                       |> object_,
-                     ),
-                   ]
-                   |> object_
-                 )
-                 |> Json.stringify,
-               ),
-             (),
-           ),
-         )
-       )
-  |> then_(getResultIfOk);
-};
-
-let login = (~email, ~password, ()) => {
-  open Js.Promise;
-  let url = host ++ "/api/users/login";
-
-  url->(
-         Fetch.fetchWithInit(
-           makeFetchInit(
-             ~method_=Post,
-             ~jsonContentType=true,
-             ~body=
-               Fetch.BodyInit.make(
-                 Json.Encode.(
-                   [
-                     (
-                       "user",
-                       [
-                         ("email", email |> string),
-                         ("password", password |> string),
-                       ]
-                       |> object_,
-                     ),
-                   ]
-                   |> object_
-                 )
-                 |> Json.stringify,
-               ),
-             (),
-           ),
-         )
-       )
-  |> then_(getResultIfOk);
-};
-
-let createArticle = (~title, ~description, ~body, ~tagList, ()) => {
-  open Js.Promise;
-  let url = host ++ "/api/articles";
-
-  url->(
-         Fetch.fetchWithInit(
-           makeFetchInit(
-             ~method_=Post,
-             ~jsonContentType=true,
-             ~authorization=true,
-             ~body=
-               Fetch.BodyInit.make(
-                 Json.Encode.(
-                   [
-                     (
-                       "article",
-                       [
-                         ("title", title |> string),
-                         ("description", description |> string),
-                         ("body", body |> string),
-                         (
-                           "tagList",
-                           tagList |> Belt.List.toArray |> array(string),
-                         ),
-                       ]
-                       |> object_,
-                     ),
-                   ]
-                   |> object_
-                 )
-                 |> Json.stringify,
-               ),
-             (),
-           ),
-         )
-       )
-  |> then_(getResultIfOk);
-};
-
-let updateArticle = (~slug, ~title, ~description, ~body, ~tagList, ()) => {
-  open Js.Promise;
-  let url = host ++ "/api/articles/" ++ slug;
-  let article =
-    Json.Encode.[
-      switch (title) {
-      | None => []
-      | Some(v) => [("title", v |> string)]
-      },
-      switch (description) {
-      | None => []
-      | Some(v) => [("description", v |> string)]
-      },
-      switch (body) {
-      | None => []
-      | Some(v) => [("body", v |> string)]
-      },
-      switch (tagList) {
-      | None => []
-      | Some(v) => [("tagList", v |> Belt.List.toArray |> array(string))]
-      },
-    ]
-    |> Belt.List.flatten
-    |> Json.Encode.object_;
-
-  url->(
-         Fetch.fetchWithInit(
-           makeFetchInit(
-             ~method_=Put,
-             ~jsonContentType=true,
-             ~authorization=true,
-             ~body=
-               Fetch.BodyInit.make(
-                 Json.Encode.([("article", article)] |> object_)
-                 |> Json.stringify,
-               ),
-             (),
-           ),
-         )
-       )
-  |> then_(getResultIfOk);
-};
+let updateArticle = (~slug, ~title, ~description, ~body, ~tagList, ()) =>
+  "%s/api/articles/%s"
+  ->Printf.sprintf(host, slug)
+  ->Fetch.fetchWithInit(
+      makeFetchInit(
+        ~method_=Put,
+        ~jsonContentType=true,
+        ~authorization=true,
+        ~body=
+          Fetch.BodyInit.make(
+            Json.Encode.(
+              [
+                (
+                  "article",
+                  [
+                    switch (title) {
+                    | None => []
+                    | Some(v) => [("title", v |> Json.Encode.string)]
+                    },
+                    switch (description) {
+                    | None => []
+                    | Some(v) => [("description", v |> Json.Encode.string)]
+                    },
+                    switch (body) {
+                    | None => []
+                    | Some(v) => [("body", v |> Json.Encode.string)]
+                    },
+                    switch (tagList) {
+                    | None => []
+                    | Some(v) => [
+                        (
+                          "tagList",
+                          v |> Belt.List.toArray |> Json.Encode.array(string),
+                        ),
+                      ]
+                    },
+                  ]
+                  |> Belt.List.flatten
+                  |> Json.Encode.object_,
+                ),
+              ]
+              |> object_
+            )
+            |> Json.stringify,
+          ),
+        (),
+      ),
+    )
+  |> Js.Promise.then_(getResultIfOk);
