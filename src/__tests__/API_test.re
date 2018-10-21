@@ -3,26 +3,7 @@ open Expect;
 open Belt.Result;
 open Js.Promise;
 
-describe("optToQueryString", () => {
-  test("None returns empty string", () => {
-    let actual = API.optToQueryString("", None);
-    actual |> expect |> toBe("");
-  });
-  test("None returns empty string and ignore prefix", () => {
-    let actual = API.optToQueryString("PREFIX-", None);
-    actual |> expect |> toBe("");
-  });
-  test("Some returns string with custom prefix", () => {
-    let actual = API.optToQueryString("PREFIX-", Some("yeah"));
-    actual |> expect |> toBe("PREFIX-yeah");
-  });
-  test("Some returns string with empty prefix", () => {
-    let actual = API.optToQueryString("", Some("yeah"));
-    actual |> expect |> toBe("yeah");
-  });
-});
-
-describe("getResultIfOk", () => {
+describe("toResult", () => {
   beforeEach(() => {
     JestFetchMock.resetMocks();
     ignore();
@@ -37,7 +18,7 @@ describe("getResultIfOk", () => {
     );
 
     API.host->(Fetch.fetchWithInit(API.makeFetchInit()))
-    |> then_(API.getResultIfOk)
+    |> then_(API.toResult)
     |> then_(actual => {
          let expected = "ok"->Json.Encode.string->Ok;
          actual |> expect |> toEqual(expected) |> resolve;
@@ -53,7 +34,7 @@ describe("getResultIfOk", () => {
     );
 
     API.host->(Fetch.fetchWithInit(API.makeFetchInit()))
-    |> then_(API.getResultIfOk)
+    |> then_(API.toResult)
     |> then_(actual => {
          let expected = "not ok 400"->Json.Encode.string->Error;
          actual |> expect |> toEqual(expected) |> resolve;
@@ -69,7 +50,7 @@ describe("getResultIfOk", () => {
     );
 
     API.host->(Fetch.fetchWithInit(API.makeFetchInit()))
-    |> then_(API.getResultIfOk)
+    |> then_(API.toResult)
     |> then_(actual => {
          let expected = "not ok 500"->Json.Encode.string->Error;
          actual |> expect |> toEqual(expected) |> resolve;

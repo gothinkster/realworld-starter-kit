@@ -2,19 +2,13 @@ open Utils;
 
 let host = "https://conduit.productionready.io";
 
-let optToQueryString = (prefix, opt) =>
-  opt->Belt.Option.mapWithDefault("", (++)(prefix));
-
-let getResultIfOk = res => {
-  open Js.Promise;
-  open Belt.Result;
-
-  let isOk = res |> Fetch.Response.ok;
-
+let toResult = res =>
   res
   |> Fetch.Response.json
-  |> then_(json => (isOk ? Ok(json) : Error(json)) |> resolve);
-};
+  |> Js.Promise.then_(json =>
+       (res->Fetch.Response.ok ? Belt.Result.Ok(json) : Error(json))
+       ->Js.Promise.resolve
+     );
 
 let makeFetchInit =
     (
@@ -54,7 +48,7 @@ let listArticlesFeed = (~limit=20, ~offset=0, ()) =>
     ),
     makeFetchInit(~authorization=true, ()),
   )
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let listArticles = (~tag=?, ~author=?, ~favorited=?, ~limit=20, ~offset=0, ()) =>
   Fetch.fetchWithInit(
@@ -63,69 +57,71 @@ let listArticles = (~tag=?, ~author=?, ~favorited=?, ~limit=20, ~offset=0, ()) =
       host,
       limit,
       offset,
-      optToQueryString("&tag=", tag),
-      optToQueryString("&author=", author),
-      optToQueryString("&favorited=", favorited),
+      tag->Belt.Option.mapWithDefault("", tag' => "&tag=" ++ tag'),
+      author->Belt.Option.mapWithDefault("", author' => "&author=" ++ author'),
+      favorited->Belt.Option.mapWithDefault("", favorited' =>
+        "&favorited=" ++ favorited'
+      ),
     ),
     makeFetchInit(~authorization=true, ()),
   )
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let tags = () =>
   Fetch.fetchWithInit(Printf.sprintf("%s/api/tags", host), makeFetchInit())
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let profiles = (~author, ()) =>
   Fetch.fetchWithInit(
     Printf.sprintf("%s/api/profiles/%s", host, author),
     makeFetchInit(~authorization=true, ()),
   )
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let followUser = (~username, ()) =>
   Fetch.fetchWithInit(
     Printf.sprintf("%s/api/profiles/%s/follow", host, username),
     makeFetchInit(~method_=Post, ~authorization=true, ()),
   )
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let unfollowUser = (~username, ()) =>
   Printf.sprintf("%s/api/profiles/%s/follow", host, username)
   ->Fetch.fetchWithInit(
       makeFetchInit(~method_=Delete, ~authorization=true, ()),
     )
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let getArticle = (~slug, ()) =>
   Printf.sprintf("%s/api/articles/%s", host, slug)
   ->Fetch.fetchWithInit(makeFetchInit(~authorization=true, ()))
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let deleteArticle = (~slug, ()) =>
   Printf.sprintf("%s/api/articles/%s", host, slug)
   ->Fetch.fetchWithInit(
       makeFetchInit(~method_=Delete, ~authorization=true, ()),
     )
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let favoriteArticle = (~slug, ()) =>
   Printf.sprintf("%s/api/articles/%s/favorite", host, slug)
   ->Fetch.fetchWithInit(
       makeFetchInit(~method_=Post, ~authorization=true, ()),
     )
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let unfavoriteArticle = (~slug, ()) =>
   Printf.sprintf("%s/api/articles/%s/favorite", host, slug)
   ->Fetch.fetchWithInit(
       makeFetchInit(~method_=Delete, ~authorization=true, ()),
     )
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let comments = (~slug, ()) =>
   Printf.sprintf("%s/api/articles/%s/comments", host, slug)
   ->Fetch.fetchWithInit(makeFetchInit())
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let addCommentsToAnArticle = (~slug, ~body, ()) =>
   "%s/api/articles/%s/comments"
@@ -146,7 +142,7 @@ let addCommentsToAnArticle = (~slug, ~body, ()) =>
         (),
       ),
     )
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let deleteComment = (~slug, ~id, ()) =>
   "%s/api/articles/%s/comments/%d"
@@ -154,13 +150,13 @@ let deleteComment = (~slug, ~id, ()) =>
   ->Fetch.fetchWithInit(
       makeFetchInit(~method_=Delete, ~authorization=true, ()),
     )
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let user = () =>
   "%s/api/user"
   ->Printf.sprintf(host)
   ->Fetch.fetchWithInit(makeFetchInit(~authorization=true, ()))
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let updateUser = (~email, ~username, ~password, ~image, ~bio, ()) =>
   "%s/api/user"
@@ -193,7 +189,7 @@ let updateUser = (~email, ~username, ~password, ~image, ~bio, ()) =>
         (),
       ),
     )
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let register = (~email, ~password, ~username, ()) =>
   "%s/api/users"
@@ -223,7 +219,7 @@ let register = (~email, ~password, ~username, ()) =>
         (),
       ),
     )
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let login = (~email, ~password, ()) =>
   "%s/api/users/login"
@@ -252,7 +248,7 @@ let login = (~email, ~password, ()) =>
         (),
       ),
     )
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let createArticle = (~title, ~description, ~body, ~tagList, ()) =>
   "%s/api/articles"
@@ -287,7 +283,7 @@ let createArticle = (~title, ~description, ~body, ~tagList, ()) =>
         (),
       ),
     )
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
 
 let updateArticle = (~slug, ~title, ~description, ~body, ~tagList, ()) =>
   "%s/api/articles/%s"
@@ -337,4 +333,4 @@ let updateArticle = (~slug, ~title, ~description, ~body, ~tagList, ()) =>
         (),
       ),
     )
-  |> Js.Promise.then_(getResultIfOk);
+  |> Js.Promise.then_(toResult);
