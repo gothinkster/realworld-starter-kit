@@ -41,13 +41,13 @@ let getUser = (_payload, {ReasonReact.send}) => {
 
   switch (result) {
   | Belt.Result.Ok(json) =>
-    let user = json |> Json.Decode.field("user", Decoder.user);
-    send(UpdateUser(RemoteData.Success(user)));
-  | Error(_) =>
-    send(UpdateUser(RemoteData.Failure("failed to get user data")))
+    json
+    ->Json.Decode.field("user", Decoder.user, _)
+    ->RemoteData.Success
+    ->UpdateUser
+    ->send
+  | Error(_) => "failed to get user data"->RemoteData.Failure->UpdateUser->send
   };
-
-  ignore();
 };
 
 let logoutUser = (_payload, {ReasonReact.send}) => send(Logout);
