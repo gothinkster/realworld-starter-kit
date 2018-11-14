@@ -39,15 +39,15 @@ let getUser = (_payload, {ReasonReact.send}) => {
     | _error => Js.Json.null->Belt.Result.Error->Lets.Async.resolve
     };
 
-  switch (result) {
-  | Belt.Result.Ok(json) =>
-    json
-    ->Json.Decode.field("user", Decoder.user, _)
-    ->RemoteData.Success
-    ->UpdateUser
-    ->send
-  | Error(_) => "failed to get user data"->RemoteData.Failure->UpdateUser->send
-  };
+  (
+    switch (result) {
+    | Belt.Result.Ok(json) =>
+      json->Json.Decode.field("user", Decoder.user, _)->RemoteData.Success
+    | Error(_) => "failed to get user data"->RemoteData.Failure
+    }
+  )
+  ->UpdateUser
+  ->send;
 };
 
 let logoutUser = (_payload, {ReasonReact.send}) => send(Logout);
