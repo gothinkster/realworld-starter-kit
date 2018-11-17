@@ -1,10 +1,17 @@
 dist: trusty
 language: node_js
+sudo: required
 node_js:
-  - 8
+  - 9
 cache:
   directories:
     - node_modules
+  yarn: true
+before_install:
+  - sudo apt-key adv --fetch-keys http://dl.yarnpkg.com/debian/pubkey.gpg
+  - echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+  - sudo apt-get update -qq
+  - sudo apt-get install -y -qq yarn=1.12.3-1
 before_script:
   - "yarn build:bsb"
 script:
