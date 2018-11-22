@@ -2,13 +2,17 @@ open Utils;
 
 let host = "https://conduit.productionready.io";
 
-let toResult = res =>
-  res
-  |> Fetch.Response.json
-  |> Js.Promise.then_(json =>
-       (res->Fetch.Response.ok ? Belt.Result.Ok(json) : Error(json))
-       ->Js.Promise.resolve
-     );
+let toResult = res => {
+  let%Lets.Async json = res->Fetch.Response.json;
+  (
+    if (res->Fetch.Response.ok) {
+      Belt.Result.Ok(json);
+    } else {
+      Error(json);
+    }
+  )
+  ->Lets.Async.resolve;
+};
 
 let makeFetchInit =
     (
