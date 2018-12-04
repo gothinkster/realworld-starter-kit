@@ -202,6 +202,7 @@ let register = (~email, ~password, ~username, ()) =>
       makeFetchInit(
         ~method_=Post,
         ~authorization=true,
+        ~jsonContentType=true,
         ~body=
           Fetch.BodyInit.make(
             Json.Encode.(
