@@ -3087,12 +3087,11 @@ cssstyle@^1.1.1:
   dependencies:
     cssom "0.3.x"
 
-customize-cra@^0.2.6:
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/customize-cra/-/customize-cra-0.2.6.tgz#fbbb7f56b766ec4a0ad5eee3141678e9d1d0ff17"
-  integrity sha512-8a31KYVqTchUgm9zEm/neZos5IyczKsAcmhWcSD8T1dG+bj6vuKysH3Sz89vPGRllavVo/xxprKJF5xQQtLRkA==
+customize-cra@^0.2.7:
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/customize-cra/-/customize-cra-0.2.7.tgz#0e85f5d4a852f1f692f9748458f9029adfe991c2"
+  integrity sha512-eQA6kGkO1e2g/cm7RIae4F/RIhjbe3EVkotBz2NZu8zpkCwJ1KCQpCBZXtU47XiY12Fpoo4pz0CJZqcN5yH6NQ==
   dependencies:
-    lodash.curry "^4.1.1"
     lodash.flow "^3.5.0"
 
 cyclist@~0.2.2:
@@ -6028,10 +6027,10 @@ jest-environment-node@^23.4.0:
     jest-mock "^23.2.0"
     jest-util "^23.4.0"
 
-jest-fetch-mock@^1.7.5:
-  version "1.7.5"
-  resolved "https://registry.yarnpkg.com/jest-fetch-mock/-/jest-fetch-mock-1.7.5.tgz#ae0d01db1f6cbe95da1f283351c6c4de96264c67"
-  integrity sha512-fP0CXb24z5oyvHiqakvDiDqEik1LPmIgRqsrqLhXkMNqSfibfsDkP5VJzm9/rmVsT9WSGQGNZ4iD2f1/Sm0qmg==
+jest-fetch-mock@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/jest-fetch-mock/-/jest-fetch-mock-2.0.1.tgz#aef284ee851f6c0f8b78c5367576edb6f64ca526"
+  integrity sha512-ulFW7tpQ7ihe89an+gWW8p7sMt5/smk7I0RJcZ2MXkgoM0jHVaBgqeE6XoLbXi1lWF42hK2zdnGzD8I6gSC35A==
   dependencies:
     cross-fetch "^2.2.2"
     promise-polyfill "^7.1.1"
@@ -6839,11 +6838,6 @@ lodash.camelcase@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
   integrity sha1-soqmKIorn8ZRA1x3EfZathkDMaY=
-
-lodash.curry@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/lodash.curry/-/lodash.curry-4.1.1.tgz#248e36072ede906501d75966200a86dab8b23170"
-  integrity sha1-JI42By7ekGUB11lmIAqG2riyMXA=
 
 lodash.debounce@^4.0.8:
   version "4.0.8"
@@ -8795,10 +8789,10 @@ prettier@^1.14.2:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.14.3.tgz#90238dd4c0684b7edce5f83b0fb7328e48bd0895"
   integrity sha512-qZDVnCrnpsRJJq5nSsiHCE3BYMED2OtsI+cmzIzF1QIfqm5ALf8tEJcO27zV1gKNKRPdhjO0dNWnrzssDQ1tFg==
 
-prettier@^1.15.2:
-  version "1.15.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.15.2.tgz#d31abe22afa4351efa14c7f8b94b58bb7452205e"
-  integrity sha512-YgPLFFA0CdKL4Eg2IHtUSjzj/BWgszDHiNQAe0VAIBse34148whfdzLagRL+QiKS+YfK5ftB6X4v/MBw8yCoug==
+prettier@^1.15.3:
+  version "1.15.3"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.15.3.tgz#1feaac5bdd181237b54dbe65d874e02a1472786a"
+  integrity sha512-gAU9AGAPMaKb3NNSUUuhhFAS7SCO4ALTN4nRIn6PJ075Qd28Yn2Ig2ahEJWdJwJmlEBTUfC7mMUSFy8MwsOCfg==
 
 pretty-bytes@^4.0.2:
   version "4.0.2"
@@ -9237,10 +9231,10 @@ react-testing-library@^5.2.0:
     dom-testing-library "^3.8.1"
     wait-for-expect "^1.0.0"
 
-react-testing-library@^5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-5.3.0.tgz#b88124441d8756438137b705eb26a99410de69cc"
-  integrity sha512-hUXurQC8b828s2Fyuyuibz1PvPbGWb5vSIDCb1ihcGVjzBP9OGnsAm6Dhpu7XqC1o/68KJ/5/QdkeiTDxS9gpw==
+react-testing-library@^5.3.1:
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-5.3.1.tgz#d70ab711c8cef604fd70c9ec422d59e7e51ae112"
+  integrity sha512-lYhbNhlDRzOkqo+QjDGmG7BpFL8nBNLmCi0npW+VsF8pvhwtu78D4rZ7V3WimRaXFQqOt8VQ0+3CwjGkqV9VUA==
   dependencies:
     dom-testing-library "^3.12.0"
 
