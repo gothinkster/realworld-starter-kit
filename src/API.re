@@ -2,17 +2,19 @@ open Utils;
 
 let host = "https://conduit.productionready.io";
 
-let toResult = res => {
-  let%Lets.Async json = res->Fetch.Response.json;
-  (
-    if (res->Fetch.Response.ok) {
-      Belt.Result.Ok(json);
-    } else {
-      Error(json);
-    }
-  )
-  ->Lets.Async.resolve;
-};
+let toResult = res =>
+  if (res->Fetch.Response.ok) {
+    res
+    |> Fetch.Response.json
+    |> Js.Promise.then_(json => json->Belt.Result.Ok->Js.Promise.resolve)
+    |> Js.Promise.catch(error => {
+         Js.Console.error2("failed to get response json", error);
+         Js.Json.null->Belt.Result.Error->Js.Promise.resolve;
+       });
+  } else {
+    Js.Console.warn("fetch is not Ok");
+    Js.Json.null->Belt.Result.Error->Js.Promise.resolve;
+  };
 
 let makeFetchInit =
     (

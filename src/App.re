@@ -34,20 +34,26 @@ let urlToRoute = (url: ReasonReact.Router.url): Types.route => {
 let getUser = (_payload, {ReasonReact.send}) => {
   send(UpdateUser(RemoteData.Loading()));
 
-  let%Lets.Async.Consume result =
-    try%Lets.Async (API.user()) {
-    | _error => Js.Json.null->Belt.Result.Error->Lets.Async.resolve
-    };
+  API.user()
+  |> Js.Promise.then_(result => {
+       (
+         switch (result) {
+         | Belt.Result.Ok(json) =>
+           json
+           ->Json.Decode.field("user", Decoder.user, _)
+           ->RemoteData.Success
+         | Error(_) => "failed to get user data"->RemoteData.Failure
+         }
+       )
+       ->UpdateUser
+       ->send;
 
-  (
-    switch (result) {
-    | Belt.Result.Ok(json) =>
-      json->Json.Decode.field("user", Decoder.user, _)->RemoteData.Success
-    | Error(_) => "failed to get user data"->RemoteData.Failure
-    }
-  )
-  ->UpdateUser
-  ->send;
+       result->Js.Promise.resolve;
+     })
+  |> Js.Promise.catch(_error =>
+       Js.Json.null->Belt.Result.Error->Js.Promise.resolve
+     )
+  |> ignore;
 };
 
 let logoutUser = (_payload, {ReasonReact.send}) => send(Logout);
