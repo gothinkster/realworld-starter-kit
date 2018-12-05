@@ -36,7 +36,7 @@ describe("toResult", () => {
     API.host->(Fetch.fetchWithInit(API.makeFetchInit()))
     |> then_(API.toResult)
     |> then_(actual => {
-         let expected = "not ok 400"->Json.Encode.string->Error;
+         let expected = {|"not ok 400"|}->Json.Encode.string->Error;
          actual |> expect |> toEqual(expected) |> resolve;
        });
   });
@@ -52,7 +52,7 @@ describe("toResult", () => {
     API.host->(Fetch.fetchWithInit(API.makeFetchInit()))
     |> then_(API.toResult)
     |> then_(actual => {
-         let expected = "not ok 500"->Json.Encode.string->Error;
+         let expected = {|"not ok 500"|}->Json.Encode.string->Error;
          actual |> expect |> toEqual(expected) |> resolve;
        });
   });
