@@ -1,5 +1,5 @@
 const bsconfig = require('./bsconfig.json');
-const { override } = require('customize-cra');
+const { compose } = require('react-app-rewired');
 
 const addReactHotLoader = () => config => {
   config.module.rules[2].oneOf[1].options.plugins.push(
@@ -13,5 +13,5 @@ const excludeBsJsInEslint = () => config => {
   return config;
 };
 
-module.exports = override(excludeBsJsInEslint(), addReactHotLoader());
+module.exports = compose(excludeBsJsInEslint(), addReactHotLoader());
 
