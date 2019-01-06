@@ -14,7 +14,7 @@ let getSomeErrors = (results, fields) => {
   let validation =
     fields
     ->Belt.List.mapU((. field) =>
-        switch (field |> results) {
+        switch (field->results) {
         | Some(Formality.Invalid(message)) => [message]
         | Some(Valid)
         | None => []
@@ -30,54 +30,48 @@ let getSomeErrors = (results, fields) => {
 let getFirstError =
     (field: 'a, prefix: string, errors: option(array(string)))
     : option(('a, string)) =>
-  errors->(
-            Belt.Option.mapU((. errors) =>
-              (
-                field,
-                errors
-                ->(Belt.Array.get(0))
-                ->(Belt.Option.getWithDefault("is unknown error"))
-                |> (++)(prefix ++ " "),
-              )
-            )
-          );
+  errors->Belt.Option.mapU((. errors) =>
+    (
+      field,
+      errors
+      ->Belt.Array.get(0)
+      ->Belt.Option.getWithDefault("is unknown error")
+      ->(++)(prefix ++ " "),
+    )
+  );
 
 let setCookie = (key, value) =>
-  (Webapi.Dom.document |> Webapi.Dom.Document.asHtmlDocument)
-  ->(
-      Belt.Option.mapU((. htmlDocument) =>
-        htmlDocument
-        |> Webapi.Dom.HtmlDocument.cookie
-        |> (++)(key ++ "=" ++ value ++ ";")
-        |> Webapi.Dom.HtmlDocument.setCookie(htmlDocument)
-      )
+  Webapi.Dom.document
+  ->Webapi.Dom.Document.asHtmlDocument
+  ->Belt.Option.mapU((. htmlDocument) =>
+      htmlDocument
+      |> Webapi.Dom.HtmlDocument.cookie
+      |> (++)(key ++ "=" ++ value ++ ";")
+      |> Webapi.Dom.HtmlDocument.setCookie(htmlDocument)
     )
-  |> ignore;
+  ->ignore;
 
 let getCookie = target =>
-  (Webapi.Dom.document |> Webapi.Dom.Document.asHtmlDocument)
-  ->(
-      Belt.Option.flatMapU((. htmlDocument) =>
-        (
-          htmlDocument
-          |> Webapi.Dom.HtmlDocument.cookie
-          |> Js.String.split(";")
-          |> Js.Array.map(cookieStr =>
-               switch (cookieStr |> Js.String.split("=")) {
-               | [|name, value|] => (
-                   name |> Js.String.trim,
-                   value |> Js.String.trim,
-                 )
-               | [||]
-               | _ => ("", "")
-               }
-             )
-          |> Js.Array.find(((name, _value)) => target === name)
-        )
-        ->(
-            Belt.Option.flatMapU((. (_name, value)) =>
-              value === "" ? None : Some(value)
-            )
-          )
+  Webapi.Dom.document
+  ->Webapi.Dom.Document.asHtmlDocument
+  ->Belt.Option.flatMapU((. htmlDocument) =>
+      (
+        htmlDocument
+        |> Webapi.Dom.HtmlDocument.cookie
+        |> Js.String.split(";")
+        |> Js.Array.map(cookieStr =>
+             switch (cookieStr |> Js.String.split("=")) {
+             | [|name, value|] => (
+                 name->Js.String.trim,
+                 value->Js.String.trim,
+               )
+             | [||]
+             | _ => ("", "")
+             }
+           )
+        |> Js.Array.find(((name, _value)) => target === name)
       )
+      ->Belt.Option.flatMapU((. (_name, value)) =>
+          value === "" ? None : Some(value)
+        )
     );
