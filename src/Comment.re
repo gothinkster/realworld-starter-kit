@@ -60,64 +60,58 @@ let make =
     | Loading(_) => "Loading..." |> strEl
     | Success({Types.User.image}) =>
       <FormContainer initialState="" onSubmit>
-        ...(
-             form => {
-               let errors =
-                 switch (form.status) {
-                 | Editing => [Form.Body] |> getSomeErrors(form.results)
-                 | Submitting
-                 | Submitted => None
-                 | SubmissionFailed(fieldErrors, Some(message)) =>
-                   Some(
-                     fieldErrors
-                     ->(Belt.List.mapU((. (_field, message)) => message))
-                     ->(Belt.List.concat([message])),
-                   )
-                 | SubmissionFailed(fieldErrors, None) =>
-                   Some(
-                     fieldErrors->(
-                                    Belt.List.mapU((. (_field, message)) =>
-                                      message
-                                    )
-                                  ),
-                   )
-                 };
-               <>
-                 <Errors data=errors />
-                 <form
-                   className="card comment-form"
-                   onSubmit={form.submit |> Formality.Dom.preventDefault}>
-                   <div className="card-block">
-                     <textarea
-                       className="form-control"
-                       placeholder="Write a comment..."
-                       rows=3
-                       disabled={form.submitting}
-                       value={form.state}
-                       onChange={
-                         event =>
-                           event
-                           |> Formality.Dom.toValueOnChange
-                           |> form.change(Body)
-                       }
-                       onBlur={
-                         event =>
-                           event
-                           |> Formality.Dom.toValueOnBlur
-                           |> form.change(Body)
-                       }
-                     />
-                   </div>
-                   <div className="card-footer">
-                     <Img src=image className="comment-author-img" />
-                     <button className="btn btn-sm btn-primary">
-                       {"Post Comment" |> strEl}
-                     </button>
-                   </div>
-                 </form>
-               </>;
-             }
-           )
+        ...{form => {
+          let errors =
+            switch (form.status) {
+            | Editing => [Form.Body] |> getSomeErrors(form.results)
+            | Submitting
+            | Submitted => None
+            | SubmissionFailed(fieldErrors, Some(message)) =>
+              Some(
+                fieldErrors
+                ->(Belt.List.mapU((. (_field, message)) => message))
+                ->(Belt.List.concat([message])),
+              )
+            | SubmissionFailed(fieldErrors, None) =>
+              Some(
+                fieldErrors->(
+                               Belt.List.mapU((. (_field, message)) =>
+                                 message
+                               )
+                             ),
+              )
+            };
+          <>
+            <Errors data=errors />
+            <form
+              className="card comment-form"
+              onSubmit={form.submit |> Formality.Dom.preventDefault}>
+              <div className="card-block">
+                <textarea
+                  className="form-control"
+                  placeholder="Write a comment..."
+                  rows=3
+                  disabled={form.submitting}
+                  value={form.state}
+                  onChange={event =>
+                    event
+                    |> Formality.Dom.toValueOnChange
+                    |> form.change(Body)
+                  }
+                  onBlur={event =>
+                    event |> Formality.Dom.toValueOnBlur |> form.change(Body)
+                  }
+                />
+              </div>
+              <div className="card-footer">
+                <Img src=image className="comment-author-img" />
+                <button className="btn btn-sm btn-primary">
+                  {"Post Comment" |> strEl}
+                </button>
+              </div>
+            </form>
+          </>;
+        }}
       </FormContainer>
     },
 };

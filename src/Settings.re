@@ -147,212 +147,193 @@ let make = (~onLogoutClick, ~user: Types.User.t, _children) => {
         email: user.email,
         bio: user.bio->(Belt.Option.getWithDefault("")),
       }
-      onSubmit={
-        (state, {notifyOnSuccess, notifyOnFailure, reset}) => {
-          let {Form.email, username, password, image, bio} = state;
-          Js.Promise.(
-            API.updateUser(~email, ~username, ~password, ~image, ~bio, ())
-            |> then_(result => {
-                 switch (result) {
-                 | Belt.Result.Ok(_) =>
-                   notifyOnSuccess(None);
-                   reset();
-                   ReasonReact.Router.push("/#/profile/" ++ username);
-                 | Error(error) =>
-                   let errors =
-                     error
-                     |> Json.Decode.(field("errors", dict(array(string))));
-                   let fieldErrors =
-                     [
-                       errors->(Js.Dict.get("email"))
-                       |> getFirstError(Form.Email, "Email"),
-                       errors->(Js.Dict.get("username"))
-                       |> getFirstError(Form.Username, "Username"),
-                       errors->(Js.Dict.get("password"))
-                       |> getFirstError(Form.Password, "Password"),
-                       errors->(Js.Dict.get("image"))
-                       |> getFirstError(Form.Image, "Image"),
-                       errors->(Js.Dict.get("bio"))
-                       |> getFirstError(Form.Bio, "Bio"),
-                     ]
-                     ->(Belt.List.keepMapU((. opt) => opt));
-                   notifyOnFailure(fieldErrors, None);
-                 };
-                 ignore() |> resolve;
-               })
-            |> catch(error => {
-                 Js.log2(
-                   "There has been a problem with fetch operation: ",
-                   error,
-                 );
-                 notifyOnFailure(
-                   [],
-                   Some("failed to update account settings"),
-                 );
-                 ignore() |> resolve;
-               })
-            |> ignore
-          );
-          ignore();
-        }
-      }>
-      ...{
-           form => {
-             let errors =
-               switch (form.status) {
-               | Editing =>
-                 [Form.Image, Username, Password, Email, Bio]
-                 |> getSomeErrors(form.results)
-               | Submitting
-               | Submitted => None
-               | SubmissionFailed(fieldErrors, Some(message)) =>
-                 Some(
-                   fieldErrors
-                   ->(Belt.List.mapU((. (_field, message)) => message))
-                   ->(Belt.List.concat([message])),
-                 )
-               | SubmissionFailed(fieldErrors, None) =>
-                 Some(
-                   fieldErrors->(
-                                  Belt.List.mapU((. (_field, message)) =>
-                                    message
-                                  )
-                                ),
-                 )
+      onSubmit={(state, {notifyOnSuccess, notifyOnFailure, reset}) => {
+        let {Form.email, username, password, image, bio} = state;
+        Js.Promise.(
+          API.updateUser(~email, ~username, ~password, ~image, ~bio, ())
+          |> then_(result => {
+               switch (result) {
+               | Belt.Result.Ok(_) =>
+                 notifyOnSuccess(None);
+                 reset();
+                 ReasonReact.Router.push("/#/profile/" ++ username);
+               | Error(error) =>
+                 let errors =
+                   error
+                   |> Json.Decode.(field("errors", dict(array(string))));
+                 let fieldErrors =
+                   [
+                     errors->(Js.Dict.get("email"))
+                     |> getFirstError(Form.Email, "Email"),
+                     errors->(Js.Dict.get("username"))
+                     |> getFirstError(Form.Username, "Username"),
+                     errors->(Js.Dict.get("password"))
+                     |> getFirstError(Form.Password, "Password"),
+                     errors->(Js.Dict.get("image"))
+                     |> getFirstError(Form.Image, "Image"),
+                     errors->(Js.Dict.get("bio"))
+                     |> getFirstError(Form.Bio, "Bio"),
+                   ]
+                   ->(Belt.List.keepMapU((. opt) => opt));
+                 notifyOnFailure(fieldErrors, None);
                };
-             <div className="settings-page">
-               <div className="container page">
-                 <div className="row">
-                   <div className="col-md-6 offset-md-3 col-xs-12">
-                     <h1 className="text-xs-center">
-                       {"Your Settings" |> strEl}
-                     </h1>
-                     <Errors data=errors />
-                     <form
-                       onSubmit={form.submit |> Formality.Dom.preventDefault}>
-                       <fieldset>
-                         <fieldset className="form-group">
-                           <input
-                             className="form-control"
-                             type_="text"
-                             placeholder="URL of profile picture"
-                             disabled={form.submitting}
-                             value={form.state.image}
-                             onChange={
-                               event =>
-                                 event
-                                 |> Formality.Dom.toValueOnChange
-                                 |> form.change(Image)
-                             }
-                             onBlur={
-                               event =>
-                                 event
-                                 |> Formality.Dom.toValueOnBlur
-                                 |> form.change(Image)
-                             }
-                           />
-                         </fieldset>
-                         <fieldset className="form-group">
-                           <input
-                             className="form-control form-control-lg"
-                             type_="text"
-                             placeholder="Your Name"
-                             disabled={form.submitting}
-                             value={form.state.username}
-                             onChange={
-                               event =>
-                                 event
-                                 |> Formality.Dom.toValueOnChange
-                                 |> form.change(Username)
-                             }
-                             onBlur={
-                               event =>
-                                 event
-                                 |> Formality.Dom.toValueOnBlur
-                                 |> form.change(Username)
-                             }
-                           />
-                         </fieldset>
-                         <fieldset className="form-group">
-                           <textarea
-                             className="form-control form-control-lg"
-                             rows=8
-                             placeholder="Short bio about you"
-                             disabled={form.submitting}
-                             value={form.state.bio}
-                             onChange={
-                               event =>
-                                 event
-                                 |> Formality.Dom.toValueOnChange
-                                 |> form.change(Bio)
-                             }
-                             onBlur={
-                               event =>
-                                 event
-                                 |> Formality.Dom.toValueOnBlur
-                                 |> form.change(Bio)
-                             }
-                           />
-                         </fieldset>
-                         <fieldset className="form-group">
-                           <input
-                             className="form-control form-control-lg"
-                             type_="text"
-                             placeholder="Email"
-                             disabled={form.submitting}
-                             value={form.state.email}
-                             onChange={
-                               event =>
-                                 event
-                                 |> Formality.Dom.toValueOnChange
-                                 |> form.change(Email)
-                             }
-                             onBlur={
-                               event =>
-                                 event
-                                 |> Formality.Dom.toValueOnBlur
-                                 |> form.change(Email)
-                             }
-                           />
-                         </fieldset>
-                         <fieldset className="form-group">
-                           <input
-                             className="form-control form-control-lg"
-                             type_="password"
-                             placeholder="Password"
-                             disabled={form.submitting}
-                             value={form.state.password}
-                             onChange={
-                               event =>
-                                 event
-                                 |> Formality.Dom.toValueOnChange
-                                 |> form.change(Password)
-                             }
-                             onBlur={
-                               event =>
-                                 event
-                                 |> Formality.Dom.toValueOnBlur
-                                 |> form.change(Password)
-                             }
-                           />
-                         </fieldset>
-                         <button
-                           className="btn btn-lg btn-primary pull-xs-right">
-                           {"Update Settings" |> strEl}
-                         </button>
-                       </fieldset>
-                     </form>
-                     <hr />
-                     <button
-                       className="btn btn-outline-danger"
-                       onClick=onLogoutClick>
-                       {"Or click here to logout." |> strEl}
-                     </button>
-                   </div>
-                 </div>
-               </div>
-             </div>;
-           }
-         }
+               ignore() |> resolve;
+             })
+          |> catch(error => {
+               Js.log2(
+                 "There has been a problem with fetch operation: ",
+                 error,
+               );
+               notifyOnFailure(
+                 [],
+                 Some("failed to update account settings"),
+               );
+               ignore() |> resolve;
+             })
+          |> ignore
+        );
+        ignore();
+      }}>
+      ...{form => {
+        let errors =
+          switch (form.status) {
+          | Editing =>
+            [Form.Image, Username, Password, Email, Bio]
+            |> getSomeErrors(form.results)
+          | Submitting
+          | Submitted => None
+          | SubmissionFailed(fieldErrors, Some(message)) =>
+            Some(
+              fieldErrors
+              ->(Belt.List.mapU((. (_field, message)) => message))
+              ->(Belt.List.concat([message])),
+            )
+          | SubmissionFailed(fieldErrors, None) =>
+            Some(
+              fieldErrors->(
+                             Belt.List.mapU((. (_field, message)) => message)
+                           ),
+            )
+          };
+        <div className="settings-page">
+          <div className="container page">
+            <div className="row">
+              <div className="col-md-6 offset-md-3 col-xs-12">
+                <h1 className="text-xs-center">
+                  {"Your Settings" |> strEl}
+                </h1>
+                <Errors data=errors />
+                <form onSubmit={form.submit |> Formality.Dom.preventDefault}>
+                  <fieldset>
+                    <fieldset className="form-group">
+                      <input
+                        className="form-control"
+                        type_="text"
+                        placeholder="URL of profile picture"
+                        disabled={form.submitting}
+                        value={form.state.image}
+                        onChange={event =>
+                          event
+                          |> Formality.Dom.toValueOnChange
+                          |> form.change(Image)
+                        }
+                        onBlur={event =>
+                          event
+                          |> Formality.Dom.toValueOnBlur
+                          |> form.change(Image)
+                        }
+                      />
+                    </fieldset>
+                    <fieldset className="form-group">
+                      <input
+                        className="form-control form-control-lg"
+                        type_="text"
+                        placeholder="Your Name"
+                        disabled={form.submitting}
+                        value={form.state.username}
+                        onChange={event =>
+                          event
+                          |> Formality.Dom.toValueOnChange
+                          |> form.change(Username)
+                        }
+                        onBlur={event =>
+                          event
+                          |> Formality.Dom.toValueOnBlur
+                          |> form.change(Username)
+                        }
+                      />
+                    </fieldset>
+                    <fieldset className="form-group">
+                      <textarea
+                        className="form-control form-control-lg"
+                        rows=8
+                        placeholder="Short bio about you"
+                        disabled={form.submitting}
+                        value={form.state.bio}
+                        onChange={event =>
+                          event
+                          |> Formality.Dom.toValueOnChange
+                          |> form.change(Bio)
+                        }
+                        onBlur={event =>
+                          event
+                          |> Formality.Dom.toValueOnBlur
+                          |> form.change(Bio)
+                        }
+                      />
+                    </fieldset>
+                    <fieldset className="form-group">
+                      <input
+                        className="form-control form-control-lg"
+                        type_="text"
+                        placeholder="Email"
+                        disabled={form.submitting}
+                        value={form.state.email}
+                        onChange={event =>
+                          event
+                          |> Formality.Dom.toValueOnChange
+                          |> form.change(Email)
+                        }
+                        onBlur={event =>
+                          event
+                          |> Formality.Dom.toValueOnBlur
+                          |> form.change(Email)
+                        }
+                      />
+                    </fieldset>
+                    <fieldset className="form-group">
+                      <input
+                        className="form-control form-control-lg"
+                        type_="password"
+                        placeholder="Password"
+                        disabled={form.submitting}
+                        value={form.state.password}
+                        onChange={event =>
+                          event
+                          |> Formality.Dom.toValueOnChange
+                          |> form.change(Password)
+                        }
+                        onBlur={event =>
+                          event
+                          |> Formality.Dom.toValueOnBlur
+                          |> form.change(Password)
+                        }
+                      />
+                    </fieldset>
+                    <button className="btn btn-lg btn-primary pull-xs-right">
+                      {"Update Settings" |> strEl}
+                    </button>
+                  </fieldset>
+                </form>
+                <hr />
+                <button
+                  className="btn btn-outline-danger" onClick=onLogoutClick>
+                  {"Or click here to logout." |> strEl}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>;
+      }}
     </FormContainer>,
 };

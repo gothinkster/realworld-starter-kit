@@ -72,21 +72,19 @@ let make = _children => {
       setCookie("token", "");
       ReasonReact.UpdateWithSideEffects(
         {...state, user: RemoteData.NotAsked},
-        (_self => ReasonReact.Router.push("/#/")),
+        _self => ReasonReact.Router.push("/#/"),
       );
     | UpdateUser(user) => ReasonReact.Update({...state, user})
     | ChangeRoute(route) =>
       ReasonReact.UpdateWithSideEffects(
         {...state, route},
-        (
-          ({handle, state}) =>
-            switch (state.user) {
-            | RemoteData.NotAsked => handle(getUser, ())
-            | Loading(_)
-            | Success(_)
-            | Failure(_) => ignore()
-            }
-        ),
+        ({handle, state}) =>
+          switch (state.user) {
+          | RemoteData.NotAsked => handle(getUser, ())
+          | Loading(_)
+          | Success(_)
+          | Failure(_) => ignore()
+          },
       )
     },
   didMount: ({send, onUnmount, handle}) => {
@@ -108,114 +106,96 @@ let make = _children => {
             <li className="nav-item">
               <a className={linkCx(Home)} href="/#/"> {"Home" |> strEl} </a>
             </li>
-            {
-              switch (user) {
-              | NotAsked
-              | Loading(_)
-              | Failure(_) => nullEl
-              | Success(_) =>
-                <li className="nav-item">
-                  <a
-                    className={
-                      "nav-link"
-                      ++ (
-                        switch (route) {
-                        | Editor(_) => " active"
-                        | _ => ""
-                        }
-                      )
-                    }
-                    href="/#/editor">
-                    <i className="ion-compose" />
-                    {" New Post" |> strEl}
-                  </a>
-                </li>
-              }
-            }
-            {
-              switch (user) {
-              | NotAsked
-              | Loading(_)
-              | Failure(_) => nullEl
-              | Success(_) =>
-                <li className="nav-item">
-                  <a className={linkCx(Settings)} href="/#/settings">
-                    <i className="ion-gear-a" />
-                    {" Settings" |> strEl}
-                  </a>
-                </li>
-              }
-            }
-            {
-              switch (user) {
-              | NotAsked
-              | Loading(_)
-              | Success(_) => nullEl
-              | Failure(_) =>
-                <li className="nav-item">
-                  <a className={linkCx(Login)} href="/#/login">
-                    {"Sign in" |> strEl}
-                  </a>
-                </li>
-              }
-            }
-            {
-              switch (user) {
-              | NotAsked
-              | Loading(_)
-              | Success(_) => nullEl
-              | Failure(_) =>
-                <li className="nav-item">
-                  <a className={linkCx(Register)} href="/#/register">
-                    {"Sign up" |> strEl}
-                  </a>
-                </li>
-              }
-            }
-            {
-              switch (user) {
-              | NotAsked
-              | Loading(_)
-              | Failure(_) => nullEl
-              | Success({username, image}) =>
-                <li className="nav-item">
-                  <a
-                    className={linkCx(Profile(Author(username)))}
-                    href={"/#/profile/" ++ username}>
-                    {
-                      switch (image) {
-                      | Some(src) => <img className="user-pic" src />
-                      | None => nullEl
-                      }
-                    }
-                    {username |> strEl}
-                  </a>
-                </li>
-              }
-            }
+            {switch (user) {
+             | NotAsked
+             | Loading(_)
+             | Failure(_) => nullEl
+             | Success(_) =>
+               <li className="nav-item">
+                 <a
+                   className={
+                     "nav-link"
+                     ++ (
+                       switch (route) {
+                       | Editor(_) => " active"
+                       | _ => ""
+                       }
+                     )
+                   }
+                   href="/#/editor">
+                   <i className="ion-compose" />
+                   {" New Post" |> strEl}
+                 </a>
+               </li>
+             }}
+            {switch (user) {
+             | NotAsked
+             | Loading(_)
+             | Failure(_) => nullEl
+             | Success(_) =>
+               <li className="nav-item">
+                 <a className={linkCx(Settings)} href="/#/settings">
+                   <i className="ion-gear-a" />
+                   {" Settings" |> strEl}
+                 </a>
+               </li>
+             }}
+            {switch (user) {
+             | NotAsked
+             | Loading(_)
+             | Success(_) => nullEl
+             | Failure(_) =>
+               <li className="nav-item">
+                 <a className={linkCx(Login)} href="/#/login">
+                   {"Sign in" |> strEl}
+                 </a>
+               </li>
+             }}
+            {switch (user) {
+             | NotAsked
+             | Loading(_)
+             | Success(_) => nullEl
+             | Failure(_) =>
+               <li className="nav-item">
+                 <a className={linkCx(Register)} href="/#/register">
+                   {"Sign up" |> strEl}
+                 </a>
+               </li>
+             }}
+            {switch (user) {
+             | NotAsked
+             | Loading(_)
+             | Failure(_) => nullEl
+             | Success({username, image}) =>
+               <li className="nav-item">
+                 <a
+                   className={linkCx(Profile(Author(username)))}
+                   href={"/#/profile/" ++ username}>
+                   {switch (image) {
+                    | Some(src) => <img className="user-pic" src />
+                    | None => nullEl
+                    }}
+                   {username |> strEl}
+                 </a>
+               </li>
+             }}
           </ul>
         </div>
       </nav>
-      {
-        switch (route) {
-        | Login => <Login onSuccessLogin={handle(getUser)} />
-        | Register => <Register onSuccessRegister={handle(getUser)} />
-        | Settings =>
-          <PrivateRoute user>
-            ...(
-                 userData =>
-                   <Settings
-                     user=userData
-                     onLogoutClick={handle(logoutUser)}
-                   />
-               )
-          </PrivateRoute>
-        | Editor(slug) => <Editor slug />
-        | Profile(author) => <Profile author user />
-        | Article(slug) => <Article slug user />
-        | Home => <Home user />
-        }
-      }
+      {switch (route) {
+       | Login => <Login onSuccessLogin={handle(getUser)} />
+       | Register => <Register onSuccessRegister={handle(getUser)} />
+       | Settings =>
+         <PrivateRoute user>
+           ...{userData =>
+             <Settings user=userData onLogoutClick={handle(logoutUser)} />
+           }
+         </PrivateRoute>
+       | Editor(slug) => <Editor slug />
+       | Profile(author) => <Profile author user />
+       | Article(slug) => <Article slug user />
+       | Home => <Home user />
+       }}
       <footer>
         <div className="container">
           <a href="/" className="logo-font"> {"conduit" |> strEl} </a>

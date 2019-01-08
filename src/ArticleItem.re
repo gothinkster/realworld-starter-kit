@@ -32,10 +32,8 @@ let make = (~value, ~onFavoriteClick, ~favoriteDisabled=false, _children) => {
             "btn  btn-sm pull-xs-right "
             ++ (favorited ? "btn-primary" : "btn-outline-primary")
           }
-          onClick={
-            _event =>
-              favoriteDisabled ?
-                ignore() : onFavoriteClick((slug, !favorited))
+          onClick={_event =>
+            favoriteDisabled ? ignore() : onFavoriteClick((slug, !favorited))
           }
           disabled=favoriteDisabled>
           <i className="ion-heart" />

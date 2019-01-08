@@ -82,23 +82,19 @@ module FavoriteOrDeleteButton = {
         }
         disabled>
         <i className={isAuthor ? "ion-trash-a" : "ion-heart"} />
-        {
-          (
-            switch (isAuthor, favorited) {
-            | (true, true | false) => " Delete Article "
-            | (false, favorited) =>
-              favorited ? " Unfavorite Post " : " Favorite Post "
-            }
-          )
-          |> strEl
-        }
-        {
-          isAuthor ?
-            nullEl :
-            <span className="counter">
-              {" (" ++ string_of_int(favoritesCount) ++ ")" |> strEl}
-            </span>
-        }
+        {(
+           switch (isAuthor, favorited) {
+           | (true, true | false) => " Delete Article "
+           | (false, favorited) =>
+             favorited ? " Unfavorite Post " : " Favorite Post "
+           }
+         )
+         |> strEl}
+        {isAuthor ?
+           nullEl :
+           <span className="counter">
+             {" (" ++ string_of_int(favoritesCount) ++ ")" |> strEl}
+           </span>}
       </button>;
     },
   };
@@ -148,16 +144,14 @@ module FollowOrEditButton = {
         }
         disabled>
         <i className={isAuthor ? "ion-edit" : "ion-plus-round"} />
-        {
-          (
-            switch (isAuthor, following) {
-            | (true, true | false) => " Edit Article "
-            | (false, following) =>
-              (following ? " Unfollow " : " Follow ") ++ username
-            }
-          )
-          |> strEl
-        }
+        {(
+           switch (isAuthor, following) {
+           | (true, true | false) => " Edit Article "
+           | (false, following) =>
+             (following ? " Unfollow " : " Follow ") ++ username
+           }
+         )
+         |> strEl}
       </button>;
     },
   };
@@ -193,19 +187,17 @@ module CommentCard = {
           <span className="date-posted">
             {createdAt |> Js.Date.toISOString |> strEl}
           </span>
-          {
-            switch (user) {
-            | Success(userVal)
-                when userVal.username === author.username && !hideDeleteIcon =>
-              <span className="mod-options">
-                <i className="ion-trash-a" onClick=onDeleteClick />
-              </span>
-            | NotAsked
-            | Loading(_)
-            | Failure(_)
-            | Success(_) => nullEl
-            }
-          }
+          {switch (user) {
+           | Success(userVal)
+               when userVal.username === author.username && !hideDeleteIcon =>
+             <span className="mod-options">
+               <i className="ion-trash-a" onClick=onDeleteClick />
+             </span>
+           | NotAsked
+           | Loading(_)
+           | Failure(_)
+           | Success(_) => nullEl
+           }}
         </div>
       </div>;
     },
@@ -500,14 +492,12 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
       <div className="banner">
         <div className="container">
           <h1>
-            {
-              switch (article) {
-              | NotAsked => nullEl
-              | Loading(_) => "..." |> strEl
-              | Success({title}) => title |> strEl
-              | Failure(_) => nullEl
-              }
-            }
+            {switch (article) {
+             | NotAsked => nullEl
+             | Loading(_) => "..." |> strEl
+             | Success({title}) => title |> strEl
+             | Failure(_) => nullEl
+             }}
           </h1>
           <div className="article-meta">
             <a
@@ -519,14 +509,12 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
                 | Success({author}) => "/#/profile/" ++ author.username
                 }
               }>
-              {
-                switch (article) {
-                | NotAsked
-                | Loading(_)
-                | Failure(_) => <Img />
-                | Success({author}) => <Img src={Some(author.image)} />
-                }
-              }
+              {switch (article) {
+               | NotAsked
+               | Loading(_)
+               | Failure(_) => <Img />
+               | Success({author}) => <Img src={Some(author.image)} />
+               }}
             </a>
             <div className="info">
               <a
@@ -539,28 +527,24 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
                   }
                 }
                 className="author">
-                {
-                  (
-                    switch (article) {
-                    | NotAsked
-                    | Loading(_)
-                    | Failure(_) => ""
-                    | Success({author}) => author.username
-                    }
-                  )
-                  |> strEl
-                }
+                {(
+                   switch (article) {
+                   | NotAsked
+                   | Loading(_)
+                   | Failure(_) => ""
+                   | Success({author}) => author.username
+                   }
+                 )
+                 |> strEl}
               </a>
               <span className="date">
-                {
-                  switch (article) {
-                  | NotAsked
-                  | Loading(_)
-                  | Failure(_) => nullEl
-                  | Success({updatedAt}) =>
-                    updatedAt |> Js.Date.toISOString |> strEl
-                  }
-                }
+                {switch (article) {
+                 | NotAsked
+                 | Loading(_)
+                 | Failure(_) => nullEl
+                 | Success({updatedAt}) =>
+                   updatedAt |> Js.Date.toISOString |> strEl
+                 }}
               </span>
             </div>
             <FollowOrEditButton
@@ -583,41 +567,35 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
       </div>
       <div className="container page">
         <div className="row article-content">
-          {
-            switch (article) {
-            | NotAsked => <div> {"Initilizing..." |> strEl} </div>
-            | Loading(_) => <div> {"Loading..." |> strEl} </div>
-            | Success({body}) =>
-              <div
-                className="col-md-12"
-                dangerouslySetInnerHTML={"__html": body}
-              />
-            | Failure(error) => <div> {error |> strEl} </div>
-            }
-          }
-          {
-            switch (article) {
-            | NotAsked
-            | Loading(_)
-            | Failure(_) => nullEl
-            | Success({tagList}) =>
-              <ul className="tag-list">
-                {
-                  tagList->(
-                             Belt.List.mapU((. item) =>
-                               <li
-                                 key=item
-                                 className="tag-default tag-pill tag-outline">
-                                 {item |> strEl}
-                               </li>
-                             )
+          {switch (article) {
+           | NotAsked => <div> {"Initilizing..." |> strEl} </div>
+           | Loading(_) => <div> {"Loading..." |> strEl} </div>
+           | Success({body}) =>
+             <div
+               className="col-md-12"
+               dangerouslySetInnerHTML={"__html": body}
+             />
+           | Failure(error) => <div> {error |> strEl} </div>
+           }}
+          {switch (article) {
+           | NotAsked
+           | Loading(_)
+           | Failure(_) => nullEl
+           | Success({tagList}) =>
+             <ul className="tag-list">
+               {tagList->(
+                           Belt.List.mapU((. item) =>
+                             <li
+                               key=item
+                               className="tag-default tag-pill tag-outline">
+                               {item |> strEl}
+                             </li>
                            )
-                  |> Belt.List.toArray
-                  |> arrayEl
-                }
-              </ul>
-            }
-          }
+                         )
+                |> Belt.List.toArray
+                |> arrayEl}
+             </ul>
+           }}
         </div>
         <hr />
         <div className="article-actions">
@@ -631,14 +609,12 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
                 | Success({author}) => "/#/profile/" ++ author.username
                 }
               }>
-              {
-                switch (article) {
-                | NotAsked
-                | Loading(_)
-                | Failure(_) => <Img />
-                | Success({author}) => <Img src={Some(author.image)} />
-                }
-              }
+              {switch (article) {
+               | NotAsked
+               | Loading(_)
+               | Failure(_) => <Img />
+               | Success({author}) => <Img src={Some(author.image)} />
+               }}
             </a>
             <div className="info">
               <a
@@ -651,28 +627,24 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
                   }
                 }
                 className="author">
-                {
-                  (
-                    switch (article) {
-                    | NotAsked
-                    | Loading(_)
-                    | Failure(_) => ""
-                    | Success({author}) => author.username
-                    }
-                  )
-                  |> strEl
-                }
+                {(
+                   switch (article) {
+                   | NotAsked
+                   | Loading(_)
+                   | Failure(_) => ""
+                   | Success({author}) => author.username
+                   }
+                 )
+                 |> strEl}
               </a>
               <span className="date">
-                {
-                  switch (article) {
-                  | NotAsked
-                  | Loading(_)
-                  | Failure(_) => nullEl
-                  | Success({updatedAt}) =>
-                    updatedAt |> Js.Date.toISOString |> strEl
-                  }
-                }
+                {switch (article) {
+                 | NotAsked
+                 | Loading(_)
+                 | Failure(_) => nullEl
+                 | Success({updatedAt}) =>
+                   updatedAt |> Js.Date.toISOString |> strEl
+                 }}
               </span>
             </div>
             <FollowOrEditButton
@@ -696,48 +668,43 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
           <div className="col-xs-12 col-md-8 offset-md-2">
             <Comment
               user
-              onSubmit={
-                (state, submissionCallbacks) =>
-                  handle(
-                    addComments(
-                      ~slug=
-                        switch (article) {
-                        | NotAsked
-                        | Loading(_)
-                        | Failure(_) => ""
-                        | Success({slug}) => slug
-                        },
-                      ~submissionCallbacks,
-                    ),
-                    state,
-                  )
+              onSubmit={(state, submissionCallbacks) =>
+                handle(
+                  addComments(
+                    ~slug=
+                      switch (article) {
+                      | NotAsked
+                      | Loading(_)
+                      | Failure(_) => ""
+                      | Success({slug}) => slug
+                      },
+                    ~submissionCallbacks,
+                  ),
+                  state,
+                )
               }
             />
-            {
-              switch (comments) {
-              | NotAsked => "Initilizing..." |> strEl
-              | Loading(_) => "Loading..." |> strEl
-              | Failure(error) => error |> strEl
-              | Success(data) =>
-                let shouldHideDeleteIcon = hidingDeleteIcons |> Belt.List.some;
-                data->(
-                        Belt.List.mapU((. comment) => {
-                          let {Types.id} = comment;
-                          <CommentCard
-                            key={id |> string_of_int}
-                            data=comment
-                            user
-                            onDeleteClick={handle(deleteComment(~slug, ~id))}
-                            hideDeleteIcon={
-                              shouldHideDeleteIcon(x => x === id)
-                            }
-                          />;
-                        })
-                      )
-                |> Belt.List.toArray
-                |> arrayEl;
-              }
-            }
+            {switch (comments) {
+             | NotAsked => "Initilizing..." |> strEl
+             | Loading(_) => "Loading..." |> strEl
+             | Failure(error) => error |> strEl
+             | Success(data) =>
+               let shouldHideDeleteIcon = hidingDeleteIcons |> Belt.List.some;
+               data->(
+                       Belt.List.mapU((. comment) => {
+                         let {Types.id} = comment;
+                         <CommentCard
+                           key={id |> string_of_int}
+                           data=comment
+                           user
+                           onDeleteClick={handle(deleteComment(~slug, ~id))}
+                           hideDeleteIcon={shouldHideDeleteIcon(x => x === id)}
+                         />;
+                       })
+                     )
+               |> Belt.List.toArray
+               |> arrayEl;
+             }}
           </div>
         </div>
       </div>

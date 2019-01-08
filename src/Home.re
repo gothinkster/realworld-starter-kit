@@ -252,16 +252,14 @@ let make = (~user, _children) => {
     | ChangeFeed(feed, page) =>
       ReasonReact.UpdateWithSideEffects(
         {...state, feed, currentPage: page},
-        (
-          ({handle}) => {
-            switch (feed) {
-            | Global => handle(loadGlobalFeed(~page), ())
-            | Your => handle(loadYourFeed(~page), ())
-            | Tag(tag) => handle(loadGlobalFeed(~page, ~tag), ())
-            };
-            ignore();
-          }
-        ),
+        ({handle}) => {
+          switch (feed) {
+          | Global => handle(loadGlobalFeed(~page), ())
+          | Your => handle(loadYourFeed(~page), ())
+          | Tag(tag) => handle(loadGlobalFeed(~page, ~tag), ())
+          };
+          ignore();
+        },
       )
     | UpdateTags(tags) => ReasonReact.Update({...state, tags})
     | UpdateArticle(slug, article) =>
@@ -294,24 +292,22 @@ let make = (~user, _children) => {
           <div className="col-md-9">
             <div className="feed-toggle">
               <ul className="nav nav-pills outline-active">
-                {
-                  switch (user) {
-                  | NotAsked
-                  | Loading(_)
-                  | Failure(_) => nullEl
-                  | Success(_) =>
-                    <li className="nav-item">
-                      <a
-                        href="#"
-                        className={
-                          "nav-link" ++ (feed === Your ? " active" : "")
-                        }
-                        onClick={handle(onYourFeedClick(~feed))}>
-                        {"Your Feed" |> strEl}
-                      </a>
-                    </li>
-                  }
-                }
+                {switch (user) {
+                 | NotAsked
+                 | Loading(_)
+                 | Failure(_) => nullEl
+                 | Success(_) =>
+                   <li className="nav-item">
+                     <a
+                       href="#"
+                       className={
+                         "nav-link" ++ (feed === Your ? " active" : "")
+                       }
+                       onClick={handle(onYourFeedClick(~feed))}>
+                       {"Your Feed" |> strEl}
+                     </a>
+                   </li>
+                 }}
                 <li className="nav-item">
                   <a
                     href="#"
@@ -322,108 +318,92 @@ let make = (~user, _children) => {
                     {"Global Feed" |> strEl}
                   </a>
                 </li>
-                {
-                  switch (feed) {
-                  | Tag(tag) =>
-                    <li className="nav-item">
-                      <a className="nav-link active">
-                        {"#" ++ tag |> strEl}
-                      </a>
-                    </li>
-                  | Your
-                  | Global => nullEl
-                  }
-                }
+                {switch (feed) {
+                 | Tag(tag) =>
+                   <li className="nav-item">
+                     <a className="nav-link active"> {"#" ++ tag |> strEl} </a>
+                   </li>
+                 | Your
+                 | Global => nullEl
+                 }}
               </ul>
             </div>
-            {
-              switch (articles) {
-              | NotAsked =>
-                <div className="article-preview">
-                  {"Initializing..." |> strEl}
-                </div>
-              | Failure(error) =>
-                <div className="article-preview">
-                  {"ERROR: " ++ error |> strEl}
-                </div>
-              | Loading(data)
-              | Success(data) =>
-                <>
-                  {
-                    articles->RemoteData.isLoading ?
-                      <div className="article-preview">
-                        {"Loading..." |> strEl}
-                      </div> :
-                      nullEl
-                  }
-                  {
-                    data
-                    ->Belt.List.mapU((. value: Types.article) =>
-                        <ArticleItem
-                          key={value.slug}
-                          value
-                          onFavoriteClick={handle(favoriteArticle(~user))}
-                          favoriteDisabled={
-                            togglingFavorites
-                            ->Belt.Map.String.getWithDefault(
-                                value.slug,
-                                RemoteData.NotAsked,
-                              )
-                            ->RemoteData.isLoading
-                          }
-                        />
-                      )
-                    ->Belt.List.toArray
-                    ->arrayEl
-                  }
-                </>
-              }
-            }
-            {
-              switch (articles) {
-              | NotAsked
-              | Loading(_)
-              | Failure(_) => nullEl
-              | Success(_) =>
-                <Pagination
-                  totalCount=articlesCount
-                  perPage=pageNum
-                  onPageClick=(page => send(ChangeFeed(feed, page)))
-                  currentPage
-                />
-              }
-            }
+            {switch (articles) {
+             | NotAsked =>
+               <div className="article-preview">
+                 {"Initializing..." |> strEl}
+               </div>
+             | Failure(error) =>
+               <div className="article-preview">
+                 {"ERROR: " ++ error |> strEl}
+               </div>
+             | Loading(data)
+             | Success(data) =>
+               <>
+                 {articles->RemoteData.isLoading ?
+                    <div className="article-preview">
+                      {"Loading..." |> strEl}
+                    </div> :
+                    nullEl}
+                 {data
+                  ->Belt.List.mapU((. value: Types.article) =>
+                      <ArticleItem
+                        key={value.slug}
+                        value
+                        onFavoriteClick={handle(favoriteArticle(~user))}
+                        favoriteDisabled={
+                          togglingFavorites
+                          ->Belt.Map.String.getWithDefault(
+                              value.slug,
+                              RemoteData.NotAsked,
+                            )
+                          ->RemoteData.isLoading
+                        }
+                      />
+                    )
+                  ->Belt.List.toArray
+                  ->arrayEl}
+               </>
+             }}
+            {switch (articles) {
+             | NotAsked
+             | Loading(_)
+             | Failure(_) => nullEl
+             | Success(_) =>
+               <Pagination
+                 totalCount=articlesCount
+                 perPage=pageNum
+                 onPageClick={page => send(ChangeFeed(feed, page))}
+                 currentPage
+               />
+             }}
           </div>
           <div className="col-md-3">
             <div className="sidebar">
               <p> {"Popular Tags" |> strEl} </p>
               <div className="tag-list">
-                {
-                  switch (tags) {
-                  | NotAsked => "Initializing..." |> strEl
-                  | Loading(_) => "Loading..." |> strEl
-                  | Failure(error) => "ERROR: " ++ error |> strEl
-                  | Success(data) =>
-                    data->(
-                            Belt.List.mapU((. item) =>
-                              <a
-                                key=item
-                                className="tag-pill tag-default"
-                                href="#"
-                                onClick=(
-                                  event => {
-                                    event->ReactEvent.Mouse.preventDefault;
-                                    send(ChangeFeed(Tag(item), 1));
-                                  }
-                                )>
-                                {item |> strEl}
-                              </a>
-                            )
-                          )
-                    |> Belt.List.toArray
-                    |> arrayEl
-                  }
-                }
+                {switch (tags) {
+                 | NotAsked => "Initializing..." |> strEl
+                 | Loading(_) => "Loading..." |> strEl
+                 | Failure(error) => "ERROR: " ++ error |> strEl
+                 | Success(data) =>
+                   data->(
+                           Belt.List.mapU((. item) =>
+                             <a
+                               key=item
+                               className="tag-pill tag-default"
+                               href="#"
+                               onClick={event => {
+                                 event->ReactEvent.Mouse.preventDefault;
+                                 send(ChangeFeed(Tag(item), 1));
+                               }}>
+                               {item |> strEl}
+                             </a>
+                           )
+                         )
+                   |> Belt.List.toArray
+                   |> arrayEl
+                 }}
               </div>
             </div>
           </div>

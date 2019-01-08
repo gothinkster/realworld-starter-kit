@@ -270,34 +270,30 @@ let make =
                 className="user-img"
               />
               <h4>
-                {
-                  switch (profile) {
-                  | NotAsked
-                  | Loading(_)
-                  | Failure(_) => nullEl
-                  | Success({username}) => username |> strEl
-                  }
-                }
+                {switch (profile) {
+                 | NotAsked
+                 | Loading(_)
+                 | Failure(_) => nullEl
+                 | Success({username}) => username |> strEl
+                 }}
               </h4>
               <p>
-                {
-                  switch (profile) {
-                  | NotAsked
-                  | Loading(_)
-                  | Failure(_) => nullEl
-                  | Success({bio}) =>
-                    switch (bio) {
-                    | Some(v) => v |> strEl
-                    | None => nullEl
-                    }
-                  }
-                }
+                {switch (profile) {
+                 | NotAsked
+                 | Loading(_)
+                 | Failure(_) => nullEl
+                 | Success({bio}) =>
+                   switch (bio) {
+                   | Some(v) => v |> strEl
+                   | None => nullEl
+                   }
+                 }}
               </p>
               <button
                 className="btn btn-sm btn-outline-secondary action-btn"
-                onClick={
-                  handle(followAuthorOrRedirectToSetting(~user, ~profile))
-                }
+                onClick={handle(
+                  followAuthorOrRedirectToSetting(~user, ~profile),
+                )}
                 disabled={
                   switch (followAction) {
                   | NotAsked
@@ -306,41 +302,35 @@ let make =
                   | Loading(_) => true
                   }
                 }>
-                {
-                  switch (profile, user) {
-                  | (Success(profileVal), Success(userVal))
-                      when userVal.username === profileVal.username =>
-                    <i className="ion-gear-a" />
-                  | (
-                      NotAsked | Loading(_) | Success(_) | Failure(_),
-                      NotAsked | Loading(_) | Success(_) | Failure(_),
-                    ) =>
-                    <i className="ion-plus-round" />
-                  }
-                }
-                {
-                  switch (profile, user) {
-                  | (Success(profileVal), Success(userVal))
-                      when userVal.username === profileVal.username =>
-                    " Edit Profile Settings" |> strEl
-                  | (
-                      Success({following, username}),
-                      NotAsked | Loading(_) | Success(_) | Failure(_),
-                    ) =>
-                    (following ? " Unfollow " : " Follow ")
-                    ++ username
-                    |> strEl
-                  | (
-                      NotAsked | Loading(_),
-                      NotAsked | Loading(_) | Success(_) | Failure(_),
-                    ) =>
-                    " ... " |> strEl
-                  | (
-                      Failure(_),
-                      NotAsked | Loading(_) | Success(_) | Failure(_),
-                    ) => nullEl
-                  }
-                }
+                {switch (profile, user) {
+                 | (Success(profileVal), Success(userVal))
+                     when userVal.username === profileVal.username =>
+                   <i className="ion-gear-a" />
+                 | (
+                     NotAsked | Loading(_) | Success(_) | Failure(_),
+                     NotAsked | Loading(_) | Success(_) | Failure(_),
+                   ) =>
+                   <i className="ion-plus-round" />
+                 }}
+                {switch (profile, user) {
+                 | (Success(profileVal), Success(userVal))
+                     when userVal.username === profileVal.username =>
+                   " Edit Profile Settings" |> strEl
+                 | (
+                     Success({following, username}),
+                     NotAsked | Loading(_) | Success(_) | Failure(_),
+                   ) =>
+                   (following ? " Unfollow " : " Follow ") ++ username |> strEl
+                 | (
+                     NotAsked | Loading(_),
+                     NotAsked | Loading(_) | Success(_) | Failure(_),
+                   ) =>
+                   " ... " |> strEl
+                 | (
+                     Failure(_),
+                     NotAsked | Loading(_) | Success(_) | Failure(_),
+                   ) => nullEl
+                 }}
               </button>
             </div>
           </div>
@@ -383,56 +373,50 @@ let make =
                 </li>
               </ul>
             </div>
-            {
-              switch (articles) {
-              | NotAsked =>
-                <div className="article-preview">
-                  {"Initializing..." |> strEl}
-                </div>
-              | Loading(_) =>
-                <div className="article-preview">
-                  {"Loading..." |> strEl}
-                </div>
-              | Failure(error) =>
-                <div className="article-preview">
-                  {"ERROR: " ++ error |> strEl}
-                </div>
-              | Success(data) =>
-                data->(
-                        Belt.List.mapU((. value: Types.article) =>
-                          <ArticleItem
-                            key={value.slug}
-                            value
-                            onFavoriteClick={handle(favoriteArticle(~user))}
-                            favoriteDisabled={
-                              togglingFavorites
-                              ->Belt.Map.String.getWithDefault(
-                                  value.slug,
-                                  RemoteData.NotAsked,
-                                )
-                              ->RemoteData.isLoading
-                            }
-                          />
-                        )
-                      )
-                |> Belt.List.toArray
-                |> arrayEl
-              }
-            }
-            {
-              switch (articles) {
-              | NotAsked
-              | Loading(_)
-              | Failure(_) => nullEl
-              | Success(_) =>
-                <Pagination
-                  totalCount=articlesCount
-                  perPage=pageNum
-                  onPageClick={handle(changeCurrentPage(~payload=author))}
-                  currentPage
-                />
-              }
-            }
+            {switch (articles) {
+             | NotAsked =>
+               <div className="article-preview">
+                 {"Initializing..." |> strEl}
+               </div>
+             | Loading(_) =>
+               <div className="article-preview"> {"Loading..." |> strEl} </div>
+             | Failure(error) =>
+               <div className="article-preview">
+                 {"ERROR: " ++ error |> strEl}
+               </div>
+             | Success(data) =>
+               data->(
+                       Belt.List.mapU((. value: Types.article) =>
+                         <ArticleItem
+                           key={value.slug}
+                           value
+                           onFavoriteClick={handle(favoriteArticle(~user))}
+                           favoriteDisabled={
+                             togglingFavorites
+                             ->Belt.Map.String.getWithDefault(
+                                 value.slug,
+                                 RemoteData.NotAsked,
+                               )
+                             ->RemoteData.isLoading
+                           }
+                         />
+                       )
+                     )
+               |> Belt.List.toArray
+               |> arrayEl
+             }}
+            {switch (articles) {
+             | NotAsked
+             | Loading(_)
+             | Failure(_) => nullEl
+             | Success(_) =>
+               <Pagination
+                 totalCount=articlesCount
+                 perPage=pageNum
+                 onPageClick={handle(changeCurrentPage(~payload=author))}
+                 currentPage
+               />
+             }}
           </div>
         </div>
       </div>
