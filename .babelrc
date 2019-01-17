@@ -1,0 +1,18 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "chrome": "66"
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "syntax-dynamic-import",
+    ["transform-runtime", { "polyfill": false }]
+  ]
+}
