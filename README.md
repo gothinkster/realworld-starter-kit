@@ -1,4 +1,4 @@
-# ![RealWorld Example App](http://slimjs.com/ae609b6edbf39d3ccf48178b07c38443.png =124x124) Realworld example app
+# <img src="http://slimjs.com/ae609b6edbf39d3ccf48178b07c38443.png" width="105" height="124"> Realworld - slim.js example app
 
 > ### slim.js codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
 
