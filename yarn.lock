@@ -968,10 +968,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
-"@glennsl/bs-jest@^0.4.6":
-  version "0.4.6"
-  resolved "https://registry.yarnpkg.com/@glennsl/bs-jest/-/bs-jest-0.4.6.tgz#2a249a46c10caaa9756b5e30dcf60a2c1dde57ea"
-  integrity sha512-TJLx1ti1Cp7e53bCndV7DpMAcZL9+pqA4L9YD4kCrDQuYdA8boRnPh1l862w8AJHWTxEki/xtDu0FVPCq2HVrA==
+"@glennsl/bs-jest@^0.4.7":
+  version "0.4.7"
+  resolved "https://registry.yarnpkg.com/@glennsl/bs-jest/-/bs-jest-0.4.7.tgz#9719dc8c8ceed11d2de92adf9e02dd364c3f9398"
+  integrity sha512-Rjys7/fspjpfmvQxkP1u5ortxYfBVXXlJARXbixer4Q1RDPZp0BLlqvdOLmlbaq/z6bhLbEq4PSBg0oC8p7bKw==
   dependencies:
     jest "^23.5.0"
 
@@ -2215,10 +2215,10 @@ bs-react-testing-library@^0.4.0:
     bs-dom-testing-library "^0.3.0"
     react-testing-library "^5.2.0"
 
-bs-webapi@^0.13.1:
-  version "0.13.1"
-  resolved "https://registry.yarnpkg.com/bs-webapi/-/bs-webapi-0.13.1.tgz#71c560229f74b8db6d7c9dc75b620de71b1c388f"
-  integrity sha512-JGngSUqyTrijGWURKbQYQE/3EDFcKszftQ0tqbaRBz6RvtIU+8Z+Lksc14aMdNpxuNiHWqhvoxbHnCvFdKLZHg==
+bs-webapi@^0.13.2:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/bs-webapi/-/bs-webapi-0.13.2.tgz#7e96127f633cff16491d1b9b2158e7fa33a76412"
+  integrity sha512-eWWOT8ntAy7t2FzT+sJMmI47Fi+cpTmDSFC0R9F2OEJ/eZ8yp1wsheFAZsSDyOZIzIZP4mlJbiyVu01FB0r2DQ==
 
 bser@^2.0.0:
   version "2.0.0"
@@ -2949,7 +2949,7 @@ cross-spawn@6.0.5, cross-spawn@^6.0.0, cross-spawn@^6.0.5:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-cross-spawn@^5.0.1, cross-spawn@^5.1.0:
+cross-spawn@^5.0.1:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-5.1.0.tgz#e8bd0efee58fcff6f8f94510a0a554bbfa235449"
   integrity sha1-6L0O/uWPz/b4+UUQoKVUu/ojVEk=
@@ -3637,10 +3637,10 @@ dotenv@6.0.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.0.0.tgz#24e37c041741c5f4b25324958ebbc34bca965935"
   integrity sha512-FlWbnhgjtwD+uNLUGHbMykMOYQaTivdHEmYwAKFjn6GKe/CqY0fNae93ZHTd20snh9ZLr8mTzIL9m0APQ1pjQg==
 
-dotenv@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
-  integrity sha1-hk7xN5rO1Vzm+V3r7NzhefegzR0=
+dotenv@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.2.0.tgz#941c0410535d942c8becf28d3f357dbd9d476064"
+  integrity sha512-HygQCKUBSFl8wKQZBSemMywRWcEDNidvNbjGVyZu3nbZ8qq9ubiPoGLMdRDpfSrpkkm9BXYFkpKxxFX38o/76w==
 
 duplexer@^0.1.1:
   version "0.1.1"
@@ -9281,13 +9281,13 @@ react-app-polyfill@^0.2.0:
     raf "3.4.0"
     whatwg-fetch "3.0.0"
 
-react-app-rewired@2.0.2-next.0:
-  version "2.0.2-next.0"
-  resolved "https://registry.yarnpkg.com/react-app-rewired/-/react-app-rewired-2.0.2-next.0.tgz#111711df73742a703f1f9dccc14f4cd263440a6d"
-  integrity sha512-pW9MM/2AbHwI5jH12iIxA0g7OuPFy/chPfMia6oQhOU7Zy1mFTOyr7PohZmgHauHWH73nC2XssooEijDpvKA/Q==
+react-app-rewired@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-app-rewired/-/react-app-rewired-2.0.2.tgz#2c92ba443eb8f5e8ca062eab6d2353fc2ae1197e"
+  integrity sha512-2gw8rU/acYcqlYO0DJBPG97eape4T0kC7sPx4fJzooq30sv6KUxC+dYy5vyWY3L7AnkcKVRM+KZIRD8hCaXbHA==
   dependencies:
-    cross-spawn "^5.1.0"
-    dotenv "^4.0.0"
+    cross-spawn "^6.0.5"
+    dotenv "^6.2.0"
     semver "^5.6.0"
 
 react-dev-utils@^7.0.1:

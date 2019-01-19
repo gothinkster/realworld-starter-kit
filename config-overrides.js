@@ -1,5 +1,4 @@
 const bsconfig = require('./bsconfig.json');
-const { compose } = require('react-app-rewired');
 
 const addReactHotLoader = () => config => {
   config.module.rules[2].oneOf[1].options.plugins.push(
@@ -13,5 +12,8 @@ const excludeBsJsInEslint = () => config => {
   return config;
 };
 
-module.exports = compose(excludeBsJsInEslint(), addReactHotLoader());
-
+module.exports = function exports(config, _env) {
+  const rhl = addReactHotLoader()(config);
+  const bsjs = excludeBsJsInEslint()(rhl);
+  return bsjs;
+};
