@@ -3,6 +3,8 @@
 # dependencies
 /node_modules
 /bower_components
+.expo/*
+npm-debug.*
 
 # IDEs and editors
 /.idea
@@ -15,3 +17,8 @@
 #System Files
 .DS_Store
 Thumbs.db
+
+*.jks
+*.p12
+*.key
+*.mobileprovision
