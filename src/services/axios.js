@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'src/services/axios'
 
 const API_ROOT = 'localhost'
 const TIMEOUT = 2500
