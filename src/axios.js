@@ -8,15 +8,13 @@ const HEADERS = {
 };
 
 class ApiService {
-  constructor({baseURL = API_ROOT, timeout = TIMEOUT, headers = HEADERS, authToken = null}) {
-    const client = axios.create({
-      baseURL,
-      timeout,
-      headers
-    })
-    this.token = this.setAuth(authToken)
+  constructor(options = {}, authToken) {
+    const defaults = {baseURL: API_ROOT, timeout: TIMEOUT, headers: HEADERS}
+    const configuredClient = Object.assign(defaults, options)
+    const client = axios.create(configuredClient)
     client.interceptors.response.use(this.handleSuccess, this.handleError)
     this.client = client
+    this.token = this.setAuth(authToken)
   }
 
   handleSuccess = (response) => {
