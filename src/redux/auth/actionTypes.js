@@ -1,0 +1,5 @@
+
+export default {
+    LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+    SET_LOGGED_IN_STATE: 'SET_LOGGED_IN_STATE'
+}
