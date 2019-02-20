@@ -1,5 +1,5 @@
 import ApiService from './axios'
 
-const API_ROOT = 'https://conduit.productionready.io/api'
-const ConduitService = new ApiService({baseUrl: API_ROOT})
+const CONDUIT_ROOT = 'https://conduit.productionready.io/api'
+const ConduitService = new ApiService(baseUrl= CONDUIT_ROOT)
 export default ConduitService

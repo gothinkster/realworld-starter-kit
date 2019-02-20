@@ -1,4 +1,4 @@
-import axios from 'src/services/axios'
+import axios from 'axios'
 
 const API_ROOT = 'localhost'
 const TIMEOUT = 2500
@@ -8,10 +8,8 @@ const HEADERS = {
 };
 
 class ApiService {
-  constructor(options = {}, authToken) {
-    const defaults = {baseURL: API_ROOT, timeout: TIMEOUT, headers: HEADERS}
-    const configuredClient = Object.assign(defaults, options)
-    const client = axios.create(configuredClient)
+  constructor(baseURL = API_ROOT, timeout = TIMEOUT, headers = HEADERS, authToken) {
+    const client = axios.create({baseURL, timeout, headers})
     client.interceptors.response.use(this.handleSuccess, this.handleError)
     this.client = client
     this.token = this.setAuth(authToken)
