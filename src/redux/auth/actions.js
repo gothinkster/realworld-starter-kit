@@ -21,11 +21,12 @@ function setUserData(userResponse) {
 }
 
 export function signUpOperation(username, email, password) {
+  console.log(username + email + password)
     return (dispatch, getState) => {
-        return conduitService.post(r.USERS, {username: username, email: email, password: password})
+        return conduitService.post(r.USERS, {user: {username: username, email: email, password: password}})
             .then(res => {
                 const userPayload = (res.data && res.data.user) ? res.data.user : null
-                return dispatch(setUserData(userPayload))
+              return dispatch(setUserData(userPayload))
             }).catch(error => {
                 return dispatch(setLoggedInState(false))
         })
