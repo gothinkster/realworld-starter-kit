@@ -3,14 +3,18 @@ open Expect;
 open Types;
 open ReactTestingLibrary;
 
+[@bs.get] external firstChild: Dom.element => Dom.node = "";
+[@bs.get] external innerHTML: Dom.node => string = "";
+[@bs.get] external textContent: Dom.element => string = "";
+
 describe("App component", () => {
-  testAsync("renders without crashing", finish => {
+  test("renders without crashing", () => {
     let wrapper = render(<App />);
-    Js.Global.setTimeout(
-      () => wrapper |> expect |> toMatchSnapshot |> finish,
-      0,
-    )
-    |> ignore;
+    let actual =
+      wrapper
+      |> getByText(~matcher=`Str("A place to share your knowledge."))
+      |> textContent;
+    actual |> expect |> toEqual("A place to share your knowledge.");
   });
   ignore();
 });
