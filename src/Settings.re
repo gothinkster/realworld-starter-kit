@@ -95,7 +95,7 @@ module Form = {
              validate: (value, _state) =>
                switch (value) {
                | "" => Invalid("Email is empty")
-               | v when !Js.Re.test(v, Regex.validEmail) =>
+               | v when !Js.Re.test_(Regex.validEmail, v) =>
                  Invalid("Email is invalid")
                | _ => Valid
                },
