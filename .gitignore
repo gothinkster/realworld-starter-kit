@@ -1,17 +1,31 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
-/bower_components
+# Gradle
+.gradle/
+build/
+local.*
 
-# IDEs and editors
-/.idea
+# Eclipse
+.settings/
 .project
 .classpath
-*.launch
-.settings/
 
+# Idea
+.idea/
+out/
+*.iml
 
-#System Files
+# VS Code
+.vscode/
+
+# Other Tools
+.lazybones/
+.java-version
+
+# Runtime
+log/
+*.log
+*.hprof
+
+# System Files
 .DS_Store
 Thumbs.db

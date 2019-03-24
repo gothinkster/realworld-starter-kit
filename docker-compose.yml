@@ -1,0 +1,20 @@
+#
+# Containers and Images
+# Check `README.md` for usage instructions.
+#
+
+version: '3'
+
+services:
+
+  realworld:
+    image: ${registry}realworld:0.1
+    container_name: realworld
+    labels:
+      app: realworld
+      type: backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - 9999:9090

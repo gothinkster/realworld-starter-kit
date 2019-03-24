@@ -1,0 +1,13 @@
+#!/bin/sh
+
+#
+# Refer to `.git/hooks/pre-push.sample` for more information about this hook script.
+#
+
+set -e
+
+export registry=""
+docker-compose stop
+docker-compose rm -f
+docker-compose build
+docker-compose up -d
