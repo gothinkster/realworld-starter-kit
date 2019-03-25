@@ -26,12 +26,6 @@ cache:
 services:
   - mongodb
 
-install:
-  # Git set up is required for release tag creation
-  - git remote set-url origin https://$GRGIT_USER:$GRGIT_PASS@github.com/hexagonkt/hexagon.git
-  - mongo hexagon_benchmark/mongodb.js
-  - psql -U postgres -f hexagon_benchmark/postgresql.sql
-
 script: deploy/pre-push
 
 after_failure: echo 'Look for FAILURE in tests'
