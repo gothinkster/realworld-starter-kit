@@ -26,6 +26,6 @@ cache:
 services:
   - mongodb
 
-script: deploy/pre-push
+script: ./gradlew --quiet --stacktrace clean all
 
 after_failure: echo 'Look for FAILURE in tests'
