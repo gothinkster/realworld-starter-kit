@@ -7,7 +7,7 @@ USER root
 WORKDIR /build
 
 ADD . /build
-RUN ./gradlew all
+RUN ./gradlew clean all
 
 #
 # RUNTIME
