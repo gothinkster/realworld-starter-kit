@@ -3,8 +3,6 @@ open Expect;
 open Types;
 open ReactTestingLibrary;
 
-[@bs.get] external firstChild: Dom.element => Dom.node = "";
-[@bs.get] external innerHTML: Dom.node => string = "";
 [@bs.get] external textContent: Dom.element => string = "";
 
 describe("App component", () => {
