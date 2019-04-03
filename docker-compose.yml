@@ -8,7 +8,7 @@ version: '3'
 services:
 
   realworld:
-    image: ${registry}realworld:0.1
+    image: ${registry:-}realworld:0.1
     container_name: realworld
     labels:
       app: realworld
