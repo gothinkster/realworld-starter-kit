@@ -32,14 +32,14 @@ let makeFetchInit =
     ) => {
   let headers =
     [
-      authorization ?
-        getCookie("token")
-        ->Belt.Option.mapWithDefault([], token =>
-            [("Authorization", "Token " ++ token)]
-          ) :
-        [],
-      jsonContentType ?
-        [("Content-Type", "application/json; charset=utf-8")] : [],
+      authorization
+        ? getCookie("token")
+          ->Belt.Option.mapWithDefault([], token =>
+              [("Authorization", "Token " ++ token)]
+            )
+        : [],
+      jsonContentType
+        ? [("Content-Type", "application/json; charset=utf-8")] : [],
     ]
     ->Belt.List.flatten
     ->Belt.List.toArray

@@ -137,8 +137,8 @@ let followAuthorOrRedirectToSetting =
       send(UpdateFollowAction(RemoteData.Loading()));
       Js.Promise.(
         (
-          following ?
-            API.unfollowUser(~username, ()) : API.followUser(~username, ())
+          following
+            ? API.unfollowUser(~username, ()) : API.followUser(~username, ())
         )
         |> then_(_result => {
              send(
@@ -170,8 +170,8 @@ let favoriteArticle = (~user, (slug, favorited), {ReasonReact.send}) =>
     | Success(_) =>
       send(ToggleFavorite(slug, RemoteData.Loading()));
       (
-        favorited ?
-          API.favoriteArticle(~slug, ()) : API.unfavoriteArticle(~slug, ())
+        favorited
+          ? API.favoriteArticle(~slug, ()) : API.unfavoriteArticle(~slug, ())
       )
       |> then_(result => {
            switch (result) {

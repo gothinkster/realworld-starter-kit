@@ -70,9 +70,9 @@ module FavoriteOrDeleteButton = {
           }
         }
         onClick={
-          disabled ?
-            ignore :
-            (
+          disabled
+            ? ignore
+            : (
               switch (isLogon, isAuthor) {
               | (false, true | false) => redirectToLoginPage
               | (true, true) => onDeleteClick
@@ -90,11 +90,11 @@ module FavoriteOrDeleteButton = {
            }
          )
          |> strEl}
-        {isAuthor ?
-           nullEl :
-           <span className="counter">
-             {" (" ++ string_of_int(favoritesCount) ++ ")" |> strEl}
-           </span>}
+        {isAuthor
+           ? nullEl
+           : <span className="counter">
+               {" (" ++ string_of_int(favoritesCount) ++ ")" |> strEl}
+             </span>}
       </button>;
     },
   };
@@ -132,9 +132,9 @@ module FollowOrEditButton = {
           }
         }
         onClick={
-          disabled ?
-            ignore :
-            (
+          disabled
+            ? ignore
+            : (
               switch (isLogon, isAuthor) {
               | (false, true | false) => redirectToLoginPage
               | (true, true) => onEditClick
@@ -272,8 +272,8 @@ let favoriteArticle =
     open Js.Promise;
     send(UpdateFavoriteAction(RemoteData.Loading()));
     (
-      favorited ?
-        API.unfavoriteArticle(~slug, ()) : API.favoriteArticle(~slug, ())
+      favorited
+        ? API.unfavoriteArticle(~slug, ()) : API.favoriteArticle(~slug, ())
     )
     |> then_(result => {
          switch (result) {
@@ -333,8 +333,8 @@ let followUser =
     open Js.Promise;
     send(UpdateFollowAction(RemoteData.Loading()));
     (
-      following ?
-        API.unfollowUser(~username, ()) : API.followUser(~username, ())
+      following
+        ? API.unfollowUser(~username, ()) : API.followUser(~username, ())
     )
     |> then_(result => {
          switch (result) {
@@ -445,9 +445,9 @@ let make = (~user: Types.remoteUser, ~slug, _children) => {
                  ...article,
                  Types.favorited,
                  favoritesCount:
-                   favorited ?
-                     Types.(article.favoritesCount) + 1 :
-                     article.favoritesCount - 1,
+                   favorited
+                     ? Types.(article.favoritesCount) + 1
+                     : article.favoritesCount - 1,
                }
              ),
       })

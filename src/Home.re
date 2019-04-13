@@ -206,8 +206,8 @@ let favoriteArticle = (~user, (slug, favorited), {ReasonReact.send}) =>
     | Success(_) =>
       send(ToggleFavorite(slug, RemoteData.Loading()));
       (
-        favorited ?
-          API.favoriteArticle(~slug, ()) : API.unfavoriteArticle(~slug, ())
+        favorited
+          ? API.favoriteArticle(~slug, ()) : API.unfavoriteArticle(~slug, ())
       )
       |> then_(result => {
            switch (result) {
@@ -340,11 +340,11 @@ let make = (~user, _children) => {
              | Loading(data)
              | Success(data) =>
                <>
-                 {articles->RemoteData.isLoading ?
-                    <div className="article-preview">
-                      {"Loading..." |> strEl}
-                    </div> :
-                    nullEl}
+                 {articles->RemoteData.isLoading
+                    ? <div className="article-preview">
+                        {"Loading..." |> strEl}
+                      </div>
+                    : nullEl}
                  {data
                   ->Belt.List.mapU((. value: Types.article) =>
                       <ArticleItem
