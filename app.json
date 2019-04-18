@@ -1,0 +1,28 @@
+{
+  "name": "conduit",
+  "env": {
+    "SENTRY_DSN": "https://TODO:TODO@sentry.io/123",
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "hobby"
+    },
+    "release": {
+      "quantity": 0,
+      "size": "hobby"
+    }
+  },
+  "addons": [
+    "heroku-postgresql",
+    "papertrail"
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-python"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-apt"
+    },
+  ]
+}
