@@ -9,11 +9,15 @@ jobs:
   build:
     working_directory: ~/repo
     environment:
+      PGHOST: localhost
       PIPENV_VENV_IN_PROJECT: 1
       PIPENV_IGNORE_VIRTUALENVS: 1
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: ""
     docker:
       - image: circleci/python:3.7.3
-
+      - image: circleci/postgres:11.2-alpine
 
     steps:
       - checkout
@@ -37,21 +41,38 @@ jobs:
             - ./.venv
           key: v1-dependencies-{{ checksum "Pipfile.lock" }}
 
-      - run:
-          name: run linters
-          command: |
-            make lint
-            pipenv run black src/conduit --check
+      # - run:
+      #     name: run linters
+      #     command: |
+      #       make lint
+      #       pipenv run black src/conduit --check
+
+      # - run:
+      #     name: run mypy
+      #     command: |
+      #       make types
 
       - run:
-          name: run mypy
+          name: Waiting for Postgres to be ready
           command: |
-            make types
+            for i in `seq 1 10`;
+            do
+              nc -z localhost 5432 && echo Success && exit 0
+              echo -n .
+              sleep 1
+            done
+            echo Failed waiting for Postgres && exit 1
+
+      - run:
+          name: Create testing db
+          command: |
+            sudo apt install postgresql-client
+            .docker/devdb.sh
+            .docker/testdb.sh
 
       - run:
           name: run tests
           command: |
-            make start-pgsql
             make unit
 
       - run:
@@ -60,8 +81,8 @@ jobs:
             echo "exit()" >> exit.sh
             cat exit.sh | pipenv run pshell etc/development.ini SKIP_CHECK_DB_MIGRATED=1
 
-      - run:
-          name: run prod app
-          command: |
-            echo "exit()" >> exit.sh
-            cat exit.sh | DATABASE_URL="postgresql://conduit_dev@localhost/conduit_dev" pipenv run pshell etc/production.ini SKIP_CHECK_DB_MIGRATED=1
+      # - run:
+      #     name: run prod app
+      #     command: |
+      #       echo "exit()" >> exit.sh
+      #       cat exit.sh | DATABASE_URL="postgresql://conduit_dev@localhost/conduit_dev" pipenv run pshell etc/production.ini SKIP_CHECK_DB_MIGRATED=1

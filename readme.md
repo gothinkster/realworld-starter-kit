@@ -24,3 +24,10 @@ You need to have pipenv and Python 3.7 installed on your machine. Then you can r
     $ make install
     $ make run
     $ make tests
+
+# TODO
+
+* [ ] Figure out how to run postgres on CircleCI.
+* [ ] Add badges.
+* [ ] Run Postman tests in CircleCI.
+* [ ] Serve one of the frontends on root.
