@@ -74,7 +74,7 @@ types: .installed
 	@rm -rf .mypy_cache
 	@pipenv run mypy src/conduit
 	@cat ./typecov/linecount.txt
-	@pipenv run python src/conduit/scripts/type_coverage.py 10 ./typecov/linecount.txt
+	@pipenv run python .mypy/type_coverage.py 10 ./typecov/linecount.txt
 
 .PHONY: format
 format: .installed
