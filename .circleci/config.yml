@@ -41,16 +41,16 @@ jobs:
             - ./.venv
           key: v1-dependencies-{{ checksum "Pipfile.lock" }}
 
-      # - run:
-      #     name: run linters
-      #     command: |
-      #       make lint
-      #       pipenv run black src/conduit --check
+      - run:
+          name: run linters
+          command: |
+            make lint
+            pipenv run black src/conduit --check
 
-      # - run:
-      #     name: run mypy
-      #     command: |
-      #       make types
+      - run:
+          name: run mypy
+          command: |
+            make types
 
       - run:
           name: Waiting for Postgres to be ready
