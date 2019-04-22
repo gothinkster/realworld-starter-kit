@@ -15,7 +15,7 @@ setup(
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
         "License :: MIT",
     ],
-    author="Niteo",
+    author="niteo.co",
     author_email="info@niteo.co",
     url="http://github.com/niteoweb/pyramid-realworld-example-app",
     keywords="pyramid openapi realworld",

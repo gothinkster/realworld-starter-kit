@@ -1,5 +1,29 @@
 # ![RealWorld Example App](logo.png)
 
+<p align="center">
+  <a href="https://circleci.com/gh/niteoweb/pyramid-realworld-example-app">
+    <img alt="CircleCI for pyramid-realworld-example-app (master branch)"
+         src="https://circleci.com/gh/niteoweb/pyramid-realworld-example-app.svg?style=shield">
+  </a>
+  <a href="https://github.com/niteoweb/pyramid-realworld-example-app/blob/master/Makefile#L98">
+    <img alt="Test coverage (master branch)"
+         src="https://img.shields.io/badge/coverage-100%25-brightgreen.svg">
+  </a>
+  <img alt="Supported Python versions" src="https://img.shields.io/badge/python-3.7-2A79B8.svg">
+  <a href="https://github.com/niteoweb/pyramid-realworld-example-app/blob/master/LICENSE">
+    <img alt="License: MIT"
+         src="https://img.shields.io/badge/License-MIT-yellow.svg">
+  </a>
+  <a href="https://github.com/niteoweb/pyramid-realworld-example-app/graphs/contributors">
+    <img alt="Built by these great folks!"
+         src="https://img.shields.io/github/contributors/niteoweb/pyramid-realworld-example-app.svg">
+  </a>
+  <a href="https://webchat.freenode.net/?channels=pyramid">
+    <img alt="Talk to us in #pyramid on Freenode IRC"
+         src="https://img.shields.io/badge/irc-freenode-blue.svg">
+  </a>
+</p>
+
 > ### Pyramid codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
 
 
