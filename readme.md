@@ -39,11 +39,11 @@ For more information on how this works with other frontends/backends, head over 
 
 # How it works
 
-Pyramid using pyramid_openapi3 for request/response validation and pyramid_deferred_sqla for PostgreSQL integration. Deployed to Heroku
+Pyramid using [pyramid_openapi3](https://github.com/niteoweb/pyramid_openapi3) for request/response validation and [pyramid_deferred_sqla](https://github.com/niteoweb/pyramid_deferred_sqla) for PostgreSQL integration. Deployed to Heroku.
 
 # Getting started
 
-You need to have pipenv and Python 3.7 installed on your machine. Then you can run:
+You need to have [pipenv](https://pipenv.readthedocs.io/) and Python 3.7 installed on your machine. Then you can run:
 
     $ make install
     $ make run
