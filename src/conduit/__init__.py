@@ -1,6 +1,7 @@
 """Package initializer."""
 
 from pyramid.config import Configurator
+from pyramid.router import Router
 from pyramid_heroku import expandvars_dict
 
 import structlog
@@ -9,7 +10,7 @@ import typing as t
 logger = structlog.getLogger("init")
 
 
-def configure_logging():
+def configure_logging() -> None:
     """Configure structlog logging.
 
     Whenever structlog is imported it only creates a proxy. Calling this
@@ -30,15 +31,25 @@ def configure_logging():
     )
 
 
-def main(global_config: t.Dict[str, str], **settings):
-    """Return a Pyramid WSGI application."""
-    settings = expandvars_dict(settings)
-
-    config = Configurator(settings=settings)
+def configure(config: Configurator) -> None:
+    """Configure Pyramid to serve the Conduit API."""
 
     # Configure DB
     config.include("pyramid_deferred_sqla")
     config.sqlalchemy_engine(pool_size=5, max_overflow=1, pool_timeout=5)
 
-    # up up and away!
+    # Configure pyramid_openapi3 integration
+    config.include(".openapi")
+
+
+def main(global_config: t.Dict[str, str], **settings: t.Dict[str, str]) -> Router:
+    """Return a Pyramid WSGI application."""
+    # Expand environment variables in .ini files
+    settings = expandvars_dict(settings)
+
+    # Configure Pyramid
+    config = Configurator(settings=settings)
+    configure(config)
+
+    # Up, Up and Away!
     return config.make_wsgi_app()
