@@ -51,7 +51,7 @@ You need to have [pipenv](https://pipenv.readthedocs.io/) and Python 3.7 install
 
 # TODO
 
-* [ ] Figure out how to run postgres on CircleCI.
-* [ ] Add badges.
-* [ ] Run Postman tests in CircleCI.
+* [x] Figure out how to run postgres on CircleCI.
+* [x] Add badges.
+* [x] Run Postman tests in CircleCI.
 * [ ] Serve one of the frontends on root.

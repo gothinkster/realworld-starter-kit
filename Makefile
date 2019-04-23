@@ -109,8 +109,15 @@ else
 	@pipenv run pytest $(path)
 endif
 
+.PHONY: postman-tests
+postman-tests: .installed
+	# Your need to install newman (npm install newman)
+	# and run `make run` in a another tab
+	@APIURL=http://localhost:8080/api/vi src/conduit/tests/postman/run-postman-tests.sh
+
+
 .PHONY: tests
-tests: format lint types unit
+tests: format lint types unit postman-tests
 
 .PHONY: clean
 clean:
