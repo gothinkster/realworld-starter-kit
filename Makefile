@@ -74,7 +74,7 @@ types: .installed
 	@rm -rf .mypy_cache
 	@pipenv run mypy src/conduit
 	@cat ./typecov/linecount.txt
-	@pipenv run python .mypy/type_coverage.py 82 ./typecov/linecount.txt
+	@pipenv run python .mypy/type_coverage.py 100 ./typecov/linecount.txt
 
 .PHONY: format
 format: .installed
@@ -95,7 +95,7 @@ args = ""
 pytest_args = -k $(filter) $(args)
 coverage_args = ""
 ifeq ($(unit_test_all),"true")
-	coverage_args = --cov=conduit --cov-branch --cov-report html --cov-report xml:cov.xml --cov-report term-missing --cov-fail-under=77
+	coverage_args = --cov=conduit --cov-branch --cov-report html --cov-report xml:cov.xml --cov-report term-missing --cov-fail-under=100
 endif
 
 .PHONY: unit
@@ -113,11 +113,11 @@ endif
 postman-tests: .installed
 	# Your need to install newman (npm install newman)
 	# and run `make run` in a another tab
-	@APIURL=http://localhost:8080/api/vi src/conduit/tests/postman/run-postman-tests.sh
+	@APIURL=http://localhost:8080/api src/conduit/tests/postman/run-postman-tests.sh
 
 
 .PHONY: tests
-tests: format lint types unit postman-tests
+tests: format lint types unit
 
 .PHONY: clean
 clean:

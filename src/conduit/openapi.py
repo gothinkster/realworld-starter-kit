@@ -12,4 +12,4 @@ def includeme(config: Configurator) -> None:
     config.pyramid_openapi3_spec(
         os.path.join(os.path.dirname(__file__), "openapi.yaml"), route="/openapi.yaml"
     )
-    config.pyramid_openapi3_add_explorer(route="/api/v1")
+    config.pyramid_openapi3_add_explorer(route="/api")

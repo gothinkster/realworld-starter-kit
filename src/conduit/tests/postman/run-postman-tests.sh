@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-ALLOWED_ASSERTION_FAILURES=17
+ALLOWED_ASSERTION_FAILURES=16
 ALLOWED_SCRIPT_FAILURES=12
 
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
