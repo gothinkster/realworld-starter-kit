@@ -6,9 +6,10 @@
 * Spinning up a WSGI server for functional test run
 """
 
-from _pytest.fixtures import SubRequest
 from alembic import command
 from alembic.config import Config
+from conduit.scripts.populate import add_tags
+from conduit.tag.models import Tag
 from pyramid.paster import bootstrap
 from pyramid.request import Request
 from pyramid.router import Router
@@ -17,6 +18,7 @@ from sqlalchemy.orm.session import Session
 from sqlalchemy.pool import NullPool
 from webtest import TestApp
 
+import _pytest
 import logging
 import os
 import pytest
@@ -24,18 +26,18 @@ import transaction
 import typing as t
 
 logger = logging.getLogger(__name__)
+AppEnvType = t.Dict["str", object]
 
 
 @pytest.fixture(scope="session")
-def ini_path(request: SubRequest) -> str:
+def ini_path(request: _pytest.fixtures.SubRequest) -> str:
     """Get test INI file path from py.test command line."""
     return os.path.abspath(request.config.option.ini or "etc/test.ini")
 
 
 @pytest.fixture(scope="session")
-def app_env(ini_path: str) -> t.Dict["str", object]:
+def app_env(ini_path: str) -> AppEnvType:
     """Initialize WSGI application from INI file given on the command line."""
-
     env = bootstrap(ini_path, options={"SKIP_CHECK_DB_MIGRATED": "true"})
 
     # build schema
@@ -84,7 +86,7 @@ def testapp(app: Router) -> TestApp:
 
 
 @pytest.fixture(scope="function")
-def democontent(db):
+def democontent(db: Session) -> t.Generator:
     """Pre-fill the testing database with democontent.
 
     Use helper methods from populate.py.
@@ -94,24 +96,17 @@ def democontent(db):
     we then also have to do manual cleanup of the DB in teardown.
     """
     with transaction.manager:
-        # add_users(db)
+        add_tags(db)
         pass
 
     yield
 
     with transaction.manager:
-        # db.query(User).delete()
+        db.query(Tag).delete()
         pass
 
 
-@pytest.fixture(scope="function")
-def users(db):
-    """Populate testing db with demo users."""
-    # add_users(db)
-    pass
-
-
-def pytest_addoption(parser):
+def pytest_addoption(parser: _pytest.config.argparsing.Parser) -> None:
     """Add pytest option."""
     parser.addoption(
         "--ini",

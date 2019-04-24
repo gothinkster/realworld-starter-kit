@@ -90,5 +90,6 @@ jobs:
       - run :
           name: run Postman tests
           command: |
+            make devdb
             pipenv run pserve etc/development.ini &
             make postman-tests

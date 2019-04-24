@@ -5,7 +5,7 @@ from testfixtures import LogCapture
 import structlog
 
 
-def test_logging_configured():
+def test_logging_configured() -> None:
     """Test that structlog is configured."""
 
     with LogCapture() as log:
