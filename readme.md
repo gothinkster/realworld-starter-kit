@@ -55,4 +55,16 @@ You need to have [pipenv](https://pipenv.readthedocs.io/) and Python 3.7 install
 * [x] Figure out how to run postgres on CircleCI.
 * [x] Add badges.
 * [x] Run Postman tests in CircleCI.
+* [ ] Implement all endpoints:
+*   [ ] `/users/login`
+*   [ ] `/users`
+*   [ ] `/profiles/{username}`
+*   [ ] `/profiles/{username}/follow`
+*   [ ] `/articles/feed`
+*   [ ] `/articles`
+*   [ ] `/articles/{slug}`
+*   [ ] `/articles/{slug}/comments`
+*   [ ] `/articles/{slug}/comments/{id}`
+*   [ ] `/articles/{slug}/favorite`
+*   [x] `/tags`
 * [ ] Serve one of the frontends on root.
