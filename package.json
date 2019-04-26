@@ -39,7 +39,7 @@
     "format:re": "bsrefmt --in-place",
     "predeploy": "yarn build",
     "pretest": "yarn build:bsb -clean-world",
-    "start": "concurrently --kill-others-on-fail --names \"ReasonML,CRA\" --prefix-colors \"red.bgBlack.bold,yellow.bgBlack.bold\" \"yarn start:bsb\" \"yarn start:cra\"",
+    "start": "concurrently --kill-others-on-fail --names \"RE,JS\" --prefix-colors \"red.bgBlack.bold,yellow.bgBlack.bold\" \"yarn start:bsb\" \"yarn start:cra\"",
     "start:bsb": "yarn build:bsb -clean-world -w",
     "start:cra": "react-app-rewired start",
     "test": "react-app-rewired test",
