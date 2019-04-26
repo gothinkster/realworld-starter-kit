@@ -79,6 +79,16 @@ def configure(config: Configurator) -> None:
     # Configure tags
     config.include(".tag")
 
+    # Find and configure all decorated objects
+    config.scan(
+        ignore=[
+            "conduit.conftest",
+            "conduit.tests",
+            "conduit.scripts.tests",
+            "conduit.tag.tests",
+        ]
+    )
+
 
 def main(global_config: t.Dict[str, str], **settings: t.Dict[str, str]) -> Router:
     """Return a Pyramid WSGI application."""
