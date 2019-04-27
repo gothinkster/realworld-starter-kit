@@ -6,6 +6,9 @@ from pyramid.request import Request
 from pyramid.view import exception_view_config
 
 import os
+import structlog
+
+logger = structlog.get_logger(__name__)
 
 
 def includeme(config: Configurator) -> None:
@@ -31,4 +34,7 @@ def error_response(exc: Exception, request: Request):
     example implementation, and the specs say it should be 422:
     https://github.com/gothinkster/realworld/blob/master/api/swagger.json
     """
-    raise exception_response(422, json_body={"errors": {"body": [str(exc)]}})
+    logger.exception("Uncaught error", exc_info=exc)
+    raise exception_response(
+        422, json_body={"errors": {"body": ["Internal Server Error"]}}
+    )

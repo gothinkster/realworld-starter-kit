@@ -4,7 +4,7 @@ from sqlalchemy.orm.session import Session
 from webtest import TestApp
 
 
-def test_api_docs_served(testapp: TestApp, democontent: None) -> None:
+def test_api_docs_served(testapp: TestApp) -> None:
     """Swagger's API Explorer should be served on /docs/."""
     res = testapp.get("/api", status=200)
     assert "<title>Swagger UI</title>" in res.text
@@ -23,7 +23,7 @@ def test_unexpected_errors_are_handled(testapp: TestApp, db: Session) -> None:
     testapp.app.root_factory = BrokenRoot
 
     res = testapp.get("/api/tags", status=422)
-    assert res.json == {"errors": {"body": ["foo"]}}
+    assert res.json == {"errors": {"body": ["Internal Server Error"]}}
 
     # revert changes to app
     testapp.app.root_factory = original_root_factory

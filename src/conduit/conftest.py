@@ -8,7 +8,9 @@
 
 from alembic import command
 from alembic.config import Config
+from conduit.auth.models import User
 from conduit.scripts.populate import add_tags
+from conduit.scripts.populate import add_users
 from conduit.tag.models import Tag
 from pyramid.paster import bootstrap
 from pyramid.request import Request
@@ -97,12 +99,13 @@ def democontent(db: Session) -> t.Generator:
     """
     with transaction.manager:
         add_tags(db)
-        pass
+        add_users(db)
 
     yield
 
     with transaction.manager:
         db.query(Tag).delete()
+        db.query(User).delete()
         pass
 
 

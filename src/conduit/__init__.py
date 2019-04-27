@@ -76,6 +76,9 @@ def configure(config: Configurator) -> None:
     # Configure pyramid_openapi3 integration
     config.include(".openapi")
 
+    # Configure authentication & authorization
+    config.include(".auth")
+
     # Configure tags
     config.include(".tag")
 
@@ -83,9 +86,10 @@ def configure(config: Configurator) -> None:
     config.scan(
         ignore=[
             "conduit.conftest",
-            "conduit.tests",
+            "conduit.auth.tests",
             "conduit.scripts.tests",
             "conduit.tag.tests",
+            "conduit.tests",
         ]
     )
 

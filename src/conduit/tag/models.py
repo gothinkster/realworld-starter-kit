@@ -1,4 +1,4 @@
-"""Tag resource."""
+"""Models related to Tags."""
 
 from pyramid.request import Request
 from pyramid_deferred_sqla import Base

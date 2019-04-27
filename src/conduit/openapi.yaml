@@ -647,7 +647,7 @@ components:
           type: string
         password:
           type: string
-          format: password
+          # format: password  # TODO: uncomment when https://github.com/p1c2u/openapi-core/pull/132 is merged
       required:
         - email
         - password
@@ -667,7 +667,7 @@ components:
           type: string
         password:
           type: string
-          format: password
+          # format: password  # TODO: uncomment when https://github.com/p1c2u/openapi-core/pull/132 is merged
       required:
         - username
         - email

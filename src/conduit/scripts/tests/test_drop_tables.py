@@ -22,7 +22,7 @@ def test_drop_tables(argparse: mock.MagicMock, app_env: AppEnvType) -> None:
         "SELECT table_name FROM information_schema.tables WHERE table_schema='public'"
     )
 
-    assert sorted(tables) == sorted([("alembic_version",), ("tags",)])
+    assert sorted(tables) == sorted([("alembic_version",), ("tags",), ("users",)])
 
     argparse.ArgumentParser.return_value.parse_args.return_value.config = "etc/test.ini"
     main()

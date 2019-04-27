@@ -4,16 +4,19 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-e1839a8 = {path = ".", editable = true}  # conduit
+e1839a8 = {path = ".",editable = true}  # conduit
+argon2-cffi = "*"
 gunicorn = "*"
+passlib = "*"
 psycopg2-binary = "*"
 pydantic = "*"
 pyramid = "*"
-pyramid-force-https = "*"
-pyramid-heroku = "*"
-pyramid-redirect = "*"
-pyramid_deferred_sqla = {git = "https://github.com/niteoweb/pyramid_deferred_sqla.git", editable = true}
+pyramid_deferred_sqla = {git = "https://github.com/niteoweb/pyramid_deferred_sqla.git",editable = true}
+pyramid_force_https = "*"
+pyramid_heroku = "*"
+pyramid_jwt = "*"
 pyramid_openapi3 = "*"
+pyramid_redirect = "*"
 raven = "*"
 structlog = "*"
 
@@ -40,7 +43,6 @@ freezegun = "*"
 mypy = "*"
 pre-commit = "*"
 pre-commit-hooks = "*"
-pyramid-debugtoolbar = "*"
 pytest = "*"
 pytest-bdd = "*"
 pytest-cov = "*"
