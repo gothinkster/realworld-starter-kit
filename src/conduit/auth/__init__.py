@@ -15,3 +15,4 @@ def includeme(config: Configurator):
 
     # Add API routes for auth
     config.add_route("users", "/api/users")
+    config.add_route("users.login", "/api/users/login")

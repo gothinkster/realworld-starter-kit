@@ -3,6 +3,7 @@
 from conduit.auth.models import User
 from passlib.hash import argon2
 from pydantic import BaseModel
+from pyramid.httpexceptions import exception_response
 from pyramid.request import Request
 from pyramid.view import view_config
 
@@ -34,13 +35,29 @@ class UserResponse(BaseModel):
 
 @view_config(route_name="users", renderer="json", request_method="POST", openapi=True)
 def register(request: Request) -> UserResponse:
-    """List all tags."""
+    """User registers to Conduit app."""
+    body = request.openapi_validated.body
+
     user = User(
-        email=request.openapi_validated.body.user.email,
-        username=request.openapi_validated.body.user.username,
-        password_hash=argon2.hash(request.openapi_validated.body.user.password),
+        email=body.user.email,
+        username=body.user.username,
+        password_hash=argon2.hash(body.user.password),
     )
     request.db.add(user)
     request.db.flush()  # so that user.id is set and JWT token can be generated
     request.response.status_code = 201
     return UserResponse(user=user)
+
+
+@view_config(
+    route_name="users.login", renderer="json", request_method="POST", openapi=True
+)
+def login(request: Request) -> UserResponse:
+    """User logs in."""
+    body = request.openapi_validated.body
+
+    user = User.by_email(body.user.email, db=request.db)
+    if user and user.verify_password(body.user.password):
+        return UserResponse(user=user)
+
+    raise exception_response(401, json_body={})

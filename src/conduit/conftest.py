@@ -8,10 +8,8 @@
 
 from alembic import command
 from alembic.config import Config
-from conduit.auth.models import User
 from conduit.scripts.populate import add_tags
 from conduit.scripts.populate import add_users
-from conduit.tag.models import Tag
 from pyramid.paster import bootstrap
 from pyramid.request import Request
 from pyramid.router import Router
@@ -28,7 +26,7 @@ import transaction
 import typing as t
 
 logger = logging.getLogger(__name__)
-AppEnvType = t.Dict["str", object]
+AppEnvType = t.Dict["str", Request]
 
 
 @pytest.fixture(scope="session")
@@ -49,13 +47,13 @@ def app_env(ini_path: str) -> AppEnvType:
 
 
 @pytest.fixture(scope="session")
-def app(app_env: t.Dict["str", object]) -> Router:
+def app(app_env: AppEnvType) -> Router:
     """Get the WSGI app."""
     return app_env["app"]
 
 
 @pytest.fixture(scope="function")
-def db(app_env: t.Dict["str", Request]) -> Session:
+def db(app_env: AppEnvType) -> Session:
     """Initialize WSGI application from INI file given on the command line."""
     engine = app_env["registry"].settings["sqlalchemy.engine"]
     engine.update_execution_options(use_threadlocal=True, poolclass=NullPool)
@@ -88,7 +86,7 @@ def testapp(app: Router) -> TestApp:
 
 
 @pytest.fixture(scope="function")
-def democontent(db: Session) -> t.Generator:
+def democontent(app_env: AppEnvType, db: Session) -> t.Generator:
     """Pre-fill the testing database with democontent.
 
     Use helper methods from populate.py.
@@ -104,9 +102,14 @@ def democontent(db: Session) -> t.Generator:
     yield
 
     with transaction.manager:
-        db.query(Tag).delete()
-        db.query(User).delete()
-        pass
+        engine = app_env["registry"].settings["sqlalchemy.engine"]
+        engine.execute("TRUNCATE TABLE tags, users")
+
+        # TODO: Every time someone adds a table they have to remember to
+        # include it here otherwise they might get errors.UniqueViolation
+        # errors in their test suite. It's probably possible to run an
+        # SQL command that would first fetch all table names, then run
+        # TRUNCATE on them.
 
 
 def pytest_addoption(parser: _pytest.config.argparsing.Parser) -> None:
