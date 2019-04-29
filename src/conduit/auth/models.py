@@ -6,10 +6,14 @@ from pyramid_deferred_sqla import Base
 from pyramid_deferred_sqla import Model
 from pyramid_deferred_sqla import model_config
 from sqlalchemy import Column
+from sqlalchemy import ForeignKey
 from sqlalchemy import String
+from sqlalchemy import Table
 from sqlalchemy import TypeDecorator
 from sqlalchemy import Unicode
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.dialects.postgresql.psycopg2 import PGDialect_psycopg2
+from sqlalchemy.orm import relationship
 from sqlalchemy.orm.session import Session
 
 import typing as t
@@ -24,6 +28,14 @@ class LowerCaseString(TypeDecorator):
 
     def process_bind_param(self, value: str, dialect: PGDialect_psycopg2):
         return value.lower()
+
+
+followers = Table(
+    "followers",
+    Base.metadata,
+    Column("follower_id", UUID(as_uuid=True), ForeignKey("users.id"), primary_key=True),
+    Column("followed_id", UUID(as_uuid=True), ForeignKey("users.id"), primary_key=True),
+)
 
 
 @model_config(Base)
@@ -62,3 +74,21 @@ class User(Model):
     def verify_password(self, password: str) -> bool:
         """Verify given password against the hash stored in db."""
         return argon2.verify(password, self.password_hash)
+
+    def follow(self, user: User) -> None:
+        """Follow this user."""
+        if user not in self.follows:
+            self.follows.append(user)
+
+    def unfollow(self, user: User) -> None:
+        """Unfollow this user."""
+        if user in self.follows:
+            self.follows.remove(user)
+
+    follows = relationship(
+        "User",
+        secondary=followers,
+        primaryjoin=lambda: User.id == followers.c.follower_id,
+        secondaryjoin=lambda: User.id == followers.c.followed_id,
+        backref="followers",
+    )

@@ -56,10 +56,10 @@ You need to have [pipenv](https://pipenv.readthedocs.io/) and Python 3.7 install
 * [x] Add badges.
 * [x] Run Postman tests in CircleCI.
 * [ ] Implement all endpoints:
-*   [ ] `/users/login`
-*   [ ] `/users`
-*   [ ] `/profiles/{username}`
-*   [ ] `/profiles/{username}/follow`
+*   [x] `/users/login`
+*   [x] `/users`
+*   [x] `/profiles/{username}`
+*   [x] `/profiles/{username}/follow`
 *   [ ] `/articles/feed`
 *   [ ] `/articles`
 *   [ ] `/articles/{slug}`

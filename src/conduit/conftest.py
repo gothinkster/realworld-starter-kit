@@ -58,10 +58,12 @@ def db(app_env: AppEnvType) -> Session:
     engine = app_env["registry"].settings["sqlalchemy.engine"]
     engine.update_execution_options(use_threadlocal=True, poolclass=NullPool)
     db = app_env["request"].db
-    yield db
-    db.flush()
-    db.rollback()
-    db.close()
+    try:
+        yield db
+    finally:
+        db.flush()
+        db.rollback()
+        db.close()
 
 
 @pytest.fixture(scope="function")
@@ -99,17 +101,19 @@ def democontent(app_env: AppEnvType, db: Session) -> t.Generator:
         add_tags(db)
         add_users(db)
 
-    yield
+    try:
+        yield db
+    finally:
 
-    with transaction.manager:
-        engine = app_env["registry"].settings["sqlalchemy.engine"]
-        engine.execute("TRUNCATE TABLE tags, users")
+        with transaction.manager:
+            engine = app_env["registry"].settings["sqlalchemy.engine"]
+            engine.execute("TRUNCATE TABLE tags, users CASCADE")
 
-        # TODO: Every time someone adds a table they have to remember to
-        # include it here otherwise they might get errors.UniqueViolation
-        # errors in their test suite. It's probably possible to run an
-        # SQL command that would first fetch all table names, then run
-        # TRUNCATE on them.
+            # TODO: Every time someone adds a table they have to remember to
+            # include it here otherwise they might get errors.UniqueViolation
+            # errors in their test suite. It's probably possible to run an
+            # SQL command that would first fetch all table names, then run
+            # TRUNCATE on them.
 
 
 def pytest_addoption(parser: _pytest.config.argparsing.Parser) -> None:

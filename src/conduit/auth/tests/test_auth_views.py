@@ -9,6 +9,15 @@ from webtest import TestApp
 import copy
 import jwt
 
+# JWT encoded:
+# {'sub': 'aaaaaaaa-bbbb-4ccc-aaaa-eeeeeeeeeee1', 'iat': 1546300800}
+USER_ONE_JWT = (
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFhYWFh"
+    "YS1iYmJiLTRjY2MtYWFhYS1lZWVlZWVlZWVlZTEiLCJpYXQiOjE1NDYzM"
+    "DA4MDB9.OygJRuk6rNakGz3VUr6aul5Lq-2lB5IP7BTWY1RLDV6d3CEeJ"
+    "zKQFGZVGp-J-3oFpChArB6JB-McYR9lMtQ4PA"
+)
+
 
 @freeze_time("2019-01-01")
 def test_register(testapp: TestApp, db: Session) -> None:
@@ -61,27 +70,16 @@ def test_login(testapp: TestApp, democontent: None) -> None:
 
 def test_login_failed(testapp: TestApp, democontent: None) -> None:
     """Test POST /api/users with bad credentials."""
-    res = testapp.post_json(
+    testapp.post_json(
         "/api/users/login",
         {"user": {"email": "one@bar.com", "password": "noidea"}},
         status=401,
     )
-    assert res.json == {}
 
 
 @freeze_time("2019-01-01")
 def test_get_current_user(testapp: TestApp, democontent: None) -> None:
     """Test POST /api/user."""
-
-    # JWT encoded:
-    # {'sub': 'aaaaaaaa-bbbb-4ccc-aaaa-eeeeeeeeeee1', 'iat': 1546300800}
-    USER_ONE_JWT = (
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFhYWFh"
-        "YS1iYmJiLTRjY2MtYWFhYS1lZWVlZWVlZWVlZTEiLCJpYXQiOjE1NDYzM"
-        "DA4MDB9.OygJRuk6rNakGz3VUr6aul5Lq-2lB5IP7BTWY1RLDV6d3CEeJ"
-        "zKQFGZVGp-J-3oFpChArB6JB-McYR9lMtQ4PA"
-    )
-
     res = testapp.get(
         "/api/user", headers={"Authorization": f"Token {USER_ONE_JWT}"}, status=200
     )
@@ -104,16 +102,6 @@ def test_get_current_user(testapp: TestApp, democontent: None) -> None:
 @freeze_time("2019-01-01")
 def test_update_current_user(testapp: TestApp, democontent: None) -> None:
     """Test PUT /api/user."""
-
-    # JWT encoded:
-    # {'sub': 'aaaaaaaa-bbbb-4ccc-aaaa-eeeeeeeeeee1', 'iat': 1546300800}
-    USER_ONE_JWT = (
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFhYWFh"
-        "YS1iYmJiLTRjY2MtYWFhYS1lZWVlZWVlZWVlZTEiLCJpYXQiOjE1NDYzM"
-        "DA4MDB9.OygJRuk6rNakGz3VUr6aul5Lq-2lB5IP7BTWY1RLDV6d3CEeJ"
-        "zKQFGZVGp-J-3oFpChArB6JB-McYR9lMtQ4PA"
-    )
-
     res = testapp.put_json(
         "/api/user",
         {
@@ -141,3 +129,11 @@ def test_update_current_user(testapp: TestApp, democontent: None) -> None:
             "image": "image",
         }
     }
+
+
+@freeze_time("2019-01-01")
+def test_invalid_token(testapp: TestApp) -> None:
+    """Test GET /api/user with invalid token, because user one is not in db."""
+    testapp.get(
+        "/api/user", headers={"Authorization": f"Token {USER_ONE_JWT}"}, status=401
+    )
