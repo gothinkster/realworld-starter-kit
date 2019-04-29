@@ -2,7 +2,7 @@
 set -e
 
 ALLOWED_ASSERTION_FAILURES=16
-ALLOWED_SCRIPT_FAILURES=8
+ALLOWED_SCRIPT_FAILURES=6
 
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 

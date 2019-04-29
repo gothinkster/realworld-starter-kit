@@ -69,6 +69,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericErrorModel"
+  # Had to add this endpoint so that the spec adheres the
+  # Postman collection of test requests
+  /user:
     get:
       summary: Get current user
       description: Gets the currently logged-in user

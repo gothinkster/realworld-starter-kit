@@ -100,7 +100,9 @@ def main(global_config: t.Dict[str, str], **settings: t.Dict[str, str]) -> Route
     settings = expandvars_dict(settings)
 
     # Configure Pyramid
-    config = Configurator(settings=settings)
+    # TODO: can we configure root_factory in auth.py?
+    # config.set_root_factory(root_factory) maybe?
+    config = Configurator(settings=settings, root_factory="conduit.auth.RootFactory")
     configure(config)
 
     # Verify that DB schema is migrated to latest version

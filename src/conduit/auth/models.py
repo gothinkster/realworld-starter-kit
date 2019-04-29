@@ -39,6 +39,13 @@ class User(Model):
     image = Column(String())
 
     @classmethod
+    def by_id(cls: t.Type[User], uuid: str, db: Session) -> t.Optional[User]:
+        """Get User by id."""
+        q = db.query(cls)
+        q = q.filter(cls.id == uuid)
+        return q.one_or_none()
+
+    @classmethod
     def by_username(cls: t.Type[User], username: str, db: Session) -> t.Optional[User]:
         """Get User by username."""
         q = db.query(cls)

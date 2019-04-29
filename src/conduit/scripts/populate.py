@@ -52,13 +52,13 @@ def add_users(db: Session) -> None:
         id=USER_ONE_ID, email="one@bar.com", username="one", password_hash=SECRET
     )
     db.add(one)
-    logger.info("User added", name=one.username)
+    logger.info("User added", username=one.username)
 
     two = User(
         id=USER_TWO_ID, email="two@bar.com", username="two", password_hash=SECRET
     )
     db.add(two)
-    logger.info("User added", name=two.username)
+    logger.info("User added", username=two.username)
 
     db.flush()
 

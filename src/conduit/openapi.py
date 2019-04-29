@@ -4,6 +4,7 @@ from pyramid.config import Configurator
 from pyramid.httpexceptions import exception_response
 from pyramid.request import Request
 from pyramid.view import exception_view_config
+from pyramid.view import forbidden_view_config
 
 import os
 import structlog
@@ -22,7 +23,7 @@ def includeme(config: Configurator) -> None:
 
 
 @exception_view_config(Exception)
-def error_response(exc: Exception, request: Request):
+def unknown_error(exc: Exception, request: Request):
     """Catch any uncaught errors and respond with a nice JSON error.
 
     Without this, Exceptions that get to WSGI level return HTML that says
@@ -38,3 +39,13 @@ def error_response(exc: Exception, request: Request):
     raise exception_response(
         422, json_body={"errors": {"body": ["Internal Server Error"]}}
     )
+
+
+@forbidden_view_config()
+def unauthorized(exc: Exception, request: Request):
+    """Catch permission errors and respond with a nice JSON error.
+
+    Without this, permission errors that get to WSGI level return HTML that says
+    403 Forbidden.
+    """
+    raise exception_response(401, json_body={"errors": {"body": ["Unauthorized"]}})

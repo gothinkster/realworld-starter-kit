@@ -33,6 +33,36 @@ class UserResponse(BaseModel):
         }
 
 
+@view_config(
+    route_name="user",
+    renderer="json",
+    request_method="GET",
+    openapi=True,
+    permission="authenticated",
+)
+def current_user(request: Request) -> UserResponse:
+    """Get currently logged in user."""
+    return UserResponse(user=User.by_id(request.authenticated_userid, db=request.db))
+
+
+@view_config(
+    route_name="user",
+    renderer="json",
+    request_method="PUT",
+    openapi=True,
+    permission="authenticated",
+)
+def update(request: Request) -> UserResponse:
+    """Update currently logged in user."""
+    body = request.openapi_validated.body
+    user = User.by_id(request.authenticated_userid, db=request.db)
+
+    for field in body.user.__dict__:
+        setattr(user, field, getattr(body.user, field))
+
+    return UserResponse(user=user)
+
+
 @view_config(route_name="users", renderer="json", request_method="POST", openapi=True)
 def register(request: Request) -> UserResponse:
     """User registers to Conduit app."""

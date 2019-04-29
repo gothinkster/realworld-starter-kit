@@ -1,5 +1,7 @@
 """Tests for the pyramid_openapi3 integration."""
 
+from pyramid.exceptions import HTTPForbidden
+from pyramid.request import Request
 from sqlalchemy.orm.session import Session
 from webtest import TestApp
 
@@ -17,13 +19,32 @@ def test_unexpected_errors_are_handled(testapp: TestApp, db: Session) -> None:
     class BrokenRoot:
         """Raise an unexpected error when called."""
 
-        def __init__(self, request):
+        def __init__(self, request: Request):
             raise Exception("foo")
 
     testapp.app.root_factory = BrokenRoot
 
     res = testapp.get("/api/tags", status=422)
     assert res.json == {"errors": {"body": ["Internal Server Error"]}}
+
+    # revert changes to app
+    testapp.app.root_factory = original_root_factory
+
+
+def test_authorization_errors_are_handled(testapp: TestApp, db: Session) -> None:
+    """Test that a sane response is returned for authorization errors."""
+    original_root_factory = testapp.app.root_factory
+
+    class BrokenRoot:
+        """Raise an unexpected error when called."""
+
+        def __init__(self, request: Request):
+            raise HTTPForbidden("foo")
+
+    testapp.app.root_factory = BrokenRoot
+
+    res = testapp.get("/api/tags", status=401)
+    assert res.json == {"errors": {"body": ["Unauthorized"]}}
 
     # revert changes to app
     testapp.app.root_factory = original_root_factory
