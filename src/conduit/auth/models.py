@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from passlib.hash import argon2
+from pyramid.request import Request
 from pyramid_deferred_sqla import Base
 from pyramid_deferred_sqla import Model
 from pyramid_deferred_sqla import model_config
@@ -44,8 +45,18 @@ class User(Model):
 
     __tablename__ = "users"
 
-    email = Column(LowerCaseString(), nullable=False)
-    username = Column(String(), nullable=False)
+    def __json__(self, request: Request) -> t.Dict[str, str]:
+        """JSON renderer support."""
+        return {
+            "username": self.username,
+            "email": self.email,
+            "bio": self.bio or "",
+            "token": request.create_jwt_token(str(self.id)),
+            "image": self.image or "",
+        }
+
+    email = Column(LowerCaseString(), nullable=False, unique=True)
+    username = Column(String(), nullable=False, unique=True)
     password_hash = Column(String(), nullable=False)
     bio = Column(Unicode())
     image = Column(String())

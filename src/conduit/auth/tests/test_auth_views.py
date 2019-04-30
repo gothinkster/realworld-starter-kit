@@ -20,7 +20,7 @@ USER_ONE_JWT = (
 
 
 @freeze_time("2019-01-01")
-def test_register(testapp: TestApp, db: Session) -> None:
+def test_register(testapp: TestApp, db: Session, democontent: None) -> None:
     """Test POST /api/users."""
     res = testapp.post_json(
         "/api/users",

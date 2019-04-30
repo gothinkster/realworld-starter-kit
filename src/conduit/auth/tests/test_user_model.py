@@ -1,7 +1,23 @@
-"""Tests for the Tag model."""
+"""Tests for the User model."""
 
 from conduit.auth.models import User
+from pyramid.testing import DummyRequest
 from sqlalchemy.orm.session import Session
+from unittest import mock
+
+
+def test_json_renderer(dummy_request: DummyRequest) -> None:
+    """Test that User is correctly rendered for an OpenAPI JSON response."""
+    dummy_request.create_jwt_token = mock.Mock()
+    dummy_request.create_jwt_token.return_value = "token"
+    user = User(id=1, username="foö", email="foo@mail.com", bio="biö", image="imäge")
+    assert user.__json__(dummy_request) == {
+        "bio": "biö",
+        "email": "foo@mail.com",
+        "image": "imäge",
+        "token": "token",
+        "username": "foö",
+    }
 
 
 def test_by_shortcuts(db: Session, democontent: None) -> None:
@@ -19,7 +35,7 @@ def test_verify_password(db: Session, democontent: None) -> None:
 def test_follow(db: Session, democontent: None) -> None:
     """Test following a user."""
     one = User.by_username("one", db)
-    two = User.by_username("one", db)
+    two = User.by_username("two", db)
 
     assert two not in one.follows  # type: ignore
 

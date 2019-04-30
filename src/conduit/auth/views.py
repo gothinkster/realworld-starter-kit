@@ -1,36 +1,14 @@
 """HTTP operations for auth."""
 
 from conduit.auth.models import User
+from mypy_extensions import TypedDict
 from passlib.hash import argon2
-from pydantic import BaseModel
 from pyramid.httpexceptions import HTTPUnauthorized
 from pyramid.request import Request
 from pyramid.view import view_config
 
-import typing as t
-
-
-class UserResponse(BaseModel):
-    """Python implementation of openapi.yaml's UserResponse schema."""
-
-    user: User
-
-    class Config:
-        """Enable support for User type."""
-
-        arbitrary_types_allowed = True
-
-    def __json__(self, request: Request) -> t.Dict[str, t.Dict[str, str]]:
-        """JSON renderer support."""
-        return {
-            "user": {
-                "email": self.user.email,
-                "token": request.create_jwt_token(str(self.user.id)),
-                "username": self.user.username,
-                "bio": self.user.bio or "",
-                "image": self.user.image or "",
-            }
-        }
+# Python representation of openapi.yaml's UserResponse schema
+UserResponse = TypedDict("UserResponse", {"user": User})
 
 
 @view_config(
@@ -42,7 +20,7 @@ class UserResponse(BaseModel):
 )
 def current_user(request: Request) -> UserResponse:
     """Get currently logged in user."""
-    return UserResponse(user=request.user)
+    return {"user": request.user}
 
 
 @view_config(
@@ -60,7 +38,7 @@ def update(request: Request) -> UserResponse:
     for field in body.user.__dict__:
         setattr(user, field, getattr(body.user, field))
 
-    return UserResponse(user=user)
+    return {"user": user}
 
 
 @view_config(route_name="users", renderer="json", request_method="POST", openapi=True)
@@ -76,7 +54,7 @@ def register(request: Request) -> UserResponse:
     request.db.add(user)
     request.db.flush()  # so that user.id is set and JWT token can be generated
     request.response.status_code = 201
-    return UserResponse(user=user)
+    return {"user": user}
 
 
 @view_config(
@@ -88,6 +66,6 @@ def login(request: Request) -> UserResponse:
 
     user = User.by_email(body.user.email, db=request.db)
     if user and user.verify_password(body.user.password):
-        return UserResponse(user=user)
+        return {"user": user}
 
     raise HTTPUnauthorized()

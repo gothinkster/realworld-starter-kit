@@ -1,37 +1,13 @@
 """HTTP operations for auth."""
 
-from conduit.auth.models import User
 from conduit.openapi import object_or_404
-from pydantic import BaseModel
+from conduit.profile.models import Profile
+from mypy_extensions import TypedDict
 from pyramid.request import Request
 from pyramid.view import view_config
 
-import typing as t
-
-
-class ProfileResponse(BaseModel):
-    """Python implementation of openapi.yaml's ProfileResponse schema."""
-
-    profile: User
-    following: bool
-
-    class Config:
-        """Enable support for User type."""
-
-        arbitrary_types_allowed = True
-
-    def __json__(
-        self, request: Request
-    ) -> t.Dict[str, t.Dict[str, t.Union[str, bool]]]:
-        """JSON renderer support."""
-        return {
-            "profile": {
-                "username": self.profile.username,
-                "bio": self.profile.bio or "",
-                "image": self.profile.image or "",
-                "following": self.following,
-            }
-        }
+# Python representation of openapi.yaml's ProfileResponse schema
+ProfileResponse = TypedDict("ProfileResponse", {"profile": Profile})
 
 
 @view_config(
@@ -43,14 +19,12 @@ class ProfileResponse(BaseModel):
 )
 def profile(request: Request) -> ProfileResponse:
     """Get a profile."""
-    user = request.user
     profile = object_or_404(
-        User.by_username(
+        Profile.by_username(
             request.openapi_validated.parameters["path"]["username"], db=request.db
         )
     )
-    following = profile in user.follows
-    return ProfileResponse(profile=profile, following=following)
+    return {"profile": profile}
 
 
 @view_config(
@@ -59,12 +33,12 @@ def profile(request: Request) -> ProfileResponse:
 def follow(request: Request) -> ProfileResponse:
     """Follow a profile."""
     profile = object_or_404(
-        User.by_username(
+        Profile.by_username(
             request.openapi_validated.parameters["path"]["username"], db=request.db
         )
     )
-    request.user.follow(profile)
-    return ProfileResponse(profile=profile, following=True)
+    request.user.follow(profile.user)
+    return {"profile": profile}
 
 
 @view_config(
@@ -73,9 +47,9 @@ def follow(request: Request) -> ProfileResponse:
 def unfollow(request: Request) -> ProfileResponse:
     """Unfollow a profile."""
     profile = object_or_404(
-        User.by_username(
+        Profile.by_username(
             request.openapi_validated.parameters["path"]["username"], db=request.db
         )
     )
-    request.user.unfollow(profile)
-    return ProfileResponse(profile=profile, following=False)
+    request.user.unfollow(profile.user)
+    return {"profile": profile}
