@@ -44,11 +44,18 @@ Pyramid using [pyramid_openapi3](https://github.com/niteoweb/pyramid_openapi3) f
 
 # Getting started
 
-You need to have [pipenv](https://pipenv.readthedocs.io/) and Python 3.7 installed on your machine. Then you can run:
+You need to have docker, [pipenv](https://pipenv.readthedocs.io/) and Python 3.7 installed on your machine.
+Docker should be running. Then you can run:
 
     $ make install
+    $ make start-pgsql
+    $ make devdb
     $ make run
     $ make tests
+
+To stop docker and clean container, you can run:
+    $ make stop-pgsql
+    $ make clean-pgsql
 
 # TODO
 
