@@ -1,4 +1,4 @@
-"""Models related to Tags."""
+"""Tag model."""
 
 from pyramid.request import Request
 from pyramid_deferred_sqla import Base
@@ -12,7 +12,7 @@ __all__ = ["Tag"]
 
 @model_config(Base)
 class Tag(Model):
-    """Tag of a post."""
+    """Tag of an article."""
 
     __tablename__ = "tags"
 

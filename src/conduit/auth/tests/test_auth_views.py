@@ -19,6 +19,16 @@ USER_ONE_JWT = (
 )
 
 
+# JWT encoded:
+# {'sub': 'aaaaaaaa-bbbb-4ccc-aaaa-eeeeeeeeeee2', 'iat': 1546300800}
+USER_TWO_JWT = (
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFhYWFh"
+    "YS1iYmJiLTRjY2MtYWFhYS1lZWVlZWVlZWVlZTIiLCJpYXQiOjE1NDYzM"
+    "DA4MDB9.titp0HgVtkMEnbU_mE-OnNbjha3hFzzIvmyp3iDbuyoXtvstU"
+    "JmtyOYWZXg9IUFdKafQ3gadkSEgvA7PKAWuyA"
+)
+
+
 @freeze_time("2019-01-01")
 def test_register(testapp: TestApp, db: Session, democontent: None) -> None:
     """Test POST /api/users."""

@@ -27,7 +27,7 @@ class Profile:
             "username": self.user.username,
             "bio": self.user.bio or "",
             "image": self.user.image or "",
-            "following": self.user in request.user.follows,
+            "following": (self.user in request.user.follows) if request.user else False,
         }
 
     @classmethod

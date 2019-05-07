@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6d26377ff4eb24b580942e6f1a3280534c5e8cd4c3b449f6127920d39e073154"
+            "sha256": "00684836025b1bfb529bd14ab5a2f47ad403791e6b63af020983bece5f751e7c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -383,6 +383,13 @@
             ],
             "version": "==1.0.4"
         },
+        "python-slugify": {
+            "hashes": [
+                "sha256:57163ffb345c7e26063435a27add1feae67fa821f1ef4b2f292c25847575d758"
+            ],
+            "index": "pypi",
+            "version": "==3.0.2"
+        },
         "pyyaml": {
             "hashes": [
                 "sha256:1adecc22f88d38052fb787d959f003811ca858b799590a5eaa70e63dca50308c",
@@ -440,6 +447,13 @@
             ],
             "index": "pypi",
             "version": "==19.1.0"
+        },
+        "text-unidecode": {
+            "hashes": [
+                "sha256:5a1375bb2ba7968740508ae38d92e1f889a0832913cb1c447d5e2046061a396d",
+                "sha256:801e38bd550b943563660a91de8d4b6fa5df60a542be9093f7abf819f86050cc"
+            ],
+            "version": "==1.2"
         },
         "transaction": {
             "hashes": [

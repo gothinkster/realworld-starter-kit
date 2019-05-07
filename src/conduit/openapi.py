@@ -1,10 +1,12 @@
 """Integration with pyramid_openapi3."""
 
+from datetime import datetime
 from pyramid.config import Configurator
 from pyramid.httpexceptions import exception_response
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPUnauthorized
 from pyramid.httpexceptions import HTTPUnprocessableEntity
+from pyramid.renderers import JSON
 from pyramid.request import Request
 from pyramid.view import exception_view_config
 from pyramid.view import forbidden_view_config
@@ -25,6 +27,23 @@ def includeme(config: Configurator) -> None:
         os.path.join(os.path.dirname(__file__), "openapi.yaml"), route="/openapi.yaml"
     )
     config.pyramid_openapi3_add_explorer(route="/api")
+
+    config.add_renderer("json", json_renderer())
+
+
+def json_renderer() -> JSON:
+    """Configure a JSON renderer that supports rendering datetimes."""
+    renderer = JSON()
+    renderer.add_adapter(datetime, datetime_adapter)
+    return renderer
+
+
+def datetime_adapter(obj: datetime, request: Request):
+    """OpenAPI spec defines date-time notation as RFC 3339, section 5.6.  # noqa
+
+    For example: 2017-07-21T17:32:28Z
+    """
+    return obj.isoformat() + "Z"
 
 
 def object_or_404(obj: t.Any) -> t.Any:

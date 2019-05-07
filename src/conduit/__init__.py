@@ -79,16 +79,16 @@ def configure(config: Configurator) -> None:
     # Configure authentication & authorization
     config.include(".auth")
 
-    # Configure tags
+    # Configure content
+    config.include(".article")
     config.include(".tag")
-
-    # Configure profiles
     config.include(".profile")
 
     # Find and configure all decorated objects
     config.scan(
         ignore=[
             "conduit.conftest",
+            "conduit.article.tests",
             "conduit.auth.tests",
             "conduit.profile.tests",
             "conduit.scripts.tests",

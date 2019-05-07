@@ -1,9 +1,12 @@
 """Tests for the Profile model."""
 
 from conduit.auth.models import User
+from conduit.openapi import json_renderer
 from conduit.profile.models import Profile
 from pyramid.testing import DummyRequest
 from sqlalchemy.orm.session import Session
+
+import json
 
 
 def test_json_renderer(db: Session, democontent: None) -> None:
@@ -13,7 +16,11 @@ def test_json_renderer(db: Session, democontent: None) -> None:
     request.user = user
 
     profile = Profile(user=user)  # type: ignore
-    assert profile.__json__(request) == {
+
+    renderer = json_renderer()
+    output = renderer(None)(profile, {"request": request})
+
+    assert json.loads(output) == {
         "username": "one",
         "following": False,
         "bio": "",

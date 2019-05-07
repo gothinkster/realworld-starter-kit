@@ -8,6 +8,7 @@
 
 from alembic import command
 from alembic.config import Config
+from conduit.scripts.populate import add_articles
 from conduit.scripts.populate import add_tags
 from conduit.scripts.populate import add_users
 from pyramid.paster import bootstrap
@@ -100,6 +101,7 @@ def democontent(app_env: AppEnvType, db: Session) -> t.Generator:
     with transaction.manager:
         add_tags(db)
         add_users(db)
+        add_articles(db)
 
     try:
         yield db
@@ -107,7 +109,7 @@ def democontent(app_env: AppEnvType, db: Session) -> t.Generator:
 
         with transaction.manager:
             engine = app_env["registry"].settings["sqlalchemy.engine"]
-            engine.execute("TRUNCATE TABLE tags, users CASCADE")
+            engine.execute("TRUNCATE articles, tags, users CASCADE")
 
             # TODO: Every time someone adds a table they have to remember to
             # include it here otherwise they might get errors.UniqueViolation
