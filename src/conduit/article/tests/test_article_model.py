@@ -34,7 +34,7 @@ def test_json_renderer(db: Session, democontent: None) -> None:
         "favorited": False,
         "favoritesCount": 0,
         "slug": "foo",
-        "tagList": ["foo", "bar"],
+        "tagList": ["dogs", "cats"],
         "title": "Foö",
         "updatedAt": "2019-02-02T02:02:02.000002Z",
     }

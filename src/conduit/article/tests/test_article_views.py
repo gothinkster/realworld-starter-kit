@@ -18,7 +18,7 @@ def test_GET_articles(testapp: TestApp, democontent: None) -> None:
                 "body": "johnjacob body",
                 "createdAt": "2019-05-05T05:05:05.000005Z",
                 "updatedAt": "2019-06-06T06:06:06.000006Z",
-                "tagList": ["foo", "bar"],
+                "tagList": [],
                 "favorited": False,
                 "favoritesCount": 0,
                 "author": {
@@ -35,7 +35,7 @@ def test_GET_articles(testapp: TestApp, democontent: None) -> None:
                 "body": "Bär body",
                 "createdAt": "2019-03-03T03:03:03.000003Z",
                 "updatedAt": "2019-04-04T04:04:04.000004Z",
-                "tagList": ["foo", "bar"],
+                "tagList": [],
                 "favorited": False,
                 "favoritesCount": 0,
                 "author": {
@@ -52,7 +52,7 @@ def test_GET_articles(testapp: TestApp, democontent: None) -> None:
                 "body": "Foö body",
                 "createdAt": "2019-01-01T01:01:01.000001Z",
                 "updatedAt": "2019-02-02T02:02:02.000002Z",
-                "tagList": ["foo", "bar"],
+                "tagList": ["dogs", "cats"],
                 "favorited": False,
                 "favoritesCount": 0,
                 "author": {
@@ -70,9 +70,18 @@ def test_GET_articles_filter_by_author(testapp: TestApp, democontent: None) -> N
     """Test GET /api/articles, filter by author."""
     res = testapp.get("/api/articles?author=one", status=200)
     assert res.json["articlesCount"] == 2
+    assert res.json["articles"][0]["slug"] == "bar"
+    assert res.json["articles"][1]["slug"] == "foo"
 
     res = testapp.get("/api/articles?author=two", status=200)
     assert res.json["articlesCount"] == 0
+
+
+def test_GET_articles_filter_by_tag(testapp: TestApp, democontent: None) -> None:
+    """Test GET /api/articles, filter by author."""
+    res = testapp.get("/api/articles?tag=dogs", status=200)
+    assert res.json["articlesCount"] == 1
+    assert res.json["articles"][0]["slug"] == "foo"
 
 
 def test_GET_articles_limit(testapp: TestApp, democontent: None) -> None:
@@ -106,7 +115,7 @@ def test_GET_article(testapp: TestApp, democontent: None) -> None:
             "favorited": False,
             "favoritesCount": 0,
             "slug": "foo",
-            "tagList": ["foo", "bar"],
+            "tagList": ["dogs", "cats"],
             "title": "Foö",
             "updatedAt": "2019-02-02T02:02:02.000002Z",
         }
@@ -130,7 +139,7 @@ def test_GET_article_authenticated(testapp: TestApp, democontent: None) -> None:
             "favorited": False,
             "favoritesCount": 0,
             "slug": "foo",
-            "tagList": ["foo", "bar"],
+            "tagList": ["dogs", "cats"],
             "title": "Foö",
             "updatedAt": "2019-02-02T02:02:02.000002Z",
         }
@@ -146,7 +155,7 @@ def test_POST_article(testapp: TestApp, democontent: None) -> None:
                 "title": "A title",
                 "description": "A description",
                 "body": "A body",
-                "taglist": ["one", "two"],
+                "tagList": ["one", "two"],
             }
         },
         headers={"Authorization": f"Token {USER_TWO_JWT}"},
@@ -157,7 +166,7 @@ def test_POST_article(testapp: TestApp, democontent: None) -> None:
     assert res.json["article"]["title"] == "A title"
     assert res.json["article"]["description"] == "A description"
     assert res.json["article"]["body"] == "A body"
-    assert res.json["article"]["tagList"] == ["foo", "bar"]  # TODO: taglist support
+    assert res.json["article"]["tagList"] == ["one", "two"]
 
     # TODO: mock createdAt and updatedAt to be able to compare entire output
     #     "article": {

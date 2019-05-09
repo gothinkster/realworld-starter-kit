@@ -9,7 +9,6 @@
 from alembic import command
 from alembic.config import Config
 from conduit.scripts.populate import add_articles
-from conduit.scripts.populate import add_tags
 from conduit.scripts.populate import add_users
 from pyramid.paster import bootstrap
 from pyramid.request import Request
@@ -99,7 +98,6 @@ def democontent(app_env: AppEnvType, db: Session) -> t.Generator:
     we then also have to do manual cleanup of the DB in teardown.
     """
     with transaction.manager:
-        add_tags(db)
         add_users(db)
         add_articles(db)
 

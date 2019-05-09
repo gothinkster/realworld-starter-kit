@@ -3,6 +3,7 @@
 from conduit.article.models import Article
 from conduit.auth.models import User
 from conduit.openapi import object_or_404
+from conduit.tag.models import Tag
 from mypy_extensions import TypedDict
 from pyramid.request import Request
 from pyramid.view import view_config
@@ -32,6 +33,13 @@ def articles(request: Request) -> MultipleArticlesResponse:
             request.openapi_validated.parameters["query"]["author"], db=request.db
         )
         q = q.filter(Article.author == author)
+
+    if request.openapi_validated.parameters["query"].get("tag"):
+        q = q.filter(
+            Article.tags.any(
+                Tag.name == request.openapi_validated.parameters["query"]["tag"]
+            )
+        )
 
     q = q.limit(request.openapi_validated.parameters["query"].get("limit", 20))
     q = q.offset(request.openapi_validated.parameters["query"].get("offset", 0))
@@ -64,6 +72,7 @@ def create(request: Request) -> SingleArticleResponse:
         description=body.article.description,
         body=body.article.body,
         author=request.user,
+        tags=[Tag(name=t) for t in getattr(body.article, "tagList", [])],
     )
     request.db.add(article)
     request.db.flush()

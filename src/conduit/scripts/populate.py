@@ -33,24 +33,6 @@ ARTICLE_JOHNJACOB_ID = "aaaaaaaa-bbbb-4ccc-aaaa-eeeeeeeeeee3"
 SECRET = "$argon2i$v=19$m=512,t=2,p=2$mRMCwLg3Rgih1JqTUooxxg$/bBw6iXly9rfryTkaoPX/Q"
 
 
-def add_tags(db: Session) -> None:
-    """Add demo tags to db.
-
-    It's good to use strange characters in demo/test content to test
-    support for non-ascii inputs.
-    """
-
-    foo = Tag(id=TAG_FOO_ID, name="Foö")
-    db.add(foo)
-    logger.info("Tag added", name=foo.name)
-
-    bar = Tag(id=TAG_BAR_ID, name="Bär")
-    db.add(bar)
-    logger.info("Tag added", name=bar.name)
-
-    db.flush()
-
-
 def add_users(db: Session) -> None:
     """Add demo users to db."""
 
@@ -93,6 +75,7 @@ def add_articles(db: Session) -> None:
         author=User.by_username("one", db=db),
         created=datetime(2019, 1, 1, 1, 1, 1, 1),
         updated=datetime(2019, 2, 2, 2, 2, 2, 2),
+        tags=[Tag(name="dogs"), Tag(name="cats")],
     )
 
     db.add(foo)
@@ -147,7 +130,6 @@ def main(argv: t.List[str] = sys.argv) -> None:
     setup_logging(parser.parse_args().config)
 
     with transaction.manager:
-        add_tags(env["request"].db)
         add_users(env["request"].db)
         add_articles(env["request"].db)
 
