@@ -67,9 +67,9 @@ To stop docker and clean container, you can run:
 *   [x] `/users`
 *   [x] `/profiles/{username}`
 *   [x] `/profiles/{username}/follow`
-*   [ ] `/articles/feed`
-*   [ ] `/articles`
-*   [ ] `/articles/{slug}`
+*   [x] `/articles/feed`
+*   [x] `/articles`
+*   [x] `/articles/{slug}`
 *   [ ] `/articles/{slug}/comments`
 *   [ ] `/articles/{slug}/comments/{id}`
 *   [ ] `/articles/{slug}/favorite`

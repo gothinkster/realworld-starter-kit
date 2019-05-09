@@ -9,6 +9,7 @@ from pyramid.request import Request
 from pyramid.view import view_config
 from slugify import slugify
 from sqlalchemy import desc
+from sqlalchemy.orm.query import Query
 
 import typing as t
 
@@ -21,12 +22,33 @@ MultipleArticlesResponse = TypedDict(
 SingleArticleResponse = TypedDict("SingleArticleResponse", {"article": Article})
 
 
+def paginate(query: Query, request: Request) -> Query:
+    """Paginate query results."""
+    q = query
+    q = q.limit(request.openapi_validated.parameters["query"].get("limit", 20))
+    q = q.offset(request.openapi_validated.parameters["query"].get("offset", 0))
+    return q
+
+
+@view_config(route_name="feed", renderer="json", request_method="GET", openapi=True)
+def feed(request: Request) -> MultipleArticlesResponse:
+    """Get your article feed."""
+    q = request.db.query(Article)
+    q = q.filter(Article.author_id.in_([user.id for user in request.user.follows]))
+
+    q = q.order_by(desc("created"))
+    q = paginate(q, request)
+
+    articles = q.all()
+    count = q.count()
+    return {"articles": articles, "articlesCount": count}
+
+
 @view_config(route_name="articles", renderer="json", request_method="GET", openapi=True)
 def articles(request: Request) -> MultipleArticlesResponse:
     """Get recent articles globally."""
 
     q = request.db.query(Article)
-    q = q.order_by(desc("created"))
 
     if request.openapi_validated.parameters["query"].get("author"):
         author = User.by_username(
@@ -41,8 +63,8 @@ def articles(request: Request) -> MultipleArticlesResponse:
             )
         )
 
-    q = q.limit(request.openapi_validated.parameters["query"].get("limit", 20))
-    q = q.offset(request.openapi_validated.parameters["query"].get("offset", 0))
+    q = q.order_by(desc("created"))
+    q = paginate(q, request)
 
     articles = q.all()
     count = q.count()
@@ -80,11 +102,31 @@ def create(request: Request) -> SingleArticleResponse:
     return {"article": article}
 
 
+@view_config(route_name="article", renderer="json", request_method="PUT", openapi=True)
+def update(request: Request) -> SingleArticleResponse:
+    """Update an article."""
+    body = request.openapi_validated.body
+    article = object_or_404(
+        Article.by_slug(
+            request.openapi_validated.parameters["path"]["slug"], db=request.db
+        )
+    )
+
+    if getattr(body.article, "title", None):
+        article.title = body.article.title
+    if getattr(body.article, "description", None):
+        article.description = body.article.description
+    if getattr(body.article, "body", None):
+        article.body = body.article.body
+
+    return {"article": article}
+
+
 @view_config(
     route_name="article", renderer="json", request_method="DELETE", openapi=True
 )
 def delete(request: Request) -> None:
-    """Get an article."""
+    """Delete an article."""
     article = object_or_404(
         Article.by_slug(
             request.openapi_validated.parameters["path"]["slug"], db=request.db

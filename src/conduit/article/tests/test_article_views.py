@@ -3,7 +3,57 @@
 from conduit.article.models import Article
 from conduit.auth.tests.test_auth_views import USER_ONE_JWT
 from conduit.auth.tests.test_auth_views import USER_TWO_JWT
+from sqlalchemy.orm.session import Session
 from webtest import TestApp
+
+
+def test_feed(testapp: TestApp, democontent: None) -> None:
+    """Test GET /api/articles/feed."""
+    res = testapp.get(
+        "/api/articles/feed",
+        headers={"Authorization": f"Token {USER_TWO_JWT}"},
+        status=200,
+    )
+
+    assert res.json == {
+        "articlesCount": 2,
+        "articles": [
+            {
+                "slug": "bar",
+                "title": "Bär",
+                "description": "Bär desc",
+                "body": "Bär body",
+                "createdAt": "2019-03-03T03:03:03.000003Z",
+                "updatedAt": "2019-04-04T04:04:04.000004Z",
+                "tagList": [],
+                "favorited": False,
+                "favoritesCount": 0,
+                "author": {
+                    "username": "one",
+                    "bio": "",
+                    "image": "",
+                    "following": True,
+                },
+            },
+            {
+                "slug": "foo",
+                "title": "Foö",
+                "description": "Foö desc",
+                "body": "Foö body",
+                "createdAt": "2019-01-01T01:01:01.000001Z",
+                "updatedAt": "2019-02-02T02:02:02.000002Z",
+                "tagList": ["dogs", "cats"],
+                "favorited": False,
+                "favoritesCount": 0,
+                "author": {
+                    "username": "one",
+                    "bio": "",
+                    "image": "",
+                    "following": True,
+                },
+            },
+        ],
+    }
 
 
 def test_GET_articles(testapp: TestApp, democontent: None) -> None:
@@ -105,7 +155,7 @@ def test_GET_articles_offset(testapp: TestApp, democontent: None) -> None:
 
 
 def test_GET_article(testapp: TestApp, democontent: None) -> None:
-    """Test GET /api/article/{slug}."""
+    """Test GET /api/articles/{slug}."""
     res = testapp.get("/api/articles/foo", status=200)
 
     assert res.json == {
@@ -125,7 +175,7 @@ def test_GET_article(testapp: TestApp, democontent: None) -> None:
 
 
 def test_GET_article_authenticated(testapp: TestApp, democontent: None) -> None:
-    """Test GET /api/article/{slug}."""
+    """Test GET /api/articles/{slug}."""
     res = testapp.get(
         "/api/articles/foo",
         headers={"Authorization": f"Token {USER_TWO_JWT}"},
@@ -186,8 +236,49 @@ def test_POST_article(testapp: TestApp, democontent: None) -> None:
     # }
 
 
-def test_DELETE_article(testapp: TestApp, db, democontent: None) -> None:
-    """Test DELETE /api/article/{slug}."""
+def test_PUT_article(testapp: TestApp, democontent: None) -> None:
+    """Test PUT /api/articles/{slug}."""
+    res = testapp.put_json(
+        "/api/articles/foo",
+        {
+            "article": {
+                "title": "New title",
+                "description": "New description",
+                "body": "New body",
+            }
+        },
+        headers={"Authorization": f"Token {USER_ONE_JWT}"},
+        status=200,
+    )
+
+    assert res.json == {
+        "article": {
+            "author": {"bio": "", "following": False, "image": "", "username": "one"},
+            "body": "New body",
+            "createdAt": "2019-01-01T01:01:01.000001Z",
+            "description": "New description",
+            "favorited": False,
+            "favoritesCount": 0,
+            "slug": "foo",
+            "tagList": ["dogs", "cats"],
+            "title": "New title",
+            "updatedAt": "2019-02-02T02:02:02.000002Z",
+        }
+    }
+
+
+def test_PUT_article_empty_request(testapp: TestApp, democontent: None) -> None:
+    """Test PUT /api/articles/{slug} with empty request, nothing happens."""
+    testapp.put_json(
+        "/api/articles/foo",
+        {"article": {}},
+        headers={"Authorization": f"Token {USER_ONE_JWT}"},
+        status=200,
+    )
+
+
+def test_DELETE_article(testapp: TestApp, db: Session, democontent: None) -> None:
+    """Test DELETE /api/articles/{slug}."""
     assert Article.by_slug("foo", db=db) is not None
     testapp.delete(
         "/api/articles/foo",
