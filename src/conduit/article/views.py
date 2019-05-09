@@ -78,3 +78,17 @@ def create(request: Request) -> SingleArticleResponse:
     request.db.flush()
     request.response.status_code = 201
     return {"article": article}
+
+
+@view_config(
+    route_name="article", renderer="json", request_method="DELETE", openapi=True
+)
+def delete(request: Request) -> None:
+    """Get an article."""
+    article = object_or_404(
+        Article.by_slug(
+            request.openapi_validated.parameters["path"]["slug"], db=request.db
+        )
+    )
+    request.db.delete(article)
+    return None

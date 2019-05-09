@@ -1,5 +1,7 @@
 """Tests for Article related views."""
 
+from conduit.article.models import Article
+from conduit.auth.tests.test_auth_views import USER_ONE_JWT
 from conduit.auth.tests.test_auth_views import USER_TWO_JWT
 from webtest import TestApp
 
@@ -182,3 +184,15 @@ def test_POST_article(testapp: TestApp, democontent: None) -> None:
     #         "createdAt": "2019-01-01T00:00:00Z",
     #     }
     # }
+
+
+def test_DELETE_article(testapp: TestApp, db, democontent: None) -> None:
+    """Test DELETE /api/article/{slug}."""
+    assert Article.by_slug("foo", db=db) is not None
+    testapp.delete(
+        "/api/articles/foo",
+        headers={"Authorization": f"Token {USER_ONE_JWT}"},
+        status=200,
+    )
+
+    assert Article.by_slug("foo", db=db) is None
