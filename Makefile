@@ -4,6 +4,8 @@ export DEBUG=true
 export APP=golang-echo-realworld-example-app
 export LDFLAGS="-w -s"
 
+all: build test
+
 build:
 	go build -race  .
 
