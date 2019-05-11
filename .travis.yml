@@ -9,14 +9,13 @@ language: go
 # with them.
 go:
   - "1.x"
-  - "1.8"
   - "1.10.x"
+  - "1.11.x"
   - master
 
 # Only clone the most recent commit.
 git:
   depth: 1
-
 # Don't email me the results of the test runs.
 #notifications:
 #  email: false
