@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"github.com/xesina/golang-echo-realworld-example-app/model"
 	"github.com/xesina/golang-echo-realworld-example-app/utils"
 )

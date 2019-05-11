@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
 	"github.com/xesina/golang-echo-realworld-example-app/router"
 	"github.com/xesina/golang-echo-realworld-example-app/router/middleware"

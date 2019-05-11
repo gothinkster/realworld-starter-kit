@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/xesina/golang-echo-realworld-example-app/router"
 	"github.com/xesina/golang-echo-realworld-example-app/db"
-	"github.com/xesina/golang-echo-realworld-example-app/store"
 	"github.com/xesina/golang-echo-realworld-example-app/handler"
+	"github.com/xesina/golang-echo-realworld-example-app/router"
+	"github.com/xesina/golang-echo-realworld-example-app/store"
 )
 
 func main() {

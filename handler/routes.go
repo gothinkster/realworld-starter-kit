@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"github.com/xesina/golang-echo-realworld-example-app/router/middleware"
 	"github.com/xesina/golang-echo-realworld-example-app/utils"
 )

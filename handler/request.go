@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"github.com/labstack/echo"
 	"github.com/gosimple/slug"
+	"github.com/labstack/echo/v4"
 	"github.com/xesina/golang-echo-realworld-example-app/model"
 )
 

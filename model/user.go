@@ -2,19 +2,20 @@ package model
 
 import (
 	"errors"
+
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
 	gorm.Model
-	Username   string            `gorm:"unique_index;not null"`
-	Email      string            `gorm:"unique_index;not null"`
-	Password   string            `gorm:"not null"`
+	Username   string `gorm:"unique_index;not null"`
+	Email      string `gorm:"unique_index;not null"`
+	Password   string `gorm:"not null"`
 	Bio        *string
 	Image      *string
-	Followers  []Follow          `gorm:"foreignkey:FollowingID"`
-	Followings []Follow          `gorm:"foreignkey:FollowerID"`
+	Followers  []Follow  `gorm:"foreignkey:FollowingID"`
+	Followings []Follow  `gorm:"foreignkey:FollowerID"`
 	Favorites  []Article `gorm:"many2many:favorites;"`
 }
 

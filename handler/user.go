@@ -1,10 +1,11 @@
 package handler
 
 import (
-	"github.com/labstack/echo"
+	"net/http"
+
 	"github.com/xesina/golang-echo-realworld-example-app/model"
 	"github.com/xesina/golang-echo-realworld-example-app/utils"
-	"net/http"
+	"github.com/labstack/echo/v4"
 )
 
 func (h *Handler) SignUp(c echo.Context) error {
