@@ -2,10 +2,7 @@
 export ROOT=$(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 export DEBUG=true
 export APP=golang-echo-realworld-example-app
-
 export LDFLAGS="-w -s"
-
-all: format lint build
 
 build:
 	go build -race  .
@@ -24,4 +21,4 @@ test:
 	go test -v -race ./...
 
 
-.PHONY: build get install run
+.PHONY: build run build-static test
