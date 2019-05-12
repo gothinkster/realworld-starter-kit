@@ -1,5 +1,6 @@
 """Tests for the User model."""
 
+from conduit.article.models import Article
 from conduit.auth.models import User
 from conduit.openapi import json_renderer
 from conduit.scripts.populate import USER_ONE_ID
@@ -59,3 +60,23 @@ def test_follow(db: Session, democontent: None) -> None:
 
     one.unfollow(two)  # type: ignore # again, to test idempotence
     assert two not in one.follows  # type: ignore
+
+
+def test_favorite(db: Session, democontent: None) -> None:
+    """Test favoriting an article."""
+    user = User.by_username("one", db)
+    article = Article.by_slug("foo", db)
+
+    assert article not in user.favorites  # type: ignore
+
+    user.favorite(article)  # type: ignore
+    assert article in user.favorites  # type: ignore
+
+    user.favorite(article)  # type: ignore # again, to test idempotence
+    assert article in user.favorites  # type: ignore
+
+    user.unfavorite(article)  # type: ignore
+    assert article not in user.favorites  # type: ignore
+
+    user.unfavorite(article)  # type: ignore # again, to test idempotence
+    assert article not in user.favorites  # type: ignore

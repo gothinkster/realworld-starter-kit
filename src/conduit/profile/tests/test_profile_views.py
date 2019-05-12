@@ -22,7 +22,7 @@ def test_get_profile(testapp: TestApp, democontent: None) -> None:
 def test_follow_unfollow_profile(
     testapp: TestApp, db: Session, democontent: None
 ) -> None:
-    """Test POST /api/profiles/{username}/follow."""
+    """Test POST/DELETE /api/profiles/{username}/follow."""
     one = User.by_username("one", db=db)
     two = User.by_username("two", db=db)
     assert one.follows == []  # type: ignore

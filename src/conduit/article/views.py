@@ -134,3 +134,34 @@ def delete(request: Request) -> None:
     )
     request.db.delete(article)
     return None
+
+
+@view_config(
+    route_name="article.favorite", renderer="json", request_method="POST", openapi=True
+)
+def favorite(request: Request) -> SingleArticleResponse:
+    """Favorite an article."""
+    article = object_or_404(
+        Article.by_slug(
+            request.openapi_validated.parameters["path"]["slug"], db=request.db
+        )
+    )
+    request.user.favorite(article)
+    return {"article": article}
+
+
+@view_config(
+    route_name="article.favorite",
+    renderer="json",
+    request_method="DELETE",
+    openapi=True,
+)
+def unfavorite(request: Request) -> SingleArticleResponse:
+    """Unfavorite an article."""
+    article = object_or_404(
+        Article.by_slug(
+            request.openapi_validated.parameters["path"]["slug"], db=request.db
+        )
+    )
+    request.user.unfavorite(article)
+    return {"article": article}

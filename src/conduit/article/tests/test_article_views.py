@@ -1,6 +1,7 @@
 """Tests for Article related views."""
 
 from conduit.article.models import Article
+from conduit.auth.models import User
 from conduit.auth.tests.test_auth_views import USER_ONE_JWT
 from conduit.auth.tests.test_auth_views import USER_TWO_JWT
 from sqlalchemy.orm.session import Session
@@ -287,3 +288,31 @@ def test_DELETE_article(testapp: TestApp, db: Session, democontent: None) -> Non
     )
 
     assert Article.by_slug("foo", db=db) is None
+
+
+def test_favorite_unfavorite_article(
+    testapp: TestApp, db: Session, democontent: None
+) -> None:
+    """Test POST/DELETE /api/articles/{slug}/favorite."""
+    user = User.by_username("one", db=db)
+    assert user.favorites == []  # type: ignore
+
+    res = testapp.post_json(
+        "/api/articles/foo/favorite",
+        headers={"Authorization": f"Token {USER_ONE_JWT}"},
+        status=200,
+    )
+    assert res.json["article"]["favorited"] is True
+    assert res.json["article"]["favoritesCount"] == 1
+    user = User.by_username("one", db=db)
+    assert [article.slug for article in user.favorites] == ["foo"]  # type: ignore
+
+    res = testapp.delete(
+        "/api/articles/foo/favorite",
+        headers={"Authorization": f"Token {USER_ONE_JWT}"},
+        status=200,
+    )
+    user = User.by_username("one", db=db)
+    assert res.json["article"]["favorited"] is False
+    assert res.json["article"]["favoritesCount"] == 0
+    assert user.favorites == []  # type: ignore

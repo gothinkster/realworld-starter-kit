@@ -49,8 +49,8 @@ class Article(Model):
             "createdAt": self.created,
             "updatedAt": self.updated,
             "tagList": [t.name for t in self.tags],
-            "favorited": False,  # TODO
-            "favoritesCount": 0,  # TODO
+            "favorited": self.favorited(request),
+            "favoritesCount": len(self.favored_by),
             "author": Profile(self.author),
         }
 
@@ -79,3 +79,13 @@ class Article(Model):
         q = db.query(cls)
         q = q.filter(cls.id == uuid)
         return q.one_or_none()
+
+    def favorited(self: Article, request: Request):
+        """Return True if this article is favorited by a logged-in user."""
+        if not request.user:
+            return False
+
+        if self in request.user.favorites:
+            return True
+
+        return False

@@ -19,6 +19,10 @@ from sqlalchemy.orm.session import Session
 
 import typing as t
 
+if t.TYPE_CHECKING:  # pragma: no cover
+    from conduit.article.models import Article
+
+
 __all__ = ["User"]
 
 
@@ -36,6 +40,13 @@ followers = Table(
     Base.metadata,
     Column("follower_id", UUID(as_uuid=True), ForeignKey("users.id"), primary_key=True),
     Column("followed_id", UUID(as_uuid=True), ForeignKey("users.id"), primary_key=True),
+)
+
+favorites = Table(
+    "favorites",
+    Base.metadata,
+    Column("user_id", UUID(as_uuid=True), ForeignKey("users.id"), nullable=False),
+    Column("article_id", UUID(as_uuid=True), ForeignKey("articles.id"), nullable=False),
 )
 
 
@@ -103,3 +114,15 @@ class User(Model):
         secondaryjoin=lambda: User.id == followers.c.followed_id,
         backref="followers",
     )
+
+    def favorite(self, article: Article) -> None:
+        """Favorite this article."""
+        if article not in self.favorites:
+            self.favorites.append(article)
+
+    def unfavorite(self, article: Article) -> None:
+        """Unfavorite this article."""
+        if article in self.favorites:
+            self.favorites.remove(article)
+
+    favorites = relationship("Article", secondary=favorites, backref="favored_by")

@@ -8,3 +8,4 @@ def includeme(config: Configurator) -> None:
     config.add_route("feed", "/api/articles/feed")
     config.add_route("articles", "/api/articles")
     config.add_route("article", "/api/articles/{slug}")
+    config.add_route("article.favorite", "/api/articles/{slug}/favorite")
