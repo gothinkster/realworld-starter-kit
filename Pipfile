@@ -7,6 +7,7 @@ name = "pypi"
 e1839a8 = {path = ".",editable = true}  # conduit
 argon2-cffi = "*"
 gunicorn = "*"
+mypy_extensions = "*"
 passlib = "*"
 psycopg2-binary = "*"
 pyramid = "*"
@@ -16,8 +17,8 @@ pyramid_heroku = "*"
 pyramid_jwt = "*"
 pyramid_openapi3 = "*"
 pyramid_redirect = "*"
-raven = "*"
 python-slugify = "*"
+raven = "*"
 structlog = "*"
 
 [dev-packages]
