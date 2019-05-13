@@ -13,12 +13,12 @@ def test_GET_comments(testapp: TestApp, democontent: None) -> None:
             {
                 "id": 99,
                 "body": "I like this!",
-                "createdAt": "2019-07-07T07:07:07.000007Z",
-                "updatedAt": "2019-08-08T08:08:08.000008Z",
+                "createdAt": "2019-07-07T07:07:07.000Z",
+                "updatedAt": "2019-08-08T08:08:08.000Z",
                 "author": {
                     "username": "two",
-                    "bio": "",
-                    "image": "",
+                    "bio": None,
+                    "image": None,
                     "following": False,
                 },
             }

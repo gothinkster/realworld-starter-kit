@@ -48,8 +48,8 @@ def test_register(testapp: TestApp, db: Session, democontent: None) -> None:
             "email": "foo@bar.com",
             "token": {"sub": str(user.id), "iat": 1546300800},  # type: ignore
             "username": "foo",
-            "bio": "",
-            "image": "",
+            "bio": None,
+            "image": None,
         }
     }
 
@@ -72,8 +72,8 @@ def test_login(testapp: TestApp, democontent: None) -> None:
             "email": "one@bar.com",
             "token": {"sub": USER_ONE_ID, "iat": 1546300800},
             "username": "one",
-            "bio": "",
-            "image": "",
+            "bio": None,
+            "image": None,
         }
     }
 
@@ -83,7 +83,7 @@ def test_login_failed(testapp: TestApp, democontent: None) -> None:
     testapp.post_json(
         "/api/users/login",
         {"user": {"email": "one@bar.com", "password": "noidea"}},
-        status=401,
+        status=422,
     )
 
 
@@ -103,8 +103,8 @@ def test_get_current_user(testapp: TestApp, democontent: None) -> None:
             "email": "one@bar.com",
             "token": {"sub": USER_ONE_ID, "iat": 1546300800},
             "username": "one",
-            "bio": "",
-            "image": "",
+            "bio": None,
+            "image": None,
         }
     }
 

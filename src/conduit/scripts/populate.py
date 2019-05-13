@@ -74,16 +74,16 @@ def add_articles(db: Session) -> None:
         description="Foö desc",
         body="Foö body",
         author=User.by_username("one", db=db),
-        created=datetime(2019, 1, 1, 1, 1, 1, 1),
-        updated=datetime(2019, 2, 2, 2, 2, 2, 2),
+        created=datetime(2019, 1, 1, 1, 1, 1),
+        updated=datetime(2019, 2, 2, 2, 2, 2),
         tags=[Tag(name="dogs"), Tag(name="cats")],
         comments=[
             Comment(
                 id=99,
                 body="I like this!",
                 author=User.by_username("two", db=db),
-                created=datetime(2019, 7, 7, 7, 7, 7, 7),
-                updated=datetime(2019, 8, 8, 8, 8, 8, 8),
+                created=datetime(2019, 7, 7, 7, 7, 7),
+                updated=datetime(2019, 8, 8, 8, 8, 8),
             )
         ],
     )
@@ -98,8 +98,8 @@ def add_articles(db: Session) -> None:
         description="Bär desc",
         body="Bär body",
         author=User.by_username("one", db=db),
-        created=datetime(2019, 3, 3, 3, 3, 3, 3),
-        updated=datetime(2019, 4, 4, 4, 4, 4, 4),
+        created=datetime(2019, 3, 3, 3, 3, 3),
+        updated=datetime(2019, 4, 4, 4, 4, 4),
     )
     db.add(bar)
     logger.info("Article added", slug=bar.slug)
@@ -112,8 +112,8 @@ def add_articles(db: Session) -> None:
         description="johnjacob desc",
         body="johnjacob body",
         author=User.by_username("johnjacob", db=db),
-        created=datetime(2019, 5, 5, 5, 5, 5, 5),
-        updated=datetime(2019, 6, 6, 6, 6, 6, 6),
+        created=datetime(2019, 5, 5, 5, 5, 5),
+        updated=datetime(2019, 6, 6, 6, 6, 6),
     )
     db.add(johnjacob)
     logger.info("Article added", slug=johnjacob.slug)

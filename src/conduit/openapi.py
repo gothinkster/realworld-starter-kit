@@ -41,9 +41,13 @@ def json_renderer() -> JSON:
 def datetime_adapter(obj: datetime, request: Request):
     """OpenAPI spec defines date-time notation as RFC 3339, section 5.6.  # noqa
 
-    For example: 2017-07-21T17:32:28Z
+    For example: 2017-07-21T17:32:28.001Z
+
+    The `timespec="milliseconds"` is required because the frontend expects
+    the format to be exactly `HH:MM:SS.sss` and not `HH:MM:SS` or
+    `HH:MM:SS.ssssss` which Python would decide automatically.
     """
-    return obj.isoformat() + "Z"
+    return obj.isoformat(timespec="milliseconds") + "Z"
 
 
 def object_or_404(obj: t.Any) -> t.Any:

@@ -15,7 +15,7 @@ def test_get_profile(testapp: TestApp, democontent: None) -> None:
     )
 
     assert res.json == {
-        "profile": {"username": "two", "bio": "", "image": "", "following": False}
+        "profile": {"username": "two", "bio": None, "image": None, "following": False}
     }
 
 
@@ -33,7 +33,7 @@ def test_follow_unfollow_profile(
         status=200,
     )
     assert res.json == {
-        "profile": {"username": "two", "bio": "", "image": "", "following": True}
+        "profile": {"username": "two", "bio": None, "image": None, "following": True}
     }
     one = User.by_username("one", db=db)  # refetch db values
     assert [u.username for u in one.follows] == [  # type: ignore  # pragma: no branch
@@ -46,7 +46,7 @@ def test_follow_unfollow_profile(
         status=200,
     )
     assert res.json == {
-        "profile": {"username": "two", "bio": "", "image": "", "following": False}
+        "profile": {"username": "two", "bio": None, "image": None, "following": False}
     }
     one = User.by_username("one", db=db)  # refetch db values
     assert one.follows == []  # type: ignore

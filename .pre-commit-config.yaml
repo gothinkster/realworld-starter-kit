@@ -47,6 +47,7 @@
         language: system
         types: [non-executable, file, text]
         exclude_types: [svg]
+        exclude: 'elm\.js'
         stages: [push]
 
     -   id: debug-statements

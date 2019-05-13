@@ -27,14 +27,14 @@ def test_json_renderer(db: Session, democontent: None) -> None:
     output = renderer(None)(article, {"request": request})
 
     assert json.loads(output) == {
-        "author": {"bio": "", "following": True, "image": "", "username": "one"},
+        "author": {"bio": None, "following": True, "image": None, "username": "one"},
         "body": "Foö body",
-        "createdAt": "2019-01-01T01:01:01.000001Z",
+        "createdAt": "2019-01-01T01:01:01.000Z",
         "description": "Foö desc",
         "favorited": False,
         "favoritesCount": 0,
         "slug": "foo",
         "tagList": ["dogs", "cats"],
         "title": "Foö",
-        "updatedAt": "2019-02-02T02:02:02.000002Z",
+        "updatedAt": "2019-02-02T02:02:02.000Z",
     }

@@ -3,7 +3,7 @@
 from conduit.auth.models import User
 from mypy_extensions import TypedDict
 from passlib.hash import argon2
-from pyramid.httpexceptions import HTTPUnauthorized
+from pyramid.httpexceptions import exception_response
 from pyramid.request import Request
 from pyramid.view import view_config
 
@@ -68,4 +68,6 @@ def login(request: Request) -> UserResponse:
     if user and user.verify_password(body.user.password):
         return {"user": user}
 
-    raise HTTPUnauthorized()
+    raise exception_response(
+        422, json_body={"errors": {"email or password": ["is invalid"]}}
+    )

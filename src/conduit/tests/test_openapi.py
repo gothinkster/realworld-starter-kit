@@ -11,7 +11,7 @@ import pytest
 
 
 def test_api_docs_served(testapp: TestApp) -> None:
-    """Swagger's API Explorer should be served on /docs/."""
+    """Swagger's API Explorer should be served on /api/."""
     res = testapp.get("/api", status=200)
     assert "<title>Swagger UI</title>" in res.text
 

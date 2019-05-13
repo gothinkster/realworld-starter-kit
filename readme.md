@@ -51,6 +51,13 @@ Docker should be running. Then you can run:
     $ make start-pgsql
     $ make devdb
     $ make run
+
+Now point your browser to:
+ * http://localhost:8080/ -> Conduit frontend using the API
+ * http://localhost:8080/api -> Swagger documentation for the API
+
+
+To run unit tests, mypy typing checker and flake8 linter:
     $ make tests
 
 To stop docker and clean container, you can run:
@@ -74,5 +81,5 @@ To stop docker and clean container, you can run:
 *   [x] `/articles/{slug}/comments/{id}`
 *   [x] `/articles/{slug}/favorite`
 *   [x] `/tags`
-* [ ] Serve one of the frontends on root.
+* [x] Serve one of the frontends on root.
 * [ ] Heroku deployment.

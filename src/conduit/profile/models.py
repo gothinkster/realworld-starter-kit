@@ -25,8 +25,8 @@ class Profile:
         """JSON renderer support."""
         return {
             "username": self.user.username,
-            "bio": self.user.bio or "",
-            "image": self.user.image or "",
+            "bio": self.user.bio,
+            "image": self.user.image,
             "following": (self.user in request.user.follows) if request.user else False,
         }
 

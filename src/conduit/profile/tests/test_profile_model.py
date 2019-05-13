@@ -23,8 +23,8 @@ def test_json_renderer(db: Session, democontent: None) -> None:
     assert json.loads(output) == {
         "username": "one",
         "following": False,
-        "bio": "",
-        "image": "",
+        "bio": None,
+        "image": None,
     }
 
 

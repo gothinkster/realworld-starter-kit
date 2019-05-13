@@ -61,9 +61,9 @@ class User(Model):
         return {
             "username": self.username,
             "email": self.email,
-            "bio": self.bio or "",
+            "bio": self.bio,
             "token": request.create_jwt_token(str(self.id)),
-            "image": self.image or "",
+            "image": self.image,
         }
 
     email = Column(LowerCaseString, nullable=False, unique=True)

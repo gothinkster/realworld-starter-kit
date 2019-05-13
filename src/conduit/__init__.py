@@ -85,6 +85,9 @@ def configure(config: Configurator) -> None:
     config.include(".tag")
     config.include(".profile")
 
+    # Serve frontend on root to be able to play around
+    config.include(".frontend")
+
     # Find and configure all decorated objects
     config.scan(
         ignore=[

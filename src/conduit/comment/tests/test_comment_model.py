@@ -24,7 +24,7 @@ def test_json_renderer(db: Session, democontent: None) -> None:
     assert json.loads(output) == {
         "id": 99,
         "body": "I like this!",
-        "createdAt": "2019-07-07T07:07:07.000007Z",
-        "updatedAt": "2019-08-08T08:08:08.000008Z",
-        "author": {"username": "two", "bio": "", "image": "", "following": False},
+        "createdAt": "2019-07-07T07:07:07.000Z",
+        "updatedAt": "2019-08-08T08:08:08.000Z",
+        "author": {"username": "two", "bio": None, "image": None, "following": False},
     }

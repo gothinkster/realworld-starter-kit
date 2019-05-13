@@ -693,8 +693,10 @@ components:
           type: string
         bio:
           type: string
+          nullable: true
         image:
           type: string
+          nullable: true
       required:
         - email
         - token
@@ -719,8 +721,10 @@ components:
           type: string
         bio:
           type: string
+          nullable: true
         image:
           type: string
+          nullable: true
     UpdateUserRequest:
       type: object
       properties:
@@ -742,8 +746,10 @@ components:
           type: string
         bio:
           type: string
+          nullable: true
         image:
           type: string
+          nullable: true
         following:
           type: boolean
       required:
@@ -913,12 +919,9 @@ components:
       properties:
         errors:
           type: object
-          properties:
-            body:
-              type: array
-              items:
-                type: string
-          required:
-            - body
+          additionalProperties:
+            type: array
+            items:
+              type: string
       required:
         - errors
