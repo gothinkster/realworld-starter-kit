@@ -15,6 +15,7 @@ from sqlalchemy import String
 from sqlalchemy import Table
 from sqlalchemy import Unicode
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import backref
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm.session import Session
 
@@ -55,7 +56,9 @@ class Article(Model):
         }
 
     author_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
-    author = relationship("User", backref="articles")
+    author = relationship(
+        "User", backref=backref("articles", order_by="desc(Article.created)")
+    )
 
     slug = Column(String(), nullable=False, unique=True)
     title = Column(Unicode(), nullable=False)

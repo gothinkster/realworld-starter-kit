@@ -107,7 +107,7 @@ def democontent(app_env: AppEnvType, db: Session) -> t.Generator:
 
         with transaction.manager:
             engine = app_env["registry"].settings["sqlalchemy.engine"]
-            engine.execute("TRUNCATE articles, tags, users CASCADE")
+            engine.execute("TRUNCATE articles, comments, tags, users CASCADE")
 
             # TODO: Every time someone adds a table they have to remember to
             # include it here otherwise they might get errors.UniqueViolation

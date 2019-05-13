@@ -6,6 +6,7 @@ verify support for non-ascii inputs.
 
 from conduit.article.models import Article
 from conduit.auth.models import User
+from conduit.comment.models import Comment
 from conduit.tag.models import Tag
 from datetime import datetime
 from pyramid.paster import bootstrap
@@ -76,6 +77,15 @@ def add_articles(db: Session) -> None:
         created=datetime(2019, 1, 1, 1, 1, 1, 1),
         updated=datetime(2019, 2, 2, 2, 2, 2, 2),
         tags=[Tag(name="dogs"), Tag(name="cats")],
+        comments=[
+            Comment(
+                id=99,
+                body="I like this!",
+                author=User.by_username("two", db=db),
+                created=datetime(2019, 7, 7, 7, 7, 7, 7),
+                updated=datetime(2019, 8, 8, 8, 8, 8, 8),
+            )
+        ],
     )
 
     db.add(foo)

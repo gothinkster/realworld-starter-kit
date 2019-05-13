@@ -1,4 +1,4 @@
-"""Content tagging."""
+"""Articles or Posts, the main purpose of Conduit."""
 
 from pyramid.config import Configurator
 

@@ -81,6 +81,7 @@ def configure(config: Configurator) -> None:
 
     # Configure content
     config.include(".article")
+    config.include(".comment")
     config.include(".tag")
     config.include(".profile")
 

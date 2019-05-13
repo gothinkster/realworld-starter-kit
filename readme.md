@@ -62,7 +62,7 @@ To stop docker and clean container, you can run:
 * [x] Figure out how to run postgres on CircleCI.
 * [x] Add badges.
 * [x] Run Postman tests in CircleCI.
-* [ ] Implement all endpoints:
+* [x] Implement all endpoints:
 *   [x] `/users/login`
 *   [x] `/users`
 *   [x] `/profiles/{username}`
@@ -70,8 +70,9 @@ To stop docker and clean container, you can run:
 *   [x] `/articles/feed`
 *   [x] `/articles`
 *   [x] `/articles/{slug}`
-*   [ ] `/articles/{slug}/comments`
-*   [ ] `/articles/{slug}/comments/{id}`
-*   [ ] `/articles/{slug}/favorite`
+*   [x] `/articles/{slug}/comments`
+*   [x] `/articles/{slug}/comments/{id}`
+*   [x] `/articles/{slug}/favorite`
 *   [x] `/tags`
 * [ ] Serve one of the frontends on root.
+* [ ] Heroku deployment.
