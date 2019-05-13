@@ -21,4 +21,4 @@ class Tag(Model):
         """JSON renderer support."""
         return self.name
 
-    name = Column(Unicode(length=50), nullable=False)
+    name = Column(Unicode, nullable=False)

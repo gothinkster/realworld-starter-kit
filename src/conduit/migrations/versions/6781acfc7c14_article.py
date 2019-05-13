@@ -27,12 +27,12 @@ def upgrade():  # noqa: D103
             nullable=False,
         ),
         sa.Column("author_id", postgresql.UUID(as_uuid=True), nullable=False),
-        sa.Column("slug", sa.String(), nullable=False),
-        sa.Column("title", sa.Unicode(), nullable=False),
-        sa.Column("description", sa.Unicode(), nullable=False),
-        sa.Column("body", sa.Unicode(), nullable=False),
-        sa.Column("created", sa.DateTime(), nullable=False),
-        sa.Column("updated", sa.DateTime(), nullable=False),
+        sa.Column("slug", sa.String, nullable=False),
+        sa.Column("title", sa.Unicode, nullable=False),
+        sa.Column("description", sa.Unicode, nullable=False),
+        sa.Column("body", sa.Unicode, nullable=False),
+        sa.Column("created", sa.DateTime, nullable=False),
+        sa.Column("updated", sa.DateTime, nullable=False),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_articles")),
         sa.ForeignKeyConstraint(
             ["author_id"], ["users.id"], name=op.f("fk_articles_author_id_users")

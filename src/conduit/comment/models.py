@@ -63,6 +63,6 @@ class Comment(Model):
         ),
     )
 
-    body = Column(Unicode(), nullable=False)
+    body = Column(Unicode, nullable=False)
     created = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated = Column(DateTime, default=datetime.utcnow, nullable=False)

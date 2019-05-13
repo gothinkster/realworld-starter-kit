@@ -66,11 +66,11 @@ class User(Model):
             "image": self.image or "",
         }
 
-    email = Column(LowerCaseString(), nullable=False, unique=True)
-    username = Column(String(), nullable=False, unique=True)
-    password_hash = Column(String(), nullable=False)
-    bio = Column(Unicode())
-    image = Column(String())
+    email = Column(LowerCaseString, nullable=False, unique=True)
+    username = Column(String, nullable=False, unique=True)
+    password_hash = Column(String, nullable=False)
+    bio = Column(Unicode)
+    image = Column(String)
 
     @classmethod
     def by_id(cls: t.Type[User], uuid: str, db: Session) -> t.Optional[User]:

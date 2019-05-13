@@ -60,10 +60,10 @@ class Article(Model):
         "User", backref=backref("articles", order_by="desc(Article.created)")
     )
 
-    slug = Column(String(), nullable=False, unique=True)
-    title = Column(Unicode(), nullable=False)
-    description = Column(Unicode(), nullable=False)
-    body = Column(Unicode(), nullable=False)
+    slug = Column(String, nullable=False, unique=True)
+    title = Column(Unicode, nullable=False)
+    description = Column(Unicode, nullable=False)
+    body = Column(Unicode, nullable=False)
     created = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated = Column(DateTime, default=datetime.utcnow, nullable=False)
 

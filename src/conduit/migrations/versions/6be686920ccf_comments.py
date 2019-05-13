@@ -23,9 +23,9 @@ def upgrade():  # noqa: D103
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("article_id", postgresql.UUID(as_uuid=True), nullable=False),
         sa.Column("author_id", postgresql.UUID(as_uuid=True), nullable=False),
-        sa.Column("body", sa.Unicode(), nullable=False),
-        sa.Column("created", sa.DateTime(), nullable=False),
-        sa.Column("updated", sa.DateTime(), nullable=False),
+        sa.Column("body", sa.Unicode, nullable=False),
+        sa.Column("created", sa.DateTime, nullable=False),
+        sa.Column("updated", sa.DateTime, nullable=False),
         sa.ForeignKeyConstraint(
             ["article_id"],
             ["articles.id"],

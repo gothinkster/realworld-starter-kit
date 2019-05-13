@@ -26,7 +26,7 @@ def upgrade():  # noqa: D103
             server_default=sa.text("gen_random_uuid()"),
             nullable=False,
         ),
-        sa.Column("name", sa.Unicode(length=50), nullable=False),
+        sa.Column("name", sa.Unicode, nullable=False),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_tags")),
     )
 
