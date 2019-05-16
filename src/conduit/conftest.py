@@ -14,6 +14,7 @@ from pyramid.paster import bootstrap
 from pyramid.request import Request
 from pyramid.router import Router
 from pyramid.testing import DummyRequest
+from pyramid_deferred_sqla import Base
 from sqlalchemy.orm.session import Session
 from sqlalchemy.pool import NullPool
 from webtest import TestApp
@@ -104,16 +105,10 @@ def democontent(app_env: AppEnvType, db: Session) -> t.Generator:
     try:
         yield db
     finally:
-
         with transaction.manager:
             engine = app_env["registry"].settings["sqlalchemy.engine"]
-            engine.execute("TRUNCATE articles, comments, tags, users CASCADE")
-
-            # TODO: Every time someone adds a table they have to remember to
-            # include it here otherwise they might get errors.UniqueViolation
-            # errors in their test suite. It's probably possible to run an
-            # SQL command that would first fetch all table names, then run
-            # TRUNCATE on them.
+            tables = ", ".join(Base.metadata.tables.keys())
+            engine.execute("TRUNCATE {} CASCADE".format(tables))
 
 
 def pytest_addoption(parser: _pytest.config.argparsing.Parser) -> None:

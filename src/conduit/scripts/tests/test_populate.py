@@ -7,6 +7,7 @@ simple testing here.
 from conduit.conftest import AppEnvType
 from conduit.scripts.populate import main
 from conduit.tag.models import Tag
+from pyramid_deferred_sqla import Base
 from sqlalchemy.orm.session import Session
 from unittest import mock
 
@@ -24,10 +25,5 @@ def test_populate(argparse: mock.MagicMock, app_env: AppEnvType, db: Session) ->
     # manual test teardown is needed because main() does db.commit()
     with transaction.manager:
         engine = app_env["registry"].settings["sqlalchemy.engine"]
-        engine.execute("TRUNCATE articles, comments, tags, users CASCADE")
-
-        # TODO: Every time someone adds a table they have to remember to
-        # include it here otherwise they might get errors.UniqueViolation
-        # errors in their test suite. It's probably possible to run an
-        # SQL command that would first fetch all table names, then run
-        # TRUNCATE on them.
+        tables = ", ".join(Base.metadata.tables.keys())
+        engine.execute("TRUNCATE {} CASCADE".format(tables))
