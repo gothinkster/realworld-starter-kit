@@ -33,5 +33,5 @@ def test_drop_tables(argparse: mock.MagicMock, app_env: AppEnvType) -> None:
     assert len(list(tables)) == 0
 
     # re-create the dropped tables so that other tests work
-    alembic_cfg = Config("etc/test.ini", "app:conduit")
+    alembic_cfg = Config("alembic.ini")
     command.upgrade(alembic_cfg, "head")

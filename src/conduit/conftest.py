@@ -41,8 +41,7 @@ def app_env(ini_path: str) -> AppEnvType:
     """Initialize WSGI application from INI file given on the command line."""
     env = bootstrap(ini_path, options={"SKIP_CHECK_DB_MIGRATED": "true"})
 
-    # build schema
-    alembic_cfg = Config("etc/test.ini", "app:conduit")
+    alembic_cfg = Config("alembic.ini")
     command.upgrade(alembic_cfg, "head")
     return env
 

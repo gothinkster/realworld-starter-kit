@@ -3,5 +3,5 @@
 set -e
 
 echo "Running database migrations"
-alembic -c etc/production.ini -n app:conduit upgrade head || echo "Database migrations failed!"
+alembic -x ini=etc/production.ini upgrade head || echo "Database migrations failed!"
 echo "Done"

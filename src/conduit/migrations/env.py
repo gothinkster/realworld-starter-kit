@@ -3,7 +3,6 @@
 from alembic import context
 from pyramid.paster import bootstrap
 from pyramid_deferred_sqla import Base
-from pyramid_heroku import expandvars_dict
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
@@ -14,7 +13,9 @@ config = context.config
 # avoid running pyramid bootstrap twice
 if len(Base.metadata.tables) == 0:
     # Call pyramid to collect all models
-    bootstrap(config.config_file_name)
+    arguments = context.get_x_argument(as_dictionary=True)
+    ini = arguments.get("ini", config.config_file_name)
+    bootstrap(ini)
 
 target_metadata = Base.metadata
 
@@ -43,7 +44,7 @@ def run_migrations_online():
     and associate a connection with the context.
     """
     connectable = engine_from_config(
-        expandvars_dict(config.get_section("app:conduit")),
+        {"sqlalchemy.url": Base.metadata.bind.url},
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )

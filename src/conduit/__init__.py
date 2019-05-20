@@ -50,7 +50,8 @@ def check_db_migrated(config: Configurator, global_config: t.Dict[str, str]) -> 
         return
 
     # get latest migration file
-    alembic_config = Config(global_config["__file__"], "app:conduit")
+    alembic_config = Config("alembic.ini")
+
     script = ScriptDirectory.from_config(alembic_config)
     head = EnvironmentContext(alembic_config, script).get_head_revision()
 
