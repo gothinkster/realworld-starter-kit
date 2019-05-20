@@ -70,10 +70,6 @@ def configure(config: Configurator) -> None:
     config.include("pyramid_deferred_sqla")
     config.sqlalchemy_engine(pool_size=5, max_overflow=1, pool_timeout=5)
 
-    # TODO: pyramid_deferred_sqla docs say this is needed, but apparently it
-    # is not?
-    # config.alembic_config("conduit:migrations")
-
     # Configure pyramid_openapi3 integration
     config.include(".openapi")
 
