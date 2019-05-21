@@ -1,11 +1,31 @@
 """Test def check_db_migrated function."""
 
+from alembic import command
+from alembic.config import Config
 from conduit import check_db_migrated
 from conduit import main
 from pyramid.config import Configurator
+from pyramid.paster import bootstrap
+from sqlalchemy.orm.session import Session
 from unittest import mock
 
+import pytest
 import typing as t
+
+
+@pytest.fixture(scope="function")
+def old_db(db: Session, ini_path: str) -> t.Generator:
+    """Render an old version of the database structure.
+
+    This fixture is used in functional tests that operate on the function to
+    check the database is migrated up to date.
+    """
+    alembic_cfg = Config("alembic.ini")
+    try:
+        command.downgrade(alembic_cfg, "-1")
+        yield db
+    finally:
+        command.upgrade(alembic_cfg, "head")
 
 
 @mock.patch("conduit.alembic")
@@ -22,73 +42,34 @@ def test_skip_when_running_an_alembic_command(alembic: mock.MagicMock) -> None:
     assert check_db_migrated(config, global_config) is None  # type: ignore
 
 
-@mock.patch("conduit.alembic")
-@mock.patch("conduit.EnvironmentContext")
-@mock.patch("conduit.ScriptDirectory")
-@mock.patch("conduit.MigrationContext")
 @mock.patch("conduit.sys")
-def test_database_outdated(
-    sys: mock.MagicMock,
-    MigrationContext: mock.MagicMock,
-    ScriptDirectory: mock.MagicMock,
-    EnvironmentContext: mock.MagicMock,
-    alembic: mock.MagicMock,
-) -> None:
+def test_database_outdated(sys: mock.MagicMock, ini_path: str, old_db: Session) -> None:
     """Database is outdated when head version doesn't match current version.
 
-    TODO: I don't like how many mocks are needed to test this. Might make more
-    sense to do an integration test against a real database connection.
+    This attempts to bootstrap the environment without skipping the version check, but
+    the `old_db` fixture ensures that the current working environment has been downgraded
+    by one version, so the check should fail and call sys.exit
     """
-
-    alembic.context = None
-    config = mock.Mock(spec="registry".split())
-    config.registry.settings = {"sqlalchemy.engine": mock.Mock(spec="connect".split())}
-    config.registry.settings[
-        "sqlalchemy.engine"
-    ].connect.return_value.__enter__ = mock.Mock(return_value=(mock.Mock(), None))
-    config.registry.settings[
-        "sqlalchemy.engine"
-    ].connect.return_value.__exit__ = mock.Mock(return_value=None)
-    global_config = {"__file__": "foofile"}
-
-    EnvironmentContext.return_value.get_head_revision.return_value = "foo"
-    MigrationContext.configure.return_value.get_current_revision.return_value = "bar"
-
-    check_db_migrated(config, global_config)
-    sys.exit.assert_called_with(
-        "ERROR: DB (bar) is not migrated to head (foo). Shutting down."
-    )
+    with mock.patch("conduit.check_db_migrated") as method_under_test:
+        method_under_test.side_effect = check_db_migrated
+        assert sys.exit.call_count == 0
+        bootstrap(ini_path)
+        assert method_under_test.call_count == 1
+        assert sys.exit.call_count == 1
+        assert "is not migrated to head" in sys.exit.call_args[0][0]
 
 
-@mock.patch("conduit.alembic")
-@mock.patch("conduit.EnvironmentContext")
-@mock.patch("conduit.ScriptDirectory")
-@mock.patch("conduit.MigrationContext")
 @mock.patch("conduit.sys")
-def test_database_up_to_date(
-    sys: mock.MagicMock,
-    MigrationContext: mock.MagicMock,
-    ScriptDirectory: mock.MagicMock,
-    EnvironmentContext: mock.MagicMock,
-    alembic: mock.MagicMock,
-) -> None:
-    """Database is up-to-date when head version matches current version."""
+def test_database_up_to_date(sys: mock.MagicMock, ini_path: str, db: Session) -> None:
+    """Database has been fully migrated, so bootstrap should work.
 
-    alembic.context = None
-    config = mock.Mock(spec="registry".split())
-    config.registry.settings = {"sqlalchemy.engine": mock.Mock(spec="connect".split())}
-    config.registry.settings[
-        "sqlalchemy.engine"
-    ].connect.return_value.__enter__ = mock.Mock(return_value=(mock.Mock(), None))
-    config.registry.settings[
-        "sqlalchemy.engine"
-    ].connect.return_value.__exit__ = mock.Mock(return_value=None)
-    global_config = {"__file__": "foofile"}
-
-    EnvironmentContext.return_value.get_head_revision.return_value = "foo"
-    MigrationContext.configure.return_value.get_current_revision.return_value = "foo"
-
-    assert check_db_migrated(config, global_config) is None  # type: ignore
+    This is tested by invoking bootstrap, which calls check_db_migrated
+    """
+    with mock.patch("conduit.check_db_migrated") as method_under_test:
+        method_under_test.side_effect = check_db_migrated
+        bootstrap(ini_path)
+        assert method_under_test.call_count == 1
+        assert sys.exit.call_count == 0
 
 
 @mock.patch("conduit.check_db_migrated")
