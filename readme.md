@@ -28,7 +28,7 @@
 > ### Pyramid codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
 
 
-### [Demo](https://github.com/gothinkster/realworld)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
+### [Demo (app)](https://pyramid-realworld.herokuapp.com/)&nbsp;&nbsp;&nbsp;&nbsp;[Demo (api)](https://pyramid-realworld.herokuapp.com/api)
 
 
 This codebase was created to demonstrate a fully fledged fullstack application built with **Pyramid** including CRUD operations, authentication, routing, pagination, and more.
@@ -40,12 +40,14 @@ For more information on how this works with other frontends/backends, head over 
 
 # How it works
 
-Pyramid using [pyramid_openapi3](https://github.com/niteoweb/pyramid_openapi3) for request/response validation and [pyramid_deferred_sqla](https://github.com/niteoweb/pyramid_deferred_sqla) for PostgreSQL integration. Deployed to Heroku.
+Pyramid using [pyramid_openapi3](https://github.com/pylonas/pyramid_openapi3) for request/response validation and [pyramid_deferred_sqla](https://github.com/niteoweb/pyramid_deferred_sqla) for PostgreSQL integration. Deployed to Heroku.
+
+Pyramid serves one of the [RealWorld.io frontends](https://github.com/gothinkster/realworld#frontends) (Elm) on root, so it is easier to understand how things fit together. The frontend is interchangeable, you can use any
+RealWorld.io frontend.
 
 # Getting started
 
-You need to have docker, [pipenv](https://pipenv.readthedocs.io/) and Python 3.7 installed on your machine.
-Docker should be running. Then you can run:
+You need to have docker, [pipenv](https://pipenv.readthedocs.io/) and Python 3.7 installed on your machine. Docker should be running. Then you can run:
 
     $ make install
     $ make start-pgsql
@@ -53,33 +55,15 @@ Docker should be running. Then you can run:
     $ make run
 
 Now point your browser to:
- * http://localhost:8080/ -> Conduit frontend using the API
+ * http://localhost:8080/ -> Conduit frontend app using the API
  * http://localhost:8080/api -> Swagger documentation for the API
 
 
 To run unit tests, mypy typing checker and flake8 linter:
+
     $ make tests
 
 To stop docker and clean container, you can run:
+
     $ make stop-pgsql
     $ make clean-pgsql
-
-# TODO
-
-* [x] Figure out how to run postgres on CircleCI.
-* [x] Add badges.
-* [x] Run Postman tests in CircleCI.
-* [x] Implement all endpoints:
-*   [x] `/users/login`
-*   [x] `/users`
-*   [x] `/profiles/{username}`
-*   [x] `/profiles/{username}/follow`
-*   [x] `/articles/feed`
-*   [x] `/articles`
-*   [x] `/articles/{slug}`
-*   [x] `/articles/{slug}/comments`
-*   [x] `/articles/{slug}/comments/{id}`
-*   [x] `/articles/{slug}/favorite`
-*   [x] `/tags`
-* [x] Serve one of the frontends on root.
-* [ ] Heroku deployment.
