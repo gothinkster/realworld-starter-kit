@@ -91,6 +91,7 @@ def configure(config: Configurator) -> None:
             "conduit.conftest",
             "conduit.article.tests",
             "conduit.auth.tests",
+            "conduit.comment.tests",
             "conduit.profile.tests",
             "conduit.scripts.tests",
             "conduit.tag.tests",
