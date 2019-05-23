@@ -78,14 +78,12 @@ jobs:
       - run:
           name: run dev app
           command: |
-            echo "exit()" >> exit.sh
-            cat exit.sh | pipenv run pshell etc/development.ini SKIP_CHECK_DB_MIGRATED=1
+            pipenv run pshell etc/development.ini SKIP_CHECK_DB_MIGRATED=1 < .circleci/exit.sh
 
-      # - run:
-      #     name: run prod app
-      #     command: |
-      #       echo "exit()" >> exit.sh
-      #       cat exit.sh | DATABASE_URL="postgresql://conduit_dev@localhost/conduit_dev" pipenv run pshell etc/production.ini SKIP_CHECK_DB_MIGRATED=1
+      - run:
+          name: run prod app
+          command: |
+            DATABASE_URL="postgresql://conduit_dev@localhost/conduit_dev" pipenv run pshell etc/production.ini SKIP_CHECK_DB_MIGRATED=1 < .circleci/exit.sh
 
       - run :
           name: run Postman tests
