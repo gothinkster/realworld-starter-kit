@@ -2,7 +2,6 @@
 
 > ### Golang/Echo codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
 
-
 ### [Demo](https://github.com/gothinkster/realworld)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
 
 [![Build Status](https://travis-ci.org/xesina/golang-echo-realworld-example-app.svg?branch=master)](https://travis-ci.org/xesina/golang-echo-realworld-example-app)
@@ -11,55 +10,69 @@ This codebase was created to demonstrate a fully fledged fullstack application b
 
 ## Getting started
 
-### Install Golang
+### Install Golang (go1.11+)
+
 Please check the official golang installation guide before you start. [Official Documentation](https://golang.org/doc/install)
+Also make sure you have installed a go1.11+ version.
 
 ### Environment Config
+
 make sure your ~/.*shrc have those variable:
-```
+
+```bash
 ➜  echo $GOPATH
-/Users/zitwang/test/
+/Users/xesina/go
 ➜  echo $GOROOT
 /usr/local/go/
 ➜  echo $PATH
-...:/usr/local/go/bin:/Users/zitwang/test//bin:/usr/local/go//bin
+...:/usr/local/go/bin:/Users/xesina/test//bin:/usr/local/go/bin
 ```
-For more info and detailed instructions please check this guide: [Setting GOPATH](https://github.com/golang/go/wiki/SettingGOPATH) 
+
+For more info and detailed instructions please check this guide: [Setting GOPATH](https://github.com/golang/go/wiki/SettingGOPATH)
 
 ### Install dep
 https://golang.github.io/dep/docs/installation.html
 
 ### Clone the repository
-Clone this repository to your $GOPATH:
+
+Clone this repository:
+
+```bash
+➜ git clone https://github.com/xesina/golang-echo-realworld-example-app.git
 ```
-➜ git clone https://github.com/xesina/golang-echo-realworld-example-app.git  $GOPATH/src/github.com/xesina/golang-echo-realworld-example-app
-```
+
 Or simply use the following command which will handle cloning the repo:
-```
+
+```bash
 ➜ go get -u -v github.com/xesina/golang-echo-realworld-example-app
 ```
 
 Switch to the repo folder
-```
+
+```bash
 ➜ cd $GOPATH/src/github.com/xesina/golang-echo-realworld-example-app
 ```
 
 ### Install dependencies
-```
-➜ dep ensure -v
+
+```bash
+➜ go mod download
 ```
 
 ### Run
-```
+
+```bash
 ➜ go run main.go
 ```
 
 ### Build
-```
+
+```bash
 ➜ go build
 ```
 
 ### Tests
-```
+
+```bash
 ➜ go test ./...
 ```
