@@ -22,5 +22,10 @@ run:
 test:
 	go test -v -race ./...
 
+container:
+	docker build -t echo-realworld .
 
-.PHONY: build run build-static test
+run-container:
+	docker run --rm -it echo-realworld
+
+.PHONY: build run build-static test container
