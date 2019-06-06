@@ -65,3 +65,11 @@
         files: '(^.*src/conduit/migrations/versions/.*)'
         language: system
         stages: [commit]
+
+    -   id: bandit
+        name: Check for common security issues
+        args: []
+        entry: pipenv run bandit -r src/conduit/ --skip B608 -x *tests*,src/conduit/scripts/populate.py
+        language: system
+        pass_filenames: false
+        stages: [push]
