@@ -33,7 +33,7 @@
 
 This codebase was created to demonstrate a fully fledged fullstack application built with **Pyramid** including CRUD operations, authentication, routing, pagination, and more.
 
-We've gone to great lengths to adhere to the **Pyramid** community styleguides & best practices. You are encouraged to use it as a [scaffold/template](https://github.com/niteoweb/pyramid-realworld-example-app/generate) for your next Pyramid project.
+We've gone to great lengths to adhere to the **Pyramid** community styleguides & best practices. You are encouraged to [use it as a scaffold/template](https://github.com/niteoweb/pyramid-realworld-example-app/generate) for your next Pyramid project.
 
 For more information on how this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
 
