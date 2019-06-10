@@ -40,7 +40,7 @@ For more information on how this works with other frontends/backends, head over 
 
 # How it works
 
-Pyramid using [pyramid_openapi3](https://github.com/pylons/pyramid_openapi3) for request/response validation and [pyramid_deferred_sqla](https://github.com/niteoweb/pyramid_deferred_sqla) for PostgreSQL integration. Deployed to [Heroku](https://pyramid-realworld.herokuapp.com/).
+Pyramid using [pyramid_openapi3](https://github.com/pylons/pyramid_openapi3) for request/response validation and [pyramid_deferred_sqla](https://github.com/niteoweb/pyramid_deferred_sqla) for PostgreSQL integration. Deployed to [Heroku](https://pyramid-realworld.herokuapp.com/api).
 
 Pyramid serves one of the [RealWorld.io frontends](https://github.com/gothinkster/realworld#frontends) (Elm) on root, so it is easier to understand how things fit together. The frontend is interchangeable, you can use any
 RealWorld.io frontend.
