@@ -100,7 +100,7 @@ def configure(config: Configurator) -> None:
     )
 
 
-def main(global_config: t.Dict[str, str], **settings: t.Dict[str, str]) -> Router:
+def main(global_config: t.Dict[str, str], **settings: str) -> Router:
     """Return a Pyramid WSGI application."""
     # Expand environment variables in .ini files
     settings = expandvars_dict(settings)
