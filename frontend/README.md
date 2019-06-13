@@ -1,4 +1,3 @@
-> *Note: Delete this file before publishing your app!*
 
 ### Using the hosted API
 
