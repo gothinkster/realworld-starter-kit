@@ -6,8 +6,6 @@
 plugins {
     application
     war
-    id("org.jetbrains.dokka") version "0.9.18"
-    kotlin("jvm") version "1.3.21"
 }
 
 apply(from = "${extra["gradleScripts"]}/kotlin.gradle")

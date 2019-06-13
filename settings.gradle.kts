@@ -10,4 +10,4 @@ gradle.rootProject {
     }
 }
 
-include("backend")
+include("backend", "frontend")
