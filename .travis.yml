@@ -24,7 +24,9 @@ cache:
     - $HOME/.gradle/wrapper/
 
 services:
-  - mongodb
+  - docker
+
+install: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
 
 script: ./gradlew clean all
 
