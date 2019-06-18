@@ -26,8 +26,6 @@ cache:
 services:
   - docker
 
-install: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-
 script: ./gradlew clean all
 
 after_failure: echo 'Look for FAILURE in tests'
