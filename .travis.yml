@@ -26,6 +26,6 @@ cache:
 services:
   - mongodb
 
-script: ./gradlew --quiet --stacktrace clean all
+script: ./gradlew clean all
 
 after_failure: echo 'Look for FAILURE in tests'

@@ -7,6 +7,7 @@ import com.hexagonkt.http.server.jetty.JettyServletAdapter
 import com.hexagonkt.http.server.servlet.ServletServer
 import com.hexagonkt.http.urlDecode
 import com.hexagonkt.injection.InjectionManager
+import com.hexagonkt.settings.SettingsManager
 import java.time.LocalDateTime
 import javax.servlet.annotation.WebListener
 
@@ -40,7 +41,7 @@ internal val router: Router = Router {
 
 @WebListener class WebApplication : ServletServer(router)
 
-internal val server: Server = Server(injector.inject(), router)
+internal val server: Server = Server(injector.inject(), router, SettingsManager.settings)
 
 internal fun main() {
     server.start()

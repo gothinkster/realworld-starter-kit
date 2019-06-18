@@ -14,7 +14,3 @@ task("clean", type = Delete::class) {
         fileTree(rootDir) { include("**/*.hprof") }
     )
 }
-
-task("all") {
-    dependsOn("backend:installDist", "backend:jarAll", "backend:doc", "frontend:assemble")
-}

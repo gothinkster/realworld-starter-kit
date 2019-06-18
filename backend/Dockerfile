@@ -2,7 +2,7 @@
 #
 # BUILD
 #
-FROM oracle/graalvm-ce:1.0.0-rc14 as build
+FROM oracle/graalvm-ce:19.0.2 as build
 USER root
 WORKDIR /build
 

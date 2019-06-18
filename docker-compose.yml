@@ -5,11 +5,32 @@
 
 version: '3'
 
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.20.0.0/16
+
 services:
 
-  realworld:
+  frontend:
+    image: nginx:1.15
+    labels:
+      app: realworld
+      type: frontend
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend/build/web:/usr/share/nginx/html:ro
+    ports:
+      - 9998:80
+    networks:
+      default:
+        ipv4_address: 10.20.0.10
+
+  backend:
     image: ${registry:-}realworld:0.1
-    container_name: realworld
     labels:
       app: realworld
       type: backend
@@ -18,3 +39,6 @@ services:
       dockerfile: backend/Dockerfile
     ports:
       - 9999:9090
+    networks:
+      default:
+        ipv4_address: 10.20.0.20
