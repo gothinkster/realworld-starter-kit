@@ -15,7 +15,7 @@ install:
   - pipenv install --dev --deploy
   - touch .installed
   - make start-pgsql
-  - sleep 10
+  - sleep 5
   - docker ps
 
 script:
@@ -41,8 +41,5 @@ script:
   - make postman-tests
 
 cache:
-  pip: true
-  pipenv: true
   directories:
   - /home/travis/build/niteoweb/pyramid-realworld-example-app/.venv/
-  - /home/travis/.cache/pipenv
