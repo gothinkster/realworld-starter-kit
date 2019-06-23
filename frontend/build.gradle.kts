@@ -1,7 +1,23 @@
 
 //apply(plugin = "kotlin2js")
 plugins {
+    idea
+    eclipse
     id("kotlin2js")
+}
+
+idea {
+    module {
+        setDownloadSources(true)
+        setDownloadJavadoc(true)
+    }
+}
+
+eclipse {
+    classpath {
+        setDownloadSources(true)
+        setDownloadJavadoc(true)
+    }
 }
 
 dependencies {

@@ -4,6 +4,8 @@
  */
 
 plugins {
+    idea
+    eclipse
     application
     war
 }
@@ -11,6 +13,20 @@ plugins {
 apply(from = "${extra["gradleScripts"]}/kotlin.gradle")
 apply(from = "${extra["gradleScripts"]}/dokka.gradle")
 apply(from = "${extra["gradleScripts"]}/service.gradle")
+
+idea {
+    module {
+        setDownloadSources(true)
+        setDownloadJavadoc(true)
+    }
+}
+
+eclipse {
+    classpath {
+        setDownloadSources(true)
+        setDownloadJavadoc(true)
+    }
+}
 
 application {
     mainClassName = "com.hexagonkt.realworld.ApplicationKt"
