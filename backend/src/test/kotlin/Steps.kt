@@ -43,5 +43,7 @@ class Steps : En {
 
     private fun thenTheServiceReturnsOk() {
         assert(httpResponse.statusCode == 200)
+        assert(httpResponse.headers["Access-Control-Allow-Origin"] == "*")
+        assert(httpResponse.contentType == "application/json;charset=utf-8")
     }
 }

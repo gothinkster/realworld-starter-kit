@@ -7,6 +7,7 @@ import com.hexagonkt.http.server.jetty.JettyServletAdapter
 import com.hexagonkt.http.server.servlet.ServletServer
 import com.hexagonkt.http.urlDecode
 import com.hexagonkt.injection.InjectionManager
+import com.hexagonkt.serialization.serialize
 import com.hexagonkt.settings.SettingsManager
 import java.time.LocalDateTime
 import javax.servlet.annotation.WebListener
@@ -21,6 +22,7 @@ internal val routesService: RoutesService = injector.inject()
 internal val interconnectionsService: InterconnectionsService = injector.inject()
 
 internal val router: Router = Router {
+
     get("/interconnections") {
         val airportFrom: String = parameters.require("departure").first()
         val airportTo: String = parameters.require("arrival").first()
@@ -35,11 +37,26 @@ internal val router: Router = Router {
         val interconnections = routes
             .flatMap { interconnectionsService.findInterconnections(it, departure, arrival) }
 
-        ok(interconnections, Json)
+        response.contentType = "${Json.contentType};charset=utf-8"
+        response.body = interconnections.serialize(Json)
+    }
+
+    cors()
+}
+
+private fun Router.cors() {
+    before {
+        response.setHeader("Access-Control-Allow-Origin", "*")
+    }
+
+    options("/*") {
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type")
     }
 }
 
-@WebListener class WebApplication : ServletServer(router)
+@WebListener
+@Suppress("unused")
+class WebApplication : ServletServer(router)
 
 internal val server: Server = Server(injector.inject(), router, SettingsManager.settings)
 

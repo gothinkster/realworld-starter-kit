@@ -2,44 +2,21 @@
 REAL WORLD BACKEND
 ==================
 
-REST API application which serves information about possible direct and interconnected flights
-(maximum 1 stop) based on the data consumed from the following external APIs:
+Real World demo is a "Conduit" like application. Conduit is a social blogging site (i.e. a
+Medium.com clone). It uses a custom API for all requests, including authentication. You can view a
+live demo over at https://demo.realworld.io
 
-* [Routes API]
-* [Schedules API]
+General functionality:
 
-https://services-api.ryanair.com/timtbl/3/schedules/DUB/MAD/years/2018/months/12
-https://services-api.ryanair.com/locate/3/routes
+* Authenticate users via JWT (login/signup pages + logout button on settings page)
+* CRU* users (sign up & settings page - no deleting required)
+* CRUD Articles
+* CR*D Comments on articles (no updating required)
+* GET and display paginated lists of articles
+* Favorite articles
+* Follow other users
 
-https://dev-services-api.ryanair.com/timtbl/3/schedules/DUB/MAD/years/2018/months/12
-https://dev-services-api.ryanair.com/locate/3/routes
-
-[Routes API]: https://api.ryanair.com/core/3/routes
-[Schedules API]:
-  https://api.ryanair.com/timetable/3/schedules/{departure}/{arrival}/years/{year}/months/{month}
-
-HTTP API:
-
-```
-GET http://<HOST>/<CONTEXT>/interconnections?
-  departure={departure}&
-  arrival={arrival}&
-  departureDateTime={departureDateTime}&
-  arrivalDateTime={arrivalDateTime}
-```
-
-where:
-
-* departure: a departure airport IATA code
-* departureDateTime: a departure datetime in the departure airport timezone in ISO format
-* arrival: an arrival airport IATA code
-* arrivalDateTime: an arrival datetime in the arrival airport timezone in ISO format
-
-for example:
-[http://localhost:8080/realworld/interconnections?departure=DUB&arrival=WRO&departureDateTime=2018-03-01T07:00&arrivalDateTime=2018-03-03T21:00][Example]
-
-[Example]:
-  http://localhost:8080/realworld/interconnections?departure=DUB&arrival=WRO&departureDateTime=2019-04-01T00:00&arrivalDateTime=2019-04-01T23:59
+CORS should be working ok and content type must be json/utf8.
 
 ## Build
 
@@ -51,33 +28,17 @@ From now on assume `alias gw='./gradlew'`.
 * Watch: `./gradlew --no-daemon --continuous runService`
 * Test: `./gradlew test`
 
-## Testing
-
-MockK
-
 ## TODO
 
-* Support only direct flights `directOnly` in `findRoutes`
-* Implement two versions of the `routes` services, with and without caching (or disable in config)
-* Check values assigned to model fields
-* Check connections between years (31 dec)
 * Add more BDD tests
 * Use error handler in controller instead try/catch block
 * Create native executable using GraalVM
 
 # RealWorld API Spec
 
-## Considerations for your backend with [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
-
-If the backend is about to run on a different host/port than the frontend, make sure to handle `OPTIONS` too and return correct `Access-Control-Allow-Origin` and `Access-Control-Allow-Headers` (e.g. `Content-Type`).
-
 ### Authentication Header:
 
 `Authorization: Token jwt.token.here`
-
-## JSON Objects returned by API:
-
-Make sure the right content type like `Content-Type: application/json; charset=utf-8` is correctly returned.
 
 ### Users (for authentication)
 

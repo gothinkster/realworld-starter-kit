@@ -43,4 +43,11 @@ class ApplicationTest {
         assert(response.statusCode == 200)
         assert(content.isNotEmpty())
     }
+
+    @Test fun `OPTIONS returns correct CORS headers`() {
+        val response = client.options("/interconnections")
+        assert(response.statusCode == 200)
+        assert(response.headers["Access-Control-Allow-Origin"] == "*")
+        assert(response.headers["Access-Control-Allow-Headers"] == "Content-Type")
+    }
 }

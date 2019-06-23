@@ -6,6 +6,7 @@ import cucumber.api.junit.Cucumber
 
 @RunWith(Cucumber::class)
 @CucumberOptions(
+    strict = true,
     plugin = [
         "html:build/reports/cucumber",
         "json:build/reports/cucumber/cucumber.json"

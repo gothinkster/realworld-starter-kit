@@ -129,6 +129,4 @@ heroku war:deploy backend/build/libs/ROOT.war --app realworld
 ## TODO
 
 * Generate a documentation site (use Orchid or JBake)
-* Add front end mounted on NGINX or Apache
 * Code stress tests using Gatling.io against local, container, or deployed service
-* Deploy to Docker Swarm and check conversion of docker-compose.yml to K8S
