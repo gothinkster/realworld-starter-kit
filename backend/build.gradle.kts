@@ -4,8 +4,6 @@
  */
 
 plugins {
-    idea
-    eclipse
     application
     war
 }
@@ -13,20 +11,6 @@ plugins {
 apply(from = "${extra["gradleScripts"]}/kotlin.gradle")
 apply(from = "${extra["gradleScripts"]}/dokka.gradle")
 apply(from = "${extra["gradleScripts"]}/service.gradle")
-
-idea {
-    module {
-        setDownloadSources(true)
-        setDownloadJavadoc(true)
-    }
-}
-
-eclipse {
-    classpath {
-        setDownloadSources(true)
-        setDownloadJavadoc(true)
-    }
-}
 
 application {
     mainClassName = "com.hexagonkt.realworld.ApplicationKt"
@@ -48,6 +32,8 @@ task("all") {
 dependencies {
     implementation("com.hexagonkt:http_server_jetty:${extra["hexagonVersion"]}")
     implementation("com.hexagonkt:port_http_client:${extra["hexagonVersion"]}")
+    implementation("com.hexagonkt:store_mongodb:${extra["hexagonVersion"]}")
+    implementation("io.jsonwebtoken:jjwt-impl:${extra["jjwtVersion"]}")
 
     testImplementation("junit:junit:${extra["junitVersion"]}")
     testImplementation("io.mockk:mockk:${extra["mockkVersion"]}")

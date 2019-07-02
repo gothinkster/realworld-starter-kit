@@ -1,8 +1,6 @@
 
-bindPort : 9090
-bindAddress : 0.0.0.0
+bindPort: 9090
+bindAddress: 0.0.0.0
+contextPath: /api
 
-routesApiEndpoint : https://services-api.ryanair.com/locate/3/routes
-schedulesApiEndpoint : https://services-api.ryanair.com/timtbl/3/schedules
-
-maxConnectionMinutes : 120
+mongodbUrl: mongodb://localhost/real_world

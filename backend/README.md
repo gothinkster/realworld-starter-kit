@@ -206,25 +206,6 @@ If a request fails any validations, expect a 422 and errors in the following for
 
 ## Endpoints:
 
-### Authentication:
-
-`POST /api/users/login`
-
-Example request body:
-```JSON
-{
-  "user":{
-    "email": "jake@jake.jake",
-    "password": "jakejake"
-  }
-}
-```
-
-No authentication required, returns a [User](#users-for-authentication)
-
-Required fields: `email`, `password`
-
-
 ### Registration:
 
 `POST /api/users`
@@ -244,6 +225,24 @@ No authentication required, returns a [User](#users-for-authentication)
 
 Required fields: `email`, `username`, `password`
 
+
+### Authentication:
+
+`POST /api/users/login`
+
+Example request body:
+```JSON
+{
+  "user":{
+    "email": "jake@jake.jake",
+    "password": "jakejake"
+  }
+}
+```
+
+No authentication required, returns a [User](#users-for-authentication)
+
+Required fields: `email`, `password`
 
 
 ### Get Current User

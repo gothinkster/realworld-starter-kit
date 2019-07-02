@@ -14,6 +14,14 @@ networks:
 
 services:
 
+  mongodb:
+    image: mongo:4.1.9
+    ports:
+      - 27017:27017
+    networks:
+      default:
+        ipv4_address: 10.20.0.10
+
   frontend:
     image: nginx:1.15
     labels:
@@ -27,7 +35,7 @@ services:
       - 9998:80
     networks:
       default:
-        ipv4_address: 10.20.0.10
+        ipv4_address: 10.20.0.20
 
   backend:
     image: ${registry:-}realworld:0.1
@@ -41,4 +49,4 @@ services:
       - 9999:9090
     networks:
       default:
-        ipv4_address: 10.20.0.20
+        ipv4_address: 10.20.0.30

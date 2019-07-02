@@ -1,17 +1,14 @@
 package com.hexagonkt.realworld
 
 import com.hexagonkt.http.client.Client
-import com.hexagonkt.serialization.parseList
+import com.hexagonkt.serialization.Json
+import com.hexagonkt.serialization.parse
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter.ISO_DATE
-import java.time.format.DateTimeFormatter.ISO_TIME
 
 class ApplicationTest {
-    private val client: Client by lazy { Client("http://localhost:${server.runtimePort}") }
+    private val client: Client by lazy { Client("http://localhost:${server.runtimePort}/api") }
 
     @Before fun startup() {
         main()
@@ -21,33 +18,21 @@ class ApplicationTest {
         server.stop()
     }
 
-    @Test fun `Request without required fields returns error status`() {
-        assert(client.get("/interconnections").statusCode == 500)
-    }
-
-    @Test fun `Correct request returns a valid interconnection`() {
-        fun isoTime(dateTime: LocalDateTime): String =
-            dateTime.format(ISO_DATE) + 'T' + dateTime.format(ISO_TIME)
-
-        val departureTime = LocalDate.now().atStartOfDay()
-        val arrivalTime = LocalDate.now().plusDays(7).atTime(23, 59)
-
-        val departure = "departureDateTime=" + isoTime(departureTime)
-        val arrival = "arrivalDateTime=" + isoTime(arrivalTime)
-        val airportFrom = "departure=MAD"
-        val airportTo = "arrival=DUB"
-
-        val response = client.get("/interconnections?$airportFrom&$departure&$airportTo&$arrival")
-        val content = response.responseBody.parseList(Interconnection::class)
+    @Test fun `Register user returns the created user`() {
+        val body = WrappedUsersPostRequest(UsersPostRequest("jake@jake.jake", "jake", "jakejake"))
+        val response = client.post("/users", body, Json.contentType)
+        val content = response.responseBody.parse(WrappedUsersPostResponse::class, Json)
 
         assert(response.statusCode == 200)
-        assert(content.isNotEmpty())
+        assert(response.contentType == "${Json.contentType};charset=utf-8")
+        assert(content.user.email == "jake@jake.jake")
+        assert(content.user.username == "jake")
     }
 
     @Test fun `OPTIONS returns correct CORS headers`() {
         val response = client.options("/interconnections")
-        assert(response.statusCode == 200)
+        assert(response.statusCode == 204)
         assert(response.headers["Access-Control-Allow-Origin"] == "*")
-        assert(response.headers["Access-Control-Allow-Headers"] == "Content-Type")
+        assert(response.headers["Access-Control-Allow-Headers"] == "Accept,User-Agent,Host")
     }
 }
