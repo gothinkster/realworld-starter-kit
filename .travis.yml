@@ -26,6 +26,9 @@ cache:
 services:
   - docker
 
+install:
+  - docker-compose up -d
+
 script: ./gradlew clean all
 
 after_failure: echo 'Look for FAILURE in tests'

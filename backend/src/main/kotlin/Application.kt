@@ -37,7 +37,8 @@ internal val router: Router = Router {
         post {
             val user = request.body.parse(WrappedUsersPostRequest::class, requestFormat).user
 
-            val key = users.insertOne(User(user.username, user.email))
+            // TODO Replace by insert
+            val key = users.saveOne(User(user.username, user.email))
 
             response.body = WrappedUsersPostResponse(UsersPostResponse(
                 email = user.email,
