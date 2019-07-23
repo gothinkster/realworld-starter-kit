@@ -30,13 +30,13 @@ task("all") {
 }
 
 dependencies {
-    implementation("com.hexagonkt:http_server_jetty:${extra["hexagonVersion"]}")
-    implementation("com.hexagonkt:port_http_client:${extra["hexagonVersion"]}")
-    implementation("com.hexagonkt:store_mongodb:${extra["hexagonVersion"]}")
-    implementation("io.jsonwebtoken:jjwt-impl:${extra["jjwtVersion"]}")
+    implementation("com.hexagonkt:http_server_jetty:${project.extra["hexagonVersion"]}")
+    implementation("com.hexagonkt:port_http_client:${project.extra["hexagonVersion"]}")
+    implementation("com.hexagonkt:store_mongodb:${project.extra["hexagonVersion"]}")
+    implementation("io.jsonwebtoken:jjwt-impl:${project.extra["jjwtVersion"]}")
 
-    testImplementation("junit:junit:${extra["junitVersion"]}")
-    testImplementation("io.mockk:mockk:${extra["mockkVersion"]}")
-    testImplementation("io.cucumber:cucumber-java8:${extra["cucumberVersion"]}")
-    testImplementation("io.cucumber:cucumber-junit:${extra["cucumberVersion"]}")
+    testImplementation("junit:junit:${project.extra["junitVersion"]}")
+    testImplementation("io.mockk:mockk:${project.extra["mockkVersion"]}")
+    testImplementation("io.cucumber:cucumber-java8:${project.extra["cucumberVersion"]}")
+    testImplementation("io.cucumber:cucumber-junit:${project.extra["cucumberVersion"]}")
 }
