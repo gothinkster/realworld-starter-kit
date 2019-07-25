@@ -33,7 +33,7 @@ jobs:
           name: install dependencies
           command: |
             sudo pip install pipenv
-            pipenv install --dev --deploy
+            pipenv install --dev --deploy --verbose
             touch .installed
 
       - save_cache:

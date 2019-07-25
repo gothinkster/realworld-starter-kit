@@ -12,7 +12,7 @@ services:
 
 install:
   - pip install pipenv
-  - pipenv install --dev --deploy
+  - pipenv install --dev --deploy --verbose
   - touch .installed
   - make start-pgsql
   - sleep 10
