@@ -5,19 +5,21 @@ import com.hexagonkt.http.server.*
 import com.hexagonkt.http.server.jetty.JettyServletAdapter
 import com.hexagonkt.http.server.servlet.ServletServer
 import com.hexagonkt.injection.InjectionManager
-import com.hexagonkt.serialization.Json
-import com.hexagonkt.serialization.parse
-import com.hexagonkt.serialization.serialize
 import com.hexagonkt.settings.SettingsManager
+import com.hexagonkt.store.IndexOrder.ASCENDING
 import com.hexagonkt.store.Store
 import com.hexagonkt.store.mongodb.MongoDbStore
 import javax.servlet.annotation.WebListener
+import kotlin.text.Charsets.UTF_8
 
-internal val injector = InjectionManager.apply {
+internal val injector = InjectionManager {
     bindObject<ServerPort>(JettyServletAdapter())
 
     val mongodbUrl = SettingsManager.settings.require("mongodbUrl").toString()
+
     val userStore = MongoDbStore(User::class, User::username, mongodbUrl)
+    userStore.createIndex(true, User::email.name to ASCENDING)
+
     val articleStore = MongoDbStore(Article::class, Article::slug, mongodbUrl)
 
     bindObject<Store<User, String>>(User::class, userStore)
@@ -32,21 +34,38 @@ internal val router: Router = Router {
     cors()
 
     path("/users") {
-        post("/login") { empty() }
+        delete("/{username}") { users.deleteOne(pathParameters["username"]) }
+
+        post("/login") {
+            val user = request.body<WrappedUsersLoginPostRequest>().user
+            val key = users.findOne(mapOf(User::email.name to user.email)) ?: halt(404, "Not Found")
+            val content = WrappedUsersLoginPostResponse(
+                UsersLoginPostResponse(
+                    email = key.email,
+                    username = key.username,
+                    bio = key.bio ?: "",
+                    image = key.image?.toString() ?: "",
+                    token = "token"
+                )
+            )
+
+            ok(content, charset = UTF_8)
+        }
 
         post {
-            val user = request.body.parse(WrappedUsersPostRequest::class, requestFormat).user
+            val user = request.body<WrappedUsersPostRequest>().user
+            val key = users.insertOne(User(user.username, user.email))
+            val content = WrappedUsersPostResponse(
+                UsersPostResponse(
+                    email = user.email,
+                    username = key,
+                    bio = "bio",
+                    image = "http://example.com",
+                    token = "token"
+                )
+            )
 
-            // TODO Replace by insert
-            val key = users.saveOne(User(user.username, user.email))
-
-            response.body = WrappedUsersPostResponse(UsersPostResponse(
-                email = user.email,
-                username = user.username,
-                bio = "bio",
-                image = "http://example.com",
-                token = "token"
-            )).serialize(responseFormat)
+            ok(content, charset = UTF_8)
         }
     }
 
@@ -86,14 +105,10 @@ internal val router: Router = Router {
     }
 
     get("/tags") { empty() }
-
-    after {
-        response.contentType = "${Json.contentType};charset=utf-8"
-    }
 }
 
 fun Call.empty() {
-    ok("${request.method} ${request.path}")
+    ok("${request.method} ${request.path}", charset = UTF_8)
 }
 
 @WebListener

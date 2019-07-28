@@ -34,6 +34,7 @@ dependencies {
     implementation("com.hexagonkt:port_http_client:${project.extra["hexagonVersion"]}")
     implementation("com.hexagonkt:store_mongodb:${project.extra["hexagonVersion"]}")
     implementation("io.jsonwebtoken:jjwt-impl:${project.extra["jjwtVersion"]}")
+    implementation("com.auth0:java-jwt:3.8.1")
 
     testImplementation("junit:junit:${project.extra["junitVersion"]}")
     testImplementation("io.mockk:mockk:${project.extra["mockkVersion"]}")

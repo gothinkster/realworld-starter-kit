@@ -1,11 +1,19 @@
 package com.hexagonkt.realworld
 
+import com.auth0.jwt.algorithms.Algorithm
 import com.hexagonkt.http.client.Client
 import com.hexagonkt.serialization.Json
 import com.hexagonkt.serialization.parse
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import java.security.KeyFactory
+import java.security.PrivateKey
+import java.security.PublicKey
+import java.security.interfaces.RSAPrivateKey
+import java.security.interfaces.RSAPublicKey
+import java.security.spec.PKCS8EncodedKeySpec
+import java.security.spec.X509EncodedKeySpec
 
 class ApplicationTest {
     private val client: Client by lazy { Client("http://localhost:${server.runtimePort}/api") }
@@ -19,6 +27,8 @@ class ApplicationTest {
     }
 
     @Test fun `Register user returns the created user`() {
+        client.delete("/users/jake")
+
         val body = WrappedUsersPostRequest(UsersPostRequest("jake@jake.jake", "jake", "jakejake"))
         val response = client.post("/users", body, Json.contentType)
         val content = response.responseBody.parse(WrappedUsersPostResponse::class, Json)
@@ -29,10 +39,24 @@ class ApplicationTest {
         assert(content.user.username == "jake")
     }
 
+    @Test fun `Login correct user returns a token`() {
+        `Register user returns the created user`()
+        client.post("/users/login")
+    }
+
     @Test fun `OPTIONS returns correct CORS headers`() {
         val response = client.options("/interconnections")
         assert(response.statusCode == 204)
         assert(response.headers["Access-Control-Allow-Origin"] == "*")
         assert(response.headers["Access-Control-Allow-Headers"] == "Accept,User-Agent,Host")
     }
+
+    @Test fun `JWT creation and parsing`() {
+
+    }
+
+    //RSA
+    val publicKey: PublicKey = KeyFactory.getInstance("RSA").generatePublic(X509EncodedKeySpec(ByteArray(0)))
+    val privateKey: PrivateKey = KeyFactory.getInstance("RSA").generatePrivate(PKCS8EncodedKeySpec(ByteArray(0)))
+    val algorithm: Algorithm  = Algorithm.RSA256(publicKey as RSAPublicKey?, privateKey as RSAPrivateKey?)
 }
