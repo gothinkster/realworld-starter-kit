@@ -1,19 +1,11 @@
 package com.hexagonkt.realworld
 
-import com.auth0.jwt.algorithms.Algorithm
 import com.hexagonkt.http.client.Client
 import com.hexagonkt.serialization.Json
 import com.hexagonkt.serialization.parse
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import java.security.KeyFactory
-import java.security.PrivateKey
-import java.security.PublicKey
-import java.security.interfaces.RSAPrivateKey
-import java.security.interfaces.RSAPublicKey
-import java.security.spec.PKCS8EncodedKeySpec
-import java.security.spec.X509EncodedKeySpec
 
 class ApplicationTest {
     private val client: Client by lazy { Client("http://localhost:${server.runtimePort}/api") }
@@ -51,12 +43,12 @@ class ApplicationTest {
         assert(response.headers["Access-Control-Allow-Headers"] == "Accept,User-Agent,Host")
     }
 
-    @Test fun `JWT creation and parsing`() {
-
-    }
-
-    //RSA
-    val publicKey: PublicKey = KeyFactory.getInstance("RSA").generatePublic(X509EncodedKeySpec(ByteArray(0)))
-    val privateKey: PrivateKey = KeyFactory.getInstance("RSA").generatePrivate(PKCS8EncodedKeySpec(ByteArray(0)))
-    val algorithm: Algorithm  = Algorithm.RSA256(publicKey as RSAPublicKey?, privateKey as RSAPrivateKey?)
+//    @Test fun `JWT creation and parsing`() {
+//
+//    }
+//
+//    //RSA
+//    val publicKey: PublicKey = KeyFactory.getInstance("RSA").generatePublic(X509EncodedKeySpec(ByteArray(0)))
+//    val privateKey: PrivateKey = KeyFactory.getInstance("RSA").generatePrivate(PKCS8EncodedKeySpec(ByteArray(0)))
+//    val algorithm: Algorithm  = Algorithm.RSA256(publicKey as RSAPublicKey?, privateKey as RSAPrivateKey?)
 }
