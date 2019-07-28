@@ -31,8 +31,8 @@ services:
   - docker
   - mongodb
 
-install:
-  - docker-compose up -d
+#install:
+#  - docker-compose up -d
 
 script: ./gradlew clean all
 
