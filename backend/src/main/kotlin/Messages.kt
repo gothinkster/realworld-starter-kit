@@ -9,6 +9,7 @@ data class UsersPostRequest(
     val password: String
 )
 
+@JsonInclude(NON_NULL)
 data class UsersPostResponse(
     val email: String,
     val username: String,

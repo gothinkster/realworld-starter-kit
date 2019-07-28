@@ -18,15 +18,29 @@ General functionality:
 
 CORS should be working ok and content type must be json/utf8.
 
+To generate a keypair keystore execute:
+
+```bash
+keytool \
+  -genkeypair \
+  -keystore keystore.p12 \
+  -storetype pkcs12 \
+  -storepass storepass \
+  -keyalg RSA \
+  -validity 999 \
+  -alias realWorld \
+  -dname "CN=Real World, OU=Development, O=Hexagon, L=Madrid, S=Madrid, C=ES"
+```
+
 ## Build
 
 From now on assume `alias gw='./gradlew'`.
 
-* Build: `./gradlew installDist`
-* Rebuild: `./gradlew clean installDist`
-* Run: `./gradlew run`
-* Watch: `./gradlew --no-daemon --continuous runService`
-* Test: `./gradlew test`
+* Build: `gw installDist`
+* Rebuild: `gw clean installDist`
+* Run: `gw run`
+* Watch: `gw --no-daemon --continuous runService`
+* Test: `gw test`
 
 ## TODO
 

@@ -1,11 +1,13 @@
 package com.hexagonkt.realworld
 
+import com.auth0.jwt.interfaces.DecodedJWT
+import com.hexagonkt.helpers.Resource
 import com.hexagonkt.helpers.require
 import com.hexagonkt.http.server.*
 import com.hexagonkt.http.server.jetty.JettyServletAdapter
 import com.hexagonkt.http.server.servlet.ServletServer
 import com.hexagonkt.injection.InjectionManager
-import com.hexagonkt.settings.SettingsManager
+import com.hexagonkt.settings.SettingsManager.settings
 import com.hexagonkt.store.IndexOrder.ASCENDING
 import com.hexagonkt.store.Store
 import com.hexagonkt.store.mongodb.MongoDbStore
@@ -13,9 +15,18 @@ import javax.servlet.annotation.WebListener
 import kotlin.text.Charsets.UTF_8
 
 internal val injector = InjectionManager {
+    // HTTP
     bindObject<ServerPort>(JettyServletAdapter())
 
-    val mongodbUrl = SettingsManager.settings.require("mongodbUrl").toString()
+    // JWT
+    val keyStoreResource = settings.require("keyStoreResource").toString()
+    val keyStorePassword = settings.require("keyStorePassword").toString()
+    val keyPairAlias = settings.require("keyPairAlias").toString()
+
+    bindObject(Jwt(Resource(keyStoreResource), keyStorePassword, keyPairAlias))
+
+    // DB
+    val mongodbUrl = settings.require("mongodbUrl").toString()
 
     val userStore = MongoDbStore(User::class, User::username, mongodbUrl)
     userStore.createIndex(true, User::email.name to ASCENDING)
@@ -28,6 +39,8 @@ internal val injector = InjectionManager {
 
 internal val router: Router = Router {
 
+    val jwt: Jwt = injector.inject()
+
     val users: Store<User, String> = injector.inject<Store<User, String>>(User::class)
     val articles: Store<Article, String> = injector.inject<Store<Article, String>>(Article::class)
 
@@ -37,15 +50,16 @@ internal val router: Router = Router {
         delete("/{username}") { users.deleteOne(pathParameters["username"]) }
 
         post("/login") {
-            val user = request.body<WrappedUsersLoginPostRequest>().user
-            val key = users.findOne(mapOf(User::email.name to user.email)) ?: halt(404, "Not Found")
+            val bodyUser = request.body<WrappedUsersLoginPostRequest>().user
+            val filter = mapOf(User::email.name to bodyUser.email)
+            val user = users.findOne(filter) ?: halt(404, "Not Found")
             val content = WrappedUsersLoginPostResponse(
                 UsersLoginPostResponse(
-                    email = key.email,
-                    username = key.username,
-                    bio = key.bio ?: "",
-                    image = key.image?.toString() ?: "",
-                    token = "token"
+                    email = user.email,
+                    username = user.username,
+                    bio = user.bio ?: "",
+                    image = user.image?.toString() ?: "",
+                    token = jwt.sign(user.username)
                 )
             )
 
@@ -59,9 +73,9 @@ internal val router: Router = Router {
                 UsersPostResponse(
                     email = user.email,
                     username = key,
-                    bio = "bio",
-                    image = "http://example.com",
-                    token = "token"
+                    bio = "",
+                    image = "",
+                    token = jwt.sign(key)
                 )
             )
 
@@ -69,8 +83,31 @@ internal val router: Router = Router {
         }
     }
 
+    // TODO Check how to place this nested in '/user' path
+    before("/user") {
+        val token = request.headers["Authorization"]?.firstOrNull() ?: halt(401, "Unauthorized")
+        val principal = jwt.verify(token.removePrefix("Token").trim())
+        attributes["principal"] = principal
+    }
+
     path("/user") {
-        get { empty() }
+
+        get {
+            val principal = attributes["principal"] as DecodedJWT
+            val user = users.findOne(principal.subject) ?: halt(404, "Not Found")
+            val content = WrappedUsersPostResponse(
+                UsersPostResponse(
+                    email = user.email,
+                    username = user.username,
+                    bio = user.bio ?: "",
+                    image = user.image?.toString() ?: "",
+                    token = jwt.sign(user.username)
+                )
+            )
+
+            ok(content, charset = UTF_8)
+        }
+
         put { empty() }
     }
 
@@ -115,7 +152,7 @@ fun Call.empty() {
 @Suppress("unused")
 class WebApplication : ServletServer(router)
 
-internal val server: Server = Server(injector.inject(), router, SettingsManager.settings)
+internal val server: Server = Server(injector.inject(), router, settings)
 
 internal fun main() {
     server.start()

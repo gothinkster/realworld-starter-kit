@@ -1,5 +1,8 @@
 package com.hexagonkt.realworld
 
+import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
+import com.hexagonkt.helpers.Resource
 import com.hexagonkt.http.client.Client
 import com.hexagonkt.serialization.Json
 import com.hexagonkt.serialization.parse
@@ -43,12 +46,10 @@ class ApplicationTest {
         assert(response.headers["Access-Control-Allow-Headers"] == "Accept,User-Agent,Host")
     }
 
-//    @Test fun `JWT creation and parsing`() {
-//
-//    }
-//
-//    //RSA
-//    val publicKey: PublicKey = KeyFactory.getInstance("RSA").generatePublic(X509EncodedKeySpec(ByteArray(0)))
-//    val privateKey: PrivateKey = KeyFactory.getInstance("RSA").generatePrivate(PKCS8EncodedKeySpec(ByteArray(0)))
-//    val algorithm: Algorithm  = Algorithm.RSA256(publicKey as RSAPublicKey?, privateKey as RSAPrivateKey?)
+    @Test fun `JWT creation and parsing`() {
+        val jwt = Jwt(Resource("keystore.p12"), "storepass", "realWorld")
+        val token = jwt.sign("subject")
+
+        assert(jwt.verify(token).subject == "subject")
+    }
 }
