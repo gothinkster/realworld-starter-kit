@@ -29,6 +29,7 @@ cache:
 
 services:
   - docker
+  - mongodb
 
 install:
   - docker-compose up -d
