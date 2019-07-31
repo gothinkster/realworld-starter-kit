@@ -6,10 +6,10 @@ import java.time.LocalDateTime
 data class User(
     val username: String,
     val email: String,
+    val password: String,
     val bio: String? = null,
     val image: URL? = null,
-    val following: List<String> = emptyList(),
-    val favorites: List<String> = emptyList()
+    val following: Set<String> = emptySet()
 )
 
 data class Article(
@@ -18,15 +18,16 @@ data class Article(
     val title: String,
     val description: String,
     val body: String,
-    val tagList: List<String>,
-    val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime
+    val tagList: Set<String>,
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val updatedAt: LocalDateTime = LocalDateTime.now(),
+    val favoritedBy: Set<String> = emptySet()
 )
 
 data class Comment(
     val id: Int,
     val author: String,
     val body: String,
-    val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val updatedAt: LocalDateTime = LocalDateTime.now()
 )

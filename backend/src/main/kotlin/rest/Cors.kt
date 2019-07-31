@@ -1,4 +1,4 @@
-package com.hexagonkt.realworld
+package com.hexagonkt.realworld.rest
 
 import com.hexagonkt.http.ALL
 import com.hexagonkt.http.Method

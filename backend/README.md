@@ -16,9 +16,14 @@ General functionality:
 * Favorite articles
 * Follow other users
 
-CORS should be working ok and content type must be json/utf8.
+## RealWorld API Spec
 
-To generate a keypair keystore execute:
+* CORS should be working ok and content type must be json/utf8: `application/json;charset=utf8`
+* Authenticated endpoints must have the authentication header: `Authorization: Token jwt.token.here`
+
+## JWT
+
+JWT token generation/parsing requires a RSA key pair. To generate a keypair keystore execute:
 
 ```bash
 keytool \
@@ -47,12 +52,6 @@ From now on assume `alias gw='./gradlew'`.
 * Add more BDD tests
 * Use error handler in controller instead try/catch block
 * Create native executable using GraalVM
-
-# RealWorld API Spec
-
-### Authentication Header:
-
-`Authorization: Token jwt.token.here`
 
 ### Users (for authentication)
 
@@ -217,7 +216,6 @@ If a request fails any validations, expect a 422 and errors in the following for
 
 404 for Not found requests, when a resource can't be found to fulfill the request
 
-
 ## Endpoints:
 
 ### Registration:
@@ -258,14 +256,11 @@ No authentication required, returns a [User](#users-for-authentication)
 
 Required fields: `email`, `password`
 
-
 ### Get Current User
 
 `GET /api/user`
 
 Authentication required, returns a [User](#users-for-authentication) that's the current user
-
-
 
 ### Update User
 
@@ -284,18 +279,13 @@ Example request body:
 
 Authentication required, returns the [User](#users-for-authentication)
 
-
 Accepted fields: `email`, `username`, `password`, `image`, `bio`
-
-
 
 ### Get Profile
 
 `GET /api/profiles/:username`
 
 Authentication optional, returns a [Profile](#profile)
-
-
 
 ### Follow user
 
@@ -305,8 +295,6 @@ Authentication required, returns a [Profile](#profile)
 
 No additional parameters required
 
-
-
 ### Unfollow user
 
 `DELETE /api/profiles/:username/follow`
@@ -315,7 +303,54 @@ Authentication required, returns a [Profile](#profile)
 
 No additional parameters required
 
+### Create Article
 
+`POST /api/articles`
+
+Example request body:
+
+```JSON
+{
+  "article": {
+    "title": "How to train your dragon",
+    "description": "Ever wonder how?",
+    "body": "You have to believe",
+    "tagList": ["reactjs", "angularjs", "dragons"]
+  }
+}
+```
+
+Authentication required, will return an [Article](#single-article)
+
+Required fields: `title`, `description`, `body`
+
+Optional fields: `tagList` as an array of Strings
+
+### Update Article
+
+`PUT /api/articles/:slug`
+
+Example request body:
+
+```JSON
+{
+  "article": {
+    "title": "Did you train your dragon?"
+  }
+}
+```
+
+Authentication required, returns the updated [Article](#single-article)
+
+Optional fields: `title`, `description`, `body`
+
+The `slug` also gets updated when the `title` is changed
+
+### Delete Article
+
+`DELETE /api/articles/:slug`
+
+Authentication required
 
 ### List Articles
 
@@ -363,58 +398,6 @@ Authentication required, will return [multiple articles](#multiple-articles) cre
 `GET /api/articles/:slug`
 
 No authentication required, will return [single article](#single-article)
-
-### Create Article
-
-`POST /api/articles`
-
-Example request body:
-
-```JSON
-{
-  "article": {
-    "title": "How to train your dragon",
-    "description": "Ever wonder how?",
-    "body": "You have to believe",
-    "tagList": ["reactjs", "angularjs", "dragons"]
-  }
-}
-```
-
-Authentication required, will return an [Article](#single-article)
-
-Required fields: `title`, `description`, `body`
-
-Optional fields: `tagList` as an array of Strings
-
-
-
-### Update Article
-
-`PUT /api/articles/:slug`
-
-Example request body:
-
-```JSON
-{
-  "article": {
-    "title": "Did you train your dragon?"
-  }
-}
-```
-
-Authentication required, returns the updated [Article](#single-article)
-
-Optional fields: `title`, `description`, `body`
-
-The `slug` also gets updated when the `title` is changed
-
-
-### Delete Article
-
-`DELETE /api/articles/:slug`
-
-Authentication required
 
 
 

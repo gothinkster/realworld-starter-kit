@@ -1,5 +1,6 @@
 package com.hexagonkt.realworld
 
+import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME
 import com.auth0.jwt.interfaces.DecodedJWT
 import com.hexagonkt.helpers.Resource
 import com.hexagonkt.helpers.require
@@ -11,6 +12,9 @@ import com.hexagonkt.settings.SettingsManager.settings
 import com.hexagonkt.store.IndexOrder.ASCENDING
 import com.hexagonkt.store.Store
 import com.hexagonkt.store.mongodb.MongoDbStore
+import com.hexagonkt.realworld.rest.Jwt
+import com.hexagonkt.realworld.rest.cors
+import com.hexagonkt.serialization.convertToMap
 import javax.servlet.annotation.WebListener
 import kotlin.text.Charsets.UTF_8
 
@@ -50,27 +54,32 @@ internal val router: Router = Router {
         delete("/{username}") { users.deleteOne(pathParameters["username"]) }
 
         post("/login") {
-            val bodyUser = request.body<WrappedUsersLoginPostRequest>().user
+            val bodyUser = request.body<WrappedLoginRequest>().user
             val filter = mapOf(User::email.name to bodyUser.email)
             val user = users.findOne(filter) ?: halt(404, "Not Found")
-            val content = WrappedUsersLoginPostResponse(
-                UsersLoginPostResponse(
-                    email = user.email,
-                    username = user.username,
-                    bio = user.bio ?: "",
-                    image = user.image?.toString() ?: "",
-                    token = jwt.sign(user.username)
+            if (user.password == bodyUser.password) {
+                val content = WrappedUserResponse(
+                    UserResponse(
+                        email = user.email,
+                        username = user.username,
+                        bio = user.bio ?: "",
+                        image = user.image?.toString() ?: "",
+                        token = jwt.sign(user.username)
+                    )
                 )
-            )
 
-            ok(content, charset = UTF_8)
+                ok(content, charset = UTF_8)
+            }
+            else {
+                send(401, "Bad credentials")
+            }
         }
 
         post {
-            val user = request.body<WrappedUsersPostRequest>().user
-            val key = users.insertOne(User(user.username, user.email))
-            val content = WrappedUsersPostResponse(
-                UsersPostResponse(
+            val user = request.body<WrappedRegistrationRequest>().user
+            val key = users.insertOne(User(user.username, user.email, user.password))
+            val content = WrappedUserResponse(
+                UserResponse(
                     email = user.email,
                     username = key,
                     bio = "",
@@ -83,20 +92,14 @@ internal val router: Router = Router {
         }
     }
 
-    // TODO Check how to place this nested in '/user' path
-    before("/user") {
-        val token = request.headers["Authorization"]?.firstOrNull() ?: halt(401, "Unauthorized")
-        val principal = jwt.verify(token.removePrefix("Token").trim())
-        attributes["principal"] = principal
-    }
-
     path("/user") {
+        authenticate(jwt)
 
         get {
             val principal = attributes["principal"] as DecodedJWT
             val user = users.findOne(principal.subject) ?: halt(404, "Not Found")
-            val content = WrappedUsersPostResponse(
-                UsersPostResponse(
+            val content = WrappedUserResponse(
+                UserResponse(
                     email = user.email,
                     username = user.username,
                     bio = user.bio ?: "",
@@ -108,20 +111,127 @@ internal val router: Router = Router {
             ok(content, charset = UTF_8)
         }
 
-        put { empty() }
+        put {
+            val principal = attributes["principal"] as DecodedJWT
+            val body = request.body<WrappedPutUserRequest>().user
+            val updates = body.convertToMap().mapKeys { it.key.toString() }
+            val updated = users.updateOne(principal.subject, updates)
+
+            if (updated) {
+                val user = users.findOne(principal.subject) ?: halt(500)
+                val content = WrappedUserResponse(
+                    UserResponse(
+                        email = user.email,
+                        username = user.username,
+                        bio = user.bio ?: "",
+                        image = user.image?.toString() ?: "",
+                        token = jwt.sign(user.username)
+                    )
+                )
+
+                ok(content, charset = UTF_8)
+            }
+            else {
+                send(500, "Username ${principal.subject} not updated")
+            }
+        }
     }
 
     path("/profiles/{username}") {
-        post("/follow") { empty() }
-        delete("/follow") { empty() }
+        authenticate(jwt)
 
-        get { empty() }
+        post("/follow") {
+            val principal = attributes["principal"] as DecodedJWT
+            val user = users.findOne(principal.subject) ?: halt(404, "Not Found")
+            val updated = users.updateOne(principal.subject, mapOf("following" to user.following + pathParameters["username"]))
+            val profile = users.findOne(pathParameters["username"]) ?: halt(404, "Not Found")
+            val content = WrappedProfileResponse(
+                ProfileResponse(
+                    username = profile.username,
+                    bio = profile.bio ?: "",
+                    image = profile.image?.toString() ?: "",
+                    following = updated
+                )
+            )
+
+            ok(content, charset = UTF_8)
+        }
+
+        delete("/follow") {
+            val principal = attributes["principal"] as DecodedJWT
+            val user = users.findOne(principal.subject) ?: halt(404, "Not Found")
+            val updated = users.updateOne(principal.subject, mapOf("following" to user.following - pathParameters["username"]))
+            val profile = users.findOne(pathParameters["username"]) ?: halt(404, "Not Found")
+            val content = WrappedProfileResponse(
+                ProfileResponse(
+                    username = profile.username,
+                    bio = profile.bio ?: "",
+                    image = profile.image?.toString() ?: "",
+                    following = !updated
+                )
+            )
+
+            ok(content, charset = UTF_8)
+        }
+
+        get {
+            val principal = attributes["principal"] as DecodedJWT
+            val user = users.findOne(principal.subject) ?: halt(404, "Not Found")
+            val profile = users.findOne(pathParameters["username"]) ?: halt(404, "Not Found")
+            val content = WrappedProfileResponse(
+                ProfileResponse(
+                    username = profile.username,
+                    bio = profile.bio ?: "",
+                    image = profile.image?.toString() ?: "",
+                    following = user.following.contains(profile.username)
+                )
+            )
+
+            ok(content, charset = UTF_8)
+        }
     }
 
     path("/articles") {
-        get("/feed") { empty() }
+        authenticate(jwt)
+
+        post {
+            val principal = attributes["principal"] as DecodedJWT
+            val bodyArticle = request.body<WrappedArticleRequest>().article
+            val article = Article(
+                slug = bodyArticle.title.toLowerCase().replace(' ', '-'),
+                author = principal.subject,
+                title = bodyArticle.title,
+                description = bodyArticle.description,
+                body = bodyArticle.body,
+                tagList = bodyArticle.tagList
+            )
+
+            articles.insertOne(article)
+
+            val content = WrappedArticleCreationResponse(
+                ArticleCreationResponse(
+                    slug = article.slug,
+                    title = article.title,
+                    description = article.description,
+                    body = article.body,
+                    tagList = article.tagList,
+                    createdAt = article.createdAt.format(ISO_LOCAL_DATE_TIME),
+                    updatedAt = article.updatedAt.format(ISO_LOCAL_DATE_TIME),
+                    favorited = false,
+                    favoritesCount = 0,
+                    author = principal.subject
+                )
+            )
+
+            ok(content, charset = UTF_8)
+        }
+
+        get("/feed") {
+            // Get query params
+            ok(articles.findAll(), charset = UTF_8)
+        }
+
         get { empty() }
-        post { empty() }
 
         path("/{slug}") {
             get { empty() }
@@ -142,6 +252,14 @@ internal val router: Router = Router {
     }
 
     get("/tags") { empty() }
+}
+
+private fun Router.authenticate(jwt: Jwt) {
+    before("/") {
+        val token = request.headers["Authorization"]?.firstOrNull() ?: halt(401, "Unauthorized")
+        val principal = jwt.verify(token.removePrefix("Token").trim())
+        attributes["principal"] = principal
+    }
 }
 
 fun Call.empty() {
