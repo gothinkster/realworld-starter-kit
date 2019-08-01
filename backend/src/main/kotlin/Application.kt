@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME
 import com.auth0.jwt.interfaces.DecodedJWT
 import com.hexagonkt.helpers.Resource
 import com.hexagonkt.helpers.require
+import com.hexagonkt.helpers.withZone
 import com.hexagonkt.http.server.*
 import com.hexagonkt.http.server.jetty.JettyServletAdapter
 import com.hexagonkt.http.server.servlet.ServletServer
@@ -15,8 +16,10 @@ import com.hexagonkt.store.mongodb.MongoDbStore
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.rest.cors
 import com.hexagonkt.serialization.convertToMap
+import java.time.LocalDateTime
 import javax.servlet.annotation.WebListener
 import kotlin.text.Charsets.UTF_8
+import java.time.ZoneOffset.UTC
 
 internal val injector = InjectionManager {
     // HTTP
@@ -51,6 +54,7 @@ internal val router: Router = Router {
     cors()
 
     path("/users") {
+        // TODO Authenticate and require 'root' user or owner
         delete("/{username}") { users.deleteOne(pathParameters["username"]) }
 
         post("/login") {
@@ -194,6 +198,31 @@ internal val router: Router = Router {
     path("/articles") {
         authenticate(jwt)
 
+        get("/feed") {
+            empty()
+        }
+
+        path("/{slug}") {
+            delete {
+                if (!articles.deleteOne(pathParameters["slug"]))
+                    halt(500)
+            }
+
+            get { empty() }
+            put { empty() }
+
+            path("/favorite") {
+                post { empty() }
+                delete { empty() }
+            }
+
+            path("/comments") {
+                post { empty() }
+                get { empty() }
+                delete("/{id}") { empty() }
+            }
+        }
+
         post {
             val principal = attributes["principal"] as DecodedJWT
             val bodyArticle = request.body<WrappedArticleRequest>().article
@@ -215,8 +244,8 @@ internal val router: Router = Router {
                     description = article.description,
                     body = article.body,
                     tagList = article.tagList,
-                    createdAt = article.createdAt.format(ISO_LOCAL_DATE_TIME),
-                    updatedAt = article.updatedAt.format(ISO_LOCAL_DATE_TIME),
+                    createdAt = article.createdAt.toIso8601(),
+                    updatedAt = article.updatedAt.toIso8601(),
                     favorited = false,
                     favoritesCount = 0,
                     author = principal.subject
@@ -226,28 +255,35 @@ internal val router: Router = Router {
             ok(content, charset = UTF_8)
         }
 
-        get("/feed") {
+        get {
+            val principal = attributes["principal"] as DecodedJWT
+
+            // Get user
+
             // Get query params
-            ok(articles.findAll(), charset = UTF_8)
-        }
 
-        get { empty() }
-
-        path("/{slug}") {
-            get { empty() }
-            put { empty() }
-            delete { empty() }
-
-            path("/favorite") {
-                post { empty() }
-                delete { empty() }
+            val all = articles.findAll()
+            val responses = all.map {
+                ArticleResponse(
+                    slug = it.slug,
+                    title = it.title,
+                    description = it.description,
+                    body = it.body,
+                    tagList = it.tagList,
+                    createdAt = it.createdAt.toIso8601(),
+                    updatedAt = it.updatedAt.toIso8601(),
+                    favorited = it.favoritedBy.contains(principal.subject),
+                    favoritesCount = it.favoritedBy.size,
+                    author = AuthorResponse(
+                        username = it.author,
+                        bio = "",
+                        image = "",
+                        following = false
+                    )
+                )
             }
 
-            path("/comments") {
-                post { empty() }
-                get { empty() }
-                delete("/{id}") { empty() }
-            }
+            ok(WrappedArticlesResponse(responses, articles.count()), charset = UTF_8)
         }
     }
 
@@ -262,7 +298,10 @@ private fun Router.authenticate(jwt: Jwt) {
     }
 }
 
-fun Call.empty() {
+private fun LocalDateTime.toIso8601() =
+    this.withZone().withZoneSameInstant(UTC).format(ISO_LOCAL_DATE_TIME) + "Z"
+
+private fun Call.empty() {
     ok("${request.method} ${request.path}", charset = UTF_8)
 }
 

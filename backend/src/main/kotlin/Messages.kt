@@ -94,5 +94,5 @@ data class ArticleResponse(
 
 data class WrappedArticlesResponse(
     val articles: List<ArticleResponse>,
-    val articlesCount: Int
+    val articlesCount: Long
 )
