@@ -53,6 +53,8 @@ From now on assume `alias gw='./gradlew'`.
 * Use error handler in controller instead try/catch block
 * Create native executable using GraalVM
 
+## API
+
 ### Users (for authentication)
 
 ```JSON
@@ -381,8 +383,6 @@ Offset/skip number of articles (default is 0):
 `?offset=0`
 
 Authentication optional, will return [multiple articles](#multiple-articles), ordered by most recent first
-
-
 
 ### Feed Articles
 

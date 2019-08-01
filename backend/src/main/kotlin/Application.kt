@@ -39,6 +39,7 @@ internal val injector = InjectionManager {
     userStore.createIndex(true, User::email.name to ASCENDING)
 
     val articleStore = MongoDbStore(Article::class, Article::slug, mongodbUrl)
+    articleStore.createIndex(true, Article::author.name to ASCENDING)
 
     bindObject<Store<User, String>>(User::class, userStore)
     bindObject<Store<Article, String>>(Article::class, articleStore)
@@ -199,6 +200,7 @@ internal val router: Router = Router {
         authenticate(jwt)
 
         get("/feed") {
+            val principal = attributes["principal"] as DecodedJWT
             empty()
         }
 
@@ -208,8 +210,44 @@ internal val router: Router = Router {
                     halt(500)
             }
 
+            put {
+                val principal = attributes["principal"] as DecodedJWT
+                val body = request.body<WrappedPutArticleRequest>().article
+                val slug = pathParameters["slug"]
+                val updatedAt = LocalDateTime.now().format(ISO_LOCAL_DATE_TIME) // TODO Fails if not formatted as string
+                val requestUpdates = body.convertToMap().mapKeys { it.key.toString() } + (Article::updatedAt.name to updatedAt)
+
+                val updates =
+                    if (body.title != null) requestUpdates + (Article::slug.name to body.title.toSlug())
+                    else requestUpdates
+
+                val updated = articles.updateOne(slug, updates)
+
+                if (updated) {
+                    val article = articles.findOne(slug) ?: halt(500)
+                    val content = WrappedArticleCreationResponse(
+                        ArticleCreationResponse(
+                            slug = article.slug,
+                            title = article.title,
+                            description = article.description,
+                            body = article.body,
+                            tagList = article.tagList,
+                            createdAt = article.createdAt.toIso8601(),
+                            updatedAt = article.updatedAt.toIso8601(),
+                            favorited = article.favoritedBy.contains(principal.subject),
+                            favoritesCount = article.favoritedBy.size,
+                            author = article.author
+                        )
+                    )
+
+                    ok(content, charset = UTF_8)
+                }
+                else {
+                    send(500, "Article $slug not updated")
+                }
+            }
+
             get { empty() }
-            put { empty() }
 
             path("/favorite") {
                 post { empty() }
@@ -227,7 +265,7 @@ internal val router: Router = Router {
             val principal = attributes["principal"] as DecodedJWT
             val bodyArticle = request.body<WrappedArticleRequest>().article
             val article = Article(
-                slug = bodyArticle.title.toLowerCase().replace(' ', '-'),
+                slug = bodyArticle.title.toSlug(),
                 author = principal.subject,
                 title = bodyArticle.title,
                 description = bodyArticle.description,
@@ -291,12 +329,18 @@ internal val router: Router = Router {
 }
 
 private fun Router.authenticate(jwt: Jwt) {
-    before("/") {
-        val token = request.headers["Authorization"]?.firstOrNull() ?: halt(401, "Unauthorized")
-        val principal = jwt.verify(token.removePrefix("Token").trim())
-        attributes["principal"] = principal
-    }
+    before("/") { parsePrincipal(jwt) }
+    before("/*") { parsePrincipal(jwt) }
 }
+
+private fun Call.parsePrincipal(jwt: Jwt) {
+    val token = request.headers["Authorization"]?.firstOrNull() ?: halt(401, "Unauthorized")
+    val principal = jwt.verify(token.removePrefix("Token").trim())
+    attributes["principal"] = principal
+}
+
+private fun String.toSlug() =
+    this.toLowerCase().replace(' ', '-')
 
 private fun LocalDateTime.toIso8601() =
     this.withZone().withZoneSameInstant(UTC).format(ISO_LOCAL_DATE_TIME) + "Z"

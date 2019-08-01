@@ -79,6 +79,15 @@ data class ArticleCreationResponse(
 
 data class WrappedArticleCreationResponse(val article: ArticleCreationResponse)
 
+data class PutArticleRequest(
+    val title: String?,
+    val description: String?,
+    val body: String?,
+    val tagList: Set<String> = emptySet()
+)
+
+data class WrappedPutArticleRequest(val article: PutArticleRequest)
+
 data class ArticleResponse(
     val slug: String,
     val title: String,
