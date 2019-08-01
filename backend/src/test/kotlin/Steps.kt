@@ -27,7 +27,7 @@ class Steps : En {
     }
 
     private fun whenARequestIsMade() {
-        httpResponse = httpClient.get("/articles")
+        httpResponse = httpClient.get("/tags")
     }
 
     private fun thenTheServiceReturnsOk() {
