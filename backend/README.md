@@ -16,6 +16,30 @@ General functionality:
 * Favorite articles
 * Follow other users
 
+## Architecture
+
+Three layers:
+
+* Routes: HTTP layer (controllers) and messages (requests/responses)
+  1. Gets data and parameters
+  2. Authorize
+  3. Authenticate
+  2. Validate data and state
+  3. Convert to services model
+  4. Uses services for validation and execution
+  5. Take resulting models and convert them to output messages
+* Services: application logic and data (independent of the others)
+  - Called by routes
+  - Calls stores (the dependency will be by interfaces)
+* Stores: storage port (with a MongoDB adapter)
+
+Rules:
+- "All you know binds you" the less each component knows about others, the better.
+- Each layer is in a package
+- A layer package can have subpackages
+- Services can not import anything outside services (and as an exception logging)
+- Other packages can only import from services
+
 ## RealWorld API Spec
 
 * CORS should be working ok and content type must be json/utf8: `application/json;charset=utf8`

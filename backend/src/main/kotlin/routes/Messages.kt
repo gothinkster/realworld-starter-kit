@@ -1,4 +1,4 @@
-package com.hexagonkt.realworld
+package com.hexagonkt.realworld.routes
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL

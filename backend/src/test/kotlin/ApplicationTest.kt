@@ -5,6 +5,7 @@ import com.hexagonkt.http.client.Client
 import com.hexagonkt.serialization.Json
 import com.hexagonkt.serialization.parse
 import com.hexagonkt.realworld.rest.Jwt
+import com.hexagonkt.realworld.routes.*
 import org.junit.*
 
 class ApplicationTest {
