@@ -1,4 +1,4 @@
-package com.hexagonkt.realworld
+package com.hexagonkt.realworld.services
 
 import java.net.URL
 import java.time.LocalDateTime

@@ -4,11 +4,11 @@ import com.auth0.jwt.interfaces.DecodedJWT
 import com.hexagonkt.helpers.withZone
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
-import com.hexagonkt.realworld.Article
-import com.hexagonkt.realworld.User
 import com.hexagonkt.realworld.injector
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.rest.cors
+import com.hexagonkt.realworld.services.Article
+import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.convertToMap
 import com.hexagonkt.store.Store
 

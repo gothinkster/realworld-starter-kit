@@ -12,6 +12,8 @@ import com.hexagonkt.store.Store
 import com.hexagonkt.store.mongodb.MongoDbStore
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.routes.*
+import com.hexagonkt.realworld.services.Article
+import com.hexagonkt.realworld.services.User
 
 import javax.servlet.annotation.WebListener
 
