@@ -24,11 +24,11 @@ internal val usersRouter = Router {
     delete("/{username}") { users.deleteOne(pathParameters["username"]) }
 
     post("/login") {
-        val bodyUser = request.body<WrappedLoginRequest>().user
+        val bodyUser = request.body<LoginRequestRoot>().user
         val filter = mapOf(User::email.name to bodyUser.email)
         val user = users.findOne(filter) ?: halt(404, "Not Found")
         if (user.password == bodyUser.password) {
-            val content = WrappedUserResponse(
+            val content = UserResponseRoot(
                 UserResponse(
                     email = user.email,
                     username = user.username,
@@ -46,9 +46,9 @@ internal val usersRouter = Router {
     }
 
     post {
-        val user = request.body<WrappedRegistrationRequest>().user
+        val user = request.body<RegistrationRequestRoot>().user
         val key = users.insertOne(User(user.username, user.email, user.password))
-        val content = WrappedUserResponse(
+        val content = UserResponseRoot(
             UserResponse(
                 email = user.email,
                 username = key,
@@ -71,7 +71,7 @@ internal val userRouter = Router {
     get {
         val principal = attributes["principal"] as DecodedJWT
         val user = users.findOne(principal.subject) ?: halt(404, "Not Found")
-        val content = WrappedUserResponse(
+        val content = UserResponseRoot(
             UserResponse(
                 email = user.email,
                 username = user.username,
@@ -86,13 +86,13 @@ internal val userRouter = Router {
 
     put {
         val principal = attributes["principal"] as DecodedJWT
-        val body = request.body<WrappedPutUserRequest>().user
+        val body = request.body<PutUserRequestRoot>().user
         val updates = body.convertToMap().mapKeys { it.key.toString() }
         val updated = users.updateOne(principal.subject, updates)
 
         if (updated) {
             val user = users.findOne(principal.subject) ?: halt(500)
-            val content = WrappedUserResponse(
+            val content = UserResponseRoot(
                 UserResponse(
                     email = user.email,
                     username = user.username,
@@ -121,7 +121,7 @@ internal val profilesRouter = Router {
         val user = users.findOne(principal.subject) ?: halt(404, "Not Found")
         val updated = users.updateOne(principal.subject, mapOf("following" to user.following + pathParameters["username"]))
         val profile = users.findOne(pathParameters["username"]) ?: halt(404, "Not Found")
-        val content = WrappedProfileResponse(
+        val content = ProfileResponseRoot(
             ProfileResponse(
                 username = profile.username,
                 bio = profile.bio ?: "",
@@ -138,7 +138,7 @@ internal val profilesRouter = Router {
         val user = users.findOne(principal.subject) ?: halt(404, "Not Found")
         val updated = users.updateOne(principal.subject, mapOf("following" to user.following - pathParameters["username"]))
         val profile = users.findOne(pathParameters["username"]) ?: halt(404, "Not Found")
-        val content = WrappedProfileResponse(
+        val content = ProfileResponseRoot(
             ProfileResponse(
                 username = profile.username,
                 bio = profile.bio ?: "",
@@ -154,7 +154,7 @@ internal val profilesRouter = Router {
         val principal = attributes["principal"] as DecodedJWT
         val user = users.findOne(principal.subject) ?: halt(404, "Not Found")
         val profile = users.findOne(pathParameters["username"]) ?: halt(404, "Not Found")
-        val content = WrappedProfileResponse(
+        val content = ProfileResponseRoot(
             ProfileResponse(
                 username = profile.username,
                 bio = profile.bio ?: "",
@@ -186,7 +186,7 @@ internal val articlesRouter = Router {
 
         put {
             val principal = attributes["principal"] as DecodedJWT
-            val body = request.body<WrappedPutArticleRequest>().article
+            val body = request.body<PutArticleRequestRoot>().article
             val slug = pathParameters["slug"]
             val updatedAt = LocalDateTime.now().format(ISO_LOCAL_DATE_TIME) // TODO Fails if not formatted as string
             val requestUpdates = body.convertToMap().mapKeys { it.key.toString() } + (Article::updatedAt.name to updatedAt)
@@ -199,7 +199,7 @@ internal val articlesRouter = Router {
 
             if (updated) {
                 val article = articles.findOne(slug) ?: halt(500)
-                val content = WrappedArticleCreationResponse(
+                val content = ArticleCreationResponseRoot(
                     ArticleCreationResponse(
                         slug = article.slug,
                         title = article.title,
@@ -237,7 +237,7 @@ internal val articlesRouter = Router {
 
     post {
         val principal = attributes["principal"] as DecodedJWT
-        val bodyArticle = request.body<WrappedArticleRequest>().article
+        val bodyArticle = request.body<ArticleRequestRoot>().article
         val article = Article(
             slug = bodyArticle.title.toSlug(),
             author = principal.subject,
@@ -249,7 +249,7 @@ internal val articlesRouter = Router {
 
         articles.insertOne(article)
 
-        val content = WrappedArticleCreationResponse(
+        val content = ArticleCreationResponseRoot(
             ArticleCreationResponse(
                 slug = article.slug,
                 title = article.title,
@@ -295,7 +295,7 @@ internal val articlesRouter = Router {
             )
         }
 
-        ok(WrappedArticlesResponse(responses, articles.count()), charset = Charsets.UTF_8)
+        ok(ArticlesResponseRoot(responses, articles.count()), charset = Charsets.UTF_8)
     }
 }
 

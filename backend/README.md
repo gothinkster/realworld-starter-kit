@@ -40,6 +40,10 @@ Rules:
 - Services can not import anything outside services (and as an exception logging)
 - Other packages can only import from services
 
+## Testing
+
+Smoke tests in one run (all tests specified by Postman and some more).
+
 ## RealWorld API Spec
 
 * CORS should be working ok and content type must be json/utf8: `application/json;charset=utf8`

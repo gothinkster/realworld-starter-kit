@@ -9,7 +9,7 @@ data class RegistrationRequest(
     val password: String
 )
 
-data class WrappedRegistrationRequest(val user: RegistrationRequest)
+data class RegistrationRequestRoot(val user: RegistrationRequest)
 
 @JsonInclude(NON_NULL)
 data class UserResponse(
@@ -20,33 +20,32 @@ data class UserResponse(
     val token: String
 )
 
-data class WrappedUserResponse(val user: UserResponse)
+data class UserResponseRoot(val user: UserResponse)
 
 data class LoginRequest(
     val email: String,
     val password: String
 )
 
-data class WrappedLoginRequest(val user: LoginRequest)
+data class LoginRequestRoot(val user: LoginRequest)
 
-@JsonInclude(NON_NULL)
 data class PutUserRequest(
     val email: String?,
     val password: String?,
     val bio: String?,
     val image: String?
 )
-data class WrappedPutUserRequest(val user: PutUserRequest)
+data class PutUserRequestRoot(val user: PutUserRequest)
 
 @JsonInclude(NON_NULL)
 data class ProfileResponse(
     val username: String,
-    val bio: String?,
-    val image: String?,
+    val bio: String,
+    val image: String,
     val following: Boolean
 )
 
-data class WrappedProfileResponse(val profile: ProfileResponse)
+data class ProfileResponseRoot(val profile: ProfileResponse)
 
 data class ArticleRequest(
     val title: String,
@@ -55,7 +54,7 @@ data class ArticleRequest(
     val tagList: Set<String>
 )
 
-data class WrappedArticleRequest(val article: ArticleRequest)
+data class ArticleRequestRoot(val article: ArticleRequest)
 
 data class AuthorResponse(
     val username: String,
@@ -77,7 +76,7 @@ data class ArticleCreationResponse(
     val author: String
 )
 
-data class WrappedArticleCreationResponse(val article: ArticleCreationResponse)
+data class ArticleCreationResponseRoot(val article: ArticleCreationResponse)
 
 data class PutArticleRequest(
     val title: String?,
@@ -86,7 +85,7 @@ data class PutArticleRequest(
     val tagList: Set<String> = emptySet()
 )
 
-data class WrappedPutArticleRequest(val article: PutArticleRequest)
+data class PutArticleRequestRoot(val article: PutArticleRequest)
 
 data class ArticleResponse(
     val slug: String,
@@ -101,7 +100,7 @@ data class ArticleResponse(
     val author: AuthorResponse
 )
 
-data class WrappedArticlesResponse(
+data class ArticlesResponseRoot(
     val articles: List<ArticleResponse>,
     val articlesCount: Long
 )

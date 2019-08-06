@@ -1,9 +1,9 @@
 package com.hexagonkt.realworld
 
 import com.hexagonkt.http.client.Client
-import cucumber.api.java.After
-import cucumber.api.java.Before
-import cucumber.api.java8.En
+import io.cucumber.java.After
+import io.cucumber.java.Before
+import io.cucumber.java8.En
 import org.asynchttpclient.Response
 
 class Steps : En {

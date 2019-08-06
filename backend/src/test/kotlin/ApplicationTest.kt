@@ -3,13 +3,31 @@ package com.hexagonkt.realworld
 import com.hexagonkt.helpers.Resource
 import com.hexagonkt.http.client.Client
 import com.hexagonkt.serialization.Json
-import com.hexagonkt.serialization.parse
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.routes.*
+import com.hexagonkt.realworld.services.User
+import com.hexagonkt.serialization.parse
 import org.junit.*
+import java.net.URL
 
 class ApplicationTest {
-    private val client: Client by lazy { Client("http://localhost:${server.runtimePort}/api") }
+    private val client by lazy {
+        Client("http://localhost:${server.runtimePort}/api", Json.contentType)
+    }
+
+    private val jake = User(
+        username = "jake",
+        email = "jake@jake.jake",
+        password = "jakejake",
+        bio = "I work at statefarm",
+        image = URL("http://example.org") // TODO set place holder image
+    )
+
+    private fun User.toRegistrationRequest(): RegistrationRequestRoot =
+        RegistrationRequestRoot(RegistrationRequest(email, username, password))
+
+    private fun User.toLoginRequest(): LoginRequestRoot =
+        LoginRequestRoot(LoginRequest(email, password))
 
     companion object {
         @BeforeClass @JvmStatic fun startup() {
@@ -21,63 +39,55 @@ class ApplicationTest {
         }
     }
 
-    private lateinit var token: String
+    @Test fun `Smoke tests`() {
+        lateinit var jakeClient: Client
 
-    private fun authorization(): Map<String, List<String>> =
-        mapOf("Authorization" to listOf("Token $token"))
+        client.delete("/users/jake").apply {
+            assert(statusCode == 200)
+        }
 
-    @Test fun `Register user returns the created user`() {
-        assert(client.delete("/users/jake").statusCode == 200)
+        client.post("/users", jake.toRegistrationRequest()).apply {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
 
-        val body = WrappedRegistrationRequest(RegistrationRequest("jake@jake.jake", "jake", "jakejake"))
-        val response = client.post("/users", body, Json.contentType)
-        val content = response.responseBody.parse(WrappedUserResponse::class, Json)
+            val userResponse = responseBody.parse(UserResponseRoot::class)
+            assert(userResponse.user.email == "jake@jake.jake")
+            assert(userResponse.user.username == "jake")
+            assert(userResponse.user.token.isNotBlank())
 
-        assert(response.statusCode == 200)
-        assert(response.contentType == "${Json.contentType};charset=utf-8")
-        assert(content.user.email == "jake@jake.jake")
-        assert(content.user.username == "jake")
-        assert(content.user.token.isNotBlank())
+            val headers = mapOf("Authorization" to listOf("Token ${userResponse.user.token}"))
+            jakeClient = Client(client.endpoint, client.contentType, headers = headers)
+        }
 
-        token = content.user.token
-    }
+        client.post("/users/login", jake.toLoginRequest()).apply {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
 
-    @Test fun `Login correct user returns a token`() {
-        `Register user returns the created user`()
+            val userResponse = responseBody.parse(UserResponseRoot::class)
+            assert(userResponse.user.email == "jake@jake.jake")
+            assert(userResponse.user.username == "jake")
+            assert(userResponse.user.token.isNotBlank())
+        }
 
-        val body = WrappedLoginRequest(LoginRequest("jake@jake.jake", "jakejake"))
-        val response = client.post("/users/login", body, Json.contentType)
-        val content = response.responseBody.parse(WrappedUserResponse::class, Json)
+        jakeClient.get("/user").apply {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
 
-        assert(response.statusCode == 200)
-        assert(response.contentType == "${Json.contentType};charset=utf-8")
-        assert(content.user.email == "jake@jake.jake")
-        assert(content.user.username == "jake")
-        assert(content.user.token.isNotBlank())
-
-        token = content.user.token
-    }
-
-    @Test fun `Get current user returns the logged user`() {
-        `Login correct user returns a token`()
-
-        val response = client.get("/user", authorization())
-        val content = response.responseBody.parse(WrappedUserResponse::class, Json)
-
-        assert(response.statusCode == 200)
-        assert(response.contentType == "${Json.contentType};charset=utf-8")
-        assert(content.user.email == "jake@jake.jake")
-        assert(content.user.username == "jake")
-        assert(content.user.token.isNotBlank())
-
-        token = content.user.token
+            val userResponse = responseBody.parse(UserResponseRoot::class)
+            assert(userResponse.user.email == "jake@jake.jake")
+            assert(userResponse.user.username == "jake")
+            assert(userResponse.user.token.isNotBlank())
+        }
     }
 
     @Test fun `OPTIONS returns correct CORS headers`() {
-        val response = client.options("/interconnections")
+        val client = Client("http://localhost:${server.runtimePort}/api", Json.contentType)
+        val response = client.options("/tags")
+        val corsHeaders = "Accept,User-Agent,Host,Content-Type"
+
         assert(response.statusCode == 204)
         assert(response.headers["Access-Control-Allow-Origin"] == "*")
-        assert(response.headers["Access-Control-Allow-Headers"] == "Accept,User-Agent,Host")
+        assert(response.headers["Access-Control-Allow-Headers"] == corsHeaders)
     }
 
     @Test fun `JWT creation and parsing`() {
