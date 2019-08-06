@@ -21,7 +21,9 @@ internal val usersRouter = Router {
     val users: Store<User, String> = injector.inject<Store<User, String>>(User::class)
 
     // TODO Authenticate and require 'root' user or owner
-    delete("/{username}") { users.deleteOne(pathParameters["username"]) }
+    delete("/{username}") {
+        if (users.deleteOne(pathParameters["username"])) ok() else send(404)
+    }
 
     post("/login") {
         val bodyUser = request.body<LoginRequestRoot>().user

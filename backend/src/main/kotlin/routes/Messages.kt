@@ -30,10 +30,10 @@ data class LoginRequest(
 data class LoginRequestRoot(val user: LoginRequest)
 
 data class PutUserRequest(
-    val email: String?,
-    val password: String?,
-    val bio: String?,
-    val image: String?
+    val email: String? = null,
+    val password: String? = null,
+    val bio: String? = null,
+    val image: String? = null
 )
 data class PutUserRequestRoot(val user: PutUserRequest)
 

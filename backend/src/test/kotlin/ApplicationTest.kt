@@ -7,6 +7,7 @@ import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.routes.*
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.parse
+import org.asynchttpclient.Response
 import org.junit.*
 import java.net.URL
 
@@ -20,7 +21,15 @@ class ApplicationTest {
         email = "jake@jake.jake",
         password = "jakejake",
         bio = "I work at statefarm",
-        image = URL("http://example.org") // TODO set place holder image
+        image = URL("https://i.pravatar.cc/150?img=3")
+    )
+
+    private val jane = User(
+        username = "jane",
+        email = "jane@jane.jane",
+        password = "janejane",
+        bio = "I own MegaCloud",
+        image = URL("https://i.pravatar.cc/150?img=1")
     )
 
     private fun User.toRegistrationRequest(): RegistrationRequestRoot =
@@ -39,45 +48,81 @@ class ApplicationTest {
         }
     }
 
-    @Test fun `Smoke tests`() {
-        lateinit var jakeClient: Client
+    private fun deleteUser(user: User) {
+        client.delete("/users/${user.username}").apply { assert(statusCode in setOf(200, 404)) }
+    }
 
-        client.delete("/users/jake").apply {
-            assert(statusCode == 200)
-        }
-
-        client.post("/users", jake.toRegistrationRequest()).apply {
+    private fun registerUser(user: User) {
+        registerUser(user) {
             assert(statusCode == 200)
             assert(contentType == "${Json.contentType};charset=utf-8")
 
             val userResponse = responseBody.parse(UserResponseRoot::class)
-            assert(userResponse.user.email == "jake@jake.jake")
-            assert(userResponse.user.username == "jake")
+            assert(userResponse.user.username == user.username)
+            assert(userResponse.user.email == user.email)
+            assert(userResponse.user.token.isNotBlank())
+        }
+    }
+
+    private fun registerUser(user: User, callback: Response.() -> Unit) {
+        client.post("/users", user.toRegistrationRequest()).apply(callback)
+    }
+
+    private fun loginUser(user: User): Client {
+        val headers = client.post("/users/login", user.toLoginRequest()).let {
+            assert(it.statusCode == 200)
+            assert(it.contentType == "${Json.contentType};charset=utf-8")
+
+            val userResponse = it.responseBody.parse(UserResponseRoot::class)
+            assert(userResponse.user.username == user.username)
+            assert(userResponse.user.email == user.email)
             assert(userResponse.user.token.isNotBlank())
 
-            val headers = mapOf("Authorization" to listOf("Token ${userResponse.user.token}"))
-            jakeClient = Client(client.endpoint, client.contentType, headers = headers)
+            mapOf("Authorization" to listOf("Token ${userResponse.user.token}"))
         }
 
-        client.post("/users/login", jake.toLoginRequest()).apply {
+        return Client(client.endpoint, client.contentType, headers = headers)
+    }
+
+    private fun getUser(userClient: Client, user: User) {
+        userClient.get("/user").apply {
             assert(statusCode == 200)
             assert(contentType == "${Json.contentType};charset=utf-8")
 
             val userResponse = responseBody.parse(UserResponseRoot::class)
-            assert(userResponse.user.email == "jake@jake.jake")
-            assert(userResponse.user.username == "jake")
+            assert(userResponse.user.username == user.username)
+            assert(userResponse.user.email == user.email)
             assert(userResponse.user.token.isNotBlank())
         }
+    }
 
-        jakeClient.get("/user").apply {
+    private fun updateUser(userClient: Client, user: User, updateUser: PutUserRequest) {
+        userClient.put("/user", PutUserRequestRoot(updateUser)).apply {
             assert(statusCode == 200)
             assert(contentType == "${Json.contentType};charset=utf-8")
 
             val userResponse = responseBody.parse(UserResponseRoot::class)
-            assert(userResponse.user.email == "jake@jake.jake")
-            assert(userResponse.user.username == "jake")
+            assert(userResponse.user.username == user.username)
+            assert(userResponse.user.email == updateUser.email ?: user.email)
             assert(userResponse.user.token.isNotBlank())
         }
+    }
+
+    @Test fun `Smoke test`() {
+        deleteUser(jake)
+        deleteUser(jane)
+
+        registerUser(jake)
+        registerUser(jane)
+//        registerUser(jane) { assert(statusCode == 400) }
+
+        val jakeClient = loginUser(jake)
+        val janeClient = loginUser(jane)
+
+        getUser(jakeClient, jake)
+        getUser(janeClient, jane)
+
+        updateUser(jakeClient, jake, PutUserRequest(email = jake.email))
     }
 
     @Test fun `OPTIONS returns correct CORS headers`() {

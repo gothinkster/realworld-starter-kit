@@ -6,7 +6,7 @@ import io.cucumber.java.Before
 import io.cucumber.java8.En
 import org.asynchttpclient.Response
 
-class Steps : En {
+class Steps: En {
 
     private lateinit var httpResponse: Response
 
