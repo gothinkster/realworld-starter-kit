@@ -6,6 +6,7 @@ import io.cucumber.java.Before
 import io.cucumber.java8.En
 import org.asynchttpclient.Response
 
+@Suppress("unused") // Seems unused but it's not, these are steps definitions for Cucumber tests
 class Steps: En {
 
     private lateinit var httpResponse: Response
@@ -20,8 +21,8 @@ class Steps: En {
         server.stop()
     }
 
-    // IMPORTANT: Cucumber *DOES NOT WORK* with Kotlin method references
     init {
+        // IMPORTANT: Cucumber *DOES NOT WORK* with Kotlin method references
         When("a request is made") { whenARequestIsMade() }
         Then("the service returns a 200 code") { thenTheServiceReturnsOk() }
     }
