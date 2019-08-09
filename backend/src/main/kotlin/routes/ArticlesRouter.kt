@@ -13,6 +13,64 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
+data class ArticleRequest(
+    val title: String,
+    val description: String,
+    val body: String,
+    val tagList: Set<String>
+)
+
+data class ArticleRequestRoot(val article: ArticleRequest)
+
+data class AuthorResponse(
+    val username: String,
+    val bio: String,
+    val image: String,
+    val following: Boolean
+)
+
+data class ArticleCreationResponse(
+    val slug: String,
+    val title: String,
+    val description: String,
+    val body: String,
+    val tagList: Set<String>,
+    val createdAt: String,
+    val updatedAt: String,
+    val favorited: Boolean,
+    val favoritesCount: Int,
+    val author: String
+)
+
+data class ArticleCreationResponseRoot(val article: ArticleCreationResponse)
+
+data class PutArticleRequest(
+    val title: String?,
+    val description: String?,
+    val body: String?,
+    val tagList: Set<String> = emptySet()
+)
+
+data class PutArticleRequestRoot(val article: PutArticleRequest)
+
+data class ArticleResponse(
+    val slug: String,
+    val title: String,
+    val description: String,
+    val body: String,
+    val tagList: Set<String>,
+    val createdAt: String,
+    val updatedAt: String,
+    val favorited: Boolean,
+    val favoritesCount: Int,
+    val author: AuthorResponse
+)
+
+data class ArticlesResponseRoot(
+    val articles: List<ArticleResponse>,
+    val articlesCount: Long
+)
+
 internal val articlesRouter = Router {
     val jwt: Jwt = injector.inject()
     val users: Store<User, String> = injector.inject<Store<User, String>>(User::class)
@@ -22,12 +80,17 @@ internal val articlesRouter = Router {
 
     get("/feed") {
         val principal = attributes["principal"] as DecodedJWT
+        val user = users.findOne(principal.subject) ?: halt(404)
+        val filter = mapOf(Article::author.name to (user.following.toList()))
+        val feed = articles.findMany(filter)
+
+        ok(feed, charset = Charsets.UTF_8)
     }
 
     path("/{slug}") {
         delete {
             if (!articles.deleteOne(pathParameters["slug"]))
-                halt(500)
+                halt(404)
         }
 
         put {
@@ -66,18 +129,18 @@ internal val articlesRouter = Router {
             }
         }
 
-        get { }
+        get {
+            val slug = pathParameters["slug"]
+            val article = articles.findOne(slug) ?: halt(404)
+            ok(article, charset = Charsets.UTF_8)
+        }
 
         path("/favorite") {
             post { }
             delete { }
         }
 
-        path("/comments") {
-            post { }
-            get { }
-            delete("/{id}") { }
-        }
+        path("/comments", commentsRouter)
     }
 
     post {

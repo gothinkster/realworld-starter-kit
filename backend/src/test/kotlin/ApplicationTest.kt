@@ -5,6 +5,7 @@ import com.hexagonkt.http.client.Client
 import com.hexagonkt.serialization.Json
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.routes.*
+import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.parse
 import org.asynchttpclient.Response
@@ -32,11 +33,23 @@ class ApplicationTest {
         image = URL("https://i.pravatar.cc/150?img=1")
     )
 
+    private val trainDragon = Article(
+        title = "How to train your dragon",
+        slug = "how-to-train-your-dragon",
+        description = "Ever wonder how?",
+        body = "Very carefully.",
+        tagList = setOf("dragons","training"),
+        author = jake.username
+    )
+
     private fun User.toRegistrationRequest(): RegistrationRequestRoot =
         RegistrationRequestRoot(RegistrationRequest(email, username, password))
 
     private fun User.toLoginRequest(): LoginRequestRoot =
         LoginRequestRoot(LoginRequest(email, password))
+
+    private fun Article.toCreationRequest(): ArticleRequestRoot =
+        ArticleRequestRoot(ArticleRequest(title, description, body, tagList))
 
     companion object {
         @BeforeClass @JvmStatic fun startup() {
@@ -114,7 +127,17 @@ class ApplicationTest {
 
         registerUser(jake)
         registerUser(jane)
-//        registerUser(jane) { assert(statusCode == 400) }
+
+        registerUser(jane) {
+            assert(statusCode == 500)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val errorResponse = responseBody.parse(ErrorResponseRoot::class)
+            val exceptionName = "MongoWriteException"
+            val message = "E11000 duplicate key error collection: real_world.User index"
+            val key = """_id_ dup key: { _id: "${jane.username}" }"""
+            assert(errorResponse.errors.body.first() == "$exceptionName: $message: $key")
+        }
 
         val jakeClient = loginUser(jake)
         val janeClient = loginUser(jane)
@@ -122,7 +145,67 @@ class ApplicationTest {
         getUser(jakeClient, jake)
         getUser(janeClient, jane)
 
+        updateUser(janeClient, jane, PutUserRequest(email = "changed.${jane.email}"))
         updateUser(jakeClient, jake, PutUserRequest(email = jake.email))
+
+        jakeClient.get("/profiles/${jane.username}").apply {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val userResponse = responseBody.parse(ProfileResponseRoot::class)
+            assert(userResponse.profile.username == jane.username)
+            assert(!userResponse.profile.following)
+        }
+
+        jakeClient.post("/profiles/${jane.username}/follow").apply {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val userResponse = responseBody.parse(ProfileResponseRoot::class)
+            assert(userResponse.profile.username == jane.username)
+            assert(userResponse.profile.following)
+        }
+
+        jakeClient.get("/profiles/${jane.username}").apply {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val userResponse = responseBody.parse(ProfileResponseRoot::class)
+            assert(userResponse.profile.username == jane.username)
+            assert(userResponse.profile.following)
+        }
+
+        jakeClient.delete("/profiles/${jane.username}/follow").apply {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val userResponse = responseBody.parse(ProfileResponseRoot::class)
+            assert(userResponse.profile.username == jane.username)
+            assert(!userResponse.profile.following)
+        }
+
+        jakeClient.get("/profiles/${jane.username}").apply {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val userResponse = responseBody.parse(ProfileResponseRoot::class)
+            assert(userResponse.profile.username == jane.username)
+            assert(!userResponse.profile.following)
+        }
+
+        jakeClient.delete("/articles/${trainDragon.slug}").apply {
+            assert(statusCode in setOf(200, 404))
+        }
+
+        jakeClient.post("/articles", trainDragon.toCreationRequest()).apply {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+        }
+
+        jakeClient.get("/articles/${trainDragon.slug}").apply {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+        }
     }
 
     @Test fun `OPTIONS returns correct CORS headers`() {
