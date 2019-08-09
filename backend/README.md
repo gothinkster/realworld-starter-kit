@@ -18,6 +18,13 @@ General functionality:
 
 ## Architecture
 
+Code files, not classes like Java (take advantage of Kotlin language)
+
+`routes` are controllers, called that way because another kind of controllers (ie: commands for CLI)
+could exist (in this case a package called `commands` would be created).
+
+Messages (request/responses) common to different routers are held in `Routes.kt`.
+
 Three layers:
 
 * Routes: HTTP layer (controllers) and messages (requests/responses)
@@ -80,6 +87,8 @@ From now on assume `alias gw='./gradlew'`.
 * Add more BDD tests
 * Use error handler in controller instead try/catch block
 * Create native executable using GraalVM
+* Logs repeated (in exceptions). Check settings additivity
+* `service_test.yaml` not honored (not picking a random port)
 
 ## API
 
