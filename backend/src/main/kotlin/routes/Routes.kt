@@ -5,6 +5,7 @@ import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.rest.cors
+import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.Json
 
 data class ErrorResponse(val body: List<String> = listOf("Unknown error"))
@@ -20,7 +21,17 @@ data class UserResponse(
     val token: String
 )
 
-data class UserResponseRoot(val user: UserResponse)
+data class UserResponseRoot(val user: UserResponse) {
+    constructor(user: User, token: String) : this(
+        UserResponse(
+            email = user.email,
+            username = user.username,
+            bio = user.bio ?: "",
+            image = user.image?.toString() ?: "",
+            token = token
+        )
+    )
+}
 
 internal val router: Router = Router {
     cors()

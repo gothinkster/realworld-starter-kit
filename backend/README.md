@@ -429,14 +429,11 @@ Can also take `limit` and `offset` query parameters like [List Articles](#list-a
 
 Authentication required, will return [multiple articles](#multiple-articles) created by followed users, ordered by most recent first.
 
-
 ### Get Article
 
 `GET /api/articles/:slug`
 
 No authentication required, will return [single article](#single-article)
-
-
 
 ### Add Comments to an Article
 
@@ -456,23 +453,17 @@ Authentication required, returns the created [Comment](#single-comment)
 
 Required field: `body`
 
-
-
 ### Get Comments from an Article
 
 `GET /api/articles/:slug/comments`
 
 Authentication optional, returns [multiple comments](#multiple-comments)
 
-
-
 ### Delete Comment
 
 `DELETE /api/articles/:slug/comments/:id`
 
 Authentication required
-
-
 
 ### Favorite Article
 
@@ -482,8 +473,6 @@ Authentication required, returns the [Article](#single-article)
 
 No additional parameters required
 
-
-
 ### Unfavorite Article
 
 `DELETE /api/articles/:slug/favorite`
@@ -491,8 +480,6 @@ No additional parameters required
 Authentication required, returns the [Article](#single-article)
 
 No additional parameters required
-
-
 
 ### Get Tags
 

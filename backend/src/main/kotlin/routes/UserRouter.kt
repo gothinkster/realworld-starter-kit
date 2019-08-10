@@ -35,15 +35,7 @@ private fun Call.putUser(users: Store<User, String>, jwt: Jwt) {
 
     if (updated) {
         val user = users.findOne(principal.subject) ?: halt(500)
-        val content = UserResponseRoot(
-            UserResponse(
-                email = user.email,
-                username = user.username,
-                bio = user.bio ?: "",
-                image = user.image?.toString() ?: "",
-                token = jwt.sign(user.username)
-            )
-        )
+        val content = UserResponseRoot(user, jwt.sign(user.username))
 
         ok(content, charset = Charsets.UTF_8)
     } else {
@@ -54,15 +46,7 @@ private fun Call.putUser(users: Store<User, String>, jwt: Jwt) {
 private fun Call.getUser(users: Store<User, String>, jwt: Jwt) {
     val principal = attributes["principal"] as DecodedJWT
     val user = users.findOne(principal.subject) ?: halt(404, "Not Found")
-    val content = UserResponseRoot(
-        UserResponse(
-            email = user.email,
-            username = user.username,
-            bio = user.bio ?: "",
-            image = user.image?.toString() ?: "",
-            token = jwt.sign(user.username)
-        )
-    )
+    val content = UserResponseRoot(user, jwt.sign(user.username))
 
     ok(content, charset = Charsets.UTF_8)
 }

@@ -121,6 +121,31 @@ class ApplicationTest {
         }
     }
 
+    private fun getProfile(userClient: Client, user: User, following: Boolean) {
+        userClient.get("/profiles/${user.username}").apply {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val profileResponse = responseBody.parse(ProfileResponseRoot::class)
+            assert(profileResponse.profile.username == user.username)
+            assert(profileResponse.profile.following == following)
+        }
+    }
+
+    private fun followProfile(userClient: Client, user: User, follow: Boolean) {
+        val url = "/profiles/${user.username}/follow"
+        val response = if (follow) userClient.post(url) else userClient.delete(url)
+
+        response.apply {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val profileResponse = responseBody.parse(ProfileResponseRoot::class)
+            assert(profileResponse.profile.username == user.username)
+            assert(profileResponse.profile.following == follow)
+        }
+    }
+
     @Test fun `Smoke test`() {
         deleteUser(jake)
         deleteUser(jane)
@@ -148,50 +173,11 @@ class ApplicationTest {
         updateUser(janeClient, jane, PutUserRequest(email = "changed.${jane.email}"))
         updateUser(jakeClient, jake, PutUserRequest(email = jake.email))
 
-        jakeClient.get("/profiles/${jane.username}").apply {
-            assert(statusCode == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
-
-            val userResponse = responseBody.parse(ProfileResponseRoot::class)
-            assert(userResponse.profile.username == jane.username)
-            assert(!userResponse.profile.following)
-        }
-
-        jakeClient.post("/profiles/${jane.username}/follow").apply {
-            assert(statusCode == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
-
-            val userResponse = responseBody.parse(ProfileResponseRoot::class)
-            assert(userResponse.profile.username == jane.username)
-            assert(userResponse.profile.following)
-        }
-
-        jakeClient.get("/profiles/${jane.username}").apply {
-            assert(statusCode == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
-
-            val userResponse = responseBody.parse(ProfileResponseRoot::class)
-            assert(userResponse.profile.username == jane.username)
-            assert(userResponse.profile.following)
-        }
-
-        jakeClient.delete("/profiles/${jane.username}/follow").apply {
-            assert(statusCode == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
-
-            val userResponse = responseBody.parse(ProfileResponseRoot::class)
-            assert(userResponse.profile.username == jane.username)
-            assert(!userResponse.profile.following)
-        }
-
-        jakeClient.get("/profiles/${jane.username}").apply {
-            assert(statusCode == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
-
-            val userResponse = responseBody.parse(ProfileResponseRoot::class)
-            assert(userResponse.profile.username == jane.username)
-            assert(!userResponse.profile.following)
-        }
+        getProfile(jakeClient, jane, false)
+        followProfile(jakeClient, jane, true)
+        getProfile(jakeClient, jane, true)
+        followProfile(jakeClient, jane, false)
+        getProfile(jakeClient, jane, false)
 
         jakeClient.delete("/articles/${trainDragon.slug}").apply {
             assert(statusCode in setOf(200, 404))

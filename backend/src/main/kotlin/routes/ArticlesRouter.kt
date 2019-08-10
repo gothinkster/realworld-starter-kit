@@ -2,6 +2,7 @@ package com.hexagonkt.realworld.routes
 
 import com.auth0.jwt.interfaces.DecodedJWT
 import com.hexagonkt.helpers.withZone
+import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.injector
 import com.hexagonkt.realworld.rest.Jwt
@@ -42,7 +43,22 @@ data class ArticleCreationResponse(
     val author: String
 )
 
-data class ArticleCreationResponseRoot(val article: ArticleCreationResponse)
+data class ArticleCreationResponseRoot(val article: ArticleCreationResponse) {
+    constructor(article: Article, subject: String) : this(
+        ArticleCreationResponse(
+            slug = article.slug,
+            title = article.title,
+            description = article.description,
+            body = article.body,
+            tagList = article.tagList,
+            createdAt = article.createdAt.toIso8601(),
+            updatedAt = article.updatedAt.toIso8601(),
+            favorited = false,
+            favoritesCount = 0,
+            author = subject
+        )
+    )
+}
 
 data class PutArticleRequest(
     val title: String?,
@@ -77,67 +93,32 @@ internal val articlesRouter = Router {
     val articles: Store<Article, String> = injector.inject<Store<Article, String>>(Article::class)
 
     authenticate(jwt)
-
-    get("/feed") {
-        val principal = attributes["principal"] as DecodedJWT
-        val user = users.findOne(principal.subject) ?: halt(404)
-        val filter = mapOf(Article::author.name to (user.following.toList()))
-        val feed = articles.findMany(filter)
-
-        ok(feed, charset = Charsets.UTF_8)
-    }
+    get("/feed") { getFeed(users, articles) }
 
     path("/{slug}") {
-        delete {
-            if (!articles.deleteOne(pathParameters["slug"]))
-                halt(404)
-        }
-
-        put {
-            val principal = attributes["principal"] as DecodedJWT
-            val body = request.body<PutArticleRequestRoot>().article
-            val slug = pathParameters["slug"]
-            val updatedAt = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) // TODO Fails if not formatted as string
-            val requestUpdates = body.convertToMap().mapKeys { it.key.toString() } + (Article::updatedAt.name to updatedAt)
-
-            val updates =
-                if (body.title != null) requestUpdates + (Article::slug.name to body.title.toSlug())
-                else requestUpdates
-
-            val updated = articles.updateOne(slug, updates)
-
-            if (updated) {
-                val article = articles.findOne(slug) ?: halt(500)
-                val content = ArticleCreationResponseRoot(
-                    ArticleCreationResponse(
-                        slug = article.slug,
-                        title = article.title,
-                        description = article.description,
-                        body = article.body,
-                        tagList = article.tagList,
-                        createdAt = article.createdAt.toIso8601(),
-                        updatedAt = article.updatedAt.toIso8601(),
-                        favorited = article.favoritedBy.contains(principal.subject),
-                        favoritesCount = article.favoritedBy.size,
-                        author = article.author
-                    )
-                )
-
-                ok(content, charset = Charsets.UTF_8)
-            } else {
-                send(500, "Article $slug not updated")
-            }
-        }
-
-        get {
-            val slug = pathParameters["slug"]
-            val article = articles.findOne(slug) ?: halt(404)
-            ok(article, charset = Charsets.UTF_8)
-        }
+        delete { deleteArticle(articles) }
+        put { updateArticle(articles) }
+        get { getArticle(articles) }
 
         path("/favorite") {
-            post { }
-            delete { }
+            post {
+                val principal = attributes["principal"] as DecodedJWT
+                val slug = pathParameters["slug"]
+                val article = articles.findOne(slug) ?: halt(404)
+                val updatedAt = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) // TODO Fails if not formatted as string
+                val updates = mapOf(Article::favoritedBy.name to (article.favoritedBy + principal.subject)) + (Article::updatedAt.name to updatedAt)
+
+                if (!articles.updateOne(slug, updates))
+                    halt(500)
+
+                ok(article, charset = Charsets.UTF_8)
+            }
+
+            delete {
+                val slug = pathParameters["slug"]
+                val article = articles.findOne(slug) ?: halt(404)
+                ok(article, charset = Charsets.UTF_8)
+            }
         }
 
         path("/comments", commentsRouter)
@@ -156,22 +137,7 @@ internal val articlesRouter = Router {
         )
 
         articles.insertOne(article)
-
-        val content = ArticleCreationResponseRoot(
-            ArticleCreationResponse(
-                slug = article.slug,
-                title = article.title,
-                description = article.description,
-                body = article.body,
-                tagList = article.tagList,
-                createdAt = article.createdAt.toIso8601(),
-                updatedAt = article.updatedAt.toIso8601(),
-                favorited = false,
-                favoritesCount = 0,
-                author = principal.subject
-            )
-        )
-
+        val content = ArticleCreationResponseRoot(article, principal.subject)
         ok(content, charset = Charsets.UTF_8)
     }
 
@@ -205,6 +171,48 @@ internal val articlesRouter = Router {
 
         ok(ArticlesResponseRoot(responses, articles.count()), charset = Charsets.UTF_8)
     }
+}
+
+private fun Call.getArticle(articles: Store<Article, String>) {
+    val slug = pathParameters["slug"]
+    val article = articles.findOne(slug) ?: halt(404)
+    ok(article, charset = Charsets.UTF_8)
+}
+
+private fun Call.updateArticle(articles: Store<Article, String>) {
+    val principal = attributes["principal"] as DecodedJWT
+    val body = request.body<PutArticleRequestRoot>().article
+    val slug = pathParameters["slug"]
+    val updatedAt = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) // TODO Fails if not formatted as string
+    val requestUpdates = body.convertToMap().mapKeys { it.key.toString() } + (Article::updatedAt.name to updatedAt)
+
+    val updates =
+        if (body.title != null) requestUpdates + (Article::slug.name to body.title.toSlug())
+        else requestUpdates
+
+    val updated = articles.updateOne(slug, updates)
+
+    if (updated) {
+        val article = articles.findOne(slug) ?: halt(500)
+        val content = ArticleCreationResponseRoot(article, principal.subject)
+        ok(content, charset = Charsets.UTF_8)
+    } else {
+        send(500, "Article $slug not updated")
+    }
+}
+
+private fun Call.deleteArticle(articles: Store<Article, String>) {
+    if (!articles.deleteOne(pathParameters["slug"]))
+        halt(404)
+}
+
+private fun Call.getFeed(users: Store<User, String>, articles: Store<Article, String>) {
+    val principal = attributes["principal"] as DecodedJWT
+    val user = users.findOne(principal.subject) ?: halt(404)
+    val filter = mapOf(Article::author.name to (user.following.toList()))
+    val feed = articles.findMany(filter)
+
+    ok(feed, charset = Charsets.UTF_8)
 }
 
 private fun String.toSlug() =
