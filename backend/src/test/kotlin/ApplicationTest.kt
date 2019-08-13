@@ -146,6 +146,24 @@ class ApplicationTest {
         }
     }
 
+    private fun postArticle(userClient: Client, article: Article) {
+        userClient.post("/articles", article.toCreationRequest()).apply {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+        }
+    }
+
+    private fun getArticle(userClient: Client, slug: String) {
+        userClient.get("/articles/$slug").apply {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+        }
+    }
+
+    private fun deleteArticle(userClient: Client, slug: String) {
+        userClient.delete("/articles/$slug").apply { assert(statusCode in setOf(200, 404)) }
+    }
+
     @Test fun `Smoke test`() {
         deleteUser(jake)
         deleteUser(jane)
@@ -179,19 +197,9 @@ class ApplicationTest {
         followProfile(jakeClient, jane, false)
         getProfile(jakeClient, jane, false)
 
-        jakeClient.delete("/articles/${trainDragon.slug}").apply {
-            assert(statusCode in setOf(200, 404))
-        }
-
-        jakeClient.post("/articles", trainDragon.toCreationRequest()).apply {
-            assert(statusCode == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
-        }
-
-        jakeClient.get("/articles/${trainDragon.slug}").apply {
-            assert(statusCode == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
-        }
+        deleteArticle(jakeClient, trainDragon.slug)
+        postArticle(jakeClient, trainDragon)
+        getArticle(jakeClient, trainDragon.slug)
     }
 
     @Test fun `OPTIONS returns correct CORS headers`() {
