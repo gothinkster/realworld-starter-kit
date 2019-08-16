@@ -1,0 +1,15 @@
+{:deps   {:aliases [:dev]}
+ :builds {:main {:target           :browser
+                 :output-dir       "target/public/js/main"
+                 :asset-path       "/js/main"
+                 :modules          {:main {:entries [realworld-fulcro.client]}}
+                 :devtools         {:preloads   [com.fulcrologic.fulcro.inspect.preload]
+                                    :after-load realworld-fulcro.client/after-load}
+                 :compiler-options {:source-map true}}
+          :rn   {:target           :react-native
+                 :output-dir       "cljs"
+                 :devtools         {:autoload   true
+                                    :after-load realworld-fulcro.client/after-load}
+                 :init-fn          realworld-fulcro.client/main
+                 :compiler-options {:reader-features #{:cljsrn}
+                                    :source-map      true}}}}

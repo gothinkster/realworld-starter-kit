@@ -1,0 +1,18 @@
+{:paths   ["src/main"]
+ :deps    {org.clojure/clojure          {:mvn/version "1.10.1"}
+           io.pedestal/pedestal.service {:mvn/version "0.5.7"}
+           io.pedestal/pedestal.jetty   {:mvn/version "0.5.7"}
+           org.clojure/core.async       {:mvn/version "0.4.500"}
+           clj-http                     {:mvn/version "3.8.0"}
+           cheshire/cheshire            {:mvn/version "5.8.1"}
+           edn-query-language/eql       {:mvn/version "0.0.8"}
+           com.cognitect/transit-clj    {:mvn/version "0.8.313"}
+           camel-snake-kebab            {:mvn/version "0.4.0"}
+           com.wsscode/pathom           {:mvn/version "2.2.20"}
+           com.taoensso/timbre          {:mvn/version "4.10.0"}
+           com.fulcrologic/fulcro       {:mvn/version "3.0.0-alpha-22"}
+           clj-time/clj-time            {:mvn/version "0.15.1"}}
+ :aliases {:dev {:extra-paths ["src/dev" "src/test"]
+                 :extra-deps  {org.clojure/test.check {:mvn/version "0.10.0-RC1"}
+                               binaryage/devtools     {:mvn/version "0.9.10"}
+                               thheller/shadow-cljs   {:mvn/version "2.8.41"}}}}}

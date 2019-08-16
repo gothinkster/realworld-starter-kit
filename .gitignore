@@ -3,6 +3,8 @@
 # dependencies
 /node_modules
 /bower_components
+.shadow-cljs/
+target/
 
 # IDEs and editors
 /.idea
@@ -10,6 +12,7 @@
 .classpath
 *.launch
 .settings/
+*.iml
 
 
 #System Files
