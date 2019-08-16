@@ -112,13 +112,6 @@ def main(global_config: t.Dict[str, str], **settings: str) -> Router:
     configure(config)
 
     # Verify that DB schema is migrated to latest version
-    # TODO: If this check is removed, the app breaks. The culprit is somewhere
-    # in pyramid_deferred_sql: the request wrapper that sets the `read_only`
-    # request property gets correctly called and then when the connections is
-    # set to be marked as read_only, sqla fails with
-    # `set_session cannot be used inside a transaction`
-    # Using check_db_migrated, database transaction is already started, and
-    # setting the session to read_only is skipped, which masks the bug
     if not global_config.get("SKIP_CHECK_DB_MIGRATED"):
         check_db_migrated(config, global_config)
 
