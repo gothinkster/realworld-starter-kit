@@ -39,5 +39,5 @@ pipenv run alembic -c etc/alembic.ini -x ini=etc/development.ini upgrade head
 Downgrading:
 
 ```shell
-pipenv run alembic -c etc/alembic.ini -x ini=etc/development.ini downgrade head
+pipenv run alembic -c etc/alembic.ini -x ini=etc/development.ini downgrade -1
 ```
