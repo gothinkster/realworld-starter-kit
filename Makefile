@@ -51,7 +51,7 @@ stop-pgsql: .installed
 .PHONY: devdb
 devdb: .installed
 	@pipenv run python -m conduit.scripts.drop_tables
-	@pipenv run alembic -x ini=etc/development.ini upgrade head
+	@pipenv run alembic -c etc/alembic.ini -x ini=etc/development.ini upgrade head
 	@pipenv run python -m conduit.scripts.populate
 
 .PHONY: pshell

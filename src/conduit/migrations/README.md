@@ -12,7 +12,7 @@ Prerequisites:
 Start by creating a migration recipe with:
 
 ```shell
-pipenv run alembic -x ini=etc/development.ini revision --autogenerate -m "message"
+pipenv run alembic -c etc/alembic.ini -x ini=etc/development.ini revision --autogenerate -m "message"
 ```
 
 The `message` should be descriptive to what recipe does to the db. Avoid short titles, abbreviations, etc:
@@ -33,11 +33,11 @@ Bad:
 Upgrading:
 
 ```shell
-pipenv run alembic -x ini=etc/development.ini -n app:conduit upgrade head
+pipenv run alembic -c etc/alembic.ini -x ini=etc/development.ini upgrade head
 ```
 
 Downgrading:
 
 ```shell
-pipenv run alembic -x ini=etc/development.ini -n app:conduit downgrade head
+pipenv run alembic -c etc/alembic.ini -x ini=etc/development.ini downgrade head
 ```
