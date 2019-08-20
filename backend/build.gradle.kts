@@ -31,12 +31,10 @@ task("all") {
 
 dependencies {
     implementation("com.hexagonkt:http_server_jetty:${project.extra["hexagonVersion"]}")
-    implementation("com.hexagonkt:port_http_client:${project.extra["hexagonVersion"]}")
     implementation("com.hexagonkt:store_mongodb:${project.extra["hexagonVersion"]}")
     implementation("com.auth0:java-jwt:${project.extra["javaJwtVersion"]}")
 
     testImplementation("junit:junit:${project.extra["junitVersion"]}")
     testImplementation("io.mockk:mockk:${project.extra["mockkVersion"]}")
-    testImplementation("io.cucumber:cucumber-java8:${project.extra["cucumberVersion"]}")
-    testImplementation("io.cucumber:cucumber-junit:${project.extra["cucumberVersion"]}")
+    testImplementation("com.hexagonkt:port_http_client:${project.extra["hexagonVersion"]}")
 }

@@ -9,6 +9,8 @@ import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.convertToMap
 import com.hexagonkt.store.Store
 
+import kotlin.text.Charsets.UTF_8
+
 internal data class PutUserRequest(
     val email: String? = null,
     val password: String? = null,
@@ -31,22 +33,20 @@ private fun Call.putUser(users: Store<User, String>, jwt: Jwt) {
     val principal = attributes["principal"] as DecodedJWT
     val body = request.body<PutUserRequestRoot>().user
     val updates = body.convertToMap().mapKeys { it.key.toString() }
+
     val updated = users.updateOne(principal.subject, updates)
 
-    if (updated) {
-        val user = users.findOne(principal.subject) ?: halt(500)
-        val content = UserResponseRoot(user, jwt.sign(user.username))
-
-        ok(content, charset = Charsets.UTF_8)
-    } else {
-        send(500, "Username ${principal.subject} not updated")
-    }
+    if (updated)
+        getUser(users, jwt)
+    else
+        halt(500, "Username ${principal.subject} not updated")
 }
 
 private fun Call.getUser(users: Store<User, String>, jwt: Jwt) {
     val principal = attributes["principal"] as DecodedJWT
-    val user = users.findOne(principal.subject) ?: halt(404, "Not Found")
-    val content = UserResponseRoot(user, jwt.sign(user.username))
+    val subject = principal.subject
+    val user = users.findOne(subject) ?: halt(404, "User: $subject not found")
+    val token = jwt.sign(user.username)
 
-    ok(content, charset = Charsets.UTF_8)
+    ok(UserResponseRoot(user, token), charset = UTF_8)
 }

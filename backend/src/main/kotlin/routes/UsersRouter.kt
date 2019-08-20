@@ -5,7 +5,10 @@ import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.injector
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.services.User
+import com.hexagonkt.serialization.Json
 import com.hexagonkt.store.Store
+
+import kotlin.text.Charsets.UTF_8
 
 data class RegistrationRequest(
     val email: String,
@@ -44,7 +47,7 @@ private fun Call.register(users: Store<User, String>, jwt: Jwt) {
         )
     )
 
-    ok(content, charset = Charsets.UTF_8)
+    ok(content, charset = UTF_8)
 }
 
 private fun Call.login(users: Store<User, String>, jwt: Jwt) {
@@ -53,7 +56,7 @@ private fun Call.login(users: Store<User, String>, jwt: Jwt) {
     val user = users.findOne(filter) ?: halt(404, "Not Found")
     if (user.password == bodyUser.password) {
         val content = UserResponseRoot(user, jwt.sign(user.username))
-        ok(content, charset = Charsets.UTF_8)
+        ok(content, charset = UTF_8)
     } else {
         send(401, "Bad credentials")
     }
@@ -61,5 +64,7 @@ private fun Call.login(users: Store<User, String>, jwt: Jwt) {
 
 // TODO Authenticate and require 'root' user or owner
 private fun Call.deleteUser(users: Store<User, String>) {
-    if (users.deleteOne(pathParameters["username"])) ok() else send(404)
+    val username = pathParameters["username"]
+    if (users.deleteOne(username)) ok(OkResponse("$username deleted"), Json, charset = UTF_8)
+    else halt(404, "$username not found")
 }

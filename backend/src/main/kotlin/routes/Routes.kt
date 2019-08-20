@@ -1,12 +1,16 @@
 package com.hexagonkt.realworld.routes
 
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.hexagonkt.helpers.CodedException
+import com.hexagonkt.helpers.MultipleException
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.rest.cors
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.Json
+
+data class OkResponse(val message: String)
 
 data class ErrorResponse(val body: List<String> = listOf("Unknown error"))
 
@@ -40,10 +44,27 @@ internal val router: Router = Router {
     path("/profiles/{username}", profilesRouter)
     path("/articles", articlesRouter)
     path("/tags", tagsRouter)
-    // TODO Map all errors (HTTP codes included)
-    error(Exception::class) {
-        val errorMessage = it.javaClass.simpleName + ": " + (it.message ?: "<no exception message>")
-        send(500, ErrorResponseRoot(ErrorResponse(listOf(errorMessage))), Json, Charsets.UTF_8)
+    error(Exception::class) { errorHandler(it) }
+}
+
+// TODO Map all errors (HTTP codes included)
+internal fun Call.errorHandler(error: Exception) {
+    when (error) {
+        is CodedException -> {
+            val cause = error.cause
+            val status = error.code
+            val messages =
+                if (cause is MultipleException) cause.causes.map { it.message ?: "<no message>" }
+                else listOf(error.message ?: "")
+            send(status, ErrorResponseRoot(ErrorResponse(messages)), Json, Charsets.UTF_8)
+        }
+        is MultipleException -> {
+
+        }
+        else -> {
+            val errorMessage = error.javaClass.simpleName + ": " + (error.message ?: "<no message>")
+            send(500, ErrorResponseRoot(ErrorResponse(listOf(errorMessage))), Json, Charsets.UTF_8)
+        }
     }
 }
 

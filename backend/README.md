@@ -89,6 +89,7 @@ From now on assume `alias gw='./gradlew'`.
 * Create native executable using GraalVM
 * Logs repeated (in exceptions). Check settings additivity
 * `service_test.yaml` not honored (not picking a random port)
+* Add requests' bodies validation returning as many errors as wrong fields
 
 ## API
 
