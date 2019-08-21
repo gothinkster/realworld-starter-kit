@@ -44,7 +44,7 @@ pipenv run alembic -c etc/alembic.ini -x ini=etc/development.ini downgrade -1
 
 ## Can I use my models in my migration scripts?
 
-Sadly, no. You need to use the [Expression API](https://docs.sqlalchemy.org/en/13/core/expression_api.html) or raw SQL. The former is preferrable. 
+Sadly, no. You need to use the [Expression API](https://docs.sqlalchemy.org/en/13/core/expression_api.html) or raw SQL. The former is preferable.
 
 Here is the reason why:
 
