@@ -41,3 +41,8 @@ Downgrading:
 ```shell
 pipenv run alembic -c etc/alembic.ini -x ini=etc/development.ini downgrade -1
 ```
+
+
+## Further reading
+
+- [Manipulating JSOB](https://haselt.com/working-with-postgresql-jsonb/)
