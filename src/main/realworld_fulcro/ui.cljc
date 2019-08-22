@@ -4,36 +4,46 @@
                :default [com.fulcrologic.fulcro.dom-server :as dom])
             [com.fulcrologic.fulcro.mutations :as fm]))
 
-(defsc Header [this {}]
-  {:query []}
+(defsc Header [this {::keys [authed?]}]
+  {:query         [::authed?]
+   :ident         (fn []
+                    [::header ::header])
+   :initial-state (fn [_]
+                    {::authed? false})}
   (dom/nav
     {:className "navbar navbar-light"}
     (dom/div
       {:className "container"}
-      (dom/a {:href      "index.html"
+      (dom/a {:href      "#/"
               :className "navbar-brand"} "conduit")
       (dom/ul
         {:className "nav navbar-nav pull-xs-right"}
         (dom/li
           {:className "nav-item"}
           (dom/a {:href "" :className "nav-link active"} "Home"))
+        (when authed?
+          (dom/li
+            {:className "nav-item"}
+            (dom/a
+              {:href "" :className "nav-link"}
+              (dom/i {:className "ion-compose"})
+              "New Post")))
+        (when authed?
+          (dom/li
+            {:className "nav-item"}
+            (dom/a
+              {:href      ""
+               :className "nav-link"}
+              (dom/i {:className "ion-gear-a"})
+              "Settings")))
         (dom/li
           {:className "nav-item"}
-          (dom/a
-            {:href "" :className "nav-link"}
-            (dom/i {:className "ion-compose"})
-            "New Post"))
-        (dom/li
-          {:className "nav-item"}
-          (dom/a
-            {:href      ""
-             :className "nav-link"}
-            (dom/i {:className "ion-gear-a"})
-            "Settings"))
+          (dom/a {:href "" :className "nav-link"} "Sign in"))
         (dom/li
           {:className "nav-item"}
           (dom/a {:href "" :className "nav-link"} "Sign up"))))))
 
+(def ui-header (comp/factory Header))
 
 (defsc Footer [this props]
   {:query []}
@@ -51,7 +61,13 @@
 
 
 (defsc Home [this {}]
-  {:query []}
+  {:query         [:PAGE/ident
+                   :PAGE/id]
+   :ident         (fn []
+                    [:PAGE/home :PAGE/home])
+   :initial-state (fn [_]
+                    {:PAGE/ident :PAGE/home
+                     :PAGE/id    :PAGE/home})}
   (dom/div
     {:className "home-page"}
     (dom/div
@@ -143,15 +159,19 @@
       "rails")))
 
 (defsc Login [this {:app.user/keys [username email password]}]
-  {:query         [:app.user/username
+  {:query         [:PAGE/ident
+                   :PAGE/id
+                   :app.user/username
                    :app.user/email
                    :app.user/password]
    :ident         (fn []
-                    [::login ::login])
+                    [:PAGE/login :PAGE/login])
    :initial-state (fn [_]
                     {:app.user/username ""
                      :app.user/email    ""
-                     :app.user/password ""})}
+                     :app.user/password ""
+                     :PAGE/ident        :PAGE/login
+                     :PAGE/id           :PAGE/login})}
 
   (dom/div
     {:className "auth-page"}
@@ -197,6 +217,8 @@
       (dom/button
         {:className "btn btn-lg btn-primary pull-xs-right"}
         "Sign up"))))
+
+(def ui-login (comp/factory Login))
 
 (defsc Profile [this props]
   {:query []}

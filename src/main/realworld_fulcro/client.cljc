@@ -2,6 +2,8 @@
   (:require [com.fulcrologic.fulcro.components :as comp :refer [defsc]]
             [com.fulcrologic.fulcro.application :as app]
             [realworld-fulcro.proxy :as proxy]
+            [realworld-fulcro.ui :as ui]
+            [com.fulcrologic.fulcro.routing.legacy-ui-routers :as fr]
             #?@(:cljs [[goog.dom :as gdom]])
             #?(:cljs    [com.fulcrologic.fulcro.dom :as dom]
                :default [com.fulcrologic.fulcro.dom-server :as dom])
@@ -9,25 +11,26 @@
             [com.fulcrologic.fulcro.data-fetch :as df]))
 
 
-(defsc Root [this {:app.user/keys [password email]
-                   ::proxy/keys   [hello]}]
-  {:query [:app.user/email
-           :app.user/password
-           :app.user/username
-           ::proxy/hello]
-   :ident (fn []
-            [::root ::root])}
-  (dom/div
-    (dom/input {:value    (or email "")
-                :onChange #(fm/set-value! this :app.user/email (-> % .-target .-value))})
-    (dom/input {:value    (or password "")
-                :onChange #(fm/set-value! this :app.user/password (-> % .-target .-value))})
-    (dom/button
-      {:onClick #(comp/transact! this `[(app.user/login ~{:app.user/password password
-                                                          :app.user/email    email})])}
-      "load")
-    (dom/code (str hello))))
+(fr/defsc-router Router [this {:PAGE/keys [ident id]}]
+  {:router-targets {:PAGE/home  ui/Home
+                    :PAGE/login ui/Login}
+   :ident          (fn []
+                     [ident id])
+   :router-id      ::router
+   :default-route  ui/Home}
+  (dom/div "404"))
 
+(def ui-router (comp/factory Router))
+
+(defsc Root [this {::keys [router header]}]
+  {:query         [{::router (comp/get-query Router)}
+                   {::header (comp/get-query ui/Header)}]
+   :initial-state (fn [_]
+                    {::router (comp/get-initial-state Router _)
+                     ::header (comp/get-initial-state ui/Header _)})}
+  (comp/fragment
+    (ui/ui-header header)
+    (ui-router router)))
 
 (fm/defmutation app.user/login
   [{:app.user/keys [_]}]
