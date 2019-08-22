@@ -50,8 +50,40 @@
              "Content-Type"            (mime/default-mime-types "html")}
    :status  200})
 
+(comp/defsc Cards [this props]
+  {:query []}
+  (dom/html
+    (dom/head
+      (dom/meta {:charset "utf-8"})
+      (dom/title "Conduit")
+      (dom/link {:href "//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+                 :rel  "stylesheet"
+                 :type "text/css"})
+      (dom/link {:href "//fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic"
+                 :rel= "stylesheet"
+                 :type "text/css"})
+      (dom/link {:rel  "stylesheet"
+                 :href "//demo.productionready.io/main.css"}))
+    (dom/body
+      {}
+      (dom/div
+        {:id "app"})
+      (dom/script {:src "/js/cards/main.js"}))))
+
+(def ui-cards (comp/factory Cards))
+(defn cards
+  [req]
+  {:body (string/join "\n"
+                      ["<!DOCTYPE html>"
+                       (dom/render-to-str (ui-cards {}))])
+   :headers {"Content-Security-Policy" ""
+             "Cache-Control"           "no-store"
+             "Content-Type"            (mime/default-mime-types "html")}
+   :status  200})
+
 (def routes
-  `#{["/" :get index]})
+  `#{["/" :get index]
+     ["/cards" :get cards]})
 
 (def service
   {::http/port      8080

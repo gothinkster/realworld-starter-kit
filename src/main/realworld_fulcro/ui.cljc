@@ -1,7 +1,8 @@
 (ns realworld-fulcro.ui
   (:require [com.fulcrologic.fulcro.components :as comp :refer [defsc]]
             #?(:cljs    [com.fulcrologic.fulcro.dom :as dom]
-               :default [com.fulcrologic.fulcro.dom-server :as dom])))
+               :default [com.fulcrologic.fulcro.dom-server :as dom])
+            [com.fulcrologic.fulcro.mutations :as fm]))
 
 (defsc Header [this {}]
   {:query []}
@@ -34,18 +35,20 @@
           (dom/a {:href "" :className "nav-link"} "Sign up"))))))
 
 
-(defsc Footer [this {}]
+(defsc Footer [this props]
   {:query []}
   (dom/footer
-    {}
     (dom/div
       {:className "container"}
-      (dom/a {:href "/", :className "logo-font"} "conduit")
-      (dom/span)
-      {:className "attribution"}
-      "An interactive learning project from"
-      (dom/a {:href "https://thinkster.io"} "Thinkster")
-      ". Code &amp; design licensed under MIT.")))
+      (dom/a {:href      "/"
+              :className "logo-font"} "conduit")
+      (dom/span
+        {:className "attribution"}
+        "An interactive learning project from"
+        (dom/a {:href "https://thinkster.io"} "Thinkster")
+        ". Code &amp; design licensed under MIT."))))
+
+
 
 (defsc Home [this {}]
   {:query []}
@@ -53,132 +56,147 @@
     {:className "home-page"}
     (dom/div
       {:className "banner"}
-      (dom/div)
-      {:className "container"}
-      (dom/h1 {:className "logo-font"} "conduit")
-      (dom/p {} "A place to share your knowledge."))
+      (dom/div
+        {:className "container"}
+        (dom/h1 {:className "logo-font"} "conduit")
+        (dom/p {} "A place to share your knowledge.")))
     (dom/div
       {:className "container page"}
-      (dom/div)
-      {:className "row"}
-      (dom/div)
-      {:className "col-md-9"}
-      (dom/div)
-      {:className "feed-toggle"}
-      (dom/ul)
-      {:className "nav nav-pills outline-active"}
-      (dom/li)
-      {:className "nav-item"}
-      (dom/a {:href "", :className "nav-link disabled"} "Your Feed")
-      (dom/li)
-      {:className "nav-item"}
-      (dom/a)
-      {:href "", :className "nav-link active"}
-      "Global Feed"
-      (dom/div)
-      {:className "article-preview"}
-      (dom/div)
-      {:className "article-meta"}
-      (dom/a)
-      {:href "profile.html"}
+      (dom/div
+        {:className "row"}
+        (dom/div
+          {:className "col-md-9"}
+          (dom/div
+            {:className "feed-toggle"})))
+      (dom/ul
+        {:className "nav nav-pills outline-active"}
+        (dom/li
+          {:className "nav-item"}
+          (dom/a {:href "", :className "nav-link disabled"} "Your Feed"))
+        (dom/li
+          {:className "nav-item"}
+          (dom/a
+            {:href "", :className "nav-link active"}
+            "Global Feed")))
+      (dom/div
+        {:className "article-preview"})
+      (dom/div
+        {:className "article-meta"})
+      (dom/a
+        {:href "profile.html"})
       (dom/img {:src "http://i.imgur.com/Qr71crq.jpg"})
-      (dom/div)
-      {:className "info"}
+      (dom/div
+        {:className "info"})
       (dom/a {:href "", :className "author"} "Eric Simons")
       (dom/span {:className "date"} "January 20th")
-      (dom/button)
-      {:className "btn btn-outline-primary btn-sm pull-xs-right"}
-      (dom/i {:className "ion-heart"})
-      "29"
-      (dom/a)
-      {:href "", :className "preview-link"}
+      (dom/button
+        {:className "btn btn-outline-primary btn-sm pull-xs-right"})
+      (dom/i {:className "ion-heart"}
+             "29")
+      (dom/a
+        {:href "", :className "preview-link"})
       (dom/h1 {} "How to build webapps that scale")
       (dom/p {} "This is the description for the post.")
       (dom/span {} "Read more...")
-      (dom/div)
-      {:className "article-preview"}
-      (dom/div)
-      {:className "article-meta"}
-      (dom/a)
-      {:href "profile.html"}
+      (dom/div
+        {:className "article-preview"})
+      (dom/div
+        {:className "article-meta"})
+      (dom/a
+        {:href "profile.html"})
       (dom/img {:src "http://i.imgur.com/N4VcUeJ.jpg"})
-      (dom/div)
-      {:className "info"}
+      (dom/div
+        {:className "info"})
       (dom/a {:href "", :className "author"} "Albert Pai")
       (dom/span {:className "date"} "January 20th")
-      (dom/button)
-      {:className "btn btn-outline-primary btn-sm pull-xs-right"}
+      (dom/button
+        {:className "btn btn-outline-primary btn-sm pull-xs-right"})
       (dom/i {:className "ion-heart"})
       "32"
-      (dom/a)
-      {:href "", :className "preview-link"}
-      (dom/h1)
-      {}
+      (dom/a
+        {:href "", :className "preview-link"})
+      (dom/h1
+        {})
       "The song you won&#39;t ever stop singing. No matter how hard you try."
       (dom/p {} "This is the description for the post.")
       (dom/span {} "Read more...")
-      (dom/div)
-      {:className "col-md-3"}
-      (dom/div)
-      {:className "sidebar"}
+      (dom/div
+        {:className "col-md-3"})
+      (dom/div
+        {:className "sidebar"})
       (dom/p {} "Popular Tags")
-      (dom/div)
-      {:className "tag-list"}
-      (dom/a)
-      {:href "", :className "tag-pill tag-default"}
+      (dom/div
+        {:className "tag-list"})
+      (dom/a
+        {:href "", :className "tag-pill tag-default"})
       "programming"
-      (dom/a)
-      {:href "", :className "tag-pill tag-default"}
+      (dom/a
+        {:href "", :className "tag-pill tag-default"})
       "javascript"
       (dom/a {:href "", :className "tag-pill tag-default"} "emberjs")
       (dom/a {:href "", :className "tag-pill tag-default"} "angularjs")
       (dom/a {:href "", :className "tag-pill tag-default"} "react")
       (dom/a {:href "", :className "tag-pill tag-default"} "mean")
       (dom/a {:href "", :className "tag-pill tag-default"} "node")
-      (dom/a)
-      {:href "", :className "tag-pill tag-default"}
+      (dom/a
+        {:href "", :className "tag-pill tag-default"})
       "rails")))
 
-(defsc Login [this props]
-  {:query []}
+(defsc Login [this {:app.user/keys [username email password]}]
+  {:query         [:app.user/username
+                   :app.user/email
+                   :app.user/password]
+   :ident         (fn []
+                    [::login ::login])
+   :initial-state (fn [_]
+                    {:app.user/username ""
+                     :app.user/email    ""
+                     :app.user/password ""})}
+
   (dom/div
     {:className "auth-page"}
     (dom/div
       {:className "container page"}
-      (dom/div)
-      {:className "row"}
-      (dom/div)
-      {:className "col-md-6 offset-md-3 col-xs-12"}
+      (dom/div
+        {:className "row"}
+        (dom/div
+          {:className "col-md-6 offset-md-3 col-xs-12"}))
       (dom/h1 {:className "text-xs-center"} "Sign up")
-      (dom/p)
-      {:className "text-xs-center"}
-      (dom/a {:href ""} "Have an account?")
-      (dom/ul)
-      {:className "error-messages"}
-      (dom/li {} "That email is already taken")
-      (dom/form)
-      {}
-      (dom/fieldset)
-      {:className "form-group"}
-      (dom/input)
-      {:type "text",}
-      :placeholder "Your Name",
-      :className "form-control form-control-lg"
-      (dom/fieldset)
-      {:className "form-group"}
-      (dom/input)
-      {:type "text",}
-      :placeholder "Email",
-      :className "form-control form-control-lg"
-      (dom/fieldset)
-      {:className "form-group"}
-      (dom/input)
-      {:type "password",}
-      :placeholder "Password",
-      :className "form-control form-control-lg"
-      (dom/button)
-      {:className "btn btn-lg btn-primary pull-xs-right"}
-      "Sign up")))
+      (dom/p
+        {:className "text-xs-center"}
+        (dom/a {:href ""} "Have an account?"))
+      (dom/ul
+        {:className "error-messages"}
+        (dom/li {} "That email is already taken"))
+      (dom/form
+        {}
+        (dom/fieldset
+          {:className "form-group"}
+          (dom/input
+            {:type        "text",
+             :value       username
+             :onChange    #(fm/set-value! this :app.user/username (-> % .-target .-value))
+             :placeholder "Your Name",
+             :className   "form-control form-control-lg"}))
+        (dom/fieldset
+          {:className "form-group"}
+          (dom/input
+            {:type        "text",
+             :value       email
+             :onChange    #(fm/set-value! this :app.user/email (-> % .-target .-value))
+             :placeholder "Email",
+             :className   "form-control form-control-lg"}))
+        (dom/fieldset
+          {:className "form-group"}
+          (dom/input
+            {:type        "password",
+             :value       password
+             :onChange    #(fm/set-value! this :app.user/password (-> % .-target .-value))
+             :placeholder "Password",
+             :className   "form-control form-control-lg"})))
+      (dom/button
+        {:className "btn btn-lg btn-primary pull-xs-right"}
+        "Sign up"))))
 
 (defsc Profile [this props]
   {:query []}
@@ -324,43 +342,43 @@
     {:className "editor-page"}
     (dom/div
       {:className "container page"}
-      (dom/div)
-      {:className "row"}
-      (dom/div)
-      {:className "col-md-10 offset-md-1 col-xs-12"}
-      (dom/form)
-      {}
-      (dom/fieldset)
-      {}
-      (dom/fieldset)
-      {:className "form-group"}
-      (dom/input)
-      {:type "text",}
-      :placeholder "Article Title",
-      :className "form-control form-control-lg"
-      (dom/fieldset)
-      {:className "form-group"}
-      (dom/input)
-      {:type "text",}
-      :placeholder "What's this article about?",
-      :className "form-control"
-      (dom/fieldset)
-      {:className "form-group"}
-      (dom/textarea)
-      {:rows "8",}
-      :placeholder "Write your article (in markdown)",
-      :className "form-control"
-      (dom/fieldset)
-      {:className "form-group"}
-      (dom/input)
-      {:type "text",}
-      :placeholder "Enter tags",
-      :className "form-control"
+      (dom/div
+        {:className "row"}
+        (dom/div
+          {:className "col-md-10 offset-md-1 col-xs-12"}))
+      (dom/form
+        {}
+        (dom/fieldset
+          {})
+        (dom/fieldset
+          {:className "form-group"})
+        (dom/input
+          {:type        "text",
+           :placeholder "Article Title",
+           :className   "form-control form-control-lg"}))
+      (dom/fieldset
+        {:className "form-group"}
+        (dom/input
+          {:type        "text",
+           :placeholder "What's this article about?",
+           :className   "form-control"}))
+      (dom/fieldset
+        {:className "form-group"}
+        (dom/textarea
+          {:rows        "8",
+           :placeholder "Write your article (in markdown)",
+           :className   "form-control"}))
+      (dom/fieldset
+        {:className "form-group"}
+        (dom/input
+          {:type        "text",
+           :placeholder "Enter tags",
+           :className   "form-control"}))
       (dom/div {:className "tag-list"})
-      (dom/button)
-      {:type "button",}
-      :className "btn btn-lg pull-xs-right btn-primary"
-      "Publish Article")))
+      (dom/button
+        {:type      "button",
+         :className "btn btn-lg pull-xs-right btn-primary"}
+        "Publish Article"))))
 
 (defsc Article [this props]
   {:query []}
