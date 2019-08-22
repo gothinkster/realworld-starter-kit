@@ -8,4 +8,5 @@
   [& _]
   (shadow.server/start!)
   (shadow.api/watch :main)
+  (shadow.api/watch :cards)
   (srv/-main))
