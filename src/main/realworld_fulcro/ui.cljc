@@ -2,7 +2,8 @@
   (:require [com.fulcrologic.fulcro.components :as comp :refer [defsc]]
             #?(:cljs    [com.fulcrologic.fulcro.dom :as dom]
                :default [com.fulcrologic.fulcro.dom-server :as dom])
-            [com.fulcrologic.fulcro.mutations :as fm]))
+            [com.fulcrologic.fulcro.mutations :as fm]
+            [com.fulcrologic.fulcro.routing.legacy-ui-routers :as fr]))
 
 (defsc Header [this {::keys [authed?]}]
   {:query         [::authed?]
@@ -57,45 +58,45 @@
               :className "logo-font"} "conduit")
       (dom/span
         {:className "attribution"}
-        "An interactive learning project from"
+        "An interactive learning project from "
         (dom/a {:href "https://thinkster.io"} "Thinkster")
-        ". Code &amp; design licensed under MIT."))))
+        ". Code & design licensed under MIT."))))
 
-(defsc Author [this props]
-  {:query [:app.user/bio
-           :app.user/following
-           :app.user/image
-           :app.user/username]
-   :ident :app.user/username})
+(def ui-footer (comp/factory Footer))
 
+(defsc ArticleAuthorChip [this {:app.article/keys [updated-at
+                                                   favorites-count]
+                                :app.user/keys    [image username]}]
+  {:query [:app.user/image
+           :app.user/username
+           :app.article/updated-at
+           :app.article/favorites-count]
+   :ident :app.user/username}
+  (dom/div
+    {:className "article-meta"}
+    (dom/a
+      {:href "profile.html"})
+    (dom/img {:src image})
+    (dom/div
+      {:className "info"}
+      (dom/a {:href "", :className "author"} username)
+      (dom/span {:className "date"} updated-at))
+    (dom/button
+      {:className "btn btn-outline-primary btn-sm pull-xs-right"}
+      (dom/i {:className "ion-heart"}
+             favorites-count))))
 
-(defsc ItemArticle [this {:app.article/keys [favorites-count updated-at title body slug description]}]
-  {:query [:app.article/updated-at
-           {:app.article/author (comp/get-query Author)}
+(def ui-article-author-chip (comp/factory ArticleAuthorChip))
+(defsc ItemArticle [this {:app.article/keys [title description]
+                          :>/keys           [article-author-chip]}]
+  {:query [:app.article/title
+           :app.article/slug
            :app.article/description
-           :app.article/tag-list
-           :app.article/created-at
-           :app.article/body
-           :app.article/favorited
-           :app.article/title
-           :app.article/favorites-count
-           :app.article/slug]
+           {:>/article-author-chip (comp/get-query ArticleAuthorChip)}]
    :ident :app.article/slug}
   (dom/div
     {:className "article-preview"}
-    (dom/div
-      {:className "article-meta"}
-      (dom/a
-        {:href "profile.html"})
-      (dom/img {:src "http://i.imgur.com/Qr71crq.jpg"})
-      (dom/div
-        {:className "info"}
-        (dom/a {:href "", :className "author"} "Eric Simons")
-        (dom/span {:className "date"} updated-at))
-      (dom/button
-        {:className "btn btn-outline-primary btn-sm pull-xs-right"}
-        (dom/i {:className "ion-heart"}
-               favorites-count)))
+    (ui-article-author-chip article-author-chip)
     (dom/a
       {:href "", :className "preview-link"}
       (dom/h1 {} title)
@@ -104,15 +105,19 @@
 
 (def ui-item-article (comp/factory ItemArticle {:keyfn :app.article/slug}))
 
-(defsc Home [this {:app.articles/keys [home]}]
+(defsc Home [this {:app.home/keys [tags articles]
+                   ::keys         [authed?]}]
   {:query         [:PAGE/ident
                    :PAGE/id
-                   {:app.articles/home (comp/get-query ItemArticle)}]
+                   ::authed?
+                   :app.home/tags
+                   {:app.home/articles (comp/get-query ItemArticle)}]
    :ident         (fn []
                     [:PAGE/home :PAGE/home])
    :initial-state (fn [_]
                     {:PAGE/ident :PAGE/home
-                     :PAGE/id    :PAGE/home})}
+                     :PAGE/id    :PAGE/home
+                     ::authed?   false})}
   (dom/div
     {:className "home-page"}
     (dom/div
@@ -131,36 +136,28 @@
             {:className "feed-toggle"})))
       (dom/ul
         {:className "nav nav-pills outline-active"}
-        (dom/li
-          {:className "nav-item"}
-          (dom/a {:href "", :className "nav-link disabled"} "Your Feed"))
+        (when authed?
+          (dom/li
+            {:className "nav-item"}
+            (dom/a {:href "", :className "nav-link disabled"} "Your Feed")))
         (dom/li
           {:className "nav-item"}
           (dom/a
             {:href "", :className "nav-link active"}
             "Global Feed")))
-      (map ui-item-article home)
+      (map ui-item-article articles)
       (dom/div
         {:className "col-md-3"})
       (dom/div
         {:className "sidebar"})
       (dom/p {} "Popular Tags")
       (dom/div
-        {:className "tag-list"})
-      (dom/a
-        {:href "", :className "tag-pill tag-default"})
-      "programming"
-      (dom/a
-        {:href "", :className "tag-pill tag-default"})
-      "javascript"
-      (dom/a {:href "", :className "tag-pill tag-default"} "emberjs")
-      (dom/a {:href "", :className "tag-pill tag-default"} "angularjs")
-      (dom/a {:href "", :className "tag-pill tag-default"} "react")
-      (dom/a {:href "", :className "tag-pill tag-default"} "mean")
-      (dom/a {:href "", :className "tag-pill tag-default"} "node")
-      (dom/a
-        {:href "", :className "tag-pill tag-default"})
-      "rails")))
+        {:className "tag-list"}
+        (for [tag tags]
+          (dom/a {:href      ""
+                  :key       tag
+                  :className "tag-pill tag-default"}
+                 tag))))))
 
 (defsc Login [this {:app.user/keys [username email password]
                     ::keys         [new-account?]}]
@@ -529,3 +526,35 @@
 
                 (dom/i {:className "ion-edit"})
                 (dom/i {:className "ion-trash-a"})))))))))
+
+(fr/defsc-router Router [this {:PAGE/keys [ident id]}]
+  {:router-targets {:PAGE/home  Home
+                    :PAGE/login Login}
+   :ident          (fn []
+                     [ident id])
+   :router-id      ::router
+   :default-route  Home}
+  (dom/div "404"))
+
+(def ui-router (comp/factory Router))
+
+(defsc Root [this {::keys [router header footer]}]
+  {:query         [{::router (comp/get-query Router)}
+                   {::header (comp/get-query Header)}
+                   {::footer (comp/get-query Footer)}]
+   :initial-state (fn [_]
+                    {::router (comp/get-initial-state Router _)
+                     ::footer (comp/get-initial-state Footer _)
+                     ::header (comp/get-initial-state Header _)})}
+  (comp/fragment
+    (ui-header header)
+    (ui-router router)
+    (ui-footer footer)))
+
+(fm/defmutation app.user/login
+  [{:app.user/keys [_]}]
+  (action [{:keys [state]}]
+          (swap! state (fn [st]
+                         (-> st))))
+  (remote [{:keys [] :as env}]
+          (fm/returning env Root)))

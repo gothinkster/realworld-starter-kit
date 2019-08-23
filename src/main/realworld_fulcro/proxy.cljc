@@ -83,7 +83,7 @@
      (get env ::pc/indexes))})
 
 (pc/defresolver articles [env _]
-  {::pc/output [{:app.articles/home [:app.article/updated-at
+  {::pc/output [{:app.home/articles [:app.article/updated-at
                                      :app.article/author
                                      :app.article/description
                                      :app.article/tag-list
@@ -92,7 +92,11 @@
                                      :app.article/favorited
                                      :app.article/title
                                      :app.article/favorites-count
-                                     :app.article/slug]}]}
+                                     :app.article/slug
+                                     :app.user/bio
+                                     :app.user/following
+                                     :app.user/image
+                                     :app.user/username]}]}
   (let [response (http/request (assoc env
                                  ::http/method ::http/get
                                  ::http/url "https://conduit.productionready.io/api/articles?limit=10&offset=0"))]
@@ -102,9 +106,25 @@
                       ::http/body
                       :articles
                       (map (fn [article]
-                             (-> (qualify article :app.article)
-                                 (update :app.article/author #(qualify % :app.user))))))]
-        {:app.articles/home home}))))
+                             (let [{:app.article/keys [author]
+                                    :as               article} (qualify article :app.article)
+                                   author (qualify author :app.user)]
+                               (-> article
+                                   (merge author)
+                                   (assoc :app.article/author author))))))]
+        {:app.home/articles home}))))
+
+(pc/defresolver tags [env _]
+  {::pc/output [:app.home/tags]}
+  (let [response (http/request (assoc env
+                                 ::http/method ::http/get
+                                 ::http/url "https://conduit.productionready.io/api/tags"))]
+    (async/go
+      (let [tags (->> response
+                      async/<!
+                      ::http/body
+                      :tags)]
+        {:app.home/tags tags}))))
 
 (pc/defresolver router [env {::ui/keys [path]}]
   {::pc/input  #{::ui/path}
@@ -124,7 +144,7 @@
                                                  :PAGE/id    :PAGE/home})}}))
 
 (def register
-  [create-user index-explorer login articles router])
+  [create-user index-explorer login articles router tags])
 
 (def parser
   (p/parallel-parser
