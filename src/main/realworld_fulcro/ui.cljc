@@ -20,7 +20,8 @@
         {:className "nav navbar-nav pull-xs-right"}
         (dom/li
           {:className "nav-item"}
-          (dom/a {:href "" :className "nav-link active"} "Home"))
+          (dom/a {:href "#/"
+                  :className "nav-link active"} "Home"))
         (when authed?
           (dom/li
             {:className "nav-item"}
@@ -38,10 +39,12 @@
               "Settings")))
         (dom/li
           {:className "nav-item"}
-          (dom/a {:href "" :className "nav-link"} "Sign in"))
+          (dom/a {:href      "#/login"
+                  :className "nav-link"} "Sign in"))
         (dom/li
           {:className "nav-item"}
-          (dom/a {:href "" :className "nav-link"} "Sign up"))))))
+          (dom/a {:href      "#/login?signup"
+                  :className "nav-link"} "Sign up"))))))
 
 (def ui-header (comp/factory Header))
 

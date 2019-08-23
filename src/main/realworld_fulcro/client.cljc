@@ -4,11 +4,14 @@
             [realworld-fulcro.proxy :as proxy]
             [realworld-fulcro.ui :as ui]
             [com.fulcrologic.fulcro.routing.legacy-ui-routers :as fr]
-            #?@(:cljs [[goog.dom :as gdom]])
+            #?@(:cljs [[goog.dom :as gdom]
+                       [goog.history.EventType :as event-type]
+                       [goog.events :as gevt]])
             #?(:cljs    [com.fulcrologic.fulcro.dom :as dom]
                :default [com.fulcrologic.fulcro.dom-server :as dom])
             [com.fulcrologic.fulcro.mutations :as fm]
-            [com.fulcrologic.fulcro.data-fetch :as df]))
+            [com.fulcrologic.fulcro.data-fetch :as df])
+  #?(:cljs (:import (goog.history Html5History))))
 
 
 (fr/defsc-router Router [this {:PAGE/keys [ident id]}]
@@ -16,18 +19,18 @@
                     :PAGE/login ui/Login}
    :ident          (fn []
                      [ident id])
-   :router-id      ::router
+   :router-id      ::ui/router
    :default-route  ui/Home}
   (dom/div "404"))
 
 (def ui-router (comp/factory Router))
 
-(defsc Root [this {::keys [router header]}]
-  {:query         [{::router (comp/get-query Router)}
-                   {::header (comp/get-query ui/Header)}]
+(defsc Root [this {::ui/keys [router header]}]
+  {:query         [{::ui/router (comp/get-query Router)}
+                   {::ui/header (comp/get-query ui/Header)}]
    :initial-state (fn [_]
-                    {::router (comp/get-initial-state Router _)
-                     ::header (comp/get-initial-state ui/Header _)})}
+                    {::ui/router (comp/get-initial-state Router _)
+                     ::ui/header (comp/get-initial-state ui/Header _)})}
   (comp/fragment
     (ui/ui-header header)
     (ui-router router)))
@@ -51,7 +54,22 @@
 (defonce SPA (atom nil))
 (defn main
   []
-  (let [spa (app/fulcro-app {:remotes {:remote proxy/remote}})]
+  (let [history #?(:cljs (new Html5History)
+                   :default nil)
+        client-did-mount #?(:cljs (fn [app]
+                                    (doto history
+                                      (gevt/listen event-type/NAVIGATE #(when-let [token (subs (.-token %) 1)]
+                                                                          (df/load! app [::ui/path token] Root)))
+                                      (.setUseFragment false)
+                                      (.setPathPrefix "http://localhost:8080")
+                                      (.setEnabled true))
+                                    (js/addEventListener "click" (fn [e]
+                                                                   (when-let [hash (-> e .-target .-hash)]
+                                                                     (.preventDefault e)
+                                                                     (.setToken history hash)))))
+                            :default (constantly true))
+        spa (app/fulcro-app {:client-did-mount client-did-mount
+                             :remotes          {:remote proxy/remote}})]
     #?(:cljs (app/mount! spa Root (gdom/getElement "app")))
     (reset! SPA spa)))
 

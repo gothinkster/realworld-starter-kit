@@ -1,13 +1,16 @@
 (ns realworld-fulcro.proxy
   (:require [com.wsscode.pathom.core :as p]
             [com.fulcrologic.fulcro.algorithms.tx-processing :as txn]
+            [clojure.string :as string]
             [com.wsscode.pathom.connect :as pc]
             [com.wsscode.pathom.diplomat.http :as http]
             [camel-snake-kebab.core :as csk]
             #?(:clj  [com.wsscode.pathom.diplomat.http.clj-http :as http.driver]
                :cljs [com.wsscode.pathom.diplomat.http.fetch :as http.driver])
             [clojure.core.async :as async]
-            [edn-query-language.core :as eql]))
+            [edn-query-language.core :as eql]
+            [realworld-fulcro.ui :as ui]
+            [com.fulcrologic.fulcro.routing.legacy-ui-routers :as fr]))
 
 
 (defn qualify
@@ -80,9 +83,23 @@
      (remove (comp #{::pc/resolve ::pc/mutate} key))
      (get env ::pc/indexes))})
 
+(pc/defresolver router [env {::ui/keys [path]}]
+  {::pc/input  #{::ui/path}
+   ::pc/output [::ui/router]}
+  {::ui/router {::fr/id            ::ui/router
+                ::fr/current-route (cond
+                                     (string/starts-with? path "/login") {:PAGE/login        []
+                                                                          :PAGE/ident        :PAGE/login
+                                                                          :PAGE/id           :PAGE/login
+                                                                          :app.user/username ""
+                                                                          :app.user/password ""
+                                                                          :app.user/email    ""}
+                                     :default {:PAGE/login []
+                                               :PAGE/ident :PAGE/home
+                                               :PAGE/id    :PAGE/home})}})
 
 (def register
-  [create-user index-explorer login])
+  [create-user index-explorer login router])
 
 (def parser
   (p/parallel-parser
