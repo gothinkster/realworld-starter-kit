@@ -5,6 +5,7 @@
 
 
 (defn -main
+  {:shadow/requires-server true}
   [& _]
   (shadow.server/start!)
   (shadow.api/watch :main)

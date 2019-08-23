@@ -1,4 +1,5 @@
 {:deps   {:aliases [:dev]}
+ :nrepl  {:port 9000}
  :builds {:main  {:target           :browser
                   :output-dir       "target/public/js/main"
                   :asset-path       "/js/main"

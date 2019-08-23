@@ -1,10 +1,16 @@
 {
+  "scripts": {
+    "start": "shadow-cljs run user/-main"
+  },
   "dependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
+    "react-icons": "^2.2.7",
+    "reakit": "^0.11.2"
   },
   "devDependencies": {
-    "highlight.js": "^9.15.10",
-    "react-grid-layout": "^0.16.6"
+    "highlight.js": "9.15.10",
+    "react-grid-layout": "0.16.6",
+    "shadow-cljs": "2.8.51"
   }
 }

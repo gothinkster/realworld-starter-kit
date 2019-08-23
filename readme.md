@@ -19,6 +19,23 @@ For more information on how to this works with other frontends/backends, head ov
 
 # Getting started
 
+## For npm users
+
+```bash
+npm install
+npm start
+```
+
+## For clojure users
+
+Start a clojure REPL with `dev` alias
+
+```bash
+clj -A:dev
+```
+
+Run `(user/-main)` inside the REPL.
+
 ```clojure
 (user/-main)
 ;; then connect to 'http://localhost:8080'
