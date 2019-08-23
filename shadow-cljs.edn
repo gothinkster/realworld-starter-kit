@@ -14,6 +14,14 @@
                   :init-fn          realworld-fulcro.client/main
                   :compiler-options {:reader-features #{:cljsrn}
                                      :source-map      true}}
+          :test     {:target           :browser-test
+                     :test-dir         "target/public/js/test"
+                     :ns-regexp        "-spec$"
+                     ;:dev              {:compiler-options {:external-config {:ghostwheel {}}}}
+                     :compiler-options {:static-fns false} ; required for mocking to work
+                     :devtools         {:http-port          8081
+                                        :http-resource-root "public"
+                                        :http-root          "target/public/js/test"}}
           :cards {:target     nubank.workspaces.shadow-cljs.target
                   :ns-regexp  "-(test|cards)$"
                   :output-dir "target/public/js/cards"
