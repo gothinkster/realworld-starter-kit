@@ -2,6 +2,7 @@
   (:require [com.wsscode.pathom.core :as p]
             [com.fulcrologic.fulcro.algorithms.tx-processing :as txn]
             [clojure.string :as string]
+            [lambdaisland.uri :as uri]
             [com.wsscode.pathom.connect :as pc]
             [com.wsscode.pathom.diplomat.http :as http]
             [camel-snake-kebab.core :as csk]
@@ -64,8 +65,6 @@
   (let [response (http/request (assoc this
                                  ::http/url "https://conduit.productionready.io/api/users/login"
                                  ::http/method ::http/post
-                                 ::http/content-type ::http/json
-                                 ::http/accept ::http/json
                                  ::http/form-params {:user {:email    email
                                                             :password password}}))]
     (async/go
@@ -83,27 +82,55 @@
      (remove (comp #{::pc/resolve ::pc/mutate} key))
      (get env ::pc/indexes))})
 
+(pc/defresolver articles [env _]
+  {::pc/output [{:app.articles/home [:app.article/updated-at
+                                     :app.article/author
+                                     :app.article/description
+                                     :app.article/tag-list
+                                     :app.article/created-at
+                                     :app.article/body
+                                     :app.article/favorited
+                                     :app.article/title
+                                     :app.article/favorites-count
+                                     :app.article/slug]}]}
+  (let [response (http/request (assoc env
+                                 ::http/method ::http/get
+                                 ::http/url "https://conduit.productionready.io/api/articles?limit=10&offset=0"))]
+    (async/go
+      (let [home (->> response
+                      async/<!
+                      ::http/body
+                      :articles
+                      (map (fn [article]
+                             (-> (qualify article :app.article)
+                                 (update :app.article/author #(qualify % :app.user))))))]
+        {:app.articles/home home}))))
+
 (pc/defresolver router [env {::ui/keys [path]}]
   {::pc/input  #{::ui/path}
    ::pc/output [::ui/router]}
-  {::ui/router {::fr/id            ::ui/router
-                ::fr/current-route (cond
-                                     (string/starts-with? path "/login") {:PAGE/login        []
-                                                                          :PAGE/ident        :PAGE/login
-                                                                          :PAGE/id           :PAGE/login
-                                                                          :app.user/username ""
-                                                                          :app.user/password ""
-                                                                          :app.user/email    ""}
-                                     :default {:PAGE/login []
-                                               :PAGE/ident :PAGE/home
-                                               :PAGE/id    :PAGE/home})}})
+  (let [{:keys [path query]} (uri/uri path)]
+    {::ui/router {::fr/id            ::ui/router
+                  ::fr/current-route (cond
+                                       (= path "/login") {:PAGE/login        []
+                                                          :PAGE/ident        :PAGE/login
+                                                          :PAGE/id           :PAGE/login
+                                                          ::ui/new-account?  (not (string/blank? query))
+                                                          :app.user/username ""
+                                                          :app.user/password ""
+                                                          :app.user/email    ""}
+                                       :default {:PAGE/home  []
+                                                 :PAGE/ident :PAGE/home
+                                                 :PAGE/id    :PAGE/home})}}))
 
 (def register
-  [create-user index-explorer login router])
+  [create-user index-explorer login articles router])
 
 (def parser
   (p/parallel-parser
     {::p/env     {::http/driver            http.driver/request-async
+                  ::http/content-type      ::http/json
+                  ::http/accept            ::http/json
                   ::p/placeholder-prefixes #{">"}
                   ::p/reader               [p/map-reader
                                             pc/all-parallel-readers

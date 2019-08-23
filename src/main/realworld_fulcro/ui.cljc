@@ -20,7 +20,7 @@
         {:className "nav navbar-nav pull-xs-right"}
         (dom/li
           {:className "nav-item"}
-          (dom/a {:href "#/"
+          (dom/a {:href      "#/"
                   :className "nav-link active"} "Home"))
         (when authed?
           (dom/li
@@ -61,11 +61,53 @@
         (dom/a {:href "https://thinkster.io"} "Thinkster")
         ". Code &amp; design licensed under MIT."))))
 
+(defsc Author [this props]
+  {:query [:app.user/bio
+           :app.user/following
+           :app.user/image
+           :app.user/username]
+   :ident :app.user/username})
 
 
-(defsc Home [this {}]
+(defsc ItemArticle [this {:app.article/keys [favorites-count updated-at title body slug description]}]
+  {:query [:app.article/updated-at
+           {:app.article/author (comp/get-query Author)}
+           :app.article/description
+           :app.article/tag-list
+           :app.article/created-at
+           :app.article/body
+           :app.article/favorited
+           :app.article/title
+           :app.article/favorites-count
+           :app.article/slug]
+   :ident :app.article/slug}
+  (dom/div
+    {:className "article-preview"}
+    (dom/div
+      {:className "article-meta"}
+      (dom/a
+        {:href "profile.html"})
+      (dom/img {:src "http://i.imgur.com/Qr71crq.jpg"})
+      (dom/div
+        {:className "info"}
+        (dom/a {:href "", :className "author"} "Eric Simons")
+        (dom/span {:className "date"} updated-at))
+      (dom/button
+        {:className "btn btn-outline-primary btn-sm pull-xs-right"}
+        (dom/i {:className "ion-heart"}
+               favorites-count)))
+    (dom/a
+      {:href "", :className "preview-link"}
+      (dom/h1 {} title)
+      (dom/p {} description)
+      (dom/span {} "Read more..."))))
+
+(def ui-item-article (comp/factory ItemArticle {:keyfn :app.article/slug}))
+
+(defsc Home [this {:app.articles/keys [home]}]
   {:query         [:PAGE/ident
-                   :PAGE/id]
+                   :PAGE/id
+                   {:app.articles/home (comp/get-query ItemArticle)}]
    :ident         (fn []
                     [:PAGE/home :PAGE/home])
    :initial-state (fn [_]
@@ -97,48 +139,7 @@
           (dom/a
             {:href "", :className "nav-link active"}
             "Global Feed")))
-      (dom/div
-        {:className "article-preview"})
-      (dom/div
-        {:className "article-meta"})
-      (dom/a
-        {:href "profile.html"})
-      (dom/img {:src "http://i.imgur.com/Qr71crq.jpg"})
-      (dom/div
-        {:className "info"})
-      (dom/a {:href "", :className "author"} "Eric Simons")
-      (dom/span {:className "date"} "January 20th")
-      (dom/button
-        {:className "btn btn-outline-primary btn-sm pull-xs-right"})
-      (dom/i {:className "ion-heart"}
-             "29")
-      (dom/a
-        {:href "", :className "preview-link"})
-      (dom/h1 {} "How to build webapps that scale")
-      (dom/p {} "This is the description for the post.")
-      (dom/span {} "Read more...")
-      (dom/div
-        {:className "article-preview"})
-      (dom/div
-        {:className "article-meta"})
-      (dom/a
-        {:href "profile.html"})
-      (dom/img {:src "http://i.imgur.com/N4VcUeJ.jpg"})
-      (dom/div
-        {:className "info"})
-      (dom/a {:href "", :className "author"} "Albert Pai")
-      (dom/span {:className "date"} "January 20th")
-      (dom/button
-        {:className "btn btn-outline-primary btn-sm pull-xs-right"})
-      (dom/i {:className "ion-heart"})
-      "32"
-      (dom/a
-        {:href "", :className "preview-link"})
-      (dom/h1
-        {})
-      "The song you won&#39;t ever stop singing. No matter how hard you try."
-      (dom/p {} "This is the description for the post.")
-      (dom/span {} "Read more...")
+      (map ui-item-article home)
       (dom/div
         {:className "col-md-3"})
       (dom/div
@@ -161,10 +162,12 @@
         {:href "", :className "tag-pill tag-default"})
       "rails")))
 
-(defsc Login [this {:app.user/keys [username email password]}]
+(defsc Login [this {:app.user/keys [username email password]
+                    ::keys         [new-account?]}]
   {:query         [:PAGE/ident
                    :PAGE/id
                    :app.user/username
+                   ::new-account?
                    :app.user/email
                    :app.user/password]
    :ident         (fn []
@@ -193,14 +196,15 @@
         (dom/li {} "That email is already taken"))
       (dom/form
         {}
-        (dom/fieldset
-          {:className "form-group"}
-          (dom/input
-            {:type        "text",
-             :value       username
-             :onChange    #(fm/set-value! this :app.user/username (-> % .-target .-value))
-             :placeholder "Your Name",
-             :className   "form-control form-control-lg"}))
+        (when new-account?
+          (dom/fieldset
+            {:className "form-group"}
+            (dom/input
+              {:type        "text",
+               :value       username
+               :onChange    #(fm/set-value! this :app.user/username (-> % .-target .-value))
+               :placeholder "Your Name",
+               :className   "form-control form-control-lg"})))
         (dom/fieldset
           {:className "form-group"}
           (dom/input
