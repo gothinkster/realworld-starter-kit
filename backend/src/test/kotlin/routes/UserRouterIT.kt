@@ -6,14 +6,14 @@ import com.hexagonkt.realworld.main
 import com.hexagonkt.realworld.server
 import com.hexagonkt.serialization.Json
 import com.hexagonkt.realworld.services.User
-import org.junit.*
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
 import java.net.URL
 
-/**
- * TODO
- *   - Check 401 errors in `getUser`
- *   - Check 401 errors in `updateUser`
- */
+@TestInstance(PER_CLASS)
 class UserRouterIT {
 
     private val jake = User(
@@ -24,14 +24,12 @@ class UserRouterIT {
         image = URL("https://i.pravatar.cc/150?img=3")
     )
 
-    companion object {
-        @BeforeClass @JvmStatic fun startup() {
-            main()
-        }
+    @BeforeAll fun startup() {
+        main()
+    }
 
-        @AfterClass @JvmStatic fun shutdown() {
-            server.stop()
-        }
+    @AfterAll fun shutdown() {
+        server.stop()
     }
 
     @Test fun `Get and update current user`() {
@@ -43,5 +41,14 @@ class UserRouterIT {
         jakeClient.getUser(jake)
         jakeClient.updateUser(jake, PutUserRequest(email = jake.email))
         jakeClient.updateUser(jake, PutUserRequest(email = "changed.${jake.email}"))
+
+        client.getUser(jake) {
+            assert(statusCode == 401)
+//            assert(contentType == "${Json.contentType};charset=utf-8") // TODO
+        }
+        client.updateUser(jake, PutUserRequest(email = jake.email)) {
+            assert(statusCode == 401)
+//            assert(contentType == "${Json.contentType};charset=utf-8") // TODO
+        }
     }
 }

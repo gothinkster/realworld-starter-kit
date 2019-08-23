@@ -6,9 +6,14 @@ import com.hexagonkt.realworld.main
 import com.hexagonkt.realworld.server
 import com.hexagonkt.serialization.Json
 import com.hexagonkt.realworld.services.User
-import org.junit.*
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
 import java.net.URL
 
+@TestInstance(PER_CLASS)
 class ProfilesRouterIT {
 
     private val jake = User(
@@ -27,14 +32,12 @@ class ProfilesRouterIT {
         image = URL("https://i.pravatar.cc/150?img=1")
     )
 
-    companion object {
-        @BeforeClass @JvmStatic fun startup() {
-            main()
-        }
+    @BeforeAll fun startup() {
+        main()
+    }
 
-        @AfterClass @JvmStatic fun shutdown() {
-            server.stop()
-        }
+    @AfterAll fun shutdown() {
+        server.stop()
     }
 
     @Test fun `Follow and unfollow a profile`() {

@@ -1,17 +1,4 @@
 
-#
-# BUILD
-#
-FROM oracle/graalvm-ce:19.1.1 as build
-USER root
-WORKDIR /build
-
-ADD . /build
-RUN ./gradlew clean all
-
-#
-# RUNTIME
-#
 FROM openjdk:11
 LABEL description="realworld API"
 USER root
@@ -26,7 +13,7 @@ EXPOSE 9090
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Project install
-COPY --from=build /build/$PROJECT/build/install/$PROJECT /opt/$PROJECT
+COPY backend/build/install/$PROJECT /opt/$PROJECT
 RUN touch /opt/$PROJECT
 
 # Process execution

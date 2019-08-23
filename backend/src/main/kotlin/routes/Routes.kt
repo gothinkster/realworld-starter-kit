@@ -1,5 +1,6 @@
 package com.hexagonkt.realworld.routes
 
+import com.auth0.jwt.interfaces.DecodedJWT
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.hexagonkt.helpers.CodedException
 import com.hexagonkt.helpers.MultipleException
@@ -39,42 +40,62 @@ data class UserResponseRoot(val user: UserResponse) {
 
 internal val router: Router = Router {
     cors()
+
     path("/users", usersRouter)
     path("/user", userRouter)
     path("/profiles/{username}", profilesRouter)
     path("/articles", articlesRouter)
     path("/tags", tagsRouter)
-    error(Exception::class) { errorHandler(it) }
+
+    error(401) { statusCodeHandler(it) }
+    error(404) { statusCodeHandler(it) }
+    error(403) { statusCodeHandler(it) }
+    error(500) { statusCodeHandler(it) }
+
+    error(MultipleException::class) { multipleExceptionHandler(it) }
+    error(Exception::class) { exceptionHandler(it) }
 }
 
-// TODO Map all errors (HTTP codes included)
-internal fun Call.errorHandler(error: Exception) {
-    when (error) {
-        is CodedException -> {
-            val cause = error.cause
-            val status = error.code
-            val messages =
-                if (cause is MultipleException) cause.causes.map { it.message ?: "<no message>" }
-                else listOf(error.message ?: "")
-            send(status, ErrorResponseRoot(ErrorResponse(messages)), Json, Charsets.UTF_8)
-        }
-        is MultipleException -> {
+internal fun Call.statusCodeHandler(code: Int) {
+    @Suppress("MoveVariableDeclarationIntoWhen") // Required because response.body is an expression
+    val body = response.body
 
-        }
-        else -> {
-            val errorMessage = error.javaClass.simpleName + ": " + (error.message ?: "<no message>")
-            send(500, ErrorResponseRoot(ErrorResponse(listOf(errorMessage))), Json, Charsets.UTF_8)
-        }
+    val messages = when (body) {
+        is List<*> -> body.mapNotNull { it?.toString() }
+        else -> listOf(response.body.toString())
+    }
+    send(code, ErrorResponseRoot(ErrorResponse(messages)), Json, Charsets.UTF_8)
+}
+
+internal fun Call.multipleExceptionHandler(error: Exception) {
+    if (error is MultipleException) {
+        val messages = error.causes.map { it.message ?: "<no message>" }
+        send(500, ErrorResponseRoot(ErrorResponse(messages)), Json, Charsets.UTF_8)
     }
 }
 
-internal fun Router.authenticate(jwt: Jwt) {
-    before("/") { parsePrincipal(jwt) }
-    before("/*") { parsePrincipal(jwt) }
+internal fun Call.exceptionHandler(error: Exception) {
+    val errorMessage = error.javaClass.simpleName + ": " + (error.message ?: "<no message>")
+    send(500, ErrorResponseRoot(ErrorResponse(listOf(errorMessage))), Json, Charsets.UTF_8)
 }
 
-private fun Call.parsePrincipal(jwt: Jwt) {
-    val token = request.headers["Authorization"]?.firstOrNull() ?: halt(401, "Unauthorized")
-    val principal = jwt.verify(token.removePrefix("Token").trim())
-    attributes["principal"] = principal
+internal fun Router.authenticate(jwt: Jwt) {
+    before("/") { requirePrincipal(jwt) }
+    before("/*") { requirePrincipal(jwt) }
+}
+
+internal fun Call.requirePrincipal(jwt: Jwt): DecodedJWT =
+    parsePrincipal(jwt) ?: halt(401, "Unauthorized")
+
+internal fun Call.parsePrincipal(jwt: Jwt): DecodedJWT? {
+    val token = request.headers["Authorization"]?.firstOrNull()
+
+    return if (token == null) {
+        null
+    }
+    else {
+        val principal = jwt.verify(token.removePrefix("Token").trim())
+        attributes["principal"] = principal
+        principal
+    }
 }

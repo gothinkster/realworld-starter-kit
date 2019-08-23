@@ -7,7 +7,11 @@ import com.hexagonkt.realworld.server
 import com.hexagonkt.serialization.Json
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.parse
-import org.junit.*
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
 import java.net.URL
 
 /**
@@ -18,6 +22,7 @@ import java.net.URL
  *   - Login without credentials
  *   - Login with bad password
  */
+@TestInstance(PER_CLASS)
 class UsersRouterIT {
 
     private val jake = User(
@@ -28,14 +33,12 @@ class UsersRouterIT {
         image = URL("https://i.pravatar.cc/150?img=3")
     )
 
-    companion object {
-        @BeforeClass @JvmStatic fun startup() {
-            main()
-        }
+    @BeforeAll fun startup() {
+        main()
+    }
 
-        @AfterClass @JvmStatic fun shutdown() {
-            server.stop()
-        }
+    @AfterAll fun shutdown() {
+        server.stop()
     }
 
     @Test fun `Delete, login and register users`() {

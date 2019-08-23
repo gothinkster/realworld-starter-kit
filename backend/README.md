@@ -392,6 +392,22 @@ The `slug` also gets updated when the `title` is changed
 
 Authentication required
 
+### Favorite Article
+
+`POST /api/articles/:slug/favorite`
+
+Authentication required, returns the [Article](#single-article)
+
+No additional parameters required
+
+### Unfavorite Article
+
+`DELETE /api/articles/:slug/favorite`
+
+Authentication required, returns the [Article](#single-article)
+
+No additional parameters required
+
 ### List Articles
 
 `GET /api/articles`
@@ -465,22 +481,6 @@ Authentication optional, returns [multiple comments](#multiple-comments)
 `DELETE /api/articles/:slug/comments/:id`
 
 Authentication required
-
-### Favorite Article
-
-`POST /api/articles/:slug/favorite`
-
-Authentication required, returns the [Article](#single-article)
-
-No additional parameters required
-
-### Unfavorite Article
-
-`DELETE /api/articles/:slug/favorite`
-
-Authentication required, returns the [Article](#single-article)
-
-No additional parameters required
 
 ### Get Tags
 

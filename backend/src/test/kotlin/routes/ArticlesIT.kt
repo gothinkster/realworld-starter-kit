@@ -7,9 +7,14 @@ import com.hexagonkt.realworld.server
 import com.hexagonkt.serialization.Json
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
-import org.junit.*
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
 import java.net.URL
 
+@TestInstance(PER_CLASS)
 class ArticlesIT {
 
     private val jake = User(
@@ -37,14 +42,12 @@ class ArticlesIT {
         author = jake.username
     )
 
-    companion object {
-        @BeforeClass @JvmStatic fun startup() {
-            main()
-        }
+    @BeforeAll fun startup() {
+        main()
+    }
 
-        @AfterClass @JvmStatic fun shutdown() {
-            server.stop()
-        }
+    @AfterAll fun shutdown() {
+        server.stop()
     }
 
     @Test fun `Delete, create and get an article`() {

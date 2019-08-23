@@ -6,6 +6,5 @@
 
 set -e
 
-docker-compose rm -sf
+./gradlew all
 docker-compose build
-docker-compose up -d

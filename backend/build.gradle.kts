@@ -11,6 +11,7 @@ plugins {
 apply(from = "${extra["gradleScripts"]}/kotlin.gradle")
 apply(from = "${extra["gradleScripts"]}/dokka.gradle")
 apply(from = "${extra["gradleScripts"]}/service.gradle")
+apply(from = "${extra["gradleScripts"]}/junit.gradle")
 
 application {
     mainClassName = "com.hexagonkt.realworld.ApplicationKt"
@@ -34,7 +35,5 @@ dependencies {
     implementation("com.hexagonkt:store_mongodb:${project.extra["hexagonVersion"]}")
     implementation("com.auth0:java-jwt:${project.extra["javaJwtVersion"]}")
 
-    testImplementation("junit:junit:${project.extra["junitVersion"]}")
-    testImplementation("io.mockk:mockk:${project.extra["mockkVersion"]}")
     testImplementation("com.hexagonkt:port_http_client:${project.extra["hexagonVersion"]}")
 }

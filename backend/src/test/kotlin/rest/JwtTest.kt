@@ -1,7 +1,7 @@
 package com.hexagonkt.realworld.rest
 
 import com.hexagonkt.helpers.Resource
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class JwtTest {
 

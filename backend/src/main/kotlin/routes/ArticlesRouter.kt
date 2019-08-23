@@ -87,7 +87,7 @@ data class ArticleResponse(
 )
 
 data class ArticleResponseRoot(val article: ArticleResponse) {
-    constructor(article: Article, author: User, subject: String) : this(
+    constructor(article: Article, author: User, user: User?) : this(
         ArticleResponse(
             slug = article.slug,
             title = article.title,
@@ -96,13 +96,13 @@ data class ArticleResponseRoot(val article: ArticleResponse) {
             tagList = article.tagList,
             createdAt = article.createdAt.toIso8601(),
             updatedAt = article.updatedAt.toIso8601(),
-            favorited = article.favoritedBy.contains(subject),
+            favorited = article.favoritedBy.contains(user?.username),
             favoritesCount = article.favoritedBy.size,
             author = AuthorResponse(
                 username = author.username,
                 bio = author.bio ?: "",
                 image = author.image?.toString() ?: "",
-                following = author.following.contains(subject)
+                following = user?.following?.contains(author.username) ?: false
             )
         )
     )
@@ -119,44 +119,42 @@ internal val articlesRouter = Router {
     val users: Store<User, String> = injector.inject<Store<User, String>>(User::class)
     val articles: Store<Article, String> = injector.inject<Store<Article, String>>(Article::class)
 
-    authenticate(jwt)
-    get("/feed") { getFeed(users, articles) }
+    get("/feed") { getFeed(jwt, users, articles) }
 
     path("/{slug}") {
         path("/favorite") {
+            authenticate(jwt)
             post { favoriteArticle(users, articles, true) }
             delete { favoriteArticle(users, articles, false) }
         }
 
         path("/comments", commentsRouter)
 
-        delete { deleteArticle(articles) }
-        put { updateArticle(articles) }
-        get { getArticle(users, articles) }
+        delete { deleteArticle(jwt, articles) }
+        put { updateArticle(jwt, articles) }
+        get { getArticle(jwt, users, articles) }
     }
 
-    post { createArticle(articles) }
-    get { findArticles(users, articles) }
+    post { createArticle(jwt, articles) }
+    get { findArticles(jwt, users, articles) }
 }
 
-private fun Call.findArticles(users: Store<User, String>, articles: Store<Article, String>) {
-    val principal = attributes["principal"] as DecodedJWT
-
-    // Get user
+private fun Call.findArticles(jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
+    val principal = parsePrincipal(jwt)
 
     // Get query params
 
     // tag
     // author
-
     // favorited
+
     // limit
     // offset
 
     val all = articles.findAll()
-    val authors = users.findMany(mapOf(User::username.name to (all.map { it.author } + principal.subject)))
+    val authors = users.findMany(mapOf(User::username.name to (all.map { it.author } + principal?.subject)))
     val authorsMap = authors.map { it.username to it }.toMap()
-    val user = authorsMap[principal.subject]
+    val user = authorsMap[principal?.subject]
     val responses = all.map {
         ArticleResponse(
             slug = it.slug,
@@ -166,13 +164,13 @@ private fun Call.findArticles(users: Store<User, String>, articles: Store<Articl
             tagList = it.tagList,
             createdAt = it.createdAt.toIso8601(),
             updatedAt = it.updatedAt.toIso8601(),
-            favorited = it.favoritedBy.contains(principal.subject),
+            favorited = it.favoritedBy.contains(principal?.subject),
             favoritesCount = it.favoritedBy.size,
             author = AuthorResponse(
                 username = it.author,
                 bio = "",
                 image = "",
-                following = false
+                following = user?.following?.contains(it.author) ?: false
             )
         )
     }
@@ -180,8 +178,8 @@ private fun Call.findArticles(users: Store<User, String>, articles: Store<Articl
     ok(ArticlesResponseRoot(responses, articles.count()), charset = UTF_8)
 }
 
-private fun Call.createArticle(articles: Store<Article, String>) {
-    val principal = attributes["principal"] as DecodedJWT
+private fun Call.createArticle(jwt: Jwt, articles: Store<Article, String>) {
+    val principal = requirePrincipal(jwt)
     val bodyArticle = request.body<ArticleRequestRoot>().article
     val article = Article(
         slug = bodyArticle.title.toSlug(),
@@ -204,6 +202,7 @@ private fun Call.favoriteArticle(
     val slug = pathParameters["slug"]
     val article = articles.findOne(slug) ?: halt(404)
     val author = users.findOne(article.author) ?: halt(500)
+    val user = users.findOne(principal.subject) ?: halt(500) // Both can be fetched with one 'find'
     // TODO Updates fail if not formatted as string
     val updatedAt = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
     val pair = Article::updatedAt.name to updatedAt
@@ -216,20 +215,21 @@ private fun Call.favoriteArticle(
         halt(500)
 
     val favoritedArticle = article.copy(favoritedBy = favoritedBy)
-    val content = ArticleResponseRoot(favoritedArticle, author, principal.subject)
+    val content = ArticleResponseRoot(favoritedArticle, author, user)
     ok(content, charset = UTF_8)
 }
 
-private fun Call.getArticle(users: Store<User, String>, articles: Store<Article, String>) {
-    val principal = attributes["principal"] as DecodedJWT
+private fun Call.getArticle(jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
+    val principal = parsePrincipal(jwt)
     val slug = pathParameters["slug"]
     val article = articles.findOne(slug) ?: halt(404)
     val author = users.findOne(article.author) ?: halt(500)
-    ok(ArticleResponseRoot(article, author, principal.subject), charset = UTF_8)
+    val user = users.findOne(principal?.subject ?: "")
+    ok(ArticleResponseRoot(article, author, user), charset = UTF_8)
 }
 
-private fun Call.updateArticle(articles: Store<Article, String>) {
-    val principal = attributes["principal"] as DecodedJWT
+private fun Call.updateArticle(jwt: Jwt, articles: Store<Article, String>) {
+    val principal = requirePrincipal(jwt)
     val body = request.body<PutArticleRequestRoot>().article
     val slug = pathParameters["slug"]
     val updatedAt = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) // TODO Fails if not formatted as string
@@ -250,13 +250,14 @@ private fun Call.updateArticle(articles: Store<Article, String>) {
     }
 }
 
-private fun Call.deleteArticle(articles: Store<Article, String>) {
+private fun Call.deleteArticle(jwt: Jwt, articles: Store<Article, String>) {
+    requirePrincipal(jwt)
     if (!articles.deleteOne(pathParameters["slug"]))
         halt(404)
 }
 
-private fun Call.getFeed(users: Store<User, String>, articles: Store<Article, String>) {
-    val principal = attributes["principal"] as DecodedJWT
+private fun Call.getFeed(jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
+    val principal = requirePrincipal(jwt)
     val user = users.findOne(principal.subject) ?: halt(404)
     val filter = mapOf(Article::author.name to (user.following.toList()))
 
@@ -279,7 +280,7 @@ private fun Call.getFeed(users: Store<User, String>, articles: Store<Article, St
                     username = it.author,
                     bio = "",
                     image = "",
-                    following = false
+                    following = user.following.contains(it.author)
                 )
             )
         }

@@ -20,7 +20,7 @@ internal class RealWorldClient(private val client: Client) {
         ArticleRequestRoot(ArticleRequest(title, description, body, tagList))
 
     fun deleteUser(user: User, allowedCodes: Set<Int> = setOf(200, 404)) {
-        client.delete("/users/${user.username}").apply { assert(statusCode in allowedCodes) }
+        client.delete("/users/${user.username}") { assert(statusCode in allowedCodes) }
     }
 
     fun registerUser(user: User) {
@@ -62,7 +62,7 @@ internal class RealWorldClient(private val client: Client) {
     }
 
     fun getUser(user: User) {
-        client.get("/user").apply {
+        getUser(user) {
             assert(statusCode == 200)
             assert(contentType == "${Json.contentType};charset=utf-8")
 
@@ -73,20 +73,28 @@ internal class RealWorldClient(private val client: Client) {
         }
     }
 
-    fun updateUser(user: User, updateUser: PutUserRequest) {
-        client.put("/user", PutUserRequestRoot(updateUser)).apply {
+    fun getUser(user: User, callback: Response.(User) -> Unit) {
+        client.get("/user") { callback(user) }
+    }
+
+    fun updateUser(user: User, updateUserRequest: PutUserRequest) {
+        updateUser(user, updateUserRequest) {
             assert(statusCode == 200)
             assert(contentType == "${Json.contentType};charset=utf-8")
 
             val userResponse = responseBody.parse(UserResponseRoot::class)
             assert(userResponse.user.username == user.username)
-            assert(userResponse.user.email == updateUser.email ?: user.email)
+            assert(userResponse.user.email == updateUserRequest.email ?: user.email)
             assert(userResponse.user.token.isNotBlank())
         }
     }
 
+    fun updateUser(user: User, updateUser: PutUserRequest, callback: Response.(User) -> Unit) {
+        client.put("/user", PutUserRequestRoot(updateUser)) { callback(user) }
+    }
+
     fun getProfile(user: User, following: Boolean) {
-        client.get("/profiles/${user.username}").apply {
+        client.get("/profiles/${user.username}") {
             assert(statusCode == 200)
             assert(contentType == "${Json.contentType};charset=utf-8")
 
@@ -111,20 +119,20 @@ internal class RealWorldClient(private val client: Client) {
     }
 
     fun postArticle(article: Article) {
-        client.post("/articles", article.toCreationRequest()).apply {
+        client.post("/articles", article.toCreationRequest()) {
             assert(statusCode == 200)
             assert(contentType == "${Json.contentType};charset=utf-8")
         }
     }
 
     fun getArticle(slug: String) {
-        client.get("/articles/$slug").apply {
+        client.get("/articles/$slug") {
             assert(statusCode == 200)
             assert(contentType == "${Json.contentType};charset=utf-8")
         }
     }
 
     fun deleteArticle(slug: String) {
-        client.delete("/articles/$slug").apply { assert(statusCode in setOf(200, 404)) }
+        client.delete("/articles/$slug") { assert(statusCode in setOf(200, 404)) }
     }
 }
