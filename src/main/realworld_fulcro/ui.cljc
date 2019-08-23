@@ -551,6 +551,8 @@
     (ui-router router)
     (ui-footer footer)))
 
+(def ui-root (comp/factory Root))
+
 (fm/defmutation app.user/login
   [{:app.user/keys [_]}]
   (action [{:keys [state]}]

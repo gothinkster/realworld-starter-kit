@@ -151,6 +151,7 @@
     {::p/env     {::http/driver            http.driver/request-async
                   ::http/content-type      ::http/json
                   ::http/accept            ::http/json
+                  ::http/as                ::http/json
                   ::p/placeholder-prefixes #{">"}
                   ::p/reader               [p/map-reader
                                             pc/all-parallel-readers

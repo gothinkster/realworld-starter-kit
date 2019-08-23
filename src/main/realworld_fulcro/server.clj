@@ -3,7 +3,10 @@
             [com.fulcrologic.fulcro.dom-server :as dom]
             [com.fulcrologic.fulcro.components :as comp]
             [clojure.string :as string]
-            [ring.util.mime-type :as mime]))
+            [ring.util.mime-type :as mime]
+            [realworld-fulcro.ui :as ui]
+            [realworld-fulcro.proxy :as proxy]
+            [clojure.core.async :as async]))
 
 (comp/defsc Footer [this props]
   {:query []}
@@ -35,7 +38,10 @@
        :data-remote-url "/api"
        :onload          "realworld_fulcro.client.main()"}
       (dom/div
-        {:id "app"})
+        {:id "app"}
+        ;; SSR Prototype
+        #_(ui/ui-root (-> (async/<!! (proxy/parser {} [{[::ui/path "/"] (comp/get-query ui/Root)}]))
+                          (get [::ui/path "/"]))))
       (dom/script {:src "/js/main/main.js"}))))
 
 (def ui-index (comp/factory Index))
@@ -73,9 +79,9 @@
 (def ui-cards (comp/factory Cards))
 (defn cards
   [req]
-  {:body (string/join "\n"
-                      ["<!DOCTYPE html>"
-                       (dom/render-to-str (ui-cards {}))])
+  {:body    (string/join "\n"
+                         ["<!DOCTYPE html>"
+                          (dom/render-to-str (ui-cards {}))])
    :headers {"Content-Security-Policy" ""
              "Cache-Control"           "no-store"
              "Content-Type"            (mime/default-mime-types "html")}
