@@ -21,7 +21,8 @@ data class Article(
     val tagList: Set<String>,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     val updatedAt: LocalDateTime = LocalDateTime.now(),
-    val favoritedBy: Set<String> = emptySet()
+    val favoritedBy: Set<String> = emptySet(),
+    val comments: List<Comment> = emptyList()
 )
 
 data class Comment(

@@ -3,7 +3,7 @@ package com.hexagonkt.realworld.routes
 import com.fasterxml.jackson.annotation.JsonInclude
 
 import com.auth0.jwt.interfaces.DecodedJWT
-import com.hexagonkt.helpers.withZone
+import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.injector
@@ -13,8 +13,7 @@ import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.convertToMap
 import com.hexagonkt.store.Store
 import java.time.LocalDateTime
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME
 
 import kotlin.text.Charsets.UTF_8
 
@@ -108,7 +107,7 @@ data class ArticleResponseRoot(val article: ArticleResponse) {
     )
 }
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(NON_NULL)
 data class ArticlesResponseRoot(
     val articles: List<ArticleResponse>,
     val articlesCount: Long
@@ -139,22 +138,20 @@ internal val articlesRouter = Router {
     get { findArticles(jwt, users, articles) }
 }
 
-private fun Call.findArticles(jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
+private fun Call.findArticles(
+    jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
+
     val principal = parsePrincipal(jwt)
+    val subject = principal?.subject
+    val limit = request.queryParameters["limit"]?.first()?.toInt() ?: 20
+    val offset = request.queryParameters["offset"]?.first()?.toInt() ?: 0
+    val sort = mapOf(Article::createdAt.name to false)
 
-    // Get query params
-
-    // tag
-    // author
-    // favorited
-
-    // limit
-    // offset
-
-    val all = articles.findAll()
-    val authors = users.findMany(mapOf(User::username.name to (all.map { it.author } + principal?.subject)))
+    val all = articles.findMany(request.queryParameters, limit, offset, sort)
+    val usernames = all.map { it.author } + subject
+    val authors = users.findMany(mapOf(User::username.name to usernames))
     val authorsMap = authors.map { it.username to it }.toMap()
-    val user = authorsMap[principal?.subject]
+    val user = authorsMap[subject]
     val responses = all.map {
         ArticleResponse(
             slug = it.slug,
@@ -164,7 +161,7 @@ private fun Call.findArticles(jwt: Jwt, users: Store<User, String>, articles: St
             tagList = it.tagList,
             createdAt = it.createdAt.toIso8601(),
             updatedAt = it.updatedAt.toIso8601(),
-            favorited = it.favoritedBy.contains(principal?.subject),
+            favorited = it.favoritedBy.contains(subject),
             favoritesCount = it.favoritedBy.size,
             author = AuthorResponse(
                 username = it.author,
@@ -204,7 +201,7 @@ private fun Call.favoriteArticle(
     val author = users.findOne(article.author) ?: halt(500)
     val user = users.findOne(principal.subject) ?: halt(500) // Both can be fetched with one 'find'
     // TODO Updates fail if not formatted as string
-    val updatedAt = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+    val updatedAt = LocalDateTime.now().format(ISO_LOCAL_DATE_TIME)
     val pair = Article::updatedAt.name to updatedAt
     val favoritedBy =
         if (favorite) article.favoritedBy + principal.subject
@@ -219,12 +216,15 @@ private fun Call.favoriteArticle(
     ok(content, charset = UTF_8)
 }
 
-private fun Call.getArticle(jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
+private fun Call.getArticle(
+    jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
+
     val principal = parsePrincipal(jwt)
     val slug = pathParameters["slug"]
     val article = articles.findOne(slug) ?: halt(404)
     val author = users.findOne(article.author) ?: halt(500)
     val user = users.findOne(principal?.subject ?: "")
+
     ok(ArticleResponseRoot(article, author, user), charset = UTF_8)
 }
 
@@ -232,8 +232,11 @@ private fun Call.updateArticle(jwt: Jwt, articles: Store<Article, String>) {
     val principal = requirePrincipal(jwt)
     val body = request.body<PutArticleRequestRoot>().article
     val slug = pathParameters["slug"]
-    val updatedAt = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) // TODO Fails if not formatted as string
-    val requestUpdates = body.convertToMap().mapKeys { it.key.toString() } + (Article::updatedAt.name to updatedAt)
+
+    // TODO Fails if not formatted as string
+    val updatedAt = LocalDateTime.now().format(ISO_LOCAL_DATE_TIME)
+    val updatedAtPair = Article::updatedAt.name to updatedAt
+    val requestUpdates = body.convertToMap().mapKeys { it.key.toString() } + updatedAtPair
 
     val updates =
         if (body.title != null) requestUpdates + (Article::slug.name to body.title.toSlug())
@@ -245,7 +248,8 @@ private fun Call.updateArticle(jwt: Jwt, articles: Store<Article, String>) {
         val article = articles.findOne(slug) ?: halt(500)
         val content = ArticleCreationResponseRoot(article, principal.subject)
         ok(content, charset = UTF_8)
-    } else {
+    }
+    else {
         send(500, "Article $slug not updated")
     }
 }
@@ -291,6 +295,3 @@ private fun Call.getFeed(jwt: Jwt, users: Store<User, String>, articles: Store<A
 
 private fun String.toSlug() =
     this.toLowerCase().replace(' ', '-')
-
-private fun LocalDateTime.toIso8601() =
-    this.withZone().withZoneSameInstant(ZoneOffset.UTC).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "Z"

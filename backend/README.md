@@ -90,6 +90,7 @@ From now on assume `alias gw='./gradlew'`.
 * Logs repeated (in exceptions). Check settings additivity
 * `service_test.yaml` not honored (not picking a random port)
 * Add requests' bodies validation returning as many errors as wrong fields
+* Document code (Dokka)
 
 ## API
 

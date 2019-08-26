@@ -2,14 +2,18 @@ package com.hexagonkt.realworld.routes
 
 import com.auth0.jwt.interfaces.DecodedJWT
 import com.fasterxml.jackson.annotation.JsonInclude
-import com.hexagonkt.helpers.CodedException
+import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
 import com.hexagonkt.helpers.MultipleException
+import com.hexagonkt.helpers.withZone
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.rest.cors
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.Json
+import java.time.LocalDateTime
+import java.time.ZoneOffset.UTC
+import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME
 
 data class OkResponse(val message: String)
 
@@ -17,7 +21,7 @@ data class ErrorResponse(val body: List<String> = listOf("Unknown error"))
 
 data class ErrorResponseRoot(val errors: ErrorResponse)
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(NON_NULL)
 data class UserResponse(
     val email: String,
     val username: String,
@@ -99,3 +103,6 @@ internal fun Call.parsePrincipal(jwt: Jwt): DecodedJWT? {
         principal
     }
 }
+
+internal fun LocalDateTime.toIso8601() =
+    this.withZone().withZoneSameInstant(UTC).format(ISO_LOCAL_DATE_TIME) + "Z"
