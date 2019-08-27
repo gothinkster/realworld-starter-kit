@@ -1,6 +1,7 @@
 package com.hexagonkt.realworld
 
 import com.hexagonkt.http.client.Client
+import com.hexagonkt.realworld.messages.*
 import com.hexagonkt.serialization.Json
 import com.hexagonkt.realworld.routes.*
 import com.hexagonkt.realworld.services.Article

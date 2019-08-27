@@ -1,45 +1,17 @@
 package com.hexagonkt.realworld.routes
 
-import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.injector
+import com.hexagonkt.realworld.messages.CommentRequestRoot
+import com.hexagonkt.realworld.messages.CommentResponse
+import com.hexagonkt.realworld.messages.CommentResponseRoot
+import com.hexagonkt.realworld.messages.CommentsResponseRoot
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.Comment
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.store.Store
 import kotlin.text.Charsets.UTF_8
-
-data class CommentRequest(val body: String)
-
-data class CommentRequestRoot(val comment: CommentRequest)
-
-data class CommentResponse(
-    val id: Int,
-    val createdAt: String,
-    val updatedAt: String,
-    val body: String,
-    val author: AuthorResponse
-) {
-    constructor(comment: Comment, author: User, user: User?): this(
-        id = comment.id,
-        createdAt = comment.createdAt.toIso8601(),
-        updatedAt = comment.updatedAt.toIso8601(),
-        body = comment.body,
-        author = AuthorResponse(
-            username = author.username,
-            bio = author.bio ?: "",
-            image = author.image?.toString() ?: "",
-            following = user?.following?.contains(author.username) ?: false
-        )
-    )
-}
-
-data class CommentResponseRoot(val comment: CommentResponse)
-
-@JsonInclude(NON_NULL)
-data class CommentsResponseRoot(val comments: List<CommentResponse>)
 
 internal val commentsRouter = Router {
     val jwt: Jwt = injector.inject()

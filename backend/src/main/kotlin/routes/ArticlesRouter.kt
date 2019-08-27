@@ -147,12 +147,12 @@ private fun Call.findArticles(
     val offset = request.queryParameters["offset"]?.first()?.toInt() ?: 0
     val sort = mapOf(Article::createdAt.name to false)
 
-    val all = articles.findMany(request.queryParameters, limit, offset, sort)
-    val usernames = all.map { it.author } + subject
-    val authors = users.findMany(mapOf(User::username.name to usernames))
+    val allArticles = articles.findMany(request.queryParameters, limit, offset, sort)
+    val userNames = allArticles.map { it.author } + subject
+    val authors = users.findMany(mapOf(User::username.name to userNames))
     val authorsMap = authors.map { it.username to it }.toMap()
     val user = authorsMap[subject]
-    val responses = all.map {
+    val responses = allArticles.map {
         ArticleResponse(
             slug = it.slug,
             title = it.title,

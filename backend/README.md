@@ -8,7 +8,7 @@ live demo over at https://demo.realworld.io
 
 General functionality:
 
-* Authenticate users via JWT (login/signup pages + logout button on settings page)
+* Authenticate users via JWT (login/sign-up pages + logout button on settings page)
 * CRU* users (sign up & settings page - no deleting required)
 * CRUD Articles
 * CR*D Comments on articles (no updating required)
@@ -258,69 +258,6 @@ If a request fails any validations, expect a 422 and errors in the following for
 404 for Not found requests, when a resource can't be found to fulfill the request
 
 ## Endpoints:
-
-### Registration:
-
-`POST /api/users`
-
-Example request body:
-```JSON
-{
-  "user":{
-    "username": "Jacob",
-    "email": "jake@jake.jake",
-    "password": "jakejake"
-  }
-}
-```
-
-No authentication required, returns a [User](#users-for-authentication)
-
-Required fields: `email`, `username`, `password`
-
-
-### Authentication:
-
-`POST /api/users/login`
-
-Example request body:
-```JSON
-{
-  "user":{
-    "email": "jake@jake.jake",
-    "password": "jakejake"
-  }
-}
-```
-
-No authentication required, returns a [User](#users-for-authentication)
-
-Required fields: `email`, `password`
-
-### Get Current User
-
-`GET /api/user`
-
-Authentication required, returns a [User](#users-for-authentication) that's the current user
-
-### Update User
-
-`PUT /api/user`
-
-Example request body:
-```JSON
-{
-  "user":{
-    "email": "jake@jake.jake",
-    "bio": "I like to skateboard",
-    "image": "https://i.stack.imgur.com/xHWG8.jpg"
-  }
-}
-```
-
-Authentication required, returns the [User](#users-for-authentication)
-
-Accepted fields: `email`, `username`, `password`, `image`, `bio`
 
 ### Get Profile
 

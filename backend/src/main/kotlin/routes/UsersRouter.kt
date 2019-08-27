@@ -3,27 +3,13 @@ package com.hexagonkt.realworld.routes
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.injector
+import com.hexagonkt.realworld.messages.*
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.Json
 import com.hexagonkt.store.Store
 
 import kotlin.text.Charsets.UTF_8
-
-data class RegistrationRequest(
-    val email: String,
-    val username: String,
-    val password: String
-)
-
-data class RegistrationRequestRoot(val user: RegistrationRequest)
-
-data class LoginRequest(
-    val email: String,
-    val password: String
-)
-
-data class LoginRequestRoot(val user: LoginRequest)
 
 internal val usersRouter = Router {
     val jwt: Jwt = injector.inject()
@@ -47,7 +33,7 @@ private fun Call.register(users: Store<User, String>, jwt: Jwt) {
         )
     )
 
-    ok(content, charset = UTF_8)
+    send(201, content, Json, UTF_8)
 }
 
 private fun Call.login(users: Store<User, String>, jwt: Jwt) {

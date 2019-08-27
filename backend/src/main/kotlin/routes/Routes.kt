@@ -1,46 +1,18 @@
 package com.hexagonkt.realworld.routes
 
 import com.auth0.jwt.interfaces.DecodedJWT
-import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
 import com.hexagonkt.helpers.MultipleException
 import com.hexagonkt.helpers.withZone
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
+import com.hexagonkt.realworld.messages.ErrorResponse
+import com.hexagonkt.realworld.messages.ErrorResponseRoot
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.rest.cors
-import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.Json
 import java.time.LocalDateTime
 import java.time.ZoneOffset.UTC
 import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME
-
-data class OkResponse(val message: String)
-
-data class ErrorResponse(val body: List<String> = listOf("Unknown error"))
-
-data class ErrorResponseRoot(val errors: ErrorResponse)
-
-@JsonInclude(NON_NULL)
-data class UserResponse(
-    val email: String,
-    val username: String,
-    val bio: String,
-    val image: String,
-    val token: String
-)
-
-data class UserResponseRoot(val user: UserResponse) {
-    constructor(user: User, token: String) : this(
-        UserResponse(
-            email = user.email,
-            username = user.username,
-            bio = user.bio ?: "",
-            image = user.image?.toString() ?: "",
-            token = token
-        )
-    )
-}
 
 internal val router: Router = Router {
     cors()
@@ -51,10 +23,7 @@ internal val router: Router = Router {
     path("/articles", articlesRouter)
     path("/tags", tagsRouter)
 
-    error(401) { statusCodeHandler(it) }
-    error(404) { statusCodeHandler(it) }
-    error(403) { statusCodeHandler(it) }
-    error(500) { statusCodeHandler(it) }
+    setOf(401, 403, 404, 500).forEach { code -> error(code) { statusCodeHandler(code) }}
 
     error(MultipleException::class) { multipleExceptionHandler(it) }
     error(Exception::class) { exceptionHandler(it) }

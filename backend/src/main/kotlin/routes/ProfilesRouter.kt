@@ -1,23 +1,14 @@
 package com.hexagonkt.realworld.routes
 
 import com.auth0.jwt.interfaces.DecodedJWT
-import com.fasterxml.jackson.annotation.JsonInclude
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.injector
+import com.hexagonkt.realworld.messages.ProfileResponse
+import com.hexagonkt.realworld.messages.ProfileResponseRoot
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.store.Store
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-data class ProfileResponse(
-    val username: String,
-    val bio: String,
-    val image: String,
-    val following: Boolean
-)
-
-data class ProfileResponseRoot(val profile: ProfileResponse)
 
 internal val profilesRouter = Router {
     val jwt: Jwt = injector.inject()

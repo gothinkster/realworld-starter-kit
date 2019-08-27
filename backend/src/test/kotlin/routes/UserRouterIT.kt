@@ -3,6 +3,7 @@ package com.hexagonkt.realworld.routes
 import com.hexagonkt.http.client.Client
 import com.hexagonkt.realworld.RealWorldClient
 import com.hexagonkt.realworld.main
+import com.hexagonkt.realworld.messages.PutUserRequest
 import com.hexagonkt.realworld.server
 import com.hexagonkt.serialization.Json
 import com.hexagonkt.realworld.services.User
