@@ -23,7 +23,9 @@ internal val router: Router = Router {
     path("/articles", articlesRouter)
     path("/tags", tagsRouter)
 
-    setOf(401, 403, 404, 500).forEach { code -> error(code) { statusCodeHandler(code) }}
+    setOf(401, 403, 404, 500).forEach { code ->
+        error(code) { statusCodeHandler(code) }
+    }
 
     error(MultipleException::class) { multipleExceptionHandler(it) }
     error(Exception::class) { exceptionHandler(it) }

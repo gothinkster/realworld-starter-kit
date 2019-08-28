@@ -1,12 +1,10 @@
 package com.hexagonkt.realworld.routes
 
-import com.fasterxml.jackson.annotation.JsonInclude
-
 import com.auth0.jwt.interfaces.DecodedJWT
-import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.injector
+import com.hexagonkt.realworld.messages.*
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
@@ -16,102 +14,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME
 
 import kotlin.text.Charsets.UTF_8
-
-data class ArticleRequest(
-    val title: String,
-    val description: String,
-    val body: String,
-    val tagList: Set<String>
-)
-
-data class ArticleRequestRoot(val article: ArticleRequest)
-
-data class AuthorResponse(
-    val username: String,
-    val bio: String,
-    val image: String,
-    val following: Boolean
-)
-
-data class ArticleCreationResponse(
-    val slug: String,
-    val title: String,
-    val description: String,
-    val body: String,
-    val tagList: Set<String>,
-    val createdAt: String,
-    val updatedAt: String,
-    val favorited: Boolean,
-    val favoritesCount: Int,
-    val author: String
-)
-
-data class ArticleCreationResponseRoot(val article: ArticleCreationResponse) {
-    constructor(article: Article, subject: String) : this(
-        ArticleCreationResponse(
-            slug = article.slug,
-            title = article.title,
-            description = article.description,
-            body = article.body,
-            tagList = article.tagList,
-            createdAt = article.createdAt.toIso8601(),
-            updatedAt = article.updatedAt.toIso8601(),
-            favorited = false,
-            favoritesCount = 0,
-            author = subject
-        )
-    )
-}
-
-data class PutArticleRequest(
-    val title: String?,
-    val description: String?,
-    val body: String?,
-    val tagList: Set<String> = emptySet()
-)
-
-data class PutArticleRequestRoot(val article: PutArticleRequest)
-
-data class ArticleResponse(
-    val slug: String,
-    val title: String,
-    val description: String,
-    val body: String,
-    val tagList: Set<String>,
-    val createdAt: String,
-    val updatedAt: String,
-    val favorited: Boolean,
-    val favoritesCount: Int,
-    val author: AuthorResponse
-)
-
-data class ArticleResponseRoot(val article: ArticleResponse) {
-    constructor(article: Article, author: User, user: User?) : this(
-        ArticleResponse(
-            slug = article.slug,
-            title = article.title,
-            description = article.description,
-            body = article.body,
-            tagList = article.tagList,
-            createdAt = article.createdAt.toIso8601(),
-            updatedAt = article.updatedAt.toIso8601(),
-            favorited = article.favoritedBy.contains(user?.username),
-            favoritesCount = article.favoritedBy.size,
-            author = AuthorResponse(
-                username = author.username,
-                bio = author.bio ?: "",
-                image = author.image?.toString() ?: "",
-                following = user?.following?.contains(author.username) ?: false
-            )
-        )
-    )
-}
-
-@JsonInclude(NON_NULL)
-data class ArticlesResponseRoot(
-    val articles: List<ArticleResponse>,
-    val articlesCount: Long
-)
 
 internal val articlesRouter = Router {
     val jwt: Jwt = injector.inject()
@@ -143,36 +45,15 @@ private fun Call.findArticles(
 
     val principal = parsePrincipal(jwt)
     val subject = principal?.subject
-    val limit = request.queryParameters["limit"]?.first()?.toInt() ?: 20
-    val offset = request.queryParameters["offset"]?.first()?.toInt() ?: 0
-    val sort = mapOf(Article::createdAt.name to false)
-
-    val allArticles = articles.findMany(request.queryParameters, limit, offset, sort)
-    val userNames = allArticles.map { it.author } + subject
-    val authors = users.findMany(mapOf(User::username.name to userNames))
-    val authorsMap = authors.map { it.username to it }.toMap()
-    val user = authorsMap[subject]
-    val responses = allArticles.map {
-        ArticleResponse(
-            slug = it.slug,
-            title = it.title,
-            description = it.description,
-            body = it.body,
-            tagList = it.tagList,
-            createdAt = it.createdAt.toIso8601(),
-            updatedAt = it.updatedAt.toIso8601(),
-            favorited = it.favoritedBy.contains(subject),
-            favoritesCount = it.favoritedBy.size,
-            author = AuthorResponse(
-                username = it.author,
-                bio = "",
-                image = "",
-                following = user?.following?.contains(it.author) ?: false
-            )
-        )
+    val filter = queryParameters.mapKeys {
+        when (it.key) {
+            "tag" -> Article::tagList.name
+            "favorited" -> Article::favoritedBy.name
+            else -> it.key
+        }
     }
 
-    ok(ArticlesResponseRoot(responses, articles.count()), charset = UTF_8)
+    ok(searchArticles(users, articles, subject, filter), charset = UTF_8)
 }
 
 private fun Call.createArticle(jwt: Jwt, articles: Store<Article, String>) {
@@ -188,8 +69,8 @@ private fun Call.createArticle(jwt: Jwt, articles: Store<Article, String>) {
     )
 
     articles.insertOne(article)
-    val content = ArticleCreationResponseRoot(article, principal.subject)
-    ok(content, charset = UTF_8)
+
+    ok(ArticleCreationResponseRoot(article, principal.subject), charset = UTF_8)
 }
 
 private fun Call.favoriteArticle(
@@ -212,16 +93,15 @@ private fun Call.favoriteArticle(
         halt(500)
 
     val favoritedArticle = article.copy(favoritedBy = favoritedBy)
-    val content = ArticleResponseRoot(favoritedArticle, author, user)
-    ok(content, charset = UTF_8)
+
+    ok(ArticleResponseRoot(favoritedArticle, author, user), charset = UTF_8)
 }
 
 private fun Call.getArticle(
     jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
 
     val principal = parsePrincipal(jwt)
-    val slug = pathParameters["slug"]
-    val article = articles.findOne(slug) ?: halt(404)
+    val article = articles.findOne(pathParameters["slug"]) ?: halt(404)
     val author = users.findOne(article.author) ?: halt(500)
     val user = users.findOne(principal?.subject ?: "")
 
@@ -250,7 +130,7 @@ private fun Call.updateArticle(jwt: Jwt, articles: Store<Article, String>) {
         ok(content, charset = UTF_8)
     }
     else {
-        send(500, "Article $slug not updated")
+        halt(500, "Article $slug not updated")
     }
 }
 
@@ -263,35 +143,58 @@ private fun Call.deleteArticle(jwt: Jwt, articles: Store<Article, String>) {
 private fun Call.getFeed(jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
     val principal = requirePrincipal(jwt)
     val user = users.findOne(principal.subject) ?: halt(404)
-    val filter = mapOf(Article::author.name to (user.following.toList()))
 
-    if(user.following.isEmpty()) {
-        ok(ArticlesResponseRoot(emptyList(), 0), charset = UTF_8)
+    val feedArticles = if(user.following.isEmpty()) {
+        ArticlesResponseRoot(emptyList(), 0)
     }
     else {
-        val responses = articles.findMany(filter).map {
-            ArticleResponse(
-                slug = it.slug,
-                title = it.title,
-                description = it.description,
-                body = it.body,
-                tagList = it.tagList,
-                createdAt = it.createdAt.toIso8601(),
-                updatedAt = it.updatedAt.toIso8601(),
-                favorited = it.favoritedBy.contains(principal.subject),
-                favoritesCount = it.favoritedBy.size,
-                author = AuthorResponse(
-                    username = it.author,
-                    bio = "",
-                    image = "",
-                    following = user.following.contains(it.author)
-                )
-            )
-        }
-
-        ok(ArticlesResponseRoot(responses, articles.count(filter)), charset = UTF_8)
+        val filter = mapOf(Article::author.name to (user.following.toList()))
+        searchArticles(users, articles, principal.subject, filter)
     }
+
+    ok(feedArticles, charset = UTF_8)
 }
 
 private fun String.toSlug() =
     this.toLowerCase().replace(' ', '-')
+
+private fun Call.searchArticles(
+    users: Store<User, String>,
+    articles: Store<Article, String>,
+    subject: String?,
+    filter: Map<String, *>
+): ArticlesResponseRoot {
+
+    val sort = mapOf(Article::createdAt.name to false)
+    val queryParameters = request.queryParameters
+    val limit = queryParameters["limit"]?.first()?.toInt() ?: 20
+    val offset = queryParameters["offset"]?.first()?.toInt() ?: 0
+    val allArticles = articles.findMany(filter, limit, offset, sort)
+    val userNames = allArticles.map { it.author } + subject
+    val authors = users.findMany(mapOf(User::username.name to userNames))
+    val authorsMap = authors.map { it.username to it }.toMap()
+    val user = authorsMap[subject]
+    val responses = allArticles.map {
+        val authorUsername = it.author
+        val author = authorsMap[authorUsername]
+        ArticleResponse(
+            slug = it.slug,
+            title = it.title,
+            description = it.description,
+            body = it.body,
+            tagList = it.tagList,
+            createdAt = it.createdAt.toIso8601(),
+            updatedAt = it.updatedAt.toIso8601(),
+            favorited = it.favoritedBy.contains(subject),
+            favoritesCount = it.favoritedBy.size,
+            author = AuthorResponse(
+                username = authorUsername,
+                bio = author?.bio ?: "",
+                image = author?.image?.toString() ?: "",
+                following = user?.following?.contains(authorUsername) ?: false
+            )
+        )
+    }
+
+    return ArticlesResponseRoot(responses, articles.count(filter))
+}

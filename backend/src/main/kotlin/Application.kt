@@ -13,9 +13,7 @@ import com.hexagonkt.store.mongodb.MongoDbStore
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.routes.*
 import com.hexagonkt.realworld.services.Article
-import com.hexagonkt.realworld.services.ArticleFinder
 import com.hexagonkt.realworld.services.User
-import com.hexagonkt.realworld.stores.MongoDbArticleFinder
 
 import javax.servlet.annotation.WebListener
 
@@ -24,7 +22,6 @@ internal val injector = InjectionManager {
     bindObject(createJwt())
     bindObject(User::class, createUserStore())
     bindObject(Article::class, createArticleStore())
-    bindObject(ArticleFinder::class, createArticleFinder())
 }
 
 /**
@@ -59,10 +56,6 @@ private fun createArticleStore(): Store<Article, String> {
     articleStore.createIndex(true, Article::author.name to ASCENDING)
 
     return articleStore
-}
-
-private fun createArticleFinder(): ArticleFinder {
-    return MongoDbArticleFinder()
 }
 
 internal fun main() {

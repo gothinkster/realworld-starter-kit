@@ -1,12 +1,16 @@
 package com.hexagonkt.realworld.messages
 
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
 import com.hexagonkt.realworld.services.User
 
 data class OkResponse(val message: String)
+
 data class ErrorResponse(val body: List<String> = listOf("Unknown error"))
+
 data class ErrorResponseRoot(val errors: ErrorResponse)
-@JsonInclude(JsonInclude.Include.NON_NULL)
+
+@JsonInclude(NON_NULL)
 data class UserResponse(
     val email: String,
     val username: String,

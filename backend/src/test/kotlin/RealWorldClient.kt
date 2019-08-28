@@ -3,7 +3,6 @@ package com.hexagonkt.realworld
 import com.hexagonkt.http.client.Client
 import com.hexagonkt.realworld.messages.*
 import com.hexagonkt.serialization.Json
-import com.hexagonkt.realworld.routes.*
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.parse
@@ -26,7 +25,7 @@ internal class RealWorldClient(private val client: Client) {
 
     fun registerUser(user: User) {
         registerUser(user) {
-            assert(statusCode == 200)
+            assert(statusCode == 201)
             assert(contentType == "${Json.contentType};charset=utf-8")
 
             val userResponse = responseBody.parse(UserResponseRoot::class)

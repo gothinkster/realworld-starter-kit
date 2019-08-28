@@ -7,6 +7,7 @@ data class RegistrationRequest(
 )
 
 data class RegistrationRequestRoot(val user: RegistrationRequest)
+
 data class LoginRequest(
     val email: String,
     val password: String

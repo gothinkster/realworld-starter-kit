@@ -1,7 +1,7 @@
 package com.hexagonkt.realworld.messages
 
 import com.fasterxml.jackson.annotation.JsonInclude
-import com.hexagonkt.realworld.routes.AuthorResponse
+import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
 import com.hexagonkt.realworld.routes.toIso8601
 import com.hexagonkt.realworld.services.Comment
 import com.hexagonkt.realworld.services.User
@@ -33,5 +33,5 @@ data class CommentResponse(
 
 data class CommentResponseRoot(val comment: CommentResponse)
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(NON_NULL)
 data class CommentsResponseRoot(val comments: List<CommentResponse>)
