@@ -4,7 +4,7 @@ rootProject.name = "real_world"
 gradle.rootProject {
 
     allprojects {
-        version = "0.1"
+        version = "1.0"
         group = "com.hexagonkt.realworld"
         description = "Real World Implementation"
     }

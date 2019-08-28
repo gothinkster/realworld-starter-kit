@@ -6,5 +6,4 @@
 
 set -e
 
-./gradlew all
-docker-compose build
+./gradlew clean all

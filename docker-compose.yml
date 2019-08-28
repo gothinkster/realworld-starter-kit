@@ -15,9 +15,7 @@ networks:
 services:
 
   mongodb:
-    image: mongo:4.1.9
-    ports:
-      - 27017:27017
+    image: mongo:4.2.0
     networks:
       default:
         ipv4_address: 10.20.0.10
@@ -31,8 +29,6 @@ services:
       - backend
     volumes:
       - ./frontend/build/web:/usr/share/nginx/html:ro
-    ports:
-      - 9998:80
     networks:
       default:
         ipv4_address: 10.20.0.20
@@ -42,11 +38,13 @@ services:
     labels:
       app: realworld
       type: backend
+    depends_on:
+      - mongodb
+    environment:
+      SERVICE_mongodbUrl: mongodb://mongodb/real_world
     build:
       context: .
       dockerfile: backend/Dockerfile
-    ports:
-      - 9999:9090
     networks:
       default:
         ipv4_address: 10.20.0.30
