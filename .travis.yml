@@ -42,7 +42,6 @@ install:
 script:
   - ./gradlew clean all
   - docker-compose up -d --build
-  - sleep 5
   - curl https://raw.githubusercontent.com/gothinkster/realworld/master/api/Conduit.postman_collection.json -o build/postman.json
   - node_modules/.bin/newman run build/postman.json -e backend/src/test/resources/environment.json
   - node_modules/.bin/newman run backend/src/test/resources/postman.json -e backend/src/test/resources/environment.json
