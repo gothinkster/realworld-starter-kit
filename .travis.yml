@@ -11,6 +11,10 @@ branches:
     - develop
     - master
 
+env:
+  global:
+    - secure: cnJwBCK8p5jlTN2G+Hg3qidd0MMH0HOJUmopy52jAGk/mChQb6iV879MpGUT0ndH6qsU8uNcUq+WT1G8swDZu+VtAOg8/EvH6wEiMSMAAndbfsKNzrRJlWMoKcmwByZSOZgDi4b4D5ODl6h36ytuwbX0kSUVEuEDGdjJAbUCBoEtwq4+J3OFvg1Zfo1NosudJ/2z6pIkLdoeP/enrWuXzx3I2B522c5VuuzsyJVBmqqWORbbKK9GH32wppSjTZjhj0mMe48xiAo+VAIouvRCWUz+79U0J2gSAjxwM/0fGi5K+z8C+iW6aRaaUJLKQGBQQ0dUNRIp0R5ejWotGscLqA9YRTOiBh5Nan13n/1la2ZnOvOMIMXdICLMd1IDU18Tvgmg7zwsjjKWvfyFLJ3jqlNZzVm+m+oWAdheJCAWMysx6QLYn32MJ5zWQv/pOuz60DdzAeYspKcvsiOqKNSSpYj/tUv32rEZW+nistSy0xy6XrAnsmN5SwlLKriaXVVdKeo1ryAAfcBaCaZ78z3WvTEpDePd0hH8cfhgTr+hbDMj+Er+aGHzV6gRpfN7a0JMEyY55rEL9YrZ8N86BDtGl0iDzLrehepUOVOBqrJMbWJKlYVTbwDXPC9eucIG1Y6xKn7AGA+EsZ/LQJCR6nhbIG32uxwGipBQzprr8mPDdd8=
+
 before_cache:
   - find $HOME/.gradle/caches -type f -name '*.lock' -delete
   - find $HOME/.gradle/caches -type f -name 'file-access.bin' -delete
@@ -29,11 +33,19 @@ cache:
 
 services:
   - docker
-  - mongodb
 
-#install:
-#  - docker-compose up -d
+install:
+  - npm install newman
+  - docker-compose rm -sf
+  - docker-compose up -d mongodb
 
-script: ./gradlew clean all
+script:
+  - ./gradlew clean all
+  - docker-compose up -d --build
+  - sleep 5
+  - curl https://raw.githubusercontent.com/gothinkster/realworld/master/api/Conduit.postman_collection.json -o build/postman.json
+  - node_modules/.bin/newman run build/postman.json -e backend/src/test/resources/environment.json
+  - node_modules/.bin/newman run backend/src/test/resources/postman.json -e backend/src/test/resources/environment.json
 
+after_success: bash <(curl -s https://codecov.io/bash)
 after_failure: echo 'Look for FAILURE in tests'

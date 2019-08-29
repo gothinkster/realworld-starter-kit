@@ -84,13 +84,11 @@ From now on assume `alias gw='./gradlew'`.
 
 ## TODO
 
-* Add more BDD tests
-* Use error handler in controller instead try/catch block
 * Create native executable using GraalVM
-* Logs repeated (in exceptions). Check settings additivity
 * `service_test.yaml` not honored (not picking a random port)
 * Add requests' bodies validation returning as many errors as wrong fields
 * Document code (Dokka)
+* Publish front end in GitHub pages
 
 ## API
 
