@@ -46,7 +46,7 @@ script:
   - node_modules/.bin/newman run $TEST_RES/postman.json -e $TEST_RES/environment.json
   - export REPO="https://raw.githubusercontent.com/gothinkster/realworld"
   - curl $REPO/master/api/Conduit.postman_collection.json -o build/postman.json
-#  - node_modules/.bin/newman run build/postman.json -e $TEST_RES/environment.json
+  - node_modules/.bin/newman run build/postman.json -e $TEST_RES/environment.json
 
 after_success: bash <(curl -s https://codecov.io/bash)
 after_failure: echo 'Look for FAILURE in tests'
