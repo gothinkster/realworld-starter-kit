@@ -13,10 +13,6 @@ apply(from = "${extra["gradleScripts"]}/dokka.gradle")
 apply(from = "${extra["gradleScripts"]}/service.gradle")
 apply(from = "${extra["gradleScripts"]}/junit.gradle")
 
-tasks.test {
-    excludes.clear() // TODO Temporary until Hexagon 1.0.12 is released
-}
-
 application {
     mainClassName = "com.hexagonkt.realworld.ApplicationKt"
     applicationDefaultJvmArgs = listOf("-XX:+UseNUMA", "-XX:+UseParallelGC", "-XX:+AggressiveOpts")
