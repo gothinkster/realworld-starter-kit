@@ -92,6 +92,7 @@ From now on assume `alias gw='./gradlew'`.
 * Publish in Docker Registry
 * Deploy on GCP
 * ITs coverage is not added
+* Add npm to Travis CI cache
 
 ## API
 
