@@ -44,7 +44,7 @@ script:
   - docker-compose up -d --build
   - export REPO="https://raw.githubusercontent.com/gothinkster/realworld"
   - curl $REPO/master/api/Conduit.postman_collection.json -o build/postman.json
-  - node_modules/.bin/newman run build/postman.json -e backend/src/test/resources/environment.json
+#  - node_modules/.bin/newman run build/postman.json -e backend/src/test/resources/environment.json
   - export TEST_RES="backend/src/test/resources"
   - node_modules/.bin/newman run $TEST_RES/postman.json -e $TEST_RES/environment.json
 

@@ -12,7 +12,7 @@ docker-compose up -d mongodb
 docker-compose up -d --build
 export REPO="https://raw.githubusercontent.com/gothinkster/realworld"
 curl $REPO/master/api/Conduit.postman_collection.json -o build/postman.json
-newman run build/postman.json -e backend/src/test/resources/environment.json
+#newman run build/postman.json -e backend/src/test/resources/environment.json
 export TEST_RES="backend/src/test/resources"
 newman run $TEST_RES/postman.json -e $TEST_RES/environment.json
 #sudo docker system prune -af
