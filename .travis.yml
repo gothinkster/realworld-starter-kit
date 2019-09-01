@@ -37,11 +37,9 @@ services:
 
 install:
   - npm install newman
-  - docker-compose rm -sf
   - docker-compose up -d mongodb
 
 script:
-  - export SERVICE_mongodbUrl="mongodb://10.20.0.10/real_world"
   - ./gradlew clean all
   - docker-compose up -d --build
   - export REPO="https://raw.githubusercontent.com/gothinkster/realworld"
