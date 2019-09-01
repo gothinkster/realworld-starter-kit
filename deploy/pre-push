@@ -10,7 +10,9 @@ docker-compose rm -sf
 docker-compose up -d mongodb
 ./gradlew clean all
 docker-compose up -d --build
-curl https://raw.githubusercontent.com/gothinkster/realworld/master/api/Conduit.postman_collection.json -o build/postman.json
-newman run build/postman.json -e backend/src/test/resources/environment.json
-newman run backend/src/test/resources/postman.json -e backend/src/test/resources/environment.json
-sudo docker system prune -af
+export REPO="https://raw.githubusercontent.com/gothinkster/realworld"
+curl $REPO/master/api/Conduit.postman_collection.json -o build/postman.json
+#newman run build/postman.json -e backend/src/test/resources/environment.json
+export TEST_RES="backend/src/test/resources"
+newman run $TEST_RES/postman.json -e $TEST_RES/environment.json
+#sudo docker system prune -af
