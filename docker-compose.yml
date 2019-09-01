@@ -16,6 +16,8 @@ services:
 
   mongodb:
     image: mongo:4.2.0
+    ports:
+      - 27017:27017
     networks:
       default:
         ipv4_address: 10.20.0.10
