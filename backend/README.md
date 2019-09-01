@@ -89,6 +89,9 @@ From now on assume `alias gw='./gradlew'`.
 * Add requests' bodies validation returning as many errors as wrong fields
 * Document code (Dokka)
 * Publish front end in GitHub pages
+* Publish in Docker Registry
+* Deploy on GCP
+* ITs coverage is not added
 
 ## API
 
