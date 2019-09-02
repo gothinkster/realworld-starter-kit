@@ -3,7 +3,7 @@ bindPort: 9090
 bindAddress: 0.0.0.0
 contextPath: /api
 
-mongodbUrl: mongodb://localhost/real_world
+mongodbUrl: mongodb://localhost:3010/real_world
 
 keyStoreResource: keystore.p12
 keyStorePassword: storepass

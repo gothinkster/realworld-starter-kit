@@ -10,7 +10,7 @@ services:
   mongodb:
     image: mongo:4.2.0
     ports:
-      - 27017:27017
+      - 3010:27017
 
   frontend:
     image: nginx:1.15
@@ -22,7 +22,7 @@ services:
     volumes:
       - ./frontend/build/web:/usr/share/nginx/html:ro
     ports:
-      - 2080:80
+      - 3080:80
 
   backend:
     image: ${registry:-}realworld:1.0
@@ -37,4 +37,4 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     ports:
-      - 2090:9090
+      - 3090:9090
