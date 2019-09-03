@@ -39,6 +39,7 @@ internal fun Call.statusCodeHandler(code: Int) {
         is List<*> -> body.mapNotNull { it?.toString() }
         else -> listOf(response.body.toString())
     }
+
     send(code, ErrorResponseRoot(ErrorResponse(messages)), Json, Charsets.UTF_8)
 }
 

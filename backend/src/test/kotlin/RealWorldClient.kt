@@ -8,7 +8,7 @@ import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.parse
 import org.asynchttpclient.Response
 
-internal class RealWorldClient(private val client: Client) {
+internal class RealWorldClient(val client: Client) {
 
     private fun User.toRegistrationRequest(): RegistrationRequestRoot =
         RegistrationRequestRoot(RegistrationRequest(email, username, password))

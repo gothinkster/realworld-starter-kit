@@ -1,6 +1,5 @@
 package com.hexagonkt.realworld.routes
 
-import com.auth0.jwt.interfaces.DecodedJWT
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.injector
@@ -22,8 +21,8 @@ internal val userRouter = Router {
     put { putUser(users, jwt) }
 }
 
-private fun Call.putUser(users: Store<User, String>, jwt: Jwt) {
-    val principal = attributes["principal"] as DecodedJWT
+internal fun Call.putUser(users: Store<User, String>, jwt: Jwt) {
+    val principal = requirePrincipal(jwt)
     val body = request.body<PutUserRequestRoot>().user
     val updates = body.convertToMap().mapKeys { it.key.toString() }
 
@@ -35,8 +34,8 @@ private fun Call.putUser(users: Store<User, String>, jwt: Jwt) {
         halt(500, "Username ${principal.subject} not updated")
 }
 
-private fun Call.getUser(users: Store<User, String>, jwt: Jwt) {
-    val principal = attributes["principal"] as DecodedJWT
+internal fun Call.getUser(users: Store<User, String>, jwt: Jwt) {
+    val principal = requirePrincipal(jwt)
     val subject = principal.subject
     val user = users.findOne(subject) ?: halt(404, "User: $subject not found")
     val token = jwt.sign(user.username)

@@ -82,18 +82,6 @@ From now on assume `alias gw='./gradlew'`.
 * Watch: `gw --no-daemon --continuous runService`
 * Test: `gw test`
 
-## TODO
-
-* Create native executable using GraalVM
-* `service_test.yaml` not honored (not picking a random port)
-* Add requests' bodies validation returning as many errors as wrong fields
-* Document code (Dokka)
-* Publish front end in GitHub pages
-* Publish in Docker Registry
-* Deploy on GCP
-* ITs coverage is not added
-* Add npm to Travis CI cache
-
 ## API
 
 ### Users (for authentication)

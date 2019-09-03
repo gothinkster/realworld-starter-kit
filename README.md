@@ -130,3 +130,13 @@ heroku war:deploy backend/build/libs/ROOT.war --app realworld
 
 * Generate a documentation site (use Orchid or JBake)
 * Code stress tests using Gatling.io against local, container, or deployed service
+* Create native executable using GraalVM
+* `service_test.yaml` not honored (not picking a random port)
+* Add requests' bodies validation returning as many errors as wrong fields
+* Document code (Dokka)
+* Publish front end in GitHub pages
+* Publish in Docker Registry
+* Deploy on GCP
+* Add npm to Travis CI cache
+* Add badges to readme
+* Migrate readme.md API documentation to Swagger
