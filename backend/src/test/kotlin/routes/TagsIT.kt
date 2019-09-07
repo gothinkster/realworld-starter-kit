@@ -25,14 +25,6 @@ class TagsIT {
         image = URL("https://i.pravatar.cc/150?img=3")
     )
 
-    private val jane = User(
-        username = "jane",
-        email = "jane@jane.jane",
-        password = "janejane",
-        bio = "I own MegaCloud",
-        image = URL("https://i.pravatar.cc/150?img=1")
-    )
-
     private val trainDragon = Article(
         title = "How to train your dragon",
         slug = "how-to-train-your-dragon",
@@ -55,9 +47,10 @@ class TagsIT {
         val client = RealWorldClient(Client(endpoint, Json.contentType))
 
         val jakeClient = client.initializeUser(jake)
-        val janeClient = client.initializeUser(jane)
 
         jakeClient.deleteArticle(trainDragon.slug)
+//        client.getT
+
         jakeClient.postArticle(trainDragon)
         jakeClient.getArticle(trainDragon.slug)
     }
