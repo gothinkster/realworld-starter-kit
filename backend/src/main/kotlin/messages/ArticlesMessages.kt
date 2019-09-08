@@ -15,6 +15,7 @@ data class ArticleRequest(
 
 data class ArticleRequestRoot(val article: ArticleRequest)
 
+@JsonInclude(NON_NULL)
 data class AuthorResponse(
     val username: String,
     val bio: String,
@@ -53,9 +54,9 @@ data class ArticleCreationResponseRoot(val article: ArticleCreationResponse) {
 }
 
 data class PutArticleRequest(
-    val title: String?,
-    val description: String?,
-    val body: String?,
+    val title: String? = null,
+    val description: String? = null,
+    val body: String? = null,
     val tagList: Set<String> = emptySet()
 )
 

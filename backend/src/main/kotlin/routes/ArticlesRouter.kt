@@ -136,8 +136,11 @@ private fun Call.updateArticle(jwt: Jwt, articles: Store<Article, String>) {
 
 private fun Call.deleteArticle(jwt: Jwt, articles: Store<Article, String>) {
     requirePrincipal(jwt)
-    if (!articles.deleteOne(pathParameters["slug"]))
-        halt(404)
+    val slug = pathParameters["slug"]
+    if (!articles.deleteOne(slug))
+        halt(404, "Article $slug not found")
+    else
+        halt(200, "Article $slug deleted")
 }
 
 private fun Call.getFeed(jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {

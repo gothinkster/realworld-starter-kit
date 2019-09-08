@@ -53,7 +53,7 @@ private fun createUserStore(): Store<User, String> {
 private fun createArticleStore(): Store<Article, String> {
     val mongodbUrl = settings.require("mongodbUrl").toString()
     val articleStore = MongoDbStore(Article::class, Article::slug, mongodbUrl)
-    articleStore.createIndex(true, Article::author.name to ASCENDING)
+    articleStore.createIndex(false, Article::author.name to ASCENDING)
 
     return articleStore
 }

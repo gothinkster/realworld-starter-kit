@@ -32,7 +32,7 @@ class RoutesIT {
         server.stop()
     }
 
-    @Test fun `Delete, create and get an article`() {
+    @Test fun `Non existing route returns a 404`() {
         val endpoint = "http://localhost:${server.runtimePort}/api"
         val client = RealWorldClient(Client(endpoint, Json.contentType))
 
