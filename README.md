@@ -19,23 +19,20 @@ For more information on how to this works with other frontends/backends, head ov
 
 # How it works
 
-> Describe the general architecture of your app here
-
-# Getting started
-
-> npm install, npm start, etc.
-
-## Structure
-
 The project has a Gradle multi-module layout. Deployment code is located at the `deploy` folder.
 
 Docker Compose is used to build images for each module and publish them to the Docker Registry.
 
-## Format
+See:
 
-Minimum formatting rules are set inside the `.editorconfig` file.
+backend readme
+frontend readme
+mobile readme
+deploy readme
 
-## Build
+# Getting started
+
+The source code has the bare minimum formatting rules inside the `.editorconfig` file.
 
 Gradle is the tool used to automate build tasks locally.
 
@@ -77,18 +74,18 @@ Useful build commands:
 
 * Start application inside containers: `docker-compose up -d`
 
-## Testing
+# Testing
 
 The `HTTPie` and `jq` tools are used for testing the application manually in some scripts.
 
 IntelliJ HTTP Client is also used to perform requests interactively: `backend/src/test/http/*.http`.
 
-## Release
+# Release
 
 Tagging of source code and container images should be done upon Pull Request merge on live branches.
 This is still to be implemented by the CI/CD pipeline using Travis.
 
-## Publish
+# Publish
 
 Published artifacts are Docker images. They are published to a Docker registry. For Minikube and
 Docker Compose, the local image store is used instead a registry.
@@ -96,12 +93,12 @@ Docker Compose, the local image store is used instead a registry.
 Build repository container images: `registry="<repository>" docker-compose build` The `<repository>`
 value *MUST* end with '/'. Ie: `registry="example.com/" docker-compose build`
 
-## Deployment
+# Deployment
 
 To deploy the application services. The services' images must be published in their corresponding
 repositories.
 
-### Minikube
+## Minikube
 
 Prior to deploying to Minikube, VirtualBox and HTTPie must be installed also. The deployment script
 has to be run from project root: `deploy/minikube.sh` it initializes a Minikube instance and deploy
@@ -109,7 +106,7 @@ the application service.
 
 You can find more information inside the script file.
 
-### Heroku
+## Heroku
 
 To deploy the WAR in Heroku. First setup the Heroku CLI tool and project:
 
@@ -126,7 +123,7 @@ gw clean assemble
 heroku war:deploy backend/build/libs/ROOT.war --app realworld
 ```
 
-## TODO
+# TODO
 
 * Generate a documentation site (use Orchid or JBake)
 * Code stress tests using Gatling.io against local, container, or deployed service
