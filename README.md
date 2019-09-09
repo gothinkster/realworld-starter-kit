@@ -137,3 +137,4 @@ heroku war:deploy backend/build/libs/ROOT.war --app realworld
 * Add npm to Travis CI cache
 * Add badges to readme
 * Migrate readme.md API documentation to Swagger
+* Add unit tests to cover all code (using mocks), this may shape the future `hexagon_test` module

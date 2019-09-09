@@ -28,7 +28,7 @@ internal class RealWorldClient(val client: Client) {
             assert(statusCode == 201)
             assert(contentType == "${Json.contentType};charset=utf-8")
 
-            val userResponse = responseBody.parse(UserResponseRoot::class)
+            val userResponse = responseBody.parse<UserResponseRoot>()
             assert(userResponse.user.username == user.username)
             assert(userResponse.user.email == user.email)
             assert(userResponse.user.token.isNotBlank())
@@ -44,7 +44,7 @@ internal class RealWorldClient(val client: Client) {
             assert(it.statusCode == 200)
             assert(it.contentType == "${Json.contentType};charset=utf-8")
 
-            val userResponse = it.responseBody.parse(UserResponseRoot::class)
+            val userResponse = it.responseBody.parse<UserResponseRoot>()
             assert(userResponse.user.username == user.username)
             assert(userResponse.user.email == user.email)
             assert(userResponse.user.token.isNotBlank())
@@ -52,7 +52,8 @@ internal class RealWorldClient(val client: Client) {
             mapOf("Authorization" to listOf("Token ${userResponse.user.token}"))
         }
 
-        return RealWorldClient(Client(client.endpoint, client.contentType, headers = headers))
+        val userClient = Client(client.endpoint, client.contentType, headers = headers)
+        return RealWorldClient(userClient)
     }
 
     fun initializeUser(user: User): RealWorldClient {
@@ -66,7 +67,7 @@ internal class RealWorldClient(val client: Client) {
             assert(statusCode == 200)
             assert(contentType == "${Json.contentType};charset=utf-8")
 
-            val userResponse = responseBody.parse(UserResponseRoot::class)
+            val userResponse = responseBody.parse<UserResponseRoot>()
             assert(userResponse.user.username == user.username)
             assert(userResponse.user.email == user.email)
             assert(userResponse.user.token.isNotBlank())
@@ -77,20 +78,20 @@ internal class RealWorldClient(val client: Client) {
         client.get("/user") { callback(user) }
     }
 
-    fun updateUser(user: User, updateUserRequest: PutUserRequest) {
-        updateUser(user, updateUserRequest) {
+    fun updateUser(user: User, updateRequest: PutUserRequest) {
+        updateUser(user, updateRequest) {
             assert(statusCode == 200)
             assert(contentType == "${Json.contentType};charset=utf-8")
 
-            val userResponse = responseBody.parse(UserResponseRoot::class)
+            val userResponse = responseBody.parse<UserResponseRoot>()
             assert(userResponse.user.username == user.username)
-            assert(userResponse.user.email == updateUserRequest.email ?: user.email)
+            assert(userResponse.user.email == updateRequest.email ?: user.email)
             assert(userResponse.user.token.isNotBlank())
         }
     }
 
-    fun updateUser(user: User, updateUser: PutUserRequest, callback: Response.(User) -> Unit) {
-        client.put("/user", PutUserRequestRoot(updateUser)) { callback(user) }
+    fun updateUser(user: User, updateRequest: PutUserRequest, callback: Response.(User) -> Unit) {
+        client.put("/user", PutUserRequestRoot(updateRequest)) { callback(user) }
     }
 
     fun getProfile(user: User, following: Boolean) {
@@ -98,7 +99,7 @@ internal class RealWorldClient(val client: Client) {
             assert(statusCode == 200)
             assert(contentType == "${Json.contentType};charset=utf-8")
 
-            val profileResponse = responseBody.parse(ProfileResponseRoot::class)
+            val profileResponse = responseBody.parse<ProfileResponseRoot>()
             assert(profileResponse.profile.username == user.username)
             assert(profileResponse.profile.following == following)
         }
@@ -112,7 +113,7 @@ internal class RealWorldClient(val client: Client) {
             assert(statusCode == 200)
             assert(contentType == "${Json.contentType};charset=utf-8")
 
-            val profileResponse = responseBody.parse(ProfileResponseRoot::class)
+            val profileResponse = responseBody.parse<ProfileResponseRoot>()
             assert(profileResponse.profile.username == user.username)
             assert(profileResponse.profile.following == follow)
         }
@@ -122,6 +123,13 @@ internal class RealWorldClient(val client: Client) {
         client.post("/articles", article.toCreationRequest()) {
             assert(statusCode == 200)
             assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val postArticleResponse = responseBody.parse<ArticleCreationResponseRoot>()
+            assert(postArticleResponse.article.body == article.body)
+            assert(postArticleResponse.article.slug == article.slug)
+            assert(postArticleResponse.article.description == article.description)
+            assert(!postArticleResponse.article.favorited)
+            assert(postArticleResponse.article.favoritesCount == 0)
         }
     }
 
@@ -129,10 +137,137 @@ internal class RealWorldClient(val client: Client) {
         client.get("/articles/$slug") {
             assert(statusCode == 200)
             assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val getArticleResponse = responseBody.parse<ArticleResponseRoot>()
+            assert(getArticleResponse.article.slug == slug)
         }
     }
 
     fun deleteArticle(slug: String) {
-        client.delete("/articles/$slug") { assert(statusCode in setOf(200, 404)) }
+        client.delete("/articles/$slug") {
+            assert(statusCode in setOf(200, 404))
+            if (statusCode == 200)
+                // TODO Return an OkResponse object
+                assert(responseBody == "Article $slug deleted")
+            else
+                // TODO Fix this error message
+                assert(responseBody.parse<ErrorResponseRoot>().errors.body.first() == "")
+        }
+    }
+
+    fun updateArticle(article: Article, updateRequest: PutArticleRequest) {
+        client.put("/articles/${article.slug}", PutArticleRequestRoot(updateRequest)) {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val articleResponse = responseBody.parse<ArticleCreationResponseRoot>()
+            val responseArticle = articleResponse.article
+            assert(responseArticle.slug == article.slug)
+            assert(responseArticle.title == updateRequest.title ?: article.title)
+            assert(responseArticle.description == updateRequest.description ?: article.description)
+            assert(responseArticle.body == updateRequest.body ?: article.body)
+        }
+    }
+
+    fun getFeed(vararg articles: Article) {
+        client.get("/articles/feed") {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val feedResponse = responseBody.parse<ArticlesResponseRoot>()
+            assert(feedResponse.articlesCount >= feedResponse.articles.size)
+            assert(feedResponse.articles.size == articles.size)
+            assert(feedResponse.articles.all {
+                it.slug in articles.map { article -> article.slug }
+            })
+        }
+    }
+
+    fun favoriteArticle(article: Article, favorite: Boolean) {
+        val url = "/articles/${article.slug}/favorite"
+        val response = if (favorite) client.post(url) else client.delete(url)
+
+        response.apply {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val profileResponse = responseBody.parse<ArticleResponseRoot>()
+            assert(profileResponse.article.favorited == favorite)
+        }
+    }
+
+    fun findArticles(
+        author: String? = null,
+        favorited: String? = null,
+        tag: String? = null,
+        expected: Set<Article> = emptySet()) {
+
+        val slugs = expected.map { it.slug }
+
+        findArticles(author, favorited, tag).apply {
+            assert(size == slugs.size)
+            assert(map { it.slug }.containsAll(slugs))
+        }
+    }
+
+    fun createComment(article: String, comment: CommentRequest) {
+        client.post("/articles/$article/comments", CommentRequestRoot(comment)) {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val commentsResponse = responseBody.parse(CommentResponseRoot::class)
+            assert(commentsResponse.comment.body == comment.body)
+        }
+    }
+
+    fun deleteComment(article: String, id: Int) {
+        client.delete("/articles/$article/comments/$id") {
+            assert(statusCode == 200)
+            // TODO Fix this response
+            assert(responseBody == "\"$id deleted\"")
+        }
+    }
+
+    fun getComments(article: String, vararg ids: Int) {
+        client.get("/articles/$article/comments") {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val commentsResponse = responseBody.parse(CommentsResponseRoot::class)
+            assert(commentsResponse.comments.size == ids.size)
+            assert(commentsResponse.comments.map { it.id }.containsAll(ids.toSet()))
+        }
+    }
+
+    fun getTags(vararg expectedTags: String) {
+        client.get("/tags") {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val tagsResponse = responseBody.parse(TagsResponseRoot::class)
+            assert(tagsResponse.tags.size == expectedTags.size)
+            assert(tagsResponse.tags.containsAll(expectedTags.toSet()))
+        }
+    }
+
+    private fun findArticles(
+        author: String? = null,
+        favorited: String? = null,
+        tag: String? = null): List<ArticleResponse> {
+
+        val queryString = mapOf("author" to author, "favorited" to favorited, "tag" to tag)
+            .filterValues { it?.isNotBlank() ?: false }
+            .map { it.key + "=" + it.value }
+            .joinToString("&", "?")
+
+        val response = client.get("/articles$queryString") {
+            assert(statusCode == 200)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+
+            val articles = responseBody.parse<ArticlesResponseRoot>()
+            assert(articles.articlesCount >= 0)
+        }
+
+        return response.responseBody.parse<ArticlesResponseRoot>().articles
     }
 }

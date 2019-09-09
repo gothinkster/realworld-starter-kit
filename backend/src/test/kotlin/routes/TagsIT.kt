@@ -25,12 +25,13 @@ class TagsIT {
         image = URL("https://i.pravatar.cc/150?img=3")
     )
 
-    private val jane = User(
-        username = "jane",
-        email = "jane@jane.jane",
-        password = "janejane",
-        bio = "I own MegaCloud",
-        image = URL("https://i.pravatar.cc/150?img=1")
+    private val neverEndingStory = Article(
+        title = "Never Ending Story",
+        slug = "never-ending-story",
+        description = "Fantasia is dying",
+        body = "Fight for Fantasia!",
+        tagList = setOf("dragons", "books"),
+        author = jake.username
     )
 
     private val trainDragon = Article(
@@ -38,7 +39,7 @@ class TagsIT {
         slug = "how-to-train-your-dragon",
         description = "Ever wonder how?",
         body = "Very carefully.",
-        tagList = setOf("dragons","training"),
+        tagList = setOf("dragons", "training"),
         author = jake.username
     )
 
@@ -50,15 +51,26 @@ class TagsIT {
         server.stop()
     }
 
-    @Test fun `Delete, create and get an article`() {
+    @Test fun `Get all tags don't return duplicates`() {
         val endpoint = "http://localhost:${server.runtimePort}/api"
         val client = RealWorldClient(Client(endpoint, Json.contentType))
 
         val jakeClient = client.initializeUser(jake)
-        val janeClient = client.initializeUser(jane)
 
         jakeClient.deleteArticle(trainDragon.slug)
+        jakeClient.deleteArticle(neverEndingStory.slug)
+        client.getTags()
+
         jakeClient.postArticle(trainDragon)
-        jakeClient.getArticle(trainDragon.slug)
+        client.getTags("dragons", "training")
+
+        jakeClient.postArticle(neverEndingStory)
+        client.getTags("dragons", "training", "books")
+
+        jakeClient.deleteArticle(trainDragon.slug)
+        client.getTags("dragons", "books")
+
+        jakeClient.deleteArticle(neverEndingStory.slug)
+        client.getTags()
     }
 }
