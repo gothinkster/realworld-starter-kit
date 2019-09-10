@@ -26,7 +26,7 @@ minikube service list
 minikube ip
 
 # Build & Release
-eval $(minikube docker-env)
+eval "$(minikube docker-env)"
 registry="" docker-compose build
 docker images
 
@@ -37,10 +37,5 @@ kubectl expose deployment realworld --type=NodePort --port=9090 # type=LoadBalan
 kubectl wait --for=condition=ready svc/realworld --timeout=30s
 
 # Open
-FLYCON_URL="$(minikube service realworld --url)"
-ORIGIN="departure=MAD"
-DESTINATION="arrival=DUB"
-DATE="$(date '+%Y-%m-%d')"
-DEPARTURE="departureDateTime=${DATE}T00:00"
-ARRIVAL="arrivalDateTime=${DATE}T23:59"
-http "$FLYCON_URL/interconnections?$ORIGIN&$DESTINATION&$DEPARTURE&$ARRIVAL"
+SERVICE_URL="$(minikube service realworld --url)"
+http "$SERVICE_URL/api/articles"

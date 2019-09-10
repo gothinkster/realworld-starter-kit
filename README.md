@@ -20,15 +20,17 @@ For more information on how to this works with other frontends/backends, head ov
 # How it works
 
 The project has a Gradle multi-module layout. Deployment code is located at the `deploy` folder.
+The goal is to code a full stack application providing a module for the back-end, the front-end
+(TBD) and the Mobile application (TBD).
 
-Docker Compose is used to build images for each module and publish them to the Docker Registry.
+Docker Compose is used to build images for each module (if applies) and publish them to the Docker
+Registry.
 
 See:
 
-backend readme
-frontend readme
-mobile readme
-deploy readme
+* [backend readme](backend/README.md)
+* [frontend readme](frontend/README.md) (TBD)
+* [mobile readme](mobile/README.md) (TBD)
 
 # Getting started
 
@@ -78,14 +80,19 @@ Useful build commands:
 
 The `HTTPie` and `jq` tools are used for testing the application manually in some scripts.
 
-IntelliJ HTTP Client is also used to perform requests interactively: `backend/src/test/http/*.http`.
+Postman is also used to perform requests interactively: `backend/src/test/resources/postman/*`.
 
-# Release
+# Continuous Integration
+
+The build pipeline is implemented using Travis CI, it takes care of checking the tests (including
+Postman collection tests) and the following tasks:
+
+## Release
 
 Tagging of source code and container images should be done upon Pull Request merge on live branches.
 This is still to be implemented by the CI/CD pipeline using Travis.
 
-# Publish
+## Publish
 
 Published artifacts are Docker images. They are published to a Docker registry. For Minikube and
 Docker Compose, the local image store is used instead a registry.
@@ -93,48 +100,22 @@ Docker Compose, the local image store is used instead a registry.
 Build repository container images: `registry="<repository>" docker-compose build` The `<repository>`
 value *MUST* end with '/'. Ie: `registry="example.com/" docker-compose build`
 
-# Deployment
+## Deployment
 
-To deploy the application services. The services' images must be published in their corresponding
-repositories.
-
-## Minikube
-
-Prior to deploying to Minikube, VirtualBox and HTTPie must be installed also. The deployment script
-has to be run from project root: `deploy/minikube.sh` it initializes a Minikube instance and deploy
-the application service.
-
-You can find more information inside the script file.
-
-## Heroku
-
-To deploy the WAR in Heroku. First setup the Heroku CLI tool and project:
-
-```bash
-heroku login
-heroku plugins:install heroku-cli-deploy
-heroku create realworld
-```
-
-And then build and upload the binary:
-
-```bash
-gw clean assemble
-heroku war:deploy backend/build/libs/ROOT.war --app realworld
-```
+Deploy the application services on a server upon `master` push. Check the
+[deploy's readme file](deploy/README.md) for more information.
 
 # TODO
 
-* Generate a documentation site (use Orchid or JBake)
-* Code stress tests using Gatling.io against local, container, or deployed service
-* Create native executable using GraalVM
-* `service_test.yaml` not honored (not picking a random port)
-* Add requests' bodies validation returning as many errors as wrong fields
-* Document code (Dokka)
-* Publish front end in GitHub pages
+* Add badges to readme
+* Add npm to Travis CI cache
 * Publish in Docker Registry
 * Deploy on GCP
-* Add npm to Travis CI cache
-* Add badges to readme
+* Add requests' bodies validation returning as many errors as wrong fields
+* Code stress tests using Gatling.io against local, container, or deployed service
+* Generate a documentation site (use Orchid or JBake)
+* Create native executable using GraalVM
+* Document code (Dokka)
+* Publish front end in GitHub pages
 * Migrate readme.md API documentation to Swagger
 * Add unit tests to cover all code (using mocks), this may shape the future `hexagon_test` module

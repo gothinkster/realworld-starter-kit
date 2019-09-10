@@ -1,6 +1,5 @@
 
-REAL WORLD BACKEND
-==================
+# REAL WORLD BACKEND
 
 Real World demo is a "Conduit" like application. Conduit is a social blogging site (i.e. a
 Medium.com clone). It uses a custom API for all requests, including authentication. You can view a
@@ -18,14 +17,18 @@ General functionality:
 
 ## Architecture
 
-Code files, not classes like Java (take advantage of Kotlin language)
+The code has multiple classes per file, not like Java to take advantage of Kotlin language and keep
+things short.
 
-`routes` are controllers, called that way because another kind of controllers (ie: commands for CLI)
-could exist (in this case a package called `commands` would be created).
+`routes` package holds the controllers, called that way because another kind of controllers
+(ie: commands for CLI) could exist (in this case a package called `commands` would be created).
 
-Messages (request/responses) common to different routers are held in `Routes.kt`.
+The `messages` package contains the request/responses sent to controllers. It is left aside as it
+would be eventually shared with the front-end.
 
-Three layers:
+Common handling logic (as error processing) is held in `Routes.kt`.
+
+The service has three layers:
 
 * Routes: HTTP layer (controllers) and messages (requests/responses)
   1. Gets data and parameters
@@ -40,16 +43,13 @@ Three layers:
   - Calls stores (the dependency will be by interfaces)
 * Stores: storage port (with a MongoDB adapter)
 
-Rules:
+Rules of thumb:
+
 - "All you know binds you" the less each component knows about others, the better.
 - Each layer is in a package
 - A layer package can have subpackages
-- Services can not import anything outside services (and as an exception logging)
-- Other packages can only import from services
-
-## Testing
-
-Smoke tests in one run (all tests specified by Postman and some more).
+- Services can not import anything outside services (with the exception of logging)
+- Other packages can only import from services not among them
 
 ## RealWorld API Spec
 
