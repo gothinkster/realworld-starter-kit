@@ -14,8 +14,14 @@ We've gone to great lengths to adhere to the **Hexagon** community styleguides &
 
 For more information on how to this works with other frontends/backends, head over to the
 [RealWorld].
+  
+[![Travis CI](https://travis-ci.org/hexagonkt/real_world.svg?branch=master)][Travis]
+[![Codecov](https://codecov.io/gh/hexagonkt/real_world/branch/master/graph/badge.svg)][Codecov]
 
 [RealWorld]: https://github.com/gothinkster/realworld
+
+[Travis]: https://travis-ci.org/hexagonkt/real_world
+[Codecov]: https://codecov.io/gh/hexagonkt/real_world
 
 # How it works
 
@@ -107,7 +113,6 @@ Deploy the application services on a server upon `master` push. Check the
 
 # TODO
 
-* Add badges to readme
 * Add npm to Travis CI cache
 * Publish in Docker Registry
 * Deploy on GCP
