@@ -79,8 +79,8 @@ private fun Call.favoriteArticle(
     val principal = attributes["principal"] as DecodedJWT
     val slug = pathParameters["slug"]
     val article = articles.findOne(slug) ?: halt(404)
-    val author = users.findOne(article.author) ?: halt(500)
-    val user = users.findOne(principal.subject) ?: halt(500) // Both can be fetched with one 'find'
+    val author = checkNotNull(users.findOne(article.author))
+    val user = checkNotNull(users.findOne(principal.subject)) // Both can be fetched with one 'find'
     // TODO Updates fail if not formatted as string
     val updatedAt = LocalDateTime.now().format(ISO_LOCAL_DATE_TIME)
     val pair = Article::updatedAt.name to updatedAt
@@ -102,7 +102,7 @@ private fun Call.getArticle(
 
     val principal = parsePrincipal(jwt)
     val article = articles.findOne(pathParameters["slug"]) ?: halt(404)
-    val author = users.findOne(article.author) ?: halt(500)
+    val author = checkNotNull(users.findOne(article.author))
     val user = users.findOne(principal?.subject ?: "")
 
     ok(ArticleResponseRoot(article, author, user), charset = UTF_8)
@@ -125,7 +125,7 @@ private fun Call.updateArticle(jwt: Jwt, articles: Store<Article, String>) {
     val updated = articles.updateOne(slug, updates)
 
     if (updated) {
-        val article = articles.findOne(slug) ?: halt(500)
+        val article = checkNotNull(articles.findOne(slug))
         val content = ArticleCreationResponseRoot(article, principal.subject)
         ok(content, charset = UTF_8)
     }
