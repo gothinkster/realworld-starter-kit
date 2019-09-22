@@ -56,4 +56,28 @@ class CommentsIT {
         jakeClient.getComments(trainDragon.slug, 1)
         jakeClient.deleteComment(trainDragon.slug, 1)
     }
+
+    @Test fun `Get article's comments without login`() {
+        val endpoint = "http://localhost:${server.runtimePort}/api"
+        val client = RealWorldClient(Client(endpoint, Json.contentType))
+
+        val jakeClient = client.initializeUser(jake)
+
+        jakeClient.deleteArticle(trainDragon.slug)
+        jakeClient.postArticle(trainDragon)
+
+        jakeClient.createComment(trainDragon.slug, CommentRequest("Nice film"))
+        client.getComments(trainDragon.slug, 1)
+        jakeClient.createComment(trainDragon.slug, CommentRequest("Not bad"))
+        client.getComments(trainDragon.slug, 1, 2)
+    }
+
+//    @Test fun `Post comment to a not created article`() {
+//        val endpoint = "http://localhost:${server.runtimePort}/api"
+//        val client = RealWorldClient(Client(endpoint, Json.contentType))
+//
+//        val jakeClient = client.initializeUser(jake)
+//
+//        jakeClient.createComment("non_existing_article", CommentRequest("Nice film"))
+//    }
 }

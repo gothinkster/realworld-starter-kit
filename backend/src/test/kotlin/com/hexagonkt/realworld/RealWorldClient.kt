@@ -215,11 +215,17 @@ internal class RealWorldClient(val client: Client) {
 
     fun createComment(article: String, comment: CommentRequest) {
         client.post("/articles/$article/comments", CommentRequestRoot(comment)) {
-            assert(statusCode == 200)
+            assert(statusCode in setOf(200, 404))
             assert(contentType == "${Json.contentType};charset=utf-8")
 
-            val commentsResponse = responseBody.parse(CommentResponseRoot::class)
-            assert(commentsResponse.comment.body == comment.body)
+            if (statusCode == 200) {
+                val commentsResponse = responseBody.parse(CommentResponseRoot::class)
+                assert(commentsResponse.comment.body == comment.body)
+            }
+            else if (statusCode == 404) {
+                val commentsResponse = responseBody.parse<ErrorResponseRoot>()
+                assert(commentsResponse.errors.body.first() == "$article article not found")
+            }
         }
     }
 
