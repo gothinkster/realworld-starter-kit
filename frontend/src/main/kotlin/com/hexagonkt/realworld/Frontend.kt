@@ -1,4 +1,4 @@
-package com.hexagonkt.realworld.frontend
+package com.hexagonkt.realworld
 
 import kotlinx.html.a
 import kotlinx.html.div
