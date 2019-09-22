@@ -36,4 +36,5 @@ dependencies {
     implementation("com.auth0:java-jwt:${project.extra["javaJwtVersion"]}")
 
     testImplementation("com.hexagonkt:port_http_client:${project.extra["hexagonVersion"]}")
+    testImplementation("com.hexagonkt:port_http_server:${project.extra["hexagonVersion"]}:test")
 }

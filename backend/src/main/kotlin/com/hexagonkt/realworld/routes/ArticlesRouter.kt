@@ -40,7 +40,7 @@ internal val articlesRouter = Router {
     get { findArticles(jwt, users, articles) }
 }
 
-private fun Call.findArticles(
+internal fun Call.findArticles(
     jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
 
     val principal = parsePrincipal(jwt)
@@ -73,7 +73,7 @@ private fun Call.createArticle(jwt: Jwt, articles: Store<Article, String>) {
     ok(ArticleCreationResponseRoot(article, principal.subject), charset = UTF_8)
 }
 
-private fun Call.favoriteArticle(
+internal fun Call.favoriteArticle(
     users: Store<User, String>, articles: Store<Article, String>, favorite: Boolean) {
 
     val principal = attributes["principal"] as DecodedJWT
@@ -97,7 +97,7 @@ private fun Call.favoriteArticle(
     ok(ArticleResponseRoot(favoritedArticle, author, user), charset = UTF_8)
 }
 
-private fun Call.getArticle(
+internal fun Call.getArticle(
     jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
 
     val principal = parsePrincipal(jwt)
@@ -108,7 +108,7 @@ private fun Call.getArticle(
     ok(ArticleResponseRoot(article, author, user), charset = UTF_8)
 }
 
-private fun Call.updateArticle(jwt: Jwt, articles: Store<Article, String>) {
+internal fun Call.updateArticle(jwt: Jwt, articles: Store<Article, String>) {
     val principal = requirePrincipal(jwt)
     val body = request.body<PutArticleRequestRoot>().article
     val slug = pathParameters["slug"]
@@ -134,7 +134,7 @@ private fun Call.updateArticle(jwt: Jwt, articles: Store<Article, String>) {
     }
 }
 
-private fun Call.deleteArticle(jwt: Jwt, articles: Store<Article, String>) {
+internal fun Call.deleteArticle(jwt: Jwt, articles: Store<Article, String>) {
     requirePrincipal(jwt)
     val slug = pathParameters["slug"]
     if (!articles.deleteOne(slug))
@@ -143,7 +143,7 @@ private fun Call.deleteArticle(jwt: Jwt, articles: Store<Article, String>) {
         ok(OkResponse("Article $slug deleted"), charset = UTF_8)
 }
 
-private fun Call.getFeed(jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
+internal fun Call.getFeed(jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
     val principal = requirePrincipal(jwt)
     val user = users.findOne(principal.subject) ?: halt(404)
 
@@ -158,10 +158,10 @@ private fun Call.getFeed(jwt: Jwt, users: Store<User, String>, articles: Store<A
     ok(feedArticles, charset = UTF_8)
 }
 
-private fun String.toSlug() =
+internal fun String.toSlug() =
     this.toLowerCase().replace(' ', '-')
 
-private fun Call.searchArticles(
+internal fun Call.searchArticles(
     users: Store<User, String>,
     articles: Store<Article, String>,
     subject: String?,
