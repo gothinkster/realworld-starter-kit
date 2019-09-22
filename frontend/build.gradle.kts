@@ -1,5 +1,4 @@
 
-//apply(plugin = "kotlin2js")
 plugins {
     id("kotlin2js")
 }

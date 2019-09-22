@@ -1,4 +1,4 @@
-package com.hexagonkt.realworld.routes
+package com.hexagonkt.realworld.routes.it
 
 import com.hexagonkt.http.client.Client
 import com.hexagonkt.realworld.RealWorldClient
