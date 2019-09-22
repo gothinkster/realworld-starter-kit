@@ -2,10 +2,7 @@ package com.hexagonkt.realworld.routes
 
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.injector
-import com.hexagonkt.realworld.messages.CommentRequestRoot
-import com.hexagonkt.realworld.messages.CommentResponse
-import com.hexagonkt.realworld.messages.CommentResponseRoot
-import com.hexagonkt.realworld.messages.CommentsResponseRoot
+import com.hexagonkt.realworld.messages.*
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.Comment
@@ -68,6 +65,6 @@ internal val commentsRouter = Router {
         if (!updated)
             halt(500, "Not updated")
 
-        ok("$id deleted", charset = UTF_8)
+        ok(OkResponse("$id deleted"), charset = UTF_8)
     }
 }

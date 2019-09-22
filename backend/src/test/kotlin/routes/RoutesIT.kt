@@ -13,6 +13,9 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
 import java.net.URL
 
+/**
+ * TODO Test bad requests (invalid JSON, bad field formats, etc.)
+ */
 @TestInstance(PER_CLASS)
 class RoutesIT {
 

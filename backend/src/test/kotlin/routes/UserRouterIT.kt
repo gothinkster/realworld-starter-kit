@@ -49,8 +49,7 @@ class UserRouterIT {
             assert(statusCode == 401)
             assert(contentType == "${Json.contentType};charset=utf-8")
             assert(responseBody.parse<ErrorResponseRoot>().errors.body.isNotEmpty())
-            // TODO Fix this
-//            assert(responseBody.parse<ErrorResponseRoot>().errors.body.first() == "Unauthorized")
+            assert(responseBody.parse<ErrorResponseRoot>().errors.body.first() == "Unauthorized")
         }
 
         client.updateUser(jake, PutUserRequest(email = jake.email)) {

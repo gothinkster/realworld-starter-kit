@@ -140,7 +140,7 @@ private fun Call.deleteArticle(jwt: Jwt, articles: Store<Article, String>) {
     if (!articles.deleteOne(slug))
         halt(404, "Article $slug not found")
     else
-        halt(200, "Article $slug deleted")
+        ok(OkResponse("Article $slug deleted"), charset = UTF_8)
 }
 
 private fun Call.getFeed(jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {

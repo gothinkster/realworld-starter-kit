@@ -20,7 +20,10 @@ internal class RealWorldClient(val client: Client) {
         ArticleRequestRoot(ArticleRequest(title, description, body, tagList))
 
     fun deleteUser(user: User, allowedCodes: Set<Int> = setOf(200, 404)) {
-        client.delete("/users/${user.username}") { assert(statusCode in allowedCodes) }
+        client.delete("/users/${user.username}") {
+            assert(statusCode in allowedCodes)
+            assert(contentType == "${Json.contentType};charset=utf-8")
+        }
     }
 
     fun registerUser(user: User) {
@@ -146,12 +149,12 @@ internal class RealWorldClient(val client: Client) {
     fun deleteArticle(slug: String) {
         client.delete("/articles/$slug") {
             assert(statusCode in setOf(200, 404))
+            assert(contentType == "${Json.contentType};charset=utf-8")
+
             if (statusCode == 200)
-                // TODO Return an OkResponse object
-                assert(responseBody == "Article $slug deleted")
+                assert(responseBody.parse<OkResponse>().message == "Article $slug deleted")
             else
-                // TODO Fix this error message
-                assert(responseBody.parse<ErrorResponseRoot>().errors.body.first() == "")
+                assert(responseBody.parse<ErrorResponseRoot>().errors.body.first() == "Article $slug not found")
         }
     }
 
@@ -223,8 +226,8 @@ internal class RealWorldClient(val client: Client) {
     fun deleteComment(article: String, id: Int) {
         client.delete("/articles/$article/comments/$id") {
             assert(statusCode == 200)
-            // TODO Fix this response
-            assert(responseBody == "\"$id deleted\"")
+            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(responseBody.parse<OkResponse>().message == "$id deleted")
         }
     }
 

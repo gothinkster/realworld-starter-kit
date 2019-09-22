@@ -17,9 +17,6 @@ import java.net.URL
 
 /**
  * TODO
- *   - Test bad requests (invalid JSON, bad formats, etc.)
- *   - Check Delete responses content type and bodies
- *   - Assure errors structure and return messages (returned JSONs) are right
  *   - Login without credentials
  *   - Login with bad password
  */
