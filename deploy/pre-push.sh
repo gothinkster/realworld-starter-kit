@@ -15,9 +15,6 @@ docker-compose up -d mongodb
 docker-compose stop
 docker-compose up -d --build
 
-# TODO Wait until Backend is up instead sleeping
-sleep 10
-
 export TEST_RES="backend/src/test/resources/postman"
 newman run $TEST_RES/postman.json -e $TEST_RES/environment.json
 

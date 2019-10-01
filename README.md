@@ -50,10 +50,10 @@ stage is used to create the application image (check `backend/Dockerfile` for mo
 Docker Compose is used to build all modules (from their `Dockerfile`) and run them inside
 containers.
 
-To be sure that everything works before pushing changes, you can link the `deploy/pre-push` file to
-the `.git/hooks` directory:
+To be sure that everything works before pushing changes, you can link the `deploy/pre-push.sh` file
+to the `.git/hooks` directory:
 
-    ln -s $(pwd)/deploy/pre-push .git/hooks/pre-push
+    ln -s $(pwd)/deploy/pre-push.sh .git/hooks/pre-push
     
 However, you can use `git push --no-verify` to skip these checks.
 

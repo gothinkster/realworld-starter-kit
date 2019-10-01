@@ -11,7 +11,6 @@ import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.convertToMap
 import com.hexagonkt.store.Store
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME
 
 import kotlin.text.Charsets.UTF_8
 
@@ -81,8 +80,7 @@ internal fun Call.favoriteArticle(
     val article = articles.findOne(slug) ?: halt(404)
     val author = checkNotNull(users.findOne(article.author))
     val user = checkNotNull(users.findOne(principal.subject)) // Both can be fetched with one 'find'
-    // TODO Updates fail if not formatted as string
-    val updatedAt = LocalDateTime.now().format(ISO_LOCAL_DATE_TIME)
+    val updatedAt = LocalDateTime.now()
     val pair = Article::updatedAt.name to updatedAt
     val favoritedBy =
         if (favorite) article.favoritedBy + principal.subject
@@ -113,8 +111,7 @@ internal fun Call.updateArticle(jwt: Jwt, articles: Store<Article, String>) {
     val body = request.body<PutArticleRequestRoot>().article
     val slug = pathParameters["slug"]
 
-    // TODO Fails if not formatted as string
-    val updatedAt = LocalDateTime.now().format(ISO_LOCAL_DATE_TIME)
+    val updatedAt = LocalDateTime.now()
     val updatedAtPair = Article::updatedAt.name to updatedAt
     val requestUpdates = body.convertToMap().mapKeys { it.key.toString() } + updatedAtPair
 
