@@ -16,7 +16,7 @@ jobs:
       POSTGRES_DB: postgres
       POSTGRES_PASSWORD: ""
     docker:
-      - image: circleci/python:3.7.3-node
+      - image: circleci/python:3.7.4-node
       - image: circleci/postgres:11.2-alpine
 
     steps:

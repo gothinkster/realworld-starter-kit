@@ -68,6 +68,7 @@ class Article(Model):
     updated = Column(DateTime, default=datetime.utcnow, nullable=False)
 
     tags = relationship(Tag, secondary=article_tags)
+    favored_by = relationship("User", secondary="favorites")
 
     @classmethod
     def by_slug(cls: t.Type[Article], slug: str, db: Session) -> t.Optional[Article]:

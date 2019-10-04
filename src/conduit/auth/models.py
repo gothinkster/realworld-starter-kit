@@ -125,4 +125,4 @@ class User(Model):
         if article in self.favorites:
             self.favorites.remove(article)
 
-    favorites = relationship("Article", secondary=favorites, backref="favored_by")
+    favorites = relationship("Article", secondary=favorites)
