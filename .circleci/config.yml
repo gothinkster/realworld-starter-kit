@@ -66,6 +66,7 @@ jobs:
       - run:
           name: Create testing db
           command: |
+            sudo apt update
             sudo apt install postgresql-client
             .docker/devdb.sh
             .docker/testdb.sh
