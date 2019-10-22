@@ -71,6 +71,9 @@ If you have any dependency related issue, check out `./shell.nix` for the specif
 
 Docker should be running. Then you can run:
 
+    $ cd ~/projects
+    $ git clone https://github.com/niteoweb/pyramid-realworld-example-app.git
+    $ cd pyramid-realworld-example-app
     $ make install
     $ make start-pgsql
     $ make devdb
