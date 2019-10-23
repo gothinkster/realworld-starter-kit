@@ -5,11 +5,11 @@ import com.hexagonkt.helpers.CodedException
 import com.hexagonkt.helpers.MultipleException
 import com.hexagonkt.helpers.withZone
 import com.hexagonkt.http.server.Call
+import com.hexagonkt.http.server.CorsSettings
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.messages.ErrorResponse
 import com.hexagonkt.realworld.messages.ErrorResponseRoot
 import com.hexagonkt.realworld.rest.Jwt
-import com.hexagonkt.realworld.rest.cors
 import com.hexagonkt.serialization.Json
 import java.time.LocalDateTime
 import java.time.ZoneOffset.UTC
@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME
 import kotlin.text.Charsets.UTF_8
 
 internal val router: Router = Router {
-    cors()
+    cors(CorsSettings(allowedHeaders = setOf("Accept", "User-Agent", "Host", "Content-Type")))
 
     path("/users", usersRouter)
     path("/user", userRouter)

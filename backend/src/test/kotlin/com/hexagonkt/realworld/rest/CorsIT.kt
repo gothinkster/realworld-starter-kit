@@ -23,11 +23,15 @@ class CorsIT {
 
     @Test fun `OPTIONS returns correct CORS headers`() {
         val client = Client("http://localhost:${server.runtimePort}/api", Json.contentType)
-        val response = client.options("/tags")
         val corsHeaders = "Accept,User-Agent,Host,Content-Type"
+        val response = client.options("/tags", callHeaders = mapOf(
+            "Origin" to listOf("localhost"),
+            "Access-Control-Request-Headers" to listOf(corsHeaders),
+            "Access-Control-Request-Method" to listOf("GET")
+        ))
 
         assert(response.statusCode == 204)
-        assert(response.headers["Access-Control-Allow-Origin"] == "*")
+        assert(response.headers["Access-Control-Allow-Origin"] == "localhost")
         assert(response.headers["Access-Control-Allow-Headers"] == corsHeaders)
     }
 }
