@@ -18,6 +18,10 @@ from sqlalchemy.orm import relationship
 
 import typing as t
 
+if t.TYPE_CHECKING:  # pragma: no cover
+    from conduit.article.models import Article  # noqa: F401
+    from conduit.auth.models import User  # noqa: F401
+
 __all__ = ["Comment"]
 
 
@@ -29,7 +33,7 @@ class Comment(Model):
 
     def __json__(
         self, request: Request
-    ) -> t.Dict[str, t.Union[int, bool, str, t.List[str], Profile]]:
+    ) -> t.Dict[str, t.Union[int, bool, str, datetime, t.List[str], Profile]]:
         """JSON renderer support."""
         return {
             "id": self.id,
@@ -41,25 +45,31 @@ class Comment(Model):
 
     # override pyramid_deferred_sqla's UUID-based id column because
     # the RealWorld.io spec expects an Integer
-    id = Column(Integer, primary_key=True, nullable=False)  # noqa: A003
+    id = Column(Integer, primary_key=True, nullable=False)  # type: ignore  # noqa: A003
 
     article_id = Column(UUID(as_uuid=True), ForeignKey("articles.id"), nullable=False)
-    article = relationship(
+    article = t.cast(
         "Article",
-        backref=backref(
-            "comments",
-            order_by="desc(Comment.created)",
-            cascade="save-update, merge, delete",
+        relationship(
+            "Article",
+            backref=backref(
+                "comments",
+                order_by="desc(Comment.created)",
+                cascade="save-update, merge, delete",
+            ),
         ),
     )
 
     author_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
-    author = relationship(
+    author = t.cast(
         "User",
-        backref=backref(
-            "comments",
-            order_by="desc(Comment.created)",
-            cascade="save-update, merge, delete",
+        relationship(
+            "User",
+            backref=backref(
+                "comments",
+                order_by="desc(Comment.created)",
+                cascade="save-update, merge, delete",
+            ),
         ),
     )
 

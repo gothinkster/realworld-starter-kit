@@ -56,7 +56,7 @@ def app(app_env: AppEnvType) -> Router:
 
 
 @pytest.fixture(scope="function")
-def db(app_env: AppEnvType) -> Session:
+def db(app_env: AppEnvType) -> t.Iterator[Session]:
     """Initialize WSGI application from INI file given on the command line."""
     engine = app_env["registry"].settings["sqlalchemy.engine"]
     engine.update_execution_options(use_threadlocal=True, poolclass=NullPool)

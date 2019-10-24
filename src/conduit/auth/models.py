@@ -31,8 +31,10 @@ class LowerCaseString(TypeDecorator):
 
     impl = String
 
-    def process_bind_param(self, value: str, dialect: PGDialect_psycopg2):
-        return value.lower()
+    def process_bind_param(
+        self, value: t.Optional[str], dialect: PGDialect_psycopg2
+    ) -> str:
+        return value.lower() if value else ""
 
 
 followers = Table(
@@ -107,12 +109,15 @@ class User(Model):
         if user in self.follows:
             self.follows.remove(user)
 
-    follows = relationship(
-        "User",
-        secondary=followers,
-        primaryjoin=lambda: User.id == followers.c.follower_id,
-        secondaryjoin=lambda: User.id == followers.c.followed_id,
-        backref="followers",
+    follows = t.cast(
+        t.List["User"],
+        relationship(
+            "User",
+            secondary=followers,
+            primaryjoin=lambda: User.id == followers.c.follower_id,
+            secondaryjoin=lambda: User.id == followers.c.followed_id,
+            backref="followers",
+        ),
     )
 
     def favorite(self, article: Article) -> None:
@@ -125,4 +130,4 @@ class User(Model):
         if article in self.favorites:
             self.favorites.remove(article)
 
-    favorites = relationship("Article", secondary=favorites)
+    favorites = t.cast(t.List["Article"], relationship("Article", secondary=favorites))

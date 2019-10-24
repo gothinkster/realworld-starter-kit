@@ -21,6 +21,9 @@ from sqlalchemy.orm.session import Session
 
 import typing as t
 
+if t.TYPE_CHECKING:  # pragma: no cover
+    from conduit.auth.models import User  # noqa: F401
+
 __all__ = ["Article"]
 
 
@@ -40,7 +43,7 @@ class Article(Model):
 
     def __json__(
         self, request: Request
-    ) -> t.Dict[str, t.Union[int, bool, str, t.List[str], Profile]]:
+    ) -> t.Dict[str, t.Union[int, bool, str, datetime, t.List[str], Profile]]:
         """JSON renderer support."""
         return {
             "slug": self.slug,
@@ -56,8 +59,11 @@ class Article(Model):
         }
 
     author_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
-    author = relationship(
-        "User", backref=backref("articles", order_by="desc(Article.created)")
+    author = t.cast(
+        "User",
+        relationship(
+            "User", backref=backref("articles", order_by="desc(Article.created)")
+        ),
     )
 
     slug = Column(String, nullable=False, unique=True)
@@ -67,8 +73,8 @@ class Article(Model):
     created = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated = Column(DateTime, default=datetime.utcnow, nullable=False)
 
-    tags = relationship(Tag, secondary=article_tags)
-    favored_by = relationship("User", secondary="favorites")
+    tags = t.cast(t.List[Tag], relationship(Tag, secondary=article_tags))
+    favored_by = t.cast(t.List["User"], relationship("User", secondary="favorites"))
 
     @classmethod
     def by_slug(cls: t.Type[Article], slug: str, db: Session) -> t.Optional[Article]:

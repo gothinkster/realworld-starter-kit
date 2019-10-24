@@ -1017,6 +1017,7 @@ lint = ["black"]
 reference = "639b822d16aff7d732a4da2d3752cfdecee00aef"
 type = "git"
 url = "https://github.com/niteoweb/pyramid_deferred_sqla.git"
+
 [[package]]
 category = "main"
 description = "A tween to force HTTPS."
@@ -1411,6 +1412,18 @@ pymysql = ["pymysql"]
 
 [[package]]
 category = "dev"
+description = "SQLAlchemy stubs and mypy plugin"
+name = "sqlalchemy-stubs"
+optional = false
+python-versions = "*"
+version = "0.3"
+
+[package.dependencies]
+mypy = ">=0.720"
+typing-extensions = ">=3.7.4"
+
+[[package]]
+category = "dev"
 description = "Manage dynamic plugins for Python applications"
 name = "stevedore"
 optional = false
@@ -1725,7 +1738,7 @@ transaction = ">=1.6.0"
 test = ["zope.testing"]
 
 [metadata]
-content-hash = "00c6aaec7aa17a10db03d6a63452efd804f902110a175a318c78b4e0f2d961fa"
+content-hash = "c5cf48829d24bcc49238d1be7ba255daa6c32df9e908f16a5bd236055f99c346"
 python-versions = "~3.8"
 
 [metadata.files]
@@ -2392,6 +2405,10 @@ soupsieve = [
 ]
 sqlalchemy = [
     {file = "SQLAlchemy-1.3.15.tar.gz", hash = "sha256:c4cca4aed606297afbe90d4306b49ad3a4cd36feb3f87e4bfd655c57fd9ef445"},
+]
+sqlalchemy-stubs = [
+    {file = "sqlalchemy-stubs-0.3.tar.gz", hash = "sha256:a3318c810697164e8c818aa2d90bac570c1a0e752ced3ec25455b309c0bee8fd"},
+    {file = "sqlalchemy_stubs-0.3-py3-none-any.whl", hash = "sha256:ca1250605a39648cc433f5c70cb1a6f9fe0b60bdda4c51e1f9a2ab3651daadc8"},
 ]
 stevedore = [
     {file = "stevedore-1.32.0-py2.py3-none-any.whl", hash = "sha256:a4e7dc759fb0f2e3e2f7d8ffe2358c19d45b9b8297f393ef1256858d82f69c9b"},
