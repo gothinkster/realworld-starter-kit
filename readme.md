@@ -10,7 +10,7 @@
   <img alt="Type Hints coverage (master branch)"
        src="https://img.shields.io/badge/types_coverage-100%25-brightgreen.svg">
   <img alt="Supported Python versions"
-       src="https://img.shields.io/badge/python-3.7-2A79B8.svg">
+       src="https://img.shields.io/badge/python-3.8-2A79B8.svg">
   <a href="https://github.com/niteoweb/pyramid-realworld-example-app/blob/master/LICENSE">
     <img alt="License: MIT"
          src="https://img.shields.io/badge/License-MIT-yellow.svg">
@@ -47,7 +47,7 @@ RealWorld.io frontend.
 
 # Getting started
 
-You need to have docker, [pipenv](https://pipenv.readthedocs.io/) and Python 3.7 installed on your machine. Docker should be running. Then you can run:
+You need to have docker, [pipenv](https://pipenv.readthedocs.io/) and Python 3.8 installed on your machine. Docker should be running. Then you can run:
 
     $ make install
     $ make start-pgsql

@@ -16,7 +16,7 @@ jobs:
       POSTGRES_DB: postgres
       POSTGRES_PASSWORD: ""
     docker:
-      - image: circleci/python:3.7.4-node
+      - image: circleci/python:3.8.0-node
       - image: circleci/postgres:11.2-alpine
 
     steps:
@@ -86,7 +86,7 @@ jobs:
           command: |
             DATABASE_URL="postgresql://conduit_dev@localhost/conduit_dev" pipenv run pshell etc/production.ini SKIP_CHECK_DB_MIGRATED=1 < .circleci/exit.sh
 
-      - run :
+      - run:
           name: run Postman tests
           command: |
             make devdb

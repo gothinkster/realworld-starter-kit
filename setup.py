@@ -9,7 +9,7 @@ setup(
     description="Pyramid and OpenAPI3 based RealWorld.io example.",
     classifiers=[
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "Framework :: Pyramid",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
