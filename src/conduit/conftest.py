@@ -29,6 +29,9 @@ import typing as t
 logger = logging.getLogger(__name__)
 AppEnvType = t.Dict["str", Request]
 
+# Make sure TestApp doesn't get collected by pytest
+TestApp.__test__ = False
+
 
 @pytest.fixture(scope="session")
 def ini_path(request: _pytest.fixtures.SubRequest) -> str:
