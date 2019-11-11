@@ -1,0 +1,34 @@
+{
+  "name": "hybrids-realworld-starter-kit",
+  "version": "1.0.0",
+  "description": "> ### [YOUR_FRAMEWORK] codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.",
+  "main": "index.js",
+  "dependencies": {
+    "hybrids": "^4.0.2",
+    "prettier": "^1.19.1",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-plugin-functional": "^1.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev-server": "webpack-dev-server --entry ./src/index.js --output-filename ./dist/index.js --mode development --overlay",
+    "lint": "eslint src",
+    "prettify": "prettier --write src/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xAKLx/hybrids-realworld-starter-kit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xAKLx/hybrids-realworld-starter-kit/issues"
+  },
+  "homepage": "https://github.com/xAKLx/hybrids-realworld-starter-kit#readme"
+}
