@@ -4,8 +4,11 @@
   "description": "> ### [YOUR_FRAMEWORK] codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.",
   "main": "index.js",
   "dependencies": {
+    "axios": "^0.19.0",
     "hybrids": "^4.0.2",
     "prettier": "^1.19.1",
+    "ramda": "^0.26.1",
+    "redux": "^4.0.4",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0"
