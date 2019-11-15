@@ -1,41 +1,21 @@
 {
-  "name": "reason-react-realworld-example-app",
-  "reason": { "react-jsx": 2 },
-  "sources": [
-    {
-      "dir": "src",
-      "subdirs": [
-        {
-          "dir": "__tests__",
-          "type": "dev"
-        }
-      ]
-    }
-  ],
-  "package-specs": [
-    {
-      "module": "commonjs",
-      "in-source": true
-    }
-  ],
+  "name": "reason-react-examples",
+  "reason": {
+    "react-jsx": 3,
+  },
+  "sources": {
+    "dir" : "src",
+    "subdirs" : true
+  },
+  "bsc-flags": ["-bs-super-errors", "-bs-no-version-header"],
+  "package-specs": [{
+    "module": "commonjs",
+    "in-source": true
+  }],
   "suffix": ".bs.js",
   "namespace": true,
   "bs-dependencies": [
-    "re-formality",
-    "bs-webapi",
-    "@glennsl/bs-json",
-    "bs-fetch",
-    "remotedata-re",
     "reason-react"
   ],
-  "bs-dev-dependencies": [
-    "@glennsl/bs-jest",
-    "bs-dom-testing-library",
-    "bs-react-testing-library"
-  ],
-  "bsc-flags": ["-bs-super-errors"],
-  "warnings": {
-    "error": "+101"
-  },
   "refmt": 3
 }
