@@ -38,7 +38,7 @@ def json_renderer() -> JSON:
     return renderer
 
 
-def datetime_adapter(obj: datetime, request: Request):
+def datetime_adapter(obj: datetime, request: Request) -> str:
     """OpenAPI spec defines date-time notation as RFC 3339, section 5.6.  # noqa
 
     For example: 2017-07-21T17:32:28.001Z
