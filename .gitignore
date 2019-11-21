@@ -2,7 +2,7 @@
 # Gradle
 .gradle/
 build/
-local.*
+local*
 
 # Eclipse
 .settings/
@@ -22,7 +22,7 @@ out/
 .java-version
 
 # Runtime
-log/
+**/log/
 *.log
 *.hprof
 .attach_pid*
