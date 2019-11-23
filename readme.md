@@ -30,9 +30,6 @@ make sure your ~/.*shrc have those variable:
 
 For more info and detailed instructions please check this guide: [Setting GOPATH](https://github.com/golang/go/wiki/SettingGOPATH)
 
-### Install dep
-https://golang.github.io/dep/docs/installation.html
-
 ### Clone the repository
 
 Clone this repository:
