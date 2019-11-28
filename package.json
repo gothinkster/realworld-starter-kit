@@ -9,7 +9,7 @@
     "scripts": {
         "webpack-dev-server => open": "git",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "deploy": "gh-pages -d dist/"
+        "deploy": "gh-pages -d dist/production/"
     },
     "keywords": [],
     "author": "Tobias Uhlig, Nils Dehl",
