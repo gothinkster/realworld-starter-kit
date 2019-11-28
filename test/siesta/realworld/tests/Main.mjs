@@ -1,7 +1,7 @@
-import Main from '../../../../api/Base.mjs';
+import Main from '../../../../node_modules/neo.mjs/src/Main.mjs';
 
 StartTest(t => {
     t.it("Sanity", t => {
-        t.ok(Main, 'api.Base is imported as a JS module');
+        t.ok(Main, 'Main is imported as a JS module');
     });
 });
