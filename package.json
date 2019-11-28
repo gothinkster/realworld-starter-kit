@@ -1,0 +1,23 @@
+{
+    "name": "neo.mjs-realworld-example-app",
+    "version": "1.0.0",
+    "description": "The webworkers driven UI framework",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/neomjs/neomjs-realworld-example-app.git"
+    },
+    "scripts": {
+        "webpack-dev-server => open": "webpack-dev-server --open",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Tobias Uhlig, Nils Dehl",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/neomjs/neomjs-realworld-example-app/issues"
+    },
+    "homepage": "https://github.com/neomjs/neomjs-realworld-example-app",
+    "dependencies": {
+        "neo.mjs": "^1.0.5"
+    }
+}
