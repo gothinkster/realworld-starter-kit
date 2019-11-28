@@ -8,7 +8,8 @@
     },
     "scripts": {
         "webpack-dev-server => open": "git",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "deploy": "gh-pages -d dist/"
     },
     "keywords": [],
     "author": "Tobias Uhlig, Nils Dehl",
@@ -18,7 +19,9 @@
     },
     "homepage": "https://neomjs.github.io/neomjs-realworld-example-app/",
     "dependencies": {
-        "gh-pages": "^2.1.1",
         "neo.mjs": "^1.0.5"
+    },
+    "devDependencies": {
+        "gh-pages": "^2.1.1"
     }
 }
