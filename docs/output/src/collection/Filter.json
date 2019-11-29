@@ -1,0 +1,534 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.collection.Filter\n * @extends Neo.core.Base\n */",
+            "meta": {
+                "filename": "Filter.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Filter",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "memberof": "Neo.collection",
+            "longname": "Neo.collection.Filter",
+            "scope": "static",
+            "$longname": "Neo.collection.Filter",
+            "$kind": "class",
+            "id": 70,
+            "neoClassName": "Neo.collection.Filter"
+        },
+        {
+            "comment": "/**\n         * True automatically applies the core/Observable.mjs mixin\n         * @member {Boolean} observable=true\n         * @static\n         */",
+            "meta": {
+                "filename": "Filter.mjs",
+                "lineno": 15,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {}
+            },
+            "description": "True automatically applies the core/Observable.mjs mixin",
+            "kind": "member",
+            "name": "observable",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "scope": "static",
+            "longname": "observable",
+            "$longname": "observable",
+            "$kind": "property",
+            "id": 71,
+            "neoClassName": "Neo.collection.Filter"
+        },
+        {
+            "comment": "/**\n         * Valid values for the operator config:<br>\n         * ['==', '===', '!=', '!==', '<', '<=', '>', '>=', 'excluded', 'included', 'isDefined', 'isUndefined', 'like']\n         * @member {String[]} operators\n         * @private\n         * @static\n         */",
+            "meta": {
+                "filename": "Filter.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {}
+            },
+            "description": "Valid values for the operator config:<br><br />['==', '===', '!=', '!==', '<', '<=', '>', '>=', 'excluded', 'included', 'isDefined', 'isUndefined', 'like']",
+            "kind": "member",
+            "name": "operators",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "access": "private",
+            "scope": "static",
+            "longname": "operators",
+            "$longname": "operators",
+            "$kind": "property",
+            "id": 72,
+            "neoClassName": "Neo.collection.Filter"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.collection.Filter'\n         * @private\n         */",
+            "meta": {
+                "filename": "Filter.mjs",
+                "lineno": 31,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.collection.Filter'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 73,
+            "neoClassName": "Neo.collection.Filter"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='filter'\n         * @private\n         */",
+            "meta": {
+                "filename": "Filter.mjs",
+                "lineno": 36,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'filter'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 74,
+            "neoClassName": "Neo.collection.Filter"
+        },
+        {
+            "comment": "/**\n         * Setting disabled to true will exclude this filter from the collection filtering logic\n         * @member {Boolean} disabled_=false\n         */",
+            "meta": {
+                "filename": "Filter.mjs",
+                "lineno": 41,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {}
+            },
+            "description": "Setting disabled to true will exclude this filter from the collection filtering logic",
+            "kind": "member",
+            "name": "disabled_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "disabled_",
+            "scope": "global",
+            "$longname": "disabled_",
+            "$kind": "property",
+            "id": 75,
+            "neoClassName": "Neo.collection.Filter"
+        },
+        {
+            "comment": "/**\n         * Provide a custom filtering function, has a higher priority than property, operator & value\n         * @member {Function|null} filterBy_=null\n         */",
+            "meta": {
+                "filename": "Filter.mjs",
+                "lineno": 46,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {}
+            },
+            "description": "Provide a custom filtering function, has a higher priority than property, operator & value",
+            "kind": "member",
+            "name": "filterBy_",
+            "type": {
+                "names": [
+                    "function",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "filterBy_",
+            "scope": "global",
+            "$longname": "filterBy_",
+            "$kind": "property",
+            "id": 76,
+            "neoClassName": "Neo.collection.Filter"
+        },
+        {
+            "comment": "/**\n         * True means not filtering out items in case the value is '', null, [] or {}\n         * @member {Boolean} includeEmptyValues=false\n         */",
+            "meta": {
+                "filename": "Filter.mjs",
+                "lineno": 51,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {}
+            },
+            "description": "True means not filtering out items in case the value is '', null, [] or {}",
+            "kind": "member",
+            "name": "includeEmptyValues",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "includeEmptyValues",
+            "scope": "global",
+            "$longname": "includeEmptyValues",
+            "$kind": "property",
+            "id": 77,
+            "neoClassName": "Neo.collection.Filter"
+        },
+        {
+            "comment": "/**\n         * Set this flag to true before starting bulk updates (e.g. changing property & value)\n         * to prevent multiple change events\n         * @member {Boolean} isUpdating_=false\n         */",
+            "meta": {
+                "filename": "Filter.mjs",
+                "lineno": 57,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {}
+            },
+            "description": "Set this flag to true before starting bulk updates (e.g. changing property & value)<br />to prevent multiple change events",
+            "kind": "member",
+            "name": "isUpdating_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "isUpdating_",
+            "scope": "global",
+            "$longname": "isUpdating_",
+            "$kind": "property",
+            "id": 78,
+            "neoClassName": "Neo.collection.Filter"
+        },
+        {
+            "comment": "/**\n         * The owner util.Collection needs to apply an onChange listener once\n         * @member {Boolean} listenerApplied=false\n         * @private\n         */",
+            "meta": {
+                "filename": "Filter.mjs",
+                "lineno": 63,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {}
+            },
+            "description": "The owner util.Collection needs to apply an onChange listener once",
+            "kind": "member",
+            "name": "listenerApplied",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "access": "private",
+            "longname": "listenerApplied",
+            "scope": "global",
+            "$longname": "listenerApplied",
+            "$kind": "property",
+            "id": 79,
+            "neoClassName": "Neo.collection.Filter"
+        },
+        {
+            "comment": "/**\n         * The operator to filter by (use the combination of property, operator & value)\n         * Valid values:\n         *\n         * == (not recommended)\n         * ===\n         * != (not recommended)\n         * !==\n         * <\n         * >=\n         * >\n         * >=\n         * like (collectionValue.toLowerCase().indexOf(filterValue.toLowerCase()) > -1)\n         * included (expects value to be an array)\n         * excluded (expects value to be an array)\n         * @member {String} operator='==='\n         */",
+            "meta": {
+                "filename": "Filter.mjs",
+                "lineno": 81,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {}
+            },
+            "description": "The operator to filter by (use the combination of property, operator & value)<br />Valid values:<br /><br />== (not recommended)<br />===<br />!= (not recommended)<br />!==<br /><<br />>=<br />><br />>=<br />like (collectionValue.toLowerCase().indexOf(filterValue.toLowerCase()) > -1)<br />included (expects value to be an array)<br />excluded (expects value to be an array)",
+            "kind": "member",
+            "name": "operator",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'==='",
+            "longname": "operator",
+            "scope": "global",
+            "$longname": "operator",
+            "$kind": "property",
+            "id": 80,
+            "neoClassName": "Neo.collection.Filter"
+        },
+        {
+            "comment": "/**\n         * The property to filter by (use the combination of property, operator & value)\n         * @member {String} property_='id'\n         */",
+            "meta": {
+                "filename": "Filter.mjs",
+                "lineno": 86,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {}
+            },
+            "description": "The property to filter by (use the combination of property, operator & value)",
+            "kind": "member",
+            "name": "property_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'id'",
+            "longname": "property_",
+            "scope": "global",
+            "$longname": "property_",
+            "$kind": "property",
+            "id": 81,
+            "neoClassName": "Neo.collection.Filter"
+        },
+        {
+            "comment": "/**\n         * The scope to use for the filterBy method, in case it is provided. Defaults to this instance.\n         * @member {Object|null} scope=null\n         */",
+            "meta": {
+                "filename": "Filter.mjs",
+                "lineno": 91,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {}
+            },
+            "description": "The scope to use for the filterBy method, in case it is provided. Defaults to this instance.",
+            "kind": "member",
+            "name": "scope",
+            "type": {
+                "names": [
+                    "Object",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "scope",
+            "scope": "global",
+            "$longname": "scope",
+            "$kind": "property",
+            "id": 82,
+            "neoClassName": "Neo.collection.Filter"
+        },
+        {
+            "comment": "/**\n         * The value to filter by (use the combination of property, operator & value)\n         * @member {String} value_=null\n         */",
+            "meta": {
+                "filename": "Filter.mjs",
+                "lineno": 96,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {}
+            },
+            "description": "The value to filter by (use the combination of property, operator & value)",
+            "kind": "member",
+            "name": "value_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "value_",
+            "scope": "global",
+            "$longname": "value_",
+            "$kind": "property",
+            "id": 83,
+            "neoClassName": "Neo.collection.Filter"
+        },
+        {
+            "comment": "/**\n     * Triggered before the operator config gets changed.\n     * @param {String|null} value\n     * @param {String} oldValue\n     * @returns {String}\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4185,
+                    4296
+                ],
+                "filename": "Filter.mjs",
+                "lineno": 141,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {
+                    "id": "astnode100003379",
+                    "name": "Filter#beforeSetOperator",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the operator config gets changed.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    }
+                }
+            ],
+            "access": "private",
+            "name": "beforeSetOperator",
+            "longname": "Filter#beforeSetOperator",
+            "kind": "function",
+            "memberof": "Filter",
+            "scope": "instance",
+            "$longname": "Filter#beforeSetOperator",
+            "$kind": "method",
+            "id": 84,
+            "neoClassName": "Neo.collection.Filter"
+        },
+        {
+            "comment": "/**\n     *\n     * @param value\n     * @param oldValue\n     */",
+            "meta": {
+                "range": [
+                    4368,
+                    4667
+                ],
+                "filename": "Filter.mjs",
+                "lineno": 150,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {
+                    "id": "astnode100003393",
+                    "name": "Filter#fireChangeEvent",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "value"
+                },
+                {
+                    "name": "oldValue"
+                }
+            ],
+            "name": "fireChangeEvent",
+            "longname": "Filter#fireChangeEvent",
+            "kind": "function",
+            "memberof": "Filter",
+            "scope": "instance",
+            "$longname": "Filter#fireChangeEvent",
+            "$kind": "method",
+            "id": 85,
+            "neoClassName": "Neo.collection.Filter"
+        },
+        {
+            "comment": "/**\n     * Checks if a colletion item matches this filter\n     * @param {Object} item The current collection item\n     * @param {Array} filteredItems If the collection filterMode is not primitive contains the items which passed\n     * the previous filters, otherwise all collection items\n     * @param {Array} allItems all collection items\n     * @returns {Boolean}\n     */",
+            "meta": {
+                "range": [
+                    5051,
+                    5525
+                ],
+                "filename": "Filter.mjs",
+                "lineno": 170,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/collection",
+                "code": {
+                    "id": "astnode100003433",
+                    "name": "Filter#isFiltered",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "item",
+                        "filteredItems",
+                        "allItems"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Checks if a colletion item matches this filter",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The current collection item",
+                    "name": "item"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "description": "If the collection filterMode is not primitive contains the items which passed<br />the previous filters, otherwise all collection items",
+                    "name": "filteredItems"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "description": "all collection items",
+                    "name": "allItems"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    }
+                }
+            ],
+            "name": "isFiltered",
+            "longname": "Filter#isFiltered",
+            "kind": "function",
+            "memberof": "Filter",
+            "scope": "instance",
+            "$longname": "Filter#isFiltered",
+            "$kind": "method",
+            "id": 86,
+            "neoClassName": "Neo.collection.Filter"
+        }
+    ]
+}

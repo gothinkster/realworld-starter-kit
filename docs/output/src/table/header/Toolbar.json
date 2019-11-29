@@ -1,0 +1,389 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.table.header.Toolbar\n * @extends Neo.container.Toolbar\n */",
+            "meta": {
+                "filename": "Toolbar.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Toolbar",
+            "augments": [
+                "Neo.container.Toolbar"
+            ],
+            "memberof": "Neo.table.header",
+            "longname": "Neo.table.header.Toolbar",
+            "scope": "static",
+            "$longname": "Neo.table.header.Toolbar",
+            "$kind": "class",
+            "id": 1699,
+            "neoClassName": "Neo.table.header.Toolbar"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.table.header.Toolbar'\n         * @private\n         */",
+            "meta": {
+                "filename": "Toolbar.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.table.header.Toolbar'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1700,
+            "neoClassName": "Neo.table.header.Toolbar"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='table-header-toolbar'\n         * @private\n         */",
+            "meta": {
+                "filename": "Toolbar.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'table-header-toolbar'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1701,
+            "neoClassName": "Neo.table.header.Toolbar"
+        },
+        {
+            "comment": "/**\n         * @member {Array} cls=['table-header-toolbar']\n         */",
+            "meta": {
+                "filename": "Toolbar.mjs",
+                "lineno": 22,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array"
+                ]
+            },
+            "defaultvalue": "['table-header-toolbar']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 1702,
+            "neoClassName": "Neo.table.header.Toolbar"
+        },
+        {
+            "comment": "/**\n         * @member {String} layout='base'\n         */",
+            "meta": {
+                "filename": "Toolbar.mjs",
+                "lineno": 26,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "layout",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'base'",
+            "longname": "layout",
+            "scope": "global",
+            "$longname": "layout",
+            "$kind": "property",
+            "id": 1703,
+            "neoClassName": "Neo.table.header.Toolbar"
+        },
+        {
+            "comment": "/**\n         * @member {Object} itemDefaults={ntype : 'table-header-button'}\n         */",
+            "meta": {
+                "filename": "Toolbar.mjs",
+                "lineno": 30,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "itemDefaults",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{ntype : 'table-header-button'}",
+            "description": ": 'table-header-button'}",
+            "longname": "itemDefaults",
+            "scope": "global",
+            "$longname": "itemDefaults",
+            "$kind": "property",
+            "id": 1704,
+            "neoClassName": "Neo.table.header.Toolbar"
+        },
+        {
+            "comment": "/**\n         * @member {Object} _vdom={tag: 'thead',cn : [{tag: 'tr',cn : []}]}\n         */",
+            "meta": {
+                "filename": "Toolbar.mjs",
+                "lineno": 36,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "_vdom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{tag: 'thead',cn : [{tag: 'tr',cn : []}]}",
+            "description": "'thead',cn : [{tag: 'tr',cn : []}]}",
+            "longname": "_vdom",
+            "scope": "global",
+            "$longname": "_vdom",
+            "$kind": "property",
+            "id": 1705,
+            "neoClassName": "Neo.table.header.Toolbar"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} dock\n     * @returns {String} layoutConfig\n     * @override\n     */",
+            "meta": {
+                "range": [
+                    1251,
+                    1303
+                ],
+                "filename": "Toolbar.mjs",
+                "lineno": 51,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054858",
+                    "name": "Toolbar#getLayoutConfig",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "dock"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "dock"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "layoutConfig"
+                }
+            ],
+            "override": true,
+            "name": "getLayoutConfig",
+            "longname": "Toolbar#getLayoutConfig",
+            "kind": "function",
+            "memberof": "Toolbar",
+            "scope": "instance",
+            "$longname": "Toolbar#getLayoutConfig",
+            "$kind": "method",
+            "id": 1706,
+            "neoClassName": "Neo.table.header.Toolbar"
+        },
+        {
+            "comment": "/**\n     * Specify a different vdom items root if needed (useful in case this container uses a wrapper node).\n     * @returns {Object} The new vdom items root\n     */",
+            "meta": {
+                "range": [
+                    1480,
+                    1541
+                ],
+                "filename": "Toolbar.mjs",
+                "lineno": 59,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054865",
+                    "name": "Toolbar#getVdomItemsRoot",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Specify a different vdom items root if needed (useful in case this container uses a wrapper node).",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The new vdom items root"
+                }
+            ],
+            "name": "getVdomItemsRoot",
+            "longname": "Toolbar#getVdomItemsRoot",
+            "kind": "function",
+            "memberof": "Toolbar",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Toolbar#getVdomItemsRoot",
+            "$kind": "method",
+            "id": 1707,
+            "neoClassName": "Neo.table.header.Toolbar"
+        },
+        {
+            "comment": "/**\n     * Specify a different vdom root if needed to apply the top level style attributes on a different level.\n     * Make sure to use getVnodeRoot() as well, to keep the vdom & vnode trees in sync.\n     * @returns {Object} The new vdom root\n     */",
+            "meta": {
+                "range": [
+                    1803,
+                    1856
+                ],
+                "filename": "Toolbar.mjs",
+                "lineno": 68,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054879",
+                    "name": "Toolbar#getVdomRoot",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Specify a different vdom root if needed to apply the top level style attributes on a different level.<br />Make sure to use getVnodeRoot() as well, to keep the vdom & vnode trees in sync.",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The new vdom root"
+                }
+            ],
+            "name": "getVdomRoot",
+            "longname": "Toolbar#getVdomRoot",
+            "kind": "function",
+            "memberof": "Toolbar",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Toolbar#getVdomRoot",
+            "$kind": "method",
+            "id": 1708,
+            "neoClassName": "Neo.table.header.Toolbar"
+        },
+        {
+            "comment": "/**\n     * Specify a different vnode root if needed to apply the top level style attributes on a different level.\n     * Make sure to use getVdomRoot() as well, to keep the vdom & vnode trees in sync.\n     * @returns {Object} The new vnode root\n     */",
+            "meta": {
+                "range": [
+                    2119,
+                    2182
+                ],
+                "filename": "Toolbar.mjs",
+                "lineno": 77,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054891",
+                    "name": "Toolbar#getVnodeRoot",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Specify a different vnode root if needed to apply the top level style attributes on a different level.<br />Make sure to use getVdomRoot() as well, to keep the vdom & vnode trees in sync.",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The new vnode root"
+                }
+            ],
+            "name": "getVnodeRoot",
+            "longname": "Toolbar#getVnodeRoot",
+            "kind": "function",
+            "memberof": "Toolbar",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Toolbar#getVnodeRoot",
+            "$kind": "method",
+            "id": 1709,
+            "neoClassName": "Neo.table.header.Toolbar"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    2211,
+                    3397
+                ],
+                "filename": "Toolbar.mjs",
+                "lineno": 84,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054903",
+                    "name": "Toolbar#createItems",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "createItems",
+            "longname": "Toolbar#createItems",
+            "kind": "function",
+            "memberof": "Toolbar",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Toolbar#createItems",
+            "$kind": "method",
+            "id": 1710,
+            "neoClassName": "Neo.table.header.Toolbar"
+        }
+    ]
+}

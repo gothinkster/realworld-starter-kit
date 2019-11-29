@@ -1,0 +1,740 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.table.header.Button\n * @extends Neo.component.Button\n */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Button",
+            "augments": [
+                "Neo.component.Button"
+            ],
+            "memberof": "Neo.table.header",
+            "longname": "Neo.table.header.Button",
+            "scope": "static",
+            "$longname": "Neo.table.header.Button",
+            "$kind": "class",
+            "id": 1677,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.table.header.Button'\n         * @private\n         */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.table.header.Button'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1678,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='table-header-button'\n         * @private\n         */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'table-header-button'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1679,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n         * @member {Array} cls=['neo-table-header-button']\n         */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array"
+                ]
+            },
+            "defaultvalue": "['neo-table-header-button']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 1680,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} draggable_=true\n         */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 27,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "draggable_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "draggable_",
+            "scope": "global",
+            "$longname": "draggable_",
+            "$kind": "property",
+            "id": 1681,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n         * @member {String} iconCls='fa fa-arrow-circle-up'\n         */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 31,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "iconCls",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'fa",
+            "description": "fa-arrow-circle-up'",
+            "longname": "iconCls",
+            "scope": "global",
+            "$longname": "iconCls",
+            "$kind": "property",
+            "id": 1682,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n         * @member {String} iconPosition='right'\n         */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 35,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "iconPosition",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'right'",
+            "longname": "iconPosition",
+            "scope": "global",
+            "$longname": "iconPosition",
+            "$kind": "property",
+            "id": 1683,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n         * 'ASC', 'DESC' or null\n         * @member {String|null} isSorted=null\n         * @private\n         */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 41,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {}
+            },
+            "description": "'ASC', 'DESC' or null",
+            "kind": "member",
+            "name": "isSorted",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "isSorted",
+            "scope": "global",
+            "$longname": "isSorted",
+            "$kind": "property",
+            "id": 1684,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n         * @member {String} _vdom\n         */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 45,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "_vdom",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "longname": "_vdom",
+            "scope": "global",
+            "$longname": "_vdom",
+            "$kind": "property",
+            "id": 1685,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n     * Specify a different vdom root if needed to apply the top level style attributes on a different level.\n     * Make sure to use getVnodeRoot() as well, to keep the vdom & vnode trees in sync.\n     * @returns {Object} The new vdom root\n     */",
+            "meta": {
+                "range": [
+                    1806,
+                    1859
+                ],
+                "filename": "Button.mjs",
+                "lineno": 65,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054327",
+                    "name": "Button#getVdomRoot",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Specify a different vdom root if needed to apply the top level style attributes on a different level.<br />Make sure to use getVnodeRoot() as well, to keep the vdom & vnode trees in sync.",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The new vdom root"
+                }
+            ],
+            "name": "getVdomRoot",
+            "longname": "Button#getVdomRoot",
+            "kind": "function",
+            "memberof": "Button",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Button#getVdomRoot",
+            "$kind": "method",
+            "id": 1686,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n     * Specify a different vnode root if needed to apply the top level style attributes on a different level.\n     * Make sure to use getVdomRoot() as well, to keep the vdom & vnode trees in sync.\n     * @returns {Object} The new vnode root\n     */",
+            "meta": {
+                "range": [
+                    2122,
+                    2185
+                ],
+                "filename": "Button.mjs",
+                "lineno": 74,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054339",
+                    "name": "Button#getVnodeRoot",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Specify a different vnode root if needed to apply the top level style attributes on a different level.<br />Make sure to use getVdomRoot() as well, to keep the vdom & vnode trees in sync.",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The new vnode root"
+                }
+            ],
+            "name": "getVnodeRoot",
+            "longname": "Button#getVnodeRoot",
+            "kind": "function",
+            "memberof": "Button",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Button#getVnodeRoot",
+            "$kind": "method",
+            "id": 1687,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    2244,
+                    2815
+                ],
+                "filename": "Button.mjs",
+                "lineno": 82,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054351",
+                    "name": "Button",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "Button",
+            "longname": "Button",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Button",
+            "$kind": "constructor",
+            "id": 1688,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n     * Triggered after the draggable config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    2972,
+                    3234
+                ],
+                "filename": "Button.mjs",
+                "lineno": 111,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054415",
+                    "name": "Button#afterSetDraggable",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the draggable config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetDraggable",
+            "longname": "Button#afterSetDraggable",
+            "kind": "function",
+            "memberof": "Button",
+            "scope": "instance",
+            "$longname": "Button#afterSetDraggable",
+            "$kind": "method",
+            "id": 1689,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3272,
+                    4353
+                ],
+                "filename": "Button.mjs",
+                "lineno": 127,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054458",
+                    "name": "Button#onButtonClick",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "access": "private",
+            "name": "onButtonClick",
+            "longname": "Button#onButtonClick",
+            "kind": "function",
+            "memberof": "Button",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Button#onButtonClick",
+            "$kind": "method",
+            "id": 1690,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4391,
+                    4523
+                ],
+                "filename": "Button.mjs",
+                "lineno": 168,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054597",
+                    "name": "Button#onDragEnd",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "access": "private",
+            "name": "onDragEnd",
+            "longname": "Button#onDragEnd",
+            "kind": "function",
+            "memberof": "Button",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Button#onDragEnd",
+            "$kind": "method",
+            "id": 1691,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4561,
+                    4699
+                ],
+                "filename": "Button.mjs",
+                "lineno": 179,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054621",
+                    "name": "Button#onDragEnter",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "access": "private",
+            "name": "onDragEnter",
+            "longname": "Button#onDragEnter",
+            "kind": "function",
+            "memberof": "Button",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Button#onDragEnter",
+            "$kind": "method",
+            "id": 1692,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4737,
+                    4878
+                ],
+                "filename": "Button.mjs",
+                "lineno": 190,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054647",
+                    "name": "Button#onDragLeave",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "access": "private",
+            "name": "onDragLeave",
+            "longname": "Button#onDragLeave",
+            "kind": "function",
+            "memberof": "Button",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Button#onDragLeave",
+            "$kind": "method",
+            "id": 1693,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} event\n     */",
+            "meta": {
+                "range": [
+                    4936,
+                    5005
+                ],
+                "filename": "Button.mjs",
+                "lineno": 202,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054673",
+                    "name": "Button#onDragOver",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onDragOver",
+            "longname": "Button#onDragOver",
+            "kind": "function",
+            "memberof": "Button",
+            "scope": "instance",
+            "$longname": "Button#onDragOver",
+            "$kind": "method",
+            "id": 1694,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    5043,
+                    5176
+                ],
+                "filename": "Button.mjs",
+                "lineno": 209,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054678",
+                    "name": "Button#onDragStart",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "access": "private",
+            "name": "onDragStart",
+            "longname": "Button#onDragStart",
+            "kind": "function",
+            "memberof": "Button",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Button#onDragStart",
+            "$kind": "method",
+            "id": 1695,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    5233,
+                    5616
+                ],
+                "filename": "Button.mjs",
+                "lineno": 221,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054703",
+                    "name": "Button#onDrop",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onDrop",
+            "longname": "Button#onDrop",
+            "kind": "function",
+            "memberof": "Button",
+            "scope": "instance",
+            "$longname": "Button#onDrop",
+            "$kind": "method",
+            "id": 1696,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    5654,
+                    5834
+                ],
+                "filename": "Button.mjs",
+                "lineno": 235,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054767",
+                    "name": "Button#removeSortingCss",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "access": "private",
+            "name": "removeSortingCss",
+            "longname": "Button#removeSortingCss",
+            "kind": "function",
+            "memberof": "Button",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Button#removeSortingCss",
+            "$kind": "method",
+            "id": 1697,
+            "neoClassName": "Neo.table.header.Button"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} value\n     * @returns {*}\n     */",
+            "meta": {
+                "range": [
+                    5912,
+                    5957
+                ],
+                "filename": "Button.mjs",
+                "lineno": 250,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/table/header",
+                "code": {
+                    "id": "astnode100054801",
+                    "name": "Button#renderer",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "*"
+                        ]
+                    }
+                }
+            ],
+            "name": "renderer",
+            "longname": "Button#renderer",
+            "kind": "function",
+            "memberof": "Button",
+            "scope": "instance",
+            "$longname": "Button#renderer",
+            "$kind": "method",
+            "id": 1698,
+            "neoClassName": "Neo.table.header.Button"
+        }
+    ]
+}

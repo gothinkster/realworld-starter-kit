@@ -1,0 +1,184 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.layout.Fit\n * @extends Neo.layout.Base\n */",
+            "meta": {
+                "filename": "Fit.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/layout",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Fit",
+            "augments": [
+                "Neo.layout.Base"
+            ],
+            "memberof": "Neo.layout",
+            "longname": "Neo.layout.Fit",
+            "scope": "static",
+            "$longname": "Neo.layout.Fit",
+            "$kind": "class",
+            "id": 1090,
+            "neoClassName": "Neo.layout.Fit"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.layout.Fit'\n         * @private\n         */",
+            "meta": {
+                "filename": "Fit.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/layout",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.layout.Fit'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1091,
+            "neoClassName": "Neo.layout.Fit"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='layout-fit'\n         * @private\n         */",
+            "meta": {
+                "filename": "Fit.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/layout",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'layout-fit'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1092,
+            "neoClassName": "Neo.layout.Fit"
+        },
+        {
+            "comment": "/**\n     * Initially sets the CSS classes of the container items this layout is bound to.\n     * @param child\n     * @param index\n     */",
+            "meta": {
+                "range": [
+                    606,
+                    711
+                ],
+                "filename": "Fit.mjs",
+                "lineno": 27,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/layout",
+                "code": {
+                    "id": "astnode100033301",
+                    "name": "Fit#applyChildAttributes",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "child"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Initially sets the CSS classes of the container items this layout is bound to.",
+            "params": [
+                {
+                    "name": "child"
+                },
+                {
+                    "name": "index"
+                }
+            ],
+            "name": "applyChildAttributes",
+            "longname": "Fit#applyChildAttributes",
+            "kind": "function",
+            "memberof": "Fit",
+            "scope": "instance",
+            "$longname": "Fit#applyChildAttributes",
+            "$kind": "method",
+            "id": 1093,
+            "neoClassName": "Neo.layout.Fit"
+        },
+        {
+            "comment": "/**\n     * Applies CSS classes to the container this layout is bound to\n     */",
+            "meta": {
+                "range": [
+                    801,
+                    1199
+                ],
+                "filename": "Fit.mjs",
+                "lineno": 34,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/layout",
+                "code": {
+                    "id": "astnode100033319",
+                    "name": "Fit#applyRenderAttributes",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Applies CSS classes to the container this layout is bound to",
+            "name": "applyRenderAttributes",
+            "longname": "Fit#applyRenderAttributes",
+            "kind": "function",
+            "memberof": "Fit",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Fit#applyRenderAttributes",
+            "$kind": "method",
+            "id": 1094,
+            "neoClassName": "Neo.layout.Fit"
+        },
+        {
+            "comment": "/**\n     * Removes all CSS rules from the container this layout is bound to.\n     * Gets called when switching to a different layout.\n     */",
+            "meta": {
+                "range": [
+                    1351,
+                    1748
+                ],
+                "filename": "Fit.mjs",
+                "lineno": 52,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/layout",
+                "code": {
+                    "id": "astnode100033371",
+                    "name": "Fit#removeRenderAttributes",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Removes all CSS rules from the container this layout is bound to.<br />Gets called when switching to a different layout.",
+            "name": "removeRenderAttributes",
+            "longname": "Fit#removeRenderAttributes",
+            "kind": "function",
+            "memberof": "Fit",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Fit#removeRenderAttributes",
+            "$kind": "method",
+            "id": 1095,
+            "neoClassName": "Neo.layout.Fit"
+        }
+    ]
+}

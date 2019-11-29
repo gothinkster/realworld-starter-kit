@@ -1,0 +1,242 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * Abstract base class for form fields\n * @class Neo.form.field.Base\n * @extends Neo.component.Base\n */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "Abstract base class for form fields",
+            "kind": "class",
+            "name": "Base",
+            "augments": [
+                "Neo.component.Base"
+            ],
+            "memberof": "Neo.form.field",
+            "longname": "Neo.form.field.Base",
+            "scope": "static",
+            "$longname": "Neo.form.field.Base",
+            "$kind": "class",
+            "id": 686,
+            "neoClassName": "Neo.form.field.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.form.field.Base'\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.form.field.Base'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 687,
+            "neoClassName": "Neo.form.field.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='basefield'\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'basefield'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 688,
+            "neoClassName": "Neo.form.field.Base"
+        },
+        {
+            "comment": "/**\n         * @member {*} value_=null\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 24,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "value_",
+            "type": {
+                "names": [
+                    "*"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "value_",
+            "scope": "global",
+            "$longname": "value_",
+            "$kind": "property",
+            "id": 689,
+            "neoClassName": "Neo.form.field.Base"
+        },
+        {
+            "comment": "/**\n     * @param {*} value\n     * @param {*} oldValue\n     */",
+            "meta": {
+                "range": [
+                    679,
+                    883
+                ],
+                "filename": "Base.mjs",
+                "lineno": 31,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100024691",
+                    "name": "Base#afterSetValue",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "*"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "*"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "name": "afterSetValue",
+            "longname": "Base#afterSetValue",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#afterSetValue",
+            "$kind": "method",
+            "id": 690,
+            "neoClassName": "Neo.form.field.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {*} this.value\n     */",
+            "meta": {
+                "range": [
+                    943,
+                    994
+                ],
+                "filename": "Base.mjs",
+                "lineno": 44,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100024713",
+                    "name": "Base#getSubmitValue",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "*"
+                        ]
+                    },
+                    "description": "this.value"
+                }
+            ],
+            "name": "getSubmitValue",
+            "longname": "Base#getSubmitValue",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#getSubmitValue",
+            "$kind": "method",
+            "id": 691,
+            "neoClassName": "Neo.form.field.Base"
+        },
+        {
+            "comment": "/**\n * The change event fires after the value config gets changed\n * @event change\n * @param {*} value\n * @param {*} oldValue\n * @returns {Object}\n */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 49,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "The change event fires after the value config gets changed",
+            "kind": "event",
+            "name": "change",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "*"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "*"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    }
+                }
+            ],
+            "longname": "event:change",
+            "scope": "global",
+            "$longname": "event:change",
+            "$kind": "event",
+            "id": 692,
+            "neoClassName": "Neo.form.field.Base"
+        }
+    ]
+}

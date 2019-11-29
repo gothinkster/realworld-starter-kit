@@ -1,0 +1,680 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.manager.Focus\n * @extends Neo.core.Base\n * @singleton\n */",
+            "meta": {
+                "filename": "Focus.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Focus",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "tags": [
+                {
+                    "originalTitle": "singleton",
+                    "title": "singleton",
+                    "text": ""
+                }
+            ],
+            "memberof": "Neo.manager",
+            "longname": "Neo.manager.Focus",
+            "scope": "static",
+            "$longname": "Neo.manager.Focus",
+            "$kind": "class",
+            "id": 1345,
+            "neoClassName": "Neo.manager.Focus"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.manager.Focus'\n         * @private\n         */",
+            "meta": {
+                "filename": "Focus.mjs",
+                "lineno": 15,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.manager.Focus'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1346,
+            "neoClassName": "Neo.manager.Focus"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='focus-manager'\n         * @private\n         */",
+            "meta": {
+                "filename": "Focus.mjs",
+                "lineno": 20,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'focus-manager'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1347,
+            "neoClassName": "Neo.manager.Focus"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @private\n         */",
+            "meta": {
+                "filename": "Focus.mjs",
+                "lineno": 25,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "singleton",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "access": "private",
+            "longname": "singleton",
+            "scope": "global",
+            "$longname": "singleton",
+            "$kind": "property",
+            "id": 1348,
+            "neoClassName": "Neo.manager.Focus"
+        },
+        {
+            "comment": "/**\n         * An array containing opts objects.\n         * opts.componentPath\n         * opts.data\n         * @member {Object[]} history=[]\n         */",
+            "meta": {
+                "filename": "Focus.mjs",
+                "lineno": 32,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "description": "An array containing opts objects.<br />opts.componentPath<br />opts.data",
+            "kind": "member",
+            "name": "history",
+            "type": {
+                "names": [
+                    "Array.<Object>"
+                ]
+            },
+            "defaultvalue": "[]",
+            "longname": "history",
+            "scope": "global",
+            "$longname": "history",
+            "$kind": "property",
+            "id": 1349,
+            "neoClassName": "Neo.manager.Focus"
+        },
+        {
+            "comment": "/**\n         * The Date object when the last focusin event has occured\n         * @member {Date|null} lastFocusInDate=null\n         * @private\n         */",
+            "meta": {
+                "filename": "Focus.mjs",
+                "lineno": 38,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "description": "The Date object when the last focusin event has occured",
+            "kind": "member",
+            "name": "lastFocusInDate",
+            "type": {
+                "names": [
+                    "Date",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "lastFocusInDate",
+            "scope": "global",
+            "$longname": "lastFocusInDate",
+            "$kind": "property",
+            "id": 1350,
+            "neoClassName": "Neo.manager.Focus"
+        },
+        {
+            "comment": "/**\n         * The Date object when the last focusout event has occured\n         * @member {Date|null} lastFocusInDate=null\n         * @private\n         */",
+            "meta": {
+                "filename": "Focus.mjs",
+                "lineno": 44,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "description": "The Date object when the last focusout event has occured",
+            "kind": "member",
+            "name": "lastFocusInDate",
+            "type": {
+                "names": [
+                    "Date",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "lastFocusInDate",
+            "scope": "global",
+            "$longname": "lastFocusInDate",
+            "$kind": "property",
+            "id": 1351,
+            "neoClassName": "Neo.manager.Focus"
+        },
+        {
+            "comment": "/**\n         * The amount of time for a focusIn to occur after the last focusOut\n         * to be threated as a focusmove\n         * @member {Number} maxFocusInOutGap=10\n         */",
+            "meta": {
+                "filename": "Focus.mjs",
+                "lineno": 50,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "description": "The amount of time for a focusIn to occur after the last focusOut<br />to be threated as a focusmove",
+            "kind": "member",
+            "name": "maxFocusInOutGap",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 10,
+            "longname": "maxFocusInOutGap",
+            "scope": "global",
+            "$longname": "maxFocusInOutGap",
+            "$kind": "property",
+            "id": 1352,
+            "neoClassName": "Neo.manager.Focus"
+        },
+        {
+            "comment": "/**\n         * The maximum amount of items stored inside the history array\n         * @member {Number} maxHistoryLength=20\n         */",
+            "meta": {
+                "filename": "Focus.mjs",
+                "lineno": 55,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "description": "The maximum amount of items stored inside the history array",
+            "kind": "member",
+            "name": "maxHistoryLength",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 20,
+            "longname": "maxHistoryLength",
+            "scope": "global",
+            "$longname": "maxHistoryLength",
+            "$kind": "property",
+            "id": 1353,
+            "neoClassName": "Neo.manager.Focus"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @param {Array}  opts.componentPath Component ids upwards\n     * @param {Object} opts.data dom event infos\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    1761,
+                    1948
+                ],
+                "filename": "Focus.mjs",
+                "lineno": 65,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100043289",
+                    "name": "Focus#addToHistory",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "description": "Component ids upwards",
+                    "name": "opts.componentPath"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "dom event infos",
+                    "name": "opts.data"
+                }
+            ],
+            "access": "private",
+            "name": "addToHistory",
+            "longname": "Focus#addToHistory",
+            "kind": "function",
+            "memberof": "Focus",
+            "scope": "instance",
+            "$longname": "Focus#addToHistory",
+            "$kind": "method",
+            "id": 1354,
+            "neoClassName": "Neo.manager.Focus"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @param {Array}  opts.componentPath Component ids upwards\n     * @param {Object} opts.data dom event infos\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    2134,
+                    2235
+                ],
+                "filename": "Focus.mjs",
+                "lineno": 82,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100043320",
+                    "name": "Focus#focusEnter",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "description": "Component ids upwards",
+                    "name": "opts.componentPath"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "dom event infos",
+                    "name": "opts.data"
+                }
+            ],
+            "access": "private",
+            "name": "focusEnter",
+            "longname": "Focus#focusEnter",
+            "kind": "function",
+            "memberof": "Focus",
+            "scope": "instance",
+            "$longname": "Focus#focusEnter",
+            "$kind": "method",
+            "id": 1355,
+            "neoClassName": "Neo.manager.Focus"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @param {Array}  opts.componentPath Component ids upwards\n     * @param {Object} opts.data dom event infos\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    2421,
+                    2490
+                ],
+                "filename": "Focus.mjs",
+                "lineno": 94,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100043338",
+                    "name": "Focus#focusLeave",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "description": "Component ids upwards",
+                    "name": "opts.componentPath"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "dom event infos",
+                    "name": "opts.data"
+                }
+            ],
+            "access": "private",
+            "name": "focusLeave",
+            "longname": "Focus#focusLeave",
+            "kind": "function",
+            "memberof": "Focus",
+            "scope": "instance",
+            "$longname": "Focus#focusLeave",
+            "$kind": "method",
+            "id": 1356,
+            "neoClassName": "Neo.manager.Focus"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @param {Array}  opts.componentPath Component ids upwards\n     * @param {Object} opts.data dom event infos\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    2676,
+                    3843
+                ],
+                "filename": "Focus.mjs",
+                "lineno": 105,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100043350",
+                    "name": "Focus#focusMove",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "description": "Component ids upwards",
+                    "name": "opts.componentPath"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "dom event infos",
+                    "name": "opts.data"
+                }
+            ],
+            "access": "private",
+            "name": "focusMove",
+            "longname": "Focus#focusMove",
+            "kind": "function",
+            "memberof": "Focus",
+            "scope": "instance",
+            "$longname": "Focus#focusMove",
+            "$kind": "method",
+            "id": 1357,
+            "neoClassName": "Neo.manager.Focus"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @param {Array}  opts.componentPath Component ids upwards\n     * @param {Object} opts.data dom event infos\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4029,
+                    4311
+                ],
+                "filename": "Focus.mjs",
+                "lineno": 145,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100043494",
+                    "name": "Focus#onFocusin",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "description": "Component ids upwards",
+                    "name": "opts.componentPath"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "dom event infos",
+                    "name": "opts.data"
+                }
+            ],
+            "access": "private",
+            "name": "onFocusin",
+            "longname": "Focus#onFocusin",
+            "kind": "function",
+            "memberof": "Focus",
+            "scope": "instance",
+            "$longname": "Focus#onFocusin",
+            "$kind": "method",
+            "id": 1358,
+            "neoClassName": "Neo.manager.Focus"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @param {Array}  opts.componentPath Component ids upwards\n     * @param {Object} opts.data dom event infos\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4497,
+                    4759
+                ],
+                "filename": "Focus.mjs",
+                "lineno": 164,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100043540",
+                    "name": "Focus#onFocusout",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "description": "Component ids upwards",
+                    "name": "opts.componentPath"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "dom event infos",
+                    "name": "opts.data"
+                }
+            ],
+            "access": "private",
+            "name": "onFocusout",
+            "longname": "Focus#onFocusout",
+            "kind": "function",
+            "memberof": "Focus",
+            "scope": "instance",
+            "$longname": "Focus#onFocusout",
+            "$kind": "method",
+            "id": 1359,
+            "neoClassName": "Neo.manager.Focus"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @param {Array}  opts.componentPath Component ids upwards\n     * @param {Object} opts.data dom event infos\n     * @param {Boolean} containsFocus\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4983,
+                    5573
+                ],
+                "filename": "Focus.mjs",
+                "lineno": 184,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100043579",
+                    "name": "Focus#setComponentFocus",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts",
+                        "containsFocus"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "description": "Component ids upwards",
+                    "name": "opts.componentPath"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "dom event infos",
+                    "name": "opts.data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "containsFocus"
+                }
+            ],
+            "access": "private",
+            "name": "setComponentFocus",
+            "longname": "Focus#setComponentFocus",
+            "kind": "function",
+            "memberof": "Focus",
+            "scope": "instance",
+            "$longname": "Focus#setComponentFocus",
+            "$kind": "method",
+            "id": 1360,
+            "neoClassName": "Neo.manager.Focus"
+        }
+    ]
+}

@@ -1,0 +1,203 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * Convenience class to render a label with a text\n * @class Neo.component.Label\n * @extends Neo.component.Base\n */",
+            "meta": {
+                "filename": "Label.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "description": "Convenience class to render a label with a text",
+            "kind": "class",
+            "name": "Label",
+            "augments": [
+                "Neo.component.Base"
+            ],
+            "memberof": "Neo.component",
+            "longname": "Neo.component.Label",
+            "scope": "static",
+            "$longname": "Neo.component.Label",
+            "$kind": "class",
+            "id": 457,
+            "neoClassName": "Neo.component.Label"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.component.Label'\n         * @private\n         */",
+            "meta": {
+                "filename": "Label.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.component.Label'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 458,
+            "neoClassName": "Neo.component.Label"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='label'\n         * @private\n         */",
+            "meta": {
+                "filename": "Label.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'label'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 459,
+            "neoClassName": "Neo.component.Label"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neo-label']\n         */",
+            "meta": {
+                "filename": "Label.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neo-label']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 460,
+            "neoClassName": "Neo.component.Label"
+        },
+        {
+            "comment": "/**\n         * @member {String} text_=''\n         */",
+            "meta": {
+                "filename": "Label.mjs",
+                "lineno": 27,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "text_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "''",
+            "longname": "text_",
+            "scope": "global",
+            "$longname": "text_",
+            "$kind": "property",
+            "id": 461,
+            "neoClassName": "Neo.component.Label"
+        },
+        {
+            "comment": "/**\n         * @member {Object} _vdom={tag: 'label'}\n         */",
+            "meta": {
+                "filename": "Label.mjs",
+                "lineno": 31,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "_vdom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{tag: 'label'}",
+            "description": "'label'}",
+            "longname": "_vdom",
+            "scope": "global",
+            "$longname": "_vdom",
+            "$kind": "property",
+            "id": 462,
+            "neoClassName": "Neo.component.Label"
+        },
+        {
+            "comment": "/**\n     * Triggered after the text config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    952,
+                    1062
+                ],
+                "filename": "Label.mjs",
+                "lineno": 42,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100017598",
+                    "name": "Label#afterSetText",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the text config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetText",
+            "longname": "Label#afterSetText",
+            "kind": "function",
+            "memberof": "Label",
+            "scope": "instance",
+            "$longname": "Label#afterSetText",
+            "$kind": "method",
+            "id": 463,
+            "neoClassName": "Neo.component.Label"
+        }
+    ]
+}

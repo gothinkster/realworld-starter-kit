@@ -1,0 +1,1286 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.tab.Container\n * @extends Neo.container.Base\n */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 7,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Container",
+            "augments": [
+                "Neo.container.Base"
+            ],
+            "memberof": "Neo.tab",
+            "longname": "Neo.tab.Container",
+            "scope": "static",
+            "$longname": "Neo.tab.Container",
+            "$kind": "class",
+            "id": 1571,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * Valid values for tabBarPosition\n         * @member {String[]} tabBarPositions=['top', 'right', 'bottom', 'left']\n         * @private\n         * @static\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "description": "Valid values for tabBarPosition",
+            "kind": "member",
+            "name": "tabBarPositions",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['top', 'right', 'bottom', 'left']",
+            "access": "private",
+            "scope": "static",
+            "longname": "tabBarPositions",
+            "$longname": "tabBarPositions",
+            "$kind": "property",
+            "id": 1572,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.tab.Container'\n         * @private\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 27,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.tab.Container'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1573,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='tab-container'\n         * @private\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 32,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'tab-container'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1574,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * @member {Number} activeIndex_=0\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 36,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "activeIndex_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 0,
+            "longname": "activeIndex_",
+            "scope": "global",
+            "$longname": "activeIndex_",
+            "$kind": "property",
+            "id": 1575,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * True will activate a tab which gets dynamically inserted / added after the TabContainer is mounted\n         * @member {Boolean} activateInsertedTabs=false\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 41,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "description": "True will activate a tab which gets dynamically inserted / added after the TabContainer is mounted",
+            "kind": "member",
+            "name": "activateInsertedTabs",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "activateInsertedTabs",
+            "scope": "global",
+            "$longname": "activateInsertedTabs",
+            "$kind": "property",
+            "id": 1576,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * @member {String} baseCls='neo-tab-container'\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 45,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "baseCls",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'neo-tab-container'",
+            "longname": "baseCls",
+            "scope": "global",
+            "$longname": "baseCls",
+            "$kind": "property",
+            "id": 1577,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} [cardContainerId]=null\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 49,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cardContainerId",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "optional": true,
+            "longname": "cardContainerId",
+            "scope": "global",
+            "$longname": "cardContainerId",
+            "$kind": "property",
+            "id": 1578,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * adds baseCls + '-plain' is case plain is set to true\n         * @member {Array} cls=['neo-tab-container'],\n         * @private\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 55,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "description": "adds baseCls + '-plain' is case plain is set to true",
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array"
+                ]
+            },
+            "defaultvalue": "['neo-tab-container'],",
+            "access": "private",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 1579,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * Default configs for the tab.Strip\n         * @member {Object|null} [contentContainerDefaults]=null\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 60,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "description": "Default configs for the tab.Strip",
+            "kind": "member",
+            "name": "contentContainerDefaults",
+            "type": {
+                "names": [
+                    "Object",
+                    "null"
+                ]
+            },
+            "optional": true,
+            "longname": "contentContainerDefaults",
+            "scope": "global",
+            "$longname": "contentContainerDefaults",
+            "$kind": "property",
+            "id": 1580,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * Default configs for the tab.HeaderToolbar\n         * @member {Object|null} [headerToolbarDefaults]=null\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 65,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "description": "Default configs for the tab.HeaderToolbar",
+            "kind": "member",
+            "name": "headerToolbarDefaults",
+            "type": {
+                "names": [
+                    "Object",
+                    "null"
+                ]
+            },
+            "optional": true,
+            "longname": "headerToolbarDefaults",
+            "scope": "global",
+            "$longname": "headerToolbarDefaults",
+            "$kind": "property",
+            "id": 1581,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * True to not apply a background effect to the tab header container\n         * @member {Boolean} plain_=true\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 70,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "description": "True to not apply a background effect to the tab header container",
+            "kind": "member",
+            "name": "plain_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "plain_",
+            "scope": "global",
+            "$longname": "plain_",
+            "$kind": "property",
+            "id": 1582,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} tabBarId=null\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 74,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "tabBarId",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "tabBarId",
+            "scope": "global",
+            "$longname": "tabBarId",
+            "$kind": "property",
+            "id": 1583,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * Default configs for the tab.Strip\n         * @member {Object|null} [tabStripDefaults]=null\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 79,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "description": "Default configs for the tab.Strip",
+            "kind": "member",
+            "name": "tabStripDefaults",
+            "type": {
+                "names": [
+                    "Object",
+                    "null"
+                ]
+            },
+            "optional": true,
+            "longname": "tabStripDefaults",
+            "scope": "global",
+            "$longname": "tabStripDefaults",
+            "$kind": "property",
+            "id": 1584,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} [tabStripId]=null\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 83,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "tabStripId",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "optional": true,
+            "longname": "tabStripId",
+            "scope": "global",
+            "$longname": "tabStripId",
+            "$kind": "property",
+            "id": 1585,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * The position of the tab header toolbar.\n         * Valid values are top, right, bottom, left.\n         * @member {String} tabBarPosition_='top'\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 89,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "description": "The position of the tab header toolbar.<br />Valid values are top, right, bottom, left.",
+            "kind": "member",
+            "name": "tabBarPosition_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'top'",
+            "longname": "tabBarPosition_",
+            "scope": "global",
+            "$longname": "tabBarPosition_",
+            "$kind": "property",
+            "id": 1586,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} useActiveTabIndicator_=true\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 93,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "useActiveTabIndicator_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "useActiveTabIndicator_",
+            "scope": "global",
+            "$longname": "useActiveTabIndicator_",
+            "$kind": "property",
+            "id": 1587,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    2982,
+                    3100
+                ],
+                "filename": "Container.mjs",
+                "lineno": 99,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100051562",
+                    "name": "Container#onConstructed",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onConstructed",
+            "longname": "Container#onConstructed",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Container#onConstructed",
+            "$kind": "method",
+            "id": 1588,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     * Adds one or multiple tabs at the end of the header\n     * @param {Object|Array} item\n     * @returns {Neo.Component|Neo.Component[]}\n     */",
+            "meta": {
+                "range": [
+                    3262,
+                    3344
+                ],
+                "filename": "Container.mjs",
+                "lineno": 109,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100051580",
+                    "name": "Container#add",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "item"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Adds one or multiple tabs at the end of the header",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "Array"
+                        ]
+                    },
+                    "name": "item"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.Component",
+                            "Array.<Neo.Component>"
+                        ]
+                    }
+                }
+            ],
+            "name": "add",
+            "longname": "Container#add",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "$longname": "Container#add",
+            "$kind": "method",
+            "id": 1589,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     * Triggered after the activeIndex config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3501,
+                    3915
+                ],
+                "filename": "Container.mjs",
+                "lineno": 119,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100051599",
+                    "name": "Container#afterSetActiveIndex",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the activeIndex config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetActiveIndex",
+            "longname": "Container#afterSetActiveIndex",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "$longname": "Container#afterSetActiveIndex",
+            "$kind": "method",
+            "id": 1590,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     * Triggered after the plain config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4068,
+                    4300
+                ],
+                "filename": "Container.mjs",
+                "lineno": 141,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100051652",
+                    "name": "Container#afterSetPlain",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the plain config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetPlain",
+            "longname": "Container#afterSetPlain",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "$longname": "Container#afterSetPlain",
+            "$kind": "method",
+            "id": 1591,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     * Triggered after the tabBarPosition config got changed\n     * @param {String} value 'top', 'right', 'bottom', 'left'\n     * @param {String} oldValue 'top', 'right', 'bottom', 'left'\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4526,
+                    5070
+                ],
+                "filename": "Container.mjs",
+                "lineno": 156,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100051692",
+                    "name": "Container#afterSetTabBarPosition",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the tabBarPosition config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "'top', 'right', 'bottom', 'left'",
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "'top', 'right', 'bottom', 'left'",
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetTabBarPosition",
+            "longname": "Container#afterSetTabBarPosition",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "$longname": "Container#afterSetTabBarPosition",
+            "$kind": "method",
+            "id": 1592,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     * Triggered after the useActiveTabIndicator config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    5239,
+                    5466
+                ],
+                "filename": "Container.mjs",
+                "lineno": 182,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100051778",
+                    "name": "Container#afterSetUseActiveTabIndicator",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the useActiveTabIndicator config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetUseActiveTabIndicator",
+            "longname": "Container#afterSetUseActiveTabIndicator",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "$longname": "Container#afterSetUseActiveTabIndicator",
+            "$kind": "method",
+            "id": 1593,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     * Triggered before the tabBarPosition config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     * @returns {String} value\n     */",
+            "meta": {
+                "range": [
+                    5659,
+                    5782
+                ],
+                "filename": "Container.mjs",
+                "lineno": 196,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100051809",
+                    "name": "Container#beforeSetTabBarPosition",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the tabBarPosition config gets changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "value"
+                }
+            ],
+            "name": "beforeSetTabBarPosition",
+            "longname": "Container#beforeSetTabBarPosition",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "$longname": "Container#beforeSetTabBarPosition",
+            "$kind": "method",
+            "id": 1594,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     *\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    5827,
+                    7933
+                ],
+                "filename": "Container.mjs",
+                "lineno": 204,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100051823",
+                    "name": "Container#createItems",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "access": "private",
+            "name": "createItems",
+            "longname": "Container#createItems",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Container#createItems",
+            "$kind": "method",
+            "id": 1595,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     * @returns {Neo.container.Base}\n     */",
+            "meta": {
+                "range": [
+                    7992,
+                    8073
+                ],
+                "filename": "Container.mjs",
+                "lineno": 262,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100052043",
+                    "name": "Container#getCardContainer",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.container.Base"
+                        ]
+                    }
+                }
+            ],
+            "name": "getCardContainer",
+            "longname": "Container#getCardContainer",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Container#getCardContainer",
+            "$kind": "method",
+            "id": 1596,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     * Returns the amount of items inside the tab header toolbar\n     * @returns {Number}\n     */",
+            "meta": {
+                "range": [
+                    8185,
+                    8249
+                ],
+                "filename": "Container.mjs",
+                "lineno": 270,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100052055",
+                    "name": "Container#getCount",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns the amount of items inside the tab header toolbar",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    }
+                }
+            ],
+            "name": "getCount",
+            "longname": "Container#getCount",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Container#getCount",
+            "$kind": "method",
+            "id": 1597,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Object} layoutConfig\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    8332,
+                    9467
+                ],
+                "filename": "Container.mjs",
+                "lineno": 279,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100052068",
+                    "name": "Container#getLayoutConfig",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "layoutConfig"
+                }
+            ],
+            "access": "private",
+            "name": "getLayoutConfig",
+            "longname": "Container#getLayoutConfig",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Container#getLayoutConfig",
+            "$kind": "method",
+            "id": 1598,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     * @returns {Neo.container.Toolbar}\n     */",
+            "meta": {
+                "range": [
+                    9529,
+                    9596
+                ],
+                "filename": "Container.mjs",
+                "lineno": 322,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100052141",
+                    "name": "Container#getTabBar",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.container.Toolbar"
+                        ]
+                    }
+                }
+            ],
+            "name": "getTabBar",
+            "longname": "Container#getTabBar",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Container#getTabBar",
+            "$kind": "method",
+            "id": 1599,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     * @param {Number} index\n     * @returns {Object} The merged config\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    9743,
+                    10347
+                ],
+                "filename": "Container.mjs",
+                "lineno": 333,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100052153",
+                    "name": "Container#getTabButtonConfig",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config",
+                        "index"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The merged config"
+                }
+            ],
+            "access": "private",
+            "name": "getTabButtonConfig",
+            "longname": "Container#getTabButtonConfig",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "$longname": "Container#getTabButtonConfig",
+            "$kind": "method",
+            "id": 1600,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     * @returns {Neo.tab.Strip}\n     */",
+            "meta": {
+                "range": [
+                    10401,
+                    10472
+                ],
+                "filename": "Container.mjs",
+                "lineno": 357,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100052210",
+                    "name": "Container#getTabStrip",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.tab.Strip"
+                        ]
+                    }
+                }
+            ],
+            "name": "getTabStrip",
+            "longname": "Container#getTabStrip",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Container#getTabStrip",
+            "$kind": "method",
+            "id": 1601,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     * Inserts an item or array of items at a specific index\n     * @param {Number} index\n     * @param {Object|Object[]} item\n     * @returns {Neo.Component|Neo.Component[]}\n     */",
+            "meta": {
+                "range": [
+                    10669,
+                    12639
+                ],
+                "filename": "Container.mjs",
+                "lineno": 367,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100052222",
+                    "name": "Container#insert",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "index",
+                        "item"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Inserts an item or array of items at a specific index",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "Array.<Object>"
+                        ]
+                    },
+                    "name": "item"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.Component",
+                            "Array.<Neo.Component>"
+                        ]
+                    }
+                }
+            ],
+            "name": "insert",
+            "longname": "Container#insert",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "$longname": "Container#insert",
+            "$kind": "method",
+            "id": 1602,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     * Gets triggered once a dynamically added tabheader button gets mounted\n     * in case activateInsertedTabs is set to true\n     * @param {String} buttonId\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    12837,
+                    13589
+                ],
+                "filename": "Container.mjs",
+                "lineno": 437,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100052467",
+                    "name": "Container#onTabButtonMounted",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "buttonId"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Gets triggered once a dynamically added tabheader button gets mounted<br />in case activateInsertedTabs is set to true",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "buttonId"
+                }
+            ],
+            "access": "private",
+            "name": "onTabButtonMounted",
+            "longname": "Container#onTabButtonMounted",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "$longname": "Container#onTabButtonMounted",
+            "$kind": "method",
+            "id": 1603,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Number} index\n     */",
+            "meta": {
+                "range": [
+                    13647,
+                    14347
+                ],
+                "filename": "Container.mjs",
+                "lineno": 470,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100052568",
+                    "name": "Container#removeAt",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "index"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                }
+            ],
+            "name": "removeAt",
+            "longname": "Container#removeAt",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "$longname": "Container#removeAt",
+            "$kind": "method",
+            "id": 1604,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     *\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    14392,
+                    14689
+                ],
+                "filename": "Container.mjs",
+                "lineno": 499,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/tab",
+                "code": {
+                    "id": "astnode100052665",
+                    "name": "Container#updateTabButtons",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "access": "private",
+            "name": "updateTabButtons",
+            "longname": "Container#updateTabButtons",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Container#updateTabButtons",
+            "$kind": "method",
+            "id": 1605,
+            "neoClassName": "Neo.tab.Container"
+        }
+    ]
+}

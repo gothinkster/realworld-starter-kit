@@ -1,0 +1,145 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.layout.VBox\n * @extends Neo.layout.Flexbox\n */",
+            "meta": {
+                "filename": "VBox.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/layout",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "VBox",
+            "augments": [
+                "Neo.layout.Flexbox"
+            ],
+            "memberof": "Neo.layout",
+            "longname": "Neo.layout.VBox",
+            "scope": "static",
+            "$longname": "Neo.layout.VBox",
+            "$kind": "class",
+            "id": 1127,
+            "neoClassName": "Neo.layout.VBox"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.layout.VBox'\n         * @private\n         */",
+            "meta": {
+                "filename": "VBox.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/layout",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.layout.VBox'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1128,
+            "neoClassName": "Neo.layout.VBox"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='layout-vbox'\n         * @private\n         */",
+            "meta": {
+                "filename": "VBox.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/layout",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'layout-vbox'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1129,
+            "neoClassName": "Neo.layout.VBox"
+        },
+        {
+            "comment": "/**\n         * @member {String} direction='column'\n         * @private\n         */",
+            "meta": {
+                "filename": "VBox.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/layout",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "direction",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'column'",
+            "access": "private",
+            "longname": "direction",
+            "scope": "global",
+            "$longname": "direction",
+            "$kind": "property",
+            "id": 1130,
+            "neoClassName": "Neo.layout.VBox"
+        },
+        {
+            "comment": "/**\n     * Applies the flex value to an item of the container this layout is bound to\n     * @param {Object} item\n     */",
+            "meta": {
+                "range": [
+                    682,
+                    845
+                ],
+                "filename": "VBox.mjs",
+                "lineno": 30,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/layout",
+                "code": {
+                    "id": "astnode100034141",
+                    "name": "VBox#applyChildAttributes",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "item"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Applies the flex value to an item of the container this layout is bound to",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "item"
+                }
+            ],
+            "name": "applyChildAttributes",
+            "longname": "VBox#applyChildAttributes",
+            "kind": "function",
+            "memberof": "VBox",
+            "scope": "instance",
+            "$longname": "VBox#applyChildAttributes",
+            "$kind": "method",
+            "id": 1131,
+            "neoClassName": "Neo.layout.VBox"
+        }
+    ]
+}

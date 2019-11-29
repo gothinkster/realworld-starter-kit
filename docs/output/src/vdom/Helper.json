@@ -1,0 +1,757 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * The central class for the VDom worker to create vnodes & delta updates.\n * @class Neo.vdom.Helper\n * @extends Neo.core.Base\n * @singleton\n */",
+            "meta": {
+                "filename": "Helper.mjs",
+                "lineno": 5,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {}
+            },
+            "description": "The central class for the VDom worker to create vnodes & delta updates.",
+            "kind": "class",
+            "name": "Helper",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "tags": [
+                {
+                    "originalTitle": "singleton",
+                    "title": "singleton",
+                    "text": ""
+                }
+            ],
+            "memberof": "Neo.vdom",
+            "longname": "Neo.vdom.Helper",
+            "scope": "static",
+            "$longname": "Neo.vdom.Helper",
+            "$kind": "class",
+            "id": 1819,
+            "neoClassName": "Neo.vdom.Helper"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.vdom.Helper'\n         * @private\n         */",
+            "meta": {
+                "filename": "Helper.mjs",
+                "lineno": 17,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.vdom.Helper'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1820,
+            "neoClassName": "Neo.vdom.Helper"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='vdom-helper'\n         * @private\n         */",
+            "meta": {
+                "filename": "Helper.mjs",
+                "lineno": 22,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'vdom-helper'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1821,
+            "neoClassName": "Neo.vdom.Helper"
+        },
+        {
+            "comment": "/**\n         * Remote method access for other workers\n         * @member {Object} remote={app: ['create', 'update']}\n         * @private\n         */",
+            "meta": {
+                "filename": "Helper.mjs",
+                "lineno": 28,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {}
+            },
+            "description": "Remote method access for other workers",
+            "kind": "member",
+            "name": "remote",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{app: ['create', 'update']}",
+            "access": "private",
+            "longname": "remote",
+            "scope": "global",
+            "$longname": "remote",
+            "$kind": "property",
+            "id": 1822,
+            "neoClassName": "Neo.vdom.Helper"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} returnChildNodeOuterHtml=false\n         */",
+            "meta": {
+                "filename": "Helper.mjs",
+                "lineno": 34,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "returnChildNodeOuterHtml",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "returnChildNodeOuterHtml",
+            "scope": "global",
+            "$longname": "returnChildNodeOuterHtml",
+            "$kind": "property",
+            "id": 1823,
+            "neoClassName": "Neo.vdom.Helper"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @private\n         */",
+            "meta": {
+                "filename": "Helper.mjs",
+                "lineno": 39,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "singleton",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "access": "private",
+            "longname": "singleton",
+            "scope": "global",
+            "$longname": "singleton",
+            "$kind": "property",
+            "id": 1824,
+            "neoClassName": "Neo.vdom.Helper"
+        },
+        {
+            "comment": "/**\n         * Void attributes inside html tags\n         * @member {String[]} voidAttributes\n         * @private\n         */",
+            "meta": {
+                "filename": "Helper.mjs",
+                "lineno": 45,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {}
+            },
+            "description": "Void attributes inside html tags",
+            "kind": "member",
+            "name": "voidAttributes",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "access": "private",
+            "longname": "voidAttributes",
+            "scope": "global",
+            "$longname": "voidAttributes",
+            "$kind": "property",
+            "id": 1825,
+            "neoClassName": "Neo.vdom.Helper"
+        },
+        {
+            "comment": "/**\n         * Void html tags\n         * @member {String[]} voidElements\n         * @private\n         */",
+            "meta": {
+                "filename": "Helper.mjs",
+                "lineno": 54,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {}
+            },
+            "description": "Void html tags",
+            "kind": "member",
+            "name": "voidElements",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "access": "private",
+            "longname": "voidElements",
+            "scope": "global",
+            "$longname": "voidElements",
+            "$kind": "property",
+            "id": 1826,
+            "neoClassName": "Neo.vdom.Helper"
+        },
+        {
+            "comment": "/**\n     * Creates a Neo.vdom.VNode tree for the given vdom template.\n     * The top level vnode contains the outerHTML as a string.\n     * @param {Object} opts\n     * @param {Object} opts.vdom\n     * @returns {Neo.vdom.VNode}\n     */",
+            "meta": {
+                "range": [
+                    2031,
+                    2617
+                ],
+                "filename": "Helper.mjs",
+                "lineno": 81,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {
+                    "id": "astnode100059993",
+                    "name": "Helper#create",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Creates a Neo.vdom.VNode tree for the given vdom template.<br />The top level vnode contains the outerHTML as a string.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts.vdom"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.vdom.VNode"
+                        ]
+                    }
+                }
+            ],
+            "name": "create",
+            "longname": "Helper#create",
+            "kind": "function",
+            "memberof": "Helper",
+            "scope": "instance",
+            "$longname": "Helper#create",
+            "$kind": "method",
+            "id": 1827,
+            "neoClassName": "Neo.vdom.Helper"
+        },
+        {
+            "comment": "/**\n     * Creates a Neo.vdom.VNode tree for the given vdom template and compares the new vnode with the current one\n     * to calculate the vdom deltas.\n     * @param {Object} opts\n     * @param {Object} opts.vdom\n     * @param {Object} opts.vnode\n     * @returns {Object}\n     */",
+            "meta": {
+                "range": [
+                    2909,
+                    3248
+                ],
+                "filename": "Helper.mjs",
+                "lineno": 112,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {
+                    "id": "astnode100060077",
+                    "name": "Helper#update",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Creates a Neo.vdom.VNode tree for the given vdom template and compares the new vnode with the current one<br />to calculate the vdom deltas.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts.vdom"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts.vnode"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    }
+                }
+            ],
+            "name": "update",
+            "longname": "Helper#update",
+            "kind": "function",
+            "memberof": "Helper",
+            "scope": "instance",
+            "$longname": "Helper#update",
+            "$kind": "method",
+            "id": 1828,
+            "neoClassName": "Neo.vdom.Helper"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} vnode\n     */",
+            "meta": {
+                "range": [
+                    3306,
+                    3790
+                ],
+                "filename": "Helper.mjs",
+                "lineno": 131,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {
+                    "id": "astnode100060116",
+                    "name": "Helper#createStringFromVnode",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "vnode"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "vnode"
+                }
+            ],
+            "name": "createStringFromVnode",
+            "longname": "Helper#createStringFromVnode",
+            "kind": "function",
+            "memberof": "Helper",
+            "scope": "instance",
+            "$longname": "Helper#createStringFromVnode",
+            "$kind": "method",
+            "id": 1829,
+            "neoClassName": "Neo.vdom.Helper"
+        },
+        {
+            "comment": "/**\n     * @param {Object} vnode\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3857,
+                    4952
+                ],
+                "filename": "Helper.mjs",
+                "lineno": 150,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {
+                    "id": "astnode100060179",
+                    "name": "Helper#createOpenTag",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "vnode"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "vnode"
+                }
+            ],
+            "access": "private",
+            "name": "createOpenTag",
+            "longname": "Helper#createOpenTag",
+            "kind": "function",
+            "memberof": "Helper",
+            "scope": "instance",
+            "$longname": "Helper#createOpenTag",
+            "$kind": "method",
+            "id": 1830,
+            "neoClassName": "Neo.vdom.Helper"
+        },
+        {
+            "comment": "/**\n     * @param {Object} vnode\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    5019,
+                    5681
+                ],
+                "filename": "Helper.mjs",
+                "lineno": 195,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {
+                    "id": "astnode100060331",
+                    "name": "Helper#createTagContent",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "vnode"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "vnode"
+                }
+            ],
+            "access": "private",
+            "name": "createTagContent",
+            "longname": "Helper#createTagContent",
+            "kind": "function",
+            "memberof": "Helper",
+            "scope": "instance",
+            "$longname": "Helper#createTagContent",
+            "$kind": "method",
+            "id": 1831,
+            "neoClassName": "Neo.vdom.Helper"
+        },
+        {
+            "comment": "/**\n     * @param {Object} vnode\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    5748,
+                    5875
+                ],
+                "filename": "Helper.mjs",
+                "lineno": 226,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {
+                    "id": "astnode100060415",
+                    "name": "Helper#createCloseTag",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "vnode"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "vnode"
+                }
+            ],
+            "access": "private",
+            "name": "createCloseTag",
+            "longname": "Helper#createCloseTag",
+            "kind": "function",
+            "memberof": "Helper",
+            "scope": "instance",
+            "$longname": "Helper#createCloseTag",
+            "$kind": "method",
+            "id": 1832,
+            "neoClassName": "Neo.vdom.Helper"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @returns {Object|Neo.vdom.VNode|null}\n     */",
+            "meta": {
+                "range": [
+                    5977,
+                    9458
+                ],
+                "filename": "Helper.mjs",
+                "lineno": 235,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {
+                    "id": "astnode100060442",
+                    "name": "Helper#parseHelper",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "Neo.vdom.VNode",
+                            "null"
+                        ]
+                    }
+                }
+            ],
+            "name": "parseHelper",
+            "longname": "Helper#parseHelper",
+            "kind": "function",
+            "memberof": "Helper",
+            "scope": "instance",
+            "$longname": "Helper#parseHelper",
+            "$kind": "method",
+            "id": 1833,
+            "neoClassName": "Neo.vdom.Helper"
+        },
+        {
+            "comment": "/**\n     * @param {Object} config\n     * @param {Array} config.deltas\n     * @param {Number} config.index\n     * @param {Object} config.newVnode\n     * @param {Object} config.newVnodeRoot\n     * @param {Object} config.oldVnode\n     * @param {Object} config.oldVnodeRoot\n     * @param {String} config.parentId\n     * @returns {Array} deltas\n     */",
+            "meta": {
+                "range": [
+                    9816,
+                    24662
+                ],
+                "filename": "Helper.mjs",
+                "lineno": 345,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {
+                    "id": "astnode100060808",
+                    "name": "Helper#createDeltas",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "config.deltas"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "config.index"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config.newVnode"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config.newVnodeRoot"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config.oldVnode"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config.oldVnodeRoot"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "config.parentId"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "description": "deltas"
+                }
+            ],
+            "name": "createDeltas",
+            "longname": "Helper#createDeltas",
+            "kind": "function",
+            "memberof": "Helper",
+            "scope": "instance",
+            "$longname": "Helper#createDeltas",
+            "$kind": "method",
+            "id": 1834,
+            "neoClassName": "Neo.vdom.Helper"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Neo.vdom.VNode} vnode\n     * @param {String} id\n     * @param {Neo.vdom.VNode} parentNode\n     * @param {Number} index\n     * @returns {Object}\n     *     {Number} index\n     *     {String} parentId\n     *     {Neo.vdom.VNode} vnode\n     */",
+            "meta": {
+                "range": [
+                    24939,
+                    25897
+                ],
+                "filename": "Helper.mjs",
+                "lineno": 689,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/vdom",
+                "code": {
+                    "id": "astnode100061894",
+                    "name": "Helper#findVnode",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "vnode",
+                        "id",
+                        "parentNode",
+                        "index"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.vdom.VNode"
+                        ]
+                    },
+                    "name": "vnode"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "id"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.vdom.VNode"
+                        ]
+                    },
+                    "name": "parentNode"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "{Number} index\n    {String} parentId\n    {Neo.vdom.VNode} vnode"
+                }
+            ],
+            "name": "findVnode",
+            "longname": "Helper#findVnode",
+            "kind": "function",
+            "memberof": "Helper",
+            "scope": "instance",
+            "$longname": "Helper#findVnode",
+            "$kind": "method",
+            "id": 1835,
+            "neoClassName": "Neo.vdom.Helper"
+        }
+    ]
+}

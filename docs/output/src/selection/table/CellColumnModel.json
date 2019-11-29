@@ -1,0 +1,366 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.selection.table.CellColumnModel\n * @extends Neo.selection.table.CellModel\n */",
+            "meta": {
+                "filename": "CellColumnModel.mjs",
+                "lineno": 5,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "CellColumnModel",
+            "augments": [
+                "Neo.selection.table.CellModel"
+            ],
+            "memberof": "Neo.selection.table",
+            "longname": "Neo.selection.table.CellColumnModel",
+            "scope": "static",
+            "$longname": "Neo.selection.table.CellColumnModel",
+            "$kind": "class",
+            "id": 1498,
+            "neoClassName": "Neo.selection.table.CellColumnModel"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.selection.table.CellColumnModel'\n         * @private\n         */",
+            "meta": {
+                "filename": "CellColumnModel.mjs",
+                "lineno": 15,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.selection.table.CellColumnModel'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1499,
+            "neoClassName": "Neo.selection.table.CellColumnModel"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='selection-table-cellcolumnmodel'\n         * @private\n         */",
+            "meta": {
+                "filename": "CellColumnModel.mjs",
+                "lineno": 20,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'selection-table-cellcolumnmodel'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1500,
+            "neoClassName": "Neo.selection.table.CellColumnModel"
+        },
+        {
+            "comment": "/**\n         * @member {String} cls='neo-selection-cellcolumnmodel'\n         * @private\n         */",
+            "meta": {
+                "filename": "CellColumnModel.mjs",
+                "lineno": 25,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'neo-selection-cellcolumnmodel'",
+            "access": "private",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 1501,
+            "neoClassName": "Neo.selection.table.CellColumnModel"
+        },
+        {
+            "comment": "/**\n         * @member {String} selectedColumnCellCls='selected-column-cell'\n         * @private\n         */",
+            "meta": {
+                "filename": "CellColumnModel.mjs",
+                "lineno": 30,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "selectedColumnCellCls",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'selected-column-cell'",
+            "access": "private",
+            "longname": "selectedColumnCellCls",
+            "scope": "global",
+            "$longname": "selectedColumnCellCls",
+            "$kind": "property",
+            "id": 1502,
+            "neoClassName": "Neo.selection.table.CellColumnModel"
+        },
+        {
+            "comment": "/**\n         * @member {Array|null} selectedColumnCellIds=null\n         * @private\n         */",
+            "meta": {
+                "filename": "CellColumnModel.mjs",
+                "lineno": 35,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "selectedColumnCellIds",
+            "type": {
+                "names": [
+                    "Array",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "selectedColumnCellIds",
+            "scope": "global",
+            "$longname": "selectedColumnCellIds",
+            "$kind": "property",
+            "id": 1503,
+            "neoClassName": "Neo.selection.table.CellColumnModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    1207,
+                    1299
+                ],
+                "filename": "CellColumnModel.mjs",
+                "lineno": 42,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {
+                    "id": "astnode100049040",
+                    "name": "CellColumnModel",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "CellColumnModel",
+            "longname": "CellColumnModel",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "CellColumnModel",
+            "$kind": "constructor",
+            "id": 1504,
+            "neoClassName": "Neo.selection.table.CellColumnModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [silent] true to prevent a vdom update\n     */",
+            "meta": {
+                "range": [
+                    1391,
+                    1772
+                ],
+                "filename": "CellColumnModel.mjs",
+                "lineno": 52,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {
+                    "id": "astnode100049055",
+                    "name": "CellColumnModel#deselectAllCells",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "description": "true to prevent a vdom update",
+                    "name": "silent"
+                }
+            ],
+            "name": "deselectAllCells",
+            "longname": "CellColumnModel#deselectAllCells",
+            "kind": "function",
+            "memberof": "CellColumnModel",
+            "scope": "instance",
+            "$longname": "CellColumnModel#deselectAllCells",
+            "$kind": "method",
+            "id": 1505,
+            "neoClassName": "Neo.selection.table.CellColumnModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    1829,
+                    2408
+                ],
+                "filename": "CellColumnModel.mjs",
+                "lineno": 71,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {
+                    "id": "astnode100049112",
+                    "name": "CellColumnModel#onCellClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onCellClick",
+            "longname": "CellColumnModel#onCellClick",
+            "kind": "function",
+            "memberof": "CellColumnModel",
+            "scope": "instance",
+            "$longname": "CellColumnModel#onCellClick",
+            "$kind": "method",
+            "id": 1506,
+            "neoClassName": "Neo.selection.table.CellColumnModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Number} step\n     */",
+            "meta": {
+                "range": [
+                    2493,
+                    3313
+                ],
+                "filename": "CellColumnModel.mjs",
+                "lineno": 93,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {
+                    "id": "astnode100049202",
+                    "name": "CellColumnModel#onNavKeyColumn",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data",
+                        "step"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "step"
+                }
+            ],
+            "name": "onNavKeyColumn",
+            "longname": "CellColumnModel#onNavKeyColumn",
+            "kind": "function",
+            "memberof": "CellColumnModel",
+            "scope": "instance",
+            "$longname": "CellColumnModel#onNavKeyColumn",
+            "$kind": "method",
+            "id": 1507,
+            "neoClassName": "Neo.selection.table.CellColumnModel"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    3342,
+                    3423
+                ],
+                "filename": "CellColumnModel.mjs",
+                "lineno": 118,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {
+                    "id": "astnode100049327",
+                    "name": "CellColumnModel#unregister",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "unregister",
+            "longname": "CellColumnModel#unregister",
+            "kind": "function",
+            "memberof": "CellColumnModel",
+            "scope": "instance",
+            "params": [],
+            "$longname": "CellColumnModel#unregister",
+            "$kind": "method",
+            "id": 1508,
+            "neoClassName": "Neo.selection.table.CellColumnModel"
+        }
+    ]
+}

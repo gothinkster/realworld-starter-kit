@@ -1,0 +1,544 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.data.RecordFactory\n * @extends Neo.core.Base\n * @singleton\n */",
+            "meta": {
+                "filename": "RecordFactory.mjs",
+                "lineno": 7,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "RecordFactory",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "tags": [
+                {
+                    "originalTitle": "singleton",
+                    "title": "singleton",
+                    "text": ""
+                }
+            ],
+            "memberof": "Neo.data",
+            "longname": "Neo.data.RecordFactory",
+            "scope": "static",
+            "$longname": "Neo.data.RecordFactory",
+            "$kind": "class",
+            "id": 646,
+            "neoClassName": "Neo.data.RecordFactory"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.data.RecordFactory'\n         * @private\n         */",
+            "meta": {
+                "filename": "RecordFactory.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.data.RecordFactory'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 647,
+            "neoClassName": "Neo.data.RecordFactory"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @private\n         */",
+            "meta": {
+                "filename": "RecordFactory.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "singleton",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "access": "private",
+            "longname": "singleton",
+            "scope": "global",
+            "$longname": "singleton",
+            "$kind": "property",
+            "id": 648,
+            "neoClassName": "Neo.data.RecordFactory"
+        },
+        {
+            "comment": "/**\n         * The internal record prefix for original field values.\n         * Only used in case the model has trackModifiedFields set to true.\n         * @member {String} ovPrefix='ov_'\n         */",
+            "meta": {
+                "filename": "RecordFactory.mjs",
+                "lineno": 29,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {}
+            },
+            "description": "The internal record prefix for original field values.<br />Only used in case the model has trackModifiedFields set to true.",
+            "kind": "member",
+            "name": "ovPrefix",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'ov_'",
+            "longname": "ovPrefix",
+            "scope": "global",
+            "$longname": "ovPrefix",
+            "$kind": "property",
+            "id": 649,
+            "neoClassName": "Neo.data.RecordFactory"
+        },
+        {
+            "comment": "/**\n         * @member {String} recordNamespace='Neo.data.record.'\n         */",
+            "meta": {
+                "filename": "RecordFactory.mjs",
+                "lineno": 33,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "recordNamespace",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.data.record.'",
+            "longname": "recordNamespace",
+            "scope": "global",
+            "$longname": "recordNamespace",
+            "$kind": "property",
+            "id": 650,
+            "neoClassName": "Neo.data.RecordFactory"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Neo.data.Model} model\n     * @param {Object} config\n     * @returns {Object}\n     */",
+            "meta": {
+                "range": [
+                    1035,
+                    1281
+                ],
+                "filename": "RecordFactory.mjs",
+                "lineno": 42,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {
+                    "id": "astnode100023670",
+                    "name": "RecordFactory#createRecord",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "model",
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.data.Model"
+                        ]
+                    },
+                    "name": "model"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    }
+                }
+            ],
+            "name": "createRecord",
+            "longname": "RecordFactory#createRecord",
+            "kind": "function",
+            "memberof": "RecordFactory",
+            "scope": "instance",
+            "$longname": "RecordFactory#createRecord",
+            "$kind": "method",
+            "id": 651,
+            "neoClassName": "Neo.data.RecordFactory"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Neo.data.Model} model\n     * @returns {Object}\n     */",
+            "meta": {
+                "range": [
+                    1372,
+                    4871
+                ],
+                "filename": "RecordFactory.mjs",
+                "lineno": 57,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {
+                    "id": "astnode100023706",
+                    "name": "RecordFactory#createRecordClass",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "model"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.data.Model"
+                        ]
+                    },
+                    "name": "model"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    }
+                }
+            ],
+            "name": "createRecordClass",
+            "longname": "RecordFactory#createRecordClass",
+            "kind": "function",
+            "memberof": "RecordFactory",
+            "scope": "instance",
+            "$longname": "RecordFactory#createRecordClass",
+            "$kind": "method",
+            "id": 652,
+            "neoClassName": "Neo.data.RecordFactory"
+        },
+        {
+            "comment": "",
+            "meta": {
+                "range": [
+                    1886,
+                    4764
+                ],
+                "filename": "RecordFactory.mjs",
+                "lineno": 70,
+                "columnno": 20,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {
+                    "id": "astnode100023779",
+                    "name": "ns[undefined]",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "undocumented": true,
+            "name": "ns[undefined]",
+            "longname": "<anonymous>~ns~ns[undefined]",
+            "kind": "class",
+            "memberof": "<anonymous>~ns",
+            "scope": "inner",
+            "params": [],
+            "$longname": "ns~ns[undefined]",
+            "$kind": "constructor",
+            "id": 653,
+            "neoClassName": "Neo.data.RecordFactory"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} record\n     * @param {Boolean} trackModifiedFields\n     * @returns {Boolean} true in case a change was found\n     */",
+            "meta": {
+                "range": [
+                    5032,
+                    5532
+                ],
+                "filename": "RecordFactory.mjs",
+                "lineno": 146,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {
+                    "id": "astnode100023954",
+                    "name": "RecordFactory#isModified",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "record",
+                        "trackModifiedFields"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "record"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "trackModifiedFields"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "description": "true in case a change was found"
+                }
+            ],
+            "name": "isModified",
+            "longname": "RecordFactory#isModified",
+            "kind": "function",
+            "memberof": "RecordFactory",
+            "scope": "instance",
+            "$longname": "RecordFactory#isModified",
+            "$kind": "method",
+            "id": 654,
+            "neoClassName": "Neo.data.RecordFactory"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} record\n     * @param {String} fieldName\n     * @returns {Boolean|null} null in case the model does not use trackModifiedFields, true in case a change was found\n     */",
+            "meta": {
+                "range": [
+                    5744,
+                    6107
+                ],
+                "filename": "RecordFactory.mjs",
+                "lineno": 173,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {
+                    "id": "astnode100024015",
+                    "name": "RecordFactory#isModifiedField",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "record",
+                        "fieldName"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "record"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "fieldName"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean",
+                            "null"
+                        ]
+                    },
+                    "description": "null in case the model does not use trackModifiedFields, true in case a change was found"
+                }
+            ],
+            "name": "isModifiedField",
+            "longname": "RecordFactory#isModifiedField",
+            "kind": "function",
+            "memberof": "RecordFactory",
+            "scope": "instance",
+            "$longname": "RecordFactory#isModifiedField",
+            "$kind": "method",
+            "id": 655,
+            "neoClassName": "Neo.data.RecordFactory"
+        },
+        {
+            "comment": "/**\n     * Tests if a given object is an instance of a class created by this factory\n     * @param {Object} obj\n     * @returns {Boolean}\n     */",
+            "meta": {
+                "range": [
+                    6263,
+                    6384
+                ],
+                "filename": "RecordFactory.mjs",
+                "lineno": 190,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {
+                    "id": "astnode100024062",
+                    "name": "RecordFactory#isRecord",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "obj"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Tests if a given object is an instance of a class created by this factory",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "obj"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    }
+                }
+            ],
+            "name": "isRecord",
+            "longname": "RecordFactory#isRecord",
+            "kind": "function",
+            "memberof": "RecordFactory",
+            "scope": "instance",
+            "$longname": "RecordFactory#isRecord",
+            "$kind": "method",
+            "id": 656,
+            "neoClassName": "Neo.data.RecordFactory"
+        },
+        {
+            "comment": "/**\n     * Gets triggered after changing the value of a record field.\n     * E.g. myRecord.foo = 'bar';\n     * @param {Object} opts\n     * @param {String} opts.field The name of the field which got changed\n     * @param {Neo.data.Model} opts.model The model instance of the changed record\n     * @param {*} opts.oldValue\n     * @param {Object} opts.record\n     * @param {*} opts.value\n     */",
+            "meta": {
+                "range": [
+                    6787,
+                    6936
+                ],
+                "filename": "RecordFactory.mjs",
+                "lineno": 204,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {
+                    "id": "astnode100024087",
+                    "name": "RecordFactory#onRecordChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Gets triggered after changing the value of a record field.<br />E.g. myRecord.foo = 'bar';",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "The name of the field which got changed",
+                    "name": "opts.field"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.data.Model"
+                        ]
+                    },
+                    "description": "The model instance of the changed record",
+                    "name": "opts.model"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "*"
+                        ]
+                    },
+                    "name": "opts.oldValue"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts.record"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "*"
+                        ]
+                    },
+                    "name": "opts.value"
+                }
+            ],
+            "name": "onRecordChange",
+            "longname": "RecordFactory#onRecordChange",
+            "kind": "function",
+            "memberof": "RecordFactory",
+            "scope": "instance",
+            "$longname": "RecordFactory#onRecordChange",
+            "$kind": "method",
+            "id": 657,
+            "neoClassName": "Neo.data.RecordFactory"
+        }
+    ]
+}

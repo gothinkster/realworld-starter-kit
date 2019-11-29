@@ -1,0 +1,198 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.container.Window\n * @extends Neo.container.Panel\n */",
+            "meta": {
+                "filename": "Window.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Window",
+            "augments": [
+                "Neo.container.Panel"
+            ],
+            "memberof": "Neo.container",
+            "longname": "Neo.container.Window",
+            "scope": "static",
+            "$longname": "Neo.container.Window",
+            "$kind": "class",
+            "id": 514,
+            "neoClassName": "Neo.container.Window"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.container.Window'\n         * @private\n         */",
+            "meta": {
+                "filename": "Window.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.container.Window'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 515,
+            "neoClassName": "Neo.container.Window"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='window'\n         * @private\n         */",
+            "meta": {
+                "filename": "Window.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'window'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 516,
+            "neoClassName": "Neo.container.Window"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} autoMount=true\n         * @private\n         */",
+            "meta": {
+                "filename": "Window.mjs",
+                "lineno": 24,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "autoMount",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "access": "private",
+            "longname": "autoMount",
+            "scope": "global",
+            "$longname": "autoMount",
+            "$kind": "property",
+            "id": 517,
+            "neoClassName": "Neo.container.Window"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neo-window','neo-panel','neo-container']\n         * @private\n         */",
+            "meta": {
+                "filename": "Window.mjs",
+                "lineno": 29,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neo-window','neo-panel','neo-container']",
+            "access": "private",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 518,
+            "neoClassName": "Neo.container.Window"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} draggable_=true\n         */",
+            "meta": {
+                "filename": "Window.mjs",
+                "lineno": 33,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "draggable_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "draggable_",
+            "scope": "global",
+            "$longname": "draggable_",
+            "$kind": "property",
+            "id": 519,
+            "neoClassName": "Neo.container.Window"
+        },
+        {
+            "comment": "/**\n         * @member {Array} mixins\n         * @private\n         */",
+            "meta": {
+                "filename": "Window.mjs",
+                "lineno": 38,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "mixins",
+            "type": {
+                "names": [
+                    "Array"
+                ]
+            },
+            "access": "private",
+            "longname": "mixins",
+            "scope": "global",
+            "$longname": "mixins",
+            "$kind": "property",
+            "id": 520,
+            "neoClassName": "Neo.container.Window"
+        },
+        {
+            "comment": "/**\n         * @member {Array} headers\n         * @private\n         */",
+            "meta": {
+                "filename": "Window.mjs",
+                "lineno": 43,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "headers",
+            "type": {
+                "names": [
+                    "Array"
+                ]
+            },
+            "access": "private",
+            "longname": "headers",
+            "scope": "global",
+            "$longname": "headers",
+            "$kind": "property",
+            "id": 521,
+            "neoClassName": "Neo.container.Window"
+        }
+    ]
+}

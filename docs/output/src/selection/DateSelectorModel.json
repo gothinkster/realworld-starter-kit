@@ -1,0 +1,504 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.selection.DateSelectorModel\n * @extends Neo.selection.Model\n */",
+            "meta": {
+                "filename": "DateSelectorModel.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "DateSelectorModel",
+            "augments": [
+                "Neo.selection.Model"
+            ],
+            "memberof": "Neo.selection",
+            "longname": "Neo.selection.DateSelectorModel",
+            "scope": "static",
+            "$longname": "Neo.selection.DateSelectorModel",
+            "$kind": "class",
+            "id": 1418,
+            "neoClassName": "Neo.selection.DateSelectorModel"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.selection.DateSelectorModel'\n         * @private\n         */",
+            "meta": {
+                "filename": "DateSelectorModel.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.selection.DateSelectorModel'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1419,
+            "neoClassName": "Neo.selection.DateSelectorModel"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='selection-dateselectormodel'\n         * @private\n         */",
+            "meta": {
+                "filename": "DateSelectorModel.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'selection-dateselectormodel'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1420,
+            "neoClassName": "Neo.selection.DateSelectorModel"
+        },
+        {
+            "comment": "/**\n         * true to stay inside the same column when navigating up or downwards\n         * @member {Boolean} stayInColumn=false\n         */",
+            "meta": {
+                "filename": "DateSelectorModel.mjs",
+                "lineno": 24,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {}
+            },
+            "description": "true to stay inside the same column when navigating up or downwards",
+            "kind": "member",
+            "name": "stayInColumn",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "stayInColumn",
+            "scope": "global",
+            "$longname": "stayInColumn",
+            "$kind": "property",
+            "id": 1421,
+            "neoClassName": "Neo.selection.DateSelectorModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @returns {Date}\n     */",
+            "meta": {
+                "range": [
+                    822,
+                    1268
+                ],
+                "filename": "DateSelectorModel.mjs",
+                "lineno": 32,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100046023",
+                    "name": "DateSelectorModel#getCellDate",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Date"
+                        ]
+                    }
+                }
+            ],
+            "name": "getCellDate",
+            "longname": "DateSelectorModel#getCellDate",
+            "kind": "function",
+            "memberof": "DateSelectorModel",
+            "scope": "instance",
+            "$longname": "DateSelectorModel#getCellDate",
+            "$kind": "method",
+            "id": 1422,
+            "neoClassName": "Neo.selection.DateSelectorModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    1325,
+                    1387
+                ],
+                "filename": "DateSelectorModel.mjs",
+                "lineno": 53,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100046097",
+                    "name": "DateSelectorModel#onKeyDownDown",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownDown",
+            "longname": "DateSelectorModel#onKeyDownDown",
+            "kind": "function",
+            "memberof": "DateSelectorModel",
+            "scope": "instance",
+            "$longname": "DateSelectorModel#onKeyDownDown",
+            "$kind": "method",
+            "id": 1423,
+            "neoClassName": "Neo.selection.DateSelectorModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    1444,
+                    1510
+                ],
+                "filename": "DateSelectorModel.mjs",
+                "lineno": 61,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100046109",
+                    "name": "DateSelectorModel#onKeyDownLeft",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownLeft",
+            "longname": "DateSelectorModel#onKeyDownLeft",
+            "kind": "function",
+            "memberof": "DateSelectorModel",
+            "scope": "instance",
+            "$longname": "DateSelectorModel#onKeyDownLeft",
+            "$kind": "method",
+            "id": 1424,
+            "neoClassName": "Neo.selection.DateSelectorModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    1567,
+                    1633
+                ],
+                "filename": "DateSelectorModel.mjs",
+                "lineno": 69,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100046122",
+                    "name": "DateSelectorModel#onKeyDownRight",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownRight",
+            "longname": "DateSelectorModel#onKeyDownRight",
+            "kind": "function",
+            "memberof": "DateSelectorModel",
+            "scope": "instance",
+            "$longname": "DateSelectorModel#onKeyDownRight",
+            "$kind": "method",
+            "id": 1425,
+            "neoClassName": "Neo.selection.DateSelectorModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    1690,
+                    1751
+                ],
+                "filename": "DateSelectorModel.mjs",
+                "lineno": 77,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100046134",
+                    "name": "DateSelectorModel#onKeyDownUp",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownUp",
+            "longname": "DateSelectorModel#onKeyDownUp",
+            "kind": "function",
+            "memberof": "DateSelectorModel",
+            "scope": "instance",
+            "$longname": "DateSelectorModel#onKeyDownUp",
+            "$kind": "method",
+            "id": 1426,
+            "neoClassName": "Neo.selection.DateSelectorModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Number} step\n     */",
+            "meta": {
+                "range": [
+                    1836,
+                    2326
+                ],
+                "filename": "DateSelectorModel.mjs",
+                "lineno": 86,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100046147",
+                    "name": "DateSelectorModel#onNavKeyColumn",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data",
+                        "step"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "step"
+                }
+            ],
+            "name": "onNavKeyColumn",
+            "longname": "DateSelectorModel#onNavKeyColumn",
+            "kind": "function",
+            "memberof": "DateSelectorModel",
+            "scope": "instance",
+            "$longname": "DateSelectorModel#onNavKeyColumn",
+            "$kind": "method",
+            "id": 1427,
+            "neoClassName": "Neo.selection.DateSelectorModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Number} step\n     */",
+            "meta": {
+                "range": [
+                    2411,
+                    3239
+                ],
+                "filename": "DateSelectorModel.mjs",
+                "lineno": 108,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100046233",
+                    "name": "DateSelectorModel#onNavKeyRow",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data",
+                        "step"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "step"
+                }
+            ],
+            "name": "onNavKeyRow",
+            "longname": "DateSelectorModel#onNavKeyRow",
+            "kind": "function",
+            "memberof": "DateSelectorModel",
+            "scope": "instance",
+            "$longname": "DateSelectorModel#onNavKeyRow",
+            "$kind": "method",
+            "id": 1428,
+            "neoClassName": "Neo.selection.DateSelectorModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Neo.component.Base} component\n     */",
+            "meta": {
+                "range": [
+                    3313,
+                    3799
+                ],
+                "filename": "DateSelectorModel.mjs",
+                "lineno": 145,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100046358",
+                    "name": "DateSelectorModel#register",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "component"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "name": "component"
+                }
+            ],
+            "name": "register",
+            "longname": "DateSelectorModel#register",
+            "kind": "function",
+            "memberof": "DateSelectorModel",
+            "scope": "instance",
+            "$longname": "DateSelectorModel#register",
+            "$kind": "method",
+            "id": 1429,
+            "neoClassName": "Neo.selection.DateSelectorModel"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    3828,
+                    4302
+                ],
+                "filename": "DateSelectorModel.mjs",
+                "lineno": 165,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100046425",
+                    "name": "DateSelectorModel#unregister",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "unregister",
+            "longname": "DateSelectorModel#unregister",
+            "kind": "function",
+            "memberof": "DateSelectorModel",
+            "scope": "instance",
+            "params": [],
+            "$longname": "DateSelectorModel#unregister",
+            "$kind": "method",
+            "id": 1430,
+            "neoClassName": "Neo.selection.DateSelectorModel"
+        }
+    ]
+}

@@ -1,0 +1,371 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * Logic to work with stylesheets, e.g. apply & switch Neo based themes\n * @class Neo.main.mixins.Stylesheet\n * @extends Neo.core.Base\n * @singleton\n */",
+            "meta": {
+                "filename": "Stylesheet.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {}
+            },
+            "description": "Logic to work with stylesheets, e.g. apply & switch Neo based themes",
+            "kind": "class",
+            "name": "Stylesheet",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "tags": [
+                {
+                    "originalTitle": "singleton",
+                    "title": "singleton",
+                    "text": ""
+                }
+            ],
+            "memberof": "Neo.main.mixins",
+            "longname": "Neo.main.mixins.Stylesheet",
+            "scope": "static",
+            "$longname": "Neo.main.mixins.Stylesheet",
+            "$kind": "class",
+            "id": 1304,
+            "neoClassName": "Neo.main.mixins.Stylesheet"
+        },
+        {
+            "comment": "/**\n             * @member {String} className='Neo.main.mixins.Stylesheet'\n             * @private\n             */",
+            "meta": {
+                "filename": "Stylesheet.mjs",
+                "lineno": 16,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.main.mixins.Stylesheet'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1305,
+            "neoClassName": "Neo.main.mixins.Stylesheet"
+        },
+        {
+            "comment": "/**\n     * Use either name for a neo theme (e.g. 'neo-theme-dark.css') or pass a href\n     * @param {String} [name]\n     * @param {String} [id]\n     * @param {String} [href]\n     */",
+            "meta": {
+                "range": [
+                    658,
+                    1296
+                ],
+                "filename": "Stylesheet.mjs",
+                "lineno": 26,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {
+                    "id": "astnode100040732",
+                    "name": "Stylesheet#createStyleSheet",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "name",
+                        "id",
+                        "href"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Use either name for a neo theme (e.g. 'neo-theme-dark.css') or pass a href",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "name"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "id"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "href"
+                }
+            ],
+            "name": "createStyleSheet",
+            "longname": "Stylesheet#createStyleSheet",
+            "kind": "function",
+            "memberof": "Stylesheet",
+            "scope": "instance",
+            "$longname": "Stylesheet#createStyleSheet",
+            "$kind": "method",
+            "id": 1306,
+            "neoClassName": "Neo.main.mixins.Stylesheet"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} token\n     * @returns {Boolean}\n     */",
+            "meta": {
+                "range": [
+                    1380,
+                    1708
+                ],
+                "filename": "Stylesheet.mjs",
+                "lineno": 54,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {
+                    "id": "astnode100040823",
+                    "name": "Stylesheet#hasStyleSheet",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "token"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "token"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    }
+                }
+            ],
+            "name": "hasStyleSheet",
+            "longname": "Stylesheet#hasStyleSheet",
+            "kind": "function",
+            "memberof": "Stylesheet",
+            "scope": "instance",
+            "$longname": "Stylesheet#hasStyleSheet",
+            "$kind": "method",
+            "id": 1307,
+            "neoClassName": "Neo.main.mixins.Stylesheet"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    1781,
+                    2491
+                ],
+                "filename": "Stylesheet.mjs",
+                "lineno": 74,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {
+                    "id": "astnode100040873",
+                    "name": "Stylesheet#insertCssRules",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "access": "private",
+            "name": "insertCssRules",
+            "longname": "Stylesheet#insertCssRules",
+            "kind": "function",
+            "memberof": "Stylesheet",
+            "scope": "instance",
+            "$longname": "Stylesheet#insertCssRules",
+            "$kind": "method",
+            "id": 1308,
+            "neoClassName": "Neo.main.mixins.Stylesheet"
+        },
+        {
+            "comment": "/**\n     *\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    2536,
+                    3677
+                ],
+                "filename": "Stylesheet.mjs",
+                "lineno": 105,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {
+                    "id": "astnode100040975",
+                    "name": "Stylesheet#insertTheme",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "access": "private",
+            "name": "insertTheme",
+            "longname": "Stylesheet#insertTheme",
+            "kind": "function",
+            "memberof": "Stylesheet",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Stylesheet#insertTheme",
+            "$kind": "method",
+            "id": 1309,
+            "neoClassName": "Neo.main.mixins.Stylesheet"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @param {String[]} opts.included\n     * @param {String[]} opts.excluded\n     */",
+            "meta": {
+                "range": [
+                    3812,
+                    4854
+                ],
+                "filename": "Stylesheet.mjs",
+                "lineno": 151,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {
+                    "id": "astnode100041129",
+                    "name": "Stylesheet#removeStyleSheets",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array.<String>"
+                        ]
+                    },
+                    "name": "opts.included"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array.<String>"
+                        ]
+                    },
+                    "name": "opts.excluded"
+                }
+            ],
+            "name": "removeStyleSheets",
+            "longname": "Stylesheet#removeStyleSheets",
+            "kind": "function",
+            "memberof": "Stylesheet",
+            "scope": "instance",
+            "$longname": "Stylesheet#removeStyleSheets",
+            "$kind": "method",
+            "id": 1310,
+            "neoClassName": "Neo.main.mixins.Stylesheet"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.href\n     * @param {String} data.id\n     */",
+            "meta": {
+                "range": [
+                    4975,
+                    5077
+                ],
+                "filename": "Stylesheet.mjs",
+                "lineno": 192,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {
+                    "id": "astnode100041257",
+                    "name": "Stylesheet#swapStyleSheet",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.href"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.id"
+                }
+            ],
+            "name": "swapStyleSheet",
+            "longname": "Stylesheet#swapStyleSheet",
+            "kind": "function",
+            "memberof": "Stylesheet",
+            "scope": "instance",
+            "$longname": "Stylesheet#swapStyleSheet",
+            "$kind": "method",
+            "id": 1311,
+            "neoClassName": "Neo.main.mixins.Stylesheet"
+        }
+    ]
+}

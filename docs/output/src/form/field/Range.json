@@ -1,0 +1,318 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.form.field.Range\n * @extends Neo.form.field.Number\n */",
+            "meta": {
+                "filename": "Range.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Range",
+            "augments": [
+                "Neo.form.field.Number"
+            ],
+            "memberof": "Neo.form.field",
+            "longname": "Neo.form.field.Range",
+            "scope": "static",
+            "$longname": "Neo.form.field.Range",
+            "$kind": "class",
+            "id": 806,
+            "neoClassName": "Neo.form.field.Range"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.form.field.Range'\n         * @private\n         */",
+            "meta": {
+                "filename": "Range.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.form.field.Range'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 807,
+            "neoClassName": "Neo.form.field.Range"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='rangefield'\n         * @private\n         */",
+            "meta": {
+                "filename": "Range.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'rangefield'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 808,
+            "neoClassName": "Neo.form.field.Range"
+        },
+        {
+            "comment": "/**\n         * True shows a clear trigger in case the field has a non empty value.\n         * @member {Boolean} clearable=false\n         */",
+            "meta": {
+                "filename": "Range.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "True shows a clear trigger in case the field has a non empty value.",
+            "kind": "member",
+            "name": "clearable",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "clearable",
+            "scope": "global",
+            "$longname": "clearable",
+            "$kind": "property",
+            "id": 809,
+            "neoClassName": "Neo.form.field.Range"
+        },
+        {
+            "comment": "/**\n         * @member {Array} cls=['neo-rangefield','neo-textfield']\n         */",
+            "meta": {
+                "filename": "Range.mjs",
+                "lineno": 27,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array"
+                ]
+            },
+            "defaultvalue": "['neo-rangefield','neo-textfield']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 810,
+            "neoClassName": "Neo.form.field.Range"
+        },
+        {
+            "comment": "/**\n         * Value for the inputType_ textfield config\n         * @member {String} inputType='range'\n         */",
+            "meta": {
+                "filename": "Range.mjs",
+                "lineno": 32,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "Value for the inputType_ textfield config",
+            "kind": "member",
+            "name": "inputType",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'range'",
+            "longname": "inputType",
+            "scope": "global",
+            "$longname": "inputType",
+            "$kind": "property",
+            "id": 811,
+            "neoClassName": "Neo.form.field.Range"
+        },
+        {
+            "comment": "/**\n         * @member {Array} tickmarks_=[]\n         */",
+            "meta": {
+                "filename": "Range.mjs",
+                "lineno": 36,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "tickmarks_",
+            "type": {
+                "names": [
+                    "Array"
+                ]
+            },
+            "defaultvalue": "[]",
+            "longname": "tickmarks_",
+            "scope": "global",
+            "$longname": "tickmarks_",
+            "$kind": "property",
+            "id": 812,
+            "neoClassName": "Neo.form.field.Range"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} useInputEvent=false\n         */",
+            "meta": {
+                "filename": "Range.mjs",
+                "lineno": 40,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "useInputEvent",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "useInputEvent",
+            "scope": "global",
+            "$longname": "useInputEvent",
+            "$kind": "property",
+            "id": 813,
+            "neoClassName": "Neo.form.field.Range"
+        },
+        {
+            "comment": "/**\n         * Disables the field.Number buttons\n         * @member {Boolean} useInputEvent=false\n         */",
+            "meta": {
+                "filename": "Range.mjs",
+                "lineno": 45,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "Disables the field.Number buttons",
+            "kind": "member",
+            "name": "useInputEvent",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "useInputEvent",
+            "scope": "global",
+            "$longname": "useInputEvent",
+            "$kind": "property",
+            "id": 814,
+            "neoClassName": "Neo.form.field.Range"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    1310,
+                    1867
+                ],
+                "filename": "Range.mjs",
+                "lineno": 52,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027171",
+                    "name": "Range",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "Range",
+            "longname": "Range",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Range",
+            "$kind": "constructor",
+            "id": 815,
+            "neoClassName": "Neo.form.field.Range"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    1971,
+                    2055
+                ],
+                "filename": "Range.mjs",
+                "lineno": 80,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027240",
+                    "name": "Range#afterSetTickmarks",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetTickmarks",
+            "longname": "Range#afterSetTickmarks",
+            "kind": "function",
+            "memberof": "Range",
+            "scope": "instance",
+            "$longname": "Range#afterSetTickmarks",
+            "$kind": "method",
+            "id": 816,
+            "neoClassName": "Neo.form.field.Range"
+        }
+    ]
+}

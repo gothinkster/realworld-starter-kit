@@ -1,0 +1,780 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.core.Util\n * @extends Neo.core.Base\n */",
+            "meta": {
+                "filename": "Util.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Util",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "memberof": "Neo.core",
+            "longname": "Neo.core.Util",
+            "scope": "static",
+            "$longname": "Neo.core.Util",
+            "$kind": "class",
+            "id": 599,
+            "neoClassName": "Neo.core.Util"
+        },
+        {
+            "comment": "/**\n         * A regex to remove camel case syntax\n         * @member {RegExp} decamelRegEx=/([a-z])([A-Z])/g\n         * @private\n         * @static\n         */",
+            "meta": {
+                "filename": "Util.mjs",
+                "lineno": 15,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {}
+            },
+            "description": "A regex to remove camel case syntax",
+            "kind": "member",
+            "name": "decamelRegEx",
+            "type": {
+                "names": [
+                    "RegExp"
+                ]
+            },
+            "defaultvalue": "/([a-z])([A-Z])/g",
+            "access": "private",
+            "scope": "static",
+            "longname": "decamelRegEx",
+            "$longname": "decamelRegEx",
+            "$kind": "property",
+            "id": 600,
+            "neoClassName": "Neo.core.Util"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.core.Util'\n         * @private\n         */",
+            "meta": {
+                "filename": "Util.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.core.Util'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 601,
+            "neoClassName": "Neo.core.Util"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='core-util'\n         * @private\n         */",
+            "meta": {
+                "filename": "Util.mjs",
+                "lineno": 28,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'core-util'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 602,
+            "neoClassName": "Neo.core.Util"
+        },
+        {
+            "comment": "/**\n     * Converts a syles object which can use camelcase syntax into a styles string\n     * @param {Object} styles The styles object\n     * @returns {String} The styles string (DOM ready)\n     */",
+            "meta": {
+                "range": [
+                    871,
+                    1160
+                ],
+                "filename": "Util.mjs",
+                "lineno": 36,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100022298",
+                    "name": "Util.createStyles",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "styles"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Converts a syles object which can use camelcase syntax into a styles string",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The styles object",
+                    "name": "styles"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "The styles string (DOM ready)"
+                }
+            ],
+            "name": "createStyles",
+            "longname": "Util.createStyles",
+            "kind": "function",
+            "memberof": "Util",
+            "scope": "static",
+            "$longname": "Util.createStyles",
+            "$kind": "method",
+            "id": 603,
+            "neoClassName": "Neo.core.Util"
+        },
+        {
+            "comment": "/**\n     * Makes the first character of a string uppercase\n     * @param {String} string\n     * @returns {Boolean|String} Returns false for non string inputs\n     */",
+            "meta": {
+                "range": [
+                    1336,
+                    1452
+                ],
+                "filename": "Util.mjs",
+                "lineno": 53,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100022344",
+                    "name": "Util.capitalize",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "string"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Makes the first character of a string uppercase",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "string"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean",
+                            "String"
+                        ]
+                    },
+                    "description": "Returns false for non string inputs"
+                }
+            ],
+            "name": "capitalize",
+            "longname": "Util.capitalize",
+            "kind": "function",
+            "memberof": "Util",
+            "scope": "static",
+            "$longname": "Util.capitalize",
+            "$kind": "method",
+            "id": 604,
+            "neoClassName": "Neo.core.Util"
+        },
+        {
+            "comment": "/**\n     * Transforms all uppercase characters of a string into lowercase.\n     * Does not touch special characters.\n     * @param {String} value The input containing uppercase characters\n     * @returns {String} The lowercase output\n     */",
+            "meta": {
+                "range": [
+                    1704,
+                    1805
+                ],
+                "filename": "Util.mjs",
+                "lineno": 63,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100022368",
+                    "name": "Util.decamel",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Transforms all uppercase characters of a string into lowercase.<br />Does not touch special characters.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "The input containing uppercase characters",
+                    "name": "value"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "The lowercase output"
+                }
+            ],
+            "name": "decamel",
+            "longname": "Util.decamel",
+            "kind": "function",
+            "memberof": "Util",
+            "scope": "static",
+            "$longname": "Util.decamel",
+            "$kind": "method",
+            "id": 605,
+            "neoClassName": "Neo.core.Util"
+        },
+        {
+            "comment": "/**\n     * Transforms a styles string into a styles object using camelcase syntax\n     * @param {String} string The styles string to parse\n     * @returns {Object} The camelcase styles object\n     */",
+            "meta": {
+                "range": [
+                    2015,
+                    2938
+                ],
+                "filename": "Util.mjs",
+                "lineno": 72,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100022385",
+                    "name": "Util.createStyleObject",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "string"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Transforms a styles string into a styles object using camelcase syntax",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "The styles string to parse",
+                    "name": "string"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The camelcase styles object"
+                }
+            ],
+            "name": "createStyleObject",
+            "longname": "Util.createStyleObject",
+            "kind": "function",
+            "memberof": "Util",
+            "scope": "static",
+            "$longname": "Util.createStyleObject",
+            "$kind": "method",
+            "id": 606,
+            "neoClassName": "Neo.core.Util"
+        },
+        {
+            "comment": "/**\n     * Returns true if the passed value is an array\n     * @param {Object} value The value to test\n     * @returns {Boolean}\n     */",
+            "meta": {
+                "range": [
+                    3085,
+                    3150
+                ],
+                "filename": "Util.mjs",
+                "lineno": 107,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100022483",
+                    "name": "Util.isArray",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns true if the passed value is an array",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The value to test",
+                    "name": "value"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    }
+                }
+            ],
+            "name": "isArray",
+            "longname": "Util.isArray",
+            "kind": "function",
+            "memberof": "Util",
+            "scope": "static",
+            "$longname": "Util.isArray",
+            "$kind": "method",
+            "id": 607,
+            "neoClassName": "Neo.core.Util"
+        },
+        {
+            "comment": "/**\n     * Returns true if the passed value is a boolean\n     * @param {Object} value The value to test\n     * @returns {Boolean}\n     */",
+            "meta": {
+                "range": [
+                    3298,
+                    3372
+                ],
+                "filename": "Util.mjs",
+                "lineno": 116,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100022494",
+                    "name": "Util.isBoolean",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns true if the passed value is a boolean",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The value to test",
+                    "name": "value"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    }
+                }
+            ],
+            "name": "isBoolean",
+            "longname": "Util.isBoolean",
+            "kind": "function",
+            "memberof": "Util",
+            "scope": "static",
+            "$longname": "Util.isBoolean",
+            "$kind": "method",
+            "id": 608,
+            "neoClassName": "Neo.core.Util"
+        },
+        {
+            "comment": "/**\n     * Returns true if the passed value is not undefined\n     * @param {Object} value The value to test\n     * @returns {Boolean}\n     */",
+            "meta": {
+                "range": [
+                    3524,
+                    3600
+                ],
+                "filename": "Util.mjs",
+                "lineno": 125,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100022504",
+                    "name": "Util.isDefined",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns true if the passed value is not undefined",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The value to test",
+                    "name": "value"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    }
+                }
+            ],
+            "name": "isDefined",
+            "longname": "Util.isDefined",
+            "kind": "function",
+            "memberof": "Util",
+            "scope": "static",
+            "$longname": "Util.isDefined",
+            "$kind": "method",
+            "id": 609,
+            "neoClassName": "Neo.core.Util"
+        },
+        {
+            "comment": "/**\n     * Returns true if the passed value is an empty Array, Object or String\n     * @param {Array|Object|String} value The value to test\n     * @returns {Boolean}\n     */",
+            "meta": {
+                "range": [
+                    3784,
+                    4100
+                ],
+                "filename": "Util.mjs",
+                "lineno": 134,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100022514",
+                    "name": "Util.isEmpty",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns true if the passed value is an empty Array, Object or String",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array",
+                            "Object",
+                            "String"
+                        ]
+                    },
+                    "description": "The value to test",
+                    "name": "value"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    }
+                }
+            ],
+            "name": "isEmpty",
+            "longname": "Util.isEmpty",
+            "kind": "function",
+            "memberof": "Util",
+            "scope": "static",
+            "$longname": "Util.isEmpty",
+            "$kind": "method",
+            "id": 610,
+            "neoClassName": "Neo.core.Util"
+        },
+        {
+            "comment": "/**\n     * Returns true if the passed value is a number. Returns false for non-finite numbers\n     * @param {Object} value The value to test\n     * @returns {Boolean}\n     */",
+            "meta": {
+                "range": [
+                    4285,
+                    4375
+                ],
+                "filename": "Util.mjs",
+                "lineno": 155,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100022562",
+                    "name": "Util.isNumber",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns true if the passed value is a number. Returns false for non-finite numbers",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The value to test",
+                    "name": "value"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    }
+                }
+            ],
+            "name": "isNumber",
+            "longname": "Util.isNumber",
+            "kind": "function",
+            "memberof": "Util",
+            "scope": "static",
+            "$longname": "Util.isNumber",
+            "$kind": "method",
+            "id": 611,
+            "neoClassName": "Neo.core.Util"
+        },
+        {
+            "comment": "/**\n     * Returns true if the passed value is an object\n     * @param {Object} value The value to test\n     * @returns {Boolean}\n     */",
+            "meta": {
+                "range": [
+                    4523,
+                    4638
+                ],
+                "filename": "Util.mjs",
+                "lineno": 164,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100022576",
+                    "name": "Util.isObject",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns true if the passed value is an object",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The value to test",
+                    "name": "value"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    }
+                }
+            ],
+            "name": "isObject",
+            "longname": "Util.isObject",
+            "kind": "function",
+            "memberof": "Util",
+            "scope": "static",
+            "$longname": "Util.isObject",
+            "$kind": "method",
+            "id": 612,
+            "neoClassName": "Neo.core.Util"
+        },
+        {
+            "comment": "/**\n     * Returns true if the passed value is a string\n     * @param {Object} value The value to test\n     * @returns {Boolean}\n     */",
+            "meta": {
+                "range": [
+                    4785,
+                    4857
+                ],
+                "filename": "Util.mjs",
+                "lineno": 173,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100022597",
+                    "name": "Util.isString",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns true if the passed value is a string",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The value to test",
+                    "name": "value"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    }
+                }
+            ],
+            "name": "isString",
+            "longname": "Util.isString",
+            "kind": "function",
+            "memberof": "Util",
+            "scope": "static",
+            "$longname": "Util.isString",
+            "$kind": "method",
+            "id": 613,
+            "neoClassName": "Neo.core.Util"
+        },
+        {
+            "comment": "/**\n     * Converts any iterable (strings, numeric indices and a length property) into a true array\n     * @param {Object|String} iterable\n     * @param {Number} [start=0] start index\n     * @param {Number} [end=iterable.length] end index\n     * @returns {Array}\n     */",
+            "meta": {
+                "range": [
+                    5138,
+                    5458
+                ],
+                "filename": "Util.mjs",
+                "lineno": 184,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100022607",
+                    "name": "Util.toArray",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "iterable",
+                        "start",
+                        "end"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Converts any iterable (strings, numeric indices and a length property) into a true array",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "String"
+                        ]
+                    },
+                    "name": "iterable"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": 0,
+                    "description": "start index",
+                    "name": "start"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": "iterable.length",
+                    "description": "end index",
+                    "name": "end"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    }
+                }
+            ],
+            "name": "toArray",
+            "longname": "Util.toArray",
+            "kind": "function",
+            "memberof": "Util",
+            "scope": "static",
+            "$longname": "Util.toArray",
+            "$kind": "method",
+            "id": 614,
+            "neoClassName": "Neo.core.Util"
+        }
+    ]
+}

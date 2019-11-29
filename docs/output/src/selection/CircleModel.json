@@ -1,0 +1,289 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.selection.CircleModel\n * @extends Neo.selection.Model\n */",
+            "meta": {
+                "filename": "CircleModel.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "CircleModel",
+            "augments": [
+                "Neo.selection.Model"
+            ],
+            "memberof": "Neo.selection",
+            "longname": "Neo.selection.CircleModel",
+            "scope": "static",
+            "$longname": "Neo.selection.CircleModel",
+            "$kind": "class",
+            "id": 1410,
+            "neoClassName": "Neo.selection.CircleModel"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.selection.CircleModel'\n         * @private\n         */",
+            "meta": {
+                "filename": "CircleModel.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.selection.CircleModel'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1411,
+            "neoClassName": "Neo.selection.CircleModel"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='selection-circlemodel'\n         * @private\n         */",
+            "meta": {
+                "filename": "CircleModel.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'selection-circlemodel'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1412,
+            "neoClassName": "Neo.selection.CircleModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    539,
+                    599
+                ],
+                "filename": "CircleModel.mjs",
+                "lineno": 25,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100045709",
+                    "name": "CircleModel#onKeyDownLeft",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownLeft",
+            "longname": "CircleModel#onKeyDownLeft",
+            "kind": "function",
+            "memberof": "CircleModel",
+            "scope": "instance",
+            "$longname": "CircleModel#onKeyDownLeft",
+            "$kind": "method",
+            "id": 1413,
+            "neoClassName": "Neo.selection.CircleModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    656,
+                    716
+                ],
+                "filename": "CircleModel.mjs",
+                "lineno": 33,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100045722",
+                    "name": "CircleModel#onKeyDownRight",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownRight",
+            "longname": "CircleModel#onKeyDownRight",
+            "kind": "function",
+            "memberof": "CircleModel",
+            "scope": "instance",
+            "$longname": "CircleModel#onKeyDownRight",
+            "$kind": "method",
+            "id": 1414,
+            "neoClassName": "Neo.selection.CircleModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Number} step\n     */",
+            "meta": {
+                "range": [
+                    801,
+                    1500
+                ],
+                "filename": "CircleModel.mjs",
+                "lineno": 42,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100045734",
+                    "name": "CircleModel#onNavKey",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data",
+                        "step"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "step"
+                }
+            ],
+            "name": "onNavKey",
+            "longname": "CircleModel#onNavKey",
+            "kind": "function",
+            "memberof": "CircleModel",
+            "scope": "instance",
+            "$longname": "CircleModel#onNavKey",
+            "$kind": "method",
+            "id": 1415,
+            "neoClassName": "Neo.selection.CircleModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Neo.component.Base} component\n     */",
+            "meta": {
+                "range": [
+                    1574,
+                    2060
+                ],
+                "filename": "CircleModel.mjs",
+                "lineno": 70,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100045856",
+                    "name": "CircleModel#register",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "component"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "name": "component"
+                }
+            ],
+            "name": "register",
+            "longname": "CircleModel#register",
+            "kind": "function",
+            "memberof": "CircleModel",
+            "scope": "instance",
+            "$longname": "CircleModel#register",
+            "$kind": "method",
+            "id": 1416,
+            "neoClassName": "Neo.selection.CircleModel"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    2089,
+                    2563
+                ],
+                "filename": "CircleModel.mjs",
+                "lineno": 90,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100045923",
+                    "name": "CircleModel#unregister",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "unregister",
+            "longname": "CircleModel#unregister",
+            "kind": "function",
+            "memberof": "CircleModel",
+            "scope": "instance",
+            "params": [],
+            "$longname": "CircleModel#unregister",
+            "$kind": "method",
+            "id": 1417,
+            "neoClassName": "Neo.selection.CircleModel"
+        }
+    ]
+}

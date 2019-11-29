@@ -1,0 +1,156 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * A wrapper for worker post messages sent between the App, Data, VDom worker & the main thread.\n * You can add optional params as needed.\n * @class Neo.worker.Message\n */",
+            "meta": {
+                "filename": "Message.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {}
+            },
+            "description": "A wrapper for worker post messages sent between the App, Data, VDom worker & the main thread.<br />You can add optional params as needed.",
+            "kind": "class",
+            "name": "Message",
+            "memberof": "Neo.worker",
+            "longname": "Neo.worker.Message",
+            "scope": "static",
+            "$longname": "Neo.worker.Message",
+            "$kind": "class",
+            "id": 1898,
+            "neoClassName": "Neo.worker.Message"
+        },
+        {
+            "comment": "/**\n     *\n     * @param config\n     */",
+            "meta": {
+                "range": [
+                    292,
+                    858
+                ],
+                "filename": "Message.mjs",
+                "lineno": 13,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {
+                    "id": "astnode100063689",
+                    "name": "Message",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "config"
+                }
+            ],
+            "name": "Message",
+            "longname": "Message",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Message",
+            "$kind": "constructor",
+            "id": 1899,
+            "neoClassName": "Neo.worker.Message"
+        },
+        {
+            "comment": "/**\n         * @member {String} action\n         */",
+            "meta": {
+                "filename": "Message.mjs",
+                "lineno": 17,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "action",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "longname": "action",
+            "scope": "global",
+            "$longname": "action",
+            "$kind": "property",
+            "id": 1900,
+            "neoClassName": "Neo.worker.Message"
+        },
+        {
+            "comment": "/**\n         * @member {String} destination='main'\n         */",
+            "meta": {
+                "filename": "Message.mjs",
+                "lineno": 21,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "destination",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'main'",
+            "longname": "destination",
+            "scope": "global",
+            "$longname": "destination",
+            "$kind": "property",
+            "id": 1901,
+            "neoClassName": "Neo.worker.Message"
+        },
+        {
+            "comment": "/**\n         * @member {String} id=IdGenerator.getId(Neo.workerId)\n         */",
+            "meta": {
+                "filename": "Message.mjs",
+                "lineno": 25,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "id",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "IdGenerator.getId(Neo.workerId)",
+            "longname": "id",
+            "scope": "global",
+            "$longname": "id",
+            "$kind": "property",
+            "id": 1902,
+            "neoClassName": "Neo.worker.Message"
+        },
+        {
+            "comment": "/**\n         * @member {String} origin=Neo.workerId\n         */",
+            "meta": {
+                "filename": "Message.mjs",
+                "lineno": 29,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "origin",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "Neo.workerId",
+            "longname": "origin",
+            "scope": "global",
+            "$longname": "origin",
+            "$kind": "property",
+            "id": 1903,
+            "neoClassName": "Neo.worker.Message"
+        }
+    ]
+}

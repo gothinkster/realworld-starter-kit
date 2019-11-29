@@ -1,0 +1,92 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * Required when running Neo Apps inside the Siesta browser harness (iframe)\n * @class Neo.main.mixins.Siesta\n * @extends Neo.core.Base\n * @singleton\n */",
+            "meta": {
+                "filename": "Siesta.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {}
+            },
+            "description": "Required when running Neo Apps inside the Siesta browser harness (iframe)",
+            "kind": "class",
+            "name": "Siesta",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "tags": [
+                {
+                    "originalTitle": "singleton",
+                    "title": "singleton",
+                    "text": ""
+                }
+            ],
+            "memberof": "Neo.main.mixins",
+            "longname": "Neo.main.mixins.Siesta",
+            "scope": "static",
+            "$longname": "Neo.main.mixins.Siesta",
+            "$kind": "class",
+            "id": 1301,
+            "neoClassName": "Neo.main.mixins.Siesta"
+        },
+        {
+            "comment": "/**\n             * @member {String} className='Neo.main.mixins.Siesta'\n             * @private\n             */",
+            "meta": {
+                "filename": "Siesta.mjs",
+                "lineno": 16,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.main.mixins.Siesta'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1302,
+            "neoClassName": "Neo.main.mixins.Siesta"
+        },
+        {
+            "comment": "/**\n     *\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    500,
+                    929
+                ],
+                "filename": "Siesta.mjs",
+                "lineno": 24,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {
+                    "id": "astnode100040639",
+                    "name": "Siesta#adjustSiestaEnvironment",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "access": "private",
+            "name": "adjustSiestaEnvironment",
+            "longname": "Siesta#adjustSiestaEnvironment",
+            "kind": "function",
+            "memberof": "Siesta",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Siesta#adjustSiestaEnvironment",
+            "$kind": "method",
+            "id": 1303,
+            "neoClassName": "Neo.main.mixins.Siesta"
+        }
+    ]
+}

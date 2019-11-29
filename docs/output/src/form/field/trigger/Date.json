@@ -1,0 +1,103 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * used by form.field.Date\n * @class Neo.form.field.trigger.Date\n * @extends Neo.form.field.trigger.Picker\n */",
+            "meta": {
+                "filename": "Date.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "description": "used by form.field.Date",
+            "kind": "class",
+            "name": "Date",
+            "augments": [
+                "Neo.form.field.trigger.Picker"
+            ],
+            "memberof": "Neo.form.field.trigger",
+            "longname": "Neo.form.field.trigger.Date",
+            "scope": "static",
+            "$longname": "Neo.form.field.trigger.Date",
+            "$kind": "class",
+            "id": 1007,
+            "neoClassName": "Neo.form.field.trigger.Date"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.form.field.trigger.Date'\n         * @private\n         */",
+            "meta": {
+                "filename": "Date.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.form.field.trigger.Date'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1008,
+            "neoClassName": "Neo.form.field.trigger.Date"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='trigger-date'\n         * @private\n         */",
+            "meta": {
+                "filename": "Date.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'trigger-date'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1009,
+            "neoClassName": "Neo.form.field.trigger.Date"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} iconCls='fa fa-calendar-alt'\n         */",
+            "meta": {
+                "filename": "Date.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "iconCls",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": "'fa",
+            "description": "fa-calendar-alt'",
+            "longname": "iconCls",
+            "scope": "global",
+            "$longname": "iconCls",
+            "$kind": "property",
+            "id": 1010,
+            "neoClassName": "Neo.form.field.trigger.Date"
+        }
+    ]
+}

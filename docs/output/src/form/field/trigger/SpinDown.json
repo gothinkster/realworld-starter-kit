@@ -1,0 +1,153 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * Decreases the value of a NumberField\n * @class Neo.form.field.trigger.SpinDown\n * @extends Neo.form.field.trigger.Base\n */",
+            "meta": {
+                "filename": "SpinDown.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "description": "Decreases the value of a NumberField",
+            "kind": "class",
+            "name": "SpinDown",
+            "augments": [
+                "Neo.form.field.trigger.Base"
+            ],
+            "memberof": "Neo.form.field.trigger",
+            "longname": "Neo.form.field.trigger.SpinDown",
+            "scope": "static",
+            "$longname": "Neo.form.field.trigger.SpinDown",
+            "$kind": "class",
+            "id": 1016,
+            "neoClassName": "Neo.form.field.trigger.SpinDown"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.form.field.trigger.SpinUp'\n         * @private\n         */",
+            "meta": {
+                "filename": "SpinDown.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.form.field.trigger.SpinUp'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1017,
+            "neoClassName": "Neo.form.field.trigger.SpinDown"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='trigger-spindown'\n         * @private\n         */",
+            "meta": {
+                "filename": "SpinDown.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'trigger-spindown'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1018,
+            "neoClassName": "Neo.form.field.trigger.SpinDown"
+        },
+        {
+            "comment": "/**\n         * @member {String} align_='start'\n         */",
+            "meta": {
+                "filename": "SpinDown.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "align_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'start'",
+            "longname": "align_",
+            "scope": "global",
+            "$longname": "align_",
+            "$kind": "property",
+            "id": 1019,
+            "neoClassName": "Neo.form.field.trigger.SpinDown"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} iconCls='fa fa-chevron-left'\n         */",
+            "meta": {
+                "filename": "SpinDown.mjs",
+                "lineno": 27,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "iconCls",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": "'fa",
+            "description": "fa-chevron-left'",
+            "longname": "iconCls",
+            "scope": "global",
+            "$longname": "iconCls",
+            "$kind": "property",
+            "id": 1020,
+            "neoClassName": "Neo.form.field.trigger.SpinDown"
+        },
+        {
+            "comment": "/**\n         * Internal flag used by field.getTrigger()\n         * @member {String} type='spindown'\n         * @private\n         */",
+            "meta": {
+                "filename": "SpinDown.mjs",
+                "lineno": 33,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "description": "Internal flag used by field.getTrigger()",
+            "kind": "member",
+            "name": "type",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'spindown'",
+            "access": "private",
+            "longname": "type",
+            "scope": "global",
+            "$longname": "type",
+            "$kind": "property",
+            "id": 1021,
+            "neoClassName": "Neo.form.field.trigger.SpinDown"
+        }
+    ]
+}

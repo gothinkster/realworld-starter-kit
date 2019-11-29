@@ -1,0 +1,125 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.container.Viewport\n * @extends Neo.container.Base\n */",
+            "meta": {
+                "filename": "Viewport.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Viewport",
+            "augments": [
+                "Neo.container.Base"
+            ],
+            "memberof": "Neo.container",
+            "longname": "Neo.container.Viewport",
+            "scope": "static",
+            "$longname": "Neo.container.Viewport",
+            "$kind": "class",
+            "id": 509,
+            "neoClassName": "Neo.container.Viewport"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.container.Viewport'\n         * @private\n         */",
+            "meta": {
+                "filename": "Viewport.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.container.Viewport'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 510,
+            "neoClassName": "Neo.container.Viewport"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='viewport'\n         * @private\n         */",
+            "meta": {
+                "filename": "Viewport.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'viewport'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 511,
+            "neoClassName": "Neo.container.Viewport"
+        },
+        {
+            "comment": "/**\n         * true applies 'neo-body-viewport' to the document.body\n         * @member {Boolean} applyBodyCls=true\n         */",
+            "meta": {
+                "filename": "Viewport.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "description": "true applies 'neo-body-viewport' to the document.body",
+            "kind": "member",
+            "name": "applyBodyCls",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "applyBodyCls",
+            "scope": "global",
+            "$longname": "applyBodyCls",
+            "$kind": "property",
+            "id": 512,
+            "neoClassName": "Neo.container.Viewport"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neo-viewport']\n         */",
+            "meta": {
+                "filename": "Viewport.mjs",
+                "lineno": 27,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neo-viewport']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 513,
+            "neoClassName": "Neo.container.Viewport"
+        }
+    ]
+}

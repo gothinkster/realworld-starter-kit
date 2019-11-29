@@ -1,0 +1,2151 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.component.Circle\n * @extends Neo.component.Base\n */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 8,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Circle",
+            "augments": [
+                "Neo.component.Base"
+            ],
+            "memberof": "Neo.component",
+            "longname": "Neo.component.Circle",
+            "scope": "static",
+            "$longname": "Neo.component.Circle",
+            "$kind": "class",
+            "id": 228,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.component.Circle'\n         * @private\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.component.Circle'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 229,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='circle'\n         * @private\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'circle'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 230,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * Will get set inside the ctor to avoid issues inside the webpack builds\n         * @member {String|null} backsideIconPath=Neo.config.resourcesPath + 'images/circle/'\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 28,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "description": "Will get set inside the ctor to avoid issues inside the webpack builds",
+            "kind": "member",
+            "name": "backsideIconPath",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": "Neo.config.resourcesPath",
+            "longname": "backsideIconPath",
+            "scope": "global",
+            "$longname": "backsideIconPath",
+            "$kind": "property",
+            "id": 231,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} circleCenterHasTransitionCls=true\n         * @private\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 33,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "circleCenterHasTransitionCls",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "access": "private",
+            "longname": "circleCenterHasTransitionCls",
+            "scope": "global",
+            "$longname": "circleCenterHasTransitionCls",
+            "$kind": "property",
+            "id": 232,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neo-circle-component']\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 37,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neo-circle-component']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 233,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} collapsed=true\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 41,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "collapsed",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "collapsed",
+            "scope": "global",
+            "$longname": "collapsed",
+            "$kind": "property",
+            "id": 234,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * Additional used keys for the selection model\n         * @member {Object} keys\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 46,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "description": "Additional used keys for the selection model",
+            "kind": "member",
+            "name": "keys",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "longname": "keys",
+            "scope": "global",
+            "$longname": "keys",
+            "$kind": "property",
+            "id": 235,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * @member {Number} innerRadius_=60\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 50,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "innerRadius_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 60,
+            "longname": "innerRadius_",
+            "scope": "global",
+            "$longname": "innerRadius_",
+            "$kind": "property",
+            "id": 236,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} isFlipped=false\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 54,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "isFlipped",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "isFlipped",
+            "scope": "global",
+            "$longname": "isFlipped",
+            "$kind": "property",
+            "id": 237,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * Will get set inside the ctor to avoid issues inside the webpack builds\n         * @member {String} itemImagePath=Neo.config.resourcesPath + 'examples/images/'\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 59,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "description": "Will get set inside the ctor to avoid issues inside the webpack builds",
+            "kind": "member",
+            "name": "itemImagePath",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "Neo.config.resourcesPath",
+            "longname": "itemImagePath",
+            "scope": "global",
+            "$longname": "itemImagePath",
+            "$kind": "property",
+            "id": 238,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * @member {Number} itemSize_=30\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 63,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "itemSize_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 30,
+            "longname": "itemSize_",
+            "scope": "global",
+            "$longname": "itemSize_",
+            "$kind": "property",
+            "id": 239,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * @member {Number} maxItems_=12\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 67,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "maxItems_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 12,
+            "longname": "maxItems_",
+            "scope": "global",
+            "$longname": "maxItems_",
+            "$kind": "property",
+            "id": 240,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * The amount in px which the outerRadius is bigger than the innerRadius\n         * @member {Number} outerRadiusDelta_=10\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 72,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "description": "The amount in px which the outerRadius is bigger than the innerRadius",
+            "kind": "member",
+            "name": "outerRadiusDelta_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 10,
+            "longname": "outerRadiusDelta_",
+            "scope": "global",
+            "$longname": "outerRadiusDelta_",
+            "$kind": "property",
+            "id": 241,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * @member {Number} rotateX_=0\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 76,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "rotateX_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 0,
+            "longname": "rotateX_",
+            "scope": "global",
+            "$longname": "rotateX_",
+            "$kind": "property",
+            "id": 242,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * @member {Number} rotateY_=0\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 80,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "rotateY_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 0,
+            "longname": "rotateY_",
+            "scope": "global",
+            "$longname": "rotateY_",
+            "$kind": "property",
+            "id": 243,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * @member {Number} rotateZ_=0\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 84,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "rotateZ_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 0,
+            "longname": "rotateZ_",
+            "scope": "global",
+            "$longname": "rotateZ_",
+            "$kind": "property",
+            "id": 244,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.selection.Model} selectionModel_=null\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 88,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "selectionModel_",
+            "type": {
+                "names": [
+                    "Neo.selection.Model"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "selectionModel_",
+            "scope": "global",
+            "$longname": "selectionModel_",
+            "$kind": "property",
+            "id": 245,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.collection.Base} store_=null\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 92,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "store_",
+            "type": {
+                "names": [
+                    "Neo.collection.Base"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "store_",
+            "scope": "global",
+            "$longname": "store_",
+            "$kind": "property",
+            "id": 246,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * @member {String} title_='Circle 1'\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 96,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "title_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Circle",
+            "description": "1'",
+            "longname": "title_",
+            "scope": "global",
+            "$longname": "title_",
+            "$kind": "property",
+            "id": 247,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * The url for the store to load the data\n         * @member {String} url_='../resources/examples/data/ai_contacts.json'\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 101,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "description": "The url for the store to load the data",
+            "kind": "member",
+            "name": "url_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'../resources/examples/data/ai_contacts.json'",
+            "longname": "url_",
+            "scope": "global",
+            "$longname": "url_",
+            "$kind": "property",
+            "id": 248,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n         * @member {Object} _vdom\n         */",
+            "meta": {
+                "filename": "Circle.mjs",
+                "lineno": 105,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "_vdom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "longname": "_vdom",
+            "scope": "global",
+            "$longname": "_vdom",
+            "$kind": "property",
+            "id": 249,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    3948,
+                    5553
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 135,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100007795",
+                    "name": "Circle",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "Circle",
+            "longname": "Circle",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Circle",
+            "$kind": "constructor",
+            "id": 250,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    5582,
+                    5772
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 197,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100007979",
+                    "name": "Circle#onConstructed",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onConstructed",
+            "longname": "Circle#onConstructed",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Circle#onConstructed",
+            "$kind": "method",
+            "id": 251,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     * Triggered after the innerRadius config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    5929,
+                    6158
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 215,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008010",
+                    "name": "Circle#afterSetInnerRadius",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the innerRadius config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetInnerRadius",
+            "longname": "Circle#afterSetInnerRadius",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#afterSetInnerRadius",
+            "$kind": "method",
+            "id": 252,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     * Triggered after the maxItems config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    6312,
+                    7350
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 231,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008041",
+                    "name": "Circle#afterSetMaxItems",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the maxItems config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetMaxItems",
+            "longname": "Circle#afterSetMaxItems",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#afterSetMaxItems",
+            "$kind": "method",
+            "id": 253,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     * Triggered after the itemSize config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    7504,
+                    7748
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 271,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008176",
+                    "name": "Circle#afterSetItemSize",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the itemSize config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetItemSize",
+            "longname": "Circle#afterSetItemSize",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#afterSetItemSize",
+            "$kind": "method",
+            "id": 254,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     * Triggered after the rotateX config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    7901,
+                    8019
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 289,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008210",
+                    "name": "Circle#afterSetRotateX",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the rotateX config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetRotateX",
+            "longname": "Circle#afterSetRotateX",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#afterSetRotateX",
+            "$kind": "method",
+            "id": 255,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     * Triggered after the rotateY config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    8172,
+                    8290
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 301,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008228",
+                    "name": "Circle#afterSetRotateY",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the rotateY config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetRotateY",
+            "longname": "Circle#afterSetRotateY",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#afterSetRotateY",
+            "$kind": "method",
+            "id": 256,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     * Triggered after the rotateZ config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    8443,
+                    8561
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 313,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008246",
+                    "name": "Circle#afterSetRotateZ",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the rotateZ config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetRotateZ",
+            "longname": "Circle#afterSetRotateZ",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#afterSetRotateZ",
+            "$kind": "method",
+            "id": 257,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     * Triggered after the selectionModel config got changed\n     * @param {Neo.selection.Model} value\n     * @param {Neo.selection.Model} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    8747,
+                    8867
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 325,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008264",
+                    "name": "Circle#afterSetSelectionModel",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the selectionModel config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.selection.Model"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.selection.Model"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetSelectionModel",
+            "longname": "Circle#afterSetSelectionModel",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#afterSetSelectionModel",
+            "$kind": "method",
+            "id": 258,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     * Triggered after the title config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    9018,
+                    9122
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 337,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008281",
+                    "name": "Circle#afterSetTitle",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the title config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetTitle",
+            "longname": "Circle#afterSetTitle",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#afterSetTitle",
+            "$kind": "method",
+            "id": 259,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     * Triggered before the selectionModel config gets changed.\n     * @param {Neo.selection.Model} value\n     * @param {Neo.selection.Model} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    9311,
+                    9520
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 349,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008295",
+                    "name": "Circle#beforeSetSelectionModel",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the selectionModel config gets changed.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.selection.Model"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.selection.Model"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "beforeSetSelectionModel",
+            "longname": "Circle#beforeSetSelectionModel",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#beforeSetSelectionModel",
+            "$kind": "method",
+            "id": 260,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Object[]}\n     */",
+            "meta": {
+                "range": [
+                    9576,
+                    10197
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 363,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008320",
+                    "name": "Circle#calculateItemPositions",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Array.<Object>"
+                        ]
+                    }
+                }
+            ],
+            "name": "calculateItemPositions",
+            "longname": "Circle#calculateItemPositions",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Circle#calculateItemPositions",
+            "$kind": "method",
+            "id": 261,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    10226,
+                    10424
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 388,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008426",
+                    "name": "Circle#collapse",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "collapse",
+            "longname": "Circle#collapse",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Circle#collapse",
+            "$kind": "method",
+            "id": 262,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param data\n     */",
+            "meta": {
+                "range": [
+                    10472,
+                    10849
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 402,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008459",
+                    "name": "Circle#collapseItem",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "data"
+                }
+            ],
+            "name": "collapseItem",
+            "longname": "Circle#collapseItem",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#collapseItem",
+            "$kind": "method",
+            "id": 263,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [silent=false]\n     */",
+            "meta": {
+                "range": [
+                    10917,
+                    11647
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 422,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008536",
+                    "name": "Circle#createBacksideItems",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "name": "createBacksideItems",
+            "longname": "Circle#createBacksideItems",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#createBacksideItems",
+            "$kind": "method",
+            "id": 264,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Number} [startIndex=0]\n     * @param {Boolean} [silent=false]\n     */",
+            "meta": {
+                "range": [
+                    11753,
+                    12977
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 452,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008631",
+                    "name": "Circle#createItems",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "startIndex",
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": 0,
+                    "name": "startIndex"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "name": "createItems",
+            "longname": "Circle#createItems",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#createItems",
+            "$kind": "method",
+            "id": 265,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    13006,
+                    13206
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 489,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008782",
+                    "name": "Circle#expand",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "expand",
+            "longname": "Circle#expand",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Circle#expand",
+            "$kind": "method",
+            "id": 266,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param data\n     */",
+            "meta": {
+                "range": [
+                    13254,
+                    13648
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 503,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008815",
+                    "name": "Circle#expandItem",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "data"
+                }
+            ],
+            "name": "expandItem",
+            "longname": "Circle#expandItem",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#expandItem",
+            "$kind": "method",
+            "id": 267,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    13901,
+                    13958
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 532,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008932",
+                    "name": "Circle#getBackEl",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "getBackEl",
+            "longname": "Circle#getBackEl",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Circle#getBackEl",
+            "$kind": "method",
+            "id": 268,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    13987,
+                    14045
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 539,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008948",
+                    "name": "Circle#getFrontEl",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "getFrontEl",
+            "longname": "Circle#getFrontEl",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Circle#getFrontEl",
+            "$kind": "method",
+            "id": 269,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    14074,
+                    14142
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 546,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008964",
+                    "name": "Circle#getInnerCircle",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "getInnerCircle",
+            "longname": "Circle#getInnerCircle",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Circle#getInnerCircle",
+            "$kind": "method",
+            "id": 270,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} itemId\n     * @returns {Object}\n     */",
+            "meta": {
+                "range": [
+                    14226,
+                    14356
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 555,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100008984",
+                    "name": "Circle#getItemEl",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "itemId"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "itemId"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    }
+                }
+            ],
+            "name": "getItemEl",
+            "longname": "Circle#getItemEl",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#getItemEl",
+            "$kind": "method",
+            "id": 271,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Number} index\n     * @returns {String}\n     */",
+            "meta": {
+                "range": [
+                    14439,
+                    14567
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 566,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100009007",
+                    "name": "Circle#getItemId",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "index"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    }
+                }
+            ],
+            "name": "getItemId",
+            "longname": "Circle#getItemId",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#getItemId",
+            "$kind": "method",
+            "id": 272,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} vnodeId\n     * @returns {String|Number} itemId\n     */",
+            "meta": {
+                "range": [
+                    14666,
+                    14995
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 577,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100009034",
+                    "name": "Circle#getItemRecordId",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "vnodeId"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "vnodeId"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "Number"
+                        ]
+                    },
+                    "description": "itemId"
+                }
+            ],
+            "name": "getItemRecordId",
+            "longname": "Circle#getItemRecordId",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#getItemRecordId",
+            "$kind": "method",
+            "id": 273,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    15024,
+                    15092
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 592,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100009087",
+                    "name": "Circle#getOuterCircle",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "getOuterCircle",
+            "longname": "Circle#getOuterCircle",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Circle#getOuterCircle",
+            "$kind": "method",
+            "id": 274,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    15121,
+                    15619
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 599,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100009107",
+                    "name": "Circle#loadData",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "loadData",
+            "longname": "Circle#loadData",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Circle#loadData",
+            "$kind": "method",
+            "id": 275,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    15676,
+                    16005
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 621,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100009186",
+                    "name": "Circle#onBacksideIconClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onBacksideIconClick",
+            "longname": "Circle#onBacksideIconClick",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#onBacksideIconClick",
+            "$kind": "method",
+            "id": 276,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    16062,
+                    16116
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 634,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100009250",
+                    "name": "Circle#onContextMenu",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onContextMenu",
+            "longname": "Circle#onContextMenu",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#onContextMenu",
+            "$kind": "method",
+            "id": 277,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    16173,
+                    16544
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 642,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100009260",
+                    "name": "Circle#onMouseWheel",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onMouseWheel",
+            "longname": "Circle#onMouseWheel",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#onMouseWheel",
+            "$kind": "method",
+            "id": 278,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    16573,
+                    17416
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 663,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100009325",
+                    "name": "Circle#rotate",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "rotate",
+            "longname": "Circle#rotate",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Circle#rotate",
+            "$kind": "method",
+            "id": 279,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [silent=false]\n     */",
+            "meta": {
+                "range": [
+                    17484,
+                    17997
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 694,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100009444",
+                    "name": "Circle#updateInnerCircle",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "name": "updateInnerCircle",
+            "longname": "Circle#updateInnerCircle",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#updateInnerCircle",
+            "$kind": "method",
+            "id": 280,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [silent=false]\n     */",
+            "meta": {
+                "range": [
+                    18065,
+                    18436
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 715,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100009514",
+                    "name": "Circle#updateItemAngle",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "name": "updateItemAngle",
+            "longname": "Circle#updateItemAngle",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#updateItemAngle",
+            "$kind": "method",
+            "id": 281,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Number} value\n     * @param {Boolean} [silent=false]\n     * @param {Number} [startIndex=0]\n     */",
+            "meta": {
+                "range": [
+                    18571,
+                    18946
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 735,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100009581",
+                    "name": "Circle#updateItemOpacity",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "silent",
+                        "startIndex"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": 0,
+                    "name": "startIndex"
+                }
+            ],
+            "name": "updateItemOpacity",
+            "longname": "Circle#updateItemOpacity",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#updateItemOpacity",
+            "$kind": "method",
+            "id": 282,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [silent=false]\n     */",
+            "meta": {
+                "range": [
+                    19014,
+                    19913
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 753,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100009647",
+                    "name": "Circle#updateItemPositions",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "name": "updateItemPositions",
+            "longname": "Circle#updateItemPositions",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#updateItemPositions",
+            "$kind": "method",
+            "id": 283,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [silent=false]\n     */",
+            "meta": {
+                "range": [
+                    19981,
+                    20962
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 783,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100009781",
+                    "name": "Circle#updateOuterCircle",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "name": "updateOuterCircle",
+            "longname": "Circle#updateOuterCircle",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#updateOuterCircle",
+            "$kind": "method",
+            "id": 284,
+            "neoClassName": "Neo.component.Circle"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [silent=false]\n     */",
+            "meta": {
+                "range": [
+                    21034,
+                    21343
+                ],
+                "filename": "Circle.mjs",
+                "lineno": 817,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/component",
+                "code": {
+                    "id": "astnode100009909",
+                    "name": "Circle#updateTitle",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "name": "updateTitle",
+            "longname": "Circle#updateTitle",
+            "kind": "function",
+            "memberof": "Circle",
+            "scope": "instance",
+            "$longname": "Circle#updateTitle",
+            "$kind": "method",
+            "id": 285,
+            "neoClassName": "Neo.component.Circle"
+        }
+    ]
+}

@@ -1,0 +1,329 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.list.Chip\n * @extends Neo.list.Base\n */",
+            "meta": {
+                "filename": "Chip.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Chip",
+            "augments": [
+                "Neo.list.Base"
+            ],
+            "memberof": "Neo.list",
+            "longname": "Neo.list.Chip",
+            "scope": "static",
+            "$longname": "Neo.list.Chip",
+            "$kind": "class",
+            "id": 1168,
+            "neoClassName": "Neo.list.Chip"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.list.Chip'\n         * @private\n         */",
+            "meta": {
+                "filename": "Chip.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.list.Chip'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1169,
+            "neoClassName": "Neo.list.Chip"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='chiplist'\n         * @private\n         */",
+            "meta": {
+                "filename": "Chip.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'chiplist'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1170,
+            "neoClassName": "Neo.list.Chip"
+        },
+        {
+            "comment": "/**\n         * @member {Object|null} chipConfig=null\n         */",
+            "meta": {
+                "filename": "Chip.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "chipConfig",
+            "type": {
+                "names": [
+                    "Object",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "chipConfig",
+            "scope": "global",
+            "$longname": "chipConfig",
+            "$kind": "property",
+            "id": 1171,
+            "neoClassName": "Neo.list.Chip"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neo-chip-list', 'neo-list']\n         */",
+            "meta": {
+                "filename": "Chip.mjs",
+                "lineno": 27,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neo-chip-list', 'neo-list']",
+            "description": "'neo-list']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 1172,
+            "neoClassName": "Neo.list.Chip"
+        },
+        {
+            "comment": "/**\n         * @member {String} itemCls='neo-chip'\n         */",
+            "meta": {
+                "filename": "Chip.mjs",
+                "lineno": 31,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "itemCls",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'neo-chip'",
+            "longname": "itemCls",
+            "scope": "global",
+            "$longname": "itemCls",
+            "$kind": "property",
+            "id": 1173,
+            "neoClassName": "Neo.list.Chip"
+        },
+        {
+            "comment": "/**\n         * True will flex each list item horizontally\n         * @member {Boolean} stacked_=true\n         */",
+            "meta": {
+                "filename": "Chip.mjs",
+                "lineno": 36,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "description": "True will flex each list item horizontally",
+            "kind": "member",
+            "name": "stacked_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "stacked_",
+            "scope": "global",
+            "$longname": "stacked_",
+            "$kind": "property",
+            "id": 1174,
+            "neoClassName": "Neo.list.Chip"
+        },
+        {
+            "comment": "/**\n         * @member {Object} _vdom\n         */",
+            "meta": {
+                "filename": "Chip.mjs",
+                "lineno": 40,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "_vdom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "longname": "_vdom",
+            "scope": "global",
+            "$longname": "_vdom",
+            "$kind": "property",
+            "id": 1175,
+            "neoClassName": "Neo.list.Chip"
+        },
+        {
+            "comment": "/**\n     * Triggered after the stacked config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    1226,
+                    1580
+                ],
+                "filename": "Chip.mjs",
+                "lineno": 51,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034980",
+                    "name": "Chip#afterSetStacked",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the stacked config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetStacked",
+            "longname": "Chip#afterSetStacked",
+            "kind": "function",
+            "memberof": "Chip",
+            "scope": "instance",
+            "$longname": "Chip#afterSetStacked",
+            "$kind": "method",
+            "id": 1176,
+            "neoClassName": "Neo.list.Chip"
+        },
+        {
+            "comment": "/**\n     * @param {Boolean} [silent=false]\n     */",
+            "meta": {
+                "range": [
+                    1641,
+                    2435
+                ],
+                "filename": "Chip.mjs",
+                "lineno": 66,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100035035",
+                    "name": "Chip#createItems",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "name": "createItems",
+            "longname": "Chip#createItems",
+            "kind": "function",
+            "memberof": "Chip",
+            "scope": "instance",
+            "$longname": "Chip#createItems",
+            "$kind": "method",
+            "id": 1177,
+            "neoClassName": "Neo.list.Chip"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    2464,
+                    2718
+                ],
+                "filename": "Chip.mjs",
+                "lineno": 99,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100035153",
+                    "name": "Chip#destroy",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "destroy",
+            "longname": "Chip#destroy",
+            "kind": "function",
+            "memberof": "Chip",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Chip#destroy",
+            "$kind": "method",
+            "id": 1178,
+            "neoClassName": "Neo.list.Chip"
+        }
+    ]
+}

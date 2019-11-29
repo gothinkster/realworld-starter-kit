@@ -1,0 +1,283 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * Basic CRUD support for window.localStorage\n * @class Neo.main.mixins.LocalStorage\n * @extends Neo.core.Base\n * @singleton\n */",
+            "meta": {
+                "filename": "LocalStorage.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {}
+            },
+            "description": "Basic CRUD support for window.localStorage",
+            "kind": "class",
+            "name": "LocalStorage",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "tags": [
+                {
+                    "originalTitle": "singleton",
+                    "title": "singleton",
+                    "text": ""
+                }
+            ],
+            "memberof": "Neo.main.mixins",
+            "longname": "Neo.main.mixins.LocalStorage",
+            "scope": "static",
+            "$longname": "Neo.main.mixins.LocalStorage",
+            "$kind": "class",
+            "id": 1292,
+            "neoClassName": "Neo.main.mixins.LocalStorage"
+        },
+        {
+            "comment": "/**\n             * @member {String} className='Neo.main.mixins.LocalStorage'\n             * @private\n             */",
+            "meta": {
+                "filename": "LocalStorage.mjs",
+                "lineno": 16,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.main.mixins.LocalStorage'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1293,
+            "neoClassName": "Neo.main.mixins.LocalStorage"
+        },
+        {
+            "comment": "/**\n     * Creates a new item into window.localStorage\n     * Uses updateLocalStorageItem() internally\n     * @param {Object} opts\n     * @param {String} opts.key\n     * @param {String} opts.value\n     */",
+            "meta": {
+                "range": [
+                    663,
+                    742
+                ],
+                "filename": "LocalStorage.mjs",
+                "lineno": 27,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {
+                    "id": "astnode100040500",
+                    "name": "LocalStorage#createLocalStorageItem",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Creates a new item into window.localStorage<br />Uses updateLocalStorageItem() internally",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "opts.key"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "opts.value"
+                }
+            ],
+            "name": "createLocalStorageItem",
+            "longname": "LocalStorage#createLocalStorageItem",
+            "kind": "function",
+            "memberof": "LocalStorage",
+            "scope": "instance",
+            "$longname": "LocalStorage#createLocalStorageItem",
+            "$kind": "method",
+            "id": 1294,
+            "neoClassName": "Neo.main.mixins.LocalStorage"
+        },
+        {
+            "comment": "/**\n     * Removes an item from window.localStorage\n     * @param {Object} opts\n     * @param {String} opts.key\n     */",
+            "meta": {
+                "range": [
+                    872,
+                    959
+                ],
+                "filename": "LocalStorage.mjs",
+                "lineno": 36,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {
+                    "id": "astnode100040511",
+                    "name": "LocalStorage#destroyLocalStorageItem",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Removes an item from window.localStorage",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "opts.key"
+                }
+            ],
+            "name": "destroyLocalStorageItem",
+            "longname": "LocalStorage#destroyLocalStorageItem",
+            "kind": "function",
+            "memberof": "LocalStorage",
+            "scope": "instance",
+            "$longname": "LocalStorage#destroyLocalStorageItem",
+            "$kind": "method",
+            "id": 1295,
+            "neoClassName": "Neo.main.mixins.LocalStorage"
+        },
+        {
+            "comment": "/**\n     * Gets an item from window.localStorage\n     * @param {Object} opts\n     * @param {String} opts.key\n     */",
+            "meta": {
+                "range": [
+                    1086,
+                    1233
+                ],
+                "filename": "LocalStorage.mjs",
+                "lineno": 45,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {
+                    "id": "astnode100040526",
+                    "name": "LocalStorage#readLocalStorageItem",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Gets an item from window.localStorage",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "opts.key"
+                }
+            ],
+            "name": "readLocalStorageItem",
+            "longname": "LocalStorage#readLocalStorageItem",
+            "kind": "function",
+            "memberof": "LocalStorage",
+            "scope": "instance",
+            "$longname": "LocalStorage#readLocalStorageItem",
+            "$kind": "method",
+            "id": 1296,
+            "neoClassName": "Neo.main.mixins.LocalStorage"
+        },
+        {
+            "comment": "/**\n     * Reads an item from window.localStorage\n     * @param {Object} opts\n     * @param {String} opts.key\n     * @param {String} opts.value\n     */",
+            "meta": {
+                "range": [
+                    1395,
+                    1490
+                ],
+                "filename": "LocalStorage.mjs",
+                "lineno": 58,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main/mixins",
+                "code": {
+                    "id": "astnode100040547",
+                    "name": "LocalStorage#updateLocalStorageItem",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Reads an item from window.localStorage",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "opts.key"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "opts.value"
+                }
+            ],
+            "name": "updateLocalStorageItem",
+            "longname": "LocalStorage#updateLocalStorageItem",
+            "kind": "function",
+            "memberof": "LocalStorage",
+            "scope": "instance",
+            "$longname": "LocalStorage#updateLocalStorageItem",
+            "$kind": "method",
+            "id": 1297,
+            "neoClassName": "Neo.main.mixins.LocalStorage"
+        }
+    ]
+}

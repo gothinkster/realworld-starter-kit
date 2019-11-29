@@ -1,0 +1,622 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n *\n * @class Neo.form.field.TextArea\n * @extends Neo.form.field.Text\n * @abstract\n */",
+            "meta": {
+                "filename": "TextArea.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "TextArea",
+            "augments": [
+                "Neo.form.field.Text"
+            ],
+            "virtual": true,
+            "memberof": "Neo.form.field",
+            "longname": "Neo.form.field.TextArea",
+            "scope": "static",
+            "$longname": "Neo.form.field.TextArea",
+            "$kind": "class",
+            "id": 914,
+            "neoClassName": "Neo.form.field.TextArea"
+        },
+        {
+            "comment": "/**\n         * Valid values for wrap\n         * @member {String[]} wrapValues=['hard', 'off', 'soft', null]\n         * @private\n         * @static\n         */",
+            "meta": {
+                "filename": "TextArea.mjs",
+                "lineno": 17,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "Valid values for wrap",
+            "kind": "member",
+            "name": "wrapValues",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['hard', 'off', 'soft', null]",
+            "access": "private",
+            "scope": "static",
+            "longname": "wrapValues",
+            "$longname": "wrapValues",
+            "$kind": "property",
+            "id": 915,
+            "neoClassName": "Neo.form.field.TextArea"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.form.field.TextArea'\n         * @private\n         */",
+            "meta": {
+                "filename": "TextArea.mjs",
+                "lineno": 25,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.form.field.TextArea'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 916,
+            "neoClassName": "Neo.form.field.TextArea"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='textarea'\n         * @private\n         */",
+            "meta": {
+                "filename": "TextArea.mjs",
+                "lineno": 30,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'textarea'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 917,
+            "neoClassName": "Neo.form.field.TextArea"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neo-textarea', 'neo-textfield']\n         */",
+            "meta": {
+                "filename": "TextArea.mjs",
+                "lineno": 34,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neo-textarea', 'neo-textfield']",
+            "description": "'neo-textfield']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 918,
+            "neoClassName": "Neo.form.field.TextArea"
+        },
+        {
+            "comment": "/**\n         * The visible width of the text control, in average character widths.\n         * If it is specified, it must be a positive integer.\n         * If it is not specified, the default value is 20.\n         * @member {Number|null} cols_=null\n         */",
+            "meta": {
+                "filename": "TextArea.mjs",
+                "lineno": 41,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "The visible width of the text control, in average character widths.<br />If it is specified, it must be a positive integer.<br />If it is not specified, the default value is 20.",
+            "kind": "member",
+            "name": "cols_",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "cols_",
+            "scope": "global",
+            "$longname": "cols_",
+            "$kind": "property",
+            "id": 919,
+            "neoClassName": "Neo.form.field.TextArea"
+        },
+        {
+            "comment": "/**\n         * @member {String} inputTag_='textarea'\n         */",
+            "meta": {
+                "filename": "TextArea.mjs",
+                "lineno": 45,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "inputTag_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'textarea'",
+            "longname": "inputTag_",
+            "scope": "global",
+            "$longname": "inputTag_",
+            "$kind": "property",
+            "id": 920,
+            "neoClassName": "Neo.form.field.TextArea"
+        },
+        {
+            "comment": "/**\n         * Disabling to set a type for the textarea tag\n         * @member {String|null} inputType=null\n         * @private\n         */",
+            "meta": {
+                "filename": "TextArea.mjs",
+                "lineno": 51,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "Disabling to set a type for the textarea tag",
+            "kind": "member",
+            "name": "inputType",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "inputType",
+            "scope": "global",
+            "$longname": "inputType",
+            "$kind": "property",
+            "id": 921,
+            "neoClassName": "Neo.form.field.TextArea"
+        },
+        {
+            "comment": "/**\n         * Use false to disable the browsers default resizing feature\n         * @member {Boolean} resizable_=true\n         */",
+            "meta": {
+                "filename": "TextArea.mjs",
+                "lineno": 56,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "Use false to disable the browsers default resizing feature",
+            "kind": "member",
+            "name": "resizable_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "resizable_",
+            "scope": "global",
+            "$longname": "resizable_",
+            "$kind": "property",
+            "id": 922,
+            "neoClassName": "Neo.form.field.TextArea"
+        },
+        {
+            "comment": "/**\n         * An integer > 0 or null\n         * @member {Number|null} rows_=3\n         */",
+            "meta": {
+                "filename": "TextArea.mjs",
+                "lineno": 61,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "An integer > 0 or null",
+            "kind": "member",
+            "name": "rows_",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": 3,
+            "longname": "rows_",
+            "scope": "global",
+            "$longname": "rows_",
+            "$kind": "property",
+            "id": 923,
+            "neoClassName": "Neo.form.field.TextArea"
+        },
+        {
+            "comment": "/**\n         * Indicates how the control wraps text. Possible values are: hard, soft, off\n         * If this attribute is not specified, soft is its default value.\n         * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea\n         * @member {String|null} wrap_=null\n         */",
+            "meta": {
+                "filename": "TextArea.mjs",
+                "lineno": 68,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "Indicates how the control wraps text. Possible values are: hard, soft, off<br />If this attribute is not specified, soft is its default value.<br />https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea",
+            "kind": "member",
+            "name": "wrap_",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "wrap_",
+            "scope": "global",
+            "$longname": "wrap_",
+            "$kind": "property",
+            "id": 924,
+            "neoClassName": "Neo.form.field.TextArea"
+        },
+        {
+            "comment": "/**\n     * Triggered after the cols config got changed\n     * @param {Number|null} value\n     * @param {Number|null} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    2200,
+                    2283
+                ],
+                "filename": "TextArea.mjs",
+                "lineno": 77,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100030464",
+                    "name": "TextArea#afterSetCols",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the cols config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetCols",
+            "longname": "TextArea#afterSetCols",
+            "kind": "function",
+            "memberof": "TextArea",
+            "scope": "instance",
+            "$longname": "TextArea#afterSetCols",
+            "$kind": "method",
+            "id": 925,
+            "neoClassName": "Neo.form.field.TextArea"
+        },
+        {
+            "comment": "/**\n     * Triggered after the inputTag config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    2437,
+                    2523
+                ],
+                "filename": "TextArea.mjs",
+                "lineno": 87,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100030477",
+                    "name": "TextArea#afterSetInputTag",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the inputTag config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetInputTag",
+            "longname": "TextArea#afterSetInputTag",
+            "kind": "function",
+            "memberof": "TextArea",
+            "scope": "instance",
+            "$longname": "TextArea#afterSetInputTag",
+            "$kind": "method",
+            "id": 926,
+            "neoClassName": "Neo.form.field.TextArea"
+        },
+        {
+            "comment": "/**\n     * Triggered after the resizable config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    2680,
+                    2893
+                ],
+                "filename": "TextArea.mjs",
+                "lineno": 97,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100030490",
+                    "name": "TextArea#afterSetResizable",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the resizable config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetResizable",
+            "longname": "TextArea#afterSetResizable",
+            "kind": "function",
+            "memberof": "TextArea",
+            "scope": "instance",
+            "$longname": "TextArea#afterSetResizable",
+            "$kind": "method",
+            "id": 927,
+            "neoClassName": "Neo.form.field.TextArea"
+        },
+        {
+            "comment": "/**\n     * Triggered after the rows config got changed\n     * @param {Number|null} value\n     * @param {Number|null} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3053,
+                    3136
+                ],
+                "filename": "TextArea.mjs",
+                "lineno": 112,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100030528",
+                    "name": "TextArea#afterSetRows",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the rows config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetRows",
+            "longname": "TextArea#afterSetRows",
+            "kind": "function",
+            "memberof": "TextArea",
+            "scope": "instance",
+            "$longname": "TextArea#afterSetRows",
+            "$kind": "method",
+            "id": 928,
+            "neoClassName": "Neo.form.field.TextArea"
+        },
+        {
+            "comment": "/**\n     * Triggered after the wrap config got changed\n     * @param {Number|null} value\n     * @param {Number|null} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3296,
+                    3379
+                ],
+                "filename": "TextArea.mjs",
+                "lineno": 122,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100030541",
+                    "name": "TextArea#afterSetWrap",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the wrap config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetWrap",
+            "longname": "TextArea#afterSetWrap",
+            "kind": "function",
+            "memberof": "TextArea",
+            "scope": "instance",
+            "$longname": "TextArea#afterSetWrap",
+            "$kind": "method",
+            "id": 929,
+            "neoClassName": "Neo.form.field.TextArea"
+        },
+        {
+            "comment": "/**\n     * Checks if the new wrap value matches a value of the static wrapValues config\n     * @param {String} value\n     * @param {String} oldValue\n     * @returns {String} value\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3593,
+                    3710
+                ],
+                "filename": "TextArea.mjs",
+                "lineno": 133,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100030554",
+                    "name": "TextArea#beforeSetWrap",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Checks if the new wrap value matches a value of the static wrapValues config",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "value"
+                }
+            ],
+            "access": "private",
+            "name": "beforeSetWrap",
+            "longname": "TextArea#beforeSetWrap",
+            "kind": "function",
+            "memberof": "TextArea",
+            "scope": "instance",
+            "$longname": "TextArea#beforeSetWrap",
+            "$kind": "method",
+            "id": 930,
+            "neoClassName": "Neo.form.field.TextArea"
+        }
+    ]
+}

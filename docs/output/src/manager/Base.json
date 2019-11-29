@@ -1,0 +1,216 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * Abstract base class for the other manager classes\n * @class Neo.manager.Base\n * @extends Neo.collection.Base\n */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "description": "Abstract base class for the other manager classes",
+            "kind": "class",
+            "name": "Base",
+            "augments": [
+                "Neo.collection.Base"
+            ],
+            "memberof": "Neo.manager",
+            "longname": "Neo.manager.Base",
+            "scope": "static",
+            "$longname": "Neo.manager.Base",
+            "$kind": "class",
+            "id": 1312,
+            "neoClassName": "Neo.manager.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.manager.Base'\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.manager.Base'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1313,
+            "neoClassName": "Neo.manager.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='base-manager'\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'base-manager'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1314,
+            "neoClassName": "Neo.manager.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Number|String} id\n     * @returns {Object}\n     */",
+            "meta": {
+                "range": [
+                    611,
+                    659
+                ],
+                "filename": "Base.mjs",
+                "lineno": 27,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100041307",
+                    "name": "Base#getById",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "id"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number",
+                            "String"
+                        ]
+                    },
+                    "name": "id"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    }
+                }
+            ],
+            "name": "getById",
+            "longname": "Base#getById",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#getById",
+            "$kind": "method",
+            "id": 1315,
+            "neoClassName": "Neo.manager.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} item\n     */",
+            "meta": {
+                "range": [
+                    716,
+                    952
+                ],
+                "filename": "Base.mjs",
+                "lineno": 35,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100041318",
+                    "name": "Base#register",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "item"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "item"
+                }
+            ],
+            "name": "register",
+            "longname": "Base#register",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#register",
+            "$kind": "method",
+            "id": 1316,
+            "neoClassName": "Neo.manager.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} item\n     */",
+            "meta": {
+                "range": [
+                    1009,
+                    1060
+                ],
+                "filename": "Base.mjs",
+                "lineno": 49,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100041357",
+                    "name": "Base#unregister",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "item"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "item"
+                }
+            ],
+            "name": "unregister",
+            "longname": "Base#unregister",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#unregister",
+            "$kind": "method",
+            "id": 1317,
+            "neoClassName": "Neo.manager.Base"
+        }
+    ]
+}

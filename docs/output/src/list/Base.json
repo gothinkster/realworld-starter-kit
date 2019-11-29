@@ -1,0 +1,1369 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.list.Base\n * @extends Neo.component.Base\n */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 8,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Base",
+            "augments": [
+                "Neo.component.Base"
+            ],
+            "memberof": "Neo.list",
+            "longname": "Neo.list.Base",
+            "scope": "static",
+            "$longname": "Neo.list.Base",
+            "$kind": "class",
+            "id": 1132,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.list.Base'\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.list.Base'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1133,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='list'\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'list'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1134,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n         * True will destroy the used collection / store when the component gets destroyed\n         * @member {Boolean} autoDestroyStore=true\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 28,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "description": "True will destroy the used collection / store when the component gets destroyed",
+            "kind": "member",
+            "name": "autoDestroyStore",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "autoDestroyStore",
+            "scope": "global",
+            "$longname": "autoDestroyStore",
+            "$kind": "property",
+            "id": 1135,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neo-list-container','neo-list']\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 32,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neo-list-container','neo-list']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 1136,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} disableSelection_=false\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 36,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "disableSelection_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "disableSelection_",
+            "scope": "global",
+            "$longname": "disableSelection_",
+            "$kind": "property",
+            "id": 1137,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} displayField='name'\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 40,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "displayField",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'name'",
+            "longname": "displayField",
+            "scope": "global",
+            "$longname": "displayField",
+            "$kind": "property",
+            "id": 1138,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} highlightFilterValue=true\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 44,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "highlightFilterValue",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "highlightFilterValue",
+            "scope": "global",
+            "$longname": "highlightFilterValue",
+            "$kind": "property",
+            "id": 1139,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} itemCls='neo-list-item'\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 48,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "itemCls",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'neo-list-item'",
+            "longname": "itemCls",
+            "scope": "global",
+            "$longname": "itemCls",
+            "$kind": "property",
+            "id": 1140,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n         * Additional used keys for the selection model\n         * @member {Object} keys\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 53,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "description": "Additional used keys for the selection model",
+            "kind": "member",
+            "name": "keys",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "longname": "keys",
+            "scope": "global",
+            "$longname": "keys",
+            "$kind": "property",
+            "id": 1141,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n         * Either pass a selection.Model module, an instance or a config object\n         * @member {Object|Neo.selection.Model} selectionModel_=null\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 58,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "description": "Either pass a selection.Model module, an instance or a config object",
+            "kind": "member",
+            "name": "selectionModel_",
+            "type": {
+                "names": [
+                    "Object",
+                    "Neo.selection.Model"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "selectionModel_",
+            "scope": "global",
+            "$longname": "selectionModel_",
+            "$kind": "property",
+            "id": 1142,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.data.Store|null} store_=null\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 62,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "store_",
+            "type": {
+                "names": [
+                    "Neo.data.Store",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "store_",
+            "scope": "global",
+            "$longname": "store_",
+            "$kind": "property",
+            "id": 1143,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n         * True will add a checkbox in front of each list item\n         * @member {Boolean} stacked_=true\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 67,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "description": "True will add a checkbox in front of each list item",
+            "kind": "member",
+            "name": "stacked_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "stacked_",
+            "scope": "global",
+            "$longname": "stacked_",
+            "$kind": "property",
+            "id": 1144,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n         * @member {Object} _vdom={tag:'ul',cn:[]}\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 71,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "_vdom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{tag:'ul',cn:[]}",
+            "longname": "_vdom",
+            "scope": "global",
+            "$longname": "_vdom",
+            "$kind": "property",
+            "id": 1145,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    2348,
+                    2605
+                ],
+                "filename": "Base.mjs",
+                "lineno": 81,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034236",
+                    "name": "Base",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "Base",
+            "longname": "Base",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Base",
+            "$kind": "constructor",
+            "id": 1146,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     * Triggered after the disableSelection config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    2941,
+                    3126
+                ],
+                "filename": "Base.mjs",
+                "lineno": 110,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034300",
+                    "name": "Base#afterSetDisableSelection",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the disableSelection config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetDisableSelection",
+            "longname": "Base#afterSetDisableSelection",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#afterSetDisableSelection",
+            "$kind": "method",
+            "id": 1147,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     * Triggered after the selectionModel config got changed\n     * @param {Neo.selection.Model} value\n     * @param {Neo.selection.Model} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3312,
+                    3432
+                ],
+                "filename": "Base.mjs",
+                "lineno": 124,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034328",
+                    "name": "Base#afterSetSelectionModel",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the selectionModel config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.selection.Model"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.selection.Model"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetSelectionModel",
+            "longname": "Base#afterSetSelectionModel",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#afterSetSelectionModel",
+            "$kind": "method",
+            "id": 1148,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     * Triggered after the store config got changed\n     * @param {Neo.data.Store} value\n     * @param {Neo.data.Store} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3599,
+                    3929
+                ],
+                "filename": "Base.mjs",
+                "lineno": 136,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034345",
+                    "name": "Base#afterSetStore",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the store config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.data.Store"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.data.Store"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetStore",
+            "longname": "Base#afterSetStore",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#afterSetStore",
+            "$kind": "method",
+            "id": 1149,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     * Triggered before the selectionModel config gets changed.\n     * @param {Neo.selection.Model} value\n     * @param {Neo.selection.Model} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4118,
+                    4301
+                ],
+                "filename": "Base.mjs",
+                "lineno": 158,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034387",
+                    "name": "Base#beforeSetSelectionModel",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the selectionModel config gets changed.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.selection.Model"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.selection.Model"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "beforeSetSelectionModel",
+            "longname": "Base#beforeSetSelectionModel",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#beforeSetSelectionModel",
+            "$kind": "method",
+            "id": 1150,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     * Triggered before the store config gets changed.\n     * @param {Object|Neo.data.Store} value\n     * @param {Object|Neo.data.Store} oldValue\n     * @returns {Neo.data.Store}\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4518,
+                    4705
+                ],
+                "filename": "Base.mjs",
+                "lineno": 173,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034408",
+                    "name": "Base#beforeSetStore",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the store config gets changed.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "Neo.data.Store"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "Neo.data.Store"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.data.Store"
+                        ]
+                    }
+                }
+            ],
+            "access": "private",
+            "name": "beforeSetStore",
+            "longname": "Base#beforeSetStore",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#beforeSetStore",
+            "$kind": "method",
+            "id": 1151,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     * Triggered after the useCheckBoxes config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4866,
+                    5056
+                ],
+                "filename": "Base.mjs",
+                "lineno": 189,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034432",
+                    "name": "Base#afterSetUseCheckBoxes",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the useCheckBoxes config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetUseCheckBoxes",
+            "longname": "Base#afterSetUseCheckBoxes",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#afterSetUseCheckBoxes",
+            "$kind": "method",
+            "id": 1152,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     * Override this method for custom list items\n     * @param {Object} record\n     */",
+            "meta": {
+                "range": [
+                    5158,
+                    5442
+                ],
+                "filename": "Base.mjs",
+                "lineno": 201,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034463",
+                    "name": "Base#createItem",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "record"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Override this method for custom list items",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "record"
+                }
+            ],
+            "name": "createItem",
+            "longname": "Base#createItem",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#createItem",
+            "$kind": "method",
+            "id": 1153,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     * Override this method for custom renderers\n     * @param {Object} record\n     */",
+            "meta": {
+                "range": [
+                    5543,
+                    6098
+                ],
+                "filename": "Base.mjs",
+                "lineno": 217,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034501",
+                    "name": "Base#createItemContent",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "record"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Override this method for custom renderers",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "record"
+                }
+            ],
+            "name": "createItemContent",
+            "longname": "Base#createItemContent",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#createItemContent",
+            "$kind": "method",
+            "id": 1154,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     * @param {Boolean} [silent=false]\n     */",
+            "meta": {
+                "range": [
+                    6159,
+                    6561
+                ],
+                "filename": "Base.mjs",
+                "lineno": 238,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034575",
+                    "name": "Base#createItems",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "name": "createItems",
+            "longname": "Base#createItems",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#createItems",
+            "$kind": "method",
+            "id": 1155,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    6590,
+                    6831
+                ],
+                "filename": "Base.mjs",
+                "lineno": 260,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034648",
+                    "name": "Base#destroy",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "destroy",
+            "longname": "Base#destroy",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#destroy",
+            "$kind": "method",
+            "id": 1156,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Number|String} id\n     * @returns {String}\n     */",
+            "meta": {
+                "range": [
+                    6918,
+                    6975
+                ],
+                "filename": "Base.mjs",
+                "lineno": 279,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034689",
+                    "name": "Base#getItemId",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "id"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number",
+                            "String"
+                        ]
+                    },
+                    "name": "id"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    }
+                }
+            ],
+            "name": "getItemId",
+            "longname": "Base#getItemId",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#getItemId",
+            "$kind": "method",
+            "id": 1157,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} vnodeId\n     * @returns {String|Number} itemId\n     */",
+            "meta": {
+                "range": [
+                    7074,
+                    7403
+                ],
+                "filename": "Base.mjs",
+                "lineno": 288,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034702",
+                    "name": "Base#getItemRecordId",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "vnodeId"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "vnodeId"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "Number"
+                        ]
+                    },
+                    "description": "itemId"
+                }
+            ],
+            "name": "getItemRecordId",
+            "longname": "Base#getItemRecordId",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#getItemRecordId",
+            "$kind": "method",
+            "id": 1158,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     * Support collections & stores\n     * @returns {String}\n     */",
+            "meta": {
+                "range": [
+                    7486,
+                    7581
+                ],
+                "filename": "Base.mjs",
+                "lineno": 304,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034755",
+                    "name": "Base#getKeyProperty",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Support collections & stores",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    }
+                }
+            ],
+            "name": "getKeyProperty",
+            "longname": "Base#getKeyProperty",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#getKeyProperty",
+            "$kind": "method",
+            "id": 1159,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    7638,
+                    7868
+                ],
+                "filename": "Base.mjs",
+                "lineno": 312,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034773",
+                    "name": "Base#onClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onClick",
+            "longname": "Base#onClick",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#onClick",
+            "$kind": "method",
+            "id": 1160,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    7925,
+                    8374
+                ],
+                "filename": "Base.mjs",
+                "lineno": 326,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034822",
+                    "name": "Base#onContainerClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onContainerClick",
+            "longname": "Base#onContainerClick",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#onContainerClick",
+            "$kind": "method",
+            "id": 1161,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n         * The containerClick event fires when a click occurs on the component, but not on a list item\n         * @event containerClick\n         * @param {String[]} cls the classList of the target node (converted to an array)\n         * @param {String} id the target dom id\n         * @param {String[]} path the event path\n         * @returns {Object}\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 327,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "description": "The containerClick event fires when a click occurs on the component, but not on a list item",
+            "kind": "event",
+            "name": "containerClick",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array.<String>"
+                        ]
+                    },
+                    "description": "the classList of the target node (converted to an array)",
+                    "name": "cls"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "the target dom id",
+                    "name": "id"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array.<String>"
+                        ]
+                    },
+                    "description": "the event path",
+                    "name": "path"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    }
+                }
+            ],
+            "longname": "event:containerClick",
+            "scope": "global",
+            "$longname": "event:containerClick",
+            "$kind": "event",
+            "id": 1162,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    8431,
+                    8925
+                ],
+                "filename": "Base.mjs",
+                "lineno": 342,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034834",
+                    "name": "Base#onItemClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onItemClick",
+            "longname": "Base#onItemClick",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#onItemClick",
+            "$kind": "method",
+            "id": 1163,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n         * The itemClick event fires when a click occurs on a list item\n         * @event itemClick\n         * @param {String} id the record matching the list item\n         * @returns {Object}\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 350,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {}
+            },
+            "description": "The itemClick event fires when a click occurs on a list item",
+            "kind": "event",
+            "name": "itemClick",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "the record matching the list item",
+                    "name": "id"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    }
+                }
+            ],
+            "longname": "event:itemClick",
+            "scope": "global",
+            "$longname": "event:itemClick",
+            "$kind": "event",
+            "id": 1164,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    8954,
+                    9005
+                ],
+                "filename": "Base.mjs",
+                "lineno": 362,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034887",
+                    "name": "Base#onStoreFilter",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onStoreFilter",
+            "longname": "Base#onStoreFilter",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#onStoreFilter",
+            "$kind": "method",
+            "id": 1165,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    9034,
+                    9083
+                ],
+                "filename": "Base.mjs",
+                "lineno": 369,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034896",
+                    "name": "Base#onStoreLoad",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onStoreLoad",
+            "longname": "Base#onStoreLoad",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#onStoreLoad",
+            "$kind": "method",
+            "id": 1166,
+            "neoClassName": "Neo.list.Base"
+        },
+        {
+            "comment": "/**\n     * Convenience shortcut\n     * @param {Number} index\n     */",
+            "meta": {
+                "range": [
+                    9162,
+                    9325
+                ],
+                "filename": "Base.mjs",
+                "lineno": 377,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/list",
+                "code": {
+                    "id": "astnode100034905",
+                    "name": "Base#selectItem",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "index"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Convenience shortcut",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                }
+            ],
+            "name": "selectItem",
+            "longname": "Base#selectItem",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#selectItem",
+            "$kind": "method",
+            "id": 1167,
+            "neoClassName": "Neo.list.Base"
+        }
+    ]
+}

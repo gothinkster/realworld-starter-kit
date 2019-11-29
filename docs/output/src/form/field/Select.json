@@ -1,0 +1,1436 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * Provides a drop down list to select one or multiple items\n * @class Neo.form.field.Select\n * @extends Neo.form.field.Picker\n */",
+            "meta": {
+                "filename": "Select.mjs",
+                "lineno": 7,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "Provides a drop down list to select one or multiple items",
+            "kind": "class",
+            "name": "Select",
+            "augments": [
+                "Neo.form.field.Picker"
+            ],
+            "memberof": "Neo.form.field",
+            "longname": "Neo.form.field.Select",
+            "scope": "static",
+            "$longname": "Neo.form.field.Select",
+            "$kind": "class",
+            "id": 823,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.form.field.Select'\n         * @private\n         */",
+            "meta": {
+                "filename": "Select.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.form.field.Select'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 824,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='selectfield'\n         * @private\n         */",
+            "meta": {
+                "filename": "Select.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'selectfield'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 825,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n         * @member {Array} cls=['neo-selectfield', 'neo-pickerfield', 'neo-textfield']\n         */",
+            "meta": {
+                "filename": "Select.mjs",
+                "lineno": 27,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array"
+                ]
+            },
+            "defaultvalue": "['neo-selectfield', 'neo-pickerfield', 'neo-textfield']",
+            "description": "'neo-pickerfield', 'neo-textfield']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 826,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n         * @member {String} displayField='name'\n         */",
+            "meta": {
+                "filename": "Select.mjs",
+                "lineno": 31,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "displayField",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'name'",
+            "longname": "displayField",
+            "scope": "global",
+            "$longname": "displayField",
+            "$kind": "property",
+            "id": 827,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n         * @member {String|Number|null} hintRecordId=null\n         */",
+            "meta": {
+                "filename": "Select.mjs",
+                "lineno": 35,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "hintRecordId",
+            "type": {
+                "names": [
+                    "String",
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "hintRecordId",
+            "scope": "global",
+            "$longname": "hintRecordId",
+            "$kind": "property",
+            "id": 828,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n         * Additional used keys for the selection model\n         * @member {Object} keys\n         */",
+            "meta": {
+                "filename": "Select.mjs",
+                "lineno": 40,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "Additional used keys for the selection model",
+            "kind": "member",
+            "name": "keys",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "longname": "keys",
+            "scope": "global",
+            "$longname": "keys",
+            "$kind": "property",
+            "id": 829,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} lastManualInput=null\n         * @private\n         */",
+            "meta": {
+                "filename": "Select.mjs",
+                "lineno": 51,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "lastManualInput",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "lastManualInput",
+            "scope": "global",
+            "$longname": "lastManualInput",
+            "$kind": "property",
+            "id": 830,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.list.Base} list=null\n         * @private\n         */",
+            "meta": {
+                "filename": "Select.mjs",
+                "lineno": 56,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "list",
+            "type": {
+                "names": [
+                    "Neo.list.Base"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "list",
+            "scope": "global",
+            "$longname": "list",
+            "$kind": "property",
+            "id": 831,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n         * @member {Object|null} listConfig=null\n         */",
+            "meta": {
+                "filename": "Select.mjs",
+                "lineno": 60,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "listConfig",
+            "type": {
+                "names": [
+                    "Object",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "listConfig",
+            "scope": "global",
+            "$longname": "listConfig",
+            "$kind": "property",
+            "id": 832,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n         * The height of the picker container. Defaults to px.\n         * @member {Number|null} pickerHeight=null\n         */",
+            "meta": {
+                "filename": "Select.mjs",
+                "lineno": 65,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "The height of the picker container. Defaults to px.",
+            "kind": "member",
+            "name": "pickerHeight",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "pickerHeight",
+            "scope": "global",
+            "$longname": "pickerHeight",
+            "$kind": "property",
+            "id": 833,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.data.Store|null} store_=null\n         */",
+            "meta": {
+                "filename": "Select.mjs",
+                "lineno": 69,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "store_",
+            "type": {
+                "names": [
+                    "Neo.data.Store",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "store_",
+            "scope": "global",
+            "$longname": "store_",
+            "$kind": "property",
+            "id": 834,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n         * Display the first matching result while typing\n         * @member {Boolean} typeAhead_=true\n         */",
+            "meta": {
+                "filename": "Select.mjs",
+                "lineno": 74,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "Display the first matching result while typing",
+            "kind": "member",
+            "name": "typeAhead_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "typeAhead_",
+            "scope": "global",
+            "$longname": "typeAhead_",
+            "$kind": "property",
+            "id": 835,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     *\n     * @param config\n     */",
+            "meta": {
+                "range": [
+                    2331,
+                    3245
+                ],
+                "filename": "Select.mjs",
+                "lineno": 81,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027363",
+                    "name": "Select",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "config"
+                }
+            ],
+            "name": "Select",
+            "longname": "Select",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Select",
+            "$kind": "constructor",
+            "id": 836,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     * Triggered after the store config got changed\n     * @param {Neo.data.Store} value\n     * @param {Neo.data.Store} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3412,
+                    3835
+                ],
+                "filename": "Select.mjs",
+                "lineno": 119,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027475",
+                    "name": "Select#afterSetStore",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the store config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.data.Store"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.data.Store"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetStore",
+            "longname": "Select#afterSetStore",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#afterSetStore",
+            "$kind": "method",
+            "id": 837,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     * Triggered after the typeAhead config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3992,
+                    4094
+                ],
+                "filename": "Select.mjs",
+                "lineno": 143,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027522",
+                    "name": "Select#afterSetTypeAhead",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the typeAhead config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetTypeAhead",
+            "longname": "Select#afterSetTypeAhead",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#afterSetTypeAhead",
+            "$kind": "method",
+            "id": 838,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     * Triggered after the value config got changed\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @param {Boolean} [preventFilter=false]\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4301,
+                    4479
+                ],
+                "filename": "Select.mjs",
+                "lineno": 156,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027536",
+                    "name": "Select#afterSetValue",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue",
+                        "preventFilter"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the value config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "preventFilter"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetValue",
+            "longname": "Select#afterSetValue",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#afterSetValue",
+            "$kind": "method",
+            "id": 839,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     * Triggered before the store config gets changed.\n     * @param {Object|Neo.data.Store|null} value\n     * @param {Neo.data.Store} oldValue\n     * @returns {Neo.data.Store}\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4694,
+                    4857
+                ],
+                "filename": "Select.mjs",
+                "lineno": 171,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027561",
+                    "name": "Select#beforeSetStore",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the store config gets changed.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "Neo.data.Store",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.data.Store"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.data.Store"
+                        ]
+                    }
+                }
+            ],
+            "access": "private",
+            "name": "beforeSetStore",
+            "longname": "Select#beforeSetStore",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#beforeSetStore",
+            "$kind": "method",
+            "id": 840,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Neo.list.Base}\n     */",
+            "meta": {
+                "range": [
+                    4918,
+                    4975
+                ],
+                "filename": "Select.mjs",
+                "lineno": 183,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027581",
+                    "name": "Select#createPickerComponent",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.list.Base"
+                        ]
+                    }
+                }
+            ],
+            "name": "createPickerComponent",
+            "longname": "Select#createPickerComponent",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Select#createPickerComponent",
+            "$kind": "method",
+            "id": 841,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Function} [callback]\n     */",
+            "meta": {
+                "range": [
+                    5040,
+                    5376
+                ],
+                "filename": "Select.mjs",
+                "lineno": 191,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027589",
+                    "name": "Select#focusInputEl",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "callback"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "function"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "callback"
+                }
+            ],
+            "name": "focusInputEl",
+            "longname": "Select#focusInputEl",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#focusInputEl",
+            "$kind": "method",
+            "id": 842,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     *\n     * @return {Object}\n     */",
+            "meta": {
+                "range": [
+                    5429,
+                    5558
+                ],
+                "filename": "Select.mjs",
+                "lineno": 210,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027644",
+                    "name": "Select#getInputHintEl",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    }
+                }
+            ],
+            "name": "getInputHintEl",
+            "longname": "Select#getInputHintEl",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Select#getInputHintEl",
+            "$kind": "method",
+            "id": 843,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     *\n     * @return {String}\n     */",
+            "meta": {
+                "range": [
+                    5611,
+                    5675
+                ],
+                "filename": "Select.mjs",
+                "lineno": 219,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027668",
+                    "name": "Select#getInputHintId",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    }
+                }
+            ],
+            "name": "getInputHintId",
+            "longname": "Select#getInputHintId",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Select#getInputHintId",
+            "$kind": "method",
+            "id": 844,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     * @param {Object} data\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    5741,
+                    5801
+                ],
+                "filename": "Select.mjs",
+                "lineno": 227,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027678",
+                    "name": "Select#onContainerKeyDownEnter",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "access": "private",
+            "name": "onContainerKeyDownEnter",
+            "longname": "Select#onContainerKeyDownEnter",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#onContainerKeyDownEnter",
+            "$kind": "method",
+            "id": 845,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     * @param {Object} data\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    5867,
+                    5945
+                ],
+                "filename": "Select.mjs",
+                "lineno": 235,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027687",
+                    "name": "Select#onContainerKeyDownEscape",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "access": "private",
+            "name": "onContainerKeyDownEscape",
+            "longname": "Select#onContainerKeyDownEscape",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#onContainerKeyDownEscape",
+            "$kind": "method",
+            "id": 846,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     * @param {Object} data\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    6011,
+                    6126
+                ],
+                "filename": "Select.mjs",
+                "lineno": 243,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027699",
+                    "name": "Select#onInputValueChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "access": "private",
+            "name": "onInputValueChange",
+            "longname": "Select#onInputValueChange",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#onInputValueChange",
+            "$kind": "method",
+            "id": 847,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    6199,
+                    6261
+                ],
+                "filename": "Select.mjs",
+                "lineno": 253,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027718",
+                    "name": "Select#onKeyDownDown",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "access": "private",
+            "name": "onKeyDownDown",
+            "longname": "Select#onKeyDownDown",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#onKeyDownDown",
+            "$kind": "method",
+            "id": 848,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    6334,
+                    6589
+                ],
+                "filename": "Select.mjs",
+                "lineno": 262,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027729",
+                    "name": "Select#onKeyDownEnter",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "access": "private",
+            "name": "onKeyDownEnter",
+            "longname": "Select#onKeyDownEnter",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#onKeyDownEnter",
+            "$kind": "method",
+            "id": 849,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    6662,
+                    6826
+                ],
+                "filename": "Select.mjs",
+                "lineno": 278,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027764",
+                    "name": "Select#onKeyDownRight",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "access": "private",
+            "name": "onKeyDownRight",
+            "longname": "Select#onKeyDownRight",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#onKeyDownRight",
+            "$kind": "method",
+            "id": 850,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    6899,
+                    7149
+                ],
+                "filename": "Select.mjs",
+                "lineno": 291,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027796",
+                    "name": "Select#onKeyDownUp",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "access": "private",
+            "name": "onKeyDownUp",
+            "longname": "Select#onKeyDownUp",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#onKeyDownUp",
+            "$kind": "method",
+            "id": 851,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     * List items got created or updated\n     * Since the list & inputHint update would run in parallel => before getting the new vnode back\n     * this could cause invalid states, so we delay updateTypeAheadValue() until the list is done.\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    7427,
+                    7623
+                ],
+                "filename": "Select.mjs",
+                "lineno": 308,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027831",
+                    "name": "Select#onListCreateItems",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "List items got created or updated<br />Since the list & inputHint update would run in parallel => before getting the new vnode back<br />this could cause invalid states, so we delay updateTypeAheadValue() until the list is done.",
+            "access": "private",
+            "name": "onListCreateItems",
+            "longname": "Select#onListCreateItems",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Select#onListCreateItems",
+            "$kind": "method",
+            "id": 852,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} record\n     */",
+            "meta": {
+                "range": [
+                    7682,
+                    8038
+                ],
+                "filename": "Select.mjs",
+                "lineno": 322,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027860",
+                    "name": "Select#onListItemClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "record"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "record"
+                }
+            ],
+            "name": "onListItemClick",
+            "longname": "Select#onListItemClick",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#onListItemClick",
+            "$kind": "method",
+            "id": 853,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} record\n     */",
+            "meta": {
+                "range": [
+                    8097,
+                    8169
+                ],
+                "filename": "Select.mjs",
+                "lineno": 338,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027911",
+                    "name": "Select#onListItemNavigate",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "record"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "record"
+                }
+            ],
+            "name": "onListItemNavigate",
+            "longname": "Select#onListItemNavigate",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#onListItemNavigate",
+            "$kind": "method",
+            "id": 854,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    8198,
+                    8259
+                ],
+                "filename": "Select.mjs",
+                "lineno": 345,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027922",
+                    "name": "Select#selectFirstListItem",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "selectFirstListItem",
+            "longname": "Select#selectFirstListItem",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Select#selectFirstListItem",
+            "$kind": "method",
+            "id": 855,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    8288,
+                    8371
+                ],
+                "filename": "Select.mjs",
+                "lineno": 352,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027932",
+                    "name": "Select#selectLastListItem",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "selectLastListItem",
+            "longname": "Select#selectLastListItem",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Select#selectLastListItem",
+            "$kind": "method",
+            "id": 856,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     * @param {Number} index\n     */",
+            "meta": {
+                "range": [
+                    8422,
+                    8564
+                ],
+                "filename": "Select.mjs",
+                "lineno": 359,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027949",
+                    "name": "Select#selectListItem",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "index"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                }
+            ],
+            "name": "selectListItem",
+            "longname": "Select#selectListItem",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#selectListItem",
+            "$kind": "method",
+            "id": 857,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [silent=false]\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    8648,
+                    9509
+                ],
+                "filename": "Select.mjs",
+                "lineno": 371,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100027978",
+                    "name": "Select#updateTypeAhead",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "access": "private",
+            "name": "updateTypeAhead",
+            "longname": "Select#updateTypeAhead",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#updateTypeAhead",
+            "$kind": "method",
+            "id": 858,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String|null} [value]\n     * @param {Boolean} [silent=false]\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    9629,
+                    10729
+                ],
+                "filename": "Select.mjs",
+                "lineno": 402,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100028077",
+                    "name": "Select#updateTypeAheadValue",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "access": "private",
+            "name": "updateTypeAheadValue",
+            "longname": "Select#updateTypeAheadValue",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "$longname": "Select#updateTypeAheadValue",
+            "$kind": "method",
+            "id": 859,
+            "neoClassName": "Neo.form.field.Select"
+        },
+        {
+            "comment": "/**\n     *\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    10774,
+                    11220
+                ],
+                "filename": "Select.mjs",
+                "lineno": 445,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100028238",
+                    "name": "Select#updateValue",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "access": "private",
+            "name": "updateValue",
+            "longname": "Select#updateValue",
+            "kind": "function",
+            "memberof": "Select",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Select#updateValue",
+            "$kind": "method",
+            "id": 860,
+            "neoClassName": "Neo.form.field.Select"
+        }
+    ]
+}

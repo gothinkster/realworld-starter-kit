@@ -1,0 +1,936 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.container.Base\n * @extends Neo.component.Base\n */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 10,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Base",
+            "augments": [
+                "Neo.component.Base"
+            ],
+            "memberof": "Neo.container",
+            "longname": "Neo.container.Base",
+            "scope": "static",
+            "$longname": "Neo.container.Base",
+            "$kind": "class",
+            "id": 464,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.container.Base'\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 20,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.container.Base'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 465,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='container'\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 25,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'container'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 466,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neo-container']\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 29,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neo-container']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 467,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n         * @member {Object} itemDefaults_=null\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 33,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "itemDefaults_",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "itemDefaults_",
+            "scope": "global",
+            "$longname": "itemDefaults_",
+            "$kind": "property",
+            "id": 468,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n         * An array of config objects|instances|modules for each child component\n         * @member {Object[]} items_=[]\n         * @example\n         * import Button      from '../component/Button.mjs';\n         * import MyRedButton from 'myapp/MyRedButton.mjs';\n         * import Toolbar     from '../container/Toolbar.mjs';\n         *\n         * let myButton = Neo.create(Button, {\n         *     text: 'Button1'\n         * });\n         *\n         * Neo.create(Toolbar, {\n         *     //...\n         *     items: [\n         *         myButton,              // passed instance\n         *         {\n         *             ntype: 'button',   // by ntype\n         *             text : 'Button 2'\n         *         },\n         *         {\n         *             module: Button,    // by imported module\n         *             text  : 'Button 3'\n         *         },\n         *         MyRedButton            // you can drop imported modules directly into the items array\n         *     ]\n         * });\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 62,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "description": "An array of config objects|instances|modules for each child component",
+            "kind": "member",
+            "name": "items_",
+            "type": {
+                "names": [
+                    "Array.<Object>"
+                ]
+            },
+            "defaultvalue": "[]",
+            "examples": [
+                "import Button      from '../component/Button.mjs';\nimport MyRedButton from 'myapp/MyRedButton.mjs';\nimport Toolbar     from '../container/Toolbar.mjs';\n\nlet myButton = Neo.create(Button, {\n    text: 'Button1'\n});\n\nNeo.create(Toolbar, {\n    //...\n    items: [\n        myButton,              // passed instance\n        {\n            ntype: 'button',   // by ntype\n            text : 'Button 2'\n        },\n        {\n            module: Button,    // by imported module\n            text  : 'Button 3'\n        },\n        MyRedButton            // you can drop imported modules directly into the items array\n    ]\n});"
+            ],
+            "longname": "items_",
+            "scope": "global",
+            "$longname": "items_",
+            "$kind": "property",
+            "id": 469,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n         * @member {Object} layout_={ntype: 'vbox', align: 'stretch'}\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 66,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "layout_",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{ntype: 'vbox', align: 'stretch'}",
+            "description": "'vbox', align: 'stretch'}",
+            "longname": "layout_",
+            "scope": "global",
+            "$longname": "layout_",
+            "$kind": "property",
+            "id": 470,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n         * @member {Object} _vdom={cn: []}\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 73,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "_vdom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{cn: []}",
+            "description": "[]}",
+            "longname": "_vdom",
+            "scope": "global",
+            "$longname": "_vdom",
+            "$kind": "property",
+            "id": 471,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n     * Override this method to change the order configs are applied to this instance.\n     * @param {Object} config\n     * @param {Boolean} [preventOriginalConfig] True prevents the instance from getting an originalConfig property\n     * @returns {Object} config\n     */",
+            "meta": {
+                "range": [
+                    2692,
+                    3217
+                ],
+                "filename": "Base.mjs",
+                "lineno": 84,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {
+                    "id": "astnode100017696",
+                    "name": "Base#mergeConfig",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "args"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Override this method to change the order configs are applied to this instance.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "description": "True prevents the instance from getting an originalConfig property",
+                    "name": "preventOriginalConfig"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "config"
+                }
+            ],
+            "name": "mergeConfig",
+            "longname": "Base#mergeConfig",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#mergeConfig",
+            "$kind": "method",
+            "id": 472,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    3246,
+                    3573
+                ],
+                "filename": "Base.mjs",
+                "lineno": 107,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {
+                    "id": "astnode100017764",
+                    "name": "Base#onConstructed",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onConstructed",
+            "longname": "Base#onConstructed",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#onConstructed",
+            "$kind": "method",
+            "id": 473,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n     * Inserts an item or array of items at the last index\n     * @param {Object|Array} item\n     * @returns {Neo.Component|Neo.Component[]}\n     */",
+            "meta": {
+                "range": [
+                    3736,
+                    3840
+                ],
+                "filename": "Base.mjs",
+                "lineno": 125,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {
+                    "id": "astnode100017809",
+                    "name": "Base#add",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "item"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Inserts an item or array of items at the last index",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "Array"
+                        ]
+                    },
+                    "name": "item"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.Component",
+                            "Array.<Neo.Component>"
+                        ]
+                    }
+                }
+            ],
+            "name": "add",
+            "longname": "Base#add",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#add",
+            "$kind": "method",
+            "id": 474,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Neo.layout.Base} value\n     * @param {Neo.layout.Base} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3964,
+                    4337
+                ],
+                "filename": "Base.mjs",
+                "lineno": 136,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {
+                    "id": "astnode100017834",
+                    "name": "Base#afterSetLayout",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.layout.Base"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.layout.Base"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetLayout",
+            "longname": "Base#afterSetLayout",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#afterSetLayout",
+            "$kind": "method",
+            "id": 475,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object|String} value\n     * @returns {Neo.layout.Base}\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4452,
+                    4523
+                ],
+                "filename": "Base.mjs",
+                "lineno": 156,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {
+                    "id": "astnode100017884",
+                    "name": "Base#beforeSetLayout",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.layout.Base"
+                        ]
+                    }
+                }
+            ],
+            "access": "private",
+            "name": "beforeSetLayout",
+            "longname": "Base#beforeSetLayout",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#beforeSetLayout",
+            "$kind": "method",
+            "id": 476,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4568,
+                    6159
+                ],
+                "filename": "Base.mjs",
+                "lineno": 164,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {
+                    "id": "astnode100017895",
+                    "name": "Base#createItems",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "access": "private",
+            "name": "createItems",
+            "longname": "Base#createItems",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#createItems",
+            "$kind": "method",
+            "id": 477,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object|String|Neo.layout.Base} value\n     * @private\n     * @returns {Neo.layout.Base}\n     */",
+            "meta": {
+                "range": [
+                    6290,
+                    6675
+                ],
+                "filename": "Base.mjs",
+                "lineno": 224,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {
+                    "id": "astnode100018105",
+                    "name": "Base#createLayout",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "String",
+                            "Neo.layout.Base"
+                        ]
+                    },
+                    "name": "value"
+                }
+            ],
+            "access": "private",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.layout.Base"
+                        ]
+                    }
+                }
+            ],
+            "name": "createLayout",
+            "longname": "Base#createLayout",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#createLayout",
+            "$kind": "method",
+            "id": 478,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n     * Destroys all components inside this.items before the super() call.\n     */",
+            "meta": {
+                "range": [
+                    6771,
+                    6891
+                ],
+                "filename": "Base.mjs",
+                "lineno": 243,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {
+                    "id": "astnode100018161",
+                    "name": "Base#destroy",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Destroys all components inside this.items before the super() call.",
+            "name": "destroy",
+            "longname": "Base#destroy",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#destroy",
+            "$kind": "method",
+            "id": 479,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n     * Finds the index of a direct child component inside this.items.\n     * @param {String} itemId\n     * @returns {Number} -1 in case no match is found\n     */",
+            "meta": {
+                "range": [
+                    7067,
+                    7291
+                ],
+                "filename": "Base.mjs",
+                "lineno": 256,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {
+                    "id": "astnode100018185",
+                    "name": "Base#indexOf",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "itemId"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Finds the index of a direct child component inside this.items.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "itemId"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "description": "-1 in case no match is found"
+                }
+            ],
+            "name": "indexOf",
+            "longname": "Base#indexOf",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#indexOf",
+            "$kind": "method",
+            "id": 480,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n     * Inserts an item or array of items at a specific index\n     * @param {Number} index\n     * @param {Object|Array} item\n     * @returns {Neo.Component|Neo.Component[]}\n     */",
+            "meta": {
+                "range": [
+                    7485,
+                    8850
+                ],
+                "filename": "Base.mjs",
+                "lineno": 274,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {
+                    "id": "astnode100018219",
+                    "name": "Base#insert",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "index",
+                        "item"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Inserts an item or array of items at a specific index",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "Array"
+                        ]
+                    },
+                    "name": "item"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.Component",
+                            "Array.<Neo.Component>"
+                        ]
+                    }
+                }
+            ],
+            "name": "insert",
+            "longname": "Base#insert",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#insert",
+            "$kind": "method",
+            "id": 481,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n     * todo\n     * Moves an existing item to a new index\n     * @param {String} itemId\n     * @param {Number} index\n     * @returns {Neo.Component|Neo.Component[]}\n     */",
+            "meta": {
+                "range": [
+                    9036,
+                    9181
+                ],
+                "filename": "Base.mjs",
+                "lineno": 333,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {
+                    "id": "astnode100018410",
+                    "name": "Base#moveTo",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "itemId",
+                        "index"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "todo<br />Moves an existing item to a new index",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "itemId"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.Component",
+                            "Array.<Neo.Component>"
+                        ]
+                    }
+                }
+            ],
+            "name": "moveTo",
+            "longname": "Base#moveTo",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#moveTo",
+            "$kind": "method",
+            "id": 482,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object|String} config\n     * @private\n     * @returns {Object} layoutConfig\n     */",
+            "meta": {
+                "range": [
+                    9946,
+                    10399
+                ],
+                "filename": "Base.mjs",
+                "lineno": 366,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {
+                    "id": "astnode100018516",
+                    "name": "Base#parseLayoutClass",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "String"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "access": "private",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "layoutConfig"
+                }
+            ],
+            "name": "parseLayoutClass",
+            "longname": "Base#parseLayoutClass",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#parseLayoutClass",
+            "$kind": "method",
+            "id": 483,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n     * Removes a container item at a given index\n     * @param {Number} index\n     * @param {Boolean} [destroyItem=true]\n     * @param {Boolean} [silent=false]\n     */",
+            "meta": {
+                "range": [
+                    10581,
+                    11234
+                ],
+                "filename": "Base.mjs",
+                "lineno": 391,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {
+                    "id": "astnode100018575",
+                    "name": "Base#removeAt",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "index",
+                        "destroyItem",
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Removes a container item at a given index",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": true,
+                    "name": "destroyItem"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "name": "removeAt",
+            "longname": "Base#removeAt",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#removeAt",
+            "$kind": "method",
+            "id": 484,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n     * Switches the position of 2 direct child items\n     * @param {String} item1id\n     * @param {String} item2id\n     */",
+            "meta": {
+                "range": [
+                    11371,
+                    11731
+                ],
+                "filename": "Base.mjs",
+                "lineno": 423,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/container",
+                "code": {
+                    "id": "astnode100018673",
+                    "name": "Base#switchItems",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "item1id",
+                        "item2id"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Switches the position of 2 direct child items",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "item1id"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "item2id"
+                }
+            ],
+            "name": "switchItems",
+            "longname": "Base#switchItems",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#switchItems",
+            "$kind": "method",
+            "id": 485,
+            "neoClassName": "Neo.container.Base"
+        }
+    ]
+}

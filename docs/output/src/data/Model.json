@@ -1,0 +1,284 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.data.Model\n * @extends Neo.core.Base\n */",
+            "meta": {
+                "filename": "Model.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Model",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "memberof": "Neo.data",
+            "longname": "Neo.data.Model",
+            "scope": "static",
+            "$longname": "Neo.data.Model",
+            "$kind": "class",
+            "id": 637,
+            "neoClassName": "Neo.data.Model"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.data.Model'\n         * @private\n         */",
+            "meta": {
+                "filename": "Model.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.data.Model'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 638,
+            "neoClassName": "Neo.data.Model"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='model'\n         * @private\n         */",
+            "meta": {
+                "filename": "Model.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'model'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 639,
+            "neoClassName": "Neo.data.Model"
+        },
+        {
+            "comment": "/**\n         * @member {Array} fields_=[]\n         * @private\n         */",
+            "meta": {
+                "filename": "Model.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "fields_",
+            "type": {
+                "names": [
+                    "Array"
+                ]
+            },
+            "defaultvalue": "[]",
+            "access": "private",
+            "longname": "fields_",
+            "scope": "global",
+            "$longname": "fields_",
+            "$kind": "property",
+            "id": 640,
+            "neoClassName": "Neo.data.Model"
+        },
+        {
+            "comment": "/**\n         * @member {String} keyProperty_='id'\n         * @private\n         */",
+            "meta": {
+                "filename": "Model.mjs",
+                "lineno": 28,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "keyProperty_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'id'",
+            "access": "private",
+            "longname": "keyProperty_",
+            "scope": "global",
+            "$longname": "keyProperty_",
+            "$kind": "property",
+            "id": 641,
+            "neoClassName": "Neo.data.Model"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} storeId=null\n         * @private\n         */",
+            "meta": {
+                "filename": "Model.mjs",
+                "lineno": 33,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "storeId",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "storeId",
+            "scope": "global",
+            "$longname": "storeId",
+            "$kind": "property",
+            "id": 642,
+            "neoClassName": "Neo.data.Model"
+        },
+        {
+            "comment": "/**\n         * Set this config to true in case you want to track modified fields.\n         * Be aware that this will double the amount of data inside each record,\n         * since each field will get an original value flag.\n         * @member {Boolean} trackModifiedFields=false\n         */",
+            "meta": {
+                "filename": "Model.mjs",
+                "lineno": 40,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {}
+            },
+            "description": "Set this config to true in case you want to track modified fields.<br />Be aware that this will double the amount of data inside each record,<br />since each field will get an original value flag.",
+            "kind": "member",
+            "name": "trackModifiedFields",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "trackModifiedFields",
+            "scope": "global",
+            "$longname": "trackModifiedFields",
+            "$kind": "property",
+            "id": 643,
+            "neoClassName": "Neo.data.Model"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Array} value\n     * @param {Array} oldValue\n     */",
+            "meta": {
+                "range": [
+                    1165,
+                    1260
+                ],
+                "filename": "Model.mjs",
+                "lineno": 48,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {
+                    "id": "astnode100023566",
+                    "name": "Model#afterSetFields",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "name": "afterSetFields",
+            "longname": "Model#afterSetFields",
+            "kind": "function",
+            "memberof": "Model",
+            "scope": "instance",
+            "$longname": "Model#afterSetFields",
+            "$kind": "method",
+            "id": 644,
+            "neoClassName": "Neo.data.Model"
+        },
+        {
+            "comment": "/**\n     * Finds a field config by a given field name\n     * @param {String} key\n     * @return {Object|null} The field config object or null if no match was found\n     */",
+            "meta": {
+                "range": [
+                    1442,
+                    1704
+                ],
+                "filename": "Model.mjs",
+                "lineno": 57,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/data",
+                "code": {
+                    "id": "astnode100023580",
+                    "name": "Model#getField",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "key"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Finds a field config by a given field name",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "key"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "null"
+                        ]
+                    },
+                    "description": "The field config object or null if no match was found"
+                }
+            ],
+            "name": "getField",
+            "longname": "Model#getField",
+            "kind": "function",
+            "memberof": "Model",
+            "scope": "instance",
+            "$longname": "Model#getField",
+            "$kind": "method",
+            "id": 645,
+            "neoClassName": "Neo.data.Model"
+        }
+    ]
+}

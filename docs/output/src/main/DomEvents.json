@@ -1,0 +1,1161 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.main.DomEvents\n * @extends Neo.core.Base\n * @singleton\n */",
+            "meta": {
+                "filename": "DomEvents.mjs",
+                "lineno": 39,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "DomEvents",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "tags": [
+                {
+                    "originalTitle": "singleton",
+                    "title": "singleton",
+                    "text": ""
+                }
+            ],
+            "memberof": "Neo.main",
+            "longname": "Neo.main.DomEvents",
+            "scope": "static",
+            "$longname": "Neo.main.DomEvents",
+            "$kind": "class",
+            "id": 1248,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n         * True automatically applies the core/Observable.mjs mixin\n         * @member {Boolean} observable=true\n         * @static\n         */",
+            "meta": {
+                "filename": "DomEvents.mjs",
+                "lineno": 51,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {}
+            },
+            "description": "True automatically applies the core/Observable.mjs mixin",
+            "kind": "member",
+            "name": "observable",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "scope": "static",
+            "longname": "observable",
+            "$longname": "observable",
+            "$kind": "property",
+            "id": 1249,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.main.DomEvents'\n         * @private\n         */",
+            "meta": {
+                "filename": "DomEvents.mjs",
+                "lineno": 59,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.main.DomEvents'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1250,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n         * @member {boolean} singleton=true\n         * @private\n         */",
+            "meta": {
+                "filename": "DomEvents.mjs",
+                "lineno": 64,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "singleton",
+            "type": {
+                "names": [
+                    "boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "access": "private",
+            "longname": "singleton",
+            "scope": "global",
+            "$longname": "singleton",
+            "$kind": "property",
+            "id": 1251,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n         * Remote method access for other workers\n         * @member {Object} remote={app: ['addDomListener']}\n         * @private\n         */",
+            "meta": {
+                "filename": "DomEvents.mjs",
+                "lineno": 70,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {}
+            },
+            "description": "Remote method access for other workers",
+            "kind": "member",
+            "name": "remote",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{app: ['addDomListener']}",
+            "access": "private",
+            "longname": "remote",
+            "scope": "global",
+            "$longname": "remote",
+            "$kind": "property",
+            "id": 1252,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    2253,
+                    2502
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 82,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038007",
+                    "name": "DomEvents",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "DomEvents",
+            "longname": "DomEvents",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "DomEvents",
+            "$kind": "constructor",
+            "id": 1253,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    2559,
+                    3376
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 95,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038046",
+                    "name": "DomEvents#addDomListener",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "addDomListener",
+            "longname": "DomEvents#addDomListener",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#addDomListener",
+            "$kind": "method",
+            "id": 1254,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    3405,
+                    3614
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 130,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038174",
+                    "name": "DomEvents#addGlobalDomListeners",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "addGlobalDomListeners",
+            "longname": "DomEvents#addGlobalDomListeners",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "params": [],
+            "$longname": "DomEvents#addGlobalDomListeners",
+            "$kind": "method",
+            "id": 1255,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     * Local domEvent listener\n     * @param {Object} event\n     */",
+            "meta": {
+                "range": [
+                    3696,
+                    5658
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 142,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038212",
+                    "name": "DomEvents#domEventListener",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Local domEvent listener",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "domEventListener",
+            "longname": "DomEvents#domEventListener",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#domEventListener",
+            "$kind": "method",
+            "id": 1256,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} node\n     * @returns {Object}\n     */",
+            "meta": {
+                "range": [
+                    7090,
+                    8460
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 249,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038549",
+                    "name": "DomEvents#getTargetData",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "node"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "node"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    }
+                }
+            ],
+            "name": "getTargetData",
+            "longname": "DomEvents#getTargetData",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#getTargetData",
+            "$kind": "method",
+            "id": 1257,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} event\n     */",
+            "meta": {
+                "range": [
+                    8518,
+                    8713
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 284,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038682",
+                    "name": "DomEvents#onChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onChange",
+            "longname": "DomEvents#onChange",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#onChange",
+            "$kind": "method",
+            "id": 1258,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} event\n     */",
+            "meta": {
+                "range": [
+                    8771,
+                    8986
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 296,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038712",
+                    "name": "DomEvents#onClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onClick",
+            "longname": "DomEvents#onClick",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#onClick",
+            "$kind": "method",
+            "id": 1259,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} event\n     */",
+            "meta": {
+                "range": [
+                    9044,
+                    9271
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 310,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038744",
+                    "name": "DomEvents#onContextMenu",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onContextMenu",
+            "longname": "DomEvents#onContextMenu",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#onContextMenu",
+            "$kind": "method",
+            "id": 1260,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    9300,
+                    9405
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 323,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038776",
+                    "name": "DomEvents#onDomContentLoaded",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onDomContentLoaded",
+            "longname": "DomEvents#onDomContentLoaded",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "params": [],
+            "$longname": "DomEvents#onDomContentLoaded",
+            "$kind": "method",
+            "id": 1261,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} event\n     */",
+            "meta": {
+                "range": [
+                    9463,
+                    9580
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 332,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038791",
+                    "name": "DomEvents#onDragOver",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onDragOver",
+            "longname": "DomEvents#onDragOver",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#onDragOver",
+            "$kind": "method",
+            "id": 1262,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} event\n     */",
+            "meta": {
+                "range": [
+                    9638,
+                    9719
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 341,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038804",
+                    "name": "DomEvents#onFocusIn",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onFocusIn",
+            "longname": "DomEvents#onFocusIn",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#onFocusIn",
+            "$kind": "method",
+            "id": 1263,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} event\n     */",
+            "meta": {
+                "range": [
+                    9777,
+                    9859
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 349,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038819",
+                    "name": "DomEvents#onFocusOut",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onFocusOut",
+            "longname": "DomEvents#onFocusOut",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#onFocusOut",
+            "$kind": "method",
+            "id": 1264,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    9888,
+                    10148
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 356,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038834",
+                    "name": "DomEvents#onHashChange",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onHashChange",
+            "longname": "DomEvents#onHashChange",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "params": [],
+            "$longname": "DomEvents#onHashChange",
+            "$kind": "method",
+            "id": 1265,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} event\n     */",
+            "meta": {
+                "range": [
+                    10206,
+                    10295
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 370,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038869",
+                    "name": "DomEvents#onKeyDown",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onKeyDown",
+            "longname": "DomEvents#onKeyDown",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#onKeyDown",
+            "$kind": "method",
+            "id": 1266,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} event\n     */",
+            "meta": {
+                "range": [
+                    10353,
+                    10440
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 378,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038884",
+                    "name": "DomEvents#onKeyUp",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onKeyUp",
+            "longname": "DomEvents#onKeyUp",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#onKeyUp",
+            "$kind": "method",
+            "id": 1267,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} event\n     */",
+            "meta": {
+                "range": [
+                    10498,
+                    10692
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 386,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038899",
+                    "name": "DomEvents#onMouseEnter",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onMouseEnter",
+            "longname": "DomEvents#onMouseEnter",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#onMouseEnter",
+            "$kind": "method",
+            "id": 1268,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} event\n     */",
+            "meta": {
+                "range": [
+                    10750,
+                    10938
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 397,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038928",
+                    "name": "DomEvents#onMouseLeave",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onMouseLeave",
+            "longname": "DomEvents#onMouseLeave",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#onMouseLeave",
+            "$kind": "method",
+            "id": 1269,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} event\n     */",
+            "meta": {
+                "range": [
+                    10996,
+                    12028
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 408,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100038957",
+                    "name": "DomEvents#onWheel",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onWheel",
+            "longname": "DomEvents#onWheel",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#onWheel",
+            "$kind": "method",
+            "id": 1270,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     * Example for Array values: \"categories[]=test1&categories[]=test2\"\n     * @param {String} str\n     * @returns {Object}\n     */",
+            "meta": {
+                "range": [
+                    12175,
+                    12957
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 446,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100039061",
+                    "name": "DomEvents#parseHash",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "str"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Example for Array values: \"categories[]=test1&categories[]=test2\"",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "str"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    }
+                }
+            ],
+            "name": "parseHash",
+            "longname": "DomEvents#parseHash",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#parseHash",
+            "$kind": "method",
+            "id": 1271,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     * used by parseHash to convert tokens into boolean or number types if needed\n     * @param {String} value\n     * @returns {Boolean|Number|String}\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    13146,
+                    13413
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 483,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100039198",
+                    "name": "DomEvents#parseValue",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "used by parseHash to convert tokens into boolean or number types if needed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean",
+                            "Number",
+                            "String"
+                        ]
+                    }
+                }
+            ],
+            "access": "private",
+            "name": "parseValue",
+            "longname": "DomEvents#parseValue",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#parseValue",
+            "$kind": "method",
+            "id": 1272,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Array|String} data.cls\n     * @param {String} data.name\n     */",
+            "meta": {
+                "range": [
+                    13541,
+                    14098
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 501,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100039236",
+                    "name": "DomEvents#registerPreventDefaultTargets",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array",
+                            "String"
+                        ]
+                    },
+                    "name": "data.cls"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.name"
+                }
+            ],
+            "name": "registerPreventDefaultTargets",
+            "longname": "DomEvents#registerPreventDefaultTargets",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#registerPreventDefaultTargets",
+            "$kind": "method",
+            "id": 1273,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     * Sends the parsed event data to the app worker\n     * @param {Object} data\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    14217,
+                    14404
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 529,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100039305",
+                    "name": "DomEvents#sendMessageToApp",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Sends the parsed event data to the app worker",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "access": "private",
+            "name": "sendMessageToApp",
+            "longname": "DomEvents#sendMessageToApp",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#sendMessageToApp",
+            "$kind": "method",
+            "id": 1274,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} event\n     * @param {Object} targetArray\n     * @returns {String|Boolean} target cls if found, false otherwise\n     */",
+            "meta": {
+                "range": [
+                    14569,
+                    15112
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 545,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/main",
+                "code": {
+                    "id": "astnode100039329",
+                    "name": "DomEvents#testPathInclusion",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event",
+                        "targetArray"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "event"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "targetArray"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "Boolean"
+                        ]
+                    },
+                    "description": "target cls if found, false otherwise"
+                }
+            ],
+            "name": "testPathInclusion",
+            "longname": "DomEvents#testPathInclusion",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#testPathInclusion",
+            "$kind": "method",
+            "id": 1275,
+            "neoClassName": "Neo.main.DomEvents"
+        }
+    ]
+}

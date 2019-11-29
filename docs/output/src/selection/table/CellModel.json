@@ -1,0 +1,527 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.selection.table.CellModel\n * @extends Neo.selection.Model\n */",
+            "meta": {
+                "filename": "CellModel.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "CellModel",
+            "augments": [
+                "Neo.selection.Model"
+            ],
+            "memberof": "Neo.selection.table",
+            "longname": "Neo.selection.table.CellModel",
+            "scope": "static",
+            "$longname": "Neo.selection.table.CellModel",
+            "$kind": "class",
+            "id": 1520,
+            "neoClassName": "Neo.selection.table.CellModel"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.selection.table.CellModel'\n         * @private\n         */",
+            "meta": {
+                "filename": "CellModel.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.selection.table.CellModel'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1521,
+            "neoClassName": "Neo.selection.table.CellModel"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='selection-table-cellmodel'\n         * @private\n         */",
+            "meta": {
+                "filename": "CellModel.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'selection-table-cellmodel'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1522,
+            "neoClassName": "Neo.selection.table.CellModel"
+        },
+        {
+            "comment": "/**\n         * @member {String} cls='selection-cellmodel'\n         * @private\n         */",
+            "meta": {
+                "filename": "CellModel.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'selection-cellmodel'",
+            "access": "private",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 1523,
+            "neoClassName": "Neo.selection.table.CellModel"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    668,
+                    995
+                ],
+                "filename": "CellModel.mjs",
+                "lineno": 29,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {
+                    "id": "astnode100049718",
+                    "name": "CellModel#addDomListener",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "addDomListener",
+            "longname": "CellModel#addDomListener",
+            "kind": "function",
+            "memberof": "CellModel",
+            "scope": "instance",
+            "params": [],
+            "$longname": "CellModel#addDomListener",
+            "$kind": "method",
+            "id": 1524,
+            "neoClassName": "Neo.selection.table.CellModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    1052,
+                    1432
+                ],
+                "filename": "CellModel.mjs",
+                "lineno": 47,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {
+                    "id": "astnode100049756",
+                    "name": "CellModel#onCellClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onCellClick",
+            "longname": "CellModel#onCellClick",
+            "kind": "function",
+            "memberof": "CellModel",
+            "scope": "instance",
+            "$longname": "CellModel#onCellClick",
+            "$kind": "method",
+            "id": 1525,
+            "neoClassName": "Neo.selection.table.CellModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    1489,
+                    1551
+                ],
+                "filename": "CellModel.mjs",
+                "lineno": 70,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {
+                    "id": "astnode100049815",
+                    "name": "CellModel#onKeyDownDown",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownDown",
+            "longname": "CellModel#onKeyDownDown",
+            "kind": "function",
+            "memberof": "CellModel",
+            "scope": "instance",
+            "$longname": "CellModel#onKeyDownDown",
+            "$kind": "method",
+            "id": 1526,
+            "neoClassName": "Neo.selection.table.CellModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    1608,
+                    1674
+                ],
+                "filename": "CellModel.mjs",
+                "lineno": 78,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {
+                    "id": "astnode100049827",
+                    "name": "CellModel#onKeyDownLeft",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownLeft",
+            "longname": "CellModel#onKeyDownLeft",
+            "kind": "function",
+            "memberof": "CellModel",
+            "scope": "instance",
+            "$longname": "CellModel#onKeyDownLeft",
+            "$kind": "method",
+            "id": 1527,
+            "neoClassName": "Neo.selection.table.CellModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    1731,
+                    1797
+                ],
+                "filename": "CellModel.mjs",
+                "lineno": 86,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {
+                    "id": "astnode100049840",
+                    "name": "CellModel#onKeyDownRight",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownRight",
+            "longname": "CellModel#onKeyDownRight",
+            "kind": "function",
+            "memberof": "CellModel",
+            "scope": "instance",
+            "$longname": "CellModel#onKeyDownRight",
+            "$kind": "method",
+            "id": 1528,
+            "neoClassName": "Neo.selection.table.CellModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    1854,
+                    1915
+                ],
+                "filename": "CellModel.mjs",
+                "lineno": 94,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {
+                    "id": "astnode100049852",
+                    "name": "CellModel#onKeyDownUp",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownUp",
+            "longname": "CellModel#onKeyDownUp",
+            "kind": "function",
+            "memberof": "CellModel",
+            "scope": "instance",
+            "$longname": "CellModel#onKeyDownUp",
+            "$kind": "method",
+            "id": 1529,
+            "neoClassName": "Neo.selection.table.CellModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Number} step\n     */",
+            "meta": {
+                "range": [
+                    2000,
+                    2584
+                ],
+                "filename": "CellModel.mjs",
+                "lineno": 103,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {
+                    "id": "astnode100049865",
+                    "name": "CellModel#onNavKeyColumn",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data",
+                        "step"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "step"
+                }
+            ],
+            "name": "onNavKeyColumn",
+            "longname": "CellModel#onNavKeyColumn",
+            "kind": "function",
+            "memberof": "CellModel",
+            "scope": "instance",
+            "$longname": "CellModel#onNavKeyColumn",
+            "$kind": "method",
+            "id": 1530,
+            "neoClassName": "Neo.selection.table.CellModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Number} step\n     */",
+            "meta": {
+                "range": [
+                    2669,
+                    3188
+                ],
+                "filename": "CellModel.mjs",
+                "lineno": 128,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {
+                    "id": "astnode100049965",
+                    "name": "CellModel#onNavKeyRow",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data",
+                        "step"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "step"
+                }
+            ],
+            "name": "onNavKeyRow",
+            "longname": "CellModel#onNavKeyRow",
+            "kind": "function",
+            "memberof": "CellModel",
+            "scope": "instance",
+            "$longname": "CellModel#onNavKeyRow",
+            "$kind": "method",
+            "id": 1531,
+            "neoClassName": "Neo.selection.table.CellModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Neo.component.Base} component\n     */",
+            "meta": {
+                "range": [
+                    3262,
+                    3748
+                ],
+                "filename": "CellModel.mjs",
+                "lineno": 152,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {
+                    "id": "astnode100050061",
+                    "name": "CellModel#register",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "component"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "name": "component"
+                }
+            ],
+            "name": "register",
+            "longname": "CellModel#register",
+            "kind": "function",
+            "memberof": "CellModel",
+            "scope": "instance",
+            "$longname": "CellModel#register",
+            "$kind": "method",
+            "id": 1532,
+            "neoClassName": "Neo.selection.table.CellModel"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    3777,
+                    4251
+                ],
+                "filename": "CellModel.mjs",
+                "lineno": 172,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection/table",
+                "code": {
+                    "id": "astnode100050128",
+                    "name": "CellModel#unregister",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "unregister",
+            "longname": "CellModel#unregister",
+            "kind": "function",
+            "memberof": "CellModel",
+            "scope": "instance",
+            "params": [],
+            "$longname": "CellModel#unregister",
+            "$kind": "method",
+            "id": 1533,
+            "neoClassName": "Neo.selection.table.CellModel"
+        }
+    ]
+}

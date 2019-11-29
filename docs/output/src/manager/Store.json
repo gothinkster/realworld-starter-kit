@@ -1,0 +1,347 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * todo: except createRandomData a legacy class, since stores live directly inside the app worker\n * @class Neo.manager.Store\n * @extends Neo.manager.Base\n * @singleton\n */",
+            "meta": {
+                "filename": "Store.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "description": "todo: except createRandomData a legacy class, since stores live directly inside the app worker",
+            "kind": "class",
+            "name": "Store",
+            "augments": [
+                "Neo.manager.Base"
+            ],
+            "tags": [
+                {
+                    "originalTitle": "singleton",
+                    "title": "singleton",
+                    "text": ""
+                }
+            ],
+            "memberof": "Neo.manager",
+            "longname": "Neo.manager.Store",
+            "scope": "static",
+            "$longname": "Neo.manager.Store",
+            "$kind": "class",
+            "id": 1367,
+            "neoClassName": "Neo.manager.Store"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.manager.Store'\n         * @private\n         */",
+            "meta": {
+                "filename": "Store.mjs",
+                "lineno": 15,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.manager.Store'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1368,
+            "neoClassName": "Neo.manager.Store"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='store-manager'\n         * @private\n         */",
+            "meta": {
+                "filename": "Store.mjs",
+                "lineno": 20,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'store-manager'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1369,
+            "neoClassName": "Neo.manager.Store"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @private\n         */",
+            "meta": {
+                "filename": "Store.mjs",
+                "lineno": 25,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "singleton",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "access": "private",
+            "longname": "singleton",
+            "scope": "global",
+            "$longname": "singleton",
+            "$kind": "property",
+            "id": 1370,
+            "neoClassName": "Neo.manager.Store"
+        },
+        {
+            "comment": "/**\n         * @member {Object} listeners={}\n         * @private\n         */",
+            "meta": {
+                "filename": "Store.mjs",
+                "lineno": 30,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "listeners",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{}",
+            "access": "private",
+            "longname": "listeners",
+            "scope": "global",
+            "$longname": "listeners",
+            "$kind": "property",
+            "id": 1371,
+            "neoClassName": "Neo.manager.Store"
+        },
+        {
+            "comment": "/**\n         * @member {Object} remote={app: ['createRandomData', 'filter', 'load', 'sort']}\n         * @private\n         */",
+            "meta": {
+                "filename": "Store.mjs",
+                "lineno": 35,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "remote",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{app: ['createRandomData', 'filter', 'load', 'sort']}",
+            "description": "['createRandomData', 'filter', 'load', 'sort']}",
+            "access": "private",
+            "longname": "remote",
+            "scope": "global",
+            "$longname": "remote",
+            "$kind": "property",
+            "id": 1372,
+            "neoClassName": "Neo.manager.Store"
+        },
+        {
+            "comment": "/**\n     *\n     * Dummy method until we have a data package in place\n     * @param {Number} amountColumns\n     * @param {Number} amountRows\n     */",
+            "meta": {
+                "range": [
+                    1147,
+                    1665
+                ],
+                "filename": "Store.mjs",
+                "lineno": 46,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100043820",
+                    "name": "Store#createRandomData",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "amountColumns",
+                        "amountRows"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Dummy method until we have a data package in place",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "amountColumns"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "amountRows"
+                }
+            ],
+            "name": "createRandomData",
+            "longname": "Store#createRandomData",
+            "kind": "function",
+            "memberof": "Store",
+            "scope": "instance",
+            "$longname": "Store#createRandomData",
+            "$kind": "method",
+            "id": 1373,
+            "neoClassName": "Neo.manager.Store"
+        },
+        {
+            "comment": "/**\n     *\n     * @param storeId\n     * @param fieldName\n     * @param value\n     */",
+            "meta": {
+                "range": [
+                    1760,
+                    1803
+                ],
+                "filename": "Store.mjs",
+                "lineno": 71,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100043919",
+                    "name": "Store#filter",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "storeId",
+                        "fieldName",
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "storeId"
+                },
+                {
+                    "name": "fieldName"
+                },
+                {
+                    "name": "value"
+                }
+            ],
+            "name": "filter",
+            "longname": "Store#filter",
+            "kind": "function",
+            "memberof": "Store",
+            "scope": "instance",
+            "$longname": "Store#filter",
+            "$kind": "method",
+            "id": 1374,
+            "neoClassName": "Neo.manager.Store"
+        },
+        {
+            "comment": "/**\n     *\n     * @param storeId\n     * @param params\n     */",
+            "meta": {
+                "range": [
+                    1875,
+                    1906
+                ],
+                "filename": "Store.mjs",
+                "lineno": 80,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100043926",
+                    "name": "Store#load",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "storeId",
+                        "params"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "storeId"
+                },
+                {
+                    "name": "params"
+                }
+            ],
+            "name": "load",
+            "longname": "Store#load",
+            "kind": "function",
+            "memberof": "Store",
+            "scope": "instance",
+            "$longname": "Store#load",
+            "$kind": "method",
+            "id": 1375,
+            "neoClassName": "Neo.manager.Store"
+        },
+        {
+            "comment": "/**\n     *\n     * @param storeId\n     * @param fieldName\n     * @param value\n     */",
+            "meta": {
+                "range": [
+                    2001,
+                    2042
+                ],
+                "filename": "Store.mjs",
+                "lineno": 90,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100043932",
+                    "name": "Store#sort",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "storeId",
+                        "fieldName",
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "storeId"
+                },
+                {
+                    "name": "fieldName"
+                },
+                {
+                    "name": "value"
+                }
+            ],
+            "name": "sort",
+            "longname": "Store#sort",
+            "kind": "function",
+            "memberof": "Store",
+            "scope": "instance",
+            "$longname": "Store#sort",
+            "$kind": "method",
+            "id": 1376,
+            "neoClassName": "Neo.manager.Store"
+        }
+    ]
+}

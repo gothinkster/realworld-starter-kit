@@ -1,0 +1,134 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * The Vdom worker converts vdom templates into vnodes, as well as creating delta-updates.\n * See the tutorials for further infos.\n * @class Neo.worker.VDom\n * @extends Neo.worker.Base\n * @singleton\n */",
+            "meta": {
+                "filename": "VDom.mjs",
+                "lineno": 8,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {}
+            },
+            "description": "The Vdom worker converts vdom templates into vnodes, as well as creating delta-updates.<br />See the tutorials for further infos.",
+            "kind": "class",
+            "name": "VDom",
+            "augments": [
+                "Neo.worker.Base"
+            ],
+            "tags": [
+                {
+                    "originalTitle": "singleton",
+                    "title": "singleton",
+                    "text": ""
+                }
+            ],
+            "memberof": "Neo.worker",
+            "longname": "Neo.worker.VDom",
+            "scope": "static",
+            "$longname": "Neo.worker.VDom",
+            "$kind": "class",
+            "id": 1913,
+            "neoClassName": "Neo.worker.VDom"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.worker.VDom'\n         * @private\n         */",
+            "meta": {
+                "filename": "VDom.mjs",
+                "lineno": 21,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.worker.VDom'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1914,
+            "neoClassName": "Neo.worker.VDom"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='vdom-worker'\n         * @private\n         */",
+            "meta": {
+                "filename": "VDom.mjs",
+                "lineno": 26,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'vdom-worker'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1915,
+            "neoClassName": "Neo.worker.VDom"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @private\n         */",
+            "meta": {
+                "filename": "VDom.mjs",
+                "lineno": 31,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "singleton",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "access": "private",
+            "longname": "singleton",
+            "scope": "global",
+            "$longname": "singleton",
+            "$kind": "property",
+            "id": 1916,
+            "neoClassName": "Neo.worker.VDom"
+        },
+        {
+            "comment": "/**\n         * @member {String} workerId='vdom'\n         * @private\n         */",
+            "meta": {
+                "filename": "VDom.mjs",
+                "lineno": 36,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "workerId",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'vdom'",
+            "access": "private",
+            "longname": "workerId",
+            "scope": "global",
+            "$longname": "workerId",
+            "$kind": "property",
+            "id": 1917,
+            "neoClassName": "Neo.worker.VDom"
+        }
+    ]
+}

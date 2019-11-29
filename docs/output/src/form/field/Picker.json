@@ -1,0 +1,1056 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * The abstract picker field provides an arrow down trigger which opens a floating container to provide\n * more data selection options\n * @class Neo.form.field.Picker\n * @extends Neo.form.field.Text\n * @abstract\n */",
+            "meta": {
+                "filename": "Picker.mjs",
+                "lineno": 6,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "The abstract picker field provides an arrow down trigger which opens a floating container to provide<br />more data selection options",
+            "kind": "class",
+            "name": "Picker",
+            "augments": [
+                "Neo.form.field.Text"
+            ],
+            "virtual": true,
+            "memberof": "Neo.form.field",
+            "longname": "Neo.form.field.Picker",
+            "scope": "static",
+            "$longname": "Neo.form.field.Picker",
+            "$kind": "class",
+            "id": 769,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.form.field.Picker'\n         * @private\n         */",
+            "meta": {
+                "filename": "Picker.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.form.field.Picker'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 770,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='pickerfield'\n         * @private\n         */",
+            "meta": {
+                "filename": "Picker.mjs",
+                "lineno": 24,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'pickerfield'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 771,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n         * Stores the data from the getBoundingClientRect() call (picker & body DomRects)\n         * @member {Array} clientRects=null\n         * @private\n         */",
+            "meta": {
+                "filename": "Picker.mjs",
+                "lineno": 30,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "Stores the data from the getBoundingClientRect() call (picker & body DomRects)",
+            "kind": "member",
+            "name": "clientRects",
+            "type": {
+                "names": [
+                    "Array"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "clientRects",
+            "scope": "global",
+            "$longname": "clientRects",
+            "$kind": "property",
+            "id": 772,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neo-pickerfield', 'neo-textfield']\n         */",
+            "meta": {
+                "filename": "Picker.mjs",
+                "lineno": 34,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neo-pickerfield', 'neo-textfield']",
+            "description": "'neo-textfield']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 773,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n         * Additional used keys for the selection model\n         * @member {Object} keys\n         */",
+            "meta": {
+                "filename": "Picker.mjs",
+                "lineno": 39,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "Additional used keys for the selection model",
+            "kind": "member",
+            "name": "keys",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "longname": "keys",
+            "scope": "global",
+            "$longname": "keys",
+            "$kind": "property",
+            "id": 774,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} matchPickerWidth=true\n         */",
+            "meta": {
+                "filename": "Picker.mjs",
+                "lineno": 46,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "matchPickerWidth",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "matchPickerWidth",
+            "scope": "global",
+            "$longname": "matchPickerWidth",
+            "$kind": "property",
+            "id": 775,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n         * @member {Object|null} picker=null\n         * @private\n         */",
+            "meta": {
+                "filename": "Picker.mjs",
+                "lineno": 51,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "picker",
+            "type": {
+                "names": [
+                    "Object",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "picker",
+            "scope": "global",
+            "$longname": "picker",
+            "$kind": "property",
+            "id": 776,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n         * Configs to pass to the picker container\n         * @member {Object|null} pickerConfig=null\n         */",
+            "meta": {
+                "filename": "Picker.mjs",
+                "lineno": 56,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "Configs to pass to the picker container",
+            "kind": "member",
+            "name": "pickerConfig",
+            "type": {
+                "names": [
+                    "Object",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "pickerConfig",
+            "scope": "global",
+            "$longname": "pickerConfig",
+            "$kind": "property",
+            "id": 777,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n         * The height of the picker container. Defaults to px.\n         * @member {Number|null} pickerHeight=100\n         */",
+            "meta": {
+                "filename": "Picker.mjs",
+                "lineno": 61,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "The height of the picker container. Defaults to px.",
+            "kind": "member",
+            "name": "pickerHeight",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": 100,
+            "longname": "pickerHeight",
+            "scope": "global",
+            "$longname": "pickerHeight",
+            "$kind": "property",
+            "id": 778,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} pickerIsMounted=false\n         * @private\n         */",
+            "meta": {
+                "filename": "Picker.mjs",
+                "lineno": 66,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "pickerIsMounted",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "access": "private",
+            "longname": "pickerIsMounted",
+            "scope": "global",
+            "$longname": "pickerIsMounted",
+            "$kind": "property",
+            "id": 779,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n         * The height of the picker container. Defaults to px.\n         * @member {Number|null} pickerMaxHeight=200\n         */",
+            "meta": {
+                "filename": "Picker.mjs",
+                "lineno": 71,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "The height of the picker container. Defaults to px.",
+            "kind": "member",
+            "name": "pickerMaxHeight",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": 200,
+            "longname": "pickerMaxHeight",
+            "scope": "global",
+            "$longname": "pickerMaxHeight",
+            "$kind": "property",
+            "id": 780,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n         * The width of the picker container. Defaults to px.\n         * @member {Number|null} pickerWidth=100\n         */",
+            "meta": {
+                "filename": "Picker.mjs",
+                "lineno": 76,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "The width of the picker container. Defaults to px.",
+            "kind": "member",
+            "name": "pickerWidth",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": 100,
+            "longname": "pickerWidth",
+            "scope": "global",
+            "$longname": "pickerWidth",
+            "$kind": "property",
+            "id": 781,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n         * @member {Object|Object[]} triggers=[]\n         * @private\n         */",
+            "meta": {
+                "filename": "Picker.mjs",
+                "lineno": 81,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "triggers",
+            "type": {
+                "names": [
+                    "Object",
+                    "Array.<Object>"
+                ]
+            },
+            "defaultvalue": "[]",
+            "access": "private",
+            "longname": "triggers",
+            "scope": "global",
+            "$longname": "triggers",
+            "$kind": "property",
+            "id": 782,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n     * Triggered after the hideLabel config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    2686,
+                    2812
+                ],
+                "filename": "Picker.mjs",
+                "lineno": 92,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100026348",
+                    "name": "Picker#afterSetHideLabel",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the hideLabel config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetHideLabel",
+            "longname": "Picker#afterSetHideLabel",
+            "kind": "function",
+            "memberof": "Picker",
+            "scope": "instance",
+            "$longname": "Picker#afterSetHideLabel",
+            "$kind": "method",
+            "id": 783,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n     * Triggered after the labelWidth config got changed\n     * @param {Number|String} value\n     * @param {Number|String} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    2982,
+                    3110
+                ],
+                "filename": "Picker.mjs",
+                "lineno": 103,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100026366",
+                    "name": "Picker#afterSetLabelWidth",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the labelWidth config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number",
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number",
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetLabelWidth",
+            "longname": "Picker#afterSetLabelWidth",
+            "kind": "function",
+            "memberof": "Picker",
+            "scope": "instance",
+            "$longname": "Picker#afterSetLabelWidth",
+            "$kind": "method",
+            "id": 784,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n     * Triggered after the width config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3263,
+                    3381
+                ],
+                "filename": "Picker.mjs",
+                "lineno": 114,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100026384",
+                    "name": "Picker#afterSetWidth",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the width config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetWidth",
+            "longname": "Picker#afterSetWidth",
+            "kind": "function",
+            "memberof": "Picker",
+            "scope": "instance",
+            "$longname": "Picker#afterSetWidth",
+            "$kind": "method",
+            "id": 785,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n     *\n     * @return {Neo.container.Base}\n     */",
+            "meta": {
+                "range": [
+                    3446,
+                    4027
+                ],
+                "filename": "Picker.mjs",
+                "lineno": 123,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100026402",
+                    "name": "Picker#createPicker",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.container.Base"
+                        ]
+                    }
+                }
+            ],
+            "name": "createPicker",
+            "longname": "Picker#createPicker",
+            "kind": "function",
+            "memberof": "Picker",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Picker#createPicker",
+            "$kind": "method",
+            "id": 786,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n     *\n     * @return {null}\n     */",
+            "meta": {
+                "range": [
+                    4633,
+                    4685
+                ],
+                "filename": "Picker.mjs",
+                "lineno": 159,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100026556",
+                    "name": "Picker#createPickerComponent",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "null"
+                        ]
+                    }
+                }
+            ],
+            "name": "createPickerComponent",
+            "longname": "Picker#createPickerComponent",
+            "kind": "function",
+            "memberof": "Picker",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Picker#createPickerComponent",
+            "$kind": "method",
+            "id": 787,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Function} [callback]\n     * @param {Function} [callbackScope]\n     */",
+            "meta": {
+                "range": [
+                    4791,
+                    5078
+                ],
+                "filename": "Picker.mjs",
+                "lineno": 168,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100026562",
+                    "name": "Picker#getClientRectsThenShow",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "callback",
+                        "callbackScope"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "function"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "callback"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "function"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "callbackScope"
+                }
+            ],
+            "name": "getClientRectsThenShow",
+            "longname": "Picker#getClientRectsThenShow",
+            "kind": "function",
+            "memberof": "Picker",
+            "scope": "instance",
+            "$longname": "Picker#getClientRectsThenShow",
+            "$kind": "method",
+            "id": 788,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n     * Returns the picker intance and creates it in case it does not exist yet\n     * @return {Neo.container.Base}\n     */",
+            "meta": {
+                "range": [
+                    5215,
+                    5364
+                ],
+                "filename": "Picker.mjs",
+                "lineno": 183,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100026607",
+                    "name": "Picker#getPicker",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns the picker intance and creates it in case it does not exist yet",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.container.Base"
+                        ]
+                    }
+                }
+            ],
+            "name": "getPicker",
+            "longname": "Picker#getPicker",
+            "kind": "function",
+            "memberof": "Picker",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Picker#getPicker",
+            "$kind": "method",
+            "id": 789,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {String}\n     */",
+            "meta": {
+                "range": [
+                    5418,
+                    5476
+                ],
+                "filename": "Picker.mjs",
+                "lineno": 197,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100026634",
+                    "name": "Picker#getPickerId",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    }
+                }
+            ],
+            "name": "getPickerId",
+            "longname": "Picker#getPickerId",
+            "kind": "function",
+            "memberof": "Picker",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Picker#getPickerId",
+            "$kind": "method",
+            "id": 790,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [silent=false]\n     */",
+            "meta": {
+                "range": [
+                    5544,
+                    6048
+                ],
+                "filename": "Picker.mjs",
+                "lineno": 205,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100026644",
+                    "name": "Picker#hidePicker",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "name": "hidePicker",
+            "longname": "Picker#hidePicker",
+            "kind": "function",
+            "memberof": "Picker",
+            "scope": "instance",
+            "$longname": "Picker#hidePicker",
+            "$kind": "method",
+            "id": 791,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Array} data\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    6120,
+                    6460
+                ],
+                "filename": "Picker.mjs",
+                "lineno": 231,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100026722",
+                    "name": "Picker#onFocusLeave",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "access": "private",
+            "name": "onFocusLeave",
+            "longname": "Picker#onFocusLeave",
+            "kind": "function",
+            "memberof": "Picker",
+            "scope": "instance",
+            "$longname": "Picker#onFocusLeave",
+            "$kind": "method",
+            "id": 792,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Function} [callback]\n     * @param {Function} [callbackScope]\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    6610,
+                    6776
+                ],
+                "filename": "Picker.mjs",
+                "lineno": 251,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100026768",
+                    "name": "Picker#onKeyDownEnter",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data",
+                        "callback",
+                        "callbackScope"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "function"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "callback"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "function"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "callbackScope"
+                }
+            ],
+            "access": "private",
+            "name": "onKeyDownEnter",
+            "longname": "Picker#onKeyDownEnter",
+            "kind": "function",
+            "memberof": "Picker",
+            "scope": "instance",
+            "$longname": "Picker#onKeyDownEnter",
+            "$kind": "method",
+            "id": 793,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    6849,
+                    6951
+                ],
+                "filename": "Picker.mjs",
+                "lineno": 262,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100026788",
+                    "name": "Picker#onKeyDownEscape",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "access": "private",
+            "name": "onKeyDownEscape",
+            "longname": "Picker#onKeyDownEscape",
+            "kind": "function",
+            "memberof": "Picker",
+            "scope": "instance",
+            "$longname": "Picker#onKeyDownEscape",
+            "$kind": "method",
+            "id": 794,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n     * Called by form.field.trigger.Picker\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    7032,
+                    7217
+                ],
+                "filename": "Picker.mjs",
+                "lineno": 272,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100026802",
+                    "name": "Picker#onPickerTriggerClick",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Called by form.field.trigger.Picker",
+            "access": "private",
+            "name": "onPickerTriggerClick",
+            "longname": "Picker#onPickerTriggerClick",
+            "kind": "function",
+            "memberof": "Picker",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Picker#onPickerTriggerClick",
+            "$kind": "method",
+            "id": 795,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Function} [callback]\n     * @param {Function} [callbackScope]\n     */",
+            "meta": {
+                "range": [
+                    7323,
+                    7771
+                ],
+                "filename": "Picker.mjs",
+                "lineno": 287,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100026826",
+                    "name": "Picker#showPicker",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "callback",
+                        "callbackScope"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "function"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "callback"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "function"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "callbackScope"
+                }
+            ],
+            "name": "showPicker",
+            "longname": "Picker#showPicker",
+            "kind": "function",
+            "memberof": "Picker",
+            "scope": "instance",
+            "$longname": "Picker#showPicker",
+            "$kind": "method",
+            "id": 796,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    7800,
+                    8122
+                ],
+                "filename": "Picker.mjs",
+                "lineno": 309,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100026899",
+                    "name": "Picker#updatePickerWidth",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "updatePickerWidth",
+            "longname": "Picker#updatePickerWidth",
+            "kind": "function",
+            "memberof": "Picker",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Picker#updatePickerWidth",
+            "$kind": "method",
+            "id": 797,
+            "neoClassName": "Neo.form.field.Picker"
+        }
+    ]
+}

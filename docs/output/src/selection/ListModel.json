@@ -1,0 +1,442 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.selection.ListModel\n * @extends Neo.selection.Model\n */",
+            "meta": {
+                "filename": "ListModel.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "ListModel",
+            "augments": [
+                "Neo.selection.Model"
+            ],
+            "memberof": "Neo.selection",
+            "longname": "Neo.selection.ListModel",
+            "scope": "static",
+            "$longname": "Neo.selection.ListModel",
+            "$kind": "class",
+            "id": 1463,
+            "neoClassName": "Neo.selection.ListModel"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.selection.ListModel'\n         * @private\n         */",
+            "meta": {
+                "filename": "ListModel.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.selection.ListModel'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1464,
+            "neoClassName": "Neo.selection.ListModel"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='selection-listmodel'\n         * @private\n         */",
+            "meta": {
+                "filename": "ListModel.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'selection-listmodel'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1465,
+            "neoClassName": "Neo.selection.ListModel"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} stayInList=true\n         */",
+            "meta": {
+                "filename": "ListModel.mjs",
+                "lineno": 22,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "stayInList",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "stayInList",
+            "scope": "global",
+            "$longname": "stayInList",
+            "$kind": "property",
+            "id": 1466,
+            "neoClassName": "Neo.selection.ListModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    622,
+                    738
+                ],
+                "filename": "ListModel.mjs",
+                "lineno": 29,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100048000",
+                    "name": "ListModel#onKeyDownDown",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownDown",
+            "longname": "ListModel#onKeyDownDown",
+            "kind": "function",
+            "memberof": "ListModel",
+            "scope": "instance",
+            "$longname": "ListModel#onKeyDownDown",
+            "$kind": "method",
+            "id": 1467,
+            "neoClassName": "Neo.selection.ListModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    795,
+                    854
+                ],
+                "filename": "ListModel.mjs",
+                "lineno": 39,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100048020",
+                    "name": "ListModel#onKeyDownLeft",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownLeft",
+            "longname": "ListModel#onKeyDownLeft",
+            "kind": "function",
+            "memberof": "ListModel",
+            "scope": "instance",
+            "$longname": "ListModel#onKeyDownLeft",
+            "$kind": "method",
+            "id": 1468,
+            "neoClassName": "Neo.selection.ListModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    911,
+                    973
+                ],
+                "filename": "ListModel.mjs",
+                "lineno": 47,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100048031",
+                    "name": "ListModel#onKeyDownRight",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownRight",
+            "longname": "ListModel#onKeyDownRight",
+            "kind": "function",
+            "memberof": "ListModel",
+            "scope": "instance",
+            "$longname": "ListModel#onKeyDownRight",
+            "$kind": "method",
+            "id": 1469,
+            "neoClassName": "Neo.selection.ListModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    1030,
+                    1145
+                ],
+                "filename": "ListModel.mjs",
+                "lineno": 55,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100048042",
+                    "name": "ListModel#onKeyDownUp",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownUp",
+            "longname": "ListModel#onKeyDownUp",
+            "kind": "function",
+            "memberof": "ListModel",
+            "scope": "instance",
+            "$longname": "ListModel#onKeyDownUp",
+            "$kind": "method",
+            "id": 1470,
+            "neoClassName": "Neo.selection.ListModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Number} step\n     */",
+            "meta": {
+                "range": [
+                    1230,
+                    2593
+                ],
+                "filename": "ListModel.mjs",
+                "lineno": 66,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100048063",
+                    "name": "ListModel#onNavKey",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data",
+                        "step"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "step"
+                }
+            ],
+            "name": "onNavKey",
+            "longname": "ListModel#onNavKey",
+            "kind": "function",
+            "memberof": "ListModel",
+            "scope": "instance",
+            "$longname": "ListModel#onNavKey",
+            "$kind": "method",
+            "id": 1471,
+            "neoClassName": "Neo.selection.ListModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Neo.component.Base} component\n     */",
+            "meta": {
+                "range": [
+                    2667,
+                    3153
+                ],
+                "filename": "ListModel.mjs",
+                "lineno": 114,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100048247",
+                    "name": "ListModel#register",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "component"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "name": "component"
+                }
+            ],
+            "name": "register",
+            "longname": "ListModel#register",
+            "kind": "function",
+            "memberof": "ListModel",
+            "scope": "instance",
+            "$longname": "ListModel#register",
+            "$kind": "method",
+            "id": 1472,
+            "neoClassName": "Neo.selection.ListModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Number} index\n     */",
+            "meta": {
+                "range": [
+                    3211,
+                    3483
+                ],
+                "filename": "ListModel.mjs",
+                "lineno": 135,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100048314",
+                    "name": "ListModel#selectAt",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "index"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                }
+            ],
+            "name": "selectAt",
+            "longname": "ListModel#selectAt",
+            "kind": "function",
+            "memberof": "ListModel",
+            "scope": "instance",
+            "$longname": "ListModel#selectAt",
+            "$kind": "method",
+            "id": 1473,
+            "neoClassName": "Neo.selection.ListModel"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    3512,
+                    3986
+                ],
+                "filename": "ListModel.mjs",
+                "lineno": 149,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100048358",
+                    "name": "ListModel#unregister",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "unregister",
+            "longname": "ListModel#unregister",
+            "kind": "function",
+            "memberof": "ListModel",
+            "scope": "instance",
+            "params": [],
+            "$longname": "ListModel#unregister",
+            "$kind": "method",
+            "id": 1474,
+            "neoClassName": "Neo.selection.ListModel"
+        }
+    ]
+}

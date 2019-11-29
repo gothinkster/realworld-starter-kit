@@ -1,0 +1,585 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * A selection model intended to use for Neo.component.Helix\n * @class Neo.selection.HelixModel\n * @extends Neo.selection.Model\n */",
+            "meta": {
+                "filename": "HelixModel.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {}
+            },
+            "description": "A selection model intended to use for Neo.component.Helix",
+            "kind": "class",
+            "name": "HelixModel",
+            "augments": [
+                "Neo.selection.Model"
+            ],
+            "memberof": "Neo.selection",
+            "longname": "Neo.selection.HelixModel",
+            "scope": "static",
+            "$longname": "Neo.selection.HelixModel",
+            "$kind": "class",
+            "id": 1447,
+            "neoClassName": "Neo.selection.HelixModel"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.selection.HelixModel'\n         * @private\n         */",
+            "meta": {
+                "filename": "HelixModel.mjs",
+                "lineno": 15,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.selection.HelixModel'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1448,
+            "neoClassName": "Neo.selection.HelixModel"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='selection-helixmodel'\n         * @private\n         */",
+            "meta": {
+                "filename": "HelixModel.mjs",
+                "lineno": 20,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'selection-helixmodel'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1449,
+            "neoClassName": "Neo.selection.HelixModel"
+        },
+        {
+            "comment": "/**\n         * True to stay in the same column when navigating with the up and down keys,\n         * otherwise you will navigate to the next / prev column when moving out\n         * @member {boolean} stayInColumn=false\n         */",
+            "meta": {
+                "filename": "HelixModel.mjs",
+                "lineno": 26,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {}
+            },
+            "description": "True to stay in the same column when navigating with the up and down keys,<br />otherwise you will navigate to the next / prev column when moving out",
+            "kind": "member",
+            "name": "stayInColumn",
+            "type": {
+                "names": [
+                    "boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "stayInColumn",
+            "scope": "global",
+            "$longname": "stayInColumn",
+            "$kind": "property",
+            "id": 1450,
+            "neoClassName": "Neo.selection.HelixModel"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    879,
+                    898
+                ],
+                "filename": "HelixModel.mjs",
+                "lineno": 32,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100047288",
+                    "name": "HelixModel#addDomListener",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "addDomListener",
+            "longname": "HelixModel#addDomListener",
+            "kind": "function",
+            "memberof": "HelixModel",
+            "scope": "instance",
+            "params": [],
+            "$longname": "HelixModel#addDomListener",
+            "$kind": "method",
+            "id": 1451,
+            "neoClassName": "Neo.selection.HelixModel"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    927,
+                    1589
+                ],
+                "filename": "HelixModel.mjs",
+                "lineno": 37,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100047292",
+                    "name": "HelixModel#onContainerClick",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onContainerClick",
+            "longname": "HelixModel#onContainerClick",
+            "kind": "function",
+            "memberof": "HelixModel",
+            "scope": "instance",
+            "params": [],
+            "$longname": "HelixModel#onContainerClick",
+            "$kind": "method",
+            "id": 1452,
+            "neoClassName": "Neo.selection.HelixModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    1646,
+                    1729
+                ],
+                "filename": "HelixModel.mjs",
+                "lineno": 67,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100047385",
+                    "name": "HelixModel#onItemClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onItemClick",
+            "longname": "HelixModel#onItemClick",
+            "kind": "function",
+            "memberof": "HelixModel",
+            "scope": "instance",
+            "$longname": "HelixModel#onItemClick",
+            "$kind": "method",
+            "id": 1453,
+            "neoClassName": "Neo.selection.HelixModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    1786,
+                    1845
+                ],
+                "filename": "HelixModel.mjs",
+                "lineno": 75,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100047406",
+                    "name": "HelixModel#onKeyDownDown",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownDown",
+            "longname": "HelixModel#onKeyDownDown",
+            "kind": "function",
+            "memberof": "HelixModel",
+            "scope": "instance",
+            "$longname": "HelixModel#onKeyDownDown",
+            "$kind": "method",
+            "id": 1454,
+            "neoClassName": "Neo.selection.HelixModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    1902,
+                    1959
+                ],
+                "filename": "HelixModel.mjs",
+                "lineno": 83,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100047417",
+                    "name": "HelixModel#onKeyDownLeft",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownLeft",
+            "longname": "HelixModel#onKeyDownLeft",
+            "kind": "function",
+            "memberof": "HelixModel",
+            "scope": "instance",
+            "$longname": "HelixModel#onKeyDownLeft",
+            "$kind": "method",
+            "id": 1455,
+            "neoClassName": "Neo.selection.HelixModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    2016,
+                    2073
+                ],
+                "filename": "HelixModel.mjs",
+                "lineno": 91,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100047429",
+                    "name": "HelixModel#onKeyDownRight",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownRight",
+            "longname": "HelixModel#onKeyDownRight",
+            "kind": "function",
+            "memberof": "HelixModel",
+            "scope": "instance",
+            "$longname": "HelixModel#onKeyDownRight",
+            "$kind": "method",
+            "id": 1456,
+            "neoClassName": "Neo.selection.HelixModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    2130,
+                    2188
+                ],
+                "filename": "HelixModel.mjs",
+                "lineno": 99,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100047440",
+                    "name": "HelixModel#onKeyDownUp",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onKeyDownUp",
+            "longname": "HelixModel#onKeyDownUp",
+            "kind": "function",
+            "memberof": "HelixModel",
+            "scope": "instance",
+            "$longname": "HelixModel#onKeyDownUp",
+            "$kind": "method",
+            "id": 1457,
+            "neoClassName": "Neo.selection.HelixModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Number} step\n     */",
+            "meta": {
+                "range": [
+                    2245,
+                    3231
+                ],
+                "filename": "HelixModel.mjs",
+                "lineno": 107,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100047452",
+                    "name": "HelixModel#onNavKeyColumn",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "step"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "step"
+                }
+            ],
+            "name": "onNavKeyColumn",
+            "longname": "HelixModel#onNavKeyColumn",
+            "kind": "function",
+            "memberof": "HelixModel",
+            "scope": "instance",
+            "$longname": "HelixModel#onNavKeyColumn",
+            "$kind": "method",
+            "id": 1458,
+            "neoClassName": "Neo.selection.HelixModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Number} step\n     */",
+            "meta": {
+                "range": [
+                    3288,
+                    3863
+                ],
+                "filename": "HelixModel.mjs",
+                "lineno": 148,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100047580",
+                    "name": "HelixModel#onNavKeyRow",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "step"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "step"
+                }
+            ],
+            "name": "onNavKeyRow",
+            "longname": "HelixModel#onNavKeyRow",
+            "kind": "function",
+            "memberof": "HelixModel",
+            "scope": "instance",
+            "$longname": "HelixModel#onNavKeyRow",
+            "$kind": "method",
+            "id": 1459,
+            "neoClassName": "Neo.selection.HelixModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Neo.component.Base} component\n     */",
+            "meta": {
+                "range": [
+                    3937,
+                    4578
+                ],
+                "filename": "HelixModel.mjs",
+                "lineno": 177,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100047668",
+                    "name": "HelixModel#register",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "component"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "name": "component"
+                }
+            ],
+            "name": "register",
+            "longname": "HelixModel#register",
+            "kind": "function",
+            "memberof": "HelixModel",
+            "scope": "instance",
+            "$longname": "HelixModel#register",
+            "$kind": "method",
+            "id": 1460,
+            "neoClassName": "Neo.selection.HelixModel"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} itemId\n     */",
+            "meta": {
+                "range": [
+                    4637,
+                    5890
+                ],
+                "filename": "HelixModel.mjs",
+                "lineno": 204,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100047751",
+                    "name": "HelixModel#select",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "itemId"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "itemId"
+                }
+            ],
+            "name": "select",
+            "longname": "HelixModel#select",
+            "kind": "function",
+            "memberof": "HelixModel",
+            "scope": "instance",
+            "$longname": "HelixModel#select",
+            "$kind": "method",
+            "id": 1461,
+            "neoClassName": "Neo.selection.HelixModel"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    5919,
+                    6393
+                ],
+                "filename": "HelixModel.mjs",
+                "lineno": 250,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/selection",
+                "code": {
+                    "id": "astnode100047904",
+                    "name": "HelixModel#unregister",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "unregister",
+            "longname": "HelixModel#unregister",
+            "kind": "function",
+            "memberof": "HelixModel",
+            "scope": "instance",
+            "params": [],
+            "$longname": "HelixModel#unregister",
+            "$kind": "method",
+            "id": 1462,
+            "neoClassName": "Neo.selection.HelixModel"
+        }
+    ]
+}

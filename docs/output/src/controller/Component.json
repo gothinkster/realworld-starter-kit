@@ -1,0 +1,319 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.controller.Component\n * @extends Neo.controller.Base\n */",
+            "meta": {
+                "filename": "Component.mjs",
+                "lineno": 6,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/controller",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Component",
+            "augments": [
+                "Neo.controller.Base"
+            ],
+            "memberof": "Neo.controller",
+            "longname": "Neo.controller.Component",
+            "scope": "static",
+            "$longname": "Neo.controller.Component",
+            "$kind": "class",
+            "id": 538,
+            "neoClassName": "Neo.controller.Component"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.controller.Component'\n         * @private\n         */",
+            "meta": {
+                "filename": "Component.mjs",
+                "lineno": 16,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/controller",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.controller.Component'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 539,
+            "neoClassName": "Neo.controller.Component"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='view-controller'\n         * @private\n         */",
+            "meta": {
+                "filename": "Component.mjs",
+                "lineno": 21,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/controller",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'view-controller'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 540,
+            "neoClassName": "Neo.controller.Component"
+        },
+        {
+            "comment": "/**\n         * @member {Object} references=null\n         * @private\n         */",
+            "meta": {
+                "filename": "Component.mjs",
+                "lineno": 26,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/controller",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "references",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "references",
+            "scope": "global",
+            "$longname": "references",
+            "$kind": "property",
+            "id": 541,
+            "neoClassName": "Neo.controller.Component"
+        },
+        {
+            "comment": "/**\n         * @member {Object} view_=null\n         * @private\n         */",
+            "meta": {
+                "filename": "Component.mjs",
+                "lineno": 31,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/controller",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "view_",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "view_",
+            "scope": "global",
+            "$longname": "view_",
+            "$kind": "property",
+            "id": 542,
+            "neoClassName": "Neo.controller.Component"
+        },
+        {
+            "comment": "",
+            "meta": {
+                "range": [
+                    859,
+                    1051
+                ],
+                "filename": "Component.mjs",
+                "lineno": 34,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/controller",
+                "code": {
+                    "id": "astnode100019930",
+                    "name": "Component",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "undocumented": true,
+            "name": "Component",
+            "longname": "Component",
+            "kind": "class",
+            "scope": "global",
+            "params": [],
+            "$longname": "Component",
+            "$kind": "constructor",
+            "id": 543,
+            "neoClassName": "Neo.controller.Component"
+        },
+        {
+            "comment": "/**\n     * Triggered when accessing the view config\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    1200,
+                    1259
+                ],
+                "filename": "Component.mjs",
+                "lineno": 50,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/controller",
+                "code": {
+                    "id": "astnode100019962",
+                    "name": "Component#beforeGetView",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered when accessing the view config",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "beforeGetView",
+            "longname": "Component#beforeGetView",
+            "kind": "function",
+            "memberof": "Component",
+            "scope": "instance",
+            "$longname": "Component#beforeGetView",
+            "$kind": "method",
+            "id": 544,
+            "neoClassName": "Neo.controller.Component"
+        },
+        {
+            "comment": "/**\n     * Triggered before the view config gets changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    1413,
+                    1466
+                ],
+                "filename": "Component.mjs",
+                "lineno": 60,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/controller",
+                "code": {
+                    "id": "astnode100019973",
+                    "name": "Component#beforeSetView",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the view config gets changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "beforeSetView",
+            "longname": "Component#beforeSetView",
+            "kind": "function",
+            "memberof": "Component",
+            "scope": "instance",
+            "$longname": "Component#beforeSetView",
+            "$kind": "method",
+            "id": 545,
+            "neoClassName": "Neo.controller.Component"
+        },
+        {
+            "comment": "/**\n     * todo: cleanup no longer existing references\n     * todo: update changed references (e.g. container.remove() then container.add() using the same key)\n     * @param {String} name\n     * @returns {*}\n     */",
+            "meta": {
+                "range": [
+                    1692,
+                    2278
+                ],
+                "filename": "Component.mjs",
+                "lineno": 70,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/controller",
+                "code": {
+                    "id": "astnode100019982",
+                    "name": "Component#getReference",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "name"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "todo: cleanup no longer existing references<br />todo: update changed references (e.g. container.remove() then container.add() using the same key)",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "name"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "*"
+                        ]
+                    }
+                }
+            ],
+            "name": "getReference",
+            "longname": "Component#getReference",
+            "kind": "function",
+            "memberof": "Component",
+            "scope": "instance",
+            "$longname": "Component#getReference",
+            "$kind": "method",
+            "id": 546,
+            "neoClassName": "Neo.controller.Component"
+        }
+    ]
+}

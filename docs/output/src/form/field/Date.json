@@ -1,0 +1,526 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.form.field.Date\n * @extends Neo.form.field.Picker\n */",
+            "meta": {
+                "filename": "Date.mjs",
+                "lineno": 6,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Date",
+            "augments": [
+                "Neo.form.field.Picker"
+            ],
+            "memberof": "Neo.form.field",
+            "longname": "Neo.form.field.Date",
+            "scope": "static",
+            "$longname": "Neo.form.field.Date",
+            "$kind": "class",
+            "id": 721,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.form.field.Date'\n         * @private\n         */",
+            "meta": {
+                "filename": "Date.mjs",
+                "lineno": 16,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.form.field.Date'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 722,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='datefield'\n         * @private\n         */",
+            "meta": {
+                "filename": "Date.mjs",
+                "lineno": 21,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'datefield'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 723,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neo-datefield', 'neo-pickerfield', 'neo-textfield']\n         */",
+            "meta": {
+                "filename": "Date.mjs",
+                "lineno": 25,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neo-datefield', 'neo-pickerfield', 'neo-textfield']",
+            "description": "'neo-pickerfield', 'neo-textfield']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 724,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.component.DateSelector} dateSelector=null\n         * @private\n         */",
+            "meta": {
+                "filename": "Date.mjs",
+                "lineno": 30,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "dateSelector",
+            "type": {
+                "names": [
+                    "Neo.component.DateSelector"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "dateSelector",
+            "scope": "global",
+            "$longname": "dateSelector",
+            "$kind": "property",
+            "id": 725,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n         * @member {Object|null} dateSelectorConfig=null\n         */",
+            "meta": {
+                "filename": "Date.mjs",
+                "lineno": 34,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "dateSelectorConfig",
+            "type": {
+                "names": [
+                    "Object",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "dateSelectorConfig",
+            "scope": "global",
+            "$longname": "dateSelectorConfig",
+            "$kind": "property",
+            "id": 726,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n         * True to hide the DatePicker when selecting a day\n         * @member {Boolean} hidePickerOnSelect=false\n         */",
+            "meta": {
+                "filename": "Date.mjs",
+                "lineno": 39,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "description": "True to hide the DatePicker when selecting a day",
+            "kind": "member",
+            "name": "hidePickerOnSelect",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "hidePickerOnSelect",
+            "scope": "global",
+            "$longname": "hidePickerOnSelect",
+            "$kind": "property",
+            "id": 727,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n         * @member {String} inputType='date'\n         */",
+            "meta": {
+                "filename": "Date.mjs",
+                "lineno": 43,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "inputType",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'date'",
+            "longname": "inputType",
+            "scope": "global",
+            "$longname": "inputType",
+            "$kind": "property",
+            "id": 728,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n         * @member {Number} pickerHeight=225\n         */",
+            "meta": {
+                "filename": "Date.mjs",
+                "lineno": 47,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "pickerHeight",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 225,
+            "longname": "pickerHeight",
+            "scope": "global",
+            "$longname": "pickerHeight",
+            "$kind": "property",
+            "id": 729,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n         * @member {Number} pickerWidth=200\n         */",
+            "meta": {
+                "filename": "Date.mjs",
+                "lineno": 51,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "pickerWidth",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 200,
+            "longname": "pickerWidth",
+            "scope": "global",
+            "$longname": "pickerWidth",
+            "$kind": "property",
+            "id": 730,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n         * @member {Object|Object[]} triggers=[{module: DateTrigger}]\n         * @private\n         */",
+            "meta": {
+                "filename": "Date.mjs",
+                "lineno": 56,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "triggers",
+            "type": {
+                "names": [
+                    "Object",
+                    "Array.<Object>"
+                ]
+            },
+            "defaultvalue": "[{module: DateTrigger}]",
+            "description": "DateTrigger}]",
+            "access": "private",
+            "longname": "triggers",
+            "scope": "global",
+            "$longname": "triggers",
+            "$kind": "property",
+            "id": 731,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n     *\n     * @param config\n     */",
+            "meta": {
+                "range": [
+                    1767,
+                    2258
+                ],
+                "filename": "Date.mjs",
+                "lineno": 65,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100025332",
+                    "name": "Date",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "config"
+                }
+            ],
+            "name": "Date",
+            "longname": "Date",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Date",
+            "$kind": "constructor",
+            "id": 732,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Neo.component.DateSelector}\n     */",
+            "meta": {
+                "range": [
+                    2332,
+                    2397
+                ],
+                "filename": "Date.mjs",
+                "lineno": 90,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100025402",
+                    "name": "Date#createPickerComponent",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.DateSelector"
+                        ]
+                    }
+                }
+            ],
+            "name": "createPickerComponent",
+            "longname": "Date#createPickerComponent",
+            "kind": "function",
+            "memberof": "Date",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Date#createPickerComponent",
+            "$kind": "method",
+            "id": 733,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n     * @param {Object} data\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    2463,
+                    2583
+                ],
+                "filename": "Date.mjs",
+                "lineno": 98,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100025410",
+                    "name": "Date#onContainerKeyDownEscape",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "access": "private",
+            "name": "onContainerKeyDownEscape",
+            "longname": "Date#onContainerKeyDownEscape",
+            "kind": "function",
+            "memberof": "Date",
+            "scope": "instance",
+            "$longname": "Date#onContainerKeyDownEscape",
+            "$kind": "method",
+            "id": 734,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} opts\n     */",
+            "meta": {
+                "range": [
+                    2640,
+                    2993
+                ],
+                "filename": "Date.mjs",
+                "lineno": 109,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100025432",
+                    "name": "Date#onDatePickerChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                }
+            ],
+            "name": "onDatePickerChange",
+            "longname": "Date#onDatePickerChange",
+            "kind": "function",
+            "memberof": "Date",
+            "scope": "instance",
+            "$longname": "Date#onDatePickerChange",
+            "$kind": "method",
+            "id": 735,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3066,
+                    3358
+                ],
+                "filename": "Date.mjs",
+                "lineno": 129,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100025489",
+                    "name": "Date#onKeyDownEnter",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "access": "private",
+            "name": "onKeyDownEnter",
+            "longname": "Date#onKeyDownEnter",
+            "kind": "function",
+            "memberof": "Date",
+            "scope": "instance",
+            "$longname": "Date#onKeyDownEnter",
+            "$kind": "method",
+            "id": 736,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n     * @param {Object} data\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3424,
+                    3743
+                ],
+                "filename": "Date.mjs",
+                "lineno": 144,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100025531",
+                    "name": "Date#onInputValueChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "access": "private",
+            "name": "onInputValueChange",
+            "longname": "Date#onInputValueChange",
+            "kind": "function",
+            "memberof": "Date",
+            "scope": "instance",
+            "$longname": "Date#onInputValueChange",
+            "$kind": "method",
+            "id": 737,
+            "neoClassName": "Neo.form.field.Date"
+        }
+    ]
+}

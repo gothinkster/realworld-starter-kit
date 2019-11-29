@@ -1,0 +1,429 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.core.Logger\n * @extends Neo.core.Base\n * @singleton\n */",
+            "meta": {
+                "filename": "Logger.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Logger",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "tags": [
+                {
+                    "originalTitle": "singleton",
+                    "title": "singleton",
+                    "text": ""
+                }
+            ],
+            "memberof": "Neo.core",
+            "longname": "Neo.core.Logger",
+            "scope": "static",
+            "$longname": "Neo.core.Logger",
+            "$kind": "class",
+            "id": 577,
+            "neoClassName": "Neo.core.Logger"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.core.Logger'\n         * @private\n         */",
+            "meta": {
+                "filename": "Logger.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.core.Logger'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 578,
+            "neoClassName": "Neo.core.Logger"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='logger'\n         * @private\n         */",
+            "meta": {
+                "filename": "Logger.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'logger'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 579,
+            "neoClassName": "Neo.core.Logger"
+        },
+        {
+            "comment": "/**\n         * Set this config to false to disable the logging\n         * @member {boolean} enableLogs=true\n         */",
+            "meta": {
+                "filename": "Logger.mjs",
+                "lineno": 24,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {}
+            },
+            "description": "Set this config to false to disable the logging",
+            "kind": "member",
+            "name": "enableLogs",
+            "type": {
+                "names": [
+                    "boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "enableLogs",
+            "scope": "global",
+            "$longname": "enableLogs",
+            "$kind": "property",
+            "id": 580,
+            "neoClassName": "Neo.core.Logger"
+        },
+        {
+            "comment": "/**\n         * @member {String} level='log'\n         * @private\n         */",
+            "meta": {
+                "filename": "Logger.mjs",
+                "lineno": 29,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "level",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'log'",
+            "access": "private",
+            "longname": "level",
+            "scope": "global",
+            "$longname": "level",
+            "$kind": "property",
+            "id": 581,
+            "neoClassName": "Neo.core.Logger"
+        },
+        {
+            "comment": "/**\n         * @member {boolean} enableLogs=true\n         * @private\n         */",
+            "meta": {
+                "filename": "Logger.mjs",
+                "lineno": 34,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "enableLogs",
+            "type": {
+                "names": [
+                    "boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "access": "private",
+            "longname": "enableLogs",
+            "scope": "global",
+            "$longname": "enableLogs",
+            "$kind": "property",
+            "id": 582,
+            "neoClassName": "Neo.core.Logger"
+        },
+        {
+            "comment": "/**\n     *\n     * @param config\n     */",
+            "meta": {
+                "range": [
+                    846,
+                    1124
+                ],
+                "filename": "Logger.mjs",
+                "lineno": 41,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100021552",
+                    "name": "Logger",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "config"
+                }
+            ],
+            "name": "Logger",
+            "longname": "Logger",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Logger",
+            "$kind": "constructor",
+            "id": 583,
+            "neoClassName": "Neo.core.Logger"
+        },
+        {
+            "comment": "/**\n     *\n     * @param value\n     */",
+            "meta": {
+                "range": [
+                    1173,
+                    1225
+                ],
+                "filename": "Logger.mjs",
+                "lineno": 58,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100021580",
+                    "name": "Logger#error",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "value"
+                }
+            ],
+            "name": "error",
+            "longname": "Logger#error",
+            "kind": "function",
+            "memberof": "Logger",
+            "scope": "instance",
+            "$longname": "Logger#error",
+            "$kind": "method",
+            "id": 584,
+            "neoClassName": "Neo.core.Logger"
+        },
+        {
+            "comment": "/**\n     *\n     * @param args\n     */",
+            "meta": {
+                "range": [
+                    1273,
+                    1350
+                ],
+                "filename": "Logger.mjs",
+                "lineno": 66,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100021589",
+                    "name": "Logger#log",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "args"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "args",
+                    "variable": true
+                }
+            ],
+            "name": "log",
+            "longname": "Logger#log",
+            "kind": "function",
+            "memberof": "Logger",
+            "scope": "instance",
+            "$longname": "Logger#log",
+            "$kind": "method",
+            "id": 585,
+            "neoClassName": "Neo.core.Logger"
+        },
+        {
+            "comment": "/**\n     *\n     * @param args\n     */",
+            "meta": {
+                "range": [
+                    1398,
+                    1477
+                ],
+                "filename": "Logger.mjs",
+                "lineno": 75,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100021608",
+                    "name": "Logger#info",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "args"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "args",
+                    "variable": true
+                }
+            ],
+            "name": "info",
+            "longname": "Logger#info",
+            "kind": "function",
+            "memberof": "Logger",
+            "scope": "instance",
+            "$longname": "Logger#info",
+            "$kind": "method",
+            "id": 586,
+            "neoClassName": "Neo.core.Logger"
+        },
+        {
+            "comment": "/**\n     *\n     * @param args\n     */",
+            "meta": {
+                "range": [
+                    1525,
+                    1609
+                ],
+                "filename": "Logger.mjs",
+                "lineno": 84,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100021627",
+                    "name": "Logger#logError",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "args"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "args",
+                    "variable": true
+                }
+            ],
+            "name": "logError",
+            "longname": "Logger#logError",
+            "kind": "function",
+            "memberof": "Logger",
+            "scope": "instance",
+            "$longname": "Logger#logError",
+            "$kind": "method",
+            "id": 587,
+            "neoClassName": "Neo.core.Logger"
+        },
+        {
+            "comment": "/**\n     *\n     * @param args\n     */",
+            "meta": {
+                "range": [
+                    1657,
+                    1736
+                ],
+                "filename": "Logger.mjs",
+                "lineno": 93,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100021646",
+                    "name": "Logger#warn",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "args"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "args",
+                    "variable": true
+                }
+            ],
+            "name": "warn",
+            "longname": "Logger#warn",
+            "kind": "function",
+            "memberof": "Logger",
+            "scope": "instance",
+            "$longname": "Logger#warn",
+            "$kind": "method",
+            "id": 588,
+            "neoClassName": "Neo.core.Logger"
+        },
+        {
+            "comment": "/**\n     *\n     * @param args\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    1800,
+                    1914
+                ],
+                "filename": "Logger.mjs",
+                "lineno": 103,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/core",
+                "code": {
+                    "id": "astnode100021665",
+                    "name": "Logger#write",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "args"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "args",
+                    "variable": true
+                }
+            ],
+            "access": "private",
+            "name": "write",
+            "longname": "Logger#write",
+            "kind": "function",
+            "memberof": "Logger",
+            "scope": "instance",
+            "$longname": "Logger#write",
+            "$kind": "method",
+            "id": 589,
+            "neoClassName": "Neo.core.Logger"
+        }
+    ]
+}

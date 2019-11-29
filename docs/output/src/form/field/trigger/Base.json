@@ -1,0 +1,749 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * Base class for form field Triggers\n * @class Neo.form.field.trigger.Base\n * @extends Neo.component.Base\n */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "description": "Base class for form field Triggers",
+            "kind": "class",
+            "name": "Base",
+            "augments": [
+                "Neo.component.Base"
+            ],
+            "memberof": "Neo.form.field.trigger",
+            "longname": "Neo.form.field.trigger.Base",
+            "scope": "static",
+            "$longname": "Neo.form.field.trigger.Base",
+            "$kind": "class",
+            "id": 960,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n         * Valid values for align\n         * @member {String[]} alignValues=['end', 'start']\n         * @private\n         * @static\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 17,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "description": "Valid values for align",
+            "kind": "member",
+            "name": "alignValues",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['end', 'start']",
+            "access": "private",
+            "scope": "static",
+            "longname": "alignValues",
+            "$longname": "alignValues",
+            "$kind": "property",
+            "id": 961,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.form.field.trigger.Base'\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 25,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.form.field.trigger.Base'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 962,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='trigger'\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 30,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'trigger'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 963,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} align_='end'\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 34,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "align_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'end'",
+            "longname": "align_",
+            "scope": "global",
+            "$longname": "align_",
+            "$kind": "property",
+            "id": 964,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neo-field-trigger']\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 38,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neo-field-trigger']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 965,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.form.field.Base|null} field=null\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 42,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "field",
+            "type": {
+                "names": [
+                    "Neo.form.field.Base",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "field",
+            "scope": "global",
+            "$longname": "field",
+            "$kind": "property",
+            "id": 966,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} hidden_=false\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 46,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "hidden_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "hidden_",
+            "scope": "global",
+            "$longname": "hidden_",
+            "$kind": "property",
+            "id": 967,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} iconCls_=null\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 50,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "iconCls_",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "iconCls_",
+            "scope": "global",
+            "$longname": "iconCls_",
+            "$kind": "property",
+            "id": 968,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n         * The scope of the trigger handler\n         * @member {Neo.core.Base|null} scope=null\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 55,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "description": "The scope of the trigger handler",
+            "kind": "member",
+            "name": "scope",
+            "type": {
+                "names": [
+                    "Neo.core.Base",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "scope",
+            "scope": "global",
+            "$longname": "scope",
+            "$kind": "property",
+            "id": 969,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} showOnHover=false\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 59,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "showOnHover",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "showOnHover",
+            "scope": "global",
+            "$longname": "showOnHover",
+            "$kind": "property",
+            "id": 970,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n         * Internal flag used by field.getTrigger()\n         * @member {String} type='base'\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 65,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "description": "Internal flag used by field.getTrigger()",
+            "kind": "member",
+            "name": "type",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'base'",
+            "access": "private",
+            "longname": "type",
+            "scope": "global",
+            "$longname": "type",
+            "$kind": "property",
+            "id": 971,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n         * @member {Object} _vdom={tabIndex: -1}\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 69,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "_vdom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{tabIndex: -1}",
+            "description": "1}",
+            "longname": "_vdom",
+            "scope": "global",
+            "$longname": "_vdom",
+            "$kind": "property",
+            "id": 972,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n         * @member {Number} weight_=10\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 75,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "weight_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 10,
+            "longname": "weight_",
+            "scope": "global",
+            "$longname": "weight_",
+            "$kind": "property",
+            "id": 973,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    1988,
+                    3035
+                ],
+                "filename": "Base.mjs",
+                "lineno": 82,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {
+                    "id": "astnode100031255",
+                    "name": "Base",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "Base",
+            "longname": "Base",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Base",
+            "$kind": "constructor",
+            "id": 974,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n     * Triggered after the align config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3186,
+                    3357
+                ],
+                "filename": "Base.mjs",
+                "lineno": 126,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {
+                    "id": "astnode100031376",
+                    "name": "Base#afterSetAlign",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the align config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetAlign",
+            "longname": "Base#afterSetAlign",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#afterSetAlign",
+            "$kind": "method",
+            "id": 975,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n     * Triggered after the hidden config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3511,
+                    3704
+                ],
+                "filename": "Base.mjs",
+                "lineno": 139,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {
+                    "id": "astnode100031406",
+                    "name": "Base#afterSetHidden",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the hidden config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetHidden",
+            "longname": "Base#afterSetHidden",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#afterSetHidden",
+            "$kind": "method",
+            "id": 976,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n     * Triggered after the iconCls config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3857,
+                    4077
+                ],
+                "filename": "Base.mjs",
+                "lineno": 153,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {
+                    "id": "astnode100031440",
+                    "name": "Base#afterSetIconCls",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the iconCls config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetIconCls",
+            "longname": "Base#afterSetIconCls",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#afterSetIconCls",
+            "$kind": "method",
+            "id": 977,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n     * Triggered before the align config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4230,
+                    4350
+                ],
+                "filename": "Base.mjs",
+                "lineno": 171,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {
+                    "id": "astnode100031479",
+                    "name": "Base#beforeSetAlign",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the align config gets changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "beforeSetAlign",
+            "longname": "Base#beforeSetAlign",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#beforeSetAlign",
+            "$kind": "method",
+            "id": 978,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    4379,
+                    4448
+                ],
+                "filename": "Base.mjs",
+                "lineno": 178,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {
+                    "id": "astnode100031494",
+                    "name": "Base#destroy",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "destroy",
+            "longname": "Base#destroy",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#destroy",
+            "$kind": "method",
+            "id": 979,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    4477,
+                    4528
+                ],
+                "filename": "Base.mjs",
+                "lineno": 186,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {
+                    "id": "astnode100031508",
+                    "name": "Base#onMouseEnter",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onMouseEnter",
+            "longname": "Base#onMouseEnter",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#onMouseEnter",
+            "$kind": "method",
+            "id": 980,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    4557,
+                    4607
+                ],
+                "filename": "Base.mjs",
+                "lineno": 193,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {
+                    "id": "astnode100031518",
+                    "name": "Base#onMouseLeave",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onMouseLeave",
+            "longname": "Base#onMouseLeave",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#onMouseLeave",
+            "$kind": "method",
+            "id": 981,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        },
+        {
+            "comment": "/**\n     * click domEvent listener\n     * @param {Object} data\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    4704,
+                    4874
+                ],
+                "filename": "Base.mjs",
+                "lineno": 202,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field/trigger",
+                "code": {
+                    "id": "astnode100031528",
+                    "name": "Base#onTriggerClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "click domEvent listener",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "access": "private",
+            "name": "onTriggerClick",
+            "longname": "Base#onTriggerClick",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#onTriggerClick",
+            "$kind": "method",
+            "id": 982,
+            "neoClassName": "Neo.form.field.trigger.Base"
+        }
+    ]
+}

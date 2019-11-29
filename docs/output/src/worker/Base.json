@@ -1,0 +1,446 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * The abstract base class for the App, Data & VDom worker\n * @class Neo.worker.Base\n * @extends Neo.core.Base\n * @abstract\n */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 6,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {}
+            },
+            "description": "The abstract base class for the App, Data & VDom worker",
+            "kind": "class",
+            "name": "Base",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "virtual": true,
+            "memberof": "Neo.worker",
+            "longname": "Neo.worker.Base",
+            "scope": "static",
+            "$longname": "Neo.worker.Base",
+            "$kind": "class",
+            "id": 1861,
+            "neoClassName": "Neo.worker.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.worker.Worker'\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.worker.Worker'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1862,
+            "neoClassName": "Neo.worker.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='worker'\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'worker'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1863,
+            "neoClassName": "Neo.worker.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String[]|Neo.core.Base[]|null} mixins=[Observable, RemoteMethodAccess]\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 27,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "mixins",
+            "type": {
+                "names": [
+                    "Array.<String>",
+                    "Array.<Neo.core.Base>",
+                    "null"
+                ]
+            },
+            "defaultvalue": "[Observable, RemoteMethodAccess]",
+            "description": "RemoteMethodAccess]",
+            "longname": "mixins",
+            "scope": "global",
+            "$longname": "mixins",
+            "$kind": "property",
+            "id": 1864,
+            "neoClassName": "Neo.worker.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} workerId=null\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 32,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "workerId",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "workerId",
+            "scope": "global",
+            "$longname": "workerId",
+            "$kind": "property",
+            "id": 1865,
+            "neoClassName": "Neo.worker.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param config\n     */",
+            "meta": {
+                "range": [
+                    1019,
+                    1299
+                ],
+                "filename": "Base.mjs",
+                "lineno": 39,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {
+                    "id": "astnode100062455",
+                    "name": "Base",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "config"
+                }
+            ],
+            "name": "Base",
+            "longname": "Base",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Base",
+            "$kind": "constructor",
+            "id": 1866,
+            "neoClassName": "Neo.worker.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} e\n     */",
+            "meta": {
+                "range": [
+                    1353,
+                    2212
+                ],
+                "filename": "Base.mjs",
+                "lineno": 58,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {
+                    "id": "astnode100062508",
+                    "name": "Base#onMessage",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "e"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "e"
+                }
+            ],
+            "name": "onMessage",
+            "longname": "Base#onMessage",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#onMessage",
+            "$kind": "method",
+            "id": 1867,
+            "neoClassName": "Neo.worker.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} msg\n     */",
+            "meta": {
+                "range": [
+                    2268,
+                    2354
+                ],
+                "filename": "Base.mjs",
+                "lineno": 94,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {
+                    "id": "astnode100062630",
+                    "name": "Base#onPing",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "msg"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "msg"
+                }
+            ],
+            "name": "onPing",
+            "longname": "Base#onPing",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#onPing",
+            "$kind": "method",
+            "id": 1868,
+            "neoClassName": "Neo.worker.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} msg\n     */",
+            "meta": {
+                "range": [
+                    2410,
+                    2526
+                ],
+                "filename": "Base.mjs",
+                "lineno": 104,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {
+                    "id": "astnode100062644",
+                    "name": "Base#onRegisterNeoConfig",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "msg"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "msg"
+                }
+            ],
+            "name": "onRegisterNeoConfig",
+            "longname": "Base#onRegisterNeoConfig",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#onRegisterNeoConfig",
+            "$kind": "method",
+            "id": 1869,
+            "neoClassName": "Neo.worker.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} dest app, data, main or vdom (excluding the current worker)\n     * @param {Object} opts configs for Neo.worker.Message\n     * @param {Array} [transfer] An optional array of Transferable objects to transfer ownership of.\n     * If the ownership of an object is transferred, it becomes unusable (neutered) in the context it was sent from\n     * and becomes available only to the worker it was sent to.\n     * @returns {Promise<any>}\n     */",
+            "meta": {
+                "range": [
+                    3009,
+                    3363
+                ],
+                "filename": "Base.mjs",
+                "lineno": 118,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {
+                    "id": "astnode100062670",
+                    "name": "Base#promiseMessage",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "dest",
+                        "opts",
+                        "transfer"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "app, data, main or vdom (excluding the current worker)",
+                    "name": "dest"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "configs for Neo.worker.Message",
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "optional": true,
+                    "description": "An optional array of Transferable objects to transfer ownership of.<br />If the ownership of an object is transferred, it becomes unusable (neutered) in the context it was sent from<br />and becomes available only to the worker it was sent to.",
+                    "name": "transfer"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Promise.<any>"
+                        ]
+                    }
+                }
+            ],
+            "name": "promiseMessage",
+            "longname": "Base#promiseMessage",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#promiseMessage",
+            "$kind": "method",
+            "id": 1870,
+            "neoClassName": "Neo.worker.Base"
+        },
+        {
+            "comment": "/**\n     * @param {String} dest app, data, main or vdom (excluding the current worker)\n     * @param {Object} opts configs for Neo.worker.Message\n     * @param {Array} [transfer] An optional array of Transferable objects to transfer ownership of.\n     * If the ownership of an object is transferred, it becomes unusable (neutered) in the context it was sent from\n     * and becomes available only to the worker it was sent to.\n     * @returns {Neo.worker.Message}\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    3861,
+                    4047
+                ],
+                "filename": "Base.mjs",
+                "lineno": 141,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/worker",
+                "code": {
+                    "id": "astnode100062715",
+                    "name": "Base#sendMessage",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "dest",
+                        "opts",
+                        "transfer"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "app, data, main or vdom (excluding the current worker)",
+                    "name": "dest"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "configs for Neo.worker.Message",
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "optional": true,
+                    "description": "An optional array of Transferable objects to transfer ownership of.<br />If the ownership of an object is transferred, it becomes unusable (neutered) in the context it was sent from<br />and becomes available only to the worker it was sent to.",
+                    "name": "transfer"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.worker.Message"
+                        ]
+                    }
+                }
+            ],
+            "access": "private",
+            "name": "sendMessage",
+            "longname": "Base#sendMessage",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#sendMessage",
+            "$kind": "method",
+            "id": 1871,
+            "neoClassName": "Neo.worker.Base"
+        }
+    ]
+}

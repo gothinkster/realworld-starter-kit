@@ -1,0 +1,607 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.util.Array\n * @extends Neo.core.Base\n */",
+            "meta": {
+                "filename": "Array.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/util",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Array",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "memberof": "Neo.util",
+            "longname": "Neo.util.Array",
+            "scope": "static",
+            "$longname": "Neo.util.Array",
+            "$kind": "class",
+            "id": 1746,
+            "neoClassName": "Neo.util.Array"
+        },
+        {
+            "comment": "/**\n     * Adds an item or Array of items to an array in case it does not already exist.\n     * Only primitive items will get found as duplicates\n     * @param {Array} arr\n     * @param {*} items\n     */",
+            "meta": {
+                "range": [
+                    466,
+                    702
+                ],
+                "filename": "Array.mjs",
+                "lineno": 19,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/util",
+                "code": {
+                    "id": "astnode100056134",
+                    "name": "NeoArray.add",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "arr",
+                        "items"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Adds an item or Array of items to an array in case it does not already exist.<br />Only primitive items will get found as duplicates",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "arr"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "*"
+                        ]
+                    },
+                    "name": "items"
+                }
+            ],
+            "name": "add",
+            "longname": "NeoArray.add",
+            "kind": "function",
+            "memberof": "NeoArray",
+            "scope": "static",
+            "$longname": "NeoArray.add",
+            "$kind": "method",
+            "id": 1747,
+            "neoClassName": "Neo.util.Array"
+        },
+        {
+            "comment": "/**\n     * Returns an array of items which are present in array1, but not in array2\n     * @param {Array} array1=[]\n     * @param {Array} array2=[]\n     * @returns {Array}\n     */",
+            "meta": {
+                "range": [
+                    892,
+                    1001
+                ],
+                "filename": "Array.mjs",
+                "lineno": 37,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/util",
+                "code": {
+                    "id": "astnode100056175",
+                    "name": "NeoArray.difference",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "array1",
+                        "array2"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns an array of items which are present in array1, but not in array2",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "defaultvalue": "[",
+                    "name": "array1"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "defaultvalue": "[",
+                    "name": "array2"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    }
+                }
+            ],
+            "name": "difference",
+            "longname": "NeoArray.difference",
+            "kind": "function",
+            "memberof": "NeoArray",
+            "scope": "static",
+            "$longname": "NeoArray.difference",
+            "$kind": "method",
+            "id": 1748,
+            "neoClassName": "Neo.util.Array"
+        },
+        {
+            "comment": "/**\n     * Checks if the index of item is > -1\n     * @param {Array} arr\n     * @param {*} item\n     */",
+            "meta": {
+                "range": [
+                    1115,
+                    1183
+                ],
+                "filename": "Array.mjs",
+                "lineno": 46,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/util",
+                "code": {
+                    "id": "astnode100056198",
+                    "name": "NeoArray.hasItem",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "arr",
+                        "item"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Checks if the index of item is > -1",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "arr"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "*"
+                        ]
+                    },
+                    "name": "item"
+                }
+            ],
+            "name": "hasItem",
+            "longname": "NeoArray.hasItem",
+            "kind": "function",
+            "memberof": "NeoArray",
+            "scope": "static",
+            "$longname": "NeoArray.hasItem",
+            "$kind": "method",
+            "id": 1749,
+            "neoClassName": "Neo.util.Array"
+        },
+        {
+            "comment": "/**\n     * Returns an array of items which are present in array1 and array2\n     * Only supports primitive items\n     * @param {Array} array1=[]\n     * @param {Array} array2=[]\n     * @returns {Array}\n     */",
+            "meta": {
+                "range": [
+                    1402,
+                    1512
+                ],
+                "filename": "Array.mjs",
+                "lineno": 57,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/util",
+                "code": {
+                    "id": "astnode100056210",
+                    "name": "NeoArray.intersection",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "array1",
+                        "array2"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns an array of items which are present in array1 and array2<br />Only supports primitive items",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "defaultvalue": "[",
+                    "name": "array1"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "defaultvalue": "[",
+                    "name": "array2"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    }
+                }
+            ],
+            "name": "intersection",
+            "longname": "NeoArray.intersection",
+            "kind": "function",
+            "memberof": "NeoArray",
+            "scope": "static",
+            "$longname": "NeoArray.intersection",
+            "$kind": "method",
+            "id": 1750,
+            "neoClassName": "Neo.util.Array"
+        },
+        {
+            "comment": "/**\n     * Returns true if all items of array1 are present in array 2\n     * Supports Arrays containing Objects, not Arrays containing Arrays\n     * @param {Array} array1=[]\n     * @param {Array} array2=[]\n     * @returns {Boolean}\n     */",
+            "meta": {
+                "range": [
+                    1762,
+                    2601
+                ],
+                "filename": "Array.mjs",
+                "lineno": 68,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/util",
+                "code": {
+                    "id": "astnode100056232",
+                    "name": "NeoArray.isEqual",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "array1",
+                        "array2"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns true if all items of array1 are present in array 2<br />Supports Arrays containing Objects, not Arrays containing Arrays",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "defaultvalue": "[",
+                    "name": "array1"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "defaultvalue": "[",
+                    "name": "array2"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    }
+                }
+            ],
+            "name": "isEqual",
+            "longname": "NeoArray.isEqual",
+            "kind": "function",
+            "memberof": "NeoArray",
+            "scope": "static",
+            "$longname": "NeoArray.isEqual",
+            "$kind": "method",
+            "id": 1751,
+            "neoClassName": "Neo.util.Array"
+        },
+        {
+            "comment": "/**\n     * Moves an item inside arr from fromIndex to toIndex\n     * @param {Array} arr\n     * @param {Number} fromIndex\n     * @param {Number} toIndex\n     */",
+            "meta": {
+                "range": [
+                    2771,
+                    3058
+                ],
+                "filename": "Array.mjs",
+                "lineno": 107,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/util",
+                "code": {
+                    "id": "astnode100056348",
+                    "name": "NeoArray.move",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "arr",
+                        "fromIndex",
+                        "toIndex"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Moves an item inside arr from fromIndex to toIndex",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "arr"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "fromIndex"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "toIndex"
+                }
+            ],
+            "name": "move",
+            "longname": "NeoArray.move",
+            "kind": "function",
+            "memberof": "NeoArray",
+            "scope": "static",
+            "$longname": "NeoArray.move",
+            "$kind": "method",
+            "id": 1752,
+            "neoClassName": "Neo.util.Array"
+        },
+        {
+            "comment": "/**\n     * Removes an item or array of items from an array. Only primitive items will get found\n     * @param {Array} arr\n     * @param {*} items\n     */",
+            "meta": {
+                "range": [
+                    3222,
+                    3518
+                ],
+                "filename": "Array.mjs",
+                "lineno": 125,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/util",
+                "code": {
+                    "id": "astnode100056394",
+                    "name": "NeoArray.remove",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "arr",
+                        "items"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Removes an item or array of items from an array. Only primitive items will get found",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "arr"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "*"
+                        ]
+                    },
+                    "name": "items"
+                }
+            ],
+            "name": "remove",
+            "longname": "NeoArray.remove",
+            "kind": "function",
+            "memberof": "NeoArray",
+            "scope": "static",
+            "$longname": "NeoArray.remove",
+            "$kind": "method",
+            "id": 1753,
+            "neoClassName": "Neo.util.Array"
+        },
+        {
+            "comment": "/**\n     * Removes an item from an array in case it does  exist, otherwise adds it\n     * @param {Array} arr\n     * @param {*} item\n     */",
+            "meta": {
+                "range": [
+                    3668,
+                    3835
+                ],
+                "filename": "Array.mjs",
+                "lineno": 146,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/util",
+                "code": {
+                    "id": "astnode100056445",
+                    "name": "NeoArray.toggle",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "arr",
+                        "item"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Removes an item from an array in case it does  exist, otherwise adds it",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "arr"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "*"
+                        ]
+                    },
+                    "name": "item"
+                }
+            ],
+            "name": "toggle",
+            "longname": "NeoArray.toggle",
+            "kind": "function",
+            "memberof": "NeoArray",
+            "scope": "static",
+            "$longname": "NeoArray.toggle",
+            "$kind": "method",
+            "id": 1754,
+            "neoClassName": "Neo.util.Array"
+        },
+        {
+            "comment": "/**\n     * Returns an array of items which are present in array1 and array2\n     * Only supports primitive items\n     * @param {Array} array1\n     * @param {Array} array2\n     * @returns {Array}\n     */",
+            "meta": {
+                "range": [
+                    4048,
+                    4442
+                ],
+                "filename": "Array.mjs",
+                "lineno": 161,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/util",
+                "code": {
+                    "id": "astnode100056474",
+                    "name": "NeoArray.union",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "array1",
+                        "array2"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns an array of items which are present in array1 and array2<br />Only supports primitive items",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "array1"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "array2"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    }
+                }
+            ],
+            "name": "union",
+            "longname": "NeoArray.union",
+            "kind": "function",
+            "memberof": "NeoArray",
+            "scope": "static",
+            "$longname": "NeoArray.union",
+            "$kind": "method",
+            "id": 1755,
+            "neoClassName": "Neo.util.Array"
+        },
+        {
+            "comment": "/**\n     * Adds an item or Array of items to an array in case it does not already exist.\n     * Only primitive items will get found as duplicates\n     * @param {Array} arr\n     * @param {*} items\n     */",
+            "meta": {
+                "range": [
+                    4656,
+                    4899
+                ],
+                "filename": "Array.mjs",
+                "lineno": 186,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/util",
+                "code": {
+                    "id": "astnode100056531",
+                    "name": "NeoArray.unshift",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "arr",
+                        "items"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Adds an item or Array of items to an array in case it does not already exist.<br />Only primitive items will get found as duplicates",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "arr"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "*"
+                        ]
+                    },
+                    "name": "items"
+                }
+            ],
+            "name": "unshift",
+            "longname": "NeoArray.unshift",
+            "kind": "function",
+            "memberof": "NeoArray",
+            "scope": "static",
+            "$longname": "NeoArray.unshift",
+            "$kind": "method",
+            "id": 1756,
+            "neoClassName": "Neo.util.Array"
+        }
+    ]
+}

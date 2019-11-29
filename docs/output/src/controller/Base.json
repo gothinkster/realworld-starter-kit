@@ -1,0 +1,205 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.controller.Base\n * @extends Neo.core.Base\n */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/controller",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Base",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "memberof": "Neo.controller",
+            "longname": "Neo.controller.Base",
+            "scope": "static",
+            "$longname": "Neo.controller.Base",
+            "$kind": "class",
+            "id": 532,
+            "neoClassName": "Neo.controller.Base"
+        },
+        {
+            "comment": "/**\n         * True automatically applies the core/Observable.mjs mixin\n         * @member {Boolean} observable=true\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/controller",
+                "code": {}
+            },
+            "description": "True automatically applies the core/Observable.mjs mixin",
+            "kind": "member",
+            "name": "observable",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "observable",
+            "scope": "global",
+            "$longname": "observable",
+            "$kind": "property",
+            "id": 533,
+            "neoClassName": "Neo.controller.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.controller.Base'\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 22,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/controller",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.controller.Base'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 534,
+            "neoClassName": "Neo.controller.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='controller'\n         * @private\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 27,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/controller",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'controller'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 535,
+            "neoClassName": "Neo.controller.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    782,
+                    892
+                ],
+                "filename": "Base.mjs",
+                "lineno": 34,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/controller",
+                "code": {
+                    "id": "astnode100019858",
+                    "name": "Base",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "Base",
+            "longname": "Base",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Base",
+            "$kind": "constructor",
+            "id": 536,
+            "neoClassName": "Neo.controller.Base"
+        },
+        {
+            "comment": "/**\n     * Placeholder method which gets triggered when the hash inside the browser url changes\n     * @param {Object} value\n     * @param {Object} oldValue\n     * @param {String} hashString\n     */",
+            "meta": {
+                "range": [
+                    1101,
+                    1151
+                ],
+                "filename": "Base.mjs",
+                "lineno": 46,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/controller",
+                "code": {
+                    "id": "astnode100019877",
+                    "name": "Base#onHashChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue",
+                        "hashString"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Placeholder method which gets triggered when the hash inside the browser url changes",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "oldValue"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "hashString"
+                }
+            ],
+            "name": "onHashChange",
+            "longname": "Base#onHashChange",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#onHashChange",
+            "$kind": "method",
+            "id": 537,
+            "neoClassName": "Neo.controller.Base"
+        }
+    ]
+}

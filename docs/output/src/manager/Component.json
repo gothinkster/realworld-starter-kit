@@ -1,0 +1,599 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.manager.Component\n * @extends Neo.manager.Base\n * @singleton\n */",
+            "meta": {
+                "filename": "Component.mjs",
+                "lineno": 5,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Component",
+            "augments": [
+                "Neo.manager.Base"
+            ],
+            "tags": [
+                {
+                    "originalTitle": "singleton",
+                    "title": "singleton",
+                    "text": ""
+                }
+            ],
+            "memberof": "Neo.manager",
+            "longname": "Neo.manager.Component",
+            "scope": "static",
+            "$longname": "Neo.manager.Component",
+            "$kind": "class",
+            "id": 1318,
+            "neoClassName": "Neo.manager.Component"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.manager.Component'\n         * @private\n         */",
+            "meta": {
+                "filename": "Component.mjs",
+                "lineno": 16,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.manager.Component'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1319,
+            "neoClassName": "Neo.manager.Component"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='component-manager'\n         * @private\n         */",
+            "meta": {
+                "filename": "Component.mjs",
+                "lineno": 21,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'component-manager'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1320,
+            "neoClassName": "Neo.manager.Component"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @private\n         */",
+            "meta": {
+                "filename": "Component.mjs",
+                "lineno": 26,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "singleton",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "access": "private",
+            "longname": "singleton",
+            "scope": "global",
+            "$longname": "singleton",
+            "$kind": "property",
+            "id": 1321,
+            "neoClassName": "Neo.manager.Component"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    769,
+                    880
+                ],
+                "filename": "Component.mjs",
+                "lineno": 33,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100041408",
+                    "name": "Component",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "Component",
+            "longname": "Component",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Component",
+            "$kind": "constructor",
+            "id": 1322,
+            "neoClassName": "Neo.manager.Component"
+        },
+        {
+            "comment": "/**\n     * Returns the first component which matches the config-selector moving down the component items tree\n     * @param {String} componentId\n     * @param {Object|String} config\n     * @returns {Neo.component.Base|null}\n     */",
+            "meta": {
+                "range": [
+                    1122,
+                    2150
+                ],
+                "filename": "Component.mjs",
+                "lineno": 44,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100041429",
+                    "name": "Component#down",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "componentId",
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns the first component which matches the config-selector moving down the component items tree",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "componentId"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "String"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base",
+                            "null"
+                        ]
+                    }
+                }
+            ],
+            "name": "down",
+            "longname": "Component#down",
+            "kind": "function",
+            "memberof": "Component",
+            "scope": "instance",
+            "$longname": "Component#down",
+            "$kind": "method",
+            "id": 1323,
+            "neoClassName": "Neo.manager.Component"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Array} path\n     * @returns {String|null} the component id in case there is a match\n     */",
+            "meta": {
+                "range": [
+                    2278,
+                    2584
+                ],
+                "filename": "Component.mjs",
+                "lineno": 87,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100041566",
+                    "name": "Component#findParentComponent",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "path"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "path"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "description": "the component id in case there is a match"
+                }
+            ],
+            "name": "findParentComponent",
+            "longname": "Component#findParentComponent",
+            "kind": "function",
+            "memberof": "Component",
+            "scope": "instance",
+            "$longname": "Component#findParentComponent",
+            "$kind": "method",
+            "id": 1324,
+            "neoClassName": "Neo.manager.Component"
+        },
+        {
+            "comment": "/**\n     * todo: replace all calls of this method to calls using the util.VNode class\n     * Get the ids of all child nodes of the given vnode\n     * @param vnode\n     * @param childIds\n     * @returns {Array} childIds\n     */",
+            "meta": {
+                "range": [
+                    2821,
+                    2912
+                ],
+                "filename": "Component.mjs",
+                "lineno": 111,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100041615",
+                    "name": "Component#getChildIds",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "vnode",
+                        "childIds"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "todo: replace all calls of this method to calls using the util.VNode class<br />Get the ids of all child nodes of the given vnode",
+            "params": [
+                {
+                    "name": "vnode"
+                },
+                {
+                    "name": "childIds"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "description": "childIds"
+                }
+            ],
+            "name": "getChildIds",
+            "longname": "Component#getChildIds",
+            "kind": "function",
+            "memberof": "Component",
+            "scope": "instance",
+            "$longname": "Component#getChildIds",
+            "$kind": "method",
+            "id": 1325,
+            "neoClassName": "Neo.manager.Component"
+        },
+        {
+            "comment": "/**\n     * Returns all child components found inside the vdom tree\n     * @param {Neo.component.Base} component\n     * @returns {Neo.component.Base[]} childComponents\n     */",
+            "meta": {
+                "range": [
+                    3097,
+                    3490
+                ],
+                "filename": "Component.mjs",
+                "lineno": 120,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100041628",
+                    "name": "Component#getChildren",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "component"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns all child components found inside the vdom tree",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "name": "component"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Array.<Neo.component.Base>"
+                        ]
+                    },
+                    "description": "childComponents"
+                }
+            ],
+            "name": "getChildren",
+            "longname": "Component#getChildren",
+            "kind": "function",
+            "memberof": "Component",
+            "scope": "instance",
+            "$longname": "Component#getChildren",
+            "$kind": "method",
+            "id": 1326,
+            "neoClassName": "Neo.manager.Component"
+        },
+        {
+            "comment": "/**\n     * Returns an Array containing the ids of all parent components for a given component\n     * @param {Neo.component.Base} component\n     * @returns {String[]} parentIds\n     */",
+            "meta": {
+                "range": [
+                    3684,
+                    3979
+                ],
+                "filename": "Component.mjs",
+                "lineno": 141,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100041675",
+                    "name": "Component#getParentIds",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "component"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns an Array containing the ids of all parent components for a given component",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "name": "component"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Array.<String>"
+                        ]
+                    },
+                    "description": "parentIds"
+                }
+            ],
+            "name": "getParentIds",
+            "longname": "Component#getParentIds",
+            "kind": "function",
+            "memberof": "Component",
+            "scope": "instance",
+            "$longname": "Component#getParentIds",
+            "$kind": "method",
+            "id": 1327,
+            "neoClassName": "Neo.manager.Component"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Array} path\n     * @returns {Array}\n     */",
+            "meta": {
+                "range": [
+                    4059,
+                    4404
+                ],
+                "filename": "Component.mjs",
+                "lineno": 160,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100041714",
+                    "name": "Component#getParentPath",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "path"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "path"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    }
+                }
+            ],
+            "name": "getParentPath",
+            "longname": "Component#getParentPath",
+            "kind": "function",
+            "memberof": "Component",
+            "scope": "instance",
+            "$longname": "Component#getParentPath",
+            "$kind": "method",
+            "id": 1328,
+            "neoClassName": "Neo.manager.Component"
+        },
+        {
+            "comment": "/**\n     * Returns an Array containing all parent components for a given component\n     * @param {Neo.component.Base} component\n     * @returns {Neo.component.Base[]} parents\n     */",
+            "meta": {
+                "range": [
+                    4597,
+                    4881
+                ],
+                "filename": "Component.mjs",
+                "lineno": 180,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100041764",
+                    "name": "Component#getParents",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "component"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns an Array containing all parent components for a given component",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "name": "component"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Array.<Neo.component.Base>"
+                        ]
+                    },
+                    "description": "parents"
+                }
+            ],
+            "name": "getParents",
+            "longname": "Component#getParents",
+            "kind": "function",
+            "memberof": "Component",
+            "scope": "instance",
+            "$longname": "Component#getParents",
+            "$kind": "method",
+            "id": 1329,
+            "neoClassName": "Neo.manager.Component"
+        },
+        {
+            "comment": "/**\n     * Returns the first component which matches the config-selector\n     * @param {String} componentId\n     * @param {Object|String} config\n     * @returns {Neo.component.Base|null}\n     */",
+            "meta": {
+                "range": [
+                    5086,
+                    5962
+                ],
+                "filename": "Component.mjs",
+                "lineno": 200,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/manager",
+                "code": {
+                    "id": "astnode100041801",
+                    "name": "Component#up",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "componentId",
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns the first component which matches the config-selector",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "componentId"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "String"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base",
+                            "null"
+                        ]
+                    }
+                }
+            ],
+            "name": "up",
+            "longname": "Component#up",
+            "kind": "function",
+            "memberof": "Component",
+            "scope": "instance",
+            "$longname": "Component#up",
+            "$kind": "method",
+            "id": 1330,
+            "neoClassName": "Neo.manager.Component"
+        }
+    ]
+}

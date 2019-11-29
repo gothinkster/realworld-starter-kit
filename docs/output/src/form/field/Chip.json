@@ -1,0 +1,139 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.form.field.Chip\n * @extends Neo.form.field.Select\n */",
+            "meta": {
+                "filename": "Chip.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Chip",
+            "augments": [
+                "Neo.form.field.Select"
+            ],
+            "memberof": "Neo.form.field",
+            "longname": "Neo.form.field.Chip",
+            "scope": "static",
+            "$longname": "Neo.form.field.Chip",
+            "$kind": "class",
+            "id": 716,
+            "neoClassName": "Neo.form.field.Chip"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.form.field.Chip'\n         * @private\n         */",
+            "meta": {
+                "filename": "Chip.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.form.field.Chip'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 717,
+            "neoClassName": "Neo.form.field.Chip"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='chipfield'\n         * @private\n         */",
+            "meta": {
+                "filename": "Chip.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'chipfield'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 718,
+            "neoClassName": "Neo.form.field.Chip"
+        },
+        {
+            "comment": "/**\n         * @member {Object|null} listConfig={useCheckBoxes: true}\n         */",
+            "meta": {
+                "filename": "Chip.mjs",
+                "lineno": 22,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "listConfig",
+            "type": {
+                "names": [
+                    "Object",
+                    "null"
+                ]
+            },
+            "defaultvalue": "{useCheckBoxes: true}",
+            "description": "true}",
+            "longname": "listConfig",
+            "scope": "global",
+            "$longname": "listConfig",
+            "$kind": "property",
+            "id": 719,
+            "neoClassName": "Neo.form.field.Chip"
+        },
+        {
+            "comment": "/**\n     *\n     * @param config\n     */",
+            "meta": {
+                "range": [
+                    643,
+                    717
+                ],
+                "filename": "Chip.mjs",
+                "lineno": 31,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "code": {
+                    "id": "astnode100025255",
+                    "name": "Chip",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "config"
+                }
+            ],
+            "name": "Chip",
+            "longname": "Chip",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Chip",
+            "$kind": "constructor",
+            "id": 720,
+            "neoClassName": "Neo.form.field.Chip"
+        }
+    ]
+}

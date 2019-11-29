@@ -1,0 +1,547 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.data.connection.Xhr\n * @extends Neo.core.Base\n */",
+            "meta": {
+                "filename": "Xhr.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/src/data/connection",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Xhr",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "memberof": "Neo.data.connection",
+            "longname": "Neo.data.connection.Xhr",
+            "scope": "static",
+            "$longname": "Neo.data.connection.Xhr",
+            "$kind": "class",
+            "id": 618,
+            "neoClassName": "Neo.data.connection.Xhr"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.data.connection.Xhr'\n         * @private\n         */",
+            "meta": {
+                "filename": "Xhr.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/data/connection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.data.connection.Xhr'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 619,
+            "neoClassName": "Neo.data.connection.Xhr"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='xhr'\n         * @private\n         */",
+            "meta": {
+                "filename": "Xhr.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/data/connection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'xhr'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 620,
+            "neoClassName": "Neo.data.connection.Xhr"
+        },
+        {
+            "comment": "/**\n         * @member {Function} callback=null\n         */",
+            "meta": {
+                "filename": "Xhr.mjs",
+                "lineno": 22,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/data/connection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "callback",
+            "type": {
+                "names": [
+                    "function"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "callback",
+            "scope": "global",
+            "$longname": "callback",
+            "$kind": "property",
+            "id": 621,
+            "neoClassName": "Neo.data.connection.Xhr"
+        },
+        {
+            "comment": "/**\n         * @member {Object} requests={}\n         */",
+            "meta": {
+                "filename": "Xhr.mjs",
+                "lineno": 26,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/data/connection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "requests",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{}",
+            "longname": "requests",
+            "scope": "global",
+            "$longname": "requests",
+            "$kind": "property",
+            "id": 622,
+            "neoClassName": "Neo.data.connection.Xhr"
+        },
+        {
+            "comment": "/**\n         * @member {Object} scope=null\n         */",
+            "meta": {
+                "filename": "Xhr.mjs",
+                "lineno": 30,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/data/connection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "scope",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "scope",
+            "scope": "global",
+            "$longname": "scope",
+            "$kind": "property",
+            "id": 623,
+            "neoClassName": "Neo.data.connection.Xhr"
+        },
+        {
+            "comment": "/**\n         * @member {Number} timeout=5000\n         */",
+            "meta": {
+                "filename": "Xhr.mjs",
+                "lineno": 34,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/src/data/connection",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "timeout",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 5000,
+            "longname": "timeout",
+            "scope": "global",
+            "$longname": "timeout",
+            "$kind": "property",
+            "id": 624,
+            "neoClassName": "Neo.data.connection.Xhr"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @returns {XMLHttpRequest}\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    899,
+                    2230
+                ],
+                "filename": "Xhr.mjs",
+                "lineno": 43,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/data/connection",
+                "code": {
+                    "id": "astnode100022757",
+                    "name": "Xhr#request",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "XMLHttpRequest"
+                        ]
+                    }
+                }
+            ],
+            "access": "private",
+            "name": "request",
+            "longname": "Xhr#request",
+            "kind": "function",
+            "memberof": "Xhr",
+            "scope": "instance",
+            "$longname": "Xhr#request",
+            "$kind": "method",
+            "id": 625,
+            "neoClassName": "Neo.data.connection.Xhr"
+        },
+        {
+            "comment": "/**\n     *\n     * @param form\n     * @param {Object} opts\n     * @returns {XMLHttpRequest}\n     */",
+            "meta": {
+                "range": [
+                    2339,
+                    2443
+                ],
+                "filename": "Xhr.mjs",
+                "lineno": 91,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/data/connection",
+                "code": {
+                    "id": "astnode100022970",
+                    "name": "Xhr#sendForm",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "form",
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "form"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "XMLHttpRequest"
+                        ]
+                    }
+                }
+            ],
+            "name": "sendForm",
+            "longname": "Xhr#sendForm",
+            "kind": "function",
+            "memberof": "Xhr",
+            "scope": "instance",
+            "$longname": "Xhr#sendForm",
+            "$kind": "method",
+            "id": 626,
+            "neoClassName": "Neo.data.connection.Xhr"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} e\n     */",
+            "meta": {
+                "range": [
+                    2497,
+                    2878
+                ],
+                "filename": "Xhr.mjs",
+                "lineno": 101,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/data/connection",
+                "code": {
+                    "id": "astnode100022990",
+                    "name": "Xhr#onLoad",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "e"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "e"
+                }
+            ],
+            "name": "onLoad",
+            "longname": "Xhr#onLoad",
+            "kind": "function",
+            "memberof": "Xhr",
+            "scope": "instance",
+            "$longname": "Xhr#onLoad",
+            "$kind": "method",
+            "id": 627,
+            "neoClassName": "Neo.data.connection.Xhr"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} e\n     */",
+            "meta": {
+                "range": [
+                    2932,
+                    3315
+                ],
+                "filename": "Xhr.mjs",
+                "lineno": 120,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/data/connection",
+                "code": {
+                    "id": "astnode100023062",
+                    "name": "Xhr#onError",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "e"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "e"
+                }
+            ],
+            "name": "onError",
+            "longname": "Xhr#onError",
+            "kind": "function",
+            "memberof": "Xhr",
+            "scope": "instance",
+            "$longname": "Xhr#onError",
+            "$kind": "method",
+            "id": 628,
+            "neoClassName": "Neo.data.connection.Xhr"
+        },
+        {
+            "comment": "/**\n     * We cannot clone event objects across messaging\n     * @param {Object} e\n     */",
+            "meta": {
+                "range": [
+                    3416,
+                    3719
+                ],
+                "filename": "Xhr.mjs",
+                "lineno": 139,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/data/connection",
+                "code": {
+                    "id": "astnode100023134",
+                    "name": "Xhr#getResponse",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "e"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "We cannot clone event objects across messaging",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "e"
+                }
+            ],
+            "name": "getResponse",
+            "longname": "Xhr#getResponse",
+            "kind": "function",
+            "memberof": "Xhr",
+            "scope": "instance",
+            "$longname": "Xhr#getResponse",
+            "$kind": "method",
+            "id": 629,
+            "neoClassName": "Neo.data.connection.Xhr"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    3748,
+                    3769
+                ],
+                "filename": "Xhr.mjs",
+                "lineno": 154,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/data/connection",
+                "code": {
+                    "id": "astnode100023168",
+                    "name": "Xhr#onProgress",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onProgress",
+            "longname": "Xhr#onProgress",
+            "kind": "function",
+            "memberof": "Xhr",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Xhr#onProgress",
+            "$kind": "method",
+            "id": 630,
+            "neoClassName": "Neo.data.connection.Xhr"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @returns {Promise<any>}\n     */",
+            "meta": {
+                "range": [
+                    3857,
+                    4213
+                ],
+                "filename": "Xhr.mjs",
+                "lineno": 163,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/data/connection",
+                "code": {
+                    "id": "astnode100023172",
+                    "name": "Xhr#promiseRequest",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Promise.<any>"
+                        ]
+                    }
+                }
+            ],
+            "name": "promiseRequest",
+            "longname": "Xhr#promiseRequest",
+            "kind": "function",
+            "memberof": "Xhr",
+            "scope": "instance",
+            "$longname": "Xhr#promiseRequest",
+            "$kind": "method",
+            "id": 631,
+            "neoClassName": "Neo.data.connection.Xhr"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @returns {Promise<any>}\n     */",
+            "meta": {
+                "range": [
+                    4301,
+                    5066
+                ],
+                "filename": "Xhr.mjs",
+                "lineno": 183,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/src/data/connection",
+                "code": {
+                    "id": "astnode100023215",
+                    "name": "Xhr#promiseJson",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Promise.<any>"
+                        ]
+                    }
+                }
+            ],
+            "name": "promiseJson",
+            "longname": "Xhr#promiseJson",
+            "kind": "function",
+            "memberof": "Xhr",
+            "scope": "instance",
+            "$longname": "Xhr#promiseJson",
+            "$kind": "method",
+            "id": 632,
+            "neoClassName": "Neo.data.connection.Xhr"
+        }
+    ]
+}
