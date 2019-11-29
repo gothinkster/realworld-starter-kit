@@ -1,7 +1,7 @@
 {
     "name": "neo.mjs-realworld-example-app",
     "version": "1.0.0",
-    "description": "The webworkers driven UI framework",
+    "description": "neo.mjs: Real World example app",
     "repository": {
         "type": "git",
         "url": "https://github.com/neomjs/neomjs-realworld-example-app.git"
@@ -22,6 +22,7 @@
         "neo.mjs": "^1.0.5"
     },
     "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.11.2",
         "gh-pages": "^2.1.1",
         "siesta-lite": "^5.3.0",
         "webpack": "^4.41.2",
