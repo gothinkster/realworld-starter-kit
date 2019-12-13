@@ -56,3 +56,15 @@ neo.mjs is using the Bryntum testing suite <a href="https://www.bryntum.com/prod
 The server will throw 2 errors which you can ignore for now.
 
 A new default browser (hopefully Chrome) tab should open right away
+
+You will get an index starting page from which one you can enter the different app versions.
+
+# Build processes
+In case you want to change the code of this app, all changes will get applied to the non dist version
+without the need for a build.
+
+In case you want to apply your changes to the dist versions:
+
+> npm run dev-build-my-apps
+
+> npm run prod-build-my-apps
