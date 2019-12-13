@@ -63,7 +63,7 @@ You will get an index starting page from which one you can enter the different a
 In case you want to change the code of this app, all changes will get applied to the non dist version
 without the need for a build.
 
-In case you want to apply your changes to the dist versions:
+To apply your changes to the dist versions:
 
 > npm run dev-build-my-apps
 
