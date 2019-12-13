@@ -1,6 +1,6 @@
 import {default as ArticleComponent}    from './article/Component.mjs';
 import {default as ArticleApi}          from '../api/Article.mjs';
-import {default as ComponentController} from '../../../src/controller/Component.mjs';
+import {default as ComponentController} from '../../../node_modules/neo.mjs/src/controller/Component.mjs';
 import CreateComponent                  from './article/CreateComponent.mjs';
 import {default as FavoriteApi}         from '../api/Favorite.mjs';
 import HomeComponent                    from './HomeComponent.mjs';

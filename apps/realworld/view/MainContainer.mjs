@@ -2,7 +2,7 @@ import FooterComponent         from './FooterComponent.mjs';
 import HeaderComponent         from './HeaderComponent.mjs';
 import HomeComponent           from './HomeComponent.mjs';
 import MainContainerController from './MainContainerController.mjs';
-import Viewport                from '../../../src/container/Viewport.mjs';
+import Viewport                from '../../../node_modules/neo.mjs/src/container/Viewport.mjs';
 
 /**
  * @class RealWorld.view.MainContainer
