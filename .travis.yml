@@ -42,6 +42,7 @@ install:
 script:
   - ./gradlew clean all
   - docker-compose up -d --build
+  - sleep 10
   - export TEST_RES="backend/src/test/resources/postman"
   - node_modules/.bin/newman run $TEST_RES/postman.json -e $TEST_RES/environment.json
   - export REPO="https://raw.githubusercontent.com/gothinkster/realworld"
