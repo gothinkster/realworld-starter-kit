@@ -2,18 +2,19 @@
   "name": "reason-react-realworld-example-app",
   "version": "0.1.0",
   "scripts": {
-    "build": "bsb -make-world",
-    "start": "bsb -make-world -w -ws _ ",
-    "clean": "bsb -clean-world",
-    "server": "moduleserve ./ --port 8000",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "bsb:build": "bsb -make-world",
+    "bsb:clean": "bsb -clean-world",
+    "bsb:start": "bsb -make-world -w -ws _ ",
+    "build": "npm run bsb:build && react-scripts build",
+    "start": "react-scripts start",
+    "test": "react-scripts test"
   },
   "keywords": [
     "BuckleScript",
     "ReasonReact",
     "reason-react"
   ],
-  "author": "",
+  "author": "Jih-Chi Lee <achi@987.tw>",
   "license": "MIT",
   "dependencies": {
     "react": "^16.8.1",
@@ -22,6 +23,18 @@
   },
   "devDependencies": {
     "bs-platform": "^6.2.1",
-    "moduleserve": "^0.9.0"
+    "react-scripts": "^3.3.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
