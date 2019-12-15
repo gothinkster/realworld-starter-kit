@@ -7,22 +7,24 @@ let make = () => {
       </a>
       <ul className="nav navbar-nav pull-xs-right">
         <li className="nav-item">
-          <a className="nav-link active" href=""> "Home"->React.string </a>
+          <a className="nav-link active" href="#/"> "Home"->React.string </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="">
+          <a className="nav-link" href="#/article">
             <i className="ion-compose" />
             " New Post"->React.string
           </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="">
+          <a className="nav-link" href="#/settings">
             <i className="ion-gear-a" />
             " Settings"->React.string
           </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href=""> "Sign up"->React.string </a>
+          <a className="nav-link" href="#/register">
+            "Sign up"->React.string
+          </a>
         </li>
       </ul>
     </div>
