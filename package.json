@@ -4,11 +4,12 @@
   "scripts": {
     "build": "npm run re:build && npm run js:build",
     "format": "prettier --write \"**/*.{js,json,md,yml}\" \"!**/*.bs.js\" && find ./src -regex '.*\\.re' -exec bsrefmt --in-place '{}' \\;",
-    "re:start": "npm run re:build -- -w",
     "js:build": "react-scripts build",
     "re:build": "bsb -make-world",
     "re:clean": "bsb -clean-world",
+    "re:start": "npm run re:build -- -w",
     "start": "react-scripts start",
+    "test:ci": "CI=true npm test",
     "test": "react-scripts test"
   },
   "keywords": [
