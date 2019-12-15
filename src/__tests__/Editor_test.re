@@ -6,7 +6,7 @@ describe("Editor component", () => {
   test("renders without crashing", () => {
     let wrapper = render(<App />);
 
-    ReasonReactRouter.push("#/editor");
+    TestUtils.act(() => ReasonReactRouter.push("#/editor"));
 
     wrapper
     |> getByText(~matcher=`Str("Publish Article"))
@@ -18,7 +18,7 @@ describe("Editor component", () => {
   test("renders screen in editing mode", () => {
     let wrapper = render(<App />);
 
-    ReasonReactRouter.push("#/editor/article-title");
+    TestUtils.act(() => ReasonReactRouter.push("#/editor/article-title"));
 
     wrapper
     |> getByText(~matcher=`Str("Publish Article"))

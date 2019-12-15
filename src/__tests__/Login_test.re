@@ -6,7 +6,7 @@ describe("Login component", () => {
   test("renders without crashing", () => {
     let wrapper = render(<App />);
 
-    ReasonReactRouter.push("#/login");
+    TestUtils.act(() => ReasonReactRouter.push("#/login"));
 
     wrapper
     |> getByText(~matcher=`Str("Need an account?"))

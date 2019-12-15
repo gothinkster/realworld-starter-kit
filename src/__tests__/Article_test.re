@@ -6,7 +6,7 @@ describe("Article component", () => {
   test("renders without crashing", () => {
     let wrapper = render(<App />);
 
-    ReasonReactRouter.push("#/article/article-title");
+    TestUtils.act(() => ReasonReactRouter.push("#/article/article-title"));
 
     wrapper
     |> getByText(~matcher=`Str("How to build webapps that scale"))
