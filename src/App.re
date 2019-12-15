@@ -36,8 +36,8 @@ let make = () => {
     <Header />
     {switch (route) {
      | Settings => <Settings />
-     | Login
-     | Register => <LoginOrRegister />
+     | Login => <Login />
+     | Register => <Register />
      | Editor(_slug) => <CreateOrEditArticle />
      | Article(_slug) => <Article />
      | Profile(_whom) => <Profile />
