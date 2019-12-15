@@ -10,7 +10,7 @@ let make = () => {
           <a className="nav-link active" href="#/"> "Home"->React.string </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#/article">
+          <a className="nav-link" href="#/article/">
             <i className="ion-compose" />
             " New Post"->React.string
           </a>
