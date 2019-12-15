@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "build": "npm run re:build && npm run js:build",
-    "format": "prettier --write **/*.json **/*.md && find ./src -regex '.*\\.re' -exec bsrefmt --in-place '{}' \\;",
+    "format": "prettier --write \"**/*.{js,json,md,yml}\" \"!**/*.bs.js\" && find ./src -regex '.*\\.re' -exec bsrefmt --in-place '{}' \\;",
     "re:start": "npm run re:build -- -w",
     "js:build": "react-scripts build",
     "re:build": "bsb -make-world",
