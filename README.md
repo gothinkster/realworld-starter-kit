@@ -19,11 +19,7 @@ Basically its just like React single-page-application but written in ReasonML wi
 - App bootstraped with [Create React App](https://github.com/facebook/create-react-app)
 - Along with [BuckleScript](https://bucklescript.github.io/)
 - Routing - ReasonReact's [Router](https://reasonml.github.io/reason-react/docs/en/router.html)
-- AJAX - fetch with [`bs-fetch`](https://github.com/reasonml-community/bs-fetch)
 - Unit test - jest with [`@glennsl/bs-jest`](https://github.com/glennsl/bs-jest) plus [react-testing-library](https://github.com/kentcdodds/react-testing-library)
-- Form & Validation - [`re-formality`](https://github.com/alexfedoseev/re-formality)
-- Type for asynchorous data - [`remotedata-re`](https://github.com/lrosa007/remotedata-re)
-- JSON decode / encode - [`@glennsl/bs-json`](https://github.com/glennsl/bs-json)
 
 # Getting started
 
@@ -34,10 +30,10 @@ To get the frontend running locally:
 ```bash
 git clone https://github.com/jihchi/reason-react-realworld-example-app.git
 cd reason-react-realworld-example-app
-yarn install # or npm install if you're using npm
-yarn start
+npm install
+npm start
 ```
 
 Then open http://localhost:3000 to see your app.
 
-When you’re ready to deploy to production, create a minified bundle with `yarn build` (or `npm run build` if you're using npm).
+When you’re ready to deploy to production, create a minified bundle with `npm run build` and you will find result in folder `/build`
