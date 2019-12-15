@@ -2,7 +2,7 @@ open Jest;
 open Expect;
 open ReactTestingLibrary;
 
-describe("App component", () => {
+describe("Home component", () => {
   test("renders without crashing", () => {
     let wrapper = render(<App />);
 
