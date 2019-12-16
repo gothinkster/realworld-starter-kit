@@ -7,7 +7,7 @@ StartTest(t => {
             next();
         },
         {
-            waitFor: 'Selector', args: [ 'h1' ]
+            waitForMs: 500
         },
         next => {
             t.click('.nav-link[href="#/login"]', next);
@@ -16,11 +16,11 @@ StartTest(t => {
             t.is(t.query('h1')[0].innerHTML, 'Sign in');
             next();
         },
-        {
-            waitFor: 'Selector', args: [ 'h1' ]
-        },
         next => {
             t.click('.nav-link[href="#/register"]', next);
+        },
+        {
+            waitForMs: 500
         },
         next => {
             t.is(t.query('h1')[0].innerHTML, 'Sign up');
