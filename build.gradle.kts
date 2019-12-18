@@ -1,7 +1,7 @@
 
 plugins {
     id("org.jetbrains.dokka") version "0.10.0" apply false
-    kotlin("jvm") version "1.3.50" apply false
+    kotlin("jvm") version "1.3.61" apply false
 }
 
 defaultTasks("all")

@@ -1,5 +1,6 @@
 package com.hexagonkt.realworld.routes
 
+import com.hexagonkt.helpers.require
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.injector
 import com.hexagonkt.realworld.messages.*
@@ -18,7 +19,7 @@ internal val commentsRouter = Router {
     post {
         val principal = requirePrincipal(jwt)
         val subject = principal.subject
-        val slug = pathParameters[Article::slug.name]
+        val slug = pathParameters.require(Article::slug.name)
         val article = articles.findOne(slug) ?: halt(404, "$slug article not found")
         val author = users.findOne(article.author) ?: halt(404, "${article.author} user not found")
         val user = users.findOne(subject) ?: halt(404, "$subject user not found")
@@ -42,7 +43,7 @@ internal val commentsRouter = Router {
     get {
         val principal = parsePrincipal(jwt)
         val subject = principal?.subject
-        val slug = pathParameters[Article::slug.name]
+        val slug = pathParameters.require(Article::slug.name)
         val article = articles.findOne(slug) ?: halt(404, "$slug article not found")
         val author = users.findOne(article.author) ?: halt(404, "${article.author} user not found")
         val user =
@@ -56,9 +57,9 @@ internal val commentsRouter = Router {
 
     delete("/{id}") {
         requirePrincipal(jwt)
-        val slug = pathParameters[Article::slug.name]
+        val slug = pathParameters.require(Article::slug.name)
         val article = articles.findOne(slug) ?: halt(404, "$slug article not found")
-        val id = pathParameters[Comment::id.name].toInt()
+        val id = pathParameters.require(Comment::id.name).toInt()
         val newArticle = article.copy(comments = article.comments.filter { it.id != id })
         val updated = articles.replaceOne(newArticle)
 

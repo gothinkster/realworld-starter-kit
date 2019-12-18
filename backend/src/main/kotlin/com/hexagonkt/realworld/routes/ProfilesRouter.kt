@@ -1,6 +1,7 @@
 package com.hexagonkt.realworld.routes
 
 import com.auth0.jwt.interfaces.DecodedJWT
+import com.hexagonkt.helpers.require
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.injector
@@ -23,7 +24,7 @@ internal val profilesRouter = Router {
 private fun Call.getProfile(users: Store<User, String>) {
     val principal = attributes["principal"] as DecodedJWT
     val user = users.findOne(principal.subject) ?: halt(404, "Not Found")
-    val profile = users.findOne(pathParameters["username"]) ?: halt(404, "Not Found")
+    val profile = users.findOne(pathParameters.require("username")) ?: halt(404, "Not Found")
     val content = ProfileResponseRoot(
         ProfileResponse(
             username = profile.username,
@@ -45,7 +46,7 @@ private fun Call.followProfile(users: Store<User, String>, follow: Boolean) {
     val updated = users.updateOne(principal.subject, mapOf("following" to followingList))
     if (!updated)
         halt(500)
-    val profile = users.findOne(pathParameters["username"]) ?: halt(404, "Not Found")
+    val profile = users.findOne(pathParameters.require("username")) ?: halt(404, "Not Found")
     val content = ProfileResponseRoot(
         ProfileResponse(
             username = profile.username,

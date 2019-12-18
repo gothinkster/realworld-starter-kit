@@ -1,5 +1,6 @@
 package com.hexagonkt.realworld.routes
 
+import com.hexagonkt.helpers.require
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.injector
@@ -50,7 +51,7 @@ private fun Call.login(users: Store<User, String>, jwt: Jwt) {
 
 // TODO Authenticate and require 'root' user or owner
 private fun Call.deleteUser(users: Store<User, String>) {
-    val username = pathParameters["username"]
+    val username = pathParameters.require("username")
     if (users.deleteOne(username)) ok(OkResponse("$username deleted"), Json, charset = UTF_8)
     else halt(404, "$username not found")
 }

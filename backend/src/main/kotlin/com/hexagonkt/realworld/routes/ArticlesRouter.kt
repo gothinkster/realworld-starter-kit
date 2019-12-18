@@ -1,6 +1,7 @@
 package com.hexagonkt.realworld.routes
 
 import com.auth0.jwt.interfaces.DecodedJWT
+import com.hexagonkt.helpers.require
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.injector
@@ -76,7 +77,7 @@ internal fun Call.favoriteArticle(
     users: Store<User, String>, articles: Store<Article, String>, favorite: Boolean) {
 
     val principal = attributes["principal"] as DecodedJWT
-    val slug = pathParameters["slug"]
+    val slug = pathParameters.require("slug")
     val article = articles.findOne(slug) ?: halt(404)
     val author = checkNotNull(users.findOne(article.author))
     val user = checkNotNull(users.findOne(principal.subject)) // Both can be fetched with one 'find'
@@ -99,7 +100,7 @@ internal fun Call.getArticle(
     jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
 
     val principal = parsePrincipal(jwt)
-    val article = articles.findOne(pathParameters["slug"]) ?: halt(404)
+    val article = articles.findOne(pathParameters.require("slug")) ?: halt(404)
     val author = checkNotNull(users.findOne(article.author))
     val user = users.findOne(principal?.subject ?: "")
 
@@ -109,7 +110,7 @@ internal fun Call.getArticle(
 internal fun Call.updateArticle(jwt: Jwt, articles: Store<Article, String>) {
     val principal = requirePrincipal(jwt)
     val body = request.body<PutArticleRequestRoot>().article
-    val slug = pathParameters["slug"]
+    val slug = pathParameters.require("slug")
 
     val updatedAt = LocalDateTime.now()
     val updatedAtPair = Article::updatedAt.name to updatedAt
@@ -133,7 +134,7 @@ internal fun Call.updateArticle(jwt: Jwt, articles: Store<Article, String>) {
 
 internal fun Call.deleteArticle(jwt: Jwt, articles: Store<Article, String>) {
     requirePrincipal(jwt)
-    val slug = pathParameters["slug"]
+    val slug = pathParameters.require("slug")
     if (!articles.deleteOne(slug))
         halt(404, "Article $slug not found")
     else

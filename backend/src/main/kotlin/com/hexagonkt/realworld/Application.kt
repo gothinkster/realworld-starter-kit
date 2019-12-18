@@ -45,7 +45,7 @@ private fun createJwt(): Jwt {
 private fun createUserStore(): Store<User, String> {
     val mongodbUrl = settings.require("mongodbUrl").toString()
     val userStore = MongoDbStore(User::class, User::username, mongodbUrl)
-    userStore.createIndex(true, User::email.name to ASCENDING)
+    userStore.createIndex(true, User::email)
 
     return userStore
 }
@@ -53,7 +53,7 @@ private fun createUserStore(): Store<User, String> {
 private fun createArticleStore(): Store<Article, String> {
     val mongodbUrl = settings.require("mongodbUrl").toString()
     val articleStore = MongoDbStore(Article::class, Article::slug, mongodbUrl)
-    articleStore.createIndex(false, Article::author.name to ASCENDING)
+    articleStore.createIndex(false, Article::author)
 
     return articleStore
 }
