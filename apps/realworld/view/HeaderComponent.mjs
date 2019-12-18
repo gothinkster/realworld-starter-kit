@@ -19,7 +19,7 @@ class HeaderComponent extends Component {
         /**
          * @member {String[]} cls=['navbar navbar-light']
          */
-        cls: ['navbar navbar-light'],
+        cls: ['navbar', 'navbar-light'],
         /**
          * @member {Boolean} loggedIn_=false
          */
@@ -37,7 +37,6 @@ class HeaderComponent extends Component {
          */
         _vdom: {
             tag: 'nav',
-            cls: ['navbar navbar-light'],
             cn : [{
                 cls: ['container'],
                 cn : [{
