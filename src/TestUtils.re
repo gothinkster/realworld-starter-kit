@@ -1,10 +1,9 @@
 [@bs.module "@testing-library/react"]
-external rawAct: (unit => unit) => unit = "act";
-
-let undefined = [%raw {|undefined|}];
+external rawAct: (unit => Js.Undefined.t(Js.Promise.t('a))) => unit = "act";
 
 let act = callback =>
   rawAct(() => {
     callback();
-    undefined;
+    // Fix: Warning: The callback passed to act(...) function mu st return undefined, or a Promise.
+    Js.Undefined.empty;
   });

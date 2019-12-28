@@ -8,7 +8,7 @@
     "subdirs": [
       {
         "dir": "__tests__",
-        "type": "dev"
+				"type": "dev"
       }
     ]
   },
@@ -24,8 +24,9 @@
   "bs-dependencies": ["reason-react"],
   "bs-dev-dependencies": [
     "@glennsl/bs-jest",
-    "bs-webapi",
-    "bs-react-testing-library"
+    "bs-dom-testing-library",
+    "bs-react-testing-library",
+    "bs-webapi"
   ],
   "refmt": 3
 }

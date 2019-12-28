@@ -2,10 +2,10 @@
   "name": "reason-react-realworld-example-app",
   "version": "0.1.0",
   "scripts": {
-		"clean:re": "bsb -clean-world",
-		"clean": "npm run clean:re",
-		"start:js": "react-scripts start",
-		"start:re": "npm run build:re -- -w",
+    "clean:re": "bsb -clean-world",
+    "clean": "npm run clean:re",
+    "start:js": "react-scripts start",
+    "start:re": "npm run build:re -- -w",
     "build:js": "react-scripts build",
     "build:re": "bsb -make-world",
     "build": "npm run build:re && npm run build:js",
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@glennsl/bs-jest": "^0.4.9",
+    "bs-dom-testing-library": "^0.5.1",
     "bs-platform": "^7.0.1",
     "bs-react-testing-library": "^0.6.0",
     "bs-webapi": "^0.15.6",
