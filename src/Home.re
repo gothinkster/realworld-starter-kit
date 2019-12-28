@@ -1,16 +1,36 @@
+module AsyncResult = Relude.AsyncResult;
+module Option = Relude.Option;
+
+let (|?) = Option.Infix.(|?);
+
 let useArticles = () => {
   let didCancel = React.useRef(false);
-  let (data, setData) = React.useState(() => None);
+  let (data, setData) = React.useState(() => AsyncResult.init);
 
   React.useEffect0(() => {
     open Js.Promise;
 
+    if (!React.Ref.current(didCancel)) {
+      setData(prev =>
+        prev
+        |> AsyncResult.getOk
+        |? Shape.{articles: [||], articlesCount: 0}
+        |> AsyncResult.reloadingOk
+      );
+    };
+
     API.listArticles()
-    |> then_(json => {
+    |> then_(data => {
          if (!React.Ref.current(didCancel)) {
-           setData(_prev => Some(json));
+           setData(_prev => data |> AsyncResult.completeOk);
          };
-         json |> resolve;
+         ignore() |> resolve;
+       })
+    |> catch(error => {
+         if (!React.Ref.current(didCancel)) {
+           setData(_prev => error |> AsyncResult.completeError);
+         };
+         ignore() |> resolve;
        })
     |> ignore;
 
@@ -20,9 +40,38 @@ let useArticles = () => {
   data;
 };
 
+module ArticlePreview = {
+  [@react.component]
+  let make = (~data: Shape.article) => {
+    let profileUrl = Printf.sprintf("/#/profile/%s", data.author.username);
+    let articleUrl = Printf.sprintf("/#/article/%s", data.slug);
+
+    <div className="article-preview">
+      <div className="article-meta">
+        <a href=profileUrl> <img src={data.author.image} /> </a>
+        <div className="info">
+          <a href=profileUrl className="author">
+            data.author.username->React.string
+          </a>
+          <span className="date"> data.createdAt->React.string </span>
+        </div>
+        <button className="btn btn-outline-primary btn-sm pull-xs-right">
+          <i className="ion-heart" />
+          {data.favoritesCount->Js.Int.toString->React.string}
+        </button>
+      </div>
+      <a href=articleUrl className="preview-link">
+        <h1> data.title->React.string </h1>
+        <p> data.description->React.string </p>
+        <span> "Read more..."->React.string </span>
+      </a>
+    </div>;
+  };
+};
+
 [@react.component]
 let make = () => {
-	let data = useArticles();
+  let data = useArticles();
 
   <div className="home-page">
     <div className="banner">
@@ -48,49 +97,19 @@ let make = () => {
               </li>
             </ul>
           </div>
-          <div className="article-preview">
-            <div className="article-meta">
-              <a href="profile.html">
-                <img src="http://i.imgur.com/Qr71crq.jpg" />
-              </a>
-              <div className="info">
-                <a href="" className="author"> "Eric Simons"->React.string </a>
-                <span className="date"> "January 20th"->React.string </span>
-              </div>
-              <button className="btn btn-outline-primary btn-sm pull-xs-right">
-                <i className="ion-heart" />
-                "29"->React.string
-              </button>
-            </div>
-            <a href="" className="preview-link">
-              <h1> "How to build webapps that scale"->React.string </h1>
-              <p> "This is the description for the post."->React.string </p>
-              <span> "Read more..."->React.string </span>
-            </a>
-          </div>
-          <div className="article-preview">
-            <div className="article-meta">
-              <a href="profile.html">
-                <img src="http://i.imgur.com/N4VcUeJ.jpg" />
-              </a>
-              <div className="info">
-                <a href="" className="author"> "Albert Pai"->React.string </a>
-                <span className="date"> "January 20th"->React.string </span>
-              </div>
-              <button className="btn btn-outline-primary btn-sm pull-xs-right">
-                <i className="ion-heart" />
-                "32"->React.string
-              </button>
-            </div>
-            <a href="" className="preview-link">
-              <h1>
-                "The song you won't ever stop singing. No matter how hard you try."
-                ->React.string
-              </h1>
-              <p> "This is the description for the post."->React.string </p>
-              <span> "Read more..."->React.string </span>
-            </a>
-          </div>
+          {switch (data) {
+           | Init => React.string("---")
+           | Loading => React.string("...")
+           | Reloading(Ok(data'))
+           | Complete(Ok(data')) =>
+             data'.articles
+             |> Js.Array.map((item: Shape.article) =>
+                  <ArticlePreview key={item.slug} data=item />
+                )
+             |> React.array
+           | Reloading(Error(_error))
+           | Complete(Error(_error)) => React.string("oops")
+           }}
         </div>
         <div className="col-md-3">
           <div className="sidebar">
