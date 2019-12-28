@@ -1,5 +1,29 @@
+let useArticles = () => {
+  let didCancel = React.useRef(false);
+  let (data, setData) = React.useState(() => None);
+
+  React.useEffect0(() => {
+    open Js.Promise;
+
+    API.listArticles()
+    |> then_(json => {
+         if (!React.Ref.current(didCancel)) {
+           setData(_prev => Some(json));
+         };
+         json |> resolve;
+       })
+    |> ignore;
+
+    Some(() => React.Ref.setCurrent(didCancel, true));
+  });
+
+  data;
+};
+
 [@react.component]
 let make = () => {
+	let data = useArticles();
+
   <div className="home-page">
     <div className="banner">
       <div className="container">
