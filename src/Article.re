@@ -1,5 +1,5 @@
 [@react.component]
-let make = () => {
+let make = (~slug: string) => {
   <div className="article-page">
     <div className="banner">
       <div className="container">

@@ -1,5 +1,5 @@
 [@react.component]
-let make = () => {
+let make = (~whose: Route.whose) => {
   <div className="profile-page">
     <div className="user-info">
       <div className="container">
