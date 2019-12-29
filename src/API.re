@@ -7,6 +7,7 @@ module Endpoints = {
   let listArticles = Printf.sprintf("%s/api/articles", backend);
   let feedArticles = Printf.sprintf("%s/api/articles/feed", backend);
   let tags = Printf.sprintf("%s/api/tags", backend);
+  let currentUser = Printf.sprintf("%s/api/user", backend);
 };
 
 let listArticles = () => {
@@ -25,4 +26,22 @@ let tags = () => {
   |> fetch
   |> then_(Response.json)
   |> then_(json => json |> Shape.Tags.decode |> resolve);
+};
+
+let currentUser = () => {
+  let token =
+    Utils.getCookie("token")
+    |> Relude.Option.flatMap(snd)
+    |> Relude.Option.map(token =>
+         [|("Authorization", Printf.sprintf("Token %s", token))|]
+       )
+    |> Relude.Option.getOrElse([||]);
+
+  let headers = HeadersInit.makeWithArray([|token|] |> Relude.Array.flatten);
+  let requestInit = RequestInit.make(~headers, ());
+
+  Endpoints.currentUser
+  |> fetchWithInit(_, requestInit)
+  |> then_(Response.json)
+  |> then_(json => json |> Shape.User.decode |> resolve);
 };

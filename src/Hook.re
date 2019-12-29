@@ -1,4 +1,5 @@
 module AsyncResult = Relude.AsyncResult;
+module AsyncData = Relude.AsyncData;
 module Option = Relude.Option;
 
 let useArticles = () => {
@@ -82,6 +83,43 @@ let useTags = () => {
            setData(_prev =>
              AppError.EFetch(error) |> AsyncResult.completeError
            );
+         };
+         ignore() |> resolve;
+       })
+    |> ignore;
+
+    Some(() => React.Ref.setCurrent(didCancel, true));
+  });
+
+  data;
+};
+
+let useCurrentUser = () => {
+  let didCancel = React.useRef(false);
+  let (data, setData) = React.useState(() => AsyncData.init);
+
+  React.useEffect0(() => {
+    open Js.Promise;
+
+    if (!React.Ref.current(didCancel)) {
+      setData(prev => prev |> AsyncData.toBusy);
+    };
+
+    API.currentUser()
+    |> then_(data => {
+         if (!React.Ref.current(didCancel)) {
+           setData(_prev =>
+             switch (data) {
+             | Belt.Result.Ok(data') => Some(data') |> AsyncData.complete
+             | Error(_error) => None |> AsyncData.complete
+             }
+           );
+         };
+         ignore() |> resolve;
+       })
+    |> catch(_error => {
+         if (!React.Ref.current(didCancel)) {
+           setData(_prev => None |> AsyncData.complete);
          };
          ignore() |> resolve;
        })

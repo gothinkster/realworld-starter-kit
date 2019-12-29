@@ -1,6 +1,7 @@
 [@react.component]
 let make = () => {
   let route = Route.useRoute();
+	let currentUser = Hook.useCurrentUser();
 
   <>
     <Header />
@@ -12,7 +13,7 @@ let make = () => {
      | EditArticle(slug) => <Editor slug />
      | Article(slug) => <Article slug />
      | Profile(whose) => <Profile whose />
-     | Home => <Home />
+     | Home => <Home currentUser />
      }}
     <Footer />
   </>;

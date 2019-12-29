@@ -1,4 +1,5 @@
 module AsyncResult = Relude.AsyncResult;
+module AsyncData = Relude.AsyncData;
 
 module ArticlePreview = {
   [@react.component]
@@ -58,7 +59,7 @@ module PopularTags = {
 };
 
 [@react.component]
-let make = () => {
+let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
   let articles = Hook.useArticles();
   let tags = Hook.useTags();
 
@@ -74,11 +75,18 @@ let make = () => {
         <div className="col-md-9">
           <div className="feed-toggle">
             <ul className="nav nav-pills outline-active">
-              <li className="nav-item">
-                <a className="nav-link disabled" href="">
-                  "Your Feed"->React.string
-                </a>
-              </li>
+              {switch (currentUser) {
+               | Init
+               | Loading
+               | Reloading(_)
+               | Complete(None) => React.null
+               | Complete(Some(_user)) =>
+                 <li className="nav-item">
+                   <a className="nav-link" href="#">
+                     "Your Feed"->React.string
+                   </a>
+                 </li>
+               }}
               <li className="nav-item">
                 <a className="nav-link active" href="">
                   "Global Feed"->React.string
