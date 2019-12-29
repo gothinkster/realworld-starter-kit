@@ -8,7 +8,7 @@
     "subdirs": [
       {
         "dir": "__tests__",
-				"type": "dev"
+        "type": "dev"
       }
     ]
   },
@@ -22,13 +22,14 @@
   "suffix": ".bs.js",
   "namespace": true,
   "bs-dependencies": [
-		"bs-abstract",
-		"bs-fetch",
-		"reason-react",
+    "bs-abstract",
+    "bs-decode",
+    "bs-fetch",
+    "reason-react",
     "relude"
-	],
+  ],
   "bs-dev-dependencies": [
-		"@glennsl/bs-jest",
+    "@glennsl/bs-jest",
     "bs-dom-testing-library",
     "bs-react-testing-library",
     "bs-webapi"

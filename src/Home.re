@@ -1,8 +1,6 @@
 module AsyncResult = Relude.AsyncResult;
 module Option = Relude.Option;
 
-let (|?) = Option.Infix.(|?);
-
 let useArticles = () => {
   let didCancel = React.useRef(false);
   let (data, setData) = React.useState(() => AsyncResult.init);
@@ -14,7 +12,9 @@ let useArticles = () => {
       setData(prev =>
         prev
         |> AsyncResult.getOk
-        |? Shape.{articles: [||], articlesCount: 0}
+        |> Option.getOrElse(
+             Shape.ArticleApiResponse.{articles: [||], articlesCount: 0},
+           )
         |> AsyncResult.reloadingOk
       );
     };
@@ -22,13 +22,21 @@ let useArticles = () => {
     API.listArticles()
     |> then_(data => {
          if (!React.Ref.current(didCancel)) {
-           setData(_prev => data |> AsyncResult.completeOk);
+           setData(_prev =>
+             switch (data) {
+             | Belt.Result.Ok(ok) => ok |> AsyncResult.completeOk
+             | Error(error) =>
+               AppError.EDecodeParseError(error) |> AsyncResult.completeError
+             }
+           );
          };
          ignore() |> resolve;
        })
     |> catch(error => {
          if (!React.Ref.current(didCancel)) {
-           setData(_prev => error |> AsyncResult.completeError);
+           setData(_prev =>
+             AppError.EFetch(error) |> AsyncResult.completeError
+           );
          };
          ignore() |> resolve;
        })
@@ -42,7 +50,7 @@ let useArticles = () => {
 
 module ArticlePreview = {
   [@react.component]
-  let make = (~data: Shape.article) => {
+  let make = (~data: Shape.Article.t) => {
     let profileUrl = Printf.sprintf("/#/profile/%s", data.author.username);
     let articleUrl = Printf.sprintf("/#/article/%s", data.slug);
 
@@ -103,12 +111,12 @@ let make = () => {
            | Reloading(Ok(data'))
            | Complete(Ok(data')) =>
              data'.articles
-             |> Js.Array.map((item: Shape.article) =>
+             |> Js.Array.map(item =>
                   <ArticlePreview key={item.slug} data=item />
                 )
              |> React.array
            | Reloading(Error(_error))
-           | Complete(Error(_error)) => React.string("oops")
+           | Complete(Error(_error)) => React.string("ERROR")
            }}
         </div>
         <div className="col-md-3">

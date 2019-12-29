@@ -8,10 +8,10 @@ let make = () => {
      | Settings => <Settings />
      | Login => <Login />
      | Register => <Register />
-     | CreateArticle => <Editor  />
+     | CreateArticle => <Editor />
      | EditArticle(slug) => <Editor slug />
      | Article(slug) => <Article slug />
-     | Profile(whose) => <Profile whose/>
+     | Profile(whose) => <Profile whose />
      | Home => <Home />
      }}
     <Footer />
