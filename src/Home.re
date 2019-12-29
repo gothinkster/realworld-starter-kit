@@ -13,13 +13,58 @@ let useArticles = () => {
         prev
         |> AsyncResult.getOk
         |> Option.getOrElse(
-             Shape.ArticleApiResponse.{articles: [||], articlesCount: 0},
+             Shape.ArticlesApiResponse.{articles: [||], articlesCount: 0},
            )
         |> AsyncResult.reloadingOk
       );
     };
 
     API.listArticles()
+    |> then_(data => {
+         if (!React.Ref.current(didCancel)) {
+           setData(_prev =>
+             switch (data) {
+             | Belt.Result.Ok(ok) => ok |> AsyncResult.completeOk
+             | Error(error) =>
+               AppError.EDecodeParseError(error) |> AsyncResult.completeError
+             }
+           );
+         };
+         ignore() |> resolve;
+       })
+    |> catch(error => {
+         if (!React.Ref.current(didCancel)) {
+           setData(_prev =>
+             AppError.EFetch(error) |> AsyncResult.completeError
+           );
+         };
+         ignore() |> resolve;
+       })
+    |> ignore;
+
+    Some(() => React.Ref.setCurrent(didCancel, true));
+  });
+
+  data;
+};
+
+let useTags = () => {
+  let didCancel = React.useRef(false);
+  let (data, setData) = React.useState(() => AsyncResult.init);
+
+  React.useEffect0(() => {
+    open Js.Promise;
+
+    if (!React.Ref.current(didCancel)) {
+      setData(prev =>
+        prev
+        |> AsyncResult.getOk
+        |> Option.getOrElse([||])
+        |> AsyncResult.reloadingOk
+      );
+    };
+
+    API.tags()
     |> then_(data => {
          if (!React.Ref.current(didCancel)) {
            setData(_prev =>
@@ -79,9 +124,36 @@ module ArticlePreview = {
   };
 };
 
+module PopularTags = {
+  [@react.component]
+  let make = (~data: AsyncResult.t(Shape.Tags.t, AppError.t)) => {
+    <>
+      <p> "Popular Tags"->React.string </p>
+      <div className="tag-list">
+        {switch (data) {
+         | Init => React.string("Initilizing...")
+         | Loading => React.string("Loading...")
+         | Reloading(Ok(tags))
+         | Complete(Ok(tags)) =>
+           tags
+           |> Js.Array.map(tag =>
+                <a key=tag href="#" className="tag-pill tag-default">
+                  tag->React.string
+                </a>
+              )
+           |> React.array
+         | Reloading(Error(_error))
+         | Complete(Error(_error)) => React.string("ERROR")
+         }}
+      </div>
+    </>;
+  };
+};
+
 [@react.component]
 let make = () => {
-  let data = useArticles();
+  let articles = useArticles();
+  let tags = useTags();
 
   <div className="home-page">
     <div className="banner">
@@ -107,12 +179,12 @@ let make = () => {
               </li>
             </ul>
           </div>
-          {switch (data) {
-           | Init => React.string("---")
-           | Loading => React.string("...")
-           | Reloading(Ok(data'))
-           | Complete(Ok(data')) =>
-             data'.articles
+          {switch (articles) {
+           | Init => React.string("Initilizing...")
+           | Loading => React.string("Loading...")
+           | Reloading(Ok({articles}))
+           | Complete(Ok({articles})) =>
+             articles
              |> Js.Array.map(item =>
                   <ArticlePreview key={item.slug} data=item />
                 )
@@ -122,35 +194,7 @@ let make = () => {
            }}
         </div>
         <div className="col-md-3">
-          <div className="sidebar">
-            <p> "Popular Tags"->React.string </p>
-            <div className="tag-list">
-              <a href="" className="tag-pill tag-default">
-                "programming"->React.string
-              </a>
-              <a href="" className="tag-pill tag-default">
-                "javascript"->React.string
-              </a>
-              <a href="" className="tag-pill tag-default">
-                "emberjs"->React.string
-              </a>
-              <a href="" className="tag-pill tag-default">
-                "angularjs"->React.string
-              </a>
-              <a href="" className="tag-pill tag-default">
-                "react"->React.string
-              </a>
-              <a href="" className="tag-pill tag-default">
-                "mean"->React.string
-              </a>
-              <a href="" className="tag-pill tag-default">
-                "node"->React.string
-              </a>
-              <a href="" className="tag-pill tag-default">
-                "rails"->React.string
-              </a>
-            </div>
-          </div>
+          <div className="sidebar"> <PopularTags data=tags /> </div>
         </div>
       </div>
     </div>
