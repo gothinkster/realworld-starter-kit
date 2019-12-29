@@ -33,8 +33,8 @@ module Article = {
     description: string,
     body: string,
     tagList: array(string),
-    createdAt: string,
-    updatedAt: string,
+    createdAt: Js.Date.t,
+    updatedAt: Js.Date.t,
     favorited: bool,
     favoritesCount: int,
     author: Author.t,
@@ -73,8 +73,8 @@ module Article = {
       |> field("description", string)
       |> field("body", string)
       |> field("tagList", array(string))
-      |> field("createdAt", string)
-      |> field("updatedAt", string)
+      |> field("createdAt", date)
+      |> field("updatedAt", date)
       |> field("favorited", boolean)
       |> field("favoritesCount", intFromNumber)
       |> field("author", Author.decode)

@@ -61,7 +61,9 @@ module ArticlePreview = {
           <a href=profileUrl className="author">
             data.author.username->React.string
           </a>
-          <span className="date"> data.createdAt->React.string </span>
+          <span className="date">
+            {data.createdAt->Js.Date.toLocaleString->React.string}
+          </span>
         </div>
         <button className="btn btn-outline-primary btn-sm pull-xs-right">
           <i className="ion-heart" />
