@@ -1,45 +1,47 @@
+open Js.Promise;
+
 module AsyncResult = Relude.AsyncResult;
 module AsyncData = Relude.AsyncData;
 module Option = Relude.Option;
 
+let guardByDidCancel: (React.Ref.t(bool), unit => unit) => unit =
+  (didCancel, cb) => !React.Ref.current(didCancel) ? cb() : ();
+
 let useArticles = () => {
   let didCancel = React.useRef(false);
   let (data, setData) = React.useState(() => AsyncResult.init);
+  let guard = guardByDidCancel(didCancel);
 
   React.useEffect0(() => {
-    open Js.Promise;
-
-    if (!React.Ref.current(didCancel)) {
+    guard(() =>
       setData(prev =>
         prev
         |> AsyncResult.getOk
-        |> Option.getOrElse(
-             Shape.ArticlesApiResponse.{articles: [||], articlesCount: 0},
-           )
+        |> Option.getOrElse(Shape.Articles.empty)
         |> AsyncResult.reloadingOk
-      );
-    };
+      )
+    );
 
     API.listArticles()
     |> then_(data => {
-         if (!React.Ref.current(didCancel)) {
+         guard(() =>
            setData(_prev =>
              switch (data) {
-             | Belt.Result.Ok(ok) => ok |> AsyncResult.completeOk
+             | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
              | Error(error) =>
-               AppError.EDecodeParseError(error) |> AsyncResult.completeError
+               AsyncResult.completeError(AppError.EDecodeParseError(error))
              }
-           );
-         };
-         ignore() |> resolve;
+           )
+         )
+         |> resolve
        })
     |> catch(error => {
-         if (!React.Ref.current(didCancel)) {
+         guard(() =>
            setData(_prev =>
-             AppError.EFetch(error) |> AsyncResult.completeError
-           );
-         };
-         ignore() |> resolve;
+             AsyncResult.completeError(AppError.EFetch(error))
+           )
+         )
+         |> resolve
        })
     |> ignore;
 
@@ -52,39 +54,38 @@ let useArticles = () => {
 let useTags = () => {
   let didCancel = React.useRef(false);
   let (data, setData) = React.useState(() => AsyncResult.init);
+  let guard = guardByDidCancel(didCancel);
 
   React.useEffect0(() => {
-    open Js.Promise;
-
-    if (!React.Ref.current(didCancel)) {
+    guard(() =>
       setData(prev =>
         prev
         |> AsyncResult.getOk
         |> Option.getOrElse([||])
         |> AsyncResult.reloadingOk
-      );
-    };
+      )
+    );
 
     API.tags()
     |> then_(data => {
-         if (!React.Ref.current(didCancel)) {
+         guard(() =>
            setData(_prev =>
              switch (data) {
              | Belt.Result.Ok(ok) => ok |> AsyncResult.completeOk
              | Error(error) =>
                AppError.EDecodeParseError(error) |> AsyncResult.completeError
              }
-           );
-         };
-         ignore() |> resolve;
+           )
+         )
+         |> resolve
        })
     |> catch(error => {
-         if (!React.Ref.current(didCancel)) {
+         guard(() =>
            setData(_prev =>
              AppError.EFetch(error) |> AsyncResult.completeError
-           );
-         };
-         ignore() |> resolve;
+           )
+         )
+         |> resolve
        })
     |> ignore;
 
@@ -97,31 +98,25 @@ let useTags = () => {
 let useCurrentUser = () => {
   let didCancel = React.useRef(false);
   let (data, setData) = React.useState(() => AsyncData.init);
+  let guard = guardByDidCancel(didCancel);
 
   React.useEffect0(() => {
-    open Js.Promise;
-
-    if (!React.Ref.current(didCancel)) {
-      setData(prev => prev |> AsyncData.toBusy);
-    };
+    guard(() => setData(prev => prev |> AsyncData.toBusy));
 
     API.currentUser()
     |> then_(data => {
-         if (!React.Ref.current(didCancel)) {
+         guard(() =>
            setData(_prev =>
              switch (data) {
              | Belt.Result.Ok(data') => Some(data') |> AsyncData.complete
              | Error(_error) => None |> AsyncData.complete
              }
-           );
-         };
-         ignore() |> resolve;
+           )
+         )
+         |> resolve
        })
     |> catch(_error => {
-         if (!React.Ref.current(didCancel)) {
-           setData(_prev => None |> AsyncData.complete);
-         };
-         ignore() |> resolve;
+         guard(() => setData(_prev => None |> AsyncData.complete)) |> resolve
        })
     |> ignore;
 

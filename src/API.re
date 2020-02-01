@@ -14,7 +14,7 @@ let listArticles = () => {
   Endpoints.listArticles
   |> fetch
   |> then_(Response.json)
-  |> then_(json => json |> Shape.ArticlesApiResponse.decode |> resolve);
+  |> then_(json => json |> Shape.Articles.decode |> resolve);
 };
 
 let feedArticles = () => {

@@ -15,6 +15,8 @@ module Author = {
     following,
   };
 
+  let empty = make("", None, "", false);
+
   let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
     Decode.Pipeline.(
       succeed(make)
@@ -65,6 +67,20 @@ module Article = {
     author,
   };
 
+  let empty =
+    make(
+      "",
+      "",
+      "",
+      "",
+      [||],
+      Js.Date.make(),
+      Js.Date.make(),
+      false,
+      0,
+      Author.empty,
+    );
+
   let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
     Decode.Pipeline.(
       succeed(make)
@@ -82,13 +98,15 @@ module Article = {
     );
 };
 
-module ArticlesApiResponse = {
+module Articles = {
   type t = {
     articles: array(Article.t),
     articlesCount: int,
   };
 
   let make = (articles, articlesCount) => {articles, articlesCount};
+
+  let empty = make([||], 0);
 
   let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
     Decode.Pipeline.(
@@ -101,6 +119,8 @@ module ArticlesApiResponse = {
 
 module Tags = {
   type t = array(string);
+
+  let empty = [||];
 
   let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
     Decode.(field("tags", array(string), json));
@@ -128,6 +148,8 @@ module User = {
     image,
     token,
   };
+
+  let empty = (0, "", Js.Date.make(), Js.Date.make(), "", "", "", "");
 
   let decodeUser =
       (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
