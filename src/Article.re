@@ -7,12 +7,11 @@ let make = (~slug: string) => {
       <div className="container">
         <h1> "How to build webapps that scale"->React.string </h1>
         <div className="article-meta">
-          <Link route={Route.viewProfile(~username)}>
+          <Link location={Link.viewProfile(~username)}>
             <img src="http://i.imgur.com/Qr71crq.jpg" />
           </Link>
           <div className="info">
-            <Link
-              route={Route.viewProfile(~username)} className="author">
+            <Link location={Link.viewProfile(~username)} className="author">
               "Eric Simons"->React.string
             </Link>
             <span className="date"> "January 20th"->React.string </span>
@@ -49,12 +48,11 @@ let make = (~slug: string) => {
       <hr />
       <div className="article-actions">
         <div className="article-meta">
-          <Link route={Route.viewProfile(~username)}>
+          <Link location={Link.viewProfile(~username)}>
             <img src="http://i.imgur.com/Qr71crq.jpg" />
           </Link>
           <div className="info">
-            <Link
-              route={Route.viewProfile(~username)} className="author">
+            <Link location={Link.viewProfile(~username)} className="author">
               "Eric Simons"->React.string
             </Link>
             <span className="date"> "January 20th"->React.string </span>
@@ -100,7 +98,7 @@ let make = (~slug: string) => {
             </div>
             <div className="card-footer">
               <Link
-                route={Route.viewProfile(~username)}
+                location={Link.viewProfile(~username)}
                 className="comment-author">
                 <img
                   src="http://i.imgur.com/Qr71crq.jpg"
@@ -108,7 +106,7 @@ let make = (~slug: string) => {
                 />
               </Link>
               <Link
-                route={Route.viewProfile(~username)}
+                location={Link.viewProfile(~username)}
                 className="comment-author">
                 "Jacob Schmidt"->React.string
               </Link>
@@ -124,7 +122,7 @@ let make = (~slug: string) => {
             </div>
             <div className="card-footer">
               <Link
-                route={Route.viewProfile(~username)}
+                location={Link.viewProfile(~username)}
                 className="comment-author">
                 <img
                   src="http://i.imgur.com/Qr71crq.jpg"
@@ -132,7 +130,7 @@ let make = (~slug: string) => {
                 />
               </Link>
               <Link
-                route={Route.viewProfile(~username)}
+                location={Link.viewProfile(~username)}
                 className="comment-author">
                 "Jacob Schmidt"->React.string
               </Link>

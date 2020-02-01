@@ -30,13 +30,14 @@ let make = (~whose: Route.whose) => {
               <li className="nav-item">
                 <Link
                   className="nav-link active"
-                  route={Route.viewProfile(~username)}>
+                  location={Link.viewProfile(~username)}>
                   "My Articles"->React.string
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  className="nav-link" route={Route.viewFavorites(~username)}>
+                  className="nav-link"
+                  location={Link.viewFavorites(~username)}>
                   "Favorited Articles"->React.string
                 </Link>
               </li>
@@ -44,11 +45,12 @@ let make = (~whose: Route.whose) => {
           </div>
           <div className="article-preview">
             <div className="article-meta">
-              <Link route={Route.viewProfile(~username)}>
+              <Link location={Link.viewProfile(~username)}>
                 <img src="http://i.imgur.com/Qr71crq.jpg" />
               </Link>
               <div className="info">
-                <Link className="author" route={Route.viewProfile(~username)}>
+                <Link
+                  className="author" location={Link.viewProfile(~username)}>
                   "Eric Simons"->React.string
                 </Link>
                 <span className="date"> "January 20th"->React.string </span>
@@ -58,7 +60,7 @@ let make = (~whose: Route.whose) => {
                 "29"->React.string
               </button>
             </div>
-            <Link className="preview-link" route={Route.article(~slug)}>
+            <Link className="preview-link" location={Link.article(~slug)}>
               <h1> "How to build webapps that scale"->React.string </h1>
               <p> "This is the description for the post."->React.string </p>
               <span> "Read more..."->React.string </span>
@@ -66,11 +68,12 @@ let make = (~whose: Route.whose) => {
           </div>
           <div className="article-preview">
             <div className="article-meta">
-              <Link route={Route.viewProfile(~username)}>
+              <Link location={Link.viewProfile(~username)}>
                 <img src="http://i.imgur.com/N4VcUeJ.jpg" />
               </Link>
               <div className="info">
-                <Link className="author" route={Route.viewProfile(~username)}>
+                <Link
+                  className="author" location={Link.viewProfile(~username)}>
                   "Albert Pai"->React.string
                 </Link>
                 <span className="date"> "January 20th"->React.string </span>
@@ -80,7 +83,7 @@ let make = (~whose: Route.whose) => {
                 "32"->React.string
               </button>
             </div>
-            <Link className="preview-link" route={Route.article(~slug)}>
+            <Link className="preview-link" location={Link.article(~slug)}>
               <h1>
                 "The song you won't ever stop singing. No matter how hard you try."
                 ->React.string

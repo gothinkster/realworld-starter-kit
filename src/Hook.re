@@ -37,9 +37,7 @@ let useArticles = () => {
        })
     |> catch(error => {
          guard(() =>
-           setData(_prev =>
-             AsyncResult.completeError(Error.EFetch(error))
-           )
+           setData(_prev => AsyncResult.completeError(Error.EFetch(error)))
          )
          |> resolve
        })
@@ -81,9 +79,7 @@ let useTags = () => {
        })
     |> catch(error => {
          guard(() =>
-           setData(_prev =>
-             Error.EFetch(error) |> AsyncResult.completeError
-           )
+           setData(_prev => Error.EFetch(error) |> AsyncResult.completeError)
          )
          |> resolve
        })
