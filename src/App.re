@@ -12,7 +12,8 @@ let make = () => {
      | CreateArticle => <Editor />
      | EditArticle(slug) => <Editor slug />
      | Article(slug) => <Article slug />
-     | Profile(whose) => <Profile whose />
+     | Profile(username) => <Profile viewMode={Profile.Author(username)} />
+     | Favorited(username) => <Profile viewMode={Profile.Favorited(username)} />
      | Home => <Home currentUser />
      }}
     <Footer />

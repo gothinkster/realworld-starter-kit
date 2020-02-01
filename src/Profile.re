@@ -1,7 +1,15 @@
+type viewMode =
+  | Author(string)
+  | Favorited(string);
+
 [@react.component]
-let make = (~whose: Route.whose) => {
+let make = (~viewMode: viewMode) => {
+  let username =
+    switch (viewMode) {
+    | Author(username) => username
+    | Favorited(username) => username
+    };
   let slug = "";
-  let username = "";
 
   <div className="profile-page">
     <div className="user-info">

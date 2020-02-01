@@ -1,7 +1,3 @@
-type whose =
-  | Author(string)
-  | FavoritedBy(string);
-
 type t =
   | Home
   | Login
@@ -9,7 +5,8 @@ type t =
   | CreateArticle
   | EditArticle(string)
   | Article(string)
-  | Profile(whose)
+  | Profile(string)
+  | Favorited(string)
   | Settings;
 
 let useRoute: unit => t =
@@ -24,8 +21,8 @@ let useRoute: unit => t =
     | [|"", "editor"|] => CreateArticle
     | [|"", "editor", slug|] => EditArticle(slug)
     | [|"", "article", slug|] => Article(slug)
-    | [|"", "profile", user|] => Profile(Author(user))
-    | [|"", "profile", user, "favorites"|] => Profile(FavoritedBy(user))
+    | [|"", "profile", username|] => Profile(username)
+    | [|"", "profile", username, "favorites"|] => Favorited(username)
     | _ => Home
     };
   };
