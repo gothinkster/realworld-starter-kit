@@ -10,9 +10,9 @@ let login = make("/#/login");
 let createArticle = make("/#/editor");
 let editArticle = (~slug) => make(Printf.sprintf("/#/editor/%s", slug));
 let article = (~slug) => make(Printf.sprintf("/#/article/%s", slug));
-let viewProfile = (~username) =>
+let profile = (~username) =>
   make(Printf.sprintf("/#/profile/%s", username));
-let viewFavorites = (~username) =>
+let favorited = (~username) =>
   make(Printf.sprintf("/#/profile/%s/favorites", username));
 
 [@react.component]

@@ -30,7 +30,7 @@ let tags = () => {
 
 let currentUser = () => {
   let token =
-    Utils.getCookie("token")
+    Utils.getCookie("jwtToken")
     |> Relude.Option.flatMap(snd)
     |> Relude.Option.map(token =>
          [|("Authorization", Printf.sprintf("Token %s", token))|]

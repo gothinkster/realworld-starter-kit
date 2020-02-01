@@ -6,13 +6,13 @@ module ArticlePreview = {
   let make = (~data: Shape.Article.t) => {
     <div className="article-preview">
       <div className="article-meta">
-        <Link location={Link.viewProfile(~username=data.author.username)}>
+        <Link location={Link.profile(~username=data.author.username)}>
           <img src={data.author.image} />
         </Link>
         <div className="info">
           <Link
             className="author"
-            location={Link.viewProfile(~username=data.author.username)}>
+            location={Link.profile(~username=data.author.username)}>
             data.author.username->React.string
           </Link>
           <span className="date">

@@ -1,10 +1,12 @@
+module AsyncData = Relude.AsyncData;
+
 [@react.component]
 let make = () => {
-  let route = Route.useRoute();
   let currentUser = Hook.useCurrentUser();
+  let route = Route.useRoute();
 
   <>
-    <Header />
+    <Header currentUser />
     {switch (route) {
      | Settings => <Settings />
      | Login => <Login />
@@ -13,7 +15,8 @@ let make = () => {
      | EditArticle(slug) => <Editor slug />
      | Article(slug) => <Article slug />
      | Profile(username) => <Profile viewMode={Profile.Author(username)} />
-     | Favorited(username) => <Profile viewMode={Profile.Favorited(username)} />
+     | Favorited(username) =>
+       <Profile viewMode={Profile.Favorited(username)} />
      | Home => <Home currentUser />
      }}
     <Footer />

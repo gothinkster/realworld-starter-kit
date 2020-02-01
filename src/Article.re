@@ -7,11 +7,11 @@ let make = (~slug: string) => {
       <div className="container">
         <h1> "How to build webapps that scale"->React.string </h1>
         <div className="article-meta">
-          <Link location={Link.viewProfile(~username)}>
+          <Link location={Link.profile(~username)}>
             <img src="http://i.imgur.com/Qr71crq.jpg" />
           </Link>
           <div className="info">
-            <Link location={Link.viewProfile(~username)} className="author">
+            <Link location={Link.profile(~username)} className="author">
               "Eric Simons"->React.string
             </Link>
             <span className="date"> "January 20th"->React.string </span>
@@ -48,11 +48,11 @@ let make = (~slug: string) => {
       <hr />
       <div className="article-actions">
         <div className="article-meta">
-          <Link location={Link.viewProfile(~username)}>
+          <Link location={Link.profile(~username)}>
             <img src="http://i.imgur.com/Qr71crq.jpg" />
           </Link>
           <div className="info">
-            <Link location={Link.viewProfile(~username)} className="author">
+            <Link location={Link.profile(~username)} className="author">
               "Eric Simons"->React.string
             </Link>
             <span className="date"> "January 20th"->React.string </span>
@@ -98,16 +98,14 @@ let make = (~slug: string) => {
             </div>
             <div className="card-footer">
               <Link
-                location={Link.viewProfile(~username)}
-                className="comment-author">
+                location={Link.profile(~username)} className="comment-author">
                 <img
                   src="http://i.imgur.com/Qr71crq.jpg"
                   className="comment-author-img"
                 />
               </Link>
               <Link
-                location={Link.viewProfile(~username)}
-                className="comment-author">
+                location={Link.profile(~username)} className="comment-author">
                 "Jacob Schmidt"->React.string
               </Link>
               <span className="date-posted"> "Dec 29th"->React.string </span>
@@ -122,16 +120,14 @@ let make = (~slug: string) => {
             </div>
             <div className="card-footer">
               <Link
-                location={Link.viewProfile(~username)}
-                className="comment-author">
+                location={Link.profile(~username)} className="comment-author">
                 <img
                   src="http://i.imgur.com/Qr71crq.jpg"
                   className="comment-author-img"
                 />
               </Link>
               <Link
-                location={Link.viewProfile(~username)}
-                className="comment-author">
+                location={Link.profile(~username)} className="comment-author">
                 "Jacob Schmidt"->React.string
               </Link>
               <span className="date-posted"> "Dec 29th"->React.string </span>

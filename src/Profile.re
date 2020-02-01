@@ -38,14 +38,13 @@ let make = (~viewMode: viewMode) => {
               <li className="nav-item">
                 <Link
                   className="nav-link active"
-                  location={Link.viewProfile(~username)}>
+                  location={Link.profile(~username)}>
                   "My Articles"->React.string
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  className="nav-link"
-                  location={Link.viewFavorites(~username)}>
+                  className="nav-link" location={Link.favorited(~username)}>
                   "Favorited Articles"->React.string
                 </Link>
               </li>
@@ -53,12 +52,11 @@ let make = (~viewMode: viewMode) => {
           </div>
           <div className="article-preview">
             <div className="article-meta">
-              <Link location={Link.viewProfile(~username)}>
+              <Link location={Link.profile(~username)}>
                 <img src="http://i.imgur.com/Qr71crq.jpg" />
               </Link>
               <div className="info">
-                <Link
-                  className="author" location={Link.viewProfile(~username)}>
+                <Link className="author" location={Link.profile(~username)}>
                   "Eric Simons"->React.string
                 </Link>
                 <span className="date"> "January 20th"->React.string </span>
@@ -76,12 +74,11 @@ let make = (~viewMode: viewMode) => {
           </div>
           <div className="article-preview">
             <div className="article-meta">
-              <Link location={Link.viewProfile(~username)}>
+              <Link location={Link.profile(~username)}>
                 <img src="http://i.imgur.com/N4VcUeJ.jpg" />
               </Link>
               <div className="info">
-                <Link
-                  className="author" location={Link.viewProfile(~username)}>
+                <Link className="author" location={Link.profile(~username)}>
                   "Albert Pai"->React.string
                 </Link>
                 <span className="date"> "January 20th"->React.string </span>

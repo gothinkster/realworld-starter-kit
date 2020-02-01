@@ -149,7 +149,7 @@ module User = {
     token,
   };
 
-  let empty = (0, "", Js.Date.make(), Js.Date.make(), "", "", "", "");
+  let empty = make(0, "", Js.Date.make(), Js.Date.make(), "", "", "", "");
 
   let decodeUser =
       (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>

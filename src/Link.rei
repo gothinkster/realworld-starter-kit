@@ -9,8 +9,8 @@ let login: location';
 let createArticle: location';
 let editArticle: (~slug: string) => location';
 let article: (~slug: string) => location';
-let viewProfile: (~username: string) => location';
-let viewFavorites: (~username: string) => location';
+let profile: (~username: string) => location';
+let favorited: (~username: string) => location';
 
 [@bs.obj]
 external makeProps:

@@ -1,3 +1,5 @@
+module AsyncData = Relude.AsyncData;
+
 type t =
   | Home
   | Login
