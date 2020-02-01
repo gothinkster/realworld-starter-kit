@@ -12,18 +12,18 @@ type t =
   | Profile(whose)
   | Settings;
 
-type t';
+type location';
 
-external toString: t' => string = "%identity";
+external toString: location' => string = "%identity";
 
-let home: t';
-let settings: t';
-let register: t';
-let login: t';
-let createArticle: t';
-let editArticle: (~slug: string) => t';
-let article: (~slug: string) => t';
-let viewProfile: (~username: string) => t';
-let viewFavorites : (~username: string) => t';
+let home: location';
+let settings: location';
+let register: location';
+let login: location';
+let createArticle: location';
+let editArticle: (~slug: string) => location';
+let article: (~slug: string) => location';
+let viewProfile: (~username: string) => location';
+let viewFavorites : (~username: string) => location';
 
 let useRoute: unit => t;
