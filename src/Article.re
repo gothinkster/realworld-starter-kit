@@ -1,13 +1,20 @@
 [@react.component]
 let make = (~slug: string) => {
+  let username = "";
+
   <div className="article-page">
     <div className="banner">
       <div className="container">
         <h1> "How to build webapps that scale"->React.string </h1>
         <div className="article-meta">
-          <a href=""> <img src="http://i.imgur.com/Qr71crq.jpg" /> </a>
+          <Link route={Route.viewProfile(~username)}>
+            <img src="http://i.imgur.com/Qr71crq.jpg" />
+          </Link>
           <div className="info">
-            <a href="" className="author"> "Eric Simons"->React.string </a>
+            <Link
+              route={Route.viewProfile(~username)} className="author">
+              "Eric Simons"->React.string
+            </Link>
             <span className="date"> "January 20th"->React.string </span>
           </div>
           <button className="btn btn-sm btn-outline-secondary">
@@ -42,11 +49,14 @@ let make = (~slug: string) => {
       <hr />
       <div className="article-actions">
         <div className="article-meta">
-          <a href="profile.html">
+          <Link route={Route.viewProfile(~username)}>
             <img src="http://i.imgur.com/Qr71crq.jpg" />
-          </a>
+          </Link>
           <div className="info">
-            <a href="" className="author"> "Eric Simons"->React.string </a>
+            <Link
+              route={Route.viewProfile(~username)} className="author">
+              "Eric Simons"->React.string
+            </Link>
             <span className="date"> "January 20th"->React.string </span>
           </div>
           <button className="btn btn-sm btn-outline-secondary">
@@ -89,15 +99,19 @@ let make = (~slug: string) => {
               </p>
             </div>
             <div className="card-footer">
-              <a href="" className="comment-author">
+              <Link
+                route={Route.viewProfile(~username)}
+                className="comment-author">
                 <img
                   src="http://i.imgur.com/Qr71crq.jpg"
                   className="comment-author-img"
                 />
-              </a>
-              <a href="" className="comment-author">
+              </Link>
+              <Link
+                route={Route.viewProfile(~username)}
+                className="comment-author">
                 "Jacob Schmidt"->React.string
-              </a>
+              </Link>
               <span className="date-posted"> "Dec 29th"->React.string </span>
             </div>
           </div>
@@ -109,15 +123,19 @@ let make = (~slug: string) => {
               </p>
             </div>
             <div className="card-footer">
-              <a href="" className="comment-author">
+              <Link
+                route={Route.viewProfile(~username)}
+                className="comment-author">
                 <img
                   src="http://i.imgur.com/Qr71crq.jpg"
                   className="comment-author-img"
                 />
-              </a>
-              <a href="" className="comment-author">
+              </Link>
+              <Link
+                route={Route.viewProfile(~username)}
+                className="comment-author">
                 "Jacob Schmidt"->React.string
-              </a>
+              </Link>
               <span className="date-posted"> "Dec 29th"->React.string </span>
               <span className="mod-options">
                 <i className="ion-edit" />

@@ -2,29 +2,31 @@
 let make = () => {
   <nav className="navbar navbar-light">
     <div className="container">
-      <a className="navbar-brand" href="index.html">
+      <Link className="navbar-brand" route=Route.home>
         "conduit"->React.string
-      </a>
+      </Link>
       <ul className="nav navbar-nav pull-xs-right">
         <li className="nav-item">
-          <a className="nav-link active" href="#/"> "Home"->React.string </a>
+          <Link className="nav-link active" route=Route.home>
+            "Home"->React.string
+          </Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#/article/">
+          <Link className="nav-link" route=Route.createArticle>
             <i className="ion-compose" />
             " New Post"->React.string
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#/settings">
+          <Link className="nav-link" route=Route.settings>
             <i className="ion-gear-a" />
             " Settings"->React.string
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#/register">
+          <Link className="nav-link" route=Route.register>
             "Sign up"->React.string
-          </a>
+          </Link>
         </li>
       </ul>
     </div>

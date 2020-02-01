@@ -1,5 +1,8 @@
 [@react.component]
 let make = (~whose: Route.whose) => {
+  let slug = "";
+  let username = "";
+
   <div className="profile-page">
     <div className="user-info">
       <div className="container">
@@ -25,22 +28,29 @@ let make = (~whose: Route.whose) => {
           <div className="articles-toggle">
             <ul className="nav nav-pills outline-active">
               <li className="nav-item">
-                <a className="nav-link active" href="">
+                <Link
+                  className="nav-link active"
+                  route={Route.viewProfile(~username)}>
                   "My Articles"->React.string
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="">
+                <Link
+                  className="nav-link" route={Route.viewFavorites(~username)}>
                   "Favorited Articles"->React.string
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
           <div className="article-preview">
             <div className="article-meta">
-              <a href=""> <img src="http://i.imgur.com/Qr71crq.jpg" /> </a>
+              <Link route={Route.viewProfile(~username)}>
+                <img src="http://i.imgur.com/Qr71crq.jpg" />
+              </Link>
               <div className="info">
-                <a href="" className="author"> "Eric Simons"->React.string </a>
+                <Link className="author" route={Route.viewProfile(~username)}>
+                  "Eric Simons"->React.string
+                </Link>
                 <span className="date"> "January 20th"->React.string </span>
               </div>
               <button className="btn btn-outline-primary btn-sm pull-xs-right">
@@ -48,17 +58,21 @@ let make = (~whose: Route.whose) => {
                 "29"->React.string
               </button>
             </div>
-            <a href="" className="preview-link">
+            <Link className="preview-link" route={Route.article(~slug)}>
               <h1> "How to build webapps that scale"->React.string </h1>
               <p> "This is the description for the post."->React.string </p>
               <span> "Read more..."->React.string </span>
-            </a>
+            </Link>
           </div>
           <div className="article-preview">
             <div className="article-meta">
-              <a href=""> <img src="http://i.imgur.com/N4VcUeJ.jpg" /> </a>
+              <Link route={Route.viewProfile(~username)}>
+                <img src="http://i.imgur.com/N4VcUeJ.jpg" />
+              </Link>
               <div className="info">
-                <a href="" className="author"> "Albert Pai"->React.string </a>
+                <Link className="author" route={Route.viewProfile(~username)}>
+                  "Albert Pai"->React.string
+                </Link>
                 <span className="date"> "January 20th"->React.string </span>
               </div>
               <button className="btn btn-outline-primary btn-sm pull-xs-right">
@@ -66,7 +80,7 @@ let make = (~whose: Route.whose) => {
                 "32"->React.string
               </button>
             </div>
-            <a href="" className="preview-link">
+            <Link className="preview-link" route={Route.article(~slug)}>
               <h1>
                 "The song you won't ever stop singing. No matter how hard you try."
                 ->React.string
@@ -81,7 +95,7 @@ let make = (~whose: Route.whose) => {
                   "Song"->React.string
                 </li>
               </ul>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

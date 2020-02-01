@@ -2,7 +2,9 @@
 let make = () => {
   <footer>
     <div className="container">
-      <a href="/" className="logo-font"> "conduit"->React.string </a>
+      <Link route=Route.home className="logo-font">
+        "conduit"->React.string
+      </Link>
       <span className="attribution">
         "An interactive learning project from "->React.string
         <a href="https://thinkster.io"> "Thinkster"->React.string </a>

@@ -4,16 +4,17 @@ module AsyncData = Relude.AsyncData;
 module ArticlePreview = {
   [@react.component]
   let make = (~data: Shape.Article.t) => {
-    let profileUrl = Printf.sprintf("/#/profile/%s", data.author.username);
-    let articleUrl = Printf.sprintf("/#/article/%s", data.slug);
-
     <div className="article-preview">
       <div className="article-meta">
-        <a href=profileUrl> <img src={data.author.image} /> </a>
+        <Link route={Route.viewProfile(~username=data.author.username)}>
+          <img src={data.author.image} />
+        </Link>
         <div className="info">
-          <a href=profileUrl className="author">
+          <Link
+            className="author"
+            route={Route.viewProfile(~username=data.author.username)}>
             data.author.username->React.string
-          </a>
+          </Link>
           <span className="date">
             {data.createdAt->Js.Date.toLocaleString->React.string}
           </span>
@@ -23,11 +24,11 @@ module ArticlePreview = {
           {data.favoritesCount->Js.Int.toString->React.string}
         </button>
       </div>
-      <a href=articleUrl className="preview-link">
+      <Link route={Route.article(~slug=data.slug)} className="preview-link">
         <h1> data.title->React.string </h1>
         <p> data.description->React.string </p>
         <span> "Read more..."->React.string </span>
-      </a>
+      </Link>
     </div>;
   };
 };
