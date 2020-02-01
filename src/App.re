@@ -1,7 +1,7 @@
 [@react.component]
 let make = () => {
   let route = Route.useRoute();
-	let currentUser = Hook.useCurrentUser();
+  let currentUser = Hook.useCurrentUser();
 
   <>
     <Header />
