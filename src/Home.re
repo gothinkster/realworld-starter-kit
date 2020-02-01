@@ -34,7 +34,7 @@ module ArticlePreview = {
 
 module PopularTags = {
   [@react.component]
-  let make = (~data: AsyncResult.t(Shape.Tags.t, AppError.t)) => {
+  let make = (~data: AsyncResult.t(Shape.Tags.t, Error.t)) => {
     <>
       <p> "Popular Tags"->React.string </p>
       <div className="tag-list">

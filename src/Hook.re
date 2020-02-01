@@ -29,7 +29,7 @@ let useArticles = () => {
              switch (data) {
              | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
              | Error(error) =>
-               AsyncResult.completeError(AppError.EDecodeParseError(error))
+               AsyncResult.completeError(Error.EDecodeParseError(error))
              }
            )
          )
@@ -38,7 +38,7 @@ let useArticles = () => {
     |> catch(error => {
          guard(() =>
            setData(_prev =>
-             AsyncResult.completeError(AppError.EFetch(error))
+             AsyncResult.completeError(Error.EFetch(error))
            )
          )
          |> resolve
@@ -73,7 +73,7 @@ let useTags = () => {
              switch (data) {
              | Belt.Result.Ok(ok) => ok |> AsyncResult.completeOk
              | Error(error) =>
-               AppError.EDecodeParseError(error) |> AsyncResult.completeError
+               Error.EDecodeParseError(error) |> AsyncResult.completeError
              }
            )
          )
@@ -82,7 +82,7 @@ let useTags = () => {
     |> catch(error => {
          guard(() =>
            setData(_prev =>
-             AppError.EFetch(error) |> AsyncResult.completeError
+             Error.EFetch(error) |> AsyncResult.completeError
            )
          )
          |> resolve
