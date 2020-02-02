@@ -59,18 +59,22 @@ module PopularTags = {
   };
 };
 
+let useFeedType = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
+  let (feedType, setFeedType) = React.useState(() => Shape.Personal);
+
+  switch (currentUser) {
+  | Init
+  | Loading
+  | Reloading(None)
+  | Complete(None) => (Shape.Global, setFeedType)
+  | Reloading(Some(_))
+  | Complete(Some(_)) => (feedType, setFeedType)
+  };
+};
+
 [@react.component]
 let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
-  let (rawFeedType, setFeedType) = React.useState(() => Shape.Personal);
-  let feedType =
-    switch (currentUser) {
-    | Init
-    | Loading
-    | Reloading(None)
-    | Complete(None) => Shape.Global
-    | Reloading(Some(_))
-    | Complete(Some(_)) => rawFeedType
-    };
+  let (feedType, setFeedType) = useFeedType(~currentUser);
   let articles = Hook.useArticles();
   let tags = Hook.useTags();
 
