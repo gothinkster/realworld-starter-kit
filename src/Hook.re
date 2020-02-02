@@ -7,45 +7,67 @@ module Option = Relude.Option;
 let guardByDidCancel: (React.Ref.t(bool), unit => unit) => unit =
   (didCancel, cb) => !React.Ref.current(didCancel) ? cb() : ();
 
-let useArticles: unit => AsyncResult.t(Shape.Articles.t, Error.t) =
-  () => {
+let useArticles:
+  (
+    ~currentUser: AsyncData.t(option(Shape.User.t)),
+    ~feedType: option(Shape.feedType)
+  ) =>
+  AsyncResult.t(Shape.Articles.t, Error.t) =
+  (~currentUser, ~feedType) => {
     let didCancel = React.useRef(false);
     let (data, setData) = React.useState(() => AsyncResult.init);
     let guard = guardByDidCancel(didCancel);
 
-    React.useEffect0(() => {
-      guard(() =>
-        setData(prev =>
-          prev
-          |> AsyncResult.getOk
-          |> Option.getOrElse(Shape.Articles.empty)
-          |> AsyncResult.reloadingOk
-        )
-      );
+    React.useEffect0(() =>
+      Some(() => React.Ref.setCurrent(didCancel, true))
+    );
 
-      API.listArticles()
-      |> then_(data => {
-           guard(() =>
-             setData(_prev =>
-               switch (data) {
-               | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
-               | Error(error) =>
-                 AsyncResult.completeError(Error.EDecodeParseError(error))
-               }
-             )
-           )
-           |> resolve
-         })
-      |> catch(error => {
-           guard(() =>
-             setData(_prev => AsyncResult.completeError(Error.EFetch(error)))
-           )
-           |> resolve
-         })
-      |> ignore;
+    React.useEffect3(
+      () => {
+        switch (currentUser) {
+        | Init
+        | Loading => ignore()
+        | Reloading(user)
+        | Complete(user) =>
+          let request =
+            switch (user, feedType) {
+            | (None, Some(Global) | Some(Personal) | None) => API.listArticles
+            | (Some(_), Some(Global)) => API.listArticles
+            | (Some(_), Some(Personal) | None) => API.feedArticles
+            };
 
-      Some(() => React.Ref.setCurrent(didCancel, true));
-    });
+          guard(() => setData(prev => prev |> AsyncResult.toBusy));
+
+          request()
+          |> then_(data => {
+               guard(() =>
+                 setData(_prev =>
+                   switch (data) {
+                   | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
+                   | Error(error) =>
+                     AsyncResult.completeError(
+                       Error.EDecodeParseError(error),
+                     )
+                   }
+                 )
+               )
+               |> resolve
+             })
+          |> catch(error => {
+               guard(() =>
+                 setData(_prev =>
+                   AsyncResult.completeError(Error.EFetch(error))
+                 )
+               )
+               |> resolve
+             })
+          |> ignore;
+        };
+
+        None;
+      },
+      (currentUser, feedType, setData),
+    );
 
     data;
   };

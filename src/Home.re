@@ -60,13 +60,13 @@ module PopularTags = {
 };
 
 let useFeedType = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
-  let (feedType, setFeedType) = React.useState(() => Shape.Personal);
+  let (feedType, setFeedType) = React.useState(() => None);
 
   switch (currentUser) {
   | Init
   | Loading
   | Reloading(None)
-  | Complete(None) => (Shape.Global, setFeedType)
+  | Complete(None) => (Some(Shape.Global), setFeedType)
   | Reloading(Some(_))
   | Complete(Some(_)) => (feedType, setFeedType)
   };
@@ -75,7 +75,7 @@ let useFeedType = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
 [@react.component]
 let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
   let (feedType, setFeedType) = useFeedType(~currentUser);
-  let articles = Hook.useArticles();
+  let articles = Hook.useArticles(~currentUser, ~feedType);
   let tags = Hook.useTags();
 
   <div className="home-page">
@@ -100,15 +100,17 @@ let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
                    <a
                      className={
                        switch (feedType) {
-                       | Global => "nav-link"
-                       | Personal => "nav-link active"
+                       | Some(Global) => "nav-link"
+                       | None
+                       | Some(Personal) => "nav-link active"
                        }
                      }
                      href="#your_feed"
                      onClick={event =>
-                       if (Utils.isMouseRightClick(event)) {
+                       if (Utils.isMouseRightClick(event)
+                           && AsyncResult.isIdle(currentUser)) {
                          event->ReactEvent.Mouse.preventDefault;
-                         setFeedType(_ => Shape.Personal);
+                         setFeedType(_ => Some(Shape.Personal));
                        }
                      }>
                      "Your Feed"->React.string
@@ -119,26 +121,22 @@ let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
                 <a
                   className={
                     switch (feedType) {
-                    | Global => "nav-link active"
-                    | Personal => "nav-link"
+                    | Some(Global) => "nav-link active"
+                    | None
+                    | Some(Personal) => "nav-link"
                     }
                   }
                   href="#global"
                   onClick={event =>
-                    if (Utils.isMouseRightClick(event)) {
+                    if (Utils.isMouseRightClick(event)
+                        && AsyncResult.isIdle(currentUser)) {
                       event->ReactEvent.Mouse.preventDefault;
-                      setFeedType(_ => Shape.Global);
+                      setFeedType(_ => Some(Shape.Global));
                     }
                   }>
                   "Global Feed"->React.string
                 </a>
               </li>
-              {switch (articles) {
-               | Init
-               | Complete(_) => React.null
-               | Reloading(_)
-               | Loading => <li className="nav-item"> "..."->React.string </li>
-               }}
             </ul>
           </div>
           {switch (articles) {
