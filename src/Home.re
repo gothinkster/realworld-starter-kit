@@ -61,6 +61,16 @@ module PopularTags = {
 
 [@react.component]
 let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
+  let (rawFeedType, setFeedType) = React.useState(() => Shape.Personal);
+  let feedType =
+    switch (currentUser) {
+    | Init
+    | Loading
+    | Reloading(None)
+    | Complete(None) => Shape.Global
+    | Reloading(Some(_))
+    | Complete(Some(_)) => rawFeedType
+    };
   let articles = Hook.useArticles();
   let tags = Hook.useTags();
 
@@ -83,16 +93,48 @@ let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
                | Complete(None) => React.null
                | Complete(Some(_user)) =>
                  <li className="nav-item">
-                   <a className="nav-link" href="#">
+                   <a
+                     className={
+                       switch (feedType) {
+                       | Global => "nav-link"
+                       | Personal => "nav-link active"
+                       }
+                     }
+                     href="#your_feed"
+                     onClick={event =>
+                       if (Utils.isMouseRightClick(event)) {
+                         event->ReactEvent.Mouse.preventDefault;
+                         setFeedType(_ => Shape.Personal);
+                       }
+                     }>
                      "Your Feed"->React.string
                    </a>
                  </li>
                }}
               <li className="nav-item">
-                <a className="nav-link active" href="">
+                <a
+                  className={
+                    switch (feedType) {
+                    | Global => "nav-link active"
+                    | Personal => "nav-link"
+                    }
+                  }
+                  href="#global"
+                  onClick={event =>
+                    if (Utils.isMouseRightClick(event)) {
+                      event->ReactEvent.Mouse.preventDefault;
+                      setFeedType(_ => Shape.Global);
+                    }
+                  }>
                   "Global Feed"->React.string
                 </a>
               </li>
+              {switch (articles) {
+               | Init
+               | Complete(_) => React.null
+               | Reloading(_)
+               | Loading => <li className="nav-item"> "..."->React.string </li>
+               }}
             </ul>
           </div>
           {switch (articles) {

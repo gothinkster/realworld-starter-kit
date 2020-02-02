@@ -23,3 +23,11 @@ let getCookie = (name: string): option(cookiePair) =>
        let key = fst(pair);
        key == name;
      });
+
+let isMouseRightClick = event =>
+  !event->ReactEvent.Mouse.defaultPrevented
+  && event->ReactEvent.Mouse.button == 0
+  && !event->ReactEvent.Mouse.altKey
+  && !event->ReactEvent.Mouse.ctrlKey
+  && !event->ReactEvent.Mouse.metaKey
+  && !event->ReactEvent.Mouse.shiftKey;

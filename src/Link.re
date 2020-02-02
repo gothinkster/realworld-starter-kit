@@ -23,12 +23,7 @@ let make = (~className="", ~location, ~children) => {
     className
     href
     onClick={event =>
-      if (!event->ReactEvent.Mouse.defaultPrevented
-          && event->ReactEvent.Mouse.button == 0
-          && !event->ReactEvent.Mouse.altKey
-          && !event->ReactEvent.Mouse.ctrlKey
-          && !event->ReactEvent.Mouse.metaKey
-          && !event->ReactEvent.Mouse.shiftKey) {
+      if (Utils.isMouseRightClick(event)) {
         event->ReactEvent.Mouse.preventDefault;
         href->ReasonReactRouter.push;
       }

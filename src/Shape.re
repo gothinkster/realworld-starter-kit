@@ -1,5 +1,9 @@
 module Decode = Decode.AsResult.OfParseError;
 
+type feedType =
+  | Global
+  | Personal;
+
 module Author = {
   type t = {
     username: string,

@@ -1,6 +1,9 @@
 open Js.Promise;
 open Fetch;
 
+module AsyncResult = Relude.AsyncResult;
+module AsyncData = Relude.AsyncData;
+
 [@bs.scope ("window", "app")] [@bs.val] external backend: string = "backend";
 
 module Endpoints = {
@@ -10,6 +13,15 @@ module Endpoints = {
   let currentUser = Printf.sprintf("%s/api/user", backend);
 };
 
+let getJwtTokenHeader: unit => array((string, string)) =
+  () =>
+    Utils.getCookie("jwtToken")
+    |> Relude.Option.flatMap(snd)
+    |> Relude.Option.map(token =>
+         [|("Authorization", Printf.sprintf("Token %s", token))|]
+       )
+    |> Relude.Option.getOrElse([||]);
+
 let listArticles = () => {
   Endpoints.listArticles
   |> fetch
@@ -18,7 +30,19 @@ let listArticles = () => {
 };
 
 let feedArticles = () => {
-  Endpoints.feedArticles |> fetch |> then_(Response.json);
+  let requestInit =
+    RequestInit.make(
+      ~headers=
+        [|getJwtTokenHeader()|]
+        |> Relude.Array.flatten
+        |> HeadersInit.makeWithArray,
+      (),
+    );
+
+  Endpoints.feedArticles
+  |> fetchWithInit(_, requestInit)
+  |> then_(Response.json)
+  |> then_(json => json |> Shape.Articles.decode |> resolve);
 };
 
 let tags = () => {
@@ -29,16 +53,14 @@ let tags = () => {
 };
 
 let currentUser = () => {
-  let token =
-    Utils.getCookie("jwtToken")
-    |> Relude.Option.flatMap(snd)
-    |> Relude.Option.map(token =>
-         [|("Authorization", Printf.sprintf("Token %s", token))|]
-       )
-    |> Relude.Option.getOrElse([||]);
-
-  let headers = HeadersInit.makeWithArray([|token|] |> Relude.Array.flatten);
-  let requestInit = RequestInit.make(~headers, ());
+  let requestInit =
+    RequestInit.make(
+      ~headers=
+        [|getJwtTokenHeader()|]
+        |> Relude.Array.flatten
+        |> HeadersInit.makeWithArray,
+      (),
+    );
 
   Endpoints.currentUser
   |> fetchWithInit(_, requestInit)
