@@ -5,14 +5,24 @@ open ReactTestingLibrary;
 open TestUtils;
 
 describe("App component", () => {
-  test("renders without crashing", () => {
+  testPromise("renders without crashing", () => {
     let wrapper = render(<App />);
 
-    wrapper
-    |> getByText(~matcher=`Str("A place to share your knowledge."))
-    |> Webapi.Dom.Element.innerHTML
-    |> expect
-    |> toEqual("A place to share your knowledge.");
+    DomTestingLibrary.waitForElement(
+      ~callback=
+        () =>
+          wrapper
+          |> getByText(~matcher=`Str("A place to share your knowledge.")),
+      (),
+    )
+    |> then_(_ =>
+         wrapper
+         |> getByText(~matcher=`Str("A place to share your knowledge."))
+         |> Webapi.Dom.Element.innerHTML
+         |> expect
+         |> toEqual("A place to share your knowledge.")
+         |> resolve
+       );
   });
 
   testPromise("renders settings page", () => {
@@ -34,28 +44,44 @@ describe("App component", () => {
        );
   });
 
-  test("renders login page", () => {
+  testPromise("renders login page", () => {
     let wrapper = render(<App />);
 
     act(() => ReasonReactRouter.push("/#/login"));
 
-    wrapper
-    |> getByText(~matcher=`Str("Need an account?"))
-    |> Webapi.Dom.Element.innerHTML
-    |> expect
-    |> toEqual("Need an account?");
+    DomTestingLibrary.waitForElement(
+      ~callback=
+        () => wrapper |> getByText(~matcher=`Str("Need an account?")),
+      (),
+    )
+    |> then_(_ =>
+         wrapper
+         |> getByText(~matcher=`Str("Need an account?"))
+         |> Webapi.Dom.Element.innerHTML
+         |> expect
+         |> toEqual("Need an account?")
+         |> resolve
+       );
   });
 
-  test("renders register page", () => {
+  testPromise("renders register page", () => {
     let wrapper = render(<App />);
 
     act(() => ReasonReactRouter.push("/#/register"));
 
-    wrapper
-    |> getByText(~matcher=`Str("Have an account?"))
-    |> Webapi.Dom.Element.innerHTML
-    |> expect
-    |> toEqual("Have an account?");
+    DomTestingLibrary.waitForElement(
+      ~callback=
+        () => wrapper |> getByText(~matcher=`Str("Have an account?")),
+      (),
+    )
+    |> then_(_ =>
+         wrapper
+         |> getByText(~matcher=`Str("Have an account?"))
+         |> Webapi.Dom.Element.innerHTML
+         |> expect
+         |> toEqual("Have an account?")
+         |> resolve
+       );
   });
 
   testPromise("renders create article page", () => {
