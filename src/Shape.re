@@ -137,7 +137,7 @@ module User = {
     createdAt: Js.Date.t,
     updatedAt: Js.Date.t,
     username: string,
-    bio: string,
+    bio: option(string),
     image: string,
     token: string,
   };
@@ -153,7 +153,7 @@ module User = {
     token,
   };
 
-  let empty = make(0, "", Js.Date.make(), Js.Date.make(), "", "", "", "");
+  let empty = make(0, "", Js.Date.make(), Js.Date.make(), "", None, "", "");
 
   let decodeUser =
       (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
@@ -164,7 +164,7 @@ module User = {
       |> field("createdAt", date)
       |> field("updatedAt", date)
       |> field("username", string)
-      |> field("bio", string)
+      |> optionalField("bio", string)
       |> field("image", string)
       |> field("token", string)
       |> run(json)

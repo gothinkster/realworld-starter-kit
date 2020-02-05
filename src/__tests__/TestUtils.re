@@ -1,3 +1,6 @@
+module Result = Relude.Result;
+module Function = Relude.Function;
+
 [@bs.module "@testing-library/react"]
 external rawAct: (unit => Js.Undefined.t(Js.Promise.t('a))) => unit = "act";
 
@@ -11,7 +14,8 @@ let act = callback =>
 module ApiMock = {
   open BsJestFetchMock;
 
-  let articles = {|{
+  module SampleData = {
+    let articles = {|{
   "articles": [
     {
       "title": "How to train your dragon",
@@ -34,29 +38,7 @@ module ApiMock = {
   "articlesCount": 1
 }|};
 
-  let endsWithUrl = (url, body) =>
-    JestFetchMock.Fn(
-      req =>
-        if (req |> Fetch.Request.url |> Js.String.endsWith(url)) {
-          body |> Js.Promise.resolve;
-        } else {
-          "" |> Js.Promise.resolve;
-        },
-    );
-
-  let listArticles = () =>
-    JestFetchMock.mockResponse(
-      ~response=endsWithUrl("/api/articles", articles),
-      (),
-    );
-
-  let feedArticles = () =>
-    JestFetchMock.mockResponse(
-      ~response=endsWithUrl("/api/articles/feed", articles),
-      (),
-    );
-
-  let tagsBody = {|{
+    let tags = {|{
   "tags": [
     "butt",
     "dragons",
@@ -66,13 +48,7 @@ module ApiMock = {
   ]
 }|};
 
-  let tags = () =>
-    JestFetchMock.mockResponse(
-      ~response=endsWithUrl("/api/tags", tagsBody),
-      (),
-    );
-
-  let currentUserBody = {|{
+    let user = {|{
   "user": {
     "id": 25902,
     "email": "achi@987.tw",
@@ -83,20 +59,87 @@ module ApiMock = {
     "image": "",
     "token": "eyJ0eX.eyJpZCI.rLH25U9Z"
   }
-}
-|};
+}|};
+  };
 
-  let authorizedUser = () =>
-    JestFetchMock.mockResponse(
-      ~response=endsWithUrl("/api/user", currentUserBody),
-      (),
+  let unathorized401 =
+    JestFetchMock.init(~status=401, ~statusText="401 Unauthorized", ());
+
+  let succeed: Result.t(string, string) => Result.t(string, string) =
+    Result.flatMap(Result.pure);
+
+  let pipe:
+    (
+      string => Result.t(string, string),
+      Result.t(string, string) => Result.t(string, string),
+      Result.t(string, string)
+    ) =>
+    Result.t(string, string) =
+    fn => Function.map(Result.flatMap(fn));
+
+  let articles:
+    (
+      Result.t(string, string) => Result.t(string, string),
+      Result.t(string, string)
+    ) =>
+    Result.t(string, string) =
+    pipe(pathname =>
+      if (pathname == "/api/articles") {
+        SampleData.articles |> Result.error;
+      } else {
+        pathname |> Result.ok;
+      }
     );
 
-  let anonymousUser = () =>
+  let tags:
+    (
+      Result.t(string, string) => Result.t(string, string),
+      Result.t(string, string)
+    ) =>
+    Result.t(string, string) =
+    pipe(pathname =>
+      if (pathname == "/api/tags") {
+        SampleData.tags |> Result.error;
+      } else {
+        pathname |> Result.ok;
+      }
+    );
+
+  let user:
+    (
+      Result.t(string, string) => Result.t(string, string),
+      Result.t(string, string)
+    ) =>
+    Result.t(string, string) =
+    pipe(pathname =>
+      if (pathname == "/api/user") {
+        SampleData.user |> Result.error;
+      } else {
+        pathname |> Result.ok;
+      }
+    );
+
+  let parseUrl: Fetch.Request.t => string =
+    req => req |> Fetch.Request.url |> Webapi.Url.make |> Webapi.Url.pathname;
+
+  let doMock = (~init=?, ~pipeline, ()) =>
     JestFetchMock.mockResponse(
-      ~response=endsWithUrl("/api/user", ""),
-      ~init=
-        JestFetchMock.init(~status=401, ~statusText="401 Unauthorized", ()),
+      ~response=
+        Fn(
+          req => {
+            let url: Result.t(string, string) =
+              req |> parseUrl |> Result.pure;
+            let result: Result.t(string, string) = url |> pipeline;
+
+            Js.log3("url: %o, result: %o", url, result);
+
+            result
+            |> Result.flip
+            |> Result.getOrElse("")
+            |> Js.Promise.resolve;
+          },
+        ),
+      ~init?,
       (),
     );
 };

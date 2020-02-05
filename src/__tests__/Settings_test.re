@@ -25,4 +25,5 @@ describe("Settings component", () => {
 
   // TODO: delete following line when we have more than 1 test case
   let _ = ();
+  ();
 });
