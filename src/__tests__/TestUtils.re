@@ -131,8 +131,6 @@ module ApiMock = {
               req |> parseUrl |> Result.pure;
             let result: Result.t(string, string) = url |> pipeline;
 
-            Js.log3("url: %o, result: %o", url, result);
-
             result
             |> Result.flip
             |> Result.getOrElse("")
