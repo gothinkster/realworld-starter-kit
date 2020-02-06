@@ -4,12 +4,29 @@ module Function = Relude.Function;
 [@bs.module "@testing-library/react"]
 external rawAct: (unit => Js.Undefined.t(Js.Promise.t('a))) => unit = "act";
 
+[@bs.module "@testing-library/dom"]
+external queryByText:
+  (
+    Dom.element,
+    ~matcher: [@bs.unwrap] [
+                | `Str(string)
+                | `RegExp(Js.Re.t)
+                | `Func((string, Dom.element) => bool)
+              ],
+    ~options: Js.undefined(DomTestingLibrary.Query.options)
+  ) =>
+  Js.Null.t(Dom.element) =
+  "queryByText";
+
 let act = callback =>
   rawAct(() => {
     callback();
     // Fix: Warning: The callback passed to act(...) function mu st return undefined, or a Promise.
     Js.Undefined.empty;
   });
+
+let queryByText = (~matcher, ~options=?, result) =>
+  queryByText(~matcher, ~options=Js.Undefined.fromOption(options), result |> ReactTestingLibrary.container);
 
 module ApiMock = {
   open BsJestFetchMock;
