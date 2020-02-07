@@ -1,10 +1,14 @@
 open Jest;
 open Expect;
 open Js.Promise;
+open JestDom;
 open ReactTestingLibrary;
+open BsJestFetchMock;
 open TestUtils;
 
 describe("App component", () => {
+  beforeEach(() => {JestFetchMock.resetMocks()});
+
   testPromise("renders without crashing", () => {
     let wrapper = render(<App />);
 
@@ -181,5 +185,244 @@ describe("App component", () => {
          |> toEqual("Favorited Articles")
          |> resolve
        );
+  });
+
+  describe("Header", () => {
+    describe("Anonymous", () => {
+      testPromise({|show "Home" link|}, () => {
+        let wrapper = render(<App />);
+
+        DomTestingLibrary.waitForElement(
+          ~callback=() => wrapper |> getByText(~matcher=`Str("Home")),
+          (),
+        )
+        |> then_(_ =>
+             wrapper
+             |> getByText(~matcher=`Str("Home"))
+             |> expect
+             |> toBeInTheDocument
+             |> resolve
+           );
+      });
+
+      testPromise({|show "Sign in" link|}, () => {
+        let wrapper = render(<App />);
+
+        DomTestingLibrary.waitForElement(
+          ~callback=() => wrapper |> getByText(~matcher=`Str("Sign in")),
+          (),
+        )
+        |> then_(_ =>
+             wrapper
+             |> getByText(~matcher=`Str("Sign in"))
+             |> expect
+             |> toBeInTheDocument
+             |> resolve
+           );
+      });
+
+      testPromise({|show "Sign up" link|}, () => {
+        let wrapper = render(<App />);
+
+        DomTestingLibrary.waitForElement(
+          ~callback=() => wrapper |> getByText(~matcher=`Str("Sign up")),
+          (),
+        )
+        |> then_(_ =>
+             wrapper
+             |> getByText(~matcher=`Str("Sign up"))
+             |> expect
+             |> toBeInTheDocument
+             |> resolve
+           );
+      });
+
+      testPromise({|should not show "New Post" link|}, () => {
+        let wrapper = render(<App />);
+
+        DomTestingLibrary.waitForElement(
+          ~callback=() => wrapper |> getByText(~matcher=`Str("Sign in")),
+          (),
+        )
+        |> then_(_ =>
+             wrapper
+             |> TestUtils.queryByText(~matcher=`Str("New Post"))
+             |> (==)(Js.null)
+             |> expect
+             |> toEqual(true)
+             |> resolve
+           );
+      });
+
+      testPromise({|should not show "Settings" link|}, () => {
+        let wrapper = render(<App />);
+
+        DomTestingLibrary.waitForElement(
+          ~callback=() => wrapper |> getByText(~matcher=`Str("Sign in")),
+          (),
+        )
+        |> then_(_ =>
+             wrapper
+             |> TestUtils.queryByText(~matcher=`Str("Settings"))
+             |> (==)(Js.null)
+             |> expect
+             |> toEqual(true)
+             |> resolve
+           );
+      });
+
+      testPromise({|should not show user name|}, () => {
+        let wrapper = render(<App />);
+
+        DomTestingLibrary.waitForElement(
+          ~callback=() => wrapper |> getByText(~matcher=`Str("Sign in")),
+          (),
+        )
+        |> then_(_ =>
+             wrapper
+             |> TestUtils.queryByText(~matcher=`Str("Jihchi Lee"))
+             |> (==)(Js.null)
+             |> expect
+             |> toEqual(true)
+             |> resolve
+           );
+      });
+    });
+
+    describe("Authenticated", () => {
+      testPromise({|show "Home" link|}, () => {
+        ApiMock.doMock(
+          ~pipeline=
+            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.articles,
+          (),
+        );
+
+        let wrapper = render(<App />);
+
+        DomTestingLibrary.waitForElement(
+          ~callback=() => wrapper |> getByText(~matcher=`Str("Home")),
+          (),
+        )
+        |> then_(_ =>
+             wrapper
+             |> getByText(~matcher=`Str("Home"))
+             |> expect
+             |> toBeInTheDocument
+             |> resolve
+           );
+      });
+
+      testPromise({|should not show "Sign in" link|}, () => {
+        ApiMock.doMock(
+          ~pipeline=
+            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.articles,
+          (),
+        );
+
+        let wrapper = render(<App />);
+
+        DomTestingLibrary.waitForElement(
+          ~callback=() => wrapper |> getByText(~matcher=`Str("New Post")),
+          (),
+        )
+        |> then_(_ =>
+             wrapper
+             |> TestUtils.queryByText(~matcher=`Str("Sign in"))
+             |> (==)(Js.null)
+             |> expect
+             |> toEqual(true)
+             |> resolve
+           );
+      });
+
+      testPromise({|should not show "Sign up" link|}, () => {
+        ApiMock.doMock(
+          ~pipeline=
+            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.articles,
+          (),
+        );
+
+        let wrapper = render(<App />);
+
+        DomTestingLibrary.waitForElement(
+          ~callback=() => wrapper |> getByText(~matcher=`Str("New Post")),
+          (),
+        )
+        |> then_(_ =>
+             wrapper
+             |> TestUtils.queryByText(~matcher=`Str("Sign up"))
+             |> (==)(Js.null)
+             |> expect
+             |> toEqual(true)
+             |> resolve
+           );
+      });
+
+      testPromise({|show "New Post" link|}, () => {
+        ApiMock.doMock(
+          ~pipeline=
+            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.articles,
+          (),
+        );
+
+        let wrapper = render(<App />);
+
+        DomTestingLibrary.waitForElement(
+          ~callback=() => wrapper |> getByText(~matcher=`Str("New Post")),
+          (),
+        )
+        |> then_(_ =>
+             wrapper
+             |> getByText(~matcher=`Str("New Post"))
+             |> expect
+             |> toBeInTheDocument
+             |> resolve
+           );
+      });
+
+      testPromise({|show "Settings" link|}, () => {
+        ApiMock.doMock(
+          ~pipeline=
+            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.articles,
+          (),
+        );
+
+        let wrapper = render(<App />);
+
+        DomTestingLibrary.waitForElement(
+          ~callback=() => wrapper |> getByText(~matcher=`Str("Settings")),
+          (),
+        )
+        |> then_(_ =>
+             wrapper
+             |> getByText(~matcher=`Str("Settings"))
+             |> expect
+             |> toBeInTheDocument
+             |> resolve
+           );
+      });
+
+      testPromise({|show user name|}, () => {
+        ApiMock.doMock(
+          ~pipeline=
+            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.articles,
+          (),
+        );
+
+        let wrapper = render(<App />);
+
+        DomTestingLibrary.waitForElement(
+          ~callback=() => wrapper |> getByText(~matcher=`Str("Jihchi Lee")),
+          (),
+        )
+        |> then_(_ =>
+             wrapper
+             |> getByText(~matcher=`Str("Jihchi Lee"))
+             |> expect
+             |> toBeInTheDocument
+             |> resolve
+           );
+      });
+    });
   });
 });

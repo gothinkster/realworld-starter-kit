@@ -3,9 +3,12 @@ open Jest;
 open Expect;
 open JestDom;
 open ReactTestingLibrary;
+open BsJestFetchMock;
 open TestUtils;
 
 describe("Home component", () => {
+  beforeEach(() => {JestFetchMock.resetMocks()});
+
   testPromise("renders without crashing", () => {
     let wrapper = render(<App />);
 
