@@ -21,12 +21,16 @@ external queryByText:
 let act = callback =>
   rawAct(() => {
     callback();
-    // Fix: Warning: The callback passed to act(...) function mu st return undefined, or a Promise.
+    // Fix: Warning: The callback passed to act(...) function must return undefined, or a Promise.
     Js.Undefined.empty;
   });
 
 let queryByText = (~matcher, ~options=?, result) =>
-  queryByText(~matcher, ~options=Js.Undefined.fromOption(options), result |> ReactTestingLibrary.container);
+  queryByText(
+    ~matcher,
+    ~options=Js.Undefined.fromOption(options),
+    result |> ReactTestingLibrary.container,
+  );
 
 module ApiMock = {
   open BsJestFetchMock;
@@ -46,6 +50,29 @@ module ApiMock = {
         "username": "jihchi",
         "bio": null,
         "image": "https://static.productionready.io/images/smiley-cyrus.jpg",
+        "following": false
+      },
+      "favorited": false,
+      "favoritesCount": 3
+    }
+  ],
+  "articlesCount": 1
+}|};
+
+    let feeds = {|{
+  "articles": [
+    {
+      "title": "Would you like some sugar in your coffee?",
+      "slug": "would-you-like-some-sugar-in-your-coffee-q9pur9",
+      "body": "I don't want no sugar in my coffee. It'll make me mean.",
+      "createdAt": "2019-03-14T12:56:00.783Z",
+      "updatedAt": "2019-03-14T12:56:00.783Z",
+      "tagList": ["coffee", "sugar"],
+      "description":"No, thank you.",
+      "author": {
+        "username": "Clarabelle Kuhlman",
+        "bio": "You can't program the feed without transmitting the back-end IB program!",
+        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/russoedu/128.jpg",
         "following": false
       },
       "favorited": false,
@@ -103,6 +130,20 @@ module ApiMock = {
     pipe(pathname =>
       if (pathname == "/api/articles") {
         SampleData.articles |> Result.error;
+      } else {
+        pathname |> Result.ok;
+      }
+    );
+
+  let feeds:
+    (
+      Result.t(string, string) => Result.t(string, string),
+      Result.t(string, string)
+    ) =>
+    Result.t(string, string) =
+    pipe(pathname =>
+      if (pathname == "/api/articles/feed") {
+        SampleData.feeds |> Result.error;
       } else {
         pathname |> Result.ok;
       }

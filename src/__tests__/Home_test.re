@@ -65,7 +65,7 @@ describe("Home component", () => {
     () => {
       ApiMock.doMock(
         ~pipeline=
-          ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.articles,
+          ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
         (),
       );
 
@@ -77,7 +77,9 @@ describe("Home component", () => {
       )
       |> then_(_ =>
            wrapper
-           |> getByText(~matcher=`Str("Your Feed"))
+           |> getByText(
+                ~matcher=`Str("Would you like some sugar in your coffee?"),
+              )
            |> expect
            |> toBeInTheDocument
            |> resolve
