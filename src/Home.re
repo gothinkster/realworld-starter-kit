@@ -70,6 +70,44 @@ module PopularTags = {
   };
 };
 
+module Pagination = {
+  [@react.component]
+  let make = (~limit: int, ~offset: int, ~total: int, ~onClick: int => unit) =>
+    if (total == 0) {
+      React.null;
+    } else {
+      let pages =
+        Js.Math.ceil(float_of_int(total) /. float_of_int(limit)) - 1;
+
+      <ul className="pagination">
+        {Belt.Array.range(0, pages)
+         ->Belt.Array.map(page => {
+             let className =
+               if (offset == 0 && page == 0 || page == offset / limit) {
+                 "page-item active";
+               } else {
+                 "page-item";
+               };
+
+             <li key={page->string_of_int} className>
+               <a
+                 className="page-link"
+                 href={Printf.sprintf("#%d", page)}
+                 onClick={event =>
+                   if (Utils.isMouseRightClick(event)) {
+                     event->ReactEvent.Mouse.preventDefault;
+                     onClick(page * limit);
+                   }
+                 }>
+                 {string_of_int(page + 1)->React.string}
+               </a>
+             </li>;
+           })
+         ->React.array}
+      </ul>;
+    };
+};
+
 let useFeedType = (~user: option(Shape.User.t)) => {
   React.useState(() =>
     switch (user) {
@@ -170,6 +208,34 @@ let make = (~user: option(Shape.User.t)) => {
              |> React.array
            | Reloading(Error(_error))
            | Complete(Error(_error)) => React.string("ERROR")
+           }}
+          {switch (feedType) {
+           | Tag(_, limit, offset)
+           | Global(limit, offset)
+           | Personal(limit, offset) =>
+             let total =
+               switch (articles) {
+               | Init
+               | Loading
+               | Reloading(Error(_))
+               | Complete(Error(_)) => 0
+               | Reloading(Ok({articlesCount}))
+               | Complete(Ok({articlesCount})) => articlesCount
+               };
+
+             <Pagination
+               limit
+               offset
+               total
+               onClick={offset =>
+                 setFeedType(
+                   fun
+                   | Tag(tag, limit, _) => Tag(tag, limit, offset)
+                   | Global(limit, _) => Global(limit, offset)
+                   | Personal(limit, _) => Personal(limit, offset),
+                 )
+               }
+             />;
            }}
         </div>
         <div className="col-md-3">
