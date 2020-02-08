@@ -69,15 +69,13 @@ describe("Home component", () => {
       )
       |> then_(_ =>
            (
-             wrapper
-             |> TestUtils.queryByText(~matcher=`Str("Your Feed"))
-             |> (==)(Js.null),
+             wrapper |> TestUtils.queryByText(~matcher=`Str("Your Feed")),
              wrapper
              |> getByText(~matcher=`Str("Global Feed"))
              |> Webapi.Dom.Element.innerHTML,
            )
            |> expect
-           |> toEqual((true, "Global Feed"))
+           |> toEqual((Js.null, "Global Feed"))
            |> resolve
          );
     },
@@ -225,5 +223,117 @@ describe("Home component", () => {
            });
       },
     );
+  });
+
+  describe("Pagination", () => {
+    testPromise("do not show any page item (failed to load articles)", () => {
+      ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.tags, ());
+
+      let wrapper = render(<App />);
+
+      DomTestingLibrary.waitForElement(
+        ~callback=() => wrapper |> getByText(~matcher=`Str("dragons")),
+        (),
+      )
+      |> then_(_ =>
+           wrapper
+           |> TestUtils.queryAllByTestId("page-link")
+           |> expect
+           |> toEqual([||])
+           |> resolve
+         );
+    });
+
+    testPromise("show only one page", () => {
+      ApiMock.doMock(
+        ~pipeline=ApiMock.succeed |> ApiMock.tags |> ApiMock.articles,
+        (),
+      );
+
+      let wrapper = render(<App />);
+
+      DomTestingLibrary.waitForElement(
+        ~callback=
+          () =>
+            wrapper |> getByText(~matcher=`Str("How to train your dragon")),
+        (),
+      )
+      |> then_(_ =>
+           wrapper
+           |> getByTestId("page-link")
+           |> DomTestingLibrary.getByText(~matcher=`Str("1"))
+           |> expect
+           |> toBeInTheDocument
+           |> resolve
+         );
+    });
+
+    testPromise("show 10 pages (aliquot)", () => {
+      ApiMock.doMock(
+        ~pipeline=
+          ApiMock.succeed
+          |> ApiMock.tags
+          |> ApiMock.articles(~articlesCount=20),
+        (),
+      );
+
+      let wrapper = render(<App />);
+
+      DomTestingLibrary.waitForElement(
+        ~callback=
+          () =>
+            wrapper |> getByText(~matcher=`Str("How to train your dragon")),
+        (),
+      )
+      |> then_(_ =>
+           [|
+             wrapper
+             |> getByTestId("page-link")
+             |> DomTestingLibrary.getByText(~matcher=`Str("1"))
+             |> Webapi.Dom.Element.innerHTML,
+             wrapper
+             |> getByTestId("page-link")
+             |> DomTestingLibrary.getByText(~matcher=`Str("2"))
+             |> Webapi.Dom.Element.innerHTML,
+           |]
+           |> expect
+           |> toEqual([|"1", "2"|])
+           |> resolve
+         );
+    });
+
+    testPromise("show 2 pages (aliquant)", () => {
+      ApiMock.doMock(
+        ~pipeline=
+          ApiMock.succeed
+          |> ApiMock.tags
+          |> ApiMock.articles(~articlesCount=21),
+        (),
+      );
+
+      let wrapper = render(<App />);
+
+      DomTestingLibrary.waitForElement(
+        ~callback=
+          () =>
+            wrapper |> getByText(~matcher=`Str("How to train your dragon")),
+        (),
+      )
+      |> then_(_ =>
+           [|
+             wrapper
+             |> getByTestId("page-link")
+             |> DomTestingLibrary.getByText(~matcher=`Str("1"))
+             |> Webapi.Dom.Element.innerHTML,
+             wrapper
+             |> getByTestId("page-link")
+             |> DomTestingLibrary.getByText(~matcher=`Str("2"))
+             |> Webapi.Dom.Element.innerHTML,
+           |]
+           |> expect
+           |> toEqual([|"1", "2"|])
+           |> resolve
+         );
+    });
   });
 });

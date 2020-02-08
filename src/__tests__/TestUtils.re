@@ -4,6 +4,9 @@ module Function = Relude.Function;
 [@bs.module "@testing-library/react"]
 external rawAct: (unit => Js.Undefined.t(Js.Promise.t('a))) => unit = "act";
 
+[@bs.send.pipe: ReactTestingLibrary.renderResult]
+external queryAllByTestId: string => array(Dom.element) = "queryAllByTestId";
+
 [@bs.module "@testing-library/dom"]
 external queryByText:
   (
@@ -39,7 +42,9 @@ module ApiMock = {
   external fetch: {. "calls": array(array(string))} = "mock";
 
   module SampleData = {
-    let articles = {|{
+    let articles = (~articlesCount=1, ()) =>
+      Printf.sprintf(
+        {|{
   "articles": [
     {
       "title": "How to train your dragon",
@@ -59,10 +64,14 @@ module ApiMock = {
       "favoritesCount": 3
     }
   ],
-  "articlesCount": 1
-}|};
+  "articlesCount": %d
+}|},
+        articlesCount,
+      );
 
-    let feeds = {|{
+    let feeds = (~articlesCount=1, ()) =>
+      Printf.sprintf(
+        {|{
   "articles": [
     {
       "title": "Would you like some sugar in your coffee?",
@@ -82,8 +91,10 @@ module ApiMock = {
       "favoritesCount": 3
     }
   ],
-  "articlesCount": 1
-}|};
+  "articlesCount": %d
+}|},
+        articlesCount,
+      );
 
     let tags = {|{
   "tags": [
@@ -126,31 +137,41 @@ module ApiMock = {
 
   let articles:
     (
+      ~articlesCount: int=?,
       Result.t(string, string) => Result.t(string, string),
       Result.t(string, string)
     ) =>
     Result.t(string, string) =
-    pipe(pathname =>
-      if (pathname == "/api/articles") {
-        SampleData.articles |> Result.error;
-      } else {
-        pathname |> Result.ok;
-      }
-    );
+    (~articlesCount=1, bToC, a) =>
+      pipe(
+        pathname =>
+          if (pathname == "/api/articles") {
+            SampleData.articles(~articlesCount, ()) |> Result.error;
+          } else {
+            pathname |> Result.ok;
+          },
+        bToC,
+        a,
+      );
 
   let feeds:
     (
+      ~articlesCount: int=?,
       Result.t(string, string) => Result.t(string, string),
       Result.t(string, string)
     ) =>
     Result.t(string, string) =
-    pipe(pathname =>
-      if (pathname == "/api/articles/feed") {
-        SampleData.feeds |> Result.error;
-      } else {
-        pathname |> Result.ok;
-      }
-    );
+    (~articlesCount=1, bToC, a) =>
+      pipe(
+        pathname =>
+          if (pathname == "/api/articles/feed") {
+            SampleData.feeds(~articlesCount, ()) |> Result.error;
+          } else {
+            pathname |> Result.ok;
+          },
+        bToC,
+        a,
+      );
 
   let tags:
     (

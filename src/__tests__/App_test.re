@@ -247,9 +247,8 @@ describe("App component", () => {
         |> then_(_ =>
              wrapper
              |> TestUtils.queryByText(~matcher=`Str("New Post"))
-             |> (==)(Js.null)
              |> expect
-             |> toEqual(true)
+             |> toEqual(Js.null)
              |> resolve
            );
       });
@@ -264,9 +263,8 @@ describe("App component", () => {
         |> then_(_ =>
              wrapper
              |> TestUtils.queryByText(~matcher=`Str("Settings"))
-             |> (==)(Js.null)
              |> expect
-             |> toEqual(true)
+             |> toEqual(Js.null)
              |> resolve
            );
       });
@@ -281,9 +279,8 @@ describe("App component", () => {
         |> then_(_ =>
              wrapper
              |> TestUtils.queryByText(~matcher=`Str("Jihchi Lee"))
-             |> (==)(Js.null)
              |> expect
-             |> toEqual(true)
+             |> toEqual(Js.null)
              |> resolve
            );
       });
@@ -328,9 +325,8 @@ describe("App component", () => {
         |> then_(_ =>
              wrapper
              |> TestUtils.queryByText(~matcher=`Str("Sign in"))
-             |> (==)(Js.null)
              |> expect
-             |> toEqual(true)
+             |> toEqual(Js.null)
              |> resolve
            );
       });
@@ -351,9 +347,8 @@ describe("App component", () => {
         |> then_(_ =>
              wrapper
              |> TestUtils.queryByText(~matcher=`Str("Sign up"))
-             |> (==)(Js.null)
              |> expect
-             |> toEqual(true)
+             |> toEqual(Js.null)
              |> resolve
            );
       });
