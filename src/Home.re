@@ -70,24 +70,20 @@ module PopularTags = {
   };
 };
 
-let useFeedType = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
+let useFeedType = (~user: option(Shape.User.t)) => {
   let (feedType, setFeedType) = React.useState(() => None);
 
-  switch (currentUser) {
-  | Init
-  | Loading
-  | Reloading(None)
-  | Complete(None) => (Some(Shape.Global), setFeedType)
-  | Reloading(Some(_))
-  | Complete(Some(_)) => (feedType, setFeedType)
+  switch (user) {
+  | None => (Some(Shape.Global), setFeedType)
+  | Some(_) => (feedType, setFeedType)
   };
 };
 
 [@react.component]
-let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
+let make = (~user: option(Shape.User.t)) => {
   let (selectedTag, setSelectedTag) = React.useState(() => None);
-  let (feedType, setFeedType) = useFeedType(~currentUser);
-  let articles = Hook.useArticles(~currentUser, ~feedType, ~selectedTag);
+  let (feedType, setFeedType) = useFeedType(~user);
+  let articles = Hook.useArticles(~user, ~feedType, ~selectedTag);
   let tags = Hook.useTags();
 
   <div className="home-page">
@@ -103,35 +99,29 @@ let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
           <WithTestId id="feed-toggle">
             <div className="feed-toggle">
               <ul className="nav nav-pills outline-active">
-                {switch (currentUser) {
-                 | Init
-                 | Loading
-                 | Reloading(_)
-                 | Complete(None) => React.null
-                 | Complete(Some(_user)) =>
-                   <li className="nav-item">
-                     <a
-                       className={
-                         switch (feedType, selectedTag) {
-                         | (Some(Global), None | Some(_))
-                         | (Some(Personal) | None, Some(_)) => "nav-link"
-                         | (None, None)
-                         | (Some(Personal), None) => "nav-link active"
-                         }
-                       }
-                       href="#your_feed"
-                       onClick={event =>
-                         if (Utils.isMouseRightClick(event)
-                             && AsyncResult.isIdle(currentUser)) {
-                           event->ReactEvent.Mouse.preventDefault;
-                           setFeedType(_ => Some(Shape.Personal));
-                           setSelectedTag(_ => None);
-                         }
-                       }>
-                       "Your Feed"->React.string
-                     </a>
-                   </li>
-                 }}
+                <Security.AuthenticatedOnly user>
+                  <li className="nav-item">
+                    <a
+                      className={
+                        switch (feedType, selectedTag) {
+                        | (Some(Global), None | Some(_))
+                        | (Some(Personal) | None, Some(_)) => "nav-link"
+                        | (None, None)
+                        | (Some(Personal), None) => "nav-link active"
+                        }
+                      }
+                      href="#your_feed"
+                      onClick={event =>
+                        if (Utils.isMouseRightClick(event)) {
+                          event->ReactEvent.Mouse.preventDefault;
+                          setFeedType(_ => Some(Shape.Personal));
+                          setSelectedTag(_ => None);
+                        }
+                      }>
+                      "Your Feed"->React.string
+                    </a>
+                  </li>
+                </Security.AuthenticatedOnly>
                 <li className="nav-item">
                   <a
                     className={
@@ -143,8 +133,7 @@ let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
                     }
                     href="#global"
                     onClick={event =>
-                      if (Utils.isMouseRightClick(event)
-                          && AsyncResult.isIdle(currentUser)) {
+                      if (Utils.isMouseRightClick(event)) {
                         event->ReactEvent.Mouse.preventDefault;
                         setFeedType(_ => Some(Shape.Global));
                         setSelectedTag(_ => None);

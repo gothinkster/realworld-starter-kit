@@ -9,12 +9,12 @@ let guardByDidCancel: (React.Ref.t(bool), unit => unit) => unit =
 
 let useArticles:
   (
-    ~currentUser: AsyncData.t(option(Shape.User.t)),
+    ~user: option(Shape.User.t),
     ~feedType: option(Shape.feedType),
     ~selectedTag: option(string)
   ) =>
   AsyncResult.t(Shape.Articles.t, Error.t) =
-  (~currentUser, ~feedType, ~selectedTag) => {
+  (~user, ~feedType, ~selectedTag) => {
     let didCancel = React.useRef(false);
     let (data, setData) = React.useState(() => AsyncResult.init);
     let guard = guardByDidCancel(didCancel);
@@ -25,54 +25,46 @@ let useArticles:
 
     React.useEffect4(
       () => {
-        switch (currentUser) {
-        | Init
-        | Loading => ignore()
-        | Reloading(user)
-        | Complete(user) =>
-          guard(() => setData(prev => prev |> AsyncResult.toBusy));
+        guard(() => setData(prev => prev |> AsyncResult.toBusy));
 
-          (
-            switch (user, feedType) {
-            | (None, Some(Global) | Some(Personal) | None) =>
-              API.listArticles(~tag=?selectedTag, ())
-            | (Some(_), Some(Global)) =>
-              API.listArticles(~tag=?selectedTag, ())
-            | (Some(_), Some(Personal) | None) =>
-              switch (selectedTag) {
-              | None => API.feedArticles()
-              | tag => API.listArticles(~tag?, ())
-              }
+        (
+          switch (user, feedType) {
+          | (None, Some(Global) | Some(Personal) | None) =>
+            API.listArticles(~tag=?selectedTag, ())
+          | (Some(_), Some(Global)) =>
+            API.listArticles(~tag=?selectedTag, ())
+          | (Some(_), Some(Personal) | None) =>
+            switch (selectedTag) {
+            | None => API.feedArticles()
+            | tag => API.listArticles(~tag?, ())
             }
-          )
-          |> then_(data => {
-               guard(() =>
-                 setData(_prev =>
-                   switch (data) {
-                   | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
-                   | Error(error) =>
-                     AsyncResult.completeError(
-                       Error.EDecodeParseError(error),
-                     )
-                   }
-                 )
+          }
+        )
+        |> then_(data => {
+             guard(() =>
+               setData(_prev =>
+                 switch (data) {
+                 | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
+                 | Error(error) =>
+                   AsyncResult.completeError(Error.EDecodeParseError(error))
+                 }
                )
-               |> resolve
-             })
-          |> catch(error => {
-               guard(() =>
-                 setData(_prev =>
-                   AsyncResult.completeError(Error.EFetch(error))
-                 )
+             )
+             |> resolve
+           })
+        |> catch(error => {
+             guard(() =>
+               setData(_prev =>
+                 AsyncResult.completeError(Error.EFetch(error))
                )
-               |> resolve
-             })
-          |> ignore;
-        };
+             )
+             |> resolve
+           })
+        |> ignore;
 
         None;
       },
-      (currentUser, feedType, setData, selectedTag),
+      (user, feedType, setData, selectedTag),
     );
 
     data;

@@ -1,41 +1,9 @@
 module AsyncData = Relude.AsyncData;
 module Option = Relude.Option;
 
-module Anonymous = {
-  [@react.component]
-  let make = (~currentUser: AsyncData.t(option(Shape.User.t)), ~children) => {
-    switch (currentUser) {
-    | Init
-    | Loading
-    | Reloading(Some(_))
-    | Complete(Some(_)) => React.null
-    | Reloading(None)
-    | Complete(None) => children
-    };
-  };
-};
-
-module Authorized = {
-  [@react.component]
-  let make = (~currentUser: AsyncData.t(option(Shape.User.t)), ~children) => {
-    switch (currentUser) {
-    | Init
-    | Loading
-    | Reloading(None)
-    | Complete(None) => React.null
-    | Reloading(Some(_))
-    | Complete(Some(_)) => children
-    };
-  };
-};
-
 [@react.component]
-let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
-  let user: Shape.User.t =
-    currentUser
-    |> AsyncData.getValue
-    |> Option.flatMap(data => data)
-    |> Option.getOrElse(Shape.User.empty);
+let make = (~user: option(Shape.User.t)) => {
+  let currentUser = user |> Option.getOrElse(Shape.User.empty);
 
   <nav className="navbar navbar-light">
     <div className="container">
@@ -48,7 +16,7 @@ let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
             "Home"->React.string
           </Link>
         </li>
-        <Anonymous currentUser>
+        <Security.AnonymousOnly user>
           <>
             <li className="nav-item">
               <Link className="nav-link" location=Link.login>
@@ -61,8 +29,8 @@ let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
               </Link>
             </li>
           </>
-        </Anonymous>
-        <Authorized currentUser>
+        </Security.AnonymousOnly>
+        <Security.AuthenticatedOnly user>
           <>
             <li className="nav-item">
               <Link className="nav-link" location=Link.createArticle>
@@ -79,12 +47,12 @@ let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
             <li className="nav-item">
               <Link
                 className="nav-link"
-                location={Link.profile(~username=user.username)}>
-                user.username->React.string
+                location={Link.profile(~username=currentUser.username)}>
+                currentUser.username->React.string
               </Link>
             </li>
           </>
-        </Authorized>
+        </Security.AuthenticatedOnly>
       </ul>
     </div>
   </nav>;
