@@ -6,6 +6,8 @@ open ReactTestingLibrary;
 open BsJestFetchMock;
 open TestUtils;
 
+module Option = Relude.Option;
+
 describe("Home component", () => {
   beforeEach(() => {JestFetchMock.resetMocks()});
 
@@ -26,6 +28,27 @@ describe("Home component", () => {
          |> toBeInTheDocument
          |> resolve
        );
+  });
+
+  testPromise("Query data aginst /list/articles endpoint", () => {
+    let wrapper = render(<App />);
+
+    DomTestingLibrary.waitForElement(
+      ~callback=() => wrapper |> getByText(~matcher=`Str("Global Feed")),
+      (),
+    )
+    |> then_(_ => {
+         TestUtils.ApiMock.fetch##calls
+         |> Belt.Array.some(_, call =>
+              call
+              |> Belt.Array.get(_, 0)
+              |> Option.getOrElse("")
+              == "http://mock_your_requests/api/articles?limit=10&offset=0"
+            )
+         |> expect
+         |> toEqual(true)
+         |> resolve
+       });
   });
 
   testPromise(
@@ -168,36 +191,39 @@ describe("Home component", () => {
          );
     });
 
-    testPromise({|Query data aginst /list/articles endpoint|}, () => {
-      ApiMock.doMock(
-        ~pipeline=
-          ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
-        (),
-      );
+    testPromise(
+      {|Query data aginst /list/articles endpoint even current tab is "Your Feed"|},
+      () => {
+        ApiMock.doMock(
+          ~pipeline=
+            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
+          (),
+        );
 
-      let wrapper = render(<App />);
+        let wrapper = render(<App />);
 
-      DomTestingLibrary.waitForElement(
-        ~callback=() => wrapper |> getByText(~matcher=`Str("Your Feed")),
-        (),
-      )
-      |> then_(_ => {
-           wrapper
-           |> getByTestId("tag-list")
-           |> DomTestingLibrary.getByText(~matcher=`Str("dragons"))
-           |> FireEvent.click
-           |> resolve
-         })
-      |> then_(_ => {
-           TestUtils.ApiMock.fetch##calls
-           |> Belt.Array.getExn(_, 0)
-           |> Belt.Array.getExn(_, 0)
-           |> expect
-           |> toEqual(
-                "http://mock_your_requests/api/articles?limit=10&offset=0&tag=dragons",
-              )
-           |> resolve
-         });
-    });
+        DomTestingLibrary.waitForElement(
+          ~callback=() => wrapper |> getByText(~matcher=`Str("Your Feed")),
+          (),
+        )
+        |> then_(_ => {
+             wrapper
+             |> getByTestId("tag-list")
+             |> DomTestingLibrary.getByText(~matcher=`Str("dragons"))
+             |> FireEvent.click
+             |> resolve
+           })
+        |> then_(_ => {
+             TestUtils.ApiMock.fetch##calls
+             |> Belt.Array.getExn(_, 0)
+             |> Belt.Array.getExn(_, 0)
+             |> expect
+             |> toEqual(
+                  "http://mock_your_requests/api/articles?limit=10&offset=0&tag=dragons",
+                )
+             |> resolve
+           });
+      },
+    );
   });
 });
