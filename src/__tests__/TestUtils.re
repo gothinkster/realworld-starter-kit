@@ -35,6 +35,9 @@ let queryByText = (~matcher, ~options=?, result) =>
 module ApiMock = {
   open BsJestFetchMock;
 
+  [@bs.scope "fetch"] [@bs.val]
+  external fetch: {. "calls": array(array(string))} = "mock";
+
   module SampleData = {
     let articles = {|{
   "articles": [

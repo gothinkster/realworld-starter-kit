@@ -86,4 +86,118 @@ describe("Home component", () => {
          );
     },
   );
+
+  describe("Popular Tags", () => {
+    testPromise({|Actived Tab: "Your Feed" > "# <tag>"|}, () => {
+      ApiMock.doMock(
+        ~pipeline=
+          ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
+        (),
+      );
+
+      let wrapper = render(<App />);
+
+      DomTestingLibrary.waitForElement(
+        ~callback=() => wrapper |> getByText(~matcher=`Str("Your Feed")),
+        (),
+      )
+      |> then_(_ => {
+           wrapper
+           |> getByTestId("tag-list")
+           |> DomTestingLibrary.getByText(~matcher=`Str("dragons"))
+           |> FireEvent.click
+           |> resolve
+         })
+      |> then_(_ =>
+           wrapper
+           |> getByTestId("feed-toggle")
+           |> DomTestingLibrary.getByText(~matcher=`Str("dragons"))
+           |> expect
+           |> toBeInTheDocument
+           |> resolve
+         );
+    });
+
+    testPromise({|Actived Tab: "Your Feed" > "Global Feed" > "# <tag>"|}, () => {
+      ApiMock.doMock(
+        ~pipeline=
+          ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
+        (),
+      );
+
+      let wrapper = render(<App />);
+
+      DomTestingLibrary.waitForElement(
+        ~callback=() => wrapper |> getByText(~matcher=`Str("Your Feed")),
+        (),
+      )
+      |> then_(_ => {
+           JestFetchMock.resetMocks();
+           ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.articles, ());
+
+           wrapper
+           |> getByText(~matcher=`Str("Global Feed"))
+           |> FireEvent.click
+           |> ignore;
+
+           DomTestingLibrary.waitForElement(
+             ~callback=
+               () =>
+                 wrapper
+                 |> getByText(~matcher=`Str("How to train your dragon")),
+             (),
+           );
+         })
+      |> then_(_ => {
+           JestFetchMock.resetMocks();
+           ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.articles, ());
+
+           wrapper
+           |> getByTestId("tag-list")
+           |> DomTestingLibrary.getByText(~matcher=`Str("dragons"))
+           |> FireEvent.click
+           |> resolve;
+         })
+      |> then_(_ =>
+           wrapper
+           |> getByTestId("feed-toggle")
+           |> DomTestingLibrary.getByText(~matcher=`Str("dragons"))
+           |> expect
+           |> toBeInTheDocument
+           |> resolve
+         );
+    });
+
+    testPromise({|Query data aginst /list/articles endpoint|}, () => {
+      ApiMock.doMock(
+        ~pipeline=
+          ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
+        (),
+      );
+
+      let wrapper = render(<App />);
+
+      DomTestingLibrary.waitForElement(
+        ~callback=() => wrapper |> getByText(~matcher=`Str("Your Feed")),
+        (),
+      )
+      |> then_(_ => {
+           wrapper
+           |> getByTestId("tag-list")
+           |> DomTestingLibrary.getByText(~matcher=`Str("dragons"))
+           |> FireEvent.click
+           |> resolve
+         })
+      |> then_(_ => {
+           TestUtils.ApiMock.fetch##calls
+           |> Belt.Array.getExn(_, 0)
+           |> Belt.Array.getExn(_, 0)
+           |> expect
+           |> toEqual(
+                "http://mock_your_requests/api/articles?limit=10&offset=0&tag=dragons",
+              )
+           |> resolve
+         });
+    });
+  });
 });

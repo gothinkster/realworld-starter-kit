@@ -38,32 +38,34 @@ module PopularTags = {
   let make = (~data: AsyncResult.t(Shape.Tags.t, Error.t), ~onClick) => {
     <>
       <p> "Popular Tags"->React.string </p>
-      <div className="tag-list">
-        {switch (data) {
-         | Init => React.string("Initilizing...")
-         | Loading => React.string("Loading...")
-         | Reloading(Ok(tags))
-         | Complete(Ok(tags)) =>
-           tags
-           |> Js.Array.map(tag =>
-                <a
-                  key=tag
-                  href="#"
-                  className="tag-pill tag-default"
-                  onClick={event =>
-                    if (Utils.isMouseRightClick(event)) {
-                      event->ReactEvent.Mouse.preventDefault;
-                      tag->onClick->ignore;
-                    }
-                  }>
-                  tag->React.string
-                </a>
-              )
-           |> React.array
-         | Reloading(Error(_error))
-         | Complete(Error(_error)) => React.string("ERROR")
-         }}
-      </div>
+      <WithTestId id="tag-list">
+        <div className="tag-list">
+          {switch (data) {
+           | Init => React.string("Initilizing...")
+           | Loading => React.string("Loading...")
+           | Reloading(Ok(tags))
+           | Complete(Ok(tags)) =>
+             tags
+             |> Js.Array.map(tag =>
+                  <a
+                    key=tag
+                    href="#"
+                    className="tag-pill tag-default"
+                    onClick={event =>
+                      if (Utils.isMouseRightClick(event)) {
+                        event->ReactEvent.Mouse.preventDefault;
+                        tag->onClick->ignore;
+                      }
+                    }>
+                    tag->React.string
+                  </a>
+                )
+             |> React.array
+           | Reloading(Error(_error))
+           | Complete(Error(_error)) => React.string("ERROR")
+           }}
+        </div>
+      </WithTestId>
     </>;
   };
 };
@@ -98,74 +100,78 @@ let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
     <div className="container page">
       <div className="row">
         <div className="col-md-9">
-          <div className="feed-toggle">
-            <ul className="nav nav-pills outline-active">
-              {switch (currentUser) {
-               | Init
-               | Loading
-               | Reloading(_)
-               | Complete(None) => React.null
-               | Complete(Some(_user)) =>
-                 <li className="nav-item">
-                   <a
-                     className={
-                       switch (feedType, selectedTag) {
-                       | (Some(Global), None | Some(_))
-                       | (Some(Personal) | None, Some(_)) => "nav-link"
-                       | (None, None)
-                       | (Some(Personal), None) => "nav-link active"
+          <WithTestId id="feed-toggle">
+            <div className="feed-toggle">
+              <ul className="nav nav-pills outline-active">
+                {switch (currentUser) {
+                 | Init
+                 | Loading
+                 | Reloading(_)
+                 | Complete(None) => React.null
+                 | Complete(Some(_user)) =>
+                   <li className="nav-item">
+                     <a
+                       className={
+                         switch (feedType, selectedTag) {
+                         | (Some(Global), None | Some(_))
+                         | (Some(Personal) | None, Some(_)) => "nav-link"
+                         | (None, None)
+                         | (Some(Personal), None) => "nav-link active"
+                         }
                        }
-                     }
-                     href="#your_feed"
-                     onClick={event =>
-                       if (Utils.isMouseRightClick(event)
-                           && AsyncResult.isIdle(currentUser)) {
-                         event->ReactEvent.Mouse.preventDefault;
-                         setFeedType(_ => Some(Shape.Personal));
-                         setSelectedTag(_ => None);
-                       }
-                     }>
-                     "Your Feed"->React.string
-                   </a>
-                 </li>
-               }}
-              <li className="nav-item">
-                <a
-                  className={
-                    switch (feedType, selectedTag) {
-                    | (Some(Global), None) => "nav-link active"
-                    | (None | Some(Global) | Some(Personal), Some(_))
-                    | (None | Some(Personal), None) => "nav-link"
+                       href="#your_feed"
+                       onClick={event =>
+                         if (Utils.isMouseRightClick(event)
+                             && AsyncResult.isIdle(currentUser)) {
+                           event->ReactEvent.Mouse.preventDefault;
+                           setFeedType(_ => Some(Shape.Personal));
+                           setSelectedTag(_ => None);
+                         }
+                       }>
+                       "Your Feed"->React.string
+                     </a>
+                   </li>
+                 }}
+                <li className="nav-item">
+                  <a
+                    className={
+                      switch (feedType, selectedTag) {
+                      | (Some(Global), None) => "nav-link active"
+                      | (None | Some(Global) | Some(Personal), Some(_))
+                      | (None | Some(Personal), None) => "nav-link"
+                      }
                     }
-                  }
-                  href="#global"
-                  onClick={event =>
-                    if (Utils.isMouseRightClick(event)
-                        && AsyncResult.isIdle(currentUser)) {
-                      event->ReactEvent.Mouse.preventDefault;
-                      setFeedType(_ => Some(Shape.Global));
-                      setSelectedTag(_ => None);
-                    }
-                  }>
-                  "Global Feed"->React.string
-                </a>
-              </li>
-              {switch (selectedTag) {
-               | Some(tag) =>
-                 <li className="nav-item">
-                   <a
-                     className="nav-link active"
-                     href="#"
-                     onClick={event => event->ReactEvent.Mouse.preventDefault}>
-                     <i className="ion-pound" />
-                     " "->React.string
-                     tag->React.string
-                   </a>
-                 </li>
-               | None => React.null
-               }}
-            </ul>
-          </div>
+                    href="#global"
+                    onClick={event =>
+                      if (Utils.isMouseRightClick(event)
+                          && AsyncResult.isIdle(currentUser)) {
+                        event->ReactEvent.Mouse.preventDefault;
+                        setFeedType(_ => Some(Shape.Global));
+                        setSelectedTag(_ => None);
+                      }
+                    }>
+                    "Global Feed"->React.string
+                  </a>
+                </li>
+                {switch (selectedTag) {
+                 | Some(tag) =>
+                   <li className="nav-item">
+                     <a
+                       className="nav-link active"
+                       href="#"
+                       onClick={event =>
+                         event->ReactEvent.Mouse.preventDefault
+                       }>
+                       <i className="ion-pound" />
+                       " "->React.string
+                       tag->React.string
+                     </a>
+                   </li>
+                 | None => React.null
+                 }}
+              </ul>
+            </div>
+          </WithTestId>
           {switch (articles) {
            | Init => React.string("Initilizing...")
            | Loading => React.string("Loading...")
