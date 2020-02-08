@@ -10,10 +10,11 @@ let guardByDidCancel: (React.Ref.t(bool), unit => unit) => unit =
 let useArticles:
   (
     ~currentUser: AsyncData.t(option(Shape.User.t)),
-    ~feedType: option(Shape.feedType)
+    ~feedType: option(Shape.feedType),
+    ~selectedTag: option(string)
   ) =>
   AsyncResult.t(Shape.Articles.t, Error.t) =
-  (~currentUser, ~feedType) => {
+  (~currentUser, ~feedType, ~selectedTag) => {
     let didCancel = React.useRef(false);
     let (data, setData) = React.useState(() => AsyncResult.init);
     let guard = guardByDidCancel(didCancel);
@@ -22,23 +23,28 @@ let useArticles:
       Some(() => React.Ref.setCurrent(didCancel, true))
     );
 
-    React.useEffect3(
+    React.useEffect4(
       () => {
         switch (currentUser) {
         | Init
         | Loading => ignore()
         | Reloading(user)
         | Complete(user) =>
-          let request =
-            switch (user, feedType) {
-            | (None, Some(Global) | Some(Personal) | None) => API.listArticles
-            | (Some(_), Some(Global)) => API.listArticles
-            | (Some(_), Some(Personal) | None) => API.feedArticles
-            };
-
           guard(() => setData(prev => prev |> AsyncResult.toBusy));
 
-          request()
+          (
+            switch (user, feedType) {
+            | (None, Some(Global) | Some(Personal) | None) =>
+              API.listArticles(~tag=?selectedTag, ())
+            | (Some(_), Some(Global)) =>
+              API.listArticles(~tag=?selectedTag, ())
+            | (Some(_), Some(Personal) | None) =>
+              switch (selectedTag) {
+              | None => API.feedArticles()
+              | tag => API.listArticles(~tag?, ())
+              }
+            }
+          )
           |> then_(data => {
                guard(() =>
                  setData(_prev =>
@@ -66,7 +72,7 @@ let useArticles:
 
         None;
       },
-      (currentUser, feedType, setData),
+      (currentUser, feedType, setData, selectedTag),
     );
 
     data;

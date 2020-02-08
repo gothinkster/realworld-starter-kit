@@ -3,12 +3,29 @@ open Fetch;
 
 module AsyncResult = Relude.AsyncResult;
 module AsyncData = Relude.AsyncData;
+module Option = Relude.Option;
 
 [@bs.scope ("window", "app")] [@bs.val] external backend: string = "backend";
 
 module Endpoints = {
-  let listArticles = Printf.sprintf("%s/api/articles", backend);
-  let feedArticles = Printf.sprintf("%s/api/articles/feed", backend);
+  let listArticles =
+      (~limit: int=10, ~offset: int=0, ~tag: option(string)=?, ()) =>
+    Printf.sprintf(
+      "%s/api/articles?limit=%d&offset=%d%s",
+      backend,
+      limit,
+      offset,
+      tag |> Option.map(someTag => "&tag=" ++ someTag) |> Option.getOrElse(""),
+    );
+
+  let feedArticles = (~limit: int=10, ~offset: int=0, ()) =>
+    Printf.sprintf(
+      "%s/api/articles/feed?limit=%d&offset=%d",
+      backend,
+      limit,
+      offset,
+    );
+
   let tags = Printf.sprintf("%s/api/tags", backend);
   let currentUser = Printf.sprintf("%s/api/user", backend);
 };
@@ -39,8 +56,8 @@ let parseJsonIfOk:
       |> reject;
     };
 
-let listArticles = () => {
-  Endpoints.listArticles
+let listArticles = (~limit=10, ~offset=0, ~tag=?, ()) => {
+  Endpoints.listArticles(~limit, ~offset, ~tag?, ())
   |> fetch
   |> then_(Response.json)
   |> then_(json => json |> Shape.Articles.decode |> resolve);
@@ -56,7 +73,7 @@ let feedArticles = () => {
       (),
     );
 
-  Endpoints.feedArticles
+  Endpoints.feedArticles()
   |> fetchWithInit(_, requestInit)
   |> then_(Response.json)
   |> then_(json => json |> Shape.Articles.decode |> resolve);

@@ -35,7 +35,7 @@ module ArticlePreview = {
 
 module PopularTags = {
   [@react.component]
-  let make = (~data: AsyncResult.t(Shape.Tags.t, Error.t)) => {
+  let make = (~data: AsyncResult.t(Shape.Tags.t, Error.t), ~onClick) => {
     <>
       <p> "Popular Tags"->React.string </p>
       <div className="tag-list">
@@ -46,7 +46,16 @@ module PopularTags = {
          | Complete(Ok(tags)) =>
            tags
            |> Js.Array.map(tag =>
-                <a key=tag href="#" className="tag-pill tag-default">
+                <a
+                  key=tag
+                  href="#"
+                  className="tag-pill tag-default"
+                  onClick={event =>
+                    if (Utils.isMouseRightClick(event)) {
+                      event->ReactEvent.Mouse.preventDefault;
+                      tag->onClick->ignore;
+                    }
+                  }>
                   tag->React.string
                 </a>
               )
@@ -74,8 +83,9 @@ let useFeedType = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
 
 [@react.component]
 let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
+  let (selectedTag, setSelectedTag) = React.useState(() => None);
   let (feedType, setFeedType) = useFeedType(~currentUser);
-  let articles = Hook.useArticles(~currentUser, ~feedType);
+  let articles = Hook.useArticles(~currentUser, ~feedType, ~selectedTag);
   let tags = Hook.useTags();
 
   <div className="home-page">
@@ -99,10 +109,11 @@ let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
                  <li className="nav-item">
                    <a
                      className={
-                       switch (feedType) {
-                       | Some(Global) => "nav-link"
-                       | None
-                       | Some(Personal) => "nav-link active"
+                       switch (feedType, selectedTag) {
+                       | (Some(Global), None | Some(_))
+                       | (Some(Personal) | None, Some(_)) => "nav-link"
+                       | (None, None)
+                       | (Some(Personal), None) => "nav-link active"
                        }
                      }
                      href="#your_feed"
@@ -111,6 +122,7 @@ let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
                            && AsyncResult.isIdle(currentUser)) {
                          event->ReactEvent.Mouse.preventDefault;
                          setFeedType(_ => Some(Shape.Personal));
+                         setSelectedTag(_ => None);
                        }
                      }>
                      "Your Feed"->React.string
@@ -120,10 +132,10 @@ let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
               <li className="nav-item">
                 <a
                   className={
-                    switch (feedType) {
-                    | Some(Global) => "nav-link active"
-                    | None
-                    | Some(Personal) => "nav-link"
+                    switch (feedType, selectedTag) {
+                    | (Some(Global), None) => "nav-link active"
+                    | (None | Some(Global) | Some(Personal), Some(_))
+                    | (None | Some(Personal), None) => "nav-link"
                     }
                   }
                   href="#global"
@@ -132,11 +144,26 @@ let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
                         && AsyncResult.isIdle(currentUser)) {
                       event->ReactEvent.Mouse.preventDefault;
                       setFeedType(_ => Some(Shape.Global));
+                      setSelectedTag(_ => None);
                     }
                   }>
                   "Global Feed"->React.string
                 </a>
               </li>
+              {switch (selectedTag) {
+               | Some(tag) =>
+                 <li className="nav-item">
+                   <a
+                     className="nav-link active"
+                     href="#"
+                     onClick={event => event->ReactEvent.Mouse.preventDefault}>
+                     <i className="ion-pound" />
+                     " "->React.string
+                     tag->React.string
+                   </a>
+                 </li>
+               | None => React.null
+               }}
             </ul>
           </div>
           {switch (articles) {
@@ -154,7 +181,12 @@ let make = (~currentUser: AsyncData.t(option(Shape.User.t))) => {
            }}
         </div>
         <div className="col-md-3">
-          <div className="sidebar"> <PopularTags data=tags /> </div>
+          <div className="sidebar">
+            <PopularTags
+              data=tags
+              onClick={tag => setSelectedTag(_ => Some(tag))->ignore}
+            />
+          </div>
         </div>
       </div>
     </div>
