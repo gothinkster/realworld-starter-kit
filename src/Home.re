@@ -71,19 +71,18 @@ module PopularTags = {
 };
 
 let useFeedType = (~user: option(Shape.User.t)) => {
-  let (feedType, setFeedType) = React.useState(() => None);
-
-  switch (user) {
-  | None => (Some(Shape.Global), setFeedType)
-  | Some(_) => (feedType, setFeedType)
-  };
+  React.useState(() =>
+    switch (user) {
+    | None => Shape.FeedType.Global(10, 0)
+    | Some(_) => Shape.FeedType.Personal(10, 0)
+    }
+  );
 };
 
 [@react.component]
 let make = (~user: option(Shape.User.t)) => {
-  let (selectedTag, setSelectedTag) = React.useState(() => None);
   let (feedType, setFeedType) = useFeedType(~user);
-  let articles = Hook.useArticles(~user, ~feedType, ~selectedTag);
+  let articles = Hook.useArticles(~feedType);
   let tags = Hook.useTags();
 
   <div className="home-page">
@@ -103,19 +102,17 @@ let make = (~user: option(Shape.User.t)) => {
                   <li className="nav-item">
                     <a
                       className={
-                        switch (feedType, selectedTag) {
-                        | (Some(Global), None | Some(_))
-                        | (Some(Personal) | None, Some(_)) => "nav-link"
-                        | (None, None)
-                        | (Some(Personal), None) => "nav-link active"
+                        switch (feedType) {
+                        | Tag(_)
+                        | Global(_) => "nav-link"
+                        | Personal(_) => "nav-link active"
                         }
                       }
                       href="#your_feed"
                       onClick={event =>
                         if (Utils.isMouseRightClick(event)) {
                           event->ReactEvent.Mouse.preventDefault;
-                          setFeedType(_ => Some(Shape.Personal));
-                          setSelectedTag(_ => None);
+                          setFeedType(_ => Personal(10, 0));
                         }
                       }>
                       "Your Feed"->React.string
@@ -125,25 +122,24 @@ let make = (~user: option(Shape.User.t)) => {
                 <li className="nav-item">
                   <a
                     className={
-                      switch (feedType, selectedTag) {
-                      | (Some(Global), None) => "nav-link active"
-                      | (None | Some(Global) | Some(Personal), Some(_))
-                      | (None | Some(Personal), None) => "nav-link"
+                      switch (feedType) {
+                      | Global(_) => "nav-link active"
+                      | Tag(_)
+                      | Personal(_) => "nav-link"
                       }
                     }
                     href="#global"
                     onClick={event =>
                       if (Utils.isMouseRightClick(event)) {
                         event->ReactEvent.Mouse.preventDefault;
-                        setFeedType(_ => Some(Shape.Global));
-                        setSelectedTag(_ => None);
+                        setFeedType(_ => Global(10, 0));
                       }
                     }>
                     "Global Feed"->React.string
                   </a>
                 </li>
-                {switch (selectedTag) {
-                 | Some(tag) =>
+                {switch (feedType) {
+                 | Tag(tag, _, _) =>
                    <li className="nav-item">
                      <a
                        className="nav-link active"
@@ -156,7 +152,8 @@ let make = (~user: option(Shape.User.t)) => {
                        tag->React.string
                      </a>
                    </li>
-                 | None => React.null
+                 | Global(_)
+                 | Personal(_) => React.null
                  }}
               </ul>
             </div>
@@ -179,7 +176,14 @@ let make = (~user: option(Shape.User.t)) => {
           <div className="sidebar">
             <PopularTags
               data=tags
-              onClick={tag => setSelectedTag(_ => Some(tag))->ignore}
+              onClick={tag =>
+                setFeedType(
+                  fun
+                  | Tag(_, limit, offset) => Tag(tag, limit, offset)
+                  | Global(_)
+                  | Personal(_) => Tag(tag, 10, 0),
+                )
+              }
             />
           </div>
         </div>

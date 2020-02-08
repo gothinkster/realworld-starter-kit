@@ -63,7 +63,7 @@ let listArticles = (~limit=10, ~offset=0, ~tag=?, ()) => {
   |> then_(json => json |> Shape.Articles.decode |> resolve);
 };
 
-let feedArticles = () => {
+let feedArticles = (~limit=10, ~offset=0, ()) => {
   let requestInit =
     RequestInit.make(
       ~headers=
@@ -73,7 +73,7 @@ let feedArticles = () => {
       (),
     );
 
-  Endpoints.feedArticles()
+  Endpoints.feedArticles(~limit, ~offset, ())
   |> fetchWithInit(_, requestInit)
   |> then_(Response.json)
   |> then_(json => json |> Shape.Articles.decode |> resolve);

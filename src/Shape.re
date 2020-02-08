@@ -1,8 +1,14 @@
 module Decode = Decode.AsResult.OfParseError;
 
-type feedType =
-  | Global
-  | Personal;
+module FeedType = {
+  type tag = string;
+  type limit = int;
+  type offset = int;
+  type t =
+    | Tag(tag, limit, offset)
+    | Global(limit, offset)
+    | Personal(limit, offset);
+};
 
 module Author = {
   type t = {
