@@ -5,7 +5,7 @@ module Function = Relude.Function;
 external rawAct: (unit => Js.Undefined.t(Js.Promise.t('a))) => unit = "act";
 
 [@bs.send.pipe: ReactTestingLibrary.renderResult]
-external queryAllByTestId: string => array(Dom.element) = "queryAllByTestId";
+external queryByTestId: string => Js.Null.t(Dom.element) = "queryByTestId";
 
 [@bs.module "@testing-library/dom"]
 external queryByText:

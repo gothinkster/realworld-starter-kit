@@ -30,7 +30,7 @@ describe("Home component", () => {
        );
   });
 
-  testPromise("Query data aginst /list/articles endpoint", () => {
+  testPromise("Query data against /list/articles endpoint", () => {
     let wrapper = render(<App />);
 
     DomTestingLibrary.waitForElement(
@@ -190,7 +190,7 @@ describe("Home component", () => {
     });
 
     testPromise(
-      {|Query data aginst /list/articles endpoint even current tab is "Your Feed"|},
+      {|Query data against /list/articles endpoint even current tab is "Your Feed"|},
       () => {
         ApiMock.doMock(
           ~pipeline=
@@ -205,20 +205,37 @@ describe("Home component", () => {
           (),
         )
         |> then_(_ => {
+             JestFetchMock.resetMocks();
+             ApiMock.doMock(
+               ~pipeline=ApiMock.succeed |> ApiMock.articles,
+               (),
+             );
+
              wrapper
              |> getByTestId("tag-list")
              |> DomTestingLibrary.getByText(~matcher=`Str("dragons"))
              |> FireEvent.click
-             |> resolve
+             |> ignore;
+
+             DomTestingLibrary.waitForElement(
+               ~callback=
+                 () =>
+                   wrapper
+                   |> getByText(~matcher=`Str("How to train your dragon")),
+               (),
+             );
            })
         |> then_(_ => {
              TestUtils.ApiMock.fetch##calls
-             |> Belt.Array.getExn(_, 0)
-             |> Belt.Array.getExn(_, 0)
-             |> expect
-             |> toEqual(
-                  "http://mock_your_requests/api/articles?limit=10&offset=0&tag=dragons",
+             |> Belt.Array.map(_, call =>
+                  call->Belt.Array.get(0)->Option.getOrElse("", _)
                 )
+             |> Belt.Array.some(_, url =>
+                  url
+                  == "http://mock_your_requests/api/articles?limit=10&offset=0&tag=dragons"
+                )
+             |> expect
+             |> toEqual(true)
              |> resolve
            });
       },
@@ -237,9 +254,9 @@ describe("Home component", () => {
       )
       |> then_(_ =>
            wrapper
-           |> TestUtils.queryAllByTestId("page-link")
+           |> TestUtils.queryByTestId("page-link")
            |> expect
-           |> toEqual([||])
+           |> toEqual(Js.null)
            |> resolve
          );
     });
@@ -268,7 +285,7 @@ describe("Home component", () => {
          );
     });
 
-    testPromise("show 10 pages (aliquot)", () => {
+    testPromise("show 2 pages (aliquot)", () => {
       ApiMock.doMock(
         ~pipeline=
           ApiMock.succeed
