@@ -195,12 +195,17 @@ let make = (~user: option(Shape.User.t)) => {
                  | Global(_)
                  | Personal(_) => React.null
                  }}
+                {if (articles |> AsyncResult.isBusy) {
+                   <li className="nav-item"> <Spinner /> </li>;
+                 } else {
+                   React.null;
+                 }}
               </ul>
             </div>
           </WithTestId>
           {switch (articles) {
-           | Init => React.string("Initilizing...")
-           | Loading => React.string("Loading...")
+           | Init => React.null
+           | Loading => React.null
            | Reloading(Ok({articles}))
            | Complete(Ok({articles})) =>
              articles
