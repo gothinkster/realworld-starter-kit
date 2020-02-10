@@ -136,3 +136,92 @@ let useCurrentUser: unit => AsyncData.t(option(Shape.User.t)) =
 
     data;
   };
+
+let useArticle: (~slug: string) => AsyncResult.t(Shape.Article.t, Error.t) =
+  (~slug) => {
+    let didCancel = React.useRef(false);
+    let (data, setData) = React.useState(() => AsyncResult.init);
+    let guard = guardByDidCancel(didCancel);
+
+    React.useEffect0(() =>
+      Some(() => React.Ref.setCurrent(didCancel, true))
+    );
+
+    React.useEffect2(
+      () => {
+        guard(() => setData(prev => prev |> AsyncResult.toBusy));
+
+        API.getArticle(~slug, ())
+        |> then_(data => {
+             guard(() =>
+               setData(_prev =>
+                 switch (data) {
+                 | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
+                 | Error(error) => error |> AsyncResult.completeError
+                 }
+               )
+             )
+             |> resolve
+           })
+        |> catch(error => {
+             guard(() =>
+               setData(_prev =>
+                 Error.EFetch(error) |> AsyncResult.completeError
+               )
+             )
+             |> resolve
+           })
+        |> ignore;
+
+        None;
+      },
+      (slug, setData),
+    );
+
+    data;
+  };
+
+let useComments:
+  (~slug: string) => AsyncResult.t(array(Shape.Comment.t), Error.t) =
+  (~slug) => {
+    let didCancel = React.useRef(false);
+    let (data, setData) = React.useState(() => AsyncResult.init);
+    let guard = guardByDidCancel(didCancel);
+
+    React.useEffect0(() =>
+      Some(() => React.Ref.setCurrent(didCancel, true))
+    );
+
+    React.useEffect2(
+      () => {
+        guard(() => setData(prev => prev |> AsyncResult.toBusy));
+
+        API.getComments(~slug, ())
+        |> then_(data => {
+             guard(() =>
+               setData(_prev =>
+                 switch (data) {
+                 | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
+                 | Error(error) => error |> AsyncResult.completeError
+                 }
+               )
+             )
+             |> resolve
+           })
+        |> catch(error => {
+             guard(() =>
+               setData(_prev =>
+                 Error.EFetch(error) |> AsyncResult.completeError
+               )
+             )
+             |> resolve
+           })
+        |> ignore;
+
+        None;
+      },
+      (slug, setData),
+    );
+
+    data;
+  };

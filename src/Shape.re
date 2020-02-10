@@ -91,7 +91,8 @@ module Article = {
       Author.empty,
     );
 
-  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+  let decodeArticle =
+      (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
     Decode.Pipeline.(
       succeed(make)
       |> field("slug", string)
@@ -106,6 +107,9 @@ module Article = {
       |> field("author", Author.decode)
       |> run(json)
     );
+
+  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+    Decode.(field("article", decodeArticle, json));
 };
 
 module Articles = {
@@ -178,4 +182,68 @@ module User = {
 
   let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
     Decode.field("user", decodeUser, json);
+};
+
+module CommentUser = {
+  type t = {
+    username: string,
+    bio: option(string),
+    image: string,
+    following: bool,
+  };
+
+  let make = (username, bio, image, following) => {
+    username,
+    bio,
+    image,
+    following,
+  };
+
+  let empty = make("", None, "", false);
+
+  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+    Decode.Pipeline.(
+      succeed(make)
+      |> field("username", string)
+      |> optionalField("bio", string)
+      |> field("image", string)
+      |> field("following", boolean)
+      |> run(json)
+    );
+};
+
+module Comment = {
+  type t = {
+    id: int,
+    createdAt: Js.Date.t,
+    updatedAt: Js.Date.t,
+    body: string,
+    author: CommentUser.t,
+  };
+
+  let make = (id, createdAt, updatedAt, body, author) => {
+    id,
+    createdAt,
+    updatedAt,
+    body,
+    author,
+  };
+
+  let empty = make(0, Js.Date.make(), Js.Date.make(), "", CommentUser.empty);
+
+  let decodeComment =
+      (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+    Decode.Pipeline.(
+      succeed(make)
+      |> field("id", intFromNumber)
+      |> field("createdAt", date)
+      |> field("updatedAt", date)
+      |> field("body", string)
+      |> field("author", CommentUser.decode)
+      |> run(json)
+    );
+
+  let decode =
+      (json: Js.Json.t): Belt.Result.t(array(t), Decode.ParseError.failure) =>
+    Decode.field("comments", Decode.Pipeline.array(decodeComment), json);
 };

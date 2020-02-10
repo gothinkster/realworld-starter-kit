@@ -18,7 +18,7 @@ let make = () => {
        | Register => <Register />
        | CreateArticle => <Editor />
        | EditArticle(slug) => <Editor slug />
-       | Article(slug) => <Article slug />
+       | Article(slug) => <Article slug user />
        | Profile(username) => <Profile viewMode={Profile.Author(username)} />
        | Favorited(username) =>
          <Profile viewMode={Profile.Favorited(username)} />

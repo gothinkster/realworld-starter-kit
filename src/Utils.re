@@ -31,3 +31,12 @@ let isMouseRightClick = event =>
   && !event->ReactEvent.Mouse.ctrlKey
   && !event->ReactEvent.Mouse.metaKey
   && !event->ReactEvent.Mouse.shiftKey;
+
+let formatDate: Js.Date.t => string =
+  date =>
+    Printf.sprintf(
+      "%04.0f/%02.0f/%02.0f",
+      date->Js.Date.getFullYear,
+      date->Js.Date.getMonth,
+      date->Js.Date.getDate,
+    );

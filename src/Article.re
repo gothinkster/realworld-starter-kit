@@ -1,142 +1,257 @@
+open Relude.Globals;
+
+module Comments = {
+  [@react.component]
+  let make =
+      (
+        ~data: AsyncResult.t(array(Shape.Comment.t), Error.t),
+        ~user: option(Shape.User.t),
+      ) => {
+    switch (data) {
+    | Init
+    | Loading
+    | Reloading(Error(_)) => <Spinner />
+    | Complete(Error(_)) => "ERROR"->React.string
+    | Reloading(Ok(comments))
+    | Complete(Ok(comments)) =>
+      comments
+      ->Belt.Array.map((comment: Shape.Comment.t) =>
+          <div className="card" key={comment.id->string_of_int}>
+            <div className="card-block">
+              <p className="card-text"> comment.body->React.string </p>
+            </div>
+            <div className="card-footer">
+              <Link
+                location={Link.profile(~username=comment.author.username)}
+                className="comment-author"
+                style={ReactDOMRe.Style.make(~marginRight="7px", ())}>
+                {switch (comment.author.image) {
+                 | "" => <img className="comment-author-img" />
+                 | src => <img src className="comment-author-img" />
+                 }}
+              </Link>
+              <Link
+                location={Link.profile(~username=comment.author.username)}
+                className="comment-author">
+                comment.author.username->React.string
+              </Link>
+              <span className="date-posted">
+                {comment.createdAt->Utils.formatDate->React.string}
+              </span>
+              <span className="mod-options">
+                {// TODO: implement "edit" icon
+                 false
+                   ? <i className="ion-edit" /> : React.null}
+                {switch (user) {
+                 | Some({username}) when username == comment.author.username =>
+                   // TODO: implement "click" action
+                   <i className="ion-trash-a" />
+                 | Some(_)
+                 | None => React.null
+                 }}
+              </span>
+            </div>
+          </div>
+        )
+      ->React.array
+    };
+  };
+};
+
+module FavoriteButton = {
+  [@react.component]
+  let make = (~article) => {
+    let isOk = AsyncResult.isOk(article);
+    let favorited =
+      article
+      |> AsyncResult.getOk
+      |> Option.map((ok: Shape.Article.t) => ok.favorited)
+      |> Option.getOrElse(false);
+    let favoritesCount =
+      article
+      |> AsyncResult.getOk
+      |> Option.map((ok: Shape.Article.t) => ok.favoritesCount)
+      |> Option.getOrElse(0);
+
+    <button
+      className={
+        favorited ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-primary"
+      }
+      style={ReactDOMRe.Style.make(~marginLeft="5px", ())}>
+      <i
+        className="ion-heart"
+        style={ReactDOMRe.Style.make(~marginRight="5px", ())}
+      />
+      {isOk
+         ? if (favorited) {
+             "Unfavorite Article "->React.string;
+           } else {
+             "Favorite Article "->React.string;
+           }
+         : React.null}
+      <span className="counter">
+        {isOk
+           ? Printf.sprintf("(%d)", favoritesCount)->React.string : React.null}
+      </span>
+    </button>;
+  };
+};
+
+module FollowButton = {
+  [@react.component]
+  let make = (~article) => {
+    let isOk = AsyncResult.isOk(article);
+    let following =
+      article
+      |> AsyncResult.getOk
+      |> Option.map((ok: Shape.Article.t) => ok.author.following)
+      |> Option.getOrElse(false);
+    let username =
+      article
+      |> AsyncResult.getOk
+      |> Option.map((ok: Shape.Article.t) => ok.author.username)
+      |> Option.getOrElse("");
+
+    <button
+      className={
+        following
+          ? "btn btn-sm btn-secondary" : "btn btn-sm btn-outline-secondary"
+      }>
+      <i
+        className="ion-plus-round"
+        style={ReactDOMRe.Style.make(~marginRight="5px", ())}
+      />
+      {isOk
+         ? Printf.sprintf(
+             "%s %s",
+             following ? "Unfollow" : "Follow",
+             username,
+           )
+           ->React.string
+         : React.null}
+    </button>;
+  };
+};
+
+module ArticleDate = {
+  [@react.component]
+  let make = (~article) => {
+    article
+    |> AsyncResult.getOk
+    |> Option.map((ok: Shape.Article.t) => ok.createdAt)
+    |> Option.map(createdAt => createdAt |> Utils.formatDate |> React.string)
+    |> Option.getOrElse(React.null);
+  };
+};
+
+module ArticleAuthorName = {
+  [@react.component]
+  let make = (~article) => {
+    article
+    |> AsyncResult.getOk
+    |> Option.map((ok: Shape.Article.t) => ok.author)
+    |> Option.map((author: Shape.Author.t) =>
+         <Link
+           location={Link.profile(~username=author.username)}
+           className="author">
+           {author.username |> React.string}
+         </Link>
+       )
+    |> Option.getOrElse(React.null);
+  };
+};
+
+module ArticleAuthorAvatar = {
+  [@react.component]
+  let make = (~article) => {
+    article
+    |> AsyncResult.getOk
+    |> Option.map((ok: Shape.Article.t) => ok.author)
+    |> Option.map((author: Shape.Author.t) =>
+         <Link location={Link.profile(~username=author.username)}>
+           <img src={author.image} />
+         </Link>
+       )
+    |> Option.getOrElse(React.null);
+  };
+};
+
 [@react.component]
-let make = (~slug: string) => {
-  let username = "";
+let make = (~slug: string, ~user: option(Shape.User.t)) => {
+  let article = Hook.useArticle(~slug);
+  let comments = Hook.useComments(~slug);
 
   <div className="article-page">
     <div className="banner">
       <div className="container">
-        <h1> "How to build webapps that scale"->React.string </h1>
+        <h1>
+          {article
+           |> AsyncResult.getOk
+           |> Option.map((ok: Shape.Article.t) => ok.title)
+           |> Option.map(title => title |> React.string)
+           |> Option.getOrElse(React.null)}
+        </h1>
         <div className="article-meta">
-          <Link location={Link.profile(~username)}>
-            <img src="http://i.imgur.com/Qr71crq.jpg" />
-          </Link>
+          <ArticleAuthorAvatar article />
           <div className="info">
-            <Link location={Link.profile(~username)} className="author">
-              "Eric Simons"->React.string
-            </Link>
-            <span className="date"> "January 20th"->React.string </span>
+            <ArticleAuthorName article />
+            <span className="date"> <ArticleDate article /> </span>
           </div>
-          <button className="btn btn-sm btn-outline-secondary">
-            <i className="ion-plus-round" />
-            " Follow Eric Simons "->React.string
-            <span className="counter"> "(10)"->React.string </span>
-          </button>
-          <button className="btn btn-sm btn-outline-primary">
-            <i className="ion-heart" />
-            " Favorite Post "->React.string
-            <span className="counter"> "(29)"->React.string </span>
-          </button>
+          <FollowButton article />
+          <FavoriteButton article />
         </div>
       </div>
     </div>
     <div className="container page">
       <div className="row article-content">
         <div className="col-md-12">
-          <p>
-            "Web development technologies have evolved at an incredible clip over the past few years."
-            ->React.string
-          </p>
-          <h2 id="introducing-ionic">
-            "Introducing RealWorld."->React.string
-          </h2>
-          <p>
-            "It's a great solution for learning how other frameworks work."
-            ->React.string
-          </p>
+          {switch (article) {
+           | Init
+           | Loading => <Spinner />
+           | Reloading(Ok({body}))
+           | Complete(Ok({body})) => body->React.string
+           | Reloading(Error(_error))
+           | Complete(Error(_error)) => "ERROR"->React.string
+           }}
         </div>
       </div>
       <hr />
       <div className="article-actions">
         <div className="article-meta">
-          <Link location={Link.profile(~username)}>
-            <img src="http://i.imgur.com/Qr71crq.jpg" />
-          </Link>
+          <ArticleAuthorAvatar article />
           <div className="info">
-            <Link location={Link.profile(~username)} className="author">
-              "Eric Simons"->React.string
-            </Link>
-            <span className="date"> "January 20th"->React.string </span>
+            <ArticleAuthorName article />
+            <span className="date"> <ArticleDate article /> </span>
           </div>
-          <button className="btn btn-sm btn-outline-secondary">
-            <i className="ion-plus-round" />
-            " Follow Eric Simons "->React.string
-            <span className="counter"> "(10)"->React.string </span>
-          </button>
-          <button className="btn btn-sm btn-outline-primary">
-            <i className="ion-heart" />
-            " Favorite Post "->React.string
-            <span className="counter"> "(29)"->React.string </span>
-          </button>
+          <FollowButton article />
+          <FavoriteButton article />
         </div>
       </div>
       <div className="row">
         <div className="col-xs-12 col-md-8 offset-md-2">
-          <form className="card comment-form">
-            <div className="card-block">
-              <textarea
-                className="form-control"
-                placeholder="Write a comment..."
-                rows=3
-              />
-            </div>
-            <div className="card-footer">
-              <img
-                src="http://i.imgur.com/Qr71crq.jpg"
-                className="comment-author-img"
-              />
-              <button className="btn btn-sm btn-primary">
-                "Post Comment"->React.string
-              </button>
-            </div>
-          </form>
-          <div className="card">
-            <div className="card-block">
-              <p className="card-text">
-                "With supporting text below as a natural lead-in to additional content."
-                ->React.string
-              </p>
-            </div>
-            <div className="card-footer">
-              <Link
-                location={Link.profile(~username)} className="comment-author">
-                <img
-                  src="http://i.imgur.com/Qr71crq.jpg"
-                  className="comment-author-img"
-                />
-              </Link>
-              <Link
-                location={Link.profile(~username)} className="comment-author">
-                "Jacob Schmidt"->React.string
-              </Link>
-              <span className="date-posted"> "Dec 29th"->React.string </span>
-            </div>
-          </div>
-          <div className="card">
-            <div className="card-block">
-              <p className="card-text">
-                "With supporting text below as a natural lead-in to additional content."
-                ->React.string
-              </p>
-            </div>
-            <div className="card-footer">
-              <Link
-                location={Link.profile(~username)} className="comment-author">
-                <img
-                  src="http://i.imgur.com/Qr71crq.jpg"
-                  className="comment-author-img"
-                />
-              </Link>
-              <Link
-                location={Link.profile(~username)} className="comment-author">
-                "Jacob Schmidt"->React.string
-              </Link>
-              <span className="date-posted"> "Dec 29th"->React.string </span>
-              <span className="mod-options">
-                <i className="ion-edit" />
-                <i className="ion-trash-a" />
-              </span>
-            </div>
-          </div>
+          {switch (user) {
+           | Some({image}) =>
+             <form className="card comment-form">
+               <div className="card-block">
+                 <textarea
+                   className="form-control"
+                   placeholder="Write a comment..."
+                   rows=3
+                 />
+               </div>
+               <div className="card-footer">
+                 {switch (image) {
+                  | "" => <img className="comment-author-img" />
+                  | src => <img src className="comment-author-img" />
+                  }}
+                 <button className="btn btn-sm btn-primary">
+                   /* TODO: implement "click" action */
+                    "Post Comment"->React.string </button>
+               </div>
+             </form>
+           | None => React.null
+           }}
+          <Comments data=comments user />
         </div>
       </div>
     </div>

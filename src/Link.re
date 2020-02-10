@@ -16,12 +16,14 @@ let favorited = (~username) =>
   make(Printf.sprintf("/#/profile/%s/favorites", username));
 
 [@react.component]
-let make = (~className="", ~location, ~children) => {
+let make =
+    (~className="", ~style=ReactDOMRe.Style.make(), ~location, ~children) => {
   let href = location->toString;
 
   <a
     className
     href
+    style
     onClick={event =>
       if (Utils.isMouseRightClick(event)) {
         event->ReactEvent.Mouse.preventDefault;
