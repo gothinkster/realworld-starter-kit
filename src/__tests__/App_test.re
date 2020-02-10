@@ -127,6 +127,8 @@ describe("App component", () => {
   });
 
   testPromise("renders article page", () => {
+    ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.article, ());
+
     let wrapper = render(<App />);
 
     act(() => ReasonReactRouter.push("/#/article/slug"));
@@ -134,16 +136,14 @@ describe("App component", () => {
     DomTestingLibrary.waitForElement(
       ~callback=
         () =>
-          wrapper
-          |> getByText(~matcher=`Str("How to build webapps that scale")),
+          wrapper |> getByText(~matcher=`Str("How to train your dragon")),
       (),
     )
     |> then_(_ =>
          wrapper
-         |> getByText(~matcher=`Str("How to build webapps that scale"))
-         |> Webapi.Dom.Element.innerHTML
+         |> getByText(~matcher=`Str("How to train your dragon"))
          |> expect
-         |> toEqual("How to build webapps that scale")
+         |> toBeInTheDocument
          |> resolve
        );
   });

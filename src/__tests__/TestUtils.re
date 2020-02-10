@@ -118,6 +118,26 @@ module ApiMock = {
     "token": "eyJ0eX.eyJpZCI.rLH25U9Z"
   }
 }|};
+
+    let article = {|{
+  "article": {
+    "title": "How to train your dragon",
+    "slug": "how-to-train-your-dragon-sbr0z2",
+    "body": "Very carefully.",
+    "createdAt": "2018-06-03T15:44:01.786Z",
+    "updatedAt": "2018-06-03T15:44:01.786Z",
+    "tagList": ["training", "dragons"],
+    "description": "Ever wonder how?",
+    "author": {
+      "username": "johnnyjacob",
+      "bio": null,
+      "image": "https://static.productionready.io/images/smiley-cyrus.jpg",
+      "following": true
+    },
+    "favorited": true,
+    "favoritesCount": 12
+  }
+}|};
   };
 
   let unathorized401 =
@@ -196,6 +216,20 @@ module ApiMock = {
     pipe(pathname =>
       if (pathname == "/api/user") {
         SampleData.user |> Result.error;
+      } else {
+        pathname |> Result.ok;
+      }
+    );
+
+  let article:
+    (
+      Result.t(string, string) => Result.t(string, string),
+      Result.t(string, string)
+    ) =>
+    Result.t(string, string) =
+    pipe(pathname =>
+      if (pathname == "/api/articles/slug") {
+        SampleData.article |> Result.error;
       } else {
         pathname |> Result.ok;
       }

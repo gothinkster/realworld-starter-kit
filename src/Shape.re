@@ -125,7 +125,7 @@ module Articles = {
   let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
     Decode.Pipeline.(
       succeed(make)
-      |> field("articles", array(Article.decode))
+      |> field("articles", array(Article.decodeArticle))
       |> field("articlesCount", intFromNumber)
       |> run(json)
     );
