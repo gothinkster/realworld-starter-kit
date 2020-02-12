@@ -1,5 +1,20 @@
 open Relude.Globals;
 
+module TagList = {
+  [@react.component]
+  let make = (~data: array(string)) => {
+    <ul className="tag-list">
+      {data
+       ->Belt.Array.map(tag =>
+           <li key=tag className="tag-default tag-pill tag-outline">
+             tag->React.string
+           </li>
+         )
+       ->React.array}
+    </ul>;
+  };
+};
+
 module Comments = {
   [@react.component]
   let make =
@@ -205,13 +220,23 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
     <div className="container page">
       <div className="row article-content">
         <div className="col-md-12">
+          <div style={ReactDOMRe.Style.make(~marginBottom="2rem", ())}>
+            {switch (article) {
+             | Init
+             | Loading => <Spinner />
+             | Reloading(Ok({body}))
+             | Complete(Ok({body})) => body->React.string
+             | Reloading(Error(_error))
+             | Complete(Error(_error)) => "ERROR"->React.string
+             }}
+          </div>
           {switch (article) {
            | Init
-           | Loading => <Spinner />
-           | Reloading(Ok({body}))
-           | Complete(Ok({body})) => body->React.string
-           | Reloading(Error(_error))
-           | Complete(Error(_error)) => "ERROR"->React.string
+           | Loading
+           | Reloading(Error(_))
+           | Complete(Error(_)) => React.null
+           | Reloading(Ok({tagList}))
+           | Complete(Ok({tagList})) => <TagList data=tagList />
            }}
         </div>
       </div>
@@ -249,7 +274,17 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
                     "Post Comment"->React.string </button>
                </div>
              </form>
-           | None => React.null
+           | None =>
+             <p>
+               <Link className="nav-link" location=Link.login>
+                 "Sign in"->React.string
+               </Link>
+               " or "->React.string
+               <Link className="nav-link" location=Link.register>
+                 "sign up"->React.string
+               </Link>
+               " to add comments on this article."->React.string
+             </p>
            }}
           <Comments data=comments user />
         </div>
