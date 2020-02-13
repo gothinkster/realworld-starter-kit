@@ -33,3 +33,23 @@ let make =
     children
   </a>;
 };
+
+module Button = {
+  [@react.component]
+  let make =
+      (~className="", ~style=ReactDOMRe.Style.make(), ~location, ~children) => {
+    let href = location->toString;
+
+    <button
+      className
+      style
+      onClick={event =>
+        if (Utils.isMouseRightClick(event)) {
+          event->ReactEvent.Mouse.preventDefault;
+          href->ReasonReactRouter.push;
+        }
+      }>
+      children
+    </button>;
+  };
+};

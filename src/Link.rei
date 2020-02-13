@@ -40,3 +40,34 @@ let make:
     "location": location',
   } =>
   ReasonReact.reactElement;
+
+module Button: {
+  [@bs.obj]
+  external makeProps:
+    (
+      ~className: 'className=?,
+      ~style: 'style=?,
+      ~location: 'location,
+      ~children: 'children,
+      ~key: string=?,
+      unit
+    ) =>
+    {
+      .
+      "children": 'children,
+      "className": option('className),
+      "style": option('style),
+      "location": 'location,
+    } =
+    "";
+
+  let make:
+    {
+      .
+      "children": ReasonReact.reactElement,
+      "className": option(string),
+      "style": option(ReactDOMRe.Style.t),
+      "location": location',
+    } =>
+    ReasonReact.reactElement;
+};

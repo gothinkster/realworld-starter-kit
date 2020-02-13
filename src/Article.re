@@ -88,11 +88,12 @@ module FavoriteButton = {
       |> Option.map((ok: Shape.Article.t) => ok.favoritesCount)
       |> Option.getOrElse(0);
 
-    <button
+    <Link.Button
       className={
         favorited ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-primary"
       }
-      style={ReactDOMRe.Style.make(~marginLeft="5px", ())}>
+      style={ReactDOMRe.Style.make(~marginLeft="5px", ())}
+      location=Link.register>
       <i
         className="ion-heart"
         style={ReactDOMRe.Style.make(~marginRight="5px", ())}
@@ -108,7 +109,7 @@ module FavoriteButton = {
         {isOk
            ? Printf.sprintf("(%d)", favoritesCount)->React.string : React.null}
       </span>
-    </button>;
+    </Link.Button>;
   };
 };
 
@@ -127,11 +128,12 @@ module FollowButton = {
       |> Option.map((ok: Shape.Article.t) => ok.author.username)
       |> Option.getOrElse("");
 
-    <button
+    <Link.Button
       className={
         following
           ? "btn btn-sm btn-secondary" : "btn btn-sm btn-outline-secondary"
-      }>
+      }
+      location=Link.register>
       <i
         className="ion-plus-round"
         style={ReactDOMRe.Style.make(~marginRight="5px", ())}
@@ -144,7 +146,7 @@ module FollowButton = {
            )
            ->React.string
          : React.null}
-    </button>;
+    </Link.Button>;
   };
 };
 
