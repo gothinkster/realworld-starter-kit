@@ -1,5 +1,9 @@
 type location';
 
+type onClickAction =
+  | Location(location')
+  | CustomFn(unit => unit);
+
 external make: string => location' = "%identity";
 external toString: location' => string = "%identity";
 
@@ -37,18 +41,21 @@ let make =
 module Button = {
   [@react.component]
   let make =
-      (~className="", ~style=ReactDOMRe.Style.make(), ~location, ~children) => {
-    let href = location->toString;
-
+      (~className="", ~style=ReactDOMRe.Style.make(), ~onClick, ~children) => {
     <button
       className
       style
-      onClick={event =>
-        if (Utils.isMouseRightClick(event)) {
-          event->ReactEvent.Mouse.preventDefault;
-          href->ReasonReactRouter.push;
-        }
-      }>
+      onClick={event => {
+        switch (onClick) {
+        | Location(location) =>
+          if (Utils.isMouseRightClick(event)) {
+            event->ReactEvent.Mouse.preventDefault;
+            location->toString->ReasonReactRouter.push;
+          }
+        | CustomFn(fn) => fn()
+        };
+        ignore();
+      }}>
       children
     </button>;
   };

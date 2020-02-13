@@ -1,5 +1,9 @@
 type location';
 
+type onClickAction =
+  | Location(location')
+  | CustomFn(unit => unit);
+
 external toString: location' => string = "%identity";
 
 let home: location';
@@ -47,7 +51,7 @@ module Button: {
     (
       ~className: 'className=?,
       ~style: 'style=?,
-      ~location: 'location,
+      ~onClick: onClickAction,
       ~children: 'children,
       ~key: string=?,
       unit
@@ -57,7 +61,7 @@ module Button: {
       "children": 'children,
       "className": option('className),
       "style": option('style),
-      "location": 'location,
+      "onClick": onClickAction,
     } =
     "";
 
@@ -67,7 +71,7 @@ module Button: {
       "children": ReasonReact.reactElement,
       "className": option(string),
       "style": option(ReactDOMRe.Style.t),
-      "location": location',
+      "onClick": onClickAction,
     } =>
     ReasonReact.reactElement;
 };

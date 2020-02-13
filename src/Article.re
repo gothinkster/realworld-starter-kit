@@ -75,7 +75,7 @@ module Comments = {
 
 module FavoriteButton = {
   [@react.component]
-  let make = (~article) => {
+  let make = (~article, ~user) => {
     let isOk = AsyncResult.isOk(article);
     let favorited =
       article
@@ -87,13 +87,18 @@ module FavoriteButton = {
       |> AsyncResult.getOk
       |> Option.map((ok: Shape.Article.t) => ok.favoritesCount)
       |> Option.getOrElse(0);
+    let onClick =
+      switch (user) {
+      | Some(_user) => Link.CustomFn(() => Js.log("TODO: Favorite"))
+      | None => Location(Link.register)
+      };
 
     <Link.Button
       className={
         favorited ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-primary"
       }
       style={ReactDOMRe.Style.make(~marginLeft="5px", ())}
-      location=Link.register>
+      onClick>
       <i
         className="ion-heart"
         style={ReactDOMRe.Style.make(~marginRight="5px", ())}
@@ -115,7 +120,7 @@ module FavoriteButton = {
 
 module FollowButton = {
   [@react.component]
-  let make = (~article) => {
+  let make = (~article, ~user) => {
     let isOk = AsyncResult.isOk(article);
     let following =
       article
@@ -127,13 +132,18 @@ module FollowButton = {
       |> AsyncResult.getOk
       |> Option.map((ok: Shape.Article.t) => ok.author.username)
       |> Option.getOrElse("");
+    let onClick =
+      switch (user) {
+      | Some(_user) => Link.CustomFn(() => Js.log("TODO: Follow"))
+      | None => Location(Link.register)
+      };
 
     <Link.Button
       className={
         following
           ? "btn btn-sm btn-secondary" : "btn btn-sm btn-outline-secondary"
       }
-      location=Link.register>
+      onClick>
       <i
         className="ion-plus-round"
         style={ReactDOMRe.Style.make(~marginRight="5px", ())}
@@ -214,8 +224,8 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
             <ArticleAuthorName article />
             <span className="date"> <ArticleDate article /> </span>
           </div>
-          <FollowButton article />
-          <FavoriteButton article />
+          <FollowButton article user />
+          <FavoriteButton article user />
         </div>
       </div>
     </div>
@@ -250,8 +260,8 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
             <ArticleAuthorName article />
             <span className="date"> <ArticleDate article /> </span>
           </div>
-          <FollowButton article />
-          <FavoriteButton article />
+          <FollowButton article user />
+          <FavoriteButton article user />
         </div>
       </div>
       <div className="row">
