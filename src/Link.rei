@@ -46,12 +46,15 @@ let make:
   ReasonReact.reactElement;
 
 module Button: {
+  let customFn: (unit => unit) => onClickAction;
+
   [@bs.obj]
   external makeProps:
     (
       ~className: 'className=?,
       ~style: 'style=?,
-      ~onClick: onClickAction,
+      ~onClick: 'onClick,
+      ~disabled: 'disabled=?,
       ~children: 'children,
       ~key: string=?,
       unit
@@ -60,18 +63,20 @@ module Button: {
       .
       "children": 'children,
       "className": option('className),
+      "disabled": option('disabled),
+      "onClick": 'onClick,
       "style": option('style),
-      "onClick": onClickAction,
     } =
     "";
 
   let make:
     {
       .
-      "children": ReasonReact.reactElement,
       "className": option(string),
       "style": option(ReactDOMRe.Style.t),
       "onClick": onClickAction,
+      "disabled": option(bool),
+      "children": ReasonReact.reactElement,
     } =>
     ReasonReact.reactElement;
 };

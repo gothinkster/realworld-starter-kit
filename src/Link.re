@@ -39,9 +39,17 @@ let make =
 };
 
 module Button = {
+  let customFn = fn => CustomFn(fn);
+
   [@react.component]
   let make =
-      (~className="", ~style=ReactDOMRe.Style.make(), ~onClick, ~children) => {
+      (
+        ~className="",
+        ~style=ReactDOMRe.Style.make(),
+        ~onClick,
+        ~disabled=false,
+        ~children,
+      ) => {
     <button
       className
       style

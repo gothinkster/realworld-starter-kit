@@ -7,9 +7,16 @@ module Option = Relude.Option;
 
 [@bs.scope ("window", "app")] [@bs.val] external backend: string = "backend";
 
+type followActions =
+  | Follow(string)
+  | Unfollow(string);
+
 module Endpoints = {
   let getArticle = (~slug: string, ()) =>
     Printf.sprintf("%s/api/articles/%s", backend, slug);
+
+  let favoriteArticle = (~slug: string, ()) =>
+    Printf.sprintf("%s/api/articles/%s/favorite", backend, slug);
 
   let listArticles =
       (~limit: int=10, ~offset: int=0, ~tag: option(string)=?, ()) =>
@@ -30,7 +37,11 @@ module Endpoints = {
     );
 
   let tags = Printf.sprintf("%s/api/tags", backend);
+
   let currentUser = Printf.sprintf("%s/api/user", backend);
+
+  let followUser = (~username: string, ()) =>
+    Printf.sprintf("%s/api/profiles/%s/follow", backend, username);
 
   let getComments = (~slug: string, ()) =>
     Printf.sprintf("%s/api/articles/%s/comments", backend, slug);
@@ -76,6 +87,36 @@ let getArticle:
       );
 
     Endpoints.getArticle(~slug, ())
+    |> fetchWithInit(_, requestInit)
+    |> then_(parseJsonIfOk)
+    |> catch(Error.fromPromiseError)
+    |> then_(result =>
+         result
+         |> Relude.Result.flatMap(json =>
+              json
+              |> Shape.Article.decode
+              |> Relude.Result.mapError(error =>
+                   Error.EDecodeParseError(error)
+                 )
+            )
+         |> resolve
+       );
+  };
+
+let favoriteArticle:
+  (~slug: string, unit) =>
+  Js.Promise.t(Relude.Result.t(Shape.Article.t, Error.t)) =
+  (~slug, ()) => {
+    let requestInit =
+      RequestInit.make(
+        ~headers=
+          [|getJwtTokenHeader()|]
+          |> Relude.Array.flatten
+          |> HeadersInit.makeWithArray,
+        (),
+      );
+
+    Endpoints.favoriteArticle(~slug, ())
     |> fetchWithInit(_, requestInit)
     |> then_(parseJsonIfOk)
     |> catch(Error.fromPromiseError)
@@ -141,6 +182,43 @@ let currentUser = () => {
        |> Relude.Result.flatMap(json =>
             json
             |> Shape.User.decode
+            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+          )
+       |> resolve
+     );
+};
+
+let followUser = (~action: followActions, ()) => {
+  let requestInit =
+    RequestInit.make(
+      ~method_=
+        switch (action) {
+        | Follow(_username) => Post
+        | Unfollow(_username) => Delete
+        },
+      ~headers=
+        [|getJwtTokenHeader()|]
+        |> Relude.Array.flatten
+        |> HeadersInit.makeWithArray,
+      (),
+    );
+
+  Endpoints.followUser(
+    ~username=
+      switch (action) {
+      | Follow(username)
+      | Unfollow(username) => username
+      },
+    (),
+  )
+  |> fetchWithInit(_, requestInit)
+  |> then_(parseJsonIfOk)
+  |> catch(Error.fromPromiseError)
+  |> then_(result =>
+       result
+       |> Relude.Result.flatMap(json =>
+            json
+            |> Shape.Decode.(field("profile", Shape.Author.decode))
             |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
           )
        |> resolve

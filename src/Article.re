@@ -120,42 +120,39 @@ module FavoriteButton = {
 
 module FollowButton = {
   [@react.component]
-  let make = (~article, ~user) => {
-    let isOk = AsyncResult.isOk(article);
-    let following =
-      article
-      |> AsyncResult.getOk
-      |> Option.map((ok: Shape.Article.t) => ok.author.following)
-      |> Option.getOrElse(false);
-    let username =
-      article
-      |> AsyncResult.getOk
-      |> Option.map((ok: Shape.Article.t) => ok.author.username)
-      |> Option.getOrElse("");
-    let onClick =
-      switch (user) {
-      | Some(_user) => Link.CustomFn(() => Js.log("TODO: Follow"))
-      | None => Location(Link.register)
-      };
-
+  let make =
+      (~data: AsyncData.t((string, bool)), ~onClick: Link.onClickAction) => {
     <Link.Button
       className={
-        following
-          ? "btn btn-sm btn-secondary" : "btn btn-sm btn-outline-secondary"
+        switch (data) {
+        | Init
+        | Loading
+        | Reloading((_, false))
+        | Complete((_, false)) => "btn btn-sm btn-outline-secondary"
+        | Reloading((_, true))
+        | Complete((_, true)) => "btn btn-sm btn-secondary"
+        }
       }
-      onClick>
+      onClick={
+        switch (data) {
+        | Init
+        | Loading
+        | Reloading((_, _)) => Link.Button.customFn(ignore)
+        | Complete((_, _)) => onClick
+        }
+      }>
       <i
         className="ion-plus-round"
         style={ReactDOMRe.Style.make(~marginRight="5px", ())}
       />
-      {isOk
-         ? Printf.sprintf(
-             "%s %s",
-             following ? "Unfollow" : "Follow",
-             username,
-           )
-           ->React.string
-         : React.null}
+      {switch (data) {
+       | Init
+       | Loading => React.null
+       | Reloading((username, following))
+       | Complete((username, following)) =>
+         Printf.sprintf("%s %s", following ? "Unfollow" : "Follow", username)
+         ->React.string
+       }}
     </Link.Button>;
   };
 };
@@ -207,6 +204,7 @@ module ArticleAuthorAvatar = {
 let make = (~slug: string, ~user: option(Shape.User.t)) => {
   let article = Hook.useArticle(~slug);
   let comments = Hook.useComments(~slug);
+  let (follow, onFollowClick) = Hook.useFollow(~article, ~user);
 
   <div className="article-page">
     <div className="banner">
@@ -224,7 +222,7 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
             <ArticleAuthorName article />
             <span className="date"> <ArticleDate article /> </span>
           </div>
-          <FollowButton article user />
+          <FollowButton data=follow onClick=onFollowClick />
           <FavoriteButton article user />
         </div>
       </div>
@@ -260,7 +258,7 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
             <ArticleAuthorName article />
             <span className="date"> <ArticleDate article /> </span>
           </div>
-          <FollowButton article user />
+          <FollowButton data=follow onClick=onFollowClick />
           <FavoriteButton article user />
         </div>
       </div>
