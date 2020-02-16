@@ -23,6 +23,7 @@ module Comments = {
         ~data: AsyncResult.t(array(Shape.Comment.t), Error.t),
         ~user: option(Shape.User.t),
         ~onDeleteClick: (~slug: string, ~id: int) => unit,
+        ~busy: Belt.Set.Int.t,
       ) => {
     switch (data) {
     | Init
@@ -32,7 +33,9 @@ module Comments = {
     | Reloading(Ok(comments))
     | Complete(Ok(comments)) =>
       comments
-      ->Belt.Array.map((comment: Shape.Comment.t) =>
+      ->Belt.Array.map((comment: Shape.Comment.t) => {
+          let isAPIBusy = Belt.Set.Int.has(busy, comment.id);
+
           <div className="card" key={comment.id->string_of_int}>
             <div className="card-block">
               <p className="card-text"> comment.body->React.string </p>
@@ -62,9 +65,9 @@ module Comments = {
                 {switch (user) {
                  | Some({username}) when username == comment.author.username =>
                    <i
-                     className="ion-trash-a"
+                     className={isAPIBusy ? "ion-load-a" : "ion-trash-a"}
                      onClick={event =>
-                       if (Utils.isMouseRightClick(event)) {
+                       if (!isAPIBusy && Utils.isMouseRightClick(event)) {
                          onDeleteClick(~slug, ~id=comment.id);
                        }
                      }
@@ -74,8 +77,8 @@ module Comments = {
                  }}
               </span>
             </div>
-          </div>
-        )
+          </div>;
+        })
       ->React.array
     };
   };
@@ -214,7 +217,7 @@ module ArticleAuthorAvatar = {
 [@react.component]
 let make = (~slug: string, ~user: option(Shape.User.t)) => {
   let article = Hook.useArticle(~slug);
-  let (comments, deleteComment) = Hook.useComments(~slug);
+  let (comments, busyComments, deleteComment) = Hook.useComments(~slug);
   let (follow, onFollowClick) = Hook.useFollow(~article, ~user);
   let (favorite, onFavoriteClick) = Hook.useFavorite(~article, ~user);
 
@@ -308,7 +311,13 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
                " to add comments on this article."->React.string
              </p>
            }}
-          <Comments slug data=comments user onDeleteClick=deleteComment />
+          <Comments
+            slug
+            data=comments
+            busy=busyComments
+            user
+            onDeleteClick=deleteComment
+          />
         </div>
       </div>
     </div>

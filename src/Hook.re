@@ -185,11 +185,13 @@ let useComments:
   (~slug: string) =>
   (
     AsyncResult.t(array(Shape.Comment.t), Error.t),
+    Belt.Set.Int.t,
     (~slug: string, ~id: int) => unit,
   ) =
   (~slug) => {
     let didCancel = React.useRef(false);
     let (data, setData) = React.useState(() => AsyncResult.init);
+    let (busy, setBusy) = React.useState(() => Belt.Set.Int.empty);
     let guard = guardByDidCancel(didCancel);
 
     React.useEffect0(() =>
@@ -199,6 +201,7 @@ let useComments:
     React.useEffect2(
       () => {
         guard(() => setData(prev => prev |> AsyncResult.toBusy));
+        guard(() => setBusy(_prev => Belt.Set.Int.empty));
 
         API.getComments(~slug, ())
         |> then_(data => {
@@ -228,26 +231,31 @@ let useComments:
     );
 
     let deleteComment = (~slug, ~id) => {
+      setBusy(prev => prev |> Belt.Set.Int.add(_, id));
+
       API.deleteComment(~slug, ~id, ())
-      |> Js.Promise.then_(
-           fun
+      |> Js.Promise.then_(resp => {
+           setBusy(prev => prev |> Belt.Set.Int.remove(_, id));
+
+           switch (resp) {
            | Belt.Result.Ok((_slug, id)) =>
              setData(prev =>
                prev
                |> AsyncResult.map(comments =>
-                    comments
-                    |> Belt.Array.keep(_, (comment: Shape.Comment.t) =>
-                         comment.id != id
-                       )
+                    Belt.Array.keep(comments, (comment: Shape.Comment.t) =>
+                      comment.id != id
+                    )
                   )
              )
-             |> resolve
-           | Error(_error) => ignore() |> resolve,
-         )
+           | Error(_error) => ignore()
+           };
+
+           ignore() |> resolve;
+         })
       |> ignore;
     };
 
-    (data, deleteComment);
+    (data, busy, deleteComment);
   };
 
 let useFollow:
