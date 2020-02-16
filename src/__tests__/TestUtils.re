@@ -83,7 +83,7 @@ module ApiMock = {
       "updatedAt": "2018-12-28T07:23:23.888Z",
       "body": "you never know",
       "author": {
-        "username": "liliang",
+        "username": "johnnyjacob",
         "bio": null,
         "image": "https://static.productionready.io/images/smiley-cyrus.jpg",
         "following": false

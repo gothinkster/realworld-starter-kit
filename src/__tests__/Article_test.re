@@ -32,35 +32,43 @@ describe("Article component", () => {
   });
 
   testPromise(
-    "renders content, author, date, favorite button and follow button", () => {
-    ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.article |> ApiMock.comments, ());
+    "renders content, author, date, favorite button and follow button (anonymous user)",
+    () => {
+      ApiMock.doMock(
+        ~pipeline=ApiMock.succeed |> ApiMock.article |> ApiMock.comments,
+        (),
+      );
 
-    let wrapper = render(<App />);
+      let wrapper = render(<App />);
 
-    TestUtils.act(() => ReasonReactRouter.push("#/article/slug"));
+      TestUtils.act(() => ReasonReactRouter.push("#/article/slug"));
 
-    DomTestingLibrary.waitForElement(
-      ~callback=() => wrapper |> getByText(~matcher=`Str("Very carefully.")),
-      (),
-    )
-    |> then_(_ => {
-         let _ =
-           wrapper
-           |> getAllByText(~matcher=`Str("Favorite Article"))
+      DomTestingLibrary.waitForElement(
+        ~callback=
+          () => wrapper |> getByText(~matcher=`Str("Very carefully.")),
+        (),
+      )
+      |> then_(_ => {
+           let actual = (
+             wrapper
+             |> getByText(~matcher=`Str("Very carefully."))
+             |> Webapi.Dom.Element.innerHTML,
+             wrapper
+             |> getAllByText(~matcher=`Str("Favorite Article"))
+             |> Relude.Array.size,
+             wrapper
+             |> getAllByText(~matcher=`Str("Follow johnnyjacob"))
+             |> Relude.Array.size,
+             wrapper
+             |> getByText(~matcher=`Str("this is a good comment"))
+             |> Webapi.Dom.Element.innerHTML,
+           );
+
+           actual
            |> expect
-           |> toHaveLength(2);
-
-         let _ =
-           wrapper
-           |> getAllByText(~matcher=`Str("Follow johnnyjacob"))
-           |> expect
-           |> toHaveLength(2);
-
-         wrapper
-         |> getByText(~matcher=`Str("Very carefully."))
-         |> expect
-         |> toBeInTheDocument
-         |> resolve;
-       });
-  });
+           |> toEqual(("Very carefully.", 2, 2, "this is a good comment"))
+           |> resolve;
+         });
+    },
+  );
 });
