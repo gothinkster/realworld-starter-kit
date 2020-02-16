@@ -7,9 +7,13 @@ module Option = Relude.Option;
 
 [@bs.scope ("window", "app")] [@bs.val] external backend: string = "backend";
 
-type followActions =
+type followAction =
   | Follow(string)
   | Unfollow(string);
+
+type favoriteAction =
+  | Favorite(string)
+  | Unfavorite(string);
 
 module Endpoints = {
   let getArticle = (~slug: string, ()) =>
@@ -104,11 +108,16 @@ let getArticle:
   };
 
 let favoriteArticle:
-  (~slug: string, unit) =>
+  (~action: favoriteAction, unit) =>
   Js.Promise.t(Relude.Result.t(Shape.Article.t, Error.t)) =
-  (~slug, ()) => {
+  (~action, ()) => {
     let requestInit =
       RequestInit.make(
+        ~method_=
+          switch (action) {
+          | Favorite(_slug) => Post
+          | Unfavorite(_slug) => Delete
+          },
         ~headers=
           [|getJwtTokenHeader()|]
           |> Relude.Array.flatten
@@ -116,7 +125,14 @@ let favoriteArticle:
         (),
       );
 
-    Endpoints.favoriteArticle(~slug, ())
+    Endpoints.favoriteArticle(
+      ~slug=
+        switch (action) {
+        | Favorite(slug) => slug
+        | Unfavorite(slug) => slug
+        },
+      (),
+    )
     |> fetchWithInit(_, requestInit)
     |> then_(parseJsonIfOk)
     |> catch(Error.fromPromiseError)
@@ -188,7 +204,7 @@ let currentUser = () => {
      );
 };
 
-let followUser = (~action: followActions, ()) => {
+let followUser = (~action: followAction, ()) => {
   let requestInit =
     RequestInit.make(
       ~method_=

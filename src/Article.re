@@ -75,45 +75,48 @@ module Comments = {
 
 module FavoriteButton = {
   [@react.component]
-  let make = (~article, ~user) => {
-    let isOk = AsyncResult.isOk(article);
-    let favorited =
-      article
-      |> AsyncResult.getOk
-      |> Option.map((ok: Shape.Article.t) => ok.favorited)
-      |> Option.getOrElse(false);
-    let favoritesCount =
-      article
-      |> AsyncResult.getOk
-      |> Option.map((ok: Shape.Article.t) => ok.favoritesCount)
-      |> Option.getOrElse(0);
-    let onClick =
-      switch (user) {
-      | Some(_user) => Link.CustomFn(() => Js.log("TODO: Favorite"))
-      | None => Location(Link.register)
-      };
-
+  let make =
+      (
+        ~data: AsyncData.t((bool, int, string)),
+        ~onClick: Link.onClickAction,
+      ) => {
     <Link.Button
       className={
-        favorited ? "btn btn-sm btn-primary" : "btn btn-sm btn-outline-primary"
+        switch (data) {
+        | Init
+        | Loading
+        | Reloading((false, _, _))
+        | Complete((false, _, _)) => "btn btn-sm btn-outline-primary"
+        | Reloading((true, _, _))
+        | Complete((true, _, _)) => "btn btn-sm btn-primary"
+        }
       }
       style={ReactDOMRe.Style.make(~marginLeft="5px", ())}
-      onClick>
+      onClick={
+        switch (data) {
+        | Init
+        | Loading
+        | Reloading((_, _, _)) => Link.Button.customFn(ignore)
+        | Complete((_, _, _)) => onClick
+        }
+      }>
       <i
         className="ion-heart"
         style={ReactDOMRe.Style.make(~marginRight="5px", ())}
       />
-      {isOk
-         ? if (favorited) {
-             "Unfavorite Article "->React.string;
-           } else {
-             "Favorite Article "->React.string;
-           }
-         : React.null}
-      <span className="counter">
-        {isOk
-           ? Printf.sprintf("(%d)", favoritesCount)->React.string : React.null}
-      </span>
+      {switch (data) {
+       | Init
+       | Loading => React.null
+       | Reloading((favorited, favoritesCount, _slug))
+       | Complete((favorited, favoritesCount, _slug)) =>
+         <>
+           (favorited ? "Unfavorite Article " : "Favorite Article ")
+           ->React.string
+           <span className="counter">
+             {Printf.sprintf("(%d)", favoritesCount)->React.string}
+           </span>
+         </>
+       }}
     </Link.Button>;
   };
 };
@@ -205,6 +208,7 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
   let article = Hook.useArticle(~slug);
   let comments = Hook.useComments(~slug);
   let (follow, onFollowClick) = Hook.useFollow(~article, ~user);
+  let (favorite, onFavoriteClick) = Hook.useFavorite(~article, ~user);
 
   <div className="article-page">
     <div className="banner">
@@ -223,7 +227,7 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
             <span className="date"> <ArticleDate article /> </span>
           </div>
           <FollowButton data=follow onClick=onFollowClick />
-          <FavoriteButton article user />
+          <FavoriteButton data=favorite onClick=onFavoriteClick />
         </div>
       </div>
     </div>
@@ -259,7 +263,7 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
             <span className="date"> <ArticleDate article /> </span>
           </div>
           <FollowButton data=follow onClick=onFollowClick />
-          <FavoriteButton article user />
+          <FavoriteButton data=favorite onClick=onFavoriteClick />
         </div>
       </div>
       <div className="row">

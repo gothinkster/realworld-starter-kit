@@ -296,3 +296,70 @@ let useFollow:
 
     (follow, onClick);
   };
+
+let useFavorite:
+  (
+    ~article: AsyncResult.t(Shape.Article.t, Error.t),
+    ~user: option(Shape.User.t)
+  ) =>
+  (AsyncData.t((bool, int, string)), Link.onClickAction) =
+  (~article, ~user) => {
+    let didCancel = React.useRef(false);
+    let guard = guardByDidCancel(didCancel);
+
+    React.useEffect0(() =>
+      Some(() => React.Ref.setCurrent(didCancel, true))
+    );
+
+    let (state, setState) = React.useState(() => AsyncData.init);
+    let favorite =
+      AsyncData.alt(
+        state,
+        article
+        |> AsyncResult.getOk
+        |> Option.map((ok: Shape.Article.t) =>
+             AsyncData.complete((ok.favorited, ok.favoritesCount, ok.slug))
+           )
+        |> Option.getOrElse(AsyncData.complete((false, 0, ""))),
+      );
+
+    let sendRequest = () => {
+      let (favorited, _favoritesCount, slug) =
+        favorite |> AsyncData.getValue |> Option.getOrElse((false, 0, ""));
+
+      let action = favorited ? API.Unfavorite(slug) : API.Favorite(slug);
+
+      guard(() => setState(prev => prev |> AsyncData.toBusy));
+
+      API.favoriteArticle(~action, ())
+      |> then_(data => {
+           guard(() =>
+             setState(_prev =>
+               switch (data) {
+               | Belt.Result.Ok((ok: Shape.Article.t)) =>
+                 AsyncData.complete((
+                   ok.favorited,
+                   ok.favoritesCount,
+                   ok.slug,
+                 ))
+               | Error(_error) => AsyncData.complete((false, 0, ""))
+               }
+             )
+           )
+           |> resolve
+         })
+      |> catch(_error => {
+           guard(() => setState(_prev => AsyncData.complete((false, 0, ""))))
+           |> resolve
+         })
+      |> ignore;
+    };
+
+    let onClick =
+      switch (user) {
+      | Some(_user) => Link.CustomFn(() => sendRequest())
+      | None => Location(Link.register)
+      };
+
+    (favorite, onClick);
+  };
