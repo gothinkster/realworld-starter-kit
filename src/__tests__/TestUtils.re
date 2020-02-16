@@ -4,6 +4,13 @@ module Function = Relude.Function;
 [@bs.module "@testing-library/react"]
 external rawAct: (unit => Js.Undefined.t(Js.Promise.t('a))) => unit = "act";
 
+let act = callback =>
+  rawAct(() => {
+    callback();
+    // Fix: Warning: The callback passed to act(...) function must return undefined, or a Promise.
+    Js.Undefined.empty;
+  });
+
 [@bs.send.pipe: ReactTestingLibrary.renderResult]
 external queryByTestId: string => Js.Null.t(Dom.element) = "queryByTestId";
 
@@ -21,15 +28,29 @@ external queryByText:
   Js.Null.t(Dom.element) =
   "queryByText";
 
-let act = callback =>
-  rawAct(() => {
-    callback();
-    // Fix: Warning: The callback passed to act(...) function must return undefined, or a Promise.
-    Js.Undefined.empty;
-  });
-
 let queryByText = (~matcher, ~options=?, result) =>
   queryByText(
+    ~matcher,
+    ~options=Js.Undefined.fromOption(options),
+    result |> ReactTestingLibrary.container,
+  );
+
+[@bs.module "@testing-library/dom"]
+external getAllByText:
+  (
+    Dom.element,
+    ~matcher: [@bs.unwrap] [
+                | `Str(string)
+                | `RegExp(Js.Re.t)
+                | `Func((string, Dom.element) => bool)
+              ],
+    ~options: Js.undefined(DomTestingLibrary.Query.options)
+  ) =>
+  array(Dom.element) =
+  "getAllByText";
+
+let getAllByText = (~matcher, ~options=?, result) =>
+  getAllByText(
     ~matcher,
     ~options=Js.Undefined.fromOption(options),
     result |> ReactTestingLibrary.container,
@@ -42,6 +63,35 @@ module ApiMock = {
   external fetch: {. "calls": array(array(string))} = "mock";
 
   module SampleData = {
+    let comments = () => {|{
+  "comments": [
+    {
+      "id": 123,
+      "createdAt": "2020-02-16T04:18:57.852Z",
+      "updatedAt": "2020-02-16T04:18:57.852Z",
+      "body": "this is a good comment",
+      "author": {
+        "username": "Jihchi Lee",
+        "bio": "yoyoyoyo",
+        "image": "",
+        "following": false
+      }
+    },
+    {
+      "id": 456,
+      "createdAt": "2018-12-28T07:23:23.888Z",
+      "updatedAt": "2018-12-28T07:23:23.888Z",
+      "body": "you never know",
+      "author": {
+        "username": "liliang",
+        "bio": null,
+        "image": "https://static.productionready.io/images/smiley-cyrus.jpg",
+        "following": false
+      }
+    }
+  ]
+}|};
+
     let articles = (~articlesCount=1, ()) =>
       Printf.sprintf(
         {|{
@@ -132,9 +182,9 @@ module ApiMock = {
       "username": "johnnyjacob",
       "bio": null,
       "image": "https://static.productionready.io/images/smiley-cyrus.jpg",
-      "following": true
+      "following": false
     },
-    "favorited": true,
+    "favorited": false,
     "favoritesCount": 12
   }
 }|};
@@ -154,6 +204,20 @@ module ApiMock = {
     ) =>
     Result.t(string, string) =
     fn => Function.map(Result.flatMap(fn));
+
+  let comments:
+    (
+      Result.t(string, string) => Result.t(string, string),
+      Result.t(string, string)
+    ) =>
+    Result.t(string, string) =
+    pipe(pathname =>
+      if (pathname == "/api/articles/slug/comments") {
+        SampleData.comments() |> Result.error;
+      } else {
+        pathname |> Result.ok;
+      }
+    );
 
   let articles:
     (

@@ -207,7 +207,10 @@ module ArticleAuthorAvatar = {
     |> Option.map((ok: Shape.Article.t) => ok.author)
     |> Option.map((author: Shape.Author.t) =>
          <Link location={Link.profile(~username=author.username)}>
-           <img src={author.image} />
+           {switch (author.image) {
+            | "" => <img />
+            | src => <img src />
+            }}
          </Link>
        )
     |> Option.getOrElse(React.null);
@@ -250,7 +253,12 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
              | Init
              | Loading => <Spinner />
              | Reloading(Ok({body}))
-             | Complete(Ok({body})) => body->React.string
+             | Complete(Ok({body})) =>
+               <div
+                 dangerouslySetInnerHTML={
+                   "__html": EscapeHatch.markdownToHtml(body),
+                 }
+               />
              | Reloading(Error(_error))
              | Complete(Error(_error)) => "ERROR"->React.string
              }}
