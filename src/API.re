@@ -49,6 +49,9 @@ module Endpoints = {
 
   let getComments = (~slug: string, ()) =>
     Printf.sprintf("%s/api/articles/%s/comments", backend, slug);
+
+  let comment = (~slug: string, ~id: int, ()) =>
+    Printf.sprintf("%s/api/articles/%s/comments/%d", backend, slug, id);
 };
 
 let getJwtTokenHeader: unit => array((string, string)) =
@@ -270,3 +273,25 @@ let getComments:
          |> resolve
        );
   };
+
+let deleteComment = (~slug: string, ~id: int, ()) => {
+  let requestInit =
+    RequestInit.make(
+      ~method_=Delete,
+      ~headers=
+        [|getJwtTokenHeader()|]
+        |> Relude.Array.flatten
+        |> HeadersInit.makeWithArray,
+      (),
+    );
+
+  Endpoints.comment(~slug, ~id, ())
+  |> fetchWithInit(_, requestInit)
+  |> then_(parseJsonIfOk)
+  |> catch(Error.fromPromiseError)
+  |> then_(result =>
+       result
+       |> Relude.Result.flatMap(_json => Relude.Result.ok((slug, id)))
+       |> resolve
+     );
+};

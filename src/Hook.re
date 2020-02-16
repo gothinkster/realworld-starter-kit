@@ -182,7 +182,11 @@ let useArticle: (~slug: string) => AsyncResult.t(Shape.Article.t, Error.t) =
   };
 
 let useComments:
-  (~slug: string) => AsyncResult.t(array(Shape.Comment.t), Error.t) =
+  (~slug: string) =>
+  (
+    AsyncResult.t(array(Shape.Comment.t), Error.t),
+    (~slug: string, ~id: int) => unit,
+  ) =
   (~slug) => {
     let didCancel = React.useRef(false);
     let (data, setData) = React.useState(() => AsyncResult.init);
@@ -223,7 +227,27 @@ let useComments:
       (slug, setData),
     );
 
-    data;
+    let deleteComment = (~slug, ~id) => {
+      API.deleteComment(~slug, ~id, ())
+      |> Js.Promise.then_(
+           fun
+           | Belt.Result.Ok((_slug, id)) =>
+             setData(prev =>
+               prev
+               |> AsyncResult.map(comments =>
+                    comments
+                    |> Belt.Array.keep(_, (comment: Shape.Comment.t) =>
+                         comment.id != id
+                       )
+                  )
+             )
+             |> resolve
+           | Error(_error) => ignore() |> resolve,
+         )
+      |> ignore;
+    };
+
+    (data, deleteComment);
   };
 
 let useFollow:

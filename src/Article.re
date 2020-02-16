@@ -19,8 +19,10 @@ module Comments = {
   [@react.component]
   let make =
       (
+        ~slug: string,
         ~data: AsyncResult.t(array(Shape.Comment.t), Error.t),
         ~user: option(Shape.User.t),
+        ~onDeleteClick: (~slug: string, ~id: int) => unit,
       ) => {
     switch (data) {
     | Init
@@ -59,8 +61,14 @@ module Comments = {
                    ? <i className="ion-edit" /> : React.null}
                 {switch (user) {
                  | Some({username}) when username == comment.author.username =>
-                   // TODO: implement "click" action
-                   <i className="ion-trash-a" />
+                   <i
+                     className="ion-trash-a"
+                     onClick={event =>
+                       if (Utils.isMouseRightClick(event)) {
+                         onDeleteClick(~slug, ~id=comment.id);
+                       }
+                     }
+                   />
                  | Some(_)
                  | None => React.null
                  }}
@@ -206,7 +214,7 @@ module ArticleAuthorAvatar = {
 [@react.component]
 let make = (~slug: string, ~user: option(Shape.User.t)) => {
   let article = Hook.useArticle(~slug);
-  let comments = Hook.useComments(~slug);
+  let (comments, deleteComment) = Hook.useComments(~slug);
   let (follow, onFollowClick) = Hook.useFollow(~article, ~user);
   let (favorite, onFavoriteClick) = Hook.useFavorite(~article, ~user);
 
@@ -300,7 +308,7 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
                " to add comments on this article."->React.string
              </p>
            }}
-          <Comments data=comments user />
+          <Comments slug data=comments user onDeleteClick=deleteComment />
         </div>
       </div>
     </div>
