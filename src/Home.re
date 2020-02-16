@@ -3,7 +3,7 @@ module AsyncData = Relude.AsyncData;
 
 module ArticlePreview = {
   [@react.component]
-  let make = (~data: Shape.Article.t) => {
+  let make = (~data: Shape.Article.t, ~onToggleFavorite, ~isFavoriteBusy) => {
     <div className="article-preview">
       <div className="article-meta">
         <Link location={Link.profile(~username=data.author.username)}>
@@ -19,8 +19,25 @@ module ArticlePreview = {
             {data.createdAt->Js.Date.toLocaleString->React.string}
           </span>
         </div>
-        <button className="btn btn-outline-primary btn-sm pull-xs-right">
-          <i className="ion-heart" />
+        <button
+          className={
+            data.favorited
+              ? "btn btn-primary btn-sm pull-xs-right"
+              : "btn btn-outline-primary btn-sm pull-xs-right"
+          }
+          onClick={_event =>
+            if (!isFavoriteBusy) {
+              onToggleFavorite(
+                ~action=
+                  data.favorited
+                    ? API.Unfavorite(data.slug) : API.Favorite(data.slug),
+              );
+            }
+          }>
+          <i
+            className={isFavoriteBusy ? "ion-load-a" : "ion-heart"}
+            style={ReactDOMRe.Style.make(~marginRight="3px", ())}
+          />
           {data.favoritesCount->Js.Int.toString->React.string}
         </button>
       </div>
@@ -122,8 +139,10 @@ let useFeedType = (~user: option(Shape.User.t)) => {
 [@react.component]
 let make = (~user: option(Shape.User.t)) => {
   let (feedType, setFeedType) = useFeedType(~user);
-  let articles = Hook.useArticles(~feedType);
+  let (articles, setArticles) = Hook.useArticles(~feedType);
   let tags = Hook.useTags();
+  let (toggleFavoriteBusy, onToggleFavorite) =
+    Hook.useToggleFavorite(~setArticles, ~user);
 
   <div className="home-page">
     <div className="banner">
@@ -210,7 +229,14 @@ let make = (~user: option(Shape.User.t)) => {
            | Complete(Ok({articles})) =>
              articles
              |> Js.Array.map(item =>
-                  <ArticlePreview key={item.slug} data=item />
+                  <ArticlePreview
+                    key={item.slug}
+                    data=item
+                    onToggleFavorite
+                    isFavoriteBusy={
+                      toggleFavoriteBusy |> Belt.Set.String.has(_, item.slug)
+                    }
+                  />
                 )
              |> React.array
            | Reloading(Error(_error))

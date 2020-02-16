@@ -8,7 +8,15 @@ let guardByDidCancel: (React.Ref.t(bool), unit => unit) => unit =
   (didCancel, cb) => !React.Ref.current(didCancel) ? cb() : ();
 
 let useArticles:
-  (~feedType: Shape.FeedType.t) => AsyncResult.t(Shape.Articles.t, Error.t) =
+  (~feedType: Shape.FeedType.t) =>
+  (
+    AsyncResult.t(Shape.Articles.t, Error.t),
+    (
+      AsyncResult.t(Shape.Articles.t, Error.t) =>
+      AsyncResult.t(Shape.Articles.t, Error.t)
+    ) =>
+    unit,
+  ) =
   (~feedType) => {
     let didCancel = React.useRef(false);
     let (data, setData) = React.useState(() => AsyncResult.init);
@@ -57,7 +65,7 @@ let useArticles:
       (feedType, setData),
     );
 
-    data;
+    (data, setData);
   };
 
 let useTags: unit => AsyncResult.t(Shape.Tags.t, Error.t) =
@@ -459,4 +467,95 @@ let useDeleteArticle:
       };
 
     (state, onClick);
+  };
+
+let useToggleFavorite:
+  (
+    ~setArticles: (
+                    AsyncResult.t(Shape.Articles.t, Error.t) =>
+                    AsyncResult.t(Shape.Articles.t, Error.t)
+                  ) =>
+                  unit,
+    ~user: option(Shape.User.t)
+  ) =>
+  (Belt.Set.String.t, (~action: API.favoriteAction) => unit) =
+  (~setArticles, ~user) => {
+    let didCancel = React.useRef(false);
+    let guard = guardByDidCancel(didCancel);
+
+    React.useEffect0(() =>
+      Some(() => React.Ref.setCurrent(didCancel, true))
+    );
+
+    let (busy, setBusy) = React.useState(() => Belt.Set.String.empty);
+
+    let sendRequest = (~action) => {
+      let slug =
+        switch (action) {
+        | API.Favorite(slug)
+        | Unfavorite(slug) => slug
+        };
+
+      guard(() => setBusy(prev => prev |> Belt.Set.String.add(_, slug)));
+
+      API.favoriteArticle(~action, ())
+      |> Js.Promise.then_(data => {
+           guard(() => {
+             setBusy(prev => prev |> Belt.Set.String.remove(_, slug));
+
+             switch (data) {
+             | Ok(_) =>
+               setArticles(prev =>
+                 prev
+                 |> AsyncResult.map((articles: Shape.Articles.t) =>
+                      {
+                        ...articles,
+                        articles:
+                          articles.articles
+                          |> Relude.Array.map((article: Shape.Article.t) =>
+                               if (article.slug == slug) {
+                                 {
+                                   ...article,
+                                   favorited:
+                                     switch (action) {
+                                     | Favorite(_) => true
+                                     | Unfavorite(_) => false
+                                     },
+                                   favoritesCount:
+                                     switch (action) {
+                                     | Favorite(_) =>
+                                       article.favoritesCount + 1
+                                     | Unfavorite(_) =>
+                                       article.favoritesCount - 1
+                                     },
+                                 };
+                               } else {
+                                 article;
+                               }
+                             ),
+                      }
+                    )
+               )
+             | Error(_error) => ignore()
+             };
+           });
+
+           ignore() |> resolve;
+         })
+      |> Js.Promise.catch(_error => {
+           guard(() =>
+             setBusy(prev => prev |> Belt.Set.String.remove(_, slug))
+           );
+           ignore() |> resolve;
+         })
+      |> ignore;
+    };
+
+    let onToggle = (~action) =>
+      switch (user) {
+      | Some(_) => sendRequest(~action)
+      | None => Link.push(Link.register)
+      };
+
+    (busy, onToggle);
   };

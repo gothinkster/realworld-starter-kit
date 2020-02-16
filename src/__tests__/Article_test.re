@@ -136,4 +136,13 @@ describe("Article component", () => {
   Skip.test("renders delete article button (author)", () =>
     expect(true) |> toEqual(true)
   );
+
+  Skip.test(
+    "redirect to edit page when click edit article button (author)", () =>
+    expect(true) |> toEqual(true)
+  );
+
+  Skip.test("invoke delete API when click delete article button (author)", () =>
+    expect(true) |> toEqual(true)
+  );
 });
