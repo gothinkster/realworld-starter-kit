@@ -112,7 +112,7 @@ module FavoriteButton = {
         }
       }>
       <i
-        className="ion-heart"
+        className={AsyncData.isBusy(data) ? "ion-load-a" : "ion-heart"}
         style={ReactDOMRe.Style.make(~marginRight="5px", ())}
       />
       {switch (data) {
@@ -156,7 +156,7 @@ module FollowButton = {
         }
       }>
       <i
-        className="ion-plus-round"
+        className={AsyncData.isBusy(data) ? "ion-load-a" : "ion-plus-round"}
         style={ReactDOMRe.Style.make(~marginRight="5px", ())}
       />
       {switch (data) {

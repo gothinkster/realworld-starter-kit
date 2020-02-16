@@ -273,16 +273,20 @@ let useFollow:
     );
 
     let (state, setState) = React.useState(() => AsyncData.init);
+
     let follow =
-      AsyncData.alt(
-        state,
+      switch (state) {
+      | Init =>
         article
         |> AsyncResult.getOk
         |> Option.map((ok: Shape.Article.t) =>
              AsyncData.complete((ok.author.username, ok.author.following))
            )
-        |> Option.getOrElse(AsyncData.complete(("", false))),
-      );
+        |> Option.getOrElse(AsyncData.complete(("", false)))
+      | Loading as orig
+      | Reloading(_) as orig
+      | Complete(_) as orig => orig
+      };
 
     let sendRequest = () => {
       let username =
@@ -290,6 +294,7 @@ let useFollow:
         |> AsyncData.getValue
         |> Option.map(((username, _following)) => username)
         |> Option.getOrElse("");
+
       let action =
         follow
         |> AsyncData.getValue
@@ -298,7 +303,7 @@ let useFollow:
            )
         |> Option.getOrElse(API.Follow(username));
 
-      guard(() => setState(prev => prev |> AsyncData.toBusy));
+      guard(() => setState(_prev => follow |> AsyncData.toBusy));
 
       API.followUser(~action, ())
       |> then_(data => {
@@ -344,16 +349,20 @@ let useFavorite:
     );
 
     let (state, setState) = React.useState(() => AsyncData.init);
+
     let favorite =
-      AsyncData.alt(
-        state,
+      switch (state) {
+      | Init =>
         article
         |> AsyncResult.getOk
         |> Option.map((ok: Shape.Article.t) =>
              AsyncData.complete((ok.favorited, ok.favoritesCount, ok.slug))
            )
-        |> Option.getOrElse(AsyncData.complete((false, 0, ""))),
-      );
+        |> Option.getOrElse(AsyncData.complete((false, 0, "")))
+      | Loading as orig
+      | Reloading(_) as orig
+      | Complete(_) as orig => orig
+      };
 
     let sendRequest = () => {
       let (favorited, _favoritesCount, slug) =
@@ -361,12 +370,12 @@ let useFavorite:
 
       let action = favorited ? API.Unfavorite(slug) : API.Favorite(slug);
 
-      guard(() => setState(prev => prev |> AsyncData.toBusy));
+      guard(() => setState(_prev => favorite |> AsyncData.toBusy));
 
       API.favoriteArticle(~action, ())
       |> then_(data => {
            guard(() =>
-             setState(_prev =>
+             setState(_prev => {
                switch (data) {
                | Belt.Result.Ok((ok: Shape.Article.t)) =>
                  AsyncData.complete((
@@ -376,7 +385,7 @@ let useFavorite:
                  ))
                | Error(_error) => AsyncData.complete((false, 0, ""))
                }
-             )
+             })
            )
            |> resolve
          })
