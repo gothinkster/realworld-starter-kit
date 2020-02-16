@@ -151,7 +151,7 @@ let useArticle: (~slug: string) => AsyncResult.t(Shape.Article.t, Error.t) =
       () => {
         guard(() => setData(prev => prev |> AsyncResult.toBusy));
 
-        API.getArticle(~slug, ())
+        API.article(~action=Fetch(slug), ())
         |> then_(data => {
              guard(() =>
                setData(_prev =>
@@ -403,4 +403,60 @@ let useFavorite:
       };
 
     (favorite, onClick);
+  };
+
+let useDeleteArticle:
+  (
+    ~article: AsyncResult.t(Shape.Article.t, Error.t),
+    ~user: option(Shape.User.t)
+  ) =>
+  (bool, Link.onClickAction) =
+  (~article, ~user) => {
+    let didCancel = React.useRef(false);
+    let guard = guardByDidCancel(didCancel);
+
+    React.useEffect0(() =>
+      Some(() => React.Ref.setCurrent(didCancel, true))
+    );
+
+    let (state, setState) = React.useState(() => false);
+
+    let sendRequest = () => {
+      let slug =
+        article
+        |> AsyncResult.getOk
+        |> Option.map((ok: Shape.Article.t) => ok.slug)
+        |> Option.getOrElse("");
+
+      guard(() => setState(_prev => true));
+
+      API.article(~action=Delete(slug), ())
+      |> then_(_data => {
+           guard(() => setState(_prev => false));
+           Link.push(Link.home);
+           ignore() |> resolve;
+         })
+      |> catch(_error => {guard(() => setState(_prev => false)) |> resolve})
+      |> ignore;
+    };
+
+    let onClick =
+      switch (user, state) {
+      | (Some(_user), false) =>
+        Link.CustomFn(
+          () =>
+            if (Webapi.Dom.Window.confirm(
+                  "Are you sure you want to delete this article?",
+                  Webapi.Dom.window,
+                )) {
+              sendRequest();
+            } else {
+              ignore();
+            },
+        )
+      | (Some(_), true)
+      | (None, true | false) => Link.CustomFn(ignore)
+      };
+
+    (state, onClick);
   };

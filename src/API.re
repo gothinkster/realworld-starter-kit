@@ -7,6 +7,10 @@ module Option = Relude.Option;
 
 [@bs.scope ("window", "app")] [@bs.val] external backend: string = "backend";
 
+type articleAction =
+  | Fetch(string)
+  | Delete(string);
+
 type followAction =
   | Follow(string)
   | Unfollow(string);
@@ -16,7 +20,7 @@ type favoriteAction =
   | Unfavorite(string);
 
 module Endpoints = {
-  let getArticle = (~slug: string, ()) =>
+  let article = (~slug: string, ()) =>
     Printf.sprintf("%s/api/articles/%s", backend, slug);
 
   let favoriteArticle = (~slug: string, ()) =>
@@ -80,12 +84,17 @@ let parseJsonIfOk:
       |> reject;
     };
 
-let getArticle:
-  (~slug: string, unit) =>
+let article:
+  (~action: articleAction, unit) =>
   Js.Promise.t(Relude.Result.t(Shape.Article.t, Error.t)) =
-  (~slug, ()) => {
+  (~action, ()) => {
     let requestInit =
       RequestInit.make(
+        ~method_=
+          switch (action) {
+          | Fetch(_) => Get
+          | Delete(_) => Delete
+          },
         ~headers=
           [|getJwtTokenHeader()|]
           |> Relude.Array.flatten
@@ -93,7 +102,14 @@ let getArticle:
         (),
       );
 
-    Endpoints.getArticle(~slug, ())
+    Endpoints.article(
+      ~slug=
+        switch (action) {
+        | Fetch(slug)
+        | Delete(slug) => slug
+        },
+      (),
+    )
     |> fetchWithInit(_, requestInit)
     |> then_(parseJsonIfOk)
     |> catch(Error.fromPromiseError)

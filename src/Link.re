@@ -19,6 +19,11 @@ let profile = (~username) =>
 let favorited = (~username) =>
   make(Printf.sprintf("/#/profile/%s/favorites", username));
 
+let push: location' => unit =
+  location => {
+    location->toString->ReasonReactRouter.push;
+  };
+
 [@react.component]
 let make =
     (~className="", ~style=ReactDOMRe.Style.make(), ~location, ~children) => {

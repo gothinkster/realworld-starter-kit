@@ -84,6 +84,42 @@ module Comments = {
   };
 };
 
+module EditArticleButton = {
+  [@react.component]
+  let make = (~data) => {
+    data
+    |> AsyncResult.getOk
+    |> Option.map((ok: Shape.Article.t) =>
+         <Link
+           className="btn btn-outline-secondary btn-sm"
+           location={Link.editArticle(~slug=ok.slug)}>
+           <i
+             className="ion-edit"
+             style={ReactDOMRe.Style.make(~marginRight="5px", ())}
+           />
+           {"Edit Article" |> React.string}
+         </Link>
+       )
+    |> Option.getOrElse(React.null);
+  };
+};
+
+module DeleteArticleButton = {
+  [@react.component]
+  let make = (~isBusy, ~onClick) => {
+    <Link.Button
+      className="btn btn-outline-danger btn-sm"
+      onClick
+      style={ReactDOMRe.Style.make(~marginLeft="5px", ())}>
+      <i
+        className={isBusy ? "ion-load-a" : "ion-trash-a"}
+        style={ReactDOMRe.Style.make(~marginRight="5px", ())}
+      />
+      {"Delete Article" |> React.string}
+    </Link.Button>;
+  };
+};
+
 module FavoriteButton = {
   [@react.component]
   let make =
@@ -223,6 +259,14 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
   let (comments, busyComments, deleteComment) = Hook.useComments(~slug);
   let (follow, onFollowClick) = Hook.useFollow(~article, ~user);
   let (favorite, onFavoriteClick) = Hook.useFavorite(~article, ~user);
+  let (isDeleteBusy, onDeleteClick) = Hook.useDeleteArticle(~article, ~user);
+  let isAuthor =
+    switch (user, article) {
+    | (Some(u), Reloading(Ok(a)) | Complete(Ok(a))) =>
+      u.username == a.author.username
+    | (Some(_), Init | Loading | Reloading(Error(_)) | Complete(Error(_)))
+    | (None, Init | Loading | Reloading(_) | Complete(_)) => false
+    };
 
   <div className="article-page">
     <div className="banner">
@@ -240,8 +284,15 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
             <ArticleAuthorName article />
             <span className="date"> <ArticleDate article /> </span>
           </div>
-          <FollowButton data=follow onClick=onFollowClick />
-          <FavoriteButton data=favorite onClick=onFavoriteClick />
+          {isAuthor
+             ? <EditArticleButton data=article />
+             : <FollowButton data=follow onClick=onFollowClick />}
+          {isAuthor
+             ? <DeleteArticleButton
+                 isBusy=isDeleteBusy
+                 onClick=onDeleteClick
+               />
+             : <FavoriteButton data=favorite onClick=onFavoriteClick />}
         </div>
       </div>
     </div>
@@ -281,8 +332,15 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
             <ArticleAuthorName article />
             <span className="date"> <ArticleDate article /> </span>
           </div>
-          <FollowButton data=follow onClick=onFollowClick />
-          <FavoriteButton data=favorite onClick=onFavoriteClick />
+          {isAuthor
+             ? <EditArticleButton data=article />
+             : <FollowButton data=follow onClick=onFollowClick />}
+          {isAuthor
+             ? <DeleteArticleButton
+                 isBusy=isDeleteBusy
+                 onClick=onDeleteClick
+               />
+             : <FavoriteButton data=favorite onClick=onFavoriteClick />}
         </div>
       </div>
       <div className="row">

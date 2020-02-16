@@ -16,6 +16,8 @@ let article: (~slug: string) => location';
 let profile: (~username: string) => location';
 let favorited: (~username: string) => location';
 
+let push: location' => unit;
+
 [@bs.obj]
 external makeProps:
   (
