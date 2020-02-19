@@ -68,7 +68,7 @@ let useArticles:
     (data, setData);
   };
 
-let useArticlesFromProfile:
+let useArticlesInProfile:
   (~viewMode: Shape.Profile.viewMode) =>
   AsyncResult.t(Shape.Articles.t, Error.t) =
   (~viewMode) => {
@@ -343,6 +343,82 @@ let useFollow:
         |> AsyncResult.getOk
         |> Option.map((ok: Shape.Article.t) =>
              AsyncData.complete((ok.author.username, ok.author.following))
+           )
+        |> Option.getOrElse(AsyncData.complete(("", false)))
+      | Loading as orig
+      | Reloading(_) as orig
+      | Complete(_) as orig => orig
+      };
+
+    let sendRequest = () => {
+      let username =
+        follow
+        |> AsyncData.getValue
+        |> Option.map(((username, _following)) => username)
+        |> Option.getOrElse("");
+
+      let action =
+        follow
+        |> AsyncData.getValue
+        |> Option.flatMap(((_username, following)) =>
+             following ? Some(API.Unfollow(username)) : None
+           )
+        |> Option.getOrElse(API.Follow(username));
+
+      guard(() => setState(_prev => follow |> AsyncData.toBusy));
+
+      API.followUser(~action, ())
+      |> then_(data => {
+           guard(() =>
+             setState(_prev =>
+               switch (data) {
+               | Belt.Result.Ok((ok: Shape.Author.t)) =>
+                 AsyncData.complete((ok.username, ok.following))
+               | Error(_error) => AsyncData.complete(("", false))
+               }
+             )
+           )
+           |> resolve
+         })
+      |> catch(_error => {
+           guard(() => setState(_prev => AsyncData.complete(("", false))))
+           |> resolve
+         })
+      |> ignore;
+    };
+
+    let onClick =
+      switch (user) {
+      | Some(_user) => Link.CustomFn(() => sendRequest())
+      | None => Location(Link.register)
+      };
+
+    (follow, onClick);
+  };
+
+let useFollowInProfile:
+  (
+    ~profile: AsyncResult.t(Shape.Author.t, Error.t),
+    ~user: option(Shape.User.t)
+  ) =>
+  (AsyncData.t((string, bool)), Link.onClickAction) =
+  (~profile, ~user) => {
+    let didCancel = React.useRef(false);
+    let guard = guardByDidCancel(didCancel);
+
+    React.useEffect0(() =>
+      Some(() => React.Ref.setCurrent(didCancel, true))
+    );
+
+    let (state, setState) = React.useState(() => AsyncData.init);
+
+    let follow =
+      switch (state) {
+      | Init =>
+        profile
+        |> AsyncResult.getOk
+        |> Option.map((ok: Shape.Author.t) =>
+             AsyncData.complete((ok.username, ok.following))
            )
         |> Option.getOrElse(AsyncData.complete(("", false)))
       | Loading as orig

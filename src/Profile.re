@@ -2,14 +2,15 @@ module Option = Relude.Option;
 module AsyncResult = Relude.AsyncResult;
 
 [@react.component]
-let make = (~viewMode: Shape.Profile.viewMode) => {
+let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
   let username =
     switch (viewMode) {
     | Author(username, _limit, _offset) => username
     | Favorited(username, _limit, _offset) => username
     };
   let profile = Hook.useProfile(~username);
-  let articles = Hook.useArticlesFromProfile(~viewMode);
+  let articles = Hook.useArticlesInProfile(~viewMode);
+  let (follow, onFollowClick) = Hook.useFollowInProfile(~profile, ~user);
   let isArticlesBusy = articles |> AsyncResult.isBusy;
 
   <div className="profile-page">
@@ -55,12 +56,41 @@ let make = (~viewMode: Shape.Profile.viewMode) => {
              | Loading
              | Reloading(Error(_))
              | Complete(Error(_)) => React.null
-             | Reloading(Ok(user))
-             | Complete(Ok(user)) =>
-               <button className="btn btn-sm btn-outline-secondary action-btn">
+             | Reloading(Ok(_))
+             | Complete(Ok(_)) =>
+               <Link.Button
+                 className={
+                   switch (follow) {
+                   | Init
+                   | Loading
+                   | Reloading((_, false))
+                   | Complete((_, false)) => "btn btn-sm btn-outline-secondary action-btn"
+                   | Reloading((_, true))
+                   | Complete((_, true)) => "btn btn-sm btn-secondary action-btn"
+                   }
+                 }
+                 onClick={
+                   switch (follow) {
+                   | Init
+                   | Loading
+                   | Reloading((_, _)) => Link.customFn(ignore)
+                   | Complete((_, _)) => onFollowClick
+                   }
+                 }>
                  <i className="ion-plus-round" />
-                 {Printf.sprintf(" Follow %s", user.username)->React.string}
-               </button>
+                 {switch (follow) {
+                  | Init
+                  | Loading => "..." |> React.string
+                  | Reloading((username, following))
+                  | Complete((username, following)) =>
+                    Printf.sprintf(
+                      " %s %s",
+                      following ? "Unfollow" : "Follow",
+                      username,
+                    )
+                    ->React.string
+                  }}
+               </Link.Button>
              }}
           </div>
         </div>
