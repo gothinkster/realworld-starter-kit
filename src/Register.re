@@ -6,7 +6,9 @@ let make = () => {
         <div className="col-md-6 offset-md-3 col-xs-12">
           <h1 className="text-xs-center"> "Sign up"->React.string </h1>
           <p className="text-xs-center">
-            <Link location=Link.login> "Have an account?"->React.string </Link>
+            <Link onClick={Link.login |> Link.location}>
+              "Have an account?"->React.string
+            </Link>
           </p>
           <ul className="error-messages">
             <li> "That email is already taken"->React.string </li>

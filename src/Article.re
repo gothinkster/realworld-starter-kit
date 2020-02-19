@@ -42,7 +42,7 @@ module Comments = {
             </div>
             <div className="card-footer">
               <Link
-                location={Link.profile(~username=comment.author.username)}
+                onClick={Link.profile(~username=comment.author.username) |> Link.location}
                 className="comment-author"
                 style={ReactDOMRe.Style.make(~marginRight="7px", ())}>
                 {switch (comment.author.image) {
@@ -51,7 +51,7 @@ module Comments = {
                  }}
               </Link>
               <Link
-                location={Link.profile(~username=comment.author.username)}
+                onClick={Link.profile(~username=comment.author.username) |> Link.location}
                 className="comment-author">
                 comment.author.username->React.string
               </Link>
@@ -92,7 +92,7 @@ module EditArticleButton = {
     |> Option.map((ok: Shape.Article.t) =>
          <Link
            className="btn btn-outline-secondary btn-sm"
-           location={Link.editArticle(~slug=ok.slug)}>
+           onClick={Link.editArticle(~slug=ok.slug) |> Link.location}>
            <i
              className="ion-edit"
              style={ReactDOMRe.Style.make(~marginRight="5px", ())}
@@ -143,7 +143,7 @@ module FavoriteButton = {
         switch (data) {
         | Init
         | Loading
-        | Reloading((_, _, _)) => Link.Button.customFn(ignore)
+        | Reloading((_, _, _)) => Link.customFn(ignore)
         | Complete((_, _, _)) => onClick
         }
       }>
@@ -187,7 +187,7 @@ module FollowButton = {
         switch (data) {
         | Init
         | Loading
-        | Reloading((_, _)) => Link.Button.customFn(ignore)
+        | Reloading((_, _)) => Link.customFn(ignore)
         | Complete((_, _)) => onClick
         }
       }>
@@ -226,7 +226,7 @@ module ArticleAuthorName = {
     |> Option.map((ok: Shape.Article.t) => ok.author)
     |> Option.map((author: Shape.Author.t) =>
          <Link
-           location={Link.profile(~username=author.username)}
+           onClick={Link.profile(~username=author.username) |> Link.location}
            className="author">
            {author.username |> React.string}
          </Link>
@@ -242,7 +242,7 @@ module ArticleAuthorAvatar = {
     |> AsyncResult.getOk
     |> Option.map((ok: Shape.Article.t) => ok.author)
     |> Option.map((author: Shape.Author.t) =>
-         <Link location={Link.profile(~username=author.username)}>
+         <Link onClick={Link.profile(~username=author.username) |> Link.location}>
            {switch (author.image) {
             | "" => <img />
             | src => <img src />
@@ -367,11 +367,11 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
              </form>
            | None =>
              <p>
-               <Link className="nav-link" location=Link.login>
+               <Link className="nav-link" onClick={Link.login|> Link.location }>
                  "Sign in"->React.string
                </Link>
                " or "->React.string
-               <Link className="nav-link" location=Link.register>
+               <Link className="nav-link" onClick={Link.register|> Link.location}>
                  "sign up"->React.string
                </Link>
                " to add comments on this article."->React.string

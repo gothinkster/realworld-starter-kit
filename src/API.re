@@ -27,13 +27,24 @@ module Endpoints = {
     Printf.sprintf("%s/api/articles/%s/favorite", backend, slug);
 
   let listArticles =
-      (~limit: int=10, ~offset: int=0, ~tag: option(string)=?, ()) =>
+      (
+        ~limit: int=10,
+        ~offset: int=0,
+        ~tag: option(string)=?,
+        ~author: option(string)=?,
+        ~favorited: option(string)=?,
+        (),
+      ) =>
     Printf.sprintf(
-      "%s/api/articles?limit=%d&offset=%d%s",
+      "%s/api/articles?limit=%d&offset=%d%s%s%s",
       backend,
       limit,
       offset,
-      tag |> Option.map(someTag => "&tag=" ++ someTag) |> Option.getOrElse(""),
+      tag |> Option.map(ok => "&tag=" ++ ok) |> Option.getOrElse(""),
+      author |> Option.map(ok => "&author=" ++ ok) |> Option.getOrElse(""),
+      favorited
+      |> Option.map(ok => "&favorited=" ++ ok)
+      |> Option.getOrElse(""),
     );
 
   let feedArticles = (~limit: int=10, ~offset: int=0, ()) =>
@@ -168,8 +179,8 @@ let favoriteArticle:
        );
   };
 
-let listArticles = (~limit=10, ~offset=0, ~tag=?, ()) => {
-  Endpoints.listArticles(~limit, ~offset, ~tag?, ())
+let listArticles = (~limit=10, ~offset=0, ~tag=?, ~author=?, ~favorited=?, ()) => {
+  Endpoints.listArticles(~limit, ~offset, ~tag?, ~author?, ~favorited?, ())
   |> fetch
   |> then_(Response.json)
   |> then_(json => json |> Shape.Articles.decode |> resolve);

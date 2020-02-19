@@ -7,24 +7,26 @@ let make = (~user: option(Shape.User.t)) => {
 
   <nav className="navbar navbar-light">
     <div className="container">
-      <Link className="navbar-brand" location=Link.home>
+      <Link className="navbar-brand" onClick={Link.home |> Link.location}>
         "conduit"->React.string
       </Link>
       <ul className="nav navbar-nav pull-xs-right">
         <li className="nav-item">
-          <Link className="nav-link active" location=Link.home>
+          <Link
+            className="nav-link active" onClick={Link.home |> Link.location}>
             "Home"->React.string
           </Link>
         </li>
         <Security.AnonymousOnly user>
           <>
             <li className="nav-item">
-              <Link className="nav-link" location=Link.login>
+              <Link className="nav-link" onClick={Link.login |> Link.location}>
                 "Sign in"->React.string
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" location=Link.register>
+              <Link
+                className="nav-link" onClick={Link.register |> Link.location}>
                 "Sign up"->React.string
               </Link>
             </li>
@@ -33,13 +35,16 @@ let make = (~user: option(Shape.User.t)) => {
         <Security.AuthenticatedOnly user>
           <>
             <li className="nav-item">
-              <Link className="nav-link" location=Link.createArticle>
+              <Link
+                className="nav-link"
+                onClick={Link.createArticle |> Link.location}>
                 <i className="ion-compose" />
                 " New Post"->React.string
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" location=Link.settings>
+              <Link
+                className="nav-link" onClick={Link.settings |> Link.location}>
                 <i className="ion-gear-a" />
                 " Settings"->React.string
               </Link>
@@ -47,7 +52,10 @@ let make = (~user: option(Shape.User.t)) => {
             <li className="nav-item">
               <Link
                 className="nav-link"
-                location={Link.profile(~username=currentUser.username)}>
+                onClick={
+                  Link.profile(~username=currentUser.username)
+                  |> Link.location
+                }>
                 currentUser.username->React.string
               </Link>
             </li>

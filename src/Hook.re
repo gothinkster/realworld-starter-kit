@@ -68,6 +68,60 @@ let useArticles:
     (data, setData);
   };
 
+let useArticlesFromProfile:
+  (~viewMode: Shape.Profile.viewMode) =>
+  AsyncResult.t(Shape.Articles.t, Error.t) =
+  (~viewMode) => {
+    let didCancel = React.useRef(false);
+    let (data, setData) = React.useState(() => AsyncResult.init);
+    let guard = guardByDidCancel(didCancel);
+
+    React.useEffect0(() =>
+      Some(() => React.Ref.setCurrent(didCancel, true))
+    );
+
+    React.useEffect2(
+      () => {
+        guard(() => setData(prev => prev |> AsyncResult.toBusy));
+
+        (
+          switch (viewMode) {
+          | Author(author, limit, offset) =>
+            API.listArticles(~author, ~limit, ~offset, ())
+          | Favorited(favorited, limit, offset) =>
+            API.listArticles(~favorited, ~limit, ~offset, ())
+          }
+        )
+        |> then_(data => {
+             guard(() =>
+               setData(_prev =>
+                 switch (data) {
+                 | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
+                 | Error(error) =>
+                   AsyncResult.completeError(Error.EDecodeParseError(error))
+                 }
+               )
+             )
+             |> resolve
+           })
+        |> catch(error => {
+             guard(() =>
+               setData(_prev =>
+                 AsyncResult.completeError(Error.EFetch(error))
+               )
+             )
+             |> resolve
+           })
+        |> ignore;
+
+        None;
+      },
+      (viewMode, setData),
+    );
+
+    data;
+  };
+
 let useTags: unit => AsyncResult.t(Shape.Tags.t, Error.t) =
   () => {
     let didCancel = React.useRef(false);

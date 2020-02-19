@@ -4,6 +4,9 @@ type onClickAction =
   | Location(location')
   | CustomFn(unit => unit);
 
+let customFn = fn => CustomFn(fn);
+let location = location => Location(location);
+
 external make: string => location' = "%identity";
 external toString: location' => string = "%identity";
 
@@ -24,28 +27,33 @@ let push: location' => unit =
     location->toString->ReasonReactRouter.push;
   };
 
+let availableIf: (bool, onClickAction) => onClickAction =
+  (available, target) => available ? target : CustomFn(ignore);
+
+let handleClick = (onClick, event) => {
+  switch (onClick) {
+  | Location(location) =>
+    if (Utils.isMouseRightClick(event)) {
+      event->ReactEvent.Mouse.preventDefault;
+      location->toString->ReasonReactRouter.push;
+    }
+  | CustomFn(fn) => fn()
+  };
+  ignore();
+};
+
 [@react.component]
 let make =
-    (~className="", ~style=ReactDOMRe.Style.make(), ~location, ~children) => {
-  let href = location->toString;
-
-  <a
-    className
-    href
-    style
-    onClick={event =>
-      if (Utils.isMouseRightClick(event)) {
-        event->ReactEvent.Mouse.preventDefault;
-        href->ReasonReactRouter.push;
-      }
-    }>
-    children
-  </a>;
+    (~className="", ~style=ReactDOMRe.Style.make(), ~onClick, ~children) => {
+  let href =
+    switch (onClick) {
+    | Location(location) => Some(location |> toString)
+    | CustomFn(_fn) => None
+    };
+  <a className ?href style onClick={handleClick(onClick)}> children </a>;
 };
 
 module Button = {
-  let customFn = fn => CustomFn(fn);
-
   [@react.component]
   let make =
       (
@@ -55,20 +63,7 @@ module Button = {
         ~disabled=false,
         ~children,
       ) => {
-    <button
-      className
-      style
-      onClick={event => {
-        switch (onClick) {
-        | Location(location) =>
-          if (Utils.isMouseRightClick(event)) {
-            event->ReactEvent.Mouse.preventDefault;
-            location->toString->ReasonReactRouter.push;
-          }
-        | CustomFn(fn) => fn()
-        };
-        ignore();
-      }}>
+    <button className style onClick={handleClick(onClick)}>
       children
     </button>;
   };

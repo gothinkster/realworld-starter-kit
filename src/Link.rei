@@ -4,6 +4,9 @@ type onClickAction =
   | Location(location')
   | CustomFn(unit => unit);
 
+let customFn: (unit => unit) => onClickAction;
+let location: location' => onClickAction;
+
 external toString: location' => string = "%identity";
 
 let home: location';
@@ -17,13 +20,14 @@ let profile: (~username: string) => location';
 let favorited: (~username: string) => location';
 
 let push: location' => unit;
+let availableIf: (bool, onClickAction) => onClickAction;
 
 [@bs.obj]
 external makeProps:
   (
     ~className: 'className=?,
     ~style: 'style=?,
-    ~location: 'location,
+    ~onClick: 'onClick,
     ~children: 'children,
     ~key: string=?,
     unit
@@ -33,7 +37,7 @@ external makeProps:
     "children": 'children,
     "className": option('className),
     "style": option('style),
-    "location": 'location,
+    "onClick": 'onClick,
   } =
   "";
 
@@ -43,13 +47,11 @@ let make:
     "children": ReasonReact.reactElement,
     "className": option(string),
     "style": option(ReactDOMRe.Style.t),
-    "location": location',
+    "onClick": onClickAction,
   } =>
   ReasonReact.reactElement;
 
 module Button: {
-  let customFn: (unit => unit) => onClickAction;
-
   [@bs.obj]
   external makeProps:
     (

@@ -1,5 +1,14 @@
 module Decode = Decode.AsResult.OfParseError;
 
+module Profile = {
+  type username = string;
+  type limit = int;
+  type offset = int;
+  type viewMode =
+    | Author(username, limit, offset)
+    | Favorited(username, limit, offset);
+};
+
 module FeedType = {
   type tag = string;
   type limit = int;

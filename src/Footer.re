@@ -2,7 +2,7 @@
 let make = () => {
   <footer>
     <div className="container">
-      <Link location=Link.home className="logo-font">
+      <Link onClick={Link.home|> Link.location} className="logo-font">
         "conduit"->React.string
       </Link>
       <span className="attribution">

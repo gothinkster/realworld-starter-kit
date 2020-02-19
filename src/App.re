@@ -19,9 +19,10 @@ let make = () => {
        | CreateArticle => <Editor />
        | EditArticle(slug) => <Editor slug />
        | Article(slug) => <Article slug user />
-       | Profile(username) => <Profile viewMode={Profile.Author(username)} />
+       | Profile(username) =>
+         <Profile viewMode={Shape.Profile.Author(username, 10, 0)} />
        | Favorited(username) =>
-         <Profile viewMode={Profile.Favorited(username)} />
+         <Profile viewMode={Shape.Profile.Favorited(username, 10, 0)} />
        | Home => <Home user />
        }}
       <Footer />

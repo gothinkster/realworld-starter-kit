@@ -6,13 +6,13 @@ module ArticlePreview = {
   let make = (~data: Shape.Article.t, ~onToggleFavorite, ~isFavoriteBusy) => {
     <div className="article-preview">
       <div className="article-meta">
-        <Link location={Link.profile(~username=data.author.username)}>
+        <Link onClick={Link.profile(~username=data.author.username)|> Link.location}>
           <img src={data.author.image} />
         </Link>
         <div className="info">
           <Link
             className="author"
-            location={Link.profile(~username=data.author.username)}>
+            onClick={Link.profile(~username=data.author.username)|> Link.location}>
             data.author.username->React.string
           </Link>
           <span className="date">
@@ -41,7 +41,7 @@ module ArticlePreview = {
           {data.favoritesCount->Js.Int.toString->React.string}
         </button>
       </div>
-      <Link location={Link.article(~slug=data.slug)} className="preview-link">
+      <Link onClick={Link.article(~slug=data.slug)|> Link.location} className="preview-link">
         <h1> data.title->React.string </h1>
         <p> data.description->React.string </p>
         <span> "Read more..."->React.string </span>

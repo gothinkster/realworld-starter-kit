@@ -1,13 +1,13 @@
-type viewMode =
-  | Author(string)
-  | Favorited(string);
+module AsyncResult = Relude.AsyncResult;
 
 [@react.component]
-let make = (~viewMode: viewMode) => {
+let make = (~viewMode: Shape.Profile.viewMode) => {
+  let articles = Hook.useArticlesFromProfile(~viewMode);
+  let isArticlesBusy = articles |> AsyncResult.isBusy;
   let username =
     switch (viewMode) {
-    | Author(username) => username
-    | Favorited(username) => username
+    | Author(username, _limit, _offset) => username
+    | Favorited(username, _limit, _offset) => username
     };
   let slug = "";
 
@@ -37,26 +37,61 @@ let make = (~viewMode: viewMode) => {
             <ul className="nav nav-pills outline-active">
               <li className="nav-item">
                 <Link
-                  className="nav-link active"
-                  location={Link.profile(~username)}>
+                  className={
+                    switch (viewMode) {
+                    | Shape.Profile.Author(_) => "nav-link active"
+                    | Favorited(_) => "nav-link"
+                    }
+                  }
+                  onClick={Link.availableIf(
+                    !isArticlesBusy
+                    && (
+                      switch (viewMode) {
+                      | Author(_) => false
+                      | Favorited(_) => true
+                      }
+                    ),
+                    Link.Location(Link.profile(~username)),
+                  )}>
                   "My Articles"->React.string
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  className="nav-link" location={Link.favorited(~username)}>
+                  className={
+                    switch (viewMode) {
+                    | Shape.Profile.Author(_) => "nav-link"
+                    | Favorited(_) => "nav-link active"
+                    }
+                  }
+                  onClick={Link.availableIf(
+                    !isArticlesBusy && (
+                      switch (viewMode) {
+                      | Author(_) => true
+                      | Favorited(_) => false
+                      }
+                    ),
+                    Link.Location(Link.favorited(~username)),
+                  )}>
                   "Favorited Articles"->React.string
                 </Link>
               </li>
+              {if (articles |> AsyncResult.isBusy) {
+                 <li className="nav-item"> <Spinner /> </li>;
+               } else {
+                 React.null;
+               }}
             </ul>
           </div>
           <div className="article-preview">
             <div className="article-meta">
-              <Link location={Link.profile(~username)}>
+              <Link onClick={Link.profile(~username) |> Link.location}>
                 <img src="http://i.imgur.com/Qr71crq.jpg" />
               </Link>
               <div className="info">
-                <Link className="author" location={Link.profile(~username)}>
+                <Link
+                  className="author"
+                  onClick={Link.profile(~username) |> Link.location}>
                   "Eric Simons"->React.string
                 </Link>
                 <span className="date"> "January 20th"->React.string </span>
@@ -66,7 +101,9 @@ let make = (~viewMode: viewMode) => {
                 "29"->React.string
               </button>
             </div>
-            <Link className="preview-link" location={Link.article(~slug)}>
+            <Link
+              className="preview-link"
+              onClick={Link.article(~slug) |> Link.location}>
               <h1> "How to build webapps that scale"->React.string </h1>
               <p> "This is the description for the post."->React.string </p>
               <span> "Read more..."->React.string </span>
@@ -74,11 +111,13 @@ let make = (~viewMode: viewMode) => {
           </div>
           <div className="article-preview">
             <div className="article-meta">
-              <Link location={Link.profile(~username)}>
+              <Link onClick={Link.profile(~username) |> Link.location}>
                 <img src="http://i.imgur.com/N4VcUeJ.jpg" />
               </Link>
               <div className="info">
-                <Link className="author" location={Link.profile(~username)}>
+                <Link
+                  className="author"
+                  onClick={Link.profile(~username) |> Link.location}>
                   "Albert Pai"->React.string
                 </Link>
                 <span className="date"> "January 20th"->React.string </span>
@@ -88,7 +127,9 @@ let make = (~viewMode: viewMode) => {
                 "32"->React.string
               </button>
             </div>
-            <Link className="preview-link" location={Link.article(~slug)}>
+            <Link
+              className="preview-link"
+              onClick={Link.article(~slug) |> Link.location}>
               <h1>
                 "The song you won't ever stop singing. No matter how hard you try."
                 ->React.string
