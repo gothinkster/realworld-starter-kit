@@ -613,3 +613,47 @@ let useToggleFavorite:
 
     (busy, onToggle);
   };
+
+let useProfile: (~username: string) => AsyncResult.t(Shape.Author.t, Error.t) =
+  (~username) => {
+    let didCancel = React.useRef(false);
+    let (data, setData) = React.useState(() => AsyncResult.init);
+    let guard = guardByDidCancel(didCancel);
+
+    React.useEffect0(() =>
+      Some(() => React.Ref.setCurrent(didCancel, true))
+    );
+
+    React.useEffect2(
+      () => {
+        guard(() => setData(prev => prev |> AsyncResult.toBusy));
+
+        API.getProfile(~username, ())
+        |> then_(data => {
+             guard(() =>
+               setData(_prev =>
+                 switch (data) {
+                 | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
+                 | Error(error) => AsyncResult.completeError(error)
+                 }
+               )
+             )
+             |> resolve
+           })
+        |> catch(error => {
+             guard(() =>
+               setData(_prev =>
+                 AsyncResult.completeError(Error.EFetch(error))
+               )
+             )
+             |> resolve
+           })
+        |> ignore;
+
+        None;
+      },
+      (username, setData),
+    );
+
+    data;
+  };

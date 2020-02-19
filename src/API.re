@@ -1,6 +1,7 @@
 open Js.Promise;
 open Fetch;
 
+module Decode = Decode.AsResult.OfParseError;
 module AsyncResult = Relude.AsyncResult;
 module AsyncData = Relude.AsyncData;
 module Option = Relude.Option;
@@ -58,6 +59,9 @@ module Endpoints = {
   let tags = Printf.sprintf("%s/api/tags", backend);
 
   let currentUser = Printf.sprintf("%s/api/user", backend);
+
+  let profile = (~username: string, ()) =>
+    Printf.sprintf("%s/api/profiles/%s", backend, username);
 
   let followUser = (~username: string, ()) =>
     Printf.sprintf("%s/api/profiles/%s/follow", backend, username);
@@ -322,3 +326,33 @@ let deleteComment = (~slug: string, ~id: int, ()) => {
        |> resolve
      );
 };
+
+let getProfile:
+  (~username: string, unit) =>
+  Js.Promise.t(Relude.Result.t(Shape.Author.t, Error.t)) =
+  (~username, ()) => {
+    let requestInit =
+      RequestInit.make(
+        ~headers=
+          [|getJwtTokenHeader()|]
+          |> Relude.Array.flatten
+          |> HeadersInit.makeWithArray,
+        (),
+      );
+
+    Endpoints.profile(~username, ())
+    |> fetchWithInit(_, requestInit)
+    |> then_(parseJsonIfOk)
+    |> catch(Error.fromPromiseError)
+    |> then_(result =>
+         result
+         |> Relude.Result.flatMap(json =>
+              json
+              |> Decode.field("profile", Shape.Author.decode)
+              |> Relude.Result.mapError(error =>
+                   Error.EDecodeParseError(error)
+                 )
+            )
+         |> resolve
+       );
+  };

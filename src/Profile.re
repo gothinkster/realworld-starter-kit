@@ -1,31 +1,67 @@
+module Option = Relude.Option;
 module AsyncResult = Relude.AsyncResult;
 
 [@react.component]
 let make = (~viewMode: Shape.Profile.viewMode) => {
-  let articles = Hook.useArticlesFromProfile(~viewMode);
-  let isArticlesBusy = articles |> AsyncResult.isBusy;
   let username =
     switch (viewMode) {
     | Author(username, _limit, _offset) => username
     | Favorited(username, _limit, _offset) => username
     };
-  let slug = "";
+  let profile = Hook.useProfile(~username);
+  let articles = Hook.useArticlesFromProfile(~viewMode);
+  let isArticlesBusy = articles |> AsyncResult.isBusy;
 
   <div className="profile-page">
     <div className="user-info">
       <div className="container">
         <div className="row">
           <div className="col-xs-12 col-md-10 offset-md-1">
-            <img src="http://i.imgur.com/Qr71crq.jpg" className="user-img" />
-            <h4> "Eric Simons"->React.string </h4>
-            <p>
-              "Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda looks like Peeta from the Hunger Games"
+            {switch (profile) {
+             | Init
+             | Loading
+             | Reloading(Error(_))
+             | Complete(Error(_)) => <img className="user-img" />
+             | Reloading(Ok(user))
+             | Complete(Ok(user)) =>
+               <img src={user.image} className="user-img" />
+             }}
+            <h4>
+              (
+                switch (profile) {
+                | Init
+                | Loading
+                | Reloading(Error(_))
+                | Complete(Error(_)) => "..."
+                | Reloading(Ok(user))
+                | Complete(Ok(user)) => user.username
+                }
+              )
               ->React.string
-            </p>
-            <button className="btn btn-sm btn-outline-secondary action-btn">
-              <i className="ion-plus-round" />
-              " Follow Eric Simons"->React.string
-            </button>
+            </h4>
+            {switch (profile) {
+             | Init
+             | Loading
+             | Reloading(Error(_))
+             | Complete(Error(_)) => React.null
+             | Reloading(Ok(user))
+             | Complete(Ok(user)) =>
+               user.bio
+               |> Option.map(bio => bio |> React.string)
+               |> Option.getOrElse(React.null)
+             }}
+            {switch (profile) {
+             | Init
+             | Loading
+             | Reloading(Error(_))
+             | Complete(Error(_)) => React.null
+             | Reloading(Ok(user))
+             | Complete(Ok(user)) =>
+               <button className="btn btn-sm btn-outline-secondary action-btn">
+                 <i className="ion-plus-round" />
+                 {Printf.sprintf(" Follow %s", user.username)->React.string}
+               </button>
+             }}
           </div>
         </div>
       </div>
@@ -65,7 +101,8 @@ let make = (~viewMode: Shape.Profile.viewMode) => {
                     }
                   }
                   onClick={Link.availableIf(
-                    !isArticlesBusy && (
+                    !isArticlesBusy
+                    && (
                       switch (viewMode) {
                       | Author(_) => true
                       | Favorited(_) => false
@@ -103,7 +140,7 @@ let make = (~viewMode: Shape.Profile.viewMode) => {
             </div>
             <Link
               className="preview-link"
-              onClick={Link.article(~slug) |> Link.location}>
+              onClick={Link.article(~slug="") |> Link.location}>
               <h1> "How to build webapps that scale"->React.string </h1>
               <p> "This is the description for the post."->React.string </p>
               <span> "Read more..."->React.string </span>
@@ -129,7 +166,7 @@ let make = (~viewMode: Shape.Profile.viewMode) => {
             </div>
             <Link
               className="preview-link"
-              onClick={Link.article(~slug) |> Link.location}>
+              onClick={Link.article(~slug="") |> Link.location}>
               <h1>
                 "The song you won't ever stop singing. No matter how hard you try."
                 ->React.string
