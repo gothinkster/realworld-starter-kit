@@ -47,7 +47,10 @@ RealWorld.io frontend.
 
 # Getting started
 
-You need to have docker, [poetry](https://python-poetry.org/) and Python 3.8 installed on your machine. Docker should be running. Then you can run:
+You need to have [Docker](https://www.docker.com), [Nix](https://nixos.org/nix) and [direnv](https://direnv.net/) installed and configured on your system.
+
+
+Docker should be running. Then you can run:
 
     $ make install
     $ make start-pgsql

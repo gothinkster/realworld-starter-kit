@@ -22,7 +22,7 @@ install:
 pgsql: .installed
 	@docker stop pgsql || true
 	@docker rm pgsql || true
-	@docker run -it --rm --name pgsql -v $(shell pwd)/.docker:/docker-entrypoint-initdb.d -p 5432:5432 postgres:11.2-alpine \
+	@docker run -it --rm --name pgsql -v $(shell pwd)/.docker:/docker-entrypoint-initdb.d -p 5432:5432 postgres:12-alpine \
 		postgres -c 'log_statement=all' -c 'max_connections=1000' -c 'log_connections=true'  -c 'log_disconnections=true'  -c 'log_duration=true'
 
 # Start database in docker in background

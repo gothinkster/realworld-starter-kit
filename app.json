@@ -1,7 +1,8 @@
 {
   "name": "conduit",
+  "stack": "container",
   "env": {
-    "SENTRY_DSN": "https://21b6228b7fb7483fbb3419ea005dcc66:2b02f1b7487f494c9e8495af0a38d7f6@sentry.io/1457710",
+    "SENTRY_DSN": "https://21b6228b7fb7483fbb3419ea005dcc66:2b02f1b7487f494c9e8495af0a38d7f6@sentry.io/1457710"
   },
   "formation": {
     "web": {
@@ -14,18 +15,8 @@
     }
   },
   "addons": [
-    "heroku-postgresql",
-    "papertrail"
+    {"plan": "heroku-postgresql"},
+    {"plan": "papertrail"}
   ],
-  "buildpacks": [
-    {
-      "url": "https://github.com/heroku/heroku-buildpack-python"
-    },
-    {
-      "url": "https://github.com/heroku/heroku-buildpack-apt"
-    },
-    {
-      "url": "https://github.com/niteoweb/heroku-buildpack-shell#v1.0"
-    }
-  ]
+  "scripts": {}
 }
