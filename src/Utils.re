@@ -1,3 +1,5 @@
+module AsyncResult = Relude.AsyncResult;
+
 type cookiePair = (string, option(string));
 
 let cookie: array(cookiePair) =
@@ -40,3 +42,12 @@ let formatDate: Js.Date.t => string =
       date->Js.Date.getMonth,
       date->Js.Date.getDate,
     );
+
+let debugAsyncResult: AsyncResult.t('a, 'e) => unit =
+  fun
+  | Init => "Init" |> Js.log
+  | Loading => "Loading" |> Js.log
+  | Reloading(Ok(_)) => "Reloading(Ok())" |> Js.log
+  | Reloading(Error(e)) => Js.log2("Reloading(Error(%o)", e)
+  | Complete(Ok(_)) => "Complete(Ok())" |> Js.log
+  | Complete(Error(e)) => Js.log2("Complete(Error(%o)", e);

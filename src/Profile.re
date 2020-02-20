@@ -1,4 +1,5 @@
 module Option = Relude.Option;
+module Array = Relude.Array;
 module AsyncResult = Relude.AsyncResult;
 
 [@react.component]
@@ -208,69 +209,74 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
                }}
             </ul>
           </div>
-          <div className="article-preview">
-            <div className="article-meta">
-              <Link onClick={Link.profile(~username) |> Link.location}>
-                <img src="http://i.imgur.com/Qr71crq.jpg" />
-              </Link>
-              <div className="info">
-                <Link
-                  className="author"
-                  onClick={Link.profile(~username) |> Link.location}>
-                  "Eric Simons"->React.string
-                </Link>
-                <span className="date"> "January 20th"->React.string </span>
-              </div>
-              <button className="btn btn-outline-primary btn-sm pull-xs-right">
-                <i className="ion-heart" />
-                "29"->React.string
-              </button>
-            </div>
-            <Link
-              className="preview-link"
-              onClick={Link.article(~slug="") |> Link.location}>
-              <h1> "How to build webapps that scale"->React.string </h1>
-              <p> "This is the description for the post."->React.string </p>
-              <span> "Read more..."->React.string </span>
-            </Link>
-          </div>
-          <div className="article-preview">
-            <div className="article-meta">
-              <Link onClick={Link.profile(~username) |> Link.location}>
-                <img src="http://i.imgur.com/N4VcUeJ.jpg" />
-              </Link>
-              <div className="info">
-                <Link
-                  className="author"
-                  onClick={Link.profile(~username) |> Link.location}>
-                  "Albert Pai"->React.string
-                </Link>
-                <span className="date"> "January 20th"->React.string </span>
-              </div>
-              <button className="btn btn-outline-primary btn-sm pull-xs-right">
-                <i className="ion-heart" />
-                "32"->React.string
-              </button>
-            </div>
-            <Link
-              className="preview-link"
-              onClick={Link.article(~slug="") |> Link.location}>
-              <h1>
-                "The song you won't ever stop singing. No matter how hard you try."
-                ->React.string
-              </h1>
-              <p> "This is the description for the post."->React.string </p>
-              <span> "Read more..."->React.string </span>
-              <ul className="tag-list">
-                <li className="tag-default tag-pill tag-outline">
-                  "Music"->React.string
-                </li>
-                <li className="tag-default tag-pill tag-outline">
-                  "Song"->React.string
-                </li>
-              </ul>
-            </Link>
-          </div>
+          {switch (articles) {
+           | Init
+           | Loading => React.null
+           | Reloading(Error(_))
+           | Complete(Error(_)) => "ERROR" |> React.string
+           | Reloading(Ok(ok))
+           | Complete(Ok(ok)) =>
+             ok.articles
+             |> Array.map((article: Shape.Article.t) => {
+                  <div className="article-preview" key={article.slug}>
+                    <div className="article-meta">
+                      <Link
+                        onClick={
+                          Link.profile(~username=article.author.username)
+                          |> Link.location
+                        }>
+                        {switch (article.author.image) {
+                         | "" => <img />
+                         | src => <img src />
+                         }}
+                      </Link>
+                      <div className="info">
+                        <Link
+                          className="author"
+                          onClick={
+                            Link.profile(~username=article.author.username)
+                            |> Link.location
+                          }>
+                          article.author.username->React.string
+                        </Link>
+                        <span className="date">
+                          {article.createdAt->Utils.formatDate->React.string}
+                        </span>
+                      </div>
+                      <button
+                        className="btn btn-outline-primary btn-sm pull-xs-right">
+                        <i className="ion-heart" />
+                        {article.favoritesCount->string_of_int->React.string}
+                      </button>
+                    </div>
+                    <Link
+                      className="preview-link"
+                      onClick={
+                        Link.article(~slug=article.slug) |> Link.location
+                      }>
+                      <h1> article.title->React.string </h1>
+                      <p> article.description->React.string </p>
+                      <span> "Read more..."->React.string </span>
+                      {switch (article.tagList) {
+                       | [||] => React.null
+                       | tagList =>
+                         <ul className="tag-list">
+                           {tagList
+                            |> Array.map(tag =>
+                                 <li
+                                   key=tag
+                                   className="tag-default tag-pill tag-outline">
+                                   tag->React.string
+                                 </li>
+                               )
+                            |> React.array}
+                         </ul>
+                       }}
+                    </Link>
+                  </div>
+                })
+             |> React.array
+           }}
         </div>
       </div>
     </div>
