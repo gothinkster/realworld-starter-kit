@@ -70,25 +70,83 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
                    }
                  }
                  onClick={
-                   switch (follow) {
-                   | Init
-                   | Loading
-                   | Reloading((_, _)) => Link.customFn(ignore)
-                   | Complete((_, _)) => onFollowClick
+                   switch (follow, user) {
+                   | (Init, Some(_) | None)
+                   | (Loading, Some(_) | None)
+                   | (Reloading((_, _)), Some(_) | None) =>
+                     Link.customFn(ignore)
+                   | (Complete((username, _)), user) =>
+                     user
+                     |> Option.flatMap((ok: Shape.User.t) =>
+                          if (ok.username == username) {
+                            Some(Link.settings |> Link.location);
+                          } else {
+                            None;
+                          }
+                        )
+                     |> Option.getOrElse(onFollowClick)
                    }
                  }>
-                 <i className="ion-plus-round" />
-                 {switch (follow) {
-                  | Init
-                  | Loading => "..." |> React.string
-                  | Reloading((username, following))
-                  | Complete((username, following)) =>
-                    Printf.sprintf(
-                      " %s %s",
-                      following ? "Unfollow" : "Follow",
-                      username,
-                    )
-                    ->React.string
+                 {switch (follow, user) {
+                  | (Init, Some(_) | None) =>
+                    <i
+                      className="ion-plus-round"
+                      style={ReactDOMRe.Style.make(~marginRight="3px", ())}
+                    />
+                  | (Loading, Some(_) | None)
+                  | (Reloading((_, _)), _) =>
+                    <i
+                      className="ion-load-a"
+                      style={ReactDOMRe.Style.make(~marginRight="3px", ())}
+                    />
+                  | (Complete((username, _following)), user) =>
+                    user
+                    |> Option.flatMap((ok: Shape.User.t) =>
+                         if (ok.username == username) {
+                           Some(
+                             <i
+                               className="ion-gear-a"
+                               style={ReactDOMRe.Style.make(
+                                 ~marginRight="3px",
+                                 (),
+                               )}
+                             />,
+                           );
+                         } else {
+                           None;
+                         }
+                       )
+                    |> Option.getOrElse(
+                         <i
+                           className="ion-plus-round"
+                           style={ReactDOMRe.Style.make(
+                             ~marginRight="3px",
+                             (),
+                           )}
+                         />,
+                       )
+                  }}
+                 {switch (follow, user) {
+                  | (Init, Some(_) | None)
+                  | (Loading, Some(_) | None) => "..." |> React.string
+                  | (Reloading((username, following)), user)
+                  | (Complete((username, following)), user) =>
+                    user
+                    |> Option.flatMap((ok: Shape.User.t) =>
+                         if (ok.username == username) {
+                           Some("Edit Profile Settings");
+                         } else {
+                           None;
+                         }
+                       )
+                    |> Option.getOrElse(
+                         Printf.sprintf(
+                           " %s %s",
+                           following ? "Unfollow" : "Follow",
+                           username,
+                         ),
+                       )
+                    |> React.string
                   }}
                </Link.Button>
              }}
