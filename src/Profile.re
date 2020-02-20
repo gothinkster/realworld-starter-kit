@@ -245,7 +245,13 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
                       </div>
                       <button
                         className="btn btn-outline-primary btn-sm pull-xs-right">
-                        <i className="ion-heart" />
+                        <i
+                          className="ion-heart"
+                          style={ReactDOMRe.Style.make(
+                            ~marginRight="3px",
+                            (),
+                          )}
+                        />
                         {article.favoritesCount->string_of_int->React.string}
                       </button>
                     </div>
