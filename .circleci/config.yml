@@ -10,8 +10,6 @@ jobs:
     working_directory: ~/repo
     environment:
       PGHOST: localhost
-      PIPENV_VENV_IN_PROJECT: 1
-      PIPENV_IGNORE_VIRTUALENVS: 1
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
       POSTGRES_PASSWORD: ""
@@ -25,27 +23,27 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v3-dependencies-{{ checksum "Pipfile.lock" }}
+            - v4-dependencies-{{ checksum "poetry.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - v3-dependencies-
+            - v4-dependencies-
 
       - run:
           name: install dependencies
           command: |
-            sudo pip install pipenv
-            pipenv install --dev --deploy
+            sudo pip install poetry
+            poetry install
             touch .installed
 
       - save_cache:
           paths:
             - ./.venv
-          key: v3-dependencies-{{ checksum "Pipfile.lock" }}
+          key: v4-dependencies-{{ checksum "poetry.lock" }}
 
       - run:
           name: run linters
           command: |
             make lint
-            pipenv run black src/conduit --check
+            poetry run black src/conduit --check
 
       - run:
           name: run mypy
@@ -79,16 +77,16 @@ jobs:
       - run:
           name: run dev app
           command: |
-            pipenv run pshell etc/development.ini SKIP_CHECK_DB_MIGRATED=1 < .circleci/exit.sh
+            poetry run pshell etc/development.ini SKIP_CHECK_DB_MIGRATED=1 < .circleci/exit.sh
 
       - run:
           name: run prod app
           command: |
-            DATABASE_URL="postgresql://conduit_dev@localhost/conduit_dev" pipenv run pshell etc/production.ini SKIP_CHECK_DB_MIGRATED=1 < .circleci/exit.sh
+            DATABASE_URL="postgresql://conduit_dev@localhost/conduit_dev" poetry run pshell etc/production.ini SKIP_CHECK_DB_MIGRATED=1 < .circleci/exit.sh
 
       - run:
           name: run Postman tests
           command: |
             make devdb
-            pipenv run pserve etc/development.ini &
+            poetry run pserve etc/development.ini &
             make postman-tests

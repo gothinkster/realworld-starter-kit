@@ -1,8 +1,5 @@
 # Convenience makefile to build the dev env and run common commands
 # Based on https://github.com/niteoweb/Makefile
-.EXPORT_ALL_VARIABLES:
-PIPENV_VENV_IN_PROJECT = 1
-PIPENV_IGNORE_VIRTUALENVS = 1
 
 .PHONY: all
 all: .installed
@@ -12,12 +9,12 @@ install:
 	@rm -f .installed  # force re-install
 	@make .installed
 
-.installed: Pipfile Pipfile.lock
-	@echo "Pipfile(.lock) is newer than .installed, (re)installing"
-	@pipenv sync --dev
-	@pipenv run pre-commit install -f --hook-type pre-commit
-	@pipenv run pre-commit install -f --hook-type pre-push
-	@echo "This file is used by 'make' for keeping track of last install time. If Pipfile or Pipfile.lock are newer then this file (.installed) then all 'make *' commands that depend on '.installed' know they need to run pipenv install first." \
+.installed: pyproject.toml poetry.lock
+	@echo "pyproject.toml/poetry.lock is newer than .installed, (re)installing"
+	@poetry install
+	@poetry run pre-commit install -f --hook-type pre-commit
+	@poetry run pre-commit install -f --hook-type pre-push
+	@echo "This file is used by 'make' for keeping track of last install time. If pyproject.toml or poetry.lock are newer then this file (.installed) then all 'make *' commands that depend on '.installed' know they need to run poetry install first." \
 		> .installed
 
 # Start database in docker in foreground
@@ -50,35 +47,35 @@ stop-pgsql: .installed
 # Drop, recreate and populate development database with demo content
 .PHONY: devdb
 devdb: .installed
-	@pipenv run python -m conduit.scripts.drop_tables
-	@pipenv run alembic -c etc/alembic.ini -x ini=etc/development.ini upgrade head
-	@pipenv run python -m conduit.scripts.populate
+	@poetry run python -m conduit.scripts.drop_tables
+	@poetry run alembic -c etc/alembic.ini -x ini=etc/development.ini upgrade head
+	@poetry run python -m conduit.scripts.populate
 
 .PHONY: pshell
 pshell: .installed
-	@pipenv run pshell etc/development.ini
+	@poetry run pshell etc/development.ini
 
 # Run development server
 .PHONY: run
 run: .installed
-	@pipenv run pserve etc/development.ini
+	@poetry run pserve etc/development.ini
 
 # Testing and linting targets
 .PHONY: lint
 lint: .installed
-	@pipenv run pre-commit run --all-files --hook-stage push
+	@poetry run pre-commit run --all-files --hook-stage push
 
 .PHONY: types
 types: .installed
 	# Delete .mypy_cache because mypy report is not generated when cache is fresh https://github.com/python/mypy/issues/5103
 	@rm -rf .mypy_cache
-	@pipenv run mypy src/conduit
+	@poetry run mypy src/conduit
 	@cat ./typecov/linecount.txt
-	@pipenv run typecov 100 ./typecov/linecount.txt
+	@poetry run typecov 100 ./typecov/linecount.txt
 
 .PHONY: format
 format: .installed
-	@pipenv run black src/conduit
+	@poetry run black src/conduit
 
 # anything, in regex-speak
 filter = "."
@@ -101,12 +98,12 @@ endif
 .PHONY: unit
 unit: .installed
 ifeq ($(unit_test_all),"true")
-	@pipenv run python -m conduit.scripts.drop_tables -c etc/test.ini
+	@poetry run python -m conduit.scripts.drop_tables -c etc/test.ini
 endif
 ifndef path
-	@pipenv run pytest src/conduit $(coverage_args) $(pytest_args)
+	@poetry run pytest src/conduit $(coverage_args) $(pytest_args)
 else
-	@pipenv run pytest $(path)
+	@poetry run pytest $(path)
 endif
 
 .PHONY: postman-tests
@@ -121,7 +118,6 @@ tests: format lint types unit
 
 .PHONY: clean
 clean:
-	@if [ -d ".venv/" ]; then pipenv --rm; fi
-	@rm -rf .coverage .mypy_cache htmlcov/ htmltypecov src/conduit.egg-info typecov xunit.xml \
+	@rm -rf .venv/ .coverage .mypy_cache htmlcov/ htmltypecov src/conduit.egg-info typecov xunit.xml \
 			.git/hooks/pre-commit .git/hooks/pre-push
 	@rm -f .installed

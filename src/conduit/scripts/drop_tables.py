@@ -15,7 +15,7 @@ def main(argv: t.List[str] = sys.argv) -> None:
     """Run the script."""
 
     parser = argparse.ArgumentParser(
-        usage="pipenv run python -m conduit.scripts.drop_tables"
+        usage="poetry run python -m conduit.scripts.drop_tables"
     )
     parser.add_argument(
         "-c",

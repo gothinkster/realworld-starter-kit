@@ -1,17 +1,36 @@
-[[source]]
-url = "https://pypi.org/simple"
-verify_ssl = true
-name = "pypi"
+[tool.poetry]
+name = "conduit"
+version = "0.1.0"
+description = "Pyramid and OpenAPI3 based RealWorld.io example."
+authors = ["niteo.co <info@niteo.co>"]
+license = "MIT"
+classifiers = [
+	"Programming Language :: Python",
+	"Programming Language :: Python :: 3.8",
+	"Framework :: Pyramid",
+	"Topic :: Internet :: WWW/HTTP",
+	"Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+	"License :: MIT",
+]
+homepage = "http://github.com/niteoweb/pyramid-realworld-example-app"
+keywords = ["pyramid", "openapi", "realworld"]
+packages = [
+	{ include = "conduit", from = "src" },
+]
 
-[packages]
-e1839a8 = {path = ".",editable = true}  # conduit
+[tool.poetry.plugins."paste.app_factory"]
+main = "conduit:main"
+test_suite = "conduit"
+
+[tool.poetry.dependencies]
+python = "~3.8"
 argon2-cffi = "*"
 gunicorn = "*"
 mypy_extensions = "*"
 passlib = "*"
 psycopg2-binary = "*"
 pyramid = "*"
-pyramid_deferred_sqla = {git = "https://github.com/niteoweb/pyramid_deferred_sqla.git",editable = true}
+pyramid_deferred_sqla = {git = "https://github.com/niteoweb/pyramid_deferred_sqla.git"}
 pyramid_force_https = "*"
 pyramid_heroku = "*"
 pyramid_jwt = "*"
@@ -21,7 +40,7 @@ python-slugify = "*"
 raven = "*"
 structlog = "*"
 
-[dev-packages]
+[tool.poetry.dev-dependencies]
 bandit = "*"
 black = "==19.3b0"
 codespell = "*"
@@ -59,5 +78,6 @@ typecov = "*"
 waitress = "*"
 webtest = "*"
 
-[requires]
-python_version = "3.8"
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

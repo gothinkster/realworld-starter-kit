@@ -12,7 +12,7 @@ Prerequisites:
 Start by creating a migration recipe with:
 
 ```shell
-pipenv run alembic -c etc/alembic.ini -x ini=etc/development.ini revision --autogenerate -m "message"
+poetry run alembic -c etc/alembic.ini -x ini=etc/development.ini revision --autogenerate -m "message"
 ```
 
 The `message` should be descriptive to what recipe does to the db. Avoid short titles, abbreviations, etc:
@@ -33,13 +33,13 @@ Bad:
 Upgrading:
 
 ```shell
-pipenv run alembic -c etc/alembic.ini -x ini=etc/development.ini upgrade head
+poetry run alembic -c etc/alembic.ini -x ini=etc/development.ini upgrade head
 ```
 
 Downgrading:
 
 ```shell
-pipenv run alembic -c etc/alembic.ini -x ini=etc/development.ini downgrade -1
+poetry run alembic -c etc/alembic.ini -x ini=etc/development.ini downgrade -1
 ```
 
 ## Can I use my models in my migration scripts?

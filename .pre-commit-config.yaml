@@ -2,25 +2,25 @@
     hooks:
     -   id: isort
         name: isort
-        entry: pipenv run isort -rc --atomic src/conduit
+        entry: poetry run isort -rc --atomic src/conduit
         language: system
         types: [python]
 
     -   id: flake8
         name: Flake8
-        entry: pipenv run flake8
+        entry: poetry run flake8
         language: system
         types: [python]
 
     -   id: black
         name: black
-        entry: pipenv run black
+        entry: poetry run black
         language: system
         types: [python]
 
     -   id: trailing-whitespace
         name: Trim Trailing Space
-        entry: pipenv run trailing-whitespace-fixer
+        entry: poetry run trailing-whitespace-fixer
         language: system
         types: [non-executable, file, text]
         exclude_types: [svg]
@@ -28,7 +28,7 @@
     -   id: end-of-file-fixer
         name: Fix End of Files
         description: Ensures that a file is either empty, or ends with one newline.
-        entry: pipenv run end-of-file-fixer
+        entry: poetry run end-of-file-fixer
         language: system
         types: [non-executable, file, text]
         exclude_types: [svg]
@@ -36,14 +36,14 @@
     -   id: check-merge-conflict
         name: Check for merge conflicts
         description: Check for files that contain merge conflict strings.
-        entry: pipenv run check-merge-conflict
+        entry: poetry run check-merge-conflict
         language: system
         stages: [push]
 
     -   id: codespell
         name: Check Spelling
         description: Checks for common misspellings in text files.
-        entry: pipenv run codespell --ignore-words .aspell.en.pws
+        entry: poetry run codespell --ignore-words .aspell.en.pws
         language: system
         types: [non-executable, file, text]
         exclude_types: [svg]
@@ -53,7 +53,7 @@
     -   id: debug-statements
         name: Check Debug Statements Absent (Python)
         description: Checks that debug statements (pdb, ipdb, pudb) are not imported on commit.
-        entry: pipenv run debug-statement-hook
+        entry: poetry run debug-statement-hook
         language: system
         types: [python]
         stages: [push]
@@ -69,7 +69,7 @@
     -   id: bandit
         name: Check for common security issues
         args: []
-        entry: pipenv run bandit -r src/conduit/ --skip B608 -x *tests*,src/conduit/scripts/populate.py
+        entry: poetry run bandit -r src/conduit/ --skip B608 -x *tests*,src/conduit/scripts/populate.py
         language: system
         pass_filenames: false
         stages: [push]
