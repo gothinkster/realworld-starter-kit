@@ -733,3 +733,33 @@ let useProfile: (~username: string) => AsyncResult.t(Shape.Author.t, Error.t) =
 
     data;
   };
+
+let useViewMode:
+  (~route: Shape.Profile.viewMode) => (Shape.Profile.viewMode, int => unit) =
+  (~route) => {
+    let (viewMode, setViewMode) = React.useState(() => None);
+    let finalViewMode = viewMode |> Option.getOrElse(route);
+
+    React.useEffect2(
+      () => {
+        setViewMode(_prev => None);
+        None;
+      },
+      (route, setViewMode),
+    );
+
+    let changeOffset = offset =>
+      setViewMode(_prev =>
+        Some(
+          switch (finalViewMode) {
+          | Author(username, limit, _offset) =>
+            Author(username, limit, offset)
+          | Favorited(username, limit, _offset) =>
+            Favorited(username, limit, offset)
+          },
+        )
+      );
+
+    (finalViewMode, changeOffset);
+  };
+

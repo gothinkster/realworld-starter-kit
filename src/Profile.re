@@ -4,10 +4,11 @@ module AsyncResult = Relude.AsyncResult;
 
 [@react.component]
 let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
-  let username =
+  let (viewMode, changeOffset) = Hook.useViewMode(~route=viewMode);
+  let (username, limit, offset) =
     switch (viewMode) {
-    | Author(username, _limit, _offset) => username
-    | Favorited(username, _limit, _offset) => username
+    | Author(username, limit, offset) => (username, limit, offset)
+    | Favorited(username, limit, offset) => (username, limit, offset)
     };
   let profile = Hook.useProfile(~username);
   let articles = Hook.useArticlesInProfile(~viewMode);
@@ -216,72 +217,82 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
            | Complete(Error(_)) => "ERROR" |> React.string
            | Reloading(Ok(ok))
            | Complete(Ok(ok)) =>
-             ok.articles
-             |> Array.map((article: Shape.Article.t) => {
-                  <div className="article-preview" key={article.slug}>
-                    <div className="article-meta">
-                      <Link
-                        onClick={
-                          Link.profile(~username=article.author.username)
-                          |> Link.location
-                        }>
-                        {switch (article.author.image) {
-                         | "" => <img />
-                         | src => <img src />
-                         }}
-                      </Link>
-                      <div className="info">
-                        <Link
-                          className="author"
-                          onClick={
-                            Link.profile(~username=article.author.username)
-                            |> Link.location
-                          }>
-                          article.author.username->React.string
-                        </Link>
-                        <span className="date">
-                          {article.createdAt->Utils.formatDate->React.string}
-                        </span>
-                      </div>
-                      <button
-                        className="btn btn-outline-primary btn-sm pull-xs-right">
-                        <i
-                          className="ion-heart"
-                          style={ReactDOMRe.Style.make(
-                            ~marginRight="3px",
-                            (),
-                          )}
-                        />
-                        {article.favoritesCount->string_of_int->React.string}
-                      </button>
-                    </div>
-                    <Link
-                      className="preview-link"
-                      onClick={
-                        Link.article(~slug=article.slug) |> Link.location
-                      }>
-                      <h1> article.title->React.string </h1>
-                      <p> article.description->React.string </p>
-                      <span> "Read more..."->React.string </span>
-                      {switch (article.tagList) {
-                       | [||] => React.null
-                       | tagList =>
-                         <ul className="tag-list">
-                           {tagList
-                            |> Array.map(tag =>
-                                 <li
-                                   key=tag
-                                   className="tag-default tag-pill tag-outline">
-                                   tag->React.string
-                                 </li>
-                               )
-                            |> React.array}
-                         </ul>
-                       }}
-                    </Link>
-                  </div>
-                })
-             |> React.array
+             <>
+               {ok.articles
+                |> Array.map((article: Shape.Article.t) => {
+                     <div className="article-preview" key={article.slug}>
+                       <div className="article-meta">
+                         <Link
+                           onClick={
+                             Link.profile(~username=article.author.username)
+                             |> Link.location
+                           }>
+                           {switch (article.author.image) {
+                            | "" => <img />
+                            | src => <img src />
+                            }}
+                         </Link>
+                         <div className="info">
+                           <Link
+                             className="author"
+                             onClick={
+                               Link.profile(~username=article.author.username)
+                               |> Link.location
+                             }>
+                             article.author.username->React.string
+                           </Link>
+                           <span className="date">
+                             {article.createdAt->Utils.formatDate->React.string}
+                           </span>
+                         </div>
+                         <button
+                           className="btn btn-outline-primary btn-sm pull-xs-right">
+                           <i
+                             className="ion-heart"
+                             style={ReactDOMRe.Style.make(
+                               ~marginRight="3px",
+                               (),
+                             )}
+                           />
+                           {article.favoritesCount->string_of_int->React.string}
+                         </button>
+                       </div>
+                       <Link
+                         className="preview-link"
+                         onClick={
+                           Link.article(~slug=article.slug) |> Link.location
+                         }>
+                         <h1> article.title->React.string </h1>
+                         <p> article.description->React.string </p>
+                         <span> "Read more..."->React.string </span>
+                         {switch (article.tagList) {
+                          | [||] => React.null
+                          | tagList =>
+                            <ul className="tag-list">
+                              {tagList
+                               |> Array.map(tag =>
+                                    <li
+                                      key=tag
+                                      className="tag-default tag-pill tag-outline">
+                                      tag->React.string
+                                    </li>
+                                  )
+                               |> React.array}
+                            </ul>
+                          }}
+                       </Link>
+                     </div>
+                   })
+                |> React.array}
+               <Pagination
+                 limit
+                 offset
+                 total={ok.articlesCount}
+                 onClick={
+                   articles |> AsyncResult.isBusy ? ignore : changeOffset
+                 }
+               />
+             </>
            }}
         </div>
       </div>
