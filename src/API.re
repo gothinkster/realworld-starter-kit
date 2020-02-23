@@ -184,8 +184,17 @@ let favoriteArticle:
   };
 
 let listArticles = (~limit=10, ~offset=0, ~tag=?, ~author=?, ~favorited=?, ()) => {
+  let requestInit =
+    RequestInit.make(
+      ~headers=
+        [|getJwtTokenHeader()|]
+        |> Relude.Array.flatten
+        |> HeadersInit.makeWithArray,
+      (),
+    );
+
   Endpoints.listArticles(~limit, ~offset, ~tag?, ~author?, ~favorited?, ())
-  |> fetch
+  |> fetchWithInit(_, requestInit)
   |> then_(Response.json)
   |> then_(json => json |> Shape.Articles.decode |> resolve);
 };

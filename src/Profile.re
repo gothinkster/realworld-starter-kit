@@ -11,8 +11,10 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
     | Favorited(username, limit, offset) => (username, limit, offset)
     };
   let profile = Hook.useProfile(~username);
-  let articles = Hook.useArticlesInProfile(~viewMode);
+  let (articles, setArticles) = Hook.useArticlesInProfile(~viewMode);
   let (follow, onFollowClick) = Hook.useFollowInProfile(~profile, ~user);
+  let (toggleFavoriteBusy, onToggleFavorite) =
+    Hook.useToggleFavorite(~setArticles, ~user);
   let isArticlesBusy = articles |> AsyncResult.isBusy;
 
   <div className="profile-page">
@@ -220,6 +222,10 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
              <>
                {ok.articles
                 |> Array.map((article: Shape.Article.t) => {
+                     let isFavoriteBusy =
+                       toggleFavoriteBusy
+                       |> Belt.Set.String.has(_, article.slug);
+
                      <div className="article-preview" key={article.slug}>
                        <div className="article-meta">
                          <Link
@@ -245,17 +251,34 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
                              {article.createdAt->Utils.formatDate->React.string}
                            </span>
                          </div>
-                         <button
-                           className="btn btn-outline-primary btn-sm pull-xs-right">
+                         <Link.Button
+                           className={
+                             article.favorited
+                               ? "btn btn-primary btn-sm pull-xs-right"
+                               : "btn btn-outline-primary btn-sm pull-xs-right"
+                           }
+                           disabled=isFavoriteBusy
+                           onClick={Link.customFn(() =>
+                             if (!isFavoriteBusy) {
+                               onToggleFavorite(
+                                 ~action=
+                                   article.favorited
+                                     ? API.Unfavorite(article.slug)
+                                     : API.Favorite(article.slug),
+                               );
+                             }
+                           )}>
                            <i
-                             className="ion-heart"
+                             className={
+                               isFavoriteBusy ? "ion-load-a" : "ion-heart"
+                             }
                              style={ReactDOMRe.Style.make(
                                ~marginRight="3px",
                                (),
                              )}
                            />
                            {article.favoritesCount->string_of_int->React.string}
-                         </button>
+                         </Link.Button>
                        </div>
                        <Link
                          className="preview-link"
@@ -281,7 +304,7 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
                             </ul>
                           }}
                        </Link>
-                     </div>
+                     </div>;
                    })
                 |> React.array}
                <Pagination

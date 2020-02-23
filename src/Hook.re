@@ -70,7 +70,14 @@ let useArticles:
 
 let useArticlesInProfile:
   (~viewMode: Shape.Profile.viewMode) =>
-  AsyncResult.t(Shape.Articles.t, Error.t) =
+  (
+    AsyncResult.t(Shape.Articles.t, Error.t),
+    (
+      AsyncResult.t(Shape.Articles.t, Error.t) =>
+      AsyncResult.t(Shape.Articles.t, Error.t)
+    ) =>
+    unit,
+  ) =
   (~viewMode) => {
     let didCancel = React.useRef(false);
     let (data, setData) = React.useState(() => AsyncResult.init);
@@ -119,7 +126,7 @@ let useArticlesInProfile:
       (viewMode, setData),
     );
 
-    data;
+    (data, setData);
   };
 
 let useTags: unit => AsyncResult.t(Shape.Tags.t, Error.t) =
