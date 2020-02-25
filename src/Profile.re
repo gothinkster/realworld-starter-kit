@@ -1,4 +1,5 @@
 module Option = Relude.Option;
+module Result = Relude.Result;
 module Array = Relude.Array;
 module AsyncResult = Relude.AsyncResult;
 
@@ -22,15 +23,13 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
       <div className="container">
         <div className="row">
           <div className="col-xs-12 col-md-10 offset-md-1">
-            {switch (profile) {
-             | Init
-             | Loading
-             | Reloading(Error(_))
-             | Complete(Error(_)) => <img className="user-img" />
-             | Reloading(Ok(user))
-             | Complete(Ok(user)) =>
-               <img src={user.image} className="user-img" />
-             }}
+            {profile
+             |> AsyncResult.getOk
+             |> Option.flatMap((user: Shape.Author.t) =>
+                  user.image == "" ? None : Some(user.image)
+                )
+             |> Option.map(src => <img src className="user-img" />)
+             |> Option.getOrElse(<img className="user-img" />)}
             <h4>
               (
                 switch (profile) {
