@@ -1,5 +1,79 @@
 open Relude.Globals;
 
+module PostComment = {
+  [@react.component]
+  let make =
+      (
+        ~slug: string,
+        ~image: string,
+        ~setComments:
+           (
+             AsyncResult.t(array(Shape.Comment.t), Error.t) =>
+             AsyncResult.t(array(Shape.Comment.t), Error.t)
+           ) =>
+           unit,
+      ) => {
+    let (comment, setComment) = React.useState(() => AsyncData.complete(""));
+    let isCommentValid =
+      comment
+      |> AsyncData.getValue
+      |> Option.map(v => Js.String.trim(v) != "")
+      |> Option.getOrElse(false);
+    let body = comment |> AsyncData.getValue |> Option.getOrElse("");
+
+    <form className="card comment-form">
+      <div className="card-block">
+        <textarea
+          className="form-control"
+          placeholder="Write a comment..."
+          rows=3
+          value=body
+          onChange={event => {
+            let value = ReactEvent.Form.target(event)##value;
+            setComment(_prev => AsyncData.complete(value));
+          }}
+          disabled={comment |> AsyncData.isBusy}
+        />
+      </div>
+      <div className="card-footer">
+        {switch (image) {
+         | "" => <img className="comment-author-img" />
+         | src => <img src className="comment-author-img" />
+         }}
+        <button
+          className="btn btn-sm btn-primary"
+          disabled={!isCommentValid}
+          onClick={event => {
+            if (isCommentValid && AsyncData.isComplete(comment)) {
+              setComment(AsyncData.toBusy);
+              API.addComment(~slug, ~body, ())
+              |> Js.Promise.then_(
+                   fun
+                   | Ok(comment) => {
+                       setComments(prev =>
+                         prev |> AsyncResult.map(Array.prepend(comment))
+                       );
+                       setComment(_prev => AsyncData.complete(""));
+                       ignore() |> Js.Promise.resolve;
+                     }
+                   | Error(_error) =>
+                     setComment(AsyncData.toIdle) |> Js.Promise.resolve,
+                 )
+              |> Js.Promise.catch(_error =>
+                   setComment(AsyncData.toIdle) |> Js.Promise.resolve
+                 )
+              |> ignore;
+            };
+            event |> ReactEvent.Mouse.preventDefault;
+            event |> ReactEvent.Mouse.stopPropagation;
+          }}>
+          "Post Comment"->React.string
+        </button>
+      </div>
+    </form>;
+  };
+};
+
 module TagList = {
   [@react.component]
   let make = (~data: array(string)) => {
@@ -42,7 +116,10 @@ module Comments = {
             </div>
             <div className="card-footer">
               <Link
-                onClick={Link.profile(~username=comment.author.username) |> Link.location}
+                onClick={
+                  Link.profile(~username=comment.author.username)
+                  |> Link.location
+                }
                 className="comment-author"
                 style={ReactDOMRe.Style.make(~marginRight="7px", ())}>
                 {switch (comment.author.image) {
@@ -51,7 +128,10 @@ module Comments = {
                  }}
               </Link>
               <Link
-                onClick={Link.profile(~username=comment.author.username) |> Link.location}
+                onClick={
+                  Link.profile(~username=comment.author.username)
+                  |> Link.location
+                }
                 className="comment-author">
                 comment.author.username->React.string
               </Link>
@@ -242,7 +322,8 @@ module ArticleAuthorAvatar = {
     |> AsyncResult.getOk
     |> Option.map((ok: Shape.Article.t) => ok.author)
     |> Option.map((author: Shape.Author.t) =>
-         <Link onClick={Link.profile(~username=author.username) |> Link.location}>
+         <Link
+           onClick={Link.profile(~username=author.username) |> Link.location}>
            {switch (author.image) {
             | "" => <img />
             | src => <img src />
@@ -256,7 +337,8 @@ module ArticleAuthorAvatar = {
 [@react.component]
 let make = (~slug: string, ~user: option(Shape.User.t)) => {
   let article = Hook.useArticle(~slug);
-  let (comments, busyComments, deleteComment) = Hook.useComments(~slug);
+  let (comments, busyComments, deleteComment, setComments) =
+    Hook.useComments(~slug);
   let (follow, onFollowClick) = Hook.useFollow(~article, ~user);
   let (favorite, onFavoriteClick) = Hook.useFavorite(~article, ~user);
   let (isDeleteBusy, onDeleteClick) = Hook.useDeleteArticle(~article, ~user);
@@ -346,32 +428,16 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
       <div className="row">
         <div className="col-xs-12 col-md-8 offset-md-2">
           {switch (user) {
-           | Some({image}) =>
-             <form className="card comment-form">
-               <div className="card-block">
-                 <textarea
-                   className="form-control"
-                   placeholder="Write a comment..."
-                   rows=3
-                 />
-               </div>
-               <div className="card-footer">
-                 {switch (image) {
-                  | "" => <img className="comment-author-img" />
-                  | src => <img src className="comment-author-img" />
-                  }}
-                 <button className="btn btn-sm btn-primary">
-                   /* TODO: implement "click" action */
-                    "Post Comment"->React.string </button>
-               </div>
-             </form>
+           | Some({image}) => <PostComment image slug setComments />
            | None =>
              <p>
-               <Link className="nav-link" onClick={Link.login|> Link.location }>
+               <Link
+                 className="nav-link" onClick={Link.login |> Link.location}>
                  "Sign in"->React.string
                </Link>
                " or "->React.string
-               <Link className="nav-link" onClick={Link.register|> Link.location}>
+               <Link
+                 className="nav-link" onClick={Link.register |> Link.location}>
                  "sign up"->React.string
                </Link>
                " to add comments on this article."->React.string

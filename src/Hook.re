@@ -256,6 +256,11 @@ let useComments:
     AsyncResult.t(array(Shape.Comment.t), Error.t),
     Belt.Set.Int.t,
     (~slug: string, ~id: int) => unit,
+    (
+      AsyncResult.t(array(Shape.Comment.t), Error.t) =>
+      AsyncResult.t(array(Shape.Comment.t), Error.t)
+    ) =>
+    unit,
   ) =
   (~slug) => {
     let didCancel = React.useRef(false);
@@ -324,7 +329,7 @@ let useComments:
       |> ignore;
     };
 
-    (data, busy, deleteComment);
+    (data, busy, deleteComment, setData);
   };
 
 let useFollow:
@@ -769,4 +774,3 @@ let useViewMode:
 
     (finalViewMode, changeOffset);
   };
-

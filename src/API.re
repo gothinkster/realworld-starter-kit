@@ -66,7 +66,7 @@ module Endpoints = {
   let followUser = (~username: string, ()) =>
     Printf.sprintf("%s/api/profiles/%s/follow", backend, username);
 
-  let getComments = (~slug: string, ()) =>
+  let comments = (~slug: string, ()) =>
     Printf.sprintf("%s/api/articles/%s/comments", backend, slug);
 
   let comment = (~slug: string, ~id: int, ()) =>
@@ -81,6 +81,9 @@ let getJwtTokenHeader: unit => array((string, string)) =
          [|("Authorization", Printf.sprintf("Token %s", token))|]
        )
     |> Relude.Option.getOrElse([||]);
+
+let getContentTypeJsonHeader: unit => array((string, string)) =
+  () => [|("Content-Type", "application/json; charset=UTF-8")|];
 
 let parseJsonIfOk:
   Fetch.Response.t => Js.Promise.t(Relude.Result.t(Js.Json.t, Error.t)) =
@@ -297,7 +300,7 @@ let getComments:
         (),
       );
 
-    Endpoints.getComments(~slug, ())
+    Endpoints.comments(~slug, ())
     |> fetchWithInit(_, requestInit)
     |> then_(parseJsonIfOk)
     |> catch(Error.fromPromiseError)
@@ -332,6 +335,47 @@ let deleteComment = (~slug: string, ~id: int, ()) => {
   |> then_(result =>
        result
        |> Relude.Result.flatMap(_json => Relude.Result.ok((slug, id)))
+       |> resolve
+     );
+};
+
+let addComment = (~slug: string, ~body: string, ()) => {
+  let requestInit =
+    RequestInit.make(
+      ~method_=Post,
+      ~headers=
+        [|getJwtTokenHeader(), getContentTypeJsonHeader()|]
+        |> Relude.Array.flatten
+        |> HeadersInit.makeWithArray,
+      ~body=
+        Fetch.BodyInit.make(
+          Js.Json.stringify(
+            Js.Json.object_(
+              Js.Dict.fromList([
+                (
+                  "comment",
+                  Js.Json.object_(
+                    Js.Dict.fromList([("body", Js.Json.string(body))]),
+                  ),
+                ),
+              ]),
+            ),
+          ),
+        ),
+      (),
+    );
+
+  Endpoints.comments(~slug, ())
+  |> fetchWithInit(_, requestInit)
+  |> then_(parseJsonIfOk)
+  |> catch(Error.fromPromiseError)
+  |> then_(result =>
+       result
+       |> Relude.Result.flatMap(json =>
+            json
+            |> Decode.field("comment", Shape.Comment.decodeComment)
+            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+          )
        |> resolve
      );
 };

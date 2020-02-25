@@ -89,13 +89,11 @@ describe("Profile component", () => {
     expect(true) |> toEqual(true)
   );
 
-  Skip.test(
-    "favorite article when click on favorite icon", () =>
+  Skip.test("favorite article when click on favorite icon", () =>
     expect(true) |> toEqual(true)
   );
 
-  Skip.test(
-    "unfavorite article when click on unfavorite icon", () =>
+  Skip.test("unfavorite article when click on unfavorite icon", () =>
     expect(true) |> toEqual(true)
   );
 
