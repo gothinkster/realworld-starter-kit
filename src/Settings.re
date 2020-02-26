@@ -1,5 +1,7 @@
+open Relude.Globals;
+
 [@react.component]
-let make = () => {
+let make = (~user: Shape.User.t) => {
   <div className="settings-page">
     <div className="container page">
       <div className="row">

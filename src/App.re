@@ -1,4 +1,14 @@
-module AsyncData = Relude.AsyncData;
+open Relude.Globals;
+
+let authenticated:
+  (Shape.User.t => React.element, option(Shape.User.t)) => React.element =
+  (getPage, user) =>
+    user
+    |> Option.map(getPage)
+    |> Option.getOrElseLazy(() => {
+         Link.home |> Link.push;
+         React.null;
+       });
 
 [@react.component]
 let make = () => {
@@ -13,7 +23,7 @@ let make = () => {
     <>
       <Header user />
       {switch (route) {
-       | Settings => <Settings />
+       | Settings => authenticated(user => <Settings user />, user)
        | Login => <Login />
        | Register => <Register />
        | CreateArticle => <Editor />
