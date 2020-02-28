@@ -2,7 +2,7 @@ open Relude.Globals;
 
 [@react.component]
 let make = (~user: Shape.User.t) => {
-  let (result, setForm) =
+  let (result, setResult) =
     React.useState(() => AsyncResult.completeOk((user, "")));
   let isBusy = result |> AsyncResult.isBusy;
   let (form, password) =
@@ -24,7 +24,7 @@ let make = (~user: Shape.User.t) => {
                   value={form.image}
                   onChange={event => {
                     let image = event->ReactEvent.Form.target##value;
-                    setForm(
+                    setResult(
                       AsyncResult.map(
                         ((prevForm: Shape.User.t, prevPassword)) =>
                         ({...prevForm, image}, prevPassword)
@@ -42,7 +42,7 @@ let make = (~user: Shape.User.t) => {
                   value={form.username}
                   onChange={event => {
                     let username = event->ReactEvent.Form.target##value;
-                    setForm(
+                    setResult(
                       AsyncResult.map(
                         ((prevForm: Shape.User.t, prevPassword)) =>
                         ({...prevForm, username}, prevPassword)
@@ -60,7 +60,7 @@ let make = (~user: Shape.User.t) => {
                   value={form.bio |> Option.getOrElse("")}
                   onChange={event => {
                     let bio = event->ReactEvent.Form.target##value;
-                    setForm(
+                    setResult(
                       AsyncResult.map(
                         ((prevForm: Shape.User.t, prevPassword)) =>
                         ({...prevForm, bio}, prevPassword)
@@ -78,7 +78,7 @@ let make = (~user: Shape.User.t) => {
                   value={form.email}
                   onChange={event => {
                     let email = event->ReactEvent.Form.target##value;
-                    setForm(
+                    setResult(
                       AsyncResult.map(
                         ((prevForm: Shape.User.t, prevPassword)) =>
                         ({...prevForm, email}, prevPassword)
@@ -96,7 +96,7 @@ let make = (~user: Shape.User.t) => {
                   value=password
                   onChange={event => {
                     let password = event->ReactEvent.Form.target##value;
-                    setForm(
+                    setResult(
                       AsyncResult.map(((prevForm, _prevPassword)) =>
                         (prevForm, password)
                       ),
@@ -106,7 +106,24 @@ let make = (~user: Shape.User.t) => {
               </fieldset>
               <button
                 className="btn btn-lg btn-primary pull-xs-right"
-                disabled=isBusy>
+                disabled=isBusy
+                onClick={event => {
+                  event |> ReactEvent.Mouse.preventDefault;
+                  event |> ReactEvent.Mouse.stopPropagation;
+                  result
+                  |> AsyncResult.tapOk(((form, password)) => {
+                       setResult(AsyncResult.toBusy);
+                       API.updateUser(~user=form, ~password, ())
+                       |> Js.Promise.then_(res =>
+                            Js.log2("ok", res) |> Js.Promise.resolve
+                          )
+                       |> Js.Promise.catch(err =>
+                            Js.log2("error", err) |> Js.Promise.resolve
+                          )
+                       |> ignore;
+                     })
+                  |> ignore;
+                }}>
                 "Update Settings"->React.string
               </button>
             </fieldset>

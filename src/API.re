@@ -250,6 +250,57 @@ let currentUser = () => {
      );
 };
 
+let updateUser = (~user: Shape.User.t, ~password: string, ()) => {
+  let requestInit =
+    RequestInit.make(
+      ~method_=Put,
+      ~headers=
+        [|getJwtTokenHeader(), getContentTypeJsonHeader()|]
+        |> Relude.Array.flatten
+        |> HeadersInit.makeWithArray,
+      ~body={
+        Fetch.BodyInit.make(
+          Js.Json.stringify(
+            Js.Json.object_(
+              Js.Dict.fromList([
+                (
+                  "user",
+                  Js.Json.object_(
+                    Js.Dict.fromList([
+                      ("email", Js.Json.string(user.email)),
+                      (
+                        "bio",
+                        Js.Json.string(user.bio |> Option.getOrElse("")),
+                      ),
+                      ("image", Js.Json.string(user.image)),
+                      ("username", Js.Json.string(user.username)),
+                      ("password", Js.Json.string(password)),
+                    ]),
+                  ),
+                ),
+              ]),
+            ),
+          ),
+        );
+      },
+      (),
+    );
+
+  Endpoints.currentUser
+  |> fetchWithInit(_, requestInit)
+  |> then_(parseJsonIfOk)
+  |> catch(Error.fromPromiseError)
+  |> then_(result =>
+       result
+       |> Relude.Result.flatMap(json =>
+            json
+            |> Shape.User.decode
+            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+          )
+       |> resolve
+     );
+};
+
 let followUser = (~action: followAction, ()) => {
   let requestInit =
     RequestInit.make(
