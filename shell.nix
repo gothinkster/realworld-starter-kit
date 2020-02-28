@@ -29,6 +29,8 @@ let
   stdenv = if type == "develop" then pkgs.stdenv else pkgs.stdenvNoCC;
 
   developDeps = with pkgs; [
+    gnumake
+    nodejs
     b2sum
     libffi
     libxslt
@@ -37,6 +39,7 @@ let
     python38Full
     which
     zlib
+    jq
   ]
 
   # The watchdog Python lib has a few extra requirements on Darwin (MacOS)

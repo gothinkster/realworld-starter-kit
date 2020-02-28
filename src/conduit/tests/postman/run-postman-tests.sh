@@ -11,6 +11,7 @@ USERNAME=${USERNAME:-u`date +%s`}
 EMAIL=${EMAIL:-$USERNAME@mail.com}
 PASSWORD=${PASSWORD:-password}
 
+which npx || npm install -g npx
 npx newman -r cli,json run $SCRIPTDIR/Conduit.postman_collection.json \
   --delay-request 500 \
   --global-var "APIURL=$APIURL" \

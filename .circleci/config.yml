@@ -1,61 +1,179 @@
-# Python CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-python/ for more details
-#
-version: 2
+# Note that the following stanza uses CircleCI 2.1 to make use of a Reusable Executor
+# This allows defining a docker image to reuse across jobs.
+# visit https://circleci.com/docs/2.0/reusing-config/#authoring-reusable-executors to learn more.
+# NixOS stuff taken from
+# https://github.com/PrivateStorageio/PaymentServer/blob/master/.circleci/config.yml
 
-jobs:
+version: 2.1
 
-  build:
-    working_directory: ~/repo
+orbs:
+  check_untracked_changes: niteo/check-untracked-changes@1
+
+workflows:
+  version: 2
+
+  workflow:
+    jobs:
+      - Checkout
+      - Backend Deps:
+          requires:
+            - Checkout
+      - Backend Lint:
+          requires:
+            - Backend Deps
+      - Backend Test:
+          requires:
+            - Backend Deps
+      - Postman Tests:
+          requires:
+            - Backend Deps
+
+executors:
+  conduit:
+    working_directory: /app
+    docker:
+      - image: nixorg/nix:circleci
+      - image: circleci/postgres:11.2-alpine
+      - image: redis
+
     environment:
       PGHOST: localhost
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
       POSTGRES_PASSWORD: ""
-    docker:
-      - image: circleci/python:3.8.0-node
-      - image: circleci/postgres:12-alpine
+      NIX_BUILD_SHELL: "bash"
 
+jobs:
+
+  Checkout:
+    executor: conduit
     steps:
+
       - checkout
 
-      # Download and cache dependencies
       - restore_cache:
           keys:
-            - v4-dependencies-{{ checksum "poetry.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v4-dependencies-
+            - nix-deps-v1-{{ checksum "shell.nix" }}
+            - nix-deps-v1-
 
       - run:
-          name: install dependencies
+          name: Build nix shell
           command: |
-            sudo pip install poetry
-            poetry install
-            touch .installed
+            nix-shell --pure --run "python --version"
 
       - save_cache:
+          key: nix-deps-v1-{{ checksum "shell.nix" }}
           paths:
-            - ./.venv
-          key: v4-dependencies-{{ checksum "poetry.lock" }}
+            - /nix
+
+      - persist_to_workspace:
+          root: /app
+          paths:
+            - "*"
+
+
+  #################################
+  #       ---- Backend ----       #
+  # Jobs for the Pyramid backend. #
+  #################################
+
+  Backend Deps:
+    executor: conduit
+    working_directory: /app
+    steps:
+
+      - attach_workspace:
+          at: /app
+
+      - restore_cache:
+          name: "Restoring Cache - Nix"
+          keys:
+            - nix-deps-v1-{{ checksum "shell.nix" }}
+
+      - restore_cache:
+          name: "Restoring Cache - Python"
+          keys:
+            - backend-deps-v3-{{ checksum "poetry.lock" }}
+            - backend-deps-v3-
 
       - run:
-          name: run linters
+          name: Touch .installed
+          command: touch .installed
+
+      - run:
+          name: Install dependencies
           command: |
-            make lint
-            poetry run black src/conduit --check
+            nix-shell --pure --run "poetry install"
+
+      - save_cache:
+          key: backend-deps-v3-{{ checksum "poetry.lock" }}
+          paths:
+            - .venv
+            - src/conduit.egg-info
+
+  Backend Lint:
+    executor: conduit
+    working_directory: /app
+    steps:
+
+      - attach_workspace:
+          at: /app
+
+      - restore_cache:
+          name: "Restoring Cache - Nix"
+          keys:
+            - nix-deps-v1-{{ checksum "shell.nix" }}
+
+      - restore_cache:
+          name: "Restoring Cache - Python"
+          keys:
+            - backend-deps-v3-{{ checksum "poetry.lock" }}
+
+      - run:
+          name: Touch .installed
+          command: touch .installed
+
+      - run:
+          name: Run Linters
+          command: |
+            nix-shell --pure --run "poetry run pre-commit install -f --hook-type pre-push"
+            nix-shell --pure --run "make lint"
 
       - run:
           name: run mypy
           command: |
-            make types
+            nix-shell --pure --run "make types"
+
+
+  Backend Test:
+    executor: conduit
+    working_directory: /app
+    steps:
+
+      - attach_workspace:
+          at: /app
+
+      - restore_cache:
+          name: "Restoring Cache - Nix"
+          # TODO: fail build if caches are empty at this point
+          keys:
+            - nix-deps-v1-{{ checksum "shell.nix" }}
+
+      - restore_cache:
+          name: "Restoring Cache - Python"
+          keys:
+            - backend-deps-v3-{{ checksum "poetry.lock" }}
 
       - run:
-          name: Waiting for Postgres to be ready
+          name: Touch .installed
+          command: touch .installed
+
+      - run:
+          name: Wait for Postgres to be ready
           command: |
             for i in `seq 1 10`;
             do
-              nc -z localhost 5432 && echo Success && exit 0
+              nix-shell --pure --run "nc -z localhost 5432" && echo Success && exit 0
               echo -n .
               sleep 1
             done
@@ -63,30 +181,81 @@ jobs:
 
       - run:
           name: Create testing db
+          # TODO: add --pure? but then PGHOST is missing
           command: |
-            sudo apt update
-            sudo apt install postgresql-client
-            .docker/devdb.sh
-            .docker/testdb.sh
+            nix-shell --run ".docker/devdb.sh && .docker/testdb.sh"
 
       - run:
-          name: run tests
+          name: Test development.ini
           command: |
-            make unit
+            nix-shell --run ".docker/devdb.sh"
+            nix-shell --pure --run "poetry run pshell etc/development.ini SKIP_CHECK_DB_MIGRATED=1 < .circleci/exit.sh"
 
       - run:
-          name: run dev app
+          name: Checking consistency between alembic revision and conduit models
           command: |
-            poetry run pshell etc/development.ini SKIP_CHECK_DB_MIGRATED=1 < .circleci/exit.sh
+            nix-shell --pure --run "make devdb"
+            # As of now, the word count in an empty migration script is: 84
+            EXPECTED_WORD_COUNT=84
+            PRESENT_WORD_COUNT=$(cat $(nix-shell --pure --run "poetry run alembic -c etc/alembic.ini -x ini=etc/development.ini revision --autogenerate -m 'Test Consistency'" | cut -d' ' -f2) | wc -w)
+            if [ $EXPECTED_WORD_COUNT != $PRESENT_WORD_COUNT ]; then
+              echo "You probably forgot to generate and commit DB migration...!"
+              false
+            fi
 
       - run:
-          name: run prod app
+          name: Test production.ini
           command: |
-            DATABASE_URL="postgresql://conduit_dev@localhost/conduit_dev" poetry run pshell etc/production.ini SKIP_CHECK_DB_MIGRATED=1 < .circleci/exit.sh
+            nix-shell --pure --run "JWT_SECRET=secret DATABASE_URL=postgresql://conduit_dev@localhost/conduit_dev poetry run pshell etc/production.ini SKIP_CHECK_DB_MIGRATED=1 < .circleci/exit.sh"
 
       - run:
-          name: run Postman tests
+          name: Run unit tests
           command: |
-            make devdb
-            poetry run pserve etc/development.ini &
-            make postman-tests
+            nix-shell --pure --run "make unit"
+
+
+  ######################################
+  #      ---- Postman Tests ----       #
+  #       API tests with Postman       #
+  ######################################
+
+  Postman Tests:
+    executor: conduit
+    steps:
+
+      - attach_workspace:
+          at: /app
+
+      - restore_cache:
+          name: "Restoring Cache - Nix"
+          keys:
+            - nix-deps-v1-{{ checksum "shell.nix" }}
+
+      - restore_cache:
+          name: "Restoring Cache - Python"
+          keys:
+            - backend-deps-v3-{{ checksum "poetry.lock" }}
+
+      - run:
+          name: Touch .installed
+          command: touch .installed
+
+      - run:
+          name: Wait for Postgres to be ready
+          command: |
+            for i in `seq 1 10`;
+            do
+              nix-shell --pure --run "nc -z localhost 5432" && echo Success && exit 0
+              echo -n .
+              sleep 1
+            done
+            echo Failed waiting for Postgres && exit 1
+
+      - run:
+          name: Run the tests
+          # TODO: add --pure? but then PGHOST is missing
+          command: |
+            nix-shell --run ".docker/devdb.sh"
+            nix-shell --run "make devdb"
+            nix-shell --run "poetry run pserve etc/development.ini &"
+            nix-shell --run "make postman-tests"
