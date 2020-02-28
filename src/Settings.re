@@ -2,7 +2,11 @@ open Relude.Globals;
 
 [@react.component]
 let make = (~user: Shape.User.t) => {
-  let ((form, password), setForm) = React.useState(() => (user, ""));
+  let (result, setForm) =
+    React.useState(() => AsyncResult.completeOk((user, "")));
+  let isBusy = result |> AsyncResult.isBusy;
+  let (form, password) =
+    result |> AsyncResult.getOk |> Option.getOrElse((user, ""));
 
   <div className="settings-page">
     <div className="container page">
@@ -16,11 +20,15 @@ let make = (~user: Shape.User.t) => {
                   className="form-control"
                   type_="text"
                   placeholder="URL of profile picture"
+                  disabled=isBusy
                   value={form.image}
                   onChange={event => {
                     let image = event->ReactEvent.Form.target##value;
-                    setForm(((prevForm, prevPassword)) =>
-                      ({...prevForm, image}, prevPassword)
+                    setForm(
+                      AsyncResult.map(
+                        ((prevForm: Shape.User.t, prevPassword)) =>
+                        ({...prevForm, image}, prevPassword)
+                      ),
                     );
                   }}
                 />
@@ -30,11 +38,15 @@ let make = (~user: Shape.User.t) => {
                   className="form-control form-control-lg"
                   type_="text"
                   placeholder="Your Name"
+                  disabled=isBusy
                   value={form.username}
                   onChange={event => {
                     let username = event->ReactEvent.Form.target##value;
-                    setForm(((prevForm, prevPassword)) =>
-                      ({...prevForm, username}, prevPassword)
+                    setForm(
+                      AsyncResult.map(
+                        ((prevForm: Shape.User.t, prevPassword)) =>
+                        ({...prevForm, username}, prevPassword)
+                      ),
                     );
                   }}
                 />
@@ -44,11 +56,15 @@ let make = (~user: Shape.User.t) => {
                   className="form-control form-control-lg"
                   rows=8
                   placeholder="Short bio about you"
+                  disabled=isBusy
                   value={form.bio |> Option.getOrElse("")}
                   onChange={event => {
                     let bio = event->ReactEvent.Form.target##value;
-                    setForm(((prevForm, prevPassword)) =>
-                      ({...prevForm, bio}, prevPassword)
+                    setForm(
+                      AsyncResult.map(
+                        ((prevForm: Shape.User.t, prevPassword)) =>
+                        ({...prevForm, bio}, prevPassword)
+                      ),
                     );
                   }}
                 />
@@ -58,11 +74,15 @@ let make = (~user: Shape.User.t) => {
                   className="form-control form-control-lg"
                   type_="text"
                   placeholder="Email"
+                  disabled=isBusy
                   value={form.email}
                   onChange={event => {
                     let email = event->ReactEvent.Form.target##value;
-                    setForm(((prevForm, prevPassword)) =>
-                      ({...prevForm, email}, prevPassword)
+                    setForm(
+                      AsyncResult.map(
+                        ((prevForm: Shape.User.t, prevPassword)) =>
+                        ({...prevForm, email}, prevPassword)
+                      ),
                     );
                   }}
                 />
@@ -72,16 +92,21 @@ let make = (~user: Shape.User.t) => {
                   className="form-control form-control-lg"
                   type_="password"
                   placeholder="Password"
+                  disabled=isBusy
                   value=password
                   onChange={event => {
                     let password = event->ReactEvent.Form.target##value;
-                    setForm(((prevForm, _prevPassword)) =>
-                      (prevForm, password)
+                    setForm(
+                      AsyncResult.map(((prevForm, _prevPassword)) =>
+                        (prevForm, password)
+                      ),
                     );
                   }}
                 />
               </fieldset>
-              <button className="btn btn-lg btn-primary pull-xs-right">
+              <button
+                className="btn btn-lg btn-primary pull-xs-right"
+                disabled=isBusy>
                 "Update Settings"->React.string
               </button>
             </fieldset>
