@@ -256,3 +256,34 @@ module Comment = {
       (json: Js.Json.t): Belt.Result.t(array(t), Decode.ParseError.failure) =>
     Decode.field("comments", Decode.Pipeline.array(decodeComment), json);
 };
+
+module Settings = {
+  type t = {
+    email: option(array(string)),
+    bio: option(array(string)),
+    image: option(array(string)),
+    username: option(array(string)),
+    password: option(array(string)),
+  };
+
+  let make = (email, bio, image, username, password) => {
+    email,
+    bio,
+    image,
+    username,
+    password,
+  };
+
+  let empty = make(None, None, None, None, None);
+
+  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+    Decode.Pipeline.(
+      succeed(make)
+      |> optionalField("email", array(string))
+      |> optionalField("bio", array(string))
+      |> optionalField("image", array(string))
+      |> optionalField("username", array(string))
+      |> optionalField("password", array(string))
+      |> run(json)
+    );
+};

@@ -1,5 +1,7 @@
 open Relude.Globals;
 
+module Decode = Decode.AsResult.OfParseError;
+
 [@react.component]
 let make = (~user: Shape.User.t) => {
   let (result, setResult) =
@@ -114,12 +116,34 @@ let make = (~user: Shape.User.t) => {
                   |> AsyncResult.tapOk(((form, password)) => {
                        setResult(AsyncResult.toBusy);
                        API.updateUser(~user=form, ~password, ())
-                       |> Js.Promise.then_(res =>
-                            Js.log2("ok", res) |> Js.Promise.resolve
-                          )
-                       |> Js.Promise.catch(err =>
-                            Js.log2("error", err) |> Js.Promise.resolve
-                          )
+                       |> Js.Promise.then_(res => {
+                            switch (res) {
+                            | Ok(_user) =>
+                              setResult(prev =>
+                                prev
+                                |> AsyncResult.toIdle
+                                |> AsyncResult.map(
+                                     ((prevForm, _prevPassword)) =>
+                                     (prevForm, "")
+                                   )
+                              )
+                            | Error(
+                                Error.EFetch((_code, _message, `json(json))),
+                              ) =>
+                              setResult(_prev =>
+                                json
+                                |> Decode.field(
+                                     "errors",
+                                     Shape.Settings.decode,
+                                   )
+                                |> AsyncResult.completeError
+                              )
+                            | Error(Error.EFetch((_, _, `text(_))))
+                            | Error(EDecodeParseError(_)) => ignore()
+                            };
+
+                            ignore() |> Js.Promise.resolve;
+                          })
                        |> ignore;
                      })
                   |> ignore;

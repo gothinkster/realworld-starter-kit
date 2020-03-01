@@ -1,10 +1,8 @@
 open Js.Promise;
+open Relude.Globals;
 open Fetch;
 
 module Decode = Decode.AsResult.OfParseError;
-module AsyncResult = Relude.AsyncResult;
-module AsyncData = Relude.AsyncData;
-module Option = Relude.Option;
 
 [@bs.scope ("window", "app")] [@bs.val] external backend: string = "backend";
 
@@ -76,30 +74,61 @@ module Endpoints = {
 let getJwtTokenHeader: unit => array((string, string)) =
   () =>
     Utils.getCookie("jwtToken")
-    |> Relude.Option.flatMap(snd)
-    |> Relude.Option.map(token =>
+    |> Option.flatMap(snd)
+    |> Option.map(token =>
          [|("Authorization", Printf.sprintf("Token %s", token))|]
        )
-    |> Relude.Option.getOrElse([||]);
+    |> Option.getOrElse([||]);
 
 let getContentTypeJsonHeader: unit => array((string, string)) =
   () => [|("Content-Type", "application/json; charset=UTF-8")|];
 
+let getErrorBodyJson:
+  Result.t(Js.Json.t, Fetch.Response.t) =>
+  Js.Promise.t(Relude.Result.t(Js.Json.t, Error.t)) =
+  fun
+  | Ok(_json) as ok => ok |> resolve
+  | Error(resp) =>
+    resp
+    |> Response.json
+    |> then_(json =>
+         Error.EFetch((
+           resp |> Fetch.Response.status,
+           resp |> Fetch.Response.statusText,
+           `json(json),
+         ))
+         |> Result.error
+         |> resolve
+       );
+
+let getErrorBodyText:
+  Result.t(Js.Json.t, Fetch.Response.t) =>
+  Js.Promise.t(Relude.Result.t(Js.Json.t, Error.t)) =
+  fun
+  | Ok(_json) as ok => ok |> resolve
+  | Error(resp) =>
+    resp
+    |> Response.text
+    |> then_(body =>
+         Error.EFetch((
+           resp |> Fetch.Response.status,
+           resp |> Fetch.Response.statusText,
+           `text(body),
+         ))
+         |> Result.error
+         |> resolve
+       );
+
 let parseJsonIfOk:
-  Fetch.Response.t => Js.Promise.t(Relude.Result.t(Js.Json.t, Error.t)) =
+  Fetch.Response.t =>
+  Js.Promise.t(Relude.Result.t(Js.Json.t, Fetch.Response.t)) =
   resp =>
     if (Fetch.Response.ok(resp)) {
       resp
       |> Response.json
       |> then_(json => json |> Relude.Result.ok |> resolve);
     } else {
-      Printf.sprintf(
-        "%d %s",
-        resp |> Fetch.Response.status,
-        resp |> Fetch.Response.statusText,
-      )
-      |> Js.Exn.raiseError
-      |> reject;
+      resp |> Result.error |> resolve;
     };
 
 let article:
@@ -130,7 +159,7 @@ let article:
     )
     |> fetchWithInit(_, requestInit)
     |> then_(parseJsonIfOk)
-    |> catch(Error.fromPromiseError)
+    |> then_(getErrorBodyText)
     |> then_(result =>
          result
          |> Relude.Result.flatMap(json =>
@@ -172,7 +201,7 @@ let favoriteArticle:
     )
     |> fetchWithInit(_, requestInit)
     |> then_(parseJsonIfOk)
-    |> catch(Error.fromPromiseError)
+    |> then_(getErrorBodyText)
     |> then_(result =>
          result
          |> Relude.Result.flatMap(json =>
@@ -198,8 +227,17 @@ let listArticles = (~limit=10, ~offset=0, ~tag=?, ~author=?, ~favorited=?, ()) =
 
   Endpoints.listArticles(~limit, ~offset, ~tag?, ~author?, ~favorited?, ())
   |> fetchWithInit(_, requestInit)
-  |> then_(Response.json)
-  |> then_(json => json |> Shape.Articles.decode |> resolve);
+  |> then_(parseJsonIfOk)
+  |> then_(getErrorBodyText)
+  |> then_(result =>
+       result
+       |> Relude.Result.flatMap(json =>
+            json
+            |> Shape.Articles.decode
+            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+          )
+       |> resolve
+     );
 };
 
 let feedArticles = (~limit=10, ~offset=0, ()) => {
@@ -214,15 +252,33 @@ let feedArticles = (~limit=10, ~offset=0, ()) => {
 
   Endpoints.feedArticles(~limit, ~offset, ())
   |> fetchWithInit(_, requestInit)
-  |> then_(Response.json)
-  |> then_(json => json |> Shape.Articles.decode |> resolve);
+  |> then_(parseJsonIfOk)
+  |> then_(getErrorBodyText)
+  |> then_(result =>
+       result
+       |> Relude.Result.flatMap(json =>
+            json
+            |> Shape.Articles.decode
+            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+          )
+       |> resolve
+     );
 };
 
 let tags = () => {
   Endpoints.tags
   |> fetch
-  |> then_(Response.json)
-  |> then_(json => json |> Shape.Tags.decode |> resolve);
+  |> then_(parseJsonIfOk)
+  |> then_(getErrorBodyText)
+  |> then_(result =>
+       result
+       |> Relude.Result.flatMap(json =>
+            json
+            |> Shape.Tags.decode
+            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+          )
+       |> resolve
+     );
 };
 
 let currentUser = () => {
@@ -238,7 +294,7 @@ let currentUser = () => {
   Endpoints.currentUser
   |> fetchWithInit(_, requestInit)
   |> then_(parseJsonIfOk)
-  |> catch(Error.fromPromiseError)
+  |> then_(getErrorBodyText)
   |> then_(result =>
        result
        |> Relude.Result.flatMap(json =>
@@ -251,6 +307,23 @@ let currentUser = () => {
 };
 
 let updateUser = (~user: Shape.User.t, ~password: string, ()) => {
+  let user =
+    [
+      ("email", Js.Json.string(user.email)),
+      ("bio", Js.Json.string(user.bio |> Option.getOrElse(""))),
+      ("image", Js.Json.string(user.image)),
+      ("username", Js.Json.string(user.username)),
+      ("password", Js.Json.string(password)),
+    ]
+    |> Js.Dict.fromList
+    |> Js.Json.object_;
+  let body =
+    [("user", user)]
+    |> Js.Dict.fromList
+    |> Js.Json.object_
+    |> Js.Json.stringify
+    |> Fetch.BodyInit.make;
+
   let requestInit =
     RequestInit.make(
       ~method_=Put,
@@ -258,38 +331,14 @@ let updateUser = (~user: Shape.User.t, ~password: string, ()) => {
         [|getJwtTokenHeader(), getContentTypeJsonHeader()|]
         |> Relude.Array.flatten
         |> HeadersInit.makeWithArray,
-      ~body={
-        Fetch.BodyInit.make(
-          Js.Json.stringify(
-            Js.Json.object_(
-              Js.Dict.fromList([
-                (
-                  "user",
-                  Js.Json.object_(
-                    Js.Dict.fromList([
-                      ("email", Js.Json.string(user.email)),
-                      (
-                        "bio",
-                        Js.Json.string(user.bio |> Option.getOrElse("")),
-                      ),
-                      ("image", Js.Json.string(user.image)),
-                      ("username", Js.Json.string(user.username)),
-                      ("password", Js.Json.string(password)),
-                    ]),
-                  ),
-                ),
-              ]),
-            ),
-          ),
-        );
-      },
+      ~body,
       (),
     );
 
   Endpoints.currentUser
   |> fetchWithInit(_, requestInit)
   |> then_(parseJsonIfOk)
-  |> catch(Error.fromPromiseError)
+  |> then_(getErrorBodyJson)
   |> then_(result =>
        result
        |> Relude.Result.flatMap(json =>
@@ -326,7 +375,7 @@ let followUser = (~action: followAction, ()) => {
   )
   |> fetchWithInit(_, requestInit)
   |> then_(parseJsonIfOk)
-  |> catch(Error.fromPromiseError)
+  |> then_(getErrorBodyText)
   |> then_(result =>
        result
        |> Relude.Result.flatMap(json =>
@@ -354,7 +403,7 @@ let getComments:
     Endpoints.comments(~slug, ())
     |> fetchWithInit(_, requestInit)
     |> then_(parseJsonIfOk)
-    |> catch(Error.fromPromiseError)
+    |> then_(getErrorBodyText)
     |> then_(result =>
          result
          |> Relude.Result.flatMap(json =>
@@ -382,7 +431,7 @@ let deleteComment = (~slug: string, ~id: int, ()) => {
   Endpoints.comment(~slug, ~id, ())
   |> fetchWithInit(_, requestInit)
   |> then_(parseJsonIfOk)
-  |> catch(Error.fromPromiseError)
+  |> then_(getErrorBodyText)
   |> then_(result =>
        result
        |> Relude.Result.flatMap(_json => Relude.Result.ok((slug, id)))
@@ -419,7 +468,7 @@ let addComment = (~slug: string, ~body: string, ()) => {
   Endpoints.comments(~slug, ())
   |> fetchWithInit(_, requestInit)
   |> then_(parseJsonIfOk)
-  |> catch(Error.fromPromiseError)
+  |> then_(getErrorBodyText)
   |> then_(result =>
        result
        |> Relude.Result.flatMap(json =>
@@ -447,7 +496,7 @@ let getProfile:
     Endpoints.profile(~username, ())
     |> fetchWithInit(_, requestInit)
     |> then_(parseJsonIfOk)
-    |> catch(Error.fromPromiseError)
+    |> then_(getErrorBodyText)
     |> then_(result =>
          result
          |> Relude.Result.flatMap(json =>

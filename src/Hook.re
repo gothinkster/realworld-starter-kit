@@ -43,17 +43,8 @@ let useArticles:
                setData(_prev =>
                  switch (data) {
                  | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
-                 | Error(error) =>
-                   AsyncResult.completeError(Error.EDecodeParseError(error))
+                 | Error(error) => AsyncResult.completeError(error)
                  }
-               )
-             )
-             |> resolve
-           })
-        |> catch(error => {
-             guard(() =>
-               setData(_prev =>
-                 AsyncResult.completeError(Error.EFetch(error))
                )
              )
              |> resolve
@@ -104,17 +95,8 @@ let useArticlesInProfile:
                setData(_prev =>
                  switch (data) {
                  | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
-                 | Error(error) =>
-                   AsyncResult.completeError(Error.EDecodeParseError(error))
+                 | Error(error) => AsyncResult.completeError(error)
                  }
-               )
-             )
-             |> resolve
-           })
-        |> catch(error => {
-             guard(() =>
-               setData(_prev =>
-                 AsyncResult.completeError(Error.EFetch(error))
                )
              )
              |> resolve
@@ -151,17 +133,8 @@ let useTags: unit => AsyncResult.t(Shape.Tags.t, Error.t) =
              setData(_prev =>
                switch (data) {
                | Belt.Result.Ok(ok) => ok |> AsyncResult.completeOk
-               | Error(error) =>
-                 Error.EDecodeParseError(error) |> AsyncResult.completeError
+               | Error(error) => AsyncResult.completeError(error)
                }
-             )
-           )
-           |> resolve
-         })
-      |> catch(error => {
-           guard(() =>
-             setData(_prev =>
-               Error.EFetch(error) |> AsyncResult.completeError
              )
            )
            |> resolve
@@ -226,16 +199,8 @@ let useArticle: (~slug: string) => AsyncResult.t(Shape.Article.t, Error.t) =
                setData(_prev =>
                  switch (data) {
                  | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
-                 | Error(error) => error |> AsyncResult.completeError
+                 | Error(error) => AsyncResult.completeError(error)
                  }
-               )
-             )
-             |> resolve
-           })
-        |> catch(error => {
-             guard(() =>
-               setData(_prev =>
-                 Error.EFetch(error) |> AsyncResult.completeError
                )
              )
              |> resolve
@@ -283,16 +248,8 @@ let useComments:
                setData(_prev =>
                  switch (data) {
                  | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
-                 | Error(error) => error |> AsyncResult.completeError
+                 | Error(error) => AsyncResult.completeError(error)
                  }
-               )
-             )
-             |> resolve
-           })
-        |> catch(error => {
-             guard(() =>
-               setData(_prev =>
-                 Error.EFetch(error) |> AsyncResult.completeError
                )
              )
              |> resolve
@@ -724,14 +681,6 @@ let useProfile: (~username: string) => AsyncResult.t(Shape.Author.t, Error.t) =
                  | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
                  | Error(error) => AsyncResult.completeError(error)
                  }
-               )
-             )
-             |> resolve
-           })
-        |> catch(error => {
-             guard(() =>
-               setData(_prev =>
-                 AsyncResult.completeError(Error.EFetch(error))
                )
              )
              |> resolve
