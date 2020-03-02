@@ -2,6 +2,23 @@ open Relude.Globals;
 
 module Decode = Decode.AsResult.OfParseError;
 
+module DetailErrorMessage = {
+  [@react.component]
+  let make = (~label: string, ~error: option(array(string))) => {
+    error
+    |> Option.map(message =>
+         message
+         |> Array.map(message =>
+              <li key=message>
+                {Printf.sprintf("%s %s", label, message) |> React.string}
+              </li>
+            )
+         |> React.array
+       )
+    |> Option.getOrElse(React.null);
+  };
+};
+
 [@react.component]
 let make = (~user: Shape.User.t) => {
   let (result, setResult) =
@@ -15,6 +32,23 @@ let make = (~user: Shape.User.t) => {
       <div className="row">
         <div className="col-md-6 offset-md-3 col-xs-12">
           <h1 className="text-xs-center"> "Your Settings"->React.string </h1>
+          {switch (result) {
+           | Init
+           | Loading
+           | Reloading(Ok(_))
+           | Complete(Ok(_))
+           | Reloading(Error(Error(_)))
+           | Complete(Error(Error(_))) => React.null
+           | Reloading(Error(Ok((error: Shape.Settings.t))))
+           | Complete(Error(Ok((error: Shape.Settings.t)))) =>
+             <ul className="error-messages">
+               <DetailErrorMessage label="email" error={error.email} />
+               <DetailErrorMessage label="bio" error={error.bio} />
+               <DetailErrorMessage label="image" error={error.image} />
+               <DetailErrorMessage label="username" error={error.username} />
+               <DetailErrorMessage label="password" error={error.password} />
+             </ul>
+           }}
           <form>
             <fieldset>
               <fieldset className="form-group">

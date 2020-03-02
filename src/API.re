@@ -309,12 +309,17 @@ let currentUser = () => {
 let updateUser = (~user: Shape.User.t, ~password: string, ()) => {
   let user =
     [
-      ("email", Js.Json.string(user.email)),
-      ("bio", Js.Json.string(user.bio |> Option.getOrElse(""))),
-      ("image", Js.Json.string(user.image)),
-      ("username", Js.Json.string(user.username)),
-      ("password", Js.Json.string(password)),
+      [("email", Js.Json.string(user.email))],
+      [("bio", Js.Json.string(user.bio |> Option.getOrElse("")))],
+      [("image", Js.Json.string(user.image))],
+      [("username", Js.Json.string(user.username))],
+      if (password == "") {
+        [];
+      } else {
+        [("password", Js.Json.string(password))];
+      },
     ]
+    |> List.flatten
     |> Js.Dict.fromList
     |> Js.Json.object_;
   let body =
