@@ -22,25 +22,19 @@ module DetailErrorMessage = {
 [@react.component]
 let make = (~user: Shape.User.t) => {
   let (result, setResult) =
-    React.useState(() => AsyncResult.completeOk((user, "")));
-  let isBusy = result |> AsyncResult.isBusy;
-  let (form, password) =
-    result |> AsyncResult.getOk |> Option.getOrElse((user, ""));
+    React.useState(() => AsyncData.complete((user, "", None)));
+  let isBusy = result |> AsyncData.isBusy;
+  let (form, password, error) =
+    result |> AsyncData.getValue |> Option.getOrElse((user, "", None));
 
   <div className="settings-page">
     <div className="container page">
       <div className="row">
         <div className="col-md-6 offset-md-3 col-xs-12">
           <h1 className="text-xs-center"> "Your Settings"->React.string </h1>
-          {switch (result) {
-           | Init
-           | Loading
-           | Reloading(Ok(_))
-           | Complete(Ok(_))
-           | Reloading(Error(Error(_)))
-           | Complete(Error(Error(_))) => React.null
-           | Reloading(Error(Ok((error: Shape.Settings.t))))
-           | Complete(Error(Ok((error: Shape.Settings.t)))) =>
+          {switch (error) {
+           | None => React.null
+           | Some((error: Shape.Settings.t)) =>
              <ul className="error-messages">
                <DetailErrorMessage label="email" error={error.email} />
                <DetailErrorMessage label="bio" error={error.bio} />
@@ -61,9 +55,8 @@ let make = (~user: Shape.User.t) => {
                   onChange={event => {
                     let image = event->ReactEvent.Form.target##value;
                     setResult(
-                      AsyncResult.map(
-                        ((prevForm: Shape.User.t, prevPassword)) =>
-                        ({...prevForm, image}, prevPassword)
+                      AsyncData.map(((use: Shape.User.t, password, error)) =>
+                        ({...use, image}, password, error)
                       ),
                     );
                   }}
@@ -79,9 +72,8 @@ let make = (~user: Shape.User.t) => {
                   onChange={event => {
                     let username = event->ReactEvent.Form.target##value;
                     setResult(
-                      AsyncResult.map(
-                        ((prevForm: Shape.User.t, prevPassword)) =>
-                        ({...prevForm, username}, prevPassword)
+                      AsyncData.map(((user: Shape.User.t, password, error)) =>
+                        ({...user, username}, password, error)
                       ),
                     );
                   }}
@@ -97,9 +89,8 @@ let make = (~user: Shape.User.t) => {
                   onChange={event => {
                     let bio = event->ReactEvent.Form.target##value;
                     setResult(
-                      AsyncResult.map(
-                        ((prevForm: Shape.User.t, prevPassword)) =>
-                        ({...prevForm, bio}, prevPassword)
+                      AsyncData.map(((user: Shape.User.t, password, error)) =>
+                        ({...user, bio}, password, error)
                       ),
                     );
                   }}
@@ -115,9 +106,8 @@ let make = (~user: Shape.User.t) => {
                   onChange={event => {
                     let email = event->ReactEvent.Form.target##value;
                     setResult(
-                      AsyncResult.map(
-                        ((prevForm: Shape.User.t, prevPassword)) =>
-                        ({...prevForm, email}, prevPassword)
+                      AsyncData.map(((user: Shape.User.t, password, error)) =>
+                        ({...user, email}, password, error)
                       ),
                     );
                   }}
@@ -133,8 +123,8 @@ let make = (~user: Shape.User.t) => {
                   onChange={event => {
                     let password = event->ReactEvent.Form.target##value;
                     setResult(
-                      AsyncResult.map(((prevForm, _prevPassword)) =>
-                        (prevForm, password)
+                      AsyncData.map(((user, _password, error)) =>
+                        (user, password, error)
                       ),
                     );
                   }}
@@ -147,31 +137,38 @@ let make = (~user: Shape.User.t) => {
                   event |> ReactEvent.Mouse.preventDefault;
                   event |> ReactEvent.Mouse.stopPropagation;
                   result
-                  |> AsyncResult.tapOk(((form, password)) => {
-                       setResult(AsyncResult.toBusy);
-                       API.updateUser(~user=form, ~password, ())
+                  |> AsyncData.tapComplete(((user, password, _error)) => {
+                       setResult(AsyncData.toBusy);
+                       API.updateUser(~user, ~password, ())
                        |> Js.Promise.then_(res => {
                             switch (res) {
                             | Ok(_user) =>
                               setResult(prev =>
                                 prev
-                                |> AsyncResult.toIdle
-                                |> AsyncResult.map(
-                                     ((prevForm, _prevPassword)) =>
-                                     (prevForm, "")
+                                |> AsyncData.toIdle
+                                |> AsyncData.map(((user, _password, _error)) =>
+                                     (user, "", None)
                                    )
                               )
                             | Error(
                                 Error.EFetch((_code, _message, `json(json))),
                               ) =>
-                              setResult(_prev =>
-                                json
-                                |> Decode.field(
-                                     "errors",
-                                     Shape.Settings.decode,
+                              json
+                              |> Decode.field(
+                                   "errors",
+                                   Shape.Settings.decode,
+                                 )
+                              |> Result.tapOk(error =>
+                                   setResult(prev =>
+                                     prev
+                                     |> AsyncData.toIdle
+                                     |> AsyncData.map(
+                                          ((user, _password, _error)) =>
+                                          (user, "", Some(error))
+                                        )
                                    )
-                                |> AsyncResult.completeError
-                              )
+                                 )
+                              |> ignore
                             | Error(Error.EFetch((_, _, `text(_))))
                             | Error(EDecodeParseError(_)) => ignore()
                             };
