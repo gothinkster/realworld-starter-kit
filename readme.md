@@ -45,9 +45,26 @@ Pyramid using [pyramid_openapi3](https://github.com/pylons/pyramid_openapi3) for
 Pyramid serves one of the [RealWorld.io frontends](https://github.com/gothinkster/realworld#frontends) (Elm) on root, so it is easier to understand how things fit together. The frontend is interchangeable, you can use any
 RealWorld.io frontend.
 
+
 # Getting started
 
-You need to have [Docker](https://www.docker.com), [Nix](https://nixos.org/nix) and [direnv](https://direnv.net/) installed and configured on your system.
+To setup your development environment, there are some dependencies you need to install on your system.
+You can either install them manually, or use [Nix](https://nixos.org/nix) and [direnv](https://direnv.net/)
+to install them automatically (except docker which you need to install manually).
+
+So, first ensure that you have [Docker](https://www.docker.com) installed on your system. Then,
+
+### Option 1: Install manually
+
+- Exact version of Python mentioned in `./pyproject.toml` (recommend using [pyenv](https://github.com/pyenv/pyenv) for that).
+- [poetry](https://github.com/python-poetry/poetry)
+- [Node(js)](https://nodejs.org) & [jq](https://github.com/stedolan/jq) (to run postman tests)
+
+### Option 2: Install using Nix
+
+- Install the [Nix package manager](https://nixos.org/nix).
+- Install and configure [Direnv](https://direnv.net)
+- Run `direnv allow` in the project root.
 
 
 Docker should be running. Then you can run:
