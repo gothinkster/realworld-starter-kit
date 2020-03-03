@@ -20,7 +20,16 @@ module DetailErrorMessage = {
 };
 
 [@react.component]
-let make = (~user: Shape.User.t) => {
+let make =
+    (
+      ~user: Shape.User.t,
+      ~setUser:
+         (
+           AsyncData.t(option(Shape.User.t)) =>
+           AsyncData.t(option(Shape.User.t))
+         ) =>
+         unit,
+    ) => {
   let (result, setResult) =
     React.useState(() => AsyncData.complete((user, "", None)));
   let isBusy = result |> AsyncData.isBusy;
@@ -142,14 +151,16 @@ let make = (~user: Shape.User.t) => {
                        API.updateUser(~user, ~password, ())
                        |> Js.Promise.then_(res => {
                             switch (res) {
-                            | Ok(_user) =>
+                            | Ok(user) =>
                               setResult(prev =>
                                 prev
                                 |> AsyncData.toIdle
-                                |> AsyncData.map(((user, _password, _error)) =>
+                                |> AsyncData.map(
+                                     ((_user, _password, _error)) =>
                                      (user, "", None)
                                    )
-                              )
+                              );
+                              setUser(AsyncData.map(_prev => Some(user)));
                             | Error(
                                 Error.EFetch((_code, _message, `json(json))),
                               ) =>

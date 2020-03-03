@@ -147,7 +147,15 @@ let useTags: unit => AsyncResult.t(Shape.Tags.t, Error.t) =
     data;
   };
 
-let useCurrentUser: unit => AsyncData.t(option(Shape.User.t)) =
+let useCurrentUser:
+  unit =>
+  (
+    AsyncData.t(option(Shape.User.t)),
+    (
+      AsyncData.t(option(Shape.User.t)) => AsyncData.t(option(Shape.User.t))
+    ) =>
+    unit,
+  ) =
   () => {
     let didCancel = React.useRef(false);
     let (data, setData) = React.useState(() => AsyncData.init);
@@ -176,7 +184,7 @@ let useCurrentUser: unit => AsyncData.t(option(Shape.User.t)) =
       Some(() => React.Ref.setCurrent(didCancel, true));
     });
 
-    data;
+    (data, setData);
   };
 
 let useArticle: (~slug: string) => AsyncResult.t(Shape.Article.t, Error.t) =

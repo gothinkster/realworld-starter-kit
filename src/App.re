@@ -12,7 +12,7 @@ let authenticated:
 
 [@react.component]
 let make = () => {
-  let currentUser = Hook.useCurrentUser();
+  let (currentUser, setCurrentUser) = Hook.useCurrentUser();
   let route = Route.useRoute();
 
   switch (currentUser) {
@@ -23,7 +23,8 @@ let make = () => {
     <>
       <Header user />
       {switch (route) {
-       | Settings => authenticated(user => <Settings user />, user)
+       | Settings =>
+         authenticated(user => <Settings user setUser=setCurrentUser />, user)
        | Login => <Login />
        | Register => <Register />
        | CreateArticle => <Editor />
