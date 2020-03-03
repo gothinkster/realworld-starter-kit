@@ -14,10 +14,7 @@ workflows:
 
   workflow:
     jobs:
-      - Checkout
-      - Backend Deps:
-          requires:
-            - Checkout
+      - Backend Deps
       - Backend Lint:
           requires:
             - Backend Deps
@@ -45,16 +42,17 @@ executors:
 
 jobs:
 
-  Checkout:
+  #################################
+  #       ---- Backend ----       #
+  # Jobs for the Pyramid backend. #
+  #################################
+
+  Backend Deps:
     executor: conduit
+    working_directory: /app
     steps:
 
       - checkout
-
-      - restore_cache:
-          keys:
-            - nix-deps-v1-{{ checksum "shell.nix" }}
-            - nix-deps-v1-
 
       - run:
           name: Build nix shell
@@ -70,31 +68,6 @@ jobs:
           root: /app
           paths:
             - "*"
-
-
-  #################################
-  #       ---- Backend ----       #
-  # Jobs for the Pyramid backend. #
-  #################################
-
-  Backend Deps:
-    executor: conduit
-    working_directory: /app
-    steps:
-
-      - attach_workspace:
-          at: /app
-
-      - restore_cache:
-          name: "Restoring Cache - Nix"
-          keys:
-            - nix-deps-v1-{{ checksum "shell.nix" }}
-
-      - restore_cache:
-          name: "Restoring Cache - Python"
-          keys:
-            - backend-deps-v3-{{ checksum "poetry.lock" }}
-            - backend-deps-v3-
 
       - run:
           name: Touch .installed
