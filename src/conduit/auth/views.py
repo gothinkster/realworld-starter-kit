@@ -35,8 +35,8 @@ def update(request: Request) -> UserResponse:
     body = request.openapi_validated.body
     user = request.user
 
-    for field in body.user.__dict__:
-        setattr(user, field, getattr(body.user, field))
+    for field in body["user"].keys():
+        setattr(user, field, body["user"][field])
 
     return {"user": user}
 
@@ -47,9 +47,9 @@ def register(request: Request) -> UserResponse:
     body = request.openapi_validated.body
 
     user = User(
-        email=body.user.email,
-        username=body.user.username,
-        password_hash=argon2.hash(body.user.password),
+        email=body["user"]["email"],
+        username=body["user"]["username"],
+        password_hash=argon2.hash(body["user"]["password"]),
     )
     request.db.add(user)
     request.db.flush()  # so that user.id is set and JWT token can be generated
@@ -64,8 +64,8 @@ def login(request: Request) -> UserResponse:
     """User logs in."""
     body = request.openapi_validated.body
 
-    user = User.by_email(body.user.email, db=request.db)
-    if user and user.verify_password(body.user.password):
+    user = User.by_email(body["user"]["email"], db=request.db)
+    if user and user.verify_password(body["user"]["password"]):
         return {"user": user}
 
     raise exception_response(

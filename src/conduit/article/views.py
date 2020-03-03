@@ -89,12 +89,12 @@ def create(request: Request) -> SingleArticleResponse:
     """Get an article."""
     body = request.openapi_validated.body
     article = Article(
-        slug=slugify(body.article.title),
-        title=body.article.title,
-        description=body.article.description,
-        body=body.article.body,
+        slug=slugify(body["article"]["title"]),
+        title=body["article"]["title"],
+        description=body["article"]["description"],
+        body=body["article"]["body"],
         author=request.user,
-        tags=[Tag(name=t) for t in getattr(body.article, "tagList", [])],
+        tags=[Tag(name=t) for t in body["article"].get("tagList", [])],
     )
     request.db.add(article)
     request.db.flush()
@@ -112,12 +112,12 @@ def update(request: Request) -> SingleArticleResponse:
         )
     )
 
-    if getattr(body.article, "title", None):
-        article.title = body.article.title
-    if getattr(body.article, "description", None):
-        article.description = body.article.description
-    if getattr(body.article, "body", None):
-        article.body = body.article.body
+    if body["article"].get("title"):
+        article.title = body["article"]["title"]
+    if body["article"].get("description"):
+        article.description = body["article"]["description"]
+    if body["article"].get("body"):
+        article.body = body["article"]["body"]
 
     return {"article": article}
 

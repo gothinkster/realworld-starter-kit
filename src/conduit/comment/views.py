@@ -41,6 +41,8 @@ def create(request: Request) -> SingleCommentResponse:
     )
 
     body = request.openapi_validated.body
-    comment = Comment(body=body.comment.body, article=article, author=request.user)
+    comment = Comment(
+        body=body["comment"]["body"], article=article, author=request.user
+    )
     article.comments.append(comment)
     return {"comment": comment}
