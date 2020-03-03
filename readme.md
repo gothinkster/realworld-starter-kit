@@ -56,9 +56,11 @@ So, first ensure that you have [Docker](https://www.docker.com) installed on you
 
 ### Option 1: Install manually
 
-- Exact version of Python mentioned in `./pyproject.toml` (recommend using [pyenv](https://github.com/pyenv/pyenv) for that).
+- [python 3.8](https://www.python.org) (recommend using [pyenv](https://github.com/pyenv/pyenv) for installing Python).
 - [poetry](https://github.com/python-poetry/poetry)
-- [Node(js)](https://nodejs.org) & [jq](https://github.com/stedolan/jq) (to run postman tests)
+- [node](https://nodejs.org) & [jq](https://github.com/stedolan/jq) (to run postman tests)
+
+If you have any dependency related issue, check out `./shell.nix` for the specific version of dependencies.
 
 ### Option 2: Install using Nix
 
