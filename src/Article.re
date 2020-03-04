@@ -336,7 +336,9 @@ module ArticleAuthorAvatar = {
 
 [@react.component]
 let make = (~slug: string, ~user: option(Shape.User.t)) => {
-  let article = Hook.useArticle(~slug);
+  let (articleAndTagList, _setArticle) = Hook.useArticle(~slug);
+  let article =
+    articleAndTagList |> AsyncResult.map(((article, _tagList)) => article);
   let (comments, busyComments, deleteComment, setComments) =
     Hook.useComments(~slug);
   let (follow, onFollowClick) = Hook.useFollow(~article, ~user);

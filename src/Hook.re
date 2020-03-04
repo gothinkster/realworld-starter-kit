@@ -1,8 +1,5 @@
 open Js.Promise;
-
-module AsyncResult = Relude.AsyncResult;
-module AsyncData = Relude.AsyncData;
-module Option = Relude.Option;
+open Relude.Globals;
 
 let guardByDidCancel: (React.Ref.t(bool), unit => unit) => unit =
   (didCancel, cb) => !React.Ref.current(didCancel) ? cb() : ();
@@ -187,7 +184,16 @@ let useCurrentUser:
     (data, setData);
   };
 
-let useArticle: (~slug: string) => AsyncResult.t(Shape.Article.t, Error.t) =
+let useArticle:
+  (~slug: string) =>
+  (
+    AsyncResult.t((Shape.Article.t, string), Error.t),
+    (
+      AsyncResult.t((Shape.Article.t, string), Error.t) =>
+      AsyncResult.t((Shape.Article.t, string), Error.t)
+    ) =>
+    unit,
+  ) =
   (~slug) => {
     let didCancel = React.useRef(false);
     let (data, setData) = React.useState(() => AsyncResult.init);
@@ -197,16 +203,20 @@ let useArticle: (~slug: string) => AsyncResult.t(Shape.Article.t, Error.t) =
       Some(() => React.Ref.setCurrent(didCancel, true))
     );
 
-    React.useEffect2(
+    React.useEffect1(
       () => {
-        guard(() => setData(prev => prev |> AsyncResult.toBusy));
+        guard(() => setData(AsyncResult.toBusy));
 
         API.article(~action=Fetch(slug), ())
         |> then_(data => {
              guard(() =>
                setData(_prev =>
                  switch (data) {
-                 | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
+                 | Belt.Result.Ok((ok: Shape.Article.t)) =>
+                   AsyncResult.completeOk((
+                     ok,
+                     ok.tagList |> Array.String.joinWith(","),
+                   ))
                  | Error(error) => AsyncResult.completeError(error)
                  }
                )
@@ -217,10 +227,10 @@ let useArticle: (~slug: string) => AsyncResult.t(Shape.Article.t, Error.t) =
 
         None;
       },
-      (slug, setData),
+      [|slug|],
     );
 
-    data;
+    (data, setData);
   };
 
 let useComments:
