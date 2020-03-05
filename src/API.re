@@ -7,7 +7,9 @@ module Decode = Decode.AsResult.OfParseError;
 [@bs.scope ("window", "app")] [@bs.val] external backend: string = "backend";
 
 type articleAction =
-  | Fetch(string)
+  | Create(Shape.Article.t)
+  | Read(string)
+  | Update(string, Shape.Article.t)
   | Delete(string);
 
 type followAction =
@@ -135,24 +137,61 @@ let article:
   (~action: articleAction, unit) =>
   Js.Promise.t(Relude.Result.t(Shape.Article.t, Error.t)) =
   (~action, ()) => {
+    let body =
+      switch (action) {
+      | Create(article)
+      | Update(_, article) =>
+        let article =
+          [
+            [("title", Js.Json.string(article.title))],
+            [("description", Js.Json.string(article.description))],
+            [("body", Js.Json.string(article.body))],
+            [("tagList", Js.Json.stringArray(article.tagList))],
+          ]
+          |> List.flatten
+          |> Js.Dict.fromList
+          |> Js.Json.object_;
+
+        [("article", article)]
+        |> Js.Dict.fromList
+        |> Js.Json.object_
+        |> Js.Json.stringify
+        |> Fetch.BodyInit.make
+        |> Option.some;
+      | Read(_)
+      | Delete(_) => Option.none
+      };
+
     let requestInit =
       RequestInit.make(
         ~method_=
           switch (action) {
-          | Fetch(_) => Get
+          | Create(_) => Post
+          | Read(_) => Get
+          | Update(_) => Put
           | Delete(_) => Delete
           },
         ~headers=
-          [|getJwtTokenHeader()|]
-          |> Relude.Array.flatten
+          {
+            switch (action) {
+            | Create(_)
+            | Update(_) => [|getJwtTokenHeader(), getContentTypeJsonHeader()|]
+            | Read(_)
+            | Delete(_) => [|getJwtTokenHeader()|]
+            };
+          }
+          |> Array.flatten
           |> HeadersInit.makeWithArray,
+        ~body?,
         (),
       );
 
     Endpoints.article(
       ~slug=
         switch (action) {
-        | Fetch(slug)
+        | Create(_) => ""
+        | Read(slug)
+        | Update(slug, _)
         | Delete(slug) => slug
         },
       (),

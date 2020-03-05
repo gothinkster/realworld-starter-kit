@@ -287,3 +287,24 @@ module Settings = {
       |> run(json)
     );
 };
+
+module Editor = {
+  type t = {
+    title: option(array(string)),
+    body: option(array(string)),
+    description: option(array(string)),
+  };
+
+  let make = (title, body, description) => {title, body, description};
+
+  let empty = make(None, None, None);
+
+  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+    Decode.Pipeline.(
+      succeed(make)
+      |> optionalField("title", array(string))
+      |> optionalField("body", array(string))
+      |> optionalField("description", array(string))
+      |> run(json)
+    );
+};

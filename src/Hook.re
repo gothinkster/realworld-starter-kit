@@ -187,10 +187,19 @@ let useCurrentUser:
 let useArticle:
   (~slug: string) =>
   (
-    AsyncResult.t((Shape.Article.t, string), Error.t),
+    AsyncResult.t(
+      (Shape.Article.t, string, option(Shape.Editor.t)),
+      Error.t,
+    ),
     (
-      AsyncResult.t((Shape.Article.t, string), Error.t) =>
-      AsyncResult.t((Shape.Article.t, string), Error.t)
+      AsyncResult.t(
+        (Shape.Article.t, string, option(Shape.Editor.t)),
+        Error.t,
+      ) =>
+      AsyncResult.t(
+        (Shape.Article.t, string, option(Shape.Editor.t)),
+        Error.t,
+      )
     ) =>
     unit,
   ) =
@@ -207,7 +216,7 @@ let useArticle:
       () => {
         guard(() => setData(AsyncResult.toBusy));
 
-        API.article(~action=Fetch(slug), ())
+        API.article(~action=Read(slug), ())
         |> then_(data => {
              guard(() =>
                setData(_prev =>
@@ -216,6 +225,7 @@ let useArticle:
                    AsyncResult.completeOk((
                      ok,
                      ok.tagList |> Array.String.joinWith(","),
+		     None,
                    ))
                  | Error(error) => AsyncResult.completeError(error)
                  }
