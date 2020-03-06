@@ -42,9 +42,7 @@ describe("Profile component", () => {
 
     let wrapper = render(<App />);
 
-    TestUtils.act(() =>
-      ReasonReactRouter.push("#/profile/jihchi/favorites")
-    );
+    TestUtils.act(() => ReasonReactRouter.push("#/profile/jihchi/favorites"));
 
     DomTestingLibrary.waitForElement(
       ~callback=

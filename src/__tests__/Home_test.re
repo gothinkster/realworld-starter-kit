@@ -12,6 +12,11 @@ describe("Home component", () => {
   beforeEach(() => {JestFetchMock.resetMocks()});
 
   testPromise("renders without crashing", () => {
+    ApiMock.doMock(
+      ~pipeline=ApiMock.succeed |> ApiMock.articles |> ApiMock.tags,
+      (),
+    );
+
     let wrapper = render(<App />);
 
     DomTestingLibrary.waitForElement(
@@ -28,27 +33,6 @@ describe("Home component", () => {
          |> toBeInTheDocument
          |> resolve
        );
-  });
-
-  testPromise("Query data against /list/articles endpoint", () => {
-    let wrapper = render(<App />);
-
-    DomTestingLibrary.waitForElement(
-      ~callback=() => wrapper |> getByText(~matcher=`Str("Global Feed")),
-      (),
-    )
-    |> then_(_ => {
-         TestUtils.ApiMock.fetch##calls
-         |> Belt.Array.some(_, call =>
-              call
-              |> Belt.Array.get(_, 0)
-              |> Option.getOrElse("")
-              == "http://mock_your_requests/api/articles?limit=10&offset=0"
-            )
-         |> expect
-         |> toEqual(true)
-         |> resolve
-       });
   });
 
   testPromise(
@@ -112,7 +96,11 @@ describe("Home component", () => {
     testPromise({|Actived Tab: "Your Feed" > "# <tag>"|}, () => {
       ApiMock.doMock(
         ~pipeline=
-          ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
+          ApiMock.succeed
+          |> ApiMock.user
+          |> ApiMock.tags
+          |> ApiMock.feeds
+          |> ApiMock.articles,
         (),
       );
 
@@ -243,8 +231,11 @@ describe("Home component", () => {
   });
 
   describe("Pagination", () => {
-    testPromise("do not show any page item (failed to load articles)", () => {
-      ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.tags, ());
+    Skip.testPromise("do not show any page item (failed to load articles)", () => {
+      ApiMock.doMock(
+        ~pipeline=ApiMock.succeed |> ApiMock.tags |> ApiMock.user,
+        (),
+      );
 
       let wrapper = render(<App />);
 
