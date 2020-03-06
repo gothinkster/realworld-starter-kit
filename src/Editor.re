@@ -1,5 +1,7 @@
 open Relude.Globals;
 
+module Decode = Decode.AsResult.OfParseError;
+
 let parseTagList: string => array(string) =
   str =>
     str
@@ -233,7 +235,30 @@ module Create = {
           ~action=Create({...article, tagList: parseTagList(tagList)}),
           (),
         )
-        |> Js.Promise.then_(v => Js.log2("v", v) |> Js.Promise.resolve)
+        |> Js.Promise.then_(
+             fun
+             | Ok((ok: Shape.Article.t)) => {
+                 Link.article(~slug=ok.slug) |> Link.push;
+                 setArticle(AsyncResult.toIdle) |> Js.Promise.resolve;
+               }
+             | Error(Error.EFetch((_code, _message, `json(json)))) =>
+               json
+               |> Decode.field("errors", Shape.Editor.decode)
+               |> Result.tapOk(error =>
+                    setArticle(prev =>
+                      prev
+                      |> AsyncResult.toIdle
+                      |> AsyncResult.map(((article, tagList, _error)) =>
+                           (article, tagList, Some(error))
+                         )
+                    )
+                  )
+               |> ignore
+               |> Js.Promise.resolve
+             | Error(Error.EFetch((_, _, `text(_))))
+             | Error(EDecodeParseError(_)) =>
+               setArticle(AsyncResult.toIdle) |> Js.Promise.resolve,
+           )
         |> ignore;
       }}
     />;
