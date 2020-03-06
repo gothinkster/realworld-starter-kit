@@ -10,6 +10,16 @@ describe("App component", () => {
   beforeEach(() => {JestFetchMock.resetMocks()});
 
   testPromise("renders without crashing", () => {
+    ApiMock.doMock(
+      ~pipeline=
+        ApiMock.succeed
+        |> ApiMock.articles
+        |> ApiMock.user
+        |> ApiMock.tags
+        |> ApiMock.feeds,
+      (),
+    );
+
     let wrapper = render(<App />);
 
     DomTestingLibrary.waitForElement(
@@ -30,6 +40,8 @@ describe("App component", () => {
   });
 
   testPromise("renders settings page", () => {
+    ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.user, ());
+
     let wrapper = render(<App />);
 
     act(() => ReasonReactRouter.push("/#/settings"));
@@ -89,6 +101,8 @@ describe("App component", () => {
   });
 
   testPromise("renders create article page", () => {
+    ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.user, ());
+
     let wrapper = render(<App />);
 
     act(() => ReasonReactRouter.push("/#/editor"));
@@ -108,6 +122,11 @@ describe("App component", () => {
   });
 
   testPromise("renders edit article page", () => {
+    ApiMock.doMock(
+      ~pipeline=ApiMock.succeed |> ApiMock.user |> ApiMock.article,
+      (),
+    );
+
     let wrapper = render(<App />);
 
     act(() => ReasonReactRouter.push("/#/editor/slug"));
@@ -127,7 +146,11 @@ describe("App component", () => {
   });
 
   testPromise("renders article page", () => {
-    ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.article, ());
+    ApiMock.doMock(
+      ~pipeline=
+        ApiMock.succeed |> ApiMock.article |> ApiMock.user |> ApiMock.comments,
+      (),
+    );
 
     let wrapper = render(<App />);
 
@@ -149,9 +172,15 @@ describe("App component", () => {
   });
 
   testPromise("renders user profile page", () => {
+    ApiMock.doMock(
+      ~pipeline=
+        ApiMock.succeed |> ApiMock.user |> ApiMock.profile |> ApiMock.articles,
+      (),
+    );
+
     let wrapper = render(<App />);
 
-    act(() => ReasonReactRouter.push("/#/profile/someone"));
+    act(() => ReasonReactRouter.push("/#/profile/jihchi"));
 
     DomTestingLibrary.waitForElement(
       ~callback=() => wrapper |> getByText(~matcher=`Str("My Articles")),
@@ -168,9 +197,15 @@ describe("App component", () => {
   });
 
   testPromise("renders user favorites page", () => {
+    ApiMock.doMock(
+      ~pipeline=
+        ApiMock.succeed |> ApiMock.user |> ApiMock.profile |> ApiMock.articles,
+      (),
+    );
+
     let wrapper = render(<App />);
 
-    act(() => ReasonReactRouter.push("/#/profile/someone/favorites"));
+    act(() => ReasonReactRouter.push("/#/profile/jihchi/favorites"));
 
     DomTestingLibrary.waitForElement(
       ~callback=
@@ -190,6 +225,12 @@ describe("App component", () => {
   describe("Header", () => {
     describe("Anonymous", () => {
       testPromise({|show "Home" link|}, () => {
+        ApiMock.doMock(
+          ~pipeline=ApiMock.succeed |> ApiMock.articles,
+          ~init=ApiMock.unathorized401,
+          (),
+        );
+
         let wrapper = render(<App />);
 
         DomTestingLibrary.waitForElement(
@@ -206,6 +247,12 @@ describe("App component", () => {
       });
 
       testPromise({|show "Sign in" link|}, () => {
+        ApiMock.doMock(
+          ~pipeline=ApiMock.succeed |> ApiMock.articles,
+          ~init=ApiMock.unathorized401,
+          (),
+        );
+
         let wrapper = render(<App />);
 
         DomTestingLibrary.waitForElement(
@@ -222,6 +269,12 @@ describe("App component", () => {
       });
 
       testPromise({|show "Sign up" link|}, () => {
+        ApiMock.doMock(
+          ~pipeline=ApiMock.succeed |> ApiMock.articles,
+          ~init=ApiMock.unathorized401,
+          (),
+        );
+
         let wrapper = render(<App />);
 
         DomTestingLibrary.waitForElement(
@@ -238,6 +291,12 @@ describe("App component", () => {
       });
 
       testPromise({|should not show "New Post" link|}, () => {
+        ApiMock.doMock(
+          ~pipeline=ApiMock.succeed |> ApiMock.articles,
+          ~init=ApiMock.unathorized401,
+          (),
+        );
+
         let wrapper = render(<App />);
 
         DomTestingLibrary.waitForElement(
@@ -254,6 +313,12 @@ describe("App component", () => {
       });
 
       testPromise({|should not show "Settings" link|}, () => {
+        ApiMock.doMock(
+          ~pipeline=ApiMock.succeed |> ApiMock.articles,
+          ~init=ApiMock.unathorized401,
+          (),
+        );
+
         let wrapper = render(<App />);
 
         DomTestingLibrary.waitForElement(
@@ -270,6 +335,12 @@ describe("App component", () => {
       });
 
       testPromise({|should not show user name|}, () => {
+        ApiMock.doMock(
+          ~pipeline=ApiMock.succeed |> ApiMock.articles,
+          ~init=ApiMock.unathorized401,
+          (),
+        );
+
         let wrapper = render(<App />);
 
         DomTestingLibrary.waitForElement(
@@ -290,8 +361,8 @@ describe("App component", () => {
       testPromise({|show "Home" link|}, () => {
         ApiMock.doMock(
           ~pipeline=
-            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.articles,
-          (),
+            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
+          ()
         );
 
         let wrapper = render(<App />);
@@ -312,7 +383,7 @@ describe("App component", () => {
       testPromise({|should not show "Sign in" link|}, () => {
         ApiMock.doMock(
           ~pipeline=
-            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.articles,
+            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
           (),
         );
 
@@ -334,7 +405,7 @@ describe("App component", () => {
       testPromise({|should not show "Sign up" link|}, () => {
         ApiMock.doMock(
           ~pipeline=
-            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.articles,
+            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
           (),
         );
 
@@ -356,7 +427,7 @@ describe("App component", () => {
       testPromise({|show "New Post" link|}, () => {
         ApiMock.doMock(
           ~pipeline=
-            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.articles,
+            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
           (),
         );
 
@@ -378,7 +449,7 @@ describe("App component", () => {
       testPromise({|show "Settings" link|}, () => {
         ApiMock.doMock(
           ~pipeline=
-            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.articles,
+            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
           (),
         );
 
@@ -400,7 +471,7 @@ describe("App component", () => {
       testPromise({|show user name|}, () => {
         ApiMock.doMock(
           ~pipeline=
-            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.articles,
+            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
           (),
         );
 
