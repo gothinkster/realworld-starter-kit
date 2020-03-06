@@ -1,13 +1,23 @@
 open Js.Promise;
 open Jest;
 open Expect;
+open BsJestFetchMock;
 open ReactTestingLibrary;
+open TestUtils;
 
 describe("Profile component", () => {
+  beforeEach(() => {JestFetchMock.resetMocks()});
+
   testPromise("renders without crashing", () => {
+    ApiMock.doMock(
+      ~pipeline=
+        ApiMock.succeed |> ApiMock.profile |> ApiMock.articles |> ApiMock.user,
+      (),
+    );
+
     let wrapper = render(<App />);
 
-    TestUtils.act(() => ReasonReactRouter.push("#/profile/someone"));
+    TestUtils.act(() => ReasonReactRouter.push("#/profile/jihchi"));
 
     DomTestingLibrary.waitForElement(
       ~callback=() => wrapper |> getByText(~matcher=`Str("My Articles")),
@@ -24,10 +34,16 @@ describe("Profile component", () => {
   });
 
   testPromise("renders someone's favorited articles", () => {
+    ApiMock.doMock(
+      ~pipeline=
+        ApiMock.succeed |> ApiMock.profile |> ApiMock.articles |> ApiMock.user,
+      (),
+    );
+
     let wrapper = render(<App />);
 
     TestUtils.act(() =>
-      ReasonReactRouter.push("#/profile/someone/favorites")
+      ReasonReactRouter.push("#/profile/jihchi/favorites")
     );
 
     DomTestingLibrary.waitForElement(

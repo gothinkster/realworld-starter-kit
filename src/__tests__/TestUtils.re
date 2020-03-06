@@ -63,6 +63,15 @@ module ApiMock = {
   external fetch: {. "calls": array(array(string))} = "mock";
 
   module SampleData = {
+    let profile = () => {|{
+  "profile": {
+    "username": "jihchi",
+    "bio": "I love ReasonML",
+    "image": "https://static.productionready.io/images/smiley-cyrus.jpg",
+    "following": true
+  }
+}|};
+
     let comments = () => {|{
   "comments": [
     {
@@ -205,6 +214,31 @@ module ApiMock = {
     Result.t(string, string) =
     fn => Function.map(Result.flatMap(fn));
 
+  let debug:
+    (
+      Result.t(string, string) => Result.t(string, string),
+      Result.t(string, string)
+    ) =>
+    Result.t(string, string) =
+    pipe(pathname => {
+      Js.log2("pathname: %o", pathname);
+      pathname |> Result.ok;
+    });
+
+  let profile:
+    (
+      Result.t(string, string) => Result.t(string, string),
+      Result.t(string, string)
+    ) =>
+    Result.t(string, string) =
+    pipe(pathname =>
+      if (pathname == "/api/profiles/jihchi") {
+        SampleData.profile() |> Result.error;
+      } else {
+        pathname |> Result.ok;
+      }
+    );
+
   let comments:
     (
       Result.t(string, string) => Result.t(string, string),
@@ -323,6 +357,6 @@ module ApiMock = {
 };
 
 // this a work-around such that Jest won't emit warning
-Jest.test("noop", () =>
+Jest.test("TestUtils work-around", () =>
   Jest.pass
 );

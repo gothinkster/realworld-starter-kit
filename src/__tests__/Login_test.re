@@ -1,9 +1,12 @@
 open Js.Promise;
 open Jest;
 open Expect;
+open BsJestFetchMock;
 open ReactTestingLibrary;
 
 describe("Login component", () => {
+  beforeEach(() => {JestFetchMock.resetMocks()});
+
   testPromise("renders without crashing", () => {
     let wrapper = render(<App />);
 

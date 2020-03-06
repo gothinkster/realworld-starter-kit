@@ -1,10 +1,13 @@
 open Js.Promise;
 open Jest;
 open Expect;
+open BsJestFetchMock;
 open ReactTestingLibrary;
 open TestUtils;
 
 describe("Editor component", () => {
+  beforeEach(() => {JestFetchMock.resetMocks()});
+
   testPromise("renders without crashing", () => {
     ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.user, ());
 
