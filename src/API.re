@@ -198,7 +198,7 @@ let article:
     )
     |> fetchWithInit(_, requestInit)
     |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyJson)
+    |> then_(getErrorBodyJson)
     |> then_(result =>
          result
          |> Relude.Result.flatMap(json =>

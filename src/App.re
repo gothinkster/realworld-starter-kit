@@ -27,8 +27,8 @@ let make = () => {
          authenticated(user => <Settings user setUser=setCurrentUser />, user)
        | Login => <Login />
        | Register => <Register />
-       | CreateArticle => <Editor />
-       | EditArticle(slug) => <Editor slug />
+       | CreateArticle => authenticated(_user => <Editor />, user)
+       | EditArticle(slug) => authenticated(_user => <Editor slug />, user)
        | Article(slug) => <Article slug user />
        | Profile(username) =>
          <Profile viewMode={Shape.Profile.Author(username, 10, 0)} user />
