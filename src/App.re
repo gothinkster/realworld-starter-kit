@@ -25,7 +25,7 @@ let make = () => {
       {switch (route) {
        | Settings =>
          authenticated(user => <Settings user setUser=setCurrentUser />, user)
-       | Login => <Login />
+       | Login => <Login setUser=setCurrentUser />
        | Register => <Register />
        | CreateArticle => authenticated(_user => <Editor />, user)
        | EditArticle(slug) => authenticated(_user => <Editor slug />, user)

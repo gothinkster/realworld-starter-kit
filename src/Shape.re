@@ -1,3 +1,5 @@
+open Relude.Globals;
+
 module Decode = Decode.AsResult.OfParseError;
 
 module Profile = {
@@ -305,6 +307,21 @@ module Editor = {
       |> optionalField("title", array(string))
       |> optionalField("body", array(string))
       |> optionalField("description", array(string))
+      |> run(json)
+    );
+};
+
+module Login = {
+  type t = option(array(string));
+
+  let make = id;
+
+  let empty = make(None);
+
+  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+    Decode.Pipeline.(
+      succeed(make)
+      |> optionalField("email or password", array(string))
       |> run(json)
     );
 };

@@ -2,29 +2,54 @@ module AsyncResult = Relude.AsyncResult;
 
 type cookiePair = (string, option(string));
 
-let cookie: array(cookiePair) =
-  Webapi.Dom.document
-  |> Webapi.Dom.Document.asHtmlDocument
-  |> Relude.Option.getOrThrow
-  |> Webapi.Dom.HtmlDocument.cookie
-  |> Js.String.split(";")
-  |> Relude.Array.flatMap(str => {
-       let pair =
-         str |> Js.String.split("=") |> Relude.Array.map(Js.String.trim);
-       let key = pair |> Relude.Array.at(0);
-       let value = pair |> Relude.Array.at(1);
+let secondInMs = 1000.;
+let minuteInMs = 60. *. secondInMs;
+let hourInMs = 60. *. minuteInMs;
+let dayInMs = 24. *. hourInMs;
+let monthInMs = 30. *. dayInMs;
 
-       key
-       |> Relude.Option.map(str => [|(str, value)|])
-       |> Relude.Option.getOrElse([||]);
-     });
+let parseCookies: unit => array(cookiePair) =
+  () =>
+    Webapi.Dom.document
+    |> Webapi.Dom.Document.asHtmlDocument
+    |> Relude.Option.getOrThrow
+    |> Webapi.Dom.HtmlDocument.cookie
+    |> Js.String.split(";")
+    |> Relude.Array.flatMap(str => {
+         let pair =
+           str |> Js.String.split("=") |> Relude.Array.map(Js.String.trim);
+         let key = pair |> Relude.Array.at(0);
+         let value = pair |> Relude.Array.at(1);
+
+         key
+         |> Relude.Option.map(str => [|(str, value)|])
+         |> Relude.Option.getOrElse([||]);
+       });
 
 let getCookie = (name: string): option(cookiePair) =>
-  cookie
+  parseCookies()
   |> Relude.Array.find(pair => {
        let key = fst(pair);
        key == name;
      });
+
+let setCookie = (key: string, value: option(string)): unit => {
+  let htmlDocument =
+    Webapi.Dom.document
+    |> Webapi.Dom.Document.asHtmlDocument
+    |> Relude.Option.getOrThrow;
+  let expires = Js.Date.make();
+  let _ = Js.Date.setTime(expires, Js.Date.getTime(expires) +. monthInMs);
+  let cookie =
+    Printf.sprintf(
+      "%s=%s; expires=%s; path=/",
+      key,
+      value |> Relude.Option.getOrElse(""),
+      expires |> Js.Date.toUTCString,
+    );
+
+  Webapi.Dom.HtmlDocument.setCookie(htmlDocument, cookie);
+};
 
 let isMouseRightClick = event =>
   !event->ReactEvent.Mouse.defaultPrevented

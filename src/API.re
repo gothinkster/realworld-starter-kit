@@ -71,6 +71,8 @@ module Endpoints = {
 
   let comment = (~slug: string, ~id: int, ()) =>
     Printf.sprintf("%s/api/articles/%s/comments/%d", backend, slug, id);
+
+  let login = Printf.sprintf("%s/api/users/login", backend);
 };
 
 let getJwtTokenHeader: unit => array((string, string)) =
@@ -484,6 +486,15 @@ let deleteComment = (~slug: string, ~id: int, ()) => {
 };
 
 let addComment = (~slug: string, ~body: string, ()) => {
+  let comment =
+    [("body", Js.Json.string(body))] |> Js.Dict.fromList |> Js.Json.object_;
+  let body =
+    [("comment", comment)]
+    |> Js.Dict.fromList
+    |> Js.Json.object_
+    |> Js.Json.stringify
+    |> Fetch.BodyInit.make;
+
   let requestInit =
     RequestInit.make(
       ~method_=Post,
@@ -491,21 +502,7 @@ let addComment = (~slug: string, ~body: string, ()) => {
         [|getJwtTokenHeader(), getContentTypeJsonHeader()|]
         |> Relude.Array.flatten
         |> HeadersInit.makeWithArray,
-      ~body=
-        Fetch.BodyInit.make(
-          Js.Json.stringify(
-            Js.Json.object_(
-              Js.Dict.fromList([
-                (
-                  "comment",
-                  Js.Json.object_(
-                    Js.Dict.fromList([("body", Js.Json.string(body))]),
-                  ),
-                ),
-              ]),
-            ),
-          ),
-        ),
+      ~body,
       (),
     );
 
@@ -553,3 +550,44 @@ let getProfile:
          |> resolve
        );
   };
+
+let login = (~email: string, ~password: string, ()) => {
+  let user =
+    [
+      ("email", Js.Json.string(email)),
+      ("password", Js.Json.string(password)),
+    ]
+    |> Js.Dict.fromList
+    |> Js.Json.object_;
+  let body =
+    [("user", user)]
+    |> Js.Dict.fromList
+    |> Js.Json.object_
+    |> Js.Json.stringify
+    |> Fetch.BodyInit.make;
+
+  let requestInit =
+    RequestInit.make(
+      ~method_=Post,
+      ~headers=
+        [|getContentTypeJsonHeader()|]
+        |> Relude.Array.flatten
+        |> HeadersInit.makeWithArray,
+      ~body,
+      (),
+    );
+
+  Endpoints.login
+  |> fetchWithInit(_, requestInit)
+  |> then_(parseJsonIfOk)
+  |> then_(getErrorBodyJson)
+  |> then_(result =>
+       result
+       |> Relude.Result.flatMap(json =>
+            json
+            |> Shape.User.decode
+            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+          )
+       |> resolve
+     );
+};
