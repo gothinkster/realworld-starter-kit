@@ -2,6 +2,7 @@
 
 [![Travis (.org)](https://img.shields.io/travis/jihchi/reason-react-realworld-example-app)](https://travis-ci.org/jihchi/reason-react-realworld-example-app)
 [![Coverage Status](https://img.shields.io/coveralls/github/jihchi/reason-react-realworld-example-app)](https://coveralls.io/github/jihchi/reason-react-realworld-example-app?branch=master)
+![GitHub](https://img.shields.io/github/license/jihchi/reason-react-realworld-example-app)
 
 > ### ReasonReact (ReasonML) codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
 
