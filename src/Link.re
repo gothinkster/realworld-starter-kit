@@ -63,7 +63,7 @@ module Button = {
         ~disabled=false,
         ~children,
       ) => {
-    <button className style onClick={handleClick(onClick)}>
+    <button className style onClick={handleClick(onClick)} disabled>
       children
     </button>;
   };
