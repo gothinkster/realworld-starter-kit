@@ -361,8 +361,12 @@ describe("App component", () => {
       testPromise({|show "Home" link|}, () => {
         ApiMock.doMock(
           ~pipeline=
-            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
-          ()
+            ApiMock.succeed
+            |> ApiMock.user
+            |> ApiMock.tags
+            |> ApiMock.articles
+            |> ApiMock.profile,
+          (),
         );
 
         let wrapper = render(<App />);
@@ -383,7 +387,12 @@ describe("App component", () => {
       testPromise({|should not show "Sign in" link|}, () => {
         ApiMock.doMock(
           ~pipeline=
-            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
+            ApiMock.succeed
+            |> ApiMock.user
+            |> ApiMock.tags
+            |> ApiMock.feeds
+            |> ApiMock.articles
+            |> ApiMock.profile,
           (),
         );
 
@@ -405,7 +414,12 @@ describe("App component", () => {
       testPromise({|should not show "Sign up" link|}, () => {
         ApiMock.doMock(
           ~pipeline=
-            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
+            ApiMock.succeed
+            |> ApiMock.user
+            |> ApiMock.tags
+            |> ApiMock.feeds
+            |> ApiMock.articles
+            |> ApiMock.profile,
           (),
         );
 
@@ -427,7 +441,12 @@ describe("App component", () => {
       testPromise({|show "New Post" link|}, () => {
         ApiMock.doMock(
           ~pipeline=
-            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
+            ApiMock.succeed
+            |> ApiMock.user
+            |> ApiMock.tags
+            |> ApiMock.feeds
+            |> ApiMock.articles
+            |> ApiMock.profile,
           (),
         );
 
@@ -449,7 +468,12 @@ describe("App component", () => {
       testPromise({|show "Settings" link|}, () => {
         ApiMock.doMock(
           ~pipeline=
-            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
+            ApiMock.succeed
+            |> ApiMock.user
+            |> ApiMock.tags
+            |> ApiMock.feeds
+            |> ApiMock.articles
+            |> ApiMock.profile,
           (),
         );
 
@@ -471,7 +495,12 @@ describe("App component", () => {
       testPromise({|show user name|}, () => {
         ApiMock.doMock(
           ~pipeline=
-            ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
+            ApiMock.succeed
+            |> ApiMock.user
+            |> ApiMock.tags
+            |> ApiMock.feeds
+            |> ApiMock.articles
+            |> ApiMock.profile,
           (),
         );
 
