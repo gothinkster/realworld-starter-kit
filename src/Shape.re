@@ -145,7 +145,7 @@ module Articles = {
 module Tags = {
   type t = array(string);
 
-  let empty = [||];
+  let empty: array(string) = [||];
 
   let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
     Decode.(field("tags", array(string), json));
