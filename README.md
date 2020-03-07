@@ -1,5 +1,3 @@
-# NOTICE! Rewriting is ongoing
-
 # ![RealWorld Example App](logo.png)
 
 [![Travis (.org)](https://img.shields.io/travis/jihchi/reason-react-realworld-example-app)](https://travis-ci.org/jihchi/reason-react-realworld-example-app)
