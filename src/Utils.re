@@ -1,4 +1,4 @@
-module AsyncResult = Relude.AsyncResult;
+open Relude.Globals;
 
 type cookiePair = (string, option(string));
 
@@ -33,23 +33,46 @@ let getCookie = (name: string): option(cookiePair) =>
        key == name;
      });
 
-let setCookie = (key: string, value: option(string)): unit => {
-  let htmlDocument =
-    Webapi.Dom.document
-    |> Webapi.Dom.Document.asHtmlDocument
-    |> Relude.Option.getOrThrow;
-  let expires = Js.Date.make();
-  let _ = Js.Date.setTime(expires, Js.Date.getTime(expires) +. monthInMs);
-  let cookie =
-    Printf.sprintf(
-      "%s=%s; expires=%s; path=/",
-      key,
-      value |> Relude.Option.getOrElse(""),
-      expires |> Js.Date.toUTCString,
-    );
+let setCookieRaw:
+  (~key: string, ~value: string=?, ~expires: string, ~path: string=?, unit) =>
+  unit =
+  (~key, ~value=?, ~expires, ~path=?, ()) => {
+    let htmlDocument =
+      Webapi.Dom.document
+      |> Webapi.Dom.Document.asHtmlDocument
+      |> Relude.Option.getOrThrow;
 
-  Webapi.Dom.HtmlDocument.setCookie(htmlDocument, cookie);
-};
+    let cookie =
+      Printf.sprintf(
+        "%s=%s;%s%s",
+        key,
+        value |> Relude.Option.getOrElse(""),
+        expires == "" ? "" : Printf.sprintf(" expires=%s;", expires),
+        path
+        |> Option.flatMap(path => path == "" ? None : Some(path))
+        |> Option.map(path => Printf.sprintf(" path=%s;", path))
+        |> Option.getOrElse(""),
+      );
+
+    Webapi.Dom.HtmlDocument.setCookie(htmlDocument, cookie);
+  };
+
+let setCookie: (string, option(string)) => unit =
+  (key, value) => {
+    let expires = Js.Date.make();
+    let _ = Js.Date.setTime(expires, Js.Date.getTime(expires) +. monthInMs);
+
+    setCookieRaw(
+      ~key,
+      ~value?,
+      ~expires=expires |> Js.Date.toUTCString,
+      ~path="/",
+      (),
+    );
+  };
+
+let deleteCookie: string => unit =
+  key => setCookieRaw(~key, ~expires="Thu, 01 Jan 1970 00:00:01 GMT", ());
 
 let isMouseRightClick = event =>
   !event->ReactEvent.Mouse.defaultPrevented

@@ -177,6 +177,23 @@ let make =
               </button>
             </fieldset>
           </form>
+          <hr />
+          <button
+            className="btn btn-outline-danger"
+            disabled=isBusy
+            onClick={event => {
+              event |> ReactEvent.Mouse.preventDefault;
+              event |> ReactEvent.Mouse.stopPropagation;
+              if (isBusy) {
+                ignore();
+              } else {
+                setUser(_prev => AsyncData.complete(None));
+                Utils.deleteCookie("jwtToken");
+                Link.home |> Link.push;
+              };
+            }}>
+            "Or click here to logout."->React.string
+          </button>
         </div>
       </div>
     </div>
