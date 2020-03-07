@@ -13,6 +13,7 @@
     "start:js": "react-scripts start",
     "start:re": "npm run build:re -- -w",
     "test:ci": "CI=true npm test",
+    "test:coverage": "CI=true npm test -- --coverage",
     "test": "react-scripts test"
   },
   "keywords": [
@@ -41,6 +42,7 @@
     "bs-react-testing-library": "^0.6.0",
     "bs-webapi": "^0.15.6",
     "concurrently": "^5.1.0",
+    "coveralls": "^3.0.9",
     "jest-fetch-mock": "^3.0.1",
     "prettier": "^1.19.1",
     "react-scripts": "3.4.0",

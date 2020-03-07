@@ -4,6 +4,7 @@ node_js:
 cache: npm
 script:
   - 'npm run test:ci'
+
 before_deploy:
   - 'npm run build'
 deploy:
@@ -11,3 +12,9 @@ deploy:
   provider: surge
   project: ./build/
   domain: reason-react-realworld-example-app.surge.sh
+
+jobs:
+  include:
+    - stage: Produce Coverage
+      node_js: node
+      script: npm run test:coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
