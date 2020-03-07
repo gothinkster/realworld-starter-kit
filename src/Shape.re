@@ -159,7 +159,7 @@ module User = {
     updatedAt: Js.Date.t,
     username: string,
     bio: option(string),
-    image: string,
+    image: option(string),
     token: string,
   };
 
@@ -174,7 +174,7 @@ module User = {
     token,
   };
 
-  let empty = make(0, "", Js.Date.make(), Js.Date.make(), "", None, "", "");
+  let empty = make(0, "", Js.Date.make(), Js.Date.make(), "", None, None, "");
 
   let decodeUser =
       (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
@@ -186,7 +186,7 @@ module User = {
       |> field("updatedAt", date)
       |> field("username", string)
       |> optionalField("bio", string)
-      |> field("image", string)
+      |> optionalField("image", string)
       |> field("token", string)
       |> run(json)
     );
@@ -322,6 +322,27 @@ module Login = {
     Decode.Pipeline.(
       succeed(make)
       |> optionalField("email or password", array(string))
+      |> run(json)
+    );
+};
+
+module Register = {
+  type t = {
+    email: option(array(string)),
+    password: option(array(string)),
+    username: option(array(string)),
+  };
+
+  let make = (email, password, username) => {email, password, username};
+
+  let empty = make(None, None, None);
+
+  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+    Decode.Pipeline.(
+      succeed(make)
+      |> optionalField("email", array(string))
+      |> optionalField("password", array(string))
+      |> optionalField("username", array(string))
       |> run(json)
     );
 };

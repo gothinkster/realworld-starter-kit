@@ -43,7 +43,7 @@ let make =
                   type_="text"
                   placeholder="URL of profile picture"
                   disabled=isBusy
-                  value={form.image}
+                  value={form.image |> Option.getOrElse("")}
                   onChange={event => {
                     let image = event->ReactEvent.Form.target##value;
                     setResult(

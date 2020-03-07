@@ -26,7 +26,7 @@ let make = () => {
        | Settings =>
          authenticated(user => <Settings user setUser=setCurrentUser />, user)
        | Login => <Login setUser=setCurrentUser />
-       | Register => <Register />
+       | Register => <Register setUser=setCurrentUser />
        | CreateArticle => authenticated(_user => <Editor />, user)
        | EditArticle(slug) => authenticated(_user => <Editor slug />, user)
        | Article(slug) => <Article slug user />

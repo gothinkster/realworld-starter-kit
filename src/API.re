@@ -73,6 +73,8 @@ module Endpoints = {
     Printf.sprintf("%s/api/articles/%s/comments/%d", backend, slug, id);
 
   let login = Printf.sprintf("%s/api/users/login", backend);
+
+  let users = Printf.sprintf("%s/api/users", backend);
 };
 
 let getJwtTokenHeader: unit => array((string, string)) =
@@ -352,7 +354,7 @@ let updateUser = (~user: Shape.User.t, ~password: string, ()) => {
     [
       [("email", Js.Json.string(user.email))],
       [("bio", Js.Json.string(user.bio |> Option.getOrElse("")))],
-      [("image", Js.Json.string(user.image))],
+      [("image", Js.Json.string(user.image |> Option.getOrElse("")))],
       [("username", Js.Json.string(user.username))],
       if (password == "") {
         [];
@@ -578,6 +580,48 @@ let login = (~email: string, ~password: string, ()) => {
     );
 
   Endpoints.login
+  |> fetchWithInit(_, requestInit)
+  |> then_(parseJsonIfOk)
+  |> then_(getErrorBodyJson)
+  |> then_(result =>
+       result
+       |> Relude.Result.flatMap(json =>
+            json
+            |> Shape.User.decode
+            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+          )
+       |> resolve
+     );
+};
+
+let register = (~username: string, ~email: string, ~password: string, ()) => {
+  let user =
+    [
+      ("email", Js.Json.string(email)),
+      ("password", Js.Json.string(password)),
+      ("username", Js.Json.string(username)),
+    ]
+    |> Js.Dict.fromList
+    |> Js.Json.object_;
+  let body =
+    [("user", user)]
+    |> Js.Dict.fromList
+    |> Js.Json.object_
+    |> Js.Json.stringify
+    |> Fetch.BodyInit.make;
+
+  let requestInit =
+    RequestInit.make(
+      ~method_=Post,
+      ~headers=
+        [|getContentTypeJsonHeader()|]
+        |> Relude.Array.flatten
+        |> HeadersInit.makeWithArray,
+      ~body,
+      (),
+    );
+
+  Endpoints.users
   |> fetchWithInit(_, requestInit)
   |> then_(parseJsonIfOk)
   |> then_(getErrorBodyJson)

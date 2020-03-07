@@ -431,7 +431,12 @@ let make = (~slug: string, ~user: option(Shape.User.t)) => {
       <div className="row">
         <div className="col-xs-12 col-md-8 offset-md-2">
           {switch (user) {
-           | Some({image}) => <PostComment image slug setComments />
+           | Some({image}) =>
+             <PostComment
+               image={image |> Option.getOrElse("")}
+               slug
+               setComments
+             />
            | None =>
              <p>
                <Link
