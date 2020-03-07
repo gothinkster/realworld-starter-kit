@@ -10,7 +10,11 @@ describe("Article component", () => {
   beforeEach(() => {JestFetchMock.resetMocks()});
 
   testPromise("renders without crashing", () => {
-    ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.article, ());
+    ApiMock.doMock(
+      ~pipeline=
+        ApiMock.succeed |> ApiMock.article |> ApiMock.user |> ApiMock.comments,
+      (),
+    );
 
     let wrapper = render(<App />);
 
