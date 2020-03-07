@@ -4,3 +4,10 @@ node_js:
 cache: npm
 script:
   - 'npm run test:ci'
+before_deploy:
+  - 'npm run build'
+deploy:
+  edge: true
+  provider: surge
+  project: ./build/
+  domain: reason-react-realworld-example-app.surge.sh
