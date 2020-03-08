@@ -338,8 +338,7 @@ module ApiMock = {
 
   let doMock = (~init=?, ~pipeline, ()) =>
     JestFetchMock.mockResponse(
-      ~response=
-        Fn(
+        `FnStr(
           req => {
             let url: Result.t(string, string) =
               req |> parseUrl |> Result.pure;
@@ -351,8 +350,7 @@ module ApiMock = {
             |> Js.Promise.resolve;
           },
         ),
-      ~init?,
-      (),
+				Js.Undefined.fromOption(init),
     );
 };
 
