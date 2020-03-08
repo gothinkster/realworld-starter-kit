@@ -18,17 +18,19 @@ type favoriteAction =
   | Favorite(string)
   | Unfavorite(string);
 
-let getJwtTokenHeader: unit => array((string, string)) =
-  () =>
-    Utils.getCookie("jwtToken")
-    |> Option.flatMap(snd)
-    |> Option.map(token =>
-         [|("Authorization", Printf.sprintf("Token %s", token))|]
-       )
-    |> Option.getOrElse([||]);
+module Headers = {
+  let addJwtToken: unit => array((string, string)) =
+    () =>
+      Utils.getCookie("jwtToken")
+      |> Option.flatMap(snd)
+      |> Option.map(token =>
+           [|("Authorization", Printf.sprintf("Token %s", token))|]
+         )
+      |> Option.getOrElse([||]);
 
-let getContentTypeJsonHeader: unit => array((string, string)) =
-  () => [|("Content-Type", "application/json; charset=UTF-8")|];
+  let addContentTypeAsJson: unit => array((string, string)) =
+    () => [|("Content-Type", "application/json; charset=UTF-8")|];
+};
 
 let getErrorBodyJson:
   Result.t(Js.Json.t, Fetch.Response.t) =>
@@ -121,9 +123,12 @@ let article:
           {
             switch (action) {
             | Create(_)
-            | Update(_) => [|getJwtTokenHeader(), getContentTypeJsonHeader()|]
+            | Update(_) => [|
+                Headers.addJwtToken(),
+                Headers.addContentTypeAsJson(),
+              |]
             | Read(_)
-            | Delete(_) => [|getJwtTokenHeader()|]
+            | Delete(_) => [|Headers.addJwtToken()|]
             };
           }
           |> Array.flatten
@@ -170,7 +175,7 @@ let favoriteArticle:
           | Unfavorite(_slug) => Delete
           },
         ~headers=
-          [|getJwtTokenHeader()|]
+          [|Headers.addJwtToken()|]
           |> Relude.Array.flatten
           |> HeadersInit.makeWithArray,
         (),
@@ -204,7 +209,7 @@ let listArticles = (~limit=10, ~offset=0, ~tag=?, ~author=?, ~favorited=?, ()) =
   let requestInit =
     RequestInit.make(
       ~headers=
-        [|getJwtTokenHeader()|]
+        [|Headers.addJwtToken()|]
         |> Relude.Array.flatten
         |> HeadersInit.makeWithArray,
       (),
@@ -229,7 +234,7 @@ let feedArticles = (~limit=10, ~offset=0, ()) => {
   let requestInit =
     RequestInit.make(
       ~headers=
-        [|getJwtTokenHeader()|]
+        [|Headers.addJwtToken()|]
         |> Relude.Array.flatten
         |> HeadersInit.makeWithArray,
       (),
@@ -270,7 +275,7 @@ let currentUser = () => {
   let requestInit =
     RequestInit.make(
       ~headers=
-        [|getJwtTokenHeader()|]
+        [|Headers.addJwtToken()|]
         |> Relude.Array.flatten
         |> HeadersInit.makeWithArray,
       (),
@@ -318,7 +323,7 @@ let updateUser = (~user: Shape.User.t, ~password: string, ()) => {
     RequestInit.make(
       ~method_=Put,
       ~headers=
-        [|getJwtTokenHeader(), getContentTypeJsonHeader()|]
+        [|Headers.addJwtToken(), Headers.addContentTypeAsJson()|]
         |> Relude.Array.flatten
         |> HeadersInit.makeWithArray,
       ~body,
@@ -349,7 +354,7 @@ let followUser = (~action: followAction, ()) => {
         | Unfollow(_username) => Delete
         },
       ~headers=
-        [|getJwtTokenHeader()|]
+        [|Headers.addJwtToken()|]
         |> Relude.Array.flatten
         |> HeadersInit.makeWithArray,
       (),
@@ -384,7 +389,7 @@ let getComments:
     let requestInit =
       RequestInit.make(
         ~headers=
-          [|getJwtTokenHeader()|]
+          [|Headers.addJwtToken()|]
           |> Relude.Array.flatten
           |> HeadersInit.makeWithArray,
         (),
@@ -412,7 +417,7 @@ let deleteComment = (~slug: string, ~id: int, ()) => {
     RequestInit.make(
       ~method_=Delete,
       ~headers=
-        [|getJwtTokenHeader()|]
+        [|Headers.addJwtToken()|]
         |> Relude.Array.flatten
         |> HeadersInit.makeWithArray,
       (),
@@ -443,7 +448,7 @@ let addComment = (~slug: string, ~body: string, ()) => {
     RequestInit.make(
       ~method_=Post,
       ~headers=
-        [|getJwtTokenHeader(), getContentTypeJsonHeader()|]
+        [|Headers.addJwtToken(), Headers.addContentTypeAsJson()|]
         |> Relude.Array.flatten
         |> HeadersInit.makeWithArray,
       ~body,
@@ -472,7 +477,7 @@ let getProfile:
     let requestInit =
       RequestInit.make(
         ~headers=
-          [|getJwtTokenHeader()|]
+          [|Headers.addJwtToken()|]
           |> Relude.Array.flatten
           |> HeadersInit.makeWithArray,
         (),
@@ -514,7 +519,7 @@ let login = (~email: string, ~password: string, ()) => {
     RequestInit.make(
       ~method_=Post,
       ~headers=
-        [|getContentTypeJsonHeader()|]
+        [|Headers.addContentTypeAsJson()|]
         |> Relude.Array.flatten
         |> HeadersInit.makeWithArray,
       ~body,
@@ -556,7 +561,7 @@ let register = (~username: string, ~email: string, ~password: string, ()) => {
     RequestInit.make(
       ~method_=Post,
       ~headers=
-        [|getContentTypeJsonHeader()|]
+        [|Headers.addContentTypeAsJson()|]
         |> Relude.Array.flatten
         |> HeadersInit.makeWithArray,
       ~body,
