@@ -358,9 +358,9 @@ let useFollow:
         follow
         |> AsyncData.getValue
         |> Option.flatMap(((_username, following)) =>
-             following ? Some(API.Unfollow(username)) : None
+             following ? Some(API.Action.Unfollow(username)) : None
            )
-        |> Option.getOrElse(API.Follow(username));
+        |> Option.getOrElse(API.Action.Follow(username));
 
       guard(() => setState(_prev => follow |> AsyncData.toBusy));
 
@@ -434,9 +434,9 @@ let useFollowInProfile:
         follow
         |> AsyncData.getValue
         |> Option.flatMap(((_username, following)) =>
-             following ? Some(API.Unfollow(username)) : None
+             following ? Some(API.Action.Unfollow(username)) : None
            )
-        |> Option.getOrElse(API.Follow(username));
+        |> Option.getOrElse(API.Action.Follow(username));
 
       guard(() => setState(_prev => follow |> AsyncData.toBusy));
 
@@ -503,7 +503,8 @@ let useFavorite:
       let (favorited, _favoritesCount, slug) =
         favorite |> AsyncData.getValue |> Option.getOrElse((false, 0, ""));
 
-      let action = favorited ? API.Unfavorite(slug) : API.Favorite(slug);
+      let action =
+        favorited ? API.Action.Unfavorite(slug) : API.Action.Favorite(slug);
 
       guard(() => setState(_prev => favorite |> AsyncData.toBusy));
 
@@ -605,7 +606,7 @@ let useToggleFavorite:
                   unit,
     ~user: option(Shape.User.t)
   ) =>
-  (Belt.Set.String.t, (~action: API.favoriteAction) => unit) =
+  (Belt.Set.String.t, (~action: API.Action.favorite) => unit) =
   (~setArticles, ~user) => {
     let didCancel = React.useRef(false);
     let guard = guardByDidCancel(didCancel);
@@ -618,8 +619,8 @@ let useToggleFavorite:
 
     let sendRequest = (~action) => {
       let slug =
-        switch (action) {
-        | API.Favorite(slug)
+        switch ((action: API.Action.favorite)) {
+        | Favorite(slug)
         | Unfavorite(slug) => slug
         };
 

@@ -34,7 +34,8 @@ module ArticlePreview = {
               onToggleFavorite(
                 ~action=
                   data.favorited
-                    ? API.Unfavorite(data.slug) : API.Favorite(data.slug),
+                    ? API.Action.Unfavorite(data.slug)
+                    : API.Action.Favorite(data.slug),
               );
             }
           }>

@@ -4,19 +4,21 @@ open Relude.Globals;
 
 module Decode = Decode.AsResult.OfParseError;
 
-type articleAction =
-  | Create(Shape.Article.t)
-  | Read(string)
-  | Update(string, Shape.Article.t)
-  | Delete(string);
+module Action = {
+  type article =
+    | Create(Shape.Article.t)
+    | Read(string)
+    | Update(string, Shape.Article.t)
+    | Delete(string);
 
-type followAction =
-  | Follow(string)
-  | Unfollow(string);
+  type follow =
+    | Follow(string)
+    | Unfollow(string);
 
-type favoriteAction =
-  | Favorite(string)
-  | Unfavorite(string);
+  type favorite =
+    | Favorite(string)
+    | Unfavorite(string);
+};
 
 module Headers = {
   let addJwtToken: unit => array((string, string)) =
@@ -81,7 +83,7 @@ let parseJsonIfOk:
     };
 
 let article:
-  (~action: articleAction, unit) =>
+  (~action: Action.article, unit) =>
   Js.Promise.t(Result.t(Shape.Article.t, Error.t)) =
   (~action, ()) => {
     let body =
@@ -108,44 +110,37 @@ let article:
       | Delete(_) => Option.none
       };
 
-    let requestInit =
-      RequestInit.make(
-        ~method_=
-          switch (action) {
-          | Create(_) => Post
-          | Read(_) => Get
-          | Update(_) => Put
-          | Delete(_) => Delete
-          },
-        ~headers=
-          {
-            switch (action) {
-            | Create(_)
-            | Update(_) => [|
-                Headers.addJwtToken(),
-                Headers.addContentTypeAsJson(),
-              |]
-            | Read(_)
-            | Delete(_) => [|Headers.addJwtToken()|]
-            };
-          }
-          |> Array.flatten
-          |> HeadersInit.makeWithArray,
-        ~body?,
-        (),
-      );
+    let method_ =
+      switch (action) {
+      | Create(_) => Post
+      | Read(_) => Get
+      | Update(_) => Put
+      | Delete(_) => Delete
+      };
 
-    Endpoints.Articles.article(
-      ~slug=
+    let headers =
+      (
         switch (action) {
-        | Create(_) => ""
-        | Read(slug)
-        | Update(slug, _)
-        | Delete(slug) => slug
-        },
-      (),
-    )
-    |> fetchWithInit(_, requestInit)
+        | Create(_)
+        | Update(_) => [|Headers.addContentTypeAsJson()|]
+        | Read(_)
+        | Delete(_) => [||]
+        }
+      )
+      |> Array.append(Headers.addJwtToken())
+      |> Array.flatten
+      |> HeadersInit.makeWithArray;
+
+    let slug =
+      switch (action) {
+      | Create(_) => ""
+      | Read(slug)
+      | Update(slug, _)
+      | Delete(slug) => slug
+      };
+
+    Endpoints.Articles.article(~slug, ())
+    |> fetchWithInit(_, RequestInit.make(~method_, ~headers, ~body?, ()))
     |> then_(parseJsonIfOk)
     |> then_(getErrorBodyJson)
     |> then_(result =>
@@ -158,7 +153,7 @@ let article:
   };
 
 let favoriteArticle:
-  (~action: favoriteAction, unit) =>
+  (~action: Action.favorite, unit) =>
   Js.Promise.t(Result.t(Shape.Article.t, Error.t)) =
   (~action, ()) => {
     let requestInit =
@@ -325,7 +320,7 @@ let updateUser = (~user: Shape.User.t, ~password: string, ()) => {
      );
 };
 
-let followUser = (~action: followAction, ()) => {
+let followUser = (~action: Action.follow, ()) => {
   let requestInit =
     RequestInit.make(
       ~method_=

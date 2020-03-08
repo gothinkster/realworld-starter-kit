@@ -262,8 +262,8 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
                                onToggleFavorite(
                                  ~action=
                                    article.favorited
-                                     ? API.Unfavorite(article.slug)
-                                     : API.Favorite(article.slug),
+                                     ? API.Action.Unfavorite(article.slug)
+                                     : API.Action.Favorite(article.slug),
                                );
                              }
                            )}>
