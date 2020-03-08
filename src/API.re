@@ -4,8 +4,6 @@ open Fetch;
 
 module Decode = Decode.AsResult.OfParseError;
 
-[@bs.scope ("window", "app")] [@bs.val] external backend: string = "backend";
-
 type articleAction =
   | Create(Shape.Article.t)
   | Read(string)
@@ -19,68 +17,6 @@ type followAction =
 type favoriteAction =
   | Favorite(string)
   | Unfavorite(string);
-
-module Endpoints = {
-  module Articles = {
-    let root =
-        (
-          ~limit: int=10,
-          ~offset: int=0,
-          ~tag: option(string)=?,
-          ~author: option(string)=?,
-          ~favorited: option(string)=?,
-          (),
-        ) =>
-      Printf.sprintf(
-        "%s/api/articles?limit=%d&offset=%d%s%s%s",
-        backend,
-        limit,
-        offset,
-        tag |> Option.map(ok => "&tag=" ++ ok) |> Option.getOrElse(""),
-        author |> Option.map(ok => "&author=" ++ ok) |> Option.getOrElse(""),
-        favorited
-        |> Option.map(ok => "&favorited=" ++ ok)
-        |> Option.getOrElse(""),
-      );
-
-    let article = (~slug: string, ()) =>
-      Printf.sprintf("%s/api/articles/%s", backend, slug);
-
-    let favorite = (~slug: string, ()) =>
-      Printf.sprintf("%s/api/articles/%s/favorite", backend, slug);
-
-    let feed = (~limit: int=10, ~offset: int=0, ()) =>
-      Printf.sprintf(
-        "%s/api/articles/feed?limit=%d&offset=%d",
-        backend,
-        limit,
-        offset,
-      );
-
-    let comments = (~slug: string, ()) =>
-      Printf.sprintf("%s/api/articles/%s/comments", backend, slug);
-
-    let comment = (~slug: string, ~id: int, ()) =>
-      Printf.sprintf("%s/api/articles/%s/comments/%d", backend, slug, id);
-  };
-
-  module Profiles = {
-    let profile = (~username: string, ()) =>
-      Printf.sprintf("%s/api/profiles/%s", backend, username);
-
-    let follow = (~username: string, ()) =>
-      Printf.sprintf("%s/api/profiles/%s/follow", backend, username);
-  };
-
-  module Users = {
-    let root = Printf.sprintf("%s/api/users", backend);
-    let login = Printf.sprintf("%s/api/users/login", backend);
-  };
-
-  let tags = Printf.sprintf("%s/api/tags", backend);
-
-  let user = Printf.sprintf("%s/api/user", backend);
-};
 
 let getJwtTokenHeader: unit => array((string, string)) =
   () =>
