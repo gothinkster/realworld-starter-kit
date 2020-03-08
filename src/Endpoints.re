@@ -58,8 +58,9 @@ module Profiles = {
     (~username, ()) =>
       Printf.sprintf("%s/api/profiles/%s", backend, username);
 
-  let follow: (~username: string, unit) => string = (~username, ()) =>
-    Printf.sprintf("%s/api/profiles/%s/follow", backend, username);
+  let follow: (~username: string, unit) => string =
+    (~username, ()) =>
+      Printf.sprintf("%s/api/profiles/%s/follow", backend, username);
 };
 
 module Users = {
