@@ -1,6 +1,6 @@
 open Js.Promise;
-open Relude.Globals;
 open Fetch;
+open Relude.Globals;
 
 module Decode = Decode.AsResult.OfParseError;
 
@@ -34,7 +34,7 @@ module Headers = {
 
 let getErrorBodyJson:
   Result.t(Js.Json.t, Fetch.Response.t) =>
-  Js.Promise.t(Relude.Result.t(Js.Json.t, Error.t)) =
+  Js.Promise.t(Result.t(Js.Json.t, Error.t)) =
   fun
   | Ok(_json) as ok => ok |> resolve
   | Error(resp) =>
@@ -52,7 +52,7 @@ let getErrorBodyJson:
 
 let getErrorBodyText:
   Result.t(Js.Json.t, Fetch.Response.t) =>
-  Js.Promise.t(Relude.Result.t(Js.Json.t, Error.t)) =
+  Js.Promise.t(Result.t(Js.Json.t, Error.t)) =
   fun
   | Ok(_json) as ok => ok |> resolve
   | Error(resp) =>
@@ -69,13 +69,12 @@ let getErrorBodyText:
        );
 
 let parseJsonIfOk:
-  Fetch.Response.t =>
-  Js.Promise.t(Relude.Result.t(Js.Json.t, Fetch.Response.t)) =
+  Fetch.Response.t => Js.Promise.t(Result.t(Js.Json.t, Fetch.Response.t)) =
   resp =>
     if (Fetch.Response.ok(resp)) {
       resp
       |> Response.json
-      |> then_(json => json |> Relude.Result.ok |> resolve)
+      |> then_(json => json |> Result.ok |> resolve)
       |> catch(_error => resp |> Result.error |> resolve);
     } else {
       resp |> Result.error |> resolve;
@@ -83,7 +82,7 @@ let parseJsonIfOk:
 
 let article:
   (~action: articleAction, unit) =>
-  Js.Promise.t(Relude.Result.t(Shape.Article.t, Error.t)) =
+  Js.Promise.t(Result.t(Shape.Article.t, Error.t)) =
   (~action, ()) => {
     let body =
       switch (action) {
@@ -151,10 +150,8 @@ let article:
     |> then_(getErrorBodyJson)
     |> then_(result =>
          result
-         |> Relude.Result.flatMap(json =>
-              json
-              |> Shape.Article.decode
-              |> Relude.Result.mapError(Error.decode)
+         |> Result.flatMap(json =>
+              json |> Shape.Article.decode |> Result.mapError(Error.decode)
             )
          |> resolve
        );
@@ -162,7 +159,7 @@ let article:
 
 let favoriteArticle:
   (~action: favoriteAction, unit) =>
-  Js.Promise.t(Relude.Result.t(Shape.Article.t, Error.t)) =
+  Js.Promise.t(Result.t(Shape.Article.t, Error.t)) =
   (~action, ()) => {
     let requestInit =
       RequestInit.make(
@@ -173,7 +170,7 @@ let favoriteArticle:
           },
         ~headers=
           [|Headers.addJwtToken()|]
-          |> Relude.Array.flatten
+          |> Array.flatten
           |> HeadersInit.makeWithArray,
         (),
       );
@@ -191,10 +188,8 @@ let favoriteArticle:
     |> then_(getErrorBodyText)
     |> then_(result =>
          result
-         |> Relude.Result.flatMap(json =>
-              json
-              |> Shape.Article.decode
-              |> Relude.Result.mapError(Error.decode)
+         |> Result.flatMap(json =>
+              json |> Shape.Article.decode |> Result.mapError(Error.decode)
             )
          |> resolve
        );
@@ -205,7 +200,7 @@ let listArticles = (~limit=10, ~offset=0, ~tag=?, ~author=?, ~favorited=?, ()) =
     RequestInit.make(
       ~headers=
         [|Headers.addJwtToken()|]
-        |> Relude.Array.flatten
+        |> Array.flatten
         |> HeadersInit.makeWithArray,
       (),
     );
@@ -216,10 +211,8 @@ let listArticles = (~limit=10, ~offset=0, ~tag=?, ~author=?, ~favorited=?, ()) =
   |> then_(getErrorBodyText)
   |> then_(result =>
        result
-       |> Relude.Result.flatMap(json =>
-            json
-            |> Shape.Articles.decode
-            |> Relude.Result.mapError(Error.decode)
+       |> Result.flatMap(json =>
+            json |> Shape.Articles.decode |> Result.mapError(Error.decode)
           )
        |> resolve
      );
@@ -230,7 +223,7 @@ let feedArticles = (~limit=10, ~offset=0, ()) => {
     RequestInit.make(
       ~headers=
         [|Headers.addJwtToken()|]
-        |> Relude.Array.flatten
+        |> Array.flatten
         |> HeadersInit.makeWithArray,
       (),
     );
@@ -241,10 +234,8 @@ let feedArticles = (~limit=10, ~offset=0, ()) => {
   |> then_(getErrorBodyText)
   |> then_(result =>
        result
-       |> Relude.Result.flatMap(json =>
-            json
-            |> Shape.Articles.decode
-            |> Relude.Result.mapError(Error.decode)
+       |> Result.flatMap(json =>
+            json |> Shape.Articles.decode |> Result.mapError(Error.decode)
           )
        |> resolve
      );
@@ -257,8 +248,8 @@ let tags = () => {
   |> then_(getErrorBodyText)
   |> then_(result =>
        result
-       |> Relude.Result.flatMap(json =>
-            json |> Shape.Tags.decode |> Relude.Result.mapError(Error.decode)
+       |> Result.flatMap(json =>
+            json |> Shape.Tags.decode |> Result.mapError(Error.decode)
           )
        |> resolve
      );
@@ -269,7 +260,7 @@ let currentUser = () => {
     RequestInit.make(
       ~headers=
         [|Headers.addJwtToken()|]
-        |> Relude.Array.flatten
+        |> Array.flatten
         |> HeadersInit.makeWithArray,
       (),
     );
@@ -280,8 +271,8 @@ let currentUser = () => {
   |> then_(getErrorBodyText)
   |> then_(result =>
        result
-       |> Relude.Result.flatMap(json =>
-            json |> Shape.User.decode |> Relude.Result.mapError(Error.decode)
+       |> Result.flatMap(json =>
+            json |> Shape.User.decode |> Result.mapError(Error.decode)
           )
        |> resolve
      );
@@ -315,7 +306,7 @@ let updateUser = (~user: Shape.User.t, ~password: string, ()) => {
       ~method_=Put,
       ~headers=
         [|Headers.addJwtToken(), Headers.addContentTypeAsJson()|]
-        |> Relude.Array.flatten
+        |> Array.flatten
         |> HeadersInit.makeWithArray,
       ~body,
       (),
@@ -327,8 +318,8 @@ let updateUser = (~user: Shape.User.t, ~password: string, ()) => {
   |> then_(getErrorBodyJson)
   |> then_(result =>
        result
-       |> Relude.Result.flatMap(json =>
-            json |> Shape.User.decode |> Relude.Result.mapError(Error.decode)
+       |> Result.flatMap(json =>
+            json |> Shape.User.decode |> Result.mapError(Error.decode)
           )
        |> resolve
      );
@@ -344,7 +335,7 @@ let followUser = (~action: followAction, ()) => {
         },
       ~headers=
         [|Headers.addJwtToken()|]
-        |> Relude.Array.flatten
+        |> Array.flatten
         |> HeadersInit.makeWithArray,
       (),
     );
@@ -362,10 +353,10 @@ let followUser = (~action: followAction, ()) => {
   |> then_(getErrorBodyText)
   |> then_(result =>
        result
-       |> Relude.Result.flatMap(json =>
+       |> Result.flatMap(json =>
             json
             |> Shape.Decode.(field("profile", Shape.Author.decode))
-            |> Relude.Result.mapError(Error.decode)
+            |> Result.mapError(Error.decode)
           )
        |> resolve
      );
@@ -373,13 +364,13 @@ let followUser = (~action: followAction, ()) => {
 
 let getComments:
   (~slug: string, unit) =>
-  Js.Promise.t(Relude.Result.t(array(Shape.Comment.t), Error.t)) =
+  Js.Promise.t(Result.t(array(Shape.Comment.t), Error.t)) =
   (~slug, ()) => {
     let requestInit =
       RequestInit.make(
         ~headers=
           [|Headers.addJwtToken()|]
-          |> Relude.Array.flatten
+          |> Array.flatten
           |> HeadersInit.makeWithArray,
         (),
       );
@@ -390,10 +381,8 @@ let getComments:
     |> then_(getErrorBodyText)
     |> then_(result =>
          result
-         |> Relude.Result.flatMap(json =>
-              json
-              |> Shape.Comment.decode
-              |> Relude.Result.mapError(Error.decode)
+         |> Result.flatMap(json =>
+              json |> Shape.Comment.decode |> Result.mapError(Error.decode)
             )
          |> resolve
        );
@@ -405,7 +394,7 @@ let deleteComment = (~slug: string, ~id: int, ()) => {
       ~method_=Delete,
       ~headers=
         [|Headers.addJwtToken()|]
-        |> Relude.Array.flatten
+        |> Array.flatten
         |> HeadersInit.makeWithArray,
       (),
     );
@@ -415,9 +404,7 @@ let deleteComment = (~slug: string, ~id: int, ()) => {
   |> then_(parseJsonIfOk)
   |> then_(getErrorBodyText)
   |> then_(result =>
-       result
-       |> Relude.Result.flatMap(_json => Relude.Result.ok((slug, id)))
-       |> resolve
+       result |> Result.flatMap(_json => Result.ok((slug, id))) |> resolve
      );
 };
 
@@ -436,7 +423,7 @@ let addComment = (~slug: string, ~body: string, ()) => {
       ~method_=Post,
       ~headers=
         [|Headers.addJwtToken(), Headers.addContentTypeAsJson()|]
-        |> Relude.Array.flatten
+        |> Array.flatten
         |> HeadersInit.makeWithArray,
       ~body,
       (),
@@ -448,10 +435,10 @@ let addComment = (~slug: string, ~body: string, ()) => {
   |> then_(getErrorBodyText)
   |> then_(result =>
        result
-       |> Relude.Result.flatMap(json =>
+       |> Result.flatMap(json =>
             json
             |> Decode.field("comment", Shape.Comment.decodeComment)
-            |> Relude.Result.mapError(Error.decode)
+            |> Result.mapError(Error.decode)
           )
        |> resolve
      );
@@ -459,13 +446,13 @@ let addComment = (~slug: string, ~body: string, ()) => {
 
 let getProfile:
   (~username: string, unit) =>
-  Js.Promise.t(Relude.Result.t(Shape.Author.t, Error.t)) =
+  Js.Promise.t(Result.t(Shape.Author.t, Error.t)) =
   (~username, ()) => {
     let requestInit =
       RequestInit.make(
         ~headers=
           [|Headers.addJwtToken()|]
-          |> Relude.Array.flatten
+          |> Array.flatten
           |> HeadersInit.makeWithArray,
         (),
       );
@@ -476,10 +463,10 @@ let getProfile:
     |> then_(getErrorBodyText)
     |> then_(result =>
          result
-         |> Relude.Result.flatMap(json =>
+         |> Result.flatMap(json =>
               json
               |> Decode.field("profile", Shape.Author.decode)
-              |> Relude.Result.mapError(Error.decode)
+              |> Result.mapError(Error.decode)
             )
          |> resolve
        );
@@ -505,7 +492,7 @@ let login = (~email: string, ~password: string, ()) => {
       ~method_=Post,
       ~headers=
         [|Headers.addContentTypeAsJson()|]
-        |> Relude.Array.flatten
+        |> Array.flatten
         |> HeadersInit.makeWithArray,
       ~body,
       (),
@@ -517,8 +504,8 @@ let login = (~email: string, ~password: string, ()) => {
   |> then_(getErrorBodyJson)
   |> then_(result =>
        result
-       |> Relude.Result.flatMap(json =>
-            json |> Shape.User.decode |> Relude.Result.mapError(Error.decode)
+       |> Result.flatMap(json =>
+            json |> Shape.User.decode |> Result.mapError(Error.decode)
           )
        |> resolve
      );
@@ -545,7 +532,7 @@ let register = (~username: string, ~email: string, ~password: string, ()) => {
       ~method_=Post,
       ~headers=
         [|Headers.addContentTypeAsJson()|]
-        |> Relude.Array.flatten
+        |> Array.flatten
         |> HeadersInit.makeWithArray,
       ~body,
       (),
@@ -557,8 +544,8 @@ let register = (~username: string, ~email: string, ~password: string, ()) => {
   |> then_(getErrorBodyJson)
   |> then_(result =>
        result
-       |> Relude.Result.flatMap(json =>
-            json |> Shape.User.decode |> Relude.Result.mapError(Error.decode)
+       |> Result.flatMap(json =>
+            json |> Shape.User.decode |> Result.mapError(Error.decode)
           )
        |> resolve
      );
