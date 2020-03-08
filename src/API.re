@@ -41,7 +41,7 @@ let getErrorBodyJson:
     resp
     |> Response.json
     |> then_(json =>
-         Error.EFetch((
+         Error.fetch((
            resp |> Fetch.Response.status,
            resp |> Fetch.Response.statusText,
            `json(json),
@@ -59,7 +59,7 @@ let getErrorBodyText:
     resp
     |> Response.text
     |> then_(body =>
-         Error.EFetch((
+         Error.fetch((
            resp |> Fetch.Response.status,
            resp |> Fetch.Response.statusText,
            `text(body),
@@ -91,12 +91,11 @@ let article:
       | Update(_, article) =>
         let article =
           [
-            [("title", Js.Json.string(article.title))],
-            [("description", Js.Json.string(article.description))],
-            [("body", Js.Json.string(article.body))],
-            [("tagList", Js.Json.stringArray(article.tagList))],
+            ("title", Js.Json.string(article.title)),
+            ("description", Js.Json.string(article.description)),
+            ("body", Js.Json.string(article.body)),
+            ("tagList", Js.Json.stringArray(article.tagList)),
           ]
-          |> List.flatten
           |> Js.Dict.fromList
           |> Js.Json.object_;
 
@@ -155,9 +154,7 @@ let article:
          |> Relude.Result.flatMap(json =>
               json
               |> Shape.Article.decode
-              |> Relude.Result.mapError(error =>
-                   Error.EDecodeParseError(error)
-                 )
+              |> Relude.Result.mapError(Error.decode)
             )
          |> resolve
        );
@@ -197,9 +194,7 @@ let favoriteArticle:
          |> Relude.Result.flatMap(json =>
               json
               |> Shape.Article.decode
-              |> Relude.Result.mapError(error =>
-                   Error.EDecodeParseError(error)
-                 )
+              |> Relude.Result.mapError(Error.decode)
             )
          |> resolve
        );
@@ -224,7 +219,7 @@ let listArticles = (~limit=10, ~offset=0, ~tag=?, ~author=?, ~favorited=?, ()) =
        |> Relude.Result.flatMap(json =>
             json
             |> Shape.Articles.decode
-            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+            |> Relude.Result.mapError(Error.decode)
           )
        |> resolve
      );
@@ -249,7 +244,7 @@ let feedArticles = (~limit=10, ~offset=0, ()) => {
        |> Relude.Result.flatMap(json =>
             json
             |> Shape.Articles.decode
-            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+            |> Relude.Result.mapError(Error.decode)
           )
        |> resolve
      );
@@ -263,9 +258,7 @@ let tags = () => {
   |> then_(result =>
        result
        |> Relude.Result.flatMap(json =>
-            json
-            |> Shape.Tags.decode
-            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+            json |> Shape.Tags.decode |> Relude.Result.mapError(Error.decode)
           )
        |> resolve
      );
@@ -288,9 +281,7 @@ let currentUser = () => {
   |> then_(result =>
        result
        |> Relude.Result.flatMap(json =>
-            json
-            |> Shape.User.decode
-            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+            json |> Shape.User.decode |> Relude.Result.mapError(Error.decode)
           )
        |> resolve
      );
@@ -337,9 +328,7 @@ let updateUser = (~user: Shape.User.t, ~password: string, ()) => {
   |> then_(result =>
        result
        |> Relude.Result.flatMap(json =>
-            json
-            |> Shape.User.decode
-            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+            json |> Shape.User.decode |> Relude.Result.mapError(Error.decode)
           )
        |> resolve
      );
@@ -376,7 +365,7 @@ let followUser = (~action: followAction, ()) => {
        |> Relude.Result.flatMap(json =>
             json
             |> Shape.Decode.(field("profile", Shape.Author.decode))
-            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+            |> Relude.Result.mapError(Error.decode)
           )
        |> resolve
      );
@@ -404,9 +393,7 @@ let getComments:
          |> Relude.Result.flatMap(json =>
               json
               |> Shape.Comment.decode
-              |> Relude.Result.mapError(error =>
-                   Error.EDecodeParseError(error)
-                 )
+              |> Relude.Result.mapError(Error.decode)
             )
          |> resolve
        );
@@ -464,7 +451,7 @@ let addComment = (~slug: string, ~body: string, ()) => {
        |> Relude.Result.flatMap(json =>
             json
             |> Decode.field("comment", Shape.Comment.decodeComment)
-            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+            |> Relude.Result.mapError(Error.decode)
           )
        |> resolve
      );
@@ -492,9 +479,7 @@ let getProfile:
          |> Relude.Result.flatMap(json =>
               json
               |> Decode.field("profile", Shape.Author.decode)
-              |> Relude.Result.mapError(error =>
-                   Error.EDecodeParseError(error)
-                 )
+              |> Relude.Result.mapError(Error.decode)
             )
          |> resolve
        );
@@ -533,9 +518,7 @@ let login = (~email: string, ~password: string, ()) => {
   |> then_(result =>
        result
        |> Relude.Result.flatMap(json =>
-            json
-            |> Shape.User.decode
-            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+            json |> Shape.User.decode |> Relude.Result.mapError(Error.decode)
           )
        |> resolve
      );
@@ -575,9 +558,7 @@ let register = (~username: string, ~email: string, ~password: string, ()) => {
   |> then_(result =>
        result
        |> Relude.Result.flatMap(json =>
-            json
-            |> Shape.User.decode
-            |> Relude.Result.mapError(error => Error.EDecodeParseError(error))
+            json |> Shape.User.decode |> Relude.Result.mapError(Error.decode)
           )
        |> resolve
      );

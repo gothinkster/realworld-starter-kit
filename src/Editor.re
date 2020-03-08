@@ -241,7 +241,7 @@ module Create = {
                  Link.article(~slug=ok.slug) |> Link.push;
                  setArticle(AsyncResult.toIdle) |> Js.Promise.resolve;
                }
-             | Error(Error.EFetch((_code, _message, `json(json)))) =>
+             | Error(Error.Fetch((_code, _message, `json(json)))) =>
                json
                |> Decode.field("errors", Shape.Editor.decode)
                |> Result.tapOk(error =>
@@ -255,8 +255,8 @@ module Create = {
                   )
                |> ignore
                |> Js.Promise.resolve
-             | Error(Error.EFetch((_, _, `text(_))))
-             | Error(EDecodeParseError(_)) =>
+             | Error(Fetch((_, _, `text(_))))
+             | Error(Decode(_)) =>
                setArticle(AsyncResult.toIdle) |> Js.Promise.resolve,
            )
         |> ignore;

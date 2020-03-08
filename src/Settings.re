@@ -145,7 +145,7 @@ let make =
                               );
                               setUser(AsyncData.map(_prev => Some(user)));
                             | Error(
-                                Error.EFetch((_code, _message, `json(json))),
+                                Error.Fetch((_code, _message, `json(json))),
                               ) =>
                               json
                               |> Decode.field(
@@ -163,8 +163,8 @@ let make =
                                    )
                                  )
                               |> ignore
-                            | Error(Error.EFetch((_, _, `text(_))))
-                            | Error(EDecodeParseError(_)) => ignore()
+                            | Error(Fetch((_, _, `text(_))))
+                            | Error(Decode(_)) => ignore()
                             };
 
                             ignore() |> Js.Promise.resolve;

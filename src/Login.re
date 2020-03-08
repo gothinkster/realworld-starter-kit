@@ -91,7 +91,7 @@ let make = (~setUser) => {
                            Link.home |> Link.push;
                            ignore() |> Js.Promise.resolve;
                          }
-                       | Error(Error.EFetch((_code, _message, `json(json)))) =>
+                       | Error(Error.Fetch((_code, _message, `json(json)))) =>
                          json
                          |> Decode.field("errors", Shape.Login.decode)
                          |> Result.tapOk(error =>
@@ -105,8 +105,8 @@ let make = (~setUser) => {
                             )
                          |> ignore
                          |> Js.Promise.resolve
-                       | Error(Error.EFetch((_, _, `text(_))))
-                       | Error(EDecodeParseError(_)) =>
+                       | Error(Fetch((_, _, `text(_))))
+                       | Error(Decode(_)) =>
                          setData(AsyncData.toIdle) |> Js.Promise.resolve,
                      )
                   |> ignore;
