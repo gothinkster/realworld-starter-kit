@@ -21,60 +21,65 @@ type favoriteAction =
   | Unfavorite(string);
 
 module Endpoints = {
-  let article = (~slug: string, ()) =>
-    Printf.sprintf("%s/api/articles/%s", backend, slug);
+  module Articles = {
+    let root =
+        (
+          ~limit: int=10,
+          ~offset: int=0,
+          ~tag: option(string)=?,
+          ~author: option(string)=?,
+          ~favorited: option(string)=?,
+          (),
+        ) =>
+      Printf.sprintf(
+        "%s/api/articles?limit=%d&offset=%d%s%s%s",
+        backend,
+        limit,
+        offset,
+        tag |> Option.map(ok => "&tag=" ++ ok) |> Option.getOrElse(""),
+        author |> Option.map(ok => "&author=" ++ ok) |> Option.getOrElse(""),
+        favorited
+        |> Option.map(ok => "&favorited=" ++ ok)
+        |> Option.getOrElse(""),
+      );
 
-  let favoriteArticle = (~slug: string, ()) =>
-    Printf.sprintf("%s/api/articles/%s/favorite", backend, slug);
+    let article = (~slug: string, ()) =>
+      Printf.sprintf("%s/api/articles/%s", backend, slug);
 
-  let listArticles =
-      (
-        ~limit: int=10,
-        ~offset: int=0,
-        ~tag: option(string)=?,
-        ~author: option(string)=?,
-        ~favorited: option(string)=?,
-        (),
-      ) =>
-    Printf.sprintf(
-      "%s/api/articles?limit=%d&offset=%d%s%s%s",
-      backend,
-      limit,
-      offset,
-      tag |> Option.map(ok => "&tag=" ++ ok) |> Option.getOrElse(""),
-      author |> Option.map(ok => "&author=" ++ ok) |> Option.getOrElse(""),
-      favorited
-      |> Option.map(ok => "&favorited=" ++ ok)
-      |> Option.getOrElse(""),
-    );
+    let favorite = (~slug: string, ()) =>
+      Printf.sprintf("%s/api/articles/%s/favorite", backend, slug);
 
-  let feedArticles = (~limit: int=10, ~offset: int=0, ()) =>
-    Printf.sprintf(
-      "%s/api/articles/feed?limit=%d&offset=%d",
-      backend,
-      limit,
-      offset,
-    );
+    let feed = (~limit: int=10, ~offset: int=0, ()) =>
+      Printf.sprintf(
+        "%s/api/articles/feed?limit=%d&offset=%d",
+        backend,
+        limit,
+        offset,
+      );
+
+    let comments = (~slug: string, ()) =>
+      Printf.sprintf("%s/api/articles/%s/comments", backend, slug);
+
+    let comment = (~slug: string, ~id: int, ()) =>
+      Printf.sprintf("%s/api/articles/%s/comments/%d", backend, slug, id);
+  };
+
+  module Profiles = {
+    let profile = (~username: string, ()) =>
+      Printf.sprintf("%s/api/profiles/%s", backend, username);
+
+    let follow = (~username: string, ()) =>
+      Printf.sprintf("%s/api/profiles/%s/follow", backend, username);
+  };
+
+  module Users = {
+    let root = Printf.sprintf("%s/api/users", backend);
+    let login = Printf.sprintf("%s/api/users/login", backend);
+  };
 
   let tags = Printf.sprintf("%s/api/tags", backend);
 
-  let currentUser = Printf.sprintf("%s/api/user", backend);
-
-  let profile = (~username: string, ()) =>
-    Printf.sprintf("%s/api/profiles/%s", backend, username);
-
-  let followUser = (~username: string, ()) =>
-    Printf.sprintf("%s/api/profiles/%s/follow", backend, username);
-
-  let comments = (~slug: string, ()) =>
-    Printf.sprintf("%s/api/articles/%s/comments", backend, slug);
-
-  let comment = (~slug: string, ~id: int, ()) =>
-    Printf.sprintf("%s/api/articles/%s/comments/%d", backend, slug, id);
-
-  let login = Printf.sprintf("%s/api/users/login", backend);
-
-  let users = Printf.sprintf("%s/api/users", backend);
+  let user = Printf.sprintf("%s/api/user", backend);
 };
 
 let getJwtTokenHeader: unit => array((string, string)) =
@@ -132,7 +137,8 @@ let parseJsonIfOk:
     if (Fetch.Response.ok(resp)) {
       resp
       |> Response.json
-      |> then_(json => json |> Relude.Result.ok |> resolve);
+      |> then_(json => json |> Relude.Result.ok |> resolve)
+      |> catch(_error => resp |> Result.error |> resolve);
     } else {
       resp |> Result.error |> resolve;
     };
@@ -190,7 +196,7 @@ let article:
         (),
       );
 
-    Endpoints.article(
+    Endpoints.Articles.article(
       ~slug=
         switch (action) {
         | Create(_) => ""
@@ -234,7 +240,7 @@ let favoriteArticle:
         (),
       );
 
-    Endpoints.favoriteArticle(
+    Endpoints.Articles.favorite(
       ~slug=
         switch (action) {
         | Favorite(slug) => slug
@@ -268,7 +274,7 @@ let listArticles = (~limit=10, ~offset=0, ~tag=?, ~author=?, ~favorited=?, ()) =
       (),
     );
 
-  Endpoints.listArticles(~limit, ~offset, ~tag?, ~author?, ~favorited?, ())
+  Endpoints.Articles.root(~limit, ~offset, ~tag?, ~author?, ~favorited?, ())
   |> fetchWithInit(_, requestInit)
   |> then_(parseJsonIfOk)
   |> then_(getErrorBodyText)
@@ -293,7 +299,7 @@ let feedArticles = (~limit=10, ~offset=0, ()) => {
       (),
     );
 
-  Endpoints.feedArticles(~limit, ~offset, ())
+  Endpoints.Articles.feed(~limit, ~offset, ())
   |> fetchWithInit(_, requestInit)
   |> then_(parseJsonIfOk)
   |> then_(getErrorBodyText)
@@ -334,7 +340,7 @@ let currentUser = () => {
       (),
     );
 
-  Endpoints.currentUser
+  Endpoints.user
   |> fetchWithInit(_, requestInit)
   |> then_(parseJsonIfOk)
   |> then_(getErrorBodyText)
@@ -383,7 +389,7 @@ let updateUser = (~user: Shape.User.t, ~password: string, ()) => {
       (),
     );
 
-  Endpoints.currentUser
+  Endpoints.user
   |> fetchWithInit(_, requestInit)
   |> then_(parseJsonIfOk)
   |> then_(getErrorBodyJson)
@@ -413,7 +419,7 @@ let followUser = (~action: followAction, ()) => {
       (),
     );
 
-  Endpoints.followUser(
+  Endpoints.Profiles.follow(
     ~username=
       switch (action) {
       | Follow(username)
@@ -448,7 +454,7 @@ let getComments:
         (),
       );
 
-    Endpoints.comments(~slug, ())
+    Endpoints.Articles.comments(~slug, ())
     |> fetchWithInit(_, requestInit)
     |> then_(parseJsonIfOk)
     |> then_(getErrorBodyText)
@@ -476,7 +482,7 @@ let deleteComment = (~slug: string, ~id: int, ()) => {
       (),
     );
 
-  Endpoints.comment(~slug, ~id, ())
+  Endpoints.Articles.comment(~slug, ~id, ())
   |> fetchWithInit(_, requestInit)
   |> then_(parseJsonIfOk)
   |> then_(getErrorBodyText)
@@ -508,7 +514,7 @@ let addComment = (~slug: string, ~body: string, ()) => {
       (),
     );
 
-  Endpoints.comments(~slug, ())
+  Endpoints.Articles.comments(~slug, ())
   |> fetchWithInit(_, requestInit)
   |> then_(parseJsonIfOk)
   |> then_(getErrorBodyText)
@@ -536,7 +542,7 @@ let getProfile:
         (),
       );
 
-    Endpoints.profile(~username, ())
+    Endpoints.Profiles.profile(~username, ())
     |> fetchWithInit(_, requestInit)
     |> then_(parseJsonIfOk)
     |> then_(getErrorBodyText)
@@ -579,7 +585,7 @@ let login = (~email: string, ~password: string, ()) => {
       (),
     );
 
-  Endpoints.login
+  Endpoints.Users.login
   |> fetchWithInit(_, requestInit)
   |> then_(parseJsonIfOk)
   |> then_(getErrorBodyJson)
@@ -621,7 +627,7 @@ let register = (~username: string, ~email: string, ~password: string, ()) => {
       (),
     );
 
-  Endpoints.users
+  Endpoints.Users.root
   |> fetchWithInit(_, requestInit)
   |> then_(parseJsonIfOk)
   |> then_(getErrorBodyJson)

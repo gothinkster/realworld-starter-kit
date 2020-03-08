@@ -1,5 +1,4 @@
-module AsyncResult = Relude.AsyncResult;
-module AsyncData = Relude.AsyncData;
+open Relude.Globals;
 
 module ArticlePreview = {
   [@react.component]
