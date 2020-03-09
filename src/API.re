@@ -190,172 +190,193 @@ let favoriteArticle:
        );
   };
 
-let listArticles = (~limit=10, ~offset=0, ~tag=?, ~author=?, ~favorited=?, ()) => {
-  let requestInit =
-    RequestInit.make(
-      ~headers=
-        [|Headers.addJwtToken()|]
-        |> Array.flatten
-        |> HeadersInit.makeWithArray,
-      (),
-    );
+let listArticles:
+  (
+    ~limit: int=?,
+    ~offset: int=?,
+    ~tag: string=?,
+    ~author: string=?,
+    ~favorited: string=?,
+    unit
+  ) =>
+  Js.Promise.t(Result.t(Shape.Articles.t, Error.t)) =
+  (~limit=10, ~offset=0, ~tag=?, ~author=?, ~favorited=?, ()) => {
+    let requestInit =
+      RequestInit.make(
+        ~headers=
+          [|Headers.addJwtToken()|]
+          |> Array.flatten
+          |> HeadersInit.makeWithArray,
+        (),
+      );
 
-  Endpoints.Articles.root(~limit, ~offset, ~tag?, ~author?, ~favorited?, ())
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result =>
-       result
-       |> Result.flatMap(json =>
-            json |> Shape.Articles.decode |> Result.mapError(Error.decode)
-          )
-       |> resolve
-     );
-};
+    Endpoints.Articles.root(~limit, ~offset, ~tag?, ~author?, ~favorited?, ())
+    |> fetchWithInit(_, requestInit)
+    |> then_(parseJsonIfOk)
+    |> then_(getErrorBodyText)
+    |> then_(result =>
+         result
+         |> Result.flatMap(json =>
+              json |> Shape.Articles.decode |> Result.mapError(Error.decode)
+            )
+         |> resolve
+       );
+  };
 
-let feedArticles = (~limit=10, ~offset=0, ()) => {
-  let requestInit =
-    RequestInit.make(
-      ~headers=
-        [|Headers.addJwtToken()|]
-        |> Array.flatten
-        |> HeadersInit.makeWithArray,
-      (),
-    );
+let feedArticles:
+  (~limit: int=?, ~offset: int=?, unit) =>
+  Js.Promise.t(Result.t(Shape.Articles.t, Error.t)) =
+  (~limit=10, ~offset=0, ()) => {
+    let requestInit =
+      RequestInit.make(
+        ~headers=
+          [|Headers.addJwtToken()|]
+          |> Array.flatten
+          |> HeadersInit.makeWithArray,
+        (),
+      );
 
-  Endpoints.Articles.feed(~limit, ~offset, ())
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result =>
-       result
-       |> Result.flatMap(json =>
-            json |> Shape.Articles.decode |> Result.mapError(Error.decode)
-          )
-       |> resolve
-     );
-};
+    Endpoints.Articles.feed(~limit, ~offset, ())
+    |> fetchWithInit(_, requestInit)
+    |> then_(parseJsonIfOk)
+    |> then_(getErrorBodyText)
+    |> then_(result =>
+         result
+         |> Result.flatMap(json =>
+              json |> Shape.Articles.decode |> Result.mapError(Error.decode)
+            )
+         |> resolve
+       );
+  };
 
-let tags = () => {
-  Endpoints.tags
-  |> fetch
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result =>
-       result
-       |> Result.flatMap(json =>
-            json |> Shape.Tags.decode |> Result.mapError(Error.decode)
-          )
-       |> resolve
-     );
-};
+let tags: unit => Js.Promise.t(Result.t(Shape.Tags.t, Error.t)) =
+  () => {
+    Endpoints.tags
+    |> fetch
+    |> then_(parseJsonIfOk)
+    |> then_(getErrorBodyText)
+    |> then_(result =>
+         result
+         |> Result.flatMap(json =>
+              json |> Shape.Tags.decode |> Result.mapError(Error.decode)
+            )
+         |> resolve
+       );
+  };
 
-let currentUser = () => {
-  let requestInit =
-    RequestInit.make(
-      ~headers=
-        [|Headers.addJwtToken()|]
-        |> Array.flatten
-        |> HeadersInit.makeWithArray,
-      (),
-    );
+let currentUser: unit => Js.Promise.t(Result.t(Shape.User.t, Error.t)) =
+  () => {
+    let requestInit =
+      RequestInit.make(
+        ~headers=
+          [|Headers.addJwtToken()|]
+          |> Array.flatten
+          |> HeadersInit.makeWithArray,
+        (),
+      );
 
-  Endpoints.user
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result =>
-       result
-       |> Result.flatMap(json =>
-            json |> Shape.User.decode |> Result.mapError(Error.decode)
-          )
-       |> resolve
-     );
-};
+    Endpoints.user
+    |> fetchWithInit(_, requestInit)
+    |> then_(parseJsonIfOk)
+    |> then_(getErrorBodyText)
+    |> then_(result =>
+         result
+         |> Result.flatMap(json =>
+              json |> Shape.User.decode |> Result.mapError(Error.decode)
+            )
+         |> resolve
+       );
+  };
 
-let updateUser = (~user: Shape.User.t, ~password: string, ()) => {
-  let user =
-    [
-      [("email", Js.Json.string(user.email))],
-      [("bio", Js.Json.string(user.bio |> Option.getOrElse("")))],
-      [("image", Js.Json.string(user.image |> Option.getOrElse("")))],
-      [("username", Js.Json.string(user.username))],
-      if (password == "") {
-        [];
-      } else {
-        [("password", Js.Json.string(password))];
-      },
-    ]
-    |> List.flatten
-    |> Js.Dict.fromList
-    |> Js.Json.object_;
-  let body =
-    [("user", user)]
-    |> Js.Dict.fromList
-    |> Js.Json.object_
-    |> Js.Json.stringify
-    |> Fetch.BodyInit.make;
-
-  let requestInit =
-    RequestInit.make(
-      ~method_=Put,
-      ~headers=
-        [|Headers.addJwtToken(), Headers.addContentTypeAsJson()|]
-        |> Array.flatten
-        |> HeadersInit.makeWithArray,
-      ~body,
-      (),
-    );
-
-  Endpoints.user
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyJson)
-  |> then_(result =>
-       result
-       |> Result.flatMap(json =>
-            json |> Shape.User.decode |> Result.mapError(Error.decode)
-          )
-       |> resolve
-     );
-};
-
-let followUser = (~action: Action.follow, ()) => {
-  let requestInit =
-    RequestInit.make(
-      ~method_=
-        switch (action) {
-        | Follow(_username) => Post
-        | Unfollow(_username) => Delete
+let updateUser:
+  (~user: Shape.User.t, ~password: string, unit) =>
+  Js.Promise.t(Result.t(Shape.User.t, Error.t)) =
+  (~user, ~password, ()) => {
+    let user =
+      [
+        [("email", Js.Json.string(user.email))],
+        [("bio", Js.Json.string(user.bio |> Option.getOrElse("")))],
+        [("image", Js.Json.string(user.image |> Option.getOrElse("")))],
+        [("username", Js.Json.string(user.username))],
+        if (password == "") {
+          [];
+        } else {
+          [("password", Js.Json.string(password))];
         },
-      ~headers=
-        [|Headers.addJwtToken()|]
-        |> Array.flatten
-        |> HeadersInit.makeWithArray,
-      (),
-    );
+      ]
+      |> List.flatten
+      |> Js.Dict.fromList
+      |> Js.Json.object_;
+    let body =
+      [("user", user)]
+      |> Js.Dict.fromList
+      |> Js.Json.object_
+      |> Js.Json.stringify
+      |> Fetch.BodyInit.make;
 
-  Endpoints.Profiles.follow(
-    ~username=
-      switch (action) {
-      | Follow(username)
-      | Unfollow(username) => username
-      },
-    (),
-  )
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result =>
-       result
-       |> Result.flatMap(json =>
-            json
-            |> Shape.Decode.(field("profile", Shape.Author.decode))
-            |> Result.mapError(Error.decode)
-          )
-       |> resolve
-     );
-};
+    let requestInit =
+      RequestInit.make(
+        ~method_=Put,
+        ~headers=
+          [|Headers.addJwtToken(), Headers.addContentTypeAsJson()|]
+          |> Array.flatten
+          |> HeadersInit.makeWithArray,
+        ~body,
+        (),
+      );
+
+    Endpoints.user
+    |> fetchWithInit(_, requestInit)
+    |> then_(parseJsonIfOk)
+    |> then_(getErrorBodyJson)
+    |> then_(result =>
+         result
+         |> Result.flatMap(json =>
+              json |> Shape.User.decode |> Result.mapError(Error.decode)
+            )
+         |> resolve
+       );
+  };
+
+let followUser:
+  (~action: Action.follow, unit) =>
+  Js.Promise.t(Result.t(Shape.Author.t, Error.t)) =
+  (~action, ()) => {
+    let requestInit =
+      RequestInit.make(
+        ~method_=
+          switch (action) {
+          | Follow(_username) => Post
+          | Unfollow(_username) => Delete
+          },
+        ~headers=
+          [|Headers.addJwtToken()|]
+          |> Array.flatten
+          |> HeadersInit.makeWithArray,
+        (),
+      );
+
+    Endpoints.Profiles.follow(
+      ~username=
+        switch (action) {
+        | Follow(username)
+        | Unfollow(username) => username
+        },
+      (),
+    )
+    |> fetchWithInit(_, requestInit)
+    |> then_(parseJsonIfOk)
+    |> then_(getErrorBodyText)
+    |> then_(result =>
+         result
+         |> Result.flatMap(json =>
+              json
+              |> Shape.Decode.(field("profile", Shape.Author.decode))
+              |> Result.mapError(Error.decode)
+            )
+         |> resolve
+       );
+  };
 
 let getComments:
   (~slug: string, unit) =>
@@ -383,61 +404,70 @@ let getComments:
        );
   };
 
-let deleteComment = (~slug: string, ~id: int, ()) => {
-  let requestInit =
-    RequestInit.make(
-      ~method_=Delete,
-      ~headers=
-        [|Headers.addJwtToken()|]
-        |> Array.flatten
-        |> HeadersInit.makeWithArray,
-      (),
-    );
+let deleteComment:
+  (~slug: string, ~id: int, unit) =>
+  Js.Promise.t(Result.t((string, int), Error.t)) =
+  (~slug, ~id, ()) => {
+    let requestInit =
+      RequestInit.make(
+        ~method_=Delete,
+        ~headers=
+          [|Headers.addJwtToken()|]
+          |> Array.flatten
+          |> HeadersInit.makeWithArray,
+        (),
+      );
 
-  Endpoints.Articles.comment(~slug, ~id, ())
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result =>
-       result |> Result.flatMap(_json => Result.ok((slug, id))) |> resolve
-     );
-};
+    Endpoints.Articles.comment(~slug, ~id, ())
+    |> fetchWithInit(_, requestInit)
+    |> then_(parseJsonIfOk)
+    |> then_(getErrorBodyText)
+    |> then_(result =>
+         result |> Result.flatMap(_json => Result.ok((slug, id))) |> resolve
+       );
+  };
 
-let addComment = (~slug: string, ~body: string, ()) => {
-  let comment =
-    [("body", Js.Json.string(body))] |> Js.Dict.fromList |> Js.Json.object_;
-  let body =
-    [("comment", comment)]
-    |> Js.Dict.fromList
-    |> Js.Json.object_
-    |> Js.Json.stringify
-    |> Fetch.BodyInit.make;
+let addComment:
+  (~slug: string, ~body: string, unit) =>
+  Js.Promise.t(Result.t(Shape.Comment.t, Error.t)) =
+  (~slug, ~body, ()) => {
+    let comment =
+      [("body", Js.Json.string(body))]
+      |> Js.Dict.fromList
+      |> Js.Json.object_;
 
-  let requestInit =
-    RequestInit.make(
-      ~method_=Post,
-      ~headers=
-        [|Headers.addJwtToken(), Headers.addContentTypeAsJson()|]
-        |> Array.flatten
-        |> HeadersInit.makeWithArray,
-      ~body,
-      (),
-    );
+    let body =
+      [("comment", comment)]
+      |> Js.Dict.fromList
+      |> Js.Json.object_
+      |> Js.Json.stringify
+      |> Fetch.BodyInit.make;
 
-  Endpoints.Articles.comments(~slug, ())
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result =>
-       result
-       |> Result.flatMap(json =>
-            json
-            |> Decode.field("comment", Shape.Comment.decodeComment)
-            |> Result.mapError(Error.decode)
-          )
-       |> resolve
-     );
-};
+    let requestInit =
+      RequestInit.make(
+        ~method_=Post,
+        ~headers=
+          [|Headers.addJwtToken(), Headers.addContentTypeAsJson()|]
+          |> Array.flatten
+          |> HeadersInit.makeWithArray,
+        ~body,
+        (),
+      );
+
+    Endpoints.Articles.comments(~slug, ())
+    |> fetchWithInit(_, requestInit)
+    |> then_(parseJsonIfOk)
+    |> then_(getErrorBodyText)
+    |> then_(result =>
+         result
+         |> Result.flatMap(json =>
+              json
+              |> Decode.field("comment", Shape.Comment.decodeComment)
+              |> Result.mapError(Error.decode)
+            )
+         |> resolve
+       );
+  };
 
 let getProfile:
   (~username: string, unit) =>
@@ -467,81 +497,89 @@ let getProfile:
        );
   };
 
-let login = (~email: string, ~password: string, ()) => {
-  let user =
-    [
-      ("email", Js.Json.string(email)),
-      ("password", Js.Json.string(password)),
-    ]
-    |> Js.Dict.fromList
-    |> Js.Json.object_;
-  let body =
-    [("user", user)]
-    |> Js.Dict.fromList
-    |> Js.Json.object_
-    |> Js.Json.stringify
-    |> Fetch.BodyInit.make;
+let login:
+  (~email: string, ~password: string, unit) =>
+  Js.Promise.t(Result.t(Shape.User.t, Error.t)) =
+  (~email, ~password, ()) => {
+    let user =
+      [
+        ("email", Js.Json.string(email)),
+        ("password", Js.Json.string(password)),
+      ]
+      |> Js.Dict.fromList
+      |> Js.Json.object_;
 
-  let requestInit =
-    RequestInit.make(
-      ~method_=Post,
-      ~headers=
-        [|Headers.addContentTypeAsJson()|]
-        |> Array.flatten
-        |> HeadersInit.makeWithArray,
-      ~body,
-      (),
-    );
+    let body =
+      [("user", user)]
+      |> Js.Dict.fromList
+      |> Js.Json.object_
+      |> Js.Json.stringify
+      |> Fetch.BodyInit.make;
 
-  Endpoints.Users.login
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyJson)
-  |> then_(result =>
-       result
-       |> Result.flatMap(json =>
-            json |> Shape.User.decode |> Result.mapError(Error.decode)
-          )
-       |> resolve
-     );
-};
+    let requestInit =
+      RequestInit.make(
+        ~method_=Post,
+        ~headers=
+          [|Headers.addContentTypeAsJson()|]
+          |> Array.flatten
+          |> HeadersInit.makeWithArray,
+        ~body,
+        (),
+      );
 
-let register = (~username: string, ~email: string, ~password: string, ()) => {
-  let user =
-    [
-      ("email", Js.Json.string(email)),
-      ("password", Js.Json.string(password)),
-      ("username", Js.Json.string(username)),
-    ]
-    |> Js.Dict.fromList
-    |> Js.Json.object_;
-  let body =
-    [("user", user)]
-    |> Js.Dict.fromList
-    |> Js.Json.object_
-    |> Js.Json.stringify
-    |> Fetch.BodyInit.make;
+    Endpoints.Users.login
+    |> fetchWithInit(_, requestInit)
+    |> then_(parseJsonIfOk)
+    |> then_(getErrorBodyJson)
+    |> then_(result =>
+         result
+         |> Result.flatMap(json =>
+              json |> Shape.User.decode |> Result.mapError(Error.decode)
+            )
+         |> resolve
+       );
+  };
 
-  let requestInit =
-    RequestInit.make(
-      ~method_=Post,
-      ~headers=
-        [|Headers.addContentTypeAsJson()|]
-        |> Array.flatten
-        |> HeadersInit.makeWithArray,
-      ~body,
-      (),
-    );
+let register:
+  (~username: string, ~email: string, ~password: string, unit) =>
+  Js.Promise.t(Result.t(Shape.User.t, Error.t)) =
+  (~username, ~email, ~password, ()) => {
+    let user =
+      [
+        ("email", Js.Json.string(email)),
+        ("password", Js.Json.string(password)),
+        ("username", Js.Json.string(username)),
+      ]
+      |> Js.Dict.fromList
+      |> Js.Json.object_;
 
-  Endpoints.Users.root
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyJson)
-  |> then_(result =>
-       result
-       |> Result.flatMap(json =>
-            json |> Shape.User.decode |> Result.mapError(Error.decode)
-          )
-       |> resolve
-     );
-};
+    let body =
+      [("user", user)]
+      |> Js.Dict.fromList
+      |> Js.Json.object_
+      |> Js.Json.stringify
+      |> Fetch.BodyInit.make;
+
+    let requestInit =
+      RequestInit.make(
+        ~method_=Post,
+        ~headers=
+          [|Headers.addContentTypeAsJson()|]
+          |> Array.flatten
+          |> HeadersInit.makeWithArray,
+        ~body,
+        (),
+      );
+
+    Endpoints.Users.root
+    |> fetchWithInit(_, requestInit)
+    |> then_(parseJsonIfOk)
+    |> then_(getErrorBodyJson)
+    |> then_(result =>
+         result
+         |> Result.flatMap(json =>
+              json |> Shape.User.decode |> Result.mapError(Error.decode)
+            )
+         |> resolve
+       );
+  };
