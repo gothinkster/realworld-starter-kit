@@ -82,9 +82,7 @@ describe("Home component", () => {
       )
       |> then_(_ =>
            wrapper
-           |> getByText(
-                ~matcher=`Str("Would you like some sugar in your coffee?"),
-              )
+           |> getByText(~matcher=`Str("How to train your dragon"))
            |> expect
            |> toBeInTheDocument
            |> resolve
