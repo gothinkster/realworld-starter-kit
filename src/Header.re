@@ -1,5 +1,4 @@
-module AsyncData = Relude.AsyncData;
-module Option = Relude.Option;
+open Relude.Globals;
 
 [@react.component]
 let make = (~user: option(Shape.User.t)) => {
