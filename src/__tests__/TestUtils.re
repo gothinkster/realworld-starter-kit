@@ -63,29 +63,6 @@ module ApiMock = {
   [@bs.scope "fetch"] [@bs.val]
   external fetch: {. "calls": array(array(string))} = "mock";
 
-  module SampleData = {
-    [@bs.module "../sampleData/profile.js"]
-    external profile: unit => string = "default";
-
-    [@bs.module "../sampleData/comments.js"]
-    external comments: unit => string = "default";
-
-    [@bs.module "../sampleData/articles.js"]
-    external rawArticles: int => string = "default";
-
-    let articles = (~articlesCount=1, ()) => rawArticles(articlesCount);
-    let feeds = (~articlesCount=1, ()) => rawArticles(articlesCount);
-
-    [@bs.module "../sampleData/tags.js"]
-    external tags: unit => string = "default";
-
-    [@bs.module "../sampleData/user.js"]
-    external user: unit => string = "default";
-
-    [@bs.module "../sampleData/article.js"]
-    external article: unit => string = "default";
-  };
-
   let unathorized401 =
     JestFetchMock.init(~status=401, ~statusText="401 Unauthorized", ());
 
@@ -238,6 +215,6 @@ module ApiMock = {
 };
 
 // this a work-around such that Jest won't emit warning
-Jest.Skip.test("TestUtils work-around", () =>
+Jest.Skip.test(__FILE__ ++ " work-around", () =>
   Jest.pass
 );
