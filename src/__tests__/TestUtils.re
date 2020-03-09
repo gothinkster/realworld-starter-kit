@@ -351,6 +351,6 @@ module ApiMock = {
 };
 
 // this a work-around such that Jest won't emit warning
-Jest.test("TestUtils work-around", () =>
+Jest.Skip.test("TestUtils work-around", () =>
   Jest.pass
 );
