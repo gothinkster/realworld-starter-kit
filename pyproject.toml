@@ -34,13 +34,11 @@ pyramid_deferred_sqla = {git = "https://github.com/niteoweb/pyramid_deferred_sql
 pyramid_force_https = "*"
 pyramid_heroku = "*"
 pyramid_jwt = "*"
-pyramid_openapi3 = "==0.5.0b4"
+pyramid_openapi3 = "*"
 pyramid_redirect = "*"
 python-slugify = "*"
 raven = "*"
 structlog = "*"
-werkzeug = "*"  # remove after openapi-core 0.13.1
-openapi-core = "==0.13.1"  # remove after pyramid_openapi3 0.5.0
 
 [tool.poetry.dev-dependencies]
 bandit = "*"
