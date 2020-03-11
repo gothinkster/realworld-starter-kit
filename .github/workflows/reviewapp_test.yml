@@ -1,0 +1,16 @@
+on:
+  pull_request:
+    branches:
+    - master
+
+
+name: Review App Testing
+jobs:
+  review-app-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Review deploy status
+        id: reviewapp_deploy_status
+        uses: niteoweb/reviewapps-deploy-status@v1.3.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
