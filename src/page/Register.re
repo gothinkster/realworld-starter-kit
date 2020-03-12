@@ -29,9 +29,9 @@ let make = (~setUser) => {
           {switch (error) {
            | Some((detail: Shape.Register.t)) =>
              <ul className="error-messages">
-               <DetailErrorMessage label="email" error={detail.email} />
-               <DetailErrorMessage label="password" error={detail.password} />
-               <DetailErrorMessage label="username" error={detail.username} />
+               <ErrorDetails label="email" error={detail.email} />
+               <ErrorDetails label="password" error={detail.password} />
+               <ErrorDetails label="username" error={detail.username} />
              </ul>
            | None => React.null
            }}

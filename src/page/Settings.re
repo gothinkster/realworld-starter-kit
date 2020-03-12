@@ -28,11 +28,11 @@ let make =
            | None => React.null
            | Some((error: Shape.Settings.t)) =>
              <ul className="error-messages">
-               <DetailErrorMessage label="email" error={error.email} />
-               <DetailErrorMessage label="bio" error={error.bio} />
-               <DetailErrorMessage label="image" error={error.image} />
-               <DetailErrorMessage label="username" error={error.username} />
-               <DetailErrorMessage label="password" error={error.password} />
+               <ErrorDetails label="email" error={error.email} />
+               <ErrorDetails label="bio" error={error.bio} />
+               <ErrorDetails label="image" error={error.image} />
+               <ErrorDetails label="username" error={error.username} />
+               <ErrorDetails label="password" error={error.password} />
              </ul>
            }}
           <form>

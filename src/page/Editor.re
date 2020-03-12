@@ -24,9 +24,9 @@ module Form = {
        | None => React.null
        | Some((error: Shape.Editor.t)) =>
          <ul className="error-messages">
-           <DetailErrorMessage label="title" error={error.title} />
-           <DetailErrorMessage label="body" error={error.body} />
-           <DetailErrorMessage label="description" error={error.description} />
+           <ErrorDetails label="title" error={error.title} />
+           <ErrorDetails label="body" error={error.body} />
+           <ErrorDetails label="description" error={error.description} />
          </ul>
        }}
       <form>
