@@ -1,3 +1,5 @@
+open Relude.Globals;
+
 [@react.component]
 let make = (~limit: int, ~offset: int, ~total: int, ~onClick: int => unit) =>
   if (total == 0) {
@@ -8,30 +10,31 @@ let make = (~limit: int, ~offset: int, ~total: int, ~onClick: int => unit) =>
 
     <WithTestId id="page-link">
       <ul className="pagination">
-        {Belt.Array.range(0, pages)
-         ->Belt.Array.map(page => {
-             let className =
-               if (offset == 0 && page == 0 || page == offset / limit) {
-                 "page-item active";
-               } else {
-                 "page-item";
-               };
+        {Array.repeat(pages, 0)
+         |> Array.mapWithIndex((_zero, i) => i)
+         |> Array.map(page => {
+              let className =
+                if (offset == 0 && page == 0 || page == offset / limit) {
+                  "page-item active";
+                } else {
+                  "page-item";
+                };
 
-             <li key={page->string_of_int} className>
-               <a
-                 className="page-link"
-                 href={Printf.sprintf("#%d", page)}
-                 onClick={event =>
-                   if (Utils.isMouseRightClick(event)) {
-                     event->ReactEvent.Mouse.preventDefault;
-                     onClick(page * limit);
-                   }
-                 }>
-                 {string_of_int(page + 1)->React.string}
-               </a>
-             </li>;
-           })
-         ->React.array}
+              <li key={page |> string_of_int} className>
+                <a
+                  className="page-link"
+                  href={Printf.sprintf("#%d", page)}
+                  onClick={event =>
+                    if (Utils.isMouseRightClick(event)) {
+                      event |> ReactEvent.Mouse.preventDefault;
+                      onClick(page * limit);
+                    }
+                  }>
+                  {string_of_int(page + 1) |> React.string}
+                </a>
+              </li>;
+            })
+         |> React.array}
       </ul>
     </WithTestId>;
   };
