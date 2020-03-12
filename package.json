@@ -47,7 +47,11 @@
     "prettier": "^1.19.1",
     "react-scripts": "3.4.0",
     "relude": "^0.56.0"
-  },
+	},
+	"eslintConfig": {
+		"extends": ["react-app"],
+		"ignorePatterns": ["src/**/*.bs.js"]
+	},
   "browserslist": {
     "production": [
       ">0.2%",
