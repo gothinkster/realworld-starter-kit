@@ -31,17 +31,17 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
              |> Option.map(src => <img src className="user-img" />)
              |> Option.getOrElse(<img className="user-img" />)}
             <h4>
-              (
-                switch (profile) {
-                | Init
-                | Loading
-                | Reloading(Error(_))
-                | Complete(Error(_)) => "..."
-                | Reloading(Ok(user))
-                | Complete(Ok(user)) => user.username
-                }
-              )
-              ->React.string
+              {(
+                 switch (profile) {
+                 | Init
+                 | Loading
+                 | Reloading(Error(_))
+                 | Complete(Error(_)) => "..."
+                 | Reloading(Ok(user))
+                 | Complete(Ok(user)) => user.username
+                 }
+               )
+               |> React.string}
             </h4>
             {switch (profile) {
              | Init
@@ -180,7 +180,7 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
                     ),
                     Link.Location(Link.profile(~username)),
                   )}>
-                  "My Articles"->React.string
+                  {"My Articles" |> React.string}
                 </Link>
               </li>
               <li className="nav-item">
@@ -201,7 +201,7 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
                     ),
                     Link.Location(Link.favorited(~username)),
                   )}>
-                  "Favorited Articles"->React.string
+                  {"Favorited Articles" |> React.string}
                 </Link>
               </li>
               {if (articles |> AsyncResult.isBusy) {
@@ -244,10 +244,12 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
                                Link.profile(~username=article.author.username)
                                |> Link.location
                              }>
-                             article.author.username->React.string
+                             {article.author.username |> React.string}
                            </Link>
                            <span className="date">
-                             {article.createdAt->Utils.formatDate->React.string}
+                             {article.createdAt
+                              |> Utils.formatDate
+                              |> React.string}
                            </span>
                          </div>
                          <Link.Button
@@ -276,7 +278,9 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
                                (),
                              )}
                            />
-                           {article.favoritesCount->string_of_int->React.string}
+                           {article.favoritesCount
+                            |> string_of_int
+                            |> React.string}
                          </Link.Button>
                        </div>
                        <Link
@@ -284,9 +288,9 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
                          onClick={
                            Link.article(~slug=article.slug) |> Link.location
                          }>
-                         <h1> article.title->React.string </h1>
-                         <p> article.description->React.string </p>
-                         <span> "Read more..."->React.string </span>
+                         <h1> {article.title |> React.string} </h1>
+                         <p> {article.description |> React.string} </p>
+                         <span> {"Read more..." |> React.string} </span>
                          {switch (article.tagList) {
                           | [||] => React.null
                           | tagList =>
@@ -296,7 +300,7 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option(Shape.User.t)) => {
                                     <li
                                       key=tag
                                       className="tag-default tag-pill tag-outline">
-                                      tag->React.string
+                                      {tag |> React.string}
                                     </li>
                                   )
                                |> React.array}

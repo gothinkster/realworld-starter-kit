@@ -23,7 +23,9 @@ let make =
     <div className="container page">
       <div className="row">
         <div className="col-md-6 offset-md-3 col-xs-12">
-          <h1 className="text-xs-center"> "Your Settings"->React.string </h1>
+          <h1 className="text-xs-center">
+            {"Your Settings" |> React.string}
+          </h1>
           {switch (error) {
            | None => React.null
            | Some((error: Shape.Settings.t)) =>
@@ -45,7 +47,7 @@ let make =
                   disabled=isBusy
                   value={form.image |> Option.getOrElse("")}
                   onChange={event => {
-                    let image = event->ReactEvent.Form.target##value;
+                    let image = ReactEvent.Form.target(event)##value;
                     setResult(
                       AsyncData.map(((use: Shape.User.t, password, error)) =>
                         ({...use, image}, password, error)
@@ -62,7 +64,7 @@ let make =
                   disabled=isBusy
                   value={form.username}
                   onChange={event => {
-                    let username = event->ReactEvent.Form.target##value;
+                    let username = ReactEvent.Form.target(event)##value;
                     setResult(
                       AsyncData.map(((user: Shape.User.t, password, error)) =>
                         ({...user, username}, password, error)
@@ -79,7 +81,7 @@ let make =
                   disabled=isBusy
                   value={form.bio |> Option.getOrElse("")}
                   onChange={event => {
-                    let bio = event->ReactEvent.Form.target##value;
+                    let bio = ReactEvent.Form.target(event)##value;
                     setResult(
                       AsyncData.map(((user: Shape.User.t, password, error)) =>
                         ({...user, bio}, password, error)
@@ -96,7 +98,7 @@ let make =
                   disabled=isBusy
                   value={form.email}
                   onChange={event => {
-                    let email = event->ReactEvent.Form.target##value;
+                    let email = ReactEvent.Form.target(event)##value;
                     setResult(
                       AsyncData.map(((user: Shape.User.t, password, error)) =>
                         ({...user, email}, password, error)
@@ -113,7 +115,7 @@ let make =
                   disabled=isBusy
                   value=password
                   onChange={event => {
-                    let password = event->ReactEvent.Form.target##value;
+                    let password = ReactEvent.Form.target(event)##value;
                     setResult(
                       AsyncData.map(((user, _password, error)) =>
                         (user, password, error)
@@ -173,7 +175,7 @@ let make =
                      })
                   |> ignore;
                 }}>
-                "Update Settings"->React.string
+                {"Update Settings" |> React.string}
               </button>
             </fieldset>
           </form>
@@ -192,7 +194,7 @@ let make =
                 Link.home |> Link.push;
               };
             }}>
-            "Or click here to logout."->React.string
+            {"Or click here to logout." |> React.string}
           </button>
         </div>
       </div>

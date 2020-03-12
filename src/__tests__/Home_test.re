@@ -1,4 +1,5 @@
 open Js.Promise;
+open Relude.Globals;
 open Jest;
 open Expect;
 open JestDom;
@@ -214,7 +215,7 @@ describe("Home component", () => {
         |> then_(_ => {
              TestUtils.ApiMock.fetch##calls
              |> Belt.Array.map(_, call =>
-                  call->Belt.Array.get(0)->Option.getOrElse("", _)
+                  call |> Array.at(0) |> Option.getOrElse("", _)
                 )
              |> Belt.Array.some(_, url =>
                   url

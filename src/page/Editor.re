@@ -53,7 +53,7 @@ module Form = {
                 |> Option.getOrElse("")
               }
               onChange={event => {
-                let title = event->ReactEvent.Form.target##value;
+                let title = ReactEvent.Form.target(event)##value;
                 setData(
                   AsyncResult.map(
                     (
@@ -91,7 +91,7 @@ module Form = {
                 |> Option.getOrElse("")
               }
               onChange={event => {
-                let description = event->ReactEvent.Form.target##value;
+                let description = ReactEvent.Form.target(event)##value;
                 setData(
                   AsyncResult.map(
                     (
@@ -129,7 +129,7 @@ module Form = {
                 |> Option.getOrElse("")
               }
               onChange={event => {
-                let body = event->ReactEvent.Form.target##value;
+                let body = ReactEvent.Form.target(event)##value;
                 setData(
                   AsyncResult.map(
                     (
@@ -167,7 +167,7 @@ module Form = {
                 |> Option.getOrElse("")
               }
               onChange={event => {
-                let tagList = event->ReactEvent.Form.target##value;
+                let tagList = ReactEvent.Form.target(event)##value;
                 setData(
                   AsyncResult.map(
                     (
@@ -210,7 +210,7 @@ module Form = {
                 |> ignore;
               };
             }}>
-            "Publish Article"->React.string
+            {"Publish Article" |> React.string}
           </button>
         </fieldset>
       </form>

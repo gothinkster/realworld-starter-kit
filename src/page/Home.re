@@ -17,10 +17,10 @@ module ArticlePreview = {
             onClick={
               Link.profile(~username=data.author.username) |> Link.location
             }>
-            data.author.username->React.string
+            {data.author.username |> React.string}
           </Link>
           <span className="date">
-            {data.createdAt->Js.Date.toLocaleString->React.string}
+            {data.createdAt |> Js.Date.toLocaleString |> React.string}
           </span>
         </div>
         <button
@@ -43,15 +43,15 @@ module ArticlePreview = {
             className={isFavoriteBusy ? "ion-load-a" : "ion-heart"}
             style={ReactDOMRe.Style.make(~marginRight="3px", ())}
           />
-          {data.favoritesCount->Js.Int.toString->React.string}
+          {data.favoritesCount |> Js.Int.toString |> React.string}
         </button>
       </div>
       <Link
         onClick={Link.article(~slug=data.slug) |> Link.location}
         className="preview-link">
-        <h1> data.title->React.string </h1>
-        <p> data.description->React.string </p>
-        <span> "Read more..."->React.string </span>
+        <h1> {data.title |> React.string} </h1>
+        <p> {data.description |> React.string} </p>
+        <span> {"Read more..." |> React.string} </span>
       </Link>
     </div>;
   };
@@ -61,7 +61,7 @@ module PopularTags = {
   [@react.component]
   let make = (~data: AsyncResult.t(Shape.Tags.t, Error.t), ~onClick) => {
     <>
-      <p> "Popular Tags"->React.string </p>
+      <p> {"Popular Tags" |> React.string} </p>
       <WithTestId id="tag-list">
         <div className="tag-list">
           {switch (data) {
@@ -77,11 +77,11 @@ module PopularTags = {
                     className="tag-pill tag-default"
                     onClick={event =>
                       if (Utils.isMouseRightClick(event)) {
-                        event->ReactEvent.Mouse.preventDefault;
-                        tag->onClick->ignore;
+                        event |> ReactEvent.Mouse.preventDefault;
+                        tag |> onClick |> ignore;
                       }
                     }>
-                    tag->React.string
+                    {tag |> React.string}
                   </a>
                 )
              |> React.array
@@ -114,8 +114,8 @@ let make = (~user: option(Shape.User.t)) => {
   <div className="home-page">
     <div className="banner">
       <div className="container">
-        <h1 className="logo-font"> "conduit"->React.string </h1>
-        <p> "A place to share your knowledge."->React.string </p>
+        <h1 className="logo-font"> {"conduit" |> React.string} </h1>
+        <p> {"A place to share your knowledge." |> React.string} </p>
       </div>
     </div>
     <div className="container page">
@@ -137,11 +137,11 @@ let make = (~user: option(Shape.User.t)) => {
                       href="#your_feed"
                       onClick={event =>
                         if (Utils.isMouseRightClick(event)) {
-                          event->ReactEvent.Mouse.preventDefault;
+                          event |> ReactEvent.Mouse.preventDefault;
                           setFeedType(_ => Personal(10, 0));
                         }
                       }>
-                      "Your Feed"->React.string
+                      {"Your Feed" |> React.string}
                     </a>
                   </li>
                 </Security.AuthenticatedOnly>
@@ -157,11 +157,11 @@ let make = (~user: option(Shape.User.t)) => {
                     href="#global"
                     onClick={event =>
                       if (Utils.isMouseRightClick(event)) {
-                        event->ReactEvent.Mouse.preventDefault;
+                        event |> ReactEvent.Mouse.preventDefault;
                         setFeedType(_ => Global(10, 0));
                       }
                     }>
-                    "Global Feed"->React.string
+                    {"Global Feed" |> React.string}
                   </a>
                 </li>
                 {switch (feedType) {
@@ -171,11 +171,12 @@ let make = (~user: option(Shape.User.t)) => {
                        className="nav-link active"
                        href="#"
                        onClick={event =>
-                         event->ReactEvent.Mouse.preventDefault
+                         event |> ReactEvent.Mouse.preventDefault
                        }>
                        <i className="ion-pound" />
-                       " "->React.string
-                       tag->React.string
+											 /* TODO: Get rid of "space" string below */
+                       {" " |> React.string}
+                       {tag |> React.string}
                      </a>
                    </li>
                  | Global(_)

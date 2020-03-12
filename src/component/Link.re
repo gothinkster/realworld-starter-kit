@@ -24,7 +24,7 @@ let favorited = (~username) =>
 
 let push: location' => unit =
   location => {
-    location->toString->ReasonReactRouter.push;
+    location |> toString |> ReasonReactRouter.push;
   };
 
 let availableIf: (bool, onClickAction) => onClickAction =
@@ -34,8 +34,8 @@ let handleClick = (onClick, event) => {
   switch (onClick) {
   | Location(location) =>
     if (Utils.isMouseRightClick(event)) {
-      event->ReactEvent.Mouse.preventDefault;
-      location->toString->ReasonReactRouter.push;
+      event |> ReactEvent.Mouse.preventDefault;
+      location |> toString |> ReasonReactRouter.push;
     }
   | CustomFn(fn) => fn()
   };

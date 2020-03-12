@@ -10,8 +10,7 @@ let make = (~limit: int, ~offset: int, ~total: int, ~onClick: int => unit) =>
 
     <WithTestId id="page-link">
       <ul className="pagination">
-        {Array.repeat(pages, 0)
-         |> Array.mapWithIndex((_zero, i) => i)
+        {Belt.Array.range(0, pages)
          |> Array.map(page => {
               let className =
                 if (offset == 0 && page == 0 || page == offset / limit) {

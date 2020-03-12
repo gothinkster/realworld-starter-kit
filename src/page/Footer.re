@@ -22,17 +22,17 @@ let make = () => {
         className="ion-social-github"
         style={ReactDOMRe.Style.make(~marginRight="8px", ())}
       />
-      "Fork on GitHub"->React.string
+      {"Fork on GitHub" |> React.string}
     </a>
     <footer>
       <div className="container">
         <Link onClick={Link.home |> Link.location} className="logo-font">
-          "conduit"->React.string
+          {"conduit" |> React.string}
         </Link>
         <span className="attribution">
-          "An interactive learning project from "->React.string
-          <a href="https://thinkster.io"> "Thinkster"->React.string </a>
-          ". Code &amp; design licensed under MIT."->React.string
+          {"An interactive learning project from " |> React.string}
+          <a href="https://thinkster.io"> {"Thinkster" |> React.string} </a>
+          {". Code &amp; design licensed under MIT." |> React.string}
         </span>
       </div>
     </footer>

@@ -20,10 +20,10 @@ let make = (~setUser) => {
     <div className="container page">
       <div className="row">
         <div className="col-md-6 offset-md-3 col-xs-12">
-          <h1 className="text-xs-center"> "Sign up"->React.string </h1>
+          <h1 className="text-xs-center"> {"Sign up" |> React.string} </h1>
           <p className="text-xs-center">
             <Link onClick={Link.login |> Link.location}>
-              "Have an account?"->React.string
+              {"Have an account?" |> React.string}
             </Link>
           </p>
           {switch (error) {
@@ -136,7 +136,7 @@ let make = (~setUser) => {
                   |> ignore;
                 };
               }}>
-              "Sign up"->React.string
+              {"Sign up" |> React.string}
             </button>
           </form>
         </div>
