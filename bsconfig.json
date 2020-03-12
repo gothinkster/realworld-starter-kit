@@ -6,16 +6,10 @@
   "sources": {
     "dir": "src",
     "subdirs": [
-      {
-        "dir": "page"
-      },
-      {
-        "dir": "component"
-      },
-      {
-        "dir": "__tests__",
-        "type": "dev"
-      }
+      { "dir": "page" },
+      { "dir": "component" },
+      { "dir": "shared" },
+      { "dir": "__tests__", "type": "dev" }
     ]
   },
   "bsc-flags": ["-bs-super-errors", "-bs-no-version-header"],
