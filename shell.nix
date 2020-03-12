@@ -1,7 +1,7 @@
 { type ? "develop" }:
 let
   nixpkgs =
-    let cfg = builtins.fromJSON (builtins.readFile ./sources.json);
+    let cfg = builtins.fromJSON (builtins.readFile ./nixpkgs.json);
     in fetchTarball {
       url = "https://github.com/${cfg.owner}/${cfg.repo}/tarball/${cfg.rev}";
       sha256 = cfg.sha256;

@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Only copy files relevant for the nix-shell in an earlier layer to
 # have this be cached when those files don't change
-COPY --chown=builder ./shell.nix ./sources.json ./pyproject.toml ./poetry.lock ./poetry.toml ./
+COPY --chown=builder ./shell.nix ./nixpkgs.json ./pyproject.toml ./poetry.lock ./poetry.toml ./
 RUN nix-shell --show-trace --argstr type build
 
 COPY --chown=builder . /app

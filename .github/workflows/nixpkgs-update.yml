@@ -1,0 +1,14 @@
+on:
+  schedule:
+    # On the first of every month
+    - cron: '* * 1 * *'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: cachix/install-nix-action@v6
+      - env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: .github/workflows/nixpkgs-update.sh
