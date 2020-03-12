@@ -1,6 +1,14 @@
 {
   "name": "reason-react-realworld-example-app",
   "version": "0.1.0",
+  "author": "Jihchi Lee <achi@987.tw>",
+  "license": "MIT",
+  "keywords": [
+    "BuckleScript",
+		"reason-react",
+		"ReasonML",
+		"react"
+  ],
   "scripts": {
     "pretest": "npm run build:re",
     "start": "concurrently --names \"JS,RE\" --prefix-colors \"black.bgYellow.bold,white.bgRed.bold\" --kill-others-on-fail \"npm run start:js\" \"npm run start:re\"",
@@ -16,13 +24,6 @@
     "test:coverage": "CI=true npm test -- --coverage",
     "test": "react-scripts test"
   },
-  "keywords": [
-    "BuckleScript",
-    "ReasonReact",
-    "reason-react"
-  ],
-  "author": "Jihchi Lee <achi@987.tw>",
-  "license": "MIT",
   "dependencies": {
     "dompurify": "^2.0.8",
     "marked": "^0.8.0",
@@ -47,15 +48,19 @@
     "prettier": "^1.19.1",
     "react-scripts": "3.4.0",
     "relude": "^0.56.0"
-	},
-	"prettier": {
+  },
+  "prettier": {
     "singleQuote": true,
     "trailingComma": "es5"
-	},
-	"eslintConfig": {
-		"extends": ["react-app"],
-		"ignorePatterns": ["src/**/*.bs.js"]
-	},
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ],
+    "ignorePatterns": [
+      "src/**/*.bs.js"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
