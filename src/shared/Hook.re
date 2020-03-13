@@ -39,7 +39,7 @@ let useArticles:
              guard(() =>
                setData(_prev =>
                  switch (data) {
-                 | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
+                 | Ok(ok) => AsyncResult.completeOk(ok)
                  | Error(error) => AsyncResult.completeError(error)
                  }
                )
@@ -91,7 +91,7 @@ let useArticlesInProfile:
              guard(() =>
                setData(_prev =>
                  switch (data) {
-                 | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
+                 | Ok(ok) => AsyncResult.completeOk(ok)
                  | Error(error) => AsyncResult.completeError(error)
                  }
                )
@@ -129,7 +129,7 @@ let useTags: unit => AsyncResult.t(Shape.Tags.t, Error.t) =
            guard(() =>
              setData(_prev =>
                switch (data) {
-               | Belt.Result.Ok(ok) => ok |> AsyncResult.completeOk
+               | Ok(ok) => ok |> AsyncResult.completeOk
                | Error(error) => AsyncResult.completeError(error)
                }
              )
@@ -166,7 +166,7 @@ let useCurrentUser:
            guard(() =>
              setData(_prev =>
                switch (data) {
-               | Belt.Result.Ok(data') => Some(data') |> AsyncData.complete
+               | Ok(data') => Some(data') |> AsyncData.complete
                | Error(_error) => None |> AsyncData.complete
                }
              )
@@ -221,7 +221,7 @@ let useArticle:
              guard(() =>
                setData(_prev =>
                  switch (data) {
-                 | Belt.Result.Ok((ok: Shape.Article.t)) =>
+                 | Ok((ok: Shape.Article.t)) =>
                    AsyncResult.completeOk((
                      ok,
                      ok.tagList |> Array.String.joinWith(","),
@@ -275,7 +275,7 @@ let useComments:
              guard(() =>
                setData(_prev =>
                  switch (data) {
-                 | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
+                 | Ok(ok) => AsyncResult.completeOk(ok)
                  | Error(error) => AsyncResult.completeError(error)
                  }
                )
@@ -297,13 +297,14 @@ let useComments:
            setBusy(prev => prev |> Belt.Set.Int.remove(_, id));
 
            switch (resp) {
-           | Belt.Result.Ok((_slug, id)) =>
+           | Ok((_slug, id)) =>
              setData(prev =>
                prev
                |> AsyncResult.map(comments =>
-                    Belt.Array.keep(comments, (comment: Shape.Comment.t) =>
-                      comment.id != id
-                    )
+                    comments
+                    |> Array.keep((comment: Shape.Comment.t) =>
+                         comment.id != id
+                       )
                   )
              )
            | Error(_error) => ignore()
@@ -369,7 +370,7 @@ let useFollow:
            guard(() =>
              setState(_prev =>
                switch (data) {
-               | Belt.Result.Ok((ok: Shape.Author.t)) =>
+               | Ok((ok: Shape.Author.t)) =>
                  AsyncData.complete((ok.username, ok.following))
                | Error(_error) => AsyncData.complete(("", false))
                }
@@ -445,7 +446,7 @@ let useFollowInProfile:
            guard(() =>
              setState(_prev =>
                switch (data) {
-               | Belt.Result.Ok((ok: Shape.Author.t)) =>
+               | Ok((ok: Shape.Author.t)) =>
                  AsyncData.complete((ok.username, ok.following))
                | Error(_error) => AsyncData.complete(("", false))
                }
@@ -513,7 +514,7 @@ let useFavorite:
            guard(() =>
              setState(_prev => {
                switch (data) {
-               | Belt.Result.Ok((ok: Shape.Article.t)) =>
+               | Ok((ok: Shape.Article.t)) =>
                  AsyncData.complete((
                    ok.favorited,
                    ok.favoritesCount,
@@ -707,7 +708,7 @@ let useProfile: (~username: string) => AsyncResult.t(Shape.Author.t, Error.t) =
              guard(() =>
                setData(_prev =>
                  switch (data) {
-                 | Belt.Result.Ok(ok) => AsyncResult.completeOk(ok)
+                 | Ok(ok) => AsyncResult.completeOk(ok)
                  | Error(error) => AsyncResult.completeError(error)
                  }
                )

@@ -174,7 +174,7 @@ let make = (~user: option(Shape.User.t)) => {
                          event |> ReactEvent.Mouse.preventDefault
                        }>
                        <i className="ion-pound" />
-											 /* TODO: Get rid of "space" string below */
+                       /* TODO: Get rid of "space" string below */
                        {" " |> React.string}
                        {tag |> React.string}
                      </a>

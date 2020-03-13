@@ -214,10 +214,10 @@ describe("Home component", () => {
            })
         |> then_(_ => {
              TestUtils.ApiMock.fetch##calls
-             |> Belt.Array.map(_, call =>
+             |> Array.map(call =>
                   call |> Array.at(0) |> Option.getOrElse("", _)
                 )
-             |> Belt.Array.some(_, url =>
+             |> Array.any(url =>
                   url
                   == "http://mock_your_requests/api/articles?limit=10&offset=0&tag=dragons"
                 )

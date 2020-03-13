@@ -38,7 +38,7 @@ module Author = {
 
   let empty = make("", None, "", false);
 
-  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+  let decode = (json: Js.Json.t): Result.t(t, Decode.ParseError.failure) =>
     Decode.Pipeline.(
       succeed(make)
       |> field("username", string)
@@ -103,7 +103,7 @@ module Article = {
     );
 
   let decodeArticle =
-      (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+      (json: Js.Json.t): Result.t(t, Decode.ParseError.failure) =>
     Decode.Pipeline.(
       succeed(make)
       |> field("slug", string)
@@ -119,7 +119,7 @@ module Article = {
       |> run(json)
     );
 
-  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+  let decode = (json: Js.Json.t): Result.t(t, Decode.ParseError.failure) =>
     Decode.(field("article", decodeArticle, json));
 };
 
@@ -133,7 +133,7 @@ module Articles = {
 
   let empty = make([||], 0);
 
-  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+  let decode = (json: Js.Json.t): Result.t(t, Decode.ParseError.failure) =>
     Decode.Pipeline.(
       succeed(make)
       |> field("articles", array(Article.decodeArticle))
@@ -147,7 +147,7 @@ module Tags = {
 
   let empty: array(string) = [||];
 
-  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+  let decode = (json: Js.Json.t): Result.t(t, Decode.ParseError.failure) =>
     Decode.(field("tags", array(string), json));
 };
 
@@ -176,8 +176,7 @@ module User = {
 
   let empty = make(0, "", Js.Date.make(), Js.Date.make(), "", None, None, "");
 
-  let decodeUser =
-      (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+  let decodeUser = (json: Js.Json.t): Result.t(t, Decode.ParseError.failure) =>
     Decode.Pipeline.(
       succeed(make)
       |> field("id", intFromNumber)
@@ -191,7 +190,7 @@ module User = {
       |> run(json)
     );
 
-  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+  let decode = (json: Js.Json.t): Result.t(t, Decode.ParseError.failure) =>
     Decode.field("user", decodeUser, json);
 };
 
@@ -212,7 +211,7 @@ module CommentUser = {
 
   let empty = make("", None, "", false);
 
-  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+  let decode = (json: Js.Json.t): Result.t(t, Decode.ParseError.failure) =>
     Decode.Pipeline.(
       succeed(make)
       |> field("username", string)
@@ -243,7 +242,7 @@ module Comment = {
   let empty = make(0, Js.Date.make(), Js.Date.make(), "", CommentUser.empty);
 
   let decodeComment =
-      (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+      (json: Js.Json.t): Result.t(t, Decode.ParseError.failure) =>
     Decode.Pipeline.(
       succeed(make)
       |> field("id", intFromNumber)
@@ -255,7 +254,7 @@ module Comment = {
     );
 
   let decode =
-      (json: Js.Json.t): Belt.Result.t(array(t), Decode.ParseError.failure) =>
+      (json: Js.Json.t): Result.t(array(t), Decode.ParseError.failure) =>
     Decode.field("comments", Decode.Pipeline.array(decodeComment), json);
 };
 
@@ -278,7 +277,7 @@ module Settings = {
 
   let empty = make(None, None, None, None, None);
 
-  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+  let decode = (json: Js.Json.t): Result.t(t, Decode.ParseError.failure) =>
     Decode.Pipeline.(
       succeed(make)
       |> optionalField("email", array(string))
@@ -301,7 +300,7 @@ module Editor = {
 
   let empty = make(None, None, None);
 
-  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+  let decode = (json: Js.Json.t): Result.t(t, Decode.ParseError.failure) =>
     Decode.Pipeline.(
       succeed(make)
       |> optionalField("title", array(string))
@@ -318,7 +317,7 @@ module Login = {
 
   let empty = make(None);
 
-  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+  let decode = (json: Js.Json.t): Result.t(t, Decode.ParseError.failure) =>
     Decode.Pipeline.(
       succeed(make)
       |> optionalField("email or password", array(string))
@@ -337,7 +336,7 @@ module Register = {
 
   let empty = make(None, None, None);
 
-  let decode = (json: Js.Json.t): Belt.Result.t(t, Decode.ParseError.failure) =>
+  let decode = (json: Js.Json.t): Result.t(t, Decode.ParseError.failure) =>
     Decode.Pipeline.(
       succeed(make)
       |> optionalField("email", array(string))
