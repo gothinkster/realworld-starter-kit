@@ -46,7 +46,6 @@ let
   # Taken from https://github.com/NixOS/nixpkgs/blob/d72887e0d28a98cc6435bde1962e2b414224e717/pkgs/development/python-modules/watchdog/default.nix#L20
   ++ lib.optionals pkgs.stdenv.isDarwin [
     pkgs.darwin.apple_sdk.frameworks.CoreServices
-    pkgs.darwin.cf-private
   ];
 
   # These are needed to build the production artifacts
