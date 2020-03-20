@@ -109,8 +109,9 @@ jobs:
       - run:
           name: Run Linters
           command: |
+            nix-shell --pure --run "poetry run pre-commit install -f --hook-type pre-commit"
             nix-shell --pure --run "poetry run pre-commit install -f --hook-type pre-push"
-            nix-shell --pure --run "make lint"
+            nix-shell --pure --run "make lint all=true"
 
       - run:
           name: run mypy

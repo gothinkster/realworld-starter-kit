@@ -10,11 +10,13 @@ install:
 	@make .installed
 
 .installed: pyproject.toml poetry.lock
-	@echo "pyproject.toml/poetry.lock is newer than .installed, (re)installing"
+	@echo "pyproject.toml or poetry.lock are newer than .installed, (re)installing in 1 second"
+	@sleep 1
+	@poetry check
 	@poetry install
 	@poetry run pre-commit install -f --hook-type pre-commit
 	@poetry run pre-commit install -f --hook-type pre-push
-	@echo "This file is used by 'make' for keeping track of last install time. If pyproject.toml or poetry.lock are newer then this file (.installed) then all 'make *' commands that depend on '.installed' know they need to run poetry install first." \
+	@echo "This file is used by 'make' for keeping track of last install time. If pyproject.toml or poetry.lock are newer then this file (.installed) then all 'make *' commands that depend on '.installed' know they need to run 'poetry install' first." \
 		> .installed
 
 # Start database in docker in foreground
@@ -34,6 +36,11 @@ start-pgsql: .installed
 .PHONY: pgweb
 pgweb:
 	@docker run -p 8081:8081 --rm -it --link pgsql:pgsql -e "DATABASE_URL=postgres://conduit_dev:@pgsql:5432/conduit_dev?sslmode=disable" sosedoff/pgweb
+
+# Open devdb with pgcli, a fantastic cli-based postgres browser (https://www.pgcli.com/)
+.PHONY: pgcli
+pgcli:
+	@docker run --rm -it --link pgsql:pgsql dencold/pgcli "postgres://conduit_dev:@pgsql:5432/conduit_dev?sslmode=disable"
 
 .PHONY: clean-pgsql
 clean-pgsql: .installed
@@ -58,24 +65,30 @@ pshell: .installed
 # Run development server
 .PHONY: run
 run: .installed
-	@poetry run pserve etc/development.ini
+	@poetry run pserve etc/development.ini --reload
+
+# Testing and linting targets
+all = false
 
 # Testing and linting targets
 .PHONY: lint
 lint: .installed
-	@poetry run pre-commit run --all-files --hook-stage push
+# 1. get all unstaged modified files
+# 2. get all staged modified files
+# 3. get all untracked files
+# 4. run pre-commit checks on them
+ifeq ($(all),true)
+	@poetry run pre-commit run --hook-stage push --all-files
+else
+	@{ git diff --name-only ./; git diff --name-only --staged ./;git ls-files --other --exclude-standard; } \
+		| sort | uniq | xargs poetry run pre-commit run --hook-stage push --files
+endif
 
 .PHONY: types
 types: .installed
-	# Delete .mypy_cache because mypy report is not generated when cache is fresh https://github.com/python/mypy/issues/5103
-	@rm -rf .mypy_cache
 	@poetry run mypy src/conduit
 	@cat ./typecov/linecount.txt
 	@poetry run typecov 100 ./typecov/linecount.txt
-
-.PHONY: format
-format: .installed
-	@poetry run black src/conduit
 
 # anything, in regex-speak
 filter = "."
@@ -114,10 +127,11 @@ postman-tests: .installed
 
 
 .PHONY: tests
-tests: format lint types unit
+tests: lint types unit
 
 .PHONY: clean
 clean:
-	@rm -rf .venv/ .coverage .mypy_cache htmlcov/ htmltypecov src/conduit.egg-info typecov xunit.xml \
-			.git/hooks/pre-commit .git/hooks/pre-push
+	@rm -rf .venv/ .coverage .mypy_cache htmlcov/ htmltypecov \
+		src/conduit.egg-info typecov xunit.xml \
+		.git/hooks/pre-commit .git/hooks/pre-push
 	@rm -f .installed

@@ -1,75 +1,82 @@
+minimum_pre_commit_version: 1.17.0
+default_stages: [commit,push]
+repos:
+
 -   repo: local
     hooks:
-    -   id: isort
-        name: isort
-        entry: poetry run isort -rc --atomic src/conduit
-        language: system
-        types: [python]
 
-    -   id: flake8
-        name: Flake8
-        entry: poetry run flake8
-        language: system
-        types: [python]
+        -   id: isort
+            name: isort
+            description: A Python utility that sorts imports alphabetically
+            entry: poetry run isort -rc --atomic
+            language: system
+            types: [python]
 
-    -   id: black
-        name: black
-        entry: poetry run black
-        language: system
-        types: [python]
+        -   id: flake8
+            name: Flake8
+            description: Python Style Guide Enforcement
+            entry: poetry run flake8
+            language: system
+            types: [python]
 
-    -   id: trailing-whitespace
-        name: Trim Trailing Space
-        entry: poetry run trailing-whitespace-fixer
-        language: system
-        types: [non-executable, file, text]
-        exclude_types: [svg]
+        -   id: black
+            name: Black
+            description: Uncompromising Python code formatter
+            entry: poetry run black
+            language: system
+            types: [python]
 
-    -   id: end-of-file-fixer
-        name: Fix End of Files
-        description: Ensures that a file is either empty, or ends with one newline.
-        entry: poetry run end-of-file-fixer
-        language: system
-        types: [non-executable, file, text]
-        exclude_types: [svg]
+        -   id: trailing-whitespace
+            name: Trailing Whitespace
+            entry: poetry run trailing-whitespace-fixer
+            language: system
+            types: [non-executable, file, text]
+            exclude_types: [svg]
 
-    -   id: check-merge-conflict
-        name: Check for merge conflicts
-        description: Check for files that contain merge conflict strings.
-        entry: poetry run check-merge-conflict
-        language: system
-        stages: [push]
+        -   id: end-of-file-fixer
+            name: End of Files
+            description: Ensures that a file is either empty, or ends with one newline.
+            entry: poetry run end-of-file-fixer
+            language: system
+            types: [non-executable, file, text]
+            exclude_types: [svg]
 
-    -   id: codespell
-        name: Check Spelling
-        description: Checks for common misspellings in text files.
-        entry: poetry run codespell --ignore-words .aspell.en.pws
-        language: system
-        types: [non-executable, file, text]
-        exclude_types: [svg]
-        exclude: 'elm\.js'
-        stages: [push]
+        -   id: check-merge-conflict
+            name: Merge Conflicts
+            description: Check for files that contain merge conflict strings.
+            entry: poetry run check-merge-conflict
+            language: system
+            types: [non-executable, file, text]
+            exclude_types: [svg]
 
-    -   id: debug-statements
-        name: Check Debug Statements Absent (Python)
-        description: Checks that debug statements (pdb, ipdb, pudb) are not imported on commit.
-        entry: poetry run debug-statement-hook
-        language: system
-        types: [python]
-        stages: [push]
+        -   id: codespell
+            name: Spelling
+            description: Checks for common misspellings in text files.
+            entry: poetry run codespell --ignore-words .aspell.en.pws
+            language: system
+            types: [non-executable, file, text]
+            exclude: 'elm\.js'
+            exclude_types: [svg]
 
-    -   id: no-orm-alembic
-        name: Check that ORM is not used in alembic migrations
-        args: []
-        entry: bash -c 'grep -ir "from sqlalchemy import orm" src/conduit/migrations/versions; test $? -eq 1'
-        files: '(^.*src/conduit/migrations/versions/.*)'
-        language: system
-        stages: [commit]
+        -   id: debug-statements
+            name: Debug Statements
+            description: Checks that debug statements (pdb, ipdb, pudb) are not imported on commit.
+            entry: poetry run debug-statement-hook
+            language: system
+            types: [python]
+            stages: [push]
 
-    -   id: bandit
-        name: Check for common security issues
-        args: []
-        entry: poetry run bandit -r src/conduit/ --skip B608 -x *tests*,src/conduit/scripts/populate.py
-        language: system
-        pass_filenames: false
-        stages: [push]
+        -   id: no-orm-alembic
+            name: No ORM in Alembic
+            description: Check that ORM is not used in Alembic migrations
+            entry: bash -c 'grep -ir "from sqlalchemy import orm" "$@"; test $? -eq 1' --
+            language: system
+            files: ^src/conduit/migrations/versions/.*
+            types: [python]
+
+        -   id: bandit
+            name: Bandit
+            description: Check for common security issues
+            entry: poetry run bandit -ii --silent --config bandit.yaml --exclude *tests*
+            language: system
+            types: [python]
