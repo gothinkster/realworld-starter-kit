@@ -64,7 +64,6 @@ repos:
             entry: poetry run debug-statement-hook
             language: system
             types: [python]
-            stages: [push]
 
         -   id: no-orm-alembic
             name: No ORM in Alembic
