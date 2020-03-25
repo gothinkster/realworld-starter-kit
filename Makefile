@@ -81,7 +81,7 @@ ifeq ($(all),true)
 	@poetry run pre-commit run --hook-stage push --all-files
 else
 	@{ git diff --name-only ./; git diff --name-only --staged ./;git ls-files --other --exclude-standard; } \
-		| sort | uniq | xargs poetry run pre-commit run --hook-stage push --files
+		| sort -u | uniq | xargs poetry run pre-commit run --hook-stage push --files
 endif
 
 .PHONY: types
