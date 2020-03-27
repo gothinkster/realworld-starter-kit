@@ -39,6 +39,7 @@ executors:
       POSTGRES_DB: postgres
       POSTGRES_PASSWORD: ""
       NIX_BUILD_SHELL: "bash"
+      ENTRYPOINT: "/app/docker-entrypoints/test.sh"
 
 jobs:
 
@@ -54,10 +55,21 @@ jobs:
 
       - checkout
 
+      - restore_cache:
+          keys:
+            - nix-deps-v1-{{ checksum "shell.nix" }}
+            - nix-deps-v1-
+
+      - restore_cache:
+          name: "Restoring Cache - Python"
+          keys:
+            - backend-deps-v3-{{ checksum "poetry.lock" }}
+            - backend-deps-v3-
+
       - run:
           name: Build nix shell
           command: |
-            nix-shell --pure --run "python --version"
+            $ENTRYPOINT python --version
 
       - save_cache:
           key: nix-deps-v1-{{ checksum "shell.nix" }}
@@ -76,7 +88,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            nix-shell --pure --run "poetry install"
+            $ENTRYPOINT poetry install
 
       - save_cache:
           key: backend-deps-v3-{{ checksum "poetry.lock" }}
@@ -109,14 +121,14 @@ jobs:
       - run:
           name: Run Linters
           command: |
-            nix-shell --pure --run "poetry run pre-commit install -f --hook-type pre-commit"
-            nix-shell --pure --run "poetry run pre-commit install -f --hook-type pre-push"
-            nix-shell --pure --run "make lint all=true"
+            $ENTRYPOINT pre-commit install -f --hook-type pre-commit
+            $ENTRYPOINT pre-commit install -f --hook-type pre-push
+            $ENTRYPOINT make lint all=true
 
       - run:
           name: run mypy
           command: |
-            nix-shell --pure --run "make types"
+            $ENTRYPOINT make types
 
 
   Backend Test:
@@ -147,7 +159,7 @@ jobs:
           command: |
             for i in `seq 1 10`;
             do
-              nix-shell --pure --run "nc -z localhost 5432" && echo Success && exit 0
+              $ENTRYPOINT nc -z localhost 5432 && echo Success && exit
               echo -n .
               sleep 1
             done
@@ -157,21 +169,22 @@ jobs:
           name: Create testing db
           # TODO: add --pure? but then PGHOST is missing
           command: |
-            nix-shell --run ".docker/devdb.sh && .docker/testdb.sh"
+            $ENTRYPOINT .docker/devdb.sh
+            $ENTRYPOINT .docker/testdb.sh
 
       - run:
           name: Test development.ini
           command: |
-            nix-shell --run ".docker/devdb.sh"
-            nix-shell --pure --run "poetry run pshell etc/development.ini SKIP_CHECK_DB_MIGRATED=1 < .circleci/exit.sh"
+            $ENTRYPOINT .docker/devdb.sh
+            $ENTRYPOINT pshell etc/development.ini SKIP_CHECK_DB_MIGRATED=1 < .circleci/exit.sh
 
       - run:
           name: Checking consistency between alembic revision and conduit models
           command: |
-            nix-shell --pure --run "make devdb"
+            $ENTRYPOINT make devdb
             # As of now, the word count in an empty migration script is: 84
             EXPECTED_WORD_COUNT=84
-            PRESENT_WORD_COUNT=$(cat $(nix-shell --pure --run "poetry run alembic -c etc/alembic.ini -x ini=etc/development.ini revision --autogenerate -m 'Test Consistency'" | cut -d' ' -f2) | wc -w)
+            PRESENT_WORD_COUNT="$(cat $($ENTRYPOINT alembic -c etc/alembic.ini -x ini=etc/development.ini revision --autogenerate -m 'Test Consistency' | cut -d ' ' -f2) | wc -w)"
             if [ $EXPECTED_WORD_COUNT != $PRESENT_WORD_COUNT ]; then
               echo "You probably forgot to generate and commit DB migration...!"
               false
@@ -180,12 +193,12 @@ jobs:
       - run:
           name: Test production.ini
           command: |
-            nix-shell --pure --run "JWT_SECRET=secret DATABASE_URL=postgresql://conduit_dev@localhost/conduit_dev poetry run pshell etc/production.ini SKIP_CHECK_DB_MIGRATED=1 < .circleci/exit.sh"
+            /app/docker-entrypoints/run.sh env JWT_SECRET=secret DATABASE_URL=postgresql://conduit_dev@localhost/conduit_dev pshell etc/production.ini SKIP_CHECK_DB_MIGRATED=1 < .circleci/exit.sh
 
       - run:
           name: Run unit tests
           command: |
-            nix-shell --pure --run "make unit"
+            $ENTRYPOINT make unit
 
 
   ######################################
@@ -219,7 +232,7 @@ jobs:
           command: |
             for i in `seq 1 10`;
             do
-              nix-shell --pure --run "nc -z localhost 5432" && echo Success && exit 0
+              $ENTRYPOINT nc -z localhost 5432 && echo Success && exit
               echo -n .
               sleep 1
             done
@@ -229,7 +242,7 @@ jobs:
           name: Run the tests
           # TODO: add --pure? but then PGHOST is missing
           command: |
-            nix-shell --run ".docker/devdb.sh"
-            nix-shell --run "make devdb"
-            nix-shell --run "poetry run pserve etc/development.ini &"
-            nix-shell --run "make postman-tests"
+            $ENTRYPOINT .docker/devdb.sh
+            $ENTRYPOINT make devdb
+            $ENTRYPOINT pserve etc/development.ini &
+            $ENTRYPOINT make postman-tests
