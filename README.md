@@ -75,8 +75,3 @@ The Online Examples contain all 3 different versions:
   Webpack based build, not minified. Includes source maps
 3. <a href="https://neomjs.github.io/pages/node_modules/neo.mjs/apps/realworld/index.html">development mode</a></br>
   Requires Chrome 80+, no Javascript build at all
-  
-4. <a href="http://localhost:63342/neomjs-realworld-example-app/dist/production/apps/realworld/index.html?_ijt=5n475gpd2m6lbn06mtsbb4a31b">prod mode</a></br>
-  todo: remove, just for testing
-5. <a href="http://localhost:63342/neomjs-realworld-example-app/apps/realworld/index.html?_ijt=5n475gpd2m6lbn06mtsbb4a31b">development mode</a></br>
-  todo: remove, just for testing  

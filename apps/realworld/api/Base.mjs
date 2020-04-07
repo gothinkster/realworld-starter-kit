@@ -35,28 +35,57 @@ class Base extends CoreBase {
         resource: '/'
     }}
 
+    /**
+     *
+     */
     onConstructed() {
         super.onConstructed();
+        this.onAfterConstructed();
+    }
 
+    /**
+     * todo: this construct is just a workaround until webpack based builds are changed to the worker target
+     * and lazy loading apps is supported in dist/*
+     */
+    onAfterConstructed() {
+        const me = this;
+
+        if (!Neo.apps || !Neo.apps['RealWorld']) {
+            setTimeout(() => {
+                me.onAfterConstructed();
+            }, 200);
+        } else {
+            if (Neo.apps['RealWorld'].rendered) {
+                me.onAppRendered();
+            } else {
+                Neo.apps['RealWorld'].on('render',me.onAppRendered, me);
+            }
+        }
+    }
+
+    /**
+     *
+     */
+    onAppRendered() {
         const me = this;
 
         if (!Base.initialTokenRequestSent) {
             Base.initialTokenRequestSent = true;
 
-            setTimeout(() => {
-                Neo.Main.readLocalStorageItem({
-                    key: LOCAL_STORAGE_KEY
-                }).then(data => {
-                    const token = data.value;
+            console.log(Neo.apps['RealWorld'].rendered);
 
-                    if (token) {
-                        Base.token = token;
-                    }
+            Neo.Main.readLocalStorageItem({
+                key: LOCAL_STORAGE_KEY
+            }).then(data => {
+                const token = data.value;
 
-                    me.onReady(token);
-                    Base.fire('ready', token);
-                });
-            }, Neo.config.isExperimental ? 0 : 200);
+                if (token) {
+                    Base.token = token;
+                }
+
+                me.onReady(token);
+                Base.fire('ready', token);
+            });
         } else {
             Base.on({
                 ready: me.onReady,
