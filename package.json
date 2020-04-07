@@ -8,8 +8,8 @@
     },
     "scripts": {
         "server-start": "webpack-dev-server --open",
-        "dev-build-my-apps": "webpack --config ./buildScripts/webpack/development/webpack.config.myapps.js",
-        "prod-build-my-apps": "webpack --config ./buildScripts/webpack/production/webpack.config.myapps.js",
+        "dev-build-my-apps": "webpack --config ./node_modules/neo.mjs/buildScripts/webpack/development/webpack.config.myapps.js --env.build_all=true",
+        "prod-build-my-apps": "webpack --config ./node_modules/neo.mjs/buildScripts/webpack/production/webpack.config.myapps.js --env.build_all=true",
         "generate-docs-json": "node ./node_modules/neo.mjs/buildScripts/docs/jsdocx.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
