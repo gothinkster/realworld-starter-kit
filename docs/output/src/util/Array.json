@@ -6,7 +6,7 @@
                 "filename": "Array.mjs",
                 "lineno": 3,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
             },
             "kind": "class",
@@ -19,22 +19,47 @@
             "scope": "static",
             "$longname": "Neo.util.Array",
             "$kind": "class",
-            "id": 1746,
+            "id": 1855,
+            "neoClassName": "Neo.util.Array"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.util.Array'\n         * @private\n         */",
+            "meta": {
+                "filename": "Array.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.util.Array'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1856,
             "neoClassName": "Neo.util.Array"
         },
         {
             "comment": "/**\n     * Adds an item or Array of items to an array in case it does not already exist.\n     * Only primitive items will get found as duplicates\n     * @param {Array} arr\n     * @param {*} items\n     */",
             "meta": {
                 "range": [
-                    466,
-                    702
+                    515,
+                    751
                 ],
                 "filename": "Array.mjs",
-                "lineno": 19,
+                "lineno": 22,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100056134",
+                    "id": "astnode100059168",
                     "name": "NeoArray.add",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -72,22 +97,22 @@
             "scope": "static",
             "$longname": "NeoArray.add",
             "$kind": "method",
-            "id": 1747,
+            "id": 1857,
             "neoClassName": "Neo.util.Array"
         },
         {
             "comment": "/**\n     * Returns an array of items which are present in array1, but not in array2\n     * @param {Array} array1=[]\n     * @param {Array} array2=[]\n     * @returns {Array}\n     */",
             "meta": {
                 "range": [
-                    892,
-                    1001
+                    941,
+                    1050
                 ],
                 "filename": "Array.mjs",
-                "lineno": 37,
+                "lineno": 40,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100056175",
+                    "id": "astnode100059209",
                     "name": "NeoArray.difference",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -136,22 +161,22 @@
             "scope": "static",
             "$longname": "NeoArray.difference",
             "$kind": "method",
-            "id": 1748,
+            "id": 1858,
             "neoClassName": "Neo.util.Array"
         },
         {
             "comment": "/**\n     * Checks if the index of item is > -1\n     * @param {Array} arr\n     * @param {*} item\n     */",
             "meta": {
                 "range": [
-                    1115,
-                    1183
+                    1164,
+                    1232
                 ],
                 "filename": "Array.mjs",
-                "lineno": 46,
+                "lineno": 49,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100056198",
+                    "id": "astnode100059232",
                     "name": "NeoArray.hasItem",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -189,22 +214,22 @@
             "scope": "static",
             "$longname": "NeoArray.hasItem",
             "$kind": "method",
-            "id": 1749,
+            "id": 1859,
             "neoClassName": "Neo.util.Array"
         },
         {
             "comment": "/**\n     * Returns an array of items which are present in array1 and array2\n     * Only supports primitive items\n     * @param {Array} array1=[]\n     * @param {Array} array2=[]\n     * @returns {Array}\n     */",
             "meta": {
                 "range": [
-                    1402,
-                    1512
+                    1451,
+                    1561
                 ],
                 "filename": "Array.mjs",
-                "lineno": 57,
+                "lineno": 60,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100056210",
+                    "id": "astnode100059244",
                     "name": "NeoArray.intersection",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -253,22 +278,22 @@
             "scope": "static",
             "$longname": "NeoArray.intersection",
             "$kind": "method",
-            "id": 1750,
+            "id": 1860,
             "neoClassName": "Neo.util.Array"
         },
         {
             "comment": "/**\n     * Returns true if all items of array1 are present in array 2\n     * Supports Arrays containing Objects, not Arrays containing Arrays\n     * @param {Array} array1=[]\n     * @param {Array} array2=[]\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    1762,
-                    2601
+                    1811,
+                    2650
                 ],
                 "filename": "Array.mjs",
-                "lineno": 68,
+                "lineno": 71,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100056232",
+                    "id": "astnode100059266",
                     "name": "NeoArray.isEqual",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -317,22 +342,22 @@
             "scope": "static",
             "$longname": "NeoArray.isEqual",
             "$kind": "method",
-            "id": 1751,
+            "id": 1861,
             "neoClassName": "Neo.util.Array"
         },
         {
             "comment": "/**\n     * Moves an item inside arr from fromIndex to toIndex\n     * @param {Array} arr\n     * @param {Number} fromIndex\n     * @param {Number} toIndex\n     */",
             "meta": {
                 "range": [
-                    2771,
-                    3058
+                    2820,
+                    3107
                 ],
                 "filename": "Array.mjs",
-                "lineno": 107,
+                "lineno": 110,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100056348",
+                    "id": "astnode100059382",
                     "name": "NeoArray.move",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -379,22 +404,22 @@
             "scope": "static",
             "$longname": "NeoArray.move",
             "$kind": "method",
-            "id": 1752,
+            "id": 1862,
             "neoClassName": "Neo.util.Array"
         },
         {
             "comment": "/**\n     * Removes an item or array of items from an array. Only primitive items will get found\n     * @param {Array} arr\n     * @param {*} items\n     */",
             "meta": {
                 "range": [
-                    3222,
-                    3518
+                    3271,
+                    3567
                 ],
                 "filename": "Array.mjs",
-                "lineno": 125,
+                "lineno": 128,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100056394",
+                    "id": "astnode100059428",
                     "name": "NeoArray.remove",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -432,22 +457,22 @@
             "scope": "static",
             "$longname": "NeoArray.remove",
             "$kind": "method",
-            "id": 1753,
+            "id": 1863,
             "neoClassName": "Neo.util.Array"
         },
         {
             "comment": "/**\n     * Removes an item from an array in case it does  exist, otherwise adds it\n     * @param {Array} arr\n     * @param {*} item\n     */",
             "meta": {
                 "range": [
-                    3668,
-                    3835
+                    3717,
+                    3884
                 ],
                 "filename": "Array.mjs",
-                "lineno": 146,
+                "lineno": 149,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100056445",
+                    "id": "astnode100059479",
                     "name": "NeoArray.toggle",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -485,22 +510,22 @@
             "scope": "static",
             "$longname": "NeoArray.toggle",
             "$kind": "method",
-            "id": 1754,
+            "id": 1864,
             "neoClassName": "Neo.util.Array"
         },
         {
             "comment": "/**\n     * Returns an array of items which are present in array1 and array2\n     * Only supports primitive items\n     * @param {Array} array1\n     * @param {Array} array2\n     * @returns {Array}\n     */",
             "meta": {
                 "range": [
-                    4048,
-                    4442
+                    4097,
+                    4491
                 ],
                 "filename": "Array.mjs",
-                "lineno": 161,
+                "lineno": 164,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100056474",
+                    "id": "astnode100059508",
                     "name": "NeoArray.union",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -547,22 +572,22 @@
             "scope": "static",
             "$longname": "NeoArray.union",
             "$kind": "method",
-            "id": 1755,
+            "id": 1865,
             "neoClassName": "Neo.util.Array"
         },
         {
             "comment": "/**\n     * Adds an item or Array of items to an array in case it does not already exist.\n     * Only primitive items will get found as duplicates\n     * @param {Array} arr\n     * @param {*} items\n     */",
             "meta": {
                 "range": [
-                    4656,
-                    4899
+                    4705,
+                    4948
                 ],
                 "filename": "Array.mjs",
-                "lineno": 186,
+                "lineno": 189,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100056531",
+                    "id": "astnode100059565",
                     "name": "NeoArray.unshift",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -600,7 +625,7 @@
             "scope": "static",
             "$longname": "NeoArray.unshift",
             "$kind": "method",
-            "id": 1756,
+            "id": 1866,
             "neoClassName": "Neo.util.Array"
         }
     ]

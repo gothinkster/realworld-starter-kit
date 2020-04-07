@@ -6,7 +6,7 @@
                 "filename": "ClassSystem.mjs",
                 "lineno": 3,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
             },
             "kind": "class",
@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.util.ClassSystem",
             "$kind": "class",
-            "id": 1757,
+            "id": 1867,
             "neoClassName": "Neo.util.ClassSystem"
         },
         {
@@ -28,7 +28,7 @@
                 "filename": "ClassSystem.mjs",
                 "lineno": 13,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
             },
             "kind": "member",
@@ -44,22 +44,22 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1758,
+            "id": 1868,
             "neoClassName": "Neo.util.ClassSystem"
         },
         {
-            "comment": "/**\n     * can get used inside beforeSet methods in case you want to create instances like stores,\n     * @param {Object|Neo.core.Base|null} config\n     * @param {Neo.core.Base} [DefaultClass=null]\n     * @param {Object} [defaultValues={}]\n     * @returns {Neo.core.Base} instance\n     */",
+            "comment": "/**\n     * can get used inside beforeSet methods in case you want to create instances like stores\n     * @param {Object|Neo.core.Base|null} config\n     * @param {Neo.core.Base} [DefaultClass=null]\n     * @param {Object} [defaultValues={}]\n     * @returns {Neo.core.Base} instance\n     */",
             "meta": {
                 "range": [
-                    621,
-                    1491
+                    620,
+                    1479
                 ],
                 "filename": "ClassSystem.mjs",
                 "lineno": 23,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100056598",
+                    "id": "astnode100059632",
                     "name": "ClassSystem.beforeSetInstance",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -72,7 +72,7 @@
                     "": null
                 }
             },
-            "description": "can get used inside beforeSet methods in case you want to create instances like stores,",
+            "description": "can get used inside beforeSet methods in case you want to create instances like stores",
             "params": [
                 {
                     "type": {
@@ -122,7 +122,7 @@
             "scope": "static",
             "$longname": "ClassSystem.beforeSetInstance",
             "$kind": "method",
-            "id": 1759,
+            "id": 1869,
             "neoClassName": "Neo.util.ClassSystem"
         }
     ]

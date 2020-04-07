@@ -1,0 +1,92 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * Required for the online version of the examples & docs app\n * @class Neo.main.mixins.GoogleAnalytics\n * @extends Neo.core.Base\n * @singleton\n */",
+            "meta": {
+                "filename": "GoogleAnalytics.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixins",
+                "code": {}
+            },
+            "description": "Required for the online version of the examples & docs app",
+            "kind": "class",
+            "name": "GoogleAnalytics",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "tags": [
+                {
+                    "originalTitle": "singleton",
+                    "title": "singleton",
+                    "text": ""
+                }
+            ],
+            "memberof": "Neo.main.mixins",
+            "longname": "Neo.main.mixins.GoogleAnalytics",
+            "scope": "static",
+            "$longname": "Neo.main.mixins.GoogleAnalytics",
+            "$kind": "class",
+            "id": 1402,
+            "neoClassName": "Neo.main.mixins.GoogleAnalytics"
+        },
+        {
+            "comment": "/**\n             * @member {String} className='Neo.main.mixins.GoogleAnalytics'\n             * @private\n             */",
+            "meta": {
+                "filename": "GoogleAnalytics.mjs",
+                "lineno": 16,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixins",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.main.mixins.GoogleAnalytics'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1403,
+            "neoClassName": "Neo.main.mixins.GoogleAnalytics"
+        },
+        {
+            "comment": "/**\n     *\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    521,
+                    1012
+                ],
+                "filename": "GoogleAnalytics.mjs",
+                "lineno": 24,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixins",
+                "code": {
+                    "id": "astnode100042712",
+                    "name": "GoogleAnalytics#insertGoogleAnalyticsScript",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "access": "private",
+            "name": "insertGoogleAnalyticsScript",
+            "longname": "GoogleAnalytics#insertGoogleAnalyticsScript",
+            "kind": "function",
+            "memberof": "GoogleAnalytics",
+            "scope": "instance",
+            "params": [],
+            "$longname": "GoogleAnalytics#insertGoogleAnalyticsScript",
+            "$kind": "method",
+            "id": 1404,
+            "neoClassName": "Neo.main.mixins.GoogleAnalytics"
+        }
+    ]
+}

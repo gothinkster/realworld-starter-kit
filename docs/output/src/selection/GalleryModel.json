@@ -6,7 +6,7 @@
                 "filename": "GalleryModel.mjs",
                 "lineno": 4,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/selection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {}
             },
             "description": "A selection model intended to use for Neo.component.Gallery",
@@ -20,7 +20,7 @@
             "scope": "static",
             "$longname": "Neo.selection.GalleryModel",
             "$kind": "class",
-            "id": 1431,
+            "id": 1534,
             "neoClassName": "Neo.selection.GalleryModel"
         },
         {
@@ -29,7 +29,7 @@
                 "filename": "GalleryModel.mjs",
                 "lineno": 15,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/selection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {}
             },
             "kind": "member",
@@ -45,7 +45,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1432,
+            "id": 1535,
             "neoClassName": "Neo.selection.GalleryModel"
         },
         {
@@ -54,7 +54,7 @@
                 "filename": "GalleryModel.mjs",
                 "lineno": 20,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/selection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {}
             },
             "kind": "member",
@@ -70,7 +70,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1433,
+            "id": 1536,
             "neoClassName": "Neo.selection.GalleryModel"
         },
         {
@@ -79,7 +79,7 @@
                 "filename": "GalleryModel.mjs",
                 "lineno": 26,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/selection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {}
             },
             "description": "True to stay in the same column when navigating with the up and down keys,<br />otherwise you will navigate to the next / prev column when moving out",
@@ -95,22 +95,22 @@
             "scope": "global",
             "$longname": "stayInRow",
             "$kind": "property",
-            "id": 1434,
+            "id": 1537,
             "neoClassName": "Neo.selection.GalleryModel"
         },
         {
-            "comment": "/**\n     *\n     */",
+            "comment": "/**\n     * Override to not apply a domListener\n     */",
             "meta": {
                 "range": [
-                    887,
-                    906
+                    923,
+                    942
                 ],
                 "filename": "GalleryModel.mjs",
                 "lineno": 32,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/selection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100046525",
+                    "id": "astnode100049071",
                     "name": "GalleryModel#addDomListener",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -119,6 +119,7 @@
                     "": null
                 }
             },
+            "description": "Override to not apply a domListener",
             "name": "addDomListener",
             "longname": "GalleryModel#addDomListener",
             "kind": "function",
@@ -127,22 +128,22 @@
             "params": [],
             "$longname": "GalleryModel#addDomListener",
             "$kind": "method",
-            "id": 1435,
+            "id": 1538,
             "neoClassName": "Neo.selection.GalleryModel"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    935,
-                    1597
+                    971,
+                    1633
                 ],
                 "filename": "GalleryModel.mjs",
                 "lineno": 37,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/selection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100046529",
+                    "id": "astnode100049075",
                     "name": "GalleryModel#onContainerClick",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -159,22 +160,22 @@
             "params": [],
             "$longname": "GalleryModel#onContainerClick",
             "$kind": "method",
-            "id": 1436,
+            "id": 1539,
             "neoClassName": "Neo.selection.GalleryModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    1654,
-                    1737
+                    1690,
+                    2162
                 ],
                 "filename": "GalleryModel.mjs",
                 "lineno": 67,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/selection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100046622",
+                    "id": "astnode100049168",
                     "name": "GalleryModel#onItemClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -202,22 +203,22 @@
             "scope": "instance",
             "$longname": "GalleryModel#onItemClick",
             "$kind": "method",
-            "id": 1437,
+            "id": 1540,
             "neoClassName": "Neo.selection.GalleryModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    1794,
-                    1895
+                    2219,
+                    2320
                 ],
                 "filename": "GalleryModel.mjs",
-                "lineno": 75,
+                "lineno": 91,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/selection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100046643",
+                    "id": "astnode100049247",
                     "name": "GalleryModel#onKeyDownDown",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -245,22 +246,22 @@
             "scope": "instance",
             "$longname": "GalleryModel#onKeyDownDown",
             "$kind": "method",
-            "id": 1438,
+            "id": 1541,
             "neoClassName": "Neo.selection.GalleryModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    1952,
-                    2054
+                    2377,
+                    2479
                 ],
                 "filename": "GalleryModel.mjs",
-                "lineno": 83,
+                "lineno": 99,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/selection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100046661",
+                    "id": "astnode100049265",
                     "name": "GalleryModel#onKeyDownLeft",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -288,22 +289,22 @@
             "scope": "instance",
             "$longname": "GalleryModel#onKeyDownLeft",
             "$kind": "method",
-            "id": 1439,
+            "id": 1542,
             "neoClassName": "Neo.selection.GalleryModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    2111,
-                    2213
+                    2536,
+                    2638
                 ],
                 "filename": "GalleryModel.mjs",
-                "lineno": 91,
+                "lineno": 107,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/selection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100046680",
+                    "id": "astnode100049284",
                     "name": "GalleryModel#onKeyDownRight",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -331,22 +332,22 @@
             "scope": "instance",
             "$longname": "GalleryModel#onKeyDownRight",
             "$kind": "method",
-            "id": 1440,
+            "id": 1543,
             "neoClassName": "Neo.selection.GalleryModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    2270,
-                    2370
+                    2695,
+                    2795
                 ],
                 "filename": "GalleryModel.mjs",
-                "lineno": 99,
+                "lineno": 115,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/selection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100046698",
+                    "id": "astnode100049302",
                     "name": "GalleryModel#onKeyDownUp",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -374,22 +375,22 @@
             "scope": "instance",
             "$longname": "GalleryModel#onKeyDownUp",
             "$kind": "method",
-            "id": 1441,
+            "id": 1544,
             "neoClassName": "Neo.selection.GalleryModel"
         },
         {
-            "comment": "/**\n     *\n     * @param {Number} step\n     */",
+            "comment": "/**\n     *\n     * @param {Number} step=1\n     */",
             "meta": {
                 "range": [
-                    2427,
-                    3005
+                    2854,
+                    3527
                 ],
                 "filename": "GalleryModel.mjs",
-                "lineno": 107,
+                "lineno": 123,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/selection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100046717",
+                    "id": "astnode100049321",
                     "name": "GalleryModel#onNavKeyColumn",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -407,6 +408,7 @@
                             "Number"
                         ]
                     },
+                    "defaultvalue": 1,
                     "name": "step"
                 }
             ],
@@ -417,22 +419,22 @@
             "scope": "instance",
             "$longname": "GalleryModel#onNavKeyColumn",
             "$kind": "method",
-            "id": 1442,
+            "id": 1545,
             "neoClassName": "Neo.selection.GalleryModel"
         },
         {
-            "comment": "/**\n     *\n     * @param {Number} step\n     */",
+            "comment": "/**\n     *\n     * @param {Number} step=1\n     */",
             "meta": {
                 "range": [
-                    3062,
-                    4130
+                    3586,
+                    4763
                 ],
                 "filename": "GalleryModel.mjs",
-                "lineno": 136,
+                "lineno": 156,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/selection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100046805",
+                    "id": "astnode100049424",
                     "name": "GalleryModel#onNavKeyRow",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -450,6 +452,7 @@
                             "Number"
                         ]
                     },
+                    "defaultvalue": 1,
                     "name": "step"
                 }
             ],
@@ -460,22 +463,22 @@
             "scope": "instance",
             "$longname": "GalleryModel#onNavKeyRow",
             "$kind": "method",
-            "id": 1443,
+            "id": 1546,
             "neoClassName": "Neo.selection.GalleryModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Neo.component.Base} component\n     */",
             "meta": {
                 "range": [
-                    4204,
-                    4845
+                    4837,
+                    5478
                 ],
                 "filename": "GalleryModel.mjs",
-                "lineno": 181,
+                "lineno": 207,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/selection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100046949",
+                    "id": "astnode100049585",
                     "name": "GalleryModel#register",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -503,26 +506,27 @@
             "scope": "instance",
             "$longname": "GalleryModel#register",
             "$kind": "method",
-            "id": 1444,
+            "id": 1547,
             "neoClassName": "Neo.selection.GalleryModel"
         },
         {
-            "comment": "/**\n     *\n     * @param {String} itemId\n     */",
+            "comment": "/**\n     *\n     * @param {String} itemId\n     * @param {Boolean} [toggleSelection=true]\n     */",
             "meta": {
                 "range": [
-                    4904,
-                    6126
+                    5584,
+                    6879
                 ],
                 "filename": "GalleryModel.mjs",
-                "lineno": 208,
+                "lineno": 235,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/selection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100047032",
+                    "id": "astnode100049668",
                     "name": "GalleryModel#select",
                     "type": "MethodDefinition",
                     "paramnames": [
-                        "itemId"
+                        "itemId",
+                        "toggleSelection"
                     ]
                 },
                 "vars": {
@@ -537,6 +541,16 @@
                         ]
                     },
                     "name": "itemId"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": true,
+                    "name": "toggleSelection"
                 }
             ],
             "name": "select",
@@ -546,22 +560,22 @@
             "scope": "instance",
             "$longname": "GalleryModel#select",
             "$kind": "method",
-            "id": 1445,
+            "id": 1548,
             "neoClassName": "Neo.selection.GalleryModel"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    6155,
-                    6629
+                    6908,
+                    7382
                 ],
                 "filename": "GalleryModel.mjs",
-                "lineno": 253,
+                "lineno": 280,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/selection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100047188",
+                    "id": "astnode100049834",
                     "name": "GalleryModel#unregister",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -578,7 +592,7 @@
             "params": [],
             "$longname": "GalleryModel#unregister",
             "$kind": "method",
-            "id": 1446,
+            "id": 1549,
             "neoClassName": "Neo.selection.GalleryModel"
         }
     ]

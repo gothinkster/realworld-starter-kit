@@ -6,7 +6,7 @@
                 "filename": "RemoteMethodAccess.mjs",
                 "lineno": 3,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/worker/mixins",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker/mixins",
                 "code": {}
             },
             "kind": "class",
@@ -19,16 +19,16 @@
             "scope": "static",
             "$longname": "Neo.worker.mixins.RemoteMethodAccess",
             "$kind": "class",
-            "id": 1904,
+            "id": 2041,
             "neoClassName": "Neo.worker.mixins.RemoteMethodAccess"
         },
         {
-            "comment": "/**\n             * @member {String} className='Neo.worker.mixins.RemoteMethodAccess'\n             * @private\n             */",
+            "comment": "/**\n         * @member {String} className='Neo.worker.mixins.RemoteMethodAccess'\n         * @private\n         */",
             "meta": {
                 "filename": "RemoteMethodAccess.mjs",
-                "lineno": 14,
-                "columnno": 12,
-                "path": "/Users/Shared/github/neomjs/src/worker/mixins",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker/mixins",
                 "code": {}
             },
             "kind": "member",
@@ -44,16 +44,16 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1905,
+            "id": 2042,
             "neoClassName": "Neo.worker.mixins.RemoteMethodAccess"
         },
         {
-            "comment": "/**\n             * @member {String} ntype='mixin-remote-method-access'\n             * @private\n             */",
+            "comment": "/**\n         * @member {String} ntype='mixin-remote-method-access'\n         * @private\n         */",
             "meta": {
                 "filename": "RemoteMethodAccess.mjs",
-                "lineno": 19,
-                "columnno": 12,
-                "path": "/Users/Shared/github/neomjs/src/worker/mixins",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker/mixins",
                 "code": {}
             },
             "kind": "member",
@@ -69,16 +69,16 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1906,
+            "id": 2043,
             "neoClassName": "Neo.worker.mixins.RemoteMethodAccess"
         },
         {
-            "comment": "/**\n             * @member {Boolean} mixin=true\n             * @private\n             */",
+            "comment": "/**\n         * @member {Boolean} mixin=true\n         * @private\n         */",
             "meta": {
                 "filename": "RemoteMethodAccess.mjs",
-                "lineno": 24,
-                "columnno": 12,
-                "path": "/Users/Shared/github/neomjs/src/worker/mixins",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker/mixins",
                 "code": {}
             },
             "kind": "member",
@@ -94,22 +94,22 @@
             "scope": "global",
             "$longname": "mixin",
             "$kind": "property",
-            "id": 1907,
+            "id": 2044,
             "neoClassName": "Neo.worker.mixins.RemoteMethodAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} remote\n     * @param method\n     * @returns {function(*=, *=): Promise<any>}\n     */",
             "meta": {
                 "range": [
-                    844,
-                    1317
+                    766,
+                    1239
                 ],
                 "filename": "RemoteMethodAccess.mjs",
-                "lineno": 34,
+                "lineno": 32,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/worker/mixins",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker/mixins",
                 "code": {
-                    "id": "astnode100063780",
+                    "id": "astnode100066901",
                     "name": "RemoteMethodAccess#generateRemote",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -150,22 +150,22 @@
             "scope": "instance",
             "$longname": "RemoteMethodAccess#generateRemote",
             "$kind": "method",
-            "id": 1908,
+            "id": 2045,
             "neoClassName": "Neo.worker.mixins.RemoteMethodAccess"
         },
         {
-            "comment": "/**\n     *\n     * @param remote\n     */",
+            "comment": "/**\n     *\n     * @param {Object} remote\n     */",
             "meta": {
                 "range": [
-                    1367,
-                    2034
+                    1298,
+                    1965
                 ],
                 "filename": "RemoteMethodAccess.mjs",
-                "lineno": 54,
+                "lineno": 52,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/worker/mixins",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker/mixins",
                 "code": {
-                    "id": "astnode100063824",
+                    "id": "astnode100066945",
                     "name": "RemoteMethodAccess#onRegisterRemote",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -178,6 +178,11 @@
             },
             "params": [
                 {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
                     "name": "remote"
                 }
             ],
@@ -188,22 +193,22 @@
             "scope": "instance",
             "$longname": "RemoteMethodAccess#onRegisterRemote",
             "$kind": "method",
-            "id": 1909,
+            "id": 2046,
             "neoClassName": "Neo.worker.mixins.RemoteMethodAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} msg\n     */",
             "meta": {
                 "range": [
-                    2090,
-                    2934
+                    2021,
+                    2865
                 ],
                 "filename": "RemoteMethodAccess.mjs",
-                "lineno": 79,
+                "lineno": 77,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/worker/mixins",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker/mixins",
                 "code": {
-                    "id": "astnode100063908",
+                    "id": "astnode100067029",
                     "name": "RemoteMethodAccess#onRemoteMethod",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -231,22 +236,22 @@
             "scope": "instance",
             "$longname": "RemoteMethodAccess#onRemoteMethod",
             "$kind": "method",
-            "id": 1910,
+            "id": 2047,
             "neoClassName": "Neo.worker.mixins.RemoteMethodAccess"
         },
         {
             "comment": "/**\n     * Gets called when promiseMessage gets rejected\n     * @param {Object} msg\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    3064,
-                    3252
+                    2995,
+                    3183
                 ],
                 "filename": "RemoteMethodAccess.mjs",
-                "lineno": 117,
+                "lineno": 115,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/worker/mixins",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker/mixins",
                 "code": {
-                    "id": "astnode100064040",
+                    "id": "astnode100067161",
                     "name": "RemoteMethodAccess#reject",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -284,22 +289,22 @@
             "scope": "instance",
             "$longname": "RemoteMethodAccess#reject",
             "$kind": "method",
-            "id": 1911,
+            "id": 2048,
             "neoClassName": "Neo.worker.mixins.RemoteMethodAccess"
         },
         {
             "comment": "/**\n     * Gets called when promiseMessage gets resolved\n     * @param {Object} msg\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    3382,
-                    3544
+                    3313,
+                    3475
                 ],
                 "filename": "RemoteMethodAccess.mjs",
-                "lineno": 131,
+                "lineno": 129,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/worker/mixins",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker/mixins",
                 "code": {
-                    "id": "astnode100064065",
+                    "id": "astnode100067186",
                     "name": "RemoteMethodAccess#resolve",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -337,7 +342,7 @@
             "scope": "instance",
             "$longname": "RemoteMethodAccess#resolve",
             "$kind": "method",
-            "id": 1912,
+            "id": 2049,
             "neoClassName": "Neo.worker.mixins.RemoteMethodAccess"
         }
     ]

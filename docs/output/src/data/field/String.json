@@ -6,7 +6,7 @@
                 "filename": "String.mjs",
                 "lineno": 3,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/data/field",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
                 "code": {}
             },
             "kind": "class",
@@ -19,7 +19,147 @@
             "scope": "static",
             "$longname": "Neo.data.field.String",
             "$kind": "class",
-            "id": 636,
+            "id": 689,
+            "neoClassName": "Neo.data.field.String"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.data.field.String'\n         * @private\n         */",
+            "meta": {
+                "filename": "String.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.data.field.String'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 690,
+            "neoClassName": "Neo.data.field.String"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='data-field-string'\n         * @private\n         */",
+            "meta": {
+                "filename": "String.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'data-field-string'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 691,
+            "neoClassName": "Neo.data.field.String"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} defaultValue=''\n         */",
+            "meta": {
+                "filename": "String.mjs",
+                "lineno": 22,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "defaultValue",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": "''",
+            "longname": "defaultValue",
+            "scope": "global",
+            "$longname": "defaultValue",
+            "$kind": "property",
+            "id": 692,
+            "neoClassName": "Neo.data.field.String"
+        },
+        {
+            "comment": "/**\n     * Triggered before the value config gets changed.\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @returns {String}\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    752,
+                    1012
+                ],
+                "filename": "String.mjs",
+                "lineno": 32,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
+                "code": {
+                    "id": "astnode100024579",
+                    "name": "StringField#beforeSetValue",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the value config gets changed.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    }
+                }
+            ],
+            "access": "private",
+            "name": "beforeSetValue",
+            "longname": "StringField#beforeSetValue",
+            "kind": "function",
+            "memberof": "StringField",
+            "scope": "instance",
+            "$longname": "StringField#beforeSetValue",
+            "$kind": "method",
+            "id": 693,
             "neoClassName": "Neo.data.field.String"
         }
     ]

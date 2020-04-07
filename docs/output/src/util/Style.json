@@ -6,7 +6,7 @@
                 "filename": "Style.mjs",
                 "lineno": 3,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
             },
             "kind": "class",
@@ -19,22 +19,47 @@
             "scope": "static",
             "$longname": "Neo.util.Style",
             "$kind": "class",
-            "id": 1801,
+            "id": 1929,
+            "neoClassName": "Neo.util.Style"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.util.Style'\n         * @private\n         */",
+            "meta": {
+                "filename": "Style.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.util.Style'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1930,
             "neoClassName": "Neo.util.Style"
         },
         {
             "comment": "/**\n     * Creates an delta object, containing the styles of newStyle which are not included or different than in oldStyle\n     * Styles included in oldStyle but missing in newStyle will get a value of null\n     * see: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style\n     * @param {Object|String} newStyle\n     * @param {Object|String} oldStyle\n     * @returns {Object} style delta\n     */",
             "meta": {
                 "range": [
-                    668,
-                    1835
+                    717,
+                    1884
                 ],
                 "filename": "Style.mjs",
-                "lineno": 21,
+                "lineno": 24,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100058267",
+                    "id": "astnode100061345",
                     "name": "Style.compareStyles",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -84,7 +109,7 @@
             "scope": "static",
             "$longname": "Style.compareStyles",
             "$kind": "method",
-            "id": 1802,
+            "id": 1931,
             "neoClassName": "Neo.util.Style"
         }
     ]

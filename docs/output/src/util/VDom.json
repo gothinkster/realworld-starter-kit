@@ -6,7 +6,7 @@
                 "filename": "VDom.mjs",
                 "lineno": 3,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
             },
             "kind": "class",
@@ -19,22 +19,47 @@
             "scope": "static",
             "$longname": "Neo.util.VDom",
             "$kind": "class",
-            "id": 1803,
+            "id": 1932,
+            "neoClassName": "Neo.util.VDom"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.util.VDom'\n         * @private\n         */",
+            "meta": {
+                "filename": "VDom.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.util.VDom'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1933,
             "neoClassName": "Neo.util.VDom"
         },
         {
             "comment": "/**\n     * Search vdom child nodes by id or opts object for a given vdom tree\n     * @param {Object} vdom\n     * @param {Object|String} opts Either an object containing vdom node attributes or a string based id\n     * @param {Number} [index] Internal flag, do not use it\n     * @param {Object} [parentNode] Internal flag, do not use it\n     * @returns {Object}\n     *     {Number} index\n     *     {String} parentId\n     *     {Object} vdom\n     */",
             "meta": {
                 "range": [
-                    655,
-                    4135
+                    753,
+                    4233
                 ],
                 "filename": "VDom.mjs",
-                "lineno": 23,
+                "lineno": 27,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100058460",
+                    "id": "astnode100061538",
                     "name": "VDom.findVdomChild",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -106,22 +131,22 @@
             "scope": "static",
             "$longname": "VDom.findVdomChild",
             "$kind": "method",
-            "id": 1804,
+            "id": 1934,
             "neoClassName": "Neo.util.VDom"
         },
         {
             "comment": "/**\n     * Convenience shortcut for findVdomChild(vdom, {flag: flag});\n     * @param {Object} vdom\n     * @param {String} flag The flag reference specified on the target vdom child node\n     * @returns {Object} vdom\n     */",
             "meta": {
                 "range": [
-                    4369,
-                    4498
+                    4467,
+                    4596
                 ],
                 "filename": "VDom.mjs",
-                "lineno": 116,
+                "lineno": 120,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100058802",
+                    "id": "astnode100061880",
                     "name": "VDom.getByFlag",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -170,22 +195,22 @@
             "scope": "static",
             "$longname": "VDom.getByFlag",
             "$kind": "method",
-            "id": 1805,
+            "id": 1935,
             "neoClassName": "Neo.util.VDom"
         },
         {
             "comment": "/**\n     * Get the ids of all child nodes of the given vdom tree\n     * @param vdom\n     * @param [childIds=[]]\n     * @returns {Array} childIds\n     */",
             "meta": {
                 "range": [
-                    4661,
-                    4989
+                    4759,
+                    5087
                 ],
                 "filename": "VDom.mjs",
-                "lineno": 127,
+                "lineno": 131,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100058825",
+                    "id": "astnode100061903",
                     "name": "VDom.getChildIds",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -225,22 +250,144 @@
             "scope": "static",
             "$longname": "VDom.getChildIds",
             "$kind": "method",
-            "id": 1806,
+            "id": 1936,
+            "neoClassName": "Neo.util.VDom"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} vdom\n     * @param {Number} index\n     * @returns {Array}\n     */",
+            "meta": {
+                "range": [
+                    5197,
+                    5503
+                ],
+                "filename": "VDom.mjs",
+                "lineno": 151,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
+                "code": {
+                    "id": "astnode100061953",
+                    "name": "VDom.getColumnNodes",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "vdom",
+                        "index"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "vdom"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    }
+                }
+            ],
+            "name": "getColumnNodes",
+            "longname": "VDom.getColumnNodes",
+            "kind": "function",
+            "memberof": "VDom",
+            "scope": "static",
+            "$longname": "VDom.getColumnNodes",
+            "$kind": "method",
+            "id": 1937,
+            "neoClassName": "Neo.util.VDom"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} vdom\n     * @param {Number} index\n     * @returns {Array}\n     */",
+            "meta": {
+                "range": [
+                    5613,
+                    5722
+                ],
+                "filename": "VDom.mjs",
+                "lineno": 171,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
+                "code": {
+                    "id": "astnode100062001",
+                    "name": "VDom.getColumnNodesIds",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "vdom",
+                        "index"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "vdom"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    }
+                }
+            ],
+            "name": "getColumnNodesIds",
+            "longname": "VDom.getColumnNodesIds",
+            "kind": "function",
+            "memberof": "VDom",
+            "scope": "static",
+            "$longname": "VDom.getColumnNodesIds",
+            "$kind": "method",
+            "id": 1938,
             "neoClassName": "Neo.util.VDom"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} vdom\n     * @param {String} flag\n     * @param {Array} [matchArray]\n     * @return {Array} an array of vdom nodes which match the flag\n     */",
             "meta": {
                 "range": [
-                    5603,
-                    6113
+                    5909,
+                    6419
                 ],
                 "filename": "VDom.mjs",
-                "lineno": 166,
+                "lineno": 182,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100058944",
+                    "id": "astnode100062022",
                     "name": "VDom.getFlags",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -297,22 +444,22 @@
             "scope": "static",
             "$longname": "VDom.getFlags",
             "$kind": "method",
-            "id": 1807,
+            "id": 1939,
             "neoClassName": "Neo.util.VDom"
         },
         {
             "comment": "/**\n     * Insert a given nodeToInsert after a targetNode inside a given vdom tree\n     * @param {Object} vdom The vdom tree containing the targetNode\n     * @param {Object} nodeToInsert The new vdom to insert\n     * @param {Object|String} targetNodeId Either a vdom node or a vdom node id\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    6447,
-                    6584
+                    6753,
+                    6890
                 ],
                 "filename": "VDom.mjs",
-                "lineno": 195,
+                "lineno": 211,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100059015",
+                    "id": "astnode100062093",
                     "name": "VDom.insertAfterNode",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -372,22 +519,22 @@
             "scope": "static",
             "$longname": "VDom.insertAfterNode",
             "$kind": "method",
-            "id": 1808,
+            "id": 1940,
             "neoClassName": "Neo.util.VDom"
         },
         {
             "comment": "/**\n     * Insert a given nodeToInsert before a targetNode inside a given vdom tree\n     * @param {Object} vdom The vdom tree containing the targetNode\n     * @param {Object} nodeToInsert The new vdom to insert\n     * @param {Object|String} targetNodeId Either a vdom node or a vdom node id\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    6919,
-                    7056
+                    7225,
+                    7362
                 ],
                 "filename": "VDom.mjs",
-                "lineno": 206,
+                "lineno": 222,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100059031",
+                    "id": "astnode100062109",
                     "name": "VDom.insertBeforeNode",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -447,22 +594,22 @@
             "scope": "static",
             "$longname": "VDom.insertBeforeNode",
             "$kind": "method",
-            "id": 1809,
+            "id": 1941,
             "neoClassName": "Neo.util.VDom"
         },
         {
             "comment": "/**\n     * Insert a given nodeToInsert before a targetNode inside a given vdom tree\n     * @param {Object} vdom The vdom tree containing the targetNode\n     * @param {Object} nodeToInsert The new vdom to insert\n     * @param {Object|String} targetNodeId Either a vdom node or a vdom node id\n     * @param {Boolean} insertBefore true inserts the new node at the same index, index+1 otherwise\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    7491,
-                    7981
+                    7797,
+                    8287
                 ],
                 "filename": "VDom.mjs",
-                "lineno": 218,
+                "lineno": 234,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100059047",
+                    "id": "astnode100062125",
                     "name": "VDom.insertNode",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -532,22 +679,22 @@
             "scope": "static",
             "$longname": "VDom.insertNode",
             "$kind": "method",
-            "id": 1810,
+            "id": 1942,
             "neoClassName": "Neo.util.VDom"
         },
         {
             "comment": "/**\n     * Search vdom child nodes by id or opts object for a given vdom tree\n     * @param {Object} [vdom]\n     * @param {Object|String} opts Either an object containing vdom node attributes or a string based id\n     * @returns {Boolean} true in case the node was found & removed\n     */",
             "meta": {
                 "range": [
-                    8280,
-                    8510
+                    8586,
+                    8816
                 ],
                 "filename": "VDom.mjs",
-                "lineno": 241,
+                "lineno": 257,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100059113",
+                    "id": "astnode100062191",
                     "name": "VDom.removeVdomChild",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -598,22 +745,22 @@
             "scope": "static",
             "$longname": "VDom.removeVdomChild",
             "$kind": "method",
-            "id": 1811,
+            "id": 1943,
             "neoClassName": "Neo.util.VDom"
         },
         {
             "comment": "/**\n     * Replaces a child node inside a vdom tree by a given id\n     * @param {Object} vdom\n     * @param {String} id\n     * @param {Object} newChildNode\n     * @returns {Boolean} true in case the node was found and replaced\n     */",
             "meta": {
                 "range": [
-                    8755,
-                    9381
+                    9061,
+                    9687
                 ],
                 "filename": "VDom.mjs",
-                "lineno": 259,
+                "lineno": 275,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100059148",
+                    "id": "astnode100062226",
                     "name": "VDom.replaceVdomChild",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -670,22 +817,22 @@
             "scope": "static",
             "$longname": "VDom.replaceVdomChild",
             "$kind": "method",
-            "id": 1812,
+            "id": 1944,
             "neoClassName": "Neo.util.VDom"
         },
         {
             "comment": "/**\n     * Neo.vdom.Helper will create ids for each vnode, so we need to sync them into the vdom\n     * @param {Neo.vdom.VNode} vnode\n     * @param {Object} vdom\n     */",
             "meta": {
                 "range": [
-                    9561,
-                    10272
+                    9867,
+                    10578
                 ],
                 "filename": "VDom.mjs",
-                "lineno": 290,
+                "lineno": 306,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100059227",
+                    "id": "astnode100062305",
                     "name": "VDom.syncVdomIds",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -723,7 +870,7 @@
             "scope": "static",
             "$longname": "VDom.syncVdomIds",
             "$kind": "method",
-            "id": 1813,
+            "id": 1945,
             "neoClassName": "Neo.util.VDom"
         }
     ]

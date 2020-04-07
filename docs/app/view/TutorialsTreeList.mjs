@@ -1,4 +1,4 @@
-import TreeList from '../../../src/list/TreeList.mjs';
+import TreeList from '../../../node_modules/neo.mjs/src/list/TreeList.mjs';
 
 /**
  * @class Docs.app.view.TutorialsTreeList
@@ -36,9 +36,7 @@ class TutorialsTreeList extends TreeList {
         let me = this;
 
         Neo.Xhr.promiseJson({
-            url: Neo.isExperimental ?
-                '../docs/tutorials/tutorials.json' :
-                '../../docs/tutorials/tutorials.json'
+            url: '../../docs/tutorials/tutorials.json'
         }).then(data => {
             let vdom     = me.vdom,
                 itemRoot = me.getListItemsRoot();

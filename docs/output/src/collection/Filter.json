@@ -6,7 +6,7 @@
                 "filename": "Filter.mjs",
                 "lineno": 4,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {}
             },
             "kind": "class",
@@ -28,7 +28,7 @@
                 "filename": "Filter.mjs",
                 "lineno": 15,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {}
             },
             "description": "True automatically applies the core/Observable.mjs mixin",
@@ -53,7 +53,7 @@
                 "filename": "Filter.mjs",
                 "lineno": 23,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {}
             },
             "description": "Valid values for the operator config:<br><br />['==', '===', '!=', '!==', '<', '<=', '>', '>=', 'excluded', 'included', 'isDefined', 'isUndefined', 'like']",
@@ -78,7 +78,7 @@
                 "filename": "Filter.mjs",
                 "lineno": 31,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {}
             },
             "kind": "member",
@@ -103,7 +103,7 @@
                 "filename": "Filter.mjs",
                 "lineno": 36,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {}
             },
             "kind": "member",
@@ -128,7 +128,7 @@
                 "filename": "Filter.mjs",
                 "lineno": 41,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {}
             },
             "description": "Setting disabled to true will exclude this filter from the collection filtering logic",
@@ -153,7 +153,7 @@
                 "filename": "Filter.mjs",
                 "lineno": 46,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {}
             },
             "description": "Provide a custom filtering function, has a higher priority than property, operator & value",
@@ -179,7 +179,7 @@
                 "filename": "Filter.mjs",
                 "lineno": 51,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {}
             },
             "description": "True means not filtering out items in case the value is '', null, [] or {}",
@@ -204,7 +204,7 @@
                 "filename": "Filter.mjs",
                 "lineno": 57,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {}
             },
             "description": "Set this flag to true before starting bulk updates (e.g. changing property & value)<br />to prevent multiple change events",
@@ -229,7 +229,7 @@
                 "filename": "Filter.mjs",
                 "lineno": 63,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {}
             },
             "description": "The owner util.Collection needs to apply an onChange listener once",
@@ -255,7 +255,7 @@
                 "filename": "Filter.mjs",
                 "lineno": 81,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {}
             },
             "description": "The operator to filter by (use the combination of property, operator & value)<br />Valid values:<br /><br />== (not recommended)<br />===<br />!= (not recommended)<br />!==<br /><<br />>=<br />><br />>=<br />like (collectionValue.toLowerCase().indexOf(filterValue.toLowerCase()) > -1)<br />included (expects value to be an array)<br />excluded (expects value to be an array)",
@@ -280,7 +280,7 @@
                 "filename": "Filter.mjs",
                 "lineno": 86,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {}
             },
             "description": "The property to filter by (use the combination of property, operator & value)",
@@ -305,7 +305,7 @@
                 "filename": "Filter.mjs",
                 "lineno": 91,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {}
             },
             "description": "The scope to use for the filterBy method, in case it is provided. Defaults to this instance.",
@@ -331,7 +331,7 @@
                 "filename": "Filter.mjs",
                 "lineno": 96,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {}
             },
             "description": "The value to filter by (use the combination of property, operator & value)",
@@ -360,9 +360,9 @@
                 "filename": "Filter.mjs",
                 "lineno": 141,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
-                    "id": "astnode100003379",
+                    "id": "astnode100003323",
                     "name": "Filter#beforeSetOperator",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -424,9 +424,9 @@
                 "filename": "Filter.mjs",
                 "lineno": 150,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
-                    "id": "astnode100003393",
+                    "id": "astnode100003337",
                     "name": "Filter#fireChangeEvent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -466,9 +466,9 @@
                 "filename": "Filter.mjs",
                 "lineno": 170,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/collection",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
-                    "id": "astnode100003433",
+                    "id": "astnode100003377",
                     "name": "Filter#isFiltered",
                     "type": "MethodDefinition",
                     "paramnames": [

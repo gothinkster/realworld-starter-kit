@@ -6,7 +6,7 @@
                 "filename": "Message.mjs",
                 "lineno": 3,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/worker",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {}
             },
             "description": "A wrapper for worker post messages sent between the App, Data, VDom worker & the main thread.<br />You can add optional params as needed.",
@@ -17,22 +17,22 @@
             "scope": "static",
             "$longname": "Neo.worker.Message",
             "$kind": "class",
-            "id": 1898,
+            "id": 2035,
             "neoClassName": "Neo.worker.Message"
         },
         {
-            "comment": "/**\n     *\n     * @param config\n     */",
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    292,
-                    858
+                    301,
+                    867
                 ],
                 "filename": "Message.mjs",
                 "lineno": 13,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/worker",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100063689",
+                    "id": "astnode100066810",
                     "name": "Message",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -45,6 +45,11 @@
             },
             "params": [
                 {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
                     "name": "config"
                 }
             ],
@@ -54,7 +59,7 @@
             "scope": "global",
             "$longname": "Message",
             "$kind": "constructor",
-            "id": 1899,
+            "id": 2036,
             "neoClassName": "Neo.worker.Message"
         },
         {
@@ -63,7 +68,7 @@
                 "filename": "Message.mjs",
                 "lineno": 17,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/worker",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {}
             },
             "kind": "member",
@@ -77,7 +82,7 @@
             "scope": "global",
             "$longname": "action",
             "$kind": "property",
-            "id": 1900,
+            "id": 2037,
             "neoClassName": "Neo.worker.Message"
         },
         {
@@ -86,7 +91,7 @@
                 "filename": "Message.mjs",
                 "lineno": 21,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/worker",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {}
             },
             "kind": "member",
@@ -101,7 +106,7 @@
             "scope": "global",
             "$longname": "destination",
             "$kind": "property",
-            "id": 1901,
+            "id": 2038,
             "neoClassName": "Neo.worker.Message"
         },
         {
@@ -110,7 +115,7 @@
                 "filename": "Message.mjs",
                 "lineno": 25,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/worker",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {}
             },
             "kind": "member",
@@ -125,7 +130,7 @@
             "scope": "global",
             "$longname": "id",
             "$kind": "property",
-            "id": 1902,
+            "id": 2039,
             "neoClassName": "Neo.worker.Message"
         },
         {
@@ -134,7 +139,7 @@
                 "filename": "Message.mjs",
                 "lineno": 29,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/worker",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {}
             },
             "kind": "member",
@@ -149,7 +154,7 @@
             "scope": "global",
             "$longname": "origin",
             "$kind": "property",
-            "id": 1903,
+            "id": 2040,
             "neoClassName": "Neo.worker.Message"
         }
     ]

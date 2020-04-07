@@ -6,7 +6,7 @@
                 "filename": "Matrix.mjs",
                 "lineno": 3,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
             },
             "description": "Utility class for Matrix based calculations",
@@ -20,22 +20,73 @@
             "scope": "static",
             "$longname": "Neo.util.Matrix",
             "$kind": "class",
-            "id": 1790,
+            "id": 1915,
+            "neoClassName": "Neo.util.Matrix"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.util.Matrix'\n         * @private\n         */",
+            "meta": {
+                "filename": "Matrix.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.util.Matrix'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1916,
+            "neoClassName": "Neo.util.Matrix"
+        },
+        {
+            "comment": "/**\n         * @member {Array|null} items_=null\n         * @private\n         */",
+            "meta": {
+                "filename": "Matrix.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "items_",
+            "type": {
+                "names": [
+                    "Array",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "items_",
+            "scope": "global",
+            "$longname": "items_",
+            "$kind": "property",
+            "id": 1917,
             "neoClassName": "Neo.util.Matrix"
         },
         {
             "comment": "/**\n     * Returns the element (i,j) of the matrix\n     * @param i\n     * @param j\n     * @returns {*}\n     */",
             "meta": {
                 "range": [
-                    395,
-                    597
+                    580,
+                    782
                 ],
                 "filename": "Matrix.mjs",
-                "lineno": 20,
+                "lineno": 28,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100057574",
+                    "id": "astnode100060656",
                     "name": "Matrix#getElement",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -72,22 +123,22 @@
             "scope": "instance",
             "$longname": "Matrix#getElement",
             "$kind": "method",
-            "id": 1791,
+            "id": 1918,
             "neoClassName": "Neo.util.Matrix"
         },
         {
             "comment": "/**\n     * shortcut for getElement\n     */",
             "meta": {
                 "range": [
-                    650,
-                    703
+                    835,
+                    888
                 ],
                 "filename": "Matrix.mjs",
-                "lineno": 33,
+                "lineno": 41,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100057621",
+                    "id": "astnode100060703",
                     "name": "Matrix#e",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -108,22 +159,22 @@
             "params": [],
             "$longname": "Matrix#e",
             "$kind": "method",
-            "id": 1792,
+            "id": 1919,
             "neoClassName": "Neo.util.Matrix"
         },
         {
             "comment": "/**\n     * Returns the result of multiplying the matrix from the right by the argument.\n     * @param matrix\n     * @returns {*}\n     */",
             "meta": {
                 "range": [
-                    850,
-                    1615
+                    1035,
+                    1800
                 ],
                 "filename": "Matrix.mjs",
-                "lineno": 42,
+                "lineno": 50,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100057634",
+                    "id": "astnode100060716",
                     "name": "Matrix#multiply",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -156,22 +207,22 @@
             "scope": "instance",
             "$longname": "Matrix#multiply",
             "$kind": "method",
-            "id": 1793,
+            "id": 1920,
             "neoClassName": "Neo.util.Matrix"
         },
         {
             "comment": "/**\n     * shortcut for multiply\n     */",
             "meta": {
                 "range": [
-                    1666,
-                    1721
+                    1851,
+                    1906
                 ],
                 "filename": "Matrix.mjs",
-                "lineno": 78,
+                "lineno": 86,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100057770",
+                    "id": "astnode100060852",
                     "name": "Matrix#x",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -191,22 +242,22 @@
             "params": [],
             "$longname": "Matrix#x",
             "$kind": "method",
-            "id": 1794,
+            "id": 1921,
             "neoClassName": "Neo.util.Matrix"
         },
         {
             "comment": "/**\n     *\n     * @param t\n     * @returns {*}\n     */",
             "meta": {
                 "range": [
-                    1786,
-                    2005
+                    1971,
+                    2190
                 ],
                 "filename": "Matrix.mjs",
-                "lineno": 87,
+                "lineno": 95,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100057781",
+                    "id": "astnode100060863",
                     "name": "Matrix.rotateX",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -238,22 +289,22 @@
             "scope": "static",
             "$longname": "Matrix.rotateX",
             "$kind": "method",
-            "id": 1795,
+            "id": 1922,
             "neoClassName": "Neo.util.Matrix"
         },
         {
             "comment": "/**\n     *\n     * @param t\n     * @returns {*}\n     */",
             "meta": {
                 "range": [
-                    2070,
-                    2289
+                    2255,
+                    2474
                 ],
                 "filename": "Matrix.mjs",
-                "lineno": 104,
+                "lineno": 112,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100057824",
+                    "id": "astnode100060906",
                     "name": "Matrix.rotateY",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -285,22 +336,22 @@
             "scope": "static",
             "$longname": "Matrix.rotateY",
             "$kind": "method",
-            "id": 1796,
+            "id": 1923,
             "neoClassName": "Neo.util.Matrix"
         },
         {
             "comment": "/**\n     *\n     * @param t\n     * @returns {*}\n     */",
             "meta": {
                 "range": [
-                    2354,
-                    2573
+                    2539,
+                    2758
                 ],
                 "filename": "Matrix.mjs",
-                "lineno": 121,
+                "lineno": 129,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100057867",
+                    "id": "astnode100060949",
                     "name": "Matrix.rotateZ",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -332,22 +383,22 @@
             "scope": "static",
             "$longname": "Matrix.rotateZ",
             "$kind": "method",
-            "id": 1797,
+            "id": 1924,
             "neoClassName": "Neo.util.Matrix"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    2602,
-                    3271
+                    2787,
+                    3456
                 ],
                 "filename": "Matrix.mjs",
-                "lineno": 136,
+                "lineno": 144,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100057910",
+                    "id": "astnode100060992",
                     "name": "Matrix#getTransformStyle",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -364,7 +415,7 @@
             "params": [],
             "$longname": "Matrix#getTransformStyle",
             "$kind": "method",
-            "id": 1798,
+            "id": 1925,
             "neoClassName": "Neo.util.Matrix"
         }
     ]

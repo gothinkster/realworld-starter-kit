@@ -1,4 +1,4 @@
-import {default as Component} from '../../../../src/component/Base.mjs';
+import {default as Component} from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
 
 /**
  * @class Docs.app.view.classdetails.TutorialComponent
@@ -45,11 +45,7 @@ class TutorialComponent extends Component {
 
         let me     = this,
             isJson = me.fileType === 'json',
-            url    = '../docs/tutorials/' + me.fileName;
-
-        if (!Neo.isExperimental) {
-            url = '../' + url;
-        }
+            url    = '../../docs/tutorials/' + me.fileName;
 
         Neo.Xhr[isJson ? 'promiseJson' : 'promiseRequest']({
             url: url

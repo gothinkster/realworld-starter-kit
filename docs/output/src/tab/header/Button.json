@@ -1,0 +1,247 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.tab.header.Button\n * @extends Neo.component.Button\n */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab/header",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Button",
+            "augments": [
+                "Neo.component.Button"
+            ],
+            "memberof": "Neo.tab.header",
+            "longname": "Neo.tab.header.Button",
+            "scope": "static",
+            "$longname": "Neo.tab.header.Button",
+            "$kind": "class",
+            "id": 1711,
+            "neoClassName": "Neo.tab.header.Button"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.tab.header.Button'\n         * @private\n         */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.tab.header.Button'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1712,
+            "neoClassName": "Neo.tab.header.Button"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='tab-header-button'\n         * @private\n         */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'tab-header-button'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1713,
+            "neoClassName": "Neo.tab.header.Button"
+        },
+        {
+            "comment": "/**\n         * @member {Array} cls=['neo-button', 'neo-tab-button']\n         */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 22,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array"
+                ]
+            },
+            "defaultvalue": "['neo-button', 'neo-tab-button']",
+            "description": "'neo-tab-button']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 1714,
+            "neoClassName": "Neo.tab.header.Button"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} useActiveTabIndicator_=true\n         */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 26,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "useActiveTabIndicator_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "useActiveTabIndicator_",
+            "scope": "global",
+            "$longname": "useActiveTabIndicator_",
+            "$kind": "property",
+            "id": 1715,
+            "neoClassName": "Neo.tab.header.Button"
+        },
+        {
+            "comment": "/**\n         * @member {Object} _vdom\n         */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 30,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "_vdom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "longname": "_vdom",
+            "scope": "global",
+            "$longname": "_vdom",
+            "$kind": "property",
+            "id": 1716,
+            "neoClassName": "Neo.tab.header.Button"
+        },
+        {
+            "comment": "/**\n     * Triggered after the useActiveTabIndicator config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    1299,
+                    1397
+                ],
+                "filename": "Button.mjs",
+                "lineno": 50,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab/header",
+                "code": {
+                    "id": "astnode100055639",
+                    "name": "Button#afterSetUseActiveTabIndicator",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the useActiveTabIndicator config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetUseActiveTabIndicator",
+            "longname": "Button#afterSetUseActiveTabIndicator",
+            "kind": "function",
+            "memberof": "Button",
+            "scope": "instance",
+            "$longname": "Button#afterSetUseActiveTabIndicator",
+            "$kind": "method",
+            "id": 1717,
+            "neoClassName": "Neo.tab.header.Button"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [silent=false]\n     */",
+            "meta": {
+                "range": [
+                    1465,
+                    1673
+                ],
+                "filename": "Button.mjs",
+                "lineno": 58,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab/header",
+                "code": {
+                    "id": "astnode100055650",
+                    "name": "Button#updateUseActiveTabIndicator",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "name": "updateUseActiveTabIndicator",
+            "longname": "Button#updateUseActiveTabIndicator",
+            "kind": "function",
+            "memberof": "Button",
+            "scope": "instance",
+            "$longname": "Button#updateUseActiveTabIndicator",
+            "$kind": "method",
+            "id": 1718,
+            "neoClassName": "Neo.tab.header.Button"
+        }
+    ]
+}

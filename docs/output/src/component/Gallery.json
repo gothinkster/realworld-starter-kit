@@ -4,9 +4,9 @@
             "comment": "/**\n * @class Neo.component.Gallery\n * @extends Neo.component.Base\n */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 7,
+                "lineno": 10,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "class",
@@ -19,16 +19,16 @@
             "scope": "static",
             "$longname": "Neo.component.Gallery",
             "$kind": "class",
-            "id": 339,
+            "id": 346,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * @member {String} className='Neo.component.Gallery'\n         * @private\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 17,
+                "lineno": 20,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "member",
@@ -44,16 +44,16 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 340,
+            "id": 347,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * @member {String} ntype='gallery'\n         * @private\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 22,
+                "lineno": 25,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "member",
@@ -69,16 +69,16 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 341,
+            "id": 348,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * The amount of visible rows inside the gallery\n         * @member {Number} amountRows_=3\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 27,
+                "lineno": 30,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The amount of visible rows inside the gallery",
@@ -94,16 +94,16 @@
             "scope": "global",
             "$longname": "amountRows_",
             "$kind": "property",
-            "id": 342,
+            "id": 349,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * The background color of the gallery container\n         * @member {String} backgroundColor_='#000000'\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 32,
+                "lineno": 35,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The background color of the gallery container",
@@ -119,16 +119,16 @@
             "scope": "global",
             "$longname": "backgroundColor_",
             "$kind": "property",
-            "id": 343,
+            "id": 350,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * @member {String[]} cls=['neo-gallery', 'page', 'view']\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 36,
+                "lineno": 39,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "member",
@@ -144,16 +144,16 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 344,
+            "id": 351,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * True disables selection of  gallery items\n         * @member {Boolean} disableSelection=false\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 41,
+                "lineno": 44,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "True disables selection of  gallery items",
@@ -169,16 +169,16 @@
             "scope": "global",
             "$longname": "disableSelection",
             "$kind": "property",
-            "id": 345,
+            "id": 352,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * The image height of the gallery\n         * @member {Number} imageHeight=160\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 46,
+                "lineno": 49,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The image height of the gallery",
@@ -194,16 +194,16 @@
             "scope": "global",
             "$longname": "imageHeight",
             "$kind": "property",
-            "id": 346,
+            "id": 353,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * The image width of the gallery\n         * @member {Number} imageWidth=120\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 51,
+                "lineno": 54,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The image width of the gallery",
@@ -219,16 +219,16 @@
             "scope": "global",
             "$longname": "imageWidth",
             "$kind": "property",
-            "id": 347,
+            "id": 354,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * @member {Object} itemTpl_\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 55,
+                "lineno": 58,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "member",
@@ -242,16 +242,41 @@
             "scope": "global",
             "$longname": "itemTpl_",
             "$kind": "property",
-            "id": 348,
+            "id": 355,
+            "neoClassName": "Neo.component.Gallery"
+        },
+        {
+            "comment": "/**\n         * The unique record field containing the id.\n         * @member {String} keyProperty='id'\n         */",
+            "meta": {
+                "filename": "Gallery.mjs",
+                "lineno": 71,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {}
+            },
+            "description": "The unique record field containing the id.",
+            "kind": "member",
+            "name": "keyProperty",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'id'",
+            "longname": "keyProperty",
+            "scope": "global",
+            "$longname": "keyProperty",
+            "$kind": "property",
+            "id": 356,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * Additional used keys for the selection model\n         * @member {Object} keys\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 69,
+                "lineno": 76,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "Additional used keys for the selection model",
@@ -266,16 +291,16 @@
             "scope": "global",
             "$longname": "keys",
             "$kind": "property",
-            "id": 349,
+            "id": 357,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * The max amount of store items to show\n         * @member {Number} maxItems_=300\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 74,
+                "lineno": 81,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The max amount of store items to show",
@@ -291,16 +316,16 @@
             "scope": "global",
             "$longname": "maxItems_",
             "$kind": "property",
-            "id": 350,
+            "id": 358,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * The zooming factor which replaces the default wheelDelta.\n         * @member {Number} mouseWheelDeltaX=10\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 79,
+                "lineno": 86,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The zooming factor which replaces the default wheelDelta.",
@@ -316,16 +341,16 @@
             "scope": "global",
             "$longname": "mouseWheelDeltaX",
             "$kind": "property",
-            "id": 351,
+            "id": 359,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * The zooming factor which replaces the default wheelDelta.\n         * @member {Number} mouseWheelDeltaY=10\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 84,
+                "lineno": 91,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The zooming factor which replaces the default wheelDelta.",
@@ -341,16 +366,16 @@
             "scope": "global",
             "$longname": "mouseWheelDeltaY",
             "$kind": "property",
-            "id": 352,
+            "id": 360,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * Specifies whether the mouse wheel should change the translateZ value for zooming\n         * @member {Boolean} mouseWheelEnabled_=true\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 89,
+                "lineno": 96,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "Specifies whether the mouse wheel should change the translateZ value for zooming",
@@ -366,16 +391,16 @@
             "scope": "global",
             "$longname": "mouseWheelEnabled_",
             "$kind": "property",
-            "id": 353,
+            "id": 361,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * The DOM element offsetHeight of the top level div.\n         * Gets fetched after the gallery got mounted.\n         * @member {Number|null} offsetHeight=null\n         * @private\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 96,
+                "lineno": 103,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The DOM element offsetHeight of the top level div.<br />Gets fetched after the gallery got mounted.",
@@ -393,16 +418,16 @@
             "scope": "global",
             "$longname": "offsetHeight",
             "$kind": "property",
-            "id": 354,
+            "id": 362,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * The DOM element offsetWidth of the top level div.\n         * Gets fetched after the gallery got mounted.\n         * @member {Number|null} offsetWidth=null\n         * @private\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 103,
+                "lineno": 110,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The DOM element offsetWidth of the top level div.<br />Gets fetched after the gallery got mounted.",
@@ -420,16 +445,16 @@
             "scope": "global",
             "$longname": "offsetWidth",
             "$kind": "property",
-            "id": 355,
+            "id": 363,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * Set this one to true to order the items by row instead of by column\n         * @member {Boolean} orderByRow_=false\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 108,
+                "lineno": 115,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "Set this one to true to order the items by row instead of by column",
@@ -445,16 +470,16 @@
             "scope": "global",
             "$longname": "orderByRow_",
             "$kind": "property",
-            "id": 356,
+            "id": 364,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * The name of the CSS rule for selected items\n         * @member {String} selectedItemCls='neo-selected'\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 113,
+                "lineno": 120,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The name of the CSS rule for selected items",
@@ -470,16 +495,16 @@
             "scope": "global",
             "$longname": "selectedItemCls",
             "$kind": "property",
-            "id": 357,
+            "id": 365,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * uses the selection.GalleryModel by default\n         * @member {Neo.selection.GalleryModel|null} selectionModel_=null\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 118,
+                "lineno": 125,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "uses the selection.GalleryModel by default",
@@ -496,16 +521,41 @@
             "scope": "global",
             "$longname": "selectionModel_",
             "$kind": "property",
-            "id": 358,
+            "id": 366,
+            "neoClassName": "Neo.component.Gallery"
+        },
+        {
+            "comment": "/**\n         * True to select the item inside the middle of the store items on mount\n         * @member {Boolean} selectOnMount=true\n         */",
+            "meta": {
+                "filename": "Gallery.mjs",
+                "lineno": 130,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {}
+            },
+            "description": "True to select the item inside the middle of the store items on mount",
+            "kind": "member",
+            "name": "selectOnMount",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "selectOnMount",
+            "scope": "global",
+            "$longname": "selectOnMount",
+            "$kind": "property",
+            "id": 367,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * The store instance or class containing the data for the gallery items\n         * @member {Neo.data.Store|null} store_=null\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 123,
+                "lineno": 135,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The store instance or class containing the data for the gallery items",
@@ -522,16 +572,16 @@
             "scope": "global",
             "$longname": "store_",
             "$kind": "property",
-            "id": 359,
+            "id": 368,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * The setTimeout() ids for calls which can get cancelled\n         * @member {Array} transitionTimeouts=[]\n         * @private\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 129,
+                "lineno": 141,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The setTimeout() ids for calls which can get cancelled",
@@ -548,16 +598,16 @@
             "scope": "global",
             "$longname": "transitionTimeouts",
             "$kind": "property",
-            "id": 360,
+            "id": 369,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * The translateX value of the view origin\n         * @member {Number} translateX_=0\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 134,
+                "lineno": 146,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The translateX value of the view origin",
@@ -573,16 +623,16 @@
             "scope": "global",
             "$longname": "translateX_",
             "$kind": "property",
-            "id": 361,
+            "id": 370,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * The translateX value of the view origin\n         * @member {Number} translateY_=0\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 139,
+                "lineno": 151,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The translateX value of the view origin",
@@ -598,16 +648,16 @@
             "scope": "global",
             "$longname": "translateY_",
             "$kind": "property",
-            "id": 362,
+            "id": 371,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * The translateX value of the view origin\n         * @member {Number} translateZ_=0\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 144,
+                "lineno": 156,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The translateX value of the view origin",
@@ -623,16 +673,16 @@
             "scope": "global",
             "$longname": "translateZ_",
             "$kind": "property",
-            "id": 363,
+            "id": 372,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n         * @member {Object} _vdom\n         */",
             "meta": {
                 "filename": "Gallery.mjs",
-                "lineno": 148,
+                "lineno": 160,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "member",
@@ -646,22 +696,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 364,
+            "id": 373,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    5440,
-                    6542
+                    5858,
+                    6806
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 176,
+                "lineno": 188,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100012946",
+                    "id": "astnode100013044",
                     "name": "Gallery",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -688,22 +738,22 @@
             "scope": "global",
             "$longname": "Gallery",
             "$kind": "constructor",
-            "id": 365,
+            "id": 374,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    6571,
-                    7231
+                    6835,
+                    7571
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 224,
+                "lineno": 230,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100013117",
+                    "id": "astnode100013200",
                     "name": "Gallery#onConstructed",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -720,22 +770,22 @@
             "params": [],
             "$longname": "Gallery#onConstructed",
             "$kind": "method",
-            "id": 366,
+            "id": 375,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     * Triggered after the amountRows config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @private\n     */",
             "meta": {
                 "range": [
-                    7387,
-                    7572
+                    7727,
+                    7912
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 253,
+                "lineno": 261,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100013205",
+                    "id": "astnode100013292",
                     "name": "Gallery#afterSetAmountRows",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -774,22 +824,22 @@
             "scope": "instance",
             "$longname": "Gallery#afterSetAmountRows",
             "$kind": "method",
-            "id": 367,
+            "id": 376,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     * Triggered after the maxItem config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @private\n     */",
             "meta": {
                 "range": [
-                    7725,
-                    8007
+                    8065,
+                    8347
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 267,
+                "lineno": 275,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100013234",
+                    "id": "astnode100013321",
                     "name": "Gallery#afterSetMaxItems",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -828,22 +878,22 @@
             "scope": "instance",
             "$longname": "Gallery#afterSetMaxItems",
             "$kind": "method",
-            "id": 368,
+            "id": 377,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     * Triggered after the orderByRow config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
             "meta": {
                 "range": [
-                    8165,
-                    9056
+                    8505,
+                    9382
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 285,
+                "lineno": 293,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100013272",
+                    "id": "astnode100013359",
                     "name": "Gallery#afterSetOrderByRow",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -882,22 +932,22 @@
             "scope": "instance",
             "$longname": "Gallery#afterSetOrderByRow",
             "$kind": "method",
-            "id": 369,
+            "id": 378,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     * Triggered after the selectionModel config got changed\n     * @param {Neo.selection.Model} value\n     * @param {Neo.selection.Model} oldValue\n     * @private\n     */",
             "meta": {
                 "range": [
-                    9242,
-                    9441
+                    9568,
+                    9767
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 321,
+                "lineno": 329,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100013405",
+                    "id": "astnode100013477",
                     "name": "Gallery#afterSetSelectionModel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -936,22 +986,78 @@
             "scope": "instance",
             "$longname": "Gallery#afterSetSelectionModel",
             "$kind": "method",
-            "id": 370,
+            "id": 379,
+            "neoClassName": "Neo.component.Gallery"
+        },
+        {
+            "comment": "/**\n     * Triggered before the store config gets changed.\n     * @param {Neo.data.Store|null} value\n     * @param {Neo.data.Store|null} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    9947,
+                    10626
+                ],
+                "filename": "Gallery.mjs",
+                "lineno": 345,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {
+                    "id": "astnode100013502",
+                    "name": "Gallery#beforeSetStore",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the store config gets changed.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.data.Store",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.data.Store",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "beforeSetStore",
+            "longname": "Gallery#beforeSetStore",
+            "kind": "function",
+            "memberof": "Gallery",
+            "scope": "instance",
+            "$longname": "Gallery#beforeSetStore",
+            "$kind": "method",
+            "id": 380,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     *\n     * @return {*}\n     */",
             "meta": {
                 "range": [
-                    9628,
-                    9701
+                    10813,
+                    10886
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 339,
+                "lineno": 380,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100013457",
+                    "id": "astnode100013587",
                     "name": "Gallery#beforeGetItemTpl",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -977,22 +1083,22 @@
             "params": [],
             "$longname": "Gallery#beforeGetItemTpl",
             "$kind": "method",
-            "id": 371,
+            "id": 381,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     * Triggered before the selectionModel config gets changed.\n     * @param {Neo.selection.Model} value\n     * @param {Neo.selection.Model} oldValue\n     * @private\n     */",
             "meta": {
                 "range": [
-                    9890,
-                    10223
+                    11075,
+                    11408
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 349,
+                "lineno": 390,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100013470",
+                    "id": "astnode100013600",
                     "name": "Gallery#beforeSetSelectionModel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1031,22 +1137,94 @@
             "scope": "instance",
             "$longname": "Gallery#beforeSetSelectionModel",
             "$kind": "method",
-            "id": 372,
+            "id": 382,
+            "neoClassName": "Neo.component.Gallery"
+        },
+        {
+            "comment": "/**\n     * Override this method to get different item-markups\n     * @param {Object} vdomItem\n     * @param {Object} record\n     * @param {Number} index\n     * @returns {Object} vdomItem\n     */",
+            "meta": {
+                "range": [
+                    11613,
+                    12011
+                ],
+                "filename": "Gallery.mjs",
+                "lineno": 410,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {
+                    "id": "astnode100013630",
+                    "name": "Gallery#createItem",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "vdomItem",
+                        "record",
+                        "index"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Override this method to get different item-markups",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "vdomItem"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "record"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "vdomItem"
+                }
+            ],
+            "name": "createItem",
+            "longname": "Gallery#createItem",
+            "kind": "function",
+            "memberof": "Gallery",
+            "scope": "instance",
+            "$longname": "Gallery#createItem",
+            "$kind": "method",
+            "id": 383,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     * @param {Number} [startIndex] the start index for creating items,\n     * e.g. increasing maxItems only needs to create the new ones\n     * @private\n     */",
             "meta": {
                 "range": [
-                    10399,
-                    12020
+                    12187,
+                    13521
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 367,
+                "lineno": 429,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100013500",
+                    "id": "astnode100013704",
                     "name": "Gallery#createItems",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1077,22 +1255,22 @@
             "scope": "instance",
             "$longname": "Gallery#createItems",
             "$kind": "method",
-            "id": 373,
+            "id": 384,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     *\n     * @param {Number} [startIndex]\n     * @param {Number} [amountItems]\n     */",
             "meta": {
                 "range": [
-                    12122,
-                    12614
+                    13623,
+                    14104
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 418,
+                "lineno": 475,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100013746",
+                    "id": "astnode100013896",
                     "name": "Gallery#destroyItems",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1131,22 +1309,22 @@
             "scope": "instance",
             "$longname": "Gallery#destroyItems",
             "$kind": "method",
-            "id": 374,
+            "id": 385,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     *\n     * @param {Number} index\n     * @returns {Number[]}\n     */",
             "meta": {
                 "range": [
-                    12699,
-                    13422
+                    14189,
+                    14912
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 437,
+                "lineno": 494,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100013836",
+                    "id": "astnode100013973",
                     "name": "Gallery#getCameraTransformForCell",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1183,22 +1361,22 @@
             "scope": "instance",
             "$longname": "Gallery#getCameraTransformForCell",
             "$kind": "method",
-            "id": 375,
+            "id": 386,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     *\n     * @param {String} vnodeId\n     * @returns {Number} itemId\n     */",
             "meta": {
                 "range": [
-                    13514,
-                    13589
+                    15004,
+                    15079
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 465,
+                "lineno": 522,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100013950",
+                    "id": "astnode100014087",
                     "name": "Gallery#getItemId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1236,22 +1414,65 @@
             "scope": "instance",
             "$longname": "Gallery#getItemId",
             "$kind": "method",
-            "id": 376,
+            "id": 387,
+            "neoClassName": "Neo.component.Gallery"
+        },
+        {
+            "comment": "/**\n     * Returns the vdom node containing the gallery items\n     * @returns {Object} vdom\n     */",
+            "meta": {
+                "range": [
+                    15189,
+                    15261
+                ],
+                "filename": "Gallery.mjs",
+                "lineno": 530,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {
+                    "id": "astnode100014102",
+                    "name": "Gallery#getItemsRoot",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns the vdom node containing the gallery items",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "vdom"
+                }
+            ],
+            "name": "getItemsRoot",
+            "longname": "Gallery#getItemsRoot",
+            "kind": "function",
+            "memberof": "Gallery",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Gallery#getItemsRoot",
+            "$kind": "method",
+            "id": 388,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     *\n     * @param {Number} index\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    13672,
-                    14231
+                    15344,
+                    15903
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 474,
+                "lineno": 539,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100013965",
+                    "id": "astnode100014126",
                     "name": "Gallery#getItemTransform",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1288,22 +1509,22 @@
             "scope": "instance",
             "$longname": "Gallery#getItemTransform",
             "$kind": "method",
-            "id": 377,
+            "id": 389,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     *\n     * @param {String} id\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    14311,
-                    14373
+                    15983,
+                    16045
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 501,
+                "lineno": 566,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100014058",
+                    "id": "astnode100014219",
                     "name": "Gallery#getItemVnodeId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1340,22 +1561,22 @@
             "scope": "instance",
             "$longname": "Gallery#getItemVnodeId",
             "$kind": "method",
-            "id": 378,
+            "id": 390,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    14402,
-                    14599
+                    16074,
+                    16271
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 508,
+                "lineno": 573,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100014071",
+                    "id": "astnode100014232",
                     "name": "Gallery#moveOrigin",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1372,22 +1593,22 @@
             "params": [],
             "$longname": "Gallery#moveOrigin",
             "$kind": "method",
-            "id": 379,
+            "id": 391,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    14656,
-                    14756
+                    16328,
+                    16428
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 521,
+                "lineno": 586,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100014114",
+                    "id": "astnode100014275",
                     "name": "Gallery#onClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1415,22 +1636,22 @@
             "scope": "instance",
             "$longname": "Gallery#onClick",
             "$kind": "method",
-            "id": 380,
+            "id": 392,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    14813,
-                    15400
+                    16485,
+                    17072
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 529,
+                "lineno": 594,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100014135",
+                    "id": "astnode100014296",
                     "name": "Gallery#onMouseWheel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1458,22 +1679,22 @@
             "scope": "instance",
             "$longname": "Gallery#onMouseWheel",
             "$kind": "method",
-            "id": 381,
+            "id": 393,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    15429,
-                    16182
+                    17101,
+                    18110
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 550,
+                "lineno": 615,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100014216",
+                    "id": "astnode100014377",
                     "name": "Gallery#onMounted",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1490,22 +1711,22 @@
             "params": [],
             "$longname": "Gallery#onMounted",
             "$kind": "method",
-            "id": 382,
+            "id": 394,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     *\n     * @param {Array} value\n     */",
             "meta": {
                 "range": [
-                    16239,
-                    19388
+                    18167,
+                    21316
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 577,
+                "lineno": 651,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100014320",
+                    "id": "astnode100014505",
                     "name": "Gallery#onSelectionChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1533,22 +1754,22 @@
             "scope": "instance",
             "$longname": "Gallery#onSelectionChange",
             "$kind": "method",
-            "id": 383,
+            "id": 395,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    19417,
-                    20171
+                    21345,
+                    22281
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 659,
+                "lineno": 733,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100014714",
+                    "id": "astnode100014899",
                     "name": "Gallery#onSort",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1565,22 +1786,65 @@
             "params": [],
             "$longname": "Gallery#onSort",
             "$kind": "method",
-            "id": 384,
+            "id": 396,
+            "neoClassName": "Neo.component.Gallery"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Array} items\n     */",
+            "meta": {
+                "range": [
+                    22338,
+                    22446
+                ],
+                "filename": "Gallery.mjs",
+                "lineno": 770,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {
+                    "id": "astnode100015038",
+                    "name": "Gallery#onStoreLoad",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "items"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "items"
+                }
+            ],
+            "name": "onStoreLoad",
+            "longname": "Gallery#onStoreLoad",
+            "kind": "function",
+            "memberof": "Gallery",
+            "scope": "instance",
+            "$longname": "Gallery#onStoreLoad",
+            "$kind": "method",
+            "id": 397,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    20200,
-                    21024
+                    22475,
+                    23288
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 692,
+                "lineno": 778,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100014845",
+                    "id": "astnode100015057",
                     "name": "Gallery#refreshImageReflection",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1597,22 +1861,22 @@
             "params": [],
             "$longname": "Gallery#refreshImageReflection",
             "$kind": "method",
-            "id": 385,
+            "id": 398,
             "neoClassName": "Neo.component.Gallery"
         },
         {
             "comment": "/**\n     *\n     * @param {Number} x\n     * @param {Number} y\n     * @param {Number} z\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    21153,
-                    21250
+                    23417,
+                    23514
                 ],
                 "filename": "Gallery.mjs",
-                "lineno": 723,
+                "lineno": 809,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100014965",
+                    "id": "astnode100015164",
                     "name": "Gallery#translate3d",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1667,7 +1931,7 @@
             "scope": "instance",
             "$longname": "Gallery#translate3d",
             "$kind": "method",
-            "id": 386,
+            "id": 399,
             "neoClassName": "Neo.component.Gallery"
         }
     ]

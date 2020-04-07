@@ -6,7 +6,7 @@
                 "filename": "Label.mjs",
                 "lineno": 3,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "Convenience class to render a label with a text",
@@ -20,7 +20,7 @@
             "scope": "static",
             "$longname": "Neo.component.Label",
             "$kind": "class",
-            "id": 457,
+            "id": 478,
             "neoClassName": "Neo.component.Label"
         },
         {
@@ -29,7 +29,7 @@
                 "filename": "Label.mjs",
                 "lineno": 14,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "member",
@@ -45,7 +45,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 458,
+            "id": 479,
             "neoClassName": "Neo.component.Label"
         },
         {
@@ -54,7 +54,7 @@
                 "filename": "Label.mjs",
                 "lineno": 19,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "member",
@@ -70,7 +70,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 459,
+            "id": 480,
             "neoClassName": "Neo.component.Label"
         },
         {
@@ -79,7 +79,7 @@
                 "filename": "Label.mjs",
                 "lineno": 23,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "member",
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 460,
+            "id": 481,
             "neoClassName": "Neo.component.Label"
         },
         {
@@ -103,7 +103,7 @@
                 "filename": "Label.mjs",
                 "lineno": 27,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "member",
@@ -118,7 +118,7 @@
             "scope": "global",
             "$longname": "text_",
             "$kind": "property",
-            "id": 461,
+            "id": 482,
             "neoClassName": "Neo.component.Label"
         },
         {
@@ -127,7 +127,7 @@
                 "filename": "Label.mjs",
                 "lineno": 31,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "member",
@@ -143,7 +143,7 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 462,
+            "id": 483,
             "neoClassName": "Neo.component.Label"
         },
         {
@@ -151,18 +151,19 @@
             "meta": {
                 "range": [
                     952,
-                    1062
+                    1072
                 ],
                 "filename": "Label.mjs",
                 "lineno": 42,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100017598",
+                    "id": "astnode100018040",
                     "name": "Label#afterSetText",
                     "type": "MethodDefinition",
                     "paramnames": [
-                        "value"
+                        "value",
+                        "oldValue"
                     ]
                 },
                 "vars": {
@@ -196,7 +197,7 @@
             "scope": "instance",
             "$longname": "Label#afterSetText",
             "$kind": "method",
-            "id": 463,
+            "id": 484,
             "neoClassName": "Neo.component.Label"
         }
     ]

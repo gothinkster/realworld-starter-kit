@@ -1,5 +1,5 @@
-import Component from '../../../src/controller/Component.mjs';
-import NeoArray  from '../../../src/util/Array.mjs';
+import Component from '../../../node_modules/neo.mjs/src/controller/Component.mjs';
+import NeoArray  from '../../../node_modules/neo.mjs/src/util/Array.mjs';
 
 /**
  * @class Docs.app.view.MainContainerController

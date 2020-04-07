@@ -6,7 +6,7 @@
                 "filename": "HashHistory.mjs",
                 "lineno": 3,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
             },
             "kind": "class",
@@ -26,7 +26,7 @@
             "scope": "static",
             "$longname": "Neo.util.HashHistory",
             "$kind": "class",
-            "id": 1769,
+            "id": 1890,
             "neoClassName": "Neo.util.HashHistory"
         },
         {
@@ -35,7 +35,7 @@
                 "filename": "HashHistory.mjs",
                 "lineno": 15,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
             },
             "description": "True automatically applies the core/Observable.mjs mixin",
@@ -51,7 +51,7 @@
             "longname": "observable",
             "$longname": "observable",
             "$kind": "property",
-            "id": 1770,
+            "id": 1891,
             "neoClassName": "Neo.util.HashHistory"
         },
         {
@@ -60,7 +60,7 @@
                 "filename": "HashHistory.mjs",
                 "lineno": 23,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
             },
             "kind": "member",
@@ -76,7 +76,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1771,
+            "id": 1892,
             "neoClassName": "Neo.util.HashHistory"
         },
         {
@@ -85,7 +85,7 @@
                 "filename": "HashHistory.mjs",
                 "lineno": 28,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
             },
             "kind": "member",
@@ -101,7 +101,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1772,
+            "id": 1893,
             "neoClassName": "Neo.util.HashHistory"
         },
         {
@@ -110,7 +110,7 @@
                 "filename": "HashHistory.mjs",
                 "lineno": 33,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
             },
             "kind": "member",
@@ -126,7 +126,7 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1773,
+            "id": 1894,
             "neoClassName": "Neo.util.HashHistory"
         },
         {
@@ -135,7 +135,7 @@
                 "filename": "HashHistory.mjs",
                 "lineno": 38,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
             },
             "kind": "member",
@@ -151,7 +151,141 @@
             "scope": "global",
             "$longname": "stack",
             "$kind": "property",
-            "id": 1774,
+            "id": 1895,
+            "neoClassName": "Neo.util.HashHistory"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Object}\n     */",
+            "meta": {
+                "range": [
+                    954,
+                    999
+                ],
+                "filename": "HashHistory.mjs",
+                "lineno": 45,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
+                "code": {
+                    "id": "astnode100060146",
+                    "name": "HashHistory#first",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    }
+                }
+            ],
+            "name": "first",
+            "longname": "HashHistory#first",
+            "kind": "function",
+            "memberof": "HashHistory",
+            "scope": "instance",
+            "params": [],
+            "$longname": "HashHistory#first",
+            "$kind": "method",
+            "id": 1896,
+            "neoClassName": "Neo.util.HashHistory"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Number}\n     */",
+            "meta": {
+                "range": [
+                    1053,
+                    1105
+                ],
+                "filename": "HashHistory.mjs",
+                "lineno": 53,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
+                "code": {
+                    "id": "astnode100060156",
+                    "name": "HashHistory#getCount",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    }
+                }
+            ],
+            "name": "getCount",
+            "longname": "HashHistory#getCount",
+            "kind": "function",
+            "memberof": "HashHistory",
+            "scope": "instance",
+            "params": [],
+            "$longname": "HashHistory#getCount",
+            "$kind": "method",
+            "id": 1897,
+            "neoClassName": "Neo.util.HashHistory"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} hash\n     * @param {String} hashString\n     */",
+            "meta": {
+                "range": [
+                    1196,
+                    1340
+                ],
+                "filename": "HashHistory.mjs",
+                "lineno": 62,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
+                "code": {
+                    "id": "astnode100060166",
+                    "name": "HashHistory#push",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "hash",
+                        "hashString"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "hash"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "hashString"
+                }
+            ],
+            "name": "push",
+            "longname": "HashHistory#push",
+            "kind": "function",
+            "memberof": "HashHistory",
+            "scope": "instance",
+            "$longname": "HashHistory#push",
+            "$kind": "method",
+            "id": 1898,
             "neoClassName": "Neo.util.HashHistory"
         }
     ]

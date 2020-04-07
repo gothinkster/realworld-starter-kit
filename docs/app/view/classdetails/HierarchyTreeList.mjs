@@ -1,5 +1,5 @@
-import TreeList from '../../../../src/list/TreeList.mjs';
-import NeoArray from '../../../../src/util/Array.mjs';
+import TreeList from '../../../../node_modules/neo.mjs/src/list/TreeList.mjs';
+import NeoArray from '../../../../node_modules/neo.mjs/src/util/Array.mjs';
 
 /**
  * @class Docs.app.view.classdetails.HierarchyTreeList

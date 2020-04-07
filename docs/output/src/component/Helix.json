@@ -4,9 +4,9 @@
             "comment": "/**\n * @class Neo.component.Helix\n * @extends Neo.component.Base\n */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 8,
+                "lineno": 12,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "class",
@@ -19,16 +19,16 @@
             "scope": "static",
             "$longname": "Neo.component.Helix",
             "$kind": "class",
-            "id": 387,
+            "id": 400,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * @member {String} className='Neo.component.Helix'\n         * @private\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 18,
+                "lineno": 22,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "member",
@@ -44,16 +44,16 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 388,
+            "id": 401,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * @member {String} ntype='helix'\n         * @private\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 23,
+                "lineno": 27,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "member",
@@ -69,16 +69,16 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 389,
+            "id": 402,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The background color of the helix container\n         * @member {String} backgroundColor_='#000000'\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 28,
+                "lineno": 32,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The background color of the helix container",
@@ -94,16 +94,16 @@
             "scope": "global",
             "$longname": "backgroundColor_",
             "$kind": "property",
-            "id": 390,
+            "id": 403,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The background image of the helix container\n         * @member {String} backgroundImage_=''\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 33,
+                "lineno": 37,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The background image of the helix container",
@@ -119,16 +119,16 @@
             "scope": "global",
             "$longname": "backgroundImage_",
             "$kind": "property",
-            "id": 391,
+            "id": 404,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The ids of expanded items will get stored here\n         * @member {Array} clonedItems=[]\n         * @private\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 39,
+                "lineno": 43,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The ids of expanded items will get stored here",
@@ -145,16 +145,16 @@
             "scope": "global",
             "$longname": "clonedItems",
             "$kind": "property",
-            "id": 392,
+            "id": 405,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * @member {String[]} cls=['neo-helix']\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 43,
+                "lineno": 47,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "member",
@@ -169,16 +169,16 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 393,
+            "id": 406,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The vertical delta between each helix item (increasing this value will create a spiral)\n         * @member {Number} deltaY_=1.5\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 48,
+                "lineno": 52,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The vertical delta between each helix item (increasing this value will create a spiral)",
@@ -194,16 +194,16 @@
             "scope": "global",
             "$longname": "deltaY_",
             "$kind": "property",
-            "id": 394,
+            "id": 407,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * Multiselections will reduce the opacity and set this flag to true\n         * @member {Boolean} dimmed_=false\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 53,
+                "lineno": 57,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "Multiselections will reduce the opacity and set this flag to true",
@@ -219,16 +219,16 @@
             "scope": "global",
             "$longname": "dimmed_",
             "$kind": "property",
-            "id": 395,
+            "id": 408,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * Multiselections will reduce the opacity and set this flag to true\n         * @member {Number} dimmedMaxOpacity_=0.3\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 58,
+                "lineno": 62,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "Multiselections will reduce the opacity and set this flag to true",
@@ -244,16 +244,16 @@
             "scope": "global",
             "$longname": "dimmedMaxOpacity_",
             "$kind": "property",
-            "id": 396,
+            "id": 409,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * Multiselections will reduce the opacity and set this flag to true\n         * @member {Number} dimmedMinOpacity_=0.2\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 63,
+                "lineno": 67,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "Multiselections will reduce the opacity and set this flag to true",
@@ -269,16 +269,16 @@
             "scope": "global",
             "$longname": "dimmedMinOpacity_",
             "$kind": "property",
-            "id": 397,
+            "id": 410,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * Flip images by 180° for a not mirrored inner view\n         * @member {Boolean} flipped_=false\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 69,
+                "lineno": 73,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "Flip images by 180° for a not mirrored inner view",
@@ -294,16 +294,16 @@
             "scope": "global",
             "$longname": "flipped_",
             "$kind": "property",
-            "id": 398,
+            "id": 411,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * True to rotate the helix when using keynav, so that the selected items stays in front\n         * @member {Boolean} followSelection_=false\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 74,
+                "lineno": 78,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "True to rotate the helix when using keynav, so that the selected items stays in front",
@@ -319,16 +319,41 @@
             "scope": "global",
             "$longname": "followSelection_",
             "$kind": "property",
-            "id": 399,
+            "id": 412,
+            "neoClassName": "Neo.component.Helix"
+        },
+        {
+            "comment": "/**\n         * The record field containing the image data.\n         * Nested fields are supported (e.g. author.image)\n         * @member {String} imageField='image'\n         */",
+            "meta": {
+                "filename": "Helix.mjs",
+                "lineno": 84,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {}
+            },
+            "description": "The record field containing the image data.<br />Nested fields are supported (e.g. author.image)",
+            "kind": "member",
+            "name": "imageField",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'image'",
+            "longname": "imageField",
+            "scope": "global",
+            "$longname": "imageField",
+            "$kind": "property",
+            "id": 413,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The path to the images folder\n         * Will get set inside the ctor to avoid issues inside the webpack builds\n         * @member {String|null} imageSource=Neo.config.resourcesPath + 'examples/'\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 80,
+                "lineno": 90,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The path to the images folder<br />Will get set inside the ctor to avoid issues inside the webpack builds",
@@ -345,16 +370,16 @@
             "scope": "global",
             "$longname": "imageSource",
             "$kind": "property",
-            "id": 400,
+            "id": 414,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * Amount of items per row (circle) -> 360° / 10 = 36\n         * @member {Number} itemAngle_=8\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 85,
+                "lineno": 95,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "Amount of items per row (circle) -> 360° / 10 = 36",
@@ -370,16 +395,16 @@
             "scope": "global",
             "$longname": "itemAngle_",
             "$kind": "property",
-            "id": 401,
+            "id": 415,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * @member {Object} itemTpl_\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 89,
+                "lineno": 99,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "member",
@@ -393,16 +418,41 @@
             "scope": "global",
             "$longname": "itemTpl_",
             "$kind": "property",
-            "id": 402,
+            "id": 416,
+            "neoClassName": "Neo.component.Helix"
+        },
+        {
+            "comment": "/**\n         * The unique record field containing the id.\n         * @member {String} keyProperty='id'\n         */",
+            "meta": {
+                "filename": "Helix.mjs",
+                "lineno": 112,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {}
+            },
+            "description": "The unique record field containing the id.",
+            "kind": "member",
+            "name": "keyProperty",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'id'",
+            "longname": "keyProperty",
+            "scope": "global",
+            "$longname": "keyProperty",
+            "$kind": "property",
+            "id": 417,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * Additional used keys for the selection model\n         * @member {Object} keys\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 102,
+                "lineno": 117,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "Additional used keys for the selection model",
@@ -417,16 +467,16 @@
             "scope": "global",
             "$longname": "keys",
             "$kind": "property",
-            "id": 403,
+            "id": 418,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * We store one instance of the matrix here to avoid creating new ones on each refresh operation\n         * @member {Neo.util.Matrix|null} matrix=null\n         * @private\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 111,
+                "lineno": 126,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "We store one instance of the matrix here to avoid creating new ones on each refresh operation",
@@ -444,16 +494,16 @@
             "scope": "global",
             "$longname": "matrix",
             "$kind": "property",
-            "id": 404,
+            "id": 419,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The max amount of store items to show\n         * @member {Number} maxItems_=300\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 116,
+                "lineno": 131,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The max amount of store items to show",
@@ -469,16 +519,16 @@
             "scope": "global",
             "$longname": "maxItems_",
             "$kind": "property",
-            "id": 405,
+            "id": 420,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The max opacity for items inside the foreground\n         * @member {Number} maxOpacity_=0.8\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 121,
+                "lineno": 136,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The max opacity for items inside the foreground",
@@ -494,16 +544,16 @@
             "scope": "global",
             "$longname": "maxOpacity_",
             "$kind": "property",
-            "id": 406,
+            "id": 421,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The max opacity for items inside the background\n         * @member {Number} minOpacity_=0.3\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 126,
+                "lineno": 141,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The max opacity for items inside the background",
@@ -519,16 +569,16 @@
             "scope": "global",
             "$longname": "minOpacity_",
             "$kind": "property",
-            "id": 407,
+            "id": 422,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The zooming factor which replaces the default wheelDelta.\n         * @member {Number} mouseWheelDeltaX=5\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 131,
+                "lineno": 146,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The zooming factor which replaces the default wheelDelta.",
@@ -544,16 +594,16 @@
             "scope": "global",
             "$longname": "mouseWheelDeltaX",
             "$kind": "property",
-            "id": 408,
+            "id": 423,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The zooming factor which replaces the default wheelDelta.\n         * @member {Number} mouseWheelDeltaY=50\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 136,
+                "lineno": 151,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The zooming factor which replaces the default wheelDelta.",
@@ -569,16 +619,16 @@
             "scope": "global",
             "$longname": "mouseWheelDeltaY",
             "$kind": "property",
-            "id": 409,
+            "id": 424,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * Specifies whether the mouse wheel should change the translateZ value for zooming\n         * @member {Boolean} mouseWheelEnabled_=true\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 141,
+                "lineno": 156,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "Specifies whether the mouse wheel should change the translateZ value for zooming",
@@ -594,16 +644,16 @@
             "scope": "global",
             "$longname": "mouseWheelEnabled_",
             "$kind": "property",
-            "id": 410,
+            "id": 425,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The DOM element offsetHeight of the top level div.\n         * Gets fetched after the helix got mounted.\n         * @member {Boolean} mouseWheelEnabled=true\n         * @private\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 148,
+                "lineno": 163,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The DOM element offsetHeight of the top level div.<br />Gets fetched after the helix got mounted.",
@@ -620,16 +670,16 @@
             "scope": "global",
             "$longname": "mouseWheelEnabled",
             "$kind": "property",
-            "id": 411,
+            "id": 426,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The DOM element offsetWidth of the top level div.\n         * Gets fetched after the helix got mounted.\n         * @member {Boolean} mouseWheelEnabled=true\n         * @private\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 155,
+                "lineno": 170,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The DOM element offsetWidth of the top level div.<br />Gets fetched after the helix got mounted.",
@@ -646,16 +696,16 @@
             "scope": "global",
             "$longname": "mouseWheelEnabled",
             "$kind": "property",
-            "id": 412,
+            "id": 427,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The perspective of the Helix view in px\n         * @member {Number} perspective_=800\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 160,
+                "lineno": 175,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The perspective of the Helix view in px",
@@ -671,16 +721,16 @@
             "scope": "global",
             "$longname": "perspective_",
             "$kind": "property",
-            "id": 413,
+            "id": 428,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The radius of the Helix in px\n         * @member {Number} radius_=1500\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 165,
+                "lineno": 180,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The radius of the Helix in px",
@@ -696,16 +746,16 @@
             "scope": "global",
             "$longname": "radius_",
             "$kind": "property",
-            "id": 414,
+            "id": 429,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The rotationAngle of the Helix in degrees\n         * @member {Number} rotationAngle_=780\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 170,
+                "lineno": 185,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The rotationAngle of the Helix in degrees",
@@ -721,16 +771,16 @@
             "scope": "global",
             "$longname": "rotationAngle_",
             "$kind": "property",
-            "id": 415,
+            "id": 430,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * We store one instance of the rotation matrix here to avoid creating new ones on each refresh operation\n         * @member {Neo.util.Matrix|null} rotationMatrix=null\n         * @private\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 176,
+                "lineno": 191,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "We store one instance of the rotation matrix here to avoid creating new ones on each refresh operation",
@@ -748,16 +798,41 @@
             "scope": "global",
             "$longname": "rotationMatrix",
             "$kind": "property",
-            "id": 416,
+            "id": 431,
+            "neoClassName": "Neo.component.Helix"
+        },
+        {
+            "comment": "/**\n         * True displays the first & last name record fields below an expanded item\n         * @member {Boolean} showCloneInfo=true\n         */",
+            "meta": {
+                "filename": "Helix.mjs",
+                "lineno": 196,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {}
+            },
+            "description": "True displays the first & last name record fields below an expanded item",
+            "kind": "member",
+            "name": "showCloneInfo",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "showCloneInfo",
+            "scope": "global",
+            "$longname": "showCloneInfo",
+            "$kind": "property",
+            "id": 432,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The name of the CSS rule for selected items\n         * @member {String} selectedItemCls='neo-selected'\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 181,
+                "lineno": 201,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The name of the CSS rule for selected items",
@@ -773,16 +848,16 @@
             "scope": "global",
             "$longname": "selectedItemCls",
             "$kind": "property",
-            "id": 417,
+            "id": 433,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * uses the selection.HelixModel by default\n         * @member {Neo.selection.HelixModel|null} selectionModel_=null\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 186,
+                "lineno": 206,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "uses the selection.HelixModel by default",
@@ -799,16 +874,16 @@
             "scope": "global",
             "$longname": "selectionModel_",
             "$kind": "property",
-            "id": 418,
+            "id": 434,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The store instance or class containing the data for the gallery items\n         * @member {Neo.data.Store|null} store_=null\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 191,
+                "lineno": 211,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The store instance or class containing the data for the gallery items",
@@ -825,16 +900,16 @@
             "scope": "global",
             "$longname": "store_",
             "$kind": "property",
-            "id": 419,
+            "id": 435,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The setTimeout() ids for calls which can get cancelled\n         * @member {Array} transitionTimeouts=[]\n         * @private\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 197,
+                "lineno": 217,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The setTimeout() ids for calls which can get cancelled",
@@ -851,16 +926,16 @@
             "scope": "global",
             "$longname": "transitionTimeouts",
             "$kind": "property",
-            "id": 420,
+            "id": 436,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The translateX gets included into each helix item\n         * @member {Number} translateX_=400\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 202,
+                "lineno": 222,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The translateX gets included into each helix item",
@@ -876,16 +951,16 @@
             "scope": "global",
             "$longname": "translateX_",
             "$kind": "property",
-            "id": 421,
+            "id": 437,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The translateX value gets included into each helix item\n         * @member {Number} translateY_=-350\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 207,
+                "lineno": 227,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The translateX value gets included into each helix item",
@@ -901,16 +976,16 @@
             "scope": "global",
             "$longname": "translateY_",
             "$kind": "property",
-            "id": 422,
+            "id": 438,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The translateX value gets included into each helix item\n         * @member {Number} translateZ_=-5000\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 212,
+                "lineno": 232,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The translateX value gets included into each helix item",
@@ -926,16 +1001,16 @@
             "scope": "global",
             "$longname": "translateZ_",
             "$kind": "property",
-            "id": 423,
+            "id": 439,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * The url for the store to load the data\n         * @member {String} url_='../resources/examples/data/ai_contacts.json'\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 217,
+                "lineno": 237,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "description": "The url for the store to load the data",
@@ -951,16 +1026,16 @@
             "scope": "global",
             "$longname": "url_",
             "$kind": "property",
-            "id": 424,
+            "id": 440,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n         * @member {Object} _vdom\n         */",
             "meta": {
                 "filename": "Helix.mjs",
-                "lineno": 221,
+                "lineno": 241,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
             },
             "kind": "member",
@@ -974,22 +1049,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 425,
+            "id": 441,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    7870,
-                    8486
+                    8643,
+                    9147
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 243,
+                "lineno": 263,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100015159",
+                    "id": "astnode100015384",
                     "name": "Helix",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1016,22 +1091,22 @@
             "scope": "global",
             "$longname": "Helix",
             "$kind": "constructor",
-            "id": 426,
+            "id": 442,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    8515,
-                    8705
+                    9176,
+                    9478
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 273,
+                "lineno": 288,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100015243",
+                    "id": "astnode100015460",
                     "name": "Helix#onConstructed",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1048,22 +1123,22 @@
             "params": [],
             "$longname": "Helix#onConstructed",
             "$kind": "method",
-            "id": 427,
+            "id": 443,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     * Triggered after the flipped config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
             "meta": {
                 "range": [
-                    8860,
-                    8955
+                    9633,
+                    9728
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 291,
+                "lineno": 309,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100015274",
+                    "id": "astnode100015500",
                     "name": "Helix#afterSetFlipped",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1102,22 +1177,22 @@
             "scope": "instance",
             "$longname": "Helix#afterSetFlipped",
             "$kind": "method",
-            "id": 428,
+            "id": 444,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     * Triggered after the maxItem config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @private\n     */",
             "meta": {
                 "range": [
-                    9108,
-                    9390
+                    9881,
+                    10163
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 301,
+                "lineno": 319,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100015289",
+                    "id": "astnode100015515",
                     "name": "Helix#afterSetMaxItems",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1156,22 +1231,22 @@
             "scope": "instance",
             "$longname": "Helix#afterSetMaxItems",
             "$kind": "method",
-            "id": 429,
+            "id": 445,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     * Triggered after the mounted config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
             "meta": {
                 "range": [
-                    9545,
-                    10238
+                    10318,
+                    10474
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 319,
+                "lineno": 337,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100015327",
+                    "id": "astnode100015553",
                     "name": "Helix#afterSetMounted",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1210,22 +1285,22 @@
             "scope": "instance",
             "$longname": "Helix#afterSetMounted",
             "$kind": "method",
-            "id": 430,
+            "id": 446,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     * Triggered after the perspective config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @private\n     */",
             "meta": {
                 "range": [
-                    10395,
-                    10831
+                    10631,
+                    11067
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 347,
+                "lineno": 351,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100015406",
+                    "id": "astnode100015574",
                     "name": "Helix#afterSetPerspective",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1264,22 +1339,22 @@
             "scope": "instance",
             "$longname": "Helix#afterSetPerspective",
             "$kind": "method",
-            "id": 431,
+            "id": 447,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     * Triggered after the selectionModel config got changed\n     * @param {Neo.selection.Model} value\n     * @param {Neo.selection.Model} oldValue\n     * @private\n     */",
             "meta": {
                 "range": [
-                    11017,
-                    11137
+                    11253,
+                    11373
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 371,
+                "lineno": 375,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100015451",
+                    "id": "astnode100015619",
                     "name": "Helix#afterSetSelectionModel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1318,22 +1393,22 @@
             "scope": "instance",
             "$longname": "Helix#afterSetSelectionModel",
             "$kind": "method",
-            "id": 432,
+            "id": 448,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     * Triggered after the url config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
             "meta": {
                 "range": [
-                    11286,
-                    11441
+                    11522,
+                    11677
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 383,
+                "lineno": 387,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100015468",
+                    "id": "astnode100015636",
                     "name": "Helix#afterSetUrl",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1372,22 +1447,22 @@
             "scope": "instance",
             "$longname": "Helix#afterSetUrl",
             "$kind": "method",
-            "id": 433,
+            "id": 449,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     *\n     * @param callback\n     * @param animationTime\n     * @param callbackParam\n     * @private\n     */",
             "meta": {
                 "range": [
-                    11565,
-                    12927
+                    11801,
+                    13163
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 399,
+                "lineno": 403,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100015493",
+                    "id": "astnode100015661",
                     "name": "Helix#applyItemTransitions",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1419,22 +1494,22 @@
             "scope": "instance",
             "$longname": "Helix#applyItemTransitions",
             "$kind": "method",
-            "id": 434,
+            "id": 450,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     *\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    12981,
-                    13054
+                    13217,
+                    13290
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 447,
+                "lineno": 451,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100015631",
+                    "id": "astnode100015799",
                     "name": "Helix#beforeGetItemTpl",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1460,22 +1535,22 @@
             "params": [],
             "$longname": "Helix#beforeGetItemTpl",
             "$kind": "method",
-            "id": 435,
+            "id": 451,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     * Triggered before the selectionModel config gets changed.\n     * @param {Neo.selection.Model} value\n     * @param {Neo.selection.Model} oldValue\n     * @private\n     */",
             "meta": {
                 "range": [
-                    13243,
-                    13574
+                    13479,
+                    13810
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 457,
+                "lineno": 461,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100015644",
+                    "id": "astnode100015812",
                     "name": "Helix#beforeSetSelectionModel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1514,22 +1589,78 @@
             "scope": "instance",
             "$longname": "Helix#beforeSetSelectionModel",
             "$kind": "method",
-            "id": 436,
+            "id": 452,
+            "neoClassName": "Neo.component.Helix"
+        },
+        {
+            "comment": "/**\n     * Triggered before the store config gets changed.\n     * @param {Neo.data.Store|null} value\n     * @param {Neo.data.Store|null} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    13990,
+                    14669
+                ],
+                "filename": "Helix.mjs",
+                "lineno": 480,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {
+                    "id": "astnode100015842",
+                    "name": "Helix#beforeSetStore",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the store config gets changed.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.data.Store",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.data.Store",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "beforeSetStore",
+            "longname": "Helix#beforeSetStore",
+            "kind": "function",
+            "memberof": "Helix",
+            "scope": "instance",
+            "$longname": "Helix#beforeSetStore",
+            "$kind": "method",
+            "id": 453,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     * Calculate an opacity gradient based on the item rotation angle\n     * @param {Object} item\n     * @returns {Number}\n     */",
             "meta": {
                 "range": [
-                    13719,
-                    14511
+                    14814,
+                    15606
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 475,
+                "lineno": 512,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100015674",
+                    "id": "astnode100015900",
                     "name": "Helix#calculateOpacity",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1567,22 +1698,94 @@
             "scope": "instance",
             "$longname": "Helix#calculateOpacity",
             "$kind": "method",
-            "id": 437,
+            "id": 454,
+            "neoClassName": "Neo.component.Helix"
+        },
+        {
+            "comment": "/**\n     * Override this method to get different item-markups\n     * @param {Object} vdomItem\n     * @param {Object} record\n     * @param {Number} index\n     * @returns {Object} vdomItem\n     */",
+            "meta": {
+                "range": [
+                    15811,
+                    16135
+                ],
+                "filename": "Helix.mjs",
+                "lineno": 548,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {
+                    "id": "astnode100015994",
+                    "name": "Helix#createItem",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "vdomItem",
+                        "record",
+                        "index"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Override this method to get different item-markups",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "vdomItem"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "record"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "vdomItem"
+                }
+            ],
+            "name": "createItem",
+            "longname": "Helix#createItem",
+            "kind": "function",
+            "memberof": "Helix",
+            "scope": "instance",
+            "$longname": "Helix#createItem",
+            "$kind": "method",
+            "id": 455,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     * @param {Number} [startIndex] the start index for creating items,\n     * e.g. increasing maxItems only needs to create the new ones\n     * @private\n     */",
             "meta": {
                 "range": [
-                    14687,
-                    16751
+                    16311,
+                    18832
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 509,
+                "lineno": 564,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100015768",
+                    "id": "astnode100016063",
                     "name": "Helix#createItems",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1613,22 +1816,22 @@
             "scope": "instance",
             "$longname": "Helix#createItems",
             "$kind": "method",
-            "id": 438,
+            "id": 456,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     * @private\n     */",
             "meta": {
                 "range": [
-                    16789,
-                    18043
+                    18870,
+                    20113
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 577,
+                "lineno": 646,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100016112",
+                    "id": "astnode100016431",
                     "name": "Helix#destroyClones",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1646,22 +1849,22 @@
             "params": [],
             "$longname": "Helix#destroyClones",
             "$kind": "method",
-            "id": 439,
+            "id": 457,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     *\n     * @param {Number} [startIndex]\n     * @param {Number} [amountItems]\n     */",
             "meta": {
                 "range": [
-                    18145,
-                    18357
+                    20215,
+                    20428
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 626,
+                "lineno": 695,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100016258",
+                    "id": "astnode100016573",
                     "name": "Helix#destroyItems",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1700,22 +1903,22 @@
             "scope": "instance",
             "$longname": "Helix#destroyItems",
             "$kind": "method",
-            "id": 440,
+            "id": 458,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     * Moves a clone of an item to the top left corner\n     * @param {String} itemId\n     */",
             "meta": {
                 "range": [
-                    18464,
-                    20108
+                    20535,
+                    22243
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 638,
+                "lineno": 707,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100016305",
+                    "id": "astnode100016615",
                     "name": "Helix#expandItem",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1744,22 +1947,22 @@
             "scope": "instance",
             "$longname": "Helix#expandItem",
             "$kind": "method",
-            "id": 441,
+            "id": 459,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     *\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    20162,
-                    20486
+                    22297,
+                    22621
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 692,
+                "lineno": 763,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100016524",
+                    "id": "astnode100016832",
                     "name": "Helix#getCloneTransform",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1785,22 +1988,22 @@
             "params": [],
             "$longname": "Helix#getCloneTransform",
             "$kind": "method",
-            "id": 442,
+            "id": 460,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     *\n     * @param {String} vnodeId\n     * @returns {Number}\n     */",
             "meta": {
                 "range": [
-                    20571,
-                    20646
+                    22706,
+                    22781
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 706,
+                "lineno": 777,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100016573",
+                    "id": "astnode100016881",
                     "name": "Helix#getItemId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1837,22 +2040,65 @@
             "scope": "instance",
             "$longname": "Helix#getItemId",
             "$kind": "method",
-            "id": 443,
+            "id": 461,
+            "neoClassName": "Neo.component.Helix"
+        },
+        {
+            "comment": "/**\n     * Returns the vdom node containing the helix items\n     * @returns {Object} vdom\n     */",
+            "meta": {
+                "range": [
+                    22889,
+                    22949
+                ],
+                "filename": "Helix.mjs",
+                "lineno": 785,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {
+                    "id": "astnode100016896",
+                    "name": "Helix#getItemsRoot",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns the vdom node containing the helix items",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "vdom"
+                }
+            ],
+            "name": "getItemsRoot",
+            "longname": "Helix#getItemsRoot",
+            "kind": "function",
+            "memberof": "Helix",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Helix#getItemsRoot",
+            "$kind": "method",
+            "id": 462,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     *\n     * @param {Number|String} id\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    20733,
-                    20795
+                    23036,
+                    23098
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 715,
+                "lineno": 794,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100016588",
+                    "id": "astnode100016912",
                     "name": "Helix#getItemVnodeId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1890,22 +2136,67 @@
             "scope": "instance",
             "$longname": "Helix#getItemVnodeId",
             "$kind": "method",
-            "id": 444,
+            "id": 463,
+            "neoClassName": "Neo.component.Helix"
+        },
+        {
+            "comment": "/**\n     * @param {Number} [delay=100]\n     */",
+            "meta": {
+                "range": [
+                    23155,
+                    23679
+                ],
+                "filename": "Helix.mjs",
+                "lineno": 801,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {
+                    "id": "astnode100016925",
+                    "name": "Helix#getOffsetValues",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "delay"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": 100,
+                    "name": "delay"
+                }
+            ],
+            "name": "getOffsetValues",
+            "longname": "Helix#getOffsetValues",
+            "kind": "function",
+            "memberof": "Helix",
+            "scope": "instance",
+            "$longname": "Helix#getOffsetValues",
+            "$kind": "method",
+            "id": 464,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    20824,
-                    21243
+                    23708,
+                    24081
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 722,
+                "lineno": 822,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100016601",
+                    "id": "astnode100016987",
                     "name": "Helix#loadData",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1922,22 +2213,22 @@
             "params": [],
             "$longname": "Helix#loadData",
             "$kind": "method",
-            "id": 445,
+            "id": 465,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     *\n     * @param {String} itemId\n     */",
             "meta": {
                 "range": [
-                    21302,
-                    21441
+                    24140,
+                    24279
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 741,
+                "lineno": 840,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100016675",
+                    "id": "astnode100017057",
                     "name": "Helix#moveToSelectedItem",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1965,22 +2256,22 @@
             "scope": "instance",
             "$longname": "Helix#moveToSelectedItem",
             "$kind": "method",
-            "id": 446,
+            "id": 466,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    21498,
-                    21598
+                    24336,
+                    24436
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 750,
+                "lineno": 849,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100016702",
+                    "id": "astnode100017084",
                     "name": "Helix#onClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2008,22 +2299,22 @@
             "scope": "instance",
             "$longname": "Helix#onClick",
             "$kind": "method",
-            "id": 447,
+            "id": 467,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    21655,
-                    21798
+                    24493,
+                    24636
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 758,
+                "lineno": 857,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100016723",
+                    "id": "astnode100017105",
                     "name": "Helix#onKeyDownEnter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2051,22 +2342,22 @@
             "scope": "instance",
             "$longname": "Helix#onKeyDownEnter",
             "$kind": "method",
-            "id": 448,
+            "id": 468,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    21855,
-                    21984
+                    24693,
+                    24822
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 770,
+                "lineno": 869,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100016747",
+                    "id": "astnode100017129",
                     "name": "Helix#onKeyDownSpace",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2094,22 +2385,22 @@
             "scope": "instance",
             "$longname": "Helix#onKeyDownSpace",
             "$kind": "method",
-            "id": 449,
+            "id": 469,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    22041,
-                    22659
+                    24879,
+                    25513
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 778,
+                "lineno": 877,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100016770",
+                    "id": "astnode100017152",
                     "name": "Helix#onMouseWheel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2137,22 +2428,22 @@
             "scope": "instance",
             "$longname": "Helix#onMouseWheel",
             "$kind": "method",
-            "id": 450,
+            "id": 470,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     *\n     * @param {String[]} value\n     * @param {String[]} oldValue\n     */",
             "meta": {
                 "range": [
-                    22753,
-                    22959
+                    25607,
+                    25813
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 802,
+                "lineno": 900,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100016851",
+                    "id": "astnode100017237",
                     "name": "Helix#onSelectionChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2189,22 +2480,22 @@
             "scope": "instance",
             "$longname": "Helix#onSelectionChange",
             "$kind": "method",
-            "id": 451,
+            "id": 471,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     * @private\n     */",
             "meta": {
                 "range": [
-                    22997,
-                    23070
+                    25851,
+                    26021
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 813,
+                "lineno": 911,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100016884",
+                    "id": "astnode100017270",
                     "name": "Helix#onSort",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -2222,22 +2513,65 @@
             "params": [],
             "$longname": "Helix#onSort",
             "$kind": "method",
-            "id": 452,
+            "id": 472,
+            "neoClassName": "Neo.component.Helix"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Array} items\n     */",
+            "meta": {
+                "range": [
+                    26078,
+                    26186
+                ],
+                "filename": "Helix.mjs",
+                "lineno": 923,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {
+                    "id": "astnode100017300",
+                    "name": "Helix#onStoreLoad",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "items"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "items"
+                }
+            ],
+            "name": "onStoreLoad",
+            "longname": "Helix#onStoreLoad",
+            "kind": "function",
+            "memberof": "Helix",
+            "scope": "instance",
+            "$longname": "Helix#onStoreLoad",
+            "$kind": "method",
+            "id": 473,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     * @private\n     */",
             "meta": {
                 "range": [
-                    23108,
-                    25587
+                    26224,
+                    28881
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 820,
+                "lineno": 931,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100016897",
+                    "id": "astnode100017319",
                     "name": "Helix#refresh",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -2255,22 +2589,22 @@
             "params": [],
             "$longname": "Helix#refresh",
             "$kind": "method",
-            "id": 453,
+            "id": 474,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     * @private\n     */",
             "meta": {
                 "range": [
-                    25625,
-                    25717
+                    28919,
+                    29011
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 902,
+                "lineno": 1020,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100017253",
+                    "id": "astnode100017693",
                     "name": "Helix#refreshIfMounted",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -2288,22 +2622,22 @@
             "params": [],
             "$longname": "Helix#refreshIfMounted",
             "$kind": "method",
-            "id": 454,
+            "id": 475,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    25746,
-                    26388
+                    29040,
+                    29695
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 911,
+                "lineno": 1029,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100017267",
+                    "id": "astnode100017707",
                     "name": "Helix#sortItems",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -2320,22 +2654,22 @@
             "params": [],
             "$longname": "Helix#sortItems",
             "$kind": "method",
-            "id": 455,
+            "id": 476,
             "neoClassName": "Neo.component.Helix"
         },
         {
             "comment": "/**\n     * @private\n     */",
             "meta": {
                 "range": [
-                    26426,
-                    27951
+                    29733,
+                    31258
                 ],
                 "filename": "Helix.mjs",
-                "lineno": 938,
+                "lineno": 1056,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/component",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100017367",
+                    "id": "astnode100017809",
                     "name": "Helix#updateCloneTranslate",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -2353,7 +2687,7 @@
             "params": [],
             "$longname": "Helix#updateCloneTranslate",
             "$kind": "method",
-            "id": 456,
+            "id": 477,
             "neoClassName": "Neo.component.Helix"
         }
     ]

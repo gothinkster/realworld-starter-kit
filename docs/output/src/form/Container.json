@@ -1,0 +1,297 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.form.Container\n * @extends Neo.container.Base\n */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 5,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Container",
+            "augments": [
+                "Neo.container.Base"
+            ],
+            "memberof": "Neo.form",
+            "longname": "Neo.form.Container",
+            "scope": "static",
+            "$longname": "Neo.form.Container",
+            "$kind": "class",
+            "id": 759,
+            "neoClassName": "Neo.form.Container"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.form.Container'\n         * @private\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 15,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.form.Container'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 760,
+            "neoClassName": "Neo.form.Container"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='form-container'\n         * @private\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 20,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'form-container'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 761,
+            "neoClassName": "Neo.form.Container"
+        },
+        {
+            "comment": "/**\n         * @member {Array} cls=['neo-form-container'],\n         * @private\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 25,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array"
+                ]
+            },
+            "defaultvalue": "['neo-form-container'],",
+            "access": "private",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 762,
+            "neoClassName": "Neo.form.Container"
+        },
+        {
+            "comment": "/**\n         * @member {Object} _vdom={tag: 'form',cn: []}\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 29,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "_vdom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{tag: 'form',cn: []}",
+            "description": "'form',cn: []}",
+            "longname": "_vdom",
+            "scope": "global",
+            "$longname": "_vdom",
+            "$kind": "property",
+            "id": 763,
+            "neoClassName": "Neo.form.Container"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Array} fields\n     */",
+            "meta": {
+                "range": [
+                    972,
+                    1243
+                ],
+                "filename": "Container.mjs",
+                "lineno": 39,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form",
+                "code": {
+                    "id": "astnode100025852",
+                    "name": "Container#getFields",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "description": "fields"
+                }
+            ],
+            "name": "getFields",
+            "longname": "Container#getFields",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Container#getFields",
+            "$kind": "method",
+            "id": 764,
+            "neoClassName": "Neo.form.Container"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Object} values\n     */",
+            "meta": {
+                "range": [
+                    1304,
+                    1512
+                ],
+                "filename": "Container.mjs",
+                "lineno": 56,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form",
+                "code": {
+                    "id": "astnode100025888",
+                    "name": "Container#getValues",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "values"
+                }
+            ],
+            "name": "getValues",
+            "longname": "Container#getValues",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Container#getValues",
+            "$kind": "method",
+            "id": 765,
+            "neoClassName": "Neo.form.Container"
+        },
+        {
+            "comment": "/**\n     * Returns true in case no form field isValid() call returns false\n     * @returns {Boolean}\n     */",
+            "meta": {
+                "range": [
+                    1631,
+                    1895
+                ],
+                "filename": "Container.mjs",
+                "lineno": 71,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form",
+                "code": {
+                    "id": "astnode100025926",
+                    "name": "Container#isValid",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns true in case no form field isValid() call returns false",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    }
+                }
+            ],
+            "name": "isValid",
+            "longname": "Container#isValid",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Container#isValid",
+            "$kind": "method",
+            "id": 766,
+            "neoClassName": "Neo.form.Container"
+        },
+        {
+            "comment": "/**\n     * Set field values by field name or field id\n     * @param {Object} values={}\n     */",
+            "meta": {
+                "range": [
+                    2000,
+                    2405
+                ],
+                "filename": "Container.mjs",
+                "lineno": 89,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form",
+                "code": {
+                    "id": "astnode100025965",
+                    "name": "Container#setValues",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "values"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Set field values by field name or field id",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "defaultvalue": "{}",
+                    "name": "values"
+                }
+            ],
+            "name": "setValues",
+            "longname": "Container#setValues",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "$longname": "Container#setValues",
+            "$kind": "method",
+            "id": 767,
+            "neoClassName": "Neo.form.Container"
+        }
+    ]
+}

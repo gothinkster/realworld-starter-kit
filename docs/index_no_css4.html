@@ -14,11 +14,13 @@
         Neo = self.Neo || {}; Neo.config = Neo.config || {};
 
         Object.assign(Neo.config, {
-            appPath       : 'docs/app.mjs',
+            appPath       : '../../docs/app.mjs',
             basePath      : '../',
             environment   : 'development',
             isExperimental: true,
-            useCss4       : false
+            resourcesPath : '../node_modules/neo.mjs/resources/',
+            useCss4       : false,
+            workerBasePath: '../node_modules/neo.mjs/src/worker/'
         });
     </script>
 

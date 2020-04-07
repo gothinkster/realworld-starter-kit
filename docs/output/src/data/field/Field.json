@@ -6,7 +6,7 @@
                 "filename": "Field.mjs",
                 "lineno": 3,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/data/field",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
                 "code": {}
             },
             "kind": "class",
@@ -19,7 +19,190 @@
             "scope": "static",
             "$longname": "Neo.data.field.Field",
             "$kind": "class",
-            "id": 633,
+            "id": 672,
+            "neoClassName": "Neo.data.field.Field"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.data.field.Field'\n         * @private\n         */",
+            "meta": {
+                "filename": "Field.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.data.field.Field'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 673,
+            "neoClassName": "Neo.data.field.Field"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='data-field'\n         * @private\n         */",
+            "meta": {
+                "filename": "Field.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'data-field'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 674,
+            "neoClassName": "Neo.data.field.Field"
+        },
+        {
+            "comment": "/**\n         * @member {*|null} defaultValue=null\n         */",
+            "meta": {
+                "filename": "Field.mjs",
+                "lineno": 22,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "defaultValue",
+            "type": {
+                "names": [
+                    "*",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "defaultValue",
+            "scope": "global",
+            "$longname": "defaultValue",
+            "$kind": "property",
+            "id": 675,
+            "neoClassName": "Neo.data.field.Field"
+        },
+        {
+            "comment": "/**\n         * @member {*|null} nullableValue=true\n         * @private\n         */",
+            "meta": {
+                "filename": "Field.mjs",
+                "lineno": 27,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "nullableValue",
+            "type": {
+                "names": [
+                    "*",
+                    "null"
+                ]
+            },
+            "defaultvalue": true,
+            "access": "private",
+            "longname": "nullableValue",
+            "scope": "global",
+            "$longname": "nullableValue",
+            "$kind": "property",
+            "id": 676,
+            "neoClassName": "Neo.data.field.Field"
+        },
+        {
+            "comment": "/**\n         * @member {*|null} value_=null\n         * @private\n         */",
+            "meta": {
+                "filename": "Field.mjs",
+                "lineno": 32,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "value_",
+            "type": {
+                "names": [
+                    "*",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "private",
+            "longname": "value_",
+            "scope": "global",
+            "$longname": "value_",
+            "$kind": "property",
+            "id": 677,
+            "neoClassName": "Neo.data.field.Field"
+        },
+        {
+            "comment": "/**\n     * Triggered after the value config got changed\n     * @param {*|null} value\n     * @param {*|null} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    914,
+                    1007
+                ],
+                "filename": "Field.mjs",
+                "lineno": 41,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
+                "code": {
+                    "id": "astnode100024392",
+                    "name": "Field#afterSetValue",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the value config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "*",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "*",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetValue",
+            "longname": "Field#afterSetValue",
+            "kind": "function",
+            "memberof": "Field",
+            "scope": "instance",
+            "$longname": "Field#afterSetValue",
+            "$kind": "method",
+            "id": 678,
             "neoClassName": "Neo.data.field.Field"
         }
     ]

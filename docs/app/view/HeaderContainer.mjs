@@ -1,6 +1,6 @@
-import {default as Container}   from '../../../src/container/Base.mjs';
-import Button                   from '../../../src/component/Button.mjs';
-import {default as SearchField} from '../../../src/form/field/Search.mjs';
+import {default as Container}   from '../../../node_modules/neo.mjs/src/container/Base.mjs';
+import Button                   from '../../../node_modules/neo.mjs/src/component/Button.mjs';
+import {default as SearchField} from '../../../node_modules/neo.mjs/src/form/field/Search.mjs';
 
 /**
  * @class Docs.app.view.HeaderContainer

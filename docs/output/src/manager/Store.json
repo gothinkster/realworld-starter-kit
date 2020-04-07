@@ -6,7 +6,7 @@
                 "filename": "Store.mjs",
                 "lineno": 3,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/manager",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {}
             },
             "description": "todo: except createRandomData a legacy class, since stores live directly inside the app worker",
@@ -27,7 +27,7 @@
             "scope": "static",
             "$longname": "Neo.manager.Store",
             "$kind": "class",
-            "id": 1367,
+            "id": 1485,
             "neoClassName": "Neo.manager.Store"
         },
         {
@@ -36,7 +36,7 @@
                 "filename": "Store.mjs",
                 "lineno": 15,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/manager",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {}
             },
             "kind": "member",
@@ -52,7 +52,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1368,
+            "id": 1486,
             "neoClassName": "Neo.manager.Store"
         },
         {
@@ -61,7 +61,7 @@
                 "filename": "Store.mjs",
                 "lineno": 20,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/manager",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {}
             },
             "kind": "member",
@@ -77,7 +77,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1369,
+            "id": 1487,
             "neoClassName": "Neo.manager.Store"
         },
         {
@@ -86,7 +86,7 @@
                 "filename": "Store.mjs",
                 "lineno": 25,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/manager",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {}
             },
             "kind": "member",
@@ -102,7 +102,7 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1370,
+            "id": 1488,
             "neoClassName": "Neo.manager.Store"
         },
         {
@@ -111,7 +111,7 @@
                 "filename": "Store.mjs",
                 "lineno": 30,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/manager",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {}
             },
             "kind": "member",
@@ -127,7 +127,7 @@
             "scope": "global",
             "$longname": "listeners",
             "$kind": "property",
-            "id": 1371,
+            "id": 1489,
             "neoClassName": "Neo.manager.Store"
         },
         {
@@ -136,7 +136,7 @@
                 "filename": "Store.mjs",
                 "lineno": 35,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/manager",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {}
             },
             "kind": "member",
@@ -153,7 +153,7 @@
             "scope": "global",
             "$longname": "remote",
             "$kind": "property",
-            "id": 1372,
+            "id": 1490,
             "neoClassName": "Neo.manager.Store"
         },
         {
@@ -166,9 +166,9 @@
                 "filename": "Store.mjs",
                 "lineno": 46,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/manager",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100043820",
+                    "id": "astnode100046413",
                     "name": "Store#createRandomData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -206,7 +206,7 @@
             "scope": "instance",
             "$longname": "Store#createRandomData",
             "$kind": "method",
-            "id": 1373,
+            "id": 1491,
             "neoClassName": "Neo.manager.Store"
         },
         {
@@ -214,14 +214,14 @@
             "meta": {
                 "range": [
                     1760,
-                    1803
+                    1802
                 ],
                 "filename": "Store.mjs",
                 "lineno": 71,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/manager",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100043919",
+                    "id": "astnode100046512",
                     "name": "Store#filter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -252,22 +252,22 @@
             "scope": "instance",
             "$longname": "Store#filter",
             "$kind": "method",
-            "id": 1374,
+            "id": 1492,
             "neoClassName": "Neo.manager.Store"
         },
         {
             "comment": "/**\n     *\n     * @param storeId\n     * @param params\n     */",
             "meta": {
                 "range": [
-                    1875,
-                    1906
+                    1874,
+                    1904
                 ],
                 "filename": "Store.mjs",
                 "lineno": 80,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/manager",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100043926",
+                    "id": "astnode100046519",
                     "name": "Store#load",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -294,22 +294,22 @@
             "scope": "instance",
             "$longname": "Store#load",
             "$kind": "method",
-            "id": 1375,
+            "id": 1493,
             "neoClassName": "Neo.manager.Store"
         },
         {
             "comment": "/**\n     *\n     * @param storeId\n     * @param fieldName\n     * @param value\n     */",
             "meta": {
                 "range": [
-                    2001,
-                    2042
+                    1999,
+                    2039
                 ],
                 "filename": "Store.mjs",
                 "lineno": 90,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/manager",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100043932",
+                    "id": "astnode100046525",
                     "name": "Store#sort",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -340,7 +340,7 @@
             "scope": "instance",
             "$longname": "Store#sort",
             "$kind": "method",
-            "id": 1376,
+            "id": 1494,
             "neoClassName": "Neo.manager.Store"
         }
     ]

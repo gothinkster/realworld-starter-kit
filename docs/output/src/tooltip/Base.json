@@ -6,7 +6,7 @@
                 "filename": "Base.mjs",
                 "lineno": 5,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {}
             },
             "description": "Base class for component tooltips",
@@ -20,7 +20,7 @@
             "scope": "static",
             "$longname": "Neo.tooltip.Base",
             "$kind": "class",
-            "id": 1721,
+            "id": 1830,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -29,7 +29,7 @@
                 "filename": "Base.mjs",
                 "lineno": 16,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {}
             },
             "kind": "member",
@@ -45,7 +45,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1722,
+            "id": 1831,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -54,7 +54,7 @@
                 "filename": "Base.mjs",
                 "lineno": 21,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {}
             },
             "kind": "member",
@@ -70,7 +70,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1723,
+            "id": 1832,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -79,7 +79,7 @@
                 "filename": "Base.mjs",
                 "lineno": 25,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {}
             },
             "kind": "member",
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1724,
+            "id": 1833,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -103,7 +103,7 @@
                 "filename": "Base.mjs",
                 "lineno": 30,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {}
             },
             "description": "A reference to the target component which is supposed to show this tooltip on mouseenter",
@@ -120,7 +120,7 @@
             "scope": "global",
             "$longname": "componentId_",
             "$kind": "property",
-            "id": 1725,
+            "id": 1834,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -129,7 +129,7 @@
                 "filename": "Base.mjs",
                 "lineno": 35,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {}
             },
             "description": "Delegates down to a CSS selector inside the target component",
@@ -146,7 +146,7 @@
             "scope": "global",
             "$longname": "delegate",
             "$kind": "property",
-            "id": 1726,
+            "id": 1835,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -155,7 +155,7 @@
                 "filename": "Base.mjs",
                 "lineno": 41,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {}
             },
             "description": "The delay in ms before the tooltip gets hidden while hovering the target element.<br />Use null to disable the dismiss logic.",
@@ -172,7 +172,7 @@
             "scope": "global",
             "$longname": "dismissDelay",
             "$kind": "property",
-            "id": 1727,
+            "id": 1836,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -181,7 +181,7 @@
                 "filename": "Base.mjs",
                 "lineno": 47,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {}
             },
             "description": "The dismissDelay task id generated by setTimeout()",
@@ -199,7 +199,7 @@
             "scope": "global",
             "$longname": "dismissDelayTaskId",
             "$kind": "property",
-            "id": 1728,
+            "id": 1837,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -208,7 +208,7 @@
                 "filename": "Base.mjs",
                 "lineno": 52,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {}
             },
             "description": "The delay in ms before the tooltip gets shown",
@@ -225,7 +225,7 @@
             "scope": "global",
             "$longname": "hideDelay",
             "$kind": "property",
-            "id": 1729,
+            "id": 1838,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -234,7 +234,7 @@
                 "filename": "Base.mjs",
                 "lineno": 58,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {}
             },
             "description": "The showDelay task id generated by setTimeout()",
@@ -252,7 +252,7 @@
             "scope": "global",
             "$longname": "hideDelayTaskId",
             "$kind": "property",
-            "id": 1730,
+            "id": 1839,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -261,7 +261,7 @@
                 "filename": "Base.mjs",
                 "lineno": 63,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {}
             },
             "kind": "member",
@@ -276,7 +276,7 @@
             "scope": "global",
             "$longname": "mixins",
             "$kind": "property",
-            "id": 1731,
+            "id": 1840,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -285,7 +285,7 @@
                 "filename": "Base.mjs",
                 "lineno": 68,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {}
             },
             "description": "The delay in ms before the tooltip gets shown",
@@ -302,7 +302,7 @@
             "scope": "global",
             "$longname": "showDelay",
             "$kind": "property",
-            "id": 1732,
+            "id": 1841,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -311,7 +311,7 @@
                 "filename": "Base.mjs",
                 "lineno": 74,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {}
             },
             "description": "The showDelay task id generated by setTimeout()",
@@ -329,7 +329,7 @@
             "scope": "global",
             "$longname": "showDelayTaskId",
             "$kind": "property",
-            "id": 1733,
+            "id": 1842,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -338,7 +338,7 @@
                 "filename": "Base.mjs",
                 "lineno": 79,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {}
             },
             "description": "True prevents the tooltip from hiding while the mouse cursor is above it",
@@ -355,7 +355,7 @@
             "scope": "global",
             "$longname": "stayOnHover_",
             "$kind": "property",
-            "id": 1734,
+            "id": 1843,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -364,7 +364,7 @@
                 "filename": "Base.mjs",
                 "lineno": 84,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {}
             },
             "description": "Shortcut to add a label item",
@@ -380,7 +380,7 @@
             "scope": "global",
             "$longname": "text_",
             "$kind": "property",
-            "id": 1735,
+            "id": 1844,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -393,9 +393,9 @@
                 "filename": "Base.mjs",
                 "lineno": 93,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100055657",
+                    "id": "astnode100058693",
                     "name": "Base#afterSetComponentId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -434,7 +434,7 @@
             "scope": "instance",
             "$longname": "Base#afterSetComponentId",
             "$kind": "method",
-            "id": 1736,
+            "id": 1845,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -447,9 +447,9 @@
                 "filename": "Base.mjs",
                 "lineno": 123,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100055720",
+                    "id": "astnode100058756",
                     "name": "Base#afterSetStayOnHover",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -488,7 +488,7 @@
             "scope": "instance",
             "$longname": "Base#afterSetStayOnHover",
             "$kind": "method",
-            "id": 1737,
+            "id": 1846,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -501,9 +501,9 @@
                 "filename": "Base.mjs",
                 "lineno": 150,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100055768",
+                    "id": "astnode100058804",
                     "name": "Base#afterSetText",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -541,7 +541,7 @@
             "scope": "instance",
             "$longname": "Base#afterSetText",
             "$kind": "method",
-            "id": 1738,
+            "id": 1847,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -554,9 +554,9 @@
                 "filename": "Base.mjs",
                 "lineno": 173,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100055824",
+                    "id": "astnode100058860",
                     "name": "Base#clearTimeout",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -587,7 +587,7 @@
             "scope": "instance",
             "$longname": "Base#clearTimeout",
             "$kind": "method",
-            "id": 1739,
+            "id": 1848,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -600,9 +600,9 @@
                 "filename": "Base.mjs",
                 "lineno": 195,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100055879",
+                    "id": "astnode100058915",
                     "name": "Base#hide",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -632,7 +632,7 @@
             "scope": "instance",
             "$longname": "Base#hide",
             "$kind": "method",
-            "id": 1740,
+            "id": 1849,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -645,9 +645,9 @@
                 "filename": "Base.mjs",
                 "lineno": 209,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100055907",
+                    "id": "astnode100058943",
                     "name": "Base#hideDelayed",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -677,7 +677,7 @@
             "scope": "instance",
             "$longname": "Base#hideDelayed",
             "$kind": "method",
-            "id": 1741,
+            "id": 1850,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -690,9 +690,9 @@
                 "filename": "Base.mjs",
                 "lineno": 223,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100055946",
+                    "id": "astnode100058982",
                     "name": "Base#onMouseEnter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -721,7 +721,7 @@
             "scope": "instance",
             "$longname": "Base#onMouseEnter",
             "$kind": "method",
-            "id": 1742,
+            "id": 1851,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -734,9 +734,9 @@
                 "filename": "Base.mjs",
                 "lineno": 237,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100055979",
+                    "id": "astnode100059015",
                     "name": "Base#onMouseLeave",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -765,7 +765,7 @@
             "scope": "instance",
             "$longname": "Base#onMouseLeave",
             "$kind": "method",
-            "id": 1743,
+            "id": 1852,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -778,9 +778,9 @@
                 "filename": "Base.mjs",
                 "lineno": 251,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100056010",
+                    "id": "astnode100059046",
                     "name": "Base#show",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -809,7 +809,7 @@
             "scope": "instance",
             "$longname": "Base#show",
             "$kind": "method",
-            "id": 1744,
+            "id": 1853,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -822,9 +822,9 @@
                 "filename": "Base.mjs",
                 "lineno": 271,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/tooltip",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100056065",
+                    "id": "astnode100059101",
                     "name": "Base#showDelayed",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -853,7 +853,7 @@
             "scope": "instance",
             "$longname": "Base#showDelayed",
             "$kind": "method",
-            "id": 1745,
+            "id": 1854,
             "neoClassName": "Neo.tooltip.Base"
         }
     ]

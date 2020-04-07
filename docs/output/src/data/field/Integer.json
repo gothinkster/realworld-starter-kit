@@ -6,7 +6,7 @@
                 "filename": "Integer.mjs",
                 "lineno": 3,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/data/field",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
                 "code": {}
             },
             "kind": "class",
@@ -19,7 +19,147 @@
             "scope": "static",
             "$longname": "Neo.data.field.Integer",
             "$kind": "class",
-            "id": 635,
+            "id": 684,
+            "neoClassName": "Neo.data.field.Integer"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.data.field.Integer'\n         * @private\n         */",
+            "meta": {
+                "filename": "Integer.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.data.field.Integer'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 685,
+            "neoClassName": "Neo.data.field.Integer"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='data-field-integer'\n         * @private\n         */",
+            "meta": {
+                "filename": "Integer.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'data-field-integer'",
+            "access": "private",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 686,
+            "neoClassName": "Neo.data.field.Integer"
+        },
+        {
+            "comment": "/**\n         * @member {Number|null} defaultValue=0\n         */",
+            "meta": {
+                "filename": "Integer.mjs",
+                "lineno": 22,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "defaultValue",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": 0,
+            "longname": "defaultValue",
+            "scope": "global",
+            "$longname": "defaultValue",
+            "$kind": "property",
+            "id": 687,
+            "neoClassName": "Neo.data.field.Integer"
+        },
+        {
+            "comment": "/**\n     * Triggered before the value config gets changed.\n     * @param {Number|null} value\n     * @param {Number|null} oldValue\n     * @returns {Number}\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    755,
+                    1021
+                ],
+                "filename": "Integer.mjs",
+                "lineno": 32,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
+                "code": {
+                    "id": "astnode100024508",
+                    "name": "IntegerField#beforeSetValue",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the value config gets changed.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    }
+                }
+            ],
+            "access": "private",
+            "name": "beforeSetValue",
+            "longname": "IntegerField#beforeSetValue",
+            "kind": "function",
+            "memberof": "IntegerField",
+            "scope": "instance",
+            "$longname": "IntegerField#beforeSetValue",
+            "$kind": "method",
+            "id": 688,
             "neoClassName": "Neo.data.field.Integer"
         }
     ]

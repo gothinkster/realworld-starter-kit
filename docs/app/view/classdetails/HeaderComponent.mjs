@@ -1,4 +1,4 @@
-import {default as Component} from '../../../../src/component/Base.mjs';
+import {default as Component} from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
 import SourceViewComponent    from './SourceViewComponent.mjs';
 
 /**

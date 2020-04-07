@@ -1,10 +1,10 @@
 import HeaderComponent          from './HeaderComponent.mjs';
 import HierarchyTreeList        from './HierarchyTreeList.mjs';
-import {default as Container}   from '../../../../src/container/Base.mjs';
+import {default as Container}   from '../../../../node_modules/neo.mjs/src/container/Base.mjs';
 import MainContainerController  from './MainContainerController.mjs';
 import MembersList              from './MembersList.mjs';
-import Panel                    from '../../../../src/container/Panel.mjs';
-import {default as SearchField} from '../../../../src/form/field/Search.mjs';
+import Panel                    from '../../../../node_modules/neo.mjs/src/container/Panel.mjs';
+import {default as SearchField} from '../../../../node_modules/neo.mjs/src/form/field/Search.mjs';
 
 /**
  * @class Docs.app.view.classdetails.MainContainer

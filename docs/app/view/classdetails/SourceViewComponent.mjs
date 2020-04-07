@@ -1,4 +1,4 @@
-import {default as Component} from '../../../../src/component/Base.mjs';
+import {default as Component} from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
 
 /**
  * @class Docs.app.view.classdetails.SourceViewComponent
@@ -64,11 +64,7 @@ class SourceViewComponent extends Component {
         super(config);
 
         let me   = this,
-            url  = '../' + me.structureData.srcPath;
-
-        if (!Neo.isExperimental) {
-            url = '../' + url;
-        }
+            url  = '../../' + me.structureData.srcPath;
 
         Neo.Xhr.promiseRequest({
             url: url

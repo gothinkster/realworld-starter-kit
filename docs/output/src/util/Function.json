@@ -6,7 +6,7 @@
                 "filename": "Function.mjs",
                 "lineno": 3,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
             },
             "kind": "class",
@@ -19,7 +19,243 @@
             "scope": "static",
             "$longname": "Neo.util.Function",
             "$kind": "class",
-            "id": 1768,
+            "id": 1885,
+            "neoClassName": "Neo.util.Function"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.util.Function'\n         * @private\n         */",
+            "meta": {
+                "filename": "Function.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.util.Function'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1886,
+            "neoClassName": "Neo.util.Function"
+        },
+        {
+            "comment": "/**\n     * Append args instead of prepending them\n     * @param {Object} scope\n     * @returns {Function}\n     */",
+            "meta": {
+                "range": [
+                    437,
+                    666
+                ],
+                "filename": "Function.mjs",
+                "lineno": 21,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
+                "code": {
+                    "id": "astnode100059978",
+                    "name": "NeoFunction.bindAppend",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "scope"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Append args instead of prepending them",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "scope"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "function"
+                        ]
+                    }
+                }
+            ],
+            "name": "bindAppend",
+            "longname": "NeoFunction.bindAppend",
+            "kind": "function",
+            "memberof": "NeoFunction",
+            "scope": "static",
+            "$longname": "NeoFunction.bindAppend",
+            "$kind": "method",
+            "id": 1887,
+            "neoClassName": "Neo.util.Function"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Neo.core.Base} target\n     * @param {String} methodName\n     * @param {Function} fn\n     * @param {Object} scope\n     * @returns {Function}\n     */",
+            "meta": {
+                "range": [
+                    850,
+                    1127
+                ],
+                "filename": "Function.mjs",
+                "lineno": 38,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
+                "code": {
+                    "id": "astnode100060020",
+                    "name": "NeoFunction.createSequence",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "target",
+                        "methodName",
+                        "fn",
+                        "scope"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.core.Base"
+                        ]
+                    },
+                    "name": "target"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "methodName"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "function"
+                        ]
+                    },
+                    "name": "fn"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "scope"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "function"
+                        ]
+                    }
+                }
+            ],
+            "name": "createSequence",
+            "longname": "NeoFunction.createSequence",
+            "kind": "function",
+            "memberof": "NeoFunction",
+            "scope": "static",
+            "$longname": "NeoFunction.createSequence",
+            "$kind": "method",
+            "id": 1888,
+            "neoClassName": "Neo.util.Function"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Neo.core.Base} target\n     * @param {String} methodName\n     * @param {Function} fn\n     * @param {Object} scope\n     * @returns {Function}\n     */",
+            "meta": {
+                "range": [
+                    1311,
+                    1627
+                ],
+                "filename": "Function.mjs",
+                "lineno": 55,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
+                "code": {
+                    "id": "astnode100060061",
+                    "name": "NeoFunction.intercept",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "target",
+                        "methodName",
+                        "fn",
+                        "scope"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.core.Base"
+                        ]
+                    },
+                    "name": "target"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "methodName"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "function"
+                        ]
+                    },
+                    "name": "fn"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "scope"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "function"
+                        ]
+                    }
+                }
+            ],
+            "name": "intercept",
+            "longname": "NeoFunction.intercept",
+            "kind": "function",
+            "memberof": "NeoFunction",
+            "scope": "static",
+            "$longname": "NeoFunction.intercept",
+            "$kind": "method",
+            "id": 1889,
             "neoClassName": "Neo.util.Function"
         }
     ]

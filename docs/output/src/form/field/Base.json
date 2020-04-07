@@ -6,7 +6,7 @@
                 "filename": "Base.mjs",
                 "lineno": 3,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {}
             },
             "description": "Abstract base class for form fields",
@@ -20,7 +20,7 @@
             "scope": "static",
             "$longname": "Neo.form.field.Base",
             "$kind": "class",
-            "id": 686,
+            "id": 768,
             "neoClassName": "Neo.form.field.Base"
         },
         {
@@ -29,7 +29,7 @@
                 "filename": "Base.mjs",
                 "lineno": 14,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {}
             },
             "kind": "member",
@@ -45,7 +45,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 687,
+            "id": 769,
             "neoClassName": "Neo.form.field.Base"
         },
         {
@@ -54,7 +54,7 @@
                 "filename": "Base.mjs",
                 "lineno": 19,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {}
             },
             "kind": "member",
@@ -70,7 +70,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 688,
+            "id": 770,
             "neoClassName": "Neo.form.field.Base"
         },
         {
@@ -79,7 +79,7 @@
                 "filename": "Base.mjs",
                 "lineno": 24,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {}
             },
             "kind": "member",
@@ -95,7 +95,7 @@
             "scope": "global",
             "$longname": "value_",
             "$kind": "property",
-            "id": 689,
+            "id": 771,
             "neoClassName": "Neo.form.field.Base"
         },
         {
@@ -103,14 +103,14 @@
             "meta": {
                 "range": [
                     679,
-                    883
+                    915
                 ],
                 "filename": "Base.mjs",
                 "lineno": 31,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100024691",
+                    "id": "astnode100026069",
                     "name": "Base#afterSetValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -147,22 +147,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetValue",
             "$kind": "method",
-            "id": 690,
+            "id": 772,
             "neoClassName": "Neo.form.field.Base"
         },
         {
             "comment": "/**\n     *\n     * @returns {*} this.value\n     */",
             "meta": {
                 "range": [
-                    943,
-                    994
+                    975,
+                    1026
                 ],
                 "filename": "Base.mjs",
-                "lineno": 44,
+                "lineno": 45,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100024713",
+                    "id": "astnode100026093",
                     "name": "Base#getSubmitValue",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -189,16 +189,57 @@
             "params": [],
             "$longname": "Base#getSubmitValue",
             "$kind": "method",
-            "id": 691,
+            "id": 773,
+            "neoClassName": "Neo.form.field.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Boolean}\n     */",
+            "meta": {
+                "range": [
+                    1081,
+                    1119
+                ],
+                "filename": "Base.mjs",
+                "lineno": 53,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
+                "code": {
+                    "id": "astnode100026101",
+                    "name": "Base#isValid",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    }
+                }
+            ],
+            "name": "isValid",
+            "longname": "Base#isValid",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#isValid",
+            "$kind": "method",
+            "id": 774,
             "neoClassName": "Neo.form.field.Base"
         },
         {
             "comment": "/**\n * The change event fires after the value config gets changed\n * @event change\n * @param {*} value\n * @param {*} oldValue\n * @returns {Object}\n */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 49,
+                "lineno": 58,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/form/field",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {}
             },
             "description": "The change event fires after the value config gets changed",
@@ -235,7 +276,7 @@
             "scope": "global",
             "$longname": "event:change",
             "$kind": "event",
-            "id": 692,
+            "id": 775,
             "neoClassName": "Neo.form.field.Base"
         }
     ]

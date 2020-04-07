@@ -1,6 +1,6 @@
-import Base                    from '../../../../src/list/Base.mjs';
-import {default as Collection} from '../../../../src/collection/Base.mjs';
-import NeoArray                from '../../../../src/util/Array.mjs';
+import Base                    from '../../../../node_modules/neo.mjs/src/list/Base.mjs';
+import {default as Collection} from '../../../../node_modules/neo.mjs/src/collection/Base.mjs';
+import NeoArray                from '../../../../node_modules/neo.mjs/src/util/Array.mjs';
 
 /**
  * @class Docs.app.view.classdetails.MembersList
@@ -266,7 +266,14 @@ class MembersList extends Base {
             }
 
             path = item.meta.path;
-            path = item.meta.path.substr(path.indexOf('neoteric/') + 9);
+
+            if (path.includes('/neo.mjs/')) {
+                path = path.substr(path.indexOf('/neo.mjs/') + 9);
+            } else if (path.includes('/neomjs/')) {
+                path = path.substr(path.indexOf('/neomjs/')  + 8);
+            } else if (path.includes('/neo/')) {
+                path = path.substr(path.indexOf('/neo/')     + 5);
+            }
 
             itemConfig = {
                 cls: ['neo-list-item'],

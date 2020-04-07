@@ -6,7 +6,7 @@
                 "filename": "VNode.mjs",
                 "lineno": 3,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
             },
             "kind": "class",
@@ -19,22 +19,47 @@
             "scope": "static",
             "$longname": "Neo.util.VNode",
             "$kind": "class",
-            "id": 1814,
+            "id": 1946,
+            "neoClassName": "Neo.util.VNode"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.util.VNode'\n         * @private\n         */",
+            "meta": {
+                "filename": "VNode.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.util.VNode'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1947,
             "neoClassName": "Neo.util.VNode"
         },
         {
             "comment": "/**\n     * Search vnode child nodes by id or opts object for a given vdom tree\n     * @param {Object} vnode\n     * @param {Object|String} opts Either an object containing vdom node attributes or a string based id\n     * @param {Number} [index] Internal flag, do not use it\n     * @param {Object} [parentNode] Internal flag, do not use it\n     * @returns {Object}\n     *     {Number} index\n     *     {String} parentId\n     *     {Object} vnode\n     */",
             "meta": {
                 "range": [
-                    661,
-                    4360
+                    760,
+                    4459
                 ],
                 "filename": "VNode.mjs",
-                "lineno": 23,
+                "lineno": 27,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100059357",
+                    "id": "astnode100062435",
                     "name": "VNode.findChildVnode",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -106,22 +131,22 @@
             "scope": "static",
             "$longname": "VNode.findChildVnode",
             "$kind": "method",
-            "id": 1815,
+            "id": 1948,
             "neoClassName": "Neo.util.VNode"
         },
         {
             "comment": "/**\n     * Finds a child vnode inside a vnode tree by a given id\n     * @param {Object} vnode\n     * @param {String|null} id\n     * @returns {Object|null} child vnode or null\n     */",
             "meta": {
                 "range": [
-                    4553,
-                    5143
+                    4652,
+                    5242
                 ],
                 "filename": "VNode.mjs",
-                "lineno": 122,
+                "lineno": 126,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100059725",
+                    "id": "astnode100062803",
                     "name": "VNode.findChildVnodeById",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -171,22 +196,22 @@
             "scope": "static",
             "$longname": "VNode.findChildVnodeById",
             "$kind": "method",
-            "id": 1816,
+            "id": 1949,
             "neoClassName": "Neo.util.VNode"
         },
         {
             "comment": "/**\n     * Get the ids of all child nodes of the given vnode\n     * @param vnode\n     * @param [childIds=[]]\n     * @returns {Array} childIds\n     */",
             "meta": {
                 "range": [
-                    5303,
-                    5643
+                    5402,
+                    5742
                 ],
                 "filename": "VNode.mjs",
-                "lineno": 155,
+                "lineno": 159,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100059796",
+                    "id": "astnode100062874",
                     "name": "VNode.getChildIds",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -226,22 +251,22 @@
             "scope": "static",
             "$longname": "VNode.getChildIds",
             "$kind": "method",
-            "id": 1817,
+            "id": 1950,
             "neoClassName": "Neo.util.VNode"
         },
         {
             "comment": "/**\n     * Replaces a child vnode inside a vnode tree by a given id\n     * @param {Object} vnode\n     * @param {String} id\n     * @param {Object} newChildVnode\n     * @returns {Boolean} true in case the node was found and replaced\n     */",
             "meta": {
                 "range": [
-                    5892,
-                    6581
+                    5991,
+                    6680
                 ],
                 "filename": "VNode.mjs",
-                "lineno": 176,
+                "lineno": 180,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/src/util",
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100059846",
+                    "id": "astnode100062924",
                     "name": "VNode.replaceChildVnode",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -298,7 +323,7 @@
             "scope": "static",
             "$longname": "VNode.replaceChildVnode",
             "$kind": "method",
-            "id": 1818,
+            "id": 1951,
             "neoClassName": "Neo.util.VNode"
         }
     ]
