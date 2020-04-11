@@ -20,11 +20,12 @@ describe("Home component", () => {
 
     let wrapper = render(<App />);
 
-    DomTestingLibrary.waitForElement(
+    DomTestingLibrary.waitFor(
       ~callback=
         () =>
           wrapper
-          |> getByText(~matcher=`Str("A place to share your knowledge.")),
+          |> getByText(~matcher=`Str("A place to share your knowledge."))
+          |> ignore,
       (),
     )
     |> then_(_ =>
@@ -46,15 +47,17 @@ describe("Home component", () => {
 
       let wrapper = render(<App />);
 
-      DomTestingLibrary.waitForElement(
+      DomTestingLibrary.waitFor(
         ~callback=
           () =>
-            wrapper |> getByText(~matcher=`Str("How to train your dragon")),
+            wrapper
+            |> getByText(~matcher=`Str("How to train your dragon"))
+            |> ignore,
         (),
       )
       |> then_(_ =>
            (
-             wrapper |> TestUtils.queryByText(~matcher=`Str("Your Feed")),
+             wrapper |> queryByText(~matcher=`Str("Your Feed")),
              wrapper
              |> getByText(~matcher=`Str("Global Feed"))
              |> Webapi.Dom.Element.innerHTML,
@@ -77,8 +80,9 @@ describe("Home component", () => {
 
       let wrapper = render(<App />);
 
-      DomTestingLibrary.waitForElement(
-        ~callback=() => wrapper |> getByText(~matcher=`Str("Your Feed")),
+      DomTestingLibrary.waitFor(
+        ~callback=
+          () => wrapper |> getByText(~matcher=`Str("Your Feed")) |> ignore,
         (),
       )
       |> then_(_ =>
@@ -105,20 +109,30 @@ describe("Home component", () => {
 
       let wrapper = render(<App />);
 
-      DomTestingLibrary.waitForElement(
-        ~callback=() => wrapper |> getByText(~matcher=`Str("Your Feed")),
+      DomTestingLibrary.waitFor(
+        ~callback=
+          () => wrapper |> getByText(~matcher=`Str("Your Feed")) |> ignore,
         (),
       )
       |> then_(_ => {
            wrapper
-           |> getByTestId("tag-list")
+           |> getByTestId(~matcher=`Str("tag-list"))
            |> DomTestingLibrary.getByText(~matcher=`Str("dragons"))
            |> FireEvent.click
-           |> resolve
+           |> ignore;
+
+           DomTestingLibrary.waitFor(
+             ~callback=
+               () =>
+                 wrapper
+                 |> getByText(~matcher=`Str("How to train your dragon"))
+                 |> ignore,
+             (),
+           );
          })
       |> then_(_ =>
            wrapper
-           |> getByTestId("feed-toggle")
+           |> getByTestId(~matcher=`Str("feed-toggle"))
            |> DomTestingLibrary.getByText(~matcher=`Str("dragons"))
            |> expect
            |> toBeInTheDocument
@@ -135,8 +149,9 @@ describe("Home component", () => {
 
       let wrapper = render(<App />);
 
-      DomTestingLibrary.waitForElement(
-        ~callback=() => wrapper |> getByText(~matcher=`Str("Your Feed")),
+      DomTestingLibrary.waitFor(
+        ~callback=
+          () => wrapper |> getByText(~matcher=`Str("Your Feed")) |> ignore,
         (),
       )
       |> then_(_ => {
@@ -148,11 +163,12 @@ describe("Home component", () => {
            |> FireEvent.click
            |> ignore;
 
-           DomTestingLibrary.waitForElement(
+           DomTestingLibrary.waitFor(
              ~callback=
                () =>
                  wrapper
-                 |> getByText(~matcher=`Str("How to train your dragon")),
+                 |> getByText(~matcher=`Str("How to train your dragon"))
+                 |> ignore,
              (),
            );
          })
@@ -161,14 +177,23 @@ describe("Home component", () => {
            ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.articles, ());
 
            wrapper
-           |> getByTestId("tag-list")
+           |> getByTestId(~matcher=`Str("tag-list"))
            |> DomTestingLibrary.getByText(~matcher=`Str("dragons"))
            |> FireEvent.click
-           |> resolve;
+           |> ignore;
+
+           DomTestingLibrary.waitFor(
+             ~callback=
+               () =>
+                 wrapper
+                 |> getByText(~matcher=`Str("How to train your dragon"))
+                 |> ignore,
+             (),
+           );
          })
       |> then_(_ =>
            wrapper
-           |> getByTestId("feed-toggle")
+           |> getByTestId(~matcher=`Str("feed-toggle"))
            |> DomTestingLibrary.getByText(~matcher=`Str("dragons"))
            |> expect
            |> toBeInTheDocument
@@ -187,8 +212,9 @@ describe("Home component", () => {
 
         let wrapper = render(<App />);
 
-        DomTestingLibrary.waitForElement(
-          ~callback=() => wrapper |> getByText(~matcher=`Str("Your Feed")),
+        DomTestingLibrary.waitFor(
+          ~callback=
+            () => wrapper |> getByText(~matcher=`Str("Your Feed")) |> ignore,
           (),
         )
         |> then_(_ => {
@@ -199,16 +225,17 @@ describe("Home component", () => {
              );
 
              wrapper
-             |> getByTestId("tag-list")
+             |> getByTestId(~matcher=`Str("tag-list"))
              |> DomTestingLibrary.getByText(~matcher=`Str("dragons"))
              |> FireEvent.click
              |> ignore;
 
-             DomTestingLibrary.waitForElement(
+             DomTestingLibrary.waitFor(
                ~callback=
                  () =>
                    wrapper
-                   |> getByText(~matcher=`Str("How to train your dragon")),
+                   |> getByText(~matcher=`Str("How to train your dragon"))
+                   |> ignore,
                (),
              );
            })
@@ -238,13 +265,14 @@ describe("Home component", () => {
 
       let wrapper = render(<App />);
 
-      DomTestingLibrary.waitForElement(
-        ~callback=() => wrapper |> getByText(~matcher=`Str("dragons")),
+      DomTestingLibrary.waitFor(
+        ~callback=
+          () => wrapper |> getByText(~matcher=`Str("dragons")) |> ignore,
         (),
       )
       |> then_(_ =>
            wrapper
-           |> TestUtils.queryByTestId("page-link")
+           |> queryByTestId(~matcher=`Str("page-link"))
            |> expect
            |> toEqual(Js.null)
            |> resolve
@@ -259,15 +287,17 @@ describe("Home component", () => {
 
       let wrapper = render(<App />);
 
-      DomTestingLibrary.waitForElement(
+      DomTestingLibrary.waitFor(
         ~callback=
           () =>
-            wrapper |> getByText(~matcher=`Str("How to train your dragon")),
+            wrapper
+            |> getByText(~matcher=`Str("How to train your dragon"))
+            |> ignore,
         (),
       )
       |> then_(_ =>
            wrapper
-           |> getByTestId("page-link")
+           |> getByTestId(~matcher=`Str("page-link"))
            |> DomTestingLibrary.getByText(~matcher=`Str("1"))
            |> expect
            |> toBeInTheDocument
@@ -286,20 +316,22 @@ describe("Home component", () => {
 
       let wrapper = render(<App />);
 
-      DomTestingLibrary.waitForElement(
+      DomTestingLibrary.waitFor(
         ~callback=
           () =>
-            wrapper |> getByText(~matcher=`Str("How to train your dragon")),
+            wrapper
+            |> getByText(~matcher=`Str("How to train your dragon"))
+            |> ignore,
         (),
       )
       |> then_(_ =>
            [|
              wrapper
-             |> getByTestId("page-link")
+             |> getByTestId(~matcher=`Str("page-link"))
              |> DomTestingLibrary.getByText(~matcher=`Str("1"))
              |> Webapi.Dom.Element.innerHTML,
              wrapper
-             |> getByTestId("page-link")
+             |> getByTestId(~matcher=`Str("page-link"))
              |> DomTestingLibrary.getByText(~matcher=`Str("2"))
              |> Webapi.Dom.Element.innerHTML,
            |]
@@ -320,20 +352,22 @@ describe("Home component", () => {
 
       let wrapper = render(<App />);
 
-      DomTestingLibrary.waitForElement(
+      DomTestingLibrary.waitFor(
         ~callback=
           () =>
-            wrapper |> getByText(~matcher=`Str("How to train your dragon")),
+            wrapper
+            |> getByText(~matcher=`Str("How to train your dragon"))
+            |> ignore,
         (),
       )
       |> then_(_ =>
            [|
              wrapper
-             |> getByTestId("page-link")
+             |> getByTestId(~matcher=`Str("page-link"))
              |> DomTestingLibrary.getByText(~matcher=`Str("1"))
              |> Webapi.Dom.Element.innerHTML,
              wrapper
-             |> getByTestId("page-link")
+             |> getByTestId(~matcher=`Str("page-link"))
              |> DomTestingLibrary.getByText(~matcher=`Str("2"))
              |> Webapi.Dom.Element.innerHTML,
            |]

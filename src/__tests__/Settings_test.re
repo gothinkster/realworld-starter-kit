@@ -18,8 +18,9 @@ describe("Settings component", () => {
 
     TestUtils.act(() => {ReasonReactRouter.push("#/settings")});
 
-    DomTestingLibrary.waitForElement(
-      ~callback=() => wrapper |> getByText(~matcher=`Str("Your Settings")),
+    DomTestingLibrary.waitFor(
+      ~callback=
+        () => wrapper |> getByText(~matcher=`Str("Your Settings")) |> ignore,
       (),
     )
     |> then_(_ =>

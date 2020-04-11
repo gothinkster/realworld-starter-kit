@@ -20,10 +20,12 @@ describe("Article component", () => {
 
     TestUtils.act(() => ReasonReactRouter.push("#/article/slug"));
 
-    DomTestingLibrary.waitForElement(
+    DomTestingLibrary.waitFor(
       ~callback=
         () =>
-          wrapper |> getByText(~matcher=`Str("How to train your dragon")),
+          wrapper
+          |> getByText(~matcher=`Str("How to train your dragon"))
+          |> ignore,
       (),
     )
     |> then_(_ =>
@@ -47,9 +49,10 @@ describe("Article component", () => {
 
       TestUtils.act(() => ReasonReactRouter.push("#/article/slug"));
 
-      DomTestingLibrary.waitForElement(
+      DomTestingLibrary.waitFor(
         ~callback=
-          () => wrapper |> getByText(~matcher=`Str("Very carefully.")),
+          () =>
+            wrapper |> getByText(~matcher=`Str("Very carefully.")) |> ignore,
         (),
       )
       |> then_(_ => {

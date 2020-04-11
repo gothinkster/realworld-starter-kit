@@ -16,11 +16,12 @@ describe("App component", () => {
 
     let wrapper = render(<App />);
 
-    DomTestingLibrary.waitForElement(
+    DomTestingLibrary.waitFor(
       ~callback=
         () =>
           wrapper
-          |> getByText(~matcher=`Str("A place to share your knowledge.")),
+          |> getByText(~matcher=`Str("A place to share your knowledge."))
+          |> ignore,
       (),
     )
     |> then_(_ =>
@@ -40,8 +41,9 @@ describe("App component", () => {
 
     act(() => ReasonReactRouter.push("/#/settings"));
 
-    DomTestingLibrary.waitForElement(
-      ~callback=() => wrapper |> getByText(~matcher=`Str("Your Settings")),
+    DomTestingLibrary.waitFor(
+      ~callback=
+        () => wrapper |> getByText(~matcher=`Str("Your Settings")) |> ignore,
       (),
     )
     |> then_(_ =>
@@ -59,9 +61,10 @@ describe("App component", () => {
 
     act(() => ReasonReactRouter.push("/#/login"));
 
-    DomTestingLibrary.waitForElement(
+    DomTestingLibrary.waitFor(
       ~callback=
-        () => wrapper |> getByText(~matcher=`Str("Need an account?")),
+        () =>
+          wrapper |> getByText(~matcher=`Str("Need an account?")) |> ignore,
       (),
     )
     |> then_(_ =>
@@ -79,9 +82,10 @@ describe("App component", () => {
 
     act(() => ReasonReactRouter.push("/#/register"));
 
-    DomTestingLibrary.waitForElement(
+    DomTestingLibrary.waitFor(
       ~callback=
-        () => wrapper |> getByText(~matcher=`Str("Have an account?")),
+        () =>
+          wrapper |> getByText(~matcher=`Str("Have an account?")) |> ignore,
       (),
     )
     |> then_(_ =>
@@ -101,8 +105,10 @@ describe("App component", () => {
 
     act(() => ReasonReactRouter.push("/#/editor"));
 
-    DomTestingLibrary.waitForElement(
-      ~callback=() => wrapper |> getByText(~matcher=`Str("Publish Article")),
+    DomTestingLibrary.waitFor(
+      ~callback=
+        () =>
+          wrapper |> getByText(~matcher=`Str("Publish Article")) |> ignore,
       (),
     )
     |> then_(_ =>
@@ -122,8 +128,10 @@ describe("App component", () => {
 
     act(() => ReasonReactRouter.push("/#/editor/slug"));
 
-    DomTestingLibrary.waitForElement(
-      ~callback=() => wrapper |> getByText(~matcher=`Str("Publish Article")),
+    DomTestingLibrary.waitFor(
+      ~callback=
+        () =>
+          wrapper |> getByText(~matcher=`Str("Publish Article")) |> ignore,
       (),
     )
     |> then_(_ =>
@@ -143,10 +151,12 @@ describe("App component", () => {
 
     act(() => ReasonReactRouter.push("/#/article/slug"));
 
-    DomTestingLibrary.waitForElement(
+    DomTestingLibrary.waitFor(
       ~callback=
         () =>
-          wrapper |> getByText(~matcher=`Str("How to train your dragon")),
+          wrapper
+          |> getByText(~matcher=`Str("How to train your dragon"))
+          |> ignore,
       (),
     )
     |> then_(_ =>
@@ -165,8 +175,9 @@ describe("App component", () => {
 
     act(() => ReasonReactRouter.push("/#/profile/jihchi"));
 
-    DomTestingLibrary.waitForElement(
-      ~callback=() => wrapper |> getByText(~matcher=`Str("My Articles")),
+    DomTestingLibrary.waitFor(
+      ~callback=
+        () => wrapper |> getByText(~matcher=`Str("My Articles")) |> ignore,
       (),
     )
     |> then_(_ =>
@@ -186,9 +197,10 @@ describe("App component", () => {
 
     act(() => ReasonReactRouter.push("/#/profile/jihchi/favorites"));
 
-    DomTestingLibrary.waitForElement(
+    DomTestingLibrary.waitFor(
       ~callback=
-        () => wrapper |> getByText(~matcher=`Str("Favorited Articles")),
+        () =>
+          wrapper |> getByText(~matcher=`Str("Favorited Articles")) |> ignore,
       (),
     )
     |> then_(_ =>
@@ -210,8 +222,9 @@ describe("App component", () => {
 
         let wrapper = render(<App />);
 
-        DomTestingLibrary.waitForElement(
-          ~callback=() => wrapper |> getByText(~matcher=`Str("Home")),
+        DomTestingLibrary.waitFor(
+          ~callback=
+            () => wrapper |> getByText(~matcher=`Str("Home")) |> ignore,
           (),
         )
         |> then_(_ =>
@@ -230,8 +243,9 @@ describe("App component", () => {
 
         let wrapper = render(<App />);
 
-        DomTestingLibrary.waitForElement(
-          ~callback=() => wrapper |> getByText(~matcher=`Str("Sign in")),
+        DomTestingLibrary.waitFor(
+          ~callback=
+            () => wrapper |> getByText(~matcher=`Str("Sign in")) |> ignore,
           (),
         )
         |> then_(_ =>
@@ -250,8 +264,9 @@ describe("App component", () => {
 
         let wrapper = render(<App />);
 
-        DomTestingLibrary.waitForElement(
-          ~callback=() => wrapper |> getByText(~matcher=`Str("Sign up")),
+        DomTestingLibrary.waitFor(
+          ~callback=
+            () => wrapper |> getByText(~matcher=`Str("Sign up")) |> ignore,
           (),
         )
         |> then_(_ =>
@@ -270,13 +285,14 @@ describe("App component", () => {
 
         let wrapper = render(<App />);
 
-        DomTestingLibrary.waitForElement(
-          ~callback=() => wrapper |> getByText(~matcher=`Str("Sign in")),
+        DomTestingLibrary.waitFor(
+          ~callback=
+            () => wrapper |> getByText(~matcher=`Str("Sign in")) |> ignore,
           (),
         )
         |> then_(_ =>
              wrapper
-             |> TestUtils.queryByText(~matcher=`Str("New Post"))
+             |> queryByText(~matcher=`Str("New Post"))
              |> expect
              |> toEqual(Js.null)
              |> resolve
@@ -290,13 +306,14 @@ describe("App component", () => {
 
         let wrapper = render(<App />);
 
-        DomTestingLibrary.waitForElement(
-          ~callback=() => wrapper |> getByText(~matcher=`Str("Sign in")),
+        DomTestingLibrary.waitFor(
+          ~callback=
+            () => wrapper |> getByText(~matcher=`Str("Sign in")) |> ignore,
           (),
         )
         |> then_(_ =>
              wrapper
-             |> TestUtils.queryByText(~matcher=`Str("Settings"))
+             |> queryByText(~matcher=`Str("Settings"))
              |> expect
              |> toEqual(Js.null)
              |> resolve
@@ -310,13 +327,14 @@ describe("App component", () => {
 
         let wrapper = render(<App />);
 
-        DomTestingLibrary.waitForElement(
-          ~callback=() => wrapper |> getByText(~matcher=`Str("Sign in")),
+        DomTestingLibrary.waitFor(
+          ~callback=
+            () => wrapper |> getByText(~matcher=`Str("Sign in")) |> ignore,
           (),
         )
         |> then_(_ =>
              wrapper
-             |> TestUtils.queryByText(~matcher=`Str("Jihchi Lee"))
+             |> queryByText(~matcher=`Str("Jihchi Lee"))
              |> expect
              |> toEqual(Js.null)
              |> resolve
@@ -332,8 +350,9 @@ describe("App component", () => {
 
         let wrapper = render(<App />);
 
-        DomTestingLibrary.waitForElement(
-          ~callback=() => wrapper |> getByText(~matcher=`Str("Home")),
+        DomTestingLibrary.waitFor(
+          ~callback=
+            () => wrapper |> getByText(~matcher=`Str("Home")) |> ignore,
           (),
         )
         |> then_(_ =>
@@ -355,13 +374,14 @@ describe("App component", () => {
 
         let wrapper = render(<App />);
 
-        DomTestingLibrary.waitForElement(
-          ~callback=() => wrapper |> getByText(~matcher=`Str("New Post")),
+        DomTestingLibrary.waitFor(
+          ~callback=
+            () => wrapper |> getByText(~matcher=`Str("New Post")) |> ignore,
           (),
         )
         |> then_(_ =>
              wrapper
-             |> TestUtils.queryByText(~matcher=`Str("Sign in"))
+             |> queryByText(~matcher=`Str("Sign in"))
              |> expect
              |> toEqual(Js.null)
              |> resolve
@@ -378,13 +398,14 @@ describe("App component", () => {
 
         let wrapper = render(<App />);
 
-        DomTestingLibrary.waitForElement(
-          ~callback=() => wrapper |> getByText(~matcher=`Str("New Post")),
+        DomTestingLibrary.waitFor(
+          ~callback=
+            () => wrapper |> getByText(~matcher=`Str("New Post")) |> ignore,
           (),
         )
         |> then_(_ =>
              wrapper
-             |> TestUtils.queryByText(~matcher=`Str("Sign up"))
+             |> queryByText(~matcher=`Str("Sign up"))
              |> expect
              |> toEqual(Js.null)
              |> resolve
@@ -401,8 +422,9 @@ describe("App component", () => {
 
         let wrapper = render(<App />);
 
-        DomTestingLibrary.waitForElement(
-          ~callback=() => wrapper |> getByText(~matcher=`Str("New Post")),
+        DomTestingLibrary.waitFor(
+          ~callback=
+            () => wrapper |> getByText(~matcher=`Str("New Post")) |> ignore,
           (),
         )
         |> then_(_ =>
@@ -424,8 +446,9 @@ describe("App component", () => {
 
         let wrapper = render(<App />);
 
-        DomTestingLibrary.waitForElement(
-          ~callback=() => wrapper |> getByText(~matcher=`Str("Settings")),
+        DomTestingLibrary.waitFor(
+          ~callback=
+            () => wrapper |> getByText(~matcher=`Str("Settings")) |> ignore,
           (),
         )
         |> then_(_ =>
@@ -447,8 +470,10 @@ describe("App component", () => {
 
         let wrapper = render(<App />);
 
-        DomTestingLibrary.waitForElement(
-          ~callback=() => wrapper |> getByText(~matcher=`Str("Jihchi Lee")),
+        DomTestingLibrary.waitFor(
+          ~callback=
+            () =>
+              wrapper |> getByText(~matcher=`Str("Jihchi Lee")) |> ignore,
           (),
         )
         |> then_(_ =>

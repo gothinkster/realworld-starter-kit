@@ -12,9 +12,10 @@ describe("Login component", () => {
 
     TestUtils.act(() => ReasonReactRouter.push("#/login"));
 
-    DomTestingLibrary.waitForElement(
+    DomTestingLibrary.waitFor(
       ~callback=
-        () => wrapper |> getByText(~matcher=`Str("Need an account?")),
+        () =>
+          wrapper |> getByText(~matcher=`Str("Need an account?")) |> ignore,
       (),
     )
     |> then_(_ =>

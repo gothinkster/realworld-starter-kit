@@ -12,9 +12,10 @@ describe("Register component", () => {
 
     TestUtils.act(() => {ReasonReactRouter.push("#/register")});
 
-    DomTestingLibrary.waitForElement(
+    DomTestingLibrary.waitFor(
       ~callback=
-        () => wrapper |> getByText(~matcher=`Str("Have an account?")),
+        () =>
+          wrapper |> getByText(~matcher=`Str("Have an account?")) |> ignore,
       (),
     )
     |> then_(_ =>

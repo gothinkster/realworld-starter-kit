@@ -15,8 +15,10 @@ describe("Editor component", () => {
 
     TestUtils.act(() => ReasonReactRouter.push("#/editor"));
 
-    DomTestingLibrary.waitForElement(
-      ~callback=() => wrapper |> getByText(~matcher=`Str("Publish Article")),
+    DomTestingLibrary.waitFor(
+      ~callback=
+        () =>
+          wrapper |> getByText(~matcher=`Str("Publish Article")) |> ignore,
       (),
     )
     |> then_(_ => {
@@ -39,8 +41,10 @@ describe("Editor component", () => {
 
     TestUtils.act(() => ReasonReactRouter.push("#/editor/slug"));
 
-    DomTestingLibrary.waitForElement(
-      ~callback=() => wrapper |> getByText(~matcher=`Str("Publish Article")),
+    DomTestingLibrary.waitFor(
+      ~callback=
+        () =>
+          wrapper |> getByText(~matcher=`Str("Publish Article")) |> ignore,
       (),
     )
     |> then_(_ =>

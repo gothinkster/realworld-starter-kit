@@ -12,51 +12,6 @@ let act = callback =>
     Js.Undefined.empty;
   });
 
-[@bs.send.pipe: ReactTestingLibrary.renderResult]
-external queryByTestId: string => Js.Null.t(Dom.element) = "queryByTestId";
-
-[@bs.module "@testing-library/dom"]
-external queryByText:
-  (
-    Dom.element,
-    ~matcher: [@bs.unwrap] [
-                | `Str(string)
-                | `RegExp(Js.Re.t)
-                | `Func((string, Dom.element) => bool)
-              ],
-    ~options: Js.undefined(DomTestingLibrary.Query.options)
-  ) =>
-  Js.Null.t(Dom.element) =
-  "queryByText";
-
-let queryByText = (~matcher, ~options=?, result) =>
-  queryByText(
-    ~matcher,
-    ~options=Js.Undefined.fromOption(options),
-    result |> ReactTestingLibrary.container,
-  );
-
-[@bs.module "@testing-library/dom"]
-external getAllByText:
-  (
-    Dom.element,
-    ~matcher: [@bs.unwrap] [
-                | `Str(string)
-                | `RegExp(Js.Re.t)
-                | `Func((string, Dom.element) => bool)
-              ],
-    ~options: Js.undefined(DomTestingLibrary.Query.options)
-  ) =>
-  array(Dom.element) =
-  "getAllByText";
-
-let getAllByText = (~matcher, ~options=?, result) =>
-  getAllByText(
-    ~matcher,
-    ~options=Js.Undefined.fromOption(options),
-    result |> ReactTestingLibrary.container,
-  );
-
 module ApiMock = {
   open BsJestFetchMock;
 

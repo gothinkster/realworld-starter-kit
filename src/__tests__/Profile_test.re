@@ -19,8 +19,9 @@ describe("Profile component", () => {
 
     TestUtils.act(() => ReasonReactRouter.push("#/profile/jihchi"));
 
-    DomTestingLibrary.waitForElement(
-      ~callback=() => wrapper |> getByText(~matcher=`Str("My Articles")),
+    DomTestingLibrary.waitFor(
+      ~callback=
+        () => wrapper |> getByText(~matcher=`Str("My Articles")) |> ignore,
       (),
     )
     |> then_(_ =>
@@ -44,9 +45,10 @@ describe("Profile component", () => {
 
     TestUtils.act(() => ReasonReactRouter.push("#/profile/jihchi/favorites"));
 
-    DomTestingLibrary.waitForElement(
+    DomTestingLibrary.waitFor(
       ~callback=
-        () => wrapper |> getByText(~matcher=`Str("Favorited Articles")),
+        () =>
+          wrapper |> getByText(~matcher=`Str("Favorited Articles")) |> ignore,
       (),
     )
     |> then_(_ =>
