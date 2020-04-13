@@ -13,7 +13,7 @@ describe("Editor component", () => {
 
     let wrapper = render(<App />);
 
-    TestUtils.act(() => ReasonReactRouter.push("#/editor"));
+    act(() => ReasonReactRouter.push("#/editor"));
 
     DomTestingLibrary.waitFor(
       ~callback=
@@ -39,7 +39,7 @@ describe("Editor component", () => {
 
     let wrapper = render(<App />);
 
-    TestUtils.act(() => ReasonReactRouter.push("#/editor/slug"));
+    act(() => ReasonReactRouter.push("#/editor/slug"));
 
     DomTestingLibrary.waitFor(
       ~callback=

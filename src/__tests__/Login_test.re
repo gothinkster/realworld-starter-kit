@@ -10,7 +10,7 @@ describe("Login component", () => {
   testPromise("renders without crashing", () => {
     let wrapper = render(<App />);
 
-    TestUtils.act(() => ReasonReactRouter.push("#/login"));
+    act(() => ReasonReactRouter.push("#/login"));
 
     DomTestingLibrary.waitFor(
       ~callback=

@@ -18,7 +18,7 @@ describe("Article component", () => {
 
     let wrapper = render(<App />);
 
-    TestUtils.act(() => ReasonReactRouter.push("#/article/slug"));
+    act(() => ReasonReactRouter.push("#/article/slug"));
 
     DomTestingLibrary.waitFor(
       ~callback=
@@ -47,7 +47,7 @@ describe("Article component", () => {
 
       let wrapper = render(<App />);
 
-      TestUtils.act(() => ReasonReactRouter.push("#/article/slug"));
+      act(() => ReasonReactRouter.push("#/article/slug"));
 
       DomTestingLibrary.waitFor(
         ~callback=

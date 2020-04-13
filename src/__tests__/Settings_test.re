@@ -16,7 +16,7 @@ describe("Settings component", () => {
     );
     let wrapper = render(<App />);
 
-    TestUtils.act(() => {ReasonReactRouter.push("#/settings")});
+    act(() => {ReasonReactRouter.push("#/settings")});
 
     DomTestingLibrary.waitFor(
       ~callback=

@@ -2,16 +2,6 @@ open Relude.Globals;
 
 module Function = Relude.Function;
 
-[@bs.module "@testing-library/react"]
-external rawAct: (unit => Js.Undefined.t(Js.Promise.t('a))) => unit = "act";
-
-let act = callback =>
-  rawAct(() => {
-    callback();
-    // Fix: Warning: The callback passed to act(...) function must return undefined, or a Promise.
-    Js.Undefined.empty;
-  });
-
 module ApiMock = {
   open BsJestFetchMock;
 

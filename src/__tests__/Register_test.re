@@ -10,7 +10,7 @@ describe("Register component", () => {
   testPromise("renders without crashing", () => {
     let wrapper = render(<App />);
 
-    TestUtils.act(() => {ReasonReactRouter.push("#/register")});
+    act(() => {ReasonReactRouter.push("#/register")});
 
     DomTestingLibrary.waitFor(
       ~callback=

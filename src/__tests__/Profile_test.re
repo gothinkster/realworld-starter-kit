@@ -17,7 +17,7 @@ describe("Profile component", () => {
 
     let wrapper = render(<App />);
 
-    TestUtils.act(() => ReasonReactRouter.push("#/profile/jihchi"));
+    act(() => ReasonReactRouter.push("#/profile/jihchi"));
 
     DomTestingLibrary.waitFor(
       ~callback=
@@ -43,7 +43,7 @@ describe("Profile component", () => {
 
     let wrapper = render(<App />);
 
-    TestUtils.act(() => ReasonReactRouter.push("#/profile/jihchi/favorites"));
+    act(() => ReasonReactRouter.push("#/profile/jihchi/favorites"));
 
     DomTestingLibrary.waitFor(
       ~callback=
