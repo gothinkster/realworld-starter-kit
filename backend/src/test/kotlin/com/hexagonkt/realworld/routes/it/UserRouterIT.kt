@@ -1,6 +1,8 @@
 package com.hexagonkt.realworld.routes.it
 
 import com.hexagonkt.http.client.Client
+import com.hexagonkt.http.client.ClientSettings
+import com.hexagonkt.http.client.ahc.AhcAdapter
 import com.hexagonkt.realworld.RealWorldClient
 import com.hexagonkt.realworld.main
 import com.hexagonkt.realworld.messages.ErrorResponseRoot
@@ -37,7 +39,8 @@ class UserRouterIT {
 
     @Test fun `Get and update current user`() {
         val endpoint = "http://localhost:${server.runtimePort}/api"
-        val client = RealWorldClient(Client(endpoint, Json.contentType))
+        val settings = ClientSettings(Json.contentType)
+        val client = RealWorldClient(Client(AhcAdapter(), endpoint, settings))
 
         val jakeClient = client.initializeUser(jake)
 
@@ -46,16 +49,18 @@ class UserRouterIT {
         jakeClient.updateUser(jake, PutUserRequest(email = "changed.${jake.email}"))
 
         client.getUser(jake) {
-            assert(statusCode == 401)
+            val parsedBody = body?.parse<ErrorResponseRoot>()?: error("Body expected")
+            assert(status == 401)
             assert(contentType == "${Json.contentType};charset=utf-8")
-            assert(responseBody.parse<ErrorResponseRoot>().errors.body.isNotEmpty())
-            assert(responseBody.parse<ErrorResponseRoot>().errors.body.first() == "Unauthorized")
+            assert(parsedBody.errors.body.isNotEmpty())
+            assert(parsedBody.errors.body.first() == "Unauthorized")
         }
 
         client.updateUser(jake, PutUserRequest(email = jake.email)) {
-            assert(statusCode == 401)
+            val parsedBody = body?.parse<ErrorResponseRoot>()?: error("Body expected")
+            assert(status == 401)
             assert(contentType == "${Json.contentType};charset=utf-8")
-            assert(responseBody.parse<ErrorResponseRoot>().errors.body.isNotEmpty())
+            assert(parsedBody.errors.body.isNotEmpty())
         }
     }
 }

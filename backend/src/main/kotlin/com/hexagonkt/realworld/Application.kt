@@ -7,7 +7,6 @@ import com.hexagonkt.http.server.jetty.JettyServletAdapter
 import com.hexagonkt.http.server.servlet.ServletServer
 import com.hexagonkt.injection.InjectionManager
 import com.hexagonkt.settings.SettingsManager.settings
-import com.hexagonkt.store.IndexOrder.ASCENDING
 import com.hexagonkt.store.Store
 import com.hexagonkt.store.mongodb.MongoDbStore
 import com.hexagonkt.realworld.rest.Jwt
@@ -17,7 +16,7 @@ import com.hexagonkt.realworld.services.User
 
 import javax.servlet.annotation.WebListener
 
-internal val injector = InjectionManager {
+internal val injector = InjectionManager.apply {
     bindObject<ServerPort>(JettyServletAdapter())
     bindObject(createJwt())
     bindObject(User::class, createUserStore())

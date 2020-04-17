@@ -1,6 +1,8 @@
 package com.hexagonkt.realworld.routes.it
 
 import com.hexagonkt.http.client.Client
+import com.hexagonkt.http.client.ClientSettings
+import com.hexagonkt.http.client.ahc.AhcAdapter
 import com.hexagonkt.realworld.RealWorldClient
 import com.hexagonkt.realworld.main
 import com.hexagonkt.realworld.messages.ErrorResponseRoot
@@ -41,16 +43,17 @@ class UsersRouterIT {
 
     @Test fun `Delete, login and register users`() {
         val endpoint = "http://localhost:${server.runtimePort}/api"
-        val client = RealWorldClient(Client(endpoint, Json.contentType))
+        val settings = ClientSettings(Json.contentType)
+        val client = RealWorldClient(Client(AhcAdapter(), endpoint, settings))
 
         client.deleteUser(jake)
         client.deleteUser(jake, setOf(404))
         client.registerUser(jake)
         client.registerUser(jake) {
-            assert(statusCode == 500)
+            assert(status == 500)
             assert(contentType == "${Json.contentType};charset=utf-8")
 
-            val errorResponse = responseBody.parse(ErrorResponseRoot::class)
+            val errorResponse = body?.parse(ErrorResponseRoot::class) ?: error("Body expected")
             val exceptionName = "MongoWriteException"
             val message = "E11000 duplicate key error collection: real_world.User index"
             val key = """_id_ dup key: { _id: "${jake.username}" }"""

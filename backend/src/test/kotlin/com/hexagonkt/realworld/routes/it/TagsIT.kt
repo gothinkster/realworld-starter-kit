@@ -1,6 +1,8 @@
 package com.hexagonkt.realworld.routes.it
 
 import com.hexagonkt.http.client.Client
+import com.hexagonkt.http.client.ClientSettings
+import com.hexagonkt.http.client.ahc.AhcAdapter
 import com.hexagonkt.realworld.RealWorldClient
 import com.hexagonkt.realworld.main
 import com.hexagonkt.realworld.server
@@ -53,7 +55,8 @@ class TagsIT {
 
     @Test fun `Get all tags don't return duplicates`() {
         val endpoint = "http://localhost:${server.runtimePort}/api"
-        val client = RealWorldClient(Client(endpoint, Json.contentType))
+        val settings = ClientSettings(Json.contentType)
+        val client = RealWorldClient(Client(AhcAdapter(), endpoint, settings))
 
         val jakeClient = client.initializeUser(jake)
 

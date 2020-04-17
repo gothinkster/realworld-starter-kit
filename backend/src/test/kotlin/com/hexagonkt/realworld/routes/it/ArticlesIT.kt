@@ -1,6 +1,8 @@
 package com.hexagonkt.realworld.routes.it
 
 import com.hexagonkt.http.client.Client
+import com.hexagonkt.http.client.ClientSettings
+import com.hexagonkt.http.client.ahc.AhcAdapter
 import com.hexagonkt.realworld.RealWorldClient
 import com.hexagonkt.realworld.main
 import com.hexagonkt.realworld.messages.PutArticleRequest
@@ -62,7 +64,8 @@ class ArticlesIT {
 
     @Test fun `Delete, create update and get an article`() {
         val endpoint = "http://localhost:${server.runtimePort}/api"
-        val client = RealWorldClient(Client(endpoint, Json.contentType))
+        val settings = ClientSettings(Json.contentType)
+        val client = RealWorldClient(Client(AhcAdapter(), endpoint, settings))
 
         val jakeClient = client.initializeUser(jake)
 
@@ -75,7 +78,8 @@ class ArticlesIT {
 
     @Test fun `Favorite and un-favorite articles`() {
         val endpoint = "http://localhost:${server.runtimePort}/api"
-        val client = RealWorldClient(Client(endpoint, Json.contentType))
+        val settings = ClientSettings(Json.contentType)
+        val client = RealWorldClient(Client(AhcAdapter(), endpoint, settings))
         val user = jake.username
 
         val jakeClient = client.initializeUser(jake)
@@ -103,7 +107,8 @@ class ArticlesIT {
 
     @Test fun `Find articles filters correctly`() {
         val endpoint = "http://localhost:${server.runtimePort}/api"
-        val client = RealWorldClient(Client(endpoint, Json.contentType))
+        val settings = ClientSettings(Json.contentType)
+        val client = RealWorldClient(Client(AhcAdapter(), endpoint, settings))
 
         val jakeClient = client.initializeUser(jake)
         val janeClient = client.initializeUser(jane)
@@ -140,7 +145,8 @@ class ArticlesIT {
 
     @Test fun `Get user feed`() {
         val endpoint = "http://localhost:${server.runtimePort}/api"
-        val client = RealWorldClient(Client(endpoint, Json.contentType))
+        val settings = ClientSettings(Json.contentType)
+        val client = RealWorldClient(Client(AhcAdapter(), endpoint, settings))
 
         val jakeClient = client.initializeUser(jake)
         val janeClient = client.initializeUser(jane)

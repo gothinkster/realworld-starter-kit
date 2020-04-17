@@ -1,6 +1,7 @@
 package com.hexagonkt.realworld
 
 import com.hexagonkt.http.client.Client
+import com.hexagonkt.http.client.ahc.AhcAdapter
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.webapp.WebAppContext
 import org.junit.jupiter.api.AfterAll
@@ -36,7 +37,7 @@ class WebApplicationTest {
     }
 
     @Test fun `Servlet server starts`() {
-        val response = Client("http://$hostname:$port/api").get("/articles")
-        assert(response.statusCode == 200)
+        val response = Client(AhcAdapter(), "http://$hostname:$port/api").get("/articles")
+        assert(response.status == 200)
     }
 }

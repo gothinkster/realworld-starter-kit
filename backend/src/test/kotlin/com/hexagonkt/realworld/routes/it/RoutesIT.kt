@@ -1,6 +1,8 @@
 package com.hexagonkt.realworld.routes.it
 
 import com.hexagonkt.http.client.Client
+import com.hexagonkt.http.client.ClientSettings
+import com.hexagonkt.http.client.ahc.AhcAdapter
 import com.hexagonkt.realworld.RealWorldClient
 import com.hexagonkt.realworld.main
 import com.hexagonkt.realworld.server
@@ -37,10 +39,11 @@ class RoutesIT {
 
     @Test fun `Non existing route returns a 404`() {
         val endpoint = "http://localhost:${server.runtimePort}/api"
-        val client = RealWorldClient(Client(endpoint, Json.contentType))
+        val settings = ClientSettings(Json.contentType)
+        val client = RealWorldClient(Client(AhcAdapter(), endpoint, settings))
 
         val jakeClient = client.initializeUser(jake)
 
-        jakeClient.client.get("/404") { assert(statusCode == 404) }
+        jakeClient.client.get("/404").apply { assert(status == 404) }
     }
 }
