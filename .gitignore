@@ -1,17 +1,30 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+######################
+# Intellij
+######################
+.idea/
+*.iml
+*.iws
+*.ipr
+*.ids
+*.orig
+classes/
+out/
 
-# dependencies
-/node_modules
-/bower_components
+######################
+# Maven
+######################
+/log/
+/target/
+/dependency-reduced-pom.xml
 
-# IDEs and editors
-/.idea
-.project
-.classpath
-*.launch
-.settings/
+######################
+# Package Files
+######################
+*.jar
+*.war
+*.db
 
-
-#System Files
-.DS_Store
-Thumbs.db
+######################
+# Logs
+######################
+*.log*

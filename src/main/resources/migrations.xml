@@ -1,0 +1,197 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="liquibase" id="1">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bio" type="VARCHAR(4096)"/>
+            <column name="image" type="VARCHAR(255)"/>
+            <column name="created_at" type="TIMESTAMP without time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP without time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase" id="2">
+        <createTable tableName="favorites">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="article_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase" id="3">
+        <createTable tableName="tags">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tags_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase" id="4">
+        <createTable tableName="articles">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="articles_pkey"/>
+            </column>
+            <column name="slug" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="body" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="favorites_count" type="BIGINT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP without time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP without time zone"/>
+            <column name="author_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase" id="5">
+        <createTable tableName="comments">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="comments_pkey"/>
+            </column>
+            <column name="body" type="VARCHAR(4096)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="article_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="author_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP without time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP without time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase" id="6">
+        <createTable tableName="articles_tags">
+            <column name="article_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase" id="7">
+        <createTable tableName="followers">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="follower_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP without time zone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase" id="8">
+        <addUniqueConstraint columnNames="email" constraintName="users_email_unq" tableName="users"/>
+    </changeSet>
+    <changeSet author="liquibase" id="9">
+        <addUniqueConstraint columnNames="username" constraintName="users_username_unq" tableName="users"/>
+    </changeSet>
+    <changeSet author="liquibase" id="10">
+        <addUniqueConstraint columnNames="user_id, article_id" constraintName="favorites_ids_unq"
+                             tableName="favorites"/>
+    </changeSet>
+    <changeSet author="liquibase" id="11">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="favorites"
+                                 constraintName="favorites_user_id_fkey" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase" id="12">
+        <addUniqueConstraint columnNames="name" constraintName="tag_name_unq" tableName="tags"/>
+    </changeSet>
+    <changeSet author="liquibase" id="13">
+        <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="articles"
+                                 constraintName="articles_author_id_fkey" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase" id="14">
+        <addUniqueConstraint columnNames="slug" constraintName="articles_slug_unq" tableName="articles"/>
+    </changeSet>
+    <changeSet author="liquibase" id="15">
+        <addForeignKeyConstraint baseColumnNames="article_id" baseTableName="articles_tags"
+                                 constraintName="articles_tags_article_id_fkey" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="articles" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase" id="16">
+        <addForeignKeyConstraint baseColumnNames="article_id" baseTableName="comments"
+                                 constraintName="comments_article_id_fkey" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="articles" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase" id="17">
+        <addForeignKeyConstraint baseColumnNames="article_id" baseTableName="favorites"
+                                 constraintName="favorites_article_id_fkey" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="articles" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase" id="18">
+        <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="comments"
+                                 constraintName="comments_author_id_fkey" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase" id="19">
+        <addUniqueConstraint columnNames="article_id, tag_id" constraintName="articles_tags_ids_unq"
+                             tableName="articles_tags"/>
+    </changeSet>
+    <changeSet author="liquibase" id="20">
+        <addForeignKeyConstraint baseColumnNames="tag_id" baseTableName="articles_tags"
+                                 constraintName="articles_tags_tag_id_fkey" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="tags" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase" id="21">
+        <addForeignKeyConstraint baseColumnNames="follower_id" baseTableName="followers"
+                                 constraintName="followers_follower_id_fkey" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase" id="22">
+        <addUniqueConstraint columnNames="user_id, follower_id" constraintName="followers_ids_unq"
+                             tableName="followers"/>
+    </changeSet>
+    <changeSet author="liquibase" id="23">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="followers"
+                                 constraintName="followers_user_id_fkey" deferrable="false" initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="users" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
