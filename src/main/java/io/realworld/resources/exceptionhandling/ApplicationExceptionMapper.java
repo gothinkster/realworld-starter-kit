@@ -2,6 +2,8 @@ package io.realworld.resources.exceptionhandling;
 
 import io.realworld.api.response.Errors;
 import io.realworld.exceptions.ApplicationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -13,11 +15,14 @@ import java.util.Map;
 @Provider
 public class ApplicationExceptionMapper implements ExceptionMapper<ApplicationException> {
 
-    @Override
-    public Response toResponse(final ApplicationException exception) {
-        final Errors error = mapToErrorMessage(exception);
+    private static final Logger LOG = LoggerFactory.getLogger(ApplicationExceptionMapper.class);
 
-        return Response.status(mapToHttpStatus(exception))
+    @Override
+    public Response toResponse(final ApplicationException e) {
+        LOG.error("Exception:", e);
+        final Errors error = mapToErrorMessage(e);
+
+        return Response.status(mapToHttpStatus(e))
                 .type(MediaType.APPLICATION_JSON)
                 .entity(error)
                 .build();
@@ -25,7 +30,7 @@ public class ApplicationExceptionMapper implements ExceptionMapper<ApplicationEx
 
     private Errors mapToErrorMessage(final ApplicationException exception) {
         final Errors error = new Errors();
-        error.setErrors(Map.of("message", List.of(exception.getMessage())));
+        error.setErrors(Map.of("general", List.of(exception.getMessage())));
         return error;
     }
 

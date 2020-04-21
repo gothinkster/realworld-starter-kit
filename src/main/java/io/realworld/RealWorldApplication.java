@@ -26,6 +26,7 @@ import io.realworld.db.TagRepository;
 import io.realworld.db.UserRepository;
 import io.realworld.resources.*;
 import io.realworld.resources.exceptionhandling.ApplicationExceptionMapper;
+import io.realworld.resources.exceptionhandling.GeneralExceptionMapper;
 import io.realworld.security.*;
 import org.jdbi.v3.core.Jdbi;
 
@@ -81,6 +82,7 @@ public class RealWorldApplication extends Application<RealWorldConfiguration> {
         env.jersey().register(new TagsResource(tagRepository));
 
         env.jersey().register(new ApplicationExceptionMapper());
+        env.jersey().register(new GeneralExceptionMapper());
 
         configureJsonMapper(env.getObjectMapper());
         configureJwtAuth(env.jersey(), jwtTokenService);

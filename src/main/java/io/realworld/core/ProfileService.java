@@ -16,16 +16,13 @@ public class ProfileService {
     }
 
     public Profile findProfileByUsername(final String username, final String followedBy) {
-        final Profile profile = userRepository.findProfileByUsername(username);
-        if (profile == null) {
-            throw new ApplicationException(NOT_FOUND, "User [" + username + "] does not exists");
-        }
+        final Profile profile = findProfile(username);
         profile.setFollowing(userRepository.isFollowing(profile.getId(), followedBy));
         return profile;
     }
 
     public Profile followProfile(final String username, final String authenticatedUsername) {
-        final Profile profileToFollow = userRepository.findProfileByUsername(username);
+        final Profile profileToFollow = findProfile(username);
         final Long authenticatedUserId = findUserId(authenticatedUsername);
         if (userRepository.isFollowing(profileToFollow.getId(), authenticatedUserId)) {
             throw new ApplicationException(ErrorCode.USER_ALREADY_FOLLOWED, "User [" + username + "] is already followed");
@@ -36,7 +33,7 @@ public class ProfileService {
     }
 
     public Profile unfollowProfile(final String username, final String authenticatedUsername) {
-        final Profile profileToUnfollow = userRepository.findProfileByUsername(username);
+        final Profile profileToUnfollow = findProfile(username);
         final Long authenticatedUserId = findUserId(authenticatedUsername);
         userRepository.unfollowProfile(profileToUnfollow.getId(), authenticatedUserId);
         profileToUnfollow.setFollowing(false);
@@ -49,5 +46,13 @@ public class ProfileService {
             throw new ApplicationException(NOT_FOUND, "User [" + username + "] does not exists");
         }
         return followedUserId;
+    }
+
+    private Profile findProfile(String username) {
+        final Profile profile = userRepository.findProfileByUsername(username);
+        if (profile == null) {
+            throw new ApplicationException(NOT_FOUND, "User [" + username + "] does not exists");
+        }
+        return profile;
     }
 }
