@@ -2,7 +2,7 @@ package com.hexagonkt.realworld.messages
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
-import com.hexagonkt.realworld.routes.toIso8601
+import com.hexagonkt.realworld.toIso8601
 import com.hexagonkt.realworld.services.Comment
 import com.hexagonkt.realworld.services.User
 

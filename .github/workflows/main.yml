@@ -1,0 +1,23 @@
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  main:
+    name: Main
+    runs-on: ubuntu-latest
+
+    steps:
+      # SET UP
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Install Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      # FORCE FAIL
+      - name: Build & Test
+        run: exit 255
