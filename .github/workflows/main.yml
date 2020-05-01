@@ -32,6 +32,4 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-
 
       - name: Build & Test
-        run: |
-          npm install newman
-          .github/pre-push.sh
+        run: .github/pre-push.sh

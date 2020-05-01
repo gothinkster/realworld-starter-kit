@@ -14,7 +14,7 @@ We've gone to great lengths to adhere to the **Hexagon** community styleguides &
 
 For more information on how to this works with other frontends/backends, head over to the
 [RealWorld].
-  
+
 [![Travis CI](https://travis-ci.org/hexagonkt/real_world.svg?branch=master)][Travis]
 [![Codecov](https://codecov.io/gh/hexagonkt/real_world/branch/master/graph/badge.svg)][Codecov]
 
@@ -54,7 +54,7 @@ To be sure that everything works before pushing changes, you can link the `deplo
 to the `.git/hooks` directory:
 
     ln -s $(pwd)/deploy/pre-push.sh .git/hooks/pre-push
-    
+
 However, you can use `git push --no-verify` to skip these checks.
 
 Useful build commands:
@@ -71,8 +71,8 @@ Useful build commands:
 * Documentation: `./gradlew doc`. Creates:
   - API documentation: `backend/build/dokka/backend`
   - Coverage report: `backend/build/reports/jacoco/test/html`
-  
-* Generate everything (binaries and documentation): `./gradlew all` 
+
+* Generate everything (binaries and documentation): `./gradlew all`
 
 * Run: `./gradlew run`
 
@@ -113,7 +113,7 @@ Deploy the application services on a server upon `master` push. Check the
 
 # TODO
 
-* Add npm to Travis CI cache
+* Add npm to GitHub Actions cache
 * Publish in Docker Registry
 * Deploy on GCP
 * Add requests' bodies validation returning as many errors as wrong fields
