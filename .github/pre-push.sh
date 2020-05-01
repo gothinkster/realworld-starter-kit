@@ -7,14 +7,11 @@
 
 set -e
 
-docker-compose stop
 docker-compose up -d mongodb
-
 ./gradlew clean all
+docker-compose up -d --build --force-recreate
 
-docker-compose stop
-docker-compose up -d --build
-sleep 5
+sleep 3
 
 export TEST_RES="backend/src/test/resources/postman"
 newman run $TEST_RES/postman.json -e $TEST_RES/environment.json
