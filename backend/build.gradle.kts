@@ -8,15 +8,12 @@ plugins {
     war
 }
 
+extra["applicationClassName"] = "com.hexagonkt.realworld.ApplicationKt"
+
 apply(from = "${extra["gradleScripts"]}/kotlin.gradle")
 apply(from = "${extra["gradleScripts"]}/dokka.gradle")
 apply(from = "${extra["gradleScripts"]}/service.gradle")
 apply(from = "${extra["gradleScripts"]}/junit.gradle")
-
-application {
-    mainClassName = "com.hexagonkt.realworld.ApplicationKt"
-    applicationDefaultJvmArgs = listOf("-XX:+UseNUMA", "-XX:+UseParallelGC", "-XX:+AggressiveOpts")
-}
 
 tasks.war {
     archiveFileName.set("ROOT.war")
