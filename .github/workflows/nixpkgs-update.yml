@@ -1,7 +1,7 @@
 on:
   schedule:
     # On the first of every month
-    - cron: '* * 1 * *'
+    - cron: '0 0 1 * *'
 
 jobs:
   update:
