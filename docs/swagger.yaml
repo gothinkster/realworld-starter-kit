@@ -1,5 +1,123 @@
 basePath: /api
 definitions:
+  handler.articleCreateRequest:
+    properties:
+      article:
+        properties:
+          body:
+            type: string
+          description:
+            type: string
+          tagList:
+            items:
+              type: string
+            type: array
+          title:
+            type: string
+        type: object
+    required:
+    - body
+    - description
+    - title
+    type: object
+  handler.articleListResponse:
+    properties:
+      articles:
+        items:
+          $ref: '#/definitions/handler.articleResponse'
+        type: array
+      articlesCount:
+        type: integer
+    type: object
+  handler.articleResponse:
+    properties:
+      author:
+        properties:
+          bio:
+            type: string
+          following:
+            type: boolean
+          image:
+            type: string
+          username:
+            type: string
+        type: object
+      body:
+        type: string
+      createdAt:
+        type: string
+      description:
+        type: string
+      favorited:
+        type: boolean
+      favoritesCount:
+        type: integer
+      slug:
+        type: string
+      tagList:
+        items:
+          type: string
+        type: array
+      title:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  handler.articleUpdateRequest:
+    properties:
+      article:
+        properties:
+          body:
+            type: string
+          description:
+            type: string
+          tagList:
+            items:
+              type: string
+            type: array
+          title:
+            type: string
+        type: object
+    type: object
+  handler.commentListResponse:
+    properties:
+      comments:
+        items:
+          $ref: '#/definitions/handler.commentResponse'
+        type: array
+    type: object
+  handler.commentResponse:
+    properties:
+      author:
+        properties:
+          bio:
+            type: string
+          following:
+            type: boolean
+          image:
+            type: string
+          username:
+            type: string
+        type: object
+      body:
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  handler.createCommentRequest:
+    properties:
+      comment:
+        properties:
+          body:
+            type: string
+        type: object
+    required:
+    - body
+    type: object
   handler.profileResponse:
     properties:
       profile:
@@ -13,6 +131,25 @@ definitions:
           username:
             type: string
         type: object
+    type: object
+  handler.singleArticleResponse:
+    properties:
+      article:
+        $ref: '#/definitions/handler.articleResponse'
+        type: object
+    type: object
+  handler.singleCommentResponse:
+    properties:
+      comment:
+        $ref: '#/definitions/handler.commentResponse'
+        type: object
+    type: object
+  handler.tagListResponse:
+    properties:
+      tags:
+        items:
+          type: string
+        type: array
     type: object
   handler.userLoginRequest:
     properties:
@@ -89,6 +226,451 @@ info:
   title: Conduit API
   version: "1.0"
 paths:
+  /articles:
+    get:
+      consumes:
+      - application/json
+      description: Get most recent articles globally. Use query parameters to filter
+        results. Auth is optional
+      operationId: get-articles
+      parameters:
+      - description: Filter by tag
+        in: query
+        name: tag
+        type: string
+      - description: Filter by author (username)
+        in: query
+        name: author
+        type: string
+      - description: Filter by favorites of a user (username)
+        in: query
+        name: favorited
+        type: string
+      - description: Limit number of articles returned (default is 20)
+        in: query
+        name: limit
+        type: integer
+      - description: Offset/skip number of articles (default is 0)
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.articleListResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Error'
+      summary: Get recent articles globally
+      tags:
+      - article
+    post:
+      consumes:
+      - application/json
+      description: Create an article. Auth is require
+      operationId: create-article
+      parameters:
+      - description: Article to create
+        in: body
+        name: article
+        required: true
+        schema:
+          $ref: '#/definitions/handler.articleCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/handler.singleArticleResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Create an article
+      tags:
+      - article
+  /articles/{slug}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an article. Auth is required
+      operationId: delete-article
+      parameters:
+      - description: Slug of the article to delete
+        in: path
+        name: slug
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete an article
+      tags:
+      - article
+    get:
+      consumes:
+      - application/json
+      description: Get an article. Auth not required
+      operationId: get-article
+      parameters:
+      - description: Slug of the article to get
+        in: path
+        name: slug
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.singleArticleResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Error'
+      summary: Get an article
+      tags:
+      - article
+    put:
+      consumes:
+      - application/json
+      description: Update an article. Auth is required
+      operationId: update-article
+      parameters:
+      - description: Slug of the article to update
+        in: path
+        name: slug
+        required: true
+        type: string
+      - description: Article to update
+        in: body
+        name: article
+        required: true
+        schema:
+          $ref: '#/definitions/handler.articleUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.singleArticleResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Update an article
+      tags:
+      - article
+  /articles/{slug}/comments:
+    get:
+      consumes:
+      - application/json
+      description: Get the comments for an article. Auth is optional
+      operationId: get-comments
+      parameters:
+      - description: Slug of the article that you want to get comments for
+        in: path
+        name: slug
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.commentListResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Error'
+      summary: Get the comments for an article
+      tags:
+      - comment
+    post:
+      consumes:
+      - application/json
+      description: Create a comment for an article. Auth is required
+      operationId: add-comment
+      parameters:
+      - description: Slug of the article that you want to create a comment for
+        in: path
+        name: slug
+        required: true
+        type: string
+      - description: Comment you want to create
+        in: body
+        name: comment
+        required: true
+        schema:
+          $ref: '#/definitions/handler.createCommentRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/handler.singleCommentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a comment for an article
+      tags:
+      - comment
+  /articles/{slug}/comments/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a comment for an article. Auth is required
+      operationId: delete-comments
+      parameters:
+      - description: Slug of the article that you want to delete a comment for
+        in: path
+        name: slug
+        required: true
+        type: string
+      - description: ID of the comment you want to delete
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a comment for an article
+      tags:
+      - comment
+  /articles/{slug}/favorite:
+    delete:
+      consumes:
+      - application/json
+      description: Unfavorite an article. Auth is required
+      operationId: unfavorite
+      parameters:
+      - description: Slug of the article that you want to unfavorite
+        in: path
+        name: slug
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.singleArticleResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Unfavorite an article
+      tags:
+      - favorite
+    post:
+      consumes:
+      - application/json
+      description: Favorite an article. Auth is required
+      operationId: favorite
+      parameters:
+      - description: Slug of the article that you want to favorite
+        in: path
+        name: slug
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.singleArticleResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Favorite an article
+      tags:
+      - favorite
+  /articles/feed:
+    get:
+      consumes:
+      - application/json
+      description: Get most recent articles from users you follow. Use query parameters
+        to limit. Auth is required
+      operationId: feed
+      parameters:
+      - description: Limit number of articles returned (default is 20)
+        in: query
+        name: limit
+        type: integer
+      - description: Offset/skip number of articles (default is 0)
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.articleListResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Get recent articles from users you follow
+      tags:
+      - article
   /profiles/{username}:
     get:
       consumes:
@@ -131,6 +713,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Get a profile
+      tags:
+      - profile
   /profiles/{username}/follow:
     delete:
       consumes:
@@ -173,6 +757,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Unfollow a user
+      tags:
+      - follow
     post:
       consumes:
       - application/json
@@ -214,6 +800,42 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Follow a user
+      tags:
+      - follow
+  /tags:
+    get:
+      consumes:
+      - application/json
+      description: Get tags
+      operationId: tags
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/handler.tagListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/utils.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Get tags
+      tags:
+      - tag
   /user:
     get:
       consumes:
@@ -250,6 +872,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Get the current user
+      tags:
+      - user
     put:
       consumes:
       - application/json
@@ -292,6 +916,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Update current user
+      tags:
+      - user
   /users:
     post:
       consumes:
@@ -325,6 +951,8 @@ paths:
           schema:
             $ref: '#/definitions/utils.Error'
       summary: Register a new user
+      tags:
+      - user
   /users/login:
     post:
       consumes:
@@ -366,6 +994,8 @@ paths:
           schema:
             $ref: '#/definitions/utils.Error'
       summary: Login for existing user
+      tags:
+      - user
 schemes:
 - http
 - https

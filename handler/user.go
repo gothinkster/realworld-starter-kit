@@ -12,6 +12,7 @@ import (
 // @Summary Register a new user
 // @Description Register a new user
 // @ID sign-up
+// @Tags user
 // @Accept  json
 // @Produce  json
 // @Param user body userRegisterRequest true "User info for registration"
@@ -36,6 +37,7 @@ func (h *Handler) SignUp(c echo.Context) error {
 // @Summary Login for existing user
 // @Description Login for existing user
 // @ID login
+// @Tags user
 // @Accept  json
 // @Produce  json
 // @Param user body userLoginRequest true "Credentials to use"
@@ -68,6 +70,7 @@ func (h *Handler) Login(c echo.Context) error {
 // @Summary Get the current user
 // @Description Gets the currently logged-in user
 // @ID current-user
+// @Tags user
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} userResponse
@@ -93,6 +96,7 @@ func (h *Handler) CurrentUser(c echo.Context) error {
 // @Summary Update current user
 // @Description Update user information for current user
 // @ID update-user
+// @Tags user
 // @Accept  json
 // @Produce  json
 // @Param user body userUpdateRequest true "User details to update. At least **one** field is required."
@@ -127,6 +131,7 @@ func (h *Handler) UpdateUser(c echo.Context) error {
 // @Summary Get a profile
 // @Description Get a profile of a user of the system. Auth is optional
 // @ID get-profile
+// @Tags profile
 // @Accept  json
 // @Produce  json
 // @Param username path string true "Username of the profile to get"
@@ -154,6 +159,7 @@ func (h *Handler) GetProfile(c echo.Context) error {
 // @Summary Follow a user
 // @Description Follow a user by username
 // @ID follow
+// @Tags follow
 // @Accept  json
 // @Produce  json
 // @Param username path string true "Username of the profile you want to follow"
@@ -185,6 +191,7 @@ func (h *Handler) Follow(c echo.Context) error {
 // @Summary Unfollow a user
 // @Description Unfollow a user by username
 // @ID unfollow
+// @Tags follow
 // @Accept  json
 // @Produce  json
 // @Param username path string true "Username of the profile you want to unfollow"
