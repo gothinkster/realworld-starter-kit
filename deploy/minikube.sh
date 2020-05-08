@@ -26,8 +26,7 @@ minikube service list
 minikube ip
 
 # Build & Release
-eval "$(minikube docker-env)"
-registry="" docker-compose build
+docker-compose build
 docker images
 
 # Deploy
