@@ -227,9 +227,13 @@ func (as *ArticleStore) ListFeed(userID uint, offset, limit int) ([]model.Articl
 
 	as.db.Model(&u).Preload("Following").Preload("Follower").Association("Followings").Find(&followings)
 
+	if len(followings) == 0 {
+		return articles, 0, nil
+	}
+
 	ids := make([]uint, len(followings))
-	for _, i := range followings {
-		ids = append(ids, i.FollowingID)
+	for i, f := range followings {
+		ids[i] = f.FollowingID
 	}
 
 	as.db.Where("author_id in (?)", ids).
