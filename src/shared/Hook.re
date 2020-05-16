@@ -1,8 +1,8 @@
 open Js.Promise;
 open Relude.Globals;
 
-let guardByDidCancel: (React.Ref.t(bool), unit => unit) => unit =
-  (didCancel, cb) => !React.Ref.current(didCancel) ? cb() : ();
+let guardByDidCancel: (React.ref(bool), unit => unit) => unit =
+  (didCancel, cb) => !didCancel.current ? cb() : ();
 
 let useArticles:
   (~feedType: Shape.FeedType.t) =>
@@ -19,9 +19,7 @@ let useArticles:
     let (data, setData) = React.useState(() => AsyncResult.init);
     let guard = guardByDidCancel(didCancel);
 
-    React.useEffect0(() =>
-      Some(() => React.Ref.setCurrent(didCancel, true))
-    );
+    React.useEffect0(() => Some(() => {didCancel.current = true}));
 
     React.useEffect2(
       () => {
@@ -71,9 +69,7 @@ let useArticlesInProfile:
     let (data, setData) = React.useState(() => AsyncResult.init);
     let guard = guardByDidCancel(didCancel);
 
-    React.useEffect0(() =>
-      Some(() => React.Ref.setCurrent(didCancel, true))
-    );
+    React.useEffect0(() => Some(() => {didCancel.current = true}));
 
     React.useEffect2(
       () => {
@@ -138,7 +134,7 @@ let useTags: unit => AsyncResult.t(Shape.Tags.t, Error.t) =
          })
       |> ignore;
 
-      Some(() => React.Ref.setCurrent(didCancel, true));
+      Some(() => {didCancel.current = true});
     });
 
     data;
@@ -178,7 +174,7 @@ let useCurrentUser:
          })
       |> ignore;
 
-      Some(() => React.Ref.setCurrent(didCancel, true));
+      Some(() => {didCancel.current = true});
     });
 
     (data, setData);
@@ -208,9 +204,7 @@ let useArticle:
     let (data, setData) = React.useState(() => AsyncResult.init);
     let guard = guardByDidCancel(didCancel);
 
-    React.useEffect0(() =>
-      Some(() => React.Ref.setCurrent(didCancel, true))
-    );
+    React.useEffect0(() => Some(() => {didCancel.current = true}));
 
     React.useEffect1(
       () => {
@@ -261,9 +255,7 @@ let useComments:
     let (busy, setBusy) = React.useState(() => Belt.Set.Int.empty);
     let guard = guardByDidCancel(didCancel);
 
-    React.useEffect0(() =>
-      Some(() => React.Ref.setCurrent(didCancel, true))
-    );
+    React.useEffect0(() => Some(() => {didCancel.current = true}));
 
     React.useEffect2(
       () => {
@@ -328,9 +320,7 @@ let useFollow:
     let didCancel = React.useRef(false);
     let guard = guardByDidCancel(didCancel);
 
-    React.useEffect0(() =>
-      Some(() => React.Ref.setCurrent(didCancel, true))
-    );
+    React.useEffect0(() => Some(() => {didCancel.current = true}));
 
     let (state, setState) = React.useState(() => AsyncData.init);
 
@@ -404,9 +394,7 @@ let useFollowInProfile:
     let didCancel = React.useRef(false);
     let guard = guardByDidCancel(didCancel);
 
-    React.useEffect0(() =>
-      Some(() => React.Ref.setCurrent(didCancel, true))
-    );
+    React.useEffect0(() => Some(() => {didCancel.current = true}));
 
     let (state, setState) = React.useState(() => AsyncData.init);
 
@@ -480,9 +468,7 @@ let useFavorite:
     let didCancel = React.useRef(false);
     let guard = guardByDidCancel(didCancel);
 
-    React.useEffect0(() =>
-      Some(() => React.Ref.setCurrent(didCancel, true))
-    );
+    React.useEffect0(() => Some(() => {didCancel.current = true}));
 
     let (state, setState) = React.useState(() => AsyncData.init);
 
@@ -552,9 +538,7 @@ let useDeleteArticle:
     let didCancel = React.useRef(false);
     let guard = guardByDidCancel(didCancel);
 
-    React.useEffect0(() =>
-      Some(() => React.Ref.setCurrent(didCancel, true))
-    );
+    React.useEffect0(() => Some(() => {didCancel.current = true}));
 
     let (state, setState) = React.useState(() => false);
 
@@ -612,9 +596,7 @@ let useToggleFavorite:
     let didCancel = React.useRef(false);
     let guard = guardByDidCancel(didCancel);
 
-    React.useEffect0(() =>
-      Some(() => React.Ref.setCurrent(didCancel, true))
-    );
+    React.useEffect0(() => Some(() => {didCancel.current = true}));
 
     let (busy, setBusy) = React.useState(() => Belt.Set.String.empty);
 
@@ -695,9 +677,7 @@ let useProfile: (~username: string) => AsyncResult.t(Shape.Author.t, Error.t) =
     let (data, setData) = React.useState(() => AsyncResult.init);
     let guard = guardByDidCancel(didCancel);
 
-    React.useEffect0(() =>
-      Some(() => React.Ref.setCurrent(didCancel, true))
-    );
+    React.useEffect0(() => Some(() => {didCancel.current = true}));
 
     React.useEffect2(
       () => {
