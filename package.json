@@ -34,6 +34,7 @@
   "devDependencies": {
     "@glennsl/bs-jest": "^0.5.1",
     "@sheerun/mutationobserver-shim": "^0.3.3",
+    "bisect_ppx": "^2.4.1",
     "bs-bastet": "^1.2.5",
     "bs-decode": "^0.11.1",
     "bs-dom-testing-library": "^0.6.1",
@@ -48,7 +49,7 @@
     "jest-fetch-mock": "^3.0.3",
     "prettier": "^2.0.5",
     "react-scripts": "^3.4.1",
-    "relude": "^0.62.0"
+    "relude": "^0.63.1"
   },
   "prettier": {
     "singleQuote": true,
