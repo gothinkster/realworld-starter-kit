@@ -72,9 +72,7 @@ class Base extends CoreBase {
         if (!Base.initialTokenRequestSent) {
             Base.initialTokenRequestSent = true;
 
-            console.log(Neo.apps['RealWorld'].rendered);
-
-            Neo.Main.readLocalStorageItem({
+            Neo.main.addon.LocalStorage.readLocalStorageItem({
                 key: LOCAL_STORAGE_KEY
             }).then(data => {
                 const token = data.value;

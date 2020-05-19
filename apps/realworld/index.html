@@ -14,16 +14,16 @@
             Neo = self.Neo || {}; Neo.config = Neo.config || {};
 
             Object.assign(Neo.config, {
-                appPath       : '../../apps/realworld/app.mjs',
-                basePath      : '../../node_modules/neo.mjs/',
-                environment   : 'development',
-                isExperimental: true,
-                themes        : [],
-                useFontAwesome: false
+                appPath         : '../../apps/realworld/app.mjs',
+                basePath        : '../../node_modules/neo.mjs/',
+                environment     : 'development',
+                isExperimental  : true,
+                mainThreadAddons: ['LocalStorage', 'Markdown'],
+                themes          : [],
+                useFontAwesome  : false
             });
         </script>
 
-        <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js"></script>
         <script src="../../node_modules/neo.mjs/src/Main.mjs" type="module"></script>
     </body>
 </html>

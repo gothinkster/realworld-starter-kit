@@ -37,6 +37,7 @@ class HeaderComponent extends Component {
          */
         _vdom: {
             tag: 'nav',
+            cls: ['navbar navbar-light'],
             cn : [{
                 cls: ['container'],
                 cn : [{

@@ -1,6 +1,6 @@
 {
     "name": "neo.mjs-realworld-example-app",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "neo.mjs: Real World example app",
     "repository": {
         "type": "git",
@@ -8,7 +8,9 @@
     },
     "scripts": {
         "server-start": "webpack-dev-server --open",
+        "dev-build-main": "webpack --config ./node_modules/neo.mjs/buildScripts/webpack/development/webpack.config.main.js",
         "dev-build-my-apps": "webpack --config ./node_modules/neo.mjs/buildScripts/webpack/development/webpack.config.myapps.js --env.build_all=true",
+        "prod-build-main": "webpack --config ./node_modules/neo.mjs/buildScripts/webpack/production/webpack.config.main.js",
         "prod-build-my-apps": "webpack --config ./node_modules/neo.mjs/buildScripts/webpack/production/webpack.config.myapps.js --env.build_all=true",
         "generate-docs-json": "node ./node_modules/neo.mjs/buildScripts/docs/jsdocx.js",
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,30 +23,30 @@
     },
     "homepage": "https://neomjs.github.io/pages/",
     "dependencies": {
-        "neo.mjs": "^1.1.18"
+        "neo.mjs": "^1.1.57"
     },
     "devDependencies": {
-        "@fortawesome/fontawesome-free": "^5.12.0",
-        "autoprefixer": "^9.7.2",
+        "@fortawesome/fontawesome-free": "^5.13.0",
+        "autoprefixer": "^9.8.0",
         "clean-webpack-plugin": "^3.0.0",
-        "css-loader": "^3.2.0",
+        "css-loader": "^3.5.3",
         "cssnano": "^4.1.10",
-        "deasync": "^0.1.15",
+        "deasync": "^0.1.20",
         "fs": "^0.0.1-security",
         "highlightjs-line-numbers.js": "^2.7.0",
         "html-webpack-plugin": "^3.2.0",
-        "inquirer": "^7.0.0",
-        "jsdoc": "^3.6.3",
-        "jsdoc-x": "^4.0.3",
-        "mini-css-extract-plugin": "^0.8.0",
-        "node-sass": "^4.13.0",
+        "inquirer": "^7.1.0",
+        "jsdoc": "^3.6.4",
+        "jsdoc-x": "^4.1.0",
+        "mini-css-extract-plugin": "^0.8.2",
+        "node-sass": "^4.14.1",
         "postcss-loader": "^3.0.0",
-        "sass-loader": "^8.0.0",
-        "siesta-lite": "^5.3.0",
-        "style-loader": "^1.0.1",
-        "webpack": "^4.41.2",
-        "webpack-cli": "^3.3.10",
-        "webpack-dev-server": "^3.9.0",
+        "sass-loader": "^8.0.2",
+        "siesta-lite": "^5.4.0",
+        "style-loader": "^1.2.1",
+        "webpack": "^4.43.0",
+        "webpack-cli": "^3.3.11",
+        "webpack-dev-server": "^3.11.0",
         "webpack-node-externals": "^1.7.2"
     }
 }
