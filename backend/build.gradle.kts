@@ -8,30 +8,27 @@ plugins {
     war
 }
 
-extra["applicationClassName"] = "com.hexagonkt.realworld.ApplicationKt"
+apply(from = "${properties["gradleScripts"]}/kotlin.gradle")
+apply(from = "${properties["gradleScripts"]}/dokka.gradle")
+apply(from = "${properties["gradleScripts"]}/application.gradle")
 
-apply(from = "${extra["gradleScripts"]}/kotlin.gradle")
-apply(from = "${extra["gradleScripts"]}/dokka.gradle")
-apply(from = "${extra["gradleScripts"]}/service.gradle")
-apply(from = "${extra["gradleScripts"]}/junit.gradle")
+application {
+    mainClassName = "com.hexagonkt.realworld.ApplicationKt"
+}
 
 tasks.war {
     archiveFileName.set("ROOT.war")
 }
 
-task("doc") {
-    dependsOn("dokka", "jacocoTestReport")
-}
-
-task("all") {
-    dependsOn("installDist", "jarAll", "doc")
+tasks.assemble {
+    dependsOn("installDist")
 }
 
 dependencies {
-    implementation("com.hexagonkt:http_server_jetty:${project.extra["hexagonVersion"]}")
-    implementation("com.hexagonkt:store_mongodb:${project.extra["hexagonVersion"]}")
-    implementation("com.auth0:java-jwt:${project.extra["javaJwtVersion"]}")
+    implementation("com.hexagonkt:http_server_jetty:${properties["hexagonVersion"]}")
+    implementation("com.hexagonkt:store_mongodb:${properties["hexagonVersion"]}")
+    implementation("com.auth0:java-jwt:${properties["javaJwtVersion"]}")
 
-    testImplementation("com.hexagonkt:http_client_ahc:${project.extra["hexagonVersion"]}")
-    testImplementation("com.hexagonkt:port_http_server:${project.extra["hexagonVersion"]}:test")
+    testImplementation("com.hexagonkt:http_client_ahc:${properties["hexagonVersion"]}")
+    testImplementation("com.hexagonkt:port_http_server:${properties["hexagonVersion"]}:test")
 }

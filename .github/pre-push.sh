@@ -8,7 +8,7 @@
 set -e
 
 docker-compose up -d mongodb
-./gradlew clean all
+./gradlew clean build
 docker-compose up -d --build --force-recreate
 
 npm install newman
