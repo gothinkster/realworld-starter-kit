@@ -1,0 +1,16 @@
+name: Update Python Packages
+on: push
+# on:
+#   schedule:
+#     # On the second of every month
+#     - cron: '0 0 2 * *'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: cachix/install-nix-action@v6
+      - env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: nix-shell --argstr type build --run .github/workflows/poetry-update.sh
