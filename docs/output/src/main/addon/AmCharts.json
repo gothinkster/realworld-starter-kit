@@ -1,0 +1,845 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * Helper class to include amCharts into your neo.mjs app\n * https://www.amcharts.com/docs/v4/\n * @class Neo.main.addon.AmCharts\n * @extends Neo.core.Base\n * @singleton\n */",
+            "meta": {
+                "filename": "AmCharts.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "description": "Helper class to include amCharts into your neo.mjs app<br />https://www.amcharts.com/docs/v4/",
+            "kind": "class",
+            "name": "AmCharts",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "tags": [
+                {
+                    "originalTitle": "singleton",
+                    "title": "singleton",
+                    "text": ""
+                }
+            ],
+            "memberof": "Neo.main.addon",
+            "longname": "Neo.main.addon.AmCharts",
+            "scope": "static",
+            "$longname": "Neo.main.addon.AmCharts",
+            "$kind": "class",
+            "id": 1356,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.main.addon.AmCharts'\n         * @private\n         */",
+            "meta": {
+                "filename": "AmCharts.mjs",
+                "lineno": 17,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.main.addon.AmCharts'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1357,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n         * Stores all chart ids inside an object\n         * @member {Object} charts={}\n         * @private\n         */",
+            "meta": {
+                "filename": "AmCharts.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "description": "Stores all chart ids inside an object",
+            "kind": "member",
+            "name": "charts",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{}",
+            "access": "private",
+            "longname": "charts",
+            "scope": "global",
+            "$longname": "charts",
+            "$kind": "property",
+            "id": 1358,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n         * Stores all chart config objects which arrived before the chart lib scripts got loaded\n         * @member {Object[]} chartsToCreate=[]\n         * @private\n         */",
+            "meta": {
+                "filename": "AmCharts.mjs",
+                "lineno": 29,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "description": "Stores all chart config objects which arrived before the chart lib scripts got loaded",
+            "kind": "member",
+            "name": "chartsToCreate",
+            "type": {
+                "names": [
+                    "Array.<Object>"
+                ]
+            },
+            "defaultvalue": "[]",
+            "access": "private",
+            "longname": "chartsToCreate",
+            "scope": "global",
+            "$longname": "chartsToCreate",
+            "$kind": "property",
+            "id": 1359,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n         * Stores all chart data inside an object. key => chart id\n         * No array since in case a chart gets loaded multiple times, we only want to apply the last data on mount.\n         * @member {Object} dataMap={}\n         * @private\n         */",
+            "meta": {
+                "filename": "AmCharts.mjs",
+                "lineno": 36,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "description": "Stores all chart data inside an object. key => chart id<br />No array since in case a chart gets loaded multiple times, we only want to apply the last data on mount.",
+            "kind": "member",
+            "name": "dataMap",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "> chart id",
+            "access": "private",
+            "longname": "dataMap",
+            "scope": "global",
+            "$longname": "dataMap",
+            "$kind": "property",
+            "id": 1360,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n         * @member {String} downloadPath='https//www.amcharts.com/lib/4/'\n         * @private\n         */",
+            "meta": {
+                "filename": "AmCharts.mjs",
+                "lineno": 41,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "downloadPath",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'https//www.amcharts.com/lib/4/'",
+            "access": "private",
+            "longname": "downloadPath",
+            "scope": "global",
+            "$longname": "downloadPath",
+            "$kind": "property",
+            "id": 1361,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n         * @member {String} fallbackPath='https://neomjs.github.io/pages/resources/amCharts/'\n         * @private\n         */",
+            "meta": {
+                "filename": "AmCharts.mjs",
+                "lineno": 46,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "fallbackPath",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'https://neomjs.github.io/pages/resources/amCharts/'",
+            "access": "private",
+            "longname": "fallbackPath",
+            "scope": "global",
+            "$longname": "fallbackPath",
+            "$kind": "property",
+            "id": 1362,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} scriptsLoaded_=true\n         * @private\n         */",
+            "meta": {
+                "filename": "AmCharts.mjs",
+                "lineno": 51,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "scriptsLoaded_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "access": "private",
+            "longname": "scriptsLoaded_",
+            "scope": "global",
+            "$longname": "scriptsLoaded_",
+            "$kind": "property",
+            "id": 1363,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @private\n         */",
+            "meta": {
+                "filename": "AmCharts.mjs",
+                "lineno": 56,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "singleton",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "access": "private",
+            "longname": "singleton",
+            "scope": "global",
+            "$longname": "singleton",
+            "$kind": "property",
+            "id": 1364,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n         * Remote method access for other workers\n         * @member {Object} remote={app: [//...]}\n         * @private\n         */",
+            "meta": {
+                "filename": "AmCharts.mjs",
+                "lineno": 62,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "description": "Remote method access for other workers",
+            "kind": "member",
+            "name": "remote",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{app: [//...]}",
+            "access": "private",
+            "longname": "remote",
+            "scope": "global",
+            "$longname": "remote",
+            "$kind": "property",
+            "id": 1365,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    2182,
+                    2271
+                ],
+                "filename": "AmCharts.mjs",
+                "lineno": 77,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100039302",
+                    "name": "AmCharts",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "AmCharts",
+            "longname": "AmCharts",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "AmCharts",
+            "$kind": "constructor",
+            "id": 1366,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n     * Triggered after the scriptsLoaded config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    2432,
+                    2906
+                ],
+                "filename": "AmCharts.mjs",
+                "lineno": 89,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100039316",
+                    "name": "AmCharts#afterSetScriptsLoaded",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the scriptsLoaded config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "private",
+            "name": "afterSetScriptsLoaded",
+            "longname": "AmCharts#afterSetScriptsLoaded",
+            "kind": "function",
+            "memberof": "AmCharts",
+            "scope": "instance",
+            "$longname": "AmCharts#afterSetScriptsLoaded",
+            "$kind": "method",
+            "id": 1367,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.id\n     * @param {String} data.path\n     * @param {Array} [data.params]\n     */",
+            "meta": {
+                "range": [
+                    3063,
+                    3497
+                ],
+                "filename": "AmCharts.mjs",
+                "lineno": 116,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100039383",
+                    "name": "AmCharts#callMethod",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.id"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.path"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "data.params"
+                }
+            ],
+            "name": "callMethod",
+            "longname": "AmCharts#callMethod",
+            "kind": "function",
+            "memberof": "AmCharts",
+            "scope": "instance",
+            "$longname": "AmCharts#callMethod",
+            "$kind": "method",
+            "id": 1368,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} chart\n     */",
+            "meta": {
+                "range": [
+                    3555,
+                    3965
+                ],
+                "filename": "AmCharts.mjs",
+                "lineno": 133,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100039457",
+                    "name": "AmCharts#combineSeriesTooltip",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "chart"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "chart"
+                }
+            ],
+            "name": "combineSeriesTooltip",
+            "longname": "AmCharts#combineSeriesTooltip",
+            "kind": "function",
+            "memberof": "AmCharts",
+            "scope": "instance",
+            "$longname": "AmCharts#combineSeriesTooltip",
+            "$kind": "method",
+            "id": 1369,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Boolean} data.combineSeriesTooltip\n     * @param {Object} data.config\n     * @param {String} data.id\n     * @param {String} data.package\n     * @param {String} data.type='XYChart'\n     */",
+            "meta": {
+                "range": [
+                    4217,
+                    4944
+                ],
+                "filename": "AmCharts.mjs",
+                "lineno": 156,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100039522",
+                    "name": "AmCharts#create",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "data.combineSeriesTooltip"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data.config"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.id"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.package"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "defaultvalue": "'XYChart'",
+                    "name": "data.type"
+                }
+            ],
+            "name": "create",
+            "longname": "AmCharts#create",
+            "kind": "function",
+            "memberof": "AmCharts",
+            "scope": "instance",
+            "$longname": "AmCharts#create",
+            "$kind": "method",
+            "id": 1370,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} id\n     * @return {Boolean}\n     */",
+            "meta": {
+                "range": [
+                    5024,
+                    5078
+                ],
+                "filename": "AmCharts.mjs",
+                "lineno": 183,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100039623",
+                    "name": "AmCharts#hasChart",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "id"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "id"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    }
+                }
+            ],
+            "name": "hasChart",
+            "longname": "AmCharts#hasChart",
+            "kind": "function",
+            "memberof": "AmCharts",
+            "scope": "instance",
+            "$longname": "AmCharts#hasChart",
+            "$kind": "method",
+            "id": 1371,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n     * Async approach\n     * core.js has to arrive first or the other scripts will cause JS errors since they rely on it\n     * => fetching the other files after core.js is loaded\n     */",
+            "meta": {
+                "range": [
+                    5280,
+                    5970
+                ],
+                "filename": "AmCharts.mjs",
+                "lineno": 192,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100039636",
+                    "name": "AmCharts#insertAmChartsScripts",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "useFallback"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Async approach<br />core.js has to arrive first or the other scripts will cause JS errors since they rely on it<br />=> fetching the other files after core.js is loaded",
+            "name": "insertAmChartsScripts",
+            "longname": "AmCharts#insertAmChartsScripts",
+            "kind": "function",
+            "memberof": "AmCharts",
+            "scope": "instance",
+            "params": [],
+            "$longname": "AmCharts#insertAmChartsScripts",
+            "$kind": "method",
+            "id": 1372,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.id\n     * @param {Object} data.properties\n     */",
+            "meta": {
+                "range": [
+                    6097,
+                    6339
+                ],
+                "filename": "AmCharts.mjs",
+                "lineno": 216,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100039727",
+                    "name": "AmCharts#setProperties",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.id"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data.properties"
+                }
+            ],
+            "name": "setProperties",
+            "longname": "AmCharts#setProperties",
+            "kind": "function",
+            "memberof": "AmCharts",
+            "scope": "instance",
+            "$longname": "AmCharts#setProperties",
+            "$kind": "method",
+            "id": 1373,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.id\n     * @param {Boolean} [data.isColor=false] true will wrap the value into am4core.color()\n     * @param {String} data.path\n     * @param {*} data.value\n     */",
+            "meta": {
+                "range": [
+                    6580,
+                    7016
+                ],
+                "filename": "AmCharts.mjs",
+                "lineno": 234,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100039760",
+                    "name": "AmCharts#setProperty",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.id"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "description": "true will wrap the value into am4core.color()",
+                    "name": "data.isColor"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.path"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "*"
+                        ]
+                    },
+                    "name": "data.value"
+                }
+            ],
+            "name": "setProperty",
+            "longname": "AmCharts#setProperty",
+            "kind": "function",
+            "memberof": "AmCharts",
+            "scope": "instance",
+            "$longname": "AmCharts#setProperty",
+            "$kind": "method",
+            "id": 1374,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Object} data.data\n     * @param {String} data.dataPath\n     * @param {String} data.id\n     */",
+            "meta": {
+                "range": [
+                    7174,
+                    7581
+                ],
+                "filename": "AmCharts.mjs",
+                "lineno": 254,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100039832",
+                    "name": "AmCharts#updateData",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data.data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.dataPath"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.id"
+                }
+            ],
+            "name": "updateData",
+            "longname": "AmCharts#updateData",
+            "kind": "function",
+            "memberof": "AmCharts",
+            "scope": "instance",
+            "$longname": "AmCharts#updateData",
+            "$kind": "method",
+            "id": 1375,
+            "neoClassName": "Neo.main.addon.AmCharts"
+        }
+    ]
+}

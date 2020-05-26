@@ -63,9 +63,7 @@ without the need for a build.
 
 To apply your changes to the dist versions:
 
-> npm run dev-build-my-apps
-
-> npm run prod-build-my-apps
+> npm run build-my-apps
 
 # Online Examples
 The Online Examples contain all 3 different versions:

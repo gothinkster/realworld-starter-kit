@@ -1,7 +1,7 @@
 {
     "classData": [
         {
-            "comment": "/**\n * The base class for all classes inside the Neo namespace\n * @class Neo.core.Base\n */",
+            "comment": "/**\n * The base class for (almost) all classes inside the Neo namespace\n * Exceptions are e.g. core.IdGenerator, vdom.VNode\n * @class Neo.core.Base\n */",
             "meta": {
                 "filename": "Base.mjs",
                 "lineno": 6,
@@ -9,7 +9,7 @@
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {}
             },
-            "description": "The base class for all classes inside the Neo namespace",
+            "description": "The base class for (almost) all classes inside the Neo namespace<br />Exceptions are e.g. core.IdGenerator, vdom.VNode",
             "kind": "class",
             "name": "Base",
             "memberof": "Neo.core",
@@ -17,22 +17,22 @@
             "scope": "static",
             "$longname": "Neo.core.Base",
             "$kind": "class",
-            "id": 586,
+            "id": 618,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n     * The return value will get applied to the class constructor\n     * @returns {Object} staticConfig\n     * @tutorial 02_ClassSystem\n     */",
             "meta": {
                 "range": [
-                    398,
-                    738
+                    459,
+                    799
                 ],
                 "filename": "Base.mjs",
-                "lineno": 16,
+                "lineno": 17,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100021662",
+                    "id": "astnode100022324",
                     "name": "Base.getStaticConfig",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -63,14 +63,14 @@
             "params": [],
             "$longname": "Base.getStaticConfig",
             "$kind": "method",
-            "id": 587,
+            "id": 619,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n         * Set this one to false in case you don't want to stick\n         * to the \"anti-pattern\" to apply classes to the global Neo or App namespace\n         * @member {Boolean} registerToGlobalNs=true\n         * @private\n         * @static\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 24,
+                "lineno": 25,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {}
@@ -89,22 +89,22 @@
             "longname": "registerToGlobalNs",
             "$longname": "registerToGlobalNs",
             "$kind": "property",
-            "id": 588,
+            "id": 620,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n     * The return value will get applied to each class instance\n     * @returns {Object} staticConfig\n     * @tutorial 02_ClassSystem\n     */",
             "meta": {
                 "range": [
-                    894,
-                    1540
+                    955,
+                    1601
                 ],
                 "filename": "Base.mjs",
-                "lineno": 32,
+                "lineno": 33,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100021670",
+                    "id": "astnode100022332",
                     "name": "Base.getConfig",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -135,14 +135,14 @@
             "params": [],
             "$longname": "Base.getConfig",
             "$kind": "method",
-            "id": 589,
+            "id": 621,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n         * The class name which will get mapped into the Neo or app namespace\n         * @member {String} className='Neo.core.Base'\n         * @private\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 38,
+                "lineno": 39,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {}
@@ -161,14 +161,14 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 590,
+            "id": 622,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n         * The class shortcut-name to use for e.g. creating child components inside a JSON-format\n         * @member {String} ntype='base'\n         * @private\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 44,
+                "lineno": 45,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {}
@@ -187,14 +187,14 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 591,
+            "id": 623,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n         * Add mixins as an array of classNames, imported modules or a mixed version\n         * @member {String[]|Neo.core.Base[]|null} mixins=null\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 49,
+                "lineno": 50,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {}
@@ -214,22 +214,22 @@
             "scope": "global",
             "$longname": "mixins",
             "$kind": "property",
-            "id": 592,
+            "id": 624,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n     * Consumes the static getConfig() object\n     * Applies the observable mixin if needed, grants remote access if needed\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    1716,
-                    2789
+                    1777,
+                    2850
                 ],
                 "filename": "Base.mjs",
-                "lineno": 57,
+                "lineno": 58,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100021682",
+                    "id": "astnode100022344",
                     "name": "Base",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -257,22 +257,22 @@
             "scope": "global",
             "$longname": "Base",
             "$kind": "constructor",
-            "id": 593,
+            "id": 625,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n     * Gets triggered after all constructors are done\n     * @tutorial 02_ClassSystem\n     */",
             "meta": {
                 "range": [
-                    2897,
-                    2915
+                    2958,
+                    2976
                 ],
                 "filename": "Base.mjs",
-                "lineno": 106,
+                "lineno": 107,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100021825",
+                    "id": "astnode100022487",
                     "name": "Base#onConstructed",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -293,22 +293,22 @@
             "params": [],
             "$longname": "Base#onConstructed",
             "$kind": "method",
-            "id": 594,
+            "id": 626,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n     * Gets triggered after onConstructed is done\n     * @see {@link Neo.core.Base#onConstructed onConstructed}\n     * @tutorial 02_ClassSystem\n     */",
             "meta": {
                 "range": [
-                    3081,
-                    3090
+                    3142,
+                    3151
                 ],
                 "filename": "Base.mjs",
-                "lineno": 113,
+                "lineno": 114,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100021829",
+                    "id": "astnode100022491",
                     "name": "Base#init",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -332,22 +332,22 @@
             "params": [],
             "$longname": "Base#init",
             "$kind": "method",
-            "id": 595,
+            "id": 627,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n     * Convenience method for beforeSet functions which test if a given value is inside a static array\n     * @param {String|Number} value\n     * @param {String|Number} oldValue\n     * @param {String} name config name\n     * @param {String} [staticName=name + 's'] name of the static config array\n     */",
             "meta": {
                 "range": [
-                    3409,
-                    3735
+                    3470,
+                    3796
                 ],
                 "filename": "Base.mjs",
-                "lineno": 122,
+                "lineno": 123,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100021833",
+                    "id": "astnode100022495",
                     "name": "Base#beforeSetEnumValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -409,22 +409,66 @@
             "scope": "instance",
             "$longname": "Base#beforeSetEnumValue",
             "$kind": "method",
-            "id": 596,
+            "id": 628,
+            "neoClassName": "Neo.core.Base"
+        },
+        {
+            "comment": "/**\n     * Uses the IdGenerator to create an id if a static one is not explicitly set.\n     * Registers the instance to manager.Instance if this one is already created,\n     * otherwise stores it inside a tmp map.\n     * @param {String} id\n     */",
+            "meta": {
+                "range": [
+                    4054,
+                    4390
+                ],
+                "filename": "Base.mjs",
+                "lineno": 140,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
+                "code": {
+                    "id": "astnode100022543",
+                    "name": "Base#createId",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "id"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Uses the IdGenerator to create an id if a static one is not explicitly set.<br />Registers the instance to manager.Instance if this one is already created,<br />otherwise stores it inside a tmp map.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "id"
+                }
+            ],
+            "name": "createId",
+            "longname": "Base#createId",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#createId",
+            "$kind": "method",
+            "id": 629,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n     * Unregisters this instance from Neo.manager.Instance\n     * and removes all object entries from this instance\n     */",
             "meta": {
                 "range": [
-                    4260,
-                    4527
+                    4528,
+                    4920
                 ],
                 "filename": "Base.mjs",
-                "lineno": 157,
+                "lineno": 160,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100021950",
+                    "id": "astnode100022606",
                     "name": "Base#destroy",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -442,22 +486,22 @@
             "params": [],
             "$longname": "Base#destroy",
             "$kind": "method",
-            "id": 597,
+            "id": 630,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n     * Returns the value of a static config key or the staticConfig object itself in case no value is set\n     * @param {String} [key] The key of a staticConfig defined inside static getStaticConfig\n     * @returns {*}\n     */",
             "meta": {
                 "range": [
-                    4768,
-                    4884
+                    5161,
+                    5277
                 ],
                 "filename": "Base.mjs",
-                "lineno": 175,
+                "lineno": 181,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100021998",
+                    "id": "astnode100022672",
                     "name": "Base#getStaticConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -497,22 +541,22 @@
             "scope": "instance",
             "$longname": "Base#getStaticConfig",
             "$kind": "method",
-            "id": 598,
+            "id": 631,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n     * Applies all class configs to this instance\n     * @param {Object} config\n     * @param {Boolean} [preventOriginalConfig] True prevents the instance from getting an originalConfig property\n     */",
             "meta": {
                 "range": [
-                    5101,
-                    5291
+                    5494,
+                    5684
                 ],
                 "filename": "Base.mjs",
-                "lineno": 185,
+                "lineno": 191,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100022018",
+                    "id": "astnode100022692",
                     "name": "Base#initConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -552,22 +596,22 @@
             "scope": "instance",
             "$longname": "Base#initConfig",
             "$kind": "method",
-            "id": 599,
+            "id": 632,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    5320,
-                    6156
+                    5713,
+                    6549
                 ],
                 "filename": "Base.mjs",
-                "lineno": 195,
+                "lineno": 201,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100022047",
+                    "id": "astnode100022721",
                     "name": "Base#processConfigs",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -584,22 +628,22 @@
             "params": [],
             "$longname": "Base#processConfigs",
             "$kind": "method",
-            "id": 600,
+            "id": 633,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n     * Does get triggered with a delay to ensure that Neo.workerId & Neo.worker.Manager are defined\n     * Remote method access via promises\n     */",
             "meta": {
                 "range": [
-                    6319,
-                    7150
+                    6712,
+                    7534
                 ],
                 "filename": "Base.mjs",
-                "lineno": 219,
+                "lineno": 225,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100022109",
+                    "id": "astnode100022783",
                     "name": "Base#initRemote",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -617,22 +661,22 @@
             "params": [],
             "$longname": "Base#initRemote",
             "$kind": "method",
-            "id": 601,
+            "id": 634,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n     * Override this method to change the order configs are applied to this instance.\n     * @param {Object} config\n     * @param {Boolean} [preventOriginalConfig] True prevents the instance from getting an originalConfig property\n     * @returns {Object} config\n     */",
             "meta": {
                 "range": [
-                    7435,
-                    7830
+                    7819,
+                    8214
                 ],
                 "filename": "Base.mjs",
-                "lineno": 250,
+                "lineno": 256,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100022204",
+                    "id": "astnode100022878",
                     "name": "Base#mergeConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -682,22 +726,22 @@
             "scope": "instance",
             "$longname": "Base#mergeConfig",
             "$kind": "method",
-            "id": 602,
+            "id": 635,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n     * Change multiple configs at once, ensuring that all afterSet methods get all new assigned values\n     * @param {Object} values={}\n     */",
             "meta": {
                 "range": [
-                    7988,
-                    8388
+                    8372,
+                    8772
                 ],
                 "filename": "Base.mjs",
-                "lineno": 269,
+                "lineno": 275,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100022257",
+                    "id": "astnode100022931",
                     "name": "Base#set",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -727,22 +771,22 @@
             "scope": "instance",
             "$longname": "Base#set",
             "$kind": "method",
-            "id": 603,
+            "id": 636,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n     * Sets the value of a static config by a given key\n     * @param {String} key The key of a staticConfig defined inside static getStaticConfig\n     * @param {*} value\n     * @returns {Boolean} true in case the config exists and got changed\n     */",
             "meta": {
                 "range": [
-                    8654,
-                    8893
+                    9038,
+                    9277
                 ],
                 "filename": "Base.mjs",
-                "lineno": 291,
+                "lineno": 297,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100022303",
+                    "id": "astnode100022977",
                     "name": "Base#setStaticConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -791,22 +835,22 @@
             "scope": "instance",
             "$longname": "Base#setStaticConfig",
             "$kind": "method",
-            "id": 604,
+            "id": 637,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n     * <p>Enhancing the toString() method, e.g.</p>\n     * `Neo.create('Neo.component.Button').toString() => \"[object Neo.component.Button (neo-button-1)]\"`\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    9097,
-                    9188
+                    9481,
+                    9568
                 ],
                 "filename": "Base.mjs",
-                "lineno": 312,
+                "lineno": 318,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100022334",
+                    "id": "astnode100023008",
                     "name": "Base#Symbol.toStringTag",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -833,22 +877,22 @@
             "params": [],
             "$longname": "Base#Symbol.toStringTag",
             "$kind": "property",
-            "id": 605,
+            "id": 638,
             "neoClassName": "Neo.core.Base"
         },
         {
             "comment": "/**\n     * <p>Enhancing the instanceof method. Without this change:</p>\n     * `Neo.collection.Base.prototype instanceof Neo.core.Base => true`\n     * <p>With this change:</p>\n     * `Neo.collection.Base.prototype instanceof Neo.core.Base => false`<br>\n     * `Neo.create(Neo.collection.Base) instanceof Neo.core.Base => true`\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    9559,
-                    9758
+                    9939,
+                    10138
                 ],
                 "filename": "Base.mjs",
-                "lineno": 319,
+                "lineno": 325,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100022352",
+                    "id": "astnode100023025",
                     "name": "Base.Symbol.hasInstance",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -877,7 +921,7 @@
             "params": [],
             "$longname": "Base.Symbol.hasInstance",
             "$kind": "method",
-            "id": 606,
+            "id": 639,
             "neoClassName": "Neo.core.Base"
         }
     ]

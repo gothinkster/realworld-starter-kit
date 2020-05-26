@@ -1,6 +1,28 @@
 {
     "classData": [
         {
+            "comment": "/**\n * @class Neo.form.field.CheckBox\n * @extends Neo.form.field.Base\n */",
+            "meta": {
+                "filename": "CheckBox.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "CheckBox",
+            "augments": [
+                "Neo.form.field.Base"
+            ],
+            "memberof": "Neo.form.field",
+            "longname": "Neo.form.field.CheckBox",
+            "scope": "static",
+            "$longname": "Neo.form.field.CheckBox",
+            "$kind": "class",
+            "id": 812,
+            "neoClassName": "Neo.form.field.CheckBox"
+        },
+        {
             "comment": "/**\n         * @member {String} className='Neo.form.field.CheckBox'\n         * @private\n         */",
             "meta": {
                 "filename": "CheckBox.mjs",
@@ -22,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 776,
+            "id": 813,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -47,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 777,
+            "id": 814,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -71,7 +93,7 @@
             "scope": "global",
             "$longname": "checked_",
             "$kind": "property",
-            "id": 778,
+            "id": 815,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -95,7 +117,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 779,
+            "id": 816,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -119,7 +141,7 @@
             "scope": "global",
             "$longname": "hideLabel_",
             "$kind": "property",
-            "id": 780,
+            "id": 817,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -143,7 +165,7 @@
             "scope": "global",
             "$longname": "hideValueLabel_",
             "$kind": "property",
-            "id": 781,
+            "id": 818,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -167,7 +189,7 @@
             "scope": "global",
             "$longname": "inputType_",
             "$kind": "property",
-            "id": 782,
+            "id": 819,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -191,7 +213,7 @@
             "scope": "global",
             "$longname": "labelText_",
             "$kind": "property",
-            "id": 783,
+            "id": 820,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -217,7 +239,7 @@
             "scope": "global",
             "$longname": "labelWidth_",
             "$kind": "property",
-            "id": 784,
+            "id": 821,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -241,7 +263,7 @@
             "scope": "global",
             "$longname": "The",
             "$kind": "property",
-            "id": 785,
+            "id": 822,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -265,7 +287,7 @@
             "scope": "global",
             "$longname": "valueLabelText_",
             "$kind": "property",
-            "id": 786,
+            "id": 823,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -288,7 +310,7 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 787,
+            "id": 824,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -303,7 +325,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100026182",
+                    "id": "astnode100026862",
                     "name": "CheckBox",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -330,7 +352,7 @@
             "scope": "global",
             "$longname": "CheckBox",
             "$kind": "constructor",
-            "id": 788,
+            "id": 825,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -345,7 +367,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100026253",
+                    "id": "astnode100026933",
                     "name": "CheckBox#afterSetChecked",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -383,7 +405,7 @@
             "scope": "instance",
             "$longname": "CheckBox#afterSetChecked",
             "$kind": "method",
-            "id": 789,
+            "id": 826,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -398,7 +420,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100026300",
+                    "id": "astnode100026980",
                     "name": "CheckBox#afterSetHideLabel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -436,7 +458,7 @@
             "scope": "instance",
             "$longname": "CheckBox#afterSetHideLabel",
             "$kind": "method",
-            "id": 790,
+            "id": 827,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -451,7 +473,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100026328",
+                    "id": "astnode100027008",
                     "name": "CheckBox#afterSetHideValueLabel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -489,7 +511,7 @@
             "scope": "instance",
             "$longname": "CheckBox#afterSetHideValueLabel",
             "$kind": "method",
-            "id": 791,
+            "id": 828,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -504,7 +526,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100026356",
+                    "id": "astnode100027036",
                     "name": "CheckBox#afterSetInputType",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -542,7 +564,7 @@
             "scope": "instance",
             "$longname": "CheckBox#afterSetInputType",
             "$kind": "method",
-            "id": 792,
+            "id": 829,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -557,7 +579,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100026384",
+                    "id": "astnode100027064",
                     "name": "CheckBox#afterSetLabelText",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -595,7 +617,7 @@
             "scope": "instance",
             "$longname": "CheckBox#afterSetLabelText",
             "$kind": "method",
-            "id": 793,
+            "id": 830,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -610,7 +632,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100026412",
+                    "id": "astnode100027092",
                     "name": "CheckBox#afterSetLabelWidth",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -650,7 +672,7 @@
             "scope": "instance",
             "$longname": "CheckBox#afterSetLabelWidth",
             "$kind": "method",
-            "id": 794,
+            "id": 831,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -665,7 +687,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100026449",
+                    "id": "astnode100027129",
                     "name": "CheckBox#afterSetName",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -703,7 +725,7 @@
             "scope": "instance",
             "$longname": "CheckBox#afterSetName",
             "$kind": "method",
-            "id": 795,
+            "id": 832,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -718,7 +740,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100026477",
+                    "id": "astnode100027157",
                     "name": "CheckBox#afterSetValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -756,7 +778,7 @@
             "scope": "instance",
             "$longname": "CheckBox#afterSetValue",
             "$kind": "method",
-            "id": 796,
+            "id": 833,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -771,7 +793,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100026515",
+                    "id": "astnode100027195",
                     "name": "CheckBox#afterSetValueLabelText",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -809,7 +831,7 @@
             "scope": "instance",
             "$longname": "CheckBox#afterSetValueLabelText",
             "$kind": "method",
-            "id": 797,
+            "id": 834,
             "neoClassName": "Neo.form.field.CheckBox"
         },
         {
@@ -824,7 +846,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100026552",
+                    "id": "astnode100027232",
                     "name": "CheckBox#onInputValueChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -853,7 +875,7 @@
             "scope": "instance",
             "$longname": "CheckBox#onInputValueChange",
             "$kind": "method",
-            "id": 798,
+            "id": 835,
             "neoClassName": "Neo.form.field.CheckBox"
         }
     ]

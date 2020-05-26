@@ -1,0 +1,449 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * Required for the docs app which uses highlight.js for the source views\n * @class Neo.main.addon.HighlightJS\n * @extends Neo.core.Base\n * @singleton\n */",
+            "meta": {
+                "filename": "HighlightJS.mjs",
+                "lineno": 5,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "description": "Required for the docs app which uses highlight.js for the source views",
+            "kind": "class",
+            "name": "HighlightJS",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "tags": [
+                {
+                    "originalTitle": "singleton",
+                    "title": "singleton",
+                    "text": ""
+                }
+            ],
+            "memberof": "Neo.main.addon",
+            "longname": "Neo.main.addon.HighlightJS",
+            "scope": "static",
+            "$longname": "Neo.main.addon.HighlightJS",
+            "$kind": "class",
+            "id": 1381,
+            "neoClassName": "Neo.main.addon.HighlightJS"
+        },
+        {
+            "comment": "/**\n             * @member {String} className='Neo.main.addon.HighlightJS'\n             * @private\n             */",
+            "meta": {
+                "filename": "HighlightJS.mjs",
+                "lineno": 18,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.main.addon.HighlightJS'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1382,
+            "neoClassName": "Neo.main.addon.HighlightJS"
+        },
+        {
+            "comment": "/**\n             * @member {String} highlightJsPath='./resources/highlight/highlight.pack.js'\n             * @private\n             */",
+            "meta": {
+                "filename": "HighlightJS.mjs",
+                "lineno": 23,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "highlightJsPath",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'./resources/highlight/highlight.pack.js'",
+            "access": "private",
+            "longname": "highlightJsPath",
+            "scope": "global",
+            "$longname": "highlightJsPath",
+            "$kind": "property",
+            "id": 1383,
+            "neoClassName": "Neo.main.addon.HighlightJS"
+        },
+        {
+            "comment": "/**\n             * @member {String} highlightJsLineNumbersPath=Neo.config.basePath + 'node_modules/highlightjs-line-numbers.js/dist/highlightjs-line-numbers.min.js'\n             * @private\n             */",
+            "meta": {
+                "filename": "HighlightJS.mjs",
+                "lineno": 28,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "highlightJsLineNumbersPath",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "Neo.config.basePath",
+            "description": "+ 'node_modules/highlightjs-line-numbers.js/dist/highlightjs-line-numbers.min.js'",
+            "access": "private",
+            "longname": "highlightJsLineNumbersPath",
+            "scope": "global",
+            "$longname": "highlightJsLineNumbersPath",
+            "$kind": "property",
+            "id": 1384,
+            "neoClassName": "Neo.main.addon.HighlightJS"
+        },
+        {
+            "comment": "/**\n             * Remote method access for other workers\n             * @member {Object} remote={app: [//...]}\n             * @private\n             */",
+            "meta": {
+                "filename": "HighlightJS.mjs",
+                "lineno": 34,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "description": "Remote method access for other workers",
+            "kind": "member",
+            "name": "remote",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{app: [//...]}",
+            "access": "private",
+            "longname": "remote",
+            "scope": "global",
+            "$longname": "remote",
+            "$kind": "property",
+            "id": 1385,
+            "neoClassName": "Neo.main.addon.HighlightJS"
+        },
+        {
+            "comment": "/**\n             * @member {Boolean} singleton=true\n             * @private\n             */",
+            "meta": {
+                "filename": "HighlightJS.mjs",
+                "lineno": 46,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "singleton",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "access": "private",
+            "longname": "singleton",
+            "scope": "global",
+            "$longname": "singleton",
+            "$kind": "property",
+            "id": 1386,
+            "neoClassName": "Neo.main.addon.HighlightJS"
+        },
+        {
+            "comment": "/**\n             * @member {String} themePath='./resources/highlightjs-custom-github-theme.css'\n             * @private\n             */",
+            "meta": {
+                "filename": "HighlightJS.mjs",
+                "lineno": 51,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "themePath",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'./resources/highlightjs-custom-github-theme.css'",
+            "access": "private",
+            "longname": "themePath",
+            "scope": "global",
+            "$longname": "themePath",
+            "$kind": "property",
+            "id": 1387,
+            "neoClassName": "Neo.main.addon.HighlightJS"
+        },
+        {
+            "comment": "/**\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    1949,
+                    2241
+                ],
+                "filename": "HighlightJS.mjs",
+                "lineno": 58,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100040107",
+                    "name": "HighlightJS",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "HighlightJS",
+            "longname": "HighlightJS",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "HighlightJS",
+            "$kind": "constructor",
+            "id": 1388,
+            "neoClassName": "Neo.main.addon.HighlightJS"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.text\n     * @param {String} data.vnodeId\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    2383,
+                    2759
+                ],
+                "filename": "HighlightJS.mjs",
+                "lineno": 77,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100040153",
+                    "name": "HighlightJS#scrollIntoView",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.text"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.vnodeId"
+                }
+            ],
+            "access": "private",
+            "name": "scrollIntoView",
+            "longname": "HighlightJS#scrollIntoView",
+            "kind": "function",
+            "memberof": "HighlightJS",
+            "scope": "instance",
+            "$longname": "HighlightJS#scrollIntoView",
+            "$kind": "method",
+            "id": 1389,
+            "neoClassName": "Neo.main.addon.HighlightJS"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.vnodeId\n     */",
+            "meta": {
+                "range": [
+                    2852,
+                    3154
+                ],
+                "filename": "HighlightJS.mjs",
+                "lineno": 95,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100040198",
+                    "name": "HighlightJS#syntaxHighlight",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.vnodeId"
+                }
+            ],
+            "name": "syntaxHighlight",
+            "longname": "HighlightJS#syntaxHighlight",
+            "kind": "function",
+            "memberof": "HighlightJS",
+            "scope": "instance",
+            "$longname": "HighlightJS#syntaxHighlight",
+            "$kind": "method",
+            "id": 1390,
+            "neoClassName": "Neo.main.addon.HighlightJS"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    3211,
+                    3520
+                ],
+                "filename": "HighlightJS.mjs",
+                "lineno": 110,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100040235",
+                    "name": "HighlightJS#syntaxHighlightInit",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "syntaxHighlightInit",
+            "longname": "HighlightJS#syntaxHighlightInit",
+            "kind": "function",
+            "memberof": "HighlightJS",
+            "scope": "instance",
+            "$longname": "HighlightJS#syntaxHighlightInit",
+            "$kind": "method",
+            "id": 1391,
+            "neoClassName": "Neo.main.addon.HighlightJS"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Number} data.addLine\n     * @param {String} data.vnodeId\n     * @param {Number} data.removeLine\n     */",
+            "meta": {
+                "range": [
+                    3688,
+                    4494
+                ],
+                "filename": "HighlightJS.mjs",
+                "lineno": 126,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100040271",
+                    "name": "HighlightJS#syntaxHighlightLine",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "data.addLine"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.vnodeId"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "data.removeLine"
+                }
+            ],
+            "name": "syntaxHighlightLine",
+            "longname": "HighlightJS#syntaxHighlightLine",
+            "kind": "function",
+            "memberof": "HighlightJS",
+            "scope": "instance",
+            "$longname": "HighlightJS#syntaxHighlightLine",
+            "$kind": "method",
+            "id": 1392,
+            "neoClassName": "Neo.main.addon.HighlightJS"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
 {
     "name": "neo.mjs-realworld-example-app",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "neo.mjs: Real World example app",
     "repository": {
         "type": "git",
@@ -8,10 +8,12 @@
     },
     "scripts": {
         "server-start": "webpack-dev-server --open",
-        "dev-build-main": "webpack --config ./node_modules/neo.mjs/buildScripts/webpack/development/webpack.config.main.js",
-        "dev-build-my-apps": "webpack --config ./node_modules/neo.mjs/buildScripts/webpack/development/webpack.config.myapps.js --env.build_all=true",
-        "prod-build-main": "webpack --config ./node_modules/neo.mjs/buildScripts/webpack/production/webpack.config.main.js",
-        "prod-build-my-apps": "webpack --config ./node_modules/neo.mjs/buildScripts/webpack/production/webpack.config.myapps.js --env.build_all=true",
+        "build-all": "node ./node_modules/neo.mjs/buildScripts/buildAll.js -n",
+        "build-all-questions": "node ./buildScripts/buildAll.js",
+        "build-my-apps": "node ./node_modules/neo.mjs/buildScripts/webpack/buildMyApps.js",
+        "build-themes": "node ./node_modules/neo.mjs/buildScripts/webpack/buildThemes.js",
+        "build-threads": "node ./node_modules/neo.mjs/buildScripts/webpack/buildThreads.js",
+        "create-app": "node ./node_modules/neo.mjs/buildScripts/createApp.js",
         "generate-docs-json": "node ./node_modules/neo.mjs/buildScripts/docs/jsdocx.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -23,7 +25,7 @@
     },
     "homepage": "https://neomjs.github.io/pages/",
     "dependencies": {
-        "neo.mjs": "^1.1.57"
+        "neo.mjs": "^1.1.74"
     },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.13.0",

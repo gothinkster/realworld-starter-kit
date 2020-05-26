@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.layout.Fit",
             "$kind": "class",
-            "id": 1180,
+            "id": 1219,
             "neoClassName": "Neo.layout.Fit"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1181,
+            "id": 1220,
             "neoClassName": "Neo.layout.Fit"
         },
         {
@@ -69,26 +69,27 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1182,
+            "id": 1221,
             "neoClassName": "Neo.layout.Fit"
         },
         {
-            "comment": "/**\n     * Initially sets the CSS classes of the container items this layout is bound to.\n     * @param child\n     * @param index\n     */",
+            "comment": "/**\n     * Initially sets the CSS classes of the container items this layout is bound to.\n     * @param {Neo.component.Base} child\n     * @param {Number} index\n     */",
             "meta": {
                 "range": [
-                    606,
-                    711
+                    636,
+                    797
                 ],
                 "filename": "Fit.mjs",
                 "lineno": 27,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100034816",
+                    "id": "astnode100035532",
                     "name": "Fit#applyChildAttributes",
                     "type": "MethodDefinition",
                     "paramnames": [
-                        "child"
+                        "child",
+                        "index"
                     ]
                 },
                 "vars": {
@@ -98,9 +99,19 @@
             "description": "Initially sets the CSS classes of the container items this layout is bound to.",
             "params": [
                 {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
                     "name": "child"
                 },
                 {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
                     "name": "index"
                 }
             ],
@@ -111,22 +122,22 @@
             "scope": "instance",
             "$longname": "Fit#applyChildAttributes",
             "$kind": "method",
-            "id": 1183,
+            "id": 1222,
             "neoClassName": "Neo.layout.Fit"
         },
         {
             "comment": "/**\n     * Applies CSS classes to the container this layout is bound to\n     */",
             "meta": {
                 "range": [
-                    801,
-                    1199
+                    887,
+                    1285
                 ],
                 "filename": "Fit.mjs",
-                "lineno": 34,
+                "lineno": 36,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100034834",
+                    "id": "astnode100035557",
                     "name": "Fit#applyRenderAttributes",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -144,22 +155,22 @@
             "params": [],
             "$longname": "Fit#applyRenderAttributes",
             "$kind": "method",
-            "id": 1184,
+            "id": 1223,
             "neoClassName": "Neo.layout.Fit"
         },
         {
             "comment": "/**\n     * Removes all CSS rules from the container this layout is bound to.\n     * Gets called when switching to a different layout.\n     */",
             "meta": {
                 "range": [
-                    1351,
-                    1748
+                    1437,
+                    1834
                 ],
                 "filename": "Fit.mjs",
-                "lineno": 52,
+                "lineno": 54,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100034886",
+                    "id": "astnode100035609",
                     "name": "Fit#removeRenderAttributes",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -177,7 +188,7 @@
             "params": [],
             "$longname": "Fit#removeRenderAttributes",
             "$kind": "method",
-            "id": 1185,
+            "id": 1224,
             "neoClassName": "Neo.layout.Fit"
         }
     ]

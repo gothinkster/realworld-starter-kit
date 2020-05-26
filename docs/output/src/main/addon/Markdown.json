@@ -1,0 +1,223 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * A markdown mixin to convert markdown to html by using showdown.js\n * https://github.com/showdownjs/showdown\n * script tag with the markdown lib has to be added before the Main.mjs script tag in the index.html\n * <script src=\"https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js\"></script>\n * @class Neo.main.addon.Markdown\n * @extends Neo.core.Base\n * @singleton\n */",
+            "meta": {
+                "filename": "Markdown.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "description": "A markdown mixin to convert markdown to html by using showdown.js<br />https://github.com/showdownjs/showdown<br />script tag with the markdown lib has to be added before the Main.mjs script tag in the index.html<br /><script src=\"https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js\"></script>",
+            "kind": "class",
+            "name": "Markdown",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "tags": [
+                {
+                    "originalTitle": "singleton",
+                    "title": "singleton",
+                    "text": ""
+                }
+            ],
+            "memberof": "Neo.main.addon",
+            "longname": "Neo.main.addon.Markdown",
+            "scope": "static",
+            "$longname": "Neo.main.addon.Markdown",
+            "$kind": "class",
+            "id": 1432,
+            "neoClassName": "Neo.main.addon.Markdown"
+        },
+        {
+            "comment": "/**\n             * @member {String} className='Neo.main.addon.Markdown'\n             * @private\n             */",
+            "meta": {
+                "filename": "Markdown.mjs",
+                "lineno": 20,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.main.addon.Markdown'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1433,
+            "neoClassName": "Neo.main.addon.Markdown"
+        },
+        {
+            "comment": "/**\n             * Remote method access for other workers\n             * @member {Object} remote={app: [//...]}\n             * @private\n             */",
+            "meta": {
+                "filename": "Markdown.mjs",
+                "lineno": 26,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "description": "Remote method access for other workers",
+            "kind": "member",
+            "name": "remote",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{app: [//...]}",
+            "access": "private",
+            "longname": "remote",
+            "scope": "global",
+            "$longname": "remote",
+            "$kind": "property",
+            "id": 1434,
+            "neoClassName": "Neo.main.addon.Markdown"
+        },
+        {
+            "comment": "/**\n             * @member {String} showdownPath='https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js'\n             * @private\n             */",
+            "meta": {
+                "filename": "Markdown.mjs",
+                "lineno": 35,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "showdownPath",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js'",
+            "access": "private",
+            "longname": "showdownPath",
+            "scope": "global",
+            "$longname": "showdownPath",
+            "$kind": "property",
+            "id": 1435,
+            "neoClassName": "Neo.main.addon.Markdown"
+        },
+        {
+            "comment": "/**\n             * @member {Boolean} singleton=true\n             * @private\n             */",
+            "meta": {
+                "filename": "Markdown.mjs",
+                "lineno": 40,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "singleton",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "access": "private",
+            "longname": "singleton",
+            "scope": "global",
+            "$longname": "singleton",
+            "$kind": "property",
+            "id": 1436,
+            "neoClassName": "Neo.main.addon.Markdown"
+        },
+        {
+            "comment": "/**\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    1460,
+                    1565
+                ],
+                "filename": "Markdown.mjs",
+                "lineno": 47,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100041604",
+                    "name": "Markdown",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "Markdown",
+            "longname": "Markdown",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Markdown",
+            "$kind": "constructor",
+            "id": 1437,
+            "neoClassName": "Neo.main.addon.Markdown"
+        },
+        {
+            "comment": "/**\n     * Markdown to HTML converter\n     * @param {String} markdown string to convert\n     * @private\n     */",
+            "meta": {
+                "range": [
+                    1687,
+                    1815
+                ],
+                "filename": "Markdown.mjs",
+                "lineno": 57,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100041623",
+                    "name": "Markdown#markdownToHtml",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "markdown"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Markdown to HTML converter",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "string to convert",
+                    "name": "markdown"
+                }
+            ],
+            "access": "private",
+            "name": "markdownToHtml",
+            "longname": "Markdown#markdownToHtml",
+            "kind": "function",
+            "memberof": "Markdown",
+            "scope": "instance",
+            "$longname": "Markdown#markdownToHtml",
+            "$kind": "method",
+            "id": 1438,
+            "neoClassName": "Neo.main.addon.Markdown"
+        }
+    ]
+}

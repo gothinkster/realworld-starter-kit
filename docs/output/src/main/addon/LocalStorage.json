@@ -1,0 +1,334 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * Basic CRUD support for window.localStorage\n * @class Neo.main.addon.LocalStorage\n * @extends Neo.core.Base\n * @singleton\n */",
+            "meta": {
+                "filename": "LocalStorage.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "description": "Basic CRUD support for window.localStorage",
+            "kind": "class",
+            "name": "LocalStorage",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "tags": [
+                {
+                    "originalTitle": "singleton",
+                    "title": "singleton",
+                    "text": ""
+                }
+            ],
+            "memberof": "Neo.main.addon",
+            "longname": "Neo.main.addon.LocalStorage",
+            "scope": "static",
+            "$longname": "Neo.main.addon.LocalStorage",
+            "$kind": "class",
+            "id": 1393,
+            "neoClassName": "Neo.main.addon.LocalStorage"
+        },
+        {
+            "comment": "/**\n             * @member {String} className='Neo.main.addon.LocalStorage'\n             * @private\n             */",
+            "meta": {
+                "filename": "LocalStorage.mjs",
+                "lineno": 16,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.main.addon.LocalStorage'",
+            "access": "private",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1394,
+            "neoClassName": "Neo.main.addon.LocalStorage"
+        },
+        {
+            "comment": "/**\n             * Remote method access for other workers\n             * @member {Object} remote={app: [//...]}\n             * @private\n             */",
+            "meta": {
+                "filename": "LocalStorage.mjs",
+                "lineno": 22,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "description": "Remote method access for other workers",
+            "kind": "member",
+            "name": "remote",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{app: [//...]}",
+            "access": "private",
+            "longname": "remote",
+            "scope": "global",
+            "$longname": "remote",
+            "$kind": "property",
+            "id": 1395,
+            "neoClassName": "Neo.main.addon.LocalStorage"
+        },
+        {
+            "comment": "/**\n             * @member {Boolean} singleton=true\n             * @private\n             */",
+            "meta": {
+                "filename": "LocalStorage.mjs",
+                "lineno": 34,
+                "columnno": 12,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "singleton",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "access": "private",
+            "longname": "singleton",
+            "scope": "global",
+            "$longname": "singleton",
+            "$kind": "property",
+            "id": 1396,
+            "neoClassName": "Neo.main.addon.LocalStorage"
+        },
+        {
+            "comment": "/**\n     * Creates a new item into window.localStorage\n     * Uses updateLocalStorageItem() internally\n     * @param {Object} opts\n     * @param {String} opts.key\n     * @param {String} opts.value\n     */",
+            "meta": {
+                "range": [
+                    1217,
+                    1296
+                ],
+                "filename": "LocalStorage.mjs",
+                "lineno": 45,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100040427",
+                    "name": "LocalStorage#createLocalStorageItem",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Creates a new item into window.localStorage<br />Uses updateLocalStorageItem() internally",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "opts.key"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "opts.value"
+                }
+            ],
+            "name": "createLocalStorageItem",
+            "longname": "LocalStorage#createLocalStorageItem",
+            "kind": "function",
+            "memberof": "LocalStorage",
+            "scope": "instance",
+            "$longname": "LocalStorage#createLocalStorageItem",
+            "$kind": "method",
+            "id": 1397,
+            "neoClassName": "Neo.main.addon.LocalStorage"
+        },
+        {
+            "comment": "/**\n     * Removes an item from window.localStorage\n     * @param {Object} opts\n     * @param {String} opts.key\n     */",
+            "meta": {
+                "range": [
+                    1426,
+                    1513
+                ],
+                "filename": "LocalStorage.mjs",
+                "lineno": 54,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100040438",
+                    "name": "LocalStorage#destroyLocalStorageItem",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Removes an item from window.localStorage",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "opts.key"
+                }
+            ],
+            "name": "destroyLocalStorageItem",
+            "longname": "LocalStorage#destroyLocalStorageItem",
+            "kind": "function",
+            "memberof": "LocalStorage",
+            "scope": "instance",
+            "$longname": "LocalStorage#destroyLocalStorageItem",
+            "$kind": "method",
+            "id": 1398,
+            "neoClassName": "Neo.main.addon.LocalStorage"
+        },
+        {
+            "comment": "/**\n     * Gets an item from window.localStorage\n     * @param {Object} opts\n     * @param {String} opts.key\n     */",
+            "meta": {
+                "range": [
+                    1640,
+                    1787
+                ],
+                "filename": "LocalStorage.mjs",
+                "lineno": 63,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100040453",
+                    "name": "LocalStorage#readLocalStorageItem",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Gets an item from window.localStorage",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "opts.key"
+                }
+            ],
+            "name": "readLocalStorageItem",
+            "longname": "LocalStorage#readLocalStorageItem",
+            "kind": "function",
+            "memberof": "LocalStorage",
+            "scope": "instance",
+            "$longname": "LocalStorage#readLocalStorageItem",
+            "$kind": "method",
+            "id": 1399,
+            "neoClassName": "Neo.main.addon.LocalStorage"
+        },
+        {
+            "comment": "/**\n     * Reads an item from window.localStorage\n     * @param {Object} opts\n     * @param {String} opts.key\n     * @param {String} opts.value\n     */",
+            "meta": {
+                "range": [
+                    1949,
+                    2044
+                ],
+                "filename": "LocalStorage.mjs",
+                "lineno": 76,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100040474",
+                    "name": "LocalStorage#updateLocalStorageItem",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Reads an item from window.localStorage",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "opts.key"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "opts.value"
+                }
+            ],
+            "name": "updateLocalStorageItem",
+            "longname": "LocalStorage#updateLocalStorageItem",
+            "kind": "function",
+            "memberof": "LocalStorage",
+            "scope": "instance",
+            "$longname": "LocalStorage#updateLocalStorageItem",
+            "$kind": "method",
+            "id": 1400,
+            "neoClassName": "Neo.main.addon.LocalStorage"
+        }
+    ]
+}

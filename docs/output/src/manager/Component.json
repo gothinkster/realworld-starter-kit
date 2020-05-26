@@ -26,7 +26,7 @@
             "scope": "static",
             "$longname": "Neo.manager.Component",
             "$kind": "class",
-            "id": 1436,
+            "id": 1535,
             "neoClassName": "Neo.manager.Component"
         },
         {
@@ -51,7 +51,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1437,
+            "id": 1536,
             "neoClassName": "Neo.manager.Component"
         },
         {
@@ -76,7 +76,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1438,
+            "id": 1537,
             "neoClassName": "Neo.manager.Component"
         },
         {
@@ -101,7 +101,7 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1439,
+            "id": 1538,
             "neoClassName": "Neo.manager.Component"
         },
         {
@@ -116,7 +116,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100043954",
+                    "id": "astnode100046252",
                     "name": "Component",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -143,7 +143,7 @@
             "scope": "global",
             "$longname": "Component",
             "$kind": "constructor",
-            "id": 1440,
+            "id": 1539,
             "neoClassName": "Neo.manager.Component"
         },
         {
@@ -158,7 +158,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100043975",
+                    "id": "astnode100046273",
                     "name": "Component#down",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -207,7 +207,7 @@
             "scope": "instance",
             "$longname": "Component#down",
             "$kind": "method",
-            "id": 1441,
+            "id": 1540,
             "neoClassName": "Neo.manager.Component"
         },
         {
@@ -222,7 +222,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100044112",
+                    "id": "astnode100046410",
                     "name": "Component#findParentComponent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -261,7 +261,7 @@
             "scope": "instance",
             "$longname": "Component#findParentComponent",
             "$kind": "method",
-            "id": 1442,
+            "id": 1541,
             "neoClassName": "Neo.manager.Component"
         },
         {
@@ -276,7 +276,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100044161",
+                    "id": "astnode100046459",
                     "name": "Component#getChildIds",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -314,7 +314,7 @@
             "scope": "instance",
             "$longname": "Component#getChildIds",
             "$kind": "method",
-            "id": 1443,
+            "id": 1542,
             "neoClassName": "Neo.manager.Component"
         },
         {
@@ -329,7 +329,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100044174",
+                    "id": "astnode100046472",
                     "name": "Component#getChildren",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -368,7 +368,7 @@
             "scope": "instance",
             "$longname": "Component#getChildren",
             "$kind": "method",
-            "id": 1444,
+            "id": 1543,
             "neoClassName": "Neo.manager.Component"
         },
         {
@@ -383,7 +383,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100044221",
+                    "id": "astnode100046519",
                     "name": "Component#getParentIds",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -422,7 +422,7 @@
             "scope": "instance",
             "$longname": "Component#getParentIds",
             "$kind": "method",
-            "id": 1445,
+            "id": 1544,
             "neoClassName": "Neo.manager.Component"
         },
         {
@@ -437,7 +437,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100044260",
+                    "id": "astnode100046558",
                     "name": "Component#getParentPath",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -474,7 +474,7 @@
             "scope": "instance",
             "$longname": "Component#getParentPath",
             "$kind": "method",
-            "id": 1446,
+            "id": 1545,
             "neoClassName": "Neo.manager.Component"
         },
         {
@@ -489,7 +489,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100044310",
+                    "id": "astnode100046608",
                     "name": "Component#getParents",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -528,7 +528,7 @@
             "scope": "instance",
             "$longname": "Component#getParents",
             "$kind": "method",
-            "id": 1447,
+            "id": 1546,
             "neoClassName": "Neo.manager.Component"
         },
         {
@@ -543,7 +543,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100044347",
+                    "id": "astnode100046645",
                     "name": "Component#up",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -592,7 +592,7 @@
             "scope": "instance",
             "$longname": "Component#up",
             "$kind": "method",
-            "id": 1448,
+            "id": 1547,
             "neoClassName": "Neo.manager.Component"
         }
     ]
