@@ -1,5 +1,5 @@
-import Container    from '../../../node_modules/neo.mjs/src/tab/Container.mjs';
-import HeaderButton from '../../../node_modules/neo.mjs/src/tab/header/Button.mjs';
+import Container                 from '../../../node_modules/neo.mjs/src/tab/Container.mjs';
+import {default as HeaderButton} from '../../../node_modules/neo.mjs/src/tab/header/Button.mjs';
 
 /**
  * @class Docs.app.view.ContentTabContainer
