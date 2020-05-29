@@ -1,5 +1,6 @@
 package com.kiana.service;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +13,6 @@ import java.util.ArrayList;
 public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        return new User("fooName","fooPass", new ArrayList<>());
+        return new User("fooName","fooPass", new ArrayList<GrantedAuthority>());
     }
 }
