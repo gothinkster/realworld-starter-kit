@@ -6,7 +6,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 4,
                 "columnno": 0,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
             "description": "Helper class to include Mapbox GL maps into your neo.mjs app<br />See: https://docs.mapbox.com/mapbox-gl-js/api/<br />In case you need more API methods to get exposed to the App worker,<br />please open issues inside the tracker and / or submit PRs.",
@@ -36,7 +36,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 19,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
             "kind": "member",
@@ -61,7 +61,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 26,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
             "description": "Stores all map data inside an object until mounting. key => map id<br />No array since in case a map gets loaded multiple times, we only want to apply the last data on mount.",
@@ -87,7 +87,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 31,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
             "kind": "member",
@@ -112,7 +112,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 38,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
             "description": "Stores all extra map sources layers an object.<br />key => map id, value => {Array} layers",
@@ -138,7 +138,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 44,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
             "description": "Stores all map ids inside an object",
@@ -164,7 +164,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 50,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
             "description": "Stores all map config objects which arrived before the map lib scripts got loaded",
@@ -190,7 +190,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 55,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
             "kind": "member",
@@ -215,7 +215,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 60,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
             "kind": "member",
@@ -240,7 +240,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 67,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
             "description": "Stores all map sources inside an object.<br />key => map id, value => {Array} sources",
@@ -266,7 +266,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 73,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
             "description": "Remote method access for other workers",
@@ -291,7 +291,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 94,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
             "description": "Stores all map style objects inside an objects to prevent reloads when switching themes multiple times.<br />key => style name (url)",
@@ -317,7 +317,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 99,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
             "kind": "member",
@@ -342,7 +342,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 106,
                 "columnno": 8,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
             "description": "Stores all map zoom values inside an object until mounting. key => map id<br />No array since in case a map gets zoomed multiple times, we only want to apply the last value on mount.",
@@ -372,7 +372,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 113,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100040573",
                     "name": "MapboxGL",
@@ -414,7 +414,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 124,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100040587",
                     "name": "MapboxGL#addLayers",
@@ -473,7 +473,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 148,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100040663",
                     "name": "MapboxGL#addSources",
@@ -532,7 +532,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 172,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100040739",
                     "name": "MapboxGL#afterSetScriptsLoaded",
@@ -586,7 +586,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 190,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100040774",
                     "name": "MapboxGL#applyStyleObject",
@@ -648,7 +648,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 207,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100040826",
                     "name": "MapboxGL#autoResize",
@@ -700,7 +700,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 225,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100040855",
                     "name": "MapboxGL#center",
@@ -777,7 +777,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 249,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100040905",
                     "name": "MapboxGL#create",
@@ -860,7 +860,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 280,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100041023",
                     "name": "MapboxGL#hasMap",
@@ -912,7 +912,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 302,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100041086",
                     "name": "MapboxGL#onMapLoaded",
@@ -973,7 +973,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 331,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100041176",
                     "name": "MapboxGL#onMapReallyLoaded",
@@ -1034,7 +1034,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 349,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100041210",
                     "name": "MapboxGL#setFilter",
@@ -1118,7 +1118,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 369,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100041245",
                     "name": "MapboxGL#setLayoutProperty",
@@ -1210,7 +1210,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 389,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100041283",
                     "name": "MapboxGL#setPaintProperty",
@@ -1302,7 +1302,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 406,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100041321",
                     "name": "MapboxGL#setStyle",
@@ -1370,7 +1370,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 439,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100041449",
                     "name": "MapboxGL#updateData",
@@ -1437,7 +1437,7 @@
                 "filename": "MapboxGL.mjs",
                 "lineno": 460,
                 "columnno": 4,
-                "path": "/Users/Shared/github/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
                     "id": "astnode100041514",
                     "name": "MapboxGL#zoom",
