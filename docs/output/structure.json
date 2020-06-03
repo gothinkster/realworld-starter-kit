@@ -448,6 +448,17 @@
         "srcPath": "node_modules/neo.mjs/src/main/addon/AmCharts.mjs"
     },
     {
+        "className": "Neo.main.addon.AnalyticsByGoogle",
+        "collapsed": false,
+        "id": 99,
+        "isLeaf": true,
+        "name": "AnalyticsByGoogle",
+        "path": "main.addon",
+        "parentId": 97,
+        "singleton": true,
+        "srcPath": "node_modules/neo.mjs/src/main/addon/AnalyticsByGoogle.mjs"
+    },
+    {
         "className": "Docs.app.view.ApiTreeList",
         "collapsed": false,
         "id": 176,
@@ -1293,17 +1304,6 @@
         "parentId": 119,
         "singleton": false,
         "srcPath": "node_modules/neo.mjs/src/selection/GalleryModel.mjs"
-    },
-    {
-        "className": "Neo.main.addon.GoogleAnalytics",
-        "collapsed": false,
-        "id": 99,
-        "isLeaf": true,
-        "name": "GoogleAnalytics",
-        "path": "main.addon",
-        "parentId": 97,
-        "singleton": true,
-        "srcPath": "node_modules/neo.mjs/src/main/addon/GoogleAnalytics.mjs"
     },
     {
         "className": "Neo.util.HashHistory",

@@ -295,7 +295,7 @@
             "neoClassName": "Neo.DefaultConfig"
         },
         {
-            "comment": "/**\n     * Add addons for the main thread\n     * Possible values: AmCharts, GoogleAnalytics, HighlightJS, LocalStorage, MapboxGL, Markdown, Siesta, Stylesheet\n     * (src/main/addon)\n     * @default ['Stylesheet']\n     * @memberOf! module:Neo\n     * @name config.mainThreadAddons\n     * @type String[]\n     */",
+            "comment": "/**\n     * Add addons for the main thread\n     * Possible values: AmCharts, AnalyticsByGoogle, HighlightJS, LocalStorage, MapboxGL, Markdown, Siesta, Stylesheet\n     * (src/main/addon)\n     * @default ['Stylesheet']\n     * @memberOf! module:Neo\n     * @name config.mainThreadAddons\n     * @type String[]\n     */",
             "meta": {
                 "filename": "DefaultConfig.mjs",
                 "lineno": 108,
@@ -303,7 +303,7 @@
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
             },
-            "description": "Add addons for the main thread<br />Possible values: AmCharts, GoogleAnalytics, HighlightJS, LocalStorage, MapboxGL, Markdown, Siesta, Stylesheet<br />(src/main/addon)",
+            "description": "Add addons for the main thread<br />Possible values: AmCharts, AnalyticsByGoogle, HighlightJS, LocalStorage, MapboxGL, Markdown, Siesta, Stylesheet<br />(src/main/addon)",
             "defaultvalue": "/**",
             "memberof": "module:Neo.config",
             "name": "config.mainThreadAddons",

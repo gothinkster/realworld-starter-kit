@@ -1,17 +1,17 @@
 {
     "classData": [
         {
-            "comment": "/**\n * Required when running Neo Apps inside the Siesta browser harness (iframe)\n * @class Neo.main.addon.Siesta\n * @extends Neo.core.Base\n * @singleton\n */",
+            "comment": "/**\n * Required for the online version of the examples & docs app\n * We can not name the file GoogleAnalytics, since it does break when using uBlock origin for dist versions.\n * See: https://github.com/neomjs/neo/issues/651\n * @class Neo.main.addon.AnalyticsByGoogle\n * @extends Neo.core.Base\n * @singleton\n */",
             "meta": {
-                "filename": "Siesta.mjs",
+                "filename": "AnalyticsByGoogle.mjs",
                 "lineno": 3,
                 "columnno": 0,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
-            "description": "Required when running Neo Apps inside the Siesta browser harness (iframe)",
+            "description": "Required for the online version of the examples & docs app<br />We can not name the file GoogleAnalytics, since it does break when using uBlock origin for dist versions.<br />See: https://github.com/neomjs/neo/issues/651",
             "kind": "class",
-            "name": "Siesta",
+            "name": "AnalyticsByGoogle",
             "augments": [
                 "Neo.core.Base"
             ],
@@ -23,18 +23,18 @@
                 }
             ],
             "memberof": "Neo.main.addon",
-            "longname": "Neo.main.addon.Siesta",
+            "longname": "Neo.main.addon.AnalyticsByGoogle",
             "scope": "static",
-            "$longname": "Neo.main.addon.Siesta",
+            "$longname": "Neo.main.addon.AnalyticsByGoogle",
             "$kind": "class",
-            "id": 1439,
-            "neoClassName": "Neo.main.addon.Siesta"
+            "id": 1376,
+            "neoClassName": "Neo.main.addon.AnalyticsByGoogle"
         },
         {
-            "comment": "/**\n             * @member {String} className='Neo.main.addon.Siesta'\n             * @private\n             */",
+            "comment": "/**\n             * @member {String} className='Neo.main.addon.AnalyticsByGoogle'\n             * @private\n             */",
             "meta": {
-                "filename": "Siesta.mjs",
-                "lineno": 16,
+                "filename": "AnalyticsByGoogle.mjs",
+                "lineno": 18,
                 "columnno": 12,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -46,20 +46,20 @@
                     "String"
                 ]
             },
-            "defaultvalue": "'Neo.main.addon.Siesta'",
+            "defaultvalue": "'Neo.main.addon.AnalyticsByGoogle'",
             "access": "private",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1440,
-            "neoClassName": "Neo.main.addon.Siesta"
+            "id": 1377,
+            "neoClassName": "Neo.main.addon.AnalyticsByGoogle"
         },
         {
             "comment": "/**\n             * @member {Boolean} singleton=true\n             * @private\n             */",
             "meta": {
-                "filename": "Siesta.mjs",
-                "lineno": 21,
+                "filename": "AnalyticsByGoogle.mjs",
+                "lineno": 23,
                 "columnno": 12,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -77,23 +77,23 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1441,
-            "neoClassName": "Neo.main.addon.Siesta"
+            "id": 1378,
+            "neoClassName": "Neo.main.addon.AnalyticsByGoogle"
         },
         {
             "comment": "/**\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    637,
-                    727
+                    824,
+                    918
                 ],
-                "filename": "Siesta.mjs",
-                "lineno": 28,
+                "filename": "AnalyticsByGoogle.mjs",
+                "lineno": 30,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041689",
-                    "name": "Siesta",
+                    "id": "astnode100039957",
+                    "name": "AnalyticsByGoogle",
                     "type": "MethodDefinition",
                     "paramnames": [
                         "config"
@@ -113,29 +113,29 @@
                     "name": "config"
                 }
             ],
-            "name": "Siesta",
-            "longname": "Siesta",
+            "name": "AnalyticsByGoogle",
+            "longname": "AnalyticsByGoogle",
             "kind": "class",
             "scope": "global",
-            "$longname": "Siesta",
+            "$longname": "AnalyticsByGoogle",
             "$kind": "constructor",
-            "id": 1442,
-            "neoClassName": "Neo.main.addon.Siesta"
+            "id": 1379,
+            "neoClassName": "Neo.main.addon.AnalyticsByGoogle"
         },
         {
             "comment": "/**\n     *\n     * @private\n     */",
             "meta": {
                 "range": [
-                    772,
-                    1183
+                    963,
+                    1461
                 ],
-                "filename": "Siesta.mjs",
-                "lineno": 37,
+                "filename": "AnalyticsByGoogle.mjs",
+                "lineno": 39,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041703",
-                    "name": "Siesta#adjustSiestaEnvironment",
+                    "id": "astnode100039971",
+                    "name": "AnalyticsByGoogle#insertGoogleAnalyticsScript",
                     "type": "MethodDefinition",
                     "paramnames": []
                 },
@@ -144,16 +144,16 @@
                 }
             },
             "access": "private",
-            "name": "adjustSiestaEnvironment",
-            "longname": "Siesta#adjustSiestaEnvironment",
+            "name": "insertGoogleAnalyticsScript",
+            "longname": "AnalyticsByGoogle#insertGoogleAnalyticsScript",
             "kind": "function",
-            "memberof": "Siesta",
+            "memberof": "AnalyticsByGoogle",
             "scope": "instance",
             "params": [],
-            "$longname": "Siesta#adjustSiestaEnvironment",
+            "$longname": "AnalyticsByGoogle#insertGoogleAnalyticsScript",
             "$kind": "method",
-            "id": 1443,
-            "neoClassName": "Neo.main.addon.Siesta"
+            "id": 1380,
+            "neoClassName": "Neo.main.addon.AnalyticsByGoogle"
         }
     ]
 }
