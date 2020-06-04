@@ -2,6 +2,7 @@
 
 > ### Event Driven Architecture Vanilla JS Web Components codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
 
+<h2 style="color:red">Work in process...</h2>
 
 ### [Demo](https://weedshaker.github.io/event-driven-web-components-realworld-example-app)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
 
@@ -15,7 +16,7 @@ For more information on how to this works with other frontends/backends, head ov
 
 # How it works
 
-> Event Driven Architecture works basically like the DOM itself. There are Components (Nodes), which emmit events and those get loosely captured by controllers called stores, routers, etc. 
+> Frontend Event Driven Architecture works basically like the DOM itself. There are loosely coupled components (nodes), which emmit events and those get captured by controllers called stores, routers, etc. 
 
 # Getting started
 
