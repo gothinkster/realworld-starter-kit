@@ -1,0 +1,43 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.0.1-beta",
+  "configurations": [
+    {
+      "name": "Launch Source",
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": false,
+      "reloadOnChange": {
+        "watch": ["${workspaceFolder}/src/**/*.js", "${workspaceFolder}/**/*.html"],
+        "ignore": "**/node_modules/**"
+      },
+      "internalConsoleOptions": "openOnSessionStart",
+      "firefoxArgs": ["-devtools"],
+      "url": "${workspaceFolder}/index.html",
+      "webRoot": "${workspaceFolder}/src"
+    },
+    {
+      "name": "Launch Test",
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": false,
+      "reloadOnChange": {
+        "watch": ["${workspaceFolder}/test/**/*.js", "${workspaceFolder}/test/**/*.html"],
+        "ignore": "**/node_modules/**"
+      },
+      "internalConsoleOptions": "openOnSessionStart",
+      "url": "${workspaceFolder}/test/index.html",
+      "webRoot": "${workspaceFolder}/test"
+    },
+    {
+      "name": "Launch TestChrome",
+      "type": "chrome",
+      "request": "launch",
+      "internalConsoleOptions": "openOnSessionStart",
+      "url": "http://localhost/${workspaceFolder}/test/index.html",
+      "webRoot": "${workspaceFolder}/test"
+    }
+  ]
+}

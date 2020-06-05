@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html compute=lang lang=en dir=ltr>
+<head>
+  <meta charset=UTF-8>
+  <title>Tests</title>
+  <style>
+    /**
+     * specific initial style
+     */
+    html, body {
+      /** sticky footer **/
+      background-color: black;
+      color: white;
+      height: 100%;
+      font-size: 14px;
+    }
+    h2, #summary {
+      padding: 5px;
+    }
+    #summary a {
+      color: white;
+      text-decoration: none;
+    }
+    #summary a > span {
+      font-weight: bolder;
+    }
+    #summary > div {
+      border: 0;
+    }
+    #results > div {
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+    #results > div > * {
+      flex: 50%;
+    }
+    #results > div > *:first-child{
+      border-right: 1px dotted black;
+    }
+    .test > *:not([hidden]) {
+      display: block;
+    }
+    .passed, .failed, .placeHolder {
+      border-bottom: 2px dotted white;
+      color: white;
+      padding: 5px;
+    }
+    .passed {
+      background-color: green;
+    }
+    .failed {
+      background-color: red;
+    }
+    .placeHolder {
+      background-color: gray;
+    }
+    .result > div, .test > div, h1, h2 {
+      white-space: nowrap;
+    }
+  </style>
+  <script rel=preload type=module>
+    // load tests
+    import {test as masterIntersectionObserverTest} from './es/tests/components/prototypes/MasterIntersectionObserver.js'
+    import {test as masterMutationObserverTest} from './es/tests/components/prototypes/MasterMutationObserver.js'
+    import {test as masterShadowTest} from './es/tests/components/prototypes/MasterShadow.js'
+    masterIntersectionObserverTest()
+    masterMutationObserverTest()
+    masterShadowTest()
+
+    // custom component example - must have a namespace when same test runs more than once in the same session
+    //masterShadowTest('Footer', 'default', '../../src/es/components/organisms/Footer.js', 'footer')
+  </script>
+</head>
+<body>
+  <h1>Summary:</h1>
+  <div id=summary></div>
+  <hr>
+  <div id=results></div>
+</body>
+</html>
