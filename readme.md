@@ -24,3 +24,10 @@ For more information on how to this works with other frontends/backends, head ov
 
 > Simply open the index.html on a local or remote web server like, node, apache, nginx, etc.
 
+# TODO
+
+1. Router (c-router)
+2. Article Store (c-article-store)
+3. Article Page (p-articles)
+4. Components regarding Article page
+5. further to be defined...

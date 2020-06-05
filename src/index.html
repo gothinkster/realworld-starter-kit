@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset=UTF-8>
+  <meta http-equiv=X-UA-Compatible content="IE=Edge">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <link href=//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css rel=stylesheet type=text/css>
+  <link href="//fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic" rel=stylesheet type=text/css>
+  <link href="//demo.productionready.io/main.css" rel=stylesheet type=text/css>
+  <title>Conduit</title>
+  <script rel=preload type=module>
+    /**
+     * All controllers, pages and first level organisms are loaded and defined here, see body html tags below
+     */
+    Promise.all([
+      // Helpers
+      import('./es/helpers/Environment.js').then(module => null)
+    ]).then(elements => elements.forEach(element => {
+      if (element) customElements.define(...element)
+      console.log('test api: ', Environment.fetchBaseUrl);
+      fetch(`${Environment.fetchBaseUrl}articles?limit=10&offset=0`).then(response => response?.json()).then(data => {
+        data?.articles.forEach(article => {
+          const el = document.createElement('div')
+          el.classList.add('article-preview')
+          el.textContent = article.title
+          document.body.appendChild(el)
+        })
+      })
+    }))
+  </script>
+</head>
+<body></body>
+</html>
