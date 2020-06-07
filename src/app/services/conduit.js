@@ -26,3 +26,33 @@ export async function getTags() {
 
   return tags;
 }
+
+export async function login(email, password) {
+  const { data } = await Axios.post(`${baseUrl}/users/login`, {
+    user: {
+      email,
+      password,
+    },
+  }).catch(x => x.response);
+  return data;
+}
+
+export async function getCurrentUser() {
+  const {
+    data: { user },
+  } = await Axios.get(`${baseUrl}/user`, {
+    headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+  });
+  return user;
+}
+
+export async function updateSettings(settings) {
+  const { data } = await Axios.put(
+    `${baseUrl}/user`,
+    { user: settings },
+    {
+      headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+    },
+  );
+  return data;
+}

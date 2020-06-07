@@ -1,4 +1,4 @@
-import { getTags, getArticles } from '../services/conduit';
+import { getTags, getArticles, getCurrentUser } from '../services/conduit';
 import store from '../store';
 
 export async function loadHome() {
@@ -43,4 +43,11 @@ export async function changeTab(tab) {
   });
 
   (await tab) === 'global' ? loadPage(0) : loadTagPage(0);
+}
+
+export async function loadUser() {
+  store.dispatch({
+    type: 'LOGIN',
+    user: await getCurrentUser(),
+  });
 }
