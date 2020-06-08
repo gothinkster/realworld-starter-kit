@@ -24,6 +24,10 @@ For more information on how to this works with other frontends/backends, head ov
 
 > Simply open the index.html on a local or remote web server like, node, apache, nginx, etc.
 
+# Explanation
+
+* On a Web Component ```javascript mode=false```, means that this component does not have a shadow DOM attached. Shadow DOM's mostly shine when encapsulating CSS. But the Conduit example has one global CSS Stylesheet and for that reason, it is more efficient to not have shadow DOM's, which all would have to import that CSS separately.
+
 # TODO
 
 1. Router (c-router)
