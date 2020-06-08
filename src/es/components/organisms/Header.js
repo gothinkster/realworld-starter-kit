@@ -9,6 +9,10 @@ import { MasterShadow } from '../prototypes/MasterShadow.js'
  * @class Header
  */
 export default class Header extends MasterShadow() {
+  constructor (...args) {
+    super({ mode: 'false' }, ...args)
+  }
+
   connectedCallback () {
     if (this.shouldComponentRender()) this.render()
   }

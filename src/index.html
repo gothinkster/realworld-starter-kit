@@ -10,9 +10,9 @@
   <link rel="stylesheet" href="//demo.productionready.io/main.css">
 </head>
 <body>
-  <o-header mode=false></o-header>
-  <c-router mode=false></c-router>
-  <o-footer mode=false></o-footer>
+  <o-header></o-header>
+  <c-router></c-router>
+  <o-footer></o-footer>
   <script rel=preload type=module>
     /**
      * All controllers and first level organisms are loaded and defined here
@@ -27,15 +27,6 @@
       import('./es/components/organisms/Footer.js').then(module => ['o-footer', module.default])
     ]).then(elements => elements.forEach(element => {
       if (element) customElements.define(...element)
-      console.log('test api: ', Environment.fetchBaseUrl);
-      fetch(`${Environment.fetchBaseUrl}articles?limit=10&offset=0`).then(response => response?.json()).then(data => {
-        data?.articles.forEach(article => {
-          const el = document.createElement('div')
-          el.classList.add('article-preview')
-          el.textContent = article.title
-          document.body.appendChild(el)
-        })
-      })
     }))
   </script>
 </body>

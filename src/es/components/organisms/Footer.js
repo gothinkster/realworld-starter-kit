@@ -9,6 +9,10 @@ import { MasterShadow } from '../prototypes/MasterShadow.js'
  * @class Footer
  */
 export default class Footer extends MasterShadow() {
+  constructor (...args) {
+    super({ mode: 'false' }, ...args)
+  }
+
   connectedCallback () {
     if (this.shouldComponentRender()) this.render()
   }
