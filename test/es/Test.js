@@ -65,6 +65,7 @@ export default class Test {
     return import(modulePath).then(module => {
       // test shadowRoot
       try {
+        // @ts-ignore
         if (!customElements.get(testName)) customElements.define(testName, extendsFunction(!module[moduleName].toString().includes('=>') ? class extends module[moduleName] {} : module[moduleName]()))
       } catch (error) {
         console.error(`Note! testName: ${testName} must be lower case with hyphen separated!`, error)
@@ -85,8 +86,12 @@ export default class Test {
    */
   test (testName, testFunction, attributes = '', testEl = null, hidden = false) {
     if (!testEl) {
+      const description = document.createElement('div')
+      description.textContent = `<${testName}>`
+      description.classList.add('placeHolder')
+      this.testSpace.appendChild(description)
       const container = document.createElement('div')
-      container.innerHTML = `<${testName} ${attributes}>&lt;${testName}&gt;</${testName}>`
+      container.innerHTML = `<${testName} ${attributes}></${testName}>`
       testEl = container.getElementsByTagName(testName)[0]
       this.testSpace.appendChild(testEl)
       // @ts-ignore

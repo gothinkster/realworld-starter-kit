@@ -1,7 +1,5 @@
 // @ts-check
 
-import { MasterShadow } from '../prototypes/MasterShadow.js'
-
 /**
  * As a page, this component becomes a domain dependent container
  * this style and html should be set at its parent index.html, for immediate visual feedback
@@ -9,11 +7,7 @@ import { MasterShadow } from '../prototypes/MasterShadow.js'
  * @export
  * @class Article
  */
-export default class Article extends MasterShadow() {
-  constructor (...args) {
-    super({ mode: 'false' }, ...args)
-  }
-
+export default class Article extends HTMLElement {
   connectedCallback () {
     console.log('artiCLe');
     const el = document.createElement('div')

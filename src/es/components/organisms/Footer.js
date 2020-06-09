@@ -1,18 +1,12 @@
 // @ts-check
 
-import { MasterShadow } from '../prototypes/MasterShadow.js'
-
 /**
  * As an organism, this component shall hold molecules and/or atoms
  *
  * @export
  * @class Footer
  */
-export default class Footer extends MasterShadow() {
-  constructor (...args) {
-    super({ mode: 'false' }, ...args)
-  }
-
+export default class Footer extends HTMLElement {
   connectedCallback () {
     if (this.shouldComponentRender()) this.render()
   }
@@ -23,7 +17,7 @@ export default class Footer extends MasterShadow() {
    * @return {boolean}
    */
   shouldComponentRender () {
-    return !this.html
+    return !this.innerHTML
   }
 
   /**
@@ -32,7 +26,7 @@ export default class Footer extends MasterShadow() {
    * @return {void}
    */
   render() {
-    this.html = `
+    this.innerHTML = `
       <footer>
         <div class="container">
           <a href="/" class="logo-font">conduit</a>

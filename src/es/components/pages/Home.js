@@ -1,7 +1,6 @@
 // @ts-check
 
 import { Environment } from '../../helpers/Environment.js'
-import { MasterShadow } from '../prototypes/MasterShadow.js'
 
 /**
  * As a page, this component becomes a domain dependent container
@@ -10,11 +9,7 @@ import { MasterShadow } from '../prototypes/MasterShadow.js'
  * @export
  * @class Home
  */
-export default class Home extends MasterShadow() {
-  constructor (...args) {
-    super({ mode: 'false' }, ...args)
-  }
-
+export default class Home extends HTMLElement {
   connectedCallback () {
     console.log('HoME test api: ', Environment.fetchBaseUrl);
     fetch(`${Environment.fetchBaseUrl}articles?limit=10&offset=0`).then(response => response?.json()).then(data => {

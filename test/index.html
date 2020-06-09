@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html compute=lang lang=en dir=ltr>
 <head>
-  <meta charset=UTF-8>
-  <title>Tests</title>
+  <meta charset="utf-8">
+  <title>Conduit Tests</title>
+  <!-- Import Ionicon icons & Google Fonts our Bootstrap theme relies on -->
+  <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+  <!-- Import the custom Bootstrap 4 theme from our hosted CDN -->
+  <link rel="stylesheet" href="//demo.productionready.io/main.css">
   <style>
     /**
      * specific initial style
@@ -61,15 +66,10 @@
   </style>
   <script rel=preload type=module>
     // load tests
-    import {test as masterIntersectionObserverTest} from './es/tests/components/prototypes/MasterIntersectionObserver.js'
-    import {test as masterMutationObserverTest} from './es/tests/components/prototypes/MasterMutationObserver.js'
-    import {test as masterShadowTest} from './es/tests/components/prototypes/MasterShadow.js'
-    masterIntersectionObserverTest()
-    masterMutationObserverTest()
-    masterShadowTest()
-
-    // custom component example - must have a namespace when same test runs more than once in the same session
-    //masterShadowTest('Footer', 'default', '../../src/es/components/organisms/Footer.js', 'footer')
+    import {test as headerTest} from './es/tests/components/organisms/Header.js'
+    import {test as footerTest} from './es/tests/components/organisms/Footer.js'
+    headerTest()
+    footerTest()
   </script>
 </head>
 <body>

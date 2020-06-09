@@ -1,18 +1,12 @@
 // @ts-check
 
-import { MasterShadow } from '../prototypes/MasterShadow.js'
-
 /**
  * As an organism, this component shall hold molecules and/or atoms
  *
  * @export
  * @class Header
  */
-export default class Header extends MasterShadow() {
-  constructor (...args) {
-    super({ mode: 'false' }, ...args)
-  }
-
+export default class Header extends HTMLElement {
   connectedCallback () {
     if (this.shouldComponentRender()) this.render()
   }
@@ -23,7 +17,7 @@ export default class Header extends MasterShadow() {
    * @return {boolean}
    */
   shouldComponentRender () {
-    return !this.html
+    return !this.innerHTML
   }
 
   /**
@@ -32,7 +26,7 @@ export default class Header extends MasterShadow() {
    * @return {void}
    */
   render() {
-    this.html = `
+    this.innerHTML = `
       <nav class="navbar navbar-light">
         <div class="container">
           <a class="navbar-brand" href="index.html">conduit</a>
