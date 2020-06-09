@@ -9,6 +9,11 @@
   "author": "weedshaker@gmail.com",
   "license": "MIT",
   "devDependencies": {
-    "standard": "^14.3.3"
+    "standard": "*"
+  },
+  "standard": {
+    "ignore": [
+      "/test/"
+    ]
   }
 }

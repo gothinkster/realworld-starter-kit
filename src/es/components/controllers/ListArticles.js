@@ -1,17 +1,22 @@
 // @ts-check
 
+/* global HTMLElement */
+/* global AbortController */
+/* global CustomEvent */
+/* global fetch */
+
 /**
  * https://github.com/gothinkster/realworld/tree/master/api#list-articles
- * 
+ *
  * @typedef {{ tag?: string, author?: string, favorited?: string, limit?: number, offset?: number }} RequestListArticlesEventDetail
  */
 
-/** 
+/**
  * https://github.com/gothinkster/realworld/tree/master/api#multiple-articles
- * 
+ *
  * @typedef {{
       query: RequestListArticlesEventDetail,
-      queryString: string, 
+      queryString: string,
       fetch: Promise<import("../../helpers/Interfaces.js").MultipleArticles>
     }} ListArticlesEventDetail
  */
@@ -33,7 +38,7 @@ export default class ListArticles extends HTMLElement {
     /**
      * Used to cancel ongoing, older fetches
      * this makes sense, if you only expect one and most recent true result and not multiple
-     * 
+     *
      * @type {AbortController | null}
      */
     this.abortController = null
@@ -46,7 +51,7 @@ export default class ListArticles extends HTMLElement {
     this.requestListArticlesListener = (event) => {
       // assemble query
       let query = ''
-      for (const key in event?.detail) {
+      for (const key in event.detail) {
         query += `${query ? '&' : '?'}${key}=${event.detail[key]}`
       }
       // reset old AbortController and assign new one
@@ -58,9 +63,11 @@ export default class ListArticles extends HTMLElement {
         detail: {
           query: event.detail,
           queryString: query,
-          fetch: fetch(`${Environment.fetchBaseUrl}articles${query}`, { signal: this.abortController.signal }).then(response => response?.json())
+          fetch: fetch(`${Environment.fetchBaseUrl}articles${query}`, { signal: this.abortController.signal }).then(response => response.json())
         },
-        bubbles: true, cancelable: true, composed: true
+        bubbles: true,
+        cancelable: true,
+        composed: true
       }))
     }
   }

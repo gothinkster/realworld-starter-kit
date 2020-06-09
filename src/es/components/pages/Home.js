@@ -1,5 +1,8 @@
 // @ts-check
 
+/* global HTMLElement */
+/* global customElements */
+
 /**
  * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#home
  * As a page, this component becomes a domain dependent container and shall hold organisms, molecules and/or atoms
@@ -42,11 +45,11 @@ export default class Home extends HTMLElement {
    *
    * @return {void}
    */
-  render() {
-    this.loadChildComponents().then(() => this.innerHTML = `
+  render () {
+    this.loadChildComponents().then(() => (this.innerHTML = `
       <c-list-articles>
         <o-list-articles></o-list-articles>
       </c-list-articles>
-    `)
+    `))
   }
 }

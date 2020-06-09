@@ -9,6 +9,9 @@
  */
 
 /* global self */
+/* global HTMLElement */
+/* global location */
+/* global customElements */
 
 /**
  * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#routing-guidelines
@@ -23,13 +26,13 @@ export default class Router extends HTMLElement {
 
     /** @type {Route[]} */
     this.routes = [
-      // Home page (URL: /#/ ) 
+      // Home page (URL: /#/ )
       {
         name: 'p-home',
         path: '../pages/Home.js',
-        regExp: new RegExp(/^#\/$/),
+        regExp: new RegExp(/^#\/$/)
       },
-      // Sign in/Sign up pages (URL: /#/login, /#/register ) 
+      // Sign in/Sign up pages (URL: /#/login, /#/register )
       {
         name: 'p-login',
         path: '',
@@ -58,7 +61,7 @@ export default class Router extends HTMLElement {
         path: '../pages/Article.js',
         regExp: new RegExp(/^#\/article/)
       },
-      // Profile page (URL: /#/profile/:username, /#/profile/:username/favorites ) 
+      // Profile page (URL: /#/profile/:username, /#/profile/:username/favorites )
       {
         name: 'p-profile',
         path: '',
@@ -78,7 +81,7 @@ export default class Router extends HTMLElement {
    * @param {string} hash
    * @return {void | string}
    */
-  route(hash) {
+  route (hash) {
     // escape on route call which is not set by hashchange event and trigger it here, if needed
     if (location.hash !== hash) return (location.hash = hash)
     let route
@@ -86,7 +89,7 @@ export default class Router extends HTMLElement {
     if ((route = this.routes.find(route => route.regExp.test(hash)))) {
       // reuse route.component, if already set, otherwise import and define custom element
       // @ts-ignore
-      const componentPromise = !!route.component ? Promise.resolve(route.component) : import(route.path).then(module => {
+      const componentPromise = route.component ? Promise.resolve(route.component) : import(route.path).then(module => {
         customElements.define(route.name, module.default)
         // save it to route object for reuse
         return (route.component = document.createElement(route.name))
@@ -113,7 +116,7 @@ export default class Router extends HTMLElement {
    * @param {HTMLElement} component
    * @return {void}
    */
-  render(component) {
+  render (component) {
     // clear previous content
     this.innerHTML = ''
     this.appendChild(component)

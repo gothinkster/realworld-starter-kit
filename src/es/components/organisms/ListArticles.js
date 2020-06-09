@@ -1,5 +1,8 @@
 // @ts-check
 
+/* global HTMLElement */
+/* global CustomEvent */
+
 /**
  * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#ListArticles
  * As an organism, this component shall hold molecules and/or atoms
@@ -25,7 +28,9 @@ export default class ListArticles extends HTMLElement {
     this.dispatchEvent(new CustomEvent('requestListArticles', {
       /** @type {import("../controllers/ListArticles.js").RequestListArticlesEventDetail} */
       detail: {},
-      bubbles: true, cancelable: true, composed: true
+      bubbles: true,
+      cancelable: true,
+      composed: true
     }))
   }
 
@@ -39,8 +44,8 @@ export default class ListArticles extends HTMLElement {
    * @param {import("../../helpers/Interfaces.js").MultipleArticles} multipleArticles
    * @return {void}
    */
-  render(multipleArticles) {
-    multipleArticles?.articles.forEach(article => {
+  render (multipleArticles) {
+    multipleArticles.articles.forEach(article => {
       const el = document.createElement('div')
       el.classList.add('article-preview')
       el.textContent = article.title

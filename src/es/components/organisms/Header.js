@@ -1,5 +1,7 @@
 // @ts-check
 
+/* global HTMLElement */
+
 /**
  * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#header
  * As an organism, this component shall hold molecules and/or atoms
@@ -26,7 +28,7 @@ export default class Header extends HTMLElement {
    *
    * @return {void}
    */
-  render() {
+  render () {
     this.innerHTML = `
       <nav class="navbar navbar-light">
         <div class="container">
