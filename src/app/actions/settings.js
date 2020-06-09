@@ -30,4 +30,5 @@ export async function updateSettings({ settings: { user, password } }) {
 
   localStorage.setItem('token', result.user.token);
   store.dispatch({ type: 'LOGIN', user: result.user });
+  location.hash = `#/`; /* eslint-disable-line */
 }

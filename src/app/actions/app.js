@@ -22,4 +22,5 @@ export function loadApp() {
 export function logout() {
   localStorage.removeItem('token');
   store.dispatch({ type: 'LOG_OUT' });
+  location.hash = `#/`; /* eslint-disable-line */
 }
