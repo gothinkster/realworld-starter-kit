@@ -1,4 +1,5 @@
 import * as R from 'ramda';
+import matchAction from '../../core/matchAction';
 
 const defaultState = {
   username: '',
@@ -7,16 +8,11 @@ const defaultState = {
   logingIn: false,
 };
 
-export default (state = defaultState, action) => {
-  return action.type === 'CHANGE_PAGE'
-    ? defaultState
-    : action.type === 'UPDATE_USERNAME'
-    ? R.mergeDeepRight(state, { username: action.username })
-    : action.type === 'UPDATE_PASSWORD'
-    ? R.mergeDeepRight(state, { password: action.password })
-    : action.type === 'LOGIN_START'
-    ? R.mergeDeepRight(state, { logingIn: true })
-    : action.type === 'LOGIN_ERROR'
-    ? R.mergeDeepRight(state, { errors: action.errors, logingIn: false })
-    : state;
-};
+export default (state = defaultState, action) =>
+  matchAction(action, R.always({}), {
+    CHANGE_PAGE: R.always(defaultState),
+    UPDATE_USERNAME: ({ username }) => ({ username }),
+    UPDATE_PASSWORD: ({ password }) => ({ password }),
+    LOGIN_START: R.always({ logingIn: true }),
+    LOGIN_ERROR: ({ errors }) => ({ errors, logingIn: false }),
+  }) |> R.mergeDeepRight(state);

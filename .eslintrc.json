@@ -12,8 +12,10 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
+
+  "parser": "babel-eslint",
   "rules": {
     "functional/functional-parameters": "off"
   },
-  "plugins": ["functional"]
+  "plugins": ["functional", "babel"]
 }

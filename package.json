@@ -4,23 +4,30 @@
   "description": "> ### [YOUR_FRAMEWORK] codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.",
   "main": "index.js",
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.10.1",
     "axios": "^0.19.0",
     "hybrids": "^4.0.2",
     "prettier": "^1.19.1",
     "ramda": "^0.27.0",
     "redux": "^4.0.4",
     "tagged-union": "^1.1.0",
-    "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
+    "webpack-dev-server": "^3.11.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/plugin-proposal-pipeline-operator": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
     "eslint": "^6.6.0",
-    "eslint-plugin-functional": "^1.0.0"
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-functional": "^1.0.0",
+    "webpack": "^4.43.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-server": "webpack-dev-server --entry ./src/index.js --output-filename ./dist/index.js --mode development --overlay",
+    "dev-server": "webpack-dev-server --config webpack.config.js --entry ./src/index.js --output-filename ./dist/index.js --mode development --overlay",
     "lint": "eslint src",
     "prettify": "prettier --write src/**/*.js"
   },
