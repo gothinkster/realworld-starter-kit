@@ -30,8 +30,10 @@ For more information on how to this works with other frontends/backends, head ov
 
 # TODO
 
-1. Router (c-router)
-2. Article Store (c-article-store)
-3. Article Page (p-articles)
-4. Components regarding Article page
-5. further to be defined...
+1. home + ListArticle + Tests
+2. login
+3. register
+4. settings
+5. editor
+6. article
+7. profile

@@ -15,7 +15,7 @@
   <o-footer></o-footer>
   <script rel=preload type=module>
     /**
-     * All controllers and first level organisms are loaded and defined here
+     * First level controllers and organisms are loaded and defined here (loadChildComponents)
      */
     Promise.all([
       // Helpers
@@ -26,7 +26,7 @@
       import('./es/components/organisms/Header.js').then(module => ['o-header', module.default]),
       import('./es/components/organisms/Footer.js').then(module => ['o-footer', module.default])
     ]).then(elements => elements.forEach(element => {
-      if (element) customElements.define(...element)
+      if (element && !customElements.get(element[0])) customElements.define(...element)
     }))
   </script>
 </body>

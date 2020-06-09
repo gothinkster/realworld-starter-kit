@@ -1,9 +1,17 @@
 // @ts-check
-/** @typedef {{ name: string, path: string, regExp: RegExp, component?: HTMLElement }} route */
+
+/** @typedef {{
+      name: string,
+      path: string,
+      regExp: RegExp,
+      component?: HTMLElement
+    }} Route
+ */
 
 /* global self */
 
 /**
+ * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#routing-guidelines
  * As a controller, this component becomes a router
  *
  * @export
@@ -13,7 +21,7 @@ export default class Router extends HTMLElement {
   constructor () {
     super()
 
-    /** @type {route[]} */
+    /** @type {Route[]} */
     this.routes = [
       // Home page (URL: /#/ ) 
       {

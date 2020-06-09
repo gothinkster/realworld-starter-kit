@@ -1,6 +1,7 @@
 // @ts-check
 
 /**
+ * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#footer
  * As an organism, this component shall hold molecules and/or atoms
  *
  * @export

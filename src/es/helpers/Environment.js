@@ -9,7 +9,7 @@
  */
 class EnvironmentClass {
   constructor () {
-    // baseUrl
+    // https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#using-the-hosted-api
     this.fetchBaseUrl = 'https://conduit.productionready.io/api/'
   }
 

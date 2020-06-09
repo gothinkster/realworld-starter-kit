@@ -1,18 +1,18 @@
 // @ts-check
 
 /**
- * As a page, this component becomes a domain dependent container
- * this style and html should be set at its parent index.html, for immediate visual feedback
+ * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#article
+ * As a page, this component becomes a domain dependent container and shall hold organisms, molecules and/or atoms
  *
  * @export
  * @class Article
  */
 export default class Article extends HTMLElement {
   connectedCallback () {
-    console.log('artiCLe');
+    console.log('artiCLe to be done');
     const el = document.createElement('div')
     el.classList.add('article-preview')
     el.textContent = 'whaTS O eVEr'
-    this.html = el
+    this.appendChild(el)
   }
 }
