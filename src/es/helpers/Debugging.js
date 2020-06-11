@@ -14,4 +14,4 @@ class DebuggingClass {
     setTimeout(() => self.location.replace(self.location.href.replace(/.*?(www\/html|html|www|htdocs)(.*)index.*/, 'http://localhost$2')), self.location.href.includes('test') ? 0 : 2000)
   }
 }
-if (self.location.href.includes('file://')) new DebuggingClass()
+export const Debugging = self.location.href.includes('file://') ? new DebuggingClass() : null
