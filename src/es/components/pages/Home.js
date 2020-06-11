@@ -25,6 +25,19 @@ export default class Home extends HTMLElement {
   }
 
   /**
+   * renders the footer
+   *
+   * @return {void}
+   */
+  render () {
+    this.loadChildComponents().then(() => (this.innerHTML = `
+      <c-list-articles>
+        <o-list-articles></o-list-articles>
+      </c-list-articles>
+    `))
+  }
+
+  /**
    * fetch when first needed
    *
    * @returns {Promise<void>}
@@ -38,18 +51,5 @@ export default class Home extends HTMLElement {
       // @ts-ignore
       if (!customElements.get(element[0])) customElements.define(...element)
     })))
-  }
-
-  /**
-   * renders the footer
-   *
-   * @return {void}
-   */
-  render () {
-    this.loadChildComponents().then(() => (this.innerHTML = `
-      <c-list-articles>
-        <o-list-articles></o-list-articles>
-      </c-list-articles>
-    `))
   }
 }

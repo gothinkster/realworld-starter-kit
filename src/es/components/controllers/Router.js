@@ -90,7 +90,8 @@ export default class Router extends HTMLElement {
       // reuse route.component, if already set, otherwise import and define custom element
       // @ts-ignore
       const componentPromise = route.component ? Promise.resolve(route.component) : import(route.path).then(module => {
-        customElements.define(route.name, module.default)
+        // don't define already existing customElements
+        if (!customElements.get(route.name)) customElements.define(route.name, module.default)
         // save it to route object for reuse
         return (route.component = document.createElement(route.name))
       })

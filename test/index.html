@@ -66,6 +66,8 @@
   </style>
   <script rel=preload type=module>
     // load tests
+    import '../src/es/helpers/Environment.js'
+    import '../src/es/helpers/Debugging.js'
     import {test as headerTest} from './es/tests/components/organisms/Header.js'
     import {test as footerTest} from './es/tests/components/organisms/Footer.js'
     headerTest()
