@@ -12,16 +12,35 @@ let counter = 0
  * @param {string} modulePath
  * @param {string} [namespace = '']
  */
-export const test = (testTitle = 'Header', moduleName = 'default', modulePath = '../../src/es/components/organisms/Header.js', namespace = counter) => {
+export const test = (testTitle = 'organisms/Header', moduleName = 'default', modulePath = '../../src/es/components/organisms/Header.js', namespace = counter) => {
   // test modulePath must be from Test.js perspective
   const test = new Test(testTitle, namespace)
 
   // ------------------------------------------------------------------------------------------------------------
   // HTML -------------------------------------------------------------------------------------------------------
+  let shouldComponentRenderCounter = 0
+  let renderCount = 0
   test.runTest('header-setup', moduleName, modulePath,
-    el => !!el
+    el => !!el,
+    undefined,
+    subclass => class extends subclass {
+      shouldComponentRender() {
+        shouldComponentRenderCounter++
+        return super.shouldComponentRender()
+      }
+      render() {
+        renderCount++
+        super.render()
+      }
+    }
   ).then(el => {
-    test.test('header-content', el => !!el.querySelector('a.navbar-brand')?.href?.includes('index'), undefined, el) && !!el.querySelector('.navbar-nav')
+    const parent = el.parentNode
+    test.test('header-content', el => !!el.querySelector('a.navbar-brand')?.href?.includes('index') && !!el.querySelector('.navbar-nav'), undefined, el)
+    // remove and append to trigger connectedCallback
+    el.remove()
+    parent.appendChild(el)
+    test.test('header-render-counts', () => renderCount === 1, undefined, el)
+    test.test('header-should-component-render-counts', () => shouldComponentRenderCounter === 2, undefined, el)
   })
   // ------------------------------------------------------------------------------------------------------------
   counter++

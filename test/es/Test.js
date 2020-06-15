@@ -66,9 +66,11 @@ export default class Test {
       // test shadowRoot
       try {
         // @ts-ignore
-        if (!customElements.get(testName)) customElements.define(testName, extendsFunction(!module[moduleName].toString().includes('=>') ? class extends module[moduleName] {} : module[moduleName]()))
+        if (!customElements.get(testName)) customElements.define(testName, extendsFunction(!module[moduleName].toString().includes(') => class') ? class extends module[moduleName] {} : module[moduleName]()))
       } catch (error) {
-        console.error(`Note! testName: ${testName} must be lower case with hyphen separated!`, error)
+        console.error(`Note! testName: ${testName} has an error defining the customElement!`, error)
+        console.info(`Assure that moduleName: "${moduleName}" can be found as property with value = class, within imported module:`, module)
+        console.info(`Note! testName: "${testName}" must be lower case with hyphen separated!`)
       }
       return this.test(testName, testFunction, attributes, null)
     })

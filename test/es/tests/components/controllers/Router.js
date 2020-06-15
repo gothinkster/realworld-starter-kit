@@ -1,0 +1,56 @@
+// @ts-nocheck
+
+import Test from '../../../Test.js'
+
+let counter = 0
+
+/**
+ * Router Tests
+ *
+ * @param {string} testTitle
+ * @param {string} moduleName
+ * @param {string} modulePath
+ * @param {string} [namespace = '']
+ */
+export const test = (testTitle = 'controllers/Router', moduleName = 'default', modulePath = '../../src/es/components/controllers/Router.js', namespace = counter) => {
+  // test modulePath must be from Test.js perspective
+  const test = new Test(testTitle, namespace)
+
+  // ------------------------------------------------------------------------------------------------------------
+  // HTML -------------------------------------------------------------------------------------------------------
+  const oldHash = location.hash
+  let shouldComponentRenderCounter = 0
+  let renderCount = 0
+  test.runTest('router-setup', moduleName, modulePath,
+    el => !!el,
+    undefined,
+    subclass => class extends subclass {
+      shouldComponentRender(name) {
+        shouldComponentRenderCounter++
+        return super.shouldComponentRender(name)
+      }
+      render(component) {
+        renderCount++
+        super.render(component)
+      }
+    }
+  ).then(el => {
+    const parent = el.parentNode
+    location.hash = '#/'
+    setTimeout(() => {
+      test.test('route-to-p-home', el => el?.children[0]?.tagName === 'P-HOME', undefined, el)
+      location.hash = '#/article'
+      setTimeout(() => {
+        test.test('route-to-p-article', el => el?.children[0]?.tagName === 'P-ARTICLE', undefined, el)
+        // do the below at the very end
+        el.remove()
+        parent.appendChild(el)
+        test.test('router-render-counts', () => renderCount === 2, undefined, el)
+        test.test('router-should-component-render-counts', () => shouldComponentRenderCounter === 3, undefined, el)
+        location.hash = oldHash
+      }, 200)
+    }, 200)
+  })
+  // ------------------------------------------------------------------------------------------------------------
+  counter++
+}

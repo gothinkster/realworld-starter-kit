@@ -86,29 +86,27 @@ export default class Router extends HTMLElement {
     if (location.hash !== hash) return (location.hash = hash)
     let route
     // find the correct route or do nothing
-    if ((route = this.routes.find(route => route.regExp.test(hash)))) {
+    if ((route = this.routes.find(route => route.regExp.test(hash))) && this.shouldComponentRender(route.name)) {
       // reuse route.component, if already set, otherwise import and define custom element
       // @ts-ignore
-      const componentPromise = route.component ? Promise.resolve(route.component) : import(route.path).then(module => {
+      (route.component ? Promise.resolve(route.component) : import(route.path).then(module => {
         // don't define already existing customElements
         if (!customElements.get(route.name)) customElements.define(route.name, module.default)
         // save it to route object for reuse
         return (route.component = document.createElement(route.name))
-      })
-      componentPromise.then(component => {
-        if (this.shouldComponentRender(component)) this.render(component)
-      })
+      })).then(component => this.render(component))
     }
   }
 
   /**
    * evaluates if a render is necessary
    *
-   * @param {HTMLElement} component
+   * @param {string} name
    * @return {boolean}
    */
-  shouldComponentRender (component) {
-    return !this.contains(component)
+  shouldComponentRender (name) {
+    if(!this.children || !this.children.length) return true
+    return this.children[0].tagName !== name.toUpperCase()
   }
 
   /**

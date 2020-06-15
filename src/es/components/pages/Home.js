@@ -30,6 +30,7 @@ export default class Home extends HTMLElement {
    * @return {void}
    */
   render () {
+    // TODO: Split out the components and add functionality
     this.loadChildComponents().then(() => (this.innerHTML = `
       <c-list-articles>
         <div class="home-page">
@@ -55,7 +56,7 @@ export default class Home extends HTMLElement {
                   </ul>
                 </div>
 
-                <o-list-articles></o-list-articles>
+                <o-list-article-previews><div class="article-preview">Loading...</div></o-list-article-previews>
 
               </div>
 
@@ -92,7 +93,7 @@ export default class Home extends HTMLElement {
   loadChildComponents () {
     return this.childComponentsPromise || (this.childComponentsPromise = Promise.all([
       import('../controllers/ListArticles.js').then(module => ['c-list-articles', module.default]),
-      import('../organisms/ListArticles.js').then(module => ['o-list-articles', module.default])
+      import('../organisms/ListArticlePreviews.js').then(module => ['o-list-article-previews', module.default])
     ]).then(elements => elements.forEach(element => {
       // don't define already existing customElements
       // @ts-ignore
