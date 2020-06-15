@@ -11,8 +11,11 @@ let counter = 0
  * @param {string} moduleName
  * @param {string} modulePath
  * @param {string} [namespace = '']
+ * @return {Promise<[number, number, number]>}
  */
 export const test = (testTitle = 'organisms/Footer', moduleName = 'default', modulePath = '../../src/es/components/organisms/Footer.js', namespace = counter) => {
+  let resolveTest
+  const result = new Promise(resolve => resolveTest = resolve)
   // test modulePath must be from Test.js perspective
   const test = new Test(testTitle, namespace)
 
@@ -41,7 +44,9 @@ export const test = (testTitle = 'organisms/Footer', moduleName = 'default', mod
     parent.appendChild(el)
     test.test('footer-render-counts', () => renderCount === 1, undefined, el)
     test.test('footer-should-component-render-counts', () => shouldComponentRenderCounter === 2, undefined, el)
+    resolveTest([test.counter, test.passedCounter, test.failedCounter])
   })
   // ------------------------------------------------------------------------------------------------------------
+  return result
   counter++
 }

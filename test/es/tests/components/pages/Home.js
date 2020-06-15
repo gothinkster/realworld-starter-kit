@@ -11,8 +11,11 @@ let counter = 0
  * @param {string} moduleName
  * @param {string} modulePath
  * @param {string} [namespace = '']
+ * @return {Promise<[number, number, number]>}
  */
 export const test = (testTitle = 'organisms/Home', moduleName = 'default', modulePath = '../../src/es/components/pages/Home.js', namespace = counter) => {
+  let resolveTest
+  const result = new Promise(resolve => resolveTest = resolve)
   // test modulePath must be from Test.js perspective
   const test = new Test(testTitle, namespace)
 
@@ -50,8 +53,10 @@ export const test = (testTitle = 'organisms/Home', moduleName = 'default', modul
       test.test('home-should-component-render-counts', () => shouldComponentRenderCounter === 2, undefined, el)
       test.test('home-render-counts', () => renderCount === 1, undefined, el)
       test.test('home-load-child-components-counts', () => loadChildComponentsCount === 2, undefined, el)
+      resolveTest([test.counter, test.passedCounter, test.failedCounter])
     }, 200);
   })
   // ------------------------------------------------------------------------------------------------------------
+  return result
   counter++
 }

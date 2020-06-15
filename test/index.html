@@ -73,11 +73,23 @@
     import {test as listArticlesTest} from './es/tests/components/controllers/ListArticles.js'
     import {test as headerTest} from './es/tests/components/organisms/Header.js'
     import {test as footerTest} from './es/tests/components/organisms/Footer.js'
-    routerTest()
-    homeTest()
-    listArticlesTest()
-    headerTest()
-    footerTest()
+    Promise.all([
+      routerTest(),
+      homeTest(),
+      listArticlesTest(),
+      headerTest(),
+      footerTest()
+    ]).then(results => {
+      let counter = 0
+      let passedCounter = 0
+      let failedCounter = 0
+      results.forEach(result => {
+        counter += result[0]
+        passedCounter += result[1]
+        failedCounter += result[2]
+      })
+      console.info('All done:', { counter, passedCounter, failedCounter })
+    })
   </script>
 </head>
 <body>
