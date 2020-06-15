@@ -12,6 +12,7 @@
  */
 export default class Home extends HTMLElement {
   connectedCallback () {
+    this.loadChildComponents()
     if (this.shouldComponentRender()) this.render()
   }
 
@@ -31,7 +32,7 @@ export default class Home extends HTMLElement {
    */
   render () {
     // TODO: Split out the components and add functionality
-    this.loadChildComponents().then(() => (this.innerHTML = `
+    this.innerHTML = `
       <c-list-articles>
         <div class="home-page">
           <div class="banner">
@@ -82,7 +83,7 @@ export default class Home extends HTMLElement {
 
         </div>
       </c-list-articles>
-    `))
+    `
   }
 
   /**

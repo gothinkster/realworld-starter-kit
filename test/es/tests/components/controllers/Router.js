@@ -45,9 +45,11 @@ export const test = (testTitle = 'controllers/Router', moduleName = 'default', m
         // do the below at the very end
         el.remove()
         parent.appendChild(el)
-        test.test('router-render-counts', () => renderCount === 2, undefined, el)
-        test.test('router-should-component-render-counts', () => shouldComponentRenderCounter === 3, undefined, el)
-        location.hash = oldHash
+        setTimeout(() => {
+          test.test('router-render-counts', () => renderCount === 2, undefined, el)
+          test.test('router-should-component-render-counts', () => shouldComponentRenderCounter === 3, undefined, el)
+          location.hash = oldHash
+        }, 200);
       }, 200)
     }, 200)
   })

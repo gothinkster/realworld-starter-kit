@@ -49,7 +49,7 @@ export const test = (testTitle = 'organisms/Home', moduleName = 'default', modul
       parent.appendChild(el)
       test.test('home-should-component-render-counts', () => shouldComponentRenderCounter === 2, undefined, el)
       test.test('home-render-counts', () => renderCount === 1, undefined, el)
-      test.test('home-load-child-components-counts', () => loadChildComponentsCount === 1, undefined, el)
+      test.test('home-load-child-components-counts', () => loadChildComponentsCount === 2, undefined, el)
     }, 200);
   })
   // ------------------------------------------------------------------------------------------------------------
