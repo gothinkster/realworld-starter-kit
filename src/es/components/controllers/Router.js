@@ -79,11 +79,15 @@ export default class Router extends HTMLElement {
    * route to the desired hash/domain
    *
    * @param {string} hash
+   * @param {boolean} [replace = false]
    * @return {void | string}
    */
-  route (hash) {
+  route (hash, replace = false) {
     // escape on route call which is not set by hashchange event and trigger it here, if needed
-    if (location.hash !== hash) return (location.hash = hash)
+    if (location.hash !== hash) {
+      if (replace) return location.replace(hash)
+      return (location.hash = hash)
+    }
     let route
     // find the correct route or do nothing
     if ((route = this.routes.find(route => route.regExp.test(hash)))) {
@@ -99,7 +103,7 @@ export default class Router extends HTMLElement {
       })
     }
   }
-  
+
   /**
    * evaluates if a render is necessary
    *
@@ -107,7 +111,7 @@ export default class Router extends HTMLElement {
    * @return {boolean}
    */
   shouldComponentRender (name) {
-    if(!this.children || !this.children.length) return true
+    if (!this.children || !this.children.length) return true
     return this.children[0].tagName !== name.toUpperCase()
   }
 

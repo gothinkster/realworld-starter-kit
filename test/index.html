@@ -73,6 +73,9 @@
     import {test as listArticlesTest} from './es/tests/components/controllers/ListArticles.js'
     import {test as headerTest} from './es/tests/components/organisms/Header.js'
     import {test as footerTest} from './es/tests/components/organisms/Footer.js'
+    const timeoutID = setTimeout(() => {
+      document.title += ' - TIMEOUT!'
+    }, 10000);
     Promise.all([
       routerTest(),
       homeTest(),
@@ -89,6 +92,8 @@
         failedCounter += result[2]
       })
       console.info('All done:', { counter, passedCounter, failedCounter })
+      clearTimeout(timeoutID)
+      document.title += ' - FINISHED!'
     })
   </script>
 </head>
