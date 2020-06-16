@@ -72,7 +72,7 @@ export default class Router extends HTMLElement {
 
   connectedCallback () {
     self.addEventListener('hashchange', () => this.route(location.hash))
-    this.route(this.routes.some(route => route.regExp.test(location.hash)) ? location.hash : '#/')
+    this.route(this.routes.some(route => route.regExp.test(location.hash)) ? location.hash : '#/', true)
   }
 
   /**
