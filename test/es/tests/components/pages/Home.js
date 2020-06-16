@@ -57,6 +57,6 @@ export const test = (testTitle = 'organisms/Home', moduleName = 'default', modul
     }, 200);
   })
   // ------------------------------------------------------------------------------------------------------------
-  return result
   counter++
+  return result
 }

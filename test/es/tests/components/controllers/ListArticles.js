@@ -46,6 +46,6 @@ export const test = (testTitle = 'controllers/ListArticles', moduleName = 'defau
     test.test('list-articles-got-fetch', () => gotFetch, undefined, el)
   })
   // ------------------------------------------------------------------------------------------------------------
-  return result
   counter++
+  return result
 }

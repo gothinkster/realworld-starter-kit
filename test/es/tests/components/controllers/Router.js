@@ -58,6 +58,6 @@ export const test = (testTitle = 'controllers/Router', moduleName = 'default', m
     }, 200)
   })
   // ------------------------------------------------------------------------------------------------------------
-  return result
   counter++
+  return result
 }

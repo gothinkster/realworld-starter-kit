@@ -47,6 +47,6 @@ export const test = (testTitle = 'organisms/Header', moduleName = 'default', mod
     resolveTest([test.counter, test.passedCounter, test.failedCounter])
   })
   // ------------------------------------------------------------------------------------------------------------
-  return result
   counter++
+  return result
 }
