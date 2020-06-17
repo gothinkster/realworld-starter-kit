@@ -26,7 +26,7 @@ import { Environment } from '../../helpers/Environment.js'
 /**
  * https://github.com/gothinkster/realworld/tree/master/api#list-articles
  * As a controller, this component becomes a store and organizes events
- * dispatches: 'ListArticles' on 'requestListArticles'
+ * dispatches: 'listArticles' on 'requestListArticles'
  *
  * @export
  * @class ListArticles

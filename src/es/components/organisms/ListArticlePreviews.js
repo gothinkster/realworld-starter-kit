@@ -24,6 +24,7 @@ export default class ListArticlePreviews extends HTMLElement {
   }
 
   connectedCallback () {
+    // listen for articles
     document.body.addEventListener('listArticles', this.listArticlesListener)
     // on every connect it will attempt to get newest articles
     this.dispatchEvent(new CustomEvent('requestListArticles', {
@@ -40,48 +41,45 @@ export default class ListArticlePreviews extends HTMLElement {
   }
 
   /**
-   * renders the header within the body, which is in this case the navbar
+   * renders each received article
    *
    * @param {Promise<import("../../helpers/Interfaces.js").MultipleArticles>} fetchMultipleArticles
    * @return {void}
    */
   render (fetchMultipleArticles) {
-    fetchMultipleArticles.then(multipleArticles => {
-      // TODO:
-      // behavior button favoritesCount to own atom
-      // TODO: ↑↑↑
+    Promise.all([fetchMultipleArticles, this.loadChildComponents()]).then(result => {
+      const [multipleArticles, children] = result
       if (!multipleArticles.articles || !multipleArticles.articles.length) {
         this.innerHTML = '<div class="article-preview">No articles are here... yet.</div>'
       } else {
         this.innerHTML = ''
         multipleArticles.articles.forEach(article => {
-          const articlePreview = document.createElement('div')
-          articlePreview.classList.add('article-preview')
-          articlePreview.innerHTML = `
-            <div class="article-meta">
-              <a href="#/profile/${article.author.username}"><img src="${article.author.image}" /></a>
-              <div class="info">
-                <a href="#/profile/${article.author.username}" class="author">${article.author.username}</a>
-                <span class="date">${new Date(article.createdAt).toDateString()}</span>
-              </div>
-              <button class="btn ${article.favorited ? 'btn-primary' : 'btn-outline-primary'} btn-sm pull-xs-right">
-                <i class="ion-heart"></i> ${article.favoritesCount}
-              </button>
-            </div>
-            <a href="#/article/${article.slug}" class="preview-link">
-              <h1>${article.title}</h1>
-              <p>${article.description}</p>
-              <span>Read more...</span>
-              <ul class="tag-list">
-                ${article.tagList.reduce((tagListStr, tag) => (tagListStr += `
-                  <li class="tag-default tag-pill tag-outline">${tag}</li>
-                `), '')}
-              </ul>
-            </a>
-          `
+          /** @type {import("../molecules/ArticlePreview.js").default & any} */
+          const articlePreview = new children[0][1](article)
           this.appendChild(articlePreview)
         })
       }
     })
+  }
+
+  /**
+   * fetch children when first needed
+   *
+   * @returns {Promise<[string, CustomElementConstructor][]>}
+   */
+  loadChildComponents () {
+    return this.childComponentsPromise || (this.childComponentsPromise = Promise.all([
+      import('../molecules/ArticlePreview.js').then(
+        /** @returns {[string, CustomElementConstructor]} */
+        module => ['m-article-preview', module.default]
+      )
+    ]).then(elements => {
+      elements.forEach(element => {
+        // don't define already existing customElements
+        // @ts-ignore
+        if (!customElements.get(element[0])) customElements.define(...element)
+      })
+      return elements
+    }))
   }
 }

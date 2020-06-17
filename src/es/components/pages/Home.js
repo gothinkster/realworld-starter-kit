@@ -57,7 +57,9 @@ export default class Home extends HTMLElement {
                   </ul>
                 </div>
 
-                <o-list-article-previews><div class="article-preview">Loading...</div></o-list-article-previews>
+                <c-favorite>
+                  <o-list-article-previews><div class="article-preview">Loading...</div></o-list-article-previews>
+                </c-favorite>
 
               </div>
 
@@ -87,18 +89,31 @@ export default class Home extends HTMLElement {
   }
 
   /**
-   * fetch when first needed
+   * fetch children when first needed
    *
-   * @returns {Promise<void>}
+   * @returns {Promise<[string, CustomElementConstructor][]>}
    */
   loadChildComponents () {
     return this.childComponentsPromise || (this.childComponentsPromise = Promise.all([
-      import('../controllers/ListArticles.js').then(module => ['c-list-articles', module.default]),
-      import('../organisms/ListArticlePreviews.js').then(module => ['o-list-article-previews', module.default])
-    ]).then(elements => elements.forEach(element => {
-      // don't define already existing customElements
-      // @ts-ignore
-      if (!customElements.get(element[0])) customElements.define(...element)
-    })))
+      import('../controllers/ListArticles.js').then(
+        /** @returns {[string, CustomElementConstructor]} */
+        module => ['c-list-articles', module.default]
+      ),
+      import('../controllers/Favorite.js').then(
+        /** @returns {[string, CustomElementConstructor]} */
+        module => ['c-favorite', module.default]
+      ),
+      import('../organisms/ListArticlePreviews.js').then(
+        /** @returns {[string, CustomElementConstructor]} */
+        module => ['o-list-article-previews', module.default]
+      )
+    ]).then(elements => {
+      elements.forEach(element => {
+        // don't define already existing customElements
+        // @ts-ignore
+        if (!customElements.get(element[0])) customElements.define(...element)
+      })
+      return elements
+    }))
   }
 }

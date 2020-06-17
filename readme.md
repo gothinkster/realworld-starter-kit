@@ -30,7 +30,7 @@ For more information on how to this works with other frontends/backends, head ov
 
 # TODO
 
-1. home + ListArticle + Tests
+1. home + pages + tags + Tests
 2. login
 3. register
 4. settings
