@@ -51,6 +51,7 @@ export const test = (testTitle = 'controllers/Router', moduleName = 'default', m
         setTimeout(() => {
           test.test('router-render-counts', () => renderCount === 2, undefined, el)
           test.test('router-should-component-render-counts', () => shouldComponentRenderCounter === 3, undefined, el)
+          test.test('history-length', () => history.length === 2, undefined, el)
           resolveTest([test.counter, test.passedCounter, test.failedCounter])
           location.hash = oldHash
         }, 200);

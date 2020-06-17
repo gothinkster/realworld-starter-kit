@@ -48,33 +48,40 @@ export default class ListArticlePreviews extends HTMLElement {
   render (fetchMultipleArticles) {
     fetchMultipleArticles.then(multipleArticles => {
       // TODO:
-      // behavior profile link
       // behavior button favoritesCount to own atom
-      // behavior preview-link
       // TODO: ↑↑↑
-      this.innerHTML = ''
-      multipleArticles.articles.forEach(article => {
-        const articlePreview = document.createElement('div')
-        articlePreview.classList.add('article-preview')
-        articlePreview.innerHTML = `
-          <div class="article-meta">
-            <a href="profile.html"><img src="${article.author.image}" /></a>
-            <div class="info">
-              <a href="" class="author">${article.author.username}</a>
-              <span class="date">${new Date(article.createdAt).toDateString()}</span>
+      if (!multipleArticles.articles || !multipleArticles.articles.length) {
+        this.innerHTML = '<div class="article-preview">No articles are here... yet.</div>'
+      } else {
+        this.innerHTML = ''
+        multipleArticles.articles.forEach(article => {
+          const articlePreview = document.createElement('div')
+          articlePreview.classList.add('article-preview')
+          articlePreview.innerHTML = `
+            <div class="article-meta">
+              <a href="#/profile/${article.author.username}"><img src="${article.author.image}" /></a>
+              <div class="info">
+                <a href="#/profile/${article.author.username}" class="author">${article.author.username}</a>
+                <span class="date">${new Date(article.createdAt).toDateString()}</span>
+              </div>
+              <button class="btn ${article.favorited ? 'btn-primary' : 'btn-outline-primary'} btn-sm pull-xs-right">
+                <i class="ion-heart"></i> ${article.favoritesCount}
+              </button>
             </div>
-            <button class="btn btn-outline-primary btn-sm pull-xs-right">
-              <i class="ion-heart"></i> ${article.favoritesCount}
-            </button>
-          </div>
-          <a href="" class="preview-link">
-            <h1>${article.title}</h1>
-            <p>${article.description}</p>
-            <span>Read more...</span>
-          </a>
-        `
-        this.appendChild(articlePreview)
-      })
+            <a href="#/article/${article.slug}" class="preview-link">
+              <h1>${article.title}</h1>
+              <p>${article.description}</p>
+              <span>Read more...</span>
+              <ul class="tag-list">
+                ${article.tagList.reduce((tagListStr, tag) => (tagListStr += `
+                  <li class="tag-default tag-pill tag-outline">${tag}</li>
+                `), '')}
+              </ul>
+            </a>
+          `
+          this.appendChild(articlePreview)
+        })
+      }
     })
   }
 }
