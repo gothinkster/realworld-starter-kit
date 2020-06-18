@@ -95,8 +95,8 @@
  * @typedef {{ body: string[] }} Error
 */
 
-// JSON Objects returned by API:
-// https://github.com/gothinkster/realworld/tree/master/api#json-objects-returned-by-api
+// Endpoints:
+// https://github.com/gothinkster/realworld/tree/master/api#endpoints
 
 /**
  * Authentication

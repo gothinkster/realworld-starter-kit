@@ -27,14 +27,16 @@ export default class Favorite extends HTMLElement {
      * Listens to the event name/typeArg: 'setFavorite'
      *
      * @param {CustomEvent & {detail: SetFavoriteEventDetail}} event
-     * @return {void | false}
+     * @return {Promise<import("../../helpers/Interfaces.js").SingleArticle | Error> | false}
      */
-    this.setFavoriteListener = (event) => {
-      // TODO: ↓↓↓
-      //  login/authentication
-      // TODO: ↑↑↑
+    this.setFavoriteListener = event => {
+      // TODO: login/authentication
       if (!event.detail.article || !event.detail.resolve) return false
-      fetch(`${Environment.fetchBaseUrl}articles/${event.detail.article.slug}/favorite`, { method: event.detail.article.favorited ? 'DELETE' : 'POST' }).then(response => response.json()).then(
+      const url = `${Environment.fetchBaseUrl}articles/${event.detail.article.slug}/favorite`
+      return fetch(url, { method: event.detail.article.favorited ? 'DELETE' : 'POST' }).then(response => {
+        if (response.status >= 200 && response.status <= 299) return response.json()
+        throw new Error(response.statusText)
+      }).then(
         /**
          * Answer the CustomEvent setFavorite
          * 
@@ -42,11 +44,9 @@ export default class Favorite extends HTMLElement {
          * @return {void | false}
          */
         article => event.detail.resolve(article)
-      ).catch(error => {
-        console.warn(`${Environment.fetchBaseUrl}articles/${event.detail.article.slug}/favorite:`, error)
-        // assume that the user is not logged in and forward to the login page
-        location.hash = '#/login'
-      })
+      // forward to login, if error means that the user is unauthorized
+      // @ts-ignore
+      ).catch(error => error.message === 'Unauthorized' ? location.hash = console.warn(url, 'Unauthorized User:', error) || '#/login' : console.warn(url, error) || error)
     }
   }
 

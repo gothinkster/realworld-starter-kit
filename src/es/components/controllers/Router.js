@@ -68,11 +68,20 @@ export default class Router extends HTMLElement {
         regExp: new RegExp(/^#\/profile/)
       }
     ]
+
+    /**
+     * Listens to hash changes and forwards the new hash to route
+     */
+    this.hashChangeListener = () => this.route(location.hash)
   }
 
   connectedCallback () {
-    self.addEventListener('hashchange', () => this.route(location.hash))
+    self.addEventListener('hashchange', this.hashChangeListener)
     this.route(this.routes.some(route => route.regExp.test(location.hash)) ? location.hash : '#/', true)
+  }
+
+  disconnectedCallback () {
+    self.removeEventListener('hashchange', this.hashChangeListener)
   }
 
   /**

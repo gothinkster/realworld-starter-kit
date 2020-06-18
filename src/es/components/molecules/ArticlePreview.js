@@ -20,10 +20,47 @@ export default class ArticlePreview extends HTMLElement {
 
     // allow innerHTML ArticlePreview with article as a string attribute
     this.article = article || JSON.parse((this.getAttribute('article') || '').replace(/'/g, '"') || '{}')
+    
+    /**
+     * target button or button's only child <i> click to dispatch a CustomEvent setFavorite, which expects a Promise.resolve(new article) as a response
+     *
+     * @param {event & {target: HTMLElement}} event
+     * @return {Promise<import("../../helpers/Interfaces.js").SingleArticle | false> | false}
+     */
+    this.clickListener = event => {
+      const button = this.querySelector('button')
+      if (!event.target || (event.target !== button && event.target.parentElement !== button)) return false
+      event.preventDefault()
+      return new Promise(resolve => {
+        this.dispatchEvent(new CustomEvent('setFavorite', {
+          /** @type {import("../controllers/Favorite.js").SetFavoriteEventDetail} */
+          detail: {
+            article: this.article,
+            resolve
+          },
+          bubbles: true,
+          cancelable: true,
+          composed: true
+        }))
+      }).then(
+        /**
+         * Updates the article with the returned article on favorite api
+         * 
+         * @param {import("../../helpers/Interfaces.js").SingleArticle} article
+         * @return {import("../../helpers/Interfaces.js").SingleArticle | false}
+         */
+        article => this.render(article)
+      )
+    }
+  }
+  
+  connectedCallback () {
+    this.addEventListener('click', this.clickListener)
+    if (this.shouldComponentRender()) this.render(this.article)
   }
 
-  connectedCallback () {
-    if (this.shouldComponentRender()) this.render(this.article)
+  disconnectedCallback () {
+    this.removeEventListener('click', this.clickListener)
   }
 
   /**
@@ -39,7 +76,7 @@ export default class ArticlePreview extends HTMLElement {
    * renders the article
    *
    * @param {import("../../helpers/Interfaces.js").SingleArticle} [article = this.article]
-   * @return {void | false}
+   * @return {article | false}
    */
   render (article = this.article) {
     if (!article.author || !article.tagList) return false
@@ -67,28 +104,6 @@ export default class ArticlePreview extends HTMLElement {
         </a>
       </div>
     `
-    this.querySelector('button').addEventListener('click', event => {
-      event.preventDefault()
-      new Promise(resolve => {
-        this.dispatchEvent(new CustomEvent('setFavorite', {
-          /** @type {import("../controllers/Favorite.js").SetFavoriteEventDetail} */
-          detail: {
-            article,
-            resolve
-          },
-          bubbles: true,
-          cancelable: true,
-          composed: true
-        }))
-      }).then(
-        /**
-         * Updates the article with the returned article on favorite api
-         * 
-         * @param {import("../../helpers/Interfaces.js").SingleArticle} article
-         * @return {void | false}
-         */
-        article => this.render(article)
-      )
-    })
+    return article
   }
 }

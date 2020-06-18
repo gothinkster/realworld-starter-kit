@@ -48,12 +48,13 @@ export default class ListArticles extends HTMLElement {
      *
      * @param {CustomEvent & {detail: RequestListArticlesEventDetail}} event
      */
-    this.requestListArticlesListener = (event) => {
+    this.requestListArticlesListener = event => {
       // assemble query
       let query = ''
       for (const key in event.detail) {
         query += `${query ? '&' : '?'}${key}=${event.detail[key]}`
       }
+      const url = `${Environment.fetchBaseUrl}articles${query}`
       // reset old AbortController and assign new one
       if (this.abortController) this.abortController.abort()
       this.abortController = new AbortController()
@@ -63,7 +64,11 @@ export default class ListArticles extends HTMLElement {
         detail: {
           query: event.detail,
           queryString: query,
-          fetch: fetch(`${Environment.fetchBaseUrl}articles${query}`, { signal: this.abortController.signal }).then(response => response.json())
+          fetch: fetch(url, { signal: this.abortController.signal }).then(response => {
+            if (response.status >= 200 && response.status <= 299) return response.json()
+            throw new Error(response.statusText)
+          // @ts-ignore
+          }).catch(error => console.warn(url, error) || error)
         },
         bubbles: true,
         cancelable: true,
