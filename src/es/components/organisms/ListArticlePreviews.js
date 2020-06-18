@@ -1,7 +1,8 @@
 // @ts-check
 
-/* global HTMLElement */
+/* global customElements */
 /* global CustomEvent */
+/* global HTMLElement */
 
 /**
  * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#ListArticles
@@ -59,7 +60,8 @@ export default class ListArticlePreviews extends HTMLElement {
           this.appendChild(articlePreview)
         })
       }
-    })
+    // @ts-ignore
+    }).catch(error => (this.innerHTML = console.warn(error) || '<div class="article-preview">An error occurred fetching the articles!</div>'))
   }
 
   /**

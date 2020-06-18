@@ -109,7 +109,8 @@ export default class Router extends HTMLElement {
         return (route.component = document.createElement(route.name))
       })).then(component => {
         if (this.shouldComponentRender(route.name)) this.render(component)
-      }).catch(error => console.warn('Router did not find:', route))
+      // @ts-ignore
+      }).catch(error => console.warn('Router did not find:', route) || error)
     }
   }
 

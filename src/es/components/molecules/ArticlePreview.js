@@ -1,5 +1,6 @@
 // @ts-check
 
+/* global CustomEvent */
 /* global HTMLElement */
 
 /**
@@ -20,7 +21,7 @@ export default class ArticlePreview extends HTMLElement {
 
     // allow innerHTML ArticlePreview with article as a string attribute
     this.article = article || JSON.parse((this.getAttribute('article') || '').replace(/'/g, '"') || '{}')
-    
+
     /**
      * target button or button's only child <i> click to dispatch a CustomEvent setFavorite, which expects a Promise.resolve(new article) as a response
      *
@@ -45,7 +46,7 @@ export default class ArticlePreview extends HTMLElement {
       }).then(
         /**
          * Updates the article with the returned article on favorite api
-         * 
+         *
          * @param {import("../../helpers/Interfaces.js").SingleArticle} article
          * @return {import("../../helpers/Interfaces.js").SingleArticle | false}
          */
@@ -53,7 +54,7 @@ export default class ArticlePreview extends HTMLElement {
       )
     }
   }
-  
+
   connectedCallback () {
     this.addEventListener('click', this.clickListener)
     if (this.shouldComponentRender()) this.render(this.article)

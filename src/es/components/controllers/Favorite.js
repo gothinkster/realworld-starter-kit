@@ -1,7 +1,8 @@
 // @ts-check
 
-/* global HTMLElement */
 /* global fetch */
+/* global HTMLElement */
+/* global location */
 
 /**
  * https://github.com/gothinkster/realworld/tree/master/api#favorite-article
@@ -39,14 +40,14 @@ export default class Favorite extends HTMLElement {
       }).then(
         /**
          * Answer the CustomEvent setFavorite
-         * 
+         *
          * @param {import("../../helpers/Interfaces.js").SingleArticle} article
          * @return {void | false}
          */
         article => event.detail.resolve(article)
       // forward to login, if error means that the user is unauthorized
       // @ts-ignore
-      ).catch(error => error.message === 'Unauthorized' ? location.hash = console.warn(url, 'Unauthorized User:', error) || '#/login' : console.warn(url, error) || error)
+      ).catch(error => error.message === 'Unauthorized' ? (location.hash = console.warn(url, 'Unauthorized User:', error) || '#/login') : console.warn(url, error) || error)
     }
   }
 
