@@ -46,16 +46,7 @@ export default class Home extends HTMLElement {
             <div class="row">
 
               <div class="col-md-9">
-                <div class="feed-toggle">
-                  <ul class="nav nav-pills outline-active">
-                    <li class="nav-item">
-                      <a class="nav-link disabled" href="">Your Feed</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link active" href="">Global Feed</a>
-                    </li>
-                  </ul>
-                </div>
+                <m-article-feed-toggle></m-article-feed-toggle>
 
                 <c-favorite>
                   <o-list-article-previews><div class="article-preview">Loading...</div></o-list-article-previews>
@@ -99,6 +90,10 @@ export default class Home extends HTMLElement {
       import('../controllers/GetTags.js').then(
         /** @returns {[string, CustomElementConstructor]} */
         module => ['c-get-tags', module.default]
+      ),
+      import('../molecules/ArticleFeedToggle.js').then(
+        /** @returns {[string, CustomElementConstructor]} */
+        module => ['m-article-feed-toggle', module.default]
       ),
       import('../organisms/ListArticlePreviews.js').then(
         /** @returns {[string, CustomElementConstructor]} */
