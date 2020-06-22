@@ -52,6 +52,8 @@ export default class Home extends HTMLElement {
                   <o-list-article-previews><div class="article-preview">Loading...</div></o-list-article-previews>
                 </c-favorite>
 
+                <m-pagination></m-pagination>
+
               </div>
 
               <div class="col-md-3">
@@ -102,6 +104,11 @@ export default class Home extends HTMLElement {
       import('../molecules/TagList.js').then(
         /** @returns {[string, CustomElementConstructor]} */
         module => ['m-tag-list', module.default]
+      )
+      ,
+      import('../molecules/Pagination.js').then(
+        /** @returns {[string, CustomElementConstructor]} */
+        module => ['m-pagination', module.default]
       )
     ]).then(elements => {
       elements.forEach(element => {

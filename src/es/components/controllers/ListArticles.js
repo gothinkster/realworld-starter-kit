@@ -49,10 +49,12 @@ export default class ListArticles extends HTMLElement {
      * @param {CustomEvent & {detail: RequestListArticlesEventDetail}} event
      */
     this.requestListArticlesListener = event => {
+      // add default limit
+      const detail = Object.assign({ limit: Environment.articlesPerPageLimit }, event.detail)
       // assemble query
       let query = ''
-      for (const key in event.detail) {
-        query += `${query ? '&' : '?'}${key}=${event.detail[key]}`
+      for (const key in detail) {
+        query += `${query ? '&' : '?'}${key}=${detail[key]}`
       }
       const url = `${Environment.fetchBaseUrl}articles${query}`
       // reset old AbortController and assign new one
@@ -62,7 +64,7 @@ export default class ListArticles extends HTMLElement {
       this.dispatchEvent(new CustomEvent('listArticles', {
         /** @type {ListArticlesEventDetail} */
         detail: {
-          query: event.detail,
+          query: detail,
           queryString: query,
           fetch: fetch(url, { signal: this.abortController.signal }).then(response => {
             if (response.status >= 200 && response.status <= 299) return response.json()
