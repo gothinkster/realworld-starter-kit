@@ -14,7 +14,7 @@ class EnvironmentClass {
 
     /**
      * it seems as the conduit example always limits by 10 articles per page
-     * 
+     *
      * @type {number}
      */
     this.articlesPerPageLimit = 10

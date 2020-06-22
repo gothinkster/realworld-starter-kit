@@ -1,7 +1,6 @@
 // @ts-check
 
 /* global customElements */
-/* global CustomEvent */
 /* global HTMLElement */
 
 /**

@@ -104,8 +104,7 @@ export default class Home extends HTMLElement {
       import('../molecules/TagList.js').then(
         /** @returns {[string, CustomElementConstructor]} */
         module => ['m-tag-list', module.default]
-      )
-      ,
+      ),
       import('../molecules/Pagination.js').then(
         /** @returns {[string, CustomElementConstructor]} */
         module => ['m-pagination', module.default]
