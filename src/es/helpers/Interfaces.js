@@ -89,6 +89,15 @@
 */
 
 /**
+ * MultipleTags
+ * https://github.com/gothinkster/realworld/tree/master/api#multiple-articles
+ *
+ * @typedef {{
+  tags: Tag[],
+}} MultipleTags
+*/
+
+/**
  * Error
  * https://github.com/gothinkster/realworld/tree/master/api#errors-and-status-codes
  *

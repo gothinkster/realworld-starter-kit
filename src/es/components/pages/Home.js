@@ -67,16 +67,9 @@ export default class Home extends HTMLElement {
                 <div class="sidebar">
                   <p>Popular Tags</p>
 
-                  <div class="tag-list">
-                    <a href="" class="tag-pill tag-default">programming</a>
-                    <a href="" class="tag-pill tag-default">javascript</a>
-                    <a href="" class="tag-pill tag-default">emberjs</a>
-                    <a href="" class="tag-pill tag-default">angularjs</a>
-                    <a href="" class="tag-pill tag-default">react</a>
-                    <a href="" class="tag-pill tag-default">mean</a>
-                    <a href="" class="tag-pill tag-default">node</a>
-                    <a href="" class="tag-pill tag-default">rails</a>
-                  </div>
+                  <c-get-tags>
+                    <m-tag-list><div class="tag-list">Loading...</div></m-tag-list>
+                  </c-get-tags>
                 </div>
               </div>
 
@@ -103,9 +96,17 @@ export default class Home extends HTMLElement {
         /** @returns {[string, CustomElementConstructor]} */
         module => ['c-favorite', module.default]
       ),
+      import('../controllers/GetTags.js').then(
+        /** @returns {[string, CustomElementConstructor]} */
+        module => ['c-get-tags', module.default]
+      ),
       import('../organisms/ListArticlePreviews.js').then(
         /** @returns {[string, CustomElementConstructor]} */
         module => ['o-list-article-previews', module.default]
+      ),
+      import('../molecules/TagList.js').then(
+        /** @returns {[string, CustomElementConstructor]} */
+        module => ['m-tag-list', module.default]
       )
     ]).then(elements => {
       elements.forEach(element => {

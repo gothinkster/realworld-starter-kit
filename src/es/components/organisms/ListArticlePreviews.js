@@ -50,7 +50,7 @@ export default class ListArticlePreviews extends HTMLElement {
   render (fetchMultipleArticles) {
     Promise.all([fetchMultipleArticles, this.loadChildComponents()]).then(result => {
       const [multipleArticles, children] = result
-      if (!multipleArticles.articles || !multipleArticles.articles.length) {
+      if (!multipleArticles || !multipleArticles.articles || !multipleArticles.articles.length) {
         this.innerHTML = '<div class="article-preview">No articles are here... yet.</div>'
       } else {
         this.innerHTML = ''

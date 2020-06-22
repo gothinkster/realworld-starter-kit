@@ -30,8 +30,8 @@ For more information on how to this works with other frontends/backends, head ov
 
 # TODO
 
-0. Tests (controllers/Favorite.js + molecules/ArticlePreview.js + organisms/ListArticlePreviews.js)
-1. home (pages + tags + Tests)
+0. Tests (controllers/Favorite.js + controllers/GetTags.js + molecules/ArticlePreview.js + molecules/TagList.js + organisms/ListArticlePreviews.js)
+1. home (tags routs at nav-link)
 2. login
 3. register
 4. settings
