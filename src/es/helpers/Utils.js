@@ -8,4 +8,4 @@
  * @param {string} src
  * @return {string}
  */
-export const secureImageSrc = src => src.replace(/\".*/g, '')
+export const secureImageSrc = src => src ? src.replace(/\".*/g, '') : src
