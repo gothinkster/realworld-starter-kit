@@ -49,19 +49,20 @@ export const test = (testTitle = 'molecules/ArticlePreview', moduleName = 'defau
     // test click setFavorite button
     let gotClicks = 0
     let gotSetFavoriteClicks = 0
-    let func
-    document.body.addEventListener('setFavorite', (func = event => {
+    let func1
+    document.body.addEventListener('setFavorite', (func1 = event => {
       gotClicks = !!event?.detail?.article && typeof event?.detail?.resolve === 'function' ? gotClicks + 1 : gotClicks
     }))
     // click above favorite button
-    document.body.addEventListener('click', (func = event => {
+    let func2
+    document.body.addEventListener('click', (func2 = event => {
       gotClicks++
     }))
     el.querySelector('button')?.click()
     el.querySelector('.ion-heart')?.click()
     el.querySelector('.info')?.click()
-    document.body.removeEventListener('setFavorite', func)
-    document.body.removeEventListener('click', func)
+    document.body.removeEventListener('setFavorite', func1)
+    document.body.removeEventListener('click', func2)
     test.test('article-preview-click-counts', () => gotClicks === 5, undefined, el)
     // remove and append to trigger connectedCallback
     el.remove()

@@ -30,7 +30,7 @@ For more information on how to this works with other frontends/backends, head ov
 
 # TODO
 
-0. Tests (controllers/Favorite.js + molecules/TagList.js + molecules/ArticleFeedToggle.js + molecules/Pagination.js + organisms/ListArticlePreviews.js)
+0. Tests (controllers/Favorite.js + molecules/TagList.js + molecules/Pagination.js + organisms/ListArticlePreviews.js)
 1. login
 2. register
 3. settings
