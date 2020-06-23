@@ -3,6 +3,8 @@
 /* global CustomEvent */
 /* global HTMLElement */
 
+import { secureImageSrc } from '../../helpers/Utils.js'
+
 /**
  * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#home
  * As a molecule, this component shall hold Atoms
@@ -84,7 +86,7 @@ export default class ArticlePreview extends HTMLElement {
     this.innerHTML = `
       <div class="article-preview">
         <div class="article-meta">
-          <a href="#/profile/${article.author.username}"><img src="${article.author.image}" /></a>
+          <a href="#/profile/${article.author.username}"><img src="${secureImageSrc(article.author.image)}" /></a>
           <div class="info">
             <a href="#/profile/${article.author.username}" class="author">${article.author.username}</a>
             <span class="date">${new Date(article.createdAt).toDateString()}</span>
