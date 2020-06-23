@@ -46,6 +46,23 @@ export const test = (testTitle = 'molecules/ArticlePreview', moduleName = 'defau
     }
     el.render()
     test.test('article-preview-content', el => !!el.querySelector('.article-meta') && el.querySelector('.author')?.textContent === 'test' && el.querySelector('.tag-default')?.textContent === 'testTag', undefined, el)
+    // test click setFavorite button
+    let gotClicks = 0
+    let gotSetFavoriteClicks = 0
+    let func
+    document.body.addEventListener('setFavorite', (func = event => {
+      gotClicks = !!event?.detail?.article && typeof event?.detail?.resolve === 'function' ? gotClicks + 1 : gotClicks
+    }))
+    // click above favorite button
+    document.body.addEventListener('click', (func = event => {
+      gotClicks++
+    }))
+    el.querySelector('button')?.click()
+    el.querySelector('.ion-heart')?.click()
+    el.querySelector('.info')?.click()
+    document.body.removeEventListener('setFavorite', func)
+    document.body.removeEventListener('click', func)
+    test.test('article-preview-click-counts', () => gotClicks === 5, undefined, el)
     // remove and append to trigger connectedCallback
     el.remove()
     parent.appendChild(el)
