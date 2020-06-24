@@ -76,6 +76,7 @@
     import {test as footerTest} from './es/tests/components/organisms/Footer.js'
     import {test as articlePreviewTest} from './es/tests/components/molecules/ArticlePreview.js'
     import {test as articleFeedToggleTest} from './es/tests/components/molecules/ArticleFeedToggle.js'
+    import {test as tagListTest} from './es/tests/components/molecules/TagList.js'
     const timeoutID = setTimeout(() => {
       document.title += ' - TIMEOUT!'
       document.body.classList.add('failed')
@@ -88,7 +89,8 @@
       headerTest(),
       footerTest(),
       articlePreviewTest(),
-      articleFeedToggleTest()
+      articleFeedToggleTest(),
+      tagListTest()
     ]).then(results => {
       let counter = 0
       let passedCounter = 0
