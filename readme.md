@@ -30,7 +30,8 @@ For more information on how to this works with other frontends/backends, head ov
 
 # TODO
 
-0. Tests (controllers/Favorite.js + organisms/ListArticlePreviews.js)
+0. Tests for: 
+  - controllers/Favorite.js
 1. login
 2. register
 3. settings
