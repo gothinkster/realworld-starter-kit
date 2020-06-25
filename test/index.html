@@ -76,6 +76,7 @@
     import {test as footerTest} from './es/tests/components/organisms/Footer.js'
     import {test as articlePreviewTest} from './es/tests/components/molecules/ArticlePreview.js'
     import {test as articleFeedToggleTest} from './es/tests/components/molecules/ArticleFeedToggle.js'
+    import {test as paginationTest} from './es/tests/components/molecules/Pagination.js'
     import {test as tagListTest} from './es/tests/components/molecules/TagList.js'
     const timeoutID = setTimeout(() => {
       document.title += ' - TIMEOUT!'
@@ -90,6 +91,7 @@
       footerTest(),
       articlePreviewTest(),
       articleFeedToggleTest(),
+      paginationTest(),
       tagListTest()
     ]).then(results => {
       let counter = 0

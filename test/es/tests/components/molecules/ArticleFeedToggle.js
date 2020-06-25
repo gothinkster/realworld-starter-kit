@@ -41,7 +41,7 @@ export const test = (testTitle = 'molecules/ArticleFeedToggle', moduleName = 'de
     test.test('article-feed-toggle-content', el => el.querySelector('ul')?.children?.length === 2, undefined, el)
     // feed article query tag
     parent.dispatchEvent(new CustomEvent('listArticles', {
-      /** @type {ListArticlesEventDetail} */
+      /** @type {import("../../../../../src/es/components/controllers/ListArticles.js").ListArticlesEventDetail} */
       detail: {
         query: { tag: 'Test' }
       },
