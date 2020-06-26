@@ -20,12 +20,12 @@ class MainContainerController extends ComponentController {
     static getConfig() {return {
         /**
          * @member {String} className='RealWorld.view.MainContainerController'
-         * @private
+         * @protected
          */
         className: 'RealWorld.view.MainContainerController',
         /**
          * @member {RealWorld.view.article.Component|null} articleComponent=null
-         * @private
+         * @protected
          */
         articleComponent: null,
         /**
@@ -34,13 +34,13 @@ class MainContainerController extends ComponentController {
         articlesOffset_: 0,
         /**
          * @member {RealWorld.view.article.CreateComponent|null} createComponent=null
-         * @private
+         * @protected
          */
         createComponent: null,
         /**
          * Stores the current user data after logging in
          * @member {Object|null} currentUser_=null
-         * @private
+         * @protected
          */
         currentUser_: null,
         /**
@@ -49,22 +49,22 @@ class MainContainerController extends ComponentController {
         hashString: null,
         /**
          * @member {RealWorld.view.HomeComponent|null} homeComponent=null
-         * @private
+         * @protected
          */
         homeComponent: null,
         /**
          * @member {RealWorld.view.user.ProfileComponent|null} profileComponent=null
-         * @private
+         * @protected
          */
         profileComponent: null,
         /**
          * @member {RealWorld.view.user.SettingsComponent|null} settingsComponent=null
-         * @private
+         * @protected
          */
         settingsComponent: null,
         /**
          * @member {RealWorld.view.user.SignUpComponent|null} signUpComponent=null
-         * @private
+         * @protected
          */
         signUpComponent: null
     }}
@@ -78,7 +78,11 @@ class MainContainerController extends ComponentController {
 
         // default route => home
         if (!Neo.config.hash) {
-            me.onHashChange({'/': ''}, null, '/');
+            me.onHashChange({
+                appName   : 'RealWorld',
+                hash      : {'/': ''},
+                hashString: '/'
+            }, null);
         }
     }
 
@@ -86,7 +90,7 @@ class MainContainerController extends ComponentController {
      * Triggered after the articlesOffset config got changed
      * @param {Object} value
      * @param {Object} oldValue
-     * @private
+     * @protected
      */
     afterSetArticlesOffset(value, oldValue) {
         // ignore the initial config setter call
@@ -99,7 +103,7 @@ class MainContainerController extends ComponentController {
      * Triggered after the currentUser config got changed
      * @param {Object} value
      * @param {Object} oldValue
-     * @private
+     * @protected
      */
     afterSetCurrentUser(value, oldValue) {
         if (typeof oldValue === 'object') {
@@ -299,36 +303,37 @@ class MainContainerController extends ComponentController {
      *
      * @param {Object} value
      * @param {Object} oldValue
-     * @param {String} hashString
      */
-    onHashChange(value, oldValue, hashString) {
-        let me    = this,
-            view = me.view,
+    onHashChange(value, oldValue) {
+        let me         = this,
+            hash       = value.hash,
+            hashString = value.hashString,
+            view       = me.view,
             newView, slug;
 
         if (!view.mounted) { // the initial hash change gets triggered before the vnode got back from the vdom worker (using autoMount)
             view.on('mounted', () => {
-                me.onHashChange(value, oldValue, hashString);
+                me.onHashChange(value, oldValue);
             });
         } else {
-            console.log('onHashChange', value, hashString);
+            console.log('onHashChange', value, oldValue);
 
             me.hashString = hashString;
 
             // adjust the active header link
-            view.items[0].activeItem = Object.keys(value)[0];
+            view.items[0].activeItem = Object.keys(hash)[0];
 
                  if (hashString === '/')                {newView = me.getView('homeComponent',     HomeComponent,     'home');}
             else if (hashString.includes('/article/'))  {newView = me.getView('articleComponent',  ArticleComponent,  'article');}
             else if (hashString.includes('/editor'))    {newView = me.getView('createComponent',   CreateComponent,   'editor');}
             else if (hashString.includes('/profile/'))  {newView = me.getView('profileComponent',  ProfileComponent,  'profile');}
-            else if (value.hasOwnProperty('/login'))    {newView = me.getView('signUpComponent',   SignUpComponent,   'signup'); newView.mode = 'signin';}
-            else if (value.hasOwnProperty('/register')) {newView = me.getView('signUpComponent',   SignUpComponent,   'signup'); newView.mode = 'signup';}
-            else if (value.hasOwnProperty('/settings')) {newView = me.getView('settingsComponent', SettingsComponent, 'settings');}
+            else if (hash.hasOwnProperty('/login'))    {newView = me.getView('signUpComponent',   SignUpComponent,   'signup'); newView.mode = 'signin';}
+            else if (hash.hasOwnProperty('/register')) {newView = me.getView('signUpComponent',   SignUpComponent,   'signup'); newView.mode = 'signup';}
+            else if (hash.hasOwnProperty('/settings')) {newView = me.getView('settingsComponent', SettingsComponent, 'settings');}
 
-            if (!(oldValue && (
-                oldValue.hasOwnProperty('/login')    && value.hasOwnProperty('/register') ||
-                oldValue.hasOwnProperty('/register') && value.hasOwnProperty('/login')))
+            if (!(oldValue && oldValue.hash && (
+                oldValue.hash.hasOwnProperty('/login')    && hash.hasOwnProperty('/register') ||
+                oldValue.hash.hasOwnProperty('/register') && hash.hasOwnProperty('/login')))
             ) {
                 if (view.items.length > 2) {
                     view.removeAt(1, false, true);
