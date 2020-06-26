@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.tab.header.Toolbar",
             "$kind": "class",
-            "id": 1820,
+            "id": 1836,
             "neoClassName": "Neo.tab.header.Toolbar"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.tab.header.Toolbar'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.tab.header.Toolbar'\n         * @protected\n         */",
             "meta": {
                 "filename": "Toolbar.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.tab.header.Toolbar'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1821,
+            "id": 1837,
             "neoClassName": "Neo.tab.header.Toolbar"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='tab-header-toolbar'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='tab-header-toolbar'\n         * @protected\n         */",
             "meta": {
                 "filename": "Toolbar.mjs",
                 "lineno": 18,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'tab-header-toolbar'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1822,
+            "id": 1838,
             "neoClassName": "Neo.tab.header.Toolbar"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1823,
+            "id": 1839,
             "neoClassName": "Neo.tab.header.Toolbar"
         },
         {
@@ -117,22 +117,22 @@
             "scope": "global",
             "$longname": "useActiveTabIndicator_",
             "$kind": "property",
-            "id": 1824,
+            "id": 1840,
             "neoClassName": "Neo.tab.header.Toolbar"
         },
         {
-            "comment": "/**\n     * Triggered after the useActiveTabIndicator config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the useActiveTabIndicator config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    946,
-                    1338
+                    952,
+                    1344
                 ],
                 "filename": "Toolbar.mjs",
                 "lineno": 35,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab/header",
                 "code": {
-                    "id": "astnode100058041",
+                    "id": "astnode100059005",
                     "name": "Toolbar#afterSetUseActiveTabIndicator",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -163,7 +163,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetUseActiveTabIndicator",
             "longname": "Toolbar#afterSetUseActiveTabIndicator",
             "kind": "function",
@@ -171,22 +171,22 @@
             "scope": "instance",
             "$longname": "Toolbar#afterSetUseActiveTabIndicator",
             "$kind": "method",
-            "id": 1825,
+            "id": 1841,
             "neoClassName": "Neo.tab.header.Toolbar"
         },
         {
-            "comment": "/**\n     *\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1383,
-                    1613
+                    1391,
+                    1621
                 ],
                 "filename": "Toolbar.mjs",
                 "lineno": 54,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab/header",
                 "code": {
-                    "id": "astnode100058091",
+                    "id": "astnode100059055",
                     "name": "Toolbar#createItems",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -195,7 +195,7 @@
                     "": null
                 }
             },
-            "access": "private",
+            "access": "protected",
             "name": "createItems",
             "longname": "Toolbar#createItems",
             "kind": "function",
@@ -204,22 +204,22 @@
             "params": [],
             "$longname": "Toolbar#createItems",
             "$kind": "method",
-            "id": 1826,
+            "id": 1842,
             "neoClassName": "Neo.tab.header.Toolbar"
         },
         {
-            "comment": "/**\n     * Returns the layout config matching to the dock position\n     * @returns {Object} layoutConfig\n     * @private\n     */",
+            "comment": "/**\n     * Returns the layout config matching to the dock position\n     * @returns {Object} layoutConfig\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1752,
-                    2632
+                    1762,
+                    2642
                 ],
                 "filename": "Toolbar.mjs",
                 "lineno": 69,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab/header",
                 "code": {
-                    "id": "astnode100058125",
+                    "id": "astnode100059089",
                     "name": "Toolbar#getLayoutConfig",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -239,7 +239,7 @@
                     "description": "layoutConfig"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "getLayoutConfig",
             "longname": "Toolbar#getLayoutConfig",
             "kind": "function",
@@ -248,7 +248,7 @@
             "params": [],
             "$longname": "Toolbar#getLayoutConfig",
             "$kind": "method",
-            "id": 1827,
+            "id": 1843,
             "neoClassName": "Neo.tab.header.Toolbar"
         }
     ]

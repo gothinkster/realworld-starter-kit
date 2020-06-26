@@ -26,11 +26,11 @@
             "scope": "static",
             "$longname": "Neo.manager.Instance",
             "$kind": "class",
-            "id": 1578,
+            "id": 1593,
             "neoClassName": "Neo.manager.Instance"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.manager.Instance'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.manager.Instance'\n         * @protected\n         */",
             "meta": {
                 "filename": "Instance.mjs",
                 "lineno": 15,
@@ -46,16 +46,16 @@
                 ]
             },
             "defaultvalue": "'Neo.manager.Instance'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1579,
+            "id": 1594,
             "neoClassName": "Neo.manager.Instance"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='instance-manager'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='instance-manager'\n         * @protected\n         */",
             "meta": {
                 "filename": "Instance.mjs",
                 "lineno": 20,
@@ -71,16 +71,16 @@
                 ]
             },
             "defaultvalue": "'instance-manager'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1580,
+            "id": 1595,
             "neoClassName": "Neo.manager.Instance"
         },
         {
-            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @private\n         */",
+            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @protected\n         */",
             "meta": {
                 "filename": "Instance.mjs",
                 "lineno": 25,
@@ -96,27 +96,27 @@
                 ]
             },
             "defaultvalue": true,
-            "access": "private",
+            "access": "protected",
             "longname": "singleton",
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1581,
+            "id": 1596,
             "neoClassName": "Neo.manager.Instance"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    679,
-                    880
+                    685,
+                    886
                 ],
                 "filename": "Instance.mjs",
                 "lineno": 32,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048601",
+                    "id": "astnode100049500",
                     "name": "Instance",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -143,22 +143,22 @@
             "scope": "global",
             "$longname": "Instance",
             "$kind": "constructor",
-            "id": 1582,
+            "id": 1597,
             "neoClassName": "Neo.manager.Instance"
         },
         {
-            "comment": "/**\n     * Register all ids which got applied to the Neo namespace before this instance got created\n     * @private\n     */",
+            "comment": "/**\n     * Register all ids which got applied to the Neo namespace before this instance got created\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1014,
-                    1152
+                    1022,
+                    1160
                 ],
                 "filename": "Instance.mjs",
                 "lineno": 48,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048637",
+                    "id": "astnode100049536",
                     "name": "Instance#consumeNeoIdMap",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -168,7 +168,7 @@
                 }
             },
             "description": "Register all ids which got applied to the Neo namespace before this instance got created",
-            "access": "private",
+            "access": "protected",
             "name": "consumeNeoIdMap",
             "longname": "Instance#consumeNeoIdMap",
             "kind": "function",
@@ -177,7 +177,7 @@
             "params": [],
             "$longname": "Instance#consumeNeoIdMap",
             "$kind": "method",
-            "id": 1583,
+            "id": 1598,
             "neoClassName": "Neo.manager.Instance"
         }
     ]

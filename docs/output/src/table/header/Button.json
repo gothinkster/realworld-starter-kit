@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.table.header.Button",
             "$kind": "class",
-            "id": 1884,
+            "id": 1900,
             "neoClassName": "Neo.table.header.Button"
         },
         {
-            "comment": "/**\n         * Valid values for align\n         * @member {String[]} alignValues: ['left', 'center', 'right']\n         * @private\n         * @static\n         */",
+            "comment": "/**\n         * Valid values for align\n         * @member {String[]} alignValues: ['left', 'center', 'right']\n         * @protected\n         * @static\n         */",
             "meta": {
                 "filename": "Button.mjs",
                 "lineno": 16,
@@ -39,16 +39,16 @@
                     "Array.<String>"
                 ]
             },
-            "access": "private",
+            "access": "protected",
             "scope": "static",
             "longname": "alignValues:",
             "$longname": "alignValues:",
             "$kind": "property",
-            "id": 1885,
+            "id": 1901,
             "neoClassName": "Neo.table.header.Button"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.table.header.Button'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.table.header.Button'\n         * @protected\n         */",
             "meta": {
                 "filename": "Button.mjs",
                 "lineno": 24,
@@ -64,16 +64,16 @@
                 ]
             },
             "defaultvalue": "'Neo.table.header.Button'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1886,
+            "id": 1902,
             "neoClassName": "Neo.table.header.Button"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='table-header-button'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='table-header-button'\n         * @protected\n         */",
             "meta": {
                 "filename": "Button.mjs",
                 "lineno": 29,
@@ -89,12 +89,12 @@
                 ]
             },
             "defaultvalue": "'table-header-button'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1887,
+            "id": 1903,
             "neoClassName": "Neo.table.header.Button"
         },
         {
@@ -119,7 +119,7 @@
             "scope": "global",
             "$longname": "align_",
             "$kind": "property",
-            "id": 1888,
+            "id": 1904,
             "neoClassName": "Neo.table.header.Button"
         },
         {
@@ -143,7 +143,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1889,
+            "id": 1905,
             "neoClassName": "Neo.table.header.Button"
         },
         {
@@ -168,7 +168,7 @@
             "scope": "global",
             "$longname": "defaultSortDirection",
             "$kind": "property",
-            "id": 1890,
+            "id": 1906,
             "neoClassName": "Neo.table.header.Button"
         },
         {
@@ -192,7 +192,7 @@
             "scope": "global",
             "$longname": "draggable_",
             "$kind": "property",
-            "id": 1891,
+            "id": 1907,
             "neoClassName": "Neo.table.header.Button"
         },
         {
@@ -217,7 +217,7 @@
             "scope": "global",
             "$longname": "iconCls",
             "$kind": "property",
-            "id": 1892,
+            "id": 1908,
             "neoClassName": "Neo.table.header.Button"
         },
         {
@@ -241,11 +241,11 @@
             "scope": "global",
             "$longname": "iconPosition",
             "$kind": "property",
-            "id": 1893,
+            "id": 1909,
             "neoClassName": "Neo.table.header.Button"
         },
         {
-            "comment": "/**\n         * 'ASC', 'DESC' or null\n         * @member {String|null} isSorted_=null\n         * @private\n         */",
+            "comment": "/**\n         * 'ASC', 'DESC' or null\n         * @member {String|null} isSorted_=null\n         * @protected\n         */",
             "meta": {
                 "filename": "Button.mjs",
                 "lineno": 61,
@@ -263,12 +263,12 @@
                 ]
             },
             "defaultvalue": null,
-            "access": "private",
+            "access": "protected",
             "longname": "isSorted_",
             "scope": "global",
             "$longname": "isSorted_",
             "$kind": "property",
-            "id": 1894,
+            "id": 1910,
             "neoClassName": "Neo.table.header.Button"
         },
         {
@@ -294,7 +294,7 @@
             "scope": "global",
             "$longname": "rendererScope",
             "$kind": "property",
-            "id": 1895,
+            "id": 1911,
             "neoClassName": "Neo.table.header.Button"
         },
         {
@@ -317,22 +317,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 1896,
+            "id": 1912,
             "neoClassName": "Neo.table.header.Button"
         },
         {
             "comment": "/**\n     * Specify a different vdom root if needed to apply the top level style attributes on a different level.\n     * Make sure to use getVnodeRoot() as well, to keep the vdom & vnode trees in sync.\n     * @returns {Object} The new vdom root\n     */",
             "meta": {
                 "range": [
-                    2655,
-                    2708
+                    2663,
+                    2716
                 ],
                 "filename": "Button.mjs",
                 "lineno": 91,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100059571",
+                    "id": "astnode100060535",
                     "name": "Button#getVdomRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -360,22 +360,22 @@
             "params": [],
             "$longname": "Button#getVdomRoot",
             "$kind": "method",
-            "id": 1897,
+            "id": 1913,
             "neoClassName": "Neo.table.header.Button"
         },
         {
             "comment": "/**\n     * Specify a different vnode root if needed to apply the top level style attributes on a different level.\n     * Make sure to use getVdomRoot() as well, to keep the vdom & vnode trees in sync.\n     * @returns {Object} The new vnode root\n     */",
             "meta": {
                 "range": [
-                    2971,
-                    3034
+                    2979,
+                    3042
                 ],
                 "filename": "Button.mjs",
                 "lineno": 100,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100059583",
+                    "id": "astnode100060547",
                     "name": "Button#getVnodeRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -403,22 +403,22 @@
             "params": [],
             "$longname": "Button#getVnodeRoot",
             "$kind": "method",
-            "id": 1898,
+            "id": 1914,
             "neoClassName": "Neo.table.header.Button"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    3093,
-                    3664
+                    3101,
+                    3672
                 ],
                 "filename": "Button.mjs",
                 "lineno": 108,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100059595",
+                    "id": "astnode100060559",
                     "name": "Button",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -445,22 +445,22 @@
             "scope": "global",
             "$longname": "Button",
             "$kind": "constructor",
-            "id": 1899,
+            "id": 1915,
             "neoClassName": "Neo.table.header.Button"
         },
         {
-            "comment": "/**\n     * Triggered after the draggable config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the draggable config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3821,
-                    4093
+                    3831,
+                    4103
                 ],
                 "filename": "Button.mjs",
                 "lineno": 137,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100059659",
+                    "id": "astnode100060623",
                     "name": "Button#afterSetDraggable",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -491,7 +491,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetDraggable",
             "longname": "Button#afterSetDraggable",
             "kind": "function",
@@ -499,22 +499,22 @@
             "scope": "instance",
             "$longname": "Button#afterSetDraggable",
             "$kind": "method",
-            "id": 1900,
+            "id": 1916,
             "neoClassName": "Neo.table.header.Button"
         },
         {
-            "comment": "/**\n     * Triggered after the isSorted config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the isSorted config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4249,
-                    5278
+                    4261,
+                    5290
                 ],
                 "filename": "Button.mjs",
                 "lineno": 156,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100059703",
+                    "id": "astnode100060667",
                     "name": "Button#afterSetIsSorted",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -545,7 +545,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetIsSorted",
             "longname": "Button#afterSetIsSorted",
             "kind": "function",
@@ -553,22 +553,22 @@
             "scope": "instance",
             "$longname": "Button#afterSetIsSorted",
             "$kind": "method",
-            "id": 1901,
+            "id": 1917,
             "neoClassName": "Neo.table.header.Button"
         },
         {
-            "comment": "/**\n     * Triggered before the align config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered before the align config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5431,
-                    5551
+                    5445,
+                    5565
                 ],
                 "filename": "Button.mjs",
                 "lineno": 198,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100059819",
+                    "id": "astnode100060783",
                     "name": "Button#beforeSetAlign",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -599,7 +599,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeSetAlign",
             "longname": "Button#beforeSetAlign",
             "kind": "function",
@@ -607,22 +607,22 @@
             "scope": "instance",
             "$longname": "Button#beforeSetAlign",
             "$kind": "method",
-            "id": 1902,
+            "id": 1918,
             "neoClassName": "Neo.table.header.Button"
         },
         {
-            "comment": "/**\n     * @private\n     */",
+            "comment": "/**\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5589,
-                    6018
+                    5605,
+                    6034
                 ],
                 "filename": "Button.mjs",
                 "lineno": 205,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100059834",
+                    "id": "astnode100060798",
                     "name": "Button#onButtonClick",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -631,7 +631,7 @@
                     "": null
                 }
             },
-            "access": "private",
+            "access": "protected",
             "name": "onButtonClick",
             "longname": "Button#onButtonClick",
             "kind": "function",
@@ -640,22 +640,22 @@
             "params": [],
             "$longname": "Button#onButtonClick",
             "$kind": "method",
-            "id": 1903,
+            "id": 1919,
             "neoClassName": "Neo.table.header.Button"
         },
         {
-            "comment": "/**\n     * @private\n     */",
+            "comment": "/**\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6056,
-                    6188
+                    6074,
+                    6206
                 ],
                 "filename": "Button.mjs",
                 "lineno": 229,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100059884",
+                    "id": "astnode100060848",
                     "name": "Button#onDragEnd",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -664,7 +664,7 @@
                     "": null
                 }
             },
-            "access": "private",
+            "access": "protected",
             "name": "onDragEnd",
             "longname": "Button#onDragEnd",
             "kind": "function",
@@ -673,22 +673,22 @@
             "params": [],
             "$longname": "Button#onDragEnd",
             "$kind": "method",
-            "id": 1904,
+            "id": 1920,
             "neoClassName": "Neo.table.header.Button"
         },
         {
-            "comment": "/**\n     * @private\n     */",
+            "comment": "/**\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6226,
-                    6364
+                    6246,
+                    6384
                 ],
                 "filename": "Button.mjs",
                 "lineno": 240,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100059908",
+                    "id": "astnode100060872",
                     "name": "Button#onDragEnter",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -697,7 +697,7 @@
                     "": null
                 }
             },
-            "access": "private",
+            "access": "protected",
             "name": "onDragEnter",
             "longname": "Button#onDragEnter",
             "kind": "function",
@@ -706,22 +706,22 @@
             "params": [],
             "$longname": "Button#onDragEnter",
             "$kind": "method",
-            "id": 1905,
+            "id": 1921,
             "neoClassName": "Neo.table.header.Button"
         },
         {
-            "comment": "/**\n     * @private\n     */",
+            "comment": "/**\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6402,
-                    6543
+                    6424,
+                    6565
                 ],
                 "filename": "Button.mjs",
                 "lineno": 251,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100059934",
+                    "id": "astnode100060898",
                     "name": "Button#onDragLeave",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -730,7 +730,7 @@
                     "": null
                 }
             },
-            "access": "private",
+            "access": "protected",
             "name": "onDragLeave",
             "longname": "Button#onDragLeave",
             "kind": "function",
@@ -739,22 +739,22 @@
             "params": [],
             "$longname": "Button#onDragLeave",
             "$kind": "method",
-            "id": 1906,
+            "id": 1922,
             "neoClassName": "Neo.table.header.Button"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    6601,
-                    6670
+                    6623,
+                    6692
                 ],
                 "filename": "Button.mjs",
                 "lineno": 263,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100059960",
+                    "id": "astnode100060924",
                     "name": "Button#onDragOver",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -782,22 +782,22 @@
             "scope": "instance",
             "$longname": "Button#onDragOver",
             "$kind": "method",
-            "id": 1907,
+            "id": 1923,
             "neoClassName": "Neo.table.header.Button"
         },
         {
-            "comment": "/**\n     * @private\n     */",
+            "comment": "/**\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6708,
-                    6841
+                    6732,
+                    6865
                 ],
                 "filename": "Button.mjs",
                 "lineno": 270,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100059965",
+                    "id": "astnode100060929",
                     "name": "Button#onDragStart",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -806,7 +806,7 @@
                     "": null
                 }
             },
-            "access": "private",
+            "access": "protected",
             "name": "onDragStart",
             "longname": "Button#onDragStart",
             "kind": "function",
@@ -815,22 +815,22 @@
             "params": [],
             "$longname": "Button#onDragStart",
             "$kind": "method",
-            "id": 1908,
+            "id": 1924,
             "neoClassName": "Neo.table.header.Button"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    6898,
-                    7281
+                    6922,
+                    7305
                 ],
                 "filename": "Button.mjs",
                 "lineno": 282,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100059990",
+                    "id": "astnode100060954",
                     "name": "Button#onDrop",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -858,22 +858,22 @@
             "scope": "instance",
             "$longname": "Button#onDrop",
             "$kind": "method",
-            "id": 1909,
+            "id": 1925,
             "neoClassName": "Neo.table.header.Button"
         },
         {
-            "comment": "/**\n     * @private\n     */",
+            "comment": "/**\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7319,
-                    7499
+                    7345,
+                    7525
                 ],
                 "filename": "Button.mjs",
                 "lineno": 296,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100060054",
+                    "id": "astnode100061018",
                     "name": "Button#removeSortingCss",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -882,7 +882,7 @@
                     "": null
                 }
             },
-            "access": "private",
+            "access": "protected",
             "name": "removeSortingCss",
             "longname": "Button#removeSortingCss",
             "kind": "function",
@@ -891,22 +891,22 @@
             "params": [],
             "$longname": "Button#removeSortingCss",
             "$kind": "method",
-            "id": 1910,
+            "id": 1926,
             "neoClassName": "Neo.table.header.Button"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.dataField\n     * @param {Number} data.index\n     * @param {Object} data.record\n     * @param {Number|String} data.value\n     * @returns {*}\n     */",
             "meta": {
                 "range": [
-                    7724,
-                    7773
+                    7750,
+                    7799
                 ],
                 "filename": "Button.mjs",
                 "lineno": 315,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100060086",
+                    "id": "astnode100061050",
                     "name": "Button#renderer",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -976,7 +976,7 @@
             "scope": "instance",
             "$longname": "Button#renderer",
             "$kind": "method",
-            "id": 1911,
+            "id": 1927,
             "neoClassName": "Neo.table.header.Button"
         }
     ]

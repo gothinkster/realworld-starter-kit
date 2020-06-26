@@ -20,11 +20,11 @@
             "scope": "static",
             "$longname": "Neo.component.wrapper.AmChart",
             "$kind": "class",
-            "id": 485,
+            "id": 486,
             "neoClassName": "Neo.component.wrapper.AmChart"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.component.wrapper.AmChart'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.component.wrapper.AmChart'\n         * @protected\n         */",
             "meta": {
                 "filename": "AmChart.mjs",
                 "lineno": 16,
@@ -40,16 +40,16 @@
                 ]
             },
             "defaultvalue": "'Neo.component.wrapper.AmChart'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 486,
+            "id": 487,
             "neoClassName": "Neo.component.wrapper.AmChart"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='am-chart'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='am-chart'\n         * @protected\n         */",
             "meta": {
                 "filename": "AmChart.mjs",
                 "lineno": 21,
@@ -65,12 +65,12 @@
                 ]
             },
             "defaultvalue": "'am-chart'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 487,
+            "id": 488,
             "neoClassName": "Neo.component.wrapper.AmChart"
         },
         {
@@ -95,7 +95,7 @@
             "scope": "global",
             "$longname": "chartConfig",
             "$kind": "property",
-            "id": 488,
+            "id": 489,
             "neoClassName": "Neo.component.wrapper.AmChart"
         },
         {
@@ -119,7 +119,7 @@
             "scope": "global",
             "$longname": "chartType",
             "$kind": "property",
-            "id": 489,
+            "id": 490,
             "neoClassName": "Neo.component.wrapper.AmChart"
         },
         {
@@ -144,14 +144,40 @@
             "scope": "global",
             "$longname": "combineSeriesTooltip",
             "$kind": "property",
-            "id": 490,
+            "id": 491,
+            "neoClassName": "Neo.component.wrapper.AmChart"
+        },
+        {
+            "comment": "/**\n         * Stores the chart data\n         * @member {Array|null} data_=null\n         */",
+            "meta": {
+                "filename": "AmChart.mjs",
+                "lineno": 40,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
+                "code": {}
+            },
+            "description": "Stores the chart data",
+            "kind": "member",
+            "name": "data_",
+            "type": {
+                "names": [
+                    "Array",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "data_",
+            "scope": "global",
+            "$longname": "data_",
+            "$kind": "property",
+            "id": 492,
             "neoClassName": "Neo.component.wrapper.AmChart"
         },
         {
             "comment": "/**\n         * Charts & maps can have different targets to apply the data to. E.g.:\n         * myChart.data = data; // => ''\n         * myChart.series.values[0].data = data; // => 'series.values.0'\n         * Use a Neo.ns() conform syntax with dots between props\n         * @member {String} dataPath=''\n         */",
             "meta": {
                 "filename": "AmChart.mjs",
-                "lineno": 43,
+                "lineno": 48,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {}
@@ -169,14 +195,14 @@
             "scope": "global",
             "$longname": "dataPath",
             "$kind": "property",
-            "id": 491,
+            "id": 493,
             "neoClassName": "Neo.component.wrapper.AmChart"
         },
         {
             "comment": "/**\n         * am4charts, am4maps\n         * @member {String} package='am4charts'\n         */",
             "meta": {
                 "filename": "AmChart.mjs",
-                "lineno": 48,
+                "lineno": 53,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {}
@@ -194,14 +220,14 @@
             "scope": "global",
             "$longname": "package",
             "$kind": "property",
-            "id": 492,
+            "id": 494,
             "neoClassName": "Neo.component.wrapper.AmChart"
         },
         {
             "comment": "/**\n         * @member {Object} _vdom\n         */",
             "meta": {
                 "filename": "AmChart.mjs",
-                "lineno": 52,
+                "lineno": 57,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {}
@@ -217,22 +243,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 493,
+            "id": 495,
             "neoClassName": "Neo.component.wrapper.AmChart"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    2035,
-                    2094
+                    2160,
+                    2219
                 ],
                 "filename": "AmChart.mjs",
-                "lineno": 68,
+                "lineno": 73,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100018134",
+                    "id": "astnode100018188",
                     "name": "AmChart#getVdomRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -249,22 +275,22 @@
             "params": [],
             "$longname": "AmChart#getVdomRoot",
             "$kind": "method",
-            "id": 494,
+            "id": 496,
             "neoClassName": "Neo.component.wrapper.AmChart"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    2123,
-                    2200
+                    2248,
+                    2325
                 ],
                 "filename": "AmChart.mjs",
-                "lineno": 75,
+                "lineno": 80,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100018150",
+                    "id": "astnode100018204",
                     "name": "AmChart#getVnodeRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -281,22 +307,22 @@
             "params": [],
             "$longname": "AmChart#getVnodeRoot",
             "$kind": "method",
-            "id": 495,
+            "id": 497,
             "neoClassName": "Neo.component.wrapper.AmChart"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    2229,
-                    2876
+                    2354,
+                    2607
                 ],
                 "filename": "AmChart.mjs",
-                "lineno": 82,
+                "lineno": 87,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100018166",
+                    "id": "astnode100018220",
                     "name": "AmChart#onConstructed",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -313,22 +339,132 @@
             "params": [],
             "$longname": "AmChart#onConstructed",
             "$kind": "method",
-            "id": 496,
+            "id": 498,
+            "neoClassName": "Neo.component.wrapper.AmChart"
+        },
+        {
+            "comment": "/**\n     * Triggered after the data config got changed\n     * @param {Array|null} value\n     * @param {Array|null} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    2767,
+                    3066
+                ],
+                "filename": "AmChart.mjs",
+                "lineno": 105,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
+                "code": {
+                    "id": "astnode100018256",
+                    "name": "AmChart#afterSetData",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the data config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetData",
+            "longname": "AmChart#afterSetData",
+            "kind": "function",
+            "memberof": "AmChart",
+            "scope": "instance",
+            "$longname": "AmChart#afterSetData",
+            "$kind": "method",
+            "id": 499,
+            "neoClassName": "Neo.component.wrapper.AmChart"
+        },
+        {
+            "comment": "/**\n     * Triggered after the mounted config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    3223,
+                    4170
+                ],
+                "filename": "AmChart.mjs",
+                "lineno": 124,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
+                "code": {
+                    "id": "astnode100018295",
+                    "name": "AmChart#afterSetMounted",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the mounted config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetMounted",
+            "longname": "AmChart#afterSetMounted",
+            "kind": "function",
+            "memberof": "AmChart",
+            "scope": "instance",
+            "$longname": "AmChart#afterSetMounted",
+            "$kind": "method",
+            "id": 500,
             "neoClassName": "Neo.component.wrapper.AmChart"
         },
         {
             "comment": "/**\n     * Override this method to trigger logic after the chart got mounted into the dom\n     */",
             "meta": {
                 "range": [
-                    2984,
-                    3009
+                    4278,
+                    4303
                 ],
                 "filename": "AmChart.mjs",
-                "lineno": 107,
+                "lineno": 159,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100018248",
+                    "id": "astnode100018415",
                     "name": "AmChart#onChartMounted",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -346,22 +482,22 @@
             "params": [],
             "$longname": "AmChart#onChartMounted",
             "$kind": "method",
-            "id": 497,
+            "id": 501,
             "neoClassName": "Neo.component.wrapper.AmChart"
         },
         {
             "comment": "/**\n     *\n     * @param {Array|Object} config\n     */",
             "meta": {
                 "range": [
-                    3074,
-                    3854
+                    4368,
+                    5148
                 ],
                 "filename": "AmChart.mjs",
-                "lineno": 115,
+                "lineno": 167,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100018252",
+                    "id": "astnode100018419",
                     "name": "AmChart#parseChartConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -390,7 +526,7 @@
             "scope": "instance",
             "$longname": "AmChart#parseChartConfig",
             "$kind": "method",
-            "id": 498,
+            "id": 502,
             "neoClassName": "Neo.component.wrapper.AmChart"
         }
     ]

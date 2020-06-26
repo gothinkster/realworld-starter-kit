@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.grid.Container",
             "$kind": "class",
-            "id": 1167,
+            "id": 1175,
             "neoClassName": "Neo.grid.Container"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.grid.Container'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.grid.Container'\n         * @protected\n         */",
             "meta": {
                 "filename": "Container.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.grid.Container'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1168,
+            "id": 1176,
             "neoClassName": "Neo.grid.Container"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='grid-container'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='grid-container'\n         * @protected\n         */",
             "meta": {
                 "filename": "Container.mjs",
                 "lineno": 18,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'grid-container'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1169,
+            "id": 1177,
             "neoClassName": "Neo.grid.Container"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "amountRows",
             "$kind": "property",
-            "id": 1170,
+            "id": 1178,
             "neoClassName": "Neo.grid.Container"
         },
         {
@@ -118,7 +118,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1171,
+            "id": 1179,
             "neoClassName": "Neo.grid.Container"
         },
         {
@@ -142,7 +142,7 @@
             "scope": "global",
             "$longname": "columns",
             "$kind": "property",
-            "id": 1172,
+            "id": 1180,
             "neoClassName": "Neo.grid.Container"
         },
         {
@@ -166,7 +166,7 @@
             "scope": "global",
             "$longname": "_layout",
             "$kind": "property",
-            "id": 1173,
+            "id": 1181,
             "neoClassName": "Neo.grid.Container"
         },
         {
@@ -189,7 +189,7 @@
             "scope": "global",
             "$longname": "_items",
             "$kind": "property",
-            "id": 1174,
+            "id": 1182,
             "neoClassName": "Neo.grid.Container"
         },
         {
@@ -212,22 +212,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 1175,
+            "id": 1183,
             "neoClassName": "Neo.grid.Container"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    1870,
-                    1973
+                    1874,
+                    1977
                 ],
                 "filename": "Container.mjs",
                 "lineno": 79,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/grid",
                 "code": {
-                    "id": "astnode100034587",
+                    "id": "astnode100035105",
                     "name": "Container",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -254,22 +254,22 @@
             "scope": "global",
             "$longname": "Container",
             "$kind": "constructor",
-            "id": 1176,
+            "id": 1184,
             "neoClassName": "Neo.grid.Container"
         },
         {
             "comment": "/**\n     * @override\n     * @returns {*}\n     */",
             "meta": {
                 "range": [
-                    2197,
-                    2250
+                    2201,
+                    2254
                 ],
                 "filename": "Container.mjs",
                 "lineno": 96,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/grid",
                 "code": {
-                    "id": "astnode100034627",
+                    "id": "astnode100035145",
                     "name": "Container#getVdomRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -296,22 +296,22 @@
             "params": [],
             "$longname": "Container#getVdomRoot",
             "$kind": "method",
-            "id": 1177,
+            "id": 1185,
             "neoClassName": "Neo.grid.Container"
         },
         {
             "comment": "/**\n     * @override\n     * @returns {Neo.vdom.VNode}\n     */",
             "meta": {
                 "range": [
-                    2322,
-                    2385
+                    2326,
+                    2389
                 ],
                 "filename": "Container.mjs",
                 "lineno": 104,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/grid",
                 "code": {
-                    "id": "astnode100034639",
+                    "id": "astnode100035157",
                     "name": "Container#getVnodeRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -338,22 +338,22 @@
             "params": [],
             "$longname": "Container#getVnodeRoot",
             "$kind": "method",
-            "id": 1178,
+            "id": 1186,
             "neoClassName": "Neo.grid.Container"
         },
         {
             "comment": "/**\n     *\n     * @param columns\n     * @returns {*}\n     */",
             "meta": {
                 "range": [
-                    2456,
-                    2954
+                    2460,
+                    2958
                 ],
                 "filename": "Container.mjs",
                 "lineno": 113,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/grid",
                 "code": {
-                    "id": "astnode100034651",
+                    "id": "astnode100035169",
                     "name": "Container#createColumns",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -385,22 +385,22 @@
             "scope": "instance",
             "$longname": "Container#createColumns",
             "$kind": "method",
-            "id": 1179,
+            "id": 1187,
             "neoClassName": "Neo.grid.Container"
         },
         {
             "comment": "/**\n     *\n     * Dummy method until we have a data package in place\n     * @param {Number} amountRows\n     */",
             "meta": {
                 "range": [
-                    3075,
-                    4067
+                    3079,
+                    4071
                 ],
                 "filename": "Container.mjs",
                 "lineno": 137,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/grid",
                 "code": {
-                    "id": "astnode100034718",
+                    "id": "astnode100035236",
                     "name": "Container#createRandomViewData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -429,7 +429,7 @@
             "scope": "instance",
             "$longname": "Container#createRandomViewData",
             "$kind": "method",
-            "id": 1180,
+            "id": 1188,
             "neoClassName": "Neo.grid.Container"
         }
     ]

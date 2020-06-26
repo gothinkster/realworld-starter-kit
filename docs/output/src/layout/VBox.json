@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.layout.VBox",
             "$kind": "class",
-            "id": 1256,
+            "id": 1264,
             "neoClassName": "Neo.layout.VBox"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.layout.VBox'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.layout.VBox'\n         * @protected\n         */",
             "meta": {
                 "filename": "VBox.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.layout.VBox'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1257,
+            "id": 1265,
             "neoClassName": "Neo.layout.VBox"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='layout-vbox'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='layout-vbox'\n         * @protected\n         */",
             "meta": {
                 "filename": "VBox.mjs",
                 "lineno": 18,
@@ -64,16 +64,16 @@
                 ]
             },
             "defaultvalue": "'layout-vbox'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1258,
+            "id": 1266,
             "neoClassName": "Neo.layout.VBox"
         },
         {
-            "comment": "/**\n         * @member {String} direction='column'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} direction='column'\n         * @protected\n         */",
             "meta": {
                 "filename": "VBox.mjs",
                 "lineno": 23,
@@ -89,27 +89,27 @@
                 ]
             },
             "defaultvalue": "'column'",
-            "access": "private",
+            "access": "protected",
             "longname": "direction",
             "scope": "global",
             "$longname": "direction",
             "$kind": "property",
-            "id": 1259,
+            "id": 1267,
             "neoClassName": "Neo.layout.VBox"
         },
         {
             "comment": "/**\n     * Applies the flex value to an item of the container this layout is bound to\n     * @param {Object} item\n     */",
             "meta": {
                 "range": [
-                    682,
-                    845
+                    688,
+                    851
                 ],
                 "filename": "VBox.mjs",
                 "lineno": 30,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036379",
+                    "id": "astnode100036893",
                     "name": "VBox#applyChildAttributes",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -138,7 +138,7 @@
             "scope": "instance",
             "$longname": "VBox#applyChildAttributes",
             "$kind": "method",
-            "id": 1260,
+            "id": 1268,
             "neoClassName": "Neo.layout.VBox"
         }
     ]

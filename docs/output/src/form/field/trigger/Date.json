@@ -20,11 +20,11 @@
             "scope": "static",
             "$longname": "Neo.form.field.trigger.Date",
             "$kind": "class",
-            "id": 1131,
+            "id": 1139,
             "neoClassName": "Neo.form.field.trigger.Date"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.form.field.trigger.Date'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.form.field.trigger.Date'\n         * @protected\n         */",
             "meta": {
                 "filename": "Date.mjs",
                 "lineno": 14,
@@ -40,16 +40,16 @@
                 ]
             },
             "defaultvalue": "'Neo.form.field.trigger.Date'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1132,
+            "id": 1140,
             "neoClassName": "Neo.form.field.trigger.Date"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='trigger-date'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='trigger-date'\n         * @protected\n         */",
             "meta": {
                 "filename": "Date.mjs",
                 "lineno": 19,
@@ -65,12 +65,12 @@
                 ]
             },
             "defaultvalue": "'trigger-date'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1133,
+            "id": 1141,
             "neoClassName": "Neo.form.field.trigger.Date"
         },
         {
@@ -96,7 +96,7 @@
             "scope": "global",
             "$longname": "iconCls",
             "$kind": "property",
-            "id": 1134,
+            "id": 1142,
             "neoClassName": "Neo.form.field.trigger.Date"
         }
     ]

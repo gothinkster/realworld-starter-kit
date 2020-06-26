@@ -26,11 +26,11 @@
             "scope": "static",
             "$longname": "Neo.Xhr",
             "$kind": "class",
-            "id": 2160,
+            "id": 2186,
             "neoClassName": "Neo.Xhr"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.Xhr'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.Xhr'\n         * @protected\n         */",
             "meta": {
                 "filename": "Xhr.mjs",
                 "lineno": 14,
@@ -46,16 +46,16 @@
                 ]
             },
             "defaultvalue": "'Neo.Xhr'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2161,
+            "id": 2187,
             "neoClassName": "Neo.Xhr"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='xhr'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='xhr'\n         * @protected\n         */",
             "meta": {
                 "filename": "Xhr.mjs",
                 "lineno": 19,
@@ -71,16 +71,16 @@
                 ]
             },
             "defaultvalue": "'xhr'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2162,
+            "id": 2188,
             "neoClassName": "Neo.Xhr"
         },
         {
-            "comment": "/**\n         * @member {Object} remote={app:['promiseRequest','promiseJson']}\n         * @private\n         */",
+            "comment": "/**\n         * @member {Object} remote={app:['promiseRequest','promiseJson']}\n         * @protected\n         */",
             "meta": {
                 "filename": "Xhr.mjs",
                 "lineno": 24,
@@ -96,16 +96,16 @@
                 ]
             },
             "defaultvalue": "{app:['promiseRequest','promiseJson']}",
-            "access": "private",
+            "access": "protected",
             "longname": "remote",
             "scope": "global",
             "$longname": "remote",
             "$kind": "property",
-            "id": 2163,
+            "id": 2189,
             "neoClassName": "Neo.Xhr"
         },
         {
-            "comment": "/**\n         * @member {boolean} singleton=true\n         * @private\n         */",
+            "comment": "/**\n         * @member {boolean} singleton=true\n         * @protected\n         */",
             "meta": {
                 "filename": "Xhr.mjs",
                 "lineno": 31,
@@ -121,12 +121,12 @@
                 ]
             },
             "defaultvalue": true,
-            "access": "private",
+            "access": "protected",
             "longname": "singleton",
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 2164,
+            "id": 2190,
             "neoClassName": "Neo.Xhr"
         }
     ]

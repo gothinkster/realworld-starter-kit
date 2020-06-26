@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.container.Viewport",
             "$kind": "class",
-            "id": 577,
+            "id": 583,
             "neoClassName": "Neo.container.Viewport"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.container.Viewport'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.container.Viewport'\n         * @protected\n         */",
             "meta": {
                 "filename": "Viewport.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.container.Viewport'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 578,
+            "id": 584,
             "neoClassName": "Neo.container.Viewport"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='viewport'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='viewport'\n         * @protected\n         */",
             "meta": {
                 "filename": "Viewport.mjs",
                 "lineno": 18,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'viewport'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 579,
+            "id": 585,
             "neoClassName": "Neo.container.Viewport"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "applyBodyCls",
             "$kind": "property",
-            "id": 580,
+            "id": 586,
             "neoClassName": "Neo.container.Viewport"
         },
         {
@@ -118,7 +118,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 581,
+            "id": 587,
             "neoClassName": "Neo.container.Viewport"
         }
     ]

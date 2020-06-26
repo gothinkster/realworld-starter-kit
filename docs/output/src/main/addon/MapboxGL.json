@@ -27,11 +27,11 @@
             "scope": "static",
             "$longname": "Neo.main.addon.MapboxGL",
             "$kind": "class",
-            "id": 1401,
+            "id": 1414,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.main.addon.MapboxGL'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.main.addon.MapboxGL'\n         * @protected\n         */",
             "meta": {
                 "filename": "MapboxGL.mjs",
                 "lineno": 19,
@@ -47,16 +47,16 @@
                 ]
             },
             "defaultvalue": "'Neo.main.addon.MapboxGL'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1402,
+            "id": 1415,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n         * Stores all map data inside an object until mounting. key => map id\n         * No array since in case a map gets loaded multiple times, we only want to apply the last data on mount.\n         * @member {Object} dataMap={}\n         * @private\n         */",
+            "comment": "/**\n         * Stores all map data inside an object until mounting. key => map id\n         * No array since in case a map gets loaded multiple times, we only want to apply the last data on mount.\n         * @member {Object} dataMap={}\n         * @protected\n         */",
             "meta": {
                 "filename": "MapboxGL.mjs",
                 "lineno": 26,
@@ -73,16 +73,16 @@
                 ]
             },
             "defaultvalue": "> map id",
-            "access": "private",
+            "access": "protected",
             "longname": "dataMap",
             "scope": "global",
             "$longname": "dataMap",
             "$kind": "property",
-            "id": 1403,
+            "id": 1416,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n         * @member {String} downloadPath='https://api.mapbox.com/mapbox-gl-js/'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} downloadPath='https://api.mapbox.com/mapbox-gl-js/'\n         * @protected\n         */",
             "meta": {
                 "filename": "MapboxGL.mjs",
                 "lineno": 31,
@@ -98,16 +98,16 @@
                 ]
             },
             "defaultvalue": "'https://api.mapbox.com/mapbox-gl-js/'",
-            "access": "private",
+            "access": "protected",
             "longname": "downloadPath",
             "scope": "global",
             "$longname": "downloadPath",
             "$kind": "property",
-            "id": 1404,
+            "id": 1417,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n         * Stores all extra map sources layers an object.\n         * key => map id, value => {Array} layers\n         * @member {Object} layers={}\n         * @private\n         */",
+            "comment": "/**\n         * Stores all extra map sources layers an object.\n         * key => map id, value => {Array} layers\n         * @member {Object} layers={}\n         * @protected\n         */",
             "meta": {
                 "filename": "MapboxGL.mjs",
                 "lineno": 38,
@@ -124,16 +124,16 @@
                 ]
             },
             "defaultvalue": "> map id, value => {Array} layers",
-            "access": "private",
+            "access": "protected",
             "longname": "layers",
             "scope": "global",
             "$longname": "layers",
             "$kind": "property",
-            "id": 1405,
+            "id": 1418,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n         * Stores all map ids inside an object\n         * @member {Object} maps={}\n         * @private\n         */",
+            "comment": "/**\n         * Stores all map ids inside an object\n         * @member {Object} maps={}\n         * @protected\n         */",
             "meta": {
                 "filename": "MapboxGL.mjs",
                 "lineno": 44,
@@ -150,16 +150,16 @@
                 ]
             },
             "defaultvalue": "{}",
-            "access": "private",
+            "access": "protected",
             "longname": "maps",
             "scope": "global",
             "$longname": "maps",
             "$kind": "property",
-            "id": 1406,
+            "id": 1419,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n         * Stores all map config objects which arrived before the map lib scripts got loaded\n         * @member {Object[]} mapsToCreate=[]\n         * @private\n         */",
+            "comment": "/**\n         * Stores all map config objects which arrived before the map lib scripts got loaded\n         * @member {Object[]} mapsToCreate=[]\n         * @protected\n         */",
             "meta": {
                 "filename": "MapboxGL.mjs",
                 "lineno": 50,
@@ -176,16 +176,16 @@
                 ]
             },
             "defaultvalue": "[]",
-            "access": "private",
+            "access": "protected",
             "longname": "mapsToCreate",
             "scope": "global",
             "$longname": "mapsToCreate",
             "$kind": "property",
-            "id": 1407,
+            "id": 1420,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n         * @member {Boolean} scriptsLoaded_=true\n         * @private\n         */",
+            "comment": "/**\n         * @member {Boolean} scriptsLoaded_=true\n         * @protected\n         */",
             "meta": {
                 "filename": "MapboxGL.mjs",
                 "lineno": 55,
@@ -201,16 +201,16 @@
                 ]
             },
             "defaultvalue": true,
-            "access": "private",
+            "access": "protected",
             "longname": "scriptsLoaded_",
             "scope": "global",
             "$longname": "scriptsLoaded_",
             "$kind": "property",
-            "id": 1408,
+            "id": 1421,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @private\n         */",
+            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @protected\n         */",
             "meta": {
                 "filename": "MapboxGL.mjs",
                 "lineno": 60,
@@ -226,16 +226,16 @@
                 ]
             },
             "defaultvalue": true,
-            "access": "private",
+            "access": "protected",
             "longname": "singleton",
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1409,
+            "id": 1422,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n         * Stores all map sources inside an object.\n         * key => map id, value => {Array} sources\n         * @member {Object} sources={}\n         * @private\n         */",
+            "comment": "/**\n         * Stores all map sources inside an object.\n         * key => map id, value => {Array} sources\n         * @member {Object} sources={}\n         * @protected\n         */",
             "meta": {
                 "filename": "MapboxGL.mjs",
                 "lineno": 67,
@@ -252,16 +252,16 @@
                 ]
             },
             "defaultvalue": "> map id, value => {Array} sources",
-            "access": "private",
+            "access": "protected",
             "longname": "sources",
             "scope": "global",
             "$longname": "sources",
             "$kind": "property",
-            "id": 1410,
+            "id": 1423,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n         * Remote method access for other workers\n         * @member {Object} remote\n         * @private\n         */",
+            "comment": "/**\n         * Remote method access for other workers\n         * @member {Object} remote\n         * @protected\n         */",
             "meta": {
                 "filename": "MapboxGL.mjs",
                 "lineno": 73,
@@ -277,19 +277,19 @@
                     "Object"
                 ]
             },
-            "access": "private",
+            "access": "protected",
             "longname": "remote",
             "scope": "global",
             "$longname": "remote",
             "$kind": "property",
-            "id": 1411,
+            "id": 1424,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n         * Stores all map style objects inside an objects to prevent reloads when switching themes multiple times.\n         * key => style name (url)\n         * @member {Object} styleMap={}\n         * @private\n         */",
+            "comment": "/**\n         * Stores all map style objects inside an objects to prevent reloads when switching themes multiple times.\n         * key => style name (url)\n         * @member {Object} styleMap={}\n         * @protected\n         */",
             "meta": {
                 "filename": "MapboxGL.mjs",
-                "lineno": 94,
+                "lineno": 95,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -303,19 +303,19 @@
                 ]
             },
             "defaultvalue": "> style name (url)",
-            "access": "private",
+            "access": "protected",
             "longname": "styleMap",
             "scope": "global",
             "$longname": "styleMap",
             "$kind": "property",
-            "id": 1412,
+            "id": 1425,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n         * @member {String} version='v1.9.1'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} version='v1.9.1'\n         * @protected\n         */",
             "meta": {
                 "filename": "MapboxGL.mjs",
-                "lineno": 99,
+                "lineno": 100,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -328,19 +328,19 @@
                 ]
             },
             "defaultvalue": "'v1.9.1'",
-            "access": "private",
+            "access": "protected",
             "longname": "version",
             "scope": "global",
             "$longname": "version",
             "$kind": "property",
-            "id": 1413,
+            "id": 1426,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n         * Stores all map zoom values inside an object until mounting. key => map id\n         * No array since in case a map gets zoomed multiple times, we only want to apply the last value on mount.\n         * @member {Object} zoomMap={}\n         * @private\n         */",
+            "comment": "/**\n         * Stores all map zoom values inside an object until mounting. key => map id\n         * No array since in case a map gets zoomed multiple times, we only want to apply the last value on mount.\n         * @member {Object} zoomMap={}\n         * @protected\n         */",
             "meta": {
                 "filename": "MapboxGL.mjs",
-                "lineno": 106,
+                "lineno": 107,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -354,27 +354,27 @@
                 ]
             },
             "defaultvalue": "> map id",
-            "access": "private",
+            "access": "protected",
             "longname": "zoomMap",
             "scope": "global",
             "$longname": "zoomMap",
             "$kind": "property",
-            "id": 1414,
+            "id": 1427,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    3379,
-                    3467
+                    3432,
+                    3520
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 113,
+                "lineno": 114,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100040579",
+                    "id": "astnode100041312",
                     "name": "MapboxGL",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -401,22 +401,22 @@
             "scope": "global",
             "$longname": "MapboxGL",
             "$kind": "constructor",
-            "id": 1415,
+            "id": 1428,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.id\n     * @param {Object[]} data.layers\n     */",
             "meta": {
                 "range": [
-                    3592,
-                    4014
+                    3645,
+                    4067
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 124,
+                "lineno": 125,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100040593",
+                    "id": "astnode100041326",
                     "name": "MapboxGL#addLayers",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -460,22 +460,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#addLayers",
             "$kind": "method",
-            "id": 1416,
+            "id": 1429,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.id\n     * @param {Object[]} data.sources\n     */",
             "meta": {
                 "range": [
-                    4140,
-                    4537
+                    4193,
+                    4590
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 148,
+                "lineno": 149,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100040669",
+                    "id": "astnode100041402",
                     "name": "MapboxGL#addSources",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -519,22 +519,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#addSources",
             "$kind": "method",
-            "id": 1417,
+            "id": 1430,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n     * Triggered after the scriptsLoaded config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the scriptsLoaded config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4698,
-                    4939
+                    4753,
+                    4994
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 172,
+                "lineno": 173,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100040745",
+                    "id": "astnode100041478",
                     "name": "MapboxGL#afterSetScriptsLoaded",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -565,7 +565,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetScriptsLoaded",
             "longname": "MapboxGL#afterSetScriptsLoaded",
             "kind": "function",
@@ -573,22 +573,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#afterSetScriptsLoaded",
             "$kind": "method",
-            "id": 1418,
+            "id": 1431,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} map\n     * @param {Object} styleJson\n     * @param {String} [name]\n     */",
             "meta": {
                 "range": [
-                    5058,
-                    5380
+                    5113,
+                    5435
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 190,
+                "lineno": 191,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100040780",
+                    "id": "astnode100041513",
                     "name": "MapboxGL#applyStyleObject",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -635,22 +635,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#applyStyleObject",
             "$kind": "method",
-            "id": 1419,
+            "id": 1432,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
             "comment": "/**\n     * Mounting a map into an inactive tab and activating it should call this\n     * @param {Object} data\n     * @param {String} data.id\n     */",
             "meta": {
                 "range": [
-                    5539,
-                    5715
+                    5594,
+                    5770
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 207,
+                "lineno": 208,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100040832",
+                    "id": "astnode100041565",
                     "name": "MapboxGL#autoResize",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -687,22 +687,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#autoResize",
             "$kind": "method",
-            "id": 1420,
+            "id": 1433,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Boolean} [data.animate=false]\n     * @param {String} data.id\n     * @param {Number} data.lat\n     * @param {Number} data.lng\n     */",
             "meta": {
                 "range": [
-                    5912,
-                    6248
+                    5967,
+                    6303
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 225,
+                "lineno": 226,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100040861",
+                    "id": "astnode100041594",
                     "name": "MapboxGL#center",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -764,22 +764,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#center",
             "$kind": "method",
-            "id": 1421,
+            "id": 1434,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.accessToken\n     * @param {Object} data.center\n     * @param {String} data.id\n     * @param {String} data.mapboxStyle\n     * @param {String} data.zoom\n     */",
+            "comment": "/**\n     *\n     * @param {Object}   data\n     * @param {String}   data.accessToken\n     * @param {Object}   data.center\n     * @param {Object}   [data.data]\n     * @param {String}   [data.dataSourceId]\n     * @param {String}   data.id\n     * @param {Object[]} [data.layers]\n     * @param {String}   data.mapboxStyle\n     * @param {Object[]} [data.sources]\n     * @param {String}   data.zoom\n     */",
             "meta": {
                 "range": [
-                    6484,
-                    7161
+                    6712,
+                    7386
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 249,
+                "lineno": 254,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100040911",
+                    "id": "astnode100041644",
                     "name": "MapboxGL#create",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -818,6 +818,24 @@
                 {
                     "type": {
                         "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "data.data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "data.dataSourceId"
+                },
+                {
+                    "type": {
+                        "names": [
                             "String"
                         ]
                     },
@@ -826,10 +844,28 @@
                 {
                     "type": {
                         "names": [
+                            "Array.<Object>"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "data.layers"
+                },
+                {
+                    "type": {
+                        "names": [
                             "String"
                         ]
                     },
                     "name": "data.mapboxStyle"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array.<Object>"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "data.sources"
                 },
                 {
                     "type": {
@@ -847,22 +883,73 @@
             "scope": "instance",
             "$longname": "MapboxGL#create",
             "$kind": "method",
-            "id": 1422,
+            "id": 1435,
+            "neoClassName": "Neo.main.addon.MapboxGL"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.id\n     */",
+            "meta": {
+                "range": [
+                    7474,
+                    7567
+                ],
+                "filename": "MapboxGL.mjs",
+                "lineno": 285,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100041760",
+                    "name": "MapboxGL#destroy",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.id"
+                }
+            ],
+            "name": "destroy",
+            "longname": "MapboxGL#destroy",
+            "kind": "function",
+            "memberof": "MapboxGL",
+            "scope": "instance",
+            "$longname": "MapboxGL#destroy",
+            "$kind": "method",
+            "id": 1436,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
             "comment": "/**\n     *\n     * @param {String} id\n     * @return {Boolean}\n     */",
             "meta": {
                 "range": [
-                    7241,
-                    7291
+                    7647,
+                    7697
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 280,
+                "lineno": 295,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041029",
+                    "id": "astnode100041785",
                     "name": "MapboxGL#hasMap",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -899,26 +986,26 @@
             "scope": "instance",
             "$longname": "MapboxGL#hasMap",
             "$kind": "method",
-            "id": 1423,
+            "id": 1437,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n     *\n     * @param {String} mapId\n     * @param {Object} event\n     * @param {Object} event.target map instance\n     */",
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Object} event\n     * @param {Object} event.target map instance\n     */",
             "meta": {
                 "range": [
-                    7782,
-                    8429
+                    8187,
+                    9162
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 302,
+                "lineno": 317,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041092",
+                    "id": "astnode100041848",
                     "name": "MapboxGL#onMapLoaded",
                     "type": "MethodDefinition",
                     "paramnames": [
-                        "mapId",
+                        "data",
                         "event"
                     ]
                 },
@@ -930,10 +1017,10 @@
                 {
                     "type": {
                         "names": [
-                            "String"
+                            "Object"
                         ]
                     },
-                    "name": "mapId"
+                    "name": "data"
                 },
                 {
                     "type": {
@@ -960,26 +1047,26 @@
             "scope": "instance",
             "$longname": "MapboxGL#onMapLoaded",
             "$kind": "method",
-            "id": 1424,
+            "id": 1438,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
-            "comment": "/**\n     *\n     * @param {String} mapId\n     * @param {Object} event\n     * @param {Object} event.target map instance\n     */",
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Object} event\n     * @param {Object} event.target map instance\n     */",
             "meta": {
                 "range": [
-                    8565,
-                    8757
+                    9297,
+                    9737
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 331,
+                "lineno": 357,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041182",
+                    "id": "astnode100041981",
                     "name": "MapboxGL#onMapReallyLoaded",
                     "type": "MethodDefinition",
                     "paramnames": [
-                        "mapId",
+                        "data",
                         "event"
                     ]
                 },
@@ -991,10 +1078,10 @@
                 {
                     "type": {
                         "names": [
-                            "String"
+                            "Object"
                         ]
                     },
-                    "name": "mapId"
+                    "name": "data"
                 },
                 {
                     "type": {
@@ -1021,22 +1108,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#onMapReallyLoaded",
             "$kind": "method",
-            "id": 1425,
+            "id": 1439,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
             "comment": "/**\n     * https://docs.mapbox.com/mapbox-gl-js/api/#map#setfilter\n     * @param {Object} data\n     * @param {String} data.id\n     * @param {String} data.layerId\n     * @param {Object} data.options\n     * @param {Boolean} data.options.validate\n     * @param {Array} data.value\n     */",
             "meta": {
                 "range": [
-                    9052,
-                    9298
+                    10032,
+                    10278
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 349,
+                "lineno": 382,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041216",
+                    "id": "astnode100042041",
                     "name": "MapboxGL#setFilter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1105,22 +1192,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#setFilter",
             "$kind": "method",
-            "id": 1426,
+            "id": 1440,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
             "comment": "/**\n     * https://docs.mapbox.com/mapbox-gl-js/api/#map#setlayoutproperty\n     * @param {Object} data\n     * @param {String} data.id\n     * @param {String} data.layerId\n     * @param {String} data.key\n     * @param {Object} data.options\n     * @param {Boolean} data.options.validate\n     * @param {String} data.value\n     */",
             "meta": {
                 "range": [
-                    9634,
-                    9906
+                    10614,
+                    10886
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 369,
+                "lineno": 402,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041251",
+                    "id": "astnode100042076",
                     "name": "MapboxGL#setLayoutProperty",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1197,22 +1284,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#setLayoutProperty",
             "$kind": "method",
-            "id": 1427,
+            "id": 1441,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
             "comment": "/**\n     * https://docs.mapbox.com/mapbox-gl-js/api/#map#setpaintproperty\n     * @param {Object} data\n     * @param {String} data.id\n     * @param {String} data.layerId\n     * @param {String} data.key\n     * @param {Object} data.options\n     * @param {Boolean} data.options.validate\n     * @param {String} data.value\n     */",
             "meta": {
                 "range": [
-                    10241,
-                    10511
+                    11221,
+                    11491
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 389,
+                "lineno": 422,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041289",
+                    "id": "astnode100042114",
                     "name": "MapboxGL#setPaintProperty",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1289,22 +1376,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#setPaintProperty",
             "$kind": "method",
-            "id": 1428,
+            "id": 1442,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.accessToken\n     * @param {String} data.id\n     * @param {Object|String} data.style\n     */",
             "meta": {
                 "range": [
-                    10680,
-                    11659
+                    11660,
+                    12639
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 406,
+                "lineno": 439,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041327",
+                    "id": "astnode100042152",
                     "name": "MapboxGL#setStyle",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1357,22 +1444,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#setStyle",
             "$kind": "method",
-            "id": 1429,
+            "id": 1443,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Object} data.data\n     * @param {String} data.dataSourceId\n     * @param {String} data.id\n     */",
             "meta": {
                 "range": [
-                    11821,
-                    12184
+                    12801,
+                    13273
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 439,
+                "lineno": 472,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041455",
+                    "id": "astnode100042280",
                     "name": "MapboxGL#updateData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1424,22 +1511,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#updateData",
             "$kind": "method",
-            "id": 1430,
+            "id": 1444,
             "neoClassName": "Neo.main.addon.MapboxGL"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.id\n     * @param {Number} data.zoom\n     */",
             "meta": {
                 "range": [
-                    12305,
-                    12488
+                    13394,
+                    13577
                 ],
                 "filename": "MapboxGL.mjs",
-                "lineno": 460,
+                "lineno": 496,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041520",
+                    "id": "astnode100042365",
                     "name": "MapboxGL#zoom",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1483,7 +1570,7 @@
             "scope": "instance",
             "$longname": "MapboxGL#zoom",
             "$kind": "method",
-            "id": 1431,
+            "id": 1445,
             "neoClassName": "Neo.main.addon.MapboxGL"
         }
     ]

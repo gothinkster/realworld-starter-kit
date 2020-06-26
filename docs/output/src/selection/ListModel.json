@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.selection.ListModel",
             "$kind": "class",
-            "id": 1666,
+            "id": 1681,
             "neoClassName": "Neo.selection.ListModel"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.selection.ListModel'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.selection.ListModel'\n         * @protected\n         */",
             "meta": {
                 "filename": "ListModel.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.selection.ListModel'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1667,
+            "id": 1682,
             "neoClassName": "Neo.selection.ListModel"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='selection-listmodel'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='selection-listmodel'\n         * @protected\n         */",
             "meta": {
                 "filename": "ListModel.mjs",
                 "lineno": 18,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'selection-listmodel'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1668,
+            "id": 1683,
             "neoClassName": "Neo.selection.ListModel"
         },
         {
@@ -93,22 +93,22 @@
             "scope": "global",
             "$longname": "stayInList",
             "$kind": "property",
-            "id": 1669,
+            "id": 1684,
             "neoClassName": "Neo.selection.ListModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    622,
-                    738
+                    626,
+                    742
                 ],
                 "filename": "ListModel.mjs",
                 "lineno": 29,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053048",
+                    "id": "astnode100053963",
                     "name": "ListModel#onKeyDownDown",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -136,22 +136,22 @@
             "scope": "instance",
             "$longname": "ListModel#onKeyDownDown",
             "$kind": "method",
-            "id": 1670,
+            "id": 1685,
             "neoClassName": "Neo.selection.ListModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    795,
-                    854
+                    799,
+                    858
                 ],
                 "filename": "ListModel.mjs",
                 "lineno": 39,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053068",
+                    "id": "astnode100053983",
                     "name": "ListModel#onKeyDownLeft",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -179,22 +179,22 @@
             "scope": "instance",
             "$longname": "ListModel#onKeyDownLeft",
             "$kind": "method",
-            "id": 1671,
+            "id": 1686,
             "neoClassName": "Neo.selection.ListModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    911,
-                    973
+                    915,
+                    977
                 ],
                 "filename": "ListModel.mjs",
                 "lineno": 47,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053079",
+                    "id": "astnode100053994",
                     "name": "ListModel#onKeyDownRight",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -222,22 +222,22 @@
             "scope": "instance",
             "$longname": "ListModel#onKeyDownRight",
             "$kind": "method",
-            "id": 1672,
+            "id": 1687,
             "neoClassName": "Neo.selection.ListModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    1030,
-                    1145
+                    1034,
+                    1149
                 ],
                 "filename": "ListModel.mjs",
                 "lineno": 55,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053090",
+                    "id": "astnode100054005",
                     "name": "ListModel#onKeyDownUp",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -265,22 +265,22 @@
             "scope": "instance",
             "$longname": "ListModel#onKeyDownUp",
             "$kind": "method",
-            "id": 1673,
+            "id": 1688,
             "neoClassName": "Neo.selection.ListModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Number} step\n     */",
             "meta": {
                 "range": [
-                    1230,
-                    2593
+                    1234,
+                    2597
                 ],
                 "filename": "ListModel.mjs",
                 "lineno": 66,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053111",
+                    "id": "astnode100054026",
                     "name": "ListModel#onNavKey",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -317,22 +317,22 @@
             "scope": "instance",
             "$longname": "ListModel#onNavKey",
             "$kind": "method",
-            "id": 1674,
+            "id": 1689,
             "neoClassName": "Neo.selection.ListModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Neo.component.Base} component\n     */",
             "meta": {
                 "range": [
-                    2667,
-                    3153
+                    2671,
+                    3157
                 ],
                 "filename": "ListModel.mjs",
                 "lineno": 114,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053295",
+                    "id": "astnode100054210",
                     "name": "ListModel#register",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -360,22 +360,22 @@
             "scope": "instance",
             "$longname": "ListModel#register",
             "$kind": "method",
-            "id": 1675,
+            "id": 1690,
             "neoClassName": "Neo.selection.ListModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Number} index\n     */",
             "meta": {
                 "range": [
-                    3211,
-                    3483
+                    3215,
+                    3487
                 ],
                 "filename": "ListModel.mjs",
                 "lineno": 135,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053362",
+                    "id": "astnode100054277",
                     "name": "ListModel#selectAt",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -403,22 +403,22 @@
             "scope": "instance",
             "$longname": "ListModel#selectAt",
             "$kind": "method",
-            "id": 1676,
+            "id": 1691,
             "neoClassName": "Neo.selection.ListModel"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    3512,
-                    3986
+                    3516,
+                    3990
                 ],
                 "filename": "ListModel.mjs",
                 "lineno": 149,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053406",
+                    "id": "astnode100054321",
                     "name": "ListModel#unregister",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -435,7 +435,7 @@
             "params": [],
             "$longname": "ListModel#unregister",
             "$kind": "method",
-            "id": 1677,
+            "id": 1692,
             "neoClassName": "Neo.selection.ListModel"
         }
     ]

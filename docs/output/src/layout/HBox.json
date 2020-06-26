@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.layout.HBox",
             "$kind": "class",
-            "id": 1251,
+            "id": 1259,
             "neoClassName": "Neo.layout.HBox"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.layout.HBox'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.layout.HBox'\n         * @protected\n         */",
             "meta": {
                 "filename": "HBox.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.layout.HBox'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1252,
+            "id": 1260,
             "neoClassName": "Neo.layout.HBox"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='layout-hbox'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='layout-hbox'\n         * @protected\n         */",
             "meta": {
                 "filename": "HBox.mjs",
                 "lineno": 18,
@@ -64,16 +64,16 @@
                 ]
             },
             "defaultvalue": "'layout-hbox'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1253,
+            "id": 1261,
             "neoClassName": "Neo.layout.HBox"
         },
         {
-            "comment": "/**\n         * @member {String} direction='row'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} direction='row'\n         * @protected\n         */",
             "meta": {
                 "filename": "HBox.mjs",
                 "lineno": 23,
@@ -89,27 +89,27 @@
                 ]
             },
             "defaultvalue": "'row'",
-            "access": "private",
+            "access": "protected",
             "longname": "direction",
             "scope": "global",
             "$longname": "direction",
             "$kind": "property",
-            "id": 1254,
+            "id": 1262,
             "neoClassName": "Neo.layout.HBox"
         },
         {
             "comment": "/**\n     * Applies the flex value to an item of the container this layout is bound to\n     * @param {Object} item\n     */",
             "meta": {
                 "range": [
-                    676,
-                    837
+                    682,
+                    843
                 ],
                 "filename": "HBox.mjs",
                 "lineno": 30,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036330",
+                    "id": "astnode100036844",
                     "name": "HBox#applyChildAttributes",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -138,7 +138,7 @@
             "scope": "instance",
             "$longname": "HBox#applyChildAttributes",
             "$kind": "method",
-            "id": 1255,
+            "id": 1263,
             "neoClassName": "Neo.layout.HBox"
         }
     ]

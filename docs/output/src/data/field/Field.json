@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.data.field.Field",
             "$kind": "class",
-            "id": 705,
+            "id": 712,
             "neoClassName": "Neo.data.field.Field"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.data.field.Field'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.data.field.Field'\n         * @protected\n         */",
             "meta": {
                 "filename": "Field.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.data.field.Field'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 706,
+            "id": 713,
             "neoClassName": "Neo.data.field.Field"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='data-field'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='data-field'\n         * @protected\n         */",
             "meta": {
                 "filename": "Field.mjs",
                 "lineno": 18,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'data-field'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 707,
+            "id": 714,
             "neoClassName": "Neo.data.field.Field"
         },
         {
@@ -94,11 +94,11 @@
             "scope": "global",
             "$longname": "defaultValue",
             "$kind": "property",
-            "id": 708,
+            "id": 715,
             "neoClassName": "Neo.data.field.Field"
         },
         {
-            "comment": "/**\n         * @member {*|null} nullableValue=true\n         * @private\n         */",
+            "comment": "/**\n         * @member {*|null} nullableValue=true\n         * @protected\n         */",
             "meta": {
                 "filename": "Field.mjs",
                 "lineno": 27,
@@ -115,16 +115,16 @@
                 ]
             },
             "defaultvalue": true,
-            "access": "private",
+            "access": "protected",
             "longname": "nullableValue",
             "scope": "global",
             "$longname": "nullableValue",
             "$kind": "property",
-            "id": 709,
+            "id": 716,
             "neoClassName": "Neo.data.field.Field"
         },
         {
-            "comment": "/**\n         * @member {*|null} value_=null\n         * @private\n         */",
+            "comment": "/**\n         * @member {*|null} value_=null\n         * @protected\n         */",
             "meta": {
                 "filename": "Field.mjs",
                 "lineno": 32,
@@ -141,27 +141,27 @@
                 ]
             },
             "defaultvalue": null,
-            "access": "private",
+            "access": "protected",
             "longname": "value_",
             "scope": "global",
             "$longname": "value_",
             "$kind": "property",
-            "id": 710,
+            "id": 717,
             "neoClassName": "Neo.data.field.Field"
         },
         {
-            "comment": "/**\n     * Triggered after the value config got changed\n     * @param {*|null} value\n     * @param {*|null} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the value config got changed\n     * @param {*|null} value\n     * @param {*|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    914,
-                    1007
+                    924,
+                    1017
                 ],
                 "filename": "Field.mjs",
                 "lineno": 41,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
                 "code": {
-                    "id": "astnode100025065",
+                    "id": "astnode100025571",
                     "name": "Field#afterSetValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -194,7 +194,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetValue",
             "longname": "Field#afterSetValue",
             "kind": "function",
@@ -202,7 +202,7 @@
             "scope": "instance",
             "$longname": "Field#afterSetValue",
             "$kind": "method",
-            "id": 711,
+            "id": 718,
             "neoClassName": "Neo.data.field.Field"
         }
     ]

@@ -27,11 +27,11 @@
             "scope": "static",
             "$longname": "Neo.manager.Store",
             "$kind": "class",
-            "id": 1584,
+            "id": 1599,
             "neoClassName": "Neo.manager.Store"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.manager.Store'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.manager.Store'\n         * @protected\n         */",
             "meta": {
                 "filename": "Store.mjs",
                 "lineno": 15,
@@ -47,16 +47,16 @@
                 ]
             },
             "defaultvalue": "'Neo.manager.Store'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1585,
+            "id": 1600,
             "neoClassName": "Neo.manager.Store"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='store-manager'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='store-manager'\n         * @protected\n         */",
             "meta": {
                 "filename": "Store.mjs",
                 "lineno": 20,
@@ -72,16 +72,16 @@
                 ]
             },
             "defaultvalue": "'store-manager'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1586,
+            "id": 1601,
             "neoClassName": "Neo.manager.Store"
         },
         {
-            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @private\n         */",
+            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @protected\n         */",
             "meta": {
                 "filename": "Store.mjs",
                 "lineno": 25,
@@ -97,16 +97,16 @@
                 ]
             },
             "defaultvalue": true,
-            "access": "private",
+            "access": "protected",
             "longname": "singleton",
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1587,
+            "id": 1602,
             "neoClassName": "Neo.manager.Store"
         },
         {
-            "comment": "/**\n         * @member {Object} listeners={}\n         * @private\n         */",
+            "comment": "/**\n         * @member {Object} listeners={}\n         * @protected\n         */",
             "meta": {
                 "filename": "Store.mjs",
                 "lineno": 30,
@@ -122,16 +122,16 @@
                 ]
             },
             "defaultvalue": "{}",
-            "access": "private",
+            "access": "protected",
             "longname": "listeners",
             "scope": "global",
             "$longname": "listeners",
             "$kind": "property",
-            "id": 1588,
+            "id": 1603,
             "neoClassName": "Neo.manager.Store"
         },
         {
-            "comment": "/**\n         * @member {Object} remote={app: ['createRandomData', 'filter', 'load', 'sort']}\n         * @private\n         */",
+            "comment": "/**\n         * @member {Object} remote={app: ['createRandomData', 'filter', 'load', 'sort']}\n         * @protected\n         */",
             "meta": {
                 "filename": "Store.mjs",
                 "lineno": 35,
@@ -148,27 +148,27 @@
             },
             "defaultvalue": "{app: ['createRandomData', 'filter', 'load', 'sort']}",
             "description": "['createRandomData', 'filter', 'load', 'sort']}",
-            "access": "private",
+            "access": "protected",
             "longname": "remote",
             "scope": "global",
             "$longname": "remote",
             "$kind": "property",
-            "id": 1589,
+            "id": 1604,
             "neoClassName": "Neo.manager.Store"
         },
         {
             "comment": "/**\n     *\n     * Dummy method until we have a data package in place\n     * @param {Number} amountColumns\n     * @param {Number} amountRows\n     */",
             "meta": {
                 "range": [
-                    1147,
-                    1665
+                    1157,
+                    1675
                 ],
                 "filename": "Store.mjs",
                 "lineno": 46,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048717",
+                    "id": "astnode100049616",
                     "name": "Store#createRandomData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -206,22 +206,22 @@
             "scope": "instance",
             "$longname": "Store#createRandomData",
             "$kind": "method",
-            "id": 1590,
+            "id": 1605,
             "neoClassName": "Neo.manager.Store"
         },
         {
             "comment": "/**\n     *\n     * @param storeId\n     * @param fieldName\n     * @param value\n     */",
             "meta": {
                 "range": [
-                    1760,
-                    1802
+                    1770,
+                    1812
                 ],
                 "filename": "Store.mjs",
                 "lineno": 71,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048816",
+                    "id": "astnode100049715",
                     "name": "Store#filter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -252,22 +252,22 @@
             "scope": "instance",
             "$longname": "Store#filter",
             "$kind": "method",
-            "id": 1591,
+            "id": 1606,
             "neoClassName": "Neo.manager.Store"
         },
         {
             "comment": "/**\n     *\n     * @param storeId\n     * @param params\n     */",
             "meta": {
                 "range": [
-                    1874,
-                    1904
+                    1884,
+                    1914
                 ],
                 "filename": "Store.mjs",
                 "lineno": 80,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048823",
+                    "id": "astnode100049722",
                     "name": "Store#load",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -294,22 +294,22 @@
             "scope": "instance",
             "$longname": "Store#load",
             "$kind": "method",
-            "id": 1592,
+            "id": 1607,
             "neoClassName": "Neo.manager.Store"
         },
         {
             "comment": "/**\n     *\n     * @param storeId\n     * @param fieldName\n     * @param value\n     */",
             "meta": {
                 "range": [
-                    1999,
-                    2039
+                    2009,
+                    2049
                 ],
                 "filename": "Store.mjs",
                 "lineno": 90,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048829",
+                    "id": "astnode100049728",
                     "name": "Store#sort",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -340,7 +340,7 @@
             "scope": "instance",
             "$longname": "Store#sort",
             "$kind": "method",
-            "id": 1593,
+            "id": 1608,
             "neoClassName": "Neo.manager.Store"
         }
     ]

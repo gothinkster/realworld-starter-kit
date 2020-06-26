@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.util.Object",
             "$kind": "class",
-            "id": 2034,
+            "id": 2051,
             "neoClassName": "Neo.util.Object"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.util.Object'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.util.Object'\n         * @protected\n         */",
             "meta": {
                 "filename": "Object.mjs",
                 "lineno": 13,
@@ -39,27 +39,27 @@
                 ]
             },
             "defaultvalue": "'Neo.util.Object'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2035,
+            "id": 2052,
             "neoClassName": "Neo.util.Object"
         },
         {
             "comment": "/**\n     * Returns true if all properties of x match with the properties of y\n     * Supports nested Objects, but not arrays as prop values\n     * @param {Object} x\n     * @param {Object} y\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    539,
-                    890
+                    541,
+                    892
                 ],
                 "filename": "Object.mjs",
                 "lineno": 23,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100063701",
+                    "id": "astnode100064686",
                     "name": "NeoObject.isEqual",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -106,7 +106,7 @@
             "scope": "static",
             "$longname": "NeoObject.isEqual",
             "$kind": "method",
-            "id": 2036,
+            "id": 2053,
             "neoClassName": "Neo.util.Object"
         }
     ]

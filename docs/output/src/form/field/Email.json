@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.form.field.Email",
             "$kind": "class",
-            "id": 858,
+            "id": 866,
             "neoClassName": "Neo.form.field.Email"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.form.field.Email'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.form.field.Email'\n         * @protected\n         */",
             "meta": {
                 "filename": "Email.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.form.field.Email'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 859,
+            "id": 867,
             "neoClassName": "Neo.form.field.Email"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='emailfield'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='emailfield'\n         * @protected\n         */",
             "meta": {
                 "filename": "Email.mjs",
                 "lineno": 18,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'emailfield'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 860,
+            "id": 868,
             "neoClassName": "Neo.form.field.Email"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "inputType",
             "$kind": "property",
-            "id": 861,
+            "id": 869,
             "neoClassName": "Neo.form.field.Email"
         }
     ]

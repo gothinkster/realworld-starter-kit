@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.form.field.Date",
             "$kind": "class",
-            "id": 841,
+            "id": 849,
             "neoClassName": "Neo.form.field.Date"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.form.field.Date'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.form.field.Date'\n         * @protected\n         */",
             "meta": {
                 "filename": "Date.mjs",
                 "lineno": 16,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.form.field.Date'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 842,
+            "id": 850,
             "neoClassName": "Neo.form.field.Date"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='datefield'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='datefield'\n         * @protected\n         */",
             "meta": {
                 "filename": "Date.mjs",
                 "lineno": 21,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'datefield'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 843,
+            "id": 851,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -94,11 +94,11 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 844,
+            "id": 852,
             "neoClassName": "Neo.form.field.Date"
         },
         {
-            "comment": "/**\n         * @member {Neo.component.DateSelector} dateSelector=null\n         * @private\n         */",
+            "comment": "/**\n         * @member {Neo.component.DateSelector} dateSelector=null\n         * @protected\n         */",
             "meta": {
                 "filename": "Date.mjs",
                 "lineno": 30,
@@ -114,12 +114,12 @@
                 ]
             },
             "defaultvalue": null,
-            "access": "private",
+            "access": "protected",
             "longname": "dateSelector",
             "scope": "global",
             "$longname": "dateSelector",
             "$kind": "property",
-            "id": 845,
+            "id": 853,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -144,7 +144,7 @@
             "scope": "global",
             "$longname": "dateSelectorConfig",
             "$kind": "property",
-            "id": 846,
+            "id": 854,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -169,7 +169,7 @@
             "scope": "global",
             "$longname": "hidePickerOnSelect",
             "$kind": "property",
-            "id": 847,
+            "id": 855,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -193,7 +193,7 @@
             "scope": "global",
             "$longname": "inputType",
             "$kind": "property",
-            "id": 848,
+            "id": 856,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -217,7 +217,7 @@
             "scope": "global",
             "$longname": "pickerHeight",
             "$kind": "property",
-            "id": 849,
+            "id": 857,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -241,11 +241,11 @@
             "scope": "global",
             "$longname": "pickerWidth",
             "$kind": "property",
-            "id": 850,
+            "id": 858,
             "neoClassName": "Neo.form.field.Date"
         },
         {
-            "comment": "/**\n         * @member {Object|Object[]} triggers=[{module: DateTrigger}]\n         * @private\n         */",
+            "comment": "/**\n         * @member {Object|Object[]} triggers=[{module: DateTrigger}]\n         * @protected\n         */",
             "meta": {
                 "filename": "Date.mjs",
                 "lineno": 56,
@@ -263,27 +263,27 @@
             },
             "defaultvalue": "[{module: DateTrigger}]",
             "description": "DateTrigger}]",
-            "access": "private",
+            "access": "protected",
             "longname": "triggers",
             "scope": "global",
             "$longname": "triggers",
             "$kind": "property",
-            "id": 851,
+            "id": 859,
             "neoClassName": "Neo.form.field.Date"
         },
         {
             "comment": "/**\n     *\n     * @param config\n     */",
             "meta": {
                 "range": [
-                    1767,
-                    2258
+                    1775,
+                    2266
                 ],
                 "filename": "Date.mjs",
                 "lineno": 65,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100027405",
+                    "id": "astnode100027913",
                     "name": "Date",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -305,22 +305,22 @@
             "scope": "global",
             "$longname": "Date",
             "$kind": "constructor",
-            "id": 852,
+            "id": 860,
             "neoClassName": "Neo.form.field.Date"
         },
         {
             "comment": "/**\n     *\n     * @returns {Neo.component.DateSelector}\n     */",
             "meta": {
                 "range": [
-                    2332,
-                    2397
+                    2340,
+                    2405
                 ],
                 "filename": "Date.mjs",
                 "lineno": 90,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100027475",
+                    "id": "astnode100027983",
                     "name": "Date#createPickerComponent",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -346,22 +346,22 @@
             "params": [],
             "$longname": "Date#createPickerComponent",
             "$kind": "method",
-            "id": 853,
+            "id": 861,
             "neoClassName": "Neo.form.field.Date"
         },
         {
-            "comment": "/**\n     * @param {Object} data\n     * @private\n     */",
+            "comment": "/**\n     * @param {Object} data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2463,
-                    2583
+                    2473,
+                    2593
                 ],
                 "filename": "Date.mjs",
                 "lineno": 98,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100027483",
+                    "id": "astnode100027991",
                     "name": "Date#onContainerKeyDownEscape",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -380,7 +380,7 @@
                     "name": "data"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "onContainerKeyDownEscape",
             "longname": "Date#onContainerKeyDownEscape",
             "kind": "function",
@@ -388,22 +388,22 @@
             "scope": "instance",
             "$longname": "Date#onContainerKeyDownEscape",
             "$kind": "method",
-            "id": 854,
+            "id": 862,
             "neoClassName": "Neo.form.field.Date"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} opts\n     */",
             "meta": {
                 "range": [
-                    2640,
-                    2993
+                    2650,
+                    3003
                 ],
                 "filename": "Date.mjs",
                 "lineno": 109,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100027505",
+                    "id": "astnode100028013",
                     "name": "Date#onDatePickerChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -431,22 +431,22 @@
             "scope": "instance",
             "$longname": "Date#onDatePickerChange",
             "$kind": "method",
-            "id": 855,
+            "id": 863,
             "neoClassName": "Neo.form.field.Date"
         },
         {
-            "comment": "/**\n     *\n     * @param {Object} data\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3066,
-                    3358
+                    3078,
+                    3370
                 ],
                 "filename": "Date.mjs",
                 "lineno": 129,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100027562",
+                    "id": "astnode100028070",
                     "name": "Date#onKeyDownEnter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -467,7 +467,7 @@
                     "name": "data"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "onKeyDownEnter",
             "longname": "Date#onKeyDownEnter",
             "kind": "function",
@@ -475,22 +475,22 @@
             "scope": "instance",
             "$longname": "Date#onKeyDownEnter",
             "$kind": "method",
-            "id": 856,
+            "id": 864,
             "neoClassName": "Neo.form.field.Date"
         },
         {
-            "comment": "/**\n     * @param {Object} data\n     * @private\n     */",
+            "comment": "/**\n     * @param {Object} data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3424,
-                    3743
+                    3438,
+                    3757
                 ],
                 "filename": "Date.mjs",
                 "lineno": 144,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100027604",
+                    "id": "astnode100028112",
                     "name": "Date#onInputValueChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -511,7 +511,7 @@
                     "name": "data"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "onInputValueChange",
             "longname": "Date#onInputValueChange",
             "kind": "function",
@@ -519,7 +519,7 @@
             "scope": "instance",
             "$longname": "Date#onInputValueChange",
             "$kind": "method",
-            "id": 857,
+            "id": 865,
             "neoClassName": "Neo.form.field.Date"
         }
     ]

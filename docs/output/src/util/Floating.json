@@ -20,11 +20,11 @@
             "scope": "static",
             "$longname": "Neo.util.Floating",
             "$kind": "class",
-            "id": 1987,
+            "id": 2003,
             "neoClassName": "Neo.util.Floating"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.util.Floating'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.util.Floating'\n         * @protected\n         */",
             "meta": {
                 "filename": "Floating.mjs",
                 "lineno": 14,
@@ -40,16 +40,16 @@
                 ]
             },
             "defaultvalue": "'Neo.util.Floating'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1988,
+            "id": 2004,
             "neoClassName": "Neo.util.Floating"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='mixin-floating'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='mixin-floating'\n         * @protected\n         */",
             "meta": {
                 "filename": "Floating.mjs",
                 "lineno": 19,
@@ -65,12 +65,12 @@
                 ]
             },
             "defaultvalue": "'mixin-floating'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1989,
+            "id": 2005,
             "neoClassName": "Neo.util.Floating"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "mixin",
             "$kind": "property",
-            "id": 1990,
+            "id": 2006,
             "neoClassName": "Neo.util.Floating"
         },
         {
@@ -119,7 +119,7 @@
             "scope": "global",
             "$longname": "animateTargetId",
             "$kind": "property",
-            "id": 1991,
+            "id": 2007,
             "neoClassName": "Neo.util.Floating"
         },
         {
@@ -143,7 +143,7 @@
             "scope": "global",
             "$longname": "modal_",
             "$kind": "property",
-            "id": 1992,
+            "id": 2008,
             "neoClassName": "Neo.util.Floating"
         }
     ]

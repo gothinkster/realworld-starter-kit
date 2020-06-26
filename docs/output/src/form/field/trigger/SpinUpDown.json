@@ -20,11 +20,11 @@
             "scope": "static",
             "$longname": "Neo.form.field.trigger.SpinUpDown",
             "$kind": "class",
-            "id": 1151,
+            "id": 1159,
             "neoClassName": "Neo.form.field.trigger.SpinUpDown"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.form.field.trigger.SpinUpDown'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.form.field.trigger.SpinUpDown'\n         * @protected\n         */",
             "meta": {
                 "filename": "SpinUpDown.mjs",
                 "lineno": 14,
@@ -40,16 +40,16 @@
                 ]
             },
             "defaultvalue": "'Neo.form.field.trigger.SpinUpDown'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1152,
+            "id": 1160,
             "neoClassName": "Neo.form.field.trigger.SpinUpDown"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='trigger-spinupdown'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='trigger-spinupdown'\n         * @protected\n         */",
             "meta": {
                 "filename": "SpinUpDown.mjs",
                 "lineno": 19,
@@ -65,12 +65,12 @@
                 ]
             },
             "defaultvalue": "'trigger-spinupdown'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1153,
+            "id": 1161,
             "neoClassName": "Neo.form.field.trigger.SpinUpDown"
         },
         {
@@ -95,7 +95,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1154,
+            "id": 1162,
             "neoClassName": "Neo.form.field.trigger.SpinUpDown"
         },
         {
@@ -120,7 +120,7 @@
             "scope": "global",
             "$longname": "spinButtonDownIconCls",
             "$kind": "property",
-            "id": 1155,
+            "id": 1163,
             "neoClassName": "Neo.form.field.trigger.SpinUpDown"
         },
         {
@@ -145,11 +145,11 @@
             "scope": "global",
             "$longname": "spinButtonUpIconCls",
             "$kind": "property",
-            "id": 1156,
+            "id": 1164,
             "neoClassName": "Neo.form.field.trigger.SpinUpDown"
         },
         {
-            "comment": "/**\n         * Internal flag used by field.getTrigger()\n         * @member {String} type='spinupdown'\n         * @private\n         */",
+            "comment": "/**\n         * Internal flag used by field.getTrigger()\n         * @member {String} type='spinupdown'\n         * @protected\n         */",
             "meta": {
                 "filename": "SpinUpDown.mjs",
                 "lineno": 37,
@@ -166,12 +166,12 @@
                 ]
             },
             "defaultvalue": "'spinupdown'",
-            "access": "private",
+            "access": "protected",
             "longname": "type",
             "scope": "global",
             "$longname": "type",
             "$kind": "property",
-            "id": 1157,
+            "id": 1165,
             "neoClassName": "Neo.form.field.trigger.SpinUpDown"
         }
     ]

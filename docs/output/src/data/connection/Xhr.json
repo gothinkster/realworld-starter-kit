@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.data.connection.Xhr",
             "$kind": "class",
-            "id": 690,
+            "id": 697,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.data.connection.Xhr'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.data.connection.Xhr'\n         * @protected\n         */",
             "meta": {
                 "filename": "Xhr.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.data.connection.Xhr'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 691,
+            "id": 698,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='xhr'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='xhr'\n         * @protected\n         */",
             "meta": {
                 "filename": "Xhr.mjs",
                 "lineno": 18,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'xhr'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 692,
+            "id": 699,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "callback",
             "$kind": "property",
-            "id": 693,
+            "id": 700,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -117,7 +117,7 @@
             "scope": "global",
             "$longname": "requests",
             "$kind": "property",
-            "id": 694,
+            "id": 701,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -141,7 +141,7 @@
             "scope": "global",
             "$longname": "scope",
             "$kind": "property",
-            "id": 695,
+            "id": 702,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -165,22 +165,22 @@
             "scope": "global",
             "$longname": "timeout",
             "$kind": "property",
-            "id": 696,
+            "id": 703,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
-            "comment": "/**\n     *\n     * @param {Object} opts\n     * @param {Function} opts.callback\n     * @param {Object} opts.data\n     * @param {Object} opts.headers\n     * @param {Boolean} opts.insideNeo true for calls with relative URLs inside the framework scope\n     * @param {String} opts.method DELETE, GET, POST, PUT\n     * @param {Object} opts.params\n     * @param {String} opts.responseType\n     * @param {Object} opts.scope\n     * @param {String} opts.url\n     * @returns {XMLHttpRequest}\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @param {Function} opts.callback\n     * @param {Object} opts.data\n     * @param {Object} opts.headers\n     * @param {Boolean} opts.insideNeo true for calls with relative URLs inside the framework scope\n     * @param {String} opts.method DELETE, GET, POST, PUT\n     * @param {Object} opts.params\n     * @param {String} opts.responseType\n     * @param {Object} opts.scope\n     * @param {String} opts.url\n     * @returns {XMLHttpRequest}\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1307,
-                    2946
+                    1313,
+                    2952
                 ],
                 "filename": "Xhr.mjs",
                 "lineno": 52,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/connection",
                 "code": {
-                    "id": "astnode100024445",
+                    "id": "astnode100024951",
                     "name": "Xhr#request",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -284,7 +284,7 @@
                     }
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "request",
             "longname": "Xhr#request",
             "kind": "function",
@@ -292,22 +292,22 @@
             "scope": "instance",
             "$longname": "Xhr#request",
             "$kind": "method",
-            "id": 697,
+            "id": 704,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
             "comment": "/**\n     *\n     * @param form\n     * @param {Object} opts\n     * @returns {XMLHttpRequest}\n     */",
             "meta": {
                 "range": [
-                    3055,
-                    3159
+                    3061,
+                    3165
                 ],
                 "filename": "Xhr.mjs",
                 "lineno": 106,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/connection",
                 "code": {
-                    "id": "astnode100024708",
+                    "id": "astnode100025214",
                     "name": "Xhr#sendForm",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -348,22 +348,22 @@
             "scope": "instance",
             "$longname": "Xhr#sendForm",
             "$kind": "method",
-            "id": 698,
+            "id": 705,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} e\n     */",
             "meta": {
                 "range": [
-                    3213,
-                    3594
+                    3219,
+                    3600
                 ],
                 "filename": "Xhr.mjs",
                 "lineno": 116,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/connection",
                 "code": {
-                    "id": "astnode100024728",
+                    "id": "astnode100025234",
                     "name": "Xhr#onLoad",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -391,22 +391,22 @@
             "scope": "instance",
             "$longname": "Xhr#onLoad",
             "$kind": "method",
-            "id": 699,
+            "id": 706,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} e\n     */",
             "meta": {
                 "range": [
-                    3648,
-                    4031
+                    3654,
+                    4037
                 ],
                 "filename": "Xhr.mjs",
                 "lineno": 135,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/connection",
                 "code": {
-                    "id": "astnode100024800",
+                    "id": "astnode100025306",
                     "name": "Xhr#onError",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -434,22 +434,22 @@
             "scope": "instance",
             "$longname": "Xhr#onError",
             "$kind": "method",
-            "id": 700,
+            "id": 707,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
             "comment": "/**\n     * We cannot clone event objects across messaging\n     * @param {Object} e\n     */",
             "meta": {
                 "range": [
-                    4132,
-                    4435
+                    4138,
+                    4441
                 ],
                 "filename": "Xhr.mjs",
                 "lineno": 154,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/connection",
                 "code": {
-                    "id": "astnode100024872",
+                    "id": "astnode100025378",
                     "name": "Xhr#getResponse",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -478,22 +478,22 @@
             "scope": "instance",
             "$longname": "Xhr#getResponse",
             "$kind": "method",
-            "id": 701,
+            "id": 708,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    4464,
-                    4485
+                    4470,
+                    4491
                 ],
                 "filename": "Xhr.mjs",
                 "lineno": 169,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/connection",
                 "code": {
-                    "id": "astnode100024906",
+                    "id": "astnode100025412",
                     "name": "Xhr#onProgress",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -510,22 +510,22 @@
             "params": [],
             "$longname": "Xhr#onProgress",
             "$kind": "method",
-            "id": 702,
+            "id": 709,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} opts\n     * @returns {Promise<any>}\n     */",
             "meta": {
                 "range": [
-                    4573,
-                    4929
+                    4579,
+                    4935
                 ],
                 "filename": "Xhr.mjs",
                 "lineno": 178,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/connection",
                 "code": {
-                    "id": "astnode100024910",
+                    "id": "astnode100025416",
                     "name": "Xhr#promiseRequest",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -562,22 +562,22 @@
             "scope": "instance",
             "$longname": "Xhr#promiseRequest",
             "$kind": "method",
-            "id": 703,
+            "id": 710,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} opts\n     * @returns {Promise<any>}\n     */",
             "meta": {
                 "range": [
-                    5017,
-                    5782
+                    5023,
+                    5788
                 ],
                 "filename": "Xhr.mjs",
                 "lineno": 198,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/connection",
                 "code": {
-                    "id": "astnode100024953",
+                    "id": "astnode100025459",
                     "name": "Xhr#promiseJson",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -614,7 +614,7 @@
             "scope": "instance",
             "$longname": "Xhr#promiseJson",
             "$kind": "method",
-            "id": 704,
+            "id": 711,
             "neoClassName": "Neo.data.connection.Xhr"
         }
     ]

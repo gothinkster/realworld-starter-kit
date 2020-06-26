@@ -20,11 +20,11 @@
             "scope": "static",
             "$longname": "Neo.form.field.trigger.Time",
             "$kind": "class",
-            "id": 1158,
+            "id": 1166,
             "neoClassName": "Neo.form.field.trigger.Time"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.form.field.trigger.Time'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.form.field.trigger.Time'\n         * @protected\n         */",
             "meta": {
                 "filename": "Time.mjs",
                 "lineno": 14,
@@ -40,16 +40,16 @@
                 ]
             },
             "defaultvalue": "'Neo.form.field.trigger.Time'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1159,
+            "id": 1167,
             "neoClassName": "Neo.form.field.trigger.Time"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='trigger-time'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='trigger-time'\n         * @protected\n         */",
             "meta": {
                 "filename": "Time.mjs",
                 "lineno": 19,
@@ -65,12 +65,12 @@
                 ]
             },
             "defaultvalue": "'trigger-time'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1160,
+            "id": 1168,
             "neoClassName": "Neo.form.field.trigger.Time"
         },
         {
@@ -96,7 +96,7 @@
             "scope": "global",
             "$longname": "iconCls",
             "$kind": "property",
-            "id": 1161,
+            "id": 1169,
             "neoClassName": "Neo.form.field.trigger.Time"
         }
     ]

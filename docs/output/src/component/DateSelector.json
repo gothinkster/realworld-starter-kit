@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.component.DateSelector",
             "$kind": "class",
-            "id": 293,
+            "id": 294,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n         * Valid values for dayNameFormat\n         * @member {String[]} dayNameFormats=['narrow', 'short', 'long']\n         * @private\n         * @static\n         */",
+            "comment": "/**\n         * Valid values for dayNameFormat\n         * @member {String[]} dayNameFormats=['narrow', 'short', 'long']\n         * @protected\n         * @static\n         */",
             "meta": {
                 "filename": "DateSelector.mjs",
                 "lineno": 28,
@@ -40,16 +40,16 @@
                 ]
             },
             "defaultvalue": "['narrow', 'short', 'long']",
-            "access": "private",
+            "access": "protected",
             "scope": "static",
             "longname": "dayNameFormats",
             "$longname": "dayNameFormats",
             "$kind": "property",
-            "id": 294,
+            "id": 295,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n         * Valid values for dayNameFormat\n         * @member {Number[]} weekStartDays=[0, 1, 2, 3, 4, 5, 6]\n         * @private\n         * @static\n         */",
+            "comment": "/**\n         * Valid values for dayNameFormat\n         * @member {Number[]} weekStartDays=[0, 1, 2, 3, 4, 5, 6]\n         * @protected\n         * @static\n         */",
             "meta": {
                 "filename": "DateSelector.mjs",
                 "lineno": 35,
@@ -66,16 +66,16 @@
                 ]
             },
             "defaultvalue": "[0, 1, 2, 3, 4, 5, 6]",
-            "access": "private",
+            "access": "protected",
             "scope": "static",
             "longname": "weekStartDays",
             "$longname": "weekStartDays",
             "$kind": "property",
-            "id": 295,
+            "id": 296,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.component.DateSelector'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.component.DateSelector'\n         * @protected\n         */",
             "meta": {
                 "filename": "DateSelector.mjs",
                 "lineno": 43,
@@ -91,16 +91,16 @@
                 ]
             },
             "defaultvalue": "'Neo.component.DateSelector'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 296,
+            "id": 297,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='dateselector'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='dateselector'\n         * @protected\n         */",
             "meta": {
                 "filename": "DateSelector.mjs",
                 "lineno": 48,
@@ -116,16 +116,16 @@
                 ]
             },
             "defaultvalue": "'dateselector'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 297,
+            "id": 298,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n         * Stores the last date change which got triggered while a month / Year transition was running\n         * @member {Object|null} cachedUpdate=null\n         * @private\n         */",
+            "comment": "/**\n         * Stores the last date change which got triggered while a month / Year transition was running\n         * @member {Object|null} cachedUpdate=null\n         * @protected\n         */",
             "meta": {
                 "filename": "DateSelector.mjs",
                 "lineno": 54,
@@ -143,12 +143,12 @@
                 ]
             },
             "defaultvalue": null,
-            "access": "private",
+            "access": "protected",
             "longname": "cachedUpdate",
             "scope": "global",
             "$longname": "cachedUpdate",
             "$kind": "property",
-            "id": 298,
+            "id": 299,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
@@ -172,11 +172,11 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 299,
+            "id": 300,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n         * Date object created on the value config\n         * @member {Date|null} currentDate_=null\n         * @private\n         */",
+            "comment": "/**\n         * Date object created on the value config\n         * @member {Date|null} currentDate_=null\n         * @protected\n         */",
             "meta": {
                 "filename": "DateSelector.mjs",
                 "lineno": 64,
@@ -194,12 +194,12 @@
                 ]
             },
             "defaultvalue": null,
-            "access": "private",
+            "access": "protected",
             "longname": "currentDate_",
             "scope": "global",
             "$longname": "currentDate_",
             "$kind": "property",
-            "id": 300,
+            "id": 301,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
@@ -223,7 +223,7 @@
             "scope": "global",
             "$longname": "dateFormat",
             "$kind": "property",
-            "id": 301,
+            "id": 302,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
@@ -248,11 +248,11 @@
             "scope": "global",
             "$longname": "dayNameFormat_",
             "$kind": "property",
-            "id": 302,
+            "id": 303,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n         * Internal flag to prevent changing the date while change animations are still running\n         * @member {Boolean} isUpdating_=false\n         * @private\n         */",
+            "comment": "/**\n         * Internal flag to prevent changing the date while change animations are still running\n         * @member {Boolean} isUpdating_=false\n         * @protected\n         */",
             "meta": {
                 "filename": "DateSelector.mjs",
                 "lineno": 80,
@@ -269,12 +269,12 @@
                 ]
             },
             "defaultvalue": false,
-            "access": "private",
+            "access": "protected",
             "longname": "isUpdating_",
             "scope": "global",
             "$longname": "isUpdating_",
             "$kind": "property",
-            "id": 303,
+            "id": 304,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
@@ -298,7 +298,7 @@
             "scope": "global",
             "$longname": "keys",
             "$kind": "property",
-            "id": 304,
+            "id": 305,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
@@ -323,7 +323,7 @@
             "scope": "global",
             "$longname": "mouseWheelDelta",
             "$kind": "property",
-            "id": 305,
+            "id": 306,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
@@ -349,7 +349,7 @@
             "scope": "global",
             "$longname": "selectionModel_",
             "$kind": "property",
-            "id": 306,
+            "id": 307,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
@@ -374,7 +374,7 @@
             "scope": "global",
             "$longname": "showCellBorders_",
             "$kind": "property",
-            "id": 307,
+            "id": 308,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
@@ -399,7 +399,7 @@
             "scope": "global",
             "$longname": "showDisabledDays_",
             "$kind": "property",
-            "id": 308,
+            "id": 309,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
@@ -424,7 +424,7 @@
             "scope": "global",
             "$longname": "useAnimations",
             "$kind": "property",
-            "id": 309,
+            "id": 310,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
@@ -449,7 +449,7 @@
             "scope": "global",
             "$longname": "value_",
             "$kind": "property",
-            "id": 310,
+            "id": 311,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
@@ -474,7 +474,7 @@
             "scope": "global",
             "$longname": "weekStartDay_",
             "$kind": "property",
-            "id": 311,
+            "id": 312,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
@@ -497,22 +497,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 312,
+            "id": 313,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    4648,
-                    5092
+                    4662,
+                    5106
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 151,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100010218",
+                    "id": "astnode100010225",
                     "name": "DateSelector",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -539,22 +539,22 @@
             "scope": "global",
             "$longname": "DateSelector",
             "$kind": "constructor",
-            "id": 313,
+            "id": 314,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Triggered after the currentDate config got changed\n     * @param {Date} value\n     * @param {Date} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the currentDate config got changed\n     * @param {Date} value\n     * @param {Date} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5417,
-                    6676
+                    5433,
+                    6692
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 185,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100010311",
+                    "id": "astnode100010318",
                     "name": "DateSelector#afterSetCurrentDate",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -585,7 +585,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetCurrentDate",
             "longname": "DateSelector#afterSetCurrentDate",
             "kind": "function",
@@ -593,22 +593,22 @@
             "scope": "instance",
             "$longname": "DateSelector#afterSetCurrentDate",
             "$kind": "method",
-            "id": 314,
+            "id": 315,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Triggered after the dayNameFormat config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the dayNameFormat config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6835,
-                    6963
+                    6853,
+                    6981
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 224,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100010467",
+                    "id": "astnode100010474",
                     "name": "DateSelector#afterSetDayNameFormat",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -639,7 +639,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetDayNameFormat",
             "longname": "DateSelector#afterSetDayNameFormat",
             "kind": "function",
@@ -647,22 +647,22 @@
             "scope": "instance",
             "$longname": "DateSelector#afterSetDayNameFormat",
             "$kind": "method",
-            "id": 315,
+            "id": 316,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Triggered after the showCellBorders config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the showCellBorders config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7126,
-                    7322
+                    7146,
+                    7342
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 236,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100010483",
+                    "id": "astnode100010490",
                     "name": "DateSelector#afterSetShowCellBorders",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -693,7 +693,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetShowCellBorders",
             "longname": "DateSelector#afterSetShowCellBorders",
             "kind": "function",
@@ -701,22 +701,22 @@
             "scope": "instance",
             "$longname": "DateSelector#afterSetShowCellBorders",
             "$kind": "method",
-            "id": 316,
+            "id": 317,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Triggered after the isUpdating config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the isUpdating config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7480,
-                    7809
+                    7502,
+                    7831
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 250,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100010514",
+                    "id": "astnode100010521",
                     "name": "DateSelector#afterSetIsUpdating",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -747,7 +747,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetIsUpdating",
             "longname": "DateSelector#afterSetIsUpdating",
             "kind": "function",
@@ -755,22 +755,22 @@
             "scope": "instance",
             "$longname": "DateSelector#afterSetIsUpdating",
             "$kind": "method",
-            "id": 317,
+            "id": 318,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Triggered after the showDisabledDays config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the showDisabledDays config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7973,
-                    8104
+                    7997,
+                    8128
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 268,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100010565",
+                    "id": "astnode100010572",
                     "name": "DateSelector#afterSetShowDisabledDays",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -801,7 +801,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetShowDisabledDays",
             "longname": "DateSelector#afterSetShowDisabledDays",
             "kind": "function",
@@ -809,22 +809,22 @@
             "scope": "instance",
             "$longname": "DateSelector#afterSetShowDisabledDays",
             "$kind": "method",
-            "id": 318,
+            "id": 319,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Triggered after the selectionModel config got changed\n     * @param {Neo.selection.Model} value\n     * @param {Neo.selection.Model} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the selectionModel config got changed\n     * @param {Neo.selection.Model} value\n     * @param {Neo.selection.Model} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    8290,
-                    8410
+                    8316,
+                    8436
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 280,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100010581",
+                    "id": "astnode100010588",
                     "name": "DateSelector#afterSetSelectionModel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -855,7 +855,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetSelectionModel",
             "longname": "DateSelector#afterSetSelectionModel",
             "kind": "function",
@@ -863,22 +863,22 @@
             "scope": "instance",
             "$longname": "DateSelector#afterSetSelectionModel",
             "$kind": "method",
-            "id": 319,
+            "id": 320,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Triggered after the value config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the value config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    8561,
-                    8873
+                    8589,
+                    8901
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 292,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100010598",
+                    "id": "astnode100010605",
                     "name": "DateSelector#afterSetValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -909,7 +909,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetValue",
             "longname": "DateSelector#afterSetValue",
             "kind": "function",
@@ -917,22 +917,22 @@
             "scope": "instance",
             "$longname": "DateSelector#afterSetValue",
             "$kind": "method",
-            "id": 320,
+            "id": 321,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Triggered after the weekStartDay config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the weekStartDay config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    9031,
-                    9170
+                    9061,
+                    9200
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 313,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100010639",
+                    "id": "astnode100010646",
                     "name": "DateSelector#afterSetWeekStartDay",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -963,7 +963,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetWeekStartDay",
             "longname": "DateSelector#afterSetWeekStartDay",
             "kind": "function",
@@ -971,22 +971,22 @@
             "scope": "instance",
             "$longname": "DateSelector#afterSetWeekStartDay",
             "$kind": "method",
-            "id": 321,
+            "id": 322,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Triggered before the dayNameFormat config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered before the dayNameFormat config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    9331,
-                    9452
+                    9363,
+                    9484
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 325,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100010657",
+                    "id": "astnode100010664",
                     "name": "DateSelector#beforeSetDayNameFormat",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1017,7 +1017,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeSetDayNameFormat",
             "longname": "DateSelector#beforeSetDayNameFormat",
             "kind": "function",
@@ -1025,22 +1025,22 @@
             "scope": "instance",
             "$longname": "DateSelector#beforeSetDayNameFormat",
             "$kind": "method",
-            "id": 322,
+            "id": 323,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Triggered before the selectionModel config gets changed.\n     * @param {Neo.selection.Model} value\n     * @param {Neo.selection.Model} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered before the selectionModel config gets changed.\n     * @param {Neo.selection.Model} value\n     * @param {Neo.selection.Model} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    9641,
-                    9832
+                    9675,
+                    9866
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 335,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100010671",
+                    "id": "astnode100010678",
                     "name": "DateSelector#beforeSetSelectionModel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1071,7 +1071,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeSetSelectionModel",
             "longname": "DateSelector#beforeSetSelectionModel",
             "kind": "function",
@@ -1079,22 +1079,22 @@
             "scope": "instance",
             "$longname": "DateSelector#beforeSetSelectionModel",
             "$kind": "method",
-            "id": 323,
+            "id": 324,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Triggered before the weekStartDay config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered before the weekStartDay config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    9992,
-                    10111
+                    10028,
+                    10147
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 349,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100010692",
+                    "id": "astnode100010699",
                     "name": "DateSelector#beforeSetWeekStartDay",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1125,7 +1125,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeSetWeekStartDay",
             "longname": "DateSelector#beforeSetWeekStartDay",
             "kind": "function",
@@ -1133,22 +1133,22 @@
             "scope": "instance",
             "$longname": "DateSelector#beforeSetWeekStartDay",
             "$kind": "method",
-            "id": 324,
+            "id": 325,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Stores the last date change which could not get applied while a transition was running\n     * @param {Date} [date=this.currentDate]\n     * @private\n     */",
+            "comment": "/**\n     * Stores the last date change which could not get applied while a transition was running\n     * @param {Date} [date=this.currentDate]\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    10288,
-                    10364
+                    10326,
+                    10402
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 358,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100010706",
+                    "id": "astnode100010713",
                     "name": "DateSelector#cacheUpdate",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1172,7 +1172,7 @@
                     "name": "date"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "cacheUpdate",
             "longname": "DateSelector#cacheUpdate",
             "kind": "function",
@@ -1180,22 +1180,22 @@
             "scope": "instance",
             "$longname": "DateSelector#cacheUpdate",
             "$kind": "method",
-            "id": 325,
+            "id": 326,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
             "comment": "/**\n     *\n     * @param {Number} increment\n     * @param {Number} yearIncrement\n     */",
             "meta": {
                 "range": [
-                    10463,
-                    12983
+                    10501,
+                    13021
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 367,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100010721",
+                    "id": "astnode100010728",
                     "name": "DateSelector#changeMonth",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1232,22 +1232,22 @@
             "scope": "instance",
             "$longname": "DateSelector#changeMonth",
             "$kind": "method",
-            "id": 326,
+            "id": 327,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Slides the wrapper div to the left or right\n     * @param {Object} opts\n     * @param {Object} opts.data\n     * @param {String} opts.slideDirection\n     * @private\n     */",
+            "comment": "/**\n     * Slides the wrapper div to the left or right\n     * @param {Object} opts\n     * @param {Object} opts.data\n     * @param {String} opts.slideDirection\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    13176,
-                    13496
+                    13216,
+                    13536
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 435,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100011022",
+                    "id": "astnode100011029",
                     "name": "DateSelector#changeMonthTransitionCallback",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1285,7 +1285,7 @@
                     "name": "opts.slideDirection"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "changeMonthTransitionCallback",
             "longname": "DateSelector#changeMonthTransitionCallback",
             "kind": "function",
@@ -1293,22 +1293,22 @@
             "scope": "instance",
             "$longname": "DateSelector#changeMonthTransitionCallback",
             "$kind": "method",
-            "id": 327,
+            "id": 328,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Replaces the wrapper div with the target month\n     * @param {String} slideDirection\n     * @private\n     */",
+            "comment": "/**\n     * Replaces the wrapper div with the target month\n     * @param {String} slideDirection\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    13626,
-                    13850
+                    13668,
+                    13892
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 451,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100011082",
+                    "id": "astnode100011089",
                     "name": "DateSelector#changeMonthWrapperCallback",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1330,7 +1330,7 @@
                     "name": "slideDirection"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "changeMonthWrapperCallback",
             "longname": "DateSelector#changeMonthWrapperCallback",
             "kind": "function",
@@ -1338,22 +1338,22 @@
             "scope": "instance",
             "$longname": "DateSelector#changeMonthWrapperCallback",
             "$kind": "method",
-            "id": 328,
+            "id": 329,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
             "comment": "/**\n     *\n     * @param {Number} increment\n     */",
             "meta": {
                 "range": [
-                    13912,
-                    15973
+                    13954,
+                    16015
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 463,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100011127",
+                    "id": "astnode100011134",
                     "name": "DateSelector#changeYear",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1381,22 +1381,22 @@
             "scope": "instance",
             "$longname": "DateSelector#changeYear",
             "$kind": "method",
-            "id": 329,
+            "id": 330,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    16002,
-                    16692
+                    16044,
+                    16734
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 522,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100011405",
+                    "id": "astnode100011412",
                     "name": "DateSelector#createDayNamesRow",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1415,22 +1415,22 @@
             "params": [],
             "$longname": "DateSelector#createDayNamesRow",
             "$kind": "method",
-            "id": 330,
+            "id": 331,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
             "comment": "/**\n     *\n     * @param {Boolean} silent true to update the vdom silently\n     * @param {Object} [containerEl]\n     */",
             "meta": {
                 "range": [
-                    16822,
-                    19448
+                    16864,
+                    19490
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 555,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100011502",
+                    "id": "astnode100011509",
                     "name": "DateSelector#createDayViewContent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1469,22 +1469,22 @@
             "scope": "instance",
             "$longname": "DateSelector#createDayViewContent",
             "$kind": "method",
-            "id": 331,
+            "id": 332,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    19477,
-                    19553
+                    19519,
+                    19595
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 623,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100011851",
+                    "id": "astnode100011858",
                     "name": "DateSelector#focusCurrentItem",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1501,22 +1501,22 @@
             "params": [],
             "$longname": "DateSelector#focusCurrentItem",
             "$kind": "method",
-            "id": 332,
+            "id": 333,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
             "comment": "/**\n     * @param {Number|String} year\n     * @param {Number|String} month\n     * @param {Number|String} day\n     */",
             "meta": {
                 "range": [
-                    19680,
-                    19991
+                    19722,
+                    20033
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 632,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100011867",
+                    "id": "astnode100011874",
                     "name": "DateSelector#getCellId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1565,22 +1565,22 @@
             "scope": "instance",
             "$longname": "DateSelector#getCellId",
             "$kind": "method",
-            "id": 333,
+            "id": 334,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
             "comment": "/**\n     *\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    20045,
-                    20105
+                    20087,
+                    20147
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 652,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100011930",
+                    "id": "astnode100011937",
                     "name": "DateSelector#getCenterContentEl",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1606,22 +1606,22 @@
             "params": [],
             "$longname": "DateSelector#getCenterContentEl",
             "$kind": "method",
-            "id": 334,
+            "id": 335,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
             "comment": "/**\n     *\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    20159,
-                    20229
+                    20201,
+                    20271
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 660,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100011942",
+                    "id": "astnode100011949",
                     "name": "DateSelector#getHeaderMonthEl",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1647,22 +1647,22 @@
             "params": [],
             "$longname": "DateSelector#getHeaderMonthEl",
             "$kind": "method",
-            "id": 335,
+            "id": 336,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
             "comment": "/**\n     *\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    20283,
-                    20352
+                    20325,
+                    20394
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 668,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100011962",
+                    "id": "astnode100011969",
                     "name": "DateSelector#getHeaderYearEl",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1688,22 +1688,22 @@
             "params": [],
             "$longname": "DateSelector#getHeaderYearEl",
             "$kind": "method",
-            "id": 336,
+            "id": 337,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    20409,
-                    20958
+                    20451,
+                    21000
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 676,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100011982",
+                    "id": "astnode100011989",
                     "name": "DateSelector#onComponentClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1731,22 +1731,22 @@
             "scope": "instance",
             "$longname": "DateSelector#onComponentClick",
             "$kind": "method",
-            "id": 337,
+            "id": 338,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    21015,
-                    21295
+                    21057,
+                    21337
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 696,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100012070",
+                    "id": "astnode100012077",
                     "name": "DateSelector#onCellClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1774,22 +1774,22 @@
             "scope": "instance",
             "$longname": "DateSelector#onCellClick",
             "$kind": "method",
-            "id": 338,
+            "id": 339,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Recreates the current centerEl, month & year el\n     * @param {Number} monthIncrement\n     * @param {Number} yearIncrement\n     * @param {Boolean} [silent=false]\n     * @private\n     */",
+            "comment": "/**\n     * Recreates the current centerEl, month & year el\n     * @param {Number} monthIncrement\n     * @param {Number} yearIncrement\n     * @param {Boolean} [silent=false]\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    22477,
-                    22867
+                    22521,
+                    22911
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 736,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100012280",
+                    "id": "astnode100012287",
                     "name": "DateSelector#recreateContent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1831,7 +1831,7 @@
                     "name": "silent"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "recreateContent",
             "longname": "DateSelector#recreateContent",
             "kind": "function",
@@ -1839,22 +1839,22 @@
             "scope": "instance",
             "$longname": "DateSelector#recreateContent",
             "$kind": "method",
-            "id": 339,
+            "id": 340,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Recreates the current centerEl\n     * @param {Boolean} [silent=false]\n     * @param {Boolean} [syncIds=true]\n     * @private\n     */",
+            "comment": "/**\n     * Recreates the current centerEl\n     * @param {Boolean} [silent=false]\n     * @param {Boolean} [syncIds=true]\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    23021,
-                    23286
+                    23067,
+                    23332
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 758,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100012330",
+                    "id": "astnode100012337",
                     "name": "DateSelector#recreateDayViewContent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1889,7 +1889,7 @@
                     "name": "syncIds"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "recreateDayViewContent",
             "longname": "DateSelector#recreateDayViewContent",
             "kind": "function",
@@ -1897,22 +1897,22 @@
             "scope": "instance",
             "$longname": "DateSelector#recreateDayViewContent",
             "$kind": "method",
-            "id": 340,
+            "id": 341,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Triggers a vdom update & sets isUpdating\n     * @param {Boolean} [silent=false]\n     * @private\n     */",
+            "comment": "/**\n     * Triggers a vdom update & sets isUpdating\n     * @param {Boolean} [silent=false]\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    23411,
-                    23652
+                    23459,
+                    23700
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 776,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100012373",
+                    "id": "astnode100012380",
                     "name": "DateSelector#triggerVdomUpdate",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1936,7 +1936,7 @@
                     "name": "silent"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "triggerVdomUpdate",
             "longname": "DateSelector#triggerVdomUpdate",
             "kind": "function",
@@ -1944,22 +1944,22 @@
             "scope": "instance",
             "$longname": "DateSelector#triggerVdomUpdate",
             "$kind": "method",
-            "id": 341,
+            "id": 342,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
             "comment": "/**\n     *\n     * @param {Number} increment\n     * @param {Number} yearIncrement\n     * @param {Boolean} silent=false\n     * @param {Object} monthElDomRect\n     * @returns {Object|null} opts or null in case no transitions are needed\n     */",
             "meta": {
                 "range": [
-                    23903,
-                    25930
+                    23951,
+                    25978
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 796,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100012413",
+                    "id": "astnode100012420",
                     "name": "DateSelector#updateHeaderMonth",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2026,22 +2026,22 @@
             "scope": "instance",
             "$longname": "DateSelector#updateHeaderMonth",
             "$kind": "method",
-            "id": 342,
+            "id": 343,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Slides the wrapper div to the top or bottom\n     * @param {Object} opts\n     * @param {Object} opts.data\n     * @param {Object} opts.headerCenterEl\n     * @param {Number} opts.increment\n     * @param {Number} opts.yearIncrement\n     * @private\n     */",
+            "comment": "/**\n     * Slides the wrapper div to the top or bottom\n     * @param {Object} opts\n     * @param {Object} opts.data\n     * @param {Object} opts.headerCenterEl\n     * @param {Number} opts.increment\n     * @param {Number} opts.yearIncrement\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    26203,
-                    26706
+                    26253,
+                    26756
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 859,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100012672",
+                    "id": "astnode100012679",
                     "name": "DateSelector#updateHeaderMonthTransitionCallback",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2095,7 +2095,7 @@
                     "name": "opts.yearIncrement"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "updateHeaderMonthTransitionCallback",
             "longname": "DateSelector#updateHeaderMonthTransitionCallback",
             "kind": "function",
@@ -2103,22 +2103,22 @@
             "scope": "instance",
             "$longname": "DateSelector#updateHeaderMonthTransitionCallback",
             "$kind": "method",
-            "id": 343,
+            "id": 344,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
-            "comment": "/**\n     * Replaces the wrapper div to the left or right\n     * @param {Object} opts\n     * @param {Object} opts.headerCenterEl\n     * @param {Number} opts.increment\n     * @param {Number} opts.yearIncrement\n     * @private\n     */",
+            "comment": "/**\n     * Replaces the wrapper div to the left or right\n     * @param {Object} opts\n     * @param {Object} opts.headerCenterEl\n     * @param {Number} opts.increment\n     * @param {Number} opts.yearIncrement\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    26948,
-                    27391
+                    27000,
+                    27443
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 879,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100012754",
+                    "id": "astnode100012761",
                     "name": "DateSelector#updateHeaderMonthWrapperCallback",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2164,7 +2164,7 @@
                     "name": "opts.yearIncrement"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "updateHeaderMonthWrapperCallback",
             "longname": "DateSelector#updateHeaderMonthWrapperCallback",
             "kind": "function",
@@ -2172,22 +2172,22 @@
             "scope": "instance",
             "$longname": "DateSelector#updateHeaderMonthWrapperCallback",
             "$kind": "method",
-            "id": 344,
+            "id": 345,
             "neoClassName": "Neo.component.DateSelector"
         },
         {
             "comment": "/**\n     *\n     * @param {Number} increment\n     * @param {Boolean} [silent=false]\n     */",
             "meta": {
                 "range": [
-                    27492,
-                    27741
+                    27544,
+                    27793
                 ],
                 "filename": "DateSelector.mjs",
                 "lineno": 894,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100012826",
+                    "id": "astnode100012833",
                     "name": "DateSelector#updateHeaderYear",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2226,7 +2226,7 @@
             "scope": "instance",
             "$longname": "DateSelector#updateHeaderYear",
             "$kind": "method",
-            "id": 345,
+            "id": 346,
             "neoClassName": "Neo.component.DateSelector"
         }
     ]

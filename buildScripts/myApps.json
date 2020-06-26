@@ -1,7 +1,5 @@
 {
     "bodyTag": "<body>",
-    "mainInput": "./src/Main.mjs",
-    "mainOutput": "main.js",
     "workers": {
         "data": {
             "input": "./src/worker/Data.mjs",
@@ -24,6 +22,7 @@
             "input": "buildScripts/entrypoints/RealWorld.mjs",
             "mainThreadAddons": "'LocalStorage', 'Markdown'",
             "output": "/apps/realworld/",
+            "themes": "",
             "title": "RealWorld"
         }
     }

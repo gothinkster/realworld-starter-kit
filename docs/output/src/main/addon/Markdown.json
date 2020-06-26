@@ -27,11 +27,11 @@
             "scope": "static",
             "$longname": "Neo.main.addon.Markdown",
             "$kind": "class",
-            "id": 1432,
+            "id": 1446,
             "neoClassName": "Neo.main.addon.Markdown"
         },
         {
-            "comment": "/**\n             * @member {String} className='Neo.main.addon.Markdown'\n             * @private\n             */",
+            "comment": "/**\n             * @member {String} className='Neo.main.addon.Markdown'\n             * @protected\n             */",
             "meta": {
                 "filename": "Markdown.mjs",
                 "lineno": 20,
@@ -47,16 +47,16 @@
                 ]
             },
             "defaultvalue": "'Neo.main.addon.Markdown'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1433,
+            "id": 1447,
             "neoClassName": "Neo.main.addon.Markdown"
         },
         {
-            "comment": "/**\n             * Remote method access for other workers\n             * @member {Object} remote={app: [//...]}\n             * @private\n             */",
+            "comment": "/**\n             * Remote method access for other workers\n             * @member {Object} remote={app: [//...]}\n             * @protected\n             */",
             "meta": {
                 "filename": "Markdown.mjs",
                 "lineno": 26,
@@ -73,16 +73,16 @@
                 ]
             },
             "defaultvalue": "{app: [//...]}",
-            "access": "private",
+            "access": "protected",
             "longname": "remote",
             "scope": "global",
             "$longname": "remote",
             "$kind": "property",
-            "id": 1434,
+            "id": 1448,
             "neoClassName": "Neo.main.addon.Markdown"
         },
         {
-            "comment": "/**\n             * @member {String} showdownPath='https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js'\n             * @private\n             */",
+            "comment": "/**\n             * @member {String} showdownPath='https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js'\n             * @protected\n             */",
             "meta": {
                 "filename": "Markdown.mjs",
                 "lineno": 35,
@@ -98,16 +98,16 @@
                 ]
             },
             "defaultvalue": "'https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js'",
-            "access": "private",
+            "access": "protected",
             "longname": "showdownPath",
             "scope": "global",
             "$longname": "showdownPath",
             "$kind": "property",
-            "id": 1435,
+            "id": 1449,
             "neoClassName": "Neo.main.addon.Markdown"
         },
         {
-            "comment": "/**\n             * @member {Boolean} singleton=true\n             * @private\n             */",
+            "comment": "/**\n             * @member {Boolean} singleton=true\n             * @protected\n             */",
             "meta": {
                 "filename": "Markdown.mjs",
                 "lineno": 40,
@@ -123,27 +123,27 @@
                 ]
             },
             "defaultvalue": true,
-            "access": "private",
+            "access": "protected",
             "longname": "singleton",
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1436,
+            "id": 1450,
             "neoClassName": "Neo.main.addon.Markdown"
         },
         {
             "comment": "/**\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    1460,
-                    1565
+                    1468,
+                    1573
                 ],
                 "filename": "Markdown.mjs",
                 "lineno": 47,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041610",
+                    "id": "astnode100042455",
                     "name": "Markdown",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -170,22 +170,22 @@
             "scope": "global",
             "$longname": "Markdown",
             "$kind": "constructor",
-            "id": 1437,
+            "id": 1451,
             "neoClassName": "Neo.main.addon.Markdown"
         },
         {
-            "comment": "/**\n     * Markdown to HTML converter\n     * @param {String} markdown string to convert\n     * @private\n     */",
+            "comment": "/**\n     * Markdown to HTML converter\n     * @param {String} markdown string to convert\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1687,
-                    1815
+                    1697,
+                    1825
                 ],
                 "filename": "Markdown.mjs",
                 "lineno": 57,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041629",
+                    "id": "astnode100042474",
                     "name": "Markdown#markdownToHtml",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -208,7 +208,7 @@
                     "name": "markdown"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "markdownToHtml",
             "longname": "Markdown#markdownToHtml",
             "kind": "function",
@@ -216,7 +216,7 @@
             "scope": "instance",
             "$longname": "Markdown#markdownToHtml",
             "$kind": "method",
-            "id": 1438,
+            "id": 1452,
             "neoClassName": "Neo.main.addon.Markdown"
         }
     ]

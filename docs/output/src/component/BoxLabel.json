@@ -20,11 +20,11 @@
             "scope": "static",
             "$longname": "Neo.component.BoxLabel",
             "$kind": "class",
-            "id": 189,
+            "id": 190,
             "neoClassName": "Neo.component.BoxLabel"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.component.BoxLabel'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.component.BoxLabel'\n         * @protected\n         */",
             "meta": {
                 "filename": "BoxLabel.mjs",
                 "lineno": 14,
@@ -40,16 +40,16 @@
                 ]
             },
             "defaultvalue": "'Neo.component.BoxLabel'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 190,
+            "id": 191,
             "neoClassName": "Neo.component.BoxLabel"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='box-label'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='box-label'\n         * @protected\n         */",
             "meta": {
                 "filename": "BoxLabel.mjs",
                 "lineno": 19,
@@ -65,12 +65,12 @@
                 ]
             },
             "defaultvalue": "'box-label'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 191,
+            "id": 192,
             "neoClassName": "Neo.component.BoxLabel"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 192,
+            "id": 193,
             "neoClassName": "Neo.component.BoxLabel"
         }
     ]

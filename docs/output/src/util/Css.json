@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.util.Css",
             "$kind": "class",
-            "id": 1978,
+            "id": 1994,
             "neoClassName": "Neo.util.Css"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.util.Css'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.util.Css'\n         * @protected\n         */",
             "meta": {
                 "filename": "Css.mjs",
                 "lineno": 13,
@@ -39,27 +39,27 @@
                 ]
             },
             "defaultvalue": "'Neo.util.Css'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1979,
+            "id": 1995,
             "neoClassName": "Neo.util.Css"
         },
         {
             "comment": "/**\n     *\n     * @param {Array} rules\n     */",
             "meta": {
                 "range": [
-                    347,
-                    676
+                    349,
+                    678
                 ],
                 "filename": "Css.mjs",
                 "lineno": 20,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100062217",
+                    "id": "astnode100063181",
                     "name": "Css.insertRules",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -87,7 +87,7 @@
             "scope": "static",
             "$longname": "Css.insertRules",
             "$kind": "method",
-            "id": 1980,
+            "id": 1996,
             "neoClassName": "Neo.util.Css"
         }
     ]

@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.util.Style",
             "$kind": "class",
-            "id": 2037,
+            "id": 2054,
             "neoClassName": "Neo.util.Style"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.util.Style'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.util.Style'\n         * @protected\n         */",
             "meta": {
                 "filename": "Style.mjs",
                 "lineno": 13,
@@ -39,27 +39,27 @@
                 ]
             },
             "defaultvalue": "'Neo.util.Style'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2038,
+            "id": 2055,
             "neoClassName": "Neo.util.Style"
         },
         {
             "comment": "/**\n     * Creates an delta object, containing the styles of newStyle which are not included or different than in oldStyle\n     * Styles included in oldStyle but missing in newStyle will get a value of null\n     * see: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style\n     * @param {Object|String} newStyle\n     * @param {Object|String} oldStyle\n     * @returns {Object} style delta\n     */",
             "meta": {
                 "range": [
-                    717,
-                    1884
+                    719,
+                    1886
                 ],
                 "filename": "Style.mjs",
                 "lineno": 24,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100063791",
+                    "id": "astnode100064776",
                     "name": "Style.compareStyles",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -109,7 +109,7 @@
             "scope": "static",
             "$longname": "Style.compareStyles",
             "$kind": "method",
-            "id": 2039,
+            "id": 2056,
             "neoClassName": "Neo.util.Style"
         }
     ]

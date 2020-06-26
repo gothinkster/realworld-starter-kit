@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.component.Chip",
             "$kind": "class",
-            "id": 219,
+            "id": 220,
             "neoClassName": "Neo.component.Chip"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.component.Chip'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.component.Chip'\n         * @protected\n         */",
             "meta": {
                 "filename": "Chip.mjs",
                 "lineno": 14,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.component.Chip'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 220,
+            "id": 221,
             "neoClassName": "Neo.component.Chip"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='chip'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='chip'\n         * @protected\n         */",
             "meta": {
                 "filename": "Chip.mjs",
                 "lineno": 19,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'chip'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 221,
+            "id": 222,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "closable_",
             "$kind": "property",
-            "id": 222,
+            "id": 223,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -118,7 +118,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 223,
+            "id": 224,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -143,7 +143,7 @@
             "scope": "global",
             "$longname": "display_",
             "$kind": "property",
-            "id": 224,
+            "id": 225,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -170,7 +170,7 @@
             "scope": "global",
             "$longname": "iconCls_",
             "$kind": "property",
-            "id": 225,
+            "id": 226,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -196,7 +196,7 @@
             "scope": "global",
             "$longname": "text_",
             "$kind": "property",
-            "id": 226,
+            "id": 227,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -221,7 +221,7 @@
             "scope": "global",
             "$longname": "useDomListeners",
             "$kind": "property",
-            "id": 227,
+            "id": 228,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -244,22 +244,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 228,
+            "id": 229,
             "neoClassName": "Neo.component.Chip"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    1835,
-                    2247
+                    1839,
+                    2251
                 ],
                 "filename": "Chip.mjs",
                 "lineno": 71,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100007495",
+                    "id": "astnode100007502",
                     "name": "Chip",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -286,22 +286,22 @@
             "scope": "global",
             "$longname": "Chip",
             "$kind": "constructor",
-            "id": 229,
+            "id": 230,
             "neoClassName": "Neo.component.Chip"
         },
         {
-            "comment": "/**\n     * Triggered after the closable config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the closable config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2403,
-                    2561
+                    2409,
+                    2567
                 ],
                 "filename": "Chip.mjs",
                 "lineno": 96,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100007541",
+                    "id": "astnode100007548",
                     "name": "Chip#afterSetClosable",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -332,7 +332,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetClosable",
             "longname": "Chip#afterSetClosable",
             "kind": "function",
@@ -340,22 +340,22 @@
             "scope": "instance",
             "$longname": "Chip#afterSetClosable",
             "$kind": "method",
-            "id": 230,
+            "id": 231,
             "neoClassName": "Neo.component.Chip"
         },
         {
-            "comment": "/**\n     * Triggered after the display config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the display config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2714,
-                    2845
+                    2722,
+                    2853
                 ],
                 "filename": "Chip.mjs",
                 "lineno": 110,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100007573",
+                    "id": "astnode100007580",
                     "name": "Chip#afterSetDisplay",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -386,7 +386,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetDisplay",
             "longname": "Chip#afterSetDisplay",
             "kind": "function",
@@ -394,22 +394,22 @@
             "scope": "instance",
             "$longname": "Chip#afterSetDisplay",
             "$kind": "method",
-            "id": 231,
+            "id": 232,
             "neoClassName": "Neo.component.Chip"
         },
         {
-            "comment": "/**\n     * Triggered after the iconCls config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the iconCls config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2998,
-                    3401
+                    3008,
+                    3411
                 ],
                 "filename": "Chip.mjs",
                 "lineno": 122,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100007597",
+                    "id": "astnode100007604",
                     "name": "Chip#afterSetIconCls",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -440,7 +440,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetIconCls",
             "longname": "Chip#afterSetIconCls",
             "kind": "function",
@@ -448,22 +448,22 @@
             "scope": "instance",
             "$longname": "Chip#afterSetIconCls",
             "$kind": "method",
-            "id": 232,
+            "id": 233,
             "neoClassName": "Neo.component.Chip"
         },
         {
-            "comment": "/**\n     * Triggered after the text config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the text config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3551,
-                    3894
+                    3563,
+                    3906
                 ],
                 "filename": "Chip.mjs",
                 "lineno": 145,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100007664",
+                    "id": "astnode100007671",
                     "name": "Chip#afterSetText",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -494,7 +494,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetText",
             "longname": "Chip#afterSetText",
             "kind": "function",
@@ -502,22 +502,22 @@
             "scope": "instance",
             "$longname": "Chip#afterSetText",
             "$kind": "method",
-            "id": 233,
+            "id": 234,
             "neoClassName": "Neo.component.Chip"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    3951,
-                    4032
+                    3963,
+                    4044
                 ],
                 "filename": "Chip.mjs",
                 "lineno": 164,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100007719",
+                    "id": "astnode100007726",
                     "name": "Chip#onCloseButtonClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -545,7 +545,7 @@
             "scope": "instance",
             "$longname": "Chip#onCloseButtonClick",
             "$kind": "method",
-            "id": 234,
+            "id": 235,
             "neoClassName": "Neo.component.Chip"
         }
     ]

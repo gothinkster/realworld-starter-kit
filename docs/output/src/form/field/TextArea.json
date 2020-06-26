@@ -20,11 +20,11 @@
             "scope": "static",
             "$longname": "Neo.form.field.TextArea",
             "$kind": "class",
-            "id": 1038,
+            "id": 1046,
             "neoClassName": "Neo.form.field.TextArea"
         },
         {
-            "comment": "/**\n         * Valid values for wrap\n         * @member {String[]} wrapValues=['hard', 'off', 'soft', null]\n         * @private\n         * @static\n         */",
+            "comment": "/**\n         * Valid values for wrap\n         * @member {String[]} wrapValues=['hard', 'off', 'soft', null]\n         * @protected\n         * @static\n         */",
             "meta": {
                 "filename": "TextArea.mjs",
                 "lineno": 17,
@@ -41,16 +41,16 @@
                 ]
             },
             "defaultvalue": "['hard', 'off', 'soft', null]",
-            "access": "private",
+            "access": "protected",
             "scope": "static",
             "longname": "wrapValues",
             "$longname": "wrapValues",
             "$kind": "property",
-            "id": 1039,
+            "id": 1047,
             "neoClassName": "Neo.form.field.TextArea"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.form.field.TextArea'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.form.field.TextArea'\n         * @protected\n         */",
             "meta": {
                 "filename": "TextArea.mjs",
                 "lineno": 25,
@@ -66,16 +66,16 @@
                 ]
             },
             "defaultvalue": "'Neo.form.field.TextArea'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1040,
+            "id": 1048,
             "neoClassName": "Neo.form.field.TextArea"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='textarea'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='textarea'\n         * @protected\n         */",
             "meta": {
                 "filename": "TextArea.mjs",
                 "lineno": 30,
@@ -91,12 +91,12 @@
                 ]
             },
             "defaultvalue": "'textarea'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1041,
+            "id": 1049,
             "neoClassName": "Neo.form.field.TextArea"
         },
         {
@@ -121,7 +121,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1042,
+            "id": 1050,
             "neoClassName": "Neo.form.field.TextArea"
         },
         {
@@ -147,7 +147,7 @@
             "scope": "global",
             "$longname": "cols_",
             "$kind": "property",
-            "id": 1043,
+            "id": 1051,
             "neoClassName": "Neo.form.field.TextArea"
         },
         {
@@ -171,11 +171,11 @@
             "scope": "global",
             "$longname": "inputTag_",
             "$kind": "property",
-            "id": 1044,
+            "id": 1052,
             "neoClassName": "Neo.form.field.TextArea"
         },
         {
-            "comment": "/**\n         * Disabling to set a type for the textarea tag\n         * @member {String|null} inputType=null\n         * @private\n         */",
+            "comment": "/**\n         * Disabling to set a type for the textarea tag\n         * @member {String|null} inputType=null\n         * @protected\n         */",
             "meta": {
                 "filename": "TextArea.mjs",
                 "lineno": 51,
@@ -193,12 +193,12 @@
                 ]
             },
             "defaultvalue": null,
-            "access": "private",
+            "access": "protected",
             "longname": "inputType",
             "scope": "global",
             "$longname": "inputType",
             "$kind": "property",
-            "id": 1045,
+            "id": 1053,
             "neoClassName": "Neo.form.field.TextArea"
         },
         {
@@ -223,7 +223,7 @@
             "scope": "global",
             "$longname": "resizable_",
             "$kind": "property",
-            "id": 1046,
+            "id": 1054,
             "neoClassName": "Neo.form.field.TextArea"
         },
         {
@@ -249,7 +249,7 @@
             "scope": "global",
             "$longname": "rows_",
             "$kind": "property",
-            "id": 1047,
+            "id": 1055,
             "neoClassName": "Neo.form.field.TextArea"
         },
         {
@@ -275,22 +275,22 @@
             "scope": "global",
             "$longname": "wrap_",
             "$kind": "property",
-            "id": 1048,
+            "id": 1056,
             "neoClassName": "Neo.form.field.TextArea"
         },
         {
-            "comment": "/**\n     * Triggered after the cols config got changed\n     * @param {Number|null} value\n     * @param {Number|null} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the cols config got changed\n     * @param {Number|null} value\n     * @param {Number|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2200,
-                    2283
+                    2210,
+                    2293
                 ],
                 "filename": "TextArea.mjs",
                 "lineno": 77,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032664",
+                    "id": "astnode100033182",
                     "name": "TextArea#afterSetCols",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -323,7 +323,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetCols",
             "longname": "TextArea#afterSetCols",
             "kind": "function",
@@ -331,22 +331,22 @@
             "scope": "instance",
             "$longname": "TextArea#afterSetCols",
             "$kind": "method",
-            "id": 1049,
+            "id": 1057,
             "neoClassName": "Neo.form.field.TextArea"
         },
         {
-            "comment": "/**\n     * Triggered after the inputTag config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the inputTag config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2437,
-                    2523
+                    2449,
+                    2535
                 ],
                 "filename": "TextArea.mjs",
                 "lineno": 87,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032677",
+                    "id": "astnode100033195",
                     "name": "TextArea#afterSetInputTag",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -377,7 +377,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetInputTag",
             "longname": "TextArea#afterSetInputTag",
             "kind": "function",
@@ -385,22 +385,22 @@
             "scope": "instance",
             "$longname": "TextArea#afterSetInputTag",
             "$kind": "method",
-            "id": 1050,
+            "id": 1058,
             "neoClassName": "Neo.form.field.TextArea"
         },
         {
-            "comment": "/**\n     * Triggered after the resizable config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the resizable config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2680,
-                    2893
+                    2694,
+                    2907
                 ],
                 "filename": "TextArea.mjs",
                 "lineno": 97,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032690",
+                    "id": "astnode100033208",
                     "name": "TextArea#afterSetResizable",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -431,7 +431,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetResizable",
             "longname": "TextArea#afterSetResizable",
             "kind": "function",
@@ -439,22 +439,22 @@
             "scope": "instance",
             "$longname": "TextArea#afterSetResizable",
             "$kind": "method",
-            "id": 1051,
+            "id": 1059,
             "neoClassName": "Neo.form.field.TextArea"
         },
         {
-            "comment": "/**\n     * Triggered after the rows config got changed\n     * @param {Number|null} value\n     * @param {Number|null} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the rows config got changed\n     * @param {Number|null} value\n     * @param {Number|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3053,
-                    3136
+                    3069,
+                    3152
                 ],
                 "filename": "TextArea.mjs",
                 "lineno": 112,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032728",
+                    "id": "astnode100033246",
                     "name": "TextArea#afterSetRows",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -487,7 +487,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetRows",
             "longname": "TextArea#afterSetRows",
             "kind": "function",
@@ -495,22 +495,22 @@
             "scope": "instance",
             "$longname": "TextArea#afterSetRows",
             "$kind": "method",
-            "id": 1052,
+            "id": 1060,
             "neoClassName": "Neo.form.field.TextArea"
         },
         {
-            "comment": "/**\n     * Triggered after the wrap config got changed\n     * @param {Number|null} value\n     * @param {Number|null} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the wrap config got changed\n     * @param {Number|null} value\n     * @param {Number|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3296,
-                    3379
+                    3314,
+                    3397
                 ],
                 "filename": "TextArea.mjs",
                 "lineno": 122,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032741",
+                    "id": "astnode100033259",
                     "name": "TextArea#afterSetWrap",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -543,7 +543,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetWrap",
             "longname": "TextArea#afterSetWrap",
             "kind": "function",
@@ -551,22 +551,22 @@
             "scope": "instance",
             "$longname": "TextArea#afterSetWrap",
             "$kind": "method",
-            "id": 1053,
+            "id": 1061,
             "neoClassName": "Neo.form.field.TextArea"
         },
         {
-            "comment": "/**\n     * Checks if the new wrap value matches a value of the static wrapValues config\n     * @param {String} value\n     * @param {String} oldValue\n     * @returns {String} value\n     * @private\n     */",
+            "comment": "/**\n     * Checks if the new wrap value matches a value of the static wrapValues config\n     * @param {String} value\n     * @param {String} oldValue\n     * @returns {String} value\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3593,
-                    3710
+                    3613,
+                    3730
                 ],
                 "filename": "TextArea.mjs",
                 "lineno": 133,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032754",
+                    "id": "astnode100033272",
                     "name": "TextArea#beforeSetWrap",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -607,7 +607,7 @@
                     "description": "value"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeSetWrap",
             "longname": "TextArea#beforeSetWrap",
             "kind": "function",
@@ -615,7 +615,7 @@
             "scope": "instance",
             "$longname": "TextArea#beforeSetWrap",
             "$kind": "method",
-            "id": 1054,
+            "id": 1062,
             "neoClassName": "Neo.form.field.TextArea"
         }
     ]

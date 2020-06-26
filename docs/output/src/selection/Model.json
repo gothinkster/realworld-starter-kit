@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.selection.Model",
             "$kind": "class",
-            "id": 1678,
+            "id": 1693,
             "neoClassName": "Neo.selection.Model"
         },
         {
@@ -44,11 +44,11 @@
             "longname": "observable",
             "$longname": "observable",
             "$kind": "property",
-            "id": 1679,
+            "id": 1694,
             "neoClassName": "Neo.selection.Model"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.selection.Model'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.selection.Model'\n         * @protected\n         */",
             "meta": {
                 "filename": "Model.mjs",
                 "lineno": 24,
@@ -64,16 +64,16 @@
                 ]
             },
             "defaultvalue": "'Neo.selection.Model'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1680,
+            "id": 1695,
             "neoClassName": "Neo.selection.Model"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='selection-model'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='selection-model'\n         * @protected\n         */",
             "meta": {
                 "filename": "Model.mjs",
                 "lineno": 29,
@@ -89,16 +89,16 @@
                 ]
             },
             "defaultvalue": "'selection-model'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1681,
+            "id": 1696,
             "neoClassName": "Neo.selection.Model"
         },
         {
-            "comment": "/**\n         * Placeholder for extended classes to add a custom css rule to this owner component\n         * @member {String|null} cls=null\n         * @private\n         */",
+            "comment": "/**\n         * Placeholder for extended classes to add a custom css rule to this owner component\n         * @member {String|null} cls=null\n         * @protected\n         */",
             "meta": {
                 "filename": "Model.mjs",
                 "lineno": 35,
@@ -116,16 +116,16 @@
                 ]
             },
             "defaultvalue": null,
-            "access": "private",
+            "access": "protected",
             "longname": "cls",
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1682,
+            "id": 1697,
             "neoClassName": "Neo.selection.Model"
         },
         {
-            "comment": "/**\n         * @member {Array} items=[]\n         * @private\n         */",
+            "comment": "/**\n         * @member {Array} items=[]\n         * @protected\n         */",
             "meta": {
                 "filename": "Model.mjs",
                 "lineno": 40,
@@ -141,12 +141,12 @@
                 ]
             },
             "defaultvalue": "[]",
-            "access": "private",
+            "access": "protected",
             "longname": "items",
             "scope": "global",
             "$longname": "items",
             "$kind": "property",
-            "id": 1683,
+            "id": 1698,
             "neoClassName": "Neo.selection.Model"
         },
         {
@@ -170,7 +170,7 @@
             "scope": "global",
             "$longname": "selectedCls",
             "$kind": "property",
-            "id": 1684,
+            "id": 1699,
             "neoClassName": "Neo.selection.Model"
         },
         {
@@ -194,11 +194,11 @@
             "scope": "global",
             "$longname": "singleSelect",
             "$kind": "property",
-            "id": 1685,
+            "id": 1700,
             "neoClassName": "Neo.selection.Model"
         },
         {
-            "comment": "/**\n         * Internally saves the view id, but the getter will return the matching instance\n         * @member {Object} view_=null\n         * @private\n         */",
+            "comment": "/**\n         * Internally saves the view id, but the getter will return the matching instance\n         * @member {Object} view_=null\n         * @protected\n         */",
             "meta": {
                 "filename": "Model.mjs",
                 "lineno": 54,
@@ -215,27 +215,27 @@
                 ]
             },
             "defaultvalue": null,
-            "access": "private",
+            "access": "protected",
             "longname": "view_",
             "scope": "global",
             "$longname": "view_",
             "$kind": "property",
-            "id": 1686,
+            "id": 1701,
             "neoClassName": "Neo.selection.Model"
         },
         {
             "comment": "/**\n     * Gets triggered before getting the value of the view config\n     * @returns {Neo.component.Base}\n     */",
             "meta": {
                 "range": [
-                    1597,
-                    1665
+                    1607,
+                    1675
                 ],
                 "filename": "Model.mjs",
                 "lineno": 61,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053526",
+                    "id": "astnode100054441",
                     "name": "Model#beforeGetView",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -262,22 +262,22 @@
             "params": [],
             "$longname": "Model#beforeGetView",
             "$kind": "method",
-            "id": 1687,
+            "id": 1702,
             "neoClassName": "Neo.selection.Model"
         },
         {
             "comment": "/**\n     * Gets triggered before setting the value of the view config\n     * @returns {String} the view id\n     */",
             "meta": {
                 "range": [
-                    1790,
-                    1852
+                    1800,
+                    1862
                 ],
                 "filename": "Model.mjs",
                 "lineno": 69,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053538",
+                    "id": "astnode100054453",
                     "name": "Model#beforeSetView",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -307,22 +307,22 @@
             "params": [],
             "$longname": "Model#beforeSetView",
             "$kind": "method",
-            "id": 1688,
+            "id": 1703,
             "neoClassName": "Neo.selection.Model"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    1881,
-                    1900
+                    1891,
+                    1910
                 ],
                 "filename": "Model.mjs",
                 "lineno": 76,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053549",
+                    "id": "astnode100054464",
                     "name": "Model#addDomListener",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -339,22 +339,22 @@
             "params": [],
             "$longname": "Model#addDomListener",
             "$kind": "method",
-            "id": 1689,
+            "id": 1704,
             "neoClassName": "Neo.selection.Model"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} item\n     * @param {Boolean} [silent] true to prevent a vdom update\n     * @param {Array} [itemCollection]\n     * @param {String} [selectedCls]\n     */",
             "meta": {
                 "range": [
-                    2096,
-                    2635
+                    2106,
+                    2645
                 ],
                 "filename": "Model.mjs",
                 "lineno": 85,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053553",
+                    "id": "astnode100054468",
                     "name": "Model#deselect",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -413,22 +413,22 @@
             "scope": "instance",
             "$longname": "Model#deselect",
             "$kind": "method",
-            "id": 1690,
+            "id": 1705,
             "neoClassName": "Neo.selection.Model"
         },
         {
             "comment": "/**\n     *\n     * @param {Boolean} [silent] true to prevent a vdom update\n     */",
             "meta": {
                 "range": [
-                    2727,
-                    3041
+                    2737,
+                    3051
                 ],
                 "filename": "Model.mjs",
                 "lineno": 109,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053633",
+                    "id": "astnode100054548",
                     "name": "Model#deselectAll",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -458,22 +458,22 @@
             "scope": "instance",
             "$longname": "Model#deselectAll",
             "$kind": "method",
-            "id": 1691,
+            "id": 1706,
             "neoClassName": "Neo.selection.Model"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    3070,
-                    3139
+                    3080,
+                    3149
                 ],
                 "filename": "Model.mjs",
                 "lineno": 127,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053690",
+                    "id": "astnode100054605",
                     "name": "Model#destroy",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -490,22 +490,22 @@
             "params": [],
             "$longname": "Model#destroy",
             "$kind": "method",
-            "id": 1692,
+            "id": 1707,
             "neoClassName": "Neo.selection.Model"
         },
         {
             "comment": "/**\n     *\n     * @returns {Array} this.items\n     */",
             "meta": {
                 "range": [
-                    3203,
-                    3252
+                    3213,
+                    3262
                 ],
                 "filename": "Model.mjs",
                 "lineno": 136,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053704",
+                    "id": "astnode100054619",
                     "name": "Model#getSelection",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -532,22 +532,22 @@
             "params": [],
             "$longname": "Model#getSelection",
             "$kind": "method",
-            "id": 1693,
+            "id": 1708,
             "neoClassName": "Neo.selection.Model"
         },
         {
             "comment": "/**\n     *\n     * @returns {Boolean} true in case there is a selection\n     */",
             "meta": {
                 "range": [
-                    3341,
-                    3401
+                    3351,
+                    3411
                 ],
                 "filename": "Model.mjs",
                 "lineno": 144,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053712",
+                    "id": "astnode100054627",
                     "name": "Model#hasSelection",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -574,22 +574,22 @@
             "params": [],
             "$longname": "Model#hasSelection",
             "$kind": "method",
-            "id": 1694,
+            "id": 1709,
             "neoClassName": "Neo.selection.Model"
         },
         {
             "comment": "/**\n     *\n     * @param {String} id\n     * @returns {Boolean} true in case the item is selected\n     */",
             "meta": {
                 "range": [
-                    3516,
-                    3582
+                    3526,
+                    3592
                 ],
                 "filename": "Model.mjs",
                 "lineno": 153,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053724",
+                    "id": "astnode100054639",
                     "name": "Model#isSelected",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -627,22 +627,22 @@
             "scope": "instance",
             "$longname": "Model#isSelected",
             "$kind": "method",
-            "id": 1695,
+            "id": 1710,
             "neoClassName": "Neo.selection.Model"
         },
         {
             "comment": "/**\n     *\n     * @param {Neo.component.Base} component\n     */",
             "meta": {
                 "range": [
-                    3656,
-                    3926
+                    3666,
+                    3936
                 ],
                 "filename": "Model.mjs",
                 "lineno": 161,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053740",
+                    "id": "astnode100054655",
                     "name": "Model#register",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -670,22 +670,22 @@
             "scope": "instance",
             "$longname": "Model#register",
             "$kind": "method",
-            "id": 1696,
+            "id": 1711,
             "neoClassName": "Neo.selection.Model"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    3955,
-                    4334
+                    3965,
+                    4344
                 ],
                 "filename": "Model.mjs",
                 "lineno": 177,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053795",
+                    "id": "astnode100054710",
                     "name": "Model#removeDomListeners",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -702,22 +702,22 @@
             "params": [],
             "$longname": "Model#removeDomListeners",
             "$kind": "method",
-            "id": 1697,
+            "id": 1712,
             "neoClassName": "Neo.selection.Model"
         },
         {
             "comment": "/**\n     *\n     * @param {Object|Object[]|String[]} items\n     * @param {Array} [itemCollection]\n     * @param {String} [selectedCls]\n     */",
             "meta": {
                 "range": [
-                    4486,
-                    5261
+                    4496,
+                    5271
                 ],
                 "filename": "Model.mjs",
                 "lineno": 197,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053845",
+                    "id": "astnode100054760",
                     "name": "Model#select",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -767,22 +767,22 @@
             "scope": "instance",
             "$longname": "Model#select",
             "$kind": "method",
-            "id": 1698,
+            "id": 1713,
             "neoClassName": "Neo.selection.Model"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} item\n     */",
             "meta": {
                 "range": [
-                    5318,
-                    5493
+                    5328,
+                    5503
                 ],
                 "filename": "Model.mjs",
                 "lineno": 230,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100053971",
+                    "id": "astnode100054886",
                     "name": "Model#toggleSelection",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -810,22 +810,22 @@
             "scope": "instance",
             "$longname": "Model#toggleSelection",
             "$kind": "method",
-            "id": 1699,
+            "id": 1714,
             "neoClassName": "Neo.selection.Model"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    5522,
-                    5794
+                    5532,
+                    5804
                 ],
                 "filename": "Model.mjs",
                 "lineno": 243,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection",
                 "code": {
-                    "id": "astnode100054000",
+                    "id": "astnode100054915",
                     "name": "Model#unregister",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -842,7 +842,7 @@
             "params": [],
             "$longname": "Model#unregister",
             "$kind": "method",
-            "id": 1700,
+            "id": 1715,
             "neoClassName": "Neo.selection.Model"
         }
     ]

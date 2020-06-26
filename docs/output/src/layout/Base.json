@@ -20,11 +20,11 @@
             "scope": "static",
             "$longname": "Neo.layout.Base",
             "$kind": "class",
-            "id": 1203,
+            "id": 1211,
             "neoClassName": "Neo.layout.Base"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.layout.Base'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.layout.Base'\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
                 "lineno": 15,
@@ -40,16 +40,16 @@
                 ]
             },
             "defaultvalue": "'Neo.layout.Base'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1204,
+            "id": 1212,
             "neoClassName": "Neo.layout.Base"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='layout-base'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='layout-base'\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
                 "lineno": 20,
@@ -65,16 +65,16 @@
                 ]
             },
             "defaultvalue": "'layout-base'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1205,
+            "id": 1213,
             "neoClassName": "Neo.layout.Base"
         },
         {
-            "comment": "/**\n         * The Id of the Container instance this layout is bound to\n         * @member {?String} containerId=null\n         * @private\n         */",
+            "comment": "/**\n         * The Id of the Container instance this layout is bound to\n         * @member {?String} containerId=null\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
                 "lineno": 26,
@@ -92,16 +92,16 @@
             },
             "nullable": true,
             "defaultvalue": null,
-            "access": "private",
+            "access": "protected",
             "longname": "containerId",
             "scope": "global",
             "$longname": "containerId",
             "$kind": "property",
-            "id": 1206,
+            "id": 1214,
             "neoClassName": "Neo.layout.Base"
         },
         {
-            "comment": "/**\n         * Identifier for all classes that extend layout.Base\n         * @member {Boolean} isLayout=true\n         * @private\n         */",
+            "comment": "/**\n         * Identifier for all classes that extend layout.Base\n         * @member {Boolean} isLayout=true\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
                 "lineno": 32,
@@ -118,27 +118,27 @@
                 ]
             },
             "defaultvalue": true,
-            "access": "private",
+            "access": "protected",
             "longname": "isLayout",
             "scope": "global",
             "$longname": "isLayout",
             "$kind": "property",
-            "id": 1207,
+            "id": 1215,
             "neoClassName": "Neo.layout.Base"
         },
         {
-            "comment": "/**\n     * Placeholder Method\n     * @param {Neo.component.Base} item\n     * @private\n     */",
+            "comment": "/**\n     * Placeholder Method\n     * @param {Neo.component.Base} item\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1022,
-                    1051
+                    1032,
+                    1061
                 ],
                 "filename": "Base.mjs",
                 "lineno": 40,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100035163",
+                    "id": "astnode100035681",
                     "name": "Base#applyChildAttributes",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -160,7 +160,7 @@
                     "name": "item"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "applyChildAttributes",
             "longname": "Base#applyChildAttributes",
             "kind": "function",
@@ -168,22 +168,22 @@
             "scope": "instance",
             "$longname": "Base#applyChildAttributes",
             "$kind": "method",
-            "id": 1208,
+            "id": 1216,
             "neoClassName": "Neo.layout.Base"
         },
         {
-            "comment": "/**\n     * Placeholder Method\n     * @private\n     */",
+            "comment": "/**\n     * Placeholder Method\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1115,
-                    1141
+                    1127,
+                    1153
                 ],
                 "filename": "Base.mjs",
                 "lineno": 46,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100035168",
+                    "id": "astnode100035686",
                     "name": "Base#applyRenderAttributes",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -193,7 +193,7 @@
                 }
             },
             "description": "Placeholder Method",
-            "access": "private",
+            "access": "protected",
             "name": "applyRenderAttributes",
             "longname": "Base#applyRenderAttributes",
             "kind": "function",
@@ -202,22 +202,22 @@
             "params": [],
             "$longname": "Base#applyRenderAttributes",
             "$kind": "method",
-            "id": 1209,
+            "id": 1217,
             "neoClassName": "Neo.layout.Base"
         },
         {
-            "comment": "/**\n     * Placeholder Method\n     * @param {Neo.component.Base} item\n     * @private\n     */",
+            "comment": "/**\n     * Placeholder Method\n     * @param {Neo.component.Base} item\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1245,
-                    1275
+                    1259,
+                    1289
                 ],
                 "filename": "Base.mjs",
                 "lineno": 53,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100035172",
+                    "id": "astnode100035690",
                     "name": "Base#removeChildAttributes",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -239,7 +239,7 @@
                     "name": "item"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "removeChildAttributes",
             "longname": "Base#removeChildAttributes",
             "kind": "function",
@@ -247,22 +247,22 @@
             "scope": "instance",
             "$longname": "Base#removeChildAttributes",
             "$kind": "method",
-            "id": 1210,
+            "id": 1218,
             "neoClassName": "Neo.layout.Base"
         },
         {
-            "comment": "/**\n     * Placeholder Method\n     * @private\n     */",
+            "comment": "/**\n     * Placeholder Method\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1339,
-                    1366
+                    1355,
+                    1382
                 ],
                 "filename": "Base.mjs",
                 "lineno": 59,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100035177",
+                    "id": "astnode100035695",
                     "name": "Base#removeRenderAttributes",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -272,7 +272,7 @@
                 }
             },
             "description": "Placeholder Method",
-            "access": "private",
+            "access": "protected",
             "name": "removeRenderAttributes",
             "longname": "Base#removeRenderAttributes",
             "kind": "function",
@@ -281,7 +281,7 @@
             "params": [],
             "$longname": "Base#removeRenderAttributes",
             "$kind": "method",
-            "id": 1211,
+            "id": 1219,
             "neoClassName": "Neo.layout.Base"
         }
     ]

@@ -48,7 +48,7 @@
             "neoClassName": "Neo.collection.Filter"
         },
         {
-            "comment": "/**\n         * Valid values for the operator config:<br>\n         * ['==', '===', '!=', '!==', '<', '<=', '>', '>=', 'excluded', 'included', 'isDefined', 'isUndefined', 'like']\n         * @member {String[]} operators\n         * @private\n         * @static\n         */",
+            "comment": "/**\n         * Valid values for the operator config:<br>\n         * ['==', '===', '!=', '!==', '<', '<=', '>', '>=', 'excluded', 'included', 'isDefined', 'isUndefined', 'like']\n         * @member {String[]} operators\n         * @protected\n         * @static\n         */",
             "meta": {
                 "filename": "Filter.mjs",
                 "lineno": 23,
@@ -64,7 +64,7 @@
                     "Array.<String>"
                 ]
             },
-            "access": "private",
+            "access": "protected",
             "scope": "static",
             "longname": "operators",
             "$longname": "operators",
@@ -73,7 +73,7 @@
             "neoClassName": "Neo.collection.Filter"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.collection.Filter'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.collection.Filter'\n         * @protected\n         */",
             "meta": {
                 "filename": "Filter.mjs",
                 "lineno": 31,
@@ -89,7 +89,7 @@
                 ]
             },
             "defaultvalue": "'Neo.collection.Filter'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
@@ -98,7 +98,7 @@
             "neoClassName": "Neo.collection.Filter"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='filter'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='filter'\n         * @protected\n         */",
             "meta": {
                 "filename": "Filter.mjs",
                 "lineno": 36,
@@ -114,7 +114,7 @@
                 ]
             },
             "defaultvalue": "'filter'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
@@ -224,7 +224,7 @@
             "neoClassName": "Neo.collection.Filter"
         },
         {
-            "comment": "/**\n         * The owner util.Collection needs to apply an onChange listener once\n         * @member {Boolean} listenerApplied=false\n         * @private\n         */",
+            "comment": "/**\n         * The owner util.Collection needs to apply an onChange listener once\n         * @member {Boolean} listenerApplied=false\n         * @protected\n         */",
             "meta": {
                 "filename": "Filter.mjs",
                 "lineno": 63,
@@ -241,7 +241,7 @@
                 ]
             },
             "defaultvalue": false,
-            "access": "private",
+            "access": "protected",
             "longname": "listenerApplied",
             "scope": "global",
             "$longname": "listenerApplied",
@@ -351,11 +351,11 @@
             "neoClassName": "Neo.collection.Filter"
         },
         {
-            "comment": "/**\n     * Triggered before the operator config gets changed.\n     * @param {String|null} value\n     * @param {String} oldValue\n     * @returns {String}\n     * @private\n     */",
+            "comment": "/**\n     * Triggered before the operator config gets changed.\n     * @param {String|null} value\n     * @param {String} oldValue\n     * @returns {String}\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4185,
-                    4296
+                    4195,
+                    4306
                 ],
                 "filename": "Filter.mjs",
                 "lineno": 141,
@@ -403,7 +403,7 @@
                     }
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeSetOperator",
             "longname": "Filter#beforeSetOperator",
             "kind": "function",
@@ -418,8 +418,8 @@
             "comment": "/**\n     *\n     * @param value\n     * @param oldValue\n     */",
             "meta": {
                 "range": [
-                    4368,
-                    4667
+                    4378,
+                    4677
                 ],
                 "filename": "Filter.mjs",
                 "lineno": 150,
@@ -460,8 +460,8 @@
             "comment": "/**\n     * Checks if a colletion item matches this filter\n     * @param {Object} item The current collection item\n     * @param {Array} filteredItems If the collection filterMode is not primitive contains the items which passed\n     * the previous filters, otherwise all collection items\n     * @param {Array} allItems all collection items\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    5051,
-                    5525
+                    5061,
+                    5535
                 ],
                 "filename": "Filter.mjs",
                 "lineno": 170,

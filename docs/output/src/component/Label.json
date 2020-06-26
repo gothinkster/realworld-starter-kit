@@ -20,11 +20,11 @@
             "scope": "static",
             "$longname": "Neo.component.Label",
             "$kind": "class",
-            "id": 478,
+            "id": 479,
             "neoClassName": "Neo.component.Label"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.component.Label'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.component.Label'\n         * @protected\n         */",
             "meta": {
                 "filename": "Label.mjs",
                 "lineno": 14,
@@ -40,16 +40,16 @@
                 ]
             },
             "defaultvalue": "'Neo.component.Label'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 479,
+            "id": 480,
             "neoClassName": "Neo.component.Label"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='label'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='label'\n         * @protected\n         */",
             "meta": {
                 "filename": "Label.mjs",
                 "lineno": 19,
@@ -65,12 +65,12 @@
                 ]
             },
             "defaultvalue": "'label'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 480,
+            "id": 481,
             "neoClassName": "Neo.component.Label"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 481,
+            "id": 482,
             "neoClassName": "Neo.component.Label"
         },
         {
@@ -118,7 +118,7 @@
             "scope": "global",
             "$longname": "text_",
             "$kind": "property",
-            "id": 482,
+            "id": 483,
             "neoClassName": "Neo.component.Label"
         },
         {
@@ -143,22 +143,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 483,
+            "id": 484,
             "neoClassName": "Neo.component.Label"
         },
         {
-            "comment": "/**\n     * Triggered after the text config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the text config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    952,
-                    1072
+                    958,
+                    1078
                 ],
                 "filename": "Label.mjs",
                 "lineno": 42,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100018038",
+                    "id": "astnode100018090",
                     "name": "Label#afterSetText",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -189,7 +189,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetText",
             "longname": "Label#afterSetText",
             "kind": "function",
@@ -197,7 +197,7 @@
             "scope": "instance",
             "$longname": "Label#afterSetText",
             "$kind": "method",
-            "id": 484,
+            "id": 485,
             "neoClassName": "Neo.component.Label"
         }
     ]

@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.util.Date",
             "$kind": "class",
-            "id": 1981,
+            "id": 1997,
             "neoClassName": "Neo.util.Date"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.util.Date'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.util.Date'\n         * @protected\n         */",
             "meta": {
                 "filename": "Date.mjs",
                 "lineno": 13,
@@ -39,27 +39,27 @@
                 ]
             },
             "defaultvalue": "'Neo.util.Date'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1982,
+            "id": 1998,
             "neoClassName": "Neo.util.Date"
         },
         {
             "comment": "/**\n     * Clones a Date instance using the same value\n     * @param {Date} date\n     * @return {Date} the cloned date object\n     */",
             "meta": {
                 "range": [
-                    442,
-                    509
+                    444,
+                    511
                 ],
                 "filename": "Date.mjs",
                 "lineno": 21,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100062282",
+                    "id": "astnode100063246",
                     "name": "DateUtil.clone",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -98,22 +98,22 @@
             "scope": "static",
             "$longname": "DateUtil.clone",
             "$kind": "method",
-            "id": 1983,
+            "id": 1999,
             "neoClassName": "Neo.util.Date"
         },
         {
             "comment": "/**\n     * Returns the yyyy-mm-dd formated value of a given Date instance\n     * @param {Date} date\n     * @return {String} the yyyy-mm-dd formatted date\n     */",
             "meta": {
                 "range": [
-                    681,
-                    825
+                    683,
+                    827
                 ],
                 "filename": "Date.mjs",
                 "lineno": 30,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100062294",
+                    "id": "astnode100063258",
                     "name": "DateUtil.convertToyyyymmdd",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -152,22 +152,22 @@
             "scope": "static",
             "$longname": "DateUtil.convertToyyyymmdd",
             "$kind": "method",
-            "id": 1984,
+            "id": 2000,
             "neoClassName": "Neo.util.Date"
         },
         {
             "comment": "/**\n     * Returns the amount of days inside the month of a passed date object\n     * @param {Date} date\n     * @returns {Number} days inside the month\n     */",
             "meta": {
                 "range": [
-                    995,
-                    1109
+                    997,
+                    1111
                 ],
                 "filename": "Date.mjs",
                 "lineno": 39,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100062322",
+                    "id": "astnode100063286",
                     "name": "DateUtil.getDaysInMonth",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -206,22 +206,22 @@
             "scope": "static",
             "$longname": "DateUtil.getDaysInMonth",
             "$kind": "method",
-            "id": 1985,
+            "id": 2001,
             "neoClassName": "Neo.util.Date"
         },
         {
             "comment": "/**\n     * Returns the day number of the first day of a passed date object\n     * @param {Date} date\n     * @returns {Number} 0-6 (Sun-Sat)\n     */",
             "meta": {
                 "range": [
-                    1267,
-                    1380
+                    1269,
+                    1382
                 ],
                 "filename": "Date.mjs",
                 "lineno": 48,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100062344",
+                    "id": "astnode100063308",
                     "name": "DateUtil.getFirstDayOfMonth",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -260,7 +260,7 @@
             "scope": "static",
             "$longname": "DateUtil.getFirstDayOfMonth",
             "$kind": "method",
-            "id": 1986,
+            "id": 2002,
             "neoClassName": "Neo.util.Date"
         }
     ]

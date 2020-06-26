@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.form.field.Search",
             "$kind": "class",
-            "id": 938,
+            "id": 946,
             "neoClassName": "Neo.form.field.Search"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.form.field.Search'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.form.field.Search'\n         * @protected\n         */",
             "meta": {
                 "filename": "Search.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.form.field.Search'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 939,
+            "id": 947,
             "neoClassName": "Neo.form.field.Search"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='searchfield'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='searchfield'\n         * @protected\n         */",
             "meta": {
                 "filename": "Search.mjs",
                 "lineno": 18,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'searchfield'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 940,
+            "id": 948,
             "neoClassName": "Neo.form.field.Search"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 941,
+            "id": 949,
             "neoClassName": "Neo.form.field.Search"
         },
         {
@@ -119,7 +119,7 @@
             "scope": "global",
             "$longname": "hideLabel",
             "$kind": "property",
-            "id": 942,
+            "id": 950,
             "neoClassName": "Neo.form.field.Search"
         },
         {
@@ -144,7 +144,7 @@
             "scope": "global",
             "$longname": "placeholderText",
             "$kind": "property",
-            "id": 943,
+            "id": 951,
             "neoClassName": "Neo.form.field.Search"
         }
     ]

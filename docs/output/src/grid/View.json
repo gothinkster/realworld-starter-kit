@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.grid.View",
             "$kind": "class",
-            "id": 1197,
+            "id": 1205,
             "neoClassName": "Neo.grid.View"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.grid.View'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.grid.View'\n         * @protected\n         */",
             "meta": {
                 "filename": "View.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.grid.View'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1198,
+            "id": 1206,
             "neoClassName": "Neo.grid.View"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='grid-view'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='grid-view'\n         * @protected\n         */",
             "meta": {
                 "filename": "View.mjs",
                 "lineno": 18,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'grid-view'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1199,
+            "id": 1207,
             "neoClassName": "Neo.grid.View"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1200,
+            "id": 1208,
             "neoClassName": "Neo.grid.View"
         },
         {
@@ -116,22 +116,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 1201,
+            "id": 1209,
             "neoClassName": "Neo.grid.View"
         },
         {
             "comment": "/**\n     * vdom.Helper should not compare ids for table rows by default\n     * @override\n     */",
             "meta": {
                 "range": [
-                    840,
-                    856
+                    844,
+                    860
                 ],
                 "filename": "View.mjs",
                 "lineno": 38,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/grid",
                 "code": {
-                    "id": "astnode100035125",
+                    "id": "astnode100035643",
                     "name": "View#syncVdomIds",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -150,7 +150,7 @@
             "params": [],
             "$longname": "View#syncVdomIds",
             "$kind": "method",
-            "id": 1202,
+            "id": 1210,
             "neoClassName": "Neo.grid.View"
         }
     ]

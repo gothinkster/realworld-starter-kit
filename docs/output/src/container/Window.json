@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.container.Window",
             "$kind": "class",
-            "id": 582,
+            "id": 588,
             "neoClassName": "Neo.container.Window"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.container.Window'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.container.Window'\n         * @protected\n         */",
             "meta": {
                 "filename": "Window.mjs",
                 "lineno": 14,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.container.Window'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 583,
+            "id": 589,
             "neoClassName": "Neo.container.Window"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='window'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='window'\n         * @protected\n         */",
             "meta": {
                 "filename": "Window.mjs",
                 "lineno": 19,
@@ -64,16 +64,16 @@
                 ]
             },
             "defaultvalue": "'window'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 584,
+            "id": 590,
             "neoClassName": "Neo.container.Window"
         },
         {
-            "comment": "/**\n         * @member {Boolean} autoMount=true\n         * @private\n         */",
+            "comment": "/**\n         * @member {Boolean} autoMount=true\n         * @protected\n         */",
             "meta": {
                 "filename": "Window.mjs",
                 "lineno": 24,
@@ -89,16 +89,16 @@
                 ]
             },
             "defaultvalue": true,
-            "access": "private",
+            "access": "protected",
             "longname": "autoMount",
             "scope": "global",
             "$longname": "autoMount",
             "$kind": "property",
-            "id": 585,
+            "id": 591,
             "neoClassName": "Neo.container.Window"
         },
         {
-            "comment": "/**\n         * @member {String[]} cls=['neo-window','neo-panel','neo-container']\n         * @private\n         */",
+            "comment": "/**\n         * @member {String[]} cls=['neo-window','neo-panel','neo-container']\n         * @protected\n         */",
             "meta": {
                 "filename": "Window.mjs",
                 "lineno": 29,
@@ -114,12 +114,12 @@
                 ]
             },
             "defaultvalue": "['neo-window','neo-panel','neo-container']",
-            "access": "private",
+            "access": "protected",
             "longname": "cls",
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 586,
+            "id": 592,
             "neoClassName": "Neo.container.Window"
         },
         {
@@ -143,11 +143,11 @@
             "scope": "global",
             "$longname": "draggable_",
             "$kind": "property",
-            "id": 587,
+            "id": 593,
             "neoClassName": "Neo.container.Window"
         },
         {
-            "comment": "/**\n         * @member {Array} mixins\n         * @private\n         */",
+            "comment": "/**\n         * @member {Array} mixins\n         * @protected\n         */",
             "meta": {
                 "filename": "Window.mjs",
                 "lineno": 38,
@@ -162,16 +162,16 @@
                     "Array"
                 ]
             },
-            "access": "private",
+            "access": "protected",
             "longname": "mixins",
             "scope": "global",
             "$longname": "mixins",
             "$kind": "property",
-            "id": 588,
+            "id": 594,
             "neoClassName": "Neo.container.Window"
         },
         {
-            "comment": "/**\n         * @member {Array} headers\n         * @private\n         */",
+            "comment": "/**\n         * @member {Array} headers\n         * @protected\n         */",
             "meta": {
                 "filename": "Window.mjs",
                 "lineno": 43,
@@ -186,12 +186,12 @@
                     "Array"
                 ]
             },
-            "access": "private",
+            "access": "protected",
             "longname": "headers",
             "scope": "global",
             "$longname": "headers",
             "$kind": "property",
-            "id": 589,
+            "id": 595,
             "neoClassName": "Neo.container.Window"
         }
     ]

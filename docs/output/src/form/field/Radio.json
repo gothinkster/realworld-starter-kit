@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.form.field.Radio",
             "$kind": "class",
-            "id": 918,
+            "id": 926,
             "neoClassName": "Neo.form.field.Radio"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.form.field.Radio'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.form.field.Radio'\n         * @protected\n         */",
             "meta": {
                 "filename": "Radio.mjs",
                 "lineno": 14,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.form.field.Radio'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 919,
+            "id": 927,
             "neoClassName": "Neo.form.field.Radio"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='radiofield'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='radiofield'\n         * @protected\n         */",
             "meta": {
                 "filename": "Radio.mjs",
                 "lineno": 19,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'radiofield'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 920,
+            "id": 928,
             "neoClassName": "Neo.form.field.Radio"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 921,
+            "id": 929,
             "neoClassName": "Neo.form.field.Radio"
         },
         {
@@ -117,7 +117,7 @@
             "scope": "global",
             "$longname": "inputType",
             "$kind": "property",
-            "id": 922,
+            "id": 930,
             "neoClassName": "Neo.form.field.Radio"
         },
         {
@@ -140,22 +140,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 923,
+            "id": 931,
             "neoClassName": "Neo.form.field.Radio"
         },
         {
-            "comment": "/**\n     *\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1231,
-                    1449
+                    1237,
+                    1455
                 ],
                 "filename": "Radio.mjs",
                 "lineno": 51,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029076",
+                    "id": "astnode100029584",
                     "name": "Radio#afterSetChecked",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -185,7 +185,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetChecked",
             "longname": "Radio#afterSetChecked",
             "kind": "function",
@@ -193,22 +193,22 @@
             "scope": "instance",
             "$longname": "Radio#afterSetChecked",
             "$kind": "method",
-            "id": 924,
+            "id": 932,
             "neoClassName": "Neo.form.field.Radio"
         },
         {
             "comment": "/**\n     * Gets triggered when a user checks a radio input.\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    1555,
-                    1661
+                    1561,
+                    1667
                 ],
                 "filename": "Radio.mjs",
                 "lineno": 64,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029097",
+                    "id": "astnode100029605",
                     "name": "Radio#onInputValueChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -237,22 +237,22 @@
             "scope": "instance",
             "$longname": "Radio#onInputValueChange",
             "$kind": "method",
-            "id": 925,
+            "id": 933,
             "neoClassName": "Neo.form.field.Radio"
         },
         {
             "comment": "/**\n     * Radios do not fire a change event for \"uncheck\", so we need to iterate over other radios with the same name.\n     */",
             "meta": {
                 "range": [
-                    1799,
-                    2573
+                    1805,
+                    2579
                 ],
                 "filename": "Radio.mjs",
                 "lineno": 72,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029113",
+                    "id": "astnode100029621",
                     "name": "Radio#uncheckGroupItems",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -270,7 +270,7 @@
             "params": [],
             "$longname": "Radio#uncheckGroupItems",
             "$kind": "method",
-            "id": 926,
+            "id": 934,
             "neoClassName": "Neo.form.field.Radio"
         }
     ]

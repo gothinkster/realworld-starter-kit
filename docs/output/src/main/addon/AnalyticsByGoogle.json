@@ -27,11 +27,11 @@
             "scope": "static",
             "$longname": "Neo.main.addon.AnalyticsByGoogle",
             "$kind": "class",
-            "id": 1376,
+            "id": 1389,
             "neoClassName": "Neo.main.addon.AnalyticsByGoogle"
         },
         {
-            "comment": "/**\n             * @member {String} className='Neo.main.addon.AnalyticsByGoogle'\n             * @private\n             */",
+            "comment": "/**\n             * @member {String} className='Neo.main.addon.AnalyticsByGoogle'\n             * @protected\n             */",
             "meta": {
                 "filename": "AnalyticsByGoogle.mjs",
                 "lineno": 18,
@@ -47,16 +47,16 @@
                 ]
             },
             "defaultvalue": "'Neo.main.addon.AnalyticsByGoogle'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1377,
+            "id": 1390,
             "neoClassName": "Neo.main.addon.AnalyticsByGoogle"
         },
         {
-            "comment": "/**\n             * @member {Boolean} singleton=true\n             * @private\n             */",
+            "comment": "/**\n             * @member {Boolean} singleton=true\n             * @protected\n             */",
             "meta": {
                 "filename": "AnalyticsByGoogle.mjs",
                 "lineno": 23,
@@ -72,27 +72,27 @@
                 ]
             },
             "defaultvalue": true,
-            "access": "private",
+            "access": "protected",
             "longname": "singleton",
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1378,
+            "id": 1391,
             "neoClassName": "Neo.main.addon.AnalyticsByGoogle"
         },
         {
             "comment": "/**\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    824,
-                    918
+                    828,
+                    922
                 ],
                 "filename": "AnalyticsByGoogle.mjs",
                 "lineno": 30,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100039957",
+                    "id": "astnode100040689",
                     "name": "AnalyticsByGoogle",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -119,22 +119,22 @@
             "scope": "global",
             "$longname": "AnalyticsByGoogle",
             "$kind": "constructor",
-            "id": 1379,
+            "id": 1392,
             "neoClassName": "Neo.main.addon.AnalyticsByGoogle"
         },
         {
-            "comment": "/**\n     *\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    963,
-                    1461
+                    969,
+                    1467
                 ],
                 "filename": "AnalyticsByGoogle.mjs",
                 "lineno": 39,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100039971",
+                    "id": "astnode100040703",
                     "name": "AnalyticsByGoogle#insertGoogleAnalyticsScript",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -143,7 +143,7 @@
                     "": null
                 }
             },
-            "access": "private",
+            "access": "protected",
             "name": "insertGoogleAnalyticsScript",
             "longname": "AnalyticsByGoogle#insertGoogleAnalyticsScript",
             "kind": "function",
@@ -152,7 +152,7 @@
             "params": [],
             "$longname": "AnalyticsByGoogle#insertGoogleAnalyticsScript",
             "$kind": "method",
-            "id": 1380,
+            "id": 1393,
             "neoClassName": "Neo.main.addon.AnalyticsByGoogle"
         }
     ]

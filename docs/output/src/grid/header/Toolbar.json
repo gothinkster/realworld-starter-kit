@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.grid.header.Toolbar",
             "$kind": "class",
-            "id": 1185,
+            "id": 1193,
             "neoClassName": "Neo.grid.header.Toolbar"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.grid.header.Toolbar'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.grid.header.Toolbar'\n         * @protected\n         */",
             "meta": {
                 "filename": "Toolbar.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.grid.header.Toolbar'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1186,
+            "id": 1194,
             "neoClassName": "Neo.grid.header.Toolbar"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='grid-header-toolbar'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='grid-header-toolbar'\n         * @protected\n         */",
             "meta": {
                 "filename": "Toolbar.mjs",
                 "lineno": 18,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'grid-header-toolbar'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1187,
+            "id": 1195,
             "neoClassName": "Neo.grid.header.Toolbar"
         },
         {
@@ -93,11 +93,11 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1188,
+            "id": 1196,
             "neoClassName": "Neo.grid.header.Toolbar"
         },
         {
-            "comment": "/**\n         * @member {String} _layout='base'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} _layout='base'\n         * @protected\n         */",
             "meta": {
                 "filename": "Toolbar.mjs",
                 "lineno": 27,
@@ -113,16 +113,16 @@
                 ]
             },
             "defaultvalue": "'base'",
-            "access": "private",
+            "access": "protected",
             "longname": "_layout",
             "scope": "global",
             "$longname": "_layout",
             "$kind": "property",
-            "id": 1189,
+            "id": 1197,
             "neoClassName": "Neo.grid.header.Toolbar"
         },
         {
-            "comment": "/**\n         * @member {Object} itemDefaults={ntype:'grid-header-button'}\n         * @private\n         */",
+            "comment": "/**\n         * @member {Object} itemDefaults={ntype:'grid-header-button'}\n         * @protected\n         */",
             "meta": {
                 "filename": "Toolbar.mjs",
                 "lineno": 32,
@@ -138,16 +138,16 @@
                 ]
             },
             "defaultvalue": "{ntype:'grid-header-button'}",
-            "access": "private",
+            "access": "protected",
             "longname": "itemDefaults",
             "scope": "global",
             "$longname": "itemDefaults",
             "$kind": "property",
-            "id": 1190,
+            "id": 1198,
             "neoClassName": "Neo.grid.header.Toolbar"
         },
         {
-            "comment": "/**\n         * @member {Object} _vdom\n         * @private\n         */",
+            "comment": "/**\n         * @member {Object} _vdom\n         * @protected\n         */",
             "meta": {
                 "filename": "Toolbar.mjs",
                 "lineno": 39,
@@ -162,27 +162,27 @@
                     "Object"
                 ]
             },
-            "access": "private",
+            "access": "protected",
             "longname": "_vdom",
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 1191,
+            "id": 1199,
             "neoClassName": "Neo.grid.header.Toolbar"
         },
         {
             "comment": "/**\n     *\n     * @param dock\n     * @returns {String} layoutConfig\n     * @override\n     */",
             "meta": {
                 "range": [
-                    1241,
-                    1293
+                    1251,
+                    1303
                 ],
                 "filename": "Toolbar.mjs",
                 "lineno": 53,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/grid/header",
                 "code": {
-                    "id": "astnode100034948",
+                    "id": "astnode100035466",
                     "name": "Toolbar#getLayoutConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -216,22 +216,22 @@
             "scope": "instance",
             "$longname": "Toolbar#getLayoutConfig",
             "$kind": "method",
-            "id": 1192,
+            "id": 1200,
             "neoClassName": "Neo.grid.header.Toolbar"
         },
         {
             "comment": "/**\n     *\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    1347,
-                    1400
+                    1357,
+                    1410
                 ],
                 "filename": "Toolbar.mjs",
                 "lineno": 61,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/grid/header",
                 "code": {
-                    "id": "astnode100034955",
+                    "id": "astnode100035473",
                     "name": "Toolbar#getVdomRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -257,22 +257,22 @@
             "params": [],
             "$longname": "Toolbar#getVdomRoot",
             "$kind": "method",
-            "id": 1193,
+            "id": 1201,
             "neoClassName": "Neo.grid.header.Toolbar"
         },
         {
             "comment": "/**\n     *\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    1454,
-                    1517
+                    1464,
+                    1527
                 ],
                 "filename": "Toolbar.mjs",
                 "lineno": 69,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/grid/header",
                 "code": {
-                    "id": "astnode100034967",
+                    "id": "astnode100035485",
                     "name": "Toolbar#getVnodeRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -298,22 +298,22 @@
             "params": [],
             "$longname": "Toolbar#getVnodeRoot",
             "$kind": "method",
-            "id": 1194,
+            "id": 1202,
             "neoClassName": "Neo.grid.header.Toolbar"
         },
         {
             "comment": "/**\n     *\n     * @param {Array} items\n     */",
             "meta": {
                 "range": [
-                    1574,
-                    2112
+                    1584,
+                    2122
                 ],
                 "filename": "Toolbar.mjs",
                 "lineno": 77,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/grid/header",
                 "code": {
-                    "id": "astnode100034979",
+                    "id": "astnode100035497",
                     "name": "Toolbar#createItems",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -341,22 +341,22 @@
             "scope": "instance",
             "$longname": "Toolbar#createItems",
             "$kind": "method",
-            "id": 1195,
+            "id": 1203,
             "neoClassName": "Neo.grid.header.Toolbar"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    2141,
-                    2215
+                    2151,
+                    2225
                 ],
                 "filename": "Toolbar.mjs",
                 "lineno": 106,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/grid/header",
                 "code": {
-                    "id": "astnode100035065",
+                    "id": "astnode100035583",
                     "name": "Toolbar#render",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -373,7 +373,7 @@
             "params": [],
             "$longname": "Toolbar#render",
             "$kind": "method",
-            "id": 1196,
+            "id": 1204,
             "neoClassName": "Neo.grid.header.Toolbar"
         }
     ]

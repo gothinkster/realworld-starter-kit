@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.form.field.Chip",
             "$kind": "class",
-            "id": 836,
+            "id": 844,
             "neoClassName": "Neo.form.field.Chip"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.form.field.Chip'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.form.field.Chip'\n         * @protected\n         */",
             "meta": {
                 "filename": "Chip.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.form.field.Chip'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 837,
+            "id": 845,
             "neoClassName": "Neo.form.field.Chip"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='chipfield'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='chipfield'\n         * @protected\n         */",
             "meta": {
                 "filename": "Chip.mjs",
                 "lineno": 18,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'chipfield'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 838,
+            "id": 846,
             "neoClassName": "Neo.form.field.Chip"
         },
         {
@@ -95,22 +95,22 @@
             "scope": "global",
             "$longname": "listConfig",
             "$kind": "property",
-            "id": 839,
+            "id": 847,
             "neoClassName": "Neo.form.field.Chip"
         },
         {
             "comment": "/**\n     *\n     * @param config\n     */",
             "meta": {
                 "range": [
-                    643,
-                    717
+                    647,
+                    721
                 ],
                 "filename": "Chip.mjs",
                 "lineno": 31,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100027328",
+                    "id": "astnode100027836",
                     "name": "Chip",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -132,7 +132,7 @@
             "scope": "global",
             "$longname": "Chip",
             "$kind": "constructor",
-            "id": 840,
+            "id": 848,
             "neoClassName": "Neo.form.field.Chip"
         }
     ]

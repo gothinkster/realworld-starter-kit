@@ -20,11 +20,11 @@
             "scope": "static",
             "$longname": "Neo.form.field.trigger.Picker",
             "$kind": "class",
-            "id": 1135,
+            "id": 1143,
             "neoClassName": "Neo.form.field.trigger.Picker"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.form.field.trigger.Picker'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.form.field.trigger.Picker'\n         * @protected\n         */",
             "meta": {
                 "filename": "Picker.mjs",
                 "lineno": 14,
@@ -40,16 +40,16 @@
                 ]
             },
             "defaultvalue": "'Neo.form.field.trigger.Picker'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1136,
+            "id": 1144,
             "neoClassName": "Neo.form.field.trigger.Picker"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='trigger-picker'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='trigger-picker'\n         * @protected\n         */",
             "meta": {
                 "filename": "Picker.mjs",
                 "lineno": 19,
@@ -65,12 +65,12 @@
                 ]
             },
             "defaultvalue": "'trigger-picker'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1137,
+            "id": 1145,
             "neoClassName": "Neo.form.field.trigger.Picker"
         },
         {
@@ -96,11 +96,11 @@
             "scope": "global",
             "$longname": "iconCls",
             "$kind": "property",
-            "id": 1138,
+            "id": 1146,
             "neoClassName": "Neo.form.field.trigger.Picker"
         },
         {
-            "comment": "/**\n         * Internal flag used by field.getTrigger()\n         * @member {String} type='spinup'\n         * @private\n         */",
+            "comment": "/**\n         * Internal flag used by field.getTrigger()\n         * @member {String} type='spinup'\n         * @protected\n         */",
             "meta": {
                 "filename": "Picker.mjs",
                 "lineno": 29,
@@ -117,12 +117,12 @@
                 ]
             },
             "defaultvalue": "'spinup'",
-            "access": "private",
+            "access": "protected",
             "longname": "type",
             "scope": "global",
             "$longname": "type",
             "$kind": "property",
-            "id": 1139,
+            "id": 1147,
             "neoClassName": "Neo.form.field.trigger.Picker"
         }
     ]

@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.controller.Application",
             "$kind": "class",
-            "id": 590,
+            "id": 596,
             "neoClassName": "Neo.controller.Application"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.controller.Application'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.controller.Application'\n         * @protected\n         */",
             "meta": {
                 "filename": "Application.mjs",
                 "lineno": 13,
@@ -39,12 +39,12 @@
                 ]
             },
             "defaultvalue": "'Neo.controller.Application'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 591,
+            "id": 597,
             "neoClassName": "Neo.controller.Application"
         },
         {
@@ -68,7 +68,7 @@
             "scope": "global",
             "$longname": "createMainView",
             "$kind": "property",
-            "id": 592,
+            "id": 598,
             "neoClassName": "Neo.controller.Application"
         },
         {
@@ -92,7 +92,7 @@
             "scope": "global",
             "$longname": "mainView_",
             "$kind": "property",
-            "id": 593,
+            "id": 599,
             "neoClassName": "Neo.controller.Application"
         },
         {
@@ -116,7 +116,7 @@
             "scope": "global",
             "$longname": "name",
             "$kind": "property",
-            "id": 594,
+            "id": 600,
             "neoClassName": "Neo.controller.Application"
         },
         {
@@ -140,11 +140,11 @@
             "scope": "global",
             "$longname": "parentId",
             "$kind": "property",
-            "id": 595,
+            "id": 601,
             "neoClassName": "Neo.controller.Application"
         },
         {
-            "comment": "/**\n         * @member {Boolean} rendered=false\n         * @private\n         */",
+            "comment": "/**\n         * @member {Boolean} rendered=false\n         * @protected\n         */",
             "meta": {
                 "filename": "Application.mjs",
                 "lineno": 34,
@@ -160,16 +160,16 @@
                 ]
             },
             "defaultvalue": false,
-            "access": "private",
+            "access": "protected",
             "longname": "rendered",
             "scope": "global",
             "$longname": "rendered",
             "$kind": "property",
-            "id": 596,
+            "id": 602,
             "neoClassName": "Neo.controller.Application"
         },
         {
-            "comment": "/**\n         * @member {Boolean} rendering=false\n         * @private\n         */",
+            "comment": "/**\n         * @member {Boolean} rendering=false\n         * @protected\n         */",
             "meta": {
                 "filename": "Application.mjs",
                 "lineno": 39,
@@ -185,27 +185,27 @@
                 ]
             },
             "defaultvalue": false,
-            "access": "private",
+            "access": "protected",
             "longname": "rendering",
             "scope": "global",
             "$longname": "rendering",
             "$kind": "property",
-            "id": 597,
+            "id": 603,
             "neoClassName": "Neo.controller.Application"
         },
         {
             "comment": "",
             "meta": {
                 "range": [
-                    981,
-                    1207
+                    987,
+                    1262
                 ],
                 "filename": "Application.mjs",
                 "lineno": 42,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {
-                    "id": "astnode100021184",
+                    "id": "astnode100021597",
                     "name": "Application",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -224,7 +224,7 @@
             "params": [],
             "$longname": "Application",
             "$kind": "constructor",
-            "id": 598,
+            "id": 604,
             "neoClassName": "Neo.controller.Application"
         }
     ]

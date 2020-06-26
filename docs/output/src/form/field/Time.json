@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.form.field.Time",
             "$kind": "class",
-            "id": 1055,
+            "id": 1063,
             "neoClassName": "Neo.form.field.Time"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.form.field.Time'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.form.field.Time'\n         * @protected\n         */",
             "meta": {
                 "filename": "Time.mjs",
                 "lineno": 18,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.form.field.Time'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1056,
+            "id": 1064,
             "neoClassName": "Neo.form.field.Time"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='timefield'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='timefield'\n         * @protected\n         */",
             "meta": {
                 "filename": "Time.mjs",
                 "lineno": 23,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'timefield'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1057,
+            "id": 1065,
             "neoClassName": "Neo.form.field.Time"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1058,
+            "id": 1066,
             "neoClassName": "Neo.form.field.Time"
         },
         {
@@ -119,7 +119,7 @@
             "scope": "global",
             "$longname": "collection",
             "$kind": "property",
-            "id": 1059,
+            "id": 1067,
             "neoClassName": "Neo.form.field.Time"
         },
         {
@@ -143,7 +143,7 @@
             "scope": "global",
             "$longname": "inputType",
             "$kind": "property",
-            "id": 1060,
+            "id": 1068,
             "neoClassName": "Neo.form.field.Time"
         },
         {
@@ -167,11 +167,11 @@
             "scope": "global",
             "$longname": "keys",
             "$kind": "property",
-            "id": 1061,
+            "id": 1069,
             "neoClassName": "Neo.form.field.Time"
         },
         {
-            "comment": "/**\n         * @member {Neo.list.Base} list=null\n         * @private\n         */",
+            "comment": "/**\n         * @member {Neo.list.Base} list=null\n         * @protected\n         */",
             "meta": {
                 "filename": "Time.mjs",
                 "lineno": 48,
@@ -187,12 +187,12 @@
                 ]
             },
             "defaultvalue": null,
-            "access": "private",
+            "access": "protected",
             "longname": "list",
             "scope": "global",
             "$longname": "list",
             "$kind": "property",
-            "id": 1062,
+            "id": 1070,
             "neoClassName": "Neo.form.field.Time"
         },
         {
@@ -217,7 +217,7 @@
             "scope": "global",
             "$longname": "listConfig",
             "$kind": "property",
-            "id": 1063,
+            "id": 1071,
             "neoClassName": "Neo.form.field.Time"
         },
         {
@@ -241,7 +241,7 @@
             "scope": "global",
             "$longname": "maxValue_",
             "$kind": "property",
-            "id": 1064,
+            "id": 1072,
             "neoClassName": "Neo.form.field.Time"
         },
         {
@@ -265,7 +265,7 @@
             "scope": "global",
             "$longname": "minValue_",
             "$kind": "property",
-            "id": 1065,
+            "id": 1073,
             "neoClassName": "Neo.form.field.Time"
         },
         {
@@ -290,11 +290,11 @@
             "scope": "global",
             "$longname": "stepSize_",
             "$kind": "property",
-            "id": 1066,
+            "id": 1074,
             "neoClassName": "Neo.form.field.Time"
         },
         {
-            "comment": "/**\n         * @member {Object|Object[]} triggers=[{module: TimeTrigger}]\n         * @private\n         */",
+            "comment": "/**\n         * @member {Object|Object[]} triggers=[{module: TimeTrigger}]\n         * @protected\n         */",
             "meta": {
                 "filename": "Time.mjs",
                 "lineno": 70,
@@ -312,27 +312,27 @@
             },
             "defaultvalue": "[{module: TimeTrigger}]",
             "description": "TimeTrigger}]",
-            "access": "private",
+            "access": "protected",
             "longname": "triggers",
             "scope": "global",
             "$longname": "triggers",
             "$kind": "property",
-            "id": 1067,
+            "id": 1075,
             "neoClassName": "Neo.form.field.Time"
         },
         {
             "comment": "/**\n     *\n     * @param config\n     */",
             "meta": {
                 "range": [
-                    2073,
-                    2865
+                    2081,
+                    2873
                 ],
                 "filename": "Time.mjs",
                 "lineno": 79,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032847",
+                    "id": "astnode100033365",
                     "name": "Time",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -354,22 +354,22 @@
             "scope": "global",
             "$longname": "Time",
             "$kind": "constructor",
-            "id": 1068,
+            "id": 1076,
             "neoClassName": "Neo.form.field.Time"
         },
         {
-            "comment": "/**\n     * @param {Text} value\n     * @param {Text} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * @param {Text} value\n     * @param {Text} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2960,
-                    3046
+                    2970,
+                    3056
                 ],
                 "filename": "Time.mjs",
                 "lineno": 114,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032950",
+                    "id": "astnode100033468",
                     "name": "Time#afterSetMaxValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -399,7 +399,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetMaxValue",
             "longname": "Time#afterSetMaxValue",
             "kind": "function",
@@ -407,22 +407,22 @@
             "scope": "instance",
             "$longname": "Time#afterSetMaxValue",
             "$kind": "method",
-            "id": 1069,
+            "id": 1077,
             "neoClassName": "Neo.form.field.Time"
         },
         {
-            "comment": "/**\n     * @param {Text} value\n     * @param {Text} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * @param {Text} value\n     * @param {Text} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3141,
-                    3227
+                    3153,
+                    3239
                 ],
                 "filename": "Time.mjs",
                 "lineno": 123,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032963",
+                    "id": "astnode100033481",
                     "name": "Time#afterSetMinValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -452,7 +452,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetMinValue",
             "longname": "Time#afterSetMinValue",
             "kind": "function",
@@ -460,22 +460,22 @@
             "scope": "instance",
             "$longname": "Time#afterSetMinValue",
             "$kind": "method",
-            "id": 1070,
+            "id": 1078,
             "neoClassName": "Neo.form.field.Time"
         },
         {
-            "comment": "/**\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3326,
-                    3480
+                    3340,
+                    3494
                 ],
                 "filename": "Time.mjs",
                 "lineno": 132,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032976",
+                    "id": "astnode100033494",
                     "name": "Time#afterSetStepSize",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -505,7 +505,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetStepSize",
             "longname": "Time#afterSetStepSize",
             "kind": "function",
@@ -513,22 +513,22 @@
             "scope": "instance",
             "$longname": "Time#afterSetStepSize",
             "$kind": "method",
-            "id": 1071,
+            "id": 1079,
             "neoClassName": "Neo.form.field.Time"
         },
         {
-            "comment": "/**\n     * Triggered after the value config got changed\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @param {Boolean} [preventListSelect=false]\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the value config got changed\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @param {Boolean} [preventListSelect=false]\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3691,
-                    3915
+                    3707,
+                    3931
                 ],
                 "filename": "Time.mjs",
                 "lineno": 145,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032989",
+                    "id": "astnode100033507",
                     "name": "Time#afterSetValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -572,7 +572,7 @@
                     "name": "preventListSelect"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetValue",
             "longname": "Time#afterSetValue",
             "kind": "function",
@@ -580,22 +580,22 @@
             "scope": "instance",
             "$longname": "Time#afterSetValue",
             "$kind": "method",
-            "id": 1072,
+            "id": 1080,
             "neoClassName": "Neo.form.field.Time"
         },
         {
-            "comment": "/**\n     * Triggered before the maxValue config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered before the maxValue config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4071,
-                    4176
+                    4089,
+                    4194
                 ],
                 "filename": "Time.mjs",
                 "lineno": 159,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100033019",
+                    "id": "astnode100033537",
                     "name": "Time#beforeSetMaxValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -626,7 +626,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeSetMaxValue",
             "longname": "Time#beforeSetMaxValue",
             "kind": "function",
@@ -634,22 +634,22 @@
             "scope": "instance",
             "$longname": "Time#beforeSetMaxValue",
             "$kind": "method",
-            "id": 1073,
+            "id": 1081,
             "neoClassName": "Neo.form.field.Time"
         },
         {
-            "comment": "/**\n     * Triggered before the minValue config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered before the minValue config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4332,
-                    4437
+                    4352,
+                    4457
                 ],
                 "filename": "Time.mjs",
                 "lineno": 170,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100033027",
+                    "id": "astnode100033545",
                     "name": "Time#beforeSetMinValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -680,7 +680,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeSetMinValue",
             "longname": "Time#beforeSetMinValue",
             "kind": "function",
@@ -688,22 +688,22 @@
             "scope": "instance",
             "$longname": "Time#beforeSetMinValue",
             "$kind": "method",
-            "id": 1074,
+            "id": 1082,
             "neoClassName": "Neo.form.field.Time"
         },
         {
             "comment": "/**\n     *\n     * @returns {String[]}\n     */",
             "meta": {
                 "range": [
-                    4493,
-                    5426
+                    4513,
+                    5446
                 ],
                 "filename": "Time.mjs",
                 "lineno": 179,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100033035",
+                    "id": "astnode100033553",
                     "name": "Time#createCollectionItems",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -729,22 +729,22 @@
             "params": [],
             "$longname": "Time#createCollectionItems",
             "$kind": "method",
-            "id": 1075,
+            "id": 1083,
             "neoClassName": "Neo.form.field.Time"
         },
         {
             "comment": "/**\n     *\n     * @returns {Neo.component.DateSelector}\n     */",
             "meta": {
                 "range": [
-                    5500,
-                    5557
+                    5520,
+                    5577
                 ],
                 "filename": "Time.mjs",
                 "lineno": 214,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100033178",
+                    "id": "astnode100033696",
                     "name": "Time#createPickerComponent",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -770,22 +770,22 @@
             "params": [],
             "$longname": "Time#createPickerComponent",
             "$kind": "method",
-            "id": 1076,
+            "id": 1084,
             "neoClassName": "Neo.form.field.Time"
         },
         {
             "comment": "/**\n     *\n     * @param {Function} [callback]\n     */",
             "meta": {
                 "range": [
-                    5622,
-                    5859
+                    5642,
+                    5879
                 ],
                 "filename": "Time.mjs",
                 "lineno": 222,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100033186",
+                    "id": "astnode100033704",
                     "name": "Time#focusInputEl",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -814,22 +814,22 @@
             "scope": "instance",
             "$longname": "Time#focusInputEl",
             "$kind": "method",
-            "id": 1077,
+            "id": 1085,
             "neoClassName": "Neo.form.field.Time"
         },
         {
-            "comment": "/**\n     * @param {Object} data\n     * @private\n     */",
+            "comment": "/**\n     * @param {Object} data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5925,
-                    5985
+                    5947,
+                    6007
                 ],
                 "filename": "Time.mjs",
                 "lineno": 238,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100033224",
+                    "id": "astnode100033742",
                     "name": "Time#onContainerKeyDownEnter",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -848,7 +848,7 @@
                     "name": "data"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "onContainerKeyDownEnter",
             "longname": "Time#onContainerKeyDownEnter",
             "kind": "function",
@@ -856,22 +856,22 @@
             "scope": "instance",
             "$longname": "Time#onContainerKeyDownEnter",
             "$kind": "method",
-            "id": 1078,
+            "id": 1086,
             "neoClassName": "Neo.form.field.Time"
         },
         {
-            "comment": "/**\n     * @param {Object} data\n     * @private\n     */",
+            "comment": "/**\n     * @param {Object} data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6051,
-                    6129
+                    6075,
+                    6153
                 ],
                 "filename": "Time.mjs",
                 "lineno": 246,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100033233",
+                    "id": "astnode100033751",
                     "name": "Time#onContainerKeyDownEscape",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -890,7 +890,7 @@
                     "name": "data"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "onContainerKeyDownEscape",
             "longname": "Time#onContainerKeyDownEscape",
             "kind": "function",
@@ -898,22 +898,22 @@
             "scope": "instance",
             "$longname": "Time#onContainerKeyDownEscape",
             "$kind": "method",
-            "id": 1079,
+            "id": 1087,
             "neoClassName": "Neo.form.field.Time"
         },
         {
-            "comment": "/**\n     *\n     * @param {Object} data\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6202,
-                    6461
+                    6228,
+                    6487
                 ],
                 "filename": "Time.mjs",
                 "lineno": 255,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100033245",
+                    "id": "astnode100033763",
                     "name": "Time#onKeyDownEnter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -934,7 +934,7 @@
                     "name": "data"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "onKeyDownEnter",
             "longname": "Time#onKeyDownEnter",
             "kind": "function",
@@ -942,22 +942,22 @@
             "scope": "instance",
             "$longname": "Time#onKeyDownEnter",
             "$kind": "method",
-            "id": 1080,
+            "id": 1088,
             "neoClassName": "Neo.form.field.Time"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} record\n     */",
             "meta": {
                 "range": [
-                    6520,
-                    6832
+                    6546,
+                    6858
                 ],
                 "filename": "Time.mjs",
                 "lineno": 270,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100033280",
+                    "id": "astnode100033798",
                     "name": "Time#onListItemClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -985,22 +985,22 @@
             "scope": "instance",
             "$longname": "Time#onListItemClick",
             "$kind": "method",
-            "id": 1081,
+            "id": 1089,
             "neoClassName": "Neo.form.field.Time"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} record\n     */",
             "meta": {
                 "range": [
-                    6891,
-                    6963
+                    6917,
+                    6989
                 ],
                 "filename": "Time.mjs",
                 "lineno": 285,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100033320",
+                    "id": "astnode100033838",
                     "name": "Time#onListItemNavigate",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1028,22 +1028,22 @@
             "scope": "instance",
             "$longname": "Time#onListItemNavigate",
             "$kind": "method",
-            "id": 1082,
+            "id": 1090,
             "neoClassName": "Neo.form.field.Time"
         },
         {
             "comment": "/**\n     * @param {Boolean} [preventFocus=false]\n     */",
             "meta": {
                 "range": [
-                    7030,
-                    7390
+                    7056,
+                    7416
                 ],
                 "filename": "Time.mjs",
                 "lineno": 292,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100033331",
+                    "id": "astnode100033849",
                     "name": "Time#selectCurrentListItem",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1073,7 +1073,7 @@
             "scope": "instance",
             "$longname": "Time#selectCurrentListItem",
             "$kind": "method",
-            "id": 1083,
+            "id": 1091,
             "neoClassName": "Neo.form.field.Time"
         }
     ]

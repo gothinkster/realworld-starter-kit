@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.data.connection.Socket",
             "$kind": "class",
-            "id": 687,
+            "id": 694,
             "neoClassName": "Neo.data.connection.Socket"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.data.connection.Socket'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.data.connection.Socket'\n         * @protected\n         */",
             "meta": {
                 "filename": "Socket.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.data.connection.Socket'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 688,
+            "id": 695,
             "neoClassName": "Neo.data.connection.Socket"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='socket-connection'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='socket-connection'\n         * @protected\n         */",
             "meta": {
                 "filename": "Socket.mjs",
                 "lineno": 18,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'socket-connection'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 689,
+            "id": 696,
             "neoClassName": "Neo.data.connection.Socket"
         }
     ]

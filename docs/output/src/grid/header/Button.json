@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.grid.header.Button",
             "$kind": "class",
-            "id": 1181,
+            "id": 1189,
             "neoClassName": "Neo.grid.header.Button"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.grid.header.Button'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.grid.header.Button'\n         * @protected\n         */",
             "meta": {
                 "filename": "Button.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.grid.header.Button'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1182,
+            "id": 1190,
             "neoClassName": "Neo.grid.header.Button"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='grid-header-button'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='grid-header-button'\n         * @protected\n         */",
             "meta": {
                 "filename": "Button.mjs",
                 "lineno": 18,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'grid-header-button'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1183,
+            "id": 1191,
             "neoClassName": "Neo.grid.header.Button"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1184,
+            "id": 1192,
             "neoClassName": "Neo.grid.header.Button"
         }
     ]

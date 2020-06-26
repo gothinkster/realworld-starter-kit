@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.selection.table.ColumnModel",
             "$kind": "class",
-            "id": 1749,
+            "id": 1764,
             "neoClassName": "Neo.selection.table.ColumnModel"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.selection.table.ColumnModel'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.selection.table.ColumnModel'\n         * @protected\n         */",
             "meta": {
                 "filename": "ColumnModel.mjs",
                 "lineno": 14,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.selection.table.ColumnModel'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1750,
+            "id": 1765,
             "neoClassName": "Neo.selection.table.ColumnModel"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='selection-table-columnmodel'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='selection-table-columnmodel'\n         * @protected\n         */",
             "meta": {
                 "filename": "ColumnModel.mjs",
                 "lineno": 19,
@@ -64,16 +64,16 @@
                 ]
             },
             "defaultvalue": "'selection-table-columnmodel'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1751,
+            "id": 1766,
             "neoClassName": "Neo.selection.table.ColumnModel"
         },
         {
-            "comment": "/**\n         * @member {String} cls='selection-columnmodel'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} cls='selection-columnmodel'\n         * @protected\n         */",
             "meta": {
                 "filename": "ColumnModel.mjs",
                 "lineno": 24,
@@ -89,27 +89,27 @@
                 ]
             },
             "defaultvalue": "'selection-columnmodel'",
-            "access": "private",
+            "access": "protected",
             "longname": "cls",
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1752,
+            "id": 1767,
             "neoClassName": "Neo.selection.table.ColumnModel"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    741,
-                    1068
+                    747,
+                    1074
                 ],
                 "filename": "ColumnModel.mjs",
                 "lineno": 30,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100055714",
+                    "id": "astnode100056629",
                     "name": "ColumnModel#addDomListener",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -126,22 +126,22 @@
             "params": [],
             "$longname": "ColumnModel#addDomListener",
             "$kind": "method",
-            "id": 1753,
+            "id": 1768,
             "neoClassName": "Neo.selection.table.ColumnModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} eventPath\n     * @return {String|null} cellId\n     */",
             "meta": {
                 "range": [
-                    1166,
-                    1471
+                    1172,
+                    1477
                 ],
                 "filename": "ColumnModel.mjs",
                 "lineno": 49,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100055752",
+                    "id": "astnode100056667",
                     "name": "ColumnModel.getCellId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -180,22 +180,22 @@
             "scope": "static",
             "$longname": "ColumnModel.getCellId",
             "$kind": "method",
-            "id": 1754,
+            "id": 1769,
             "neoClassName": "Neo.selection.table.ColumnModel"
         },
         {
             "comment": "/**\n     * todo: move to table.Container or view\n     * @param {String} cellId\n     * @param {Array} columns\n     * @return {Number} index\n     */",
             "meta": {
                 "range": [
-                    1628,
-                    1872
+                    1634,
+                    1878
                 ],
                 "filename": "ColumnModel.mjs",
                 "lineno": 70,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100055796",
+                    "id": "astnode100056711",
                     "name": "ColumnModel.getColumnIndex",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -243,22 +243,22 @@
             "scope": "static",
             "$longname": "ColumnModel.getColumnIndex",
             "$kind": "method",
-            "id": 1755,
+            "id": 1770,
             "neoClassName": "Neo.selection.table.ColumnModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    1929,
-                    2383
+                    1935,
+                    2389
                 ],
                 "filename": "ColumnModel.mjs",
                 "lineno": 82,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100055832",
+                    "id": "astnode100056747",
                     "name": "ColumnModel#onCellClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -286,22 +286,22 @@
             "scope": "instance",
             "$longname": "ColumnModel#onCellClick",
             "$kind": "method",
-            "id": 1756,
+            "id": 1771,
             "neoClassName": "Neo.selection.table.ColumnModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    2440,
-                    2506
+                    2446,
+                    2512
                 ],
                 "filename": "ColumnModel.mjs",
                 "lineno": 100,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100055904",
+                    "id": "astnode100056819",
                     "name": "ColumnModel#onKeyDownLeft",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -329,22 +329,22 @@
             "scope": "instance",
             "$longname": "ColumnModel#onKeyDownLeft",
             "$kind": "method",
-            "id": 1757,
+            "id": 1772,
             "neoClassName": "Neo.selection.table.ColumnModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    2563,
-                    2629
+                    2569,
+                    2635
                 ],
                 "filename": "ColumnModel.mjs",
                 "lineno": 108,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100055917",
+                    "id": "astnode100056832",
                     "name": "ColumnModel#onKeyDownRight",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -372,22 +372,22 @@
             "scope": "instance",
             "$longname": "ColumnModel#onKeyDownRight",
             "$kind": "method",
-            "id": 1758,
+            "id": 1773,
             "neoClassName": "Neo.selection.table.ColumnModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Number} step\n     */",
             "meta": {
                 "range": [
-                    2714,
-                    3573
+                    2720,
+                    3579
                 ],
                 "filename": "ColumnModel.mjs",
                 "lineno": 117,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100055929",
+                    "id": "astnode100056844",
                     "name": "ColumnModel#onNavKeyColumn",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -424,22 +424,22 @@
             "scope": "instance",
             "$longname": "ColumnModel#onNavKeyColumn",
             "$kind": "method",
-            "id": 1759,
+            "id": 1774,
             "neoClassName": "Neo.selection.table.ColumnModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Neo.component.Base} component\n     */",
             "meta": {
                 "range": [
-                    3647,
-                    4089
+                    3653,
+                    4095
                 ],
                 "filename": "ColumnModel.mjs",
                 "lineno": 144,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100056059",
+                    "id": "astnode100056974",
                     "name": "ColumnModel#register",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -467,22 +467,22 @@
             "scope": "instance",
             "$longname": "ColumnModel#register",
             "$kind": "method",
-            "id": 1760,
+            "id": 1775,
             "neoClassName": "Neo.selection.table.ColumnModel"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    4119,
-                    4549
+                    4125,
+                    4555
                 ],
                 "filename": "ColumnModel.mjs",
                 "lineno": 168,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100056112",
+                    "id": "astnode100057027",
                     "name": "ColumnModel#unregister",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -499,7 +499,7 @@
             "params": [],
             "$longname": "ColumnModel#unregister",
             "$kind": "method",
-            "id": 1761,
+            "id": 1776,
             "neoClassName": "Neo.selection.table.ColumnModel"
         }
     ]

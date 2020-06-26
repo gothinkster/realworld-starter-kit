@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.data.field.String",
             "$kind": "class",
-            "id": 722,
+            "id": 729,
             "neoClassName": "Neo.data.field.String"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.data.field.String'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.data.field.String'\n         * @protected\n         */",
             "meta": {
                 "filename": "String.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.data.field.String'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 723,
+            "id": 730,
             "neoClassName": "Neo.data.field.String"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='data-field-string'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='data-field-string'\n         * @protected\n         */",
             "meta": {
                 "filename": "String.mjs",
                 "lineno": 18,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'data-field-string'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 724,
+            "id": 731,
             "neoClassName": "Neo.data.field.String"
         },
         {
@@ -94,22 +94,22 @@
             "scope": "global",
             "$longname": "defaultValue",
             "$kind": "property",
-            "id": 725,
+            "id": 732,
             "neoClassName": "Neo.data.field.String"
         },
         {
-            "comment": "/**\n     * Triggered before the value config gets changed.\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @returns {String}\n     * @private\n     */",
+            "comment": "/**\n     * Triggered before the value config gets changed.\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @returns {String}\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    752,
-                    1012
+                    758,
+                    1018
                 ],
                 "filename": "String.mjs",
                 "lineno": 32,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
                 "code": {
-                    "id": "astnode100025252",
+                    "id": "astnode100025758",
                     "name": "StringField#beforeSetValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -151,7 +151,7 @@
                     }
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeSetValue",
             "longname": "StringField#beforeSetValue",
             "kind": "function",
@@ -159,7 +159,7 @@
             "scope": "instance",
             "$longname": "StringField#beforeSetValue",
             "$kind": "method",
-            "id": 726,
+            "id": 733,
             "neoClassName": "Neo.data.field.String"
         }
     ]

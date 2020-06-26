@@ -20,11 +20,11 @@
             "scope": "static",
             "$longname": "Neo.form.field.Base",
             "$kind": "class",
-            "id": 804,
+            "id": 812,
             "neoClassName": "Neo.form.field.Base"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.form.field.Base'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.form.field.Base'\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
                 "lineno": 14,
@@ -40,16 +40,16 @@
                 ]
             },
             "defaultvalue": "'Neo.form.field.Base'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 805,
+            "id": 813,
             "neoClassName": "Neo.form.field.Base"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='basefield'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='basefield'\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
                 "lineno": 19,
@@ -65,16 +65,16 @@
                 ]
             },
             "defaultvalue": "'basefield'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 806,
+            "id": 814,
             "neoClassName": "Neo.form.field.Base"
         },
         {
-            "comment": "/**\n         * @member {*} value_=null\n         * @private\n         */",
+            "comment": "/**\n         * @member {*} value_=null\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
                 "lineno": 24,
@@ -90,27 +90,27 @@
                 ]
             },
             "defaultvalue": null,
-            "access": "private",
+            "access": "protected",
             "longname": "value_",
             "scope": "global",
             "$longname": "value_",
             "$kind": "property",
-            "id": 807,
+            "id": 815,
             "neoClassName": "Neo.form.field.Base"
         },
         {
             "comment": "/**\n     * @param {*} value\n     * @param {*} oldValue\n     */",
             "meta": {
                 "range": [
-                    679,
-                    915
+                    685,
+                    921
                 ],
                 "filename": "Base.mjs",
                 "lineno": 31,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100026749",
+                    "id": "astnode100027257",
                     "name": "Base#afterSetValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -147,22 +147,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetValue",
             "$kind": "method",
-            "id": 808,
+            "id": 816,
             "neoClassName": "Neo.form.field.Base"
         },
         {
             "comment": "/**\n     *\n     * @returns {*} this.value\n     */",
             "meta": {
                 "range": [
-                    975,
-                    1026
+                    981,
+                    1032
                 ],
                 "filename": "Base.mjs",
                 "lineno": 45,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100026773",
+                    "id": "astnode100027281",
                     "name": "Base#getSubmitValue",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -189,22 +189,22 @@
             "params": [],
             "$longname": "Base#getSubmitValue",
             "$kind": "method",
-            "id": 809,
+            "id": 817,
             "neoClassName": "Neo.form.field.Base"
         },
         {
             "comment": "/**\n     *\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    1081,
-                    1119
+                    1087,
+                    1125
                 ],
                 "filename": "Base.mjs",
                 "lineno": 53,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100026781",
+                    "id": "astnode100027289",
                     "name": "Base#isValid",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -230,7 +230,7 @@
             "params": [],
             "$longname": "Base#isValid",
             "$kind": "method",
-            "id": 810,
+            "id": 818,
             "neoClassName": "Neo.form.field.Base"
         },
         {
@@ -276,7 +276,7 @@
             "scope": "global",
             "$longname": "event:change",
             "$kind": "event",
-            "id": 811,
+            "id": 819,
             "neoClassName": "Neo.form.field.Base"
         }
     ]

@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.selection.table.CellRowModel",
             "$kind": "class",
-            "id": 1737,
+            "id": 1752,
             "neoClassName": "Neo.selection.table.CellRowModel"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.selection.table.CellRowModel'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.selection.table.CellRowModel'\n         * @protected\n         */",
             "meta": {
                 "filename": "CellRowModel.mjs",
                 "lineno": 16,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.selection.table.CellRowModel'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1738,
+            "id": 1753,
             "neoClassName": "Neo.selection.table.CellRowModel"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='selection-table-cellrowmodel'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='selection-table-cellrowmodel'\n         * @protected\n         */",
             "meta": {
                 "filename": "CellRowModel.mjs",
                 "lineno": 21,
@@ -64,16 +64,16 @@
                 ]
             },
             "defaultvalue": "'selection-table-cellrowmodel'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1739,
+            "id": 1754,
             "neoClassName": "Neo.selection.table.CellRowModel"
         },
         {
-            "comment": "/**\n         * @member {String} cls='neo-selection-cellrowmodel'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} cls='neo-selection-cellrowmodel'\n         * @protected\n         */",
             "meta": {
                 "filename": "CellRowModel.mjs",
                 "lineno": 26,
@@ -89,16 +89,16 @@
                 ]
             },
             "defaultvalue": "'neo-selection-cellrowmodel'",
-            "access": "private",
+            "access": "protected",
             "longname": "cls",
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1740,
+            "id": 1755,
             "neoClassName": "Neo.selection.table.CellRowModel"
         },
         {
-            "comment": "/**\n         * @member {Array|null} selectedRowIds=null\n         * @private\n         */",
+            "comment": "/**\n         * @member {Array|null} selectedRowIds=null\n         * @protected\n         */",
             "meta": {
                 "filename": "CellRowModel.mjs",
                 "lineno": 31,
@@ -115,27 +115,27 @@
                 ]
             },
             "defaultvalue": null,
-            "access": "private",
+            "access": "protected",
             "longname": "selectedRowIds",
             "scope": "global",
             "$longname": "selectedRowIds",
             "$kind": "property",
-            "id": 1741,
+            "id": 1756,
             "neoClassName": "Neo.selection.table.CellRowModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    1052,
-                    1137
+                    1060,
+                    1145
                 ],
                 "filename": "CellRowModel.mjs",
                 "lineno": 38,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100055299",
+                    "id": "astnode100056214",
                     "name": "CellRowModel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -162,22 +162,22 @@
             "scope": "global",
             "$longname": "CellRowModel",
             "$kind": "constructor",
-            "id": 1742,
+            "id": 1757,
             "neoClassName": "Neo.selection.table.CellRowModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Boolean} [silent] true to prevent a vdom update\n     */",
             "meta": {
                 "range": [
-                    1229,
-                    1546
+                    1237,
+                    1554
                 ],
                 "filename": "CellRowModel.mjs",
                 "lineno": 48,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100055314",
+                    "id": "astnode100056229",
                     "name": "CellRowModel#deselectAllRows",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -207,22 +207,22 @@
             "scope": "instance",
             "$longname": "CellRowModel#deselectAllRows",
             "$kind": "method",
-            "id": 1743,
+            "id": 1758,
             "neoClassName": "Neo.selection.table.CellRowModel"
         },
         {
             "comment": "/**\n     *\n     * @param {String} rowId\n     * @param {Boolean} [silent] true to prevent a vdom update\n     */",
             "meta": {
                 "range": [
-                    1667,
-                    2105
+                    1675,
+                    2113
                 ],
                 "filename": "CellRowModel.mjs",
                 "lineno": 68,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100055365",
+                    "id": "astnode100056280",
                     "name": "CellRowModel#deselectRow",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -261,22 +261,22 @@
             "scope": "instance",
             "$longname": "CellRowModel#deselectRow",
             "$kind": "method",
-            "id": 1744,
+            "id": 1759,
             "neoClassName": "Neo.selection.table.CellRowModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    2162,
-                    2480
+                    2170,
+                    2488
                 ],
                 "filename": "CellRowModel.mjs",
                 "lineno": 92,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100055439",
+                    "id": "astnode100056354",
                     "name": "CellRowModel#onCellClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -304,22 +304,22 @@
             "scope": "instance",
             "$longname": "CellRowModel#onCellClick",
             "$kind": "method",
-            "id": 1745,
+            "id": 1760,
             "neoClassName": "Neo.selection.table.CellRowModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Number} step\n     */",
             "meta": {
                 "range": [
-                    2565,
-                    3218
+                    2573,
+                    3226
                 ],
                 "filename": "CellRowModel.mjs",
                 "lineno": 110,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100055485",
+                    "id": "astnode100056400",
                     "name": "CellRowModel#onNavKeyRow",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -356,22 +356,22 @@
             "scope": "instance",
             "$longname": "CellRowModel#onNavKeyRow",
             "$kind": "method",
-            "id": 1746,
+            "id": 1761,
             "neoClassName": "Neo.selection.table.CellRowModel"
         },
         {
             "comment": "/**\n     *\n     * @param {String} id\n     * @param {Boolean} [silent]\n     */",
             "meta": {
                 "range": [
-                    3306,
-                    3756
+                    3314,
+                    3764
                 ],
                 "filename": "CellRowModel.mjs",
                 "lineno": 139,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100055589",
+                    "id": "astnode100056504",
                     "name": "CellRowModel#selectRow",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -409,22 +409,22 @@
             "scope": "instance",
             "$longname": "CellRowModel#selectRow",
             "$kind": "method",
-            "id": 1747,
+            "id": 1762,
             "neoClassName": "Neo.selection.table.CellRowModel"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    3785,
-                    3865
+                    3793,
+                    3873
                 ],
                 "filename": "CellRowModel.mjs",
                 "lineno": 162,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100055664",
+                    "id": "astnode100056579",
                     "name": "CellRowModel#unregister",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -441,7 +441,7 @@
             "params": [],
             "$longname": "CellRowModel#unregister",
             "$kind": "method",
-            "id": 1748,
+            "id": 1763,
             "neoClassName": "Neo.selection.table.CellRowModel"
         }
     ]

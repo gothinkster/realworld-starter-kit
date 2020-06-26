@@ -27,11 +27,11 @@
             "scope": "static",
             "$longname": "Neo.worker.Data",
             "$kind": "class",
-            "id": 2110,
+            "id": 2135,
             "neoClassName": "Neo.worker.Data"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.worker.Data'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.worker.Data'\n         * @protected\n         */",
             "meta": {
                 "filename": "Data.mjs",
                 "lineno": 20,
@@ -47,16 +47,16 @@
                 ]
             },
             "defaultvalue": "'Neo.worker.Data'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2111,
+            "id": 2136,
             "neoClassName": "Neo.worker.Data"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='data-worker'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='data-worker'\n         * @protected\n         */",
             "meta": {
                 "filename": "Data.mjs",
                 "lineno": 25,
@@ -72,16 +72,16 @@
                 ]
             },
             "defaultvalue": "'data-worker'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2112,
+            "id": 2137,
             "neoClassName": "Neo.worker.Data"
         },
         {
-            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @private\n         */",
+            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @protected\n         */",
             "meta": {
                 "filename": "Data.mjs",
                 "lineno": 30,
@@ -97,16 +97,16 @@
                 ]
             },
             "defaultvalue": true,
-            "access": "private",
+            "access": "protected",
             "longname": "singleton",
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 2113,
+            "id": 2138,
             "neoClassName": "Neo.worker.Data"
         },
         {
-            "comment": "/**\n         * @member {String} workerId='data'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} workerId='data'\n         * @protected\n         */",
             "meta": {
                 "filename": "Data.mjs",
                 "lineno": 35,
@@ -122,27 +122,27 @@
                 ]
             },
             "defaultvalue": "'data'",
-            "access": "private",
+            "access": "protected",
             "longname": "workerId",
             "scope": "global",
             "$longname": "workerId",
             "$kind": "property",
-            "id": 2114,
+            "id": 2139,
             "neoClassName": "Neo.worker.Data"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    1076,
-                    1135
+                    1084,
+                    1143
                 ],
                 "filename": "Data.mjs",
                 "lineno": 41,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100068326",
+                    "id": "astnode100069650",
                     "name": "Data#onLoad",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -159,7 +159,7 @@
             "params": [],
             "$longname": "Data#onLoad",
             "$kind": "method",
-            "id": 2115,
+            "id": 2140,
             "neoClassName": "Neo.worker.Data"
         }
     ]

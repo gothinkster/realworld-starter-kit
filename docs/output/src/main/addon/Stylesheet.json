@@ -27,11 +27,11 @@
             "scope": "static",
             "$longname": "Neo.main.addon.Stylesheet",
             "$kind": "class",
-            "id": 1444,
+            "id": 1458,
             "neoClassName": "Neo.main.addon.Stylesheet"
         },
         {
-            "comment": "/**\n             * @member {String} className='Neo.main.addon.Stylesheet'\n             * @private\n             */",
+            "comment": "/**\n             * @member {String} className='Neo.main.addon.Stylesheet'\n             * @protected\n             */",
             "meta": {
                 "filename": "Stylesheet.mjs",
                 "lineno": 17,
@@ -47,16 +47,16 @@
                 ]
             },
             "defaultvalue": "'Neo.main.addon.Stylesheet'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1445,
+            "id": 1459,
             "neoClassName": "Neo.main.addon.Stylesheet"
         },
         {
-            "comment": "/**\n             * Remote method access for other workers\n             * @member {Object} remote={app: [//...]}\n             * @private\n             */",
+            "comment": "/**\n             * Remote method access for other workers\n             * @member {Object} remote={app: [//...]}\n             * @protected\n             */",
             "meta": {
                 "filename": "Stylesheet.mjs",
                 "lineno": 23,
@@ -73,16 +73,16 @@
                 ]
             },
             "defaultvalue": "{app: [//...]}",
-            "access": "private",
+            "access": "protected",
             "longname": "remote",
             "scope": "global",
             "$longname": "remote",
             "$kind": "property",
-            "id": 1446,
+            "id": 1460,
             "neoClassName": "Neo.main.addon.Stylesheet"
         },
         {
-            "comment": "/**\n             * @member {Boolean} singleton=true\n             * @private\n             */",
+            "comment": "/**\n             * @member {Boolean} singleton=true\n             * @protected\n             */",
             "meta": {
                 "filename": "Stylesheet.mjs",
                 "lineno": 34,
@@ -98,27 +98,27 @@
                 ]
             },
             "defaultvalue": true,
-            "access": "private",
+            "access": "protected",
             "longname": "singleton",
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1447,
+            "id": 1461,
             "neoClassName": "Neo.main.addon.Stylesheet"
         },
         {
             "comment": "/**\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    1050,
-                    1401
+                    1056,
+                    1407
                 ],
                 "filename": "Stylesheet.mjs",
                 "lineno": 41,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041816",
+                    "id": "astnode100042661",
                     "name": "Stylesheet",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -145,22 +145,22 @@
             "scope": "global",
             "$longname": "Stylesheet",
             "$kind": "constructor",
-            "id": 1448,
+            "id": 1462,
             "neoClassName": "Neo.main.addon.Stylesheet"
         },
         {
             "comment": "/**\n     * Use either name for a neo theme (e.g. 'neo-theme-dark.css') or pass a href\n     * @param {String} [name]\n     * @param {String} [id]\n     * @param {String} [href]\n     */",
             "meta": {
                 "range": [
-                    1593,
-                    2231
+                    1599,
+                    2237
                 ],
                 "filename": "Stylesheet.mjs",
                 "lineno": 59,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041872",
+                    "id": "astnode100042717",
                     "name": "Stylesheet#createStyleSheet",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -210,22 +210,22 @@
             "scope": "instance",
             "$longname": "Stylesheet#createStyleSheet",
             "$kind": "method",
-            "id": 1449,
+            "id": 1463,
             "neoClassName": "Neo.main.addon.Stylesheet"
         },
         {
             "comment": "/**\n     *\n     * @param {String} token\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    2315,
-                    2643
+                    2321,
+                    2649
                 ],
                 "filename": "Stylesheet.mjs",
                 "lineno": 87,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041963",
+                    "id": "astnode100042808",
                     "name": "Stylesheet#hasStyleSheet",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -262,22 +262,22 @@
             "scope": "instance",
             "$longname": "Stylesheet#hasStyleSheet",
             "$kind": "method",
-            "id": 1450,
+            "id": 1464,
             "neoClassName": "Neo.main.addon.Stylesheet"
         },
         {
-            "comment": "/**\n     *\n     * @param {Object} data\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2716,
-                    3246
+                    2724,
+                    3254
                 ],
                 "filename": "Stylesheet.mjs",
                 "lineno": 107,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100042013",
+                    "id": "astnode100042858",
                     "name": "Stylesheet#insertCssRules",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -298,7 +298,7 @@
                     "name": "data"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "insertCssRules",
             "longname": "Stylesheet#insertCssRules",
             "kind": "function",
@@ -306,22 +306,22 @@
             "scope": "instance",
             "$longname": "Stylesheet#insertCssRules",
             "$kind": "method",
-            "id": 1451,
+            "id": 1465,
             "neoClassName": "Neo.main.addon.Stylesheet"
         },
         {
-            "comment": "/**\n     *\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3291,
-                    4471
+                    3301,
+                    4481
                 ],
                 "filename": "Stylesheet.mjs",
                 "lineno": 131,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100042092",
+                    "id": "astnode100042937",
                     "name": "Stylesheet#insertTheme",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -330,7 +330,7 @@
                     "": null
                 }
             },
-            "access": "private",
+            "access": "protected",
             "name": "insertTheme",
             "longname": "Stylesheet#insertTheme",
             "kind": "function",
@@ -339,22 +339,22 @@
             "params": [],
             "$longname": "Stylesheet#insertTheme",
             "$kind": "method",
-            "id": 1452,
+            "id": 1466,
             "neoClassName": "Neo.main.addon.Stylesheet"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} opts\n     * @param {String[]} opts.included\n     * @param {String[]} opts.excluded\n     */",
             "meta": {
                 "range": [
-                    4606,
-                    5648
+                    4616,
+                    5658
                 ],
                 "filename": "Stylesheet.mjs",
                 "lineno": 179,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100042251",
+                    "id": "astnode100043096",
                     "name": "Stylesheet#removeStyleSheets",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -398,22 +398,22 @@
             "scope": "instance",
             "$longname": "Stylesheet#removeStyleSheets",
             "$kind": "method",
-            "id": 1453,
+            "id": 1467,
             "neoClassName": "Neo.main.addon.Stylesheet"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.href\n     * @param {String} data.id\n     */",
             "meta": {
                 "range": [
-                    5769,
-                    5871
+                    5779,
+                    5881
                 ],
                 "filename": "Stylesheet.mjs",
                 "lineno": 220,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100042379",
+                    "id": "astnode100043224",
                     "name": "Stylesheet#swapStyleSheet",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -457,7 +457,7 @@
             "scope": "instance",
             "$longname": "Stylesheet#swapStyleSheet",
             "$kind": "method",
-            "id": 1454,
+            "id": 1468,
             "neoClassName": "Neo.main.addon.Stylesheet"
         }
     ]

@@ -24,11 +24,11 @@
             "scope": "static",
             "$longname": "Neo.core.IdGenerator",
             "$kind": "class",
-            "id": 640,
+            "id": 647,
             "neoClassName": "Neo.core.IdGenerator"
         },
         {
-            "comment": "/**\n         * Set this one to false in case you don't want to stick\n         * to the \"anti-pattern\" to apply classes to the global Neo or App namespace\n         * @member {Boolean} registerToGlobalNs=true\n         * @private\n         * @static\n         */",
+            "comment": "/**\n         * Set this one to false in case you don't want to stick\n         * to the \"anti-pattern\" to apply classes to the global Neo or App namespace\n         * @member {Boolean} registerToGlobalNs=true\n         * @protected\n         * @static\n         */",
             "meta": {
                 "filename": "IdGenerator.mjs",
                 "lineno": 16,
@@ -45,16 +45,16 @@
                 ]
             },
             "defaultvalue": true,
-            "access": "private",
+            "access": "protected",
             "scope": "static",
             "longname": "registerToGlobalNs",
             "$longname": "registerToGlobalNs",
             "$kind": "property",
-            "id": 641,
+            "id": 648,
             "neoClassName": "Neo.core.IdGenerator"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.core.IdGenerator'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.core.IdGenerator'\n         * @protected\n         */",
             "meta": {
                 "filename": "IdGenerator.mjs",
                 "lineno": 24,
@@ -70,16 +70,16 @@
                 ]
             },
             "defaultvalue": "'Neo.core.IdGenerator'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 642,
+            "id": 649,
             "neoClassName": "Neo.core.IdGenerator"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='id-generator'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='id-generator'\n         * @protected\n         */",
             "meta": {
                 "filename": "IdGenerator.mjs",
                 "lineno": 29,
@@ -95,12 +95,12 @@
                 ]
             },
             "defaultvalue": "'id-generator'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 643,
+            "id": 650,
             "neoClassName": "Neo.core.IdGenerator"
         },
         {
@@ -125,11 +125,11 @@
             "scope": "global",
             "$longname": "base",
             "$kind": "property",
-            "id": 644,
+            "id": 651,
             "neoClassName": "Neo.core.IdGenerator"
         },
         {
-            "comment": "/**\n         * @member {Boolean} singleton='true\n         * @private\n         */",
+            "comment": "/**\n         * @member {Boolean} singleton='true\n         * @protected\n         */",
             "meta": {
                 "filename": "IdGenerator.mjs",
                 "lineno": 39,
@@ -145,27 +145,27 @@
                 ]
             },
             "defaultvalue": "'true",
-            "access": "private",
+            "access": "protected",
             "longname": "singleton",
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 645,
+            "id": 652,
             "neoClassName": "Neo.core.IdGenerator"
         },
         {
             "comment": "/**\n     *\n     * @param config\n     */",
             "meta": {
                 "range": [
-                    1209,
-                    1344
+                    1217,
+                    1352
                 ],
                 "filename": "IdGenerator.mjs",
                 "lineno": 46,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100023096",
+                    "id": "astnode100023602",
                     "name": "IdGenerator",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -187,22 +187,22 @@
             "scope": "global",
             "$longname": "IdGenerator",
             "$kind": "constructor",
-            "id": 646,
+            "id": 653,
             "neoClassName": "Neo.core.IdGenerator"
         },
         {
             "comment": "/**\n     *\n     * @param name\n     * @returns {string}\n     */",
             "meta": {
                 "range": [
-                    1456,
-                    1716
+                    1464,
+                    1724
                 ],
                 "filename": "IdGenerator.mjs",
                 "lineno": 64,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100023131",
+                    "id": "astnode100023637",
                     "name": "IdGenerator#getId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -234,7 +234,7 @@
             "scope": "instance",
             "$longname": "IdGenerator#getId",
             "$kind": "method",
-            "id": 647,
+            "id": 654,
             "neoClassName": "Neo.core.IdGenerator"
         }
     ]

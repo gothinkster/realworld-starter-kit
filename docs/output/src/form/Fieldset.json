@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.form.Fieldset",
             "$kind": "class",
-            "id": 1162,
+            "id": 1170,
             "neoClassName": "Neo.form.Fieldset"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.form.Fieldset'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.form.Fieldset'\n         * @protected\n         */",
             "meta": {
                 "filename": "Fieldset.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.form.Fieldset'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1163,
+            "id": 1171,
             "neoClassName": "Neo.form.Fieldset"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='fieldset'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='fieldset'\n         * @protected\n         */",
             "meta": {
                 "filename": "Fieldset.mjs",
                 "lineno": 18,
@@ -64,16 +64,16 @@
                 ]
             },
             "defaultvalue": "'fieldset'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1164,
+            "id": 1172,
             "neoClassName": "Neo.form.Fieldset"
         },
         {
-            "comment": "/**\n         * @member {Array} cls=['neo-fieldset'],\n         * @private\n         */",
+            "comment": "/**\n         * @member {Array} cls=['neo-fieldset'],\n         * @protected\n         */",
             "meta": {
                 "filename": "Fieldset.mjs",
                 "lineno": 23,
@@ -89,12 +89,12 @@
                 ]
             },
             "defaultvalue": "['neo-fieldset'],",
-            "access": "private",
+            "access": "protected",
             "longname": "cls",
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1165,
+            "id": 1173,
             "neoClassName": "Neo.form.Fieldset"
         },
         {
@@ -119,7 +119,7 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 1166,
+            "id": 1174,
             "neoClassName": "Neo.form.Fieldset"
         }
     ]

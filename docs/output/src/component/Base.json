@@ -48,7 +48,7 @@
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.component.Base'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.component.Base'\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
                 "lineno": 32,
@@ -64,7 +64,7 @@
                 ]
             },
             "defaultvalue": "'Neo.component.Base'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
@@ -73,7 +73,7 @@
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='component'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='component'\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
                 "lineno": 37,
@@ -89,7 +89,7 @@
                 ]
             },
             "defaultvalue": "'component'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
@@ -98,10 +98,36 @@
             "neoClassName": "Neo.component.Base"
         },
         {
+            "comment": "/**\n         * The name of the App this component belongs to\n         * @member {String|null} appName_=null\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 42,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {}
+            },
+            "description": "The name of the App this component belongs to",
+            "kind": "member",
+            "name": "appName_",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "appName_",
+            "scope": "global",
+            "$longname": "appName_",
+            "$kind": "property",
+            "id": 105,
+            "neoClassName": "Neo.component.Base"
+        },
+        {
             "comment": "/**\n         * True automatically mounts a component after being rendered.\n         * Use this for the top level component of your app.\n         * @member {Boolean} autoMount=false\n         * @tutorial 02_ClassSystem\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 44,
+                "lineno": 49,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -122,14 +148,14 @@
             "scope": "global",
             "$longname": "autoMount",
             "$kind": "property",
-            "id": 105,
+            "id": 106,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * True automatically renders a component after being created inside the init call.\n         * Use this for the top level component of your app.\n         * @member {Boolean} autoRender=false\n         * @see {@link Neo.component.Base#init init}\n         * @tutorial 02_ClassSystem\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 52,
+                "lineno": 57,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -153,14 +179,14 @@
             "scope": "global",
             "$longname": "autoRender",
             "$kind": "property",
-            "id": 106,
+            "id": 107,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n         * manager.Focus will change this flag on focusin & out dom events\n         * @member {Boolean} containsFocus_=false\n         * @private\n         */",
+            "comment": "/**\n         * manager.Focus will change this flag on focusin & out dom events\n         * @member {Boolean} containsFocus_=false\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 58,
+                "lineno": 63,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -174,19 +200,19 @@
                 ]
             },
             "defaultvalue": false,
-            "access": "private",
+            "access": "protected",
             "longname": "containsFocus_",
             "scope": "global",
             "$longname": "containsFocus_",
             "$kind": "property",
-            "id": 107,
+            "id": 108,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * Assign a component controller to this component (pass an imported module or the string based class name)\n         * @member {Neo.controller.Component|String} controller_=null\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 63,
+                "lineno": 68,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -205,14 +231,14 @@
             "scope": "global",
             "$longname": "controller_",
             "$kind": "property",
-            "id": 108,
+            "id": 109,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * Disabled components will get the neo-disabled cls applied and won't receive DOM events\n         * @member {Boolean} disabled_=false\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 68,
+                "lineno": 73,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -230,14 +256,14 @@
             "scope": "global",
             "$longname": "disabled_",
             "$kind": "property",
-            "id": 109,
+            "id": 110,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * An array of domListener configs\n         * @member {Object[]|null} domListeners_=null\n         * @example\n         * afterSetStayOnHover(value, oldValue) {\n         *     if (value) {\n         *         let me           = this,\n         *             domListeners = me.domListeners || [];\n         *\n         *         domListeners.push({\n         *             mouseenter: me.onMouseEnter,\n         *             scope     : me\n         *         }, {\n         *             mouseleave: me.onMouseLeave,\n         *             scope     : me\n         *         });\n         *\n         *        me.domListeners = domListeners;\n         *    }\n         *}\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 90,
+                "lineno": 95,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -259,14 +285,14 @@
             "scope": "global",
             "$longname": "domListeners_",
             "$kind": "property",
-            "id": 110,
+            "id": 111,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n         * Internal flag which will get set to true on mount\n         * @member {Boolean} hasBeenMounted=false\n         * @private\n         */",
+            "comment": "/**\n         * Internal flag which will get set to true on mount\n         * @member {Boolean} hasBeenMounted=false\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 96,
+                "lineno": 101,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -280,19 +306,19 @@
                 ]
             },
             "defaultvalue": false,
-            "access": "private",
+            "access": "protected",
             "longname": "hasBeenMounted",
             "scope": "global",
             "$longname": "hasBeenMounted",
             "$kind": "property",
-            "id": 111,
+            "id": 112,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n         * Internal flag for vdom changes after a component got unmounted\n         * (delta updates can no longer get applied & a new render call is required before re-mounting)\n         * @member {Boolean} hasUnmountedVdomChanges_=false\n         * @private\n         */",
+            "comment": "/**\n         * Internal flag for vdom changes after a component got unmounted\n         * (delta updates can no longer get applied & a new render call is required before re-mounting)\n         * @member {Boolean} hasUnmountedVdomChanges_=false\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 103,
+                "lineno": 108,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -306,19 +332,19 @@
                 ]
             },
             "defaultvalue": false,
-            "access": "private",
+            "access": "protected",
             "longname": "hasUnmountedVdomChanges_",
             "scope": "global",
             "$longname": "hasUnmountedVdomChanges_",
             "$kind": "property",
-            "id": 112,
+            "id": 113,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * Shortcut for style.height, defaults to px\n         * @member {Number|String|null} height_=null\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 108,
+                "lineno": 113,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -338,14 +364,14 @@
             "scope": "global",
             "$longname": "height_",
             "$kind": "property",
-            "id": 113,
+            "id": 114,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * The top level innerHTML of the component\n         * @member {String|null} html_=null\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 113,
+                "lineno": 118,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -364,14 +390,14 @@
             "scope": "global",
             "$longname": "html_",
             "$kind": "property",
-            "id": 114,
+            "id": 115,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * The unique component id\n         * @member {String|null} id_=null\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 118,
+                "lineno": 123,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -390,14 +416,14 @@
             "scope": "global",
             "$longname": "id_",
             "$kind": "property",
-            "id": 115,
+            "id": 116,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n         * Internal flag which will get set to true while an update request (worker messages) is in progress\n         * @member {Boolean} isVdomUpdating=false\n         * @private\n         */",
+            "comment": "/**\n         * Internal flag which will get set to true while an update request (worker messages) is in progress\n         * @member {Boolean} isVdomUpdating=false\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 124,
+                "lineno": 129,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -411,19 +437,19 @@
                 ]
             },
             "defaultvalue": false,
-            "access": "private",
+            "access": "protected",
             "longname": "isVdomUpdating",
             "scope": "global",
             "$longname": "isVdomUpdating",
             "$kind": "property",
-            "id": 116,
+            "id": 117,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * Using the keys config will create an instance of Neo.util.KeyNavigation.\n         * @see {@link Neo.util.KeyNavigation KeyNavigation}\n         * @member {Object} keys_=null\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 130,
+                "lineno": 135,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -444,14 +470,14 @@
             "scope": "global",
             "$longname": "keys_",
             "$kind": "property",
-            "id": 117,
+            "id": 118,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * Shortcut for style.maxHeight, defaults to px\n         * @member {Number|String|null} maxHeight_=null\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 135,
+                "lineno": 140,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -471,14 +497,14 @@
             "scope": "global",
             "$longname": "maxHeight_",
             "$kind": "property",
-            "id": 118,
+            "id": 119,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * Shortcut for style.maxWidth, defaults to px\n         * @member {Number|String|null} maxWidth_=null\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 140,
+                "lineno": 145,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -498,14 +524,14 @@
             "scope": "global",
             "$longname": "maxWidth_",
             "$kind": "property",
-            "id": 119,
+            "id": 120,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * Shortcut for style.minHeight, defaults to px\n         * @member {Number|String|null} minHeight_=null\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 145,
+                "lineno": 150,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -525,14 +551,14 @@
             "scope": "global",
             "$longname": "minHeight_",
             "$kind": "property",
-            "id": 120,
+            "id": 121,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * Shortcut for style.minWidth, defaults to px\n         * @member {Number|String|null} minWidth_=null\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 150,
+                "lineno": 155,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -552,14 +578,14 @@
             "scope": "global",
             "$longname": "minWidth_",
             "$kind": "property",
-            "id": 121,
+            "id": 122,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n         * True in case the component is mounted to the DOM\n         * @member {Boolean} mounted_=false\n         * @private\n         */",
+            "comment": "/**\n         * True in case the component is mounted to the DOM\n         * @member {Boolean} mounted_=false\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 156,
+                "lineno": 161,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -573,19 +599,19 @@
                 ]
             },
             "defaultvalue": false,
-            "access": "private",
+            "access": "protected",
             "longname": "mounted_",
             "scope": "global",
             "$longname": "mounted_",
             "$kind": "property",
-            "id": 122,
+            "id": 123,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n         * Internal flag which will get set to true in case an update call arrives while another update is running\n         * @member {Boolean} needsVdomUpdate=false\n         * @private\n         */",
+            "comment": "/**\n         * Internal flag which will get set to true in case an update call arrives while another update is running\n         * @member {Boolean} needsVdomUpdate=false\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 162,
+                "lineno": 167,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -599,19 +625,19 @@
                 ]
             },
             "defaultvalue": false,
-            "access": "private",
+            "access": "protected",
             "longname": "needsVdomUpdate",
             "scope": "global",
             "$longname": "needsVdomUpdate",
             "$kind": "property",
-            "id": 123,
+            "id": 124,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n         * True in case the component is rendering the vnode\n         * @member {Boolean} rendering_=false\n         * @private\n         */",
+            "comment": "/**\n         * True in case the component is rendering the vnode\n         * @member {Boolean} rendering_=false\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 168,
+                "lineno": 173,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -625,19 +651,19 @@
                 ]
             },
             "defaultvalue": false,
-            "access": "private",
+            "access": "protected",
             "longname": "rendering_",
             "scope": "global",
             "$longname": "rendering_",
             "$kind": "property",
-            "id": 124,
+            "id": 125,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * Set this to true for bulk updates.\n         * Ensure to set it back to false afterwards.\n         * @member {Boolean} silentVdomUpdate=false\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 174,
+                "lineno": 179,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -655,14 +681,14 @@
             "scope": "global",
             "$longname": "silentVdomUpdate",
             "$kind": "property",
-            "id": 125,
+            "id": 126,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * Top level style attributes\n         * @member {Object} style={}\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 179,
+                "lineno": 184,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -680,14 +706,14 @@
             "scope": "global",
             "$longname": "style",
             "$kind": "property",
-            "id": 126,
+            "id": 127,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * Add tooltip config objects\n         * See tooltip/Base.mjs\n         * @member {Array|Object} tooltips_=null\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 185,
+                "lineno": 190,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -706,14 +732,14 @@
             "scope": "global",
             "$longname": "tooltips_",
             "$kind": "property",
-            "id": 127,
+            "id": 128,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n         * The component vnode tree. Available after the component got rendered.\n         * @member {Object} vnode_=null\n         * @private\n         */",
+            "comment": "/**\n         * The component vnode tree. Available after the component got rendered.\n         * @member {Object} vnode_=null\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 191,
+                "lineno": 196,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -727,19 +753,19 @@
                 ]
             },
             "defaultvalue": null,
-            "access": "private",
+            "access": "protected",
             "longname": "vnode_",
             "scope": "global",
             "$longname": "vnode_",
             "$kind": "property",
-            "id": 128,
+            "id": 129,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * Shortcut for style.width, defaults to px\n         * @member {Number|String|null} width_=null\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 196,
+                "lineno": 201,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -759,14 +785,14 @@
             "scope": "global",
             "$longname": "width_",
             "$kind": "property",
-            "id": 129,
+            "id": 130,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * Top level style attributes. Useful in case getVdomRoot() does not point to the top level DOM node.\n         * @member {Object} wrapperStyle_={}\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 201,
+                "lineno": 206,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -784,14 +810,14 @@
             "scope": "global",
             "$longname": "wrapperStyle_",
             "$kind": "property",
-            "id": 130,
+            "id": 131,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n         * The vdom markup for this component.\n         * @member {Object} _vdom={}\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 206,
+                "lineno": 211,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -809,22 +835,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 131,
+            "id": 132,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Specify a different vdom root if needed to apply the top level style attributes on a different level.\n     * Make sure to use getVnodeRoot() as well, to keep the vdom & vnode trees in sync.\n     * @returns {Object} The new vdom root\n     */",
             "meta": {
                 "range": [
-                    7260,
-                    7307
+                    7432,
+                    7479
                 ],
                 "filename": "Base.mjs",
-                "lineno": 214,
+                "lineno": 219,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100003942",
+                    "id": "astnode100003944",
                     "name": "Base#getVdomRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -852,22 +878,22 @@
             "params": [],
             "$longname": "Base#getVdomRoot",
             "$kind": "method",
-            "id": 132,
+            "id": 133,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Specify a different vnode root if needed to apply the top level style attributes on a different level.\n     * Make sure to use getVdomRoot() as well, to keep the vdom & vnode trees in sync.\n     * @returns {Object} The new vnode root\n     */",
             "meta": {
                 "range": [
-                    7570,
-                    7619
+                    7742,
+                    7791
                 ],
                 "filename": "Base.mjs",
-                "lineno": 223,
+                "lineno": 228,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100003950",
+                    "id": "astnode100003952",
                     "name": "Base#getVnodeRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -895,22 +921,22 @@
             "params": [],
             "$longname": "Base#getVnodeRoot",
             "$kind": "method",
-            "id": 133,
+            "id": 134,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Override this method to change the order configs are applied to this instance.\n     * @param {Object} config\n     * @param {Boolean} [preventOriginalConfig] True prevents the instance from getting an originalConfig property\n     * @returns {Object} config\n     */",
             "meta": {
                 "range": [
-                    7904,
-                    8752
+                    8076,
+                    8924
                 ],
                 "filename": "Base.mjs",
-                "lineno": 233,
+                "lineno": 238,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100003958",
+                    "id": "astnode100003960",
                     "name": "Base#mergeConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -959,22 +985,22 @@
             "scope": "instance",
             "$longname": "Base#mergeConfig",
             "$kind": "method",
-            "id": 134,
+            "id": 135,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    8811,
-                    8902
+                    8983,
+                    9074
                 ],
                 "filename": "Base.mjs",
-                "lineno": 261,
+                "lineno": 266,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004059",
+                    "id": "astnode100004061",
                     "name": "Base",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1001,22 +1027,22 @@
             "scope": "global",
             "$longname": "Base",
             "$kind": "constructor",
-            "id": 135,
+            "id": 136,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    8931,
-                    9134
+                    9103,
+                    9306
                 ],
                 "filename": "Base.mjs",
-                "lineno": 269,
+                "lineno": 274,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004074",
+                    "id": "astnode100004076",
                     "name": "Base#onConstructed",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1033,22 +1059,22 @@
             "params": [],
             "$longname": "Base#onConstructed",
             "$kind": "method",
-            "id": 136,
+            "id": 137,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    9163,
-                    9245
+                    9335,
+                    9417
                 ],
                 "filename": "Base.mjs",
-                "lineno": 284,
+                "lineno": 289,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004111",
+                    "id": "astnode100004113",
                     "name": "Base#init",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1065,14 +1091,14 @@
             "params": [],
             "$longname": "Base#init",
             "$kind": "method",
-            "id": 137,
+            "id": 138,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * CSS selectors to apply to the top level node of this component\n     * @member {String[]} cls=['neo-component']\n     */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 294,
+                "lineno": 299,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -1090,14 +1116,14 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 138,
+            "id": 139,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Apply component based listeners\n     * @member {Object} listeners={}\n     */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 330,
+                "lineno": 335,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -1115,14 +1141,14 @@
             "scope": "global",
             "$longname": "listeners",
             "$kind": "property",
-            "id": 139,
+            "id": 140,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * True after the component render() method was called. Also fires the rendered event.\n     * @member {Boolean} rendered=false\n     * @private\n     */",
+            "comment": "/**\n     * True after the component render() method was called. Also fires the rendered event.\n     * @member {Boolean} rendered=false\n     * @protected\n     */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 342,
+                "lineno": 347,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -1136,19 +1162,19 @@
                 ]
             },
             "defaultvalue": false,
-            "access": "private",
+            "access": "protected",
             "longname": "rendered",
             "scope": "global",
             "$longname": "rendered",
             "$kind": "property",
-            "id": 140,
+            "id": 141,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Top level style attributes\n     * @member {Object} style={}\n     */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 359,
+                "lineno": 364,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -1166,14 +1192,14 @@
             "scope": "global",
             "$longname": "style",
             "$kind": "property",
-            "id": 141,
+            "id": 142,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * The setter will handle vdom updates automatically\n     * @member {Object} vdom=this._vdom\n     */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 386,
+                "lineno": 391,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -1191,22 +1217,22 @@
             "scope": "global",
             "$longname": "vdom",
             "$kind": "property",
-            "id": 142,
+            "id": 143,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Either a string like 'color: red; background-color: blue;'\n     * or an object containing style attributes\n     * @param {String|Object} value\n     * @returns {Object} all styles of this.el\n     */",
             "meta": {
                 "range": [
-                    13692,
-                    13935
+                    13866,
+                    14109
                 ],
                 "filename": "Base.mjs",
-                "lineno": 457,
+                "lineno": 462,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004611",
+                    "id": "astnode100004613",
                     "name": "Base#addStyle",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1246,22 +1272,22 @@
             "scope": "instance",
             "$longname": "Base#addStyle",
             "$kind": "method",
-            "id": 143,
+            "id": 144,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered after the disabled config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the disabled config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    14091,
-                    14270
+                    14267,
+                    14446
                 ],
                 "filename": "Base.mjs",
-                "lineno": 473,
+                "lineno": 478,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004643",
+                    "id": "astnode100004645",
                     "name": "Base#afterSetDisabled",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1292,7 +1318,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetDisabled",
             "longname": "Base#afterSetDisabled",
             "kind": "function",
@@ -1300,22 +1326,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetDisabled",
             "$kind": "method",
-            "id": 144,
+            "id": 145,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Registers the domListeners inside the Neo.manager.DomEvent\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Registers the domListeners inside the Neo.manager.DomEvent\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    14433,
-                    14545
+                    14611,
+                    14723
                 ],
                 "filename": "Base.mjs",
-                "lineno": 487,
+                "lineno": 492,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004674",
+                    "id": "astnode100004676",
                     "name": "Base#afterSetDomListeners",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1346,7 +1372,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetDomListeners",
             "longname": "Base#afterSetDomListeners",
             "kind": "function",
@@ -1354,22 +1380,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetDomListeners",
             "$kind": "method",
-            "id": 145,
+            "id": 146,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered after the hasUnmountedVdomChanges config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the hasUnmountedVdomChanges config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    14716,
-                    15227
+                    14896,
+                    15407
                 ],
                 "filename": "Base.mjs",
-                "lineno": 497,
+                "lineno": 502,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004688",
+                    "id": "astnode100004690",
                     "name": "Base#afterSetHasUnmountedVdomChanges",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1400,7 +1426,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetHasUnmountedVdomChanges",
             "longname": "Base#afterSetHasUnmountedVdomChanges",
             "kind": "function",
@@ -1408,22 +1434,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetHasUnmountedVdomChanges",
             "$kind": "method",
-            "id": 146,
+            "id": 147,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered after the height config got changed\n     * @param {Number|String|null} value\n     * @param {Number|String|null} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the height config got changed\n     * @param {Number|String|null} value\n     * @param {Number|String|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    15403,
-                    15491
+                    15585,
+                    15673
                 ],
                 "filename": "Base.mjs",
-                "lineno": 520,
+                "lineno": 525,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004746",
+                    "id": "astnode100004748",
                     "name": "Base#afterSetHeight",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1458,7 +1484,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetHeight",
             "longname": "Base#afterSetHeight",
             "kind": "function",
@@ -1466,22 +1492,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetHeight",
             "$kind": "method",
-            "id": 147,
+            "id": 148,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered after the html config got changed\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the html config got changed\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    15651,
-                    15735
+                    15835,
+                    15919
                 ],
                 "filename": "Base.mjs",
-                "lineno": 530,
+                "lineno": 535,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004759",
+                    "id": "astnode100004761",
                     "name": "Base#afterSetHtml",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1514,7 +1540,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetHtml",
             "longname": "Base#afterSetHtml",
             "kind": "function",
@@ -1522,22 +1548,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetHtml",
             "$kind": "method",
-            "id": 148,
+            "id": 149,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered after the id config got changed\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the id config got changed\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    15893,
-                    15973
+                    16079,
+                    16159
                 ],
                 "filename": "Base.mjs",
-                "lineno": 540,
+                "lineno": 545,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004772",
+                    "id": "astnode100004774",
                     "name": "Base#afterSetId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1570,7 +1596,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetId",
             "longname": "Base#afterSetId",
             "kind": "function",
@@ -1578,22 +1604,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetId",
             "$kind": "method",
-            "id": 149,
+            "id": 150,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered after the maxHeight config got changed\n     * @param {Number|String|null} value\n     * @param {Number|String|null} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the maxHeight config got changed\n     * @param {Number|String|null} value\n     * @param {Number|String|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    16152,
-                    16246
+                    16340,
+                    16434
                 ],
                 "filename": "Base.mjs",
-                "lineno": 550,
+                "lineno": 555,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004785",
+                    "id": "astnode100004787",
                     "name": "Base#afterSetMaxHeight",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1628,7 +1654,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetMaxHeight",
             "longname": "Base#afterSetMaxHeight",
             "kind": "function",
@@ -1636,22 +1662,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetMaxHeight",
             "$kind": "method",
-            "id": 150,
+            "id": 151,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered after the maxWidth config got changed\n     * @param {Number|String|null} value\n     * @param {Number|String|null} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the maxWidth config got changed\n     * @param {Number|String|null} value\n     * @param {Number|String|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    16424,
-                    16516
+                    16614,
+                    16706
                 ],
                 "filename": "Base.mjs",
-                "lineno": 560,
+                "lineno": 565,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004798",
+                    "id": "astnode100004800",
                     "name": "Base#afterSetMaxWidth",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1686,7 +1712,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetMaxWidth",
             "longname": "Base#afterSetMaxWidth",
             "kind": "function",
@@ -1694,22 +1720,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetMaxWidth",
             "$kind": "method",
-            "id": 151,
+            "id": 152,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered after the minHeight config got changed\n     * @param {Number|String|null} value\n     * @param {Number|String|null} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the minHeight config got changed\n     * @param {Number|String|null} value\n     * @param {Number|String|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    16695,
-                    16789
+                    16887,
+                    16981
                 ],
                 "filename": "Base.mjs",
-                "lineno": 570,
+                "lineno": 575,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004811",
+                    "id": "astnode100004813",
                     "name": "Base#afterSetMinHeight",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1744,7 +1770,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetMinHeight",
             "longname": "Base#afterSetMinHeight",
             "kind": "function",
@@ -1752,22 +1778,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetMinHeight",
             "$kind": "method",
-            "id": 152,
+            "id": 153,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered after the minWidth config got changed\n     * @param {Number|String|null} value\n     * @param {Number|String|null} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the minWidth config got changed\n     * @param {Number|String|null} value\n     * @param {Number|String|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    16967,
-                    17059
+                    17161,
+                    17253
                 ],
                 "filename": "Base.mjs",
-                "lineno": 580,
+                "lineno": 585,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004824",
+                    "id": "astnode100004826",
                     "name": "Base#afterSetMinWidth",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1802,7 +1828,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetMinWidth",
             "longname": "Base#afterSetMinWidth",
             "kind": "function",
@@ -1810,22 +1836,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetMinWidth",
             "$kind": "method",
-            "id": 153,
+            "id": 154,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered after the mounted config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the mounted config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    17214,
-                    18301
+                    17410,
+                    17924
                 ],
                 "filename": "Base.mjs",
-                "lineno": 590,
+                "lineno": 595,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004837",
+                    "id": "astnode100004839",
                     "name": "Base#afterSetMounted",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1856,7 +1882,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetMounted",
             "longname": "Base#afterSetMounted",
             "kind": "function",
@@ -1864,22 +1890,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetMounted",
             "$kind": "method",
-            "id": 154,
+            "id": 155,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered after the tooltips config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the tooltips config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    18457,
-                    18899
+                    18082,
+                    18524
                 ],
                 "filename": "Base.mjs",
-                "lineno": 634,
+                "lineno": 618,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004956",
+                    "id": "astnode100004892",
                     "name": "Base#afterSetTooltips",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1910,7 +1936,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetTooltips",
             "longname": "Base#afterSetTooltips",
             "kind": "function",
@@ -1918,22 +1944,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetTooltips",
             "$kind": "method",
-            "id": 155,
+            "id": 156,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered after the vnode config got changed\n     * @param {Object} value\n     * @param {Object|null} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the vnode config got changed\n     * @param {Object} value\n     * @param {Object|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    19055,
-                    19158
+                    18682,
+                    18785
                 ],
                 "filename": "Base.mjs",
-                "lineno": 656,
+                "lineno": 640,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100004997",
+                    "id": "astnode100004933",
                     "name": "Base#afterSetVnode",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1965,7 +1991,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetVnode",
             "longname": "Base#afterSetVnode",
             "kind": "function",
@@ -1973,22 +1999,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetVnode",
             "$kind": "method",
-            "id": 156,
+            "id": 157,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered after the width config got changed\n     * @param {Number|String|null} value\n     * @param {Number|String|null} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the width config got changed\n     * @param {Number|String|null} value\n     * @param {Number|String|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    19333,
-                    19419
+                    18962,
+                    19048
                 ],
                 "filename": "Base.mjs",
-                "lineno": 668,
+                "lineno": 652,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100005011",
+                    "id": "astnode100004947",
                     "name": "Base#afterSetWidth",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2023,7 +2049,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetWidth",
             "longname": "Base#afterSetWidth",
             "kind": "function",
@@ -2031,22 +2057,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetWidth",
             "$kind": "method",
-            "id": 157,
+            "id": 158,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered after the wrapperStyle config got changed\n     * @param {Object} value\n     * @param {Object} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered after the wrapperStyle config got changed\n     * @param {Object} value\n     * @param {Object} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    19577,
-                    19831
+                    19208,
+                    19462
                 ],
                 "filename": "Base.mjs",
-                "lineno": 678,
+                "lineno": 662,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100005024",
+                    "id": "astnode100004960",
                     "name": "Base#afterSetWrapperStyle",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2077,7 +2103,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetWrapperStyle",
             "longname": "Base#afterSetWrapperStyle",
             "kind": "function",
@@ -2085,22 +2111,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetWrapperStyle",
             "$kind": "method",
-            "id": 158,
+            "id": 159,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered when accessing the controller config\n     * @param {Object} value\n     * @private\n     */",
+            "comment": "/**\n     * Triggered when accessing the controller config\n     * @param {Object} value\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    19952,
-                    20026
+                    19585,
+                    19659
                 ],
                 "filename": "Base.mjs",
-                "lineno": 693,
+                "lineno": 677,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100005071",
+                    "id": "astnode100005007",
                     "name": "Base#beforeGetController",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2122,7 +2148,7 @@
                     "name": "value"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeGetController",
             "longname": "Base#beforeGetController",
             "kind": "function",
@@ -2130,22 +2156,22 @@
             "scope": "instance",
             "$longname": "Base#beforeGetController",
             "$kind": "method",
-            "id": 159,
+            "id": 160,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered before the controller config gets changed. Creates a ComponentController instance if needed.\n     * @param {Object} value\n     * @param {Object} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered before the controller config gets changed. Creates a ComponentController instance if needed.\n     * @param {Object} value\n     * @param {Object} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    20235,
-                    20943
+                    19870,
+                    20578
                 ],
                 "filename": "Base.mjs",
-                "lineno": 703,
+                "lineno": 687,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100005084",
+                    "id": "astnode100005020",
                     "name": "Base#beforeSetController",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2176,7 +2202,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeSetController",
             "longname": "Base#beforeSetController",
             "kind": "function",
@@ -2184,22 +2210,22 @@
             "scope": "instance",
             "$longname": "Base#beforeSetController",
             "$kind": "method",
-            "id": 160,
+            "id": 161,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered before the domListeners config gets changed.\n     * @param {Object} value\n     * @param {Object} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered before the domListeners config gets changed.\n     * @param {Object} value\n     * @param {Object} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    21104,
-                    21253
+                    20741,
+                    20890
                 ],
                 "filename": "Base.mjs",
-                "lineno": 735,
+                "lineno": 719,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100005181",
+                    "id": "astnode100005117",
                     "name": "Base#beforeSetDomListeners",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2230,7 +2256,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeSetDomListeners",
             "longname": "Base#beforeSetDomListeners",
             "kind": "function",
@@ -2238,22 +2264,22 @@
             "scope": "instance",
             "$longname": "Base#beforeSetDomListeners",
             "$kind": "method",
-            "id": 161,
+            "id": 162,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Triggered before the keys config gets changed. Creates a KeyNavigation instance if needed.\n     * @param {Object} value\n     * @param {Object} oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Triggered before the keys config gets changed. Creates a KeyNavigation instance if needed.\n     * @param {Object} value\n     * @param {Object} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    21450,
-                    21954
+                    21089,
+                    21593
                 ],
                 "filename": "Base.mjs",
-                "lineno": 749,
+                "lineno": 733,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100005203",
+                    "id": "astnode100005139",
                     "name": "Base#beforeSetKeys",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2284,7 +2310,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeSetKeys",
             "longname": "Base#beforeSetKeys",
             "kind": "function",
@@ -2292,22 +2318,22 @@
             "scope": "instance",
             "$longname": "Base#beforeSetKeys",
             "$kind": "method",
-            "id": 162,
+            "id": 163,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Changes the value of a vdom object attribute or removes it in case it has no value\n     * @param {String} key\n     * @param {Array|Number|Object|String|null} value\n     */",
             "meta": {
                 "range": [
-                    22147,
-                    22396
+                    21786,
+                    22035
                 ],
                 "filename": "Base.mjs",
-                "lineno": 774,
+                "lineno": 758,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100005258",
+                    "id": "astnode100005194",
                     "name": "Base#changeVdomRootKey",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2349,22 +2375,22 @@
             "scope": "instance",
             "$longname": "Base#changeVdomRootKey",
             "$kind": "method",
-            "id": 163,
+            "id": 164,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Creates the tooltip instances\n     * @param {Array|Object} value\n     * @private\n     */",
+            "comment": "/**\n     * Creates the tooltip instances\n     * @param {Array|Object} value\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    22506,
-                    23032
+                    22147,
+                    22673
                 ],
                 "filename": "Base.mjs",
-                "lineno": 792,
+                "lineno": 776,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100005300",
+                    "id": "astnode100005236",
                     "name": "Base#createTooltips",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2387,7 +2413,7 @@
                     "name": "value"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "createTooltips",
             "longname": "Base#createTooltips",
             "kind": "function",
@@ -2395,22 +2421,22 @@
             "scope": "instance",
             "$longname": "Base#createTooltips",
             "$kind": "method",
-            "id": 164,
+            "id": 165,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Unregisters this instance from the ComponentManager\n     * @param {Boolean} [updateParentVdom=false] true to remove the component from the parent vdom => real dom\n     * @param {Boolean} [silent=false] true to update the vdom silently (useful for destroying multiple child items in a row)\n     * todo: unregister events\n     */",
             "meta": {
                 "range": [
-                    23381,
-                    23829
+                    23022,
+                    23470
                 ],
                 "filename": "Base.mjs",
-                "lineno": 822,
+                "lineno": 806,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100005366",
+                    "id": "astnode100005302",
                     "name": "Base#destroy",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2454,22 +2480,22 @@
             "scope": "instance",
             "$longname": "Base#destroy",
             "$kind": "method",
-            "id": 165,
+            "id": 166,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Convenience shortcut for Neo.manager.Component.down\n     * @param {Object|String} config\n     * @returns {Neo.core.Base} The matching instance or null\n     */",
             "meta": {
                 "range": [
-                    24009,
-                    24084
+                    23650,
+                    23725
                 ],
                 "filename": "Base.mjs",
-                "lineno": 844,
+                "lineno": 828,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100005436",
+                    "id": "astnode100005372",
                     "name": "Base#down",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2509,22 +2535,22 @@
             "scope": "instance",
             "$longname": "Base#down",
             "$kind": "method",
-            "id": 166,
+            "id": 167,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Calls focus() on the top level DOM node of this component or on a given node via id\n     * @param {String} [id]\n     */",
             "meta": {
                 "range": [
-                    24225,
-                    24572
+                    23866,
+                    24213
                 ],
                 "filename": "Base.mjs",
-                "lineno": 852,
+                "lineno": 836,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100005450",
+                    "id": "astnode100005386",
                     "name": "Base#focus",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2554,22 +2580,22 @@
             "scope": "instance",
             "$longname": "Base#focus",
             "$kind": "method",
-            "id": 167,
+            "id": 168,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Returns this.controller or the closest parent controller\n     * @param {String} [ntype]\n     * @returns {Neo.controller.Base|null}\n     */",
             "meta": {
                 "range": [
-                    24732,
-                    25268
+                    24373,
+                    24909
                 ],
                 "filename": "Base.mjs",
-                "lineno": 870,
+                "lineno": 854,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100005495",
+                    "id": "astnode100005431",
                     "name": "Base#getController",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2609,22 +2635,22 @@
             "scope": "instance",
             "$longname": "Base#getController",
             "$kind": "method",
-            "id": 168,
+            "id": 169,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Search vdom child nodes by id for a given vdom tree\n     * @param {String} id\n     * @param {Object} [vdom]\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    25430,
-                    25961
+                    25071,
+                    25602
                 ],
                 "filename": "Base.mjs",
-                "lineno": 897,
+                "lineno": 881,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100005579",
+                    "id": "astnode100005515",
                     "name": "Base#getVdomChild",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2672,22 +2698,22 @@
             "scope": "instance",
             "$longname": "Base#getVdomChild",
             "$kind": "method",
-            "id": 169,
+            "id": 170,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Can get called after the component got rendered. See the autoMount config as well.\n     */",
             "meta": {
                 "range": [
-                    26073,
-                    27628
+                    25714,
+                    27269
                 ],
                 "filename": "Base.mjs",
-                "lineno": 924,
+                "lineno": 908,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100005657",
+                    "id": "astnode100005593",
                     "name": "Base#mount",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -2705,14 +2731,14 @@
             "params": [],
             "$longname": "Base#mount",
             "$kind": "method",
-            "id": 170,
+            "id": 171,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Triggered by manager.Focus\n     * @name onFocusEnter\n     * @function\n     * @param {Array} path dom element ids upwards\n     */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 968,
+                "lineno": 952,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -2735,14 +2761,14 @@
             "scope": "global",
             "$longname": "onFocusEnter",
             "$kind": "method",
-            "id": 171,
+            "id": 172,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Triggered by manager.Focus\n     * @name onFocusLeave\n     * @function\n     * @param {Array} path dom element ids upwards\n     */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 975,
+                "lineno": 959,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -2765,14 +2791,14 @@
             "scope": "global",
             "$longname": "onFocusLeave",
             "$kind": "method",
-            "id": 172,
+            "id": 173,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Triggered by manager.Focus\n     * @name onFocusMove\n     * @function\n     * @param {Object} opts\n     * @param {Array}  opts.newPath dom element ids upwards\n     * @param {Array}  opts.oldPath dom element ids upwards\n     */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 982,
+                "lineno": 966,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -2812,22 +2838,22 @@
             "scope": "global",
             "$longname": "onFocusMove",
             "$kind": "method",
-            "id": 173,
+            "id": 174,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Gets called from the render() promise success handler\n     * @param {Object} data\n     * @param {Boolean} autoMount Mount the DOM after the vnode got created\n     * @private\n     */",
+            "comment": "/**\n     * Gets called from the render() promise success handler\n     * @param {Object} data\n     * @param {Boolean} autoMount Mount the DOM after the vnode got created\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    28362,
-                    29194
+                    28005,
+                    28837
                 ],
                 "filename": "Base.mjs",
-                "lineno": 997,
+                "lineno": 981,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100005790",
+                    "id": "astnode100005726",
                     "name": "Base#onRender",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2859,7 +2885,7 @@
                     "name": "autoMount"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "onRender",
             "longname": "Base#onRender",
             "kind": "function",
@@ -2867,22 +2893,22 @@
             "scope": "instance",
             "$longname": "Base#onRender",
             "$kind": "method",
-            "id": 174,
+            "id": 175,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Promise based vdom update\n     * @param {Object} [vdom=this.vdom]\n     * @param {Neo.vdom.VNode} [vnode= this.vnode]\n     */",
             "meta": {
                 "range": [
-                    29340,
-                    30337
+                    28983,
+                    29980
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1039,
+                "lineno": 1023,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100005930",
+                    "id": "astnode100005866",
                     "name": "Base#promiseVdomUpdate",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2924,22 +2950,22 @@
             "scope": "instance",
             "$longname": "Base#promiseVdomUpdate",
             "$kind": "method",
-            "id": 175,
+            "id": 176,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Either a string like 'color' or an array containing style attributes to remove\n     * @param {String|Array} value camelCase only\n     * @returns {Object} all styles of this.el\n     */",
             "meta": {
                 "range": [
-                    30542,
-                    30989
+                    30185,
+                    30632
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1072,
+                "lineno": 1056,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100006029",
+                    "id": "astnode100005965",
                     "name": "Base#removeStyle",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2980,22 +3006,22 @@
             "scope": "instance",
             "$longname": "Base#removeStyle",
             "$kind": "method",
-            "id": 176,
+            "id": 177,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Creates the vnode tree for this component and mounts the component in case\n     * - you pass true for the mount param\n     * - or the autoMount config is set to true\n     * @param {Boolean} [mount] Mount the DOM after the vnode got created\n     */",
             "meta": {
                 "range": [
-                    31258,
-                    32058
+                    30901,
+                    31742
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1100,
+                "lineno": 1084,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100006096",
+                    "id": "astnode100006032",
                     "name": "Base#render",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -3026,22 +3052,22 @@
             "scope": "instance",
             "$longname": "Base#render",
             "$kind": "method",
-            "id": 177,
+            "id": 178,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Change multiple configs at once, ensuring that all afterSet methods get all new assigned values\n     * @param {Object} values={}\n     * @param {Boolean} [silent=false]\n     */",
             "meta": {
                 "range": [
-                    32255,
-                    32569
+                    31939,
+                    32253
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1132,
+                "lineno": 1117,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100006209",
+                    "id": "astnode100006149",
                     "name": "Base#set",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -3082,22 +3108,22 @@
             "scope": "instance",
             "$longname": "Base#set",
             "$kind": "method",
-            "id": 178,
+            "id": 179,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Placeholder method for util.VDom.syncVdomIds to allow overriding (disabling) it\n     * @param {Neo.vdom.VNode} [vnode=this.vnode]\n     * @param {Object} [vdom=this.vdom]\n     */",
             "meta": {
                 "range": [
-                    32768,
-                    32864
+                    32452,
+                    32548
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1154,
+                "lineno": 1139,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100006261",
+                    "id": "astnode100006201",
                     "name": "Base#syncVdomIds",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -3139,22 +3165,22 @@
             "scope": "instance",
             "$longname": "Base#syncVdomIds",
             "$kind": "method",
-            "id": 179,
+            "id": 180,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Placeholder method for util.VDom.syncVdomIds to allow overriding (disabling) it\n     * @param {Neo.vdom.VNode} [vnode=this.vnode]\n     */",
             "meta": {
                 "range": [
-                    33023,
-                    34889
+                    32707,
+                    34573
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1162,
+                "lineno": 1147,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100006282",
+                    "id": "astnode100006222",
                     "name": "Base#syncVnodeTree",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -3185,22 +3211,22 @@
             "scope": "instance",
             "$longname": "Base#syncVnodeTree",
             "$kind": "method",
-            "id": 180,
+            "id": 181,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Removes the component DOM\n     */",
             "meta": {
                 "range": [
-                    34944,
-                    35344
+                    34628,
+                    35028
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1217,
+                "lineno": 1202,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100006472",
+                    "id": "astnode100006412",
                     "name": "Base#unmount",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -3218,22 +3244,22 @@
             "params": [],
             "$longname": "Base#unmount",
             "$kind": "method",
-            "id": 181,
+            "id": 182,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n     * Convenience shortcut for Neo.manager.Component.up\n     * @param {Object|String} config\n     * @returns {Neo.core.Base} The matching instance or null\n     */",
             "meta": {
                 "range": [
-                    35522,
-                    35593
+                    35206,
+                    35277
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1238,
+                "lineno": 1223,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100006525",
+                    "id": "astnode100006465",
                     "name": "Base#up",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -3273,22 +3299,22 @@
             "scope": "instance",
             "$longname": "Base#up",
             "$kind": "method",
-            "id": 182,
+            "id": 183,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Delta updates for the cls config. Gets called after the cls config gets changed in case the component is mounted.\n     * @param {Array} cls\n     * @param {Array} oldCls\n     * @private\n     */",
+            "comment": "/**\n     * Delta updates for the cls config. Gets called after the cls config gets changed in case the component is mounted.\n     * @param {Array} cls\n     * @param {Array} oldCls\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    35807,
-                    36648
+                    35493,
+                    36488
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1248,
+                "lineno": 1233,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100006539",
+                    "id": "astnode100006479",
                     "name": "Base#updateCls",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -3319,7 +3345,7 @@
                     "name": "oldCls"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "updateCls",
             "longname": "Base#updateCls",
             "kind": "function",
@@ -3327,22 +3353,22 @@
             "scope": "instance",
             "$longname": "Base#updateCls",
             "$kind": "method",
-            "id": 183,
+            "id": 184,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Creates the style deltas for newValue & oldValue and applies them directly to the DOM.\n     * @param newValue\n     * @param oldValue\n     * @private\n     */",
+            "comment": "/**\n     * Creates the style deltas for newValue & oldValue and applies them directly to the DOM.\n     * @param newValue\n     * @param oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    36826,
-                    37669
+                    36668,
+                    37665
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1281,
+                "lineno": 1273,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100006639",
+                    "id": "astnode100006600",
                     "name": "Base#updateStyle",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -3363,7 +3389,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "updateStyle",
             "longname": "Base#updateStyle",
             "kind": "function",
@@ -3371,22 +3397,22 @@
             "scope": "instance",
             "$longname": "Base#updateStyle",
             "$kind": "method",
-            "id": 184,
+            "id": 185,
             "neoClassName": "Neo.component.Base"
         },
         {
-            "comment": "/**\n     * Gets called after the vdom config gets changed in case the component is already mounted (delta updates).\n     * @param {Object} vdom\n     * @param {Neo.vdom.VNode} vnode\n     * @param {function} [resolve] used by promiseVdomUpdate()\n     * @param {function} [reject] used by promiseVdomUpdate()\n     * @private\n     */",
+            "comment": "/**\n     * Gets called after the vdom config gets changed in case the component is already mounted (delta updates).\n     * @param {Object} vdom\n     * @param {Neo.vdom.VNode} vnode\n     * @param {function} [resolve] used by promiseVdomUpdate()\n     * @param {function} [reject] used by promiseVdomUpdate()\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    38009,
-                    39135
+                    38007,
+                    39328
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1315,
+                "lineno": 1314,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100006719",
+                    "id": "astnode100006701",
                     "name": "Base#updateVdom",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -3439,7 +3465,7 @@
                     "name": "reject"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "updateVdom",
             "longname": "Base#updateVdom",
             "kind": "function",
@@ -3447,14 +3473,14 @@
             "scope": "instance",
             "$longname": "Base#updateVdom",
             "$kind": "method",
-            "id": 185,
+            "id": 186,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n * manager.Focus fires the event when the component id is included inside the dom id path\n * @event focusEnter\n * @param {Array} path dom element ids upwards\n */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 1354,
+                "lineno": 1361,
                 "columnno": 0,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -3477,14 +3503,14 @@
             "scope": "global",
             "$longname": "event:focusEnter",
             "$kind": "event",
-            "id": 186,
+            "id": 187,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n * manager.Focus fires the event when the component id is not included inside the dom id path\n * @event focusLeave\n * @param {Array} path dom element ids upwards\n */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 1360,
+                "lineno": 1367,
                 "columnno": 0,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -3507,14 +3533,14 @@
             "scope": "global",
             "$longname": "event:focusLeave",
             "$kind": "event",
-            "id": 187,
+            "id": 188,
             "neoClassName": "Neo.component.Base"
         },
         {
             "comment": "/**\n * manager.Focus fires the event when the component id is included inside the dom id path, but the path itself changed\n * @event focusMove\n * @param {Object} opts\n * @param {Array}  opts.newPath dom element ids upwards\n * @param {Array}  opts.oldPath dom element ids upwards\n */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 1366,
+                "lineno": 1373,
                 "columnno": 0,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -3554,7 +3580,7 @@
             "scope": "global",
             "$longname": "event:focusMove",
             "$kind": "event",
-            "id": 188,
+            "id": 189,
             "neoClassName": "Neo.component.Base"
         }
     ]

@@ -48,7 +48,7 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.collection.Base'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.collection.Base'\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
                 "lineno": 35,
@@ -64,7 +64,7 @@
                 ]
             },
             "defaultvalue": "'Neo.collection.Base'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
@@ -73,7 +73,7 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='collection'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='collection'\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
                 "lineno": 40,
@@ -89,7 +89,7 @@
                 ]
             },
             "defaultvalue": "'collection'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
@@ -98,7 +98,7 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n         * When filtering the collection for the first time, allItems will become a new collection for the unfiltered\n         * state, using this id as the sourceCollectionId\n         * @member {Neo.collection.Base|null} allItems\n         * @private\n         */",
+            "comment": "/**\n         * When filtering the collection for the first time, allItems will become a new collection for the unfiltered\n         * state, using this id as the sourceCollectionId\n         * @member {Neo.collection.Base|null} allItems\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
                 "lineno": 47,
@@ -115,7 +115,7 @@
                     "null"
                 ]
             },
-            "access": "private",
+            "access": "protected",
             "longname": "allItems",
             "scope": "global",
             "$longname": "allItems",
@@ -273,7 +273,7 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n         * An internal Array of the sort directions for faster access\n         * @member {Array} sortDirections=null\n         * @private\n         */",
+            "comment": "/**\n         * An internal Array of the sort directions for faster access\n         * @member {Array} sortDirections=null\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
                 "lineno": 84,
@@ -290,7 +290,7 @@
                 ]
             },
             "defaultvalue": null,
-            "access": "private",
+            "access": "protected",
             "longname": "sortDirections",
             "scope": "global",
             "$longname": "sortDirections",
@@ -299,7 +299,7 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n         * An internal Array of the sort properties for faster access\n         * @member {Array} sortProperties=null\n         * @private\n         */",
+            "comment": "/**\n         * An internal Array of the sort properties for faster access\n         * @member {Array} sortProperties=null\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
                 "lineno": 90,
@@ -316,7 +316,7 @@
                 ]
             },
             "defaultvalue": null,
-            "access": "private",
+            "access": "protected",
             "longname": "sortProperties",
             "scope": "global",
             "$longname": "sortProperties",
@@ -379,8 +379,8 @@
             "comment": "/**\n     *\n     * @param config\n     */",
             "meta": {
                 "range": [
-                    3355,
-                    4087
+                    3365,
+                    4097
                 ],
                 "filename": "Base.mjs",
                 "lineno": 107,
@@ -416,8 +416,8 @@
             "comment": "/**\n     * Adds one or more items to the end of the collection and returns the new length of the collection.\n     * @param {Array|Object} item The item(s) to add\n     * @returns {Number} the collection count\n     */",
             "meta": {
                 "range": [
-                    4313,
-                    4398
+                    4323,
+                    4408
                 ],
                 "filename": "Base.mjs",
                 "lineno": 133,
@@ -469,11 +469,11 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n     *\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4502,
-                    4845
+                    4514,
+                    4857
                 ],
                 "filename": "Base.mjs",
                 "lineno": 144,
@@ -510,7 +510,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetFilters",
             "longname": "Base#afterSetFilters",
             "kind": "function",
@@ -522,11 +522,11 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n     *\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4949,
-                    5268
+                    4963,
+                    5282
                 ],
                 "filename": "Base.mjs",
                 "lineno": 165,
@@ -563,7 +563,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetItems",
             "longname": "Base#afterSetItems",
             "kind": "function",
@@ -575,11 +575,11 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n     *\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5372,
-                    5764
+                    5388,
+                    5780
                 ],
                 "filename": "Base.mjs",
                 "lineno": 184,
@@ -616,7 +616,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetSorters",
             "longname": "Base#afterSetSorters",
             "kind": "function",
@@ -628,11 +628,11 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n     *\n     * @param {Number|String} value\n     * @param {Number|String} oldValue\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param {Number|String} value\n     * @param {Number|String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5884,
-                    6561
+                    5902,
+                    6579
                 ],
                 "filename": "Base.mjs",
                 "lineno": 207,
@@ -671,7 +671,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "afterSetSourceId",
             "longname": "Base#afterSetSourceId",
             "kind": "function",
@@ -683,11 +683,11 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n     * Saves the sort property & direction multiplier of each sorter inside 2 arrays for faster access when sorting\n     * @private\n     */",
+            "comment": "/**\n     * Saves the sort property & direction multiplier of each sorter inside 2 arrays for faster access when sorting\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6715,
-                    7033
+                    6735,
+                    7053
                 ],
                 "filename": "Base.mjs",
                 "lineno": 235,
@@ -704,7 +704,7 @@
                 }
             },
             "description": "Saves the sort property & direction multiplier of each sorter inside 2 arrays for faster access when sorting",
-            "access": "private",
+            "access": "protected",
             "name": "applySorterConfigs",
             "longname": "Base#applySorterConfigs",
             "kind": "function",
@@ -717,11 +717,11 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n     *\n     * @param {Map|null} value\n     * @param {Map|null} oldValue\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param {Map|null} value\n     * @param {Map|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7143,
-                    7223
+                    7165,
+                    7245
                 ],
                 "filename": "Base.mjs",
                 "lineno": 253,
@@ -760,7 +760,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeSetMap",
             "longname": "Base#beforeSetMap",
             "kind": "function",
@@ -772,11 +772,11 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n     *\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7327,
-                    8592
+                    7351,
+                    8616
                 ],
                 "filename": "Base.mjs",
                 "lineno": 263,
@@ -813,7 +813,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeSetFilters",
             "longname": "Base#beforeSetFilters",
             "kind": "function",
@@ -825,11 +825,11 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n     *\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    8696,
-                    9833
+                    8722,
+                    9859
                 ],
                 "filename": "Base.mjs",
                 "lineno": 312,
@@ -866,7 +866,7 @@
                     "name": "oldValue"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeSetSorters",
             "longname": "Base#beforeSetSorters",
             "kind": "function",
@@ -878,11 +878,11 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n     *\n     * @param opts\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param opts\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    9897,
-                    10956
+                    9925,
+                    10984
                 ],
                 "filename": "Base.mjs",
                 "lineno": 357,
@@ -905,7 +905,7 @@
                     "name": "opts"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "cacheUpdate",
             "longname": "Base#cacheUpdate",
             "kind": "function",
@@ -920,8 +920,8 @@
             "comment": "/**\n     * Removes all items and clears the map\n     */",
             "meta": {
                 "range": [
-                    11022,
-                    11129
+                    11050,
+                    11157
                 ],
                 "filename": "Base.mjs",
                 "lineno": 389,
@@ -953,8 +953,8 @@
             "comment": "/**\n     * Clears all current filters and optionally restores the original ones in case they existed.\n     * @param {boolean} [restoreOriginalFilters=false]\n     */",
             "meta": {
                 "range": [
-                    11304,
-                    11455
+                    11332,
+                    11483
                 ],
                 "filename": "Base.mjs",
                 "lineno": 400,
@@ -999,8 +999,8 @@
             "comment": "/**\n     * Clears all current sorters and optionally restores the original ones in case they existed.\n     * Without restoreInitialState as true this will not affect the current sorting of this collection.\n     * @param {boolean} [restoreOriginalSorters=false]\n     */",
             "meta": {
                 "range": [
-                    11734,
-                    11885
+                    11762,
+                    11913
                 ],
                 "filename": "Base.mjs",
                 "lineno": 409,
@@ -1045,8 +1045,8 @@
             "comment": "/**\n     *\n     * @returns {Neo.collection.Base} The cloned collection\n     */",
             "meta": {
                 "range": [
-                    11974,
-                    12783
+                    12002,
+                    12811
                 ],
                 "filename": "Base.mjs",
                 "lineno": 417,
@@ -1087,8 +1087,8 @@
             "comment": "/**\n     * Clears the map & items array before the super call\n     */",
             "meta": {
                 "range": [
-                    12863,
-                    13000
+                    12891,
+                    13028
                 ],
                 "filename": "Base.mjs",
                 "lineno": 451,
@@ -1117,11 +1117,11 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n     * @private\n     */",
+            "comment": "/**\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    13038,
-                    16048
+                    13068,
+                    16078
                 ],
                 "filename": "Base.mjs",
                 "lineno": 463,
@@ -1137,7 +1137,7 @@
                     "": null
                 }
             },
-            "access": "private",
+            "access": "protected",
             "name": "doSort",
             "longname": "Base#doSort",
             "kind": "function",
@@ -1153,8 +1153,8 @@
             "comment": "/**\n     * Resumes the collection events.\n     * If you started an update using the startSilentUpdateMode flag,\n     * you must use the endSilentUpdateMode param for this call.\n     * Using the endSilentUpdateMode param will not fire a mutation event.\n     * @param {Boolean} [endSilentUpdateMode]\n     * @see {@link Neo.collection.Base#startUpdate startUpdate}\n     */",
             "meta": {
                 "range": [
-                    16428,
-                    16954
+                    16458,
+                    16984
                 ],
                 "filename": "Base.mjs",
                 "lineno": 562,
@@ -1198,11 +1198,11 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n     * @private\n     */",
+            "comment": "/**\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    16992,
-                    19772
+                    17024,
+                    19804
                 ],
                 "filename": "Base.mjs",
                 "lineno": 585,
@@ -1218,7 +1218,7 @@
                     "": null
                 }
             },
-            "access": "private",
+            "access": "protected",
             "name": "filter",
             "longname": "Base#filter",
             "kind": "function",
@@ -1234,8 +1234,8 @@
             "comment": "/**\n     * Returns all items which match the property and value\n     * @param {Object|String} property\n     * @param {String|Number} value\n     * @returns {Array} Returns an empty Array in case no items are found\n     */",
             "meta": {
                 "range": [
-                    20003,
-                    20940
+                    20035,
+                    20972
                 ],
                 "filename": "Base.mjs",
                 "lineno": 678,
@@ -1299,8 +1299,8 @@
             "comment": "/**\n     * Returns all items in the collection for which the passed function returns true\n     * @param {function} fn The function to run for each item inside the start-end range. Return true for a match.\n     * @param {Object} fn.item The current collection item\n     * @param {Object} [scope=this] The scope in which the passed function gets executed\n     * @param {Number} [start=0] The start index\n     * @param {Number} [end=this.getCount()] The end index (up to, last value excluded)\n     * @returns {Array} Returns an empty Array in case no items are found\n     */",
             "meta": {
                 "range": [
-                    21522,
-                    21882
+                    21554,
+                    21914
                 ],
                 "filename": "Base.mjs",
                 "lineno": 720,
@@ -1399,8 +1399,8 @@
             "comment": "/**\n     * Returns the first item inside the collection\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    21981,
-                    22027
+                    22013,
+                    22059
                 ],
                 "filename": "Base.mjs",
                 "lineno": 741,
@@ -1441,8 +1441,8 @@
             "comment": "/**\n     * Returns the object associated to the key, or undefined if there is none.\n     * @param key\n     * @returns {Object|undefined}\n     */",
             "meta": {
                 "range": [
-                    22182,
-                    22232
+                    22214,
+                    22264
                 ],
                 "filename": "Base.mjs",
                 "lineno": 750,
@@ -1490,8 +1490,8 @@
             "comment": "/**\n     * Returns the item for a given index\n     * @param {Number} index\n     * @returns {Object|undefined}\n     */",
             "meta": {
                 "range": [
-                    22360,
-                    22415
+                    22392,
+                    22447
                 ],
                 "filename": "Base.mjs",
                 "lineno": 759,
@@ -1544,8 +1544,8 @@
             "comment": "/**\n     * Returns the length of the internal items array\n     * @returns {Number}\n     */",
             "meta": {
                 "range": [
-                    22516,
-                    22569
+                    22548,
+                    22601
                 ],
                 "filename": "Base.mjs",
                 "lineno": 767,
@@ -1586,8 +1586,8 @@
             "comment": "/**\n     *\n     * @return {Number}\n     */",
             "meta": {
                 "range": [
-                    22622,
-                    22686
+                    22654,
+                    22718
                 ],
                 "filename": "Base.mjs",
                 "lineno": 775,
@@ -1627,8 +1627,8 @@
             "comment": "/**\n     * Returns the first matching filter for the given property config\n     * @param {String} property\n     * @return {Neo.collection.Filter|null}\n     */",
             "meta": {
                 "range": [
-                    22855,
-                    23152
+                    22887,
+                    23184
                 ],
                 "filename": "Base.mjs",
                 "lineno": 784,
@@ -1681,8 +1681,8 @@
             "comment": "/**\n     * Returns the key for a given index\n     * @param {Number} index\n     * @returns {Number|String|undefined}\n     */",
             "meta": {
                 "range": [
-                    23286,
-                    23395
+                    23318,
+                    23427
                 ],
                 "filename": "Base.mjs",
                 "lineno": 803,
@@ -1736,8 +1736,8 @@
             "comment": "/**\n     * Returns a shallow copy of a portion of the items array\n     * @param {Number} [start] Zero-based index at which to begin extraction.\n     * @param {Number} [end] Zero-based index before which to end extraction (extracts up to but not including end).\n     * @returns {Array}\n     * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice\n     */",
             "meta": {
                 "range": [
-                    23804,
-                    23878
+                    23836,
+                    23910
                 ],
                 "filename": "Base.mjs",
                 "lineno": 815,
@@ -1810,8 +1810,8 @@
             "comment": "/**\n     * Returns the Source Collection in case the sourceCollectionId config was set\n     * @returns {Neo.collection.Base|undefined}\n     */",
             "meta": {
                 "range": [
-                    24031,
-                    24106
+                    24063,
+                    24138
                 ],
                 "filename": "Base.mjs",
                 "lineno": 823,
@@ -1853,8 +1853,8 @@
             "comment": "/**\n     *\n     * Returns a boolean asserting whether a value has been associated to the key in the Collection or not\n     * @param {Number|String} key\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    24302,
-                    24352
+                    24334,
+                    24384
                 ],
                 "filename": "Base.mjs",
                 "lineno": 833,
@@ -1907,8 +1907,8 @@
             "comment": "/**\n     * Returns a boolean asserting whether an item exists in the Collection or not\n     * @param {Object} item\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    24511,
-                    24585
+                    24543,
+                    24617
                 ],
                 "filename": "Base.mjs",
                 "lineno": 842,
@@ -1960,8 +1960,8 @@
             "comment": "/**\n     * Returns the index for a given key or item\n     * @param {Number|String|Object} key\n     * @returns {Number} index (-1 in case no match is found)\n     */",
             "meta": {
                 "range": [
-                    24759,
-                    24861
+                    24791,
+                    24893
                 ],
                 "filename": "Base.mjs",
                 "lineno": 851,
@@ -2016,8 +2016,8 @@
             "comment": "/**\n     * Returns the index for a given item\n     * @param {Object} item\n     * @returns {Number} index (-1 in case no match is found)\n     */",
             "meta": {
                 "range": [
-                    25015,
-                    25082
+                    25047,
+                    25114
                 ],
                 "filename": "Base.mjs",
                 "lineno": 860,
@@ -2070,8 +2070,8 @@
             "comment": "/**\n     * Returns the index for a given key\n     * @param {Number|String} key\n     * @returns {Number} index (-1 in case no match is found)\n     */",
             "meta": {
                 "range": [
-                    25241,
-                    25319
+                    25273,
+                    25351
                 ],
                 "filename": "Base.mjs",
                 "lineno": 869,
@@ -2125,8 +2125,8 @@
             "comment": "/**\n     * Inserts an item or an array of items at the specified index\n     * @param {Number} index\n     * @param {Array|Object} item\n     * @returns {Number} the collection count\n     */",
             "meta": {
                 "range": [
-                    25517,
-                    25613
+                    25549,
+                    25645
                 ],
                 "filename": "Base.mjs",
                 "lineno": 879,
@@ -2189,8 +2189,8 @@
             "comment": "/**\n     *\n     * @returns {Boolean} true in case the collection is filtered\n     */",
             "meta": {
                 "range": [
-                    25708,
-                    25761
+                    25740,
+                    25793
                 ],
                 "filename": "Base.mjs",
                 "lineno": 888,
@@ -2228,11 +2228,11 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n     *\n     * @param {Object} item\n     * @returns {boolean}\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param {Object} item\n     * @returns {boolean}\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    25860,
-                    26247
+                    25894,
+                    26281
                 ],
                 "filename": "Base.mjs",
                 "lineno": 898,
@@ -2269,7 +2269,7 @@
                     }
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "isFilteredItem",
             "longname": "Base#isFilteredItem",
             "kind": "function",
@@ -2284,8 +2284,8 @@
             "comment": "/**\n     *\n     * @returns {Boolean} true in case the collection is sorted\n     */",
             "meta": {
                 "range": [
-                    26340,
-                    26389
+                    26374,
+                    26423
                 ],
                 "filename": "Base.mjs",
                 "lineno": 919,
@@ -2326,8 +2326,8 @@
             "comment": "/**\n     * Returns the last item inside the collection\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    26487,
-                    26549
+                    26521,
+                    26583
                 ],
                 "filename": "Base.mjs",
                 "lineno": 927,
@@ -2365,11 +2365,11 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n     *\n     * @param {Object} opts\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    26622,
-                    26673
+                    26658,
+                    26709
                 ],
                 "filename": "Base.mjs",
                 "lineno": 936,
@@ -2397,7 +2397,7 @@
                     "name": "opts"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "onFilterChange",
             "longname": "Base#onFilterChange",
             "kind": "function",
@@ -2409,11 +2409,11 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n     *\n     * @param {Object} opts\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    26746,
-                    27004
+                    26784,
+                    27042
                 ],
                 "filename": "Base.mjs",
                 "lineno": 945,
@@ -2441,7 +2441,7 @@
                     "name": "opts"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "onMutate",
             "longname": "Base#onMutate",
             "kind": "function",
@@ -2453,11 +2453,11 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n     *\n     * @param {Object} opts\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    27077,
-                    27163
+                    27117,
+                    27203
                 ],
                 "filename": "Base.mjs",
                 "lineno": 962,
@@ -2485,7 +2485,7 @@
                     "name": "opts"
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "onSorterChange",
             "longname": "Base#onSorterChange",
             "kind": "function",
@@ -2500,8 +2500,8 @@
             "comment": "/**\n     * Removes the last element from the items array and returns this element.\n     * @returns {Object} The removed element from the collection; undefined if the collection is empty.\n     */",
             "meta": {
                 "range": [
-                    27368,
-                    27481
+                    27408,
+                    27521
                 ],
                 "filename": "Base.mjs",
                 "lineno": 971,
@@ -2543,8 +2543,8 @@
             "comment": "/**\n     * Adds one or more items to the end of the collection and returns the new items count\n     * @param {Array|Object} item The item(s) to add\n     * @returns {Number} the collection count\n     */",
             "meta": {
                 "range": [
-                    27693,
-                    27742
+                    27733,
+                    27782
                 ],
                 "filename": "Base.mjs",
                 "lineno": 981,
@@ -2599,8 +2599,8 @@
             "comment": "/**\n     * Removes a given key, item or Array containing keys|items\n     * @param {Number|String|Object|Array} key\n     * @returns {Number} the collection count\n     */",
             "meta": {
                 "range": [
-                    27921,
-                    28030
+                    27961,
+                    28070
                 ],
                 "filename": "Base.mjs",
                 "lineno": 990,
@@ -2656,8 +2656,8 @@
             "comment": "/**\n     * Removes the item at the given index\n     * @param {Number} index\n     * @returns {Number} the collection count\n     */",
             "meta": {
                 "range": [
-                    28170,
-                    28256
+                    28210,
+                    28296
                 ],
                 "filename": "Base.mjs",
                 "lineno": 1000,
@@ -2710,8 +2710,8 @@
             "comment": "/**\n     * Reverses the items array in place.\n     * Intended for collections without sorters.\n     * @returns {Array} items\n     */",
             "meta": {
                 "range": [
-                    28399,
-                    28454
+                    28439,
+                    28494
                 ],
                 "filename": "Base.mjs",
                 "lineno": 1010,
@@ -2753,8 +2753,8 @@
             "comment": "/**\n     * Removes the first element from the items array and returns this element.\n     * @returns {Object} The removed element from the collection; undefined if the collection is empty.\n     */",
             "meta": {
                 "range": [
-                    28660,
-                    28756
+                    28700,
+                    28796
                 ],
                 "filename": "Base.mjs",
                 "lineno": 1018,
@@ -2796,8 +2796,8 @@
             "comment": "/**\n     *\n     * @param {function} callback Function to test for each item, taking three parameters:\n     * @param {Object}   callback.item The current collection item being processed\n     * @param {Number}  [callback.index] The index of the current item being processed\n     * @param {Array}   [callback.items] The items array of the collection\n     *\n     * @param {Object} [scope] Value to use as \"this\" when executing the callback\n     * @returns {boolean} true if the callback function returns a truthy value for any collection item, otherwise false\n     */",
             "meta": {
                 "range": [
-                    29330,
-                    29393
+                    29370,
+                    29433
                 ],
                 "filename": "Base.mjs",
                 "lineno": 1033,
@@ -2889,8 +2889,8 @@
             "comment": "/**\n     * Removes items from and/or adds items to this collection\n     * If the toRemoveArray is used, then the index is not used for removing, the entries are found by key and removed from where they are.\n     * If index is not passed, toAddArray is appended to the Collection.\n     * @param {Number|null} index\n     * @param {Number|Array} [removeCountOrToRemoveArray]\n     * @param {Array| Object} [toAddArray]\n     * @returns {Object} An object containing the addedItems & removedItems arrays\n     */",
             "meta": {
                 "range": [
-                    29909,
-                    33568
+                    29949,
+                    33608
                 ],
                 "filename": "Base.mjs",
                 "lineno": 1046,
@@ -2966,8 +2966,8 @@
             "comment": "/**\n     * Prevents the collection from firing events until endUpdate gets called.\n     * If you start an update using the startSilentUpdateMode param,\n     * the mutation event will not fire after using endUpdate()\n     * (you must use the endSilentUpdateMode param for the endUpdate call in case you used\n     * startSilentUpdateMode here)\n     * @param {Boolean} [startSilentUpdateMode]\n     * @see {@link Neo.collection.Base#endUpdate endUpdate}\n     */",
             "meta": {
                 "range": [
-                    34036,
-                    34200
+                    34076,
+                    34240
                 ],
                 "filename": "Base.mjs",
                 "lineno": 1159,
@@ -3014,8 +3014,8 @@
             "comment": "/**\n     * Adds one or more elements to the beginning of the collection and returns the new items count\n     * @param {Array|Object} item The item(s) to add\n     * @returns {Number} the collection count\n     */",
             "meta": {
                 "range": [
-                    34421,
-                    34507
+                    34461,
+                    34547
                 ],
                 "filename": "Base.mjs",
                 "lineno": 1172,

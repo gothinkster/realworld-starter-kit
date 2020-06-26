@@ -27,11 +27,11 @@
             "scope": "static",
             "$longname": "Neo.worker.VDom",
             "$kind": "class",
-            "id": 2155,
+            "id": 2181,
             "neoClassName": "Neo.worker.VDom"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.worker.VDom'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.worker.VDom'\n         * @protected\n         */",
             "meta": {
                 "filename": "VDom.mjs",
                 "lineno": 21,
@@ -47,16 +47,16 @@
                 ]
             },
             "defaultvalue": "'Neo.worker.VDom'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2156,
+            "id": 2182,
             "neoClassName": "Neo.worker.VDom"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='vdom-worker'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='vdom-worker'\n         * @protected\n         */",
             "meta": {
                 "filename": "VDom.mjs",
                 "lineno": 26,
@@ -72,16 +72,16 @@
                 ]
             },
             "defaultvalue": "'vdom-worker'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2157,
+            "id": 2183,
             "neoClassName": "Neo.worker.VDom"
         },
         {
-            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @private\n         */",
+            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @protected\n         */",
             "meta": {
                 "filename": "VDom.mjs",
                 "lineno": 31,
@@ -97,16 +97,16 @@
                 ]
             },
             "defaultvalue": true,
-            "access": "private",
+            "access": "protected",
             "longname": "singleton",
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 2158,
+            "id": 2184,
             "neoClassName": "Neo.worker.VDom"
         },
         {
-            "comment": "/**\n         * @member {String} workerId='vdom'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} workerId='vdom'\n         * @protected\n         */",
             "meta": {
                 "filename": "VDom.mjs",
                 "lineno": 36,
@@ -122,12 +122,12 @@
                 ]
             },
             "defaultvalue": "'vdom'",
-            "access": "private",
+            "access": "protected",
             "longname": "workerId",
             "scope": "global",
             "$longname": "workerId",
             "$kind": "property",
-            "id": 2159,
+            "id": 2185,
             "neoClassName": "Neo.worker.VDom"
         }
     ]

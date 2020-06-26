@@ -27,11 +27,11 @@
             "scope": "static",
             "$longname": "Neo.main.addon.Siesta",
             "$kind": "class",
-            "id": 1439,
+            "id": 1453,
             "neoClassName": "Neo.main.addon.Siesta"
         },
         {
-            "comment": "/**\n             * @member {String} className='Neo.main.addon.Siesta'\n             * @private\n             */",
+            "comment": "/**\n             * @member {String} className='Neo.main.addon.Siesta'\n             * @protected\n             */",
             "meta": {
                 "filename": "Siesta.mjs",
                 "lineno": 16,
@@ -47,16 +47,16 @@
                 ]
             },
             "defaultvalue": "'Neo.main.addon.Siesta'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1440,
+            "id": 1454,
             "neoClassName": "Neo.main.addon.Siesta"
         },
         {
-            "comment": "/**\n             * @member {Boolean} singleton=true\n             * @private\n             */",
+            "comment": "/**\n             * @member {Boolean} singleton=true\n             * @protected\n             */",
             "meta": {
                 "filename": "Siesta.mjs",
                 "lineno": 21,
@@ -72,27 +72,27 @@
                 ]
             },
             "defaultvalue": true,
-            "access": "private",
+            "access": "protected",
             "longname": "singleton",
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1441,
+            "id": 1455,
             "neoClassName": "Neo.main.addon.Siesta"
         },
         {
             "comment": "/**\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    637,
-                    727
+                    641,
+                    731
                 ],
                 "filename": "Siesta.mjs",
                 "lineno": 28,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041689",
+                    "id": "astnode100042534",
                     "name": "Siesta",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -119,22 +119,22 @@
             "scope": "global",
             "$longname": "Siesta",
             "$kind": "constructor",
-            "id": 1442,
+            "id": 1456,
             "neoClassName": "Neo.main.addon.Siesta"
         },
         {
-            "comment": "/**\n     *\n     * @private\n     */",
+            "comment": "/**\n     *\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    772,
-                    1183
+                    778,
+                    1189
                 ],
                 "filename": "Siesta.mjs",
                 "lineno": 37,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100041703",
+                    "id": "astnode100042548",
                     "name": "Siesta#adjustSiestaEnvironment",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -143,7 +143,7 @@
                     "": null
                 }
             },
-            "access": "private",
+            "access": "protected",
             "name": "adjustSiestaEnvironment",
             "longname": "Siesta#adjustSiestaEnvironment",
             "kind": "function",
@@ -152,7 +152,7 @@
             "params": [],
             "$longname": "Siesta#adjustSiestaEnvironment",
             "$kind": "method",
-            "id": 1443,
+            "id": 1457,
             "neoClassName": "Neo.main.addon.Siesta"
         }
     ]

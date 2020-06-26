@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.data.field.Float",
             "$kind": "class",
-            "id": 712,
+            "id": 719,
             "neoClassName": "Neo.data.field.Float"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.data.field.Field'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.data.field.Field'\n         * @protected\n         */",
             "meta": {
                 "filename": "Float.mjs",
                 "lineno": 13,
@@ -39,16 +39,16 @@
                 ]
             },
             "defaultvalue": "'Neo.data.field.Field'",
-            "access": "private",
+            "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 713,
+            "id": 720,
             "neoClassName": "Neo.data.field.Float"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='data-field-float'\n         * @private\n         */",
+            "comment": "/**\n         * @member {String} ntype='data-field-float'\n         * @protected\n         */",
             "meta": {
                 "filename": "Float.mjs",
                 "lineno": 18,
@@ -64,12 +64,12 @@
                 ]
             },
             "defaultvalue": "'data-field-float'",
-            "access": "private",
+            "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 714,
+            "id": 721,
             "neoClassName": "Neo.data.field.Float"
         },
         {
@@ -94,22 +94,22 @@
             "scope": "global",
             "$longname": "defaultValue",
             "$kind": "property",
-            "id": 715,
+            "id": 722,
             "neoClassName": "Neo.data.field.Float"
         },
         {
-            "comment": "/**\n     * Triggered before the value config gets changed.\n     * @param {Number|null} value\n     * @param {Number|null} oldValue\n     * @returns {Number}\n     * @private\n     */",
+            "comment": "/**\n     * Triggered before the value config gets changed.\n     * @param {Number|null} value\n     * @param {Number|null} oldValue\n     * @returns {Number}\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    743,
-                    1007
+                    749,
+                    1013
                 ],
                 "filename": "Float.mjs",
                 "lineno": 32,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/field",
                 "code": {
-                    "id": "astnode100025111",
+                    "id": "astnode100025617",
                     "name": "FloatField#beforeSetValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -151,7 +151,7 @@
                     }
                 }
             ],
-            "access": "private",
+            "access": "protected",
             "name": "beforeSetValue",
             "longname": "FloatField#beforeSetValue",
             "kind": "function",
@@ -159,7 +159,7 @@
             "scope": "instance",
             "$longname": "FloatField#beforeSetValue",
             "$kind": "method",
-            "id": 716,
+            "id": 723,
             "neoClassName": "Neo.data.field.Float"
         }
     ]
