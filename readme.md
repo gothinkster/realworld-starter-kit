@@ -27,9 +27,9 @@ For more information on how to this works with other frontends/backends, head ov
 # Diagrams
 
 ### Index.html
-* ![Index](./diagrams/Index.drawio.svg)
+![Index](./diagrams/Index.drawio.svg)
 ### pages/Home.js
-* ![Home](./diagrams/Home.drawio.svg)
+![Home](./diagrams/Home.drawio.svg)
 
 # Explanations
 
