@@ -26,9 +26,9 @@ For more information on how to this works with other frontends/backends, head ov
 
 # Diagrams
 
-## Index
-
-![Index](./diagrams/Index.drawio.svg)
+* Index.html
+  ![Index](./diagrams/Index.drawio.svg)
+* Page: Home
 
 # Explanations
 
