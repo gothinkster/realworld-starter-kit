@@ -24,6 +24,12 @@ For more information on how to this works with other frontends/backends, head ov
 
 > Simply open the index.html on a local or remote web server like, node, apache, nginx, etc.
 
+# Diagrams
+
+## Index
+
+![Index](./diagrams/Index.drawio.svg)
+
 # Explanations
 
 * **ShadowDOM**'s mostly shine when encapsulating CSS. But the Conduit example has one global CSS Stylesheet and for that reason, it is more efficient to not have shadowDOM's, which all would have to import that global CSS separately. Note: The biggest strength of Web Components is their shadowDOM, means in a real life examples you would share general CSS styles through CSS variables and have specific styles on each component in their respective shadowDOM. This will improve performance, since the DOM renderer only needs to respect certain CSS for certain nodes/shadowDOM's. There is a good helper Class, which you can use to simply add CSS with the lines: ```this.css = '...' ``` and to avoid resetting nodes with innerHTML, it includes a function: ```this.html = '' ```. Overall, this prototype Class helps you to easily and comfortably deal with the ShadowDOM. Have a look at: [Weedshaker's web components *(work in progress)*](https://github.com/Weedshaker/web-components/blob/master/prototypes/MasterShadow.js)
