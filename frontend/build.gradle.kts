@@ -8,7 +8,3 @@ dependencies {
 }
 
 apply(from = "${extra["gradleScripts"]}/kotlin_js.gradle")
-
-task("all") {
-    dependsOn("assemble")
-}

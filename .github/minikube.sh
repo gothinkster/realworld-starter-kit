@@ -26,11 +26,11 @@ minikube service list
 minikube ip
 
 # Build & Release
-eval "$(minikube docker-env)"
-registry="" docker-compose build
+docker-compose build
 docker images
 
 # Deploy
+# TODO Use Kompose and define an Ingress
 kubectl create deployment realworld --image=realworld:0.1
 kubectl wait --for=condition=available deployment/realworld --timeout=30s
 kubectl expose deployment realworld --type=NodePort --port=9090 # type=LoadBalancer only for EKS/GKE

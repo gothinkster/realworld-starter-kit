@@ -12,14 +12,6 @@ services:
     ports:
       - 3010:27017
 
-  keycloak:
-    image: jboss/keycloak:9.0.3
-    environment:
-      KEYCLOAK_USER: root
-      KEYCLOAK_PASSWORD: root
-    ports:
-      - 3020:8080
-
   frontend:
     image: nginx:1.15
     labels:
@@ -33,7 +25,7 @@ services:
       - 3080:80
 
   backend:
-    image: ${registry:-}realworld:1.0
+    image: ${registry:-localhost:5000/}realworld:1.0
     labels:
       app: realworld
       type: backend
@@ -42,7 +34,6 @@ services:
     environment:
       SERVICE_mongodbUrl: mongodb://mongodb/real_world
     build:
-      context: .
-      dockerfile: backend/Dockerfile
+      context: backend
     ports:
       - 3090:9090
