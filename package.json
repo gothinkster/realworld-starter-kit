@@ -10,7 +10,7 @@
     "react"
   ],
   "scripts": {
-    "pretest": "npm run build:re",
+    "pretest": "npm run clean:re && npm run build:re",
     "start": "concurrently --names \"JS,RE\" --prefix-colors \"black.bgYellow.bold,white.bgRed.bold\" --kill-others-on-fail \"npm run start:js\" \"npm run start:re\"",
     "build:js": "react-scripts build",
     "build:re": "bsb -make-world",
