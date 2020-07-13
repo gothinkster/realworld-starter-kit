@@ -105,8 +105,8 @@ export default class Router extends HTMLElement {
       (route.component ? Promise.resolve(route.component) : import(route.path).then(module => {
         // don't define already existing customElements
         if (!customElements.get(route.name)) customElements.define(route.name, module.default)
-        // save it to route object for reuse
-        return (route.component = document.createElement(route.name))
+        // save it to route object for reuse. grab child if it already exists.
+        return (route.component = this.children && this.children[0] && this.children[0].tagName === route.name.toUpperCase() ? this.children[0] : document.createElement(route.name))
       })).then(component => {
         if (this.shouldComponentRender(route.name)) this.render(component)
       // @ts-ignore
