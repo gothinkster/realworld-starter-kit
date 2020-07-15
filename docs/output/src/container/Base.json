@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.container.Base",
             "$kind": "class",
-            "id": 535,
+            "id": 539,
             "neoClassName": "Neo.container.Base"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 536,
+            "id": 540,
             "neoClassName": "Neo.container.Base"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 537,
+            "id": 541,
             "neoClassName": "Neo.container.Base"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 538,
+            "id": 542,
             "neoClassName": "Neo.container.Base"
         },
         {
@@ -117,7 +117,7 @@
             "scope": "global",
             "$longname": "itemDefaults_",
             "$kind": "property",
-            "id": 539,
+            "id": 543,
             "neoClassName": "Neo.container.Base"
         },
         {
@@ -145,7 +145,7 @@
             "scope": "global",
             "$longname": "items_",
             "$kind": "property",
-            "id": 540,
+            "id": 544,
             "neoClassName": "Neo.container.Base"
         },
         {
@@ -170,7 +170,7 @@
             "scope": "global",
             "$longname": "layout_",
             "$kind": "property",
-            "id": 541,
+            "id": 545,
             "neoClassName": "Neo.container.Base"
         },
         {
@@ -195,7 +195,7 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 542,
+            "id": 546,
             "neoClassName": "Neo.container.Base"
         },
         {
@@ -210,7 +210,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100019397",
+                    "id": "astnode100019574",
                     "name": "Base#mergeConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -259,7 +259,7 @@
             "scope": "instance",
             "$longname": "Base#mergeConfig",
             "$kind": "method",
-            "id": 543,
+            "id": 547,
             "neoClassName": "Neo.container.Base"
         },
         {
@@ -274,7 +274,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100019465",
+                    "id": "astnode100019642",
                     "name": "Base#onConstructed",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -291,7 +291,7 @@
             "params": [],
             "$longname": "Base#onConstructed",
             "$kind": "method",
-            "id": 544,
+            "id": 548,
             "neoClassName": "Neo.container.Base"
         },
         {
@@ -306,7 +306,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100019510",
+                    "id": "astnode100019687",
                     "name": "Base#add",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -346,7 +346,7 @@
             "scope": "instance",
             "$longname": "Base#add",
             "$kind": "method",
-            "id": 545,
+            "id": 549,
             "neoClassName": "Neo.container.Base"
         },
         {
@@ -361,7 +361,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100019535",
+                    "id": "astnode100019712",
                     "name": "Base#afterSetAppName",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -402,7 +402,7 @@
             "scope": "instance",
             "$longname": "Base#afterSetAppName",
             "$kind": "method",
-            "id": 546,
+            "id": 550,
             "neoClassName": "Neo.container.Base"
         },
         {
@@ -417,7 +417,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100019571",
+                    "id": "astnode100019748",
                     "name": "Base#afterSetLayout",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -455,7 +455,7 @@
             "scope": "instance",
             "$longname": "Base#afterSetLayout",
             "$kind": "method",
-            "id": 547,
+            "id": 551,
             "neoClassName": "Neo.container.Base"
         },
         {
@@ -470,7 +470,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100019621",
+                    "id": "astnode100019798",
                     "name": "Base#afterSetMounted",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -509,22 +509,76 @@
             "scope": "instance",
             "$longname": "Base#afterSetMounted",
             "$kind": "method",
-            "id": 548,
+            "id": 552,
             "neoClassName": "Neo.container.Base"
         },
         {
-            "comment": "/**\n     *\n     * @param {Object|String} value\n     * @returns {Neo.layout.Base}\n     * @protected\n     */",
+            "comment": "/**\n     * Triggered after the rendering config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5366,
-                    5437
+                    5408,
+                    5693
                 ],
                 "filename": "Base.mjs",
                 "lineno": 192,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100019668",
+                    "id": "astnode100019845",
+                    "name": "Base#afterSetRendering",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the rendering config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetRendering",
+            "longname": "Base#afterSetRendering",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#afterSetRendering",
+            "$kind": "method",
+            "id": 553,
+            "neoClassName": "Neo.container.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object|String} value\n     * @returns {Neo.layout.Base}\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    5810,
+                    5881
+                ],
+                "filename": "Base.mjs",
+                "lineno": 210,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
+                "code": {
+                    "id": "astnode100019885",
                     "name": "Base#beforeSetLayout",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -563,22 +617,22 @@
             "scope": "instance",
             "$longname": "Base#beforeSetLayout",
             "$kind": "method",
-            "id": 549,
+            "id": 554,
             "neoClassName": "Neo.container.Base"
         },
         {
             "comment": "/**\n     *\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5484,
-                    7074
+                    5928,
+                    7518
                 ],
                 "filename": "Base.mjs",
-                "lineno": 200,
+                "lineno": 218,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100019679",
+                    "id": "astnode100019896",
                     "name": "Base#createItems",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -596,22 +650,22 @@
             "params": [],
             "$longname": "Base#createItems",
             "$kind": "method",
-            "id": 550,
+            "id": 555,
             "neoClassName": "Neo.container.Base"
         },
         {
             "comment": "/**\n     *\n     * @param {Object|String|Neo.layout.Base} value\n     * @protected\n     * @returns {Neo.layout.Base}\n     */",
             "meta": {
                 "range": [
-                    7207,
-                    7592
+                    7651,
+                    8036
                 ],
                 "filename": "Base.mjs",
-                "lineno": 259,
+                "lineno": 277,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100019889",
+                    "id": "astnode100020106",
                     "name": "Base#createLayout",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -651,22 +705,22 @@
             "scope": "instance",
             "$longname": "Base#createLayout",
             "$kind": "method",
-            "id": 551,
+            "id": 556,
             "neoClassName": "Neo.container.Base"
         },
         {
             "comment": "/**\n     * Destroys all components inside this.items before the super() call.\n     */",
             "meta": {
                 "range": [
-                    7688,
-                    7808
+                    8132,
+                    8252
                 ],
                 "filename": "Base.mjs",
-                "lineno": 278,
+                "lineno": 296,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100019945",
+                    "id": "astnode100020162",
                     "name": "Base#destroy",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -684,22 +738,22 @@
             "params": [],
             "$longname": "Base#destroy",
             "$kind": "method",
-            "id": 552,
+            "id": 557,
             "neoClassName": "Neo.container.Base"
         },
         {
             "comment": "/**\n     * Finds the index of a direct child component inside this.items.\n     * @param {Neo.component.Base|String} itemId Either the item reference or the item id\n     * @return {Number} -1 in case no match was found\n     */",
             "meta": {
                 "range": [
-                    8044,
-                    8391
+                    8488,
+                    8835
                 ],
                 "filename": "Base.mjs",
-                "lineno": 291,
+                "lineno": 309,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100019969",
+                    "id": "astnode100020186",
                     "name": "Base#indexOf",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -740,22 +794,22 @@
             "scope": "instance",
             "$longname": "Base#indexOf",
             "$kind": "method",
-            "id": 553,
+            "id": 558,
             "neoClassName": "Neo.container.Base"
         },
         {
             "comment": "/**\n     * Inserts an item or array of items at a specific index\n     * @param {Number} index\n     * @param {Object|Array} item\n     * @returns {Neo.component.Base|Neo.component.Base[]}\n     */",
             "meta": {
                 "range": [
-                    8595,
-                    10028
+                    9039,
+                    10472
                 ],
                 "filename": "Base.mjs",
-                "lineno": 315,
+                "lineno": 333,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100020031",
+                    "id": "astnode100020248",
                     "name": "Base#insert",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -804,22 +858,22 @@
             "scope": "instance",
             "$longname": "Base#insert",
             "$kind": "method",
-            "id": 554,
+            "id": 559,
             "neoClassName": "Neo.container.Base"
         },
         {
             "comment": "/**\n     * todo\n     * Moves an existing item to a new index\n     * @param {String} itemId\n     * @param {Number} index\n     * @returns {Neo.component.Base|Neo.component.Base[]}\n     */",
             "meta": {
                 "range": [
-                    10224,
-                    10369
+                    10668,
+                    10813
                 ],
                 "filename": "Base.mjs",
-                "lineno": 375,
+                "lineno": 393,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100020233",
+                    "id": "astnode100020450",
                     "name": "Base#moveTo",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -867,22 +921,22 @@
             "scope": "instance",
             "$longname": "Base#moveTo",
             "$kind": "method",
-            "id": 555,
+            "id": 560,
             "neoClassName": "Neo.container.Base"
         },
         {
             "comment": "/**\n     *\n     * @param {Object|String} config\n     * @protected\n     * @returns {Object} layoutConfig\n     */",
             "meta": {
                 "range": [
-                    11136,
-                    11589
+                    11580,
+                    12033
                 ],
                 "filename": "Base.mjs",
-                "lineno": 408,
+                "lineno": 426,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100020339",
+                    "id": "astnode100020556",
                     "name": "Base#parseLayoutClass",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -922,22 +976,22 @@
             "scope": "instance",
             "$longname": "Base#parseLayoutClass",
             "$kind": "method",
-            "id": 556,
+            "id": 561,
             "neoClassName": "Neo.container.Base"
         },
         {
             "comment": "/**\n     * Removes a container item by reference\n     * @param {Neo.component.Base} component\n     * @param {Boolean} [destroyItem=true]\n     * @param {Boolean} [silent=false]\n     */",
             "meta": {
                 "range": [
-                    11783,
-                    12093
+                    12227,
+                    12537
                 ],
                 "filename": "Base.mjs",
-                "lineno": 433,
+                "lineno": 451,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100020398",
+                    "id": "astnode100020615",
                     "name": "Base#remove",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -988,22 +1042,22 @@
             "scope": "instance",
             "$longname": "Base#remove",
             "$kind": "method",
-            "id": 557,
+            "id": 562,
             "neoClassName": "Neo.container.Base"
         },
         {
             "comment": "/**\n     * Removes a container item at a given index\n     * @param {Number} index\n     * @param {Boolean} [destroyItem=true]\n     * @param {Boolean} [silent=false]\n     */",
             "meta": {
                 "range": [
-                    12275,
-                    13007
+                    12719,
+                    13451
                 ],
                 "filename": "Base.mjs",
-                "lineno": 451,
+                "lineno": 469,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100020451",
+                    "id": "astnode100020668",
                     "name": "Base#removeAt",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1054,22 +1108,22 @@
             "scope": "instance",
             "$longname": "Base#removeAt",
             "$kind": "method",
-            "id": 558,
+            "id": 563,
             "neoClassName": "Neo.container.Base"
         },
         {
             "comment": "/**\n     * Switches the position of 2 direct child items\n     * @param {String} item1id\n     * @param {String} item2id\n     */",
             "meta": {
                 "range": [
-                    13144,
-                    13504
+                    13588,
+                    13948
                 ],
                 "filename": "Base.mjs",
-                "lineno": 485,
+                "lineno": 503,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100020560",
+                    "id": "astnode100020777",
                     "name": "Base#switchItems",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1107,7 +1161,7 @@
             "scope": "instance",
             "$longname": "Base#switchItems",
             "$kind": "method",
-            "id": 559,
+            "id": 564,
             "neoClassName": "Neo.container.Base"
         }
     ]

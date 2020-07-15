@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.data.connection.Xhr",
             "$kind": "class",
-            "id": 697,
+            "id": 702,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 698,
+            "id": 703,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 699,
+            "id": 704,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "callback",
             "$kind": "property",
-            "id": 700,
+            "id": 705,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -117,7 +117,7 @@
             "scope": "global",
             "$longname": "requests",
             "$kind": "property",
-            "id": 701,
+            "id": 706,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -141,7 +141,7 @@
             "scope": "global",
             "$longname": "scope",
             "$kind": "property",
-            "id": 702,
+            "id": 707,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -165,7 +165,7 @@
             "scope": "global",
             "$longname": "timeout",
             "$kind": "property",
-            "id": 703,
+            "id": 708,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -180,7 +180,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/connection",
                 "code": {
-                    "id": "astnode100024951",
+                    "id": "astnode100025168",
                     "name": "Xhr#request",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -292,7 +292,7 @@
             "scope": "instance",
             "$longname": "Xhr#request",
             "$kind": "method",
-            "id": 704,
+            "id": 709,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -307,7 +307,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/connection",
                 "code": {
-                    "id": "astnode100025214",
+                    "id": "astnode100025431",
                     "name": "Xhr#sendForm",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -348,7 +348,7 @@
             "scope": "instance",
             "$longname": "Xhr#sendForm",
             "$kind": "method",
-            "id": 705,
+            "id": 710,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -363,7 +363,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/connection",
                 "code": {
-                    "id": "astnode100025234",
+                    "id": "astnode100025451",
                     "name": "Xhr#onLoad",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -391,7 +391,7 @@
             "scope": "instance",
             "$longname": "Xhr#onLoad",
             "$kind": "method",
-            "id": 706,
+            "id": 711,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -406,7 +406,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/connection",
                 "code": {
-                    "id": "astnode100025306",
+                    "id": "astnode100025523",
                     "name": "Xhr#onError",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -434,7 +434,7 @@
             "scope": "instance",
             "$longname": "Xhr#onError",
             "$kind": "method",
-            "id": 707,
+            "id": 712,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -449,7 +449,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/connection",
                 "code": {
-                    "id": "astnode100025378",
+                    "id": "astnode100025595",
                     "name": "Xhr#getResponse",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -478,7 +478,7 @@
             "scope": "instance",
             "$longname": "Xhr#getResponse",
             "$kind": "method",
-            "id": 708,
+            "id": 713,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -493,7 +493,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/connection",
                 "code": {
-                    "id": "astnode100025412",
+                    "id": "astnode100025629",
                     "name": "Xhr#onProgress",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -510,7 +510,7 @@
             "params": [],
             "$longname": "Xhr#onProgress",
             "$kind": "method",
-            "id": 709,
+            "id": 714,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -525,7 +525,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/connection",
                 "code": {
-                    "id": "astnode100025416",
+                    "id": "astnode100025633",
                     "name": "Xhr#promiseRequest",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -562,7 +562,7 @@
             "scope": "instance",
             "$longname": "Xhr#promiseRequest",
             "$kind": "method",
-            "id": 710,
+            "id": 715,
             "neoClassName": "Neo.data.connection.Xhr"
         },
         {
@@ -577,7 +577,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data/connection",
                 "code": {
-                    "id": "astnode100025459",
+                    "id": "astnode100025676",
                     "name": "Xhr#promiseJson",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -614,7 +614,7 @@
             "scope": "instance",
             "$longname": "Xhr#promiseJson",
             "$kind": "method",
-            "id": 711,
+            "id": 716,
             "neoClassName": "Neo.data.connection.Xhr"
         }
     ]

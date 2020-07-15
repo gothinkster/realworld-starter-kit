@@ -26,7 +26,7 @@
             "scope": "static",
             "$longname": "Neo.manager.DomEvent",
             "$kind": "class",
-            "id": 1563,
+            "id": 1569,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
@@ -51,7 +51,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1564,
+            "id": 1570,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
@@ -76,7 +76,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1565,
+            "id": 1571,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
@@ -101,7 +101,7 @@
             "scope": "global",
             "$longname": "listeners",
             "$kind": "property",
-            "id": 1566,
+            "id": 1572,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
@@ -126,7 +126,7 @@
             "scope": "global",
             "$longname": "map",
             "$kind": "property",
-            "id": 1567,
+            "id": 1573,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
@@ -151,7 +151,7 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1568,
+            "id": 1574,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
@@ -166,7 +166,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100047752",
+                    "id": "astnode100048029",
                     "name": "DomEvent#fire",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -195,7 +195,7 @@
             "scope": "instance",
             "$longname": "DomEvent#fire",
             "$kind": "method",
-            "id": 1569,
+            "id": 1575,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
@@ -210,7 +210,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048033",
+                    "id": "astnode100048310",
                     "name": "DomEvent#generateListenerConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -246,7 +246,7 @@
             "scope": "instance",
             "$longname": "DomEvent#generateListenerConfig",
             "$kind": "method",
-            "id": 1570,
+            "id": 1576,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
@@ -261,7 +261,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048111",
+                    "id": "astnode100048388",
                     "name": "DomEvent#getListener",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -346,7 +346,7 @@
             "scope": "instance",
             "$longname": "DomEvent#getListener",
             "$kind": "method",
-            "id": 1571,
+            "id": 1577,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
@@ -361,7 +361,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048154",
+                    "id": "astnode100048431",
                     "name": "DomEvent#mountDomListeners",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -391,7 +391,7 @@
             "scope": "instance",
             "$longname": "DomEvent#mountDomListeners",
             "$kind": "method",
-            "id": 1572,
+            "id": 1578,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
@@ -406,7 +406,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048276",
+                    "id": "astnode100048553",
                     "name": "DomEvent#register",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -516,7 +516,7 @@
             "scope": "instance",
             "$longname": "DomEvent#register",
             "$kind": "method",
-            "id": 1573,
+            "id": 1579,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
@@ -531,7 +531,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048554",
+                    "id": "astnode100048831",
                     "name": "DomEvent#unregister",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -618,7 +618,7 @@
             "scope": "instance",
             "$longname": "DomEvent#unregister",
             "$kind": "method",
-            "id": 1574,
+            "id": 1580,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
@@ -633,7 +633,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048794",
+                    "id": "astnode100049071",
                     "name": "DomEvent#updateListenerPlaceholder",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -702,7 +702,7 @@
             "scope": "instance",
             "$longname": "DomEvent#updateListenerPlaceholder",
             "$kind": "method",
-            "id": 1575,
+            "id": 1581,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
@@ -717,7 +717,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048872",
+                    "id": "astnode100049149",
                     "name": "DomEvent#verifyDelegationPath",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -765,7 +765,7 @@
             "scope": "instance",
             "$longname": "DomEvent#verifyDelegationPath",
             "$kind": "method",
-            "id": 1576,
+            "id": 1582,
             "neoClassName": "Neo.manager.DomEvent"
         }
     ]

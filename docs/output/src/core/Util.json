@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.core.Util",
             "$kind": "class",
-            "id": 677,
+            "id": 682,
             "neoClassName": "Neo.core.Util"
         },
         {
@@ -45,7 +45,7 @@
             "longname": "decamelRegEx",
             "$longname": "decamelRegEx",
             "$kind": "property",
-            "id": 678,
+            "id": 683,
             "neoClassName": "Neo.core.Util"
         },
         {
@@ -70,7 +70,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 679,
+            "id": 684,
             "neoClassName": "Neo.core.Util"
         },
         {
@@ -95,22 +95,22 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 680,
+            "id": 685,
             "neoClassName": "Neo.core.Util"
         },
         {
-            "comment": "/**\n     * Converts a syles object which can use camelcase syntax into a styles string\n     * @param {Object} styles The styles object\n     * @returns {String} The styles string (DOM ready)\n     */",
+            "comment": "/**\n     * Converts a styles object which can use camelcase syntax into a styles string\n     * @param {Object} styles The styles object\n     * @returns {String} The styles string (DOM ready)\n     */",
             "meta": {
                 "range": [
-                    877,
-                    1166
+                    878,
+                    1167
                 ],
                 "filename": "Util.mjs",
                 "lineno": 36,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024480",
+                    "id": "astnode100024697",
                     "name": "Util.createStyles",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -121,7 +121,7 @@
                     "": null
                 }
             },
-            "description": "Converts a syles object which can use camelcase syntax into a styles string",
+            "description": "Converts a styles object which can use camelcase syntax into a styles string",
             "params": [
                 {
                     "type": {
@@ -150,22 +150,22 @@
             "scope": "static",
             "$longname": "Util.createStyles",
             "$kind": "method",
-            "id": 681,
+            "id": 686,
             "neoClassName": "Neo.core.Util"
         },
         {
             "comment": "/**\n     * Makes the first character of a string uppercase\n     * @param {String} string\n     * @returns {Boolean|String} Returns false for non string inputs\n     */",
             "meta": {
                 "range": [
-                    1342,
-                    1458
+                    1343,
+                    1459
                 ],
                 "filename": "Util.mjs",
                 "lineno": 53,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024526",
+                    "id": "astnode100024743",
                     "name": "Util.capitalize",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -205,22 +205,22 @@
             "scope": "static",
             "$longname": "Util.capitalize",
             "$kind": "method",
-            "id": 682,
+            "id": 687,
             "neoClassName": "Neo.core.Util"
         },
         {
             "comment": "/**\n     * Transforms all uppercase characters of a string into lowercase.\n     * Does not touch special characters.\n     * @param {String} value The input containing uppercase characters\n     * @returns {String} The lowercase output\n     */",
             "meta": {
                 "range": [
-                    1710,
-                    1811
+                    1711,
+                    1812
                 ],
                 "filename": "Util.mjs",
                 "lineno": 63,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024550",
+                    "id": "astnode100024767",
                     "name": "Util.decamel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -260,22 +260,22 @@
             "scope": "static",
             "$longname": "Util.decamel",
             "$kind": "method",
-            "id": 683,
+            "id": 688,
             "neoClassName": "Neo.core.Util"
         },
         {
             "comment": "/**\n     * Transforms a styles string into a styles object using camelcase syntax\n     * @param {String} string The styles string to parse\n     * @returns {Object} The camelcase styles object\n     */",
             "meta": {
                 "range": [
-                    2021,
-                    2944
+                    2022,
+                    2945
                 ],
                 "filename": "Util.mjs",
                 "lineno": 72,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024567",
+                    "id": "astnode100024784",
                     "name": "Util.createStyleObject",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -315,22 +315,22 @@
             "scope": "static",
             "$longname": "Util.createStyleObject",
             "$kind": "method",
-            "id": 684,
+            "id": 689,
             "neoClassName": "Neo.core.Util"
         },
         {
             "comment": "/**\n     * Returns true if the passed value is an array\n     * @param {Object} value The value to test\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    3091,
-                    3156
+                    3092,
+                    3157
                 ],
                 "filename": "Util.mjs",
                 "lineno": 107,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024665",
+                    "id": "astnode100024882",
                     "name": "Util.isArray",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -369,22 +369,22 @@
             "scope": "static",
             "$longname": "Util.isArray",
             "$kind": "method",
-            "id": 685,
+            "id": 690,
             "neoClassName": "Neo.core.Util"
         },
         {
             "comment": "/**\n     * Returns true if the passed value is a boolean\n     * @param {Object} value The value to test\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    3304,
-                    3378
+                    3305,
+                    3379
                 ],
                 "filename": "Util.mjs",
                 "lineno": 116,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024676",
+                    "id": "astnode100024893",
                     "name": "Util.isBoolean",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -423,22 +423,22 @@
             "scope": "static",
             "$longname": "Util.isBoolean",
             "$kind": "method",
-            "id": 686,
+            "id": 691,
             "neoClassName": "Neo.core.Util"
         },
         {
             "comment": "/**\n     * Returns true if the passed value is not undefined\n     * @param {Object} value The value to test\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    3530,
-                    3606
+                    3531,
+                    3607
                 ],
                 "filename": "Util.mjs",
                 "lineno": 125,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024686",
+                    "id": "astnode100024903",
                     "name": "Util.isDefined",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -477,22 +477,22 @@
             "scope": "static",
             "$longname": "Util.isDefined",
             "$kind": "method",
-            "id": 687,
+            "id": 692,
             "neoClassName": "Neo.core.Util"
         },
         {
             "comment": "/**\n     * Returns true if the passed value is an empty Array, Object or String\n     * @param {Array|Object|String} value The value to test\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    3790,
-                    4106
+                    3791,
+                    4107
                 ],
                 "filename": "Util.mjs",
                 "lineno": 134,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024696",
+                    "id": "astnode100024913",
                     "name": "Util.isEmpty",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -533,22 +533,22 @@
             "scope": "static",
             "$longname": "Util.isEmpty",
             "$kind": "method",
-            "id": 688,
+            "id": 693,
             "neoClassName": "Neo.core.Util"
         },
         {
             "comment": "/**\n     * Returns true if the passed value is a function\n     * @param {Function} value The value to test\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    4257,
-                    4333
+                    4258,
+                    4334
                 ],
                 "filename": "Util.mjs",
                 "lineno": 155,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024744",
+                    "id": "astnode100024961",
                     "name": "Util.isFunction",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -587,22 +587,22 @@
             "scope": "static",
             "$longname": "Util.isFunction",
             "$kind": "method",
-            "id": 689,
+            "id": 694,
             "neoClassName": "Neo.core.Util"
         },
         {
             "comment": "/**\n     * Returns true if the passed value is a number. Returns false for non-finite numbers\n     * @param {Number} value The value to test\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    4518,
-                    4608
+                    4519,
+                    4609
                 ],
                 "filename": "Util.mjs",
                 "lineno": 164,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024754",
+                    "id": "astnode100024971",
                     "name": "Util.isNumber",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -641,22 +641,22 @@
             "scope": "static",
             "$longname": "Util.isNumber",
             "$kind": "method",
-            "id": 690,
+            "id": 695,
             "neoClassName": "Neo.core.Util"
         },
         {
             "comment": "/**\n     * Returns true if the passed value is an object\n     * @param {Object} value The value to test\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    4756,
-                    4871
+                    4757,
+                    4872
                 ],
                 "filename": "Util.mjs",
                 "lineno": 173,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024768",
+                    "id": "astnode100024985",
                     "name": "Util.isObject",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -695,22 +695,22 @@
             "scope": "static",
             "$longname": "Util.isObject",
             "$kind": "method",
-            "id": 691,
+            "id": 696,
             "neoClassName": "Neo.core.Util"
         },
         {
             "comment": "/**\n     * Returns true if the passed value is a string\n     * @param {String} value The value to test\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    5018,
-                    5090
+                    5019,
+                    5091
                 ],
                 "filename": "Util.mjs",
                 "lineno": 182,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024789",
+                    "id": "astnode100025006",
                     "name": "Util.isString",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -749,22 +749,22 @@
             "scope": "static",
             "$longname": "Util.isString",
             "$kind": "method",
-            "id": 692,
+            "id": 697,
             "neoClassName": "Neo.core.Util"
         },
         {
             "comment": "/**\n     * Converts any iterable (strings, numeric indices and a length property) into a true array\n     * @param {Object|String} iterable\n     * @param {Number} [start=0] start index\n     * @param {Number} [end=iterable.length] end index\n     * @returns {Array}\n     */",
             "meta": {
                 "range": [
-                    5371,
-                    5691
+                    5372,
+                    5692
                 ],
                 "filename": "Util.mjs",
                 "lineno": 193,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024799",
+                    "id": "astnode100025016",
                     "name": "Util.toArray",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -827,7 +827,7 @@
             "scope": "static",
             "$longname": "Util.toArray",
             "$kind": "method",
-            "id": 693,
+            "id": 698,
             "neoClassName": "Neo.core.Util"
         }
     ]

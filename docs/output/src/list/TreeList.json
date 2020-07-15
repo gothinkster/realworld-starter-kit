@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.list.TreeList",
             "$kind": "class",
-            "id": 1318,
+            "id": 1323,
             "neoClassName": "Neo.list.TreeList"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1319,
+            "id": 1324,
             "neoClassName": "Neo.list.TreeList"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1320,
+            "id": 1325,
             "neoClassName": "Neo.list.TreeList"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1321,
+            "id": 1326,
             "neoClassName": "Neo.list.TreeList"
         },
         {
@@ -118,7 +118,7 @@
             "scope": "global",
             "$longname": "disableSelection",
             "$kind": "property",
-            "id": 1322,
+            "id": 1327,
             "neoClassName": "Neo.list.TreeList"
         },
         {
@@ -142,7 +142,7 @@
             "scope": "global",
             "$longname": "showCollapseExpandAllIcons",
             "$kind": "property",
-            "id": 1323,
+            "id": 1328,
             "neoClassName": "Neo.list.TreeList"
         },
         {
@@ -165,7 +165,7 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 1324,
+            "id": 1329,
             "neoClassName": "Neo.list.TreeList"
         },
         {
@@ -180,7 +180,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/list",
                 "code": {
-                    "id": "astnode100038042",
+                    "id": "astnode100038315",
                     "name": "TreeList#onConstructed",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -197,7 +197,7 @@
             "params": [],
             "$longname": "TreeList#onConstructed",
             "$kind": "method",
-            "id": 1325,
+            "id": 1330,
             "neoClassName": "Neo.list.TreeList"
         },
         {
@@ -212,7 +212,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/list",
                 "code": {
-                    "id": "astnode100038104",
+                    "id": "astnode100038377",
                     "name": "TreeList#beforeSetStore",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -261,7 +261,7 @@
             "scope": "instance",
             "$longname": "TreeList#beforeSetStore",
             "$kind": "method",
-            "id": 1326,
+            "id": 1331,
             "neoClassName": "Neo.list.TreeList"
         },
         {
@@ -276,7 +276,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/list",
                 "code": {
-                    "id": "astnode100038126",
+                    "id": "astnode100038399",
                     "name": "TreeList#collapseAll",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -308,7 +308,7 @@
             "scope": "instance",
             "$longname": "TreeList#collapseAll",
             "$kind": "method",
-            "id": 1327,
+            "id": 1332,
             "neoClassName": "Neo.list.TreeList"
         },
         {
@@ -323,7 +323,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/list",
                 "code": {
-                    "id": "astnode100038221",
+                    "id": "astnode100038494",
                     "name": "TreeList#createItems",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -385,7 +385,7 @@
             "scope": "instance",
             "$longname": "TreeList#createItems",
             "$kind": "method",
-            "id": 1328,
+            "id": 1333,
             "neoClassName": "Neo.list.TreeList"
         },
         {
@@ -400,7 +400,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/list",
                 "code": {
-                    "id": "astnode100038441",
+                    "id": "astnode100038714",
                     "name": "TreeList#expandAll",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -432,7 +432,7 @@
             "scope": "instance",
             "$longname": "TreeList#expandAll",
             "$kind": "method",
-            "id": 1329,
+            "id": 1334,
             "neoClassName": "Neo.list.TreeList"
         },
         {
@@ -440,14 +440,14 @@
             "meta": {
                 "range": [
                     6643,
-                    8354
+                    8053
                 ],
                 "filename": "TreeList.mjs",
                 "lineno": 233,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/list",
                 "code": {
-                    "id": "astnode100038537",
+                    "id": "astnode100038810",
                     "name": "TreeList#filter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -520,22 +520,22 @@
             "scope": "instance",
             "$longname": "TreeList#filter",
             "$kind": "method",
-            "id": 1330,
+            "id": 1335,
             "neoClassName": "Neo.list.TreeList"
         },
         {
             "comment": "/**\n     *\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    8408,
-                    8504
+                    8107,
+                    8203
                 ],
                 "filename": "TreeList.mjs",
-                "lineno": 288,
+                "lineno": 282,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/list",
                 "code": {
-                    "id": "astnode100038770",
+                    "id": "astnode100038996",
                     "name": "TreeList#getListItemsRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -561,22 +561,22 @@
             "params": [],
             "$longname": "TreeList#getListItemsRoot",
             "$kind": "method",
-            "id": 1331,
+            "id": 1336,
             "neoClassName": "Neo.list.TreeList"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    8561,
-                    8759
+                    8260,
+                    8458
                 ],
                 "filename": "TreeList.mjs",
-                "lineno": 296,
+                "lineno": 290,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/list",
                 "code": {
-                    "id": "astnode100038787",
+                    "id": "astnode100039013",
                     "name": "TreeList#onClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -604,22 +604,22 @@
             "scope": "instance",
             "$longname": "TreeList#onClick",
             "$kind": "method",
-            "id": 1332,
+            "id": 1337,
             "neoClassName": "Neo.list.TreeList"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    8816,
-                    10032
+                    8515,
+                    9731
                 ],
                 "filename": "TreeList.mjs",
-                "lineno": 308,
+                "lineno": 302,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/list",
                 "code": {
-                    "id": "astnode100038820",
+                    "id": "astnode100039046",
                     "name": "TreeList#onItemClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -647,14 +647,14 @@
             "scope": "instance",
             "$longname": "TreeList#onItemClick",
             "$kind": "method",
-            "id": 1333,
+            "id": 1338,
             "neoClassName": "Neo.list.TreeList"
         },
         {
             "comment": "/**\n                 * The leafItemClick event fires when a click occurs on a list item which does not have child items.\n                 * Passes the item record to the event handler.\n                 * @event leafItemClick\n                 * @returns {Object} record\n                 */",
             "meta": {
                 "filename": "TreeList.mjs",
-                "lineno": 335,
+                "lineno": 329,
                 "columnno": 16,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/list",
                 "code": {}
@@ -676,22 +676,22 @@
             "scope": "global",
             "$longname": "event:leafItemClick",
             "$kind": "event",
-            "id": 1334,
+            "id": 1339,
             "neoClassName": "Neo.list.TreeList"
         },
         {
             "comment": "/**\n     * Placeholder method\n     * @param {Object} record\n     */",
             "meta": {
                 "range": [
-                    10110,
-                    10142
+                    9809,
+                    9841
                 ],
                 "filename": "TreeList.mjs",
-                "lineno": 352,
+                "lineno": 346,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/list",
                 "code": {
-                    "id": "astnode100038964",
+                    "id": "astnode100039190",
                     "name": "TreeList#onLeafItemClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -720,22 +720,22 @@
             "scope": "instance",
             "$longname": "TreeList#onLeafItemClick",
             "$kind": "method",
-            "id": 1335,
+            "id": 1340,
             "neoClassName": "Neo.list.TreeList"
         },
         {
             "comment": "/**\n     * Gets triggered by clicks on the collapse or expand all icons\n     * @param {Array} cls\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    10276,
-                    10455
+                    9975,
+                    10154
                 ],
                 "filename": "TreeList.mjs",
-                "lineno": 361,
+                "lineno": 355,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/list",
                 "code": {
-                    "id": "astnode100038969",
+                    "id": "astnode100039195",
                     "name": "TreeList#onMenuItemClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -765,7 +765,7 @@
             "scope": "instance",
             "$longname": "TreeList#onMenuItemClick",
             "$kind": "method",
-            "id": 1336,
+            "id": 1341,
             "neoClassName": "Neo.list.TreeList"
         }
     ]

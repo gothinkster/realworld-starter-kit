@@ -355,10 +355,61 @@
             "neoClassName": "Neo.component.Button"
         },
         {
+            "comment": "/**\n         * Transforms the button tag into an a tag [optional]\n         * @member {String|null} url_=null\n         */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 86,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {}
+            },
+            "description": "Transforms the button tag into an a tag [optional]",
+            "kind": "member",
+            "name": "url_",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "url_",
+            "scope": "global",
+            "$longname": "url_",
+            "$kind": "property",
+            "id": 208,
+            "neoClassName": "Neo.component.Button"
+        },
+        {
+            "comment": "/**\n         * If url is set, applies the target attribute on the top level vdom node [optional]\n         * @member {String} urlTarget_='_blank'\n         */",
+            "meta": {
+                "filename": "Button.mjs",
+                "lineno": 91,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {}
+            },
+            "description": "If url is set, applies the target attribute on the top level vdom node [optional]",
+            "kind": "member",
+            "name": "urlTarget_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'_blank'",
+            "longname": "urlTarget_",
+            "scope": "global",
+            "$longname": "urlTarget_",
+            "$kind": "property",
+            "id": 209,
+            "neoClassName": "Neo.component.Button"
+        },
+        {
             "comment": "/**\n         * @member {Object} _vdom\n         */",
             "meta": {
                 "filename": "Button.mjs",
-                "lineno": 85,
+                "lineno": 95,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {}
@@ -374,22 +425,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 208,
+            "id": 210,
             "neoClassName": "Neo.component.Button"
         },
         {
             "comment": "/**\n     * Triggered after the handler config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2895,
-                    3226
+                    3239,
+                    3570
                 ],
                 "filename": "Button.mjs",
-                "lineno": 100,
+                "lineno": 110,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100006960",
+                    "id": "astnode100006964",
                     "name": "Button#afterSetHandler",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -428,22 +479,22 @@
             "scope": "instance",
             "$longname": "Button#afterSetHandler",
             "$kind": "method",
-            "id": 209,
+            "id": 211,
             "neoClassName": "Neo.component.Button"
         },
         {
             "comment": "/**\n     * Triggered after the iconCls config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3381,
-                    3796
+                    3725,
+                    4140
                 ],
                 "filename": "Button.mjs",
-                "lineno": 120,
+                "lineno": 130,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100007000",
+                    "id": "astnode100007004",
                     "name": "Button#afterSetIconCls",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -482,22 +533,22 @@
             "scope": "instance",
             "$longname": "Button#afterSetIconCls",
             "$kind": "method",
-            "id": 210,
+            "id": 212,
             "neoClassName": "Neo.component.Button"
         },
         {
             "comment": "/**\n     * Triggered after the iconColor config got changed\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3963,
-                    4316
+                    4307,
+                    4660
                 ],
                 "filename": "Button.mjs",
-                "lineno": 143,
+                "lineno": 153,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100007070",
+                    "id": "astnode100007074",
                     "name": "Button#afterSetIconColor",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -538,22 +589,22 @@
             "scope": "instance",
             "$longname": "Button#afterSetIconColor",
             "$kind": "method",
-            "id": 211,
+            "id": 213,
             "neoClassName": "Neo.component.Button"
         },
         {
             "comment": "/**\n     * Triggered after the iconPosition config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4476,
-                    4669
+                    4820,
+                    5013
                 ],
                 "filename": "Button.mjs",
-                "lineno": 166,
+                "lineno": 176,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100007130",
+                    "id": "astnode100007134",
                     "name": "Button#afterSetIconPosition",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -592,22 +643,22 @@
             "scope": "instance",
             "$longname": "Button#afterSetIconPosition",
             "$kind": "method",
-            "id": 212,
+            "id": 214,
             "neoClassName": "Neo.component.Button"
         },
         {
             "comment": "/**\n     * Triggered after the pressed config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4826,
-                    4988
+                    5170,
+                    5332
                 ],
                 "filename": "Button.mjs",
-                "lineno": 181,
+                "lineno": 191,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100007166",
+                    "id": "astnode100007170",
                     "name": "Button#afterSetPressed",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -646,22 +697,22 @@
             "scope": "instance",
             "$longname": "Button#afterSetPressed",
             "$kind": "method",
-            "id": 213,
+            "id": 215,
             "neoClassName": "Neo.component.Button"
         },
         {
             "comment": "/**\n     * Triggered after the route config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5141,
-                    5460
+                    5485,
+                    5804
                 ],
                 "filename": "Button.mjs",
-                "lineno": 194,
+                "lineno": 204,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100007196",
+                    "id": "astnode100007200",
                     "name": "Button#afterSetRoute",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -700,22 +751,22 @@
             "scope": "instance",
             "$longname": "Button#afterSetRoute",
             "$kind": "method",
-            "id": 214,
+            "id": 216,
             "neoClassName": "Neo.component.Button"
         },
         {
             "comment": "/**\n     * Triggered after the text config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5612,
-                    6200
+                    5956,
+                    6544
                 ],
                 "filename": "Button.mjs",
-                "lineno": 214,
+                "lineno": 224,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100007234",
+                    "id": "astnode100007238",
                     "name": "Button#afterSetText",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -754,22 +805,130 @@
             "scope": "instance",
             "$longname": "Button#afterSetText",
             "$kind": "method",
-            "id": 215,
+            "id": 217,
+            "neoClassName": "Neo.component.Button"
+        },
+        {
+            "comment": "/**\n     * Triggered after the url config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    6695,
+                    7046
+                ],
+                "filename": "Button.mjs",
+                "lineno": 250,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {
+                    "id": "astnode100007332",
+                    "name": "Button#afterSetUrl",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the url config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetUrl",
+            "longname": "Button#afterSetUrl",
+            "kind": "function",
+            "memberof": "Button",
+            "scope": "instance",
+            "$longname": "Button#afterSetUrl",
+            "$kind": "method",
+            "id": 218,
+            "neoClassName": "Neo.component.Button"
+        },
+        {
+            "comment": "/**\n     * Triggered after the urlTarget config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    7203,
+                    7495
+                ],
+                "filename": "Button.mjs",
+                "lineno": 272,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
+                "code": {
+                    "id": "astnode100007386",
+                    "name": "Button#afterSetUrlTarget",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the urlTarget config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetUrlTarget",
+            "longname": "Button#afterSetUrlTarget",
+            "kind": "function",
+            "memberof": "Button",
+            "scope": "instance",
+            "$longname": "Button#afterSetUrlTarget",
+            "$kind": "method",
+            "id": 219,
             "neoClassName": "Neo.component.Button"
         },
         {
             "comment": "/**\n     * Converts the iconCls array into a string on beforeGet\n     * @returns {String}\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6326,
-                    6501
+                    7621,
+                    7796
                 ],
                 "filename": "Button.mjs",
-                "lineno": 239,
+                "lineno": 291,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100007328",
+                    "id": "astnode100007430",
                     "name": "Button#beforeGetIconCls",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -797,22 +956,22 @@
             "params": [],
             "$longname": "Button#beforeGetIconCls",
             "$kind": "method",
-            "id": 216,
+            "id": 220,
             "neoClassName": "Neo.component.Button"
         },
         {
             "comment": "/**\n     * Triggered before the iconCls config gets changed. Converts the string into an array if needed.\n     * @param {Array|String|null} value\n     * @param {Array|String|null} oldValue\n     * @returns {Array}\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6750,
-                    6908
+                    8045,
+                    8203
                 ],
                 "filename": "Button.mjs",
-                "lineno": 256,
+                "lineno": 308,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100007353",
+                    "id": "astnode100007455",
                     "name": "Button#beforeSetIconCls",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -864,22 +1023,22 @@
             "scope": "instance",
             "$longname": "Button#beforeSetIconCls",
             "$kind": "method",
-            "id": 217,
+            "id": 221,
             "neoClassName": "Neo.component.Button"
         },
         {
             "comment": "/**\n     * Triggered before the iconPosition config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7070,
-                    7189
+                    8365,
+                    8484
                 ],
                 "filename": "Button.mjs",
-                "lineno": 270,
+                "lineno": 322,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100007379",
+                    "id": "astnode100007481",
                     "name": "Button#beforeSetIconPosition",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -918,22 +1077,22 @@
             "scope": "instance",
             "$longname": "Button#beforeSetIconPosition",
             "$kind": "method",
-            "id": 218,
+            "id": 222,
             "neoClassName": "Neo.component.Button"
         },
         {
             "comment": "/**\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7229,
-                    7455
+                    8524,
+                    8750
                 ],
                 "filename": "Button.mjs",
-                "lineno": 277,
+                "lineno": 329,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100007393",
+                    "id": "astnode100007495",
                     "name": "Button#changeRoute",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -951,7 +1110,7 @@
             "params": [],
             "$longname": "Button#changeRoute",
             "$kind": "method",
-            "id": 219,
+            "id": 223,
             "neoClassName": "Neo.component.Button"
         }
     ]
