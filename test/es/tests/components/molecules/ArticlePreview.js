@@ -32,7 +32,7 @@ export const test = (testTitle = 'molecules/ArticlePreview', moduleName = 'defau
         return super.shouldComponentRender()
       }
       render() {
-        if (super.render()) renderCount++
+        if (super.render() !== false) renderCount++
       }
     }
   ).then(el => {
@@ -45,30 +45,33 @@ export const test = (testTitle = 'molecules/ArticlePreview', moduleName = 'defau
       tagList: ['testTag']
     }
     el.render()
-    test.test('article-preview-content', el => !!el.querySelector('.article-meta') && el.querySelector('.author')?.textContent === 'test' && el.querySelector('.tag-default')?.textContent === 'testTag', undefined, el)
-    // test click setFavorite button
-    let gotClicks = 0
-    let func1
-    document.body.addEventListener('setFavorite', (func1 = event => {
-      gotClicks = !!event?.detail?.article && typeof event?.detail?.resolve === 'function' ? gotClicks + 1 : gotClicks
-    }))
-    // click above favorite button
-    let func2
-    document.body.addEventListener('click', (func2 = event => {
-      gotClicks++
-    }))
-    el.querySelector('button')?.click()
-    el.querySelector('.ion-heart')?.click()
-    el.querySelector('.info')?.click()
-    document.body.removeEventListener('setFavorite', func1)
-    document.body.removeEventListener('click', func2)
-    test.test('article-preview-click-counts', () => gotClicks === 5, undefined, el)
-    // remove and append to trigger connectedCallback
-    el.remove()
-    parent.appendChild(el)
-    test.test('article-preview-render-counts', () => renderCount === 1, undefined, el)
-    test.test('article-preview-should-component-render-counts', () => shouldComponentRenderCounter === 2, undefined, el)
-    resolveTest([test.counter, test.passedCounter, test.failedCounter])
+    // needs to wait for fetching its child components eg. ArticleMeta
+    setTimeout(() => {
+      test.test('article-preview-content', el => !!el.querySelector('.article-meta') && el.querySelector('.author')?.textContent === 'test' && el.querySelector('.tag-default')?.textContent === 'testTag', undefined, el)
+      // test click setFavorite button
+      let gotClicks = 0
+      let func1
+      document.body.addEventListener('setFavorite', (func1 = event => {
+        gotClicks = !!event?.detail?.article && typeof event?.detail?.resolve === 'function' ? gotClicks + 1 : gotClicks
+      }))
+      // click above favorite button
+      let func2
+      document.body.addEventListener('click', (func2 = event => {
+        gotClicks++
+      }))
+      el.querySelector('button')?.click()
+      el.querySelector('.ion-heart')?.click()
+      el.querySelector('.info')?.click()
+      document.body.removeEventListener('setFavorite', func1)
+      document.body.removeEventListener('click', func2)
+      test.test('article-preview-click-counts', () => gotClicks === 5, undefined, el)
+      // remove and append to trigger connectedCallback
+      el.remove()
+      parent.appendChild(el)
+      test.test('article-preview-render-counts', () => renderCount === 1, undefined, el)
+      test.test('article-preview-should-component-render-counts', () => shouldComponentRenderCounter === 2, undefined, el)
+      resolveTest([test.counter, test.passedCounter, test.failedCounter])
+    }, 600)
   })
   // ------------------------------------------------------------------------------------------------------------
   counter++

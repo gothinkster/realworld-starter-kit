@@ -31,7 +31,6 @@ export default class Home extends HTMLElement {
    * @return {void}
    */
   render () {
-    // TODO: Split out the components and add functionality
     this.innerHTML = `
       <c-list-articles>
         <div class="home-page">
