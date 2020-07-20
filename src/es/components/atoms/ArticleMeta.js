@@ -7,7 +7,7 @@ import { secureImageSrc } from '../../helpers/Utils.js'
 
 /**
  * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#home
- * As an atom, this component can not hold further children (those would be quantoms)
+ * As an atom, this component can not hold further children (those would be quantum)
  *
  * @export
  * @class ArticleMeta
@@ -50,7 +50,7 @@ export default class ArticleMeta extends HTMLElement {
          * Updates the article with the returned article on favorite api
          *
          * @param {import("../../helpers/Interfaces.js").SingleArticle} article
-         * @return {import("../../helpers/Interfaces.js").SingleArticle | false}
+         * @return {import("../../helpers/Interfaces.js").SingleArticle | any}
          */
         article => this.render(article)
       )
@@ -79,10 +79,10 @@ export default class ArticleMeta extends HTMLElement {
    * renders the article
    *
    * @param {import("../../helpers/Interfaces.js").SingleArticle} [article = this.article]
-   * @return {article | false}
+   * @return {article | string}
    */
   render (article = this.article) {
-    if (!article.author || !article.tagList) return false
+    if (!article.author || !article.tagList) return this.innerHTML = '<div class="article-meta">An error occurred rendering the article-meta!</div>'
     this.innerHTML = `
       <div class="article-meta">
         <a href="#/profile/${article.author.username}"><img src="${secureImageSrc(article.author.image)}" /></a>

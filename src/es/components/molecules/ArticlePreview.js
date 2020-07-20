@@ -41,10 +41,10 @@ export default class ArticlePreview extends HTMLElement {
    * renders the article
    *
    * @param {import("../../helpers/Interfaces.js").SingleArticle} [article = this.article]
-   * @return {void | false}
+   * @return {void | string}
    */
   render (article = this.article) {
-    if (!article.author || !article.tagList) return false
+    if (!article.author || !article.tagList) return this.innerHTML = '<div class="article-preview">An error occurred rendering the article-preview!</div>'
     this.innerHTML = `
       <div class="article-preview">
         <div class="article-meta"></div>
@@ -61,7 +61,8 @@ export default class ArticlePreview extends HTMLElement {
       </div>
     `
     this.loadChildComponents().then(children => {
-      /** @type {import("../atoms/ArticleMeta.js").default & any} */
+      /** @type {import("../atoms/ArticleMeta.js").default} */
+      // @ts-ignore
       const articleMeta = new children[0][1](article)
       this.querySelector('.article-meta').replaceWith(articleMeta)
     })

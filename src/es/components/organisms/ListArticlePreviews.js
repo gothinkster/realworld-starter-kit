@@ -27,7 +27,7 @@ export default class ListArticlePreviews extends HTMLElement {
     // listen for articles
     document.body.addEventListener('listArticles', this.listArticlesListener)
     // is not needed since the molecules/Pagination.js, which is located after this, does the same request
-    // it is possible to have multiple components request the same data on connectCallback but then it ether should expect a private response by a promise with caching or tollerate abort
+    // it is possible to have multiple components request the same data on connectCallback but then it ether should expect a private response by a promise with caching or tolerate abort
     // on every connect it will attempt to get newest articles
     // this.dispatchEvent(new CustomEvent('requestListArticles', {
     //   /** @type {import("../controllers/ListArticles.js").RequestListArticlesEventDetail} */
@@ -57,6 +57,7 @@ export default class ListArticlePreviews extends HTMLElement {
         this.innerHTML = ''
         multipleArticles.articles.forEach(article => {
           /** @type {import("../molecules/ArticlePreview.js").default & any} */
+          // @ts-ignore
           const articlePreview = new children[0][1](article)
           this.appendChild(articlePreview)
         })

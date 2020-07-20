@@ -8,7 +8,7 @@
 /**
  * https://github.com/gothinkster/realworld/tree/master/api#get-article
  *
- * @typedef {{ slug: string }} RequestGetArticleEventDetail
+ * @typedef {{ slug?: string }} RequestGetArticleEventDetail
  */
 
 /**
@@ -48,7 +48,9 @@ export default class GetArticle extends HTMLElement {
      * @param {CustomEvent & {detail: RequestGetArticleEventDetail}} event
      */
     this.requestGetArticleListener = event => {
-      const url = `${Environment.fetchBaseUrl}articles/${event.detail.slug}`
+      // if no slug is sent, we grab it here from the location, this logic could also be handle through an event at the router
+      const slug = event.detail.slug || (location.hash.match(/[^\/]+$/) || [])[0] || ''
+      const url = `${Environment.fetchBaseUrl}articles/${slug}`
       // reset old AbortController and assign new one
       if (this.abortController) this.abortController.abort()
       this.abortController = new AbortController()
@@ -56,7 +58,7 @@ export default class GetArticle extends HTMLElement {
       this.dispatchEvent(new CustomEvent('getArticle', {
         /** @type {GetArticleEventDetail} */
         detail: {
-          slug: event.detail.slug,
+          slug,
           fetch: fetch(url, { signal: this.abortController.signal }).then(response => {
             if (response.status >= 200 && response.status <= 299) return response.json()
             throw new Error(response.statusText)
