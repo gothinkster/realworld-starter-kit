@@ -3,6 +3,7 @@
 /* global customElements */
 /* global CustomEvent */
 /* global HTMLElement */
+/* global self */
 
 /**
  * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#article
@@ -48,8 +49,9 @@ export default class Article extends HTMLElement {
    * @return {void}
    */
   render (fetchSingleArticle) {
-    fetchSingleArticle.then(result => {
-      const article = result.article
+    Promise.all([fetchSingleArticle, this.loadDependency()]).then(result => {
+      const [singleArticle, markdownit] = result
+      const article = singleArticle.article
       if (!article || !article.author || !article.tagList) return (this.innerHTML = '<div class="article-page">An error occurred rendering the article-page!</div>')
       this.innerHTML = `
         <div class="article-page">
@@ -68,7 +70,7 @@ export default class Article extends HTMLElement {
         
             <div class="row article-content">
               <div class="col-md-12">
-                <div>TODO: markdown</div>
+                <div>${markdownit.render(article.body)}</div>
                 <ul class="tag-list">
                   ${article.tagList.reduce((tagListStr, tag) => (tagListStr += `
                     <li class="tag-default tag-pill tag-outline">${tag}</li>
@@ -186,6 +188,28 @@ export default class Article extends HTMLElement {
         if (!customElements.get(element[0])) customElements.define(...element)
       })
       return elements
+    }))
+  }
+
+  /**
+   * fetch dependency
+   *
+   * @returns {Promise<{render:(string)=>string}>}
+   */
+  loadDependency () {
+    return this.dependencyPromise || (this.dependencyPromise = new Promise(resolve => {
+      // needs markdown
+      if ('markdownit' in self === false) {
+        const script = document.createElement('script')
+        // https://github.com/markdown-it/markdown-it
+        script.src = 'https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js'
+        // @ts-ignore
+        script.onload = () => resolve(new self.markdownit()) // eslint-disable-line
+        document.head.appendChild(script)
+      } else {
+        // @ts-ignore
+        resolve(new self.markdownit()) // eslint-disable-line
+      }
     }))
   }
 }
