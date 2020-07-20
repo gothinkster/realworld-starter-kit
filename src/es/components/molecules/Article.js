@@ -57,7 +57,7 @@ export default class Article extends HTMLElement {
           <div class="banner">
             <div class="container">
         
-              <h1>How to build webapps that scale</h1>
+              <h1>${article.title}</h1>
         
               <div class="article-meta"></div>
         
@@ -68,11 +68,12 @@ export default class Article extends HTMLElement {
         
             <div class="row article-content">
               <div class="col-md-12">
-                <p>
-                Web development technologies have evolved at an incredible clip over the past few years.
-                </p>
-                <h2 id="introducing-ionic">Introducing RealWorld.</h2>
-                <p>It's a great solution for learning how other frameworks work.</p>
+                <div>TODO: markdown</div>
+                <ul class="tag-list">
+                  ${article.tagList.reduce((tagListStr, tag) => (tagListStr += `
+                    <li class="tag-default tag-pill tag-outline">${tag}</li>
+                  `), '')}
+                </ul>
               </div>
             </div>
         
@@ -160,6 +161,7 @@ export default class Article extends HTMLElement {
         /** @type {import("../atoms/ArticleMeta.js").default} */
         // @ts-ignore
         const articleMeta = new children[0][1](article)
+        // TODO: specific version for article with follow button
         this.querySelector('.article-meta').replaceWith(articleMeta)
       })
     // @ts-ignore
