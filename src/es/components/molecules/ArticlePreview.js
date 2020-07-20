@@ -44,7 +44,7 @@ export default class ArticlePreview extends HTMLElement {
    * @return {void | string}
    */
   render (article = this.article) {
-    if (!article.author || !article.tagList) return this.innerHTML = '<div class="article-preview">An error occurred rendering the article-preview!</div>'
+    if (!article.author || !article.tagList) return (this.innerHTML = '<div class="article-preview">An error occurred rendering the article-preview!</div>')
     this.innerHTML = `
       <div class="article-preview">
         <div class="article-meta"></div>

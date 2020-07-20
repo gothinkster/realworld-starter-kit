@@ -82,7 +82,7 @@ export default class ArticleMeta extends HTMLElement {
    * @return {article | string}
    */
   render (article = this.article) {
-    if (!article.author || !article.tagList) return this.innerHTML = '<div class="article-meta">An error occurred rendering the article-meta!</div>'
+    if (!article.author || !article.tagList) return (this.innerHTML = '<div class="article-meta">An error occurred rendering the article-meta!</div>')
     this.innerHTML = `
       <div class="article-meta">
         <a href="#/profile/${article.author.username}"><img src="${secureImageSrc(article.author.image)}" /></a>

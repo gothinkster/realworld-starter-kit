@@ -32,12 +32,12 @@ export const test = (testTitle = 'molecules/ArticlePreview', moduleName = 'defau
         return super.shouldComponentRender()
       }
       render() {
-        if (super.render() !== false) renderCount++
+        if (typeof super.render() !== 'string') renderCount++
       }
     }
   ).then(el => {
     const parent = el.parentNode
-    test.test('article-preview-empty', el => !el.innerHTML, undefined, el)
+    test.test('article-preview-empty', el => !el.innerHTML || el.innerHTML.includes('An error occurred'), undefined, el)
     el.article = {
       author: {
         username: 'test'

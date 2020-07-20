@@ -1,6 +1,7 @@
 // @ts-check
 
 /* global customElements */
+/* global CustomEvent */
 /* global HTMLElement */
 
 /**
@@ -49,7 +50,7 @@ export default class Article extends HTMLElement {
   render (fetchSingleArticle) {
     fetchSingleArticle.then(result => {
       const article = result.article
-      if (!article.author || !article.tagList) return this.innerHTML = '<div class="article-page">An error occurred rendering the article-page!</div>'
+      if (!article || !article.author || !article.tagList) return (this.innerHTML = '<div class="article-page">An error occurred rendering the article-page!</div>')
       this.innerHTML = `
         <div class="article-page">
 
