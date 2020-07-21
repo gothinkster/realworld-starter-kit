@@ -35,6 +35,23 @@ For more information on how to this works with other frontends/backends, head ov
 
 * **ShadowDOM**'s mostly shine when encapsulating CSS. But the Conduit example has one global CSS Stylesheet and for that reason, it is more efficient to not have shadowDOM's, which all would have to import that global CSS separately. Note: The biggest strength of Web Components is their shadowDOM, means in a real life examples you would share general CSS styles through CSS variables and have specific styles on each component in their respective shadowDOM. This will improve performance, since the DOM renderer only needs to respect certain CSS for certain nodes/shadowDOM's. There is a good helper Class, which you can use to simply add CSS with the lines: ```this.css = '...' ``` and to avoid resetting nodes with innerHTML, it includes a function: ```this.html = '' ```. Overall, this prototype Class helps you to easily and comfortably deal with the ShadowDOM. Have a look at: [Weedshaker's web components *(work in progress)*](https://github.com/Weedshaker/web-components/blob/master/prototypes/MasterShadow.js)
 
+# Lighthouse Audits
+
+## React / Redux (81)
+![react-redux.realworld](./images/react-redux.realworld.png)
+
+## Angular (75)
+![angular.realworld.io](./images/angular.realworld.io.png)
+
+## Vue (82)
+![vue-vuex-realworld.netlify](./images/vue-vuex-realworld.netlify.png)
+
+## Vanilla JS Web Components (92)
+![conduit-vanilla.herokuapp](./images/conduit-vanilla.herokuapp.png)
+
+## Event Driven Vanilla JS Web Components (95)
+![event-driven-web-components-realworld-example-app](./images/event-driven-web-components-realworld-example-app.png)
+
 # TODO
 
 0. Tests for: 
