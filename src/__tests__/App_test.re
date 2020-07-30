@@ -1,7 +1,6 @@
 open Jest;
 open Expect;
 open Js.Promise;
-open JestDom;
 open ReactTestingLibrary;
 open BsJestFetchMock;
 open TestUtils;
@@ -162,8 +161,8 @@ describe("App component", () => {
     |> then_(_ =>
          wrapper
          |> getByText(~matcher=`Str("How to train your dragon"))
-         |> expect
-         |> toBeInTheDocument
+         |> JestDom.expect
+         |> JestDom.toBeInTheDocument
          |> resolve
        );
   });
@@ -230,8 +229,8 @@ describe("App component", () => {
         |> then_(_ =>
              wrapper
              |> getByText(~matcher=`Str("Home"))
-             |> expect
-             |> toBeInTheDocument
+             |> JestDom.expect
+             |> JestDom.toBeInTheDocument
              |> resolve
            );
       });
@@ -251,8 +250,8 @@ describe("App component", () => {
         |> then_(_ =>
              wrapper
              |> getByText(~matcher=`Str("Sign in"))
-             |> expect
-             |> toBeInTheDocument
+             |> JestDom.expect
+             |> JestDom.toBeInTheDocument
              |> resolve
            );
       });
@@ -272,8 +271,8 @@ describe("App component", () => {
         |> then_(_ =>
              wrapper
              |> getByText(~matcher=`Str("Sign up"))
-             |> expect
-             |> toBeInTheDocument
+             |> JestDom.expect
+             |> JestDom.toBeInTheDocument
              |> resolve
            );
       });
@@ -358,8 +357,8 @@ describe("App component", () => {
         |> then_(_ =>
              wrapper
              |> getByText(~matcher=`Str("Home"))
-             |> expect
-             |> toBeInTheDocument
+             |> JestDom.expect
+             |> JestDom.toBeInTheDocument
              |> resolve
            );
       });
@@ -430,8 +429,8 @@ describe("App component", () => {
         |> then_(_ =>
              wrapper
              |> getByText(~matcher=`Str("New Post"))
-             |> expect
-             |> toBeInTheDocument
+             |> JestDom.expect
+             |> JestDom.toBeInTheDocument
              |> resolve
            );
       });
@@ -454,8 +453,8 @@ describe("App component", () => {
         |> then_(_ =>
              wrapper
              |> getByText(~matcher=`Str("Settings"))
-             |> expect
-             |> toBeInTheDocument
+             |> JestDom.expect
+             |> JestDom.toBeInTheDocument
              |> resolve
            );
       });
@@ -479,8 +478,8 @@ describe("App component", () => {
         |> then_(_ =>
              wrapper
              |> getByText(~matcher=`Str("Jihchi Lee"))
-             |> expect
-             |> toBeInTheDocument
+             |> JestDom.expect
+             |> JestDom.toBeInTheDocument
              |> resolve
            );
       });

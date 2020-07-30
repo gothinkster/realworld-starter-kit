@@ -1,7 +1,6 @@
 open Js.Promise;
 open Jest;
 open Expect;
-open JestDom;
 open BsJestFetchMock;
 open ReactTestingLibrary;
 open TestUtils;
@@ -31,8 +30,8 @@ describe("Article component", () => {
     |> then_(_ =>
          wrapper
          |> getByText(~matcher=`Str("How to train your dragon"))
-         |> expect
-         |> toBeInTheDocument
+         |> JestDom.expect
+         |> JestDom.toBeInTheDocument
          |> resolve
        );
   });

@@ -2,7 +2,6 @@ open Js.Promise;
 open Relude.Globals;
 open Jest;
 open Expect;
-open JestDom;
 open ReactTestingLibrary;
 open BsJestFetchMock;
 open TestUtils;
@@ -31,8 +30,8 @@ describe("Home component", () => {
     |> then_(_ =>
          wrapper
          |> getByText(~matcher=`Str("A place to share your knowledge."))
-         |> expect
-         |> toBeInTheDocument
+         |> JestDom.expect
+         |> JestDom.toBeInTheDocument
          |> resolve
        );
   });
@@ -88,8 +87,8 @@ describe("Home component", () => {
       |> then_(_ =>
            wrapper
            |> getByText(~matcher=`Str("How to train your dragon"))
-           |> expect
-           |> toBeInTheDocument
+           |> JestDom.expect
+           |> JestDom.toBeInTheDocument
            |> resolve
          );
     },
@@ -134,8 +133,8 @@ describe("Home component", () => {
            wrapper
            |> getByTestId(~matcher=`Str("feed-toggle"))
            |> DomTestingLibrary.getByText(~matcher=`Str("dragons"))
-           |> expect
-           |> toBeInTheDocument
+           |> JestDom.expect
+           |> JestDom.toBeInTheDocument
            |> resolve
          );
     });
@@ -195,8 +194,8 @@ describe("Home component", () => {
            wrapper
            |> getByTestId(~matcher=`Str("feed-toggle"))
            |> DomTestingLibrary.getByText(~matcher=`Str("dragons"))
-           |> expect
-           |> toBeInTheDocument
+           |> JestDom.expect
+           |> JestDom.toBeInTheDocument
            |> resolve
          );
     });
@@ -299,8 +298,8 @@ describe("Home component", () => {
            wrapper
            |> getByTestId(~matcher=`Str("page-link"))
            |> DomTestingLibrary.getByText(~matcher=`Str("1"))
-           |> expect
-           |> toBeInTheDocument
+           |> JestDom.expect
+           |> JestDom.toBeInTheDocument
            |> resolve
          );
     });
