@@ -1,7 +1,7 @@
 open Relude.Globals;
 
 let authenticated:
-  (Shape.User.t => React.element, option(Shape.User.t)) => React.element =
+  (Shape.User.t => React.element, option<Shape.User.t>) => React.element =
   (getPage, user) =>
     user
     |> Option.map(getPage)
@@ -10,7 +10,7 @@ let authenticated:
          React.null;
        });
 
-[@react.component]
+@react.component()
 let make = () => {
   let (currentUser, setCurrentUser) = Hook.useCurrentUser();
   let route = Route.useRoute();
