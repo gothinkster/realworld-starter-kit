@@ -1,6 +1,6 @@
 open Relude.Globals;
 
-type cookiePair = (string, option(string));
+type cookiePair = (string, option<string>);
 
 let secondInMs = 1000.;
 let minuteInMs = 60. *. secondInMs;
@@ -8,7 +8,7 @@ let hourInMs = 60. *. minuteInMs;
 let dayInMs = 24. *. hourInMs;
 let monthInMs = 30. *. dayInMs;
 
-let parseCookies: unit => array(cookiePair) =
+let parseCookies: unit => array<cookiePair> =
   () =>
     Webapi.Dom.document
     |> Webapi.Dom.Document.asHtmlDocument
@@ -22,11 +22,11 @@ let parseCookies: unit => array(cookiePair) =
          let value = pair |> Relude.Array.at(1);
 
          key
-         |> Relude.Option.map(str => [|(str, value)|])
-         |> Relude.Option.getOrElse([||]);
+         |> Relude.Option.map(str => [(str, value)])
+         |> Relude.Option.getOrElse([]);
        });
 
-let getCookie = (name: string): option(cookiePair) =>
+let getCookie = (name: string): option<cookiePair> =>
   parseCookies()
   |> Relude.Array.find(pair => {
        let key = fst(pair);
@@ -57,7 +57,7 @@ let setCookieRaw:
     Webapi.Dom.HtmlDocument.setCookie(htmlDocument, cookie);
   };
 
-let setCookie: (string, option(string)) => unit =
+let setCookie: (string, option<string>) => unit =
   (key, value) => {
     let expires = Js.Date.make();
     let _ = Js.Date.setTime(expires, Js.Date.getTime(expires) +. monthInMs);
@@ -91,11 +91,13 @@ let formatDate: Js.Date.t => string =
       date |> Js.Date.getDate,
     );
 
-let debugAsyncResult: AsyncResult.t('a, 'e) => unit =
-  fun
-  | Init => "Init" |> Js.log
-  | Loading => "Loading" |> Js.log
-  | Reloading(Ok(_)) => "Reloading(Ok())" |> Js.log
-  | Reloading(Error(e)) => Js.log2("Reloading(Error(%o)", e)
-  | Complete(Ok(_)) => "Complete(Ok())" |> Js.log
-  | Complete(Error(e)) => Js.log2("Complete(Error(%o)", e);
+let debugAsyncResult: AsyncResult.t<'a, 'e> => unit =
+  asyncResult =>
+    switch asyncResult {
+    | Init => "Init" |> Js.log
+    | Loading => "Loading" |> Js.log
+    | Reloading(Ok(_)) => "Reloading(Ok())" |> Js.log
+    | Reloading(Error(e)) => Js.log2("Reloading(Error(%o)", e)
+    | Complete(Ok(_)) => "Complete(Ok())" |> Js.log
+    | Complete(Error(e)) => Js.log2("Complete(Error(%o)", e)
+    };
