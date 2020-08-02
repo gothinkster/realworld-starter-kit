@@ -4,15 +4,14 @@ open Expect
 open BsJestFetchMock
 open ReactTestingLibrary
 open TestUtils
+open ApiMock
 
 describe("Settings component", () => {
   beforeEach(() => JestFetchMock.resetMocks())
 
   testPromise("renders without crashing", () => {
-    ApiMock.doMock(
-      ~pipeline=ApiMock.succeed |> ApiMock.user |> ApiMock.articles |> ApiMock.tags,
-      (),
-    )
+    doMock(~pipeline=succeed |> user |> articles |> tags, ())
+
     let wrapper = render(<App />)
 
     act(() => ReasonReactRouter.push("#/settings"))
@@ -29,7 +28,4 @@ describe("Settings component", () => {
       |> resolve
     )
   })
-
-  // TODO: delete following line when we have more than 1 test case
-  let _ = ()
 })

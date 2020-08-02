@@ -4,15 +4,13 @@ open Expect
 open BsJestFetchMock
 open ReactTestingLibrary
 open TestUtils
+open ApiMock
 
 describe("Profile component", () => {
   beforeEach(() => JestFetchMock.resetMocks())
 
   testPromise("renders without crashing", () => {
-    ApiMock.doMock(
-      ~pipeline=ApiMock.succeed |> ApiMock.profile |> ApiMock.articles |> ApiMock.user,
-      (),
-    )
+    doMock(~pipeline=succeed |> profile |> articles |> user, ())
 
     let wrapper = render(<App />)
 
@@ -32,10 +30,7 @@ describe("Profile component", () => {
   })
 
   testPromise("renders someone's favorited articles", () => {
-    ApiMock.doMock(
-      ~pipeline=ApiMock.succeed |> ApiMock.profile |> ApiMock.articles |> ApiMock.user,
-      (),
-    )
+    doMock(~pipeline=succeed |> profile |> articles |> user, ())
 
     let wrapper = render(<App />)
 

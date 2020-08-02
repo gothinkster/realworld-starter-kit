@@ -5,6 +5,7 @@ open Expect
 open ReactTestingLibrary
 open BsJestFetchMock
 open TestUtils
+open ApiMock
 
 module Option = Relude.Option
 
@@ -12,7 +13,7 @@ describe("Home component", () => {
   beforeEach(() => JestFetchMock.resetMocks())
 
   testPromise("renders without crashing", () => {
-    ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.articles |> ApiMock.tags, ())
+    doMock(~pipeline=succeed |> articles |> tags, ())
 
     let wrapper = render(<App />)
 
@@ -32,7 +33,7 @@ describe("Home component", () => {
   testPromise(
     `"Global Feed" should be actived and "You Feed" tab should be invisible when user is anonymous`,
     () => {
-      ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.tags |> ApiMock.articles, ())
+      doMock(~pipeline=succeed |> tags |> articles, ())
 
       let wrapper = render(<App />)
 
@@ -54,7 +55,7 @@ describe("Home component", () => {
   testPromise(
     `"You Feed" tab should be actived when user is logged in and it is first time to visit`,
     () => {
-      ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds, ())
+      doMock(~pipeline=succeed |> user |> tags |> feeds, ())
 
       let wrapper = render(<App />)
 
@@ -73,14 +74,7 @@ describe("Home component", () => {
 
   describe("Popular Tags", () => {
     testPromise(`Actived Tab: "Your Feed" > "# <tag>"`, () => {
-      ApiMock.doMock(
-        ~pipeline=ApiMock.succeed
-        |> ApiMock.user
-        |> ApiMock.tags
-        |> ApiMock.feeds
-        |> ApiMock.articles,
-        (),
-      )
+      doMock(~pipeline=succeed |> user |> tags |> feeds |> articles, ())
 
       let wrapper = render(<App />)
 
@@ -111,7 +105,7 @@ describe("Home component", () => {
     })
 
     testPromise(`Actived Tab: "Your Feed" > "Global Feed" > "# <tag>"`, () => {
-      ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds, ())
+      doMock(~pipeline=succeed |> user |> tags |> feeds, ())
 
       let wrapper = render(<App />)
 
@@ -121,7 +115,7 @@ describe("Home component", () => {
       )
       |> then_(_ => {
         JestFetchMock.resetMocks()
-        ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.articles, ())
+        doMock(~pipeline=succeed |> articles, ())
 
         wrapper |> getByText(~matcher=#Str("Global Feed")) |> FireEvent.click |> ignore
 
@@ -132,7 +126,7 @@ describe("Home component", () => {
       })
       |> then_(_ => {
         JestFetchMock.resetMocks()
-        ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.articles, ())
+        doMock(~pipeline=succeed |> articles, ())
 
         wrapper
         |> getByTestId(~matcher=#Str("tag-list"))
@@ -158,10 +152,7 @@ describe("Home component", () => {
     testPromise(
       `Query data against /list/articles endpoint even current tab is "Your Feed"`,
       () => {
-        ApiMock.doMock(
-          ~pipeline=ApiMock.succeed |> ApiMock.user |> ApiMock.tags |> ApiMock.feeds,
-          (),
-        )
+        doMock(~pipeline=succeed |> user |> tags |> feeds, ())
 
         let wrapper = render(<App />)
 
@@ -171,7 +162,7 @@ describe("Home component", () => {
         )
         |> then_(_ => {
           JestFetchMock.resetMocks()
-          ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.articles, ())
+          doMock(~pipeline=succeed |> articles, ())
 
           wrapper
           |> getByTestId(~matcher=#Str("tag-list"))
@@ -201,7 +192,7 @@ describe("Home component", () => {
 
   describe("Pagination", () => {
     Skip.testPromise("do not show any page item (failed to load articles)", () => {
-      ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.tags |> ApiMock.user, ())
+      doMock(~pipeline=succeed |> tags |> user, ())
 
       let wrapper = render(<App />)
 
@@ -218,7 +209,7 @@ describe("Home component", () => {
     })
 
     testPromise("show only one page", () => {
-      ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.tags |> ApiMock.articles, ())
+      doMock(~pipeline=succeed |> tags |> articles, ())
 
       let wrapper = render(<App />)
 
@@ -236,10 +227,7 @@ describe("Home component", () => {
     })
 
     testPromise("show 2 pages (aliquot)", () => {
-      ApiMock.doMock(
-        ~pipeline=ApiMock.succeed |> ApiMock.tags |> ApiMock.articles(~articlesCount=20),
-        (),
-      )
+      doMock(~pipeline=succeed |> tags |> articles(~articlesCount=20), ())
 
       let wrapper = render(<App />)
 
@@ -264,12 +252,7 @@ describe("Home component", () => {
     })
 
     testPromise("show 2 pages (aliquant)", () => {
-      open ApiMock
-
-      doMock(
-        ~pipeline=succeed |> tags |> articles(~articlesCount=21),
-        (),
-      )
+      doMock(~pipeline=succeed |> tags |> articles(~articlesCount=21), ())
 
       let wrapper = render(<App />)
 

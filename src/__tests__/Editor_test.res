@@ -4,12 +4,13 @@ open Expect
 open BsJestFetchMock
 open ReactTestingLibrary
 open TestUtils
+open ApiMock
 
 describe("Editor component", () => {
   beforeEach(() => JestFetchMock.resetMocks())
 
   testPromise("renders without crashing", () => {
-    ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.user, ())
+    doMock(~pipeline=succeed |> user, ())
 
     let wrapper = render(<App />)
 
@@ -29,7 +30,7 @@ describe("Editor component", () => {
   })
 
   testPromise("renders screen in editing mode", () => {
-    ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.article |> ApiMock.user, ())
+    doMock(~pipeline=succeed |> article |> user, ())
 
     let wrapper = render(<App />)
 

@@ -4,15 +4,13 @@ open Expect
 open BsJestFetchMock
 open ReactTestingLibrary
 open TestUtils
+open ApiMock
 
 describe("Article component", () => {
   beforeEach(() => JestFetchMock.resetMocks())
 
   testPromise("renders without crashing", () => {
-    ApiMock.doMock(
-      ~pipeline=ApiMock.succeed |> ApiMock.article |> ApiMock.user |> ApiMock.comments,
-      (),
-    )
+    doMock(~pipeline=succeed |> article |> user |> comments, ())
 
     let wrapper = render(<App />)
 
@@ -33,7 +31,7 @@ describe("Article component", () => {
   testPromise(
     "renders content, author, date, favorite button and follow button (anonymous user)",
     () => {
-      ApiMock.doMock(~pipeline=ApiMock.succeed |> ApiMock.article |> ApiMock.comments, ())
+      doMock(~pipeline=succeed |> article |> comments, ())
 
       let wrapper = render(<App />)
 
