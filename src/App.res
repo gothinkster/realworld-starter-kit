@@ -10,7 +10,7 @@ let authenticated:
          React.null;
        });
 
-@react.component()
+@react.component
 let make = () => {
   let (currentUser, setCurrentUser) = Hook.useCurrentUser();
   let route = Route.useRoute();

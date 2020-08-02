@@ -4,15 +4,13 @@ open Js.Promise
 open ReactTestingLibrary
 open BsJestFetchMock
 open TestUtils
+open ApiMock
 
 describe("App component", () => {
   beforeEach(() => JestFetchMock.resetMocks())
 
   testPromise("renders without crashing", () => {
-    {
-      open ApiMock
-      doMock(~pipeline=succeed |> articles |> user |> tags |> feeds, ())
-    }
+    doMock(~pipeline=succeed |> articles |> user |> tags |> feeds, ())
 
     let wrapper = render(<App />)
 
@@ -31,10 +29,7 @@ describe("App component", () => {
   })
 
   testPromise("renders settings page", () => {
-    {
-      open ApiMock
-      doMock(~pipeline=succeed |> user, ())
-    }
+    doMock(~pipeline=succeed |> user, ())
 
     let wrapper = render(<App />)
 
@@ -90,10 +85,7 @@ describe("App component", () => {
   })
 
   testPromise("renders create article page", () => {
-    {
-      open ApiMock
-      doMock(~pipeline=succeed |> user, ())
-    }
+    doMock(~pipeline=succeed |> user, ())
 
     let wrapper = render(<App />)
 
@@ -113,10 +105,7 @@ describe("App component", () => {
   })
 
   testPromise("renders edit article page", () => {
-    {
-      open ApiMock
-      doMock(~pipeline=succeed |> user |> article, ())
-    }
+    doMock(~pipeline=succeed |> user |> article, ())
 
     let wrapper = render(<App />)
 
@@ -136,10 +125,7 @@ describe("App component", () => {
   })
 
   testPromise("renders article page", () => {
-    {
-      open ApiMock
-      doMock(~pipeline=succeed |> article |> user |> comments, ())
-    }
+    doMock(~pipeline=succeed |> article |> user |> comments, ())
 
     let wrapper = render(<App />)
 
@@ -158,10 +144,7 @@ describe("App component", () => {
   })
 
   testPromise("renders user profile page", () => {
-    {
-      open ApiMock
-      doMock(~pipeline=succeed |> user |> profile |> articles, ())
-    }
+    doMock(~pipeline=succeed |> user |> profile |> articles, ())
 
     let wrapper = render(<App />)
 
@@ -181,10 +164,7 @@ describe("App component", () => {
   })
 
   testPromise("renders user favorites page", () => {
-    {
-      open ApiMock
-      doMock(~pipeline=succeed |> user |> profile |> articles, ())
-    }
+    doMock(~pipeline=succeed |> user |> profile |> articles, ())
 
     let wrapper = render(<App />)
 
@@ -206,10 +186,7 @@ describe("App component", () => {
   describe("Header", () => {
     describe("Anonymous", () => {
       testPromise(`show "Home" link`, () => {
-        {
-          open ApiMock
-          doMock(~pipeline=succeed |> articles, ~init=unathorized401, ())
-        }
+        doMock(~pipeline=succeed |> articles, ~init=unathorized401, ())
 
         let wrapper = render(<App />)
 
@@ -226,10 +203,7 @@ describe("App component", () => {
       })
 
       testPromise(`show "Sign in" link`, () => {
-        {
-          open ApiMock
-          doMock(~pipeline=succeed |> articles, ~init=unathorized401, ())
-        }
+        doMock(~pipeline=succeed |> articles, ~init=unathorized401, ())
 
         let wrapper = render(<App />)
 
@@ -246,10 +220,7 @@ describe("App component", () => {
       })
 
       testPromise(`show "Sign up" link`, () => {
-        {
-          open ApiMock
-          doMock(~pipeline=succeed |> articles, ~init=unathorized401, ())
-        }
+        doMock(~pipeline=succeed |> articles, ~init=unathorized401, ())
 
         let wrapper = render(<App />)
 
@@ -266,10 +237,7 @@ describe("App component", () => {
       })
 
       testPromise(`should not show "New Post" link`, () => {
-        {
-          open ApiMock
-          doMock(~pipeline=succeed |> articles, ~init=unathorized401, ())
-        }
+        doMock(~pipeline=succeed |> articles, ~init=unathorized401, ())
 
         let wrapper = render(<App />)
 
@@ -282,10 +250,7 @@ describe("App component", () => {
       })
 
       testPromise(`should not show "Settings" link`, () => {
-        {
-          open ApiMock
-          doMock(~pipeline=succeed |> articles, ~init=unathorized401, ())
-        }
+        doMock(~pipeline=succeed |> articles, ~init=unathorized401, ())
 
         let wrapper = render(<App />)
 
@@ -297,11 +262,8 @@ describe("App component", () => {
         )
       })
 
-      testPromise(`should not show user name`, () => {
-        {
-          open ApiMock
-          doMock(~pipeline=succeed |> articles, ~init=unathorized401, ())
-        }
+      testPromise("should not show user name", () => {
+        doMock(~pipeline=succeed |> articles, ~init=unathorized401, ())
 
         let wrapper = render(<App />)
 
@@ -320,10 +282,7 @@ describe("App component", () => {
 
     describe("Authenticated", () => {
       testPromise(`show "Home" link`, () => {
-        {
-          open ApiMock
-          doMock(~pipeline=succeed |> user |> tags |> articles |> profile, ())
-        }
+        doMock(~pipeline=succeed |> user |> tags |> articles |> profile, ())
 
         let wrapper = render(<App />)
 
@@ -340,10 +299,7 @@ describe("App component", () => {
       })
 
       testPromise(`should not show "Sign in" link`, () => {
-        {
-          open ApiMock
-          doMock(~pipeline=succeed |> user |> tags |> feeds |> articles |> profile, ())
-        }
+        doMock(~pipeline=succeed |> user |> tags |> feeds |> articles |> profile, ())
 
         let wrapper = render(<App />)
 
@@ -356,10 +312,7 @@ describe("App component", () => {
       })
 
       testPromise(`should not show "Sign up" link`, () => {
-        {
-          open ApiMock
-          doMock(~pipeline=succeed |> user |> tags |> feeds |> articles |> profile, ())
-        }
+        doMock(~pipeline=succeed |> user |> tags |> feeds |> articles |> profile, ())
 
         let wrapper = render(<App />)
 
@@ -372,10 +325,7 @@ describe("App component", () => {
       })
 
       testPromise(`show "New Post" link`, () => {
-        {
-          open ApiMock
-          doMock(~pipeline=succeed |> user |> tags |> feeds |> articles |> profile, ())
-        }
+        doMock(~pipeline=succeed |> user |> tags |> feeds |> articles |> profile, ())
 
         let wrapper = render(<App />)
 
@@ -392,10 +342,7 @@ describe("App component", () => {
       })
 
       testPromise(`show "Settings" link`, () => {
-        {
-          open ApiMock
-          doMock(~pipeline=succeed |> user |> tags |> feeds |> articles |> profile, ())
-        }
+        doMock(~pipeline=succeed |> user |> tags |> feeds |> articles |> profile, ())
 
         let wrapper = render(<App />)
 
@@ -412,8 +359,6 @@ describe("App component", () => {
       })
 
       testPromise("show user name", () => {
-        open ApiMock
-
         doMock(~pipeline=succeed |> user |> tags |> feeds |> articles |> profile, ())
 
         let wrapper = render(<App />)
