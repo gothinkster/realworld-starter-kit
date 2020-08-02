@@ -411,11 +411,10 @@ describe("App component", () => {
         )
       })
 
-      testPromise(`show user name`, () => {
-        {
-          open ApiMock
-          doMock(~pipeline=succeed |> user |> tags |> feeds |> articles |> profile, ())
-        }
+      testPromise("show user name", () => {
+        open ApiMock
+
+        doMock(~pipeline=succeed |> user |> tags |> feeds |> articles |> profile, ())
 
         let wrapper = render(<App />)
 
@@ -428,7 +427,7 @@ describe("App component", () => {
           |> JestDom.expect
           |> JestDom.toBeInTheDocument
           |> resolve
-        )
+         )
       })
     })
   })

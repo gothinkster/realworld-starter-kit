@@ -264,8 +264,10 @@ describe("Home component", () => {
     })
 
     testPromise("show 2 pages (aliquant)", () => {
-      ApiMock.doMock(
-        ~pipeline=ApiMock.succeed |> ApiMock.tags |> ApiMock.articles(~articlesCount=21),
+      open ApiMock
+
+      doMock(
+        ~pipeline=succeed |> tags |> articles(~articlesCount=21),
         (),
       )
 
