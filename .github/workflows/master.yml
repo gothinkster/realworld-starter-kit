@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: "10.x"
+          node-version: '10.x'
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -23,9 +23,5 @@ jobs:
       - run: yarn install
       - run: yarn lint
       - run: yarn format:check
-      - run: yarn test:ci
+      - run: yarn test
       - run: yarn build
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
