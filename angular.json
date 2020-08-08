@@ -17,10 +17,7 @@
             "polyfills": "apps/conduit/src/polyfills.ts",
             "tsConfig": "apps/conduit/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/conduit/src/favicon.ico",
-              "apps/conduit/src/assets"
-            ],
+            "assets": ["apps/conduit/src/favicon.ico", "apps/conduit/src/assets"],
             "styles": ["apps/conduit/src/styles.css"],
             "scripts": []
           },
@@ -75,10 +72,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/conduit/tsconfig.app.json",
-              "apps/conduit/tsconfig.spec.json"
-            ],
+            "tsConfig": ["apps/conduit/tsconfig.app.json", "apps/conduit/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!apps/conduit/**/*"]
           }
         },
@@ -90,6 +84,10 @@
             "passWithNoTests": true,
             "setupFile": "apps/conduit/src/test-setup.ts"
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
     },

@@ -24,4 +24,5 @@ jobs:
       - run: yarn lint
       - run: yarn format:check
       - run: yarn test
-      - run: yarn build
+      - run: yarn deploy
+      
