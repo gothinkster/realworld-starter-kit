@@ -25,4 +25,6 @@ jobs:
       - run: yarn format:check
       - run: yarn test
       - run: yarn deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
