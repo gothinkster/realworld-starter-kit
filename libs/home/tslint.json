@@ -1,8 +1,8 @@
 {
   "extends": "../../tslint.json",
   "rules": {
-    "directive-selector": [true, "attribute", "realworldAngularNxNgxs", "camelCase"],
-    "component-selector": [true, "element", "realworld-angular-nx-ngxs", "kebab-case"]
+    "directive-selector": [true, "attribute", "conduit", "camelCase"],
+    "component-selector": [true, "element", "conduit", "kebab-case"]
   },
   "linterOptions": {
     "exclude": ["!**/*"]
