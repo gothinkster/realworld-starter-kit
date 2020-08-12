@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, Route, RouterModule } from '@angular/router';
 
-export const routes: Route[] = [];
+export const routes: Route[] = [
+  { path: '', loadChildren: () => import('@realworld-angular-nx-ngxs/home').then((m) => m.HomeModule) }
+];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
       initialNavigation: 'enabled',
-      preloadingStrategy: PreloadAllModules,
-    }),
+      preloadingStrategy: PreloadAllModules
+    })
   ],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class RoutingModule {}
