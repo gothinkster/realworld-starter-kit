@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'realworld-angular-nx-ngxs-home',
+  selector: 'conduit-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.css']
 })
