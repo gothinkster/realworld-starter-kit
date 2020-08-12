@@ -15,7 +15,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@realworld-angular-nx-ngxs/home": ["libs/home/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
