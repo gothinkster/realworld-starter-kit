@@ -10,6 +10,7 @@ import HomeArticle from './app/routes/home/article';
 import HomeSidebar from './app/routes/home/sidebar';
 import RouteSignIn from './app/routes/signIn';
 import RouteSettings from './app/routes/settings';
+import './app/components';
 
 define('app-component', AppComponent);
 define('app-nav', AppNav);
