@@ -13,21 +13,10 @@ export default {
   page: connect(store, ({ app: { page } }) => page),
   render: render(
     ({ page }) => html`
-      ${page === ''
-        ? html`
-            <route-home></route-home>
-          `
-        : page === 'login'
-        ? html`
-            <route-sign-in></route-sign-in>
-          `
-        : page === 'settings'
-        ? html`
-            <route-settings></route-settings>
-          `
-        : html`
-            <h1>404</h1>
-          `}
+      <component-router
+        location="${page}"
+        routes="${{ '': 'route-home', login: 'route-sign-in', settings: 'route-settigns' }}"
+      ></component-router>
     `,
     { shadowRoot: false },
   ),
