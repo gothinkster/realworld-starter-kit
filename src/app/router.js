@@ -26,7 +26,7 @@ function updateRoute() {
 }
 
 async function load() {
-  if (R.pipe(x => localStorage.getItem(x), R.isNil, R.not)('token')) {
+  if (R.pipe((x) => localStorage.getItem(x), R.isNil, R.not)('token')) {
     await loadUser();
   }
   loadApp();

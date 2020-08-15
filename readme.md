@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/xAKLx/hybrids-realworld-starter-kit.svg?branch=master)](https://travis-ci.com/xAKLx/hybrids-realworld-starter-kit)
+
 # ![RealWorld Example App](logo.png)
 
 > ### [YOUR_FRAMEWORK] codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.

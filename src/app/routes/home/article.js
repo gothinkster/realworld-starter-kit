@@ -7,7 +7,7 @@ export default {
     ({ article }) => html`
       <div class="article-preview">
         <div class="article-meta">
-          <a href="profile.html"><img src="${article.author.image}"/></a>
+          <a href="profile.html"><img src="${article.author.image}" /></a>
           <div class="info">
             <a href="" class="author">${article.author.username}</a>
             <span class="date">${article.createdAt}</span>
@@ -32,7 +32,5 @@ export default {
 };
 
 function renderTag(tag) {
-  return html`
-    <li class="tag-default tag-pill tag-outline">${tag}</li>
-  `;
+  return html` <li class="tag-default tag-pill tag-outline">${tag}</li> `;
 }

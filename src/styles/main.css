@@ -3,16 +3,18 @@
   float: left;
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
-  color: #5CB85C;
+  color: #5cb85c;
   text-decoration: none;
   background-color: #fff;
   border: 1px solid #ddd;
 }
 
-.page-item.active .page-link, .page-item.active .page-link:focus, .page-item.active .page-link:hover {
+.page-item.active .page-link,
+.page-item.active .page-link:focus,
+.page-item.active .page-link:hover {
   z-index: 2;
   color: #fff;
   cursor: default;
-  background-color: #5CB85C;
-  border-color: #5CB85C;
+  background-color: #5cb85c;
+  border-color: #5cb85c;
 }

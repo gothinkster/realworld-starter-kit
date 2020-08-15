@@ -7,7 +7,6 @@
     "@babel/plugin-transform-runtime": "^7.10.1",
     "axios": "^0.19.0",
     "hybrids": "^4.0.2",
-    "prettier": "^1.19.1",
     "ramda": "^0.27.0",
     "redux": "^4.0.4",
     "tagged-union": "^1.1.0",
@@ -23,13 +22,14 @@
     "eslint": "^6.6.0",
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-functional": "^1.0.0",
+    "prettier": "2.0.5",
     "webpack": "^4.43.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run lint && prettier --config .prettierrc.json --check src",
     "dev-server": "webpack-dev-server --config webpack.config.js --entry ./src/index.js --output-filename ./dist/index.js --mode development --overlay",
     "lint": "eslint src",
-    "prettify": "prettier --write src/**/*.js"
+    "prettify": "prettier --write src"
   },
   "repository": {
     "type": "git",

@@ -64,9 +64,7 @@ export default {
 };
 
 function renderArticle(article) {
-  return html`
-    <home-article article="${article}"></home-article>
-  `;
+  return html` <home-article article="${article}"></home-article> `;
 }
 
 function renderPagination(page, pageAmount, tab) {
@@ -76,7 +74,7 @@ function renderPagination(page, pageAmount, tab) {
         ${pageAmount <= 0
           ? ''
           : R.times(
-              index =>
+              (index) =>
                 html`
                   <li
                     class="page-item${index === page ? ' active' : ''}"

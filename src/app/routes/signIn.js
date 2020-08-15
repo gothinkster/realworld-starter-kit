@@ -20,12 +20,7 @@ export default {
                 ${Object.keys(errors).length <= 0
                   ? ''
                   : Object.entries(errors).map(([key, value]) =>
-                      value.map(
-                        error =>
-                          html`
-                            <li>${key} ${error}</li>
-                          `,
-                      ),
+                      value.map((error) => html` <li>${key} ${error}</li> `),
                     )}
               </ul>
 

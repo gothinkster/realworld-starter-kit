@@ -33,7 +33,7 @@ export async function login(email, password) {
       email,
       password,
     },
-  }).catch(x => x.response);
+  }).catch((x) => x.response);
   return data;
 }
 
