@@ -1,5 +1,4 @@
 import { render, html } from 'hybrids';
-import store from '../store';
 import { onInputAction, preventDefaultOn } from '../core/attributes';
 import {
   updatePassword,
@@ -10,14 +9,10 @@ import {
 } from '../actions/settings';
 import { updateUsername } from '../actions/signIn';
 import { logout } from '../actions/app';
-
-const connect = (store, mapState) => ({
-  get: mapState ? () => mapState(store.getState()) : () => store.getState(),
-  connect: (_, __, invalidate) => store.subscribe(invalidate),
-});
+import { connect } from '../core/store';
 
 export default {
-  settings: connect(store, ({ settings }) => settings),
+  settings: connect(({ settings }) => settings),
   render: render(
     ({
       settings: {

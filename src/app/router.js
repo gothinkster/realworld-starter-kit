@@ -1,16 +1,11 @@
 import { render, html } from 'hybrids';
-import store from './store';
 import changePage, { loadApp } from './actions/app';
 import { loadUser } from './actions/home';
 import * as R from 'ramda';
-
-const connect = (store, mapState) => ({
-  get: mapState ? () => mapState(store.getState()) : () => store.getState(),
-  connect: (_, __, invalidate) => store.subscribe(invalidate),
-});
+import { connect } from './core/store';
 
 export default {
-  page: connect(store, ({ app: { page } }) => page),
+  page: connect(({ app: { page } }) => page),
   render: render(
     ({ page }) => html`
       <component-router

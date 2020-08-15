@@ -1,15 +1,10 @@
 import { render, html } from 'hybrids';
-import store from '../../store';
 import * as R from 'ramda';
 import { loadPage, changeTab, loadTagPage } from '../../actions/home';
-
-const connect = (store, mapState) => ({
-  get: mapState ? () => mapState(store.getState()) : () => store.getState(),
-  connect: (_, __, invalidate) => store.subscribe(invalidate),
-});
+import { connect } from '../../core/store';
 
 export default {
-  home: connect(store, ({ home }) => home),
+  home: connect(({ home }) => home),
   render: render(
     ({ home: { tags, articles, tab } }) => html`
       <div class="home-page">

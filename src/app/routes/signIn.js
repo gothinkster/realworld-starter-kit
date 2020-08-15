@@ -1,15 +1,10 @@
 import { render, html } from 'hybrids';
-import store from '../store';
 import { updateUsername, updatePassword, userLogin } from '../actions/signIn';
 import { onInputAction, preventDefaultOn } from '../core/attributes';
-
-const connect = (store, mapState) => ({
-  get: mapState ? () => mapState(store.getState()) : () => store.getState(),
-  connect: (_, __, invalidate) => store.subscribe(invalidate),
-});
+import { connect } from '../core/store';
 
 export default {
-  signIn: connect(store, ({ signIn }) => signIn),
+  signIn: connect(({ signIn }) => signIn),
   render: render(
     ({ signIn: { username, password, errors, logingIn } }) => html`
       <div class="auth-page">
