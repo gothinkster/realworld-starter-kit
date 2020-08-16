@@ -1,6 +1,12 @@
 /* eslint-disable */
+const path = require('path');
 
 module.exports = {
+  entry: './src/index.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'index.js',
+  },
   module: {
     rules: [
       {
@@ -11,5 +17,10 @@ module.exports = {
         },
       },
     ],
+  },
+  devtool: 'inline-source-map',
+  devServer: {
+    publicPath: '/dist/',
+    filename: 'index.js',
   },
 };

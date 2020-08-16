@@ -27,9 +27,10 @@
   },
   "scripts": {
     "test": "npm run lint && prettier --config .prettierrc.json --check src",
-    "dev-server": "webpack-dev-server --config webpack.config.js --entry ./src/index.js --output-filename ./dist/index.js --mode development --overlay",
+    "dev-server": "webpack-dev-server --config webpack.config.js --mode development --overlay",
     "lint": "eslint src",
-    "prettify": "prettier --write src"
+    "prettify": "prettier --write src",
+    "build": "webpack --config webpack.config.js --mode production"
   },
   "repository": {
     "type": "git",

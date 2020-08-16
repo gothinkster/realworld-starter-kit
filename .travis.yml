@@ -6,3 +6,4 @@ script:
   - npm i
   - npm run test
   - prettier --config .prettierrc.json --check src/**/*.js
+  - npm run build
