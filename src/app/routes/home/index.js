@@ -1,7 +1,7 @@
 import { render, html } from 'hybrids';
-import * as R from 'ramda';
 import { loadPage, changeTab, loadTagPage } from '../../actions/home';
 import { connect } from '../../core/store';
+import { onPageLinkClickAction } from '../../components/articleList/articleListAttributes';
 
 export default {
   home: connect(({ home }) => home),
@@ -43,15 +43,12 @@ export default {
                 </ul>
               </div>
 
-              ${R.map(renderArticle, articles.list)}
-              ${articles.loading
-                ? html`
-                    <div class="article-preview">
-                      Loading articles...
-                    </div>
-                  `
-                : ''}
-              ${renderPagination(articles.page, articles.pageAmount, tab)}
+              <article-list
+                articles="${articles}"
+                onPageLinkClick="${onPageLinkClickAction((index) =>
+                  tab === 'global' ? loadPage(index) : loadTagPage(index),
+                )}"
+              ></article-list>
             </div>
 
             <div class="col-md-3"><home-sidebar tags="${tags}"></home-sidebar></div>
@@ -62,30 +59,3 @@ export default {
     { shadowRoot: false },
   ),
 };
-
-function renderArticle(article) {
-  return html` <home-article article="${article}"></home-article> `;
-}
-
-function renderPagination(page, pageAmount, tab) {
-  return html`
-    <nav>
-      <ul class="pagination">
-        ${pageAmount <= 0
-          ? ''
-          : R.times(
-              (index) =>
-                html`
-                  <li
-                    class="page-item${index === page ? ' active' : ''}"
-                    onclick="${() => (tab === 'global' ? loadPage(index) : loadTagPage(index))}"
-                  >
-                    <a class="page-link" href="#/">${index + 1}</a>
-                  </li>
-                `,
-              pageAmount,
-            )}
-      </ul>
-    </nav>
-  `;
-}

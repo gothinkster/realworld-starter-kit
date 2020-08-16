@@ -1,11 +1,12 @@
 import * as R from 'ramda';
 import matchAction from '../../core/matchAction';
+import { defaultArticles } from './shared';
 
 export default (
   state = {
     tags: [],
     tab: 'global',
-    articles: { loading: true, list: [], page: 0, pageAmount: 1 },
+    articles: defaultArticles,
   },
   action,
 ) =>
