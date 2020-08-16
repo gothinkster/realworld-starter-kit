@@ -10,7 +10,9 @@ export const componentRouter = {
       target.innerHTML = '';
 
       const entries = Object.entries(routes);
-      const entry = entries.find((x) => location.match(new RegExp(`^(${x[0]})(\\/[\\s\\S]*)?$`)));
+      const entry = entries.find(([url]) =>
+        location.match(new RegExp(`^(${url})(\\/[\\s\\S]*)?$`)),
+      );
 
       if (entry !== null && entry !== undefined) {
         const element = document.createElement(entry[1]);
