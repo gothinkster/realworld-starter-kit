@@ -46,8 +46,12 @@ export async function changeTab(tab) {
 }
 
 export async function loadUser() {
-  store.dispatch({
-    type: 'LOGIN',
-    user: await getCurrentUser(),
-  });
+  try {
+    store.dispatch({
+      type: 'LOGIN',
+      user: await getCurrentUser(),
+    });
+  } catch {
+    localStorage.removeItem('token');
+  }
 }
