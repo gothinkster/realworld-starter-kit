@@ -2,6 +2,7 @@ import { html, define, render } from 'hybrids';
 import { defaultArticles } from '../../store/reducers/shared';
 import * as R from 'ramda';
 import { connectEvent } from '../../core/factories';
+import { preventDefault } from '../../core/attributes';
 
 export const articleList = {
   articles: defaultArticles,
@@ -39,7 +40,7 @@ function renderPagination(page, pageAmount, onPageLinkClick) {
 function renderPaginationlistItem(page, onPageLinkClick) {
   return (index) => html`
     <li class="page-item${index === page ? ' active' : ''}" onclick="${onPageLinkClick(index)}">
-      <a class="page-link" href="#/">${index + 1}</a>
+      <a class="page-link" href="" onclick="${preventDefault()}">${index + 1}</a>
     </li>
   `;
 }

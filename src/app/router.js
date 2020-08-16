@@ -10,7 +10,12 @@ export default {
     ({ page }) => html`
       <component-router
         location="${page}"
-        routes="${{ '': 'route-home', login: 'route-sign-in', settings: 'route-settigns' }}"
+        routes="${{
+          '': 'route-home',
+          login: 'route-sign-in',
+          settings: 'route-settigns',
+          profile: 'route-profile',
+        }}"
       ></component-router>
     `,
     { shadowRoot: false },

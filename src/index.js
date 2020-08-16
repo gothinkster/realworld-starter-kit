@@ -10,6 +10,7 @@ import HomeArticle from './app/routes/home/article';
 import HomeSidebar from './app/routes/home/sidebar';
 import RouteSignIn from './app/routes/signIn';
 import RouteSettings from './app/routes/settings';
+import RouteProfile from './app/routes/profile';
 import './app/components';
 
 define('app-component', AppComponent);
@@ -21,3 +22,4 @@ define('home-article', HomeArticle);
 define('home-sidebar', HomeSidebar);
 define('route-sign-in', RouteSignIn);
 define('route-settings', RouteSettings);
+define('route-profile', RouteProfile);

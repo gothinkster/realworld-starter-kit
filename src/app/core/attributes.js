@@ -9,3 +9,7 @@ export function preventDefaultOn(action) {
     action(host, event);
   };
 }
+
+export function preventDefault() {
+  return preventDefaultOn(() => {});
+}

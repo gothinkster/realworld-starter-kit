@@ -27,7 +27,7 @@ export default {
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="">${user.username}</a>
+                    <a class="nav-link" href="#/profile/${user.username}">${user.username}</a>
                   </li>
                 `
               : html`
