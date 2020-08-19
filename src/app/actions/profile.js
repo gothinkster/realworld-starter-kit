@@ -1,13 +1,17 @@
-import { getArticles } from '../services/conduit';
+import { getArticles, getUser } from '../services/conduit';
 import store from '../store';
 
 export async function loadProfile(page) {
   const user = page.split('/')[1];
   const method = page.endsWith('favorites') ? loadFavoriteArticlesPage : loadProfileArticlePage;
   const tab = page.endsWith('favorites') ? 'Favorited Articles' : 'My Articles';
+
+  const userProfile = await getUser(user);
+
   store.dispatch({
     type: 'LOAD_PROFILE',
     tab,
+    userProfile,
   });
 
   return await method(user);

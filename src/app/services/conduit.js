@@ -56,3 +56,10 @@ export async function updateSettings(settings) {
   );
   return data;
 }
+
+export async function getUser(username) {
+  const {
+    data: { profile },
+  } = await Axios.get(`${baseUrl}/profiles/${username}`);
+  return profile;
+}

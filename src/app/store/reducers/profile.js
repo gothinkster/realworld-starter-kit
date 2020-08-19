@@ -6,12 +6,14 @@ export default (
   state = {
     articles: defaultArticles,
     tab: 'My Articles',
+    userProfile: null,
   },
   action,
 ) =>
   matchAction(action, R.always({}), {
-    LOAD_PROFILE: ({ tab }) => ({
+    LOAD_PROFILE: ({ tab, userProfile }) => ({
       tab,
+      userProfile,
     }),
     START_LOAD_PROFILE_PAGE: ({ page }) => ({
       articles: {

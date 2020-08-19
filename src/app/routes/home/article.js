@@ -9,7 +9,9 @@ export default {
         <div class="article-meta">
           <a href="profile.html"><img src="${article.author.image}" /></a>
           <div class="info">
-            <a href="" class="author">${article.author.username}</a>
+            <a href="#/profile/${article.author.username}" class="author"
+              >${article.author.username}
+            </a>
             <span class="date">${article.createdAt}</span>
           </div>
           <button class="btn btn-outline-primary btn-sm pull-xs-right">

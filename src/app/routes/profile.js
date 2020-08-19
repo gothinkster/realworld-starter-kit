@@ -8,16 +8,20 @@ export default {
   app: connect(({ app }) => app),
   userName: ({ location }) => location.split('/')[0],
   profile: connect(({ profile }) => profile),
+  userIsLogged: ({ app: { user } }) => user !== null,
   render: render(
     ({
-      app: {
-        user: { image, bio, username },
+      app: { user },
+      profile: {
+        tab,
+        articles,
+        userProfile: { username, image, bio },
       },
-      location,
-      profile: { tab, articles },
+      userName,
+      userIsLogged,
     }) => html`
       <div class="profile-page">
-        ${renderUserInfo(username, image, bio, location.split('/')[0] === username)}
+        ${renderUserInfo(username, image, bio, userIsLogged && userName === user.username)}
         ${renderArticles(username, tab, articles)}
       </div>
     `,
