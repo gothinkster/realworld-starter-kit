@@ -1,4 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
+
+import { LoadTags } from './+state/tags.actions';
+import { TagsSelectors } from './+state/tags.selectors';
 
 @Component({
   selector: 'conduit-tag-list',
@@ -7,7 +13,11 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TagListComponent implements OnInit {
-  constructor() {}
+  @Select(TagsSelectors.getTags) tags$: Observable<string[]>;
 
-  ngOnInit(): void {}
+  constructor(private store: Store) {}
+
+  ngOnInit(): void {
+    this.store.dispatch(new LoadTags());
+  }
 }
