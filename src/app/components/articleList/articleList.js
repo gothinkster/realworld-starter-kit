@@ -8,17 +8,16 @@ export const articleList = {
   articles: defaultArticles,
   onPageLinkClick: connectEvent((index) => ({ index })),
   render: render(
-    ({ articles: { list, loading, page, pageAmount }, onPageLinkClick }) =>
+    ({ articles: { list, loading, page, pageAmount }, onPageLinkClick }) => html`
+      ${R.map(renderArticle, list)}
+      ${loading &&
       html`
-        ${R.map(renderArticle, list)}
-        ${loading &&
-        html`
-          <div class="article-preview">
-            Loading articles...
-          </div>
-        `}
-        ${renderPagination(page, pageAmount, onPageLinkClick)}
-      `,
+        <div class="article-preview">
+          Loading articles...
+        </div>
+      `}
+      ${renderPagination(page, pageAmount, onPageLinkClick)}
+    `,
     { shadowRoot: false },
   ),
 };
@@ -39,7 +38,10 @@ function renderPagination(page, pageAmount, onPageLinkClick) {
 
 function renderPaginationlistItem(page, onPageLinkClick) {
   return (index) => html`
-    <li class="page-item${index === page ? ' active' : ''}" onclick="${onPageLinkClick(index)}">
+    <li
+      class="page-item${index === page ? ' active' : ''}"
+      onclick="${() => onPageLinkClick(index)}"
+    >
       <a class="page-link" href="" onclick="${preventDefault()}">${index + 1}</a>
     </li>
   `;

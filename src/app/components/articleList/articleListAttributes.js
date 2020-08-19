@@ -1,3 +1,3 @@
 export function onPageLinkClickAction(action) {
-  return (host, { data: { index } }) => action(index);
+  return (host, { detail: { index } }) => action(index);
 }
