@@ -1,5 +1,8 @@
+import { tap } from 'rxjs/operators';
+
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext } from '@ngxs/store';
+import { ConduitApiService } from '@realworld-angular-nx-ngxs/data-access';
 
 import { LoadTags } from './tags.actions';
 
@@ -9,10 +12,10 @@ import { LoadTags } from './tags.actions';
 })
 @Injectable()
 export class TagsState {
-  constructor() {}
+  constructor(private conduitApi: ConduitApiService) {}
 
   @Action(LoadTags)
   loadTags({ setState }: StateContext<string[]>) {
-    setState(['angular', 'ngxs', 'vue', 'rx-angular']);
+    return this.conduitApi.getTags().pipe(tap((tags) => setState(tags)));
   }
 }
