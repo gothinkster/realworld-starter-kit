@@ -6,7 +6,7 @@
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.10.1",
     "axios": "^0.19.0",
-    "hybrids": "^4.0.2",
+    "hybrids": "^4.3.0",
     "ramda": "^0.27.0",
     "redux": "^4.0.4",
     "tagged-union": "^1.1.0",
@@ -22,14 +22,17 @@
     "eslint": "^6.6.0",
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-functional": "^1.0.0",
+    "jest": "^26.4.0",
     "prettier": "2.0.5",
     "webpack": "^4.43.0"
   },
   "scripts": {
-    "test": "npm run lint && prettier --config .prettierrc.json --check src",
+    "test": "npm run lint && npm run prettier:check && npm run jest",
     "dev-server": "webpack-dev-server --config webpack.config.js --mode development --overlay",
     "lint": "eslint src",
-    "prettify": "prettier --write src",
+    "jest": "jest --coverage",
+    "prettier": "prettier --write .prettierrc.json --check src",
+    "prettier:check": "prettier --config .prettierrc.json --check src",
     "build": "webpack --config webpack.config.js --mode production"
   },
   "repository": {
