@@ -1,22 +1,24 @@
 import { render, html } from 'hybrids';
 import { connect } from '../core/store';
+import { onPageLinkClickAction } from '../components/articleList/articleListAttributes';
+import { loadProfileArticlePage, loadFavoriteArticlesPage } from '../actions/profile';
 
 export default {
   location: '',
   app: connect(({ app }) => app),
   userName: ({ location }) => location.split('/')[0],
-  path: ({ location }) => location.split('/')[1] || '',
+  profile: connect(({ profile }) => profile),
   render: render(
     ({
       app: {
         user: { image, bio, username },
       },
-      path,
       location,
+      profile: { tab, articles },
     }) => html`
       <div class="profile-page">
         ${renderUserInfo(username, image, bio, location.split('/')[0] === username)}
-        ${renderArticles(path)}
+        ${renderArticles(username, tab, articles)}
       </div>
     `,
     { shadowRoot: false },
@@ -52,25 +54,35 @@ function renderUserInfo(username, image, bio, isLoggedUser) {
   </div>`;
 }
 
-function renderArticles(path) {
+function renderArticles(username, tab, articles) {
   return html`<div class="container">
     <div class="row">
       <div class="col-xs-12 col-md-10 offset-md-1">
         <div class="articles-toggle">
           <ul class="nav nav-pills outline-active">
             <li class="nav-item">
-              <a class="nav-link active" href="">My Articles</a>
+              <a class="nav-link ${
+                tab === 'My Articles' && 'active'
+              }"" href="#/profile/${username}">My Articles</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">Favorited Articles</a>
+              <a
+                class="nav-link ${tab === 'Favorited Articles' && 'active'}"
+                href="#/profile/${username}/favorites"
+                >Favorited Articles</a
+              >
             </li>
           </ul>
         </div>
 
-        <component-router
-          location="${path}"
-          routes="${{ '': 'route-profile-my-articles' }}"
-        ></component-router>
+        <article-list
+          articles="${articles}"
+          onPageLinkClick="${onPageLinkClickAction((index) =>
+            tab === 'Favorited Articles'
+              ? loadFavoriteArticlesPage(username, index)
+              : loadProfileArticlePage(username, index),
+          )}"
+        ></article-list>
       </div>
     </div>
   </div>`;

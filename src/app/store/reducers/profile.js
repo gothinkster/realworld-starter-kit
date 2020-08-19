@@ -5,10 +5,14 @@ import { defaultArticles } from './shared';
 export default (
   state = {
     articles: defaultArticles,
+    tab: 'My Articles',
   },
   action,
 ) =>
   matchAction(action, R.always({}), {
+    LOAD_PROFILE: ({ tab }) => ({
+      tab,
+    }),
     START_LOAD_PROFILE_PAGE: ({ page }) => ({
       articles: {
         page,

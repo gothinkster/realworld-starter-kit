@@ -1,13 +1,13 @@
 import store from '../store';
 import { loadHome, loadPage } from './home';
-import { loadProfilePage } from './profile';
+import { loadProfile } from './profile';
 
 export default async function changePage(page) {
   if (page === '') {
     await loadHome();
     await loadPage();
   } else if (page.startsWith('profile')) {
-    await loadProfilePage(page.split('/')[1]);
+    await loadProfile(page);
   }
 
   store.dispatch({
