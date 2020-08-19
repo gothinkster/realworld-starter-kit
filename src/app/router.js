@@ -13,7 +13,7 @@ export default {
         routes="${{
           '': 'route-home',
           login: 'route-sign-in',
-          settings: 'route-settigns',
+          settings: 'route-settings',
           profile: 'route-profile',
         }}"
       ></component-router>
