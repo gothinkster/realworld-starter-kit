@@ -1,7 +1,12 @@
 import { render, html } from 'hybrids';
 import { connect } from '../core/store';
 import { onPageLinkClickAction } from '../components/articleList/articleListAttributes';
-import { loadProfileArticlePage, loadFavoriteArticlesPage } from '../actions/profile';
+import {
+  loadProfileArticlePage,
+  loadFavoriteArticlesPage,
+  toggleFollowUserAction,
+} from '../actions/profile';
+import { changeLocation } from '../core/attributes';
 
 export default {
   location: '',
@@ -15,13 +20,20 @@ export default {
       profile: {
         tab,
         articles,
-        userProfile: { username, image, bio },
+        userProfile: { username, image, bio, following },
       },
       userName,
       userIsLogged,
     }) => html`
       <div class="profile-page">
-        ${renderUserInfo(username, image, bio, userIsLogged && userName === user.username)}
+        ${renderUserInfo(
+          username,
+          image,
+          bio,
+          following,
+          userIsLogged && userName === user.username,
+          userIsLogged,
+        )}
         ${renderArticles(username, tab, articles)}
       </div>
     `,
@@ -29,7 +41,7 @@ export default {
   ),
 };
 
-function renderUserInfo(username, image, bio, isLoggedUser) {
+function renderUserInfo(username, image, bio, following, isLoggedUser, userIsLogged) {
   return html` <div class="user-info">
     <div class="container">
       <div class="row">
@@ -48,9 +60,15 @@ function renderUserInfo(username, image, bio, isLoggedUser) {
                 <i class="ion-gear-a"></i>
                 Edit Profile Settings
               </a>`
-            : html`<button class="btn btn-sm btn-outline-secondary action-btn">
+            : html`<button
+                class="btn btn-sm btn-outline-secondary action-btn"
+                onclick="${() =>
+                  userIsLogged
+                    ? toggleFollowUserAction(following, username)
+                    : changeLocation('#/login')}"
+              >
                 <i class="ion-plus-round"></i>
-                &nbsp; Follow ${username}
+                &nbsp; ${following ? 'Unfollow' : 'Follow'} ${username}
               </button>`}
         </div>
       </div>

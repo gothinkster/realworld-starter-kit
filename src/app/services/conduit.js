@@ -58,8 +58,25 @@ export async function updateSettings(settings) {
 }
 
 export async function getUser(username) {
+  const token = localStorage.getItem('token');
+  const headers = token === null ? {} : { Authorization: `Token ${token}` };
   const {
     data: { profile },
-  } = await Axios.get(`${baseUrl}/profiles/${username}`);
+  } = await Axios.get(`${baseUrl}/profiles/${username}`, {
+    headers,
+  });
+  return profile;
+}
+
+export async function toggleFollowUser(follow, username) {
+  const token = localStorage.getItem('token');
+  const headers = { Authorization: `Token ${token}` };
+  const url = `${baseUrl}/profiles/${username}/follow`;
+
+  const request = follow ? Axios.delete(url, { headers }) : Axios.post(url, {}, { headers });
+  const {
+    data: { profile },
+  } = await request;
+
   return profile;
 }

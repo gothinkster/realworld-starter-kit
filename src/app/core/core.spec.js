@@ -1,4 +1,4 @@
-const { preventDefaultOn } = require('./attributes');
+const { preventDefaultOn, changeLocation } = require('./attributes');
 
 describe('Core', () => {
   describe('Attributes', () => {
@@ -24,6 +24,15 @@ describe('Core', () => {
         preventDefaultOn(() => (flag = true))(null, event);
 
         expect(flag).toBe(true);
+      });
+    });
+
+    describe('Change Location', () => {
+      it('Should change location', () => {
+        location.href = '#something';
+        changeLocation('#anotherThing');
+
+        expect(location.hash).toBe('#anotherThing');
       });
     });
   });

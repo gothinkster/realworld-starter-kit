@@ -15,6 +15,9 @@ export default (
       tab,
       userProfile,
     }),
+    LOAD_USER_PROFILE: ({ userProfile }) => ({
+      userProfile,
+    }),
     START_LOAD_PROFILE_PAGE: ({ page }) => ({
       articles: {
         page,

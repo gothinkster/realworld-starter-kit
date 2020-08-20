@@ -13,3 +13,7 @@ export function preventDefaultOn(action) {
 export function preventDefault() {
   return preventDefaultOn(() => {});
 }
+
+export function changeLocation(destination) {
+  location.href = destination; /* eslint-disable-line functional/immutable-data */
+}

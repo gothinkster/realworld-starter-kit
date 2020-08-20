@@ -1,4 +1,4 @@
-import { getArticles, getUser } from '../services/conduit';
+import { getArticles, getUser, toggleFollowUser } from '../services/conduit';
 import store from '../store';
 
 export async function loadProfile(page) {
@@ -40,5 +40,13 @@ function endLoadProfilePage(articles, count) {
     type: 'LOAD_PROFILE_PAGE',
     articles,
     pageAmount: Math.ceil(count / 5),
+  });
+}
+
+export async function toggleFollowUserAction(follow, username) {
+  const userProfile = await toggleFollowUser(follow, username);
+  store.dispatch({
+    type: 'LOAD_USER_PROFILE',
+    userProfile,
   });
 }
