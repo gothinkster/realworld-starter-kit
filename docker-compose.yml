@@ -8,7 +8,7 @@ version: '3'
 services:
 
   mongodb:
-    image: mongo:4.2.0
+    image: mongo:4.4-bionic
     ports:
       - 3010:27017
 

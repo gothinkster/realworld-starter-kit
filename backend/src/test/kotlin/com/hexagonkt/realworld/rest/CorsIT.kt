@@ -27,7 +27,7 @@ class CorsIT {
         val settings = ClientSettings(Json.contentType)
         val client = Client(AhcAdapter(), "http://localhost:${server.runtimePort}/api", settings)
         val corsHeaders = "Accept,User-Agent,Host,Content-Type"
-        val response = client.options("/tags", callHeaders = mapOf(
+        val response = client.options("/tags", headers = mapOf(
             "Origin" to listOf("localhost"),
             "Access-Control-Request-Headers" to listOf(corsHeaders),
             "Access-Control-Request-Method" to listOf("GET")
