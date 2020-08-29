@@ -19,5 +19,13 @@ For more information on how to this works with other frontends/backends, head ov
 
 # Getting started
 
-> TODO
+```sh
+# Build the project
+rebar3 compile
 
+# Run the eunit tests
+rebar3 eunit
+
+# Run the Erlang REPL
+rebar3 shell
+```
