@@ -36,7 +36,6 @@ pub fn hello_world_test() {
 
 pub fn json_request_test() {
   let request =
-    http.default_req()
     http.Request(
       method: http.Post,
       headers: [],
@@ -66,7 +65,6 @@ pub fn json_request_test() {
 
 pub fn invalid_json_request_test() {
   let request =
-    http.default_req()
     http.Request(
       method: http.Post,
       headers: [],
@@ -95,7 +93,6 @@ pub fn invalid_json_request_test() {
 
 pub fn invalid_encoding_request_test() {
   let request =
-    http.default_req()
     http.Request(
       method: http.Post,
       headers: [],
