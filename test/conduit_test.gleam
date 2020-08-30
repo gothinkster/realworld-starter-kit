@@ -52,7 +52,7 @@ pub fn json_request_test() {
     |> conduit.service()
 
   response.status
-  |> should.equal(400)
+  |> should.equal(200)
 
   assert Ok(response_body) =
     response.body
@@ -61,7 +61,6 @@ pub fn json_request_test() {
   response_body
   |> should.equal("that's a fine json")
 }
-
 
 pub fn invalid_json_request_test() {
   let request =

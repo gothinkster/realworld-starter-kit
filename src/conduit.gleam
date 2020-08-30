@@ -30,8 +30,16 @@ fn validate_encoding(
 
 fn parse_json_body(request: http.Request(String)) -> OkOrErrorResponse {
   case json.decode(request.body) {
-    Ok(_) -> Ok(http.response(200) |> http.set_resp_body("that's a fine json"))
-    Error(_) -> Error(http.response(400) |> http.set_resp_body("Could not parse the json body"))
+    Ok(_) ->
+      Ok(
+        http.response(200)
+        |> http.set_resp_body("that's a fine json"),
+      )
+    Error(_) ->
+      Error(
+        http.response(400)
+        |> http.set_resp_body("Could not parse the json body"),
+      )
   }
 }
 
@@ -66,12 +74,10 @@ fn unresult(result: OkOrErrorResponse) -> http.Response(String) {
 pub fn service(
   request: http.Request(BitString),
 ) -> http.Response(bit_builder.BitBuilder) {
-  let response = 
-  request
-  |> router()
-  |> unresult()
+  let response =
+    request
+    |> router()
+    |> unresult()
   response
-  |> http.set_resp_body(
-    bit_builder.from_string(response.body),
-  )
+  |> http.set_resp_body(bit_builder.from_string(response.body))
 }
