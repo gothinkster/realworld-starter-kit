@@ -26,17 +26,24 @@ fn hello_world(
   )
 }
 
-pub fn service(
-  request: http.Request(BitString),
-) -> http.Response(bit_builder.BitBuilder) {
-  let string_response_result = {
-    try string_request = validate_encoding(request)
-    hello_world(string_request)
-  }
-  let string_response = case string_response_result {
+fn unresult(
+  result: Result(http.Response(String), http.Response(String)),
+) -> http.Response(String) {
+  case result {
     Ok(response) -> response
     Error(response) -> response
   }
+}
+
+pub fn service(
+  request: http.Request(BitString),
+) -> http.Response(bit_builder.BitBuilder) {
+  let string_response =
+    {
+      try string_request = validate_encoding(request)
+      hello_world(string_request)
+    }
+    |> unresult()
   http.set_resp_body(
     string_response,
     bit_builder.from_string(string_response.body),
