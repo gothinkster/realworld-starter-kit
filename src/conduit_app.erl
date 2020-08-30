@@ -18,8 +18,12 @@ stop(_State) ->
 %%                  type => worker(),        % optional
 %%                  modules => modules()}   % optional
 init([]) ->
-    SupFlags = #{strategy => one_for_all,
-                 intensity => 0,
-                 period => 1},
-    ChildSpecs = [],
+    SupFlags = #{strategy => one_for_all},
+    ChildSpecs = [
+        #{
+            id => conduit,
+            start => {gleam@http@elli, start, [fun conduit:service/1, 3000]},
+            modules => [elli]
+        }
+    ],
     {ok, {SupFlags, ChildSpecs}}.

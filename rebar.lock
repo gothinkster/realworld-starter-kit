@@ -1,6 +1,14 @@
 {"1.1.0",
-[{<<"gleam_stdlib">>,{pkg,<<"gleam_stdlib">>,<<"0.11.0">>},0}]}.
+[{<<"elli">>,{pkg,<<"elli">>,<<"3.3.0">>},0},
+ {<<"gleam_elli">>,{pkg,<<"gleam_elli">>,<<"0.1.1">>},0},
+ {<<"gleam_http">>,{pkg,<<"gleam_http">>,<<"1.3.0">>},0},
+ {<<"gleam_otp">>,{pkg,<<"gleam_otp">>,<<"0.0.1">>},1},
+ {<<"gleam_stdlib">>,{pkg,<<"gleam_stdlib">>,<<"0.11.0">>},0}]}.
 [
 {pkg_hash,[
+ {<<"elli">>, <<"089218762A7FF3D20AE81C8E911BD0F73EE4EE0ED85454226D1FC6B4FFF3B4F6">>},
+ {<<"gleam_elli">>, <<"BB9635BFE9ACA8540ADEBA6C622FB25E6E161285EF1384E63660B29902F5B3CA">>},
+ {<<"gleam_http">>, <<"DC84D787CB49550D7E98834A966A4F07EE90FE863A6088E752E8F1A208AB41C1">>},
+ {<<"gleam_otp">>, <<"2E43C9F807DDD281D1142F5D1428627F1D99A1E53C4C95D6CCB5B4A6C7799ABA">>},
  {<<"gleam_stdlib">>, <<"9B1089739574CDF78A1C25A463D770A98F59E63A92324D17095AD67E867EE549">>}]}
 ].
