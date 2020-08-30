@@ -5,21 +5,6 @@ import gleam/bit_builder
 type OkOrErrorResponse =
   Result(http.Response(String), http.Response(String))
 
-fn validate_encoding(
-  request: http.Request(BitString),
-) -> Result(http.Request(String), http.Response(String)) {
-  case bit_string.to_string(request.body) {
-    Ok(body) -> Ok(http.set_req_body(request, body))
-    Error(_) ->
-      Error(
-        http.response(500)
-        |> http.set_resp_body(
-          "Could not read the request body: make sure the body of your request is a valid UTF-8 string",
-        ),
-      )
-  }
-}
-
 fn hello_world(_request: http.Request(String)) -> OkOrErrorResponse {
   Ok(
     http.response(200)
@@ -40,6 +25,21 @@ fn router(request: http.Request(String)) -> OkOrErrorResponse {
   case request.method, path_segments {
     http.Get, ["hello"] -> hello_world(request)
     _, _ -> not_found()
+  }
+}
+
+fn validate_encoding(
+  request: http.Request(BitString),
+) -> Result(http.Request(String), http.Response(String)) {
+  case bit_string.to_string(request.body) {
+    Ok(body) -> Ok(http.set_req_body(request, body))
+    Error(_) ->
+      Error(
+        http.response(500)
+        |> http.set_resp_body(
+          "Could not read the request body: make sure the body of your request is a valid UTF-8 string",
+        ),
+      )
   }
 }
 
