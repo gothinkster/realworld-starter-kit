@@ -2,6 +2,7 @@ import gleam/http
 import gleam/bit_string
 import gleam/bit_builder
 import gleam/json
+import gleam/dynamic
 
 type TryableResponse =
   Result(http.Response(String), http.Response(String))
@@ -30,11 +31,22 @@ fn validate_encoding(
 
 fn parse_json_body(request: http.Request(String)) -> TryableResponse {
   case json.decode(request.body) {
-    Ok(_) ->
-      Ok(
-        http.response(200)
-        |> http.set_resp_body("that's a fine json you have there"),
-      )
+    Ok(json) -> {
+      let maybe_bar = {
+        try foo = dynamic.field(dynamic.from(json), "foo")
+        dynamic.string(foo)
+      }
+      case maybe_bar {
+        Ok("bar") -> Ok(
+            http.response(200)
+            |> http.set_resp_body("baz!"),
+          )
+        Error(_) -> Ok(
+          http.response(200)
+          |> http.set_resp_body("that's a fine json you have there"),
+        )
+      }
+    }
     Error(_) ->
       Error(
         http.response(400)
