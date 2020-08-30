@@ -15,7 +15,7 @@ pub fn hello_world_test() {
       scheme: http.Https,
       host: "localhost",
       port: option.None,
-      path: "hello",
+      path: "hello_world",
       query: option.None,
     )
 
@@ -34,17 +34,85 @@ pub fn hello_world_test() {
   |> should.equal("Hello, from conduit!")
 }
 
-pub fn invalid_encoding_request_test() {
+pub fn json_request_test() {
   let request =
     http.default_req()
-    |> http.set_req_body(<<0xF5>>)
+    http.Request(
+      method: http.Post,
+      headers: [],
+      body: <<"{\"foo\":\"bar\",\"nope\":null,\"values\":[1,2]}":utf8>>,
+      scheme: http.Https,
+      host: "localhost",
+      port: option.None,
+      path: "parse_json",
+      query: option.None,
+    )
 
   let response =
     request
     |> conduit.service()
 
   response.status
-  |> should.equal(500)
+  |> should.equal(400)
+
+  assert Ok(response_body) =
+    response.body
+    |> bit_builder.to_bit_string()
+    |> bit_string.to_string()
+  response_body
+  |> should.equal("that's a fine json")
+}
+
+
+pub fn invalid_json_request_test() {
+  let request =
+    http.default_req()
+    http.Request(
+      method: http.Post,
+      headers: [],
+      body: <<"{\"foo\"\"::}":utf8>>,
+      scheme: http.Https,
+      host: "localhost",
+      port: option.None,
+      path: "parse_json",
+      query: option.None,
+    )
+
+  let response =
+    request
+    |> conduit.service()
+
+  response.status
+  |> should.equal(400)
+
+  assert Ok(response_body) =
+    response.body
+    |> bit_builder.to_bit_string()
+    |> bit_string.to_string()
+  response_body
+  |> should.equal("Could not parse the json body")
+}
+
+pub fn invalid_encoding_request_test() {
+  let request =
+    http.default_req()
+    http.Request(
+      method: http.Post,
+      headers: [],
+      body: <<0xF5>>,
+      scheme: http.Https,
+      host: "localhost",
+      port: option.None,
+      path: "parse_json",
+      query: option.None,
+    )
+
+  let response =
+    request
+    |> conduit.service()
+
+  response.status
+  |> should.equal(400)
 
   assert Ok(response_body) =
     response.body

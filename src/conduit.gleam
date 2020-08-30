@@ -1,31 +1,16 @@
 import gleam/http
 import gleam/bit_string
 import gleam/bit_builder
+import gleam/json
 
 type OkOrErrorResponse =
   Result(http.Response(String), http.Response(String))
 
-fn hello_world(_request: http.Request(String)) -> OkOrErrorResponse {
+fn hello_world() -> OkOrErrorResponse {
   Ok(
     http.response(200)
     |> http.set_resp_body("Hello, from conduit!"),
   )
-}
-
-fn not_found() -> OkOrErrorResponse {
-  Error(
-    http.response(404)
-    |> http.set_resp_body("Not found"),
-  )
-}
-
-fn router(request: http.Request(String)) -> OkOrErrorResponse {
-  let path_segments = http.path_segments(request)
-
-  case request.method, path_segments {
-    http.Get, ["hello"] -> hello_world(request)
-    _, _ -> not_found()
-  }
 }
 
 fn validate_encoding(
@@ -35,11 +20,39 @@ fn validate_encoding(
     Ok(body) -> Ok(http.set_req_body(request, body))
     Error(_) ->
       Error(
-        http.response(500)
+        http.response(400)
         |> http.set_resp_body(
           "Could not read the request body: make sure the body of your request is a valid UTF-8 string",
         ),
       )
+  }
+}
+
+fn parse_json_body(request: http.Request(String)) -> OkOrErrorResponse {
+  case json.decode(request.body) {
+    Ok(_) -> Ok(http.response(200) |> http.set_resp_body("that's a fine json"))
+    Error(_) -> Error(http.response(400) |> http.set_resp_body("Could not parse the json body"))
+  }
+}
+
+fn parse_json(request: http.Request(BitString)) -> OkOrErrorResponse {
+  try string_request = validate_encoding(request)
+  parse_json_body(string_request)
+}
+
+fn not_found() -> OkOrErrorResponse {
+  Error(
+    http.response(404)
+    |> http.set_resp_body("Not found"),
+  )
+}
+
+fn router(request: http.Request(BitString)) -> OkOrErrorResponse {
+  let path_segments = http.path_segments(request)
+  case request.method, path_segments {
+    http.Get, ["hello_world"] -> hello_world()
+    http.Post, ["parse_json"] -> parse_json(request)
+    _, _ -> not_found()
   }
 }
 
@@ -53,14 +66,12 @@ fn unresult(result: OkOrErrorResponse) -> http.Response(String) {
 pub fn service(
   request: http.Request(BitString),
 ) -> http.Response(bit_builder.BitBuilder) {
-  let string_response =
-    {
-      try string_request = validate_encoding(request)
-      router(string_request)
-    }
-    |> unresult()
-  http.set_resp_body(
-    string_response,
-    bit_builder.from_string(string_response.body),
+  let response = 
+  request
+  |> router()
+  |> unresult()
+  response
+  |> http.set_resp_body(
+    bit_builder.from_string(response.body),
   )
 }
