@@ -5,30 +5,19 @@ import gleam/bit_builder
 import gleam/bit_string
 import gleam/option
 
-fn default_request() {
-  http.Request(
-    method: http.Get,
-    headers: [],
-    body: <<>>,
-    scheme: http.Http,
-    host: "",
-    port: option.None,
-    path: "",
-    query: option.None,
-  )
-}
-
 pub fn hello_world_test() {
+  let request =
+    http.default_req()
+    |> http.set_req_body(<<>>)
+
   let response =
-    default_request()
+    request
     |> conduit.service()
 
-  assert http.Response(status: status, headers: _, body: body) = response
-
-  status
+  response.status
   |> should.equal(200)
 
-  body
+  response.body
   |> bit_builder.to_bit_string()
   |> should.equal(bit_string.from_string("Hello, from conduit!"))
 }
