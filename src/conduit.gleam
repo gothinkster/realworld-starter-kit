@@ -37,14 +37,16 @@ fn parse_json_body(request: http.Request(String)) -> TryableResponse {
         dynamic.string(foo)
       }
       case maybe_bar {
-        Ok("bar") -> Ok(
+        Ok("bar") ->
+          Ok(
             http.response(200)
             |> http.set_resp_body("baz!"),
           )
-        Error(_) -> Ok(
-          http.response(200)
-          |> http.set_resp_body("that's a fine json you have there"),
-        )
+        Error(_) ->
+          Ok(
+            http.response(200)
+            |> http.set_resp_body("that's a fine json you have there"),
+          )
       }
     }
     Error(_) ->
