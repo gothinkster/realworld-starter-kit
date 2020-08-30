@@ -59,7 +59,7 @@ pub fn json_request_test() {
     |> bit_builder.to_bit_string()
     |> bit_string.to_string()
   response_body
-  |> should.equal("that's a fine json")
+  |> should.equal("that's a fine json you have there")
 }
 
 pub fn invalid_json_request_test() {

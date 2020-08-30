@@ -3,10 +3,10 @@ import gleam/bit_string
 import gleam/bit_builder
 import gleam/json
 
-type OkOrErrorResponse =
+type TryableResponse =
   Result(http.Response(String), http.Response(String))
 
-fn hello_world() -> OkOrErrorResponse {
+fn hello_world() -> TryableResponse {
   Ok(
     http.response(200)
     |> http.set_resp_body("Hello, from conduit!"),
@@ -28,12 +28,12 @@ fn validate_encoding(
   }
 }
 
-fn parse_json_body(request: http.Request(String)) -> OkOrErrorResponse {
+fn parse_json_body(request: http.Request(String)) -> TryableResponse {
   case json.decode(request.body) {
     Ok(_) ->
       Ok(
         http.response(200)
-        |> http.set_resp_body("that's a fine json"),
+        |> http.set_resp_body("that's a fine json you have there"),
       )
     Error(_) ->
       Error(
@@ -43,19 +43,19 @@ fn parse_json_body(request: http.Request(String)) -> OkOrErrorResponse {
   }
 }
 
-fn parse_json(request: http.Request(BitString)) -> OkOrErrorResponse {
+fn parse_json(request: http.Request(BitString)) -> TryableResponse {
   try string_request = validate_encoding(request)
   parse_json_body(string_request)
 }
 
-fn not_found() -> OkOrErrorResponse {
+fn not_found() -> TryableResponse {
   Error(
     http.response(404)
     |> http.set_resp_body("Not found"),
   )
 }
 
-fn router(request: http.Request(BitString)) -> OkOrErrorResponse {
+fn router(request: http.Request(BitString)) -> TryableResponse {
   let path_segments = http.path_segments(request)
   case request.method, path_segments {
     http.Get, ["hello_world"] -> hello_world()
@@ -64,7 +64,7 @@ fn router(request: http.Request(BitString)) -> OkOrErrorResponse {
   }
 }
 
-fn unresult(result: OkOrErrorResponse) -> http.Response(String) {
+fn untangle(result: TryableResponse) -> http.Response(String) {
   case result {
     Ok(response) -> response
     Error(response) -> response
@@ -77,7 +77,7 @@ pub fn service(
   let response =
     request
     |> router()
-    |> unresult()
+    |> untangle()
   response
   |> http.set_resp_body(bit_builder.from_string(response.body))
 }
