@@ -34,7 +34,7 @@ pub fn hello_world_test() {
   |> should.equal("Hello, from conduit!")
 }
 
-pub fn json_request_test() {
+pub fn json_request_foo_bar_detection_different_key_test() {
   let request =
     http.Request(
       method: http.Post,
@@ -62,7 +62,35 @@ pub fn json_request_test() {
   |> should.equal("that's a fine json you have there")
 }
 
-pub fn json_parsing_foo_detection_test() {
+pub fn json_request_foo_bar_detection_different_value_test() {
+  let request =
+    http.Request(
+      method: http.Post,
+      headers: [],
+      body: <<"{\"foo\":\"boo\"}":utf8>>,
+      scheme: http.Https,
+      host: "localhost",
+      port: option.None,
+      path: "json_check_foo",
+      query: option.None,
+    )
+
+  let response =
+    request
+    |> conduit.service()
+
+  response.status
+  |> should.equal(200)
+
+  assert Ok(response_body) =
+    response.body
+    |> bit_builder.to_bit_string()
+    |> bit_string.to_string()
+  response_body
+  |> should.equal("that's a fine json you have there")
+}
+
+pub fn json_parsing_foo_bar_detection_success_test() {
   let request =
     http.Request(
       method: http.Post,
