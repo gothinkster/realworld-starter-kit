@@ -43,7 +43,7 @@ pub fn json_request_test() {
       scheme: http.Https,
       host: "localhost",
       port: option.None,
-      path: "parse_json",
+      path: "json_check_foo",
       query: option.None,
     )
 
@@ -71,7 +71,7 @@ pub fn json_parsing_foo_detection_test() {
       scheme: http.Https,
       host: "localhost",
       port: option.None,
-      path: "parse_json",
+      path: "json_check_foo",
       query: option.None,
     )
 
@@ -99,7 +99,7 @@ pub fn invalid_json_request_test() {
       scheme: http.Https,
       host: "localhost",
       port: option.None,
-      path: "parse_json",
+      path: "json_check_foo",
       query: option.None,
     )
 
@@ -127,7 +127,7 @@ pub fn invalid_encoding_request_test() {
       scheme: http.Https,
       host: "localhost",
       port: option.None,
-      path: "parse_json",
+      path: "json_check_foo",
       query: option.None,
     )
 

@@ -4,10 +4,13 @@ import gleam/bit_builder
 import gleam/json
 import gleam/dynamic
 
-type TryableResponse =
+type RequestResponseResult(request_body_type) =
+  Result(http.Request(request_body_type), http.Response(String))
+
+type ResponseResponseResult =
   Result(http.Response(String), http.Response(String))
 
-fn hello_world() -> TryableResponse {
+fn hello_world() -> ResponseResponseResult {
   Ok(
     http.response(200)
     |> http.set_resp_body("Hello, from conduit!"),
@@ -16,7 +19,7 @@ fn hello_world() -> TryableResponse {
 
 fn validate_encoding(
   request: http.Request(BitString),
-) -> Result(http.Request(String), http.Response(String)) {
+) -> RequestResponseResult(String) {
   case bit_string.to_string(request.body) {
     Ok(body) -> Ok(http.set_req_body(request, body))
     Error(_) ->
@@ -29,26 +32,15 @@ fn validate_encoding(
   }
 }
 
-fn parse_json_body(request: http.Request(String)) -> TryableResponse {
+fn parse_json_body(
+  request: http.Request(String),
+) -> RequestResponseResult(json.Json) {
   case json.decode(request.body) {
-    Ok(json) -> {
-      let maybe_bar = {
-        try foo = dynamic.field(dynamic.from(json), "foo")
-        dynamic.string(foo)
-      }
-      case maybe_bar {
-        Ok("bar") ->
-          Ok(
-            http.response(200)
-            |> http.set_resp_body("baz!"),
-          )
-        Error(_) ->
-          Ok(
-            http.response(200)
-            |> http.set_resp_body("that's a fine json you have there"),
-          )
-      }
-    }
+    Ok(json) ->
+      Ok(
+        request
+        |> http.set_req_body(json),
+      )
     Error(_) ->
       Error(
         http.response(400)
@@ -57,28 +49,44 @@ fn parse_json_body(request: http.Request(String)) -> TryableResponse {
   }
 }
 
-fn parse_json(request: http.Request(BitString)) -> TryableResponse {
+fn json_check_foo(request: http.Request(BitString)) -> ResponseResponseResult {
   try string_request = validate_encoding(request)
-  parse_json_body(string_request)
+  try json = parse_json_body(string_request)
+  let maybe_foo_val = {
+    try foo = dynamic.field(dynamic.from(json.body), "foo")
+    dynamic.string(foo)
+  }
+  case maybe_foo_val {
+    Ok("bar") ->
+      Ok(
+        http.response(200)
+        |> http.set_resp_body("baz!"),
+      )
+    Error(_) ->
+      Ok(
+        http.response(200)
+        |> http.set_resp_body("that's a fine json you have there"),
+      )
+  }
 }
 
-fn not_found() -> TryableResponse {
+fn not_found() -> ResponseResponseResult {
   Error(
     http.response(404)
     |> http.set_resp_body("Not found"),
   )
 }
 
-fn router(request: http.Request(BitString)) -> TryableResponse {
+fn router(request: http.Request(BitString)) -> ResponseResponseResult {
   let path_segments = http.path_segments(request)
   case request.method, path_segments {
     http.Get, ["hello_world"] -> hello_world()
-    http.Post, ["parse_json"] -> parse_json(request)
+    http.Post, ["json_check_foo"] -> json_check_foo(request)
     _, _ -> not_found()
   }
 }
 
-fn untangle(result: TryableResponse) -> http.Response(String) {
+fn untangle(result: ResponseResponseResult) -> http.Response(String) {
   case result {
     Ok(response) -> response
     Error(response) -> response
