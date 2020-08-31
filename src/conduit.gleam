@@ -11,7 +11,7 @@ fn hello_world() -> Result(Response(String), Response(String)) {
   )
 }
 
-fn validate_encoding(
+fn check_encoding(
   request: Request(BitString),
 ) -> Result(String, Response(String)) {
   case bit_string.to_string(request.body) {
@@ -26,7 +26,7 @@ fn validate_encoding(
   }
 }
 
-fn validate_json(string_body: String) -> Result(Json, Response(String)) {
+fn parse_json(string_body: String) -> Result(Json, Response(String)) {
   case json.decode(string_body) {
     Ok(json_body) -> Ok(json_body)
     Error(_) ->
@@ -73,15 +73,15 @@ fn router(
   case request.method, path_segments {
     http.Get, ["hello_world"] -> hello_world()
     http.Post, ["json_check_foo"] -> {
-      try string_body = validate_encoding(request)
-      try json_body = validate_json(string_body)
+      try string_body = check_encoding(request)
+      try json_body = parse_json(string_body)
       json_check_foo(json_body)
     }
     _, _ -> not_found()
   }
 }
 
-fn untangle(
+fn unresult_response(
   result: Result(Response(String), Response(String)),
 ) -> Response(String) {
   case result {
@@ -91,10 +91,8 @@ fn untangle(
 }
 
 pub fn service(request: Request(BitString)) -> Response(BitBuilder) {
-  let response =
-    request
-    |> router()
-    |> untangle()
-  response
-  |> http.set_resp_body(bit_builder.from_string(response.body))
+  request
+  |> router()
+  |> unresult_response()
+  |> http.map_resp_body(bit_builder.from_string)
 }
