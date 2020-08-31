@@ -4,13 +4,7 @@ import gleam/bit_builder
 import gleam/json
 import gleam/dynamic
 
-type RequestResponseResult(request_body_type) =
-  Result(http.Request(request_body_type), http.Response(String))
-
-type ResponseResponseResult =
-  Result(http.Response(String), http.Response(String))
-
-fn hello_world() -> ResponseResponseResult {
+fn hello_world() -> Result(http.Response(String), http.Response(String)) {
   Ok(
     http.response(200)
     |> http.set_resp_body("Hello, from conduit!"),
@@ -19,7 +13,7 @@ fn hello_world() -> ResponseResponseResult {
 
 fn validate_encoding(
   request: http.Request(BitString),
-) -> RequestResponseResult(String) {
+) -> Result(http.Request(String), http.Response(String)) {
   case bit_string.to_string(request.body) {
     Ok(body) -> Ok(http.set_req_body(request, body))
     Error(_) ->
@@ -34,7 +28,7 @@ fn validate_encoding(
 
 fn parse_json_body(
   request: http.Request(String),
-) -> RequestResponseResult(json.Json) {
+) -> Result(http.Request(json.Json), http.Response(String)) {
   case json.decode(request.body) {
     Ok(json) ->
       Ok(
@@ -49,7 +43,9 @@ fn parse_json_body(
   }
 }
 
-fn json_check_foo(request: http.Request(BitString)) -> ResponseResponseResult {
+fn json_check_foo(
+  request: http.Request(BitString),
+) -> Result(http.Response(String), http.Response(String)) {
   try string_request = validate_encoding(request)
   try json = parse_json_body(string_request)
   let maybe_foo_val = {
@@ -71,14 +67,16 @@ fn json_check_foo(request: http.Request(BitString)) -> ResponseResponseResult {
   }
 }
 
-fn not_found() -> ResponseResponseResult {
+fn not_found() -> Result(http.Response(String), http.Response(String)) {
   Error(
     http.response(404)
     |> http.set_resp_body("Not found"),
   )
 }
 
-fn router(request: http.Request(BitString)) -> ResponseResponseResult {
+fn router(
+  request: http.Request(BitString),
+) -> Result(http.Response(String), http.Response(String)) {
   let path_segments = http.path_segments(request)
   case request.method, path_segments {
     http.Get, ["hello_world"] -> hello_world()
@@ -87,7 +85,9 @@ fn router(request: http.Request(BitString)) -> ResponseResponseResult {
   }
 }
 
-fn untangle(result: ResponseResponseResult) -> http.Response(String) {
+fn untangle(
+  result: Result(http.Response(String), http.Response(String)),
+) -> http.Response(String) {
   case result {
     Ok(response) -> response
     Error(response) -> response
