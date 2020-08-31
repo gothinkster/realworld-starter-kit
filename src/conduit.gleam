@@ -13,9 +13,9 @@ fn hello_world() -> Result(Response(String), Response(String)) {
 
 fn validate_encoding(
   request: Request(BitString),
-) -> Result(Request(String), Response(String)) {
+) -> Result(String, Response(String)) {
   case bit_string.to_string(request.body) {
-    Ok(body) -> Ok(http.set_req_body(request, body))
+    Ok(body) -> Ok(body)
     Error(_) ->
       Error(
         http.response(400)
@@ -26,15 +26,9 @@ fn validate_encoding(
   }
 }
 
-fn parse_json_body(
-  request: Request(String),
-) -> Result(Request(Json), Response(String)) {
-  case json.decode(request.body) {
-    Ok(json) ->
-      Ok(
-        request
-        |> http.set_req_body(json),
-      )
+fn validate_json(string_body: String) -> Result(Json, Response(String)) {
+  case json.decode(string_body) {
+    Ok(json_body) -> Ok(json_body)
     Error(_) ->
       Error(
         http.response(400)
@@ -44,12 +38,10 @@ fn parse_json_body(
 }
 
 fn json_check_foo(
-  request: Request(BitString),
+  json_body: json.Json,
 ) -> Result(Response(String), Response(String)) {
-  try string_request = validate_encoding(request)
-  try json = parse_json_body(string_request)
   let maybe_foo_val = {
-    let map = dynamic.from(json.body)
+    let map = dynamic.from(json_body)
     try foo = dynamic.field(map, "foo")
     dynamic.string(foo)
   }
@@ -80,7 +72,11 @@ fn router(
   let path_segments = http.path_segments(request)
   case request.method, path_segments {
     http.Get, ["hello_world"] -> hello_world()
-    http.Post, ["json_check_foo"] -> json_check_foo(request)
+    http.Post, ["json_check_foo"] -> {
+      try string_body = validate_encoding(request)
+      try json_body = validate_json(string_body)
+      json_check_foo(json_body)
+    }
     _, _ -> not_found()
   }
 }
