@@ -53,7 +53,8 @@ fn json_check_foo(request: http.Request(BitString)) -> ResponseResponseResult {
   try string_request = validate_encoding(request)
   try json = parse_json_body(string_request)
   let maybe_foo_val = {
-    try foo = dynamic.field(dynamic.from(json.body), "foo")
+    let map = dynamic.from(json.body)
+    try foo = dynamic.field(map, "foo")
     dynamic.string(foo)
   }
   case maybe_foo_val {
