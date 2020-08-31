@@ -39,7 +39,7 @@ pub fn json_request_test() {
     http.Request(
       method: http.Post,
       headers: [],
-      body: <<"{\"fow\":\"bar\",\"nope\":null,\"values\":[1,2]}":utf8>>,
+      body: <<"{\"fow\":\"bar\"}":utf8>>,
       scheme: http.Https,
       host: "localhost",
       port: option.None,
@@ -62,12 +62,12 @@ pub fn json_request_test() {
   |> should.equal("that's a fine json you have there")
 }
 
-pub fn json_parsing_test() {
+pub fn json_parsing_foo_detection_test() {
   let request =
     http.Request(
       method: http.Post,
       headers: [],
-      body: <<"{\"foo\":\"bar\",\"nope\":null,\"values\":[1,2]}":utf8>>,
+      body: <<"{\"foo\":\"bar\"}":utf8>>,
       scheme: http.Https,
       host: "localhost",
       port: option.None,
