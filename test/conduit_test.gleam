@@ -1,22 +1,22 @@
 import conduit
 import gleam/should
-import gleam/http
+import gleam/http.{Get, Https, Post, Request}
 import gleam/bit_builder
 import gleam/bit_string
-import gleam/option
+import gleam/option.{None}
 import gleam/string
 
 pub fn hello_world_test() {
   let request =
-    http.Request(
-      method: http.Get,
+    Request(
+      method: Get,
       headers: [],
       body: <<>>,
-      scheme: http.Https,
+      scheme: Https,
       host: "localhost",
-      port: option.None,
+      port: None,
       path: "hello_world",
-      query: option.None,
+      query: None,
     )
 
   let response =
@@ -36,15 +36,15 @@ pub fn hello_world_test() {
 
 pub fn json_request_foo_bar_detection_different_key_test() {
   let request =
-    http.Request(
-      method: http.Post,
+    Request(
+      method: Post,
       headers: [],
       body: <<"{\"fow\":\"bar\"}":utf8>>,
-      scheme: http.Https,
+      scheme: Https,
       host: "localhost",
-      port: option.None,
+      port: None,
       path: "json_check_foo",
-      query: option.None,
+      query: None,
     )
 
   let response =
@@ -64,15 +64,15 @@ pub fn json_request_foo_bar_detection_different_key_test() {
 
 pub fn json_request_foo_bar_detection_different_value_test() {
   let request =
-    http.Request(
-      method: http.Post,
+    Request(
+      method: Post,
       headers: [],
       body: <<"{\"foo\":\"boo\"}":utf8>>,
-      scheme: http.Https,
+      scheme: Https,
       host: "localhost",
-      port: option.None,
+      port: None,
       path: "json_check_foo",
-      query: option.None,
+      query: None,
     )
 
   let response =
@@ -92,15 +92,15 @@ pub fn json_request_foo_bar_detection_different_value_test() {
 
 pub fn json_parsing_foo_bar_detection_success_test() {
   let request =
-    http.Request(
-      method: http.Post,
+    Request(
+      method: Post,
       headers: [],
       body: <<"{\"foo\":\"bar\"}":utf8>>,
-      scheme: http.Https,
+      scheme: Https,
       host: "localhost",
-      port: option.None,
+      port: None,
       path: "json_check_foo",
-      query: option.None,
+      query: None,
     )
 
   let response =
@@ -120,15 +120,15 @@ pub fn json_parsing_foo_bar_detection_success_test() {
 
 pub fn invalid_json_request_test() {
   let request =
-    http.Request(
-      method: http.Post,
+    Request(
+      method: Post,
       headers: [],
       body: <<"{\"foo\"\"::}":utf8>>,
-      scheme: http.Https,
+      scheme: Https,
       host: "localhost",
-      port: option.None,
+      port: None,
       path: "json_check_foo",
-      query: option.None,
+      query: None,
     )
 
   let response =
@@ -148,15 +148,15 @@ pub fn invalid_json_request_test() {
 
 pub fn invalid_encoding_request_test() {
   let request =
-    http.Request(
-      method: http.Post,
+    Request(
+      method: Post,
       headers: [],
       body: <<0xF5>>,
-      scheme: http.Https,
+      scheme: Https,
       host: "localhost",
-      port: option.None,
+      port: None,
       path: "json_check_foo",
-      query: option.None,
+      query: None,
     )
 
   let response =
@@ -177,15 +177,15 @@ pub fn invalid_encoding_request_test() {
 
 pub fn not_found_test() {
   let request =
-    http.Request(
-      method: http.Get,
+    Request(
+      method: Get,
       headers: [],
       body: <<>>,
-      scheme: http.Https,
+      scheme: Https,
       host: "localhost",
-      port: option.None,
+      port: None,
       path: "asd/fa/sdfso/me/rando/mst/ring",
-      query: option.None,
+      query: None,
     )
 
   let response =
