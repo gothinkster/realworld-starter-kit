@@ -6,18 +6,14 @@ import gleam/bit_string
 import gleam/option.{None}
 import gleam/string
 
+fn default_request() {
+  http.default_req()
+  |> http.set_req_body(<<>>)
+}
+
 pub fn hello_world_test() {
-  let request =
-    Request(
-      method: Get,
-      headers: [],
-      body: <<>>,
-      scheme: Https,
-      host: "localhost",
-      port: None,
-      path: "hello_world",
-      query: None,
-    )
+  let default_request = default_request()
+  let request = Request(..default_request, path: "hello_world")
 
   let response =
     request
@@ -35,16 +31,13 @@ pub fn hello_world_test() {
 }
 
 pub fn json_request_foo_bar_detection_different_key_test() {
+  let default_request = default_request()
   let request =
     Request(
+      ..default_request,
       method: Post,
-      headers: [],
-      body: <<"{\"fow\":\"bar\"}":utf8>>,
-      scheme: Https,
-      host: "localhost",
-      port: None,
       path: "json_check_foo",
-      query: None,
+      body: <<"{\"fow\":\"bar\"}":utf8>>,
     )
 
   let response =
@@ -63,16 +56,13 @@ pub fn json_request_foo_bar_detection_different_key_test() {
 }
 
 pub fn json_request_foo_bar_detection_different_value_test() {
+  let default_request = default_request()
   let request =
     Request(
+      ..default_request,
       method: Post,
-      headers: [],
-      body: <<"{\"foo\":\"boo\"}":utf8>>,
-      scheme: Https,
-      host: "localhost",
-      port: None,
       path: "json_check_foo",
-      query: None,
+      body: <<"{\"foo\":\"boo\"}":utf8>>,
     )
 
   let response =
@@ -91,16 +81,13 @@ pub fn json_request_foo_bar_detection_different_value_test() {
 }
 
 pub fn json_parsing_foo_bar_detection_success_test() {
+  let default_request = default_request()
   let request =
     Request(
+      ..default_request,
       method: Post,
-      headers: [],
-      body: <<"{\"foo\":\"bar\"}":utf8>>,
-      scheme: Https,
-      host: "localhost",
-      port: None,
       path: "json_check_foo",
-      query: None,
+      body: <<"{\"foo\":\"bar\"}":utf8>>,
     )
 
   let response =
@@ -119,16 +106,13 @@ pub fn json_parsing_foo_bar_detection_success_test() {
 }
 
 pub fn invalid_json_request_test() {
+  let default_request = default_request()
   let request =
     Request(
+      ..default_request,
       method: Post,
-      headers: [],
-      body: <<"{\"foo\"\"::}":utf8>>,
-      scheme: Https,
-      host: "localhost",
-      port: None,
       path: "json_check_foo",
-      query: None,
+      body: <<"{\"foo\"\"::}":utf8>>,
     )
 
   let response =
@@ -147,16 +131,13 @@ pub fn invalid_json_request_test() {
 }
 
 pub fn invalid_encoding_request_test() {
+  let default_request = default_request()
   let request =
     Request(
+      ..default_request,
       method: Post,
-      headers: [],
-      body: <<0xF5>>,
-      scheme: Https,
-      host: "localhost",
-      port: None,
       path: "json_check_foo",
-      query: None,
+      body: <<0xF5>>,
     )
 
   let response =
@@ -176,17 +157,9 @@ pub fn invalid_encoding_request_test() {
 }
 
 pub fn not_found_test() {
+  let default_request = default_request()
   let request =
-    Request(
-      method: Get,
-      headers: [],
-      body: <<>>,
-      scheme: Https,
-      host: "localhost",
-      port: None,
-      path: "asd/fa/sdfso/me/rando/mst/ring",
-      query: None,
-    )
+    Request(..default_request, path: "asd/fa/sdfso/me/rando/mst/ring")
 
   let response =
     request
