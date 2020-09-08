@@ -1,17 +1,13 @@
 {application, conduit,
  [{description, "A Gleam program"},
   {vsn, "0.0.0"},
-  {registered, []},
   {mod, {conduit_app, []}},
   {applications,
    [kernel,
     stdlib,
-    gleam_stdlib
+    gleam_stdlib,
+    pgo
    ]},
-  {env,[]},
-  {modules, []},
-
   {include_files, ["gleam.toml", "gen"]},
-  {licenses, ["WTFPL 2"]},
-  {links, []}
+  {licenses, ["WTFPL 2"]}
 ]}.
