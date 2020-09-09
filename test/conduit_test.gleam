@@ -181,14 +181,11 @@ fn not_found_test() {
 //   let default_request = default_request()
 //   let request =
 //     Request(..default_request, path: "add_stuff/111")
-
 //   let response =
 //     request
 //     |> conduit.service()
-
 //   response.status
 //   |> should.equal(200)
-
 //   assert Ok(response_body) =
 //     response.body
 //     |> bit_builder.to_bit_string()
@@ -196,7 +193,6 @@ fn not_found_test() {
 //   response_body
 //   |> should.equal("Alrighty! We have new stuff")
 // }
-
 fn setup() {
   Nil
 }
@@ -214,16 +210,11 @@ fn conduit_test_suite(_) {
     invalid_json_request_test,
     invalid_encoding_request_test,
     not_found_test,
-    // try_add_to_db_test
   ]
+  // try_add_to_db_test
 }
 
 pub fn conduit_test_() {
   assert Ok(setup_atom) = atom.from_string("setup")
-  tuple(
-    setup_atom,
-    setup,
-    cleanup,
-    conduit_test_suite
-  )
+  tuple(setup_atom, setup, cleanup, conduit_test_suite)
 }
