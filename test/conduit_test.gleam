@@ -1,11 +1,13 @@
 import conduit
+import conduit/db_setup
 import gleam/should
 import gleam/http.{Get, Https, Post, Request}
 import gleam/bit_builder
 import gleam/bit_string
 import gleam/option.{None}
 import gleam/string
-import gleam/atom
+import gleam/atom.{Atom}
+import gleam/dynamic.{Dynamic}
 
 fn default_request() {
   http.default_req()
@@ -177,23 +179,29 @@ fn not_found_test() {
   |> should.equal("Not found")
 }
 
-// fn try_add_to_db_test() {
-//   let default_request = default_request()
-//   let request =
-//     Request(..default_request, path: "add_stuff/111")
-//   let response =
-//     request
-//     |> conduit.service()
-//   response.status
-//   |> should.equal(200)
-//   assert Ok(response_body) =
-//     response.body
-//     |> bit_builder.to_bit_string()
-//     |> bit_string.to_string()
-//   response_body
-//   |> should.equal("Alrighty! We have new stuff")
-// }
+fn try_add_to_db_test() {
+  let default_request = default_request()
+  let request = Request(..default_request, path: "add_stuff/112")
+  let response =
+    request
+    |> conduit.service()
+  response.status
+  |> should.equal(200)
+  assert Ok(response_body) =
+    response.body
+    |> bit_builder.to_bit_string()
+    |> bit_string.to_string()
+  response_body
+  |> should.equal("Alrighty! We have new stuff")
+}
+
+external fn application_ensure_all_started(Atom) -> Dynamic =
+  "application" "ensure_all_started"
+
 fn setup() {
+  assert Ok(pgo) = atom.from_string("pgo")
+  application_ensure_all_started(pgo)
+  db_setup.set_up_database("conduit_test")
   Nil
 }
 
@@ -210,8 +218,8 @@ fn conduit_test_suite(_) {
     invalid_json_request_test,
     invalid_encoding_request_test,
     not_found_test,
+    try_add_to_db_test,
   ]
-  // try_add_to_db_test
 }
 
 pub fn conduit_test_() {
