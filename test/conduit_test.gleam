@@ -5,13 +5,14 @@ import gleam/bit_builder
 import gleam/bit_string
 import gleam/option.{None}
 import gleam/string
+import gleam/atom
 
 fn default_request() {
   http.default_req()
   |> http.set_req_body(<<>>)
 }
 
-pub fn hello_world_test() {
+fn hello_world_test() {
   let default_request = default_request()
   let request = Request(..default_request, path: "hello_world")
 
@@ -30,7 +31,7 @@ pub fn hello_world_test() {
   |> should.equal("Hello, from conduit!")
 }
 
-pub fn json_request_foo_bar_detection_different_key_test() {
+fn json_request_foo_bar_detection_different_key_test() {
   let default_request = default_request()
   let request =
     Request(
@@ -55,7 +56,7 @@ pub fn json_request_foo_bar_detection_different_key_test() {
   |> should.equal("that's a fine json you have there")
 }
 
-pub fn json_request_foo_bar_detection_different_value_test() {
+fn json_request_foo_bar_detection_different_value_test() {
   let default_request = default_request()
   let request =
     Request(
@@ -80,7 +81,7 @@ pub fn json_request_foo_bar_detection_different_value_test() {
   |> should.equal("that's a fine json you have there")
 }
 
-pub fn json_parsing_foo_bar_detection_success_test() {
+fn json_parsing_foo_bar_detection_success_test() {
   let default_request = default_request()
   let request =
     Request(
@@ -105,7 +106,7 @@ pub fn json_parsing_foo_bar_detection_success_test() {
   |> should.equal("baz!")
 }
 
-pub fn invalid_json_request_test() {
+fn invalid_json_request_test() {
   let default_request = default_request()
   let request =
     Request(
@@ -130,7 +131,7 @@ pub fn invalid_json_request_test() {
   |> should.equal("Could not parse the json body")
 }
 
-pub fn invalid_encoding_request_test() {
+fn invalid_encoding_request_test() {
   let default_request = default_request()
   let request =
     Request(
@@ -156,7 +157,7 @@ pub fn invalid_encoding_request_test() {
   |> should.be_true()
 }
 
-pub fn not_found_test() {
+fn not_found_test() {
   let default_request = default_request()
   let request =
     Request(..default_request, path: "asd/fa/sdfso/me/rando/mst/ring")
@@ -174,4 +175,55 @@ pub fn not_found_test() {
     |> bit_string.to_string()
   response_body
   |> should.equal("Not found")
+}
+
+// fn try_add_to_db_test() {
+//   let default_request = default_request()
+//   let request =
+//     Request(..default_request, path: "add_stuff/111")
+
+//   let response =
+//     request
+//     |> conduit.service()
+
+//   response.status
+//   |> should.equal(200)
+
+//   assert Ok(response_body) =
+//     response.body
+//     |> bit_builder.to_bit_string()
+//     |> bit_string.to_string()
+//   response_body
+//   |> should.equal("Alrighty! We have new stuff")
+// }
+
+fn setup() {
+  Nil
+}
+
+fn cleanup(_) {
+  Nil
+}
+
+fn conduit_test_suite(_) {
+  [
+    hello_world_test,
+    json_request_foo_bar_detection_different_key_test,
+    json_request_foo_bar_detection_different_value_test,
+    json_parsing_foo_bar_detection_success_test,
+    invalid_json_request_test,
+    invalid_encoding_request_test,
+    not_found_test,
+    // try_add_to_db_test
+  ]
+}
+
+pub fn conduit_test_() {
+  assert Ok(setup_atom) = atom.from_string("setup")
+  tuple(
+    setup_atom,
+    setup,
+    cleanup,
+    conduit_test_suite
+  )
 }
