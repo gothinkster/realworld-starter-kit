@@ -8,10 +8,9 @@ import gleam/atom
 import gleam/pgo
 
 fn hello_world() -> Result(Response(String), Response(String)) {
-  Ok(
-    http.response(200)
-    |> http.set_resp_body("Hello, from conduit!"),
-  )
+  http.response(200)
+  |> http.set_resp_body("Hello, from conduit!")
+  |> Ok()
 }
 
 fn check_encoding(
@@ -20,12 +19,11 @@ fn check_encoding(
   case bit_string.to_string(request.body) {
     Ok(body) -> Ok(body)
     Error(_) ->
-      Error(
-        http.response(400)
-        |> http.set_resp_body(
-          "Could not read the request body: make sure the body of your request is a valid UTF-8 string",
-        ),
+      http.response(400)
+      |> http.set_resp_body(
+        "Could not read the request body: make sure the body of your request is a valid UTF-8 string",
       )
+      |> Error()
   }
 }
 
@@ -33,10 +31,9 @@ fn parse_json(string_body: String) -> Result(Json, Response(String)) {
   case json.decode(string_body) {
     Ok(json_body) -> Ok(json_body)
     Error(_) ->
-      Error(
-        http.response(400)
-        |> http.set_resp_body("Could not parse the json body"),
-      )
+      http.response(400)
+      |> http.set_resp_body("Could not parse the json body")
+      |> Error()
   }
 }
 
@@ -50,15 +47,13 @@ fn json_check_foo(
   }
   case maybe_foo_val {
     Ok("bar") ->
-      Ok(
-        http.response(200)
-        |> http.set_resp_body("baz!"),
-      )
+      http.response(200)
+      |> http.set_resp_body("baz!")
+      |> Ok()
     _ ->
-      Ok(
-        http.response(200)
-        |> http.set_resp_body("that's a fine json you have there"),
-      )
+      http.response(200)
+      |> http.set_resp_body("that's a fine json you have there")
+      |> Ok()
   }
 }
 
@@ -66,10 +61,9 @@ fn parse_number(number_string: String) -> Result(Int, Response(String)) {
   case int.parse(number_string) {
     Ok(parsed_number) -> Ok(parsed_number)
     Error(Nil) ->
-      Error(
-        http.response(400)
-        |> http.set_resp_body("That's not a number!"),
-      )
+      http.response(400)
+      |> http.set_resp_body("That's not a number!")
+      |> Error()
   }
 }
 
@@ -83,25 +77,22 @@ fn add_stuff_to_database(
     [pgo.int(number)],
   ) {
     Ok(_) ->
-      Ok(
-        http.response(200)
-        |> http.set_resp_body("Alrighty! We have new stuff"),
-      )
+      http.response(200)
+      |> http.set_resp_body("Alrighty! We have new stuff")
+      |> Ok()
     Error(_) ->
-      Error(
-        http.response(400)
-        |> http.set_resp_body(
-          "Uh oh! That didn't work. Maybe we already had your stuff?",
-        ),
+      http.response(400)
+      |> http.set_resp_body(
+        "Uh oh! That didn't work. Maybe we already had your stuff?",
       )
+      |> Error()
   }
 }
 
 fn not_found() -> Result(Response(String), Response(String)) {
-  Error(
-    http.response(404)
-    |> http.set_resp_body("Not found"),
-  )
+  http.response(404)
+  |> http.set_resp_body("Not found")
+  |> Error()
 }
 
 fn router(
