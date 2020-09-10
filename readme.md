@@ -3,7 +3,7 @@
 > ### Event Driven Architecture Vanilla JS Web Components codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
 
 
-### [Demo](https://weedshaker.github.io/event-driven-web-components-realworld-example-app)&nbsp;&nbsp;&nbsp;&nbsp;[Test](https://weedshaker.github.io/event-driven-web-components-realworld-example-app/test)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
+### [Demo](https://mits-gossau.github.io/event-driven-web-components-realworld-example-app)&nbsp;&nbsp;&nbsp;&nbsp;[Test](https://mits-gossau.github.io/event-driven-web-components-realworld-example-app/test)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
 ```diff
 - Work in progress...
 ```
@@ -37,16 +37,16 @@ For more information on how to this works with other frontends/backends, head ov
 
 # Lighthouse Audits
 
-## React / Redux (81)
+## [React / Redux (81)](https://github.com/gothinkster/react-redux-realworld-example-app)
 ![react-redux.realworld](./images/react-redux.realworld.png)
 
-## Angular (75)
+## [Angular (75)](https://github.com/gothinkster/angular-realworld-example-app)
 ![angular.realworld.io](./images/angular.realworld.io.png)
 
-## Vue (82)
+## [Vue (82)](https://github.com/gothinkster/vue-realworld-example-app)
 ![vue-vuex-realworld.netlify](./images/vue-vuex-realworld.netlify.png)
 
-## Vanilla JS Web Components (92)
+## [Vanilla JS Web Components (92)](https://github.com/gothinkster/web-components-realworld-example-app)
 ![conduit-vanilla.herokuapp](./images/conduit-vanilla.herokuapp.png)
 
 ## Event Driven Vanilla JS Web Components (95)
