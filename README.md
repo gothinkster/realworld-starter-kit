@@ -17,15 +17,26 @@ For more information on how to this works with other frontends/backends, head ov
 
 # Getting started
 
-TODO: set up database config, create the database, run migrations
-
+Compile:
 ```sh
-# Build the project
 rebar3 compile
+```
 
-# Run the eunit tests
+Set up the database for development:
+```
+$ rebar3 shell --apps pgo
+1> 'conduit@db_setup':set_up_database(<<"conduit_dev"/utf8>>).
+```
+
+For tests, the test database will be automatically destroyed
+and recreated from scratch before running the tests.
+
+Run tests:
+```sh
 rebar3 eunit
+```
 
-# Run the Erlang REPL
+Run the app with access to the Erlang REPL:
+```sh
 rebar3 shell
 ```
