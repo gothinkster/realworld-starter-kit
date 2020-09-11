@@ -221,18 +221,18 @@ fn try_add_to_db_test() {
 external fn application_ensure_all_started(Atom) -> Dynamic =
   "application" "ensure_all_started"
 
-fn setup() {
+fn top_setup() {
   assert Ok(pgo) = atom.from_string("pgo")
   application_ensure_all_started(pgo)
   db_setup.set_up_database("conduit_test")
   Nil
 }
 
-fn cleanup(_) {
+fn top_cleanup(_) {
   Nil
 }
 
-fn conduit_test_suite(_) {
+fn parallel_tests(_) {
   assert Ok(inparallel) = atom.from_string("inparallel")
   tuple(
     inparallel,
@@ -245,12 +245,29 @@ fn conduit_test_suite(_) {
       invalid_json_request_test,
       invalid_encoding_request_test,
       not_found_test,
-      try_add_to_db_test,
+    ],
+  )
+}
+
+fn ordered_tests(_) {
+  assert Ok(inorder) = atom.from_string("inorder")
+  // Those tests  need to run in order, e.g. because they change
+  // database data and we don't have sandboxing set up
+  tuple(inorder, [try_add_to_db_test])
+}
+
+fn conduit_test_suite(setup_return_value) {
+  assert Ok(inorder) = atom.from_string("inorder")
+  tuple(
+    inorder,
+    [
+      dynamic.from(parallel_tests(setup_return_value)),
+      dynamic.from(ordered_tests(setup_return_value)),
     ],
   )
 }
 
 pub fn conduit_test_() {
-  assert Ok(setup_atom) = atom.from_string("setup")
-  tuple(setup_atom, setup, cleanup, conduit_test_suite)
+  assert Ok(setup) = atom.from_string("setup")
+  tuple(setup, top_setup, top_cleanup, conduit_test_suite)
 }
