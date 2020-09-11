@@ -9,6 +9,29 @@ import gleam/string
 import gleam/atom.{Atom}
 import gleam/dynamic.{Dynamic}
 
+external fn io_format(Atom, String, List(a)) -> Dynamic =
+  "io" "format"
+
+external fn rand_uniform(Int) -> Int =
+  "rand" "uniform"
+
+external fn timer_sleep(Int) -> Dynamic =
+  "timer" "sleep"
+
+fn debug_user_print_string(string) {
+  assert Ok(user) = atom.from_string("user")
+  io_format(user, "~tp~n", [string])
+}
+
+fn sleep(milliseconds) {
+  timer_sleep(milliseconds)
+}
+
+fn random_sleep() {
+  rand_uniform(2000)
+  |> sleep()
+}
+
 fn default_request() {
   http.default_req()
   |> http.set_req_body(<<>>)
@@ -210,16 +233,21 @@ fn cleanup(_) {
 }
 
 fn conduit_test_suite(_) {
-  [
-    hello_world_test,
-    json_request_foo_bar_detection_different_key_test,
-    json_request_foo_bar_detection_different_value_test,
-    json_parsing_foo_bar_detection_success_test,
-    invalid_json_request_test,
-    invalid_encoding_request_test,
-    not_found_test,
-    try_add_to_db_test,
-  ]
+  assert Ok(inparallel) = atom.from_string("inparallel")
+  tuple(
+    inparallel,
+    8,
+    [
+      hello_world_test,
+      json_request_foo_bar_detection_different_key_test,
+      json_request_foo_bar_detection_different_value_test,
+      json_parsing_foo_bar_detection_success_test,
+      invalid_json_request_test,
+      invalid_encoding_request_test,
+      not_found_test,
+      try_add_to_db_test,
+    ],
+  )
 }
 
 pub fn conduit_test_() {
