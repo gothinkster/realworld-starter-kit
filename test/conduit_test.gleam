@@ -224,7 +224,7 @@ external fn application_ensure_all_started(Atom) -> Dynamic =
 fn top_setup() {
   assert Ok(pgo) = atom.from_string("pgo")
   application_ensure_all_started(pgo)
-  db_setup.set_up_database("conduit_test")
+  db_setup.reset_database("conduit_test")
   Nil
 }
 
