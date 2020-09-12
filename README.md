@@ -25,7 +25,7 @@ rebar3 compile
 Set up the database for development:
 ```
 $ rebar3 shell --apps pgo
-1> 'conduit@db_setup':reset_database(<<"conduit_dev"/utf8>>).
+1> 'conduit@db@db_setup':reset_database(<<"conduit_dev"/utf8>>).
 ```
 
 For tests, the test database will be automatically re-set

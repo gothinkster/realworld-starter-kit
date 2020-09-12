@@ -67,17 +67,8 @@ type Migration {
   Migration(id: String, function: fn() -> Nil)
 }
 
-fn create_stuff() {
-  erl_query(
-    "CREATE TABLE stuff (id bigint primary key)",
-    [],
-    conduit_db_query_options(),
-  )
-  Nil
-}
-
 fn migrations() {
-  [Migration("create stuff", create_stuff)]
+  []
 }
 
 pub fn migrate_database() {
