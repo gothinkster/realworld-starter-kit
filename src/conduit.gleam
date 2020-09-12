@@ -7,6 +7,10 @@ import gleam/int
 import gleam/atom
 import gleam/pgo
 
+fn conduit_db_pool() {
+  atom.create_from_string("default")
+}
+
 fn hello_world() -> Result(Response(String), Response(String)) {
   http.response(200)
   |> http.set_resp_body("Hello, from conduit!")
@@ -70,9 +74,8 @@ fn parse_number(number_string: String) -> Result(Int, Response(String)) {
 fn add_stuff_to_database(
   number: Int,
 ) -> Result(Response(String), Response(String)) {
-  assert Ok(default) = atom.from_string("default")
   case pgo.query(
-    default,
+    conduit_db_pool(),
     "insert into stuff(id) values ($1)",
     [pgo.int(number)],
   ) {
