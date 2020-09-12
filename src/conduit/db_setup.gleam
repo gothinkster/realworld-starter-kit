@@ -63,10 +63,13 @@ pub fn run_conduit_db_pool(name) {
   io.println("Counduit database connection pool is running!")
 }
 
-// MIGRATIONS
+type Migration {
+  Migration(id: String, function: fn() -> Nil)
+}
+
 fn create_stuff() {
   erl_query(
-    "CREATE TABLE IF NOT EXISTS stuff (id bigint primary key)",
+    "CREATE TABLE stuff (id bigint primary key)",
     [],
     conduit_db_query_options(),
   )
@@ -74,12 +77,12 @@ fn create_stuff() {
 }
 
 fn migrations() {
-  [tuple(1, create_stuff)]
+  [Migration("create stuff", create_stuff)]
 }
 
 pub fn migrate_database() {
   erl_query(
-    "CREATE TABLE IF NOT EXISTS schema_migrations (id bigint primary key)",
+    "CREATE TABLE IF NOT EXISTS schema_migrations (id text primary key)",
     [],
     conduit_db_query_options(),
   )
@@ -90,19 +93,19 @@ pub fn migrate_database() {
     rows
     |> list.map(fn(row) {
       assert Ok(id_dynamic) = dynamic.element(row, 0)
-      assert Ok(id) = dynamic.int(id_dynamic)
+      assert Ok(id) = dynamic.string(id_dynamic)
       id
     })
   migrations()
   |> list.map(fn(migration) {
-    assert tuple(migration_id, migration_function) = migration
+    assert Migration(migration_id, migration_function) = migration
     case list.contains(already_ran_migrations, migration_id) {
       True -> Nil
       False -> {
         pgo.query(
           atom_("default"),
           "INSERT INTO schema_migrations(id) VALUES ($1)",
-          [pgo.int(migration_id)],
+          [pgo.text(migration_id)],
         )
         migration_function()
       }
