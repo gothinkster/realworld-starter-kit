@@ -51,6 +51,28 @@ fn not_found_test() {
   |> should.equal("Not found")
 }
 
+fn registration_test() {
+  let default_request = default_request()
+  let request =
+    Request(
+      ..default_request,
+      method: Post,
+      headers: [
+        tuple("Content-Type", "application/json"),
+        tuple("X-Requested-With", "XMLHttpRequest"),
+      ],
+      body: <<
+        "{\"user\":{\"email\":\"user@example.com\", \"password\":\"some_password\", \"username\":\"some_username\"}}":utf8,
+      >>,
+      path: "users",
+    )
+  let response = conduit.service(request)
+  response.status
+  |> should.equal(200)
+
+  Nil
+}
+
 external fn application_ensure_all_started(Atom) -> Dynamic =
   "application" "ensure_all_started"
 
@@ -74,7 +96,7 @@ fn ordered_tests(_) {
   assert Ok(inorder) = atom.from_string("inorder")
   // Those tests  need to run in order, e.g. because they change
   // database data and we don't have sandboxing set up
-  tuple(inorder, [])
+  tuple(inorder, [registration_test])
 }
 
 fn conduit_test_suite(setup_return_value) {
