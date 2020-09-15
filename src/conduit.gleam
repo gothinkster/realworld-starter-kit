@@ -33,13 +33,12 @@ fn parse_json(string_body: String) -> Result(Json, Response(String)) {
 }
 
 type RegistrationParams {
-  RegistrationParams(
-    email: String,
-    password: String
-  )
+  RegistrationParams(email: String, password: String)
 }
 
-fn read_registration_params(registration_json: Json) -> Result(RegistrationParams, Response(String)) {
+fn read_registration_params(
+  registration_json: Json,
+) -> Result(RegistrationParams, Response(String)) {
   let data = dynamic.from(registration_json)
   Ok(RegistrationParams("", ""))
 }
