@@ -8,6 +8,7 @@ import gleam/option.{None}
 import gleam/string
 import gleam/atom.{Atom}
 import gleam/dynamic.{Dynamic}
+import gleam/json
 
 // external fn io_format(Atom, String, List(a)) -> Dynamic =
 //   "io" "format"
@@ -62,13 +63,23 @@ fn registration_test() {
         tuple("X-Requested-With", "XMLHttpRequest"),
       ],
       body: <<
-        "{\"user\":{\"email\":\"user@example.com\", \"password\":\"some_password\", \"username\":\"some_username\"}}":utf8,
+        "{\"user\":{\"email\":\"user@example.com\",\"password\":\"some_password\",\"username\":\"some_username\"}}":utf8,
       >>,
       path: "users",
     )
   let response = conduit.service(request)
   response.status
   |> should.equal(200)
+
+  assert Ok(response_body) =
+    response.body
+    |> bit_builder.to_bit_string()
+    |> bit_string.to_string()
+  assert Ok(data) = json.decode(response_body)
+  let data = dynamic.from(data)
+  assert Ok(user_response) = dynamic.field(data, "user")
+  assert Ok(email) = dynamic.field(user_response, "email")
+  assert Ok("user@example.com") = dynamic.string(email)
 
   Nil
 }
