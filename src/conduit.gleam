@@ -25,7 +25,7 @@ fn check_utf8_encoding(
 
 fn parse_json(string_body: String) -> Result(TypedJson, Response(String)) {
   case json.decode(string_body) {
-    Ok(json_body) -> Ok(typed_json.type_json(dynamic.from(json_body)))
+    Ok(json_data) -> Ok(typed_json.from_json(json_data))
     Error(_) ->
       http.response(400)
       |> http.set_resp_body("Could not parse the json body")

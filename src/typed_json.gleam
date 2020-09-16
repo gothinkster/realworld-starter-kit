@@ -3,6 +3,7 @@ import gleam/atom.{Atom}
 import gleam/list
 import gleam/map
 import gleam/string
+import gleam/json.{Json}
 
 pub type TypedJson {
   JsonNull
@@ -22,7 +23,7 @@ fn type_atom(an_atom: Atom) -> TypedJson {
   }
 }
 
-pub fn type_json(data: Dynamic) -> TypedJson {
+fn type_json_data(data: Dynamic) -> TypedJson {
   case dynamic.atom(data) {
     Ok(an_atom) -> type_atom(an_atom)
     Error(_) ->
@@ -36,7 +37,7 @@ pub fn type_json(data: Dynamic) -> TypedJson {
                 Ok(a_string) -> JsonString(a_string)
                 Error(_) ->
                   case dynamic.list(data) {
-                    Ok(a_list) -> JsonArray(list.map(a_list, type_json))
+                    Ok(a_list) -> JsonArray(list.map(a_list, type_json_data))
                     Error(_) ->
                       case dynamic.map(data) {
                         Ok(a_map) ->
@@ -46,7 +47,7 @@ pub fn type_json(data: Dynamic) -> TypedJson {
                             |> list.map(fn(field) {
                               let tuple(key, value) = field
                               assert Ok(string_key) = dynamic.string(key)
-                              tuple(string_key, type_json(value))
+                              tuple(string_key, type_json_data(value))
                             })
                             |> list.sort(fn(left, right) {
                               let tuple(string_key_left, _value_left) = left
@@ -63,4 +64,8 @@ pub fn type_json(data: Dynamic) -> TypedJson {
           }
       }
   }
+}
+
+pub fn from_json(json_data: Json) -> TypedJson {
+  type_json_data(dynamic.from(json_data))
 }
