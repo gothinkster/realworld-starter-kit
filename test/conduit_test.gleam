@@ -63,9 +63,9 @@ fn registration_test() {
         tuple("X-Requested-With", "XMLHttpRequest"),
       ],
       body: <<
-        "{\"user\":{\"email\":\"user@example.com\",\"password\":\"some_password\"}}":utf8,
+        "{\"user\":{\"email\":\"user@example.com\",\"password\":\"some_password\",\"username\":\"some_username\"}}":utf8,
       >>,
-      path: "users",
+      path: "api/users",
     )
   let response = conduit.service(request)
   response.status
@@ -80,6 +80,8 @@ fn registration_test() {
   assert Ok(user_response) = dynamic.field(data, "user")
   assert Ok(email) = dynamic.field(user_response, "email")
   assert Ok("user@example.com") = dynamic.string(email)
+  assert Ok(email) = dynamic.field(user_response, "username")
+  assert Ok("some_username") = dynamic.string(email)
 
   Nil
 }

@@ -34,7 +34,7 @@ fn parse_json(string_body: String) -> Result(TypedJson, Response(String)) {
 }
 
 type RegistrationParams {
-  RegistrationParams(email: String, password: String)
+  RegistrationParams(email: String, password: String, username: String)
 }
 
 fn read_registration_params(
@@ -48,9 +48,10 @@ fn read_registration_params(
         JsonObject([
           tuple("email", JsonString(user_email)),
           tuple("password", JsonString(user_password)),
+          tuple("username", JsonString(user_username)),
         ]),
       ),
-    ]) -> Ok(RegistrationParams(user_email, user_password))
+    ]) -> Ok(RegistrationParams(user_email, user_password, user_username))
     _ ->
       http.response(422)
       |> http.set_resp_body("todo errors")
@@ -69,10 +70,10 @@ type User {
 }
 
 fn user_registration(_request, registration_json) {
-  try RegistrationParams(user_email, _user_password) =
+  try RegistrationParams(user_email, _user_password, user_username) =
     read_registration_params(registration_json)
 
-  let user = User(user_email, "some_token", user_email, None, None)
+  let user = User(user_email, "some_token", user_username, None, None)
 
   let user_response =
     json.object([
@@ -105,7 +106,7 @@ fn router(
 ) -> Result(Response(String), Response(String)) {
   let path_segments = http.path_segments(request)
   case request.method, path_segments {
-    http.Post, ["users"] -> {
+    http.Post, ["api", "users"] -> {
       try string_body = check_utf8_encoding(request)
       try json_body = parse_json(string_body)
       user_registration(request, json_body)
