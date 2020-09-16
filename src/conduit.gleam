@@ -40,6 +40,7 @@ type RegistrationParams {
 fn read_registration_params(
   registration_json: TypedJson,
 ) -> Result(RegistrationParams, Response(String)) {
+  // TODO: when pattern matching on a JsonObject, we need to filter it first to contain only keys we care about
   case registration_json {
     JsonObject([
       tuple(
