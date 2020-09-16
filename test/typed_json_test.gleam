@@ -45,3 +45,18 @@ pub fn type_array_test() {
     typed_json.JsonNull,
   ]))
 }
+
+pub fn type_object_test() {
+  let list_json =
+    dynamic.from(json.object([
+      tuple("key2", json.object([])),
+      tuple("key1", json_float(1337.0)),
+      tuple("key3", json.null()),
+    ]))
+  typed_json.type_json(list_json)
+  |> should.equal(typed_json.JsonObject([
+    tuple("key1", typed_json.JsonFloat(1337.0)),
+    tuple("key2", typed_json.JsonObject([])),
+    tuple("key3", typed_json.JsonNull),
+  ]))
+}
