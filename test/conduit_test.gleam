@@ -63,7 +63,7 @@ fn registration_test() {
         tuple("X-Requested-With", "XMLHttpRequest"),
       ],
       body: <<
-        "{\"user\":{\"email\":\"user@example.com\",\"password\":\"some_password\",\"username\":\"some_username\"}}":utf8,
+        "{\"user\":{\"email\":\"user@example.com\",\"password\":\"some_password\"}}":utf8,
       >>,
       path: "users",
     )

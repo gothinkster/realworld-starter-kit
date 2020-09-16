@@ -49,9 +49,9 @@ pub fn type_json(data: Dynamic) -> TypedJson {
                               tuple(string_key, type_json(value))
                             })
                             |> list.sort(fn(left, right) {
-                              let tuple(string_key1, value1) = left
-                              let tuple(string_key2, value2) = right
-                              string.compare(string_key1, string_key2)
+                              let tuple(string_key_left, _value_left) = left
+                              let tuple(string_key_right, _value_right) = right
+                              string.compare(string_key_left, string_key_right)
                             }),
                           )
                         Error(_) ->

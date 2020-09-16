@@ -1,12 +1,13 @@
 import gleam/http.{Request, Response}
 import gleam/bit_string
 import gleam/bit_builder.{BitBuilder}
-import gleam/json.{Json}
+import gleam/json
 import gleam/dynamic
 import gleam/int
 import gleam/atom
 import gleam/pgo
 import gleam/option.{None, Option, Some}
+import typed_json.{JsonObject, JsonString, TypedJson}
 
 fn check_utf8_encoding(
   request: Request(BitString),
@@ -22,9 +23,9 @@ fn check_utf8_encoding(
   }
 }
 
-fn parse_json(string_body: String) -> Result(Json, Response(String)) {
+fn parse_json(string_body: String) -> Result(TypedJson, Response(String)) {
   case json.decode(string_body) {
-    Ok(json_body) -> Ok(json_body)
+    Ok(json_body) -> Ok(typed_json.type_json(dynamic.from(json_body)))
     Error(_) ->
       http.response(400)
       |> http.set_resp_body("Could not parse the json body")
@@ -37,10 +38,23 @@ type RegistrationParams {
 }
 
 fn read_registration_params(
-  registration_json: Json,
+  registration_json: TypedJson,
 ) -> Result(RegistrationParams, Response(String)) {
-  let data = dynamic.from(registration_json)
-  Ok(RegistrationParams("", ""))
+  case registration_json {
+    JsonObject([
+      tuple(
+        "user",
+        JsonObject([
+          tuple("email", JsonString(user_email)),
+          tuple("password", JsonString(user_password)),
+        ]),
+      ),
+    ]) -> Ok(RegistrationParams(user_email, user_password))
+    _ ->
+      http.response(422)
+      |> http.set_resp_body("todo errors")
+      |> Error()
+  }
 }
 
 type User {
@@ -54,9 +68,10 @@ type User {
 }
 
 fn user_registration(_request, registration_json) {
-  try registration_params = read_registration_params(registration_json)
+  try RegistrationParams(user_email, _user_password) =
+    read_registration_params(registration_json)
 
-  let user = User("user@example.com", "some_token", "some_username", None, None)
+  let user = User(user_email, "some_token", user_email, None, None)
 
   let user_response =
     json.object([
