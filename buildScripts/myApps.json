@@ -12,14 +12,14 @@
     },
     "apps": {
         "Docs": {
-            "input": "buildScripts/entrypoints/Docs.mjs",
+            "input": "./docs/app.mjs",
             "mainThreadAddons": "'HighlightJS', 'Stylesheet'",
             "output": "/docs/",
             "title": "Neo Docs"
         },
         "RealWorld": {
             "indexPath": "apps/realworld/index.ejs",
-            "input": "buildScripts/entrypoints/RealWorld.mjs",
+            "input": "./apps/realworld/app.mjs",
             "mainThreadAddons": "'LocalStorage', 'Markdown'",
             "output": "/apps/realworld/",
             "themes": "",
