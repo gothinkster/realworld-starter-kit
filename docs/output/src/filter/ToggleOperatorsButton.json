@@ -1,0 +1,320 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.filter.ToggleOperatorsButton\n * @extends Neo.button.Base\n */",
+            "meta": {
+                "filename": "ToggleOperatorsButton.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "ToggleOperatorsButton",
+            "augments": [
+                "Neo.button.Base"
+            ],
+            "memberof": "Neo.filter",
+            "longname": "Neo.filter.ToggleOperatorsButton",
+            "scope": "static",
+            "$longname": "Neo.filter.ToggleOperatorsButton",
+            "$kind": "class",
+            "id": 1248,
+            "neoClassName": "Neo.filter.ToggleOperatorsButton"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.filter.ToggleOperatorsButton'\n         * @protected\n         */",
+            "meta": {
+                "filename": "ToggleOperatorsButton.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.filter.ToggleOperatorsButton'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1249,
+            "neoClassName": "Neo.filter.ToggleOperatorsButton"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='filter-toggleoperatorsbutton'\n         * @protected\n         */",
+            "meta": {
+                "filename": "ToggleOperatorsButton.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'filter-toggleoperatorsbutton'",
+            "access": "protected",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1250,
+            "neoClassName": "Neo.filter.ToggleOperatorsButton"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} operators_=['===', '>', '<']\n         */",
+            "meta": {
+                "filename": "ToggleOperatorsButton.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "operators_",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['===', '>', '<']",
+            "description": "'>', '<']",
+            "longname": "operators_",
+            "scope": "global",
+            "$longname": "operators_",
+            "$kind": "property",
+            "id": 1251,
+            "neoClassName": "Neo.filter.ToggleOperatorsButton"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} value_=null\n         */",
+            "meta": {
+                "filename": "ToggleOperatorsButton.mjs",
+                "lineno": 27,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "value_",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "value_",
+            "scope": "global",
+            "$longname": "value_",
+            "$kind": "property",
+            "id": 1252,
+            "neoClassName": "Neo.filter.ToggleOperatorsButton"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    855,
+                    1017
+                ],
+                "filename": "ToggleOperatorsButton.mjs",
+                "lineno": 34,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {
+                    "id": "astnode100041541",
+                    "name": "ToggleOperatorsButton",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "ToggleOperatorsButton",
+            "longname": "ToggleOperatorsButton",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "ToggleOperatorsButton",
+            "$kind": "constructor",
+            "id": 1253,
+            "neoClassName": "Neo.filter.ToggleOperatorsButton"
+        },
+        {
+            "comment": "/**\n     * Triggered after the value config got changed\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     */",
+            "meta": {
+                "range": [
+                    1162,
+                    1455
+                ],
+                "filename": "ToggleOperatorsButton.mjs",
+                "lineno": 49,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {
+                    "id": "astnode100041576",
+                    "name": "ToggleOperatorsButton#afterSetValue",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the value config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "name": "afterSetValue",
+            "longname": "ToggleOperatorsButton#afterSetValue",
+            "kind": "function",
+            "memberof": "ToggleOperatorsButton",
+            "scope": "instance",
+            "$longname": "ToggleOperatorsButton#afterSetValue",
+            "$kind": "method",
+            "id": 1254,
+            "neoClassName": "Neo.filter.ToggleOperatorsButton"
+        },
+        {
+            "comment": "/**\n     * Triggered before the operators config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    1614,
+                    2003
+                ],
+                "filename": "ToggleOperatorsButton.mjs",
+                "lineno": 69,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {
+                    "id": "astnode100041610",
+                    "name": "ToggleOperatorsButton#beforeSetOperators",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the operators config gets changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "beforeSetOperators",
+            "longname": "ToggleOperatorsButton#beforeSetOperators",
+            "kind": "function",
+            "memberof": "ToggleOperatorsButton",
+            "scope": "instance",
+            "$longname": "ToggleOperatorsButton#beforeSetOperators",
+            "$kind": "method",
+            "id": 1255,
+            "neoClassName": "Neo.filter.ToggleOperatorsButton"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    2060,
+                    2245
+                ],
+                "filename": "ToggleOperatorsButton.mjs",
+                "lineno": 88,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {
+                    "id": "astnode100041661",
+                    "name": "ToggleOperatorsButton#onButtonClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onButtonClick",
+            "longname": "ToggleOperatorsButton#onButtonClick",
+            "kind": "function",
+            "memberof": "ToggleOperatorsButton",
+            "scope": "instance",
+            "$longname": "ToggleOperatorsButton#onButtonClick",
+            "$kind": "method",
+            "id": 1256,
+            "neoClassName": "Neo.filter.ToggleOperatorsButton"
+        }
+    ]
+}

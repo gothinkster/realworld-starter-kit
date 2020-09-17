@@ -20,7 +20,7 @@
             "scope": "static",
             "$longname": "Neo.component.wrapper.MapboxGL",
             "$kind": "class",
-            "id": 507,
+            "id": 850,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
@@ -45,7 +45,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 508,
+            "id": 851,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
@@ -70,7 +70,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 509,
+            "id": 852,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
@@ -95,7 +95,7 @@
             "scope": "global",
             "$longname": "accessToken",
             "$kind": "property",
-            "id": 510,
+            "id": 853,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
@@ -120,7 +120,7 @@
             "scope": "global",
             "$longname": "center_",
             "$kind": "property",
-            "id": 511,
+            "id": 854,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
@@ -145,7 +145,7 @@
             "scope": "global",
             "$longname": "convertDataToGeoJson",
             "$kind": "property",
-            "id": 512,
+            "id": 855,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
@@ -170,7 +170,7 @@
             "scope": "global",
             "$longname": "data_",
             "$kind": "property",
-            "id": 513,
+            "id": 856,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
@@ -196,7 +196,7 @@
             "scope": "global",
             "$longname": "dataSourceId",
             "$kind": "property",
-            "id": 514,
+            "id": 857,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
@@ -222,7 +222,7 @@
             "scope": "global",
             "$longname": "layers_",
             "$kind": "property",
-            "id": 515,
+            "id": 858,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
@@ -248,7 +248,7 @@
             "scope": "global",
             "$longname": "mapboxStyle",
             "$kind": "property",
-            "id": 516,
+            "id": 859,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
@@ -274,7 +274,7 @@
             "scope": "global",
             "$longname": "sources_",
             "$kind": "property",
-            "id": 517,
+            "id": 860,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
@@ -297,7 +297,7 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 518,
+            "id": 861,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
@@ -321,22 +321,22 @@
             "scope": "global",
             "$longname": "zoom_",
             "$kind": "property",
-            "id": 519,
+            "id": 862,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    2519,
-                    2578
+                    2506,
+                    2565
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 86,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100018782",
+                    "id": "astnode100030784",
                     "name": "MapboxGL#getVdomRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -353,22 +353,22 @@
             "params": [],
             "$longname": "MapboxGL#getVdomRoot",
             "$kind": "method",
-            "id": 520,
+            "id": 863,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    2607,
-                    2684
+                    2594,
+                    2671
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 93,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100018798",
+                    "id": "astnode100030800",
                     "name": "MapboxGL#getVnodeRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -385,22 +385,22 @@
             "params": [],
             "$longname": "MapboxGL#getVnodeRoot",
             "$kind": "method",
-            "id": 521,
+            "id": 864,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     * Triggered after the center config got changed\n     * @param {Object} value\n     * @param {Object} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2838,
-                    2908
+                    2825,
+                    2895
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 103,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100018814",
+                    "id": "astnode100030816",
                     "name": "MapboxGL#afterSetCenter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -439,22 +439,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#afterSetCenter",
             "$kind": "method",
-            "id": 522,
+            "id": 865,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     * Triggered after the data config got changed\n     * @param {Array|null} value\n     * @param {Array|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3068,
-                    3387
+                    3055,
+                    3374
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 113,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100018826",
+                    "id": "astnode100030828",
                     "name": "MapboxGL#afterSetData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -495,22 +495,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#afterSetData",
             "$kind": "method",
-            "id": 523,
+            "id": 866,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     * Triggered after the layers config got changed\n     * @param {Object[]|null} value\n     * @param {Object[]|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3555,
-                    3793
+                    3542,
+                    3780
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 132,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100018865",
+                    "id": "astnode100030867",
                     "name": "MapboxGL#afterSetLayers",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -551,22 +551,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#afterSetLayers",
             "$kind": "method",
-            "id": 524,
+            "id": 867,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     * Triggered after the mapboxStyle config got changed\n     * @param {Object|String} value\n     * @param {Object|String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3966,
-                    4292
+                    3953,
+                    4279
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 148,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100018896",
+                    "id": "astnode100030898",
                     "name": "MapboxGL#afterSetMapboxStyle",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -607,22 +607,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#afterSetMapboxStyle",
             "$kind": "method",
-            "id": 525,
+            "id": 868,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     * Triggered after the mounted config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4449,
-                    5463
+                    4436,
+                    5450
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 167,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100018937",
+                    "id": "astnode100030939",
                     "name": "MapboxGL#afterSetMounted",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -661,22 +661,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#afterSetMounted",
             "$kind": "method",
-            "id": 526,
+            "id": 869,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     * Triggered after the sources config got changed\n     * @param {Object[]|null} value\n     * @param {Object[]|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5632,
-                    5872
+                    5619,
+                    5859
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 212,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100019079",
+                    "id": "astnode100031081",
                     "name": "MapboxGL#afterSetSources",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -717,22 +717,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#afterSetSources",
             "$kind": "method",
-            "id": 527,
+            "id": 870,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     * Triggered after the zoom config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6024,
-                    6280
+                    6011,
+                    6267
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 228,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100019110",
+                    "id": "astnode100031112",
                     "name": "MapboxGL#afterSetZoom",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -771,22 +771,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#afterSetZoom",
             "$kind": "method",
-            "id": 528,
+            "id": 871,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    6309,
-                    6450
+                    6296,
+                    6437
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 243,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100019147",
+                    "id": "astnode100031149",
                     "name": "MapboxGL#autoResize",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -803,22 +803,22 @@
             "params": [],
             "$longname": "MapboxGL#autoResize",
             "$kind": "method",
-            "id": 529,
+            "id": 872,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     * Triggered before the center config gets changed.\n     * @param {Object} value\n     * @param {Object} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6607,
-                    6782
+                    6594,
+                    6769
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 256,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100019171",
+                    "id": "astnode100031173",
                     "name": "MapboxGL#beforeSetCenter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -857,22 +857,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#beforeSetCenter",
             "$kind": "method",
-            "id": 530,
+            "id": 873,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     * Triggered before the data config gets changed.\n     * @param {Array|null} value\n     * @param {Array|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6945,
-                    7116
+                    6932,
+                    7103
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 271,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100019199",
+                    "id": "astnode100031201",
                     "name": "MapboxGL#beforeSetData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -913,22 +913,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#beforeSetData",
             "$kind": "method",
-            "id": 531,
+            "id": 874,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     * Use component.center = {} or component.flyTo() instead\n     * @param {Object} value\n     * @param {Number} value.lat\n     * @param {Number} value.lng\n     * @param {Boolean} animate=false\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7351,
-                    7601
+                    7338,
+                    7588
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 287,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100019222",
+                    "id": "astnode100031224",
                     "name": "MapboxGL#centerMap",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -984,22 +984,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#centerMap",
             "$kind": "method",
-            "id": 532,
+            "id": 875,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
-            "comment": "/**\n     *\n     * @param {Object[]} data\n     * @return {Object} Object matching the geojson format\n     */",
+            "comment": "/**\n     *\n     * @param {Object[]} data\n     * @returns {Object} Object matching the geojson format\n     */",
             "meta": {
                 "range": [
-                    7719,
-                    8553
+                    7707,
+                    8541
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 302,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100019260",
+                    "id": "astnode100031262",
                     "name": "MapboxGL#convertToGeoJson",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1037,22 +1037,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#convertToGeoJson",
             "$kind": "method",
-            "id": 533,
+            "id": 876,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} value\n     * @param {Number} value.lat\n     * @param {Number} value.lng\n     */",
             "meta": {
                 "range": [
-                    8677,
-                    8906
+                    8665,
+                    8894
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 338,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100019337",
+                    "id": "astnode100031339",
                     "name": "MapboxGL#flyTo",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1096,22 +1096,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#flyTo",
             "$kind": "method",
-            "id": 534,
+            "id": 877,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     * Override this method to trigger logic after the map got mounted into the dom\n     */",
             "meta": {
                 "range": [
-                    9012,
-                    9035
+                    9000,
+                    9023
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 351,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100019376",
+                    "id": "astnode100031378",
                     "name": "MapboxGL#onMapMounted",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1129,22 +1129,22 @@
             "params": [],
             "$longname": "MapboxGL#onMapMounted",
             "$kind": "method",
-            "id": 535,
+            "id": 878,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.layerId\n     * @param {Object} data.options\n     * @param {Boolean} data.options.validate = true\n     * @param {Array} data.value\n     */",
             "meta": {
                 "range": [
-                    9250,
-                    9496
+                    9238,
+                    9484
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 363,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100019380",
+                    "id": "astnode100031382",
                     "name": "MapboxGL#setFilter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1205,22 +1205,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#setFilter",
             "$kind": "method",
-            "id": 536,
+            "id": 879,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.layerId\n     * @param {String} data.key\n     * @param {Object} data.options\n     * @param {Boolean} data.options.validate = true\n     * @param {String} data.value\n     */",
             "meta": {
                 "range": [
-                    9744,
-                    10037
+                    9732,
+                    10025
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 382,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100019417",
+                    "id": "astnode100031419",
                     "name": "MapboxGL#setLayoutProperty",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1289,22 +1289,22 @@
             "scope": "instance",
             "$longname": "MapboxGL#setLayoutProperty",
             "$kind": "method",
-            "id": 537,
+            "id": 880,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.layerId\n     * @param {String} data.key\n     * @param {Object} data.options\n     * @param {Boolean} data.options.validate = true\n     * @param {String} data.value\n     */",
             "meta": {
                 "range": [
-                    10285,
-                    10576
+                    10273,
+                    10564
                 ],
                 "filename": "MapboxGL.mjs",
                 "lineno": 402,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component/wrapper",
                 "code": {
-                    "id": "astnode100019458",
+                    "id": "astnode100031460",
                     "name": "MapboxGL#setPaintProperty",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1373,7 +1373,7 @@
             "scope": "instance",
             "$longname": "MapboxGL#setPaintProperty",
             "$kind": "method",
-            "id": 538,
+            "id": 881,
             "neoClassName": "Neo.component.wrapper.MapboxGL"
         }
     ]

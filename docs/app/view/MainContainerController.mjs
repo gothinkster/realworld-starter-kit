@@ -9,19 +9,19 @@ class MainContainerController extends Component {
     static getConfig() {return {
         /**
          * @member {String} className='Docs.app.view.MainContainerController'
-         * @private
+         * @protected
          */
         className: 'Docs.app.view.MainContainerController',
         /**
          * @member {String} ntype='docs-maincontainer-controller'
-         * @private
+         * @protected
          */
         ntype: 'docs-maincontainer-controller'
     }}
 
     /**
      *
-     * @param record
+     * @param {Object} record
      */
     onApiListLeafClick(record) {
         let me                  = this,
@@ -41,7 +41,7 @@ class MainContainerController extends Component {
 
     /**
      *
-     * @param record
+     * @param {Object} record
      */
     onExamplesListLeafClick(record) {
         let me                  = this,
@@ -107,18 +107,19 @@ class MainContainerController extends Component {
      */
     onHashChange(value, oldValue) {
         let me                  = this,
+            hash                = value && value.hash,
             contentTabContainer = me.getReference('content-tabcontainer'),
             structureStore      = me.getReference('api-treelist').store,
             record, tab;
 
-        if (value.hasOwnProperty('viewSource')) {
-            record = structureStore.find('className', value.viewSource)[0];
+        if (hash && hash.hasOwnProperty('viewSource')) {
+            record = structureStore.find('className', hash.viewSource)[0];
 
             if (record) {
                 tab = contentTabContainer.add({
                     ntype        : 'classdetails-sourceviewcomponent',
-                    id           : value.viewSource + '__source',
-                    line         : value.line,
+                    id           : hash.viewSource + '__source',
+                    line         : hash.line,
                     structureData: record,
 
                     tabButtonConfig: {
@@ -128,7 +129,7 @@ class MainContainerController extends Component {
                 });
 
                 // adjust the highlighted line for already added source view tabs
-                tab.line = value.line;
+                tab.line = hash.line;
             }
         }
     }
@@ -162,7 +163,7 @@ class MainContainerController extends Component {
             href       = './resources/highlightjs-custom-dark-theme.css';
         }
 
-        Neo.main.DomAccess.swapStyleSheet({
+        Neo.main.addon.Stylesheet.swapStyleSheet({
             href: href,
             id  : 'hljs-theme'
         }).then(data => {
@@ -203,7 +204,7 @@ class MainContainerController extends Component {
 
             button.text = buttonText;
         } else {
-            Neo.main.DomAccess.swapStyleSheet({
+            Neo.main.addon.Stylesheet.swapStyleSheet({
                 href: href,
                 id  : 'neo-theme'
             }).then(data => {

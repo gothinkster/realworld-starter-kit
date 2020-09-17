@@ -1,0 +1,510 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.main.draggable.sensor.Mouse\n * @extends Neo.main.draggable.sensor.Base\n */",
+            "meta": {
+                "filename": "Mouse.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Mouse",
+            "augments": [
+                "Neo.main.draggable.sensor.Base"
+            ],
+            "memberof": "Neo.main.draggable.sensor",
+            "longname": "Neo.main.draggable.sensor.Mouse",
+            "scope": "static",
+            "$longname": "Neo.main.draggable.sensor.Mouse",
+            "$kind": "class",
+            "id": 2027,
+            "neoClassName": "Neo.main.draggable.sensor.Mouse"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.main.draggable.sensor.Mouse'\n         * @protected\n         */",
+            "meta": {
+                "filename": "Mouse.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.main.draggable.sensor.Mouse'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 2028,
+            "neoClassName": "Neo.main.draggable.sensor.Mouse"
+        },
+        {
+            "comment": "/**\n         * @member {Number} delay=0\n         */",
+            "meta": {
+                "filename": "Mouse.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "delay",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 0,
+            "longname": "delay",
+            "scope": "global",
+            "$longname": "delay",
+            "$kind": "property",
+            "id": 2029,
+            "neoClassName": "Neo.main.draggable.sensor.Mouse"
+        },
+        {
+            "comment": "/**\n         * @member {Number} minDistance=1\n         */",
+            "meta": {
+                "filename": "Mouse.mjs",
+                "lineno": 22,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "minDistance",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 1,
+            "longname": "minDistance",
+            "scope": "global",
+            "$longname": "minDistance",
+            "$kind": "property",
+            "id": 2030,
+            "neoClassName": "Neo.main.draggable.sensor.Mouse"
+        },
+        {
+            "comment": "/**\n         * @member {Number} mouseDownTime=0\n         */",
+            "meta": {
+                "filename": "Mouse.mjs",
+                "lineno": 26,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "mouseDownTime",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 0,
+            "longname": "mouseDownTime",
+            "scope": "global",
+            "$longname": "mouseDownTime",
+            "$kind": "property",
+            "id": 2031,
+            "neoClassName": "Neo.main.draggable.sensor.Mouse"
+        },
+        {
+            "comment": "/**\n         * @member {Number|null} mouseDownTimeout=null\n         */",
+            "meta": {
+                "filename": "Mouse.mjs",
+                "lineno": 30,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "mouseDownTimeout",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "mouseDownTimeout",
+            "scope": "global",
+            "$longname": "mouseDownTimeout",
+            "$kind": "property",
+            "id": 2032,
+            "neoClassName": "Neo.main.draggable.sensor.Mouse"
+        },
+        {
+            "comment": "/**\n         * @member {Number|null} pageX=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Mouse.mjs",
+                "lineno": 35,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "pageX",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "pageX",
+            "scope": "global",
+            "$longname": "pageX",
+            "$kind": "property",
+            "id": 2033,
+            "neoClassName": "Neo.main.draggable.sensor.Mouse"
+        },
+        {
+            "comment": "/**\n         * @member {Number|null} pageY=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Mouse.mjs",
+                "lineno": 40,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "pageY",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "pageY",
+            "scope": "global",
+            "$longname": "pageY",
+            "$kind": "property",
+            "id": 2034,
+            "neoClassName": "Neo.main.draggable.sensor.Mouse"
+        },
+        {
+            "comment": "/**\n     *\n     * @param config\n     */",
+            "meta": {
+                "range": [
+                    1057,
+                    1203
+                ],
+                "filename": "Mouse.mjs",
+                "lineno": 47,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100062524",
+                    "name": "Mouse",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "config"
+                }
+            ],
+            "name": "Mouse",
+            "longname": "Mouse",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Mouse",
+            "$kind": "constructor",
+            "id": 2035,
+            "neoClassName": "Neo.main.draggable.sensor.Mouse"
+        },
+        {
+            "comment": "/**\n     * Attaches sensors event listeners to the DOM\n     */",
+            "meta": {
+                "range": [
+                    1276,
+                    1364
+                ],
+                "filename": "Mouse.mjs",
+                "lineno": 55,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100062544",
+                    "name": "Mouse#attach",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Attaches sensors event listeners to the DOM",
+            "name": "attach",
+            "longname": "Mouse#attach",
+            "kind": "function",
+            "memberof": "Mouse",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Mouse#attach",
+            "$kind": "method",
+            "id": 2036,
+            "neoClassName": "Neo.main.draggable.sensor.Mouse"
+        },
+        {
+            "comment": "/**\n     * Detaches sensors event listeners from the DOM\n     */",
+            "meta": {
+                "range": [
+                    1439,
+                    1530
+                ],
+                "filename": "Mouse.mjs",
+                "lineno": 62,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100062558",
+                    "name": "Mouse#detach",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Detaches sensors event listeners from the DOM",
+            "name": "detach",
+            "longname": "Mouse#detach",
+            "kind": "function",
+            "memberof": "Mouse",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Mouse#detach",
+            "$kind": "method",
+            "id": 2037,
+            "neoClassName": "Neo.main.draggable.sensor.Mouse"
+        },
+        {
+            "comment": "/**\n     * Detect change in distance, starting drag when both delay and distance requirements are met\n     * @param {MouseEvent|Object} event - Object in case it does get trigger via the mouseDownTimeout\n     */",
+            "meta": {
+                "range": [
+                    1752,
+                    2394
+                ],
+                "filename": "Mouse.mjs",
+                "lineno": 70,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100062572",
+                    "name": "Mouse#onDistanceChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Detect change in distance, starting drag when both delay and distance requirements are met",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "MouseEvent",
+                            "Object"
+                        ]
+                    },
+                    "description": "Object in case it does get trigger via the mouseDownTimeout",
+                    "name": "event"
+                }
+            ],
+            "name": "onDistanceChange",
+            "longname": "Mouse#onDistanceChange",
+            "kind": "function",
+            "memberof": "Mouse",
+            "scope": "instance",
+            "$longname": "Mouse#onDistanceChange",
+            "$kind": "method",
+            "id": 2038,
+            "neoClassName": "Neo.main.draggable.sensor.Mouse"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {MouseEvent} event\n     */",
+            "meta": {
+                "range": [
+                    2456,
+                    3395
+                ],
+                "filename": "Mouse.mjs",
+                "lineno": 92,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100062668",
+                    "name": "Mouse#onMouseDown",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "MouseEvent"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onMouseDown",
+            "longname": "Mouse#onMouseDown",
+            "kind": "function",
+            "memberof": "Mouse",
+            "scope": "instance",
+            "$longname": "Mouse#onMouseDown",
+            "$kind": "method",
+            "id": 2039,
+            "neoClassName": "Neo.main.draggable.sensor.Mouse"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {MouseEvent} event\n     */",
+            "meta": {
+                "range": [
+                    3457,
+                    4028
+                ],
+                "filename": "Mouse.mjs",
+                "lineno": 121,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100062784",
+                    "name": "Mouse#onMouseMove",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "MouseEvent"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onMouseMove",
+            "longname": "Mouse#onMouseMove",
+            "kind": "function",
+            "memberof": "Mouse",
+            "scope": "instance",
+            "$longname": "Mouse#onMouseMove",
+            "$kind": "method",
+            "id": 2040,
+            "neoClassName": "Neo.main.draggable.sensor.Mouse"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {MouseEvent} event\n     */",
+            "meta": {
+                "range": [
+                    4090,
+                    5401
+                ],
+                "filename": "Mouse.mjs",
+                "lineno": 144,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100062852",
+                    "name": "Mouse#onMouseUp",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "MouseEvent"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onMouseUp",
+            "longname": "Mouse#onMouseUp",
+            "kind": "function",
+            "memberof": "Mouse",
+            "scope": "instance",
+            "$longname": "Mouse#onMouseUp",
+            "$kind": "method",
+            "id": 2041,
+            "neoClassName": "Neo.main.draggable.sensor.Mouse"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    5430,
+                    6133
+                ],
+                "filename": "Mouse.mjs",
+                "lineno": 185,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100062994",
+                    "name": "Mouse#startDrag",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "startDrag",
+            "longname": "Mouse#startDrag",
+            "kind": "function",
+            "memberof": "Mouse",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Mouse#startDrag",
+            "$kind": "method",
+            "id": 2042,
+            "neoClassName": "Neo.main.draggable.sensor.Mouse"
+        }
+    ]
+}

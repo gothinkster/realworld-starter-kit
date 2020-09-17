@@ -4,7 +4,7 @@
             "comment": "/**\n * @class Neo.manager.DomEvent\n * @extends Neo.core.Base\n * @singleton\n */",
             "meta": {
                 "filename": "DomEvent.mjs",
-                "lineno": 30,
+                "lineno": 33,
                 "columnno": 0,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {}
@@ -26,14 +26,14 @@
             "scope": "static",
             "$longname": "Neo.manager.DomEvent",
             "$kind": "class",
-            "id": 1569,
+            "id": 2097,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
             "comment": "/**\n         * @member {String} className='Neo.manager.DomEvent'\n         * @protected\n         */",
             "meta": {
                 "filename": "DomEvent.mjs",
-                "lineno": 41,
+                "lineno": 44,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {}
@@ -51,14 +51,14 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1570,
+            "id": 2098,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
             "comment": "/**\n         * @member {String} ntype='dom-event-manager'\n         * @protected\n         */",
             "meta": {
                 "filename": "DomEvent.mjs",
-                "lineno": 46,
+                "lineno": 49,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {}
@@ -76,20 +76,20 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1571,
+            "id": 2099,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
-            "comment": "/**\n         * @member {Object} listeners={}\n         * @protected\n         */",
+            "comment": "/**\n         * @member {Object} items={}\n         * @protected\n         */",
             "meta": {
                 "filename": "DomEvent.mjs",
-                "lineno": 51,
+                "lineno": 54,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {}
             },
             "kind": "member",
-            "name": "listeners",
+            "name": "items",
             "type": {
                 "names": [
                     "Object"
@@ -97,18 +97,18 @@
             },
             "defaultvalue": "{}",
             "access": "protected",
-            "longname": "listeners",
+            "longname": "items",
             "scope": "global",
-            "$longname": "listeners",
+            "$longname": "items",
             "$kind": "property",
-            "id": 1572,
+            "id": 2100,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
             "comment": "/**\n         * @member {Object} map={}\n         * @protected\n         */",
             "meta": {
                 "filename": "DomEvent.mjs",
-                "lineno": 56,
+                "lineno": 59,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {}
@@ -126,14 +126,14 @@
             "scope": "global",
             "$longname": "map",
             "$kind": "property",
-            "id": 1573,
+            "id": 2101,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
             "comment": "/**\n         * @member {Boolean} singleton=true\n         * @protected\n         */",
             "meta": {
                 "filename": "DomEvent.mjs",
-                "lineno": 61,
+                "lineno": 64,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {}
@@ -151,22 +151,22 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1574,
+            "id": 2102,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1494,
-                    4650
+                    1463,
+                    4053
                 ],
                 "filename": "DomEvent.mjs",
-                "lineno": 69,
+                "lineno": 72,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048029",
+                    "id": "astnode100065458",
                     "name": "DomEvent#fire",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -195,22 +195,22 @@
             "scope": "instance",
             "$longname": "DomEvent#fire",
             "$kind": "method",
-            "id": 1575,
+            "id": 2103,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
             "comment": "/**\n     *\n     * @param config\n     * @param scope\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    4745,
-                    5061
+                    4148,
+                    4464
                 ],
                 "filename": "DomEvent.mjs",
-                "lineno": 153,
+                "lineno": 147,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048310",
+                    "id": "astnode100065698",
                     "name": "DomEvent#generateListenerConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -246,22 +246,22 @@
             "scope": "instance",
             "$longname": "DomEvent#generateListenerConfig",
             "$kind": "method",
-            "id": 1576,
+            "id": 2104,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
             "comment": "/**\n     * @param {Object} config\n     * @param {String} config.delegate\n     * @param {String} config.eventName\n     * @param {String} config.id\n     * @param {Object} config.opts\n     * @param {Object} config.scope\n     * @param {String} config.vnodeId\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    5671,
-                    5949
+                    5074,
+                    5352
                 ],
                 "filename": "DomEvent.mjs",
-                "lineno": 188,
+                "lineno": 182,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048388",
+                    "id": "astnode100065776",
                     "name": "DomEvent#getListener",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -346,22 +346,22 @@
             "scope": "instance",
             "$longname": "DomEvent#getListener",
             "$kind": "method",
-            "id": 1577,
+            "id": 2105,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
             "comment": "/**\n     * Mounts local domEvent listeners for a given component\n     * @param {Neo.component.Base} component\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6095,
-                    7179
+                    5498,
+                    6749
                 ],
                 "filename": "DomEvent.mjs",
-                "lineno": 206,
+                "lineno": 200,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048431",
+                    "id": "astnode100065819",
                     "name": "DomEvent#mountDomListeners",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -391,22 +391,22 @@
             "scope": "instance",
             "$longname": "DomEvent#mountDomListeners",
             "$kind": "method",
-            "id": 1578,
+            "id": 2106,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
-            "comment": "/**\n     * @param {Object} config\n     * @param {String} config.delegate\n     * @param {String} config.eventName\n     * @param {String} config.id\n     * @param {Boolean} config.local\n     * @param {Number} config.opts\n     * @param {Number} config.originalConfig\n     * @param {Number} config.priority\n     * @param {Object} config.scope\n     * @param {String} config.vnodeId\n     * @returns {Boolean} true if the listener got registered successfully (false in case it was already there)\n     */",
+            "comment": "/**\n     * @param {Object} config\n     * @param {String} config.delegate\n     * @param {String} config.eventName\n     * @param {String} config.id\n     * @param {Boolean} config.local\n     * @param {Number} config.opts\n     * @param {Number} config.originalConfig\n     * @param {String} config.ownerId\n     * @param {Number} config.priority\n     * @param {Object} config.scope\n     * @param {String} config.vnodeId\n     * @returns {Boolean} true if the listener got registered successfully (false in case it was already there)\n     */",
             "meta": {
                 "range": [
-                    7685,
-                    9910
+                    7293,
+                    9601
                 ],
                 "filename": "DomEvent.mjs",
-                "lineno": 252,
+                "lineno": 249,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048553",
+                    "id": "astnode100065939",
                     "name": "DomEvent#register",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -477,6 +477,14 @@
                 {
                     "type": {
                         "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "config.ownerId"
+                },
+                {
+                    "type": {
+                        "names": [
                             "Number"
                         ]
                     },
@@ -516,22 +524,22 @@
             "scope": "instance",
             "$longname": "DomEvent#register",
             "$kind": "method",
-            "id": 1579,
+            "id": 2107,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
             "comment": "/**\n     * @param {Object} config\n     * @param {String} config.eventName\n     * @param {String} config.id\n     * @param {Object} config.opts\n     * @param {Object} config.scope\n     * @param {String} config.vnodeId\n     * @param {Object} scope\n     * @returns {Boolean} true in case the listener did exist and got removed\n     */",
             "meta": {
                 "range": [
-                    10251,
-                    10546
+                    9942,
+                    10253
                 ],
                 "filename": "DomEvent.mjs",
-                "lineno": 332,
+                "lineno": 331,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100048831",
+                    "id": "astnode100066223",
                     "name": "DomEvent#unregister",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -618,22 +626,83 @@
             "scope": "instance",
             "$longname": "DomEvent#unregister",
             "$kind": "method",
-            "id": 1580,
+            "id": 2108,
+            "neoClassName": "Neo.manager.DomEvent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Neo.component.Base} component\n     * @param {Object[]} domListeners\n     * @param {Object[]} oldDomListeners\n     */",
+            "meta": {
+                "range": [
+                    10406,
+                    12520
+                ],
+                "filename": "DomEvent.mjs",
+                "lineno": 350,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
+                "code": {
+                    "id": "astnode100066266",
+                    "name": "DomEvent#updateDomListeners",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "component",
+                        "domListeners",
+                        "oldDomListeners"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "name": "component"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array.<Object>"
+                        ]
+                    },
+                    "name": "domListeners"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array.<Object>"
+                        ]
+                    },
+                    "name": "oldDomListeners"
+                }
+            ],
+            "name": "updateDomListeners",
+            "longname": "DomEvent#updateDomListeners",
+            "kind": "function",
+            "memberof": "DomEvent",
+            "scope": "instance",
+            "$longname": "DomEvent#updateDomListeners",
+            "$kind": "method",
+            "id": 2109,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
             "comment": "/**\n     * Intended for Neo.controller.Component to replace listener placeholders provided as a string\n     * @param {Object} config\n     * @param {String} config.componentId\n     * @param {Function} config.eventHandlerMethod\n     * @param {String} config.eventHandlerName\n     * @param {String} config.eventName\n     * @param {Neo.core.Base} config.scope\n     */",
             "meta": {
                 "range": [
-                    12982,
-                    13577
+                    12894,
+                    13489
                 ],
                 "filename": "DomEvent.mjs",
-                "lineno": 402,
+                "lineno": 409,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100049071",
+                    "id": "astnode100066467",
                     "name": "DomEvent#updateListenerPlaceholder",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -702,22 +771,22 @@
             "scope": "instance",
             "$longname": "DomEvent#updateListenerPlaceholder",
             "$kind": "method",
-            "id": 1581,
+            "id": 2110,
             "neoClassName": "Neo.manager.DomEvent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} listener\n     * @param {Array} path\n     * @returns {Boolean|String} true in case the delegation string matches the event path\n     */",
             "meta": {
                 "range": [
-                    13756,
-                    14949
+                    13668,
+                    14861
                 ],
                 "filename": "DomEvent.mjs",
-                "lineno": 427,
+                "lineno": 434,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100049149",
+                    "id": "astnode100066545",
                     "name": "DomEvent#verifyDelegationPath",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -765,7 +834,86 @@
             "scope": "instance",
             "$longname": "DomEvent#verifyDelegationPath",
             "$kind": "method",
-            "id": 1582,
+            "id": 2111,
+            "neoClassName": "Neo.manager.DomEvent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Neo.component.Base} component\n     * @param {Object} data\n     * @param {String} delegationTargetId\n     * @param {String} eventName\n     * @returns {Boolean}\n     */",
+            "meta": {
+                "range": [
+                    15064,
+                    15736
+                ],
+                "filename": "DomEvent.mjs",
+                "lineno": 484,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
+                "code": {
+                    "id": "astnode100066700",
+                    "name": "DomEvent.verifyMouseEnterLeave",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "component",
+                        "data",
+                        "delegationTargetId",
+                        "eventName"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "name": "component"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "delegationTargetId"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "eventName"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    }
+                }
+            ],
+            "name": "verifyMouseEnterLeave",
+            "longname": "DomEvent.verifyMouseEnterLeave",
+            "kind": "function",
+            "memberof": "DomEvent",
+            "scope": "static",
+            "$longname": "DomEvent.verifyMouseEnterLeave",
+            "$kind": "method",
+            "id": 2112,
             "neoClassName": "Neo.manager.DomEvent"
         }
     ]

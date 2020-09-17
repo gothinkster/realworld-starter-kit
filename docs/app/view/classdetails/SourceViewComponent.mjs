@@ -1,4 +1,4 @@
-import {default as Component} from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
+import Component from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
 
 /**
  * @class Docs.app.view.classdetails.SourceViewComponent
@@ -8,32 +8,32 @@ class SourceViewComponent extends Component {
     static getConfig() {return {
         /**
          * @member {String} className='Docs.app.view.classdetails.SourceViewComponent'
-         * @private
+         * @protected
          */
         className: 'Docs.app.view.classdetails.SourceViewComponent',
         /**
          * @member {String} ntype='classdetails-sourceviewcomponent'
-         * @private
+         * @protected
          */
         ntype: 'classdetails-sourceviewcomponent',
         /**
          * @member {Boolean} isHighlighted_=false
-         * @private
+         * @protected
          */
         isHighlighted_: false,
         /**
          * @member {Number|null} line_=null
-         * @private
+         * @protected
          */
         line_: null,
         /**
          * @member {Number|null} previousLine=null
-         * @private
+         * @protected
          */
         previousLine: null,
         /**
          * @member {Object|null} structureData=null
-         * @private
+         * @protected
          */
         structureData: null,
         /**
@@ -79,7 +79,7 @@ class SourceViewComponent extends Component {
      * Triggered after the isHighlighted config got changed
      * @param {Boolean} value
      * @param {Boolean} oldValue
-     * @private
+     * @protected
      */
     afterSetIsHighlighted(value, oldValue) {
         if (value) {
@@ -99,7 +99,7 @@ class SourceViewComponent extends Component {
      * Triggered after the line config got changed
      * @param {Number} value
      * @param {Number} oldValue
-     * @private
+     * @protected
      */
     afterSetLine(value, oldValue) {
         let me = this;
@@ -109,7 +109,7 @@ class SourceViewComponent extends Component {
         }
 
         if (me.isHighlighted) {
-            me.afterSetIsHighlighted(true);
+            me.afterSetIsHighlighted(true, false);
         }
     }
 
@@ -135,13 +135,23 @@ class SourceViewComponent extends Component {
      * @param {String} vnodeId
      */
     syntaxHighlight(vnodeId) {
-        let me = this;
+        let me = this,
+            id;
 
-        Neo.main.addon.HighlightJS.syntaxHighlight({
-            vnodeId: me.vdom.cn[0].id
-        }).then(() => {
-            me.isHighlighted = true;
-        });
+        if (me.vnode) {
+            Neo.main.addon.HighlightJS.syntaxHighlight({
+                vnodeId: me.vdom.cn[0].id
+            }).then(() => {
+                me.isHighlighted = true;
+            });
+        } else {
+            id = me.on('mounted', () => {
+                setTimeout(() => {
+                    me.un('mounted', id);
+                    me.syntaxHighlight(vnodeId);
+                }, 50);
+            });
+        }
     }
 }
 

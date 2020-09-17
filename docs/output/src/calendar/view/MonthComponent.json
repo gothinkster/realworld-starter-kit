@@ -1,0 +1,1243 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.calendar.view.MonthComponent\n * @extends Neo.component.Base\n */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 14,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "MonthComponent",
+            "augments": [
+                "Neo.component.Base"
+            ],
+            "memberof": "Neo.calendar.view",
+            "longname": "Neo.calendar.view.MonthComponent",
+            "scope": "static",
+            "$longname": "Neo.calendar.view.MonthComponent",
+            "$kind": "class",
+            "id": 167,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.calendar.view.MonthComponent'\n         * @protected\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 24,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.calendar.view.MonthComponent'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 168,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='calendar-view-monthcomponent'\n         * @protected\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 29,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'calendar-view-monthcomponent'",
+            "access": "protected",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 169,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neo-calendar-monthcomponent']\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 33,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neo-calendar-monthcomponent']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 170,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * Will get passed from the MainContainer\n         * @member {Date|null} currentDate_=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 39,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "description": "Will get passed from the MainContainer",
+            "kind": "member",
+            "name": "currentDate_",
+            "type": {
+                "names": [
+                    "Date",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "currentDate_",
+            "scope": "global",
+            "$longname": "currentDate_",
+            "$kind": "property",
+            "id": 171,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * The format of the column headers.\n         * Valid values are: narrow, short & long\n         * @member {String} dayNameFormat_='short'\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 45,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "description": "The format of the column headers.<br />Valid values are: narrow, short & long",
+            "kind": "member",
+            "name": "dayNameFormat_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'short'",
+            "longname": "dayNameFormat_",
+            "scope": "global",
+            "$longname": "dayNameFormat_",
+            "$kind": "property",
+            "id": 172,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.calendar.store.Events|null} eventStore_=null\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 49,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "eventStore_",
+            "type": {
+                "names": [
+                    "Neo.calendar.store.Events",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "eventStore_",
+            "scope": "global",
+            "$longname": "eventStore_",
+            "$kind": "property",
+            "id": 173,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * Internal flag to store the header height in px after getting mounted.\n         * Needed for the infinite scrolling\n         * @member {Number|null} headerHeight=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 56,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "description": "Internal flag to store the header height in px after getting mounted.<br />Needed for the infinite scrolling",
+            "kind": "member",
+            "name": "headerHeight",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "headerHeight",
+            "scope": "global",
+            "$longname": "headerHeight",
+            "$kind": "property",
+            "id": 174,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Intl.DateTimeFormat|null} intlFormat_day=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 61,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "intlFormat_day",
+            "type": {
+                "names": [
+                    "Intl.DateTimeFormat",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "intlFormat_day",
+            "scope": "global",
+            "$longname": "intlFormat_day",
+            "$kind": "property",
+            "id": 175,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Intl.DateTimeFormat|null} intlFormat_month=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 66,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "intlFormat_month",
+            "type": {
+                "names": [
+                    "Intl.DateTimeFormat",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "intlFormat_month",
+            "scope": "global",
+            "$longname": "intlFormat_month",
+            "$kind": "property",
+            "id": 176,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} isScrolling=false\n         * @protected\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 71,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "isScrolling",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "access": "protected",
+            "longname": "isScrolling",
+            "scope": "global",
+            "$longname": "isScrolling",
+            "$kind": "property",
+            "id": 177,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String} locale_=Neo.config.locale\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 75,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "locale_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "Neo.config.locale",
+            "longname": "locale_",
+            "scope": "global",
+            "$longname": "locale_",
+            "$kind": "property",
+            "id": 178,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * The format of the month header names.\n         * Valid values are: narrow, short & long\n         * @member {String} monthNameFormat_='long'\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 81,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "description": "The format of the month header names.<br />Valid values are: narrow, short & long",
+            "kind": "member",
+            "name": "monthNameFormat_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'long'",
+            "longname": "monthNameFormat_",
+            "scope": "global",
+            "$longname": "monthNameFormat_",
+            "$kind": "property",
+            "id": 179,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} scrollTask=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 86,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "scrollTask",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "scrollTask",
+            "scope": "global",
+            "$longname": "scrollTask",
+            "$kind": "property",
+            "id": 180,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} showWeekends_=true\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 90,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "showWeekends_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "showWeekends_",
+            "scope": "global",
+            "$longname": "showWeekends_",
+            "$kind": "property",
+            "id": 181,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * True to use box shadows for the months while scrolling\n         * @member {Boolean} useScrollBoxShadows_=true\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 95,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "description": "True to use box shadows for the months while scrolling",
+            "kind": "member",
+            "name": "useScrollBoxShadows_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "useScrollBoxShadows_",
+            "scope": "global",
+            "$longname": "useScrollBoxShadows_",
+            "$kind": "property",
+            "id": 182,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Object} vdom\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 99,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "vdom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "longname": "vdom",
+            "scope": "global",
+            "$longname": "vdom",
+            "$kind": "property",
+            "id": 183,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n         * 0-6 => Sun-Sat\n         * @member {Number} weekStartDay_=0\n         */",
+            "meta": {
+                "filename": "MonthComponent.mjs",
+                "lineno": 121,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "description": "0-6 => Sun-Sat",
+            "kind": "member",
+            "name": "weekStartDay_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 0,
+            "longname": "weekStartDay_",
+            "scope": "global",
+            "$longname": "weekStartDay_",
+            "$kind": "property",
+            "id": 184,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    3628,
+                    4196
+                ],
+                "filename": "MonthComponent.mjs",
+                "lineno": 128,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100003711",
+                    "name": "MonthComponent",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "MonthComponent",
+            "longname": "MonthComponent",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "MonthComponent",
+            "$kind": "constructor",
+            "id": 185,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the dayNameFormat config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    4357,
+                    4589
+                ],
+                "filename": "MonthComponent.mjs",
+                "lineno": 156,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100003813",
+                    "name": "MonthComponent#afterSetDayNameFormat",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the dayNameFormat config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetDayNameFormat",
+            "longname": "MonthComponent#afterSetDayNameFormat",
+            "kind": "function",
+            "memberof": "MonthComponent",
+            "scope": "instance",
+            "$longname": "MonthComponent#afterSetDayNameFormat",
+            "$kind": "method",
+            "id": 186,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the locale config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    4743,
+                    5121
+                ],
+                "filename": "MonthComponent.mjs",
+                "lineno": 172,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100003848",
+                    "name": "MonthComponent#afterSetLocale",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the locale config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetLocale",
+            "longname": "MonthComponent#afterSetLocale",
+            "kind": "function",
+            "memberof": "MonthComponent",
+            "scope": "instance",
+            "$longname": "MonthComponent#afterSetLocale",
+            "$kind": "method",
+            "id": 187,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the monthNameFormat config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    5284,
+                    5522
+                ],
+                "filename": "MonthComponent.mjs",
+                "lineno": 190,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100003904",
+                    "name": "MonthComponent#afterSetMonthNameFormat",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the monthNameFormat config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetMonthNameFormat",
+            "longname": "MonthComponent#afterSetMonthNameFormat",
+            "kind": "function",
+            "memberof": "MonthComponent",
+            "scope": "instance",
+            "$longname": "MonthComponent#afterSetMonthNameFormat",
+            "$kind": "method",
+            "id": 188,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the mounted config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    5679,
+                    6298
+                ],
+                "filename": "MonthComponent.mjs",
+                "lineno": 206,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100003939",
+                    "name": "MonthComponent#afterSetMounted",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the mounted config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetMounted",
+            "longname": "MonthComponent#afterSetMounted",
+            "kind": "function",
+            "memberof": "MonthComponent",
+            "scope": "instance",
+            "$longname": "MonthComponent#afterSetMounted",
+            "$kind": "method",
+            "id": 189,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the showWeekends config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    6460,
+                    7238
+                ],
+                "filename": "MonthComponent.mjs",
+                "lineno": 232,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100004038",
+                    "name": "MonthComponent#afterSetShowWeekends",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the showWeekends config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetShowWeekends",
+            "longname": "MonthComponent#afterSetShowWeekends",
+            "kind": "function",
+            "memberof": "MonthComponent",
+            "scope": "instance",
+            "$longname": "MonthComponent#afterSetShowWeekends",
+            "$kind": "method",
+            "id": 190,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the useScrollBoxShadows config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    7407,
+                    7622
+                ],
+                "filename": "MonthComponent.mjs",
+                "lineno": 265,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100004128",
+                    "name": "MonthComponent#afterSetUseScrollBoxShadows",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the useScrollBoxShadows config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetUseScrollBoxShadows",
+            "longname": "MonthComponent#afterSetUseScrollBoxShadows",
+            "kind": "function",
+            "memberof": "MonthComponent",
+            "scope": "instance",
+            "$longname": "MonthComponent#afterSetUseScrollBoxShadows",
+            "$kind": "method",
+            "id": 191,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the weekStartDay config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    7782,
+                    7946
+                ],
+                "filename": "MonthComponent.mjs",
+                "lineno": 279,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100004167",
+                    "name": "MonthComponent#afterSetWeekStartDay",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the weekStartDay config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetWeekStartDay",
+            "longname": "MonthComponent#afterSetWeekStartDay",
+            "kind": "function",
+            "memberof": "MonthComponent",
+            "scope": "instance",
+            "$longname": "MonthComponent#afterSetWeekStartDay",
+            "$kind": "method",
+            "id": 192,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered before the dayNameFormat config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    8109,
+                    8265
+                ],
+                "filename": "MonthComponent.mjs",
+                "lineno": 292,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100004189",
+                    "name": "MonthComponent#beforeSetDayNameFormat",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the dayNameFormat config gets changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "beforeSetDayNameFormat",
+            "longname": "MonthComponent#beforeSetDayNameFormat",
+            "kind": "function",
+            "memberof": "MonthComponent",
+            "scope": "instance",
+            "$longname": "MonthComponent#beforeSetDayNameFormat",
+            "$kind": "method",
+            "id": 193,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered before the monthNameFormat config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    8430,
+                    8592
+                ],
+                "filename": "MonthComponent.mjs",
+                "lineno": 302,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100004208",
+                    "name": "MonthComponent#beforeSetMonthNameFormat",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the monthNameFormat config gets changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "beforeSetMonthNameFormat",
+            "longname": "MonthComponent#beforeSetMonthNameFormat",
+            "kind": "function",
+            "memberof": "MonthComponent",
+            "scope": "instance",
+            "$longname": "MonthComponent#beforeSetMonthNameFormat",
+            "$kind": "method",
+            "id": 194,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [silent=false]\n     */",
+            "meta": {
+                "range": [
+                    8660,
+                    9369
+                ],
+                "filename": "MonthComponent.mjs",
+                "lineno": 310,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100004227",
+                    "name": "MonthComponent#createContent",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "name": "createContent",
+            "longname": "MonthComponent#createContent",
+            "kind": "function",
+            "memberof": "MonthComponent",
+            "scope": "instance",
+            "$longname": "MonthComponent#createContent",
+            "$kind": "method",
+            "id": 195,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Date} date\n     * @returns {Object}\n     */",
+            "meta": {
+                "range": [
+                    9449,
+                    11072
+                ],
+                "filename": "MonthComponent.mjs",
+                "lineno": 345,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100004369",
+                    "name": "MonthComponent#createWeek",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "date"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Date"
+                        ]
+                    },
+                    "name": "date"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    }
+                }
+            ],
+            "name": "createWeek",
+            "longname": "MonthComponent#createWeek",
+            "kind": "function",
+            "memberof": "MonthComponent",
+            "scope": "instance",
+            "$longname": "MonthComponent#createWeek",
+            "$kind": "method",
+            "id": 196,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    11129,
+                    14126
+                ],
+                "filename": "MonthComponent.mjs",
+                "lineno": 410,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100004548",
+                    "name": "MonthComponent#onWheel",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onWheel",
+            "longname": "MonthComponent#onWheel",
+            "kind": "function",
+            "memberof": "MonthComponent",
+            "scope": "instance",
+            "$longname": "MonthComponent#onWheel",
+            "$kind": "method",
+            "id": 197,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    14155,
+                    14978
+                ],
+                "filename": "MonthComponent.mjs",
+                "lineno": 502,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100005043",
+                    "name": "MonthComponent#onWheelEnd",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onWheelEnd",
+            "longname": "MonthComponent#onWheelEnd",
+            "kind": "function",
+            "memberof": "MonthComponent",
+            "scope": "instance",
+            "params": [],
+            "$longname": "MonthComponent#onWheelEnd",
+            "$kind": "method",
+            "id": 198,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [create=false]\n     */",
+            "meta": {
+                "range": [
+                    15046,
+                    16141
+                ],
+                "filename": "MonthComponent.mjs",
+                "lineno": 535,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100005181",
+                    "name": "MonthComponent#updateHeader",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "create"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "create"
+                }
+            ],
+            "name": "updateHeader",
+            "longname": "MonthComponent#updateHeader",
+            "kind": "function",
+            "memberof": "MonthComponent",
+            "scope": "instance",
+            "$longname": "MonthComponent#updateHeader",
+            "$kind": "method",
+            "id": 199,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [silent=false]\n     */",
+            "meta": {
+                "range": [
+                    16209,
+                    16612
+                ],
+                "filename": "MonthComponent.mjs",
+                "lineno": 580,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100005363",
+                    "name": "MonthComponent#updateMonthNames",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "name": "updateMonthNames",
+            "longname": "MonthComponent#updateMonthNames",
+            "kind": "function",
+            "memberof": "MonthComponent",
+            "scope": "instance",
+            "$longname": "MonthComponent#updateMonthNames",
+            "$kind": "method",
+            "id": 200,
+            "neoClassName": "Neo.calendar.view.MonthComponent"
+        }
+    ]
+}

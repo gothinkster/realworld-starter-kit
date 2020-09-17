@@ -21,11 +21,11 @@
             "scope": "static",
             "$longname": "Neo.worker.Base",
             "$kind": "class",
-            "id": 2122,
+            "id": 2718,
             "neoClassName": "Neo.worker.Base"
         },
         {
-            "comment": "/**\n         * @member {String} className='Neo.worker.Worker'\n         * @protected\n         */",
+            "comment": "/**\n         * @member {String} className='Neo.worker.Base'\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
                 "lineno": 18,
@@ -40,13 +40,13 @@
                     "String"
                 ]
             },
-            "defaultvalue": "'Neo.worker.Worker'",
+            "defaultvalue": "'Neo.worker.Base'",
             "access": "protected",
             "longname": "className",
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2123,
+            "id": 2719,
             "neoClassName": "Neo.worker.Base"
         },
         {
@@ -71,7 +71,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2124,
+            "id": 2720,
             "neoClassName": "Neo.worker.Base"
         },
         {
@@ -97,7 +97,7 @@
             "scope": "global",
             "$longname": "isConnected",
             "$kind": "property",
-            "id": 2125,
+            "id": 2721,
             "neoClassName": "Neo.worker.Base"
         },
         {
@@ -122,7 +122,7 @@
             "scope": "global",
             "$longname": "isSharedWorker",
             "$kind": "property",
-            "id": 2126,
+            "id": 2722,
             "neoClassName": "Neo.worker.Base"
         },
         {
@@ -149,7 +149,7 @@
             "scope": "global",
             "$longname": "mixins",
             "$kind": "property",
-            "id": 2127,
+            "id": 2723,
             "neoClassName": "Neo.worker.Base"
         },
         {
@@ -175,7 +175,7 @@
             "scope": "global",
             "$longname": "ports",
             "$kind": "property",
-            "id": 2128,
+            "id": 2724,
             "neoClassName": "Neo.worker.Base"
         },
         {
@@ -201,22 +201,22 @@
             "scope": "global",
             "$longname": "workerId",
             "$kind": "property",
-            "id": 2129,
+            "id": 2725,
             "neoClassName": "Neo.worker.Base"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config={}\n     */",
             "meta": {
                 "range": [
-                    1455,
-                    1961
+                    1439,
+                    1945
                 ],
                 "filename": "Base.mjs",
                 "lineno": 55,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100069272",
+                    "id": "astnode100089713",
                     "name": "Base",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -244,22 +244,22 @@
             "scope": "global",
             "$longname": "Base",
             "$kind": "constructor",
-            "id": 2130,
+            "id": 2726,
             "neoClassName": "Neo.worker.Base"
         },
         {
-            "comment": "/**\n     *\n     * @param {Object} opts\n     * @return {Object|null}\n     */",
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @returns {Object|null}\n     */",
             "meta": {
                 "range": [
-                    2047,
-                    2483
+                    2032,
+                    2468
                 ],
                 "filename": "Base.mjs",
                 "lineno": 81,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100069349",
+                    "id": "astnode100089790",
                     "name": "Base#getPort",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -297,22 +297,22 @@
             "scope": "instance",
             "$longname": "Base#getPort",
             "$kind": "method",
-            "id": 2131,
+            "id": 2727,
             "neoClassName": "Neo.worker.Base"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    2512,
-                    2682
+                    2497,
+                    2667
                 ],
                 "filename": "Base.mjs",
                 "lineno": 105,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100069406",
+                    "id": "astnode100089847",
                     "name": "Base#onConstructed",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -329,22 +329,22 @@
             "params": [],
             "$longname": "Base#onConstructed",
             "$kind": "method",
-            "id": 2132,
+            "id": 2728,
             "neoClassName": "Neo.worker.Base"
         },
         {
             "comment": "/**\n     * Only relevant for SharedWorkers\n     * @param {Object} e\n     */",
             "meta": {
                 "range": [
-                    2768,
-                    3342
+                    2753,
+                    3327
                 ],
                 "filename": "Base.mjs",
                 "lineno": 117,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100069430",
+                    "id": "astnode100089871",
                     "name": "Base#onConnected",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -373,22 +373,22 @@
             "scope": "instance",
             "$longname": "Base#onConnected",
             "$kind": "method",
-            "id": 2133,
+            "id": 2729,
             "neoClassName": "Neo.worker.Base"
         },
         {
             "comment": "/**\n     * Only relevant for SharedWorkers\n     */",
             "meta": {
                 "range": [
-                    3403,
-                    3424
+                    3388,
+                    3409
                 ],
                 "filename": "Base.mjs",
                 "lineno": 142,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100069517",
+                    "id": "astnode100089958",
                     "name": "Base#onDisconnect",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -408,22 +408,22 @@
             "params": [],
             "$longname": "Base#onDisconnect",
             "$kind": "method",
-            "id": 2134,
+            "id": 2730,
             "neoClassName": "Neo.worker.Base"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} e\n     */",
             "meta": {
                 "range": [
-                    3478,
-                    4337
+                    3463,
+                    4105
                 ],
                 "filename": "Base.mjs",
                 "lineno": 148,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100069522",
+                    "id": "astnode100089963",
                     "name": "Base#onMessage",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -451,22 +451,22 @@
             "scope": "instance",
             "$longname": "Base#onMessage",
             "$kind": "method",
-            "id": 2135,
+            "id": 2731,
             "neoClassName": "Neo.worker.Base"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} msg\n     */",
             "meta": {
                 "range": [
-                    4393,
-                    4479
+                    4161,
+                    4247
                 ],
                 "filename": "Base.mjs",
-                "lineno": 184,
+                "lineno": 176,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100069644",
+                    "id": "astnode100090060",
                     "name": "Base#onPing",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -494,22 +494,22 @@
             "scope": "instance",
             "$longname": "Base#onPing",
             "$kind": "method",
-            "id": 2136,
+            "id": 2732,
             "neoClassName": "Neo.worker.Base"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} msg\n     */",
             "meta": {
                 "range": [
-                    4535,
-                    4651
+                    4303,
+                    4419
                 ],
                 "filename": "Base.mjs",
-                "lineno": 194,
+                "lineno": 186,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100069658",
+                    "id": "astnode100090074",
                     "name": "Base#onRegisterNeoConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -537,22 +537,22 @@
             "scope": "instance",
             "$longname": "Base#onRegisterNeoConfig",
             "$kind": "method",
-            "id": 2137,
+            "id": 2733,
             "neoClassName": "Neo.worker.Base"
         },
         {
             "comment": "/**\n     *\n     * @param {String} dest app, data, main or vdom (excluding the current worker)\n     * @param {Object} opts configs for Neo.worker.Message\n     * @param {Array} [transfer] An optional array of Transferable objects to transfer ownership of.\n     * If the ownership of an object is transferred, it becomes unusable (neutered) in the context it was sent from\n     * and becomes available only to the worker it was sent to.\n     * @returns {Promise<any>}\n     */",
             "meta": {
                 "range": [
-                    5134,
-                    5488
+                    4902,
+                    5256
                 ],
                 "filename": "Base.mjs",
-                "lineno": 208,
+                "lineno": 200,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100069684",
+                    "id": "astnode100090100",
                     "name": "Base#promiseMessage",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -611,22 +611,22 @@
             "scope": "instance",
             "$longname": "Base#promiseMessage",
             "$kind": "method",
-            "id": 2138,
+            "id": 2734,
             "neoClassName": "Neo.worker.Base"
         },
         {
             "comment": "/**\n     * Only needed for SharedWorkers\n     * @param {String} name\n     */",
             "meta": {
                 "range": [
-                    5575,
-                    5878
+                    5343,
+                    5646
                 ],
                 "filename": "Base.mjs",
-                "lineno": 226,
+                "lineno": 218,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100069729",
+                    "id": "astnode100090145",
                     "name": "Base#registerApp",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -655,22 +655,22 @@
             "scope": "instance",
             "$longname": "Base#registerApp",
             "$kind": "method",
-            "id": 2139,
+            "id": 2735,
             "neoClassName": "Neo.worker.Base"
         },
         {
             "comment": "/**\n     * @param {String} dest app, data, main or vdom (excluding the current worker)\n     * @param {Object} opts configs for Neo.worker.Message\n     * @param {Array} [transfer] An optional array of Transferable objects to transfer ownership of.\n     * If the ownership of an object is transferred, it becomes unusable (neutered) in the context it was sent from\n     * and becomes available only to the worker it was sent to.\n     * @returns {Neo.worker.Message}\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6378,
-                    7067
+                    6146,
+                    6835
                 ],
                 "filename": "Base.mjs",
-                "lineno": 248,
+                "lineno": 240,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100069767",
+                    "id": "astnode100090183",
                     "name": "Base#sendMessage",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -730,7 +730,7 @@
             "scope": "instance",
             "$longname": "Base#sendMessage",
             "$kind": "method",
-            "id": 2140,
+            "id": 2736,
             "neoClassName": "Neo.worker.Base"
         }
     ]

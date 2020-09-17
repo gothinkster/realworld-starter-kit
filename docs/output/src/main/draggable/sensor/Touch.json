@@ -1,0 +1,510 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.main.draggable.sensor.Touch\n * @extends Neo.main.draggable.sensor.Base\n */",
+            "meta": {
+                "filename": "Touch.mjs",
+                "lineno": 18,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Touch",
+            "augments": [
+                "Neo.main.draggable.sensor.Base"
+            ],
+            "memberof": "Neo.main.draggable.sensor",
+            "longname": "Neo.main.draggable.sensor.Touch",
+            "scope": "static",
+            "$longname": "Neo.main.draggable.sensor.Touch",
+            "$kind": "class",
+            "id": 2043,
+            "neoClassName": "Neo.main.draggable.sensor.Touch"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.main.draggable.sensor.Touch'\n         * @protected\n         */",
+            "meta": {
+                "filename": "Touch.mjs",
+                "lineno": 28,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.main.draggable.sensor.Touch'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 2044,
+            "neoClassName": "Neo.main.draggable.sensor.Touch"
+        },
+        {
+            "comment": "/**\n         * @member {Number} delay=200\n         */",
+            "meta": {
+                "filename": "Touch.mjs",
+                "lineno": 32,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "delay",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 200,
+            "longname": "delay",
+            "scope": "global",
+            "$longname": "delay",
+            "$kind": "property",
+            "id": 2045,
+            "neoClassName": "Neo.main.draggable.sensor.Touch"
+        },
+        {
+            "comment": "/**\n         * @member {Number} minDistance=0\n         */",
+            "meta": {
+                "filename": "Touch.mjs",
+                "lineno": 36,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "minDistance",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 0,
+            "longname": "minDistance",
+            "scope": "global",
+            "$longname": "minDistance",
+            "$kind": "property",
+            "id": 2046,
+            "neoClassName": "Neo.main.draggable.sensor.Touch"
+        },
+        {
+            "comment": "/**\n         * @member {Number|null} pageX=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Touch.mjs",
+                "lineno": 41,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "pageX",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "pageX",
+            "scope": "global",
+            "$longname": "pageX",
+            "$kind": "property",
+            "id": 2047,
+            "neoClassName": "Neo.main.draggable.sensor.Touch"
+        },
+        {
+            "comment": "/**\n         * @member {Number|null} pageY=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Touch.mjs",
+                "lineno": 46,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "pageY",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "pageY",
+            "scope": "global",
+            "$longname": "pageY",
+            "$kind": "property",
+            "id": 2048,
+            "neoClassName": "Neo.main.draggable.sensor.Touch"
+        },
+        {
+            "comment": "/**\n         * @member {Number|null} tapTimeout=null\n         */",
+            "meta": {
+                "filename": "Touch.mjs",
+                "lineno": 50,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "tapTimeout",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "tapTimeout",
+            "scope": "global",
+            "$longname": "tapTimeout",
+            "$kind": "property",
+            "id": 2049,
+            "neoClassName": "Neo.main.draggable.sensor.Touch"
+        },
+        {
+            "comment": "/**\n         * @member {Number} touchStartTime=0\n         */",
+            "meta": {
+                "filename": "Touch.mjs",
+                "lineno": 54,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "touchStartTime",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 0,
+            "longname": "touchStartTime",
+            "scope": "global",
+            "$longname": "touchStartTime",
+            "$kind": "property",
+            "id": 2050,
+            "neoClassName": "Neo.main.draggable.sensor.Touch"
+        },
+        {
+            "comment": "/**\n     *\n     * @param config\n     */",
+            "meta": {
+                "range": [
+                    1394,
+                    1555
+                ],
+                "filename": "Touch.mjs",
+                "lineno": 61,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100063160",
+                    "name": "Touch",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "config"
+                }
+            ],
+            "name": "Touch",
+            "longname": "Touch",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Touch",
+            "$kind": "constructor",
+            "id": 2051,
+            "neoClassName": "Neo.main.draggable.sensor.Touch"
+        },
+        {
+            "comment": "/**\n     * Attaches sensors event listeners to the DOM\n     */",
+            "meta": {
+                "range": [
+                    1628,
+                    1712
+                ],
+                "filename": "Touch.mjs",
+                "lineno": 69,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100063181",
+                    "name": "Touch#attach",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Attaches sensors event listeners to the DOM",
+            "name": "attach",
+            "longname": "Touch#attach",
+            "kind": "function",
+            "memberof": "Touch",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Touch#attach",
+            "$kind": "method",
+            "id": 2052,
+            "neoClassName": "Neo.main.draggable.sensor.Touch"
+        },
+        {
+            "comment": "/**\n     * Detaches sensors event listeners from the DOM\n     */",
+            "meta": {
+                "range": [
+                    1787,
+                    1874
+                ],
+                "filename": "Touch.mjs",
+                "lineno": 76,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100063194",
+                    "name": "Touch#detach",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Detaches sensors event listeners from the DOM",
+            "name": "detach",
+            "longname": "Touch#detach",
+            "kind": "function",
+            "memberof": "Touch",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Touch#detach",
+            "$kind": "method",
+            "id": 2053,
+            "neoClassName": "Neo.main.draggable.sensor.Touch"
+        },
+        {
+            "comment": "/**\n     * Detect change in distance, starting drag when both delay and distance requirements are met\n     * @param {TouchEvent|Object} event - Object in case it does get trigger via the tapTimeout\n     */",
+            "meta": {
+                "range": [
+                    2090,
+                    2816
+                ],
+                "filename": "Touch.mjs",
+                "lineno": 84,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100063207",
+                    "name": "Touch#onDistanceChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Detect change in distance, starting drag when both delay and distance requirements are met",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "TouchEvent",
+                            "Object"
+                        ]
+                    },
+                    "description": "Object in case it does get trigger via the tapTimeout",
+                    "name": "event"
+                }
+            ],
+            "name": "onDistanceChange",
+            "longname": "Touch#onDistanceChange",
+            "kind": "function",
+            "memberof": "Touch",
+            "scope": "instance",
+            "$longname": "Touch#onDistanceChange",
+            "$kind": "method",
+            "id": 2054,
+            "neoClassName": "Neo.main.draggable.sensor.Touch"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {TouchEvent} event\n     */",
+            "meta": {
+                "range": [
+                    2878,
+                    4323
+                ],
+                "filename": "Touch.mjs",
+                "lineno": 107,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100063312",
+                    "name": "Touch#onTouchEnd",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "TouchEvent"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onTouchEnd",
+            "longname": "Touch#onTouchEnd",
+            "kind": "function",
+            "memberof": "Touch",
+            "scope": "instance",
+            "$longname": "Touch#onTouchEnd",
+            "$kind": "method",
+            "id": 2055,
+            "neoClassName": "Neo.main.draggable.sensor.Touch"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {TouchEvent} event\n     */",
+            "meta": {
+                "range": [
+                    4385,
+                    5096
+                ],
+                "filename": "Touch.mjs",
+                "lineno": 155,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100063483",
+                    "name": "Touch#onTouchMove",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "TouchEvent"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onTouchMove",
+            "longname": "Touch#onTouchMove",
+            "kind": "function",
+            "memberof": "Touch",
+            "scope": "instance",
+            "$longname": "Touch#onTouchMove",
+            "$kind": "method",
+            "id": 2056,
+            "neoClassName": "Neo.main.draggable.sensor.Touch"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {TouchEvent} event\n     */",
+            "meta": {
+                "range": [
+                    5158,
+                    6110
+                ],
+                "filename": "Touch.mjs",
+                "lineno": 181,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100063569",
+                    "name": "Touch#onTouchStart",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "TouchEvent"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onTouchStart",
+            "longname": "Touch#onTouchStart",
+            "kind": "function",
+            "memberof": "Touch",
+            "scope": "instance",
+            "$longname": "Touch#onTouchStart",
+            "$kind": "method",
+            "id": 2057,
+            "neoClassName": "Neo.main.draggable.sensor.Touch"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    6139,
+                    6943
+                ],
+                "filename": "Touch.mjs",
+                "lineno": 210,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100063691",
+                    "name": "Touch#startDrag",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "startDrag",
+            "longname": "Touch#startDrag",
+            "kind": "function",
+            "memberof": "Touch",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Touch#startDrag",
+            "$kind": "method",
+            "id": 2058,
+            "neoClassName": "Neo.main.draggable.sensor.Touch"
+        }
+    ]
+}

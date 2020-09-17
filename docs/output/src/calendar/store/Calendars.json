@@ -1,0 +1,125 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.calendar.store.Calendars\n * @extends Neo.data.Store\n */",
+            "meta": {
+                "filename": "Calendars.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/store",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Calendars",
+            "augments": [
+                "Neo.data.Store"
+            ],
+            "memberof": "Neo.calendar.store",
+            "longname": "Neo.calendar.store.Calendars",
+            "scope": "static",
+            "$longname": "Neo.calendar.store.Calendars",
+            "$kind": "class",
+            "id": 140,
+            "neoClassName": "Neo.calendar.store.Calendars"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.calendar.store.Calendars'\n         * @protected\n         */",
+            "meta": {
+                "filename": "Calendars.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/store",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.calendar.store.Calendars'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 141,
+            "neoClassName": "Neo.calendar.store.Calendars"
+        },
+        {
+            "comment": "/**\n         * @member {String} keyProperty='id'\n         * @protected\n         */",
+            "meta": {
+                "filename": "Calendars.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/store",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "keyProperty",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'id'",
+            "access": "protected",
+            "longname": "keyProperty",
+            "scope": "global",
+            "$longname": "keyProperty",
+            "$kind": "property",
+            "id": 142,
+            "neoClassName": "Neo.calendar.store.Calendars"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.data.Model} model=Calendar\n         * @protected\n         */",
+            "meta": {
+                "filename": "Calendars.mjs",
+                "lineno": 24,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/store",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "model",
+            "type": {
+                "names": [
+                    "Neo.data.Model"
+                ]
+            },
+            "defaultvalue": "Calendar",
+            "access": "protected",
+            "longname": "model",
+            "scope": "global",
+            "$longname": "model",
+            "$kind": "property",
+            "id": 143,
+            "neoClassName": "Neo.calendar.store.Calendars"
+        },
+        {
+            "comment": "/**\n         * @member {Object[]} sorters\n         * @protected\n         */",
+            "meta": {
+                "filename": "Calendars.mjs",
+                "lineno": 29,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/store",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "sorters",
+            "type": {
+                "names": [
+                    "Array.<Object>"
+                ]
+            },
+            "access": "protected",
+            "longname": "sorters",
+            "scope": "global",
+            "$longname": "sorters",
+            "$kind": "property",
+            "id": 144,
+            "neoClassName": "Neo.calendar.store.Calendars"
+        }
+    ]
+}

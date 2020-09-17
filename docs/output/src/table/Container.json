@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.table.Container",
             "$kind": "class",
-            "id": 1865,
+            "id": 2438,
             "neoClassName": "Neo.table.Container"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1866,
+            "id": 2439,
             "neoClassName": "Neo.table.Container"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1867,
+            "id": 2440,
             "neoClassName": "Neo.table.Container"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "amountRows",
             "$kind": "property",
-            "id": 1868,
+            "id": 2441,
             "neoClassName": "Neo.table.Container"
         },
         {
@@ -119,7 +119,7 @@
             "scope": "global",
             "$longname": "columnDefaults",
             "$kind": "property",
-            "id": 1869,
+            "id": 2442,
             "neoClassName": "Neo.table.Container"
         },
         {
@@ -144,7 +144,7 @@
             "scope": "global",
             "$longname": "createRandomData",
             "$kind": "property",
-            "id": 1870,
+            "id": 2443,
             "neoClassName": "Neo.table.Container"
         },
         {
@@ -168,7 +168,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1871,
+            "id": 2444,
             "neoClassName": "Neo.table.Container"
         },
         {
@@ -192,7 +192,7 @@
             "scope": "global",
             "$longname": "columns_",
             "$kind": "property",
-            "id": 1872,
+            "id": 2445,
             "neoClassName": "Neo.table.Container"
         },
         {
@@ -219,7 +219,7 @@
             "scope": "global",
             "$longname": "headerToolbarConfig",
             "$kind": "property",
-            "id": 1873,
+            "id": 2446,
             "neoClassName": "Neo.table.Container"
         },
         {
@@ -244,7 +244,7 @@
             "scope": "global",
             "$longname": "headerToolbarId_",
             "$kind": "property",
-            "id": 1874,
+            "id": 2447,
             "neoClassName": "Neo.table.Container"
         },
         {
@@ -268,7 +268,7 @@
             "scope": "global",
             "$longname": "keys",
             "$kind": "property",
-            "id": 1875,
+            "id": 2448,
             "neoClassName": "Neo.table.Container"
         },
         {
@@ -292,7 +292,7 @@
             "scope": "global",
             "$longname": "layout",
             "$kind": "property",
-            "id": 1876,
+            "id": 2449,
             "neoClassName": "Neo.table.Container"
         },
         {
@@ -317,7 +317,7 @@
             "scope": "global",
             "$longname": "scrollbarsCssApplied",
             "$kind": "property",
-            "id": 1877,
+            "id": 2450,
             "neoClassName": "Neo.table.Container"
         },
         {
@@ -341,14 +341,38 @@
             "scope": "global",
             "$longname": "selectionModel_",
             "$kind": "property",
-            "id": 1878,
+            "id": 2451,
+            "neoClassName": "Neo.table.Container"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} showHeaderFilters_=false\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 79,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "showHeaderFilters_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "showHeaderFilters_",
+            "scope": "global",
+            "$longname": "showHeaderFilters_",
+            "$kind": "property",
+            "id": 2452,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n         * @member {Neo.data.Store} store_=null\n         */",
             "meta": {
                 "filename": "Container.mjs",
-                "lineno": 79,
+                "lineno": 83,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {}
@@ -365,14 +389,14 @@
             "scope": "global",
             "$longname": "store_",
             "$kind": "property",
-            "id": 1879,
+            "id": 2453,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n         * todo: only works for chrome & safari -> add a check\n         * @member {Boolean} useCustomScrollbars_=true\n         */",
             "meta": {
                 "filename": "Container.mjs",
-                "lineno": 84,
+                "lineno": 88,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {}
@@ -390,14 +414,14 @@
             "scope": "global",
             "$longname": "useCustomScrollbars_",
             "$kind": "property",
-            "id": 1880,
+            "id": 2454,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n         * Configs for Neo.table.View\n         * @member {Object|null} [viewConfig=null]\n         */",
             "meta": {
                 "filename": "Container.mjs",
-                "lineno": 89,
+                "lineno": 93,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {}
@@ -417,14 +441,14 @@
             "scope": "global",
             "$longname": "viewConfig",
             "$kind": "property",
-            "id": 1881,
+            "id": 2455,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n         * @member {String|null} viewId_=null\n         * @protected\n         */",
             "meta": {
                 "filename": "Container.mjs",
-                "lineno": 94,
+                "lineno": 98,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {}
@@ -443,14 +467,14 @@
             "scope": "global",
             "$longname": "viewId_",
             "$kind": "property",
-            "id": 1882,
+            "id": 2456,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n         * @member {Array|null} items=null\n         * @protected\n         */",
             "meta": {
                 "filename": "Container.mjs",
-                "lineno": 99,
+                "lineno": 103,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {}
@@ -469,14 +493,14 @@
             "scope": "global",
             "$longname": "items",
             "$kind": "property",
-            "id": 1883,
+            "id": 2457,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n         * @member {Object} _vdom={cls: ['neo-table-wrapper'],cn : [{tag: 'table',cn : []}]}\n         */",
             "meta": {
                 "filename": "Container.mjs",
-                "lineno": 103,
+                "lineno": 107,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {}
@@ -494,22 +518,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 1884,
+            "id": 2458,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    3319,
-                    3929
+                    3341,
+                    4026
                 ],
                 "filename": "Container.mjs",
-                "lineno": 116,
+                "lineno": 120,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100059913",
+                    "id": "astnode100079345",
                     "name": "Container",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -536,22 +560,22 @@
             "scope": "global",
             "$longname": "Container",
             "$kind": "constructor",
-            "id": 1885,
+            "id": 2459,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    3958,
-                    4328
+                    4055,
+                    4425
                 ],
                 "filename": "Container.mjs",
-                "lineno": 144,
+                "lineno": 149,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060008",
+                    "id": "astnode100079444",
                     "name": "Container#onConstructed",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -568,22 +592,22 @@
             "params": [],
             "$longname": "Container#onConstructed",
             "$kind": "method",
-            "id": 1886,
+            "id": 2460,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     * Triggered after the selectionModel config got changed\n     * @param {Neo.selection.Model} value\n     * @param {Neo.selection.Model} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4516,
-                    4636
+                    4613,
+                    4733
                 ],
                 "filename": "Container.mjs",
-                "lineno": 167,
+                "lineno": 172,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060053",
+                    "id": "astnode100079489",
                     "name": "Container#afterSetSelectionModel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -622,22 +646,76 @@
             "scope": "instance",
             "$longname": "Container#afterSetSelectionModel",
             "$kind": "method",
-            "id": 1887,
+            "id": 2461,
+            "neoClassName": "Neo.table.Container"
+        },
+        {
+            "comment": "/**\n     * Triggered after the showHeaderFilters config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    4900,
+                    5076
+                ],
+                "filename": "Container.mjs",
+                "lineno": 184,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
+                "code": {
+                    "id": "astnode100079506",
+                    "name": "Container#afterSetShowHeaderFilters",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the showHeaderFilters config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetShowHeaderFilters",
+            "longname": "Container#afterSetShowHeaderFilters",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "$longname": "Container#afterSetShowHeaderFilters",
+            "$kind": "method",
+            "id": 2462,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     * Triggered after the useCustomScrollbars config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4805,
-                    4986
+                    5245,
+                    5426
                 ],
                 "filename": "Container.mjs",
-                "lineno": 179,
+                "lineno": 196,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060070",
+                    "id": "astnode100079529",
                     "name": "Container#afterSetUseCustomScrollbars",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -676,22 +754,22 @@
             "scope": "instance",
             "$longname": "Container#afterSetUseCustomScrollbars",
             "$kind": "method",
-            "id": 1888,
+            "id": 2463,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5026,
-                    5606
+                    5466,
+                    6046
                 ],
                 "filename": "Container.mjs",
-                "lineno": 188,
+                "lineno": 205,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060099",
+                    "id": "astnode100079558",
                     "name": "Container#applyCustomScrollbarsCss",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -709,22 +787,22 @@
             "params": [],
             "$longname": "Container#applyCustomScrollbarsCss",
             "$kind": "method",
-            "id": 1889,
+            "id": 2464,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     * Triggered before the columns config gets changed.\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5762,
-                    5917
+                    6202,
+                    6357
                 ],
                 "filename": "Container.mjs",
-                "lineno": 212,
+                "lineno": 229,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060179",
+                    "id": "astnode100079638",
                     "name": "Container#beforeSetColumns",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -763,22 +841,22 @@
             "scope": "instance",
             "$longname": "Container#beforeSetColumns",
             "$kind": "method",
-            "id": 1890,
+            "id": 2465,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     * Triggered before the headerToolbarId config gets changed.\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6083,
-                    6173
+                    6523,
+                    6613
                 ],
                 "filename": "Container.mjs",
-                "lineno": 226,
+                "lineno": 243,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060198",
+                    "id": "astnode100079657",
                     "name": "Container#beforeSetHeaderToolbarId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -817,22 +895,22 @@
             "scope": "instance",
             "$longname": "Container#beforeSetHeaderToolbarId",
             "$kind": "method",
-            "id": 1891,
+            "id": 2466,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     * Triggered before the selectionModel config gets changed.\n     * @param {Neo.selection.Model} value\n     * @param {Neo.selection.Model} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6364,
-                    6546
+                    6804,
+                    6986
                 ],
                 "filename": "Container.mjs",
-                "lineno": 236,
+                "lineno": 253,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060209",
+                    "id": "astnode100079668",
                     "name": "Container#beforeSetSelectionModel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -871,22 +949,22 @@
             "scope": "instance",
             "$longname": "Container#beforeSetSelectionModel",
             "$kind": "method",
-            "id": 1892,
+            "id": 2467,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     * Triggered before the store config gets changed.\n     * @param {Neo.data.Store} value\n     * @param {Neo.data.Store} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6718,
-                    7281
+                    7158,
+                    7769
                 ],
                 "filename": "Container.mjs",
-                "lineno": 250,
+                "lineno": 267,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060230",
+                    "id": "astnode100079689",
                     "name": "Container#beforeSetStore",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -925,22 +1003,22 @@
             "scope": "instance",
             "$longname": "Container#beforeSetStore",
             "$kind": "method",
-            "id": 1893,
+            "id": 2468,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     * Triggered before the viewId config gets changed.\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7438,
-                    7519
+                    7926,
+                    8007
                 ],
                 "filename": "Container.mjs",
-                "lineno": 279,
+                "lineno": 297,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060285",
+                    "id": "astnode100079748",
                     "name": "Container#beforeSetViewId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -979,22 +1057,22 @@
             "scope": "instance",
             "$longname": "Container#beforeSetViewId",
             "$kind": "method",
-            "id": 1894,
+            "id": 2469,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     *\n     * @param columns\n     * @returns {*}\n     */",
             "meta": {
                 "range": [
-                    7590,
-                    8608
+                    8078,
+                    9096
                 ],
                 "filename": "Container.mjs",
-                "lineno": 288,
+                "lineno": 306,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060296",
+                    "id": "astnode100079759",
                     "name": "Container#createColumns",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1026,22 +1104,22 @@
             "scope": "instance",
             "$longname": "Container#createColumns",
             "$kind": "method",
-            "id": 1895,
+            "id": 2470,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     *\n     * @param {Number} countRows\n     */",
             "meta": {
                 "range": [
-                    8670,
-                    8743
+                    9158,
+                    9231
                 ],
                 "filename": "Container.mjs",
-                "lineno": 327,
+                "lineno": 345,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060425",
+                    "id": "astnode100079888",
                     "name": "Container#createRandomViewData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1069,22 +1147,22 @@
             "scope": "instance",
             "$longname": "Container#createRandomViewData",
             "$kind": "method",
-            "id": 1896,
+            "id": 2471,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     * @param {Array} inputData\n     */",
             "meta": {
                 "range": [
-                    8797,
-                    9143
+                    9285,
+                    9631
                 ],
                 "filename": "Container.mjs",
-                "lineno": 334,
+                "lineno": 352,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060436",
+                    "id": "astnode100079899",
                     "name": "Container#createViewData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1112,22 +1190,22 @@
             "scope": "instance",
             "$longname": "Container#createViewData",
             "$kind": "method",
-            "id": 1897,
+            "id": 2472,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     * @override\n     * @returns {*}\n     */",
             "meta": {
                 "range": [
-                    9202,
-                    9255
+                    9690,
+                    9743
                 ],
                 "filename": "Container.mjs",
-                "lineno": 351,
+                "lineno": 369,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060480",
+                    "id": "astnode100079943",
                     "name": "Container#getVdomRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1154,22 +1232,22 @@
             "params": [],
             "$longname": "Container#getVdomRoot",
             "$kind": "method",
-            "id": 1898,
+            "id": 2473,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     * @override\n     * @returns {Neo.vdom.VNode}\n     */",
             "meta": {
                 "range": [
-                    9327,
-                    9390
+                    9815,
+                    9878
                 ],
                 "filename": "Container.mjs",
-                "lineno": 359,
+                "lineno": 377,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060492",
+                    "id": "astnode100079955",
                     "name": "Container#getVnodeRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1196,22 +1274,22 @@
             "params": [],
             "$longname": "Container#getVnodeRoot",
             "$kind": "method",
-            "id": 1899,
+            "id": 2474,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     *\n     * @param {Number} countRows\n     */",
             "meta": {
                 "range": [
-                    9452,
-                    9845
+                    9940,
+                    10333
                 ],
                 "filename": "Container.mjs",
-                "lineno": 367,
+                "lineno": 385,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060504",
+                    "id": "astnode100079967",
                     "name": "Container#loadData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1239,22 +1317,22 @@
             "scope": "instance",
             "$longname": "Container#loadData",
             "$kind": "method",
-            "id": 1900,
+            "id": 2475,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} opts\n     * @param {String} opts.direction\n     * @param {String} opts.property\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    9995,
-                    10158
+                    10483,
+                    10646
                 ],
                 "filename": "Container.mjs",
-                "lineno": 386,
+                "lineno": 404,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060565",
+                    "id": "astnode100080028",
                     "name": "Container#onSortColumn",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1299,22 +1377,54 @@
             "scope": "instance",
             "$longname": "Container#onSortColumn",
             "$kind": "method",
-            "id": 1901,
+            "id": 2476,
+            "neoClassName": "Neo.table.Container"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    10675,
+                    10742
+                ],
+                "filename": "Container.mjs",
+                "lineno": 415,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
+                "code": {
+                    "id": "astnode100080063",
+                    "name": "Container#onStoreFilter",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onStoreFilter",
+            "longname": "Container#onStoreFilter",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Container#onStoreFilter",
+            "$kind": "method",
+            "id": 2477,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     *\n     * @param {Array} data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    10232,
-                    10715
+                    10816,
+                    11299
                 ],
                 "filename": "Container.mjs",
-                "lineno": 399,
+                "lineno": 424,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060600",
+                    "id": "astnode100080077",
                     "name": "Container#onStoreLoad",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1343,22 +1453,22 @@
             "scope": "instance",
             "$longname": "Container#onStoreLoad",
             "$kind": "method",
-            "id": 1902,
+            "id": 2478,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     * Gets triggered after changing the value of a record field.\n     * E.g. myRecord.foo = 'bar';\n     * @param {Object} opts\n     * @param {String} opts.field The name of the field which got changed\n     * @param {Neo.data.Model} opts.model The model instance of the changed record\n     * @param {*} opts.oldValue\n     * @param {Object} opts.record\n     * @param {*} opts.value\n     */",
             "meta": {
                 "range": [
-                    11118,
-                    11216
+                    11702,
+                    11800
                 ],
                 "filename": "Container.mjs",
-                "lineno": 429,
+                "lineno": 454,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060668",
+                    "id": "astnode100080145",
                     "name": "Container#onStoreRecordChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1429,66 +1539,22 @@
             "scope": "instance",
             "$longname": "Container#onStoreRecordChange",
             "$kind": "method",
-            "id": 1903,
-            "neoClassName": "Neo.table.Container"
-        },
-        {
-            "comment": "/**\n     *\n     * @param {Array} items\n     * @protected\n     */",
-            "meta": {
-                "range": [
-                    11291,
-                    11357
-                ],
-                "filename": "Container.mjs",
-                "lineno": 438,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
-                "code": {
-                    "id": "astnode100060685",
-                    "name": "Container#onToolbarItemsCreated",
-                    "type": "MethodDefinition",
-                    "paramnames": [
-                        "items"
-                    ]
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "params": [
-                {
-                    "type": {
-                        "names": [
-                            "Array"
-                        ]
-                    },
-                    "name": "items"
-                }
-            ],
-            "access": "protected",
-            "name": "onToolbarItemsCreated",
-            "longname": "Container#onToolbarItemsCreated",
-            "kind": "function",
-            "memberof": "Container",
-            "scope": "instance",
-            "$longname": "Container#onToolbarItemsCreated",
-            "$kind": "method",
-            "id": 1904,
+            "id": 2479,
             "neoClassName": "Neo.table.Container"
         },
         {
             "comment": "/**\n     *\n     * @param {String} dataField\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    11437,
-                    11639
+                    11880,
+                    12082
                 ],
                 "filename": "Container.mjs",
-                "lineno": 447,
+                "lineno": 463,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100060696",
+                    "id": "astnode100080162",
                     "name": "Container#removeSortingCss",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1517,7 +1583,7 @@
             "scope": "instance",
             "$longname": "Container#removeSortingCss",
             "$kind": "method",
-            "id": 1905,
+            "id": 2480,
             "neoClassName": "Neo.table.Container"
         }
     ]

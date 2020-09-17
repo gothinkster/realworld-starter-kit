@@ -1,0 +1,224 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.calendar.view.DayComponent\n * @extends Neo.component.Base\n */",
+            "meta": {
+                "filename": "DayComponent.mjs",
+                "lineno": 11,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "DayComponent",
+            "augments": [
+                "Neo.component.Base"
+            ],
+            "memberof": "Neo.calendar.view",
+            "longname": "Neo.calendar.view.DayComponent",
+            "scope": "static",
+            "$longname": "Neo.calendar.view.DayComponent",
+            "$kind": "class",
+            "id": 158,
+            "neoClassName": "Neo.calendar.view.DayComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.calendar.view.DayComponent'\n         * @protected\n         */",
+            "meta": {
+                "filename": "DayComponent.mjs",
+                "lineno": 21,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.calendar.view.DayComponent'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 159,
+            "neoClassName": "Neo.calendar.view.DayComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='calendar-view-daycomponent'\n         * @protected\n         */",
+            "meta": {
+                "filename": "DayComponent.mjs",
+                "lineno": 26,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'calendar-view-daycomponent'",
+            "access": "protected",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 160,
+            "neoClassName": "Neo.calendar.view.DayComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neo-calendar-daycomponent']\n         */",
+            "meta": {
+                "filename": "DayComponent.mjs",
+                "lineno": 30,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neo-calendar-daycomponent']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 161,
+            "neoClassName": "Neo.calendar.view.DayComponent"
+        },
+        {
+            "comment": "/**\n         * Will get passed from the MainContainer\n         * @member {Date|null} currentDate_=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "DayComponent.mjs",
+                "lineno": 36,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "description": "Will get passed from the MainContainer",
+            "kind": "member",
+            "name": "currentDate_",
+            "type": {
+                "names": [
+                    "Date",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "currentDate_",
+            "scope": "global",
+            "$longname": "currentDate_",
+            "$kind": "property",
+            "id": 162,
+            "neoClassName": "Neo.calendar.view.DayComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.calendar.store.Events|null} eventStore_=null\n         */",
+            "meta": {
+                "filename": "DayComponent.mjs",
+                "lineno": 40,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "eventStore_",
+            "type": {
+                "names": [
+                    "Neo.calendar.store.Events",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "eventStore_",
+            "scope": "global",
+            "$longname": "eventStore_",
+            "$kind": "property",
+            "id": 163,
+            "neoClassName": "Neo.calendar.view.DayComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String} html='Month'\n         */",
+            "meta": {
+                "filename": "DayComponent.mjs",
+                "lineno": 44,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "html",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Month'",
+            "longname": "html",
+            "scope": "global",
+            "$longname": "html",
+            "$kind": "property",
+            "id": 164,
+            "neoClassName": "Neo.calendar.view.DayComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Object} vdom\n         */",
+            "meta": {
+                "filename": "DayComponent.mjs",
+                "lineno": 48,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "vdom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "longname": "vdom",
+            "scope": "global",
+            "$longname": "vdom",
+            "$kind": "property",
+            "id": 165,
+            "neoClassName": "Neo.calendar.view.DayComponent"
+        },
+        {
+            "comment": "/**\n         * 0-6 => Sun-Sat\n         * @member {Number} weekStartDay_=0\n         */",
+            "meta": {
+                "filename": "DayComponent.mjs",
+                "lineno": 53,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "description": "0-6 => Sun-Sat",
+            "kind": "member",
+            "name": "weekStartDay_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 0,
+            "longname": "weekStartDay_",
+            "scope": "global",
+            "$longname": "weekStartDay_",
+            "$kind": "property",
+            "id": 166,
+            "neoClassName": "Neo.calendar.view.DayComponent"
+        }
+    ]
+}

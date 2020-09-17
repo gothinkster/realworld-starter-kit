@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.collection.Filter",
             "$kind": "class",
-            "id": 70,
+            "id": 431,
             "neoClassName": "Neo.collection.Filter"
         },
         {
@@ -44,7 +44,7 @@
             "longname": "observable",
             "$longname": "observable",
             "$kind": "property",
-            "id": 71,
+            "id": 432,
             "neoClassName": "Neo.collection.Filter"
         },
         {
@@ -69,7 +69,7 @@
             "longname": "operators",
             "$longname": "operators",
             "$kind": "property",
-            "id": 72,
+            "id": 433,
             "neoClassName": "Neo.collection.Filter"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 73,
+            "id": 434,
             "neoClassName": "Neo.collection.Filter"
         },
         {
@@ -119,7 +119,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 74,
+            "id": 435,
             "neoClassName": "Neo.collection.Filter"
         },
         {
@@ -144,7 +144,7 @@
             "scope": "global",
             "$longname": "disabled_",
             "$kind": "property",
-            "id": 75,
+            "id": 436,
             "neoClassName": "Neo.collection.Filter"
         },
         {
@@ -170,11 +170,11 @@
             "scope": "global",
             "$longname": "filterBy_",
             "$kind": "property",
-            "id": 76,
+            "id": 437,
             "neoClassName": "Neo.collection.Filter"
         },
         {
-            "comment": "/**\n         * True means not filtering out items in case the value is '', null, [] or {}\n         * @member {Boolean} includeEmptyValues=false\n         */",
+            "comment": "/**\n         * True means not filtering out items in case the value is '', null, [] or {}\n         * @member {Boolean} includeEmptyValues=true\n         */",
             "meta": {
                 "filename": "Filter.mjs",
                 "lineno": 51,
@@ -190,12 +190,12 @@
                     "Boolean"
                 ]
             },
-            "defaultvalue": false,
+            "defaultvalue": true,
             "longname": "includeEmptyValues",
             "scope": "global",
             "$longname": "includeEmptyValues",
             "$kind": "property",
-            "id": 77,
+            "id": 438,
             "neoClassName": "Neo.collection.Filter"
         },
         {
@@ -220,7 +220,7 @@
             "scope": "global",
             "$longname": "isUpdating_",
             "$kind": "property",
-            "id": 78,
+            "id": 439,
             "neoClassName": "Neo.collection.Filter"
         },
         {
@@ -246,7 +246,7 @@
             "scope": "global",
             "$longname": "listenerApplied",
             "$kind": "property",
-            "id": 79,
+            "id": 440,
             "neoClassName": "Neo.collection.Filter"
         },
         {
@@ -271,7 +271,7 @@
             "scope": "global",
             "$longname": "operator",
             "$kind": "property",
-            "id": 80,
+            "id": 441,
             "neoClassName": "Neo.collection.Filter"
         },
         {
@@ -296,7 +296,7 @@
             "scope": "global",
             "$longname": "property_",
             "$kind": "property",
-            "id": 81,
+            "id": 442,
             "neoClassName": "Neo.collection.Filter"
         },
         {
@@ -322,7 +322,7 @@
             "scope": "global",
             "$longname": "scope",
             "$kind": "property",
-            "id": 82,
+            "id": 443,
             "neoClassName": "Neo.collection.Filter"
         },
         {
@@ -347,22 +347,22 @@
             "scope": "global",
             "$longname": "value_",
             "$kind": "property",
-            "id": 83,
+            "id": 444,
             "neoClassName": "Neo.collection.Filter"
         },
         {
             "comment": "/**\n     * Triggered before the operator config gets changed.\n     * @param {String|null} value\n     * @param {String} oldValue\n     * @returns {String}\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4195,
-                    4306
+                    4193,
+                    4304
                 ],
                 "filename": "Filter.mjs",
                 "lineno": 141,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
-                    "id": "astnode100003323",
+                    "id": "astnode100015497",
                     "name": "Filter#beforeSetOperator",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -411,22 +411,22 @@
             "scope": "instance",
             "$longname": "Filter#beforeSetOperator",
             "$kind": "method",
-            "id": 84,
+            "id": 445,
             "neoClassName": "Neo.collection.Filter"
         },
         {
             "comment": "/**\n     *\n     * @param value\n     * @param oldValue\n     */",
             "meta": {
                 "range": [
-                    4378,
-                    4677
+                    4376,
+                    4675
                 ],
                 "filename": "Filter.mjs",
                 "lineno": 150,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
-                    "id": "astnode100003337",
+                    "id": "astnode100015511",
                     "name": "Filter#fireChangeEvent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -453,22 +453,22 @@
             "scope": "instance",
             "$longname": "Filter#fireChangeEvent",
             "$kind": "method",
-            "id": 85,
+            "id": 446,
             "neoClassName": "Neo.collection.Filter"
         },
         {
-            "comment": "/**\n     * Checks if a colletion item matches this filter\n     * @param {Object} item The current collection item\n     * @param {Array} filteredItems If the collection filterMode is not primitive contains the items which passed\n     * the previous filters, otherwise all collection items\n     * @param {Array} allItems all collection items\n     * @returns {Boolean}\n     */",
+            "comment": "/**\n     * Checks if a collection item matches this filter\n     * @param {Object} item The current collection item\n     * @param {Array} filteredItems If the collection filterMode is not primitive contains the items which passed\n     * the previous filters, otherwise all collection items\n     * @param {Array} allItems all collection items\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    5061,
-                    5535
+                    5060,
+                    5850
                 ],
                 "filename": "Filter.mjs",
                 "lineno": 170,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
-                    "id": "astnode100003377",
+                    "id": "astnode100015551",
                     "name": "Filter#isFiltered",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -481,7 +481,7 @@
                     "": null
                 }
             },
-            "description": "Checks if a colletion item matches this filter",
+            "description": "Checks if a collection item matches this filter",
             "params": [
                 {
                     "type": {
@@ -527,7 +527,7 @@
             "scope": "instance",
             "$longname": "Filter#isFiltered",
             "$kind": "method",
-            "id": 86,
+            "id": 447,
             "neoClassName": "Neo.collection.Filter"
         }
     ]

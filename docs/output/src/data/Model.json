@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.data.Model",
             "$kind": "class",
-            "id": 739,
+            "id": 1076,
             "neoClassName": "Neo.data.Model"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 740,
+            "id": 1077,
             "neoClassName": "Neo.data.Model"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 741,
+            "id": 1078,
             "neoClassName": "Neo.data.Model"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "fields_",
             "$kind": "property",
-            "id": 742,
+            "id": 1079,
             "neoClassName": "Neo.data.Model"
         },
         {
@@ -119,7 +119,7 @@
             "scope": "global",
             "$longname": "keyProperty_",
             "$kind": "property",
-            "id": 743,
+            "id": 1080,
             "neoClassName": "Neo.data.Model"
         },
         {
@@ -145,7 +145,7 @@
             "scope": "global",
             "$longname": "storeId",
             "$kind": "property",
-            "id": 744,
+            "id": 1081,
             "neoClassName": "Neo.data.Model"
         },
         {
@@ -170,7 +170,7 @@
             "scope": "global",
             "$longname": "trackModifiedFields",
             "$kind": "property",
-            "id": 745,
+            "id": 1082,
             "neoClassName": "Neo.data.Model"
         },
         {
@@ -185,7 +185,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data",
                 "code": {
-                    "id": "astnode100026051",
+                    "id": "astnode100038074",
                     "name": "Model#afterSetFields",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -222,22 +222,22 @@
             "scope": "instance",
             "$longname": "Model#afterSetFields",
             "$kind": "method",
-            "id": 746,
+            "id": 1083,
             "neoClassName": "Neo.data.Model"
         },
         {
-            "comment": "/**\n     * Finds a field config by a given field name\n     * @param {String} key\n     * @return {Object|null} The field config object or null if no match was found\n     */",
+            "comment": "/**\n     * Finds a field config by a given field name\n     * @param {String} key\n     * @returns {Object|null} The field config object or null if no match was found\n     */",
             "meta": {
                 "range": [
-                    1471,
-                    1733
+                    1472,
+                    1734
                 ],
                 "filename": "Model.mjs",
                 "lineno": 58,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data",
                 "code": {
-                    "id": "astnode100026057",
+                    "id": "astnode100038080",
                     "name": "Model#getField",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -277,7 +277,7 @@
             "scope": "instance",
             "$longname": "Model#getField",
             "$kind": "method",
-            "id": 747,
+            "id": 1084,
             "neoClassName": "Neo.data.Model"
         }
     ]

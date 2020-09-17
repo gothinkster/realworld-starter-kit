@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.container.Toolbar",
             "$kind": "class",
-            "id": 577,
+            "id": 920,
             "neoClassName": "Neo.container.Toolbar"
         },
         {
@@ -44,7 +44,7 @@
             "longname": "dockPositions",
             "$longname": "dockPositions",
             "$kind": "property",
-            "id": 578,
+            "id": 921,
             "neoClassName": "Neo.container.Toolbar"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 579,
+            "id": 922,
             "neoClassName": "Neo.container.Toolbar"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 580,
+            "id": 923,
             "neoClassName": "Neo.container.Toolbar"
         },
         {
@@ -118,7 +118,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 581,
+            "id": 924,
             "neoClassName": "Neo.container.Toolbar"
         },
         {
@@ -142,7 +142,7 @@
             "scope": "global",
             "$longname": "dock_",
             "$kind": "property",
-            "id": 582,
+            "id": 925,
             "neoClassName": "Neo.container.Toolbar"
         },
         {
@@ -167,7 +167,7 @@
             "scope": "global",
             "$longname": "itemDefaults",
             "$kind": "property",
-            "id": 583,
+            "id": 926,
             "neoClassName": "Neo.container.Toolbar"
         },
         {
@@ -192,22 +192,22 @@
             "scope": "global",
             "$longname": "_layout",
             "$kind": "property",
-            "id": 584,
+            "id": 927,
             "neoClassName": "Neo.container.Toolbar"
         },
         {
             "comment": "/**\n     * Creates a layout config depending on this.dock\n     * @returns {Object} layoutConfig\n     */",
             "meta": {
                 "range": [
-                    1633,
-                    2515
+                    1563,
+                    2445
                 ],
                 "filename": "Toolbar.mjs",
                 "lineno": 60,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100021415",
+                    "id": "astnode100033463",
                     "name": "Toolbar#getLayoutConfig",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -235,22 +235,22 @@
             "params": [],
             "$longname": "Toolbar#getLayoutConfig",
             "$kind": "method",
-            "id": 585,
+            "id": 928,
             "neoClassName": "Neo.container.Toolbar"
         },
         {
             "comment": "/**\n     * Triggered after the dock config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2667,
-                    3039
+                    2597,
+                    2969
                 ],
                 "filename": "Toolbar.mjs",
                 "lineno": 99,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100021473",
+                    "id": "astnode100033521",
                     "name": "Toolbar#afterSetDock",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -289,22 +289,22 @@
             "scope": "instance",
             "$longname": "Toolbar#afterSetDock",
             "$kind": "method",
-            "id": 586,
+            "id": 929,
             "neoClassName": "Neo.container.Toolbar"
         },
         {
             "comment": "/**\n     * Checks if the new dock position matches a value of the static dockPositions config\n     * @param {String} value\n     * @param {String} oldValue\n     * @returns {String} value\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3261,
-                    3381
+                    3191,
+                    3311
                 ],
                 "filename": "Toolbar.mjs",
                 "lineno": 119,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100021532",
+                    "id": "astnode100033580",
                     "name": "Toolbar#beforeSetDock",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -353,7 +353,7 @@
             "scope": "instance",
             "$longname": "Toolbar#beforeSetDock",
             "$kind": "method",
-            "id": 587,
+            "id": 930,
             "neoClassName": "Neo.container.Toolbar"
         }
     ]

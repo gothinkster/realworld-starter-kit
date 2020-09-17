@@ -21,7 +21,7 @@
             "scope": "static",
             "$longname": "Neo.form.field.Picker",
             "$kind": "class",
-            "id": 902,
+            "id": 1352,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
@@ -46,7 +46,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 903,
+            "id": 1353,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
@@ -71,7 +71,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 904,
+            "id": 1354,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
@@ -97,7 +97,7 @@
             "scope": "global",
             "$longname": "clientRects",
             "$kind": "property",
-            "id": 905,
+            "id": 1355,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
@@ -122,7 +122,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 906,
+            "id": 1356,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
@@ -146,7 +146,7 @@
             "scope": "global",
             "$longname": "keys",
             "$kind": "property",
-            "id": 907,
+            "id": 1357,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
@@ -170,7 +170,7 @@
             "scope": "global",
             "$longname": "matchPickerWidth",
             "$kind": "property",
-            "id": 908,
+            "id": 1358,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
@@ -196,7 +196,7 @@
             "scope": "global",
             "$longname": "picker",
             "$kind": "property",
-            "id": 909,
+            "id": 1359,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
@@ -222,7 +222,7 @@
             "scope": "global",
             "$longname": "pickerConfig",
             "$kind": "property",
-            "id": 910,
+            "id": 1360,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
@@ -248,7 +248,7 @@
             "scope": "global",
             "$longname": "pickerHeight",
             "$kind": "property",
-            "id": 911,
+            "id": 1361,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
@@ -273,7 +273,7 @@
             "scope": "global",
             "$longname": "pickerIsMounted",
             "$kind": "property",
-            "id": 912,
+            "id": 1362,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
@@ -299,7 +299,7 @@
             "scope": "global",
             "$longname": "pickerMaxHeight",
             "$kind": "property",
-            "id": 913,
+            "id": 1363,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
@@ -325,7 +325,7 @@
             "scope": "global",
             "$longname": "pickerWidth",
             "$kind": "property",
-            "id": 914,
+            "id": 1364,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
@@ -351,186 +351,22 @@
             "scope": "global",
             "$longname": "triggers",
             "$kind": "property",
-            "id": 915,
+            "id": 1365,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
-            "comment": "/**\n     * Triggered after the hideLabel config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "comment": "/**\n     *\n     * @returns {Neo.container.Base}\n     */",
             "meta": {
                 "range": [
-                    2700,
-                    2826
+                    2555,
+                    3136
                 ],
                 "filename": "Picker.mjs",
-                "lineno": 92,
+                "lineno": 90,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029148",
-                    "name": "Picker#afterSetHideLabel",
-                    "type": "MethodDefinition",
-                    "paramnames": [
-                        "value",
-                        "oldValue"
-                    ]
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "description": "Triggered after the hideLabel config got changed",
-            "params": [
-                {
-                    "type": {
-                        "names": [
-                            "Boolean"
-                        ]
-                    },
-                    "name": "value"
-                },
-                {
-                    "type": {
-                        "names": [
-                            "Boolean"
-                        ]
-                    },
-                    "name": "oldValue"
-                }
-            ],
-            "access": "protected",
-            "name": "afterSetHideLabel",
-            "longname": "Picker#afterSetHideLabel",
-            "kind": "function",
-            "memberof": "Picker",
-            "scope": "instance",
-            "$longname": "Picker#afterSetHideLabel",
-            "$kind": "method",
-            "id": 916,
-            "neoClassName": "Neo.form.field.Picker"
-        },
-        {
-            "comment": "/**\n     * Triggered after the labelWidth config got changed\n     * @param {Number|String} value\n     * @param {Number|String} oldValue\n     * @protected\n     */",
-            "meta": {
-                "range": [
-                    2998,
-                    3126
-                ],
-                "filename": "Picker.mjs",
-                "lineno": 103,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
-                "code": {
-                    "id": "astnode100029166",
-                    "name": "Picker#afterSetLabelWidth",
-                    "type": "MethodDefinition",
-                    "paramnames": [
-                        "value",
-                        "oldValue"
-                    ]
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "description": "Triggered after the labelWidth config got changed",
-            "params": [
-                {
-                    "type": {
-                        "names": [
-                            "Number",
-                            "String"
-                        ]
-                    },
-                    "name": "value"
-                },
-                {
-                    "type": {
-                        "names": [
-                            "Number",
-                            "String"
-                        ]
-                    },
-                    "name": "oldValue"
-                }
-            ],
-            "access": "protected",
-            "name": "afterSetLabelWidth",
-            "longname": "Picker#afterSetLabelWidth",
-            "kind": "function",
-            "memberof": "Picker",
-            "scope": "instance",
-            "$longname": "Picker#afterSetLabelWidth",
-            "$kind": "method",
-            "id": 917,
-            "neoClassName": "Neo.form.field.Picker"
-        },
-        {
-            "comment": "/**\n     * Triggered after the width config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
-            "meta": {
-                "range": [
-                    3281,
-                    3399
-                ],
-                "filename": "Picker.mjs",
-                "lineno": 114,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
-                "code": {
-                    "id": "astnode100029184",
-                    "name": "Picker#afterSetWidth",
-                    "type": "MethodDefinition",
-                    "paramnames": [
-                        "value",
-                        "oldValue"
-                    ]
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "description": "Triggered after the width config got changed",
-            "params": [
-                {
-                    "type": {
-                        "names": [
-                            "Boolean"
-                        ]
-                    },
-                    "name": "value"
-                },
-                {
-                    "type": {
-                        "names": [
-                            "Boolean"
-                        ]
-                    },
-                    "name": "oldValue"
-                }
-            ],
-            "access": "protected",
-            "name": "afterSetWidth",
-            "longname": "Picker#afterSetWidth",
-            "kind": "function",
-            "memberof": "Picker",
-            "scope": "instance",
-            "$longname": "Picker#afterSetWidth",
-            "$kind": "method",
-            "id": 918,
-            "neoClassName": "Neo.form.field.Picker"
-        },
-        {
-            "comment": "/**\n     *\n     * @return {Neo.container.Base}\n     */",
-            "meta": {
-                "range": [
-                    3464,
-                    4045
-                ],
-                "filename": "Picker.mjs",
-                "lineno": 123,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
-                "code": {
-                    "id": "astnode100029202",
+                    "id": "astnode100043726",
                     "name": "Picker#createPicker",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -556,22 +392,65 @@
             "params": [],
             "$longname": "Picker#createPicker",
             "$kind": "method",
-            "id": 919,
+            "id": 1366,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
-            "comment": "/**\n     *\n     * @return {null}\n     */",
+            "comment": "/**\n     *\n     * @param {Boolean} silent\n     */",
             "meta": {
                 "range": [
-                    4651,
-                    4703
+                    3196,
+                    3833
                 ],
                 "filename": "Picker.mjs",
-                "lineno": 159,
+                "lineno": 111,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029356",
+                    "id": "astnode100043791",
+                    "name": "Picker#applyClientRects",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "silent"
+                }
+            ],
+            "name": "applyClientRects",
+            "longname": "Picker#applyClientRects",
+            "kind": "function",
+            "memberof": "Picker",
+            "scope": "instance",
+            "$longname": "Picker#applyClientRects",
+            "$kind": "method",
+            "id": 1367,
+            "neoClassName": "Neo.form.field.Picker"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {null}\n     */",
+            "meta": {
+                "range": [
+                    3885,
+                    3937
+                ],
+                "filename": "Picker.mjs",
+                "lineno": 134,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
+                "code": {
+                    "id": "astnode100043899",
                     "name": "Picker#createPickerComponent",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -597,22 +476,22 @@
             "params": [],
             "$longname": "Picker#createPickerComponent",
             "$kind": "method",
-            "id": 920,
+            "id": 1368,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
             "comment": "/**\n     *\n     * @param {Function} [callback]\n     * @param {Function} [callbackScope]\n     */",
             "meta": {
                 "range": [
-                    4809,
-                    5096
+                    4043,
+                    4356
                 ],
                 "filename": "Picker.mjs",
-                "lineno": 168,
+                "lineno": 143,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029362",
+                    "id": "astnode100043905",
                     "name": "Picker#getClientRectsThenShow",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -651,22 +530,22 @@
             "scope": "instance",
             "$longname": "Picker#getClientRectsThenShow",
             "$kind": "method",
-            "id": 921,
+            "id": 1369,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
-            "comment": "/**\n     * Returns the picker intance and creates it in case it does not exist yet\n     * @return {Neo.container.Base}\n     */",
+            "comment": "/**\n     * Returns the picker instance and creates it in case it does not exist yet\n     * @returns {Neo.container.Base}\n     */",
             "meta": {
                 "range": [
-                    5233,
-                    5382
+                    4495,
+                    4644
                 ],
                 "filename": "Picker.mjs",
-                "lineno": 183,
+                "lineno": 158,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029407",
+                    "id": "astnode100043955",
                     "name": "Picker#getPicker",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -675,7 +554,7 @@
                     "": null
                 }
             },
-            "description": "Returns the picker intance and creates it in case it does not exist yet",
+            "description": "Returns the picker instance and creates it in case it does not exist yet",
             "returns": [
                 {
                     "type": {
@@ -693,22 +572,22 @@
             "params": [],
             "$longname": "Picker#getPicker",
             "$kind": "method",
-            "id": 922,
+            "id": 1370,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
             "comment": "/**\n     *\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    5436,
-                    5494
+                    4698,
+                    4756
                 ],
                 "filename": "Picker.mjs",
-                "lineno": 197,
+                "lineno": 172,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029434",
+                    "id": "astnode100043982",
                     "name": "Picker#getPickerId",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -734,22 +613,22 @@
             "params": [],
             "$longname": "Picker#getPickerId",
             "$kind": "method",
-            "id": 923,
+            "id": 1371,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
             "comment": "/**\n     *\n     * @param {Boolean} [silent=false]\n     */",
             "meta": {
                 "range": [
-                    5562,
-                    6066
+                    4824,
+                    5328
                 ],
                 "filename": "Picker.mjs",
-                "lineno": 205,
+                "lineno": 180,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029444",
+                    "id": "astnode100043992",
                     "name": "Picker#hidePicker",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -779,22 +658,22 @@
             "scope": "instance",
             "$longname": "Picker#hidePicker",
             "$kind": "method",
-            "id": 924,
+            "id": 1372,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
             "comment": "/**\n     *\n     * @param {Array} data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6140,
-                    6480
+                    5402,
+                    5742
                 ],
                 "filename": "Picker.mjs",
-                "lineno": 231,
+                "lineno": 206,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029522",
+                    "id": "astnode100044070",
                     "name": "Picker#onFocusLeave",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -823,22 +702,22 @@
             "scope": "instance",
             "$longname": "Picker#onFocusLeave",
             "$kind": "method",
-            "id": 925,
+            "id": 1373,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Function} [callback]\n     * @param {Function} [callbackScope]\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6632,
-                    6798
+                    5894,
+                    6060
                 ],
                 "filename": "Picker.mjs",
-                "lineno": 251,
+                "lineno": 226,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029568",
+                    "id": "astnode100044116",
                     "name": "Picker#onKeyDownEnter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -887,22 +766,22 @@
             "scope": "instance",
             "$longname": "Picker#onKeyDownEnter",
             "$kind": "method",
-            "id": 926,
+            "id": 1374,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6873,
-                    6979
+                    6135,
+                    6241
                 ],
                 "filename": "Picker.mjs",
-                "lineno": 262,
+                "lineno": 237,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029588",
+                    "id": "astnode100044136",
                     "name": "Picker#onKeyDownEscape",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -931,22 +810,22 @@
             "scope": "instance",
             "$longname": "Picker#onKeyDownEscape",
             "$kind": "method",
-            "id": 927,
+            "id": 1375,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
             "comment": "/**\n     * Called by form.field.trigger.Picker\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7062,
-                    7247
+                    6324,
+                    6509
                 ],
                 "filename": "Picker.mjs",
-                "lineno": 272,
+                "lineno": 247,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029603",
+                    "id": "astnode100044151",
                     "name": "Picker#onPickerTriggerClick",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -965,22 +844,22 @@
             "params": [],
             "$longname": "Picker#onPickerTriggerClick",
             "$kind": "method",
-            "id": 928,
+            "id": 1376,
             "neoClassName": "Neo.form.field.Picker"
         },
         {
             "comment": "/**\n     *\n     * @param {Function} [callback]\n     * @param {Function} [callbackScope]\n     */",
             "meta": {
                 "range": [
-                    7353,
-                    7801
+                    6615,
+                    7063
                 ],
                 "filename": "Picker.mjs",
-                "lineno": 287,
+                "lineno": 262,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029627",
+                    "id": "astnode100044175",
                     "name": "Picker#showPicker",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1019,39 +898,7 @@
             "scope": "instance",
             "$longname": "Picker#showPicker",
             "$kind": "method",
-            "id": 929,
-            "neoClassName": "Neo.form.field.Picker"
-        },
-        {
-            "comment": "/**\n     *\n     */",
-            "meta": {
-                "range": [
-                    7830,
-                    8152
-                ],
-                "filename": "Picker.mjs",
-                "lineno": 309,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
-                "code": {
-                    "id": "astnode100029700",
-                    "name": "Picker#updatePickerWidth",
-                    "type": "MethodDefinition",
-                    "paramnames": []
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "name": "updatePickerWidth",
-            "longname": "Picker#updatePickerWidth",
-            "kind": "function",
-            "memberof": "Picker",
-            "scope": "instance",
-            "params": [],
-            "$longname": "Picker#updatePickerWidth",
-            "$kind": "method",
-            "id": 930,
+            "id": 1377,
             "neoClassName": "Neo.form.field.Picker"
         }
     ]

@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.form.field.Radio",
             "$kind": "class",
-            "id": 931,
+            "id": 1378,
             "neoClassName": "Neo.form.field.Radio"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 932,
+            "id": 1379,
             "neoClassName": "Neo.form.field.Radio"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 933,
+            "id": 1380,
             "neoClassName": "Neo.form.field.Radio"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 934,
+            "id": 1381,
             "neoClassName": "Neo.form.field.Radio"
         },
         {
@@ -117,7 +117,7 @@
             "scope": "global",
             "$longname": "inputType",
             "$kind": "property",
-            "id": 935,
+            "id": 1382,
             "neoClassName": "Neo.form.field.Radio"
         },
         {
@@ -140,22 +140,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 936,
+            "id": 1383,
             "neoClassName": "Neo.form.field.Radio"
         },
         {
-            "comment": "/**\n     *\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "comment": "/**\n     * Triggered after the checked config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1237,
-                    1455
+                    1258,
+                    1476
                 ],
                 "filename": "Radio.mjs",
                 "lineno": 51,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029803",
+                    "id": "astnode100044309",
                     "name": "Radio#afterSetChecked",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -167,6 +167,7 @@
                     "": null
                 }
             },
+            "description": "Triggered after the checked config got changed",
             "params": [
                 {
                     "type": {
@@ -193,22 +194,22 @@
             "scope": "instance",
             "$longname": "Radio#afterSetChecked",
             "$kind": "method",
-            "id": 937,
+            "id": 1384,
             "neoClassName": "Neo.form.field.Radio"
         },
         {
             "comment": "/**\n     * Gets triggered when a user checks a radio input.\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    1561,
-                    1667
+                    1582,
+                    1688
                 ],
                 "filename": "Radio.mjs",
                 "lineno": 64,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029824",
+                    "id": "astnode100044330",
                     "name": "Radio#onInputValueChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -237,22 +238,22 @@
             "scope": "instance",
             "$longname": "Radio#onInputValueChange",
             "$kind": "method",
-            "id": 938,
+            "id": 1385,
             "neoClassName": "Neo.form.field.Radio"
         },
         {
             "comment": "/**\n     * Radios do not fire a change event for \"uncheck\", so we need to iterate over other radios with the same name.\n     */",
             "meta": {
                 "range": [
-                    1805,
-                    2579
+                    1826,
+                    2713
                 ],
                 "filename": "Radio.mjs",
                 "lineno": 72,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029840",
+                    "id": "astnode100044346",
                     "name": "Radio#uncheckGroupItems",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -270,7 +271,7 @@
             "params": [],
             "$longname": "Radio#uncheckGroupItems",
             "$kind": "method",
-            "id": 939,
+            "id": 1386,
             "neoClassName": "Neo.form.field.Radio"
         }
     ]

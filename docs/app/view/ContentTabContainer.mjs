@@ -1,5 +1,5 @@
-import Container                 from '../../../node_modules/neo.mjs/src/tab/Container.mjs';
-import {default as HeaderButton} from '../../../node_modules/neo.mjs/src/tab/header/Button.mjs';
+import Container    from '../../../node_modules/neo.mjs/src/tab/Container.mjs';
+import HeaderButton from '../../../node_modules/neo.mjs/src/tab/header/Button.mjs';
 
 /**
  * @class Docs.app.view.ContentTabContainer
@@ -9,12 +9,12 @@ class ContentTabContainer extends Container {
     static getConfig() {return {
         /**
          * @member {String} className='Docs.app.view.ContentTabContainer'
-         * @private
+         * @protected
          */
         className: 'Docs.app.view.ContentTabContainer',
         /**
          * @member {String} ntype='docs-content-tabcontainer'
-         * @private
+         * @protected
          */
         ntype: 'docs-content-tabcontainer',
         /**
@@ -46,7 +46,7 @@ class ContentTabContainer extends Container {
          */
         items: [{
             ntype: 'component',
-            html : 'Welcome to the neoteric docs!',
+            html : 'Welcome to the neo.mjs docs!',
             style: {padding: '20px'},
 
             tabButtonConfig: {
@@ -75,7 +75,7 @@ class ContentTabContainer extends Container {
      * @param {Object} config
      * @param {Number} index
      * @returns {Object} The merged config
-     * @private
+     * @protected
      * @override
      */
     getTabButtonConfig(config, index) {

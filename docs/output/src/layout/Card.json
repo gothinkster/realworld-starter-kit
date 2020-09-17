@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.layout.Card",
             "$kind": "class",
-            "id": 1225,
+            "id": 1674,
             "neoClassName": "Neo.layout.Card"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1226,
+            "id": 1675,
             "neoClassName": "Neo.layout.Card"
         },
         {
@@ -69,22 +69,22 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1227,
+            "id": 1676,
             "neoClassName": "Neo.layout.Card"
         },
         {
-            "comment": "/**\n     * Modifies the CSS classes of the container items this layout is bound to.\n     * Automatically gets triggered after changing the value of activeIndex.\n     * @param value\n     * @param oldValue\n     * @protected\n     */",
+            "comment": "/**\n     * Modifies the CSS classes of the container items this layout is bound to.\n     * Automatically gets triggered after changing the value of activeIndex.\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1544,
-                    2348
+                    1772,
+                    3155
                 ],
                 "filename": "Card.mjs",
-                "lineno": 56,
+                "lineno": 62,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100035966",
+                    "id": "astnode100050532",
                     "name": "Card#afterSetActiveIndex",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -99,9 +99,19 @@
             "description": "Modifies the CSS classes of the container items this layout is bound to.<br />Automatically gets triggered after changing the value of activeIndex.",
             "params": [
                 {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
                     "name": "value"
                 },
                 {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
                     "name": "oldValue"
                 }
             ],
@@ -113,27 +123,28 @@
             "scope": "instance",
             "$longname": "Card#afterSetActiveIndex",
             "$kind": "method",
-            "id": 1228,
+            "id": 1677,
             "neoClassName": "Neo.layout.Card"
         },
         {
-            "comment": "/**\n     * Initially sets the CSS classes of the container items this layout is bound to.\n     * @param child\n     * @param index\n     */",
+            "comment": "/**\n     * Initially sets the CSS classes of the container items this layout is bound to.\n     * @param {Neo.component.Base} item\n     * @param {Number} index\n     * @param {Boolean} [keepInDom=false]\n     */",
             "meta": {
                 "range": [
-                    2496,
-                    2826
+                    3374,
+                    4024
                 ],
                 "filename": "Card.mjs",
-                "lineno": 86,
+                "lineno": 110,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036075",
+                    "id": "astnode100050707",
                     "name": "Card#applyChildAttributes",
                     "type": "MethodDefinition",
                     "paramnames": [
-                        "child",
-                        "index"
+                        "item",
+                        "index",
+                        "keepInDom"
                     ]
                 },
                 "vars": {
@@ -143,10 +154,30 @@
             "description": "Initially sets the CSS classes of the container items this layout is bound to.",
             "params": [
                 {
-                    "name": "child"
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "name": "item"
                 },
                 {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
                     "name": "index"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "keepInDom"
                 }
             ],
             "name": "applyChildAttributes",
@@ -156,22 +187,22 @@
             "scope": "instance",
             "$longname": "Card#applyChildAttributes",
             "$kind": "method",
-            "id": 1229,
+            "id": 1678,
             "neoClassName": "Neo.layout.Card"
         },
         {
             "comment": "/**\n     * Applies CSS classes to the container this layout is bound to\n     */",
             "meta": {
                 "range": [
-                    2916,
-                    3316
+                    4114,
+                    4514
                 ],
                 "filename": "Card.mjs",
-                "lineno": 100,
+                "lineno": 132,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036129",
+                    "id": "astnode100050800",
                     "name": "Card#applyRenderAttributes",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -189,22 +220,22 @@
             "params": [],
             "$longname": "Card#applyRenderAttributes",
             "$kind": "method",
-            "id": 1230,
+            "id": 1679,
             "neoClassName": "Neo.layout.Card"
         },
         {
             "comment": "/**\n     * Removes all CSS rules from the container this layout is bound to.\n     * Gets called when switching to a different layout.\n     */",
             "meta": {
                 "range": [
-                    3468,
-                    3867
+                    4666,
+                    5065
                 ],
                 "filename": "Card.mjs",
-                "lineno": 118,
+                "lineno": 150,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036181",
+                    "id": "astnode100050852",
                     "name": "Card#removeRenderAttributes",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -222,7 +253,7 @@
             "params": [],
             "$longname": "Card#removeRenderAttributes",
             "$kind": "method",
-            "id": 1231,
+            "id": 1680,
             "neoClassName": "Neo.layout.Card"
         }
     ]

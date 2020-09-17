@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.table.header.Toolbar",
             "$kind": "class",
-            "id": 1934,
+            "id": 2518,
             "neoClassName": "Neo.table.header.Toolbar"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1935,
+            "id": 2519,
             "neoClassName": "Neo.table.header.Toolbar"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1936,
+            "id": 2520,
             "neoClassName": "Neo.table.header.Toolbar"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1937,
+            "id": 2521,
             "neoClassName": "Neo.table.header.Toolbar"
         },
         {
@@ -117,7 +117,7 @@
             "scope": "global",
             "$longname": "layout",
             "$kind": "property",
-            "id": 1938,
+            "id": 2522,
             "neoClassName": "Neo.table.header.Toolbar"
         },
         {
@@ -142,14 +142,38 @@
             "scope": "global",
             "$longname": "itemDefaults",
             "$kind": "property",
-            "id": 1939,
+            "id": 2523,
+            "neoClassName": "Neo.table.header.Toolbar"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} showHeaderFilters_=false\n         */",
+            "meta": {
+                "filename": "Toolbar.mjs",
+                "lineno": 36,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "showHeaderFilters_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "showHeaderFilters_",
+            "scope": "global",
+            "$longname": "showHeaderFilters_",
+            "$kind": "property",
+            "id": 2524,
             "neoClassName": "Neo.table.header.Toolbar"
         },
         {
             "comment": "/**\n         * @member {Object} _vdom={tag: 'thead',cn : [{tag: 'tr',cn : []}]}\n         */",
             "meta": {
                 "filename": "Toolbar.mjs",
-                "lineno": 36,
+                "lineno": 40,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {}
@@ -167,22 +191,76 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 1940,
+            "id": 2525,
+            "neoClassName": "Neo.table.header.Toolbar"
+        },
+        {
+            "comment": "/**\n     * Triggered after the showHeaderFilters config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    1410,
+                    1751
+                ],
+                "filename": "Toolbar.mjs",
+                "lineno": 55,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
+                "code": {
+                    "id": "astnode100081227",
+                    "name": "Toolbar#afterSetShowHeaderFilters",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the showHeaderFilters config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetShowHeaderFilters",
+            "longname": "Toolbar#afterSetShowHeaderFilters",
+            "kind": "function",
+            "memberof": "Toolbar",
+            "scope": "instance",
+            "$longname": "Toolbar#afterSetShowHeaderFilters",
+            "$kind": "method",
+            "id": 2526,
             "neoClassName": "Neo.table.header.Toolbar"
         },
         {
             "comment": "/**\n     *\n     * @param {String} dock\n     * @returns {String} layoutConfig\n     * @override\n     */",
             "meta": {
                 "range": [
-                    1255,
-                    1307
+                    1863,
+                    1915
                 ],
                 "filename": "Toolbar.mjs",
-                "lineno": 51,
+                "lineno": 76,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100061386",
+                    "id": "astnode100081271",
                     "name": "Toolbar#getLayoutConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -221,22 +299,22 @@
             "scope": "instance",
             "$longname": "Toolbar#getLayoutConfig",
             "$kind": "method",
-            "id": 1941,
+            "id": 2527,
             "neoClassName": "Neo.table.header.Toolbar"
         },
         {
             "comment": "/**\n     * Specify a different vdom items root if needed (useful in case this container uses a wrapper node).\n     * @returns {Object} The new vdom items root\n     */",
             "meta": {
                 "range": [
-                    1484,
-                    1545
+                    2092,
+                    2153
                 ],
                 "filename": "Toolbar.mjs",
-                "lineno": 59,
+                "lineno": 84,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100061393",
+                    "id": "astnode100081278",
                     "name": "Toolbar#getVdomItemsRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -264,22 +342,22 @@
             "params": [],
             "$longname": "Toolbar#getVdomItemsRoot",
             "$kind": "method",
-            "id": 1942,
+            "id": 2528,
             "neoClassName": "Neo.table.header.Toolbar"
         },
         {
             "comment": "/**\n     * Specify a different vdom root if needed to apply the top level style attributes on a different level.\n     * Make sure to use getVnodeRoot() as well, to keep the vdom & vnode trees in sync.\n     * @returns {Object} The new vdom root\n     */",
             "meta": {
                 "range": [
-                    1807,
-                    1860
+                    2415,
+                    2468
                 ],
                 "filename": "Toolbar.mjs",
-                "lineno": 68,
+                "lineno": 93,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100061407",
+                    "id": "astnode100081292",
                     "name": "Toolbar#getVdomRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -307,22 +385,22 @@
             "params": [],
             "$longname": "Toolbar#getVdomRoot",
             "$kind": "method",
-            "id": 1943,
+            "id": 2529,
             "neoClassName": "Neo.table.header.Toolbar"
         },
         {
             "comment": "/**\n     * Specify a different vnode root if needed to apply the top level style attributes on a different level.\n     * Make sure to use getVdomRoot() as well, to keep the vdom & vnode trees in sync.\n     * @returns {Object} The new vnode root\n     */",
             "meta": {
                 "range": [
-                    2123,
-                    2186
+                    2731,
+                    2794
                 ],
                 "filename": "Toolbar.mjs",
-                "lineno": 77,
+                "lineno": 102,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100061419",
+                    "id": "astnode100081304",
                     "name": "Toolbar#getVnodeRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -350,22 +428,22 @@
             "params": [],
             "$longname": "Toolbar#getVnodeRoot",
             "$kind": "method",
-            "id": 1944,
+            "id": 2530,
             "neoClassName": "Neo.table.header.Toolbar"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    2215,
-                    3648
+                    2823,
+                    4311
                 ],
                 "filename": "Toolbar.mjs",
-                "lineno": 84,
+                "lineno": 109,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table/header",
                 "code": {
-                    "id": "astnode100061431",
+                    "id": "astnode100081316",
                     "name": "Toolbar#createItems",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -382,7 +460,7 @@
             "params": [],
             "$longname": "Toolbar#createItems",
             "$kind": "method",
-            "id": 1945,
+            "id": 2531,
             "neoClassName": "Neo.table.header.Toolbar"
         }
     ]

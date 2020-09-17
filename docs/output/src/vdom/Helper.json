@@ -27,7 +27,7 @@
             "scope": "static",
             "$longname": "Neo.vdom.Helper",
             "$kind": "class",
-            "id": 2083,
+            "id": 2678,
             "neoClassName": "Neo.vdom.Helper"
         },
         {
@@ -52,7 +52,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2084,
+            "id": 2679,
             "neoClassName": "Neo.vdom.Helper"
         },
         {
@@ -77,7 +77,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2085,
+            "id": 2680,
             "neoClassName": "Neo.vdom.Helper"
         },
         {
@@ -103,7 +103,7 @@
             "scope": "global",
             "$longname": "remote",
             "$kind": "property",
-            "id": 2086,
+            "id": 2681,
             "neoClassName": "Neo.vdom.Helper"
         },
         {
@@ -127,7 +127,7 @@
             "scope": "global",
             "$longname": "returnChildNodeOuterHtml",
             "$kind": "property",
-            "id": 2087,
+            "id": 2682,
             "neoClassName": "Neo.vdom.Helper"
         },
         {
@@ -152,7 +152,7 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 2088,
+            "id": 2683,
             "neoClassName": "Neo.vdom.Helper"
         },
         {
@@ -177,7 +177,7 @@
             "scope": "global",
             "$longname": "voidAttributes",
             "$kind": "property",
-            "id": 2089,
+            "id": 2684,
             "neoClassName": "Neo.vdom.Helper"
         },
         {
@@ -202,22 +202,22 @@
             "scope": "global",
             "$longname": "voidElements",
             "$kind": "property",
-            "id": 2090,
+            "id": 2685,
             "neoClassName": "Neo.vdom.Helper"
         },
         {
             "comment": "/**\n     * Creates a Neo.vdom.VNode tree for the given vdom template.\n     * The top level vnode contains the outerHTML as a string.\n     * @param {Object} opts\n     * @param {Object} opts.vdom\n     * @returns {Neo.vdom.VNode}\n     */",
             "meta": {
                 "range": [
-                    2043,
-                    2629
+                    2004,
+                    2699
                 ],
                 "filename": "Helper.mjs",
                 "lineno": 81,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/vdom",
                 "code": {
-                    "id": "astnode100066779",
+                    "id": "astnode100087010",
                     "name": "Helper#create",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -263,22 +263,22 @@
             "scope": "instance",
             "$longname": "Helper#create",
             "$kind": "method",
-            "id": 2091,
+            "id": 2686,
             "neoClassName": "Neo.vdom.Helper"
         },
         {
             "comment": "/**\n     * Creates a Neo.vdom.VNode tree for the given vdom template and compares the new vnode with the current one\n     * to calculate the vdom deltas.\n     * @param {Object} opts\n     * @param {Object} opts.vdom\n     * @param {Object} opts.vnode\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    2921,
-                    3260
+                    2991,
+                    3330
                 ],
                 "filename": "Helper.mjs",
-                "lineno": 112,
+                "lineno": 115,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/vdom",
                 "code": {
-                    "id": "astnode100066863",
+                    "id": "astnode100087110",
                     "name": "Helper#update",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -332,22 +332,22 @@
             "scope": "instance",
             "$longname": "Helper#update",
             "$kind": "method",
-            "id": 2092,
+            "id": 2687,
             "neoClassName": "Neo.vdom.Helper"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} vnode\n     */",
             "meta": {
                 "range": [
-                    3318,
-                    3802
+                    3388,
+                    3872
                 ],
                 "filename": "Helper.mjs",
-                "lineno": 131,
+                "lineno": 134,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/vdom",
                 "code": {
-                    "id": "astnode100066902",
+                    "id": "astnode100087149",
                     "name": "Helper#createStringFromVnode",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -375,22 +375,22 @@
             "scope": "instance",
             "$longname": "Helper#createStringFromVnode",
             "$kind": "method",
-            "id": 2093,
+            "id": 2688,
             "neoClassName": "Neo.vdom.Helper"
         },
         {
             "comment": "/**\n     * @param {Object} vnode\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3871,
-                    4966
+                    3941,
+                    5036
                 ],
                 "filename": "Helper.mjs",
-                "lineno": 150,
+                "lineno": 153,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/vdom",
                 "code": {
-                    "id": "astnode100066965",
+                    "id": "astnode100087212",
                     "name": "Helper#createOpenTag",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -419,22 +419,22 @@
             "scope": "instance",
             "$longname": "Helper#createOpenTag",
             "$kind": "method",
-            "id": 2094,
+            "id": 2689,
             "neoClassName": "Neo.vdom.Helper"
         },
         {
             "comment": "/**\n     * @param {Object} vnode\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5035,
-                    5697
+                    5105,
+                    5767
                 ],
                 "filename": "Helper.mjs",
-                "lineno": 195,
+                "lineno": 198,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/vdom",
                 "code": {
-                    "id": "astnode100067117",
+                    "id": "astnode100087364",
                     "name": "Helper#createTagContent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -463,22 +463,22 @@
             "scope": "instance",
             "$longname": "Helper#createTagContent",
             "$kind": "method",
-            "id": 2095,
+            "id": 2690,
             "neoClassName": "Neo.vdom.Helper"
         },
         {
             "comment": "/**\n     * @param {Object} vnode\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5766,
-                    5893
+                    5836,
+                    5963
                 ],
                 "filename": "Helper.mjs",
-                "lineno": 226,
+                "lineno": 229,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/vdom",
                 "code": {
-                    "id": "astnode100067201",
+                    "id": "astnode100087448",
                     "name": "Helper#createCloseTag",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -507,22 +507,22 @@
             "scope": "instance",
             "$longname": "Helper#createCloseTag",
             "$kind": "method",
-            "id": 2096,
+            "id": 2691,
             "neoClassName": "Neo.vdom.Helper"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} opts\n     * @returns {Object|Neo.vdom.VNode|null}\n     */",
             "meta": {
                 "range": [
-                    5995,
-                    9476
+                    6065,
+                    9652
                 ],
                 "filename": "Helper.mjs",
-                "lineno": 235,
+                "lineno": 238,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/vdom",
                 "code": {
-                    "id": "astnode100067228",
+                    "id": "astnode100087475",
                     "name": "Helper#parseHelper",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -561,22 +561,22 @@
             "scope": "instance",
             "$longname": "Helper#parseHelper",
             "$kind": "method",
-            "id": 2097,
+            "id": 2692,
             "neoClassName": "Neo.vdom.Helper"
         },
         {
             "comment": "/**\n     * @param {Object} config\n     * @param {Array} config.deltas\n     * @param {Number} config.index\n     * @param {Object} config.newVnode\n     * @param {Object} config.newVnodeRoot\n     * @param {Object} config.oldVnode\n     * @param {Object} config.oldVnodeRoot\n     * @param {String} config.parentId\n     * @returns {Array} deltas\n     */",
             "meta": {
                 "range": [
-                    9834,
-                    25498
+                    10010,
+                    27740
                 ],
                 "filename": "Helper.mjs",
-                "lineno": 345,
+                "lineno": 350,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/vdom",
                 "code": {
-                    "id": "astnode100067594",
+                    "id": "astnode100087846",
                     "name": "Helper#createDeltas",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -670,22 +670,22 @@
             "scope": "instance",
             "$longname": "Helper#createDeltas",
             "$kind": "method",
-            "id": 2098,
+            "id": 2693,
             "neoClassName": "Neo.vdom.Helper"
         },
         {
             "comment": "/**\n     *\n     * @param {Neo.vdom.VNode} vnode\n     * @param {String} id\n     * @param {Neo.vdom.VNode} parentNode\n     * @param {Number} index\n     * @returns {Object}\n     *     {Number} index\n     *     {String} parentId\n     *     {Neo.vdom.VNode} vnode\n     */",
             "meta": {
                 "range": [
-                    25775,
-                    26733
+                    28017,
+                    28975
                 ],
                 "filename": "Helper.mjs",
-                "lineno": 708,
+                "lineno": 761,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/vdom",
                 "code": {
-                    "id": "astnode100068739",
+                    "id": "astnode100089158",
                     "name": "Helper#findVnode",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -750,7 +750,7 @@
             "scope": "instance",
             "$longname": "Helper#findVnode",
             "$kind": "method",
-            "id": 2099,
+            "id": 2694,
             "neoClassName": "Neo.vdom.Helper"
         }
     ]

@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.form.field.Range",
             "$kind": "class",
-            "id": 940,
+            "id": 1387,
             "neoClassName": "Neo.form.field.Range"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 941,
+            "id": 1388,
             "neoClassName": "Neo.form.field.Range"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 942,
+            "id": 1389,
             "neoClassName": "Neo.form.field.Range"
         },
         {
@@ -94,11 +94,11 @@
             "scope": "global",
             "$longname": "clearable",
             "$kind": "property",
-            "id": 943,
+            "id": 1390,
             "neoClassName": "Neo.form.field.Range"
         },
         {
-            "comment": "/**\n         * @member {Array} cls=['neo-rangefield','neo-textfield']\n         */",
+            "comment": "/**\n         * @member {String[]} cls=['neo-rangefield','neo-textfield']\n         */",
             "meta": {
                 "filename": "Range.mjs",
                 "lineno": 27,
@@ -110,7 +110,7 @@
             "name": "cls",
             "type": {
                 "names": [
-                    "Array"
+                    "Array.<String>"
                 ]
             },
             "defaultvalue": "['neo-rangefield','neo-textfield']",
@@ -118,7 +118,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 944,
+            "id": 1391,
             "neoClassName": "Neo.form.field.Range"
         },
         {
@@ -143,7 +143,7 @@
             "scope": "global",
             "$longname": "inputType",
             "$kind": "property",
-            "id": 945,
+            "id": 1392,
             "neoClassName": "Neo.form.field.Range"
         },
         {
@@ -167,7 +167,7 @@
             "scope": "global",
             "$longname": "tickmarks_",
             "$kind": "property",
-            "id": 946,
+            "id": 1393,
             "neoClassName": "Neo.form.field.Range"
         },
         {
@@ -191,7 +191,7 @@
             "scope": "global",
             "$longname": "useInputEvent",
             "$kind": "property",
-            "id": 947,
+            "id": 1394,
             "neoClassName": "Neo.form.field.Range"
         },
         {
@@ -216,22 +216,22 @@
             "scope": "global",
             "$longname": "useInputEvent",
             "$kind": "property",
-            "id": 948,
+            "id": 1395,
             "neoClassName": "Neo.form.field.Range"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    1314,
-                    1871
+                    1317,
+                    1874
                 ],
                 "filename": "Range.mjs",
                 "lineno": 52,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100029972",
+                    "id": "astnode100044490",
                     "name": "Range",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -258,22 +258,22 @@
             "scope": "global",
             "$longname": "Range",
             "$kind": "constructor",
-            "id": 949,
+            "id": 1396,
             "neoClassName": "Neo.form.field.Range"
         },
         {
-            "comment": "/**\n     *\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @protected\n     */",
+            "comment": "/**\n     * Triggered after the tickmarks config got changed\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1977,
-                    2061
+                    2029,
+                    2113
                 ],
                 "filename": "Range.mjs",
                 "lineno": 80,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100030041",
+                    "id": "astnode100044559",
                     "name": "Range#afterSetTickmarks",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -285,6 +285,7 @@
                     "": null
                 }
             },
+            "description": "Triggered after the tickmarks config got changed",
             "params": [
                 {
                     "type": {
@@ -311,7 +312,7 @@
             "scope": "instance",
             "$longname": "Range#afterSetTickmarks",
             "$kind": "method",
-            "id": 950,
+            "id": 1397,
             "neoClassName": "Neo.form.field.Range"
         }
     ]

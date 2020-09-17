@@ -1,0 +1,330 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.calendar.view.settings.WeekContainer\n * @extends Neo.container.Base\n */",
+            "meta": {
+                "filename": "WeekContainer.mjs",
+                "lineno": 6,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "WeekContainer",
+            "augments": [
+                "Neo.container.Base"
+            ],
+            "memberof": "Neo.calendar.view.settings",
+            "longname": "Neo.calendar.view.settings.WeekContainer",
+            "scope": "static",
+            "$longname": "Neo.calendar.view.settings.WeekContainer",
+            "$kind": "class",
+            "id": 216,
+            "neoClassName": "Neo.calendar.view.settings.WeekContainer"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.calendar.view.settings.WeekContainer'\n         * @protected\n         */",
+            "meta": {
+                "filename": "WeekContainer.mjs",
+                "lineno": 16,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.calendar.view.settings.WeekContainer'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 217,
+            "neoClassName": "Neo.calendar.view.settings.WeekContainer"
+        },
+        {
+            "comment": "/**\n         * @member {Object} itemDefaults\n         */",
+            "meta": {
+                "filename": "WeekContainer.mjs",
+                "lineno": 20,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "itemDefaults",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "longname": "itemDefaults",
+            "scope": "global",
+            "$longname": "itemDefaults",
+            "$kind": "property",
+            "id": 218,
+            "neoClassName": "Neo.calendar.view.settings.WeekContainer"
+        },
+        {
+            "comment": "/**\n         * @member {Object} layout={ntype:'vbox',align:'stretch'}\n         */",
+            "meta": {
+                "filename": "WeekContainer.mjs",
+                "lineno": 28,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "layout",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{ntype:'vbox',align:'stretch'}",
+            "longname": "layout",
+            "scope": "global",
+            "$longname": "layout",
+            "$kind": "property",
+            "id": 219,
+            "neoClassName": "Neo.calendar.view.settings.WeekContainer"
+        },
+        {
+            "comment": "/**\n     *\n     * @param config\n     */",
+            "meta": {
+                "range": [
+                    980,
+                    1058
+                ],
+                "filename": "WeekContainer.mjs",
+                "lineno": 35,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {
+                    "id": "astnode100006317",
+                    "name": "WeekContainer",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "config"
+                }
+            ],
+            "name": "WeekContainer",
+            "longname": "WeekContainer",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "WeekContainer",
+            "$kind": "constructor",
+            "id": 220,
+            "neoClassName": "Neo.calendar.view.settings.WeekContainer"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    1087,
+                    4038
+                ],
+                "filename": "WeekContainer.mjs",
+                "lineno": 43,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {
+                    "id": "astnode100006331",
+                    "name": "WeekContainer#createItems",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "createItems",
+            "longname": "WeekContainer#createItems",
+            "kind": "function",
+            "memberof": "WeekContainer",
+            "scope": "instance",
+            "params": [],
+            "$longname": "WeekContainer#createItems",
+            "$kind": "method",
+            "id": 221,
+            "neoClassName": "Neo.calendar.view.settings.WeekContainer"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Neo.calendar.view.TimeAxisComponent}\n     */",
+            "meta": {
+                "range": [
+                    4121,
+                    4191
+                ],
+                "filename": "WeekContainer.mjs",
+                "lineno": 120,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {
+                    "id": "astnode100006545",
+                    "name": "WeekContainer#getTimeAxis",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.calendar.view.TimeAxisComponent"
+                        ]
+                    }
+                }
+            ],
+            "name": "getTimeAxis",
+            "longname": "WeekContainer#getTimeAxis",
+            "kind": "function",
+            "memberof": "WeekContainer",
+            "scope": "instance",
+            "params": [],
+            "$longname": "WeekContainer#getTimeAxis",
+            "$kind": "method",
+            "id": 222,
+            "neoClassName": "Neo.calendar.view.settings.WeekContainer"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Neo.calendar.view.WeekComponent}\n     */",
+            "meta": {
+                "range": [
+                    4270,
+                    4360
+                ],
+                "filename": "WeekContainer.mjs",
+                "lineno": 128,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {
+                    "id": "astnode100006556",
+                    "name": "WeekContainer#getWeekComponent",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.calendar.view.WeekComponent"
+                        ]
+                    }
+                }
+            ],
+            "name": "getWeekComponent",
+            "longname": "WeekContainer#getWeekComponent",
+            "kind": "function",
+            "memberof": "WeekContainer",
+            "scope": "instance",
+            "params": [],
+            "$longname": "WeekContainer#getWeekComponent",
+            "$kind": "method",
+            "id": 223,
+            "neoClassName": "Neo.calendar.view.settings.WeekContainer"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    4417,
+                    4515
+                ],
+                "filename": "WeekContainer.mjs",
+                "lineno": 136,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {
+                    "id": "astnode100006568",
+                    "name": "WeekContainer#onTimeAxisConfigChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onTimeAxisConfigChange",
+            "longname": "WeekContainer#onTimeAxisConfigChange",
+            "kind": "function",
+            "memberof": "WeekContainer",
+            "scope": "instance",
+            "$longname": "WeekContainer#onTimeAxisConfigChange",
+            "$kind": "method",
+            "id": 224,
+            "neoClassName": "Neo.calendar.view.settings.WeekContainer"
+        },
+        {
+            "comment": "/**\n     *\n     * @param data\n     */",
+            "meta": {
+                "range": [
+                    4563,
+                    4719
+                ],
+                "filename": "WeekContainer.mjs",
+                "lineno": 144,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {
+                    "id": "astnode100006588",
+                    "name": "WeekContainer#onTimeAxisPositionChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "data"
+                }
+            ],
+            "name": "onTimeAxisPositionChange",
+            "longname": "WeekContainer#onTimeAxisPositionChange",
+            "kind": "function",
+            "memberof": "WeekContainer",
+            "scope": "instance",
+            "$longname": "WeekContainer#onTimeAxisPositionChange",
+            "$kind": "method",
+            "id": 225,
+            "neoClassName": "Neo.calendar.view.settings.WeekContainer"
+        }
+    ]
+}

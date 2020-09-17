@@ -27,7 +27,7 @@
             "scope": "static",
             "$longname": "Neo.main.mixin.DeltaUpdates",
             "$kind": "class",
-            "id": 1531,
+            "id": 2059,
             "neoClassName": "Neo.main.mixin.DeltaUpdates"
         },
         {
@@ -52,7 +52,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1532,
+            "id": 2060,
             "neoClassName": "Neo.main.mixin.DeltaUpdates"
         },
         {
@@ -67,7 +67,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixin",
                 "code": {
-                    "id": "astnode100046421",
+                    "id": "astnode100063828",
                     "name": "DeltaUpdates#du_focusNode",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -103,7 +103,7 @@
             "scope": "instance",
             "$longname": "DeltaUpdates#du_focusNode",
             "$kind": "method",
-            "id": 1533,
+            "id": 2061,
             "neoClassName": "Neo.main.mixin.DeltaUpdates"
         },
         {
@@ -118,7 +118,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixin",
                 "code": {
-                    "id": "astnode100046437",
+                    "id": "astnode100063844",
                     "name": "DeltaUpdates#du_insertNode",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -171,7 +171,7 @@
             "scope": "instance",
             "$longname": "DeltaUpdates#du_insertNode",
             "$kind": "method",
-            "id": 1534,
+            "id": 2062,
             "neoClassName": "Neo.main.mixin.DeltaUpdates"
         },
         {
@@ -186,7 +186,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixin",
                 "code": {
-                    "id": "astnode100046607",
+                    "id": "astnode100064014",
                     "name": "DeltaUpdates#du_moveNode",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -238,7 +238,7 @@
             "scope": "instance",
             "$longname": "DeltaUpdates#du_moveNode",
             "$kind": "method",
-            "id": 1535,
+            "id": 2063,
             "neoClassName": "Neo.main.mixin.DeltaUpdates"
         },
         {
@@ -253,7 +253,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixin",
                 "code": {
-                    "id": "astnode100046678",
+                    "id": "astnode100064085",
                     "name": "DeltaUpdates#du_removeNode",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -289,7 +289,7 @@
             "scope": "instance",
             "$longname": "DeltaUpdates#du_removeNode",
             "$kind": "method",
-            "id": 1536,
+            "id": 2064,
             "neoClassName": "Neo.main.mixin.DeltaUpdates"
         },
         {
@@ -304,7 +304,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixin",
                 "code": {
-                    "id": "astnode100046706",
+                    "id": "astnode100064113",
                     "name": "DeltaUpdates#du_replaceChild",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -356,22 +356,22 @@
             "scope": "instance",
             "$longname": "DeltaUpdates#du_replaceChild",
             "$kind": "method",
-            "id": 1537,
+            "id": 2065,
             "neoClassName": "Neo.main.mixin.DeltaUpdates"
         },
         {
-            "comment": "/**\n     *\n     * @param {Object} delta\n     * @param {String} [delta.attributes]\n     * @param {String} [delta.cls]\n     * @param {String} [delta.id]\n     * @param {String} [delta.innerHTML]\n     * @param {String} [delta.outerHTML]\n     * @param {String} [delta.style]\n     */",
+            "comment": "/**\n     *\n     * @param {Object} delta\n     * @param {Object} [delta.attributes]\n     * @param {String} [delta.cls]\n     * @param {String} [delta.id]\n     * @param {String} [delta.innerHTML]\n     * @param {String} [delta.outerHTML]\n     * @param {Object} [delta.style]\n     */",
             "meta": {
                 "range": [
                     4459,
-                    6492
+                    6732
                 ],
                 "filename": "DeltaUpdates.mjs",
                 "lineno": 144,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixin",
                 "code": {
-                    "id": "astnode100046743",
+                    "id": "astnode100064150",
                     "name": "DeltaUpdates#du_updateNode",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -394,7 +394,7 @@
                 {
                     "type": {
                         "names": [
-                            "String"
+                            "Object"
                         ]
                     },
                     "optional": true,
@@ -439,7 +439,7 @@
                 {
                     "type": {
                         "names": [
-                            "String"
+                            "Object"
                         ]
                     },
                     "optional": true,
@@ -453,22 +453,22 @@
             "scope": "instance",
             "$longname": "DeltaUpdates#du_updateNode",
             "$kind": "method",
-            "id": 1538,
+            "id": 2066,
             "neoClassName": "Neo.main.mixin.DeltaUpdates"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} delta\n     * @param {String} delta.id\n     * @param {String} delta.parentId\n     * @param {String} delta.value\n     */",
             "meta": {
                 "range": [
-                    6655,
-                    7001
+                    6895,
+                    7241
                 ],
                 "filename": "DeltaUpdates.mjs",
-                "lineno": 198,
+                "lineno": 201,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixin",
                 "code": {
-                    "id": "astnode100046938",
+                    "id": "astnode100064384",
                     "name": "DeltaUpdates#du_updateVtext",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -520,22 +520,22 @@
             "scope": "instance",
             "$longname": "DeltaUpdates#du_updateVtext",
             "$kind": "method",
-            "id": 1539,
+            "id": 2067,
             "neoClassName": "Neo.main.mixin.DeltaUpdates"
         },
         {
-            "comment": "/**\n     * @param {String} html representing a single element\n     * @return {ChildNode}\n     */",
+            "comment": "/**\n     * @param {String} html representing a single element\n     * @returns {ChildNode}\n     */",
             "meta": {
                 "range": [
-                    7108,
-                    7281
+                    7349,
+                    7522
                 ],
                 "filename": "DeltaUpdates.mjs",
-                "lineno": 212,
+                "lineno": 215,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixin",
                 "code": {
-                    "id": "astnode100046989",
+                    "id": "astnode100064435",
                     "name": "DeltaUpdates#htmlStringToElement",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -573,22 +573,22 @@
             "scope": "instance",
             "$longname": "DeltaUpdates#htmlStringToElement",
             "$kind": "method",
-            "id": 1540,
+            "id": 2068,
             "neoClassName": "Neo.main.mixin.DeltaUpdates"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Object|Object[]} data.deltas\n     * @param {String} data.id\n     * @param {String} [data.origin='app']\n     */",
             "meta": {
                 "range": [
-                    7456,
-                    8549
+                    7697,
+                    8771
                 ],
                 "filename": "DeltaUpdates.mjs",
-                "lineno": 225,
+                "lineno": 228,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixin",
                 "code": {
-                    "id": "astnode100047014",
+                    "id": "astnode100064460",
                     "name": "DeltaUpdates#update",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -643,7 +643,7 @@
             "scope": "instance",
             "$longname": "DeltaUpdates#update",
             "$kind": "method",
-            "id": 1541,
+            "id": 2069,
             "neoClassName": "Neo.main.mixin.DeltaUpdates"
         }
     ]

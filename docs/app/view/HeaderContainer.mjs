@@ -1,6 +1,6 @@
-import {default as Container}   from '../../../node_modules/neo.mjs/src/container/Base.mjs';
-import Button                   from '../../../node_modules/neo.mjs/src/component/Button.mjs';
-import {default as SearchField} from '../../../node_modules/neo.mjs/src/form/field/Search.mjs';
+import Container   from '../../../node_modules/neo.mjs/src/container/Base.mjs';
+import Button      from '../../../node_modules/neo.mjs/src/button/Base.mjs';
+import SearchField from '../../../node_modules/neo.mjs/src/form/field/Search.mjs';
 
 /**
  * @class Docs.app.view.HeaderContainer
@@ -10,12 +10,12 @@ class HeaderContainer extends Container {
     static getConfig() {return {
         /**
          * @member {String} className='Docs.app.view.HeaderContainer'
-         * @private
+         * @protected
          */
         className: 'Docs.app.view.HeaderContainer',
         /**
          * @member {String} ntype='header-container'
-         * @private
+         * @protected
          */
         ntype: 'neo-docs-header-container',
         /**

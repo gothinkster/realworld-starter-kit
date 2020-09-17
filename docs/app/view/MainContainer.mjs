@@ -1,14 +1,14 @@
-import ApiTreeList                        from './ApiTreeList.mjs';
-import {default as ClassDetailsContainer} from './classdetails/MainContainer.mjs';
-import {default as Collection}            from '../../../node_modules/neo.mjs/src/collection/Base.mjs';
-import ContentTabContainer                from './ContentTabContainer.mjs';
-import ExamplesTreeList                   from './ExamplesTreeList.mjs';
-import HeaderContainer                    from './HeaderContainer.mjs';
-import MainContainerController            from './MainContainerController.mjs';
-import SourceViewComponent                from './classdetails/SourceViewComponent.mjs';
-import TutorialComponent                  from './classdetails/TutorialComponent.mjs';
-import TutorialsTreeList                  from './TutorialsTreeList.mjs';
-import Viewport                           from '../../../node_modules/neo.mjs/src/container/Viewport.mjs';
+import ApiTreeList             from './ApiTreeList.mjs';
+import ClassDetailsContainer   from './classdetails/MainContainer.mjs';
+import Collection              from '../../../node_modules/neo.mjs/src/collection/Base.mjs';
+import ContentTabContainer     from './ContentTabContainer.mjs';
+import ExamplesTreeList        from './ExamplesTreeList.mjs';
+import HeaderContainer         from './HeaderContainer.mjs';
+import MainContainerController from './MainContainerController.mjs';
+import SourceViewComponent     from './classdetails/SourceViewComponent.mjs';
+import TutorialComponent       from './classdetails/TutorialComponent.mjs';
+import TutorialsTreeList       from './TutorialsTreeList.mjs';
+import Viewport                from '../../../node_modules/neo.mjs/src/container/Viewport.mjs';
 
 /**
  * @class Docs.app.view.MainContainer
@@ -18,12 +18,12 @@ class MainContainer extends Viewport {
     static getConfig() {return {
         /**
          * @member {String} className='Docs.app.view.MainContainer'
-         * @private
+         * @protected
          */
         className: 'Docs.app.view.MainContainer',
         /**
          * @member {String} ntype='main-container'
-         * @private
+         * @protected
          */
         ntype: 'main-container',
         /**

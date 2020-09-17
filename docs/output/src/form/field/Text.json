@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.form.field.Text",
             "$kind": "class",
-            "id": 997,
+            "id": 1444,
             "neoClassName": "Neo.form.field.Text"
         },
         {
@@ -45,7 +45,7 @@
             "longname": "labelPositions",
             "$longname": "labelPositions",
             "$kind": "property",
-            "id": 998,
+            "id": 1445,
             "neoClassName": "Neo.form.field.Text"
         },
         {
@@ -70,7 +70,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 999,
+            "id": 1446,
             "neoClassName": "Neo.form.field.Text"
         },
         {
@@ -95,7 +95,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1000,
+            "id": 1447,
             "neoClassName": "Neo.form.field.Text"
         },
         {
@@ -122,7 +122,7 @@
             "scope": "global",
             "$longname": "centerBorderElWidth",
             "$kind": "property",
-            "id": 1001,
+            "id": 1448,
             "neoClassName": "Neo.form.field.Text"
         },
         {
@@ -147,7 +147,7 @@
             "scope": "global",
             "$longname": "clearable_",
             "$kind": "property",
-            "id": 1002,
+            "id": 1449,
             "neoClassName": "Neo.form.field.Text"
         },
         {
@@ -172,11 +172,11 @@
             "scope": "global",
             "$longname": "clearToOriginalValue",
             "$kind": "property",
-            "id": 1003,
+            "id": 1450,
             "neoClassName": "Neo.form.field.Text"
         },
         {
-            "comment": "/**\n         * @member {Array} cls=['neo-textfield']\n         */",
+            "comment": "/**\n         * @member {String[]} cls=['neo-textfield']\n         */",
             "meta": {
                 "filename": "Text.mjs",
                 "lineno": 55,
@@ -188,7 +188,7 @@
             "name": "cls",
             "type": {
                 "names": [
-                    "Array"
+                    "Array.<String>"
                 ]
             },
             "defaultvalue": "['neo-textfield']",
@@ -196,7 +196,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1004,
+            "id": 1451,
             "neoClassName": "Neo.form.field.Text"
         },
         {
@@ -220,7 +220,7 @@
             "scope": "global",
             "$longname": "hideLabel_",
             "$kind": "property",
-            "id": 1005,
+            "id": 1452,
             "neoClassName": "Neo.form.field.Text"
         },
         {
@@ -244,7 +244,7 @@
             "scope": "global",
             "$longname": "inputType_",
             "$kind": "property",
-            "id": 1006,
+            "id": 1453,
             "neoClassName": "Neo.form.field.Text"
         },
         {
@@ -268,7 +268,7 @@
             "scope": "global",
             "$longname": "labelPosition_",
             "$kind": "property",
-            "id": 1007,
+            "id": 1454,
             "neoClassName": "Neo.form.field.Text"
         },
         {
@@ -292,7 +292,7 @@
             "scope": "global",
             "$longname": "labelText_",
             "$kind": "property",
-            "id": 1008,
+            "id": 1455,
             "neoClassName": "Neo.form.field.Text"
         },
         {
@@ -318,7 +318,7 @@
             "scope": "global",
             "$longname": "labelWidth_",
             "$kind": "property",
-            "id": 1009,
+            "id": 1456,
             "neoClassName": "Neo.form.field.Text"
         },
         {
@@ -343,7 +343,7 @@
             "scope": "global",
             "$longname": "placeholderText_",
             "$kind": "property",
-            "id": 1010,
+            "id": 1457,
             "neoClassName": "Neo.form.field.Text"
         },
         {
@@ -367,7 +367,7 @@
             "scope": "global",
             "$longname": "required_",
             "$kind": "property",
-            "id": 1011,
+            "id": 1458,
             "neoClassName": "Neo.form.field.Text"
         },
         {
@@ -393,7 +393,7 @@
             "scope": "global",
             "$longname": "triggers_",
             "$kind": "property",
-            "id": 1012,
+            "id": 1459,
             "neoClassName": "Neo.form.field.Text"
         },
         {
@@ -416,22 +416,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 1013,
+            "id": 1460,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    3365,
-                    3908
+                    3230,
+                    3773
                 ],
                 "filename": "Text.mjs",
                 "lineno": 113,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100031314",
+                    "id": "astnode100045850",
                     "name": "Text",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -458,22 +458,22 @@
             "scope": "global",
             "$longname": "Text",
             "$kind": "constructor",
-            "id": 1014,
+            "id": 1461,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     * @param {Boolean} [preventOriginalConfig] True prevents the instance from getting an originalConfig property\n     * @returns {Object} config\n     */",
             "meta": {
                 "range": [
-                    4114,
-                    4394
+                    3979,
+                    4259
                 ],
                 "filename": "Text.mjs",
                 "lineno": 142,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100031395",
+                    "id": "astnode100045931",
                     "name": "Text#mergeConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -521,22 +521,22 @@
             "scope": "instance",
             "$longname": "Text#mergeConfig",
             "$kind": "method",
-            "id": 1015,
+            "id": 1462,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Triggered after the clearable config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4553,
-                    4850
+                    4418,
+                    4715
                 ],
                 "filename": "Text.mjs",
                 "lineno": 159,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100031438",
+                    "id": "astnode100045974",
                     "name": "Text#afterSetClearable",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -575,22 +575,22 @@
             "scope": "instance",
             "$longname": "Text#afterSetClearable",
             "$kind": "method",
-            "id": 1016,
+            "id": 1463,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Triggered after the clearToOriginalValue config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5020,
-                    5195
+                    4885,
+                    5060
                 ],
                 "filename": "Text.mjs",
                 "lineno": 178,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100031480",
+                    "id": "astnode100046016",
                     "name": "Text#afterSetClearToOriginalValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -629,22 +629,22 @@
             "scope": "instance",
             "$longname": "Text#afterSetClearToOriginalValue",
             "$kind": "method",
-            "id": 1017,
+            "id": 1464,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Triggered after the hideLabel config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5354,
-                    5562
+                    5219,
+                    5427
                 ],
                 "filename": "Text.mjs",
                 "lineno": 191,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100031497",
+                    "id": "astnode100046033",
                     "name": "Text#afterSetHideLabel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -683,22 +683,22 @@
             "scope": "instance",
             "$longname": "Text#afterSetHideLabel",
             "$kind": "method",
-            "id": 1018,
+            "id": 1465,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Triggered after the inputType config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5719,
-                    5807
+                    5584,
+                    5672
                 ],
                 "filename": "Text.mjs",
                 "lineno": 207,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100031533",
+                    "id": "astnode100046069",
                     "name": "Text#afterSetInputType",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -737,22 +737,22 @@
             "scope": "instance",
             "$longname": "Text#afterSetInputType",
             "$kind": "method",
-            "id": 1019,
+            "id": 1466,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Triggered after the labelPosition config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5968,
-                    7493
+                    5833,
+                    7358
                 ],
                 "filename": "Text.mjs",
                 "lineno": 217,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100031546",
+                    "id": "astnode100046082",
                     "name": "Text#afterSetLabelPosition",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -791,22 +791,22 @@
             "scope": "instance",
             "$longname": "Text#afterSetLabelPosition",
             "$kind": "method",
-            "id": 1020,
+            "id": 1467,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Triggered after the labelText config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7650,
-                    8292
+                    7515,
+                    8157
                 ],
                 "filename": "Text.mjs",
                 "lineno": 275,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100031745",
+                    "id": "astnode100046281",
                     "name": "Text#afterSetLabelText",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -845,22 +845,22 @@
             "scope": "instance",
             "$longname": "Text#afterSetLabelText",
             "$kind": "method",
-            "id": 1021,
+            "id": 1468,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Triggered after the labelWidth config got changed\n     * @param {Number|String} value\n     * @param {Number|String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    8464,
-                    8831
+                    8329,
+                    8696
                 ],
                 "filename": "Text.mjs",
                 "lineno": 305,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100031830",
+                    "id": "astnode100046366",
                     "name": "Text#afterSetLabelWidth",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -901,22 +901,76 @@
             "scope": "instance",
             "$longname": "Text#afterSetLabelWidth",
             "$kind": "method",
-            "id": 1022,
+            "id": 1469,
             "neoClassName": "Neo.form.field.Text"
         },
         {
-            "comment": "/**\n     * Triggered after the placeholderText config got changed\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @protected\n     */",
+            "comment": "/**\n     * Triggered after the mounted config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    9004,
-                    9127
+                    8853,
+                    9054
                 ],
                 "filename": "Text.mjs",
                 "lineno": 327,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100031882",
+                    "id": "astnode100046418",
+                    "name": "Text#afterSetMounted",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the mounted config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetMounted",
+            "longname": "Text#afterSetMounted",
+            "kind": "function",
+            "memberof": "Text",
+            "scope": "instance",
+            "$longname": "Text#afterSetMounted",
+            "$kind": "method",
+            "id": 1470,
+            "neoClassName": "Neo.form.field.Text"
+        },
+        {
+            "comment": "/**\n     * Triggered after the placeholderText config got changed\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    9227,
+                    9350
+                ],
+                "filename": "Text.mjs",
+                "lineno": 341,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
+                "code": {
+                    "id": "astnode100046445",
                     "name": "Text#afterSetPlaceholderText",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -957,22 +1011,22 @@
             "scope": "instance",
             "$longname": "Text#afterSetPlaceholderText",
             "$kind": "method",
-            "id": 1023,
+            "id": 1471,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Triggered after the required config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    9285,
-                    9376
+                    9508,
+                    9599
                 ],
                 "filename": "Text.mjs",
-                "lineno": 337,
+                "lineno": 351,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100031900",
+                    "id": "astnode100046463",
                     "name": "Text#afterSetRequired",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1011,22 +1065,22 @@
             "scope": "instance",
             "$longname": "Text#afterSetRequired",
             "$kind": "method",
-            "id": 1024,
+            "id": 1472,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Triggered after the triggers config got changed\n     * @param {Object[]} value\n     * @param {Object[]} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    9536,
-                    11458
+                    9759,
+                    11682
                 ],
                 "filename": "Text.mjs",
-                "lineno": 347,
+                "lineno": 361,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100031913",
+                    "id": "astnode100046476",
                     "name": "Text#afterSetTriggers",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1065,22 +1119,22 @@
             "scope": "instance",
             "$longname": "Text#afterSetTriggers",
             "$kind": "method",
-            "id": 1025,
+            "id": 1473,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Triggered after the value config got changed\n     * todo: add validation logic\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    11645,
-                    12136
+                    11869,
+                    12360
                 ],
                 "filename": "Text.mjs",
-                "lineno": 414,
+                "lineno": 428,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032163",
+                    "id": "astnode100046726",
                     "name": "Text#afterSetValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1119,22 +1173,22 @@
             "scope": "instance",
             "$longname": "Text#afterSetValue",
             "$kind": "method",
-            "id": 1026,
+            "id": 1474,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Triggered after the width config got changed\n     * @param {Number|String} value\n     * @param {Number|String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    12303,
-                    12420
+                    12527,
+                    12644
                 ],
                 "filename": "Text.mjs",
-                "lineno": 437,
+                "lineno": 451,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032248",
+                    "id": "astnode100046811",
                     "name": "Text#afterSetWidth",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1175,22 +1229,22 @@
             "scope": "instance",
             "$longname": "Text#afterSetWidth",
             "$kind": "method",
-            "id": 1027,
+            "id": 1475,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Return a shallow copy of the triggers config\n     * @param {Array|null} value\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    12545,
-                    12677
+                    12769,
+                    12901
                 ],
                 "filename": "Text.mjs",
-                "lineno": 447,
+                "lineno": 461,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032266",
+                    "id": "astnode100046829",
                     "name": "Text#beforeGetTriggers",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1221,22 +1275,22 @@
             "scope": "instance",
             "$longname": "Text#beforeGetTriggers",
             "$kind": "method",
-            "id": 1028,
+            "id": 1476,
             "neoClassName": "Neo.form.field.Text"
         },
         {
-            "comment": "/**\n     * Triggered before the labelPosition config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "comment": "/**\n     * Triggered before the labelPosition config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    12840,
-                    12961
+                    13089,
+                    13210
                 ],
                 "filename": "Text.mjs",
-                "lineno": 461,
+                "lineno": 476,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032284",
+                    "id": "astnode100046847",
                     "name": "Text#beforeSetLabelPosition",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1268,6 +1322,15 @@
                 }
             ],
             "access": "protected",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    }
+                }
+            ],
             "name": "beforeSetLabelPosition",
             "longname": "Text#beforeSetLabelPosition",
             "kind": "function",
@@ -1275,22 +1338,22 @@
             "scope": "instance",
             "$longname": "Text#beforeSetLabelPosition",
             "$kind": "method",
-            "id": 1029,
+            "id": 1477,
             "neoClassName": "Neo.form.field.Text"
         },
         {
-            "comment": "/**\n     * Triggered before the triggers config gets changed\n     * @param {Object|Object[]} value\n     * @param {Object[]} oldValue\n     * @returns {Object[]} the parsed triggers config\n     * @protected\n     */",
+            "comment": "/**\n     * Triggered before the triggers config gets changed\n     * @param {Object|Object[]} value\n     * @param {Object[]} oldValue\n     * @returns {Object[]} the parsed triggers config\n     * @protected\n     * @returns {Object|Object[]}\n     */",
             "meta": {
                 "range": [
-                    13184,
-                    14142
+                    13467,
+                    14422
                 ],
                 "filename": "Text.mjs",
-                "lineno": 472,
+                "lineno": 488,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032298",
+                    "id": "astnode100046861",
                     "name": "Text#beforeSetTriggers",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1330,6 +1393,14 @@
                         ]
                     },
                     "description": "the parsed triggers config"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "Array.<Object>"
+                        ]
+                    }
                 }
             ],
             "access": "protected",
@@ -1340,22 +1411,22 @@
             "scope": "instance",
             "$longname": "Text#beforeSetTriggers",
             "$kind": "method",
-            "id": 1030,
+            "id": 1478,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Changes the value of a inputEl vdom object attribute or removes it in case it has no value\n     * @param {String} key\n     * @param {Array|Number|Object|String|null} value\n     */",
             "meta": {
                 "range": [
-                    14343,
-                    14604
+                    14623,
+                    14884
                 ],
                 "filename": "Text.mjs",
-                "lineno": 510,
+                "lineno": 525,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032444",
+                    "id": "astnode100047006",
                     "name": "Text#changeInputElKey",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1397,22 +1468,22 @@
             "scope": "instance",
             "$longname": "Text#changeInputElKey",
             "$kind": "method",
-            "id": 1031,
+            "id": 1479,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Resets the field to its original value or null depending on the clearToOriginalValue config\n     */",
             "meta": {
                 "range": [
-                    14725,
-                    14867
+                    15005,
+                    15147
                 ],
                 "filename": "Text.mjs",
-                "lineno": 526,
+                "lineno": 541,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032490",
+                    "id": "astnode100047052",
                     "name": "Text#clear",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1430,22 +1501,22 @@
             "params": [],
             "$longname": "Text#clear",
             "$kind": "method",
-            "id": 1032,
+            "id": 1480,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     *\n     * @returns {Object|null}\n     */",
             "meta": {
                 "range": [
-                    14926,
-                    15063
+                    15206,
+                    15343
                 ],
                 "filename": "Text.mjs",
-                "lineno": 537,
+                "lineno": 552,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032519",
+                    "id": "astnode100047081",
                     "name": "Text#getCenterBorderEl",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1472,22 +1543,22 @@
             "params": [],
             "$longname": "Text#getCenterBorderEl",
             "$kind": "method",
-            "id": 1033,
+            "id": 1481,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     *\n     * @returns {Object|null}\n     */",
             "meta": {
                 "range": [
-                    15122,
-                    15250
+                    15402,
+                    15530
                 ],
                 "filename": "Text.mjs",
-                "lineno": 546,
+                "lineno": 561,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032542",
+                    "id": "astnode100047104",
                     "name": "Text#getInputEl",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1514,22 +1585,22 @@
             "params": [],
             "$longname": "Text#getInputEl",
             "$kind": "method",
-            "id": 1034,
+            "id": 1482,
             "neoClassName": "Neo.form.field.Text"
         },
         {
-            "comment": "/**\n     *\n     * @return {String}\n     */",
+            "comment": "/**\n     *\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    15303,
-                    15360
+                    15584,
+                    15641
                 ],
                 "filename": "Text.mjs",
-                "lineno": 555,
+                "lineno": 570,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032565",
+                    "id": "astnode100047127",
                     "name": "Text#getInputElId",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1555,22 +1626,22 @@
             "params": [],
             "$longname": "Text#getInputElId",
             "$kind": "method",
-            "id": 1035,
+            "id": 1483,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Calculates the new inputWidth based on the labelWidth & total width\n     * @returns {Number|null} null in case this.width is unknown\n     */",
             "meta": {
                 "range": [
-                    15522,
-                    15989
+                    15803,
+                    16270
                 ],
                 "filename": "Text.mjs",
-                "lineno": 563,
+                "lineno": 578,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032575",
+                    "id": "astnode100047137",
                     "name": "Text#getInputWidth",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1599,22 +1670,22 @@
             "params": [],
             "$longname": "Text#getInputWidth",
             "$kind": "method",
-            "id": 1036,
+            "id": 1484,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     *\n     * @returns {Object|null}\n     */",
             "meta": {
                 "range": [
-                    16048,
-                    16166
+                    16329,
+                    16447
                 ],
                 "filename": "Text.mjs",
-                "lineno": 582,
+                "lineno": 597,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032639",
+                    "id": "astnode100047201",
                     "name": "Text#getLabelEl",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1641,22 +1712,22 @@
             "params": [],
             "$longname": "Text#getLabelEl",
             "$kind": "method",
-            "id": 1037,
+            "id": 1485,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     *\n     * @param {String} type\n     * @returns {Neo.form.field.trigger.Base|null}\n     */",
             "meta": {
                 "range": [
-                    16274,
-                    16594
+                    16555,
+                    16875
                 ],
                 "filename": "Text.mjs",
-                "lineno": 592,
+                "lineno": 607,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032662",
+                    "id": "astnode100047224",
                     "name": "Text#getTrigger",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1694,22 +1765,22 @@
             "scope": "instance",
             "$longname": "Text#getTrigger",
             "$kind": "method",
-            "id": 1038,
+            "id": 1486,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     *\n     * @param {String} id\n     * @returns {Neo.form.field.trigger.Base|null}\n     */",
             "meta": {
                 "range": [
-                    16700,
-                    17018
+                    16981,
+                    17299
                 ],
                 "filename": "Text.mjs",
-                "lineno": 612,
+                "lineno": 627,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032708",
+                    "id": "astnode100047270",
                     "name": "Text#getTriggerById",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1747,22 +1818,22 @@
             "scope": "instance",
             "$longname": "Text#getTriggerById",
             "$kind": "method",
-            "id": 1039,
+            "id": 1487,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     *\n     * @param {String} type\n     * @protected\n     * @returns {String} The trigger node id\n     */",
             "meta": {
                 "range": [
-                    17138,
-                    17209
+                    17419,
+                    17490
                 ],
                 "filename": "Text.mjs",
-                "lineno": 633,
+                "lineno": 648,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032754",
+                    "id": "astnode100047316",
                     "name": "Text#getTriggerId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1801,22 +1872,22 @@
             "scope": "instance",
             "$longname": "Text#getTriggerId",
             "$kind": "method",
-            "id": 1040,
+            "id": 1488,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Finds a trigger by a given type config\n     * @param {String} type\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    17331,
-                    17618
+                    17612,
+                    17899
                 ],
                 "filename": "Text.mjs",
-                "lineno": 642,
+                "lineno": 657,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032767",
+                    "id": "astnode100047329",
                     "name": "Text#hasTrigger",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1854,22 +1925,22 @@
             "scope": "instance",
             "$longname": "Text#hasTrigger",
             "$kind": "method",
-            "id": 1041,
+            "id": 1489,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     *\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    17673,
-                    17756
+                    17954,
+                    18037
                 ],
                 "filename": "Text.mjs",
-                "lineno": 660,
+                "lineno": 675,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032808",
+                    "id": "astnode100047370",
                     "name": "Text#isEmpty",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1895,22 +1966,22 @@
             "params": [],
             "$longname": "Text#isEmpty",
             "$kind": "method",
-            "id": 1042,
+            "id": 1490,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     *\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    17811,
-                    17998
+                    18092,
+                    18279
                 ],
                 "filename": "Text.mjs",
-                "lineno": 668,
+                "lineno": 683,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032828",
+                    "id": "astnode100047390",
                     "name": "Text#isValid",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1936,22 +2007,22 @@
             "params": [],
             "$longname": "Text#isValid",
             "$kind": "method",
-            "id": 1043,
+            "id": 1491,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     *\n     * @param {Array} path\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    18072,
-                    18550
+                    18353,
+                    18831
                 ],
                 "filename": "Text.mjs",
-                "lineno": 683,
+                "lineno": 698,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032865",
+                    "id": "astnode100047427",
                     "name": "Text#onFocusEnter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1980,22 +2051,22 @@
             "scope": "instance",
             "$longname": "Text#onFocusEnter",
             "$kind": "method",
-            "id": 1044,
+            "id": 1492,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     *\n     * @param {Array} path\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    18624,
-                    19105
+                    18905,
+                    19386
                 ],
                 "filename": "Text.mjs",
-                "lineno": 707,
+                "lineno": 722,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100032936",
+                    "id": "astnode100047498",
                     "name": "Text#onFocusLeave",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2024,22 +2095,22 @@
             "scope": "instance",
             "$longname": "Text#onFocusLeave",
             "$kind": "method",
-            "id": 1045,
+            "id": 1493,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * @param {Object} data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    19173,
-                    19607
+                    19454,
+                    19888
                 ],
                 "filename": "Text.mjs",
-                "lineno": 729,
+                "lineno": 744,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100033003",
+                    "id": "astnode100047565",
                     "name": "Text#onInputValueChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2068,22 +2139,22 @@
             "scope": "instance",
             "$longname": "Text#onInputValueChange",
             "$kind": "method",
-            "id": 1046,
+            "id": 1494,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Removes all triggers of a given type\n     * @param {String} type\n     * @param {Boolean} [silent=false] true prevents a vdom update\n     * @param {Array} [triggerSource] pass a shallow copy of this.triggers\n     * @returns {Boolean} true in case a trigger was found & removed\n     */",
             "meta": {
                 "range": [
-                    19912,
-                    20522
+                    20193,
+                    20803
                 ],
                 "filename": "Text.mjs",
-                "lineno": 752,
+                "lineno": 767,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100033058",
+                    "id": "astnode100047620",
                     "name": "Text#removeTrigger",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2145,22 +2216,22 @@
             "scope": "instance",
             "$longname": "Text#removeTrigger",
             "$kind": "method",
-            "id": 1047,
+            "id": 1495,
             "neoClassName": "Neo.form.field.Text"
         },
         {
-            "comment": "/**\n     * Used for labelPosition: 'inline' to adjust the top border matching to the length of the label\n     * @param {Boolean} silent true to get the value, but not apply it to the DOM\n     * @protected\n     */",
+            "comment": "/**\n     * Used for labelPosition: 'inline' to adjust the top border matching to the length of the label\n     * @param {Boolean} [silent=false] true to get the value, but not apply it to the DOM\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    20745,
-                    21269
+                    21034,
+                    21564
                 ],
                 "filename": "Text.mjs",
-                "lineno": 782,
+                "lineno": 797,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100033141",
+                    "id": "astnode100047703",
                     "name": "Text#updateCenterBorderElWidth",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2179,6 +2250,8 @@
                             "Boolean"
                         ]
                     },
+                    "optional": true,
+                    "defaultvalue": false,
                     "description": "true to get the value, but not apply it to the DOM",
                     "name": "silent"
                 }
@@ -2191,22 +2264,22 @@
             "scope": "instance",
             "$longname": "Text#updateCenterBorderElWidth",
             "$kind": "method",
-            "id": 1048,
+            "id": 1496,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Calculates the new inputWidth based on the labelWidth & total width\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    21384,
-                    21715
+                    21679,
+                    22010
                 ],
                 "filename": "Text.mjs",
-                "lineno": 805,
+                "lineno": 820,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100033221",
+                    "id": "astnode100047785",
                     "name": "Text#updateInputWidth",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -2225,22 +2298,22 @@
             "params": [],
             "$longname": "Text#updateInputWidth",
             "$kind": "method",
-            "id": 1049,
+            "id": 1497,
             "neoClassName": "Neo.form.field.Text"
         },
         {
             "comment": "/**\n     * Since triggers do not get rendered, assign the relevant props\n     * todo: this could be handled by component.Base\n     */",
             "meta": {
                 "range": [
-                    21859,
-                    22393
+                    22154,
+                    22688
                 ],
                 "filename": "Text.mjs",
-                "lineno": 823,
+                "lineno": 838,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100033277",
+                    "id": "astnode100047841",
                     "name": "Text#updateTriggerVnodes",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -2258,7 +2331,7 @@
             "params": [],
             "$longname": "Text#updateTriggerVnodes",
             "$kind": "method",
-            "id": 1050,
+            "id": 1498,
             "neoClassName": "Neo.form.field.Text"
         }
     ]

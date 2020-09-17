@@ -4,7 +4,7 @@
             "comment": "/**\n * @class Neo.main.DomEvents\n * @extends Neo.core.Base\n * @singleton\n */",
             "meta": {
                 "filename": "DomEvents.mjs",
-                "lineno": 50,
+                "lineno": 64,
                 "columnno": 0,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {}
@@ -26,14 +26,14 @@
             "scope": "static",
             "$longname": "Neo.main.DomEvents",
             "$kind": "class",
-            "id": 1501,
+            "id": 1982,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n         * True automatically applies the core/Observable.mjs mixin\n         * @member {Boolean} observable=true\n         * @static\n         */",
             "meta": {
                 "filename": "DomEvents.mjs",
-                "lineno": 62,
+                "lineno": 76,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {}
@@ -51,14 +51,14 @@
             "longname": "observable",
             "$longname": "observable",
             "$kind": "property",
-            "id": 1502,
+            "id": 1983,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n         * @member {String} className='Neo.main.DomEvents'\n         * @protected\n         */",
             "meta": {
                 "filename": "DomEvents.mjs",
-                "lineno": 70,
+                "lineno": 84,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {}
@@ -76,14 +76,14 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1503,
+            "id": 1984,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n         * todo: conditional dynamic import once the build processes can handle it\n         * @member {Array} mixins=[TouchDomEvents]\n         */",
             "meta": {
                 "filename": "DomEvents.mjs",
-                "lineno": 75,
+                "lineno": 89,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {}
@@ -101,14 +101,14 @@
             "scope": "global",
             "$longname": "mixins",
             "$kind": "property",
-            "id": 1504,
+            "id": 1985,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n         * @member {boolean} singleton=true\n         * @protected\n         */",
             "meta": {
                 "filename": "DomEvents.mjs",
-                "lineno": 80,
+                "lineno": 94,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {}
@@ -126,14 +126,14 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1505,
+            "id": 1986,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n         * Remote method access for other workers\n         * @member {Object} remote={app: ['addDomListener']}\n         * @protected\n         */",
             "meta": {
                 "filename": "DomEvents.mjs",
-                "lineno": 86,
+                "lineno": 100,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {}
@@ -152,22 +152,22 @@
             "scope": "global",
             "$longname": "remote",
             "$kind": "property",
-            "id": 1506,
+            "id": 1987,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    2951,
-                    3335
+                    3382,
+                    3766
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 98,
+                "lineno": 112,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100044889",
+                    "id": "astnode100060641",
                     "name": "DomEvents",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -194,22 +194,22 @@
             "scope": "global",
             "$longname": "DomEvents",
             "$kind": "constructor",
-            "id": 1507,
+            "id": 1988,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    3392,
-                    4209
+                    3823,
+                    4640
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 115,
+                "lineno": 129,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100044948",
+                    "id": "astnode100060700",
                     "name": "DomEvents#addDomListener",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -237,22 +237,22 @@
             "scope": "instance",
             "$longname": "DomEvents#addDomListener",
             "$kind": "method",
-            "id": 1508,
+            "id": 1989,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    4238,
-                    4505
+                    4669,
+                    4936
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 150,
+                "lineno": 164,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045076",
+                    "id": "astnode100060828",
                     "name": "DomEvents#addGlobalDomListeners",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -269,22 +269,106 @@
             "params": [],
             "$longname": "DomEvents#addGlobalDomListeners",
             "$kind": "method",
-            "id": 1509,
+            "id": 1990,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     * Returns the distance between two points\n     * @param  {Number} x1 The X position of the first point\n     * @param  {Number} y1 The Y position of the first point\n     * @param  {Number} x2 The X position of the second point\n     * @param  {Number} y2 The Y position of the second point\n     * @returns {Number}\n     */",
+            "meta": {
+                "range": [
+                    5276,
+                    5370
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 180,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
+                "code": {
+                    "id": "astnode100060879",
+                    "name": "DomEvents#getDistance",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "x1",
+                        "y1",
+                        "x2",
+                        "y2"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns the distance between two points",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "description": "The X position of the first point",
+                    "name": "x1"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "description": "The Y position of the first point",
+                    "name": "y1"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "description": "The X position of the second point",
+                    "name": "x2"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "description": "The Y position of the second point",
+                    "name": "y2"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    }
+                }
+            ],
+            "name": "getDistance",
+            "longname": "DomEvents#getDistance",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#getDistance",
+            "$kind": "method",
+            "id": 1991,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     * Local domEvent listener\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    4587,
-                    6549
+                    5452,
+                    7466
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 162,
+                "lineno": 188,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045127",
+                    "id": "astnode100060903",
                     "name": "DomEvents#domEventListener",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -313,22 +397,74 @@
             "scope": "instance",
             "$longname": "DomEvents#domEventListener",
             "$kind": "method",
-            "id": 1510,
+            "id": 1992,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Element} element\n     * @returns {Element[]}\n     */",
+            "meta": {
+                "range": [
+                    8895,
+                    9190
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 298,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
+                "code": {
+                    "id": "astnode100061245",
+                    "name": "DomEvents#getPathFromElement",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "element"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Element"
+                        ]
+                    },
+                    "name": "element"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Array.<Element>"
+                        ]
+                    }
+                }
+            ],
+            "name": "getPathFromElement",
+            "longname": "DomEvents#getPathFromElement",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#getPathFromElement",
+            "$kind": "method",
+            "id": 1993,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} node\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    7981,
-                    9351
+                    9272,
+                    11095
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 269,
+                "lineno": 318,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045464",
+                    "id": "astnode100061284",
                     "name": "DomEvents#getTargetData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -365,22 +501,75 @@
             "scope": "instance",
             "$longname": "DomEvents#getTargetData",
             "$kind": "method",
-            "id": 1511,
+            "id": 1994,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     * Returns the first touch event found in touches or changedTouches of a TouchEvent\n     * @param {TouchEvent} event\n     * @returns {Touch}\n     */",
+            "meta": {
+                "range": [
+                    11262,
+                    11421
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 371,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
+                "code": {
+                    "id": "astnode100061475",
+                    "name": "DomEvents#getTouchCoords",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns the first touch event found in touches or changedTouches of a TouchEvent",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "TouchEvent"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Touch"
+                        ]
+                    }
+                }
+            ],
+            "name": "getTouchCoords",
+            "longname": "DomEvents#getTouchCoords",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#getTouchCoords",
+            "$kind": "method",
+            "id": 1995,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     * Only in use if Neo.config.useSharedWorkers = true\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    9459,
-                    9627
+                    11529,
+                    11697
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 304,
+                "lineno": 380,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045597",
+                    "id": "astnode100061500",
                     "name": "DomEvents#onBeforeUnload",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -409,22 +598,22 @@
             "scope": "instance",
             "$longname": "DomEvents#onBeforeUnload",
             "$kind": "method",
-            "id": 1512,
+            "id": 1996,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    9685,
-                    9880
+                    11755,
+                    11950
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 317,
+                "lineno": 393,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045622",
+                    "id": "astnode100061525",
                     "name": "DomEvents#onChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -452,23 +641,23 @@
             "scope": "instance",
             "$longname": "DomEvents#onChange",
             "$kind": "method",
-            "id": 1513,
+            "id": 1997,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    9938,
-                    10153
+                    12008,
+                    12229
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 329,
+                "lineno": 405,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045652",
-                    "name": "DomEvents#onClick",
+                    "id": "astnode100061555",
+                    "name": "DomEvents#onDoubleClick",
                     "type": "MethodDefinition",
                     "paramnames": [
                         "event"
@@ -488,29 +677,29 @@
                     "name": "event"
                 }
             ],
-            "name": "onClick",
-            "longname": "DomEvents#onClick",
+            "name": "onDoubleClick",
+            "longname": "DomEvents#onDoubleClick",
             "kind": "function",
             "memberof": "DomEvents",
             "scope": "instance",
-            "$longname": "DomEvents#onClick",
+            "$longname": "DomEvents#onDoubleClick",
             "$kind": "method",
-            "id": 1514,
+            "id": 1998,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    10211,
-                    10438
+                    12287,
+                    12514
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 343,
+                "lineno": 419,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045684",
+                    "id": "astnode100061587",
                     "name": "DomEvents#onContextMenu",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -538,22 +727,22 @@
             "scope": "instance",
             "$longname": "DomEvents#onContextMenu",
             "$kind": "method",
-            "id": 1515,
+            "id": 1999,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    10467,
-                    10572
+                    12543,
+                    12648
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 356,
+                "lineno": 432,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045716",
+                    "id": "astnode100061619",
                     "name": "DomEvents#onDomContentLoaded",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -570,22 +759,65 @@
             "params": [],
             "$longname": "DomEvents#onDomContentLoaded",
             "$kind": "method",
-            "id": 1516,
+            "id": 2000,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    10630,
-                    10747
+                    12706,
+                    12921
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 365,
+                "lineno": 441,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045731",
+                    "id": "astnode100061634",
+                    "name": "DomEvents#onClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "event"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "event"
+                }
+            ],
+            "name": "onClick",
+            "longname": "DomEvents#onClick",
+            "kind": "function",
+            "memberof": "DomEvents",
+            "scope": "instance",
+            "$longname": "DomEvents#onClick",
+            "$kind": "method",
+            "id": 2001,
+            "neoClassName": "Neo.main.DomEvents"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} event\n     */",
+            "meta": {
+                "range": [
+                    12979,
+                    13096
+                ],
+                "filename": "DomEvents.mjs",
+                "lineno": 455,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
+                "code": {
+                    "id": "astnode100061666",
                     "name": "DomEvents#onDragOver",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -613,22 +845,22 @@
             "scope": "instance",
             "$longname": "DomEvents#onDragOver",
             "$kind": "method",
-            "id": 1517,
+            "id": 2002,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    10805,
-                    10886
+                    13154,
+                    13235
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 374,
+                "lineno": 464,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045744",
+                    "id": "astnode100061679",
                     "name": "DomEvents#onFocusIn",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -656,22 +888,22 @@
             "scope": "instance",
             "$longname": "DomEvents#onFocusIn",
             "$kind": "method",
-            "id": 1518,
+            "id": 2003,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    10944,
-                    11026
+                    13293,
+                    13375
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 382,
+                "lineno": 472,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045759",
+                    "id": "astnode100061694",
                     "name": "DomEvents#onFocusOut",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -699,22 +931,22 @@
             "scope": "instance",
             "$longname": "DomEvents#onFocusOut",
             "$kind": "method",
-            "id": 1519,
+            "id": 2004,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    11055,
-                    11436
+                    13404,
+                    13785
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 389,
+                "lineno": 479,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045774",
+                    "id": "astnode100061709",
                     "name": "DomEvents#onHashChange",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -731,22 +963,22 @@
             "params": [],
             "$longname": "DomEvents#onHashChange",
             "$kind": "method",
-            "id": 1520,
+            "id": 2005,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    11494,
-                    11717
+                    13843,
+                    14066
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 407,
+                "lineno": 497,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045818",
+                    "id": "astnode100061753",
                     "name": "DomEvents#onKeyDown",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -774,22 +1006,22 @@
             "scope": "instance",
             "$longname": "DomEvents#onKeyDown",
             "$kind": "method",
-            "id": 1521,
+            "id": 2006,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    11775,
-                    11862
+                    14124,
+                    14211
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 419,
+                "lineno": 509,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045851",
+                    "id": "astnode100061786",
                     "name": "DomEvents#onKeyUp",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -817,22 +1049,22 @@
             "scope": "instance",
             "$longname": "DomEvents#onKeyUp",
             "$kind": "method",
-            "id": 1522,
+            "id": 2007,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    11920,
-                    12114
+                    14269,
+                    14463
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 427,
+                "lineno": 517,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045866",
+                    "id": "astnode100061801",
                     "name": "DomEvents#onMouseEnter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -860,22 +1092,22 @@
             "scope": "instance",
             "$longname": "DomEvents#onMouseEnter",
             "$kind": "method",
-            "id": 1523,
+            "id": 2008,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    12172,
-                    12360
+                    14521,
+                    14709
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 438,
+                "lineno": 528,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045895",
+                    "id": "astnode100061830",
                     "name": "DomEvents#onMouseLeave",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -903,22 +1135,22 @@
             "scope": "instance",
             "$longname": "DomEvents#onMouseLeave",
             "$kind": "method",
-            "id": 1524,
+            "id": 2009,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    12418,
-                    13450
+                    14767,
+                    16195
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 449,
+                "lineno": 539,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100045924",
+                    "id": "astnode100061859",
                     "name": "DomEvents#onWheel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -946,22 +1178,22 @@
             "scope": "instance",
             "$longname": "DomEvents#onWheel",
             "$kind": "method",
-            "id": 1525,
+            "id": 2010,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     * Example for Array values: \"categories[]=test1&categories[]=test2\"\n     * @param {String} str\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    13597,
-                    14439
+                    16342,
+                    17184
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 487,
+                "lineno": 586,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100046028",
+                    "id": "astnode100062005",
                     "name": "DomEvents#parseHash",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -999,22 +1231,22 @@
             "scope": "instance",
             "$longname": "DomEvents#parseHash",
             "$kind": "method",
-            "id": 1526,
+            "id": 2011,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     * used by parseHash to convert tokens into boolean or number types if needed\n     * @param {String} value\n     * @returns {Boolean|Number|String}\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    14630,
-                    14897
+                    17375,
+                    17642
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 528,
+                "lineno": 627,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100046172",
+                    "id": "astnode100062149",
                     "name": "DomEvents#parseValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1055,22 +1287,22 @@
             "scope": "instance",
             "$longname": "DomEvents#parseValue",
             "$kind": "method",
-            "id": 1527,
+            "id": 2012,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Array|String} data.cls\n     * @param {String} data.name\n     */",
             "meta": {
                 "range": [
-                    15025,
-                    15582
+                    17770,
+                    18327
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 546,
+                "lineno": 645,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100046210",
+                    "id": "astnode100062187",
                     "name": "DomEvents#registerPreventDefaultTargets",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1115,22 +1347,22 @@
             "scope": "instance",
             "$longname": "DomEvents#registerPreventDefaultTargets",
             "$kind": "method",
-            "id": 1528,
+            "id": 2013,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
             "comment": "/**\n     * Sends the parsed event data to the app worker\n     * @param {Object} data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    15703,
-                    15890
+                    18448,
+                    18635
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 574,
+                "lineno": 673,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100046279",
+                    "id": "astnode100062256",
                     "name": "DomEvents#sendMessageToApp",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1160,22 +1392,22 @@
             "scope": "instance",
             "$longname": "DomEvents#sendMessageToApp",
             "$kind": "method",
-            "id": 1529,
+            "id": 2014,
             "neoClassName": "Neo.main.DomEvents"
         },
         {
-            "comment": "/**\n     *\n     * @param {Object} event\n     * @param {Object} targetArray\n     * @returns {String|Boolean} target cls if found, false otherwise\n     */",
+            "comment": "/**\n     *\n     * @param {Object} event\n     * @param {Object} targetArray\n     * @returns {Object|Boolean} target cls & node if found, false otherwise\n     */",
             "meta": {
                 "range": [
-                    16055,
-                    16598
+                    18807,
+                    19440
                 ],
                 "filename": "DomEvents.mjs",
-                "lineno": 590,
+                "lineno": 689,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100046303",
+                    "id": "astnode100062280",
                     "name": "DomEvents#testPathInclusion",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1209,11 +1441,11 @@
                 {
                     "type": {
                         "names": [
-                            "String",
+                            "Object",
                             "Boolean"
                         ]
                     },
-                    "description": "target cls if found, false otherwise"
+                    "description": "target cls & node if found, false otherwise"
                 }
             ],
             "name": "testPathInclusion",
@@ -1223,7 +1455,7 @@
             "scope": "instance",
             "$longname": "DomEvents#testPathInclusion",
             "$kind": "method",
-            "id": 1530,
+            "id": 2015,
             "neoClassName": "Neo.main.DomEvents"
         }
     ]

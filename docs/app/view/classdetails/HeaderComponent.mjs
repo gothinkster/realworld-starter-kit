@@ -1,5 +1,5 @@
-import {default as Component} from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
-import SourceViewComponent    from './SourceViewComponent.mjs';
+import Component           from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
+import SourceViewComponent from './SourceViewComponent.mjs';
 
 /**
  * @class Docs.app.view.classdetails.HeaderComponent
@@ -9,12 +9,12 @@ class HeaderComponent extends Component {
     static getConfig() {return {
         /**
          * @member {String} className='Docs.app.view.classdetails.HeaderComponent'
-         * @private
+         * @protected
          */
         className: 'Docs.app.view.classdetails.HeaderComponent',
         /**
          * @member {String} ntype='classdetails-headercomponent'
-         * @private
+         * @protected
          */
         ntype: 'classdetails-headercomponent',
         /**

@@ -1,0 +1,306 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.filter.BooleanContainer\n * @extends Neo.container.Base\n */",
+            "meta": {
+                "filename": "BooleanContainer.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "BooleanContainer",
+            "augments": [
+                "Neo.container.Base"
+            ],
+            "memberof": "Neo.filter",
+            "longname": "Neo.filter.BooleanContainer",
+            "scope": "static",
+            "$longname": "Neo.filter.BooleanContainer",
+            "$kind": "class",
+            "id": 1219,
+            "neoClassName": "Neo.filter.BooleanContainer"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.filter.BooleanContainer'\n         * @protected\n         */",
+            "meta": {
+                "filename": "BooleanContainer.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.filter.BooleanContainer'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1220,
+            "neoClassName": "Neo.filter.BooleanContainer"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='filter-booleancontainer'\n         * @protected\n         */",
+            "meta": {
+                "filename": "BooleanContainer.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'filter-booleancontainer'",
+            "access": "protected",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1221,
+            "neoClassName": "Neo.filter.BooleanContainer"
+        },
+        {
+            "comment": "/**\n         * @member {Array} cls=['neo-filter-booleancontainer']\n         */",
+            "meta": {
+                "filename": "BooleanContainer.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array"
+                ]
+            },
+            "defaultvalue": "['neo-filter-booleancontainer']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 1222,
+            "neoClassName": "Neo.filter.BooleanContainer"
+        },
+        {
+            "comment": "/**\n         * @member {Object} layout={ntype: 'hbox', align: 'center'}\n         */",
+            "meta": {
+                "filename": "BooleanContainer.mjs",
+                "lineno": 27,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "layout",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{ntype: 'hbox', align: 'center'}",
+            "description": "'hbox', align: 'center'}",
+            "longname": "layout",
+            "scope": "global",
+            "$longname": "layout",
+            "$kind": "property",
+            "id": 1223,
+            "neoClassName": "Neo.filter.BooleanContainer"
+        },
+        {
+            "comment": "/**\n         * Pass config to the Radio Fields\n         * @member {Object|null} radioConfig=null\n         */",
+            "meta": {
+                "filename": "BooleanContainer.mjs",
+                "lineno": 32,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {}
+            },
+            "description": "Pass config to the Radio Fields",
+            "kind": "member",
+            "name": "radioConfig",
+            "type": {
+                "names": [
+                    "Object",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "radioConfig",
+            "scope": "global",
+            "$longname": "radioConfig",
+            "$kind": "property",
+            "id": 1224,
+            "neoClassName": "Neo.filter.BooleanContainer"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean|null} value_=null\n         */",
+            "meta": {
+                "filename": "BooleanContainer.mjs",
+                "lineno": 36,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "value_",
+            "type": {
+                "names": [
+                    "Boolean",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "value_",
+            "scope": "global",
+            "$longname": "value_",
+            "$kind": "property",
+            "id": 1225,
+            "neoClassName": "Neo.filter.BooleanContainer"
+        },
+        {
+            "comment": "/**\n     * Triggered after the value config got changed\n     * @param {Boolean|null} value\n     * @param {Boolean|null} oldValue\n     */",
+            "meta": {
+                "range": [
+                    1225,
+                    1464
+                ],
+                "filename": "BooleanContainer.mjs",
+                "lineno": 44,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {
+                    "id": "astnode100041122",
+                    "name": "BooleanContainer#afterSetValue",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the value config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "name": "afterSetValue",
+            "longname": "BooleanContainer#afterSetValue",
+            "kind": "function",
+            "memberof": "BooleanContainer",
+            "scope": "instance",
+            "$longname": "BooleanContainer#afterSetValue",
+            "$kind": "method",
+            "id": 1226,
+            "neoClassName": "Neo.filter.BooleanContainer"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    1493,
+                    2505
+                ],
+                "filename": "BooleanContainer.mjs",
+                "lineno": 57,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {
+                    "id": "astnode100041146",
+                    "name": "BooleanContainer#createItems",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "createItems",
+            "longname": "BooleanContainer#createItems",
+            "kind": "function",
+            "memberof": "BooleanContainer",
+            "scope": "instance",
+            "params": [],
+            "$longname": "BooleanContainer#createItems",
+            "$kind": "method",
+            "id": 1227,
+            "neoClassName": "Neo.filter.BooleanContainer"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    2562,
+                    2677
+                ],
+                "filename": "BooleanContainer.mjs",
+                "lineno": 95,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/filter",
+                "code": {
+                    "id": "astnode100041244",
+                    "name": "BooleanContainer#onRadioChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onRadioChange",
+            "longname": "BooleanContainer#onRadioChange",
+            "kind": "function",
+            "memberof": "BooleanContainer",
+            "scope": "instance",
+            "$longname": "BooleanContainer#onRadioChange",
+            "$kind": "method",
+            "id": 1228,
+            "neoClassName": "Neo.filter.BooleanContainer"
+        }
+    ]
+}

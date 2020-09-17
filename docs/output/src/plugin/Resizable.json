@@ -1,0 +1,1165 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.plugin.Resizable\n * @extends Neo.plugin.Base\n */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 5,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Resizable",
+            "augments": [
+                "Neo.plugin.Base"
+            ],
+            "memberof": "Neo.plugin",
+            "longname": "Neo.plugin.Resizable",
+            "scope": "static",
+            "$longname": "Neo.plugin.Resizable",
+            "$kind": "class",
+            "id": 2171,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * Resize cursor styles use north, south based names, so we need a mapping.\n         * The order has to match the static positions array.\n         * @member {String[]} cursorPositions=['s', 'sw', 'se', 'w', 'e', 'n', 'nw', 'ne']\n         * @protected\n         * @static\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "description": "Resize cursor styles use north, south based names, so we need a mapping.<br />The order has to match the static positions array.",
+            "kind": "member",
+            "name": "cursorPositions",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['s', 'sw', 'se', 'w', 'e', 'n', 'nw', 'ne']",
+            "access": "protected",
+            "scope": "static",
+            "longname": "cursorPositions",
+            "$longname": "cursorPositions",
+            "$kind": "property",
+            "id": 2172,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * remove - chars\n         * @member {RegExp} nameRegEx=/-([a-z])/g\n         * @protected\n         * @static\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 25,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "description": "remove - chars",
+            "kind": "member",
+            "name": "nameRegEx",
+            "type": {
+                "names": [
+                    "RegExp"
+                ]
+            },
+            "defaultvalue": "/-([a-z])/g",
+            "access": "protected",
+            "scope": "static",
+            "longname": "nameRegEx",
+            "$longname": "nameRegEx",
+            "$kind": "property",
+            "id": 2173,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * Internal position names\n         * @member {String[]} validDirections=['bottom','bottom-left','bottom-right','left','right','top','top-left','top-right']\n         * @static\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 31,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "description": "Internal position names",
+            "kind": "member",
+            "name": "validDirections",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['bottom','bottom-left','bottom-right','left','right','top','top-left','top-right']",
+            "scope": "static",
+            "longname": "validDirections",
+            "$longname": "validDirections",
+            "$kind": "property",
+            "id": 2174,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * Directions into which you want to drag => resize\n         * @member {String[]} validDirections=['b','bl','br','l','r','t','tl','tr']\n         * @static\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 37,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "description": "Directions into which you want to drag => resize",
+            "kind": "member",
+            "name": "validDirections",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "> resize",
+            "scope": "static",
+            "longname": "validDirections",
+            "$longname": "validDirections",
+            "$kind": "property",
+            "id": 2175,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.plugin.Resizable'\n         * @protected\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 45,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.plugin.Resizable'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 2176,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='plugin-resizable'\n         * @protected\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 50,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'plugin-resizable'",
+            "access": "protected",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 2177,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} boundaryContainerId='document.body'\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 54,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "boundaryContainerId",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": "'document.body'",
+            "longname": "boundaryContainerId",
+            "scope": "global",
+            "$longname": "boundaryContainerId",
+            "$kind": "property",
+            "id": 2178,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * The DOMRect of the boundaryContainer if set (measured on drag:start)\n         * @member {Object} boundaryContainerRect=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 60,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "description": "The DOMRect of the boundaryContainer if set (measured on drag:start)",
+            "kind": "member",
+            "name": "boundaryContainerRect",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "boundaryContainerRect",
+            "scope": "global",
+            "$longname": "boundaryContainerRect",
+            "$kind": "property",
+            "id": 2179,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * @member {String} currentNodeName=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 65,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "currentNodeName",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "currentNodeName",
+            "scope": "global",
+            "$longname": "currentNodeName",
+            "$kind": "property",
+            "id": 2180,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * Must be set by each owner\n         * @member {String} delegationCls=null\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 70,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "description": "Must be set by each owner",
+            "kind": "member",
+            "name": "delegationCls",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "delegationCls",
+            "scope": "global",
+            "$longname": "delegationCls",
+            "$kind": "property",
+            "id": 2181,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * Directions into which you want to drag => resize\n         * @member {String[]} directions_=['b','bl','br','l','r','t','tl','tr']\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 75,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "description": "Directions into which you want to drag => resize",
+            "kind": "member",
+            "name": "directions_",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "> resize",
+            "longname": "directions_",
+            "scope": "global",
+            "$longname": "directions_",
+            "$kind": "property",
+            "id": 2182,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.draggable.DragZone|null} dragZone=null\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 79,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "dragZone",
+            "type": {
+                "names": [
+                    "Neo.draggable.DragZone",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "dragZone",
+            "scope": "global",
+            "$longname": "dragZone",
+            "$kind": "property",
+            "id": 2183,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * @member {Number} gap=10\n         * @protected\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 84,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "gap",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 10,
+            "access": "protected",
+            "longname": "gap",
+            "scope": "global",
+            "$longname": "gap",
+            "$kind": "property",
+            "id": 2184,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * The DOMRect of the element to drag (measured on drag:start)\n         * @member {Object} initialRect=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 90,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "description": "The DOMRect of the element to drag (measured on drag:start)",
+            "kind": "member",
+            "name": "initialRect",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "initialRect",
+            "scope": "global",
+            "$longname": "initialRect",
+            "$kind": "property",
+            "id": 2185,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} isDragging=false\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 94,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "isDragging",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "isDragging",
+            "scope": "global",
+            "$longname": "isDragging",
+            "$kind": "property",
+            "id": 2186,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * maximum height when resizing in px\n         * @member {Number|null} maxHeight=null\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 99,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "description": "maximum height when resizing in px",
+            "kind": "member",
+            "name": "maxHeight",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "maxHeight",
+            "scope": "global",
+            "$longname": "maxHeight",
+            "$kind": "property",
+            "id": 2187,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * maximum width when resizing in px\n         * @member {Number|null} maxWidth=null\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 104,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "description": "maximum width when resizing in px",
+            "kind": "member",
+            "name": "maxWidth",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "maxWidth",
+            "scope": "global",
+            "$longname": "maxWidth",
+            "$kind": "property",
+            "id": 2188,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * minimum height when resizing in px\n         * @member {Number} minHeight=200\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 109,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "description": "minimum height when resizing in px",
+            "kind": "member",
+            "name": "minHeight",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 200,
+            "longname": "minHeight",
+            "scope": "global",
+            "$longname": "minHeight",
+            "$kind": "property",
+            "id": 2189,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * minimum width when resizing in px\n         * @member {Number} minWidth=200\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 114,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "description": "minimum width when resizing in px",
+            "kind": "member",
+            "name": "minWidth",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 200,
+            "longname": "minWidth",
+            "scope": "global",
+            "$longname": "minWidth",
+            "$kind": "property",
+            "id": 2190,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * @member {Object} nodeBottom=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 119,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "nodeBottom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "nodeBottom",
+            "scope": "global",
+            "$longname": "nodeBottom",
+            "$kind": "property",
+            "id": 2191,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * @member {Object} nodeBottomLeft=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 124,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "nodeBottomLeft",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "nodeBottomLeft",
+            "scope": "global",
+            "$longname": "nodeBottomLeft",
+            "$kind": "property",
+            "id": 2192,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * @member {Object} nodeBottomRight=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 129,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "nodeBottomRight",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "nodeBottomRight",
+            "scope": "global",
+            "$longname": "nodeBottomRight",
+            "$kind": "property",
+            "id": 2193,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * @member {Object} nodeLeft=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 134,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "nodeLeft",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "nodeLeft",
+            "scope": "global",
+            "$longname": "nodeLeft",
+            "$kind": "property",
+            "id": 2194,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * @member {Object} nodeRight=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 139,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "nodeRight",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "nodeRight",
+            "scope": "global",
+            "$longname": "nodeRight",
+            "$kind": "property",
+            "id": 2195,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * @member {Object} nodeTop=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 144,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "nodeTop",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "nodeTop",
+            "scope": "global",
+            "$longname": "nodeTop",
+            "$kind": "property",
+            "id": 2196,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * @member {Object} nodeTopLeft=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 149,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "nodeTopLeft",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "nodeTopLeft",
+            "scope": "global",
+            "$longname": "nodeTopLeft",
+            "$kind": "property",
+            "id": 2197,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n         * @member {Object} nodeTopRight=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Resizable.mjs",
+                "lineno": 154,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "nodeTopRight",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "nodeTopRight",
+            "scope": "global",
+            "$longname": "nodeTopRight",
+            "$kind": "property",
+            "id": 2198,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    4614,
+                    5213
+                ],
+                "filename": "Resizable.mjs",
+                "lineno": 161,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {
+                    "id": "astnode100069416",
+                    "name": "Resizable",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "Resizable",
+            "longname": "Resizable",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "Resizable",
+            "$kind": "constructor",
+            "id": 2199,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} name\n     * @returns {Boolean} true\n     */",
+            "meta": {
+                "range": [
+                    5301,
+                    5659
+                ],
+                "filename": "Resizable.mjs",
+                "lineno": 183,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {
+                    "id": "astnode100069492",
+                    "name": "Resizable#addNode",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "name"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "name"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "description": "true"
+                }
+            ],
+            "name": "addNode",
+            "longname": "Resizable#addNode",
+            "kind": "function",
+            "memberof": "Resizable",
+            "scope": "instance",
+            "$longname": "Resizable#addNode",
+            "$kind": "method",
+            "id": 2200,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n     * Triggered before the directions config gets changed.\n     * @param {String[]} value\n     * @param {String[]} oldValue\n     * @returns {String[]}\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    5851,
+                    6243
+                ],
+                "filename": "Resizable.mjs",
+                "lineno": 201,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {
+                    "id": "astnode100069559",
+                    "name": "Resizable#beforeSetDirections",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the directions config gets changed.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array.<String>"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array.<String>"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Array.<String>"
+                        ]
+                    }
+                }
+            ],
+            "access": "protected",
+            "name": "beforeSetDirections",
+            "longname": "Resizable#beforeSetDirections",
+            "kind": "function",
+            "memberof": "Resizable",
+            "scope": "instance",
+            "$longname": "Resizable#beforeSetDirections",
+            "$kind": "method",
+            "id": 2201,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    6300,
+                    6956
+                ],
+                "filename": "Resizable.mjs",
+                "lineno": 220,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {
+                    "id": "astnode100069608",
+                    "name": "Resizable#onDragEnd",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onDragEnd",
+            "longname": "Resizable#onDragEnd",
+            "kind": "function",
+            "memberof": "Resizable",
+            "scope": "instance",
+            "$longname": "Resizable#onDragEnd",
+            "$kind": "method",
+            "id": 2202,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    7013,
+                    9672
+                ],
+                "filename": "Resizable.mjs",
+                "lineno": 251,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {
+                    "id": "astnode100069692",
+                    "name": "Resizable#onDragMove",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onDragMove",
+            "longname": "Resizable#onDragMove",
+            "kind": "function",
+            "memberof": "Resizable",
+            "scope": "instance",
+            "$longname": "Resizable#onDragMove",
+            "$kind": "method",
+            "id": 2203,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    9729,
+                    11595
+                ],
+                "filename": "Resizable.mjs",
+                "lineno": 335,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {
+                    "id": "astnode100070131",
+                    "name": "Resizable#onDragStart",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onDragStart",
+            "longname": "Resizable#onDragStart",
+            "kind": "function",
+            "memberof": "Resizable",
+            "scope": "instance",
+            "$longname": "Resizable#onDragStart",
+            "$kind": "method",
+            "id": 2204,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    11652,
+                    14300
+                ],
+                "filename": "Resizable.mjs",
+                "lineno": 396,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {
+                    "id": "astnode100070364",
+                    "name": "Resizable#onMouseMove",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onMouseMove",
+            "longname": "Resizable#onMouseMove",
+            "kind": "function",
+            "memberof": "Resizable",
+            "scope": "instance",
+            "$longname": "Resizable#onMouseMove",
+            "$kind": "method",
+            "id": 2205,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    14357,
+                    14614
+                ],
+                "filename": "Resizable.mjs",
+                "lineno": 448,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {
+                    "id": "astnode100070900",
+                    "name": "Resizable#onMouseLeave",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onMouseLeave",
+            "longname": "Resizable#onMouseLeave",
+            "kind": "function",
+            "memberof": "Resizable",
+            "scope": "instance",
+            "$longname": "Resizable#onMouseLeave",
+            "$kind": "method",
+            "id": 2206,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n     * There should be max 1 node (resize handle) at any given time.\n     * see: /issues/1139\n     */",
+            "meta": {
+                "range": [
+                    14730,
+                    14939
+                ],
+                "filename": "Resizable.mjs",
+                "lineno": 463,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {
+                    "id": "astnode100070935",
+                    "name": "Resizable#removeAllNodes",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "There should be max 1 node (resize handle) at any given time.<br />see: /issues/1139",
+            "name": "removeAllNodes",
+            "longname": "Resizable#removeAllNodes",
+            "kind": "function",
+            "memberof": "Resizable",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Resizable#removeAllNodes",
+            "$kind": "method",
+            "id": 2207,
+            "neoClassName": "Neo.plugin.Resizable"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} name\n     * @returns {Boolean} true in case the node existed\n     */",
+            "meta": {
+                "range": [
+                    15052,
+                    15457
+                ],
+                "filename": "Resizable.mjs",
+                "lineno": 478,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/plugin",
+                "code": {
+                    "id": "astnode100070971",
+                    "name": "Resizable#removeNode",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "name"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "name"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "description": "true in case the node existed"
+                }
+            ],
+            "name": "removeNode",
+            "longname": "Resizable#removeNode",
+            "kind": "function",
+            "memberof": "Resizable",
+            "scope": "instance",
+            "$longname": "Resizable#removeNode",
+            "$kind": "method",
+            "id": 2208,
+            "neoClassName": "Neo.plugin.Resizable"
+        }
+    ]
+}

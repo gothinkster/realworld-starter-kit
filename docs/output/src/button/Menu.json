@@ -1,0 +1,120 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * Show a menu when clicking on the SplitButton\n * @class Neo.button.Menu\n * @extends Neo.button.Split\n */",
+            "meta": {
+                "filename": "Menu.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/button",
+                "code": {}
+            },
+            "description": "Show a menu when clicking on the SplitButton",
+            "kind": "class",
+            "name": "Menu",
+            "augments": [
+                "Neo.button.Split"
+            ],
+            "memberof": "Neo.button",
+            "longname": "Neo.button.Menu",
+            "scope": "static",
+            "$longname": "Neo.button.Menu",
+            "$kind": "class",
+            "id": 31,
+            "neoClassName": "Neo.button.Menu"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.button.Menu'\n         * @protected\n         */",
+            "meta": {
+                "filename": "Menu.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/button",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.button.Menu'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 32,
+            "neoClassName": "Neo.button.Menu"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='menu-button'\n         * @protected\n         */",
+            "meta": {
+                "filename": "Menu.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/button",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'menu-button'",
+            "access": "protected",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 33,
+            "neoClassName": "Neo.button.Menu"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    531,
+                    594
+                ],
+                "filename": "Menu.mjs",
+                "lineno": 26,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/button",
+                "code": {
+                    "id": "astnode100000676",
+                    "name": "Menu#splitButtonHandler",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "splitButtonHandler",
+            "longname": "Menu#splitButtonHandler",
+            "kind": "function",
+            "memberof": "Menu",
+            "scope": "instance",
+            "$longname": "Menu#splitButtonHandler",
+            "$kind": "method",
+            "id": 34,
+            "neoClassName": "Neo.button.Menu"
+        }
+    ]
+}

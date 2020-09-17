@@ -1,0 +1,2117 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.calendar.view.WeekComponent\n * @extends Neo.component.Base\n */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 16,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "WeekComponent",
+            "augments": [
+                "Neo.component.Base"
+            ],
+            "memberof": "Neo.calendar.view",
+            "longname": "Neo.calendar.view.WeekComponent",
+            "scope": "static",
+            "$longname": "Neo.calendar.view.WeekComponent",
+            "$kind": "class",
+            "id": 263,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * Valid values for timeAxisPosition\n         * @member {String[]} timeAxisPositions=['end', 'start']\n         * @protected\n         * @static\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 28,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "description": "Valid values for timeAxisPosition",
+            "kind": "member",
+            "name": "timeAxisPositions",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['end', 'start']",
+            "access": "protected",
+            "scope": "static",
+            "longname": "timeAxisPositions",
+            "$longname": "timeAxisPositions",
+            "$kind": "property",
+            "id": 264,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.calendar.view.WeekComponent'\n         * @protected\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 36,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.calendar.view.WeekComponent'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 265,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='calendar-view-weekcomponent'\n         * @protected\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 41,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'calendar-view-weekcomponent'",
+            "access": "protected",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 266,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neo-calendar-weekcomponent']\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 45,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neo-calendar-weekcomponent']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 267,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * Will get passed from the MainContainer\n         * @member {Date|null} currentDate_=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 51,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "description": "Will get passed from the MainContainer",
+            "kind": "member",
+            "name": "currentDate_",
+            "type": {
+                "names": [
+                    "Date",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "currentDate_",
+            "scope": "global",
+            "$longname": "currentDate_",
+            "$kind": "property",
+            "id": 268,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * The format of the column headers.\n         * Valid values are: narrow, short & long\n         * @member {String} dayNameFormat_='short'\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 57,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "description": "The format of the column headers.<br />Valid values are: narrow, short & long",
+            "kind": "member",
+            "name": "dayNameFormat_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'short'",
+            "longname": "dayNameFormat_",
+            "scope": "global",
+            "$longname": "dayNameFormat_",
+            "$kind": "property",
+            "id": 269,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.draggable.DragZone|null} eventDragZone=null\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 61,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "eventDragZone",
+            "type": {
+                "names": [
+                    "Neo.draggable.DragZone",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "eventDragZone",
+            "scope": "global",
+            "$longname": "eventDragZone",
+            "$kind": "property",
+            "id": 270,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.calendar.store.Events|null} eventStore_=null\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 65,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "eventStore_",
+            "type": {
+                "names": [
+                    "Neo.calendar.store.Events",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "eventStore_",
+            "scope": "global",
+            "$longname": "eventStore_",
+            "$kind": "property",
+            "id": 271,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * Will get passed from updateHeader()\n         * @member {Date|null} firstColumnDate=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 71,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "description": "Will get passed from updateHeader()",
+            "kind": "member",
+            "name": "firstColumnDate",
+            "type": {
+                "names": [
+                    "Date",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "firstColumnDate",
+            "scope": "global",
+            "$longname": "firstColumnDate",
+            "$kind": "property",
+            "id": 272,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * Internal flag to check if updateHeader(true) has already run\n         * @member {Boolean} headerCreated=false\n         * @protected\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 77,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "description": "Internal flag to check if updateHeader(true) has already run",
+            "kind": "member",
+            "name": "headerCreated",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "access": "protected",
+            "longname": "headerCreated",
+            "scope": "global",
+            "$longname": "headerCreated",
+            "$kind": "property",
+            "id": 273,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Intl.DateTimeFormat|null} intlFormat_day=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 82,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "intlFormat_day",
+            "type": {
+                "names": [
+                    "Intl.DateTimeFormat",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "intlFormat_day",
+            "scope": "global",
+            "$longname": "intlFormat_day",
+            "$kind": "property",
+            "id": 274,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Intl.DateTimeFormat|null} intlFormat_time=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 87,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "intlFormat_time",
+            "type": {
+                "names": [
+                    "Intl.DateTimeFormat",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "intlFormat_time",
+            "scope": "global",
+            "$longname": "intlFormat_time",
+            "$kind": "property",
+            "id": 275,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} isUpdating=false\n         * @protected\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 92,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "isUpdating",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "access": "protected",
+            "longname": "isUpdating",
+            "scope": "global",
+            "$longname": "isUpdating",
+            "$kind": "property",
+            "id": 276,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String} locale_=Neo.config.locale\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 96,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "locale_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "Neo.config.locale",
+            "longname": "locale_",
+            "scope": "global",
+            "$longname": "locale_",
+            "$kind": "property",
+            "id": 277,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Object} timeAxis=null\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 100,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "timeAxis",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "timeAxis",
+            "scope": "global",
+            "$longname": "timeAxis",
+            "$kind": "property",
+            "id": 278,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Object} timeAxisConfig=null\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 104,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "timeAxisConfig",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "timeAxisConfig",
+            "scope": "global",
+            "$longname": "timeAxisConfig",
+            "$kind": "property",
+            "id": 279,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * Position the timeAxis at the left or right side.\n         * Valid values are start & end.\n         * start => left, end => right in LTR mode.\n         * @member {String} timeAxisPosition_='start'\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 111,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "description": "Position the timeAxis at the left or right side.<br />Valid values are start & end.<br />start => left, end => right in LTR mode.",
+            "kind": "member",
+            "name": "timeAxisPosition_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'start'",
+            "longname": "timeAxisPosition_",
+            "scope": "global",
+            "$longname": "timeAxisPosition_",
+            "$kind": "property",
+            "id": 280,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Object} timeFormat_=null\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 115,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "timeFormat_",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "timeFormat_",
+            "scope": "global",
+            "$longname": "timeFormat_",
+            "$kind": "property",
+            "id": 281,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Object} vdom\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 119,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "vdom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "longname": "vdom",
+            "scope": "global",
+            "$longname": "vdom",
+            "$kind": "property",
+            "id": 282,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n         * 0-6 => Sun-Sat\n         * @member {Number} weekStartDay_=0\n         */",
+            "meta": {
+                "filename": "WeekComponent.mjs",
+                "lineno": 147,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "description": "0-6 => Sun-Sat",
+            "kind": "member",
+            "name": "weekStartDay_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 0,
+            "longname": "weekStartDay_",
+            "scope": "global",
+            "$longname": "weekStartDay_",
+            "$kind": "property",
+            "id": 283,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    4542,
+                    5859
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 154,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100007888",
+                    "name": "WeekComponent",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "WeekComponent",
+            "longname": "WeekComponent",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "WeekComponent",
+            "$kind": "constructor",
+            "id": 284,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Neo.component.Base} data.component\n     * @param {Number} data.rowHeight\n     * @param {Number} data.rowsPerItem\n     * @param {Number} data.totalHeight\n     * @param {Boolean} [silent=false]\n     */",
+            "meta": {
+                "range": [
+                    6123,
+                    7070
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 198,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008050",
+                    "name": "WeekComponent#adjustTotalHeight",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data",
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "name": "data.component"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "data.rowHeight"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "data.rowsPerItem"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "data.totalHeight"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "name": "adjustTotalHeight",
+            "longname": "WeekComponent#adjustTotalHeight",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#adjustTotalHeight",
+            "$kind": "method",
+            "id": 285,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the currentDate config got changed\n     * @param {Date} value\n     * @param {Date} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    7225,
+                    7350
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 231,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008170",
+                    "name": "WeekComponent#afterSetCurrentDate",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the currentDate config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Date"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Date"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetCurrentDate",
+            "longname": "WeekComponent#afterSetCurrentDate",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#afterSetCurrentDate",
+            "$kind": "method",
+            "id": 286,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the dayNameFormat config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    7511,
+                    7743
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 243,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008186",
+                    "name": "WeekComponent#afterSetDayNameFormat",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the dayNameFormat config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetDayNameFormat",
+            "longname": "WeekComponent#afterSetDayNameFormat",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#afterSetDayNameFormat",
+            "$kind": "method",
+            "id": 287,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the eventStore config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    7901,
+                    7997
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 259,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008221",
+                    "name": "WeekComponent#afterSetEventStore",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the eventStore config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetEventStore",
+            "longname": "WeekComponent#afterSetEventStore",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#afterSetEventStore",
+            "$kind": "method",
+            "id": 288,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the locale config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    8151,
+                    8472
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 269,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008227",
+                    "name": "WeekComponent#afterSetLocale",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the locale config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetLocale",
+            "longname": "WeekComponent#afterSetLocale",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#afterSetLocale",
+            "$kind": "method",
+            "id": 289,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the mounted config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    8629,
+                    9177
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 286,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008275",
+                    "name": "WeekComponent#afterSetMounted",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the mounted config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetMounted",
+            "longname": "WeekComponent#afterSetMounted",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#afterSetMounted",
+            "$kind": "method",
+            "id": 290,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the timeAxisPosition config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    9341,
+                    9857
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 310,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008342",
+                    "name": "WeekComponent#afterSetTimeAxisPosition",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the timeAxisPosition config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetTimeAxisPosition",
+            "longname": "WeekComponent#afterSetTimeAxisPosition",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#afterSetTimeAxisPosition",
+            "$kind": "method",
+            "id": 291,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the timeFormat config got changed\n     * @param {Object} value\n     * @param {Object} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    10015,
+                    10154
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 332,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008410",
+                    "name": "WeekComponent#afterSetTimeFormat",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the timeFormat config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetTimeFormat",
+            "longname": "WeekComponent#afterSetTimeFormat",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#afterSetTimeFormat",
+            "$kind": "method",
+            "id": 292,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the weekStartDay config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    10314,
+                    10484
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 344,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008433",
+                    "name": "WeekComponent#afterSetWeekStartDay",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the weekStartDay config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetWeekStartDay",
+            "longname": "WeekComponent#afterSetWeekStartDay",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#afterSetWeekStartDay",
+            "$kind": "method",
+            "id": 293,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered before the dayNameFormat config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    10647,
+                    10803
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 357,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008456",
+                    "name": "WeekComponent#beforeSetDayNameFormat",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the dayNameFormat config gets changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "beforeSetDayNameFormat",
+            "longname": "WeekComponent#beforeSetDayNameFormat",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#beforeSetDayNameFormat",
+            "$kind": "method",
+            "id": 294,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered before the timeAxisPosition config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    10969,
+                    11096
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 367,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008475",
+                    "name": "WeekComponent#beforeSetTimeAxisPosition",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the timeAxisPosition config gets changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "beforeSetTimeAxisPosition",
+            "longname": "WeekComponent#beforeSetTimeAxisPosition",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#beforeSetTimeAxisPosition",
+            "$kind": "method",
+            "id": 295,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered before the weekStartDay config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    11258,
+                    11411
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 377,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008489",
+                    "name": "WeekComponent#beforeSetWeekStartDay",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the weekStartDay config gets changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "beforeSetWeekStartDay",
+            "longname": "WeekComponent#beforeSetWeekStartDay",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#beforeSetWeekStartDay",
+            "$kind": "method",
+            "id": 296,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Date} date\n     * @returns {Object}\n     */",
+            "meta": {
+                "range": [
+                    11491,
+                    12622
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 386,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008508",
+                    "name": "WeekComponent#createColumnAndHeader",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "date"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Date"
+                        ]
+                    },
+                    "name": "date"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    }
+                }
+            ],
+            "name": "createColumnAndHeader",
+            "longname": "WeekComponent#createColumnAndHeader",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#createColumnAndHeader",
+            "$kind": "method",
+            "id": 297,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    12651,
+                    12772
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 431,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008640",
+                    "name": "WeekComponent#destroy",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "args"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "destroy",
+            "longname": "WeekComponent#destroy",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "params": [],
+            "$longname": "WeekComponent#destroy",
+            "$kind": "method",
+            "id": 298,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    12801,
+                    12903
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 441,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008665",
+                    "name": "WeekComponent#getColumnContainer",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "getColumnContainer",
+            "longname": "WeekComponent#getColumnContainer",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "params": [],
+            "$longname": "WeekComponent#getColumnContainer",
+            "$kind": "method",
+            "id": 299,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Date} date\n     * @returns {String}\n     */",
+            "meta": {
+                "range": [
+                    12983,
+                    13077
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 450,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008678",
+                    "name": "WeekComponent#getColumnId",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "date"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Date"
+                        ]
+                    },
+                    "name": "date"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    }
+                }
+            ],
+            "name": "getColumnId",
+            "longname": "WeekComponent#getColumnId",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#getColumnId",
+            "$kind": "method",
+            "id": 300,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Date} date\n     * @returns {String}\n     */",
+            "meta": {
+                "range": [
+                    13157,
+                    13256
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 459,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008696",
+                    "name": "WeekComponent#getColumnHeaderId",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "date"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Date"
+                        ]
+                    },
+                    "name": "date"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    }
+                }
+            ],
+            "name": "getColumnHeaderId",
+            "longname": "WeekComponent#getColumnHeaderId",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#getColumnHeaderId",
+            "$kind": "method",
+            "id": 301,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    13285,
+                    13404
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 466,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008714",
+                    "name": "WeekComponent#getColumnTimeAxisContainer",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "getColumnTimeAxisContainer",
+            "longname": "WeekComponent#getColumnTimeAxisContainer",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "params": [],
+            "$longname": "WeekComponent#getColumnTimeAxisContainer",
+            "$kind": "method",
+            "id": 302,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    13433,
+                    13525
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 473,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008727",
+                    "name": "WeekComponent#getHeaderContainer",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "getHeaderContainer",
+            "longname": "WeekComponent#getHeaderContainer",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "params": [],
+            "$longname": "WeekComponent#getHeaderContainer",
+            "$kind": "method",
+            "id": 303,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     * Used inside createId() as the default value passed to the IdGenerator.\n     * @returns {String}\n     */",
+            "meta": {
+                "range": [
+                    13650,
+                    13690
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 481,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008740",
+                    "name": "WeekComponent#getIdKey",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Used inside createId() as the default value passed to the IdGenerator.",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    }
+                }
+            ],
+            "name": "getIdKey",
+            "longname": "WeekComponent#getIdKey",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "params": [],
+            "$longname": "WeekComponent#getIdKey",
+            "$kind": "method",
+            "id": 304,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    13719,
+                    13820
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 488,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008746",
+                    "name": "WeekComponent#getScrollContainer",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "getScrollContainer",
+            "longname": "WeekComponent#getScrollContainer",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "params": [],
+            "$longname": "WeekComponent#getScrollContainer",
+            "$kind": "method",
+            "id": 305,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    13877,
+                    14021
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 496,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008759",
+                    "name": "WeekComponent#onColumnDragEnd",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onColumnDragEnd",
+            "longname": "WeekComponent#onColumnDragEnd",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#onColumnDragEnd",
+            "$kind": "method",
+            "id": 306,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    14078,
+                    14224
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 506,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008785",
+                    "name": "WeekComponent#onColumnDragMove",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onColumnDragMove",
+            "longname": "WeekComponent#onColumnDragMove",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#onColumnDragMove",
+            "$kind": "method",
+            "id": 307,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    14281,
+                    14429
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 516,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008811",
+                    "name": "WeekComponent#onColumnDragStart",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onColumnDragStart",
+            "longname": "WeekComponent#onColumnDragStart",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#onColumnDragStart",
+            "$kind": "method",
+            "id": 308,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    14486,
+                    14567
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 526,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008837",
+                    "name": "WeekComponent#onEventDoubleClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onEventDoubleClick",
+            "longname": "WeekComponent#onEventDoubleClick",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#onEventDoubleClick",
+            "$kind": "method",
+            "id": 309,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    14624,
+                    14690
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 534,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008849",
+                    "name": "WeekComponent#onEventDragEnd",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onEventDragEnd",
+            "longname": "WeekComponent#onEventDragEnd",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#onEventDragEnd",
+            "$kind": "method",
+            "id": 310,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    14747,
+                    14819
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 542,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008861",
+                    "name": "WeekComponent#onEventDragMove",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onEventDragMove",
+            "longname": "WeekComponent#onEventDragMove",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#onEventDragMove",
+            "$kind": "method",
+            "id": 311,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    14876,
+                    16016
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 550,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100008874",
+                    "name": "WeekComponent#onEventDragStart",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onEventDragStart",
+            "longname": "WeekComponent#onEventDragStart",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#onEventDragStart",
+            "$kind": "method",
+            "id": 312,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Neo.component.Base} data.component\n     * @param {Number} data.rowHeight\n     * @param {Number} data.rowsPerItem\n     * @param {Number} data.totalHeight\n     */",
+            "meta": {
+                "range": [
+                    16241,
+                    16423
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 594,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100009007",
+                    "name": "WeekComponent#onTimeAxisChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "name": "data.component"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "data.rowHeight"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "data.rowsPerItem"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "data.totalHeight"
+                }
+            ],
+            "name": "onTimeAxisChange",
+            "longname": "WeekComponent#onTimeAxisChange",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#onTimeAxisChange",
+            "$kind": "method",
+            "id": 313,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    16480,
+                    18628
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 608,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100009035",
+                    "name": "WeekComponent#onWheel",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onWheel",
+            "longname": "WeekComponent#onWheel",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#onWheel",
+            "$kind": "method",
+            "id": 314,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     * The algorithm relies on the eventStore being sorted by startDate ASC\n     */",
+            "meta": {
+                "range": [
+                    18726,
+                    21617
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 675,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100009355",
+                    "name": "WeekComponent#updateEvents",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "The algorithm relies on the eventStore being sorted by startDate ASC",
+            "name": "updateEvents",
+            "longname": "WeekComponent#updateEvents",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "params": [],
+            "$longname": "WeekComponent#updateEvents",
+            "$kind": "method",
+            "id": 315,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [create=false]\n     * @param {Boolean} [silent=false]\n     */",
+            "meta": {
+                "range": [
+                    21724,
+                    24462
+                ],
+                "filename": "WeekComponent.mjs",
+                "lineno": 747,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100009686",
+                    "name": "WeekComponent#updateHeader",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "create",
+                        "silent"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "create"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
+                }
+            ],
+            "name": "updateHeader",
+            "longname": "WeekComponent#updateHeader",
+            "kind": "function",
+            "memberof": "WeekComponent",
+            "scope": "instance",
+            "$longname": "WeekComponent#updateHeader",
+            "$kind": "method",
+            "id": 316,
+            "neoClassName": "Neo.calendar.view.WeekComponent"
+        }
+    ]
+}

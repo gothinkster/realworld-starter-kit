@@ -1,0 +1,295 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.calendar.view.SettingsContainer\n * @extends Neo.container.Base\n */",
+            "meta": {
+                "filename": "SettingsContainer.mjs",
+                "lineno": 8,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "SettingsContainer",
+            "augments": [
+                "Neo.container.Base"
+            ],
+            "memberof": "Neo.calendar.view",
+            "longname": "Neo.calendar.view.SettingsContainer",
+            "scope": "static",
+            "$longname": "Neo.calendar.view.SettingsContainer",
+            "$kind": "class",
+            "id": 234,
+            "neoClassName": "Neo.calendar.view.SettingsContainer"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.calendar.view.SettingsContainer'\n         * @protected\n         */",
+            "meta": {
+                "filename": "SettingsContainer.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.calendar.view.SettingsContainer'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 235,
+            "neoClassName": "Neo.calendar.view.SettingsContainer"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='calendar-settingscontainer'\n         * @protected\n         */",
+            "meta": {
+                "filename": "SettingsContainer.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'calendar-settingscontainer'",
+            "access": "protected",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 236,
+            "neoClassName": "Neo.calendar.view.SettingsContainer"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neo-calendar-settingscontainer', 'neo-container']\n         */",
+            "meta": {
+                "filename": "SettingsContainer.mjs",
+                "lineno": 27,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neo-calendar-settingscontainer', 'neo-container']",
+            "description": "'neo-container']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 237,
+            "neoClassName": "Neo.calendar.view.SettingsContainer"
+        },
+        {
+            "comment": "/**\n         * @member {Object} layout={ntype:'vbox',align:'stretch'}\n         * @protected\n         */",
+            "meta": {
+                "filename": "SettingsContainer.mjs",
+                "lineno": 32,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "layout",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{ntype:'vbox',align:'stretch'}",
+            "access": "protected",
+            "longname": "layout",
+            "scope": "global",
+            "$longname": "layout",
+            "$kind": "property",
+            "id": 238,
+            "neoClassName": "Neo.calendar.view.SettingsContainer"
+        },
+        {
+            "comment": "/**\n         * True to only keep the active view inside the DOM\n         * @member {Boolean} removeInactiveCards=true\n         */",
+            "meta": {
+                "filename": "SettingsContainer.mjs",
+                "lineno": 37,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {}
+            },
+            "description": "True to only keep the active view inside the DOM",
+            "kind": "member",
+            "name": "removeInactiveCards",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "removeInactiveCards",
+            "scope": "global",
+            "$longname": "removeInactiveCards",
+            "$kind": "property",
+            "id": 239,
+            "neoClassName": "Neo.calendar.view.SettingsContainer"
+        },
+        {
+            "comment": "/**\n     *\n     * @param config\n     */",
+            "meta": {
+                "range": [
+                    1425,
+                    1539
+                ],
+                "filename": "SettingsContainer.mjs",
+                "lineno": 44,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100006963",
+                    "name": "SettingsContainer",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "config"
+                }
+            ],
+            "name": "SettingsContainer",
+            "longname": "SettingsContainer",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "SettingsContainer",
+            "$kind": "constructor",
+            "id": 240,
+            "neoClassName": "Neo.calendar.view.SettingsContainer"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Number} width\n     */",
+            "meta": {
+                "range": [
+                    1597,
+                    2081
+                ],
+                "filename": "SettingsContainer.mjs",
+                "lineno": 54,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100006985",
+                    "name": "SettingsContainer#collapse",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "width"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "width"
+                }
+            ],
+            "name": "collapse",
+            "longname": "SettingsContainer#collapse",
+            "kind": "function",
+            "memberof": "SettingsContainer",
+            "scope": "instance",
+            "$longname": "SettingsContainer#collapse",
+            "$kind": "method",
+            "id": 241,
+            "neoClassName": "Neo.calendar.view.SettingsContainer"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    2110,
+                    3469
+                ],
+                "filename": "SettingsContainer.mjs",
+                "lineno": 75,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100007066",
+                    "name": "SettingsContainer#createItems",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "createItems",
+            "longname": "SettingsContainer#createItems",
+            "kind": "function",
+            "memberof": "SettingsContainer",
+            "scope": "instance",
+            "params": [],
+            "$longname": "SettingsContainer#createItems",
+            "$kind": "method",
+            "id": 242,
+            "neoClassName": "Neo.calendar.view.SettingsContainer"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    3498,
+                    3874
+                ],
+                "filename": "SettingsContainer.mjs",
+                "lineno": 132,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view",
+                "code": {
+                    "id": "astnode100007161",
+                    "name": "SettingsContainer#expand",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "expand",
+            "longname": "SettingsContainer#expand",
+            "kind": "function",
+            "memberof": "SettingsContainer",
+            "scope": "instance",
+            "params": [],
+            "$longname": "SettingsContainer#expand",
+            "$kind": "method",
+            "id": 243,
+            "neoClassName": "Neo.calendar.view.SettingsContainer"
+        }
+    ]
+}

@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.controller.Base",
             "$kind": "class",
-            "id": 610,
+            "id": 945,
             "neoClassName": "Neo.controller.Base"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "observable",
             "$kind": "property",
-            "id": 611,
+            "id": 946,
             "neoClassName": "Neo.controller.Base"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 612,
+            "id": 947,
             "neoClassName": "Neo.controller.Base"
         },
         {
@@ -94,22 +94,22 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 613,
+            "id": 948,
             "neoClassName": "Neo.controller.Base"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    786,
-                    896
+                    766,
+                    876
                 ],
                 "filename": "Base.mjs",
                 "lineno": 34,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {
-                    "id": "astnode100021976",
+                    "id": "astnode100033928",
                     "name": "Base",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -136,22 +136,22 @@
             "scope": "global",
             "$longname": "Base",
             "$kind": "constructor",
-            "id": 614,
+            "id": 949,
             "neoClassName": "Neo.controller.Base"
         },
         {
             "comment": "/**\n     * Placeholder method which gets triggered when the hash inside the browser url changes\n     * @param {Object} value\n     * @param {Object} oldValue\n     */",
             "meta": {
                 "range": [
-                    1071,
-                    1109
+                    1051,
+                    1089
                 ],
                 "filename": "Base.mjs",
                 "lineno": 45,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {
-                    "id": "astnode100021995",
+                    "id": "astnode100033947",
                     "name": "Base#onHashChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -189,7 +189,7 @@
             "scope": "instance",
             "$longname": "Base#onHashChange",
             "$kind": "method",
-            "id": 615,
+            "id": 950,
             "neoClassName": "Neo.controller.Base"
         }
     ]

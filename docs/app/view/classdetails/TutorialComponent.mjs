@@ -1,4 +1,4 @@
-import {default as Component} from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
+import Component from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
 
 /**
  * @class Docs.app.view.classdetails.TutorialComponent
@@ -8,12 +8,12 @@ class TutorialComponent extends Component {
     static getConfig() {return {
         /**
          * @member {String} className='Docs.app.view.classdetails.TutorialComponent'
-         * @private
+         * @protected
          */
         className: 'Docs.app.view.classdetails.TutorialComponent',
         /**
          * @member {String} ntype='classdetails-tutorialcomponent'
-         * @private
+         * @protected
          */
         ntype: 'classdetails-tutorialcomponent',
         /**

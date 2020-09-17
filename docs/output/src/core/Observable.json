@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.core.Observable",
             "$kind": "class",
-            "id": 673,
+            "id": 1009,
             "neoClassName": "Neo.core.Observable"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 674,
+            "id": 1010,
             "neoClassName": "Neo.core.Observable"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 675,
+            "id": 1011,
             "neoClassName": "Neo.core.Observable"
         },
         {
@@ -94,22 +94,22 @@
             "scope": "global",
             "$longname": "mixin",
             "$kind": "property",
-            "id": 676,
+            "id": 1012,
             "neoClassName": "Neo.core.Observable"
         },
         {
             "comment": "/**\n     *\n     * @param {Object|String} name\n     * @param {Object} [opts]\n     * @param {Object} [scope]\n     * @param {String} [eventId]\n     * @param {Object} [data]\n     * @param {Number} [order]\n     * @returns {String} eventId\n     */",
             "meta": {
                 "range": [
-                    1742,
-                    3566
+                    1844,
+                    3668
                 ],
                 "filename": "Observable.mjs",
-                "lineno": 69,
+                "lineno": 73,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024247",
+                    "id": "astnode100036235",
                     "name": "Observable#addListener",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -198,22 +198,22 @@
             "scope": "instance",
             "$longname": "Observable#addListener",
             "$kind": "method",
-            "id": 677,
+            "id": 1013,
             "neoClassName": "Neo.core.Observable"
         },
         {
             "comment": "/**\n     *\n     * @param name\n     */",
             "meta": {
                 "range": [
-                    3614,
-                    4145
+                    3716,
+                    4247
                 ],
                 "filename": "Observable.mjs",
-                "lineno": 127,
+                "lineno": 131,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024484",
+                    "id": "astnode100036472",
                     "name": "Observable#fire",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -236,22 +236,22 @@
             "scope": "instance",
             "$longname": "Observable#fire",
             "$kind": "method",
-            "id": 678,
+            "id": 1014,
             "neoClassName": "Neo.core.Observable"
         },
         {
             "comment": "/**\n     *\n     * @param name\n     * @param eventId\n     */",
             "meta": {
                 "range": [
-                    4215,
-                    4661
+                    4317,
+                    4763
                 ],
                 "filename": "Observable.mjs",
-                "lineno": 150,
+                "lineno": 154,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024577",
+                    "id": "astnode100036565",
                     "name": "Observable#removeListener",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -278,22 +278,22 @@
             "scope": "instance",
             "$longname": "Observable#removeListener",
             "$kind": "method",
-            "id": 679,
+            "id": 1015,
             "neoClassName": "Neo.core.Observable"
         },
         {
             "comment": "/**\n     * Alias for addListener\n     * @param {Object|String} name\n     * @param {Object} [opts]\n     * @param {Object} [scope]\n     * @param {String} [eventId]\n     * @param {Object} [data]\n     * @param {Number} [order]\n     * @returns {String} eventId\n     */",
             "meta": {
                 "range": [
-                    5094,
-                    5155
+                    5196,
+                    5257
                 ],
                 "filename": "Observable.mjs",
-                "lineno": 189,
+                "lineno": 193,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024633",
+                    "id": "astnode100036621",
                     "name": "Observable#on",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -378,22 +378,22 @@
             "scope": "instance",
             "$longname": "Observable#on",
             "$kind": "method",
-            "id": 680,
+            "id": 1016,
             "neoClassName": "Neo.core.Observable"
         },
         {
             "comment": "/**\n     * Alias for removeListener\n     * @param name\n     * @param eventId\n     */",
             "meta": {
                 "range": [
-                    5250,
-                    5307
+                    5352,
+                    5409
                 ],
                 "filename": "Observable.mjs",
-                "lineno": 198,
+                "lineno": 202,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100024646",
+                    "id": "astnode100036634",
                     "name": "Observable#un",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -420,7 +420,7 @@
             "scope": "instance",
             "$longname": "Observable#un",
             "$kind": "method",
-            "id": 681,
+            "id": 1017,
             "neoClassName": "Neo.core.Observable"
         }
     ]

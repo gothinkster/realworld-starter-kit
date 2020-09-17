@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.layout.Flexbox",
             "$kind": "class",
-            "id": 1238,
+            "id": 1687,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
@@ -45,7 +45,7 @@
             "longname": "alignValues",
             "$longname": "alignValues",
             "$kind": "property",
-            "id": 1239,
+            "id": 1688,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
@@ -71,7 +71,7 @@
             "longname": "directionValues",
             "$longname": "directionValues",
             "$kind": "property",
-            "id": 1240,
+            "id": 1689,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
@@ -97,7 +97,7 @@
             "longname": "packValues",
             "$longname": "packValues",
             "$kind": "property",
-            "id": 1241,
+            "id": 1690,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
@@ -123,7 +123,7 @@
             "longname": "wrapValues",
             "$longname": "wrapValues",
             "$kind": "property",
-            "id": 1242,
+            "id": 1691,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
@@ -148,7 +148,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1243,
+            "id": 1692,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
@@ -173,7 +173,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1244,
+            "id": 1693,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
@@ -199,7 +199,7 @@
             "scope": "global",
             "$longname": "align_",
             "$kind": "property",
-            "id": 1245,
+            "id": 1694,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
@@ -225,7 +225,7 @@
             "scope": "global",
             "$longname": "direction_",
             "$kind": "property",
-            "id": 1246,
+            "id": 1695,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
@@ -251,7 +251,7 @@
             "scope": "global",
             "$longname": "pack_",
             "$kind": "property",
-            "id": 1247,
+            "id": 1696,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
@@ -276,7 +276,7 @@
             "scope": "global",
             "$longname": "prefix",
             "$kind": "property",
-            "id": 1248,
+            "id": 1697,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
@@ -301,7 +301,7 @@
             "scope": "global",
             "$longname": "wrap_",
             "$kind": "property",
-            "id": 1249,
+            "id": 1698,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
@@ -316,7 +316,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036467",
+                    "id": "astnode100051138",
                     "name": "Flexbox#afterSetAlign",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -357,7 +357,7 @@
             "scope": "instance",
             "$longname": "Flexbox#afterSetAlign",
             "$kind": "method",
-            "id": 1250,
+            "id": 1699,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
@@ -372,7 +372,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036481",
+                    "id": "astnode100051152",
                     "name": "Flexbox#afterSetDirection",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -413,7 +413,7 @@
             "scope": "instance",
             "$longname": "Flexbox#afterSetDirection",
             "$kind": "method",
-            "id": 1251,
+            "id": 1700,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
@@ -428,7 +428,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036495",
+                    "id": "astnode100051166",
                     "name": "Flexbox#afterSetPack",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -469,7 +469,7 @@
             "scope": "instance",
             "$longname": "Flexbox#afterSetPack",
             "$kind": "method",
-            "id": 1252,
+            "id": 1701,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
@@ -484,7 +484,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036509",
+                    "id": "astnode100051180",
                     "name": "Flexbox#afterSetWrap",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -523,22 +523,22 @@
             "scope": "instance",
             "$longname": "Flexbox#afterSetWrap",
             "$kind": "method",
-            "id": 1253,
+            "id": 1702,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
-            "comment": "/**\n     * Applies the flex value to an item of the container this layout is bound to\n     * @param {Object} item\n     */",
+            "comment": "/**\n     * Applies the flex value to an item of the container this layout is bound to\n     * @param {Neo.component.Base} item\n     */",
             "meta": {
                 "range": [
-                    3494,
-                    3688
+                    3506,
+                    3708
                 ],
                 "filename": "Flexbox.mjs",
                 "lineno": 122,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036523",
+                    "id": "astnode100051194",
                     "name": "Flexbox#applyChildAttributes",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -554,7 +554,7 @@
                 {
                     "type": {
                         "names": [
-                            "Object"
+                            "Neo.component.Base"
                         ]
                     },
                     "name": "item"
@@ -567,22 +567,22 @@
             "scope": "instance",
             "$longname": "Flexbox#applyChildAttributes",
             "$kind": "method",
-            "id": 1254,
+            "id": 1703,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
             "comment": "/**\n     * Applies CSS classes to the container this layout is bound to\n     */",
             "meta": {
                 "range": [
-                    3778,
-                    4606
+                    3798,
+                    4626
                 ],
                 "filename": "Flexbox.mjs",
                 "lineno": 132,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036563",
+                    "id": "astnode100051232",
                     "name": "Flexbox#applyRenderAttributes",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -600,22 +600,22 @@
             "params": [],
             "$longname": "Flexbox#applyRenderAttributes",
             "$kind": "method",
-            "id": 1255,
+            "id": 1704,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
             "comment": "/**\n     * Checks if the new value for \"align\" is valid\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @protected\n     * @returns {String|null} value\n     */",
             "meta": {
                 "range": [
-                    4805,
-                    4921
+                    4825,
+                    4941
                 ],
                 "filename": "Flexbox.mjs",
                 "lineno": 167,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036694",
+                    "id": "astnode100051363",
                     "name": "Flexbox#beforeSetAlign",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -667,22 +667,22 @@
             "scope": "instance",
             "$longname": "Flexbox#beforeSetAlign",
             "$kind": "method",
-            "id": 1256,
+            "id": 1705,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
             "comment": "/**\n     * Checks if the new value for \"direction\" is valid\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @protected\n     * @returns {String|null} value\n     */",
             "meta": {
                 "range": [
-                    5124,
-                    5252
+                    5144,
+                    5272
                 ],
                 "filename": "Flexbox.mjs",
                 "lineno": 178,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036709",
+                    "id": "astnode100051378",
                     "name": "Flexbox#beforeSetDirection",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -734,22 +734,22 @@
             "scope": "instance",
             "$longname": "Flexbox#beforeSetDirection",
             "$kind": "method",
-            "id": 1257,
+            "id": 1706,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
             "comment": "/**\n     * Checks if the new value for \"pack\" is valid\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @protected\n     * @returns {String|null} value\n     */",
             "meta": {
                 "range": [
-                    5450,
-                    5563
+                    5470,
+                    5583
                 ],
                 "filename": "Flexbox.mjs",
                 "lineno": 189,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036724",
+                    "id": "astnode100051393",
                     "name": "Flexbox#beforeSetPack",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -801,22 +801,22 @@
             "scope": "instance",
             "$longname": "Flexbox#beforeSetPack",
             "$kind": "method",
-            "id": 1258,
+            "id": 1707,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
             "comment": "/**\n     * Checks if the new value for \"wrap\" is valid\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     * @returns {String} value\n     */",
             "meta": {
                 "range": [
-                    5746,
-                    5859
+                    5766,
+                    5879
                 ],
                 "filename": "Flexbox.mjs",
                 "lineno": 200,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036739",
+                    "id": "astnode100051408",
                     "name": "Flexbox#beforeSetWrap",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -865,22 +865,22 @@
             "scope": "instance",
             "$longname": "Flexbox#beforeSetWrap",
             "$kind": "method",
-            "id": 1259,
+            "id": 1708,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
-            "comment": "/**\n     * Removes all CSS rules from an container item this layout is bound to.\n     * Gets called when switching to a different layout.\n     * @param item\n     * @protected\n     */",
+            "comment": "/**\n     * Removes all CSS rules from an container item this layout is bound to.\n     * Gets called when switching to a different layout.\n     * @param {Neo.component.Base} item\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6052,
-                    6194
+                    6093,
+                    6249
                 ],
                 "filename": "Flexbox.mjs",
                 "lineno": 210,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036754",
+                    "id": "astnode100051423",
                     "name": "Flexbox#removeChildAttributes",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -894,6 +894,11 @@
             "description": "Removes all CSS rules from an container item this layout is bound to.<br />Gets called when switching to a different layout.",
             "params": [
                 {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
                     "name": "item"
                 }
             ],
@@ -905,22 +910,22 @@
             "scope": "instance",
             "$longname": "Flexbox#removeChildAttributes",
             "$kind": "method",
-            "id": 1260,
+            "id": 1709,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
             "comment": "/**\n     * Removes all CSS rules from the container this layout is bound to.\n     * Gets called when switching to a different layout.\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6364,
-                    7203
+                    6419,
+                    7258
                 ],
                 "filename": "Flexbox.mjs",
                 "lineno": 222,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036783",
+                    "id": "astnode100051452",
                     "name": "Flexbox#removeRenderAttributes",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -939,22 +944,22 @@
             "params": [],
             "$longname": "Flexbox#removeRenderAttributes",
             "$kind": "method",
-            "id": 1261,
+            "id": 1710,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
             "comment": "/**\n     * Checks if the new value for propertyName is valid\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @param {String} validValuesName\n     * @param {String} propertyName\n     * @protected\n     * @returns {String|null} value\n     */",
             "meta": {
                 "range": [
-                    7482,
-                    7855
+                    7537,
+                    7910
                 ],
                 "filename": "Flexbox.mjs",
                 "lineno": 259,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036912",
+                    "id": "astnode100051581",
                     "name": "Flexbox#testInputValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1024,22 +1029,22 @@
             "scope": "instance",
             "$longname": "Flexbox#testInputValue",
             "$kind": "method",
-            "id": 1262,
+            "id": 1711,
             "neoClassName": "Neo.layout.Flexbox"
         },
         {
             "comment": "/**\n     * Updates the Container CSS cls\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @param {String} propertyName\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    8039,
-                    8556
+                    8094,
+                    8611
                 ],
                 "filename": "Flexbox.mjs",
                 "lineno": 277,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/layout",
                 "code": {
-                    "id": "astnode100036955",
+                    "id": "astnode100051624",
                     "name": "Flexbox#updateInputValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1089,7 +1094,7 @@
             "scope": "instance",
             "$longname": "Flexbox#updateInputValue",
             "$kind": "method",
-            "id": 1263,
+            "id": 1712,
             "neoClassName": "Neo.layout.Flexbox"
         }
     ]

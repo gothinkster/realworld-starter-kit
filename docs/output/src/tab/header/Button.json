@@ -1,7 +1,7 @@
 {
     "classData": [
         {
-            "comment": "/**\n * @class Neo.tab.header.Button\n * @extends Neo.component.Button\n */",
+            "comment": "/**\n * @class Neo.tab.header.Button\n * @extends Neo.button.Base\n */",
             "meta": {
                 "filename": "Button.mjs",
                 "lineno": 3,
@@ -12,14 +12,14 @@
             "kind": "class",
             "name": "Button",
             "augments": [
-                "Neo.component.Button"
+                "Neo.button.Base"
             ],
             "memberof": "Neo.tab.header",
             "longname": "Neo.tab.header.Button",
             "scope": "static",
             "$longname": "Neo.tab.header.Button",
             "$kind": "class",
-            "id": 1834,
+            "id": 2410,
             "neoClassName": "Neo.tab.header.Button"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1835,
+            "id": 2411,
             "neoClassName": "Neo.tab.header.Button"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1836,
+            "id": 2412,
             "neoClassName": "Neo.tab.header.Button"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1837,
+            "id": 2413,
             "neoClassName": "Neo.tab.header.Button"
         },
         {
@@ -118,7 +118,7 @@
             "scope": "global",
             "$longname": "useActiveTabIndicator_",
             "$kind": "property",
-            "id": 1838,
+            "id": 2414,
             "neoClassName": "Neo.tab.header.Button"
         },
         {
@@ -141,22 +141,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 1839,
+            "id": 2415,
             "neoClassName": "Neo.tab.header.Button"
         },
         {
             "comment": "/**\n     * Triggered after the useActiveTabIndicator config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1305,
-                    1403
+                    1282,
+                    1380
                 ],
                 "filename": "Button.mjs",
                 "lineno": 50,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab/header",
                 "code": {
-                    "id": "astnode100059197",
+                    "id": "astnode100078588",
                     "name": "Button#afterSetUseActiveTabIndicator",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -195,22 +195,22 @@
             "scope": "instance",
             "$longname": "Button#afterSetUseActiveTabIndicator",
             "$kind": "method",
-            "id": 1840,
+            "id": 2416,
             "neoClassName": "Neo.tab.header.Button"
         },
         {
             "comment": "/**\n     *\n     * @param {Boolean} [silent=false]\n     */",
             "meta": {
                 "range": [
-                    1471,
-                    1679
+                    1448,
+                    1656
                 ],
                 "filename": "Button.mjs",
                 "lineno": 58,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab/header",
                 "code": {
-                    "id": "astnode100059208",
+                    "id": "astnode100078599",
                     "name": "Button#updateUseActiveTabIndicator",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -240,7 +240,7 @@
             "scope": "instance",
             "$longname": "Button#updateUseActiveTabIndicator",
             "$kind": "method",
-            "id": 1841,
+            "id": 2417,
             "neoClassName": "Neo.tab.header.Button"
         }
     ]

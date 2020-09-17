@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.selection.table.RowModel",
             "$kind": "class",
-            "id": 1783,
+            "id": 2358,
             "neoClassName": "Neo.selection.table.RowModel"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1784,
+            "id": 2359,
             "neoClassName": "Neo.selection.table.RowModel"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1785,
+            "id": 2360,
             "neoClassName": "Neo.selection.table.RowModel"
         },
         {
@@ -94,22 +94,22 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1786,
+            "id": 2361,
             "neoClassName": "Neo.selection.table.RowModel"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    739,
-                    1064
+                    713,
+                    1038
                 ],
                 "filename": "RowModel.mjs",
                 "lineno": 30,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100057390",
+                    "id": "astnode100076736",
                     "name": "RowModel#addDomListener",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -126,22 +126,22 @@
             "params": [],
             "$longname": "RowModel#addDomListener",
             "$kind": "method",
-            "id": 1787,
+            "id": 2362,
             "neoClassName": "Neo.selection.table.RowModel"
         },
         {
             "comment": "/**\n     * Finds the matching table row for a given row index\n     * @param {Number} index row index\n     * @returns {String|null} The table row node id\n     */",
             "meta": {
                 "range": [
-                    1235,
-                    1413
+                    1209,
+                    1387
                 ],
                 "filename": "RowModel.mjs",
                 "lineno": 49,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100057428",
+                    "id": "astnode100076774",
                     "name": "RowModel#getRowId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -182,22 +182,22 @@
             "scope": "instance",
             "$longname": "RowModel#getRowId",
             "$kind": "method",
-            "id": 1788,
+            "id": 2363,
             "neoClassName": "Neo.selection.table.RowModel"
         },
         {
             "comment": "/**\n     * Finds the matching table row for a given event path\n     * @param {Object} path The event path\n     * @returns {Object|null} The node containing the table row class or null\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1633,
-                    1910
+                    1607,
+                    1884
                 ],
                 "filename": "RowModel.mjs",
                 "lineno": 63,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100057471",
+                    "id": "astnode100076817",
                     "name": "RowModel.getRowNode",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -239,22 +239,22 @@
             "scope": "static",
             "$longname": "RowModel.getRowNode",
             "$kind": "method",
-            "id": 1789,
+            "id": 2364,
             "neoClassName": "Neo.selection.table.RowModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    1967,
-                    2029
+                    1941,
+                    2003
                 ],
                 "filename": "RowModel.mjs",
                 "lineno": 81,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100057514",
+                    "id": "astnode100076860",
                     "name": "RowModel#onKeyDownDown",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -282,22 +282,22 @@
             "scope": "instance",
             "$longname": "RowModel#onKeyDownDown",
             "$kind": "method",
-            "id": 1790,
+            "id": 2365,
             "neoClassName": "Neo.selection.table.RowModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    2086,
-                    2147
+                    2060,
+                    2121
                 ],
                 "filename": "RowModel.mjs",
                 "lineno": 89,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100057526",
+                    "id": "astnode100076872",
                     "name": "RowModel#onKeyDownUp",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -325,22 +325,22 @@
             "scope": "instance",
             "$longname": "RowModel#onKeyDownUp",
             "$kind": "method",
-            "id": 1791,
+            "id": 2366,
             "neoClassName": "Neo.selection.table.RowModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Number} step\n     */",
             "meta": {
                 "range": [
-                    2232,
-                    2929
+                    2206,
+                    2903
                 ],
                 "filename": "RowModel.mjs",
                 "lineno": 98,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100057539",
+                    "id": "astnode100076885",
                     "name": "RowModel#onNavKeyRow",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -377,22 +377,22 @@
             "scope": "instance",
             "$longname": "RowModel#onNavKeyRow",
             "$kind": "method",
-            "id": 1792,
+            "id": 2367,
             "neoClassName": "Neo.selection.table.RowModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    2986,
-                    3385
+                    2960,
+                    3359
                 ],
                 "filename": "RowModel.mjs",
                 "lineno": 128,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100057649",
+                    "id": "astnode100076995",
                     "name": "RowModel#onRowClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -420,22 +420,22 @@
             "scope": "instance",
             "$longname": "RowModel#onRowClick",
             "$kind": "method",
-            "id": 1793,
+            "id": 2368,
             "neoClassName": "Neo.selection.table.RowModel"
         },
         {
             "comment": "/**\n     *\n     * @param {Neo.component.Base} component\n     */",
             "meta": {
                 "range": [
-                    3459,
-                    3895
+                    3433,
+                    3869
                 ],
                 "filename": "RowModel.mjs",
                 "lineno": 147,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100057719",
+                    "id": "astnode100077065",
                     "name": "RowModel#register",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -463,22 +463,22 @@
             "scope": "instance",
             "$longname": "RowModel#register",
             "$kind": "method",
-            "id": 1794,
+            "id": 2369,
             "neoClassName": "Neo.selection.table.RowModel"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    3924,
-                    4348
+                    3898,
+                    4322
                 ],
                 "filename": "RowModel.mjs",
                 "lineno": 170,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/selection/table",
                 "code": {
-                    "id": "astnode100057772",
+                    "id": "astnode100077118",
                     "name": "RowModel#unregister",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -495,7 +495,7 @@
             "params": [],
             "$longname": "RowModel#unregister",
             "$kind": "method",
-            "id": 1795,
+            "id": 2370,
             "neoClassName": "Neo.selection.table.RowModel"
         }
     ]

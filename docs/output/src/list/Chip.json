@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.list.Chip",
             "$kind": "class",
-            "id": 1312,
+            "id": 1761,
             "neoClassName": "Neo.list.Chip"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1313,
+            "id": 1762,
             "neoClassName": "Neo.list.Chip"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1314,
+            "id": 1763,
             "neoClassName": "Neo.list.Chip"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "chipConfig",
             "$kind": "property",
-            "id": 1315,
+            "id": 1764,
             "neoClassName": "Neo.list.Chip"
         },
         {
@@ -119,7 +119,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1316,
+            "id": 1765,
             "neoClassName": "Neo.list.Chip"
         },
         {
@@ -143,7 +143,7 @@
             "scope": "global",
             "$longname": "itemCls",
             "$kind": "property",
-            "id": 1317,
+            "id": 1766,
             "neoClassName": "Neo.list.Chip"
         },
         {
@@ -168,7 +168,7 @@
             "scope": "global",
             "$longname": "stacked_",
             "$kind": "property",
-            "id": 1318,
+            "id": 1767,
             "neoClassName": "Neo.list.Chip"
         },
         {
@@ -191,22 +191,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 1319,
+            "id": 1768,
             "neoClassName": "Neo.list.Chip"
         },
         {
             "comment": "/**\n     * Triggered after the stacked config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1232,
-                    1586
+                    1206,
+                    1560
                 ],
                 "filename": "Chip.mjs",
                 "lineno": 51,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/list",
                 "code": {
-                    "id": "astnode100038035",
+                    "id": "astnode100052704",
                     "name": "Chip#afterSetStacked",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -245,22 +245,22 @@
             "scope": "instance",
             "$longname": "Chip#afterSetStacked",
             "$kind": "method",
-            "id": 1320,
+            "id": 1769,
             "neoClassName": "Neo.list.Chip"
         },
         {
             "comment": "/**\n     * @param {Boolean} [silent=false]\n     */",
             "meta": {
                 "range": [
-                    1647,
-                    2441
+                    1621,
+                    2415
                 ],
                 "filename": "Chip.mjs",
                 "lineno": 66,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/list",
                 "code": {
-                    "id": "astnode100038090",
+                    "id": "astnode100052759",
                     "name": "Chip#createItems",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -290,22 +290,22 @@
             "scope": "instance",
             "$longname": "Chip#createItems",
             "$kind": "method",
-            "id": 1321,
+            "id": 1770,
             "neoClassName": "Neo.list.Chip"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    2470,
-                    2724
+                    2444,
+                    2698
                 ],
                 "filename": "Chip.mjs",
                 "lineno": 99,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/list",
                 "code": {
-                    "id": "astnode100038208",
+                    "id": "astnode100052877",
                     "name": "Chip#destroy",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -322,7 +322,7 @@
             "params": [],
             "$longname": "Chip#destroy",
             "$kind": "method",
-            "id": 1322,
+            "id": 1771,
             "neoClassName": "Neo.list.Chip"
         }
     ]

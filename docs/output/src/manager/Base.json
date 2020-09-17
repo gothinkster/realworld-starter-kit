@@ -20,7 +20,7 @@
             "scope": "static",
             "$longname": "Neo.manager.Base",
             "$kind": "class",
-            "id": 1550,
+            "id": 2078,
             "neoClassName": "Neo.manager.Base"
         },
         {
@@ -45,7 +45,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1551,
+            "id": 2079,
             "neoClassName": "Neo.manager.Base"
         },
         {
@@ -70,22 +70,22 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1552,
+            "id": 2080,
             "neoClassName": "Neo.manager.Base"
         },
         {
             "comment": "/**\n     *\n     * @param {Number|String} id\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    615,
-                    663
+                    602,
+                    650
                 ],
                 "filename": "Base.mjs",
                 "lineno": 27,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100047333",
+                    "id": "astnode100064775",
                     "name": "Base#getById",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -123,22 +123,22 @@
             "scope": "instance",
             "$longname": "Base#getById",
             "$kind": "method",
-            "id": 1553,
+            "id": 2081,
             "neoClassName": "Neo.manager.Base"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} item\n     */",
             "meta": {
                 "range": [
-                    720,
-                    956
+                    707,
+                    943
                 ],
                 "filename": "Base.mjs",
                 "lineno": 35,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100047344",
+                    "id": "astnode100064786",
                     "name": "Base#register",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -166,22 +166,22 @@
             "scope": "instance",
             "$longname": "Base#register",
             "$kind": "method",
-            "id": 1554,
+            "id": 2082,
             "neoClassName": "Neo.manager.Base"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} item\n     */",
             "meta": {
                 "range": [
-                    1013,
-                    1064
+                    1000,
+                    1051
                 ],
                 "filename": "Base.mjs",
                 "lineno": 49,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100047383",
+                    "id": "astnode100064825",
                     "name": "Base#unregister",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -209,7 +209,7 @@
             "scope": "instance",
             "$longname": "Base#unregister",
             "$kind": "method",
-            "id": 1555,
+            "id": 2083,
             "neoClassName": "Neo.manager.Base"
         }
     ]

@@ -1,0 +1,271 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.calendar.view.settings.YearContainer\n * @extends Neo.container.Base\n */",
+            "meta": {
+                "filename": "YearContainer.mjs",
+                "lineno": 5,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "YearContainer",
+            "augments": [
+                "Neo.container.Base"
+            ],
+            "memberof": "Neo.calendar.view.settings",
+            "longname": "Neo.calendar.view.settings.YearContainer",
+            "scope": "static",
+            "$longname": "Neo.calendar.view.settings.YearContainer",
+            "$kind": "class",
+            "id": 226,
+            "neoClassName": "Neo.calendar.view.settings.YearContainer"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.calendar.view.settings.YearContainer'\n         * @protected\n         */",
+            "meta": {
+                "filename": "YearContainer.mjs",
+                "lineno": 15,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.calendar.view.settings.YearContainer'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 227,
+            "neoClassName": "Neo.calendar.view.settings.YearContainer"
+        },
+        {
+            "comment": "/**\n         * @member {Object} layout={ntype:'vbox',align:'stretch'}\n         */",
+            "meta": {
+                "filename": "YearContainer.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "layout",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{ntype:'vbox',align:'stretch'}",
+            "longname": "layout",
+            "scope": "global",
+            "$longname": "layout",
+            "$kind": "property",
+            "id": 228,
+            "neoClassName": "Neo.calendar.view.settings.YearContainer"
+        },
+        {
+            "comment": "/**\n     *\n     * @param config\n     */",
+            "meta": {
+                "range": [
+                    728,
+                    806
+                ],
+                "filename": "YearContainer.mjs",
+                "lineno": 26,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {
+                    "id": "astnode100006653",
+                    "name": "YearContainer",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "config"
+                }
+            ],
+            "name": "YearContainer",
+            "longname": "YearContainer",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "YearContainer",
+            "$kind": "constructor",
+            "id": 229,
+            "neoClassName": "Neo.calendar.view.settings.YearContainer"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    835,
+                    3104
+                ],
+                "filename": "YearContainer.mjs",
+                "lineno": 34,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {
+                    "id": "astnode100006667",
+                    "name": "YearContainer#createItems",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "createItems",
+            "longname": "YearContainer#createItems",
+            "kind": "function",
+            "memberof": "YearContainer",
+            "scope": "instance",
+            "params": [],
+            "$longname": "YearContainer#createItems",
+            "$kind": "method",
+            "id": 230,
+            "neoClassName": "Neo.calendar.view.settings.YearContainer"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Neo.calendar.view.YearComponent}\n     */",
+            "meta": {
+                "range": [
+                    3183,
+                    3273
+                ],
+                "filename": "YearContainer.mjs",
+                "lineno": 98,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {
+                    "id": "astnode100006842",
+                    "name": "YearContainer#getYearComponent",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.calendar.view.YearComponent"
+                        ]
+                    }
+                }
+            ],
+            "name": "getYearComponent",
+            "longname": "YearContainer#getYearComponent",
+            "kind": "function",
+            "memberof": "YearContainer",
+            "scope": "instance",
+            "params": [],
+            "$longname": "YearContainer#getYearComponent",
+            "$kind": "method",
+            "id": 231,
+            "neoClassName": "Neo.calendar.view.settings.YearContainer"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    3330,
+                    3479
+                ],
+                "filename": "YearContainer.mjs",
+                "lineno": 106,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {
+                    "id": "astnode100006854",
+                    "name": "YearContainer#onRadioChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onRadioChange",
+            "longname": "YearContainer#onRadioChange",
+            "kind": "function",
+            "memberof": "YearContainer",
+            "scope": "instance",
+            "$longname": "YearContainer#onRadioChange",
+            "$kind": "method",
+            "id": 232,
+            "neoClassName": "Neo.calendar.view.settings.YearContainer"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    3536,
+                    3631
+                ],
+                "filename": "YearContainer.mjs",
+                "lineno": 116,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar/view/settings",
+                "code": {
+                    "id": "astnode100006881",
+                    "name": "YearContainer#onConfigChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onConfigChange",
+            "longname": "YearContainer#onConfigChange",
+            "kind": "function",
+            "memberof": "YearContainer",
+            "scope": "instance",
+            "$longname": "YearContainer#onConfigChange",
+            "$kind": "method",
+            "id": 233,
+            "neoClassName": "Neo.calendar.view.settings.YearContainer"
+        }
+    ]
+}

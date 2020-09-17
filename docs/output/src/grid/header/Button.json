@@ -1,7 +1,7 @@
 {
     "classData": [
         {
-            "comment": "/**\n * @class Neo.grid.header.Button\n * @extends Neo.component.Button\n */",
+            "comment": "/**\n * @class Neo.grid.header.Button\n * @extends Neo.button.Base\n */",
             "meta": {
                 "filename": "Button.mjs",
                 "lineno": 3,
@@ -12,14 +12,14 @@
             "kind": "class",
             "name": "Button",
             "augments": [
-                "Neo.component.Button"
+                "Neo.button.Base"
             ],
             "memberof": "Neo.grid.header",
             "longname": "Neo.grid.header.Button",
             "scope": "static",
             "$longname": "Neo.grid.header.Button",
             "$kind": "class",
-            "id": 1194,
+            "id": 1643,
             "neoClassName": "Neo.grid.header.Button"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1195,
+            "id": 1644,
             "neoClassName": "Neo.grid.header.Button"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1196,
+            "id": 1645,
             "neoClassName": "Neo.grid.header.Button"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1197,
+            "id": 1646,
             "neoClassName": "Neo.grid.header.Button"
         }
     ]
