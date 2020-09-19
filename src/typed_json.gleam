@@ -1,5 +1,5 @@
 import gleam/dynamic.{Dynamic}
-import gleam/atom.{Atom}
+import gleam/atom
 import gleam/list
 import gleam/map
 import gleam/string

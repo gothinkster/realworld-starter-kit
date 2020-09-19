@@ -10,18 +10,16 @@ import gleam/atom.{Atom}
 import gleam/dynamic.{Dynamic}
 import gleam/json
 
-external fn io_format(Atom, String, List(a)) -> Dynamic =
-  "io" "format"
-
+// external fn io_format(Atom, String, List(a)) -> Dynamic =
+//   "io" "format"
+// fn debug_user_print_string(string) {
+//   assert Ok(user) = atom.from_string("user")
+//   io_format(user, "~tp~n", [string])
+// }
 // external fn rand_uniform(Int) -> Int =
 //   "rand" "uniform"
 // external fn timer_sleep(Int) -> Dynamic =
 //   "timer" "sleep"
-fn debug_user_print_string(string) {
-  assert Ok(user) = atom.from_string("user")
-  io_format(user, "~tp~n", [string])
-}
-
 // fn sleep(milliseconds) {
 //   timer_sleep(milliseconds)
 // }
@@ -71,13 +69,13 @@ fn registration_test() {
     )
   let response = conduit.service(request)
 
-  // response.status
-  // |> should.equal(200)
+  response.status
+  |> should.equal(200)
   assert Ok(response_body) =
     response.body
     |> bit_builder.to_bit_string()
     |> bit_string.to_string()
-  debug_user_print_string(response_body)
+  // debug_user_print_string(response_body)
   assert Ok(data) = json.decode(response_body)
   let data = dynamic.from(data)
   assert Ok(user_response) = dynamic.field(data, "user")

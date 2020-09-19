@@ -40,6 +40,16 @@ type RegistrationParams {
   RegistrationParams(email: String, password: String, username: String)
 }
 
+fn registration_params_builder() {
+  fn(email) {
+    fn(password) {
+      fn(username) {
+        RegistrationParams(email: email, password: password, username: username)
+      }
+    }
+  }
+}
+
 fn validate_registration_email(user_json) {
   case typed_json.filter_object(user_json, ["email"]) {
     JsonObject([tuple("email", JsonString(email))]) -> {
@@ -84,11 +94,11 @@ fn validate_registration_username(user_json) {
 }
 
 fn merge_errors(
-  result1: Result(a, List(tuple(String, List(String)))),
-  result2: Result(b, List(tuple(String, List(String)))),
-) -> Result(Nil, List(tuple(String, List(String)))) {
+  result1: Result(fn(a) -> b, List(tuple(String, List(String)))),
+  result2: Result(a, List(tuple(String, List(String)))),
+) -> Result(b, List(tuple(String, List(String)))) {
   case result1, result2 {
-    Ok(_), Ok(_) -> Ok(Nil)
+    Ok(f), Ok(x) -> Ok(f(x))
     Ok(_), Error(errors) -> Error(errors)
     Error(errors), Ok(_) -> Error(errors)
     Error(errors1), Error(errors2) ->
@@ -116,22 +126,11 @@ fn merge_errors(
 }
 
 fn validate_registration_user_fields(user_json) {
-  let email_validation_result = validate_registration_email(user_json)
-  let password_validation_result = validate_registration_password(user_json)
-  let username_validation_result = validate_registration_username(user_json)
-  let validation_result =
-    email_validation_result
-    |> merge_errors(password_validation_result)
-    |> merge_errors(username_validation_result)
-  case validation_result {
-    Ok(Nil) -> {
-      assert Ok(email) = email_validation_result
-      assert Ok(password) = password_validation_result
-      assert Ok(username) = username_validation_result
-      Ok(RegistrationParams(email, password, username))
-    }
-    Error(errors) -> Error(errors)
-  }
+  registration_params_builder()
+  |> Ok()
+  |> merge_errors(validate_registration_email(user_json))
+  |> merge_errors(validate_registration_password(user_json))
+  |> merge_errors(validate_registration_username(user_json))
 }
 
 fn render_errors_json(errors) {
