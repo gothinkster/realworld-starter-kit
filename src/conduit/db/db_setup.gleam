@@ -93,11 +93,12 @@ pub fn migrate_database() {
     case list.contains(already_ran_migrations, migration_id) {
       True -> Nil
       False -> {
-        pgo.query(
-          atom_("default"),
-          "INSERT INTO schema_migrations(id) VALUES ($1)",
-          [pgo.text(migration_id)],
-        )
+        assert Ok(_) =
+          pgo.query(
+            atom_("default"),
+            "INSERT INTO schema_migrations(id) VALUES ($1)",
+            [pgo.text(migration_id)],
+          )
         migration_function()
       }
     }

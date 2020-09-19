@@ -50,7 +50,37 @@ fn registration_params_builder() {
   }
 }
 
-fn validate_registration_email(user_json) {
+type ConduitErrors =
+  List(tuple(String, List(String)))
+
+fn validation_errors_joiner(
+  errors1: ConduitErrors,
+  errors2: ConduitErrors,
+) -> ConduitErrors {
+  list.append(errors1, errors2)
+  |> list.sort(fn(left, right) {
+    let tuple(string_key_left, _value_left) = left
+    let tuple(string_key_right, _value_right) = right
+    string.compare(string_key_left, string_key_right)
+  })
+  |> list.fold(
+    [],
+    fn(error, acc) {
+      case error, acc {
+        tuple(key, key_errors), [tuple(acc_key, acc_key_errors), ..rest] if key == acc_key -> [
+          tuple(key, list.append(acc_key_errors, key_errors)),
+          ..rest
+        ]
+        error, acc -> [error, ..acc]
+      }
+    },
+  )
+  |> list.reverse()
+}
+
+fn validate_registration_email(
+  user_json: TypedJson,
+) -> Result(String, ConduitErrors) {
   case typed_json.filter_object(user_json, ["email"]) {
     JsonObject([tuple("email", JsonString(email))]) -> {
       assert Ok(email_regex) = regex.from_string("^[^@]+@[^@]+$")
@@ -65,7 +95,9 @@ fn validate_registration_email(user_json) {
   }
 }
 
-fn validate_registration_password(user_json) {
+fn validate_registration_password(
+  user_json: TypedJson,
+) -> Result(String, ConduitErrors) {
   case typed_json.filter_object(user_json, ["password"]) {
     JsonObject([tuple("password", JsonString(password))]) ->
       case string.length(password) {
@@ -78,7 +110,9 @@ fn validate_registration_password(user_json) {
   }
 }
 
-fn validate_registration_username(user_json) {
+fn validate_registration_username(
+  user_json: TypedJson,
+) -> Result(String, ConduitErrors) {
   case typed_json.filter_object(user_json, ["username"]) {
     JsonObject([tuple("username", JsonString(username))]) ->
       // assert Ok(username_regex) = regex.from_string("^\S{1,20}$")
@@ -93,47 +127,41 @@ fn validate_registration_username(user_json) {
   }
 }
 
-fn merge_errors(
-  result1: Result(fn(a) -> b, List(tuple(String, List(String)))),
-  result2: Result(a, List(tuple(String, List(String)))),
-) -> Result(b, List(tuple(String, List(String)))) {
+fn apply_validation_result(
+  result1: Result(fn(a) -> b, e),
+  result2: Result(a, e),
+  errors_joiner: fn(e, e) -> e,
+) -> Result(b, e) {
   case result1, result2 {
     Ok(f), Ok(x) -> Ok(f(x))
     Ok(_), Error(errors) -> Error(errors)
     Error(errors), Ok(_) -> Error(errors)
     Error(errors1), Error(errors2) ->
-      list.append(errors1, errors2)
-      |> list.sort(fn(left, right) {
-        let tuple(string_key_left, _value_left) = left
-        let tuple(string_key_right, _value_right) = right
-        string.compare(string_key_left, string_key_right)
-      })
-      |> list.fold(
-        [],
-        fn(error, acc) {
-          case error, acc {
-            tuple(key, key_errors), [tuple(acc_key, acc_key_errors), ..rest] if key == acc_key -> [
-              tuple(key, list.append(acc_key_errors, key_errors)),
-              ..rest
-            ]
-            error, acc -> [error, ..acc]
-          }
-        },
-      )
-      |> list.reverse()
+      errors_joiner(errors1, errors2)
       |> Error()
   }
 }
 
-fn validate_registration_user_fields(user_json) {
+fn validate_registration_user_fields(
+  user_json: TypedJson,
+) -> Result(RegistrationParams, ConduitErrors) {
   registration_params_builder()
   |> Ok()
-  |> merge_errors(validate_registration_email(user_json))
-  |> merge_errors(validate_registration_password(user_json))
-  |> merge_errors(validate_registration_username(user_json))
+  |> apply_validation_result(
+    validate_registration_email(user_json),
+    validation_errors_joiner,
+  )
+  |> apply_validation_result(
+    validate_registration_password(user_json),
+    validation_errors_joiner,
+  )
+  |> apply_validation_result(
+    validate_registration_username(user_json),
+    validation_errors_joiner,
+  )
 }
 
-fn render_errors_json(errors) {
+fn render_errors_json(errors: ConduitErrors) -> Response(String) {
   let error_response =
     json.object([
       tuple(
@@ -159,7 +187,9 @@ fn render_errors_json(errors) {
   |> http.set_resp_body(error_response)
 }
 
-fn read_registration_params(registration_json) {
+fn read_registration_params(
+  registration_json: TypedJson,
+) -> Result(RegistrationParams, Response(String)) {
   // What errors should be returned, exactly? This is not well-defined in the in realworld API spec
   let validated_registration_params = case typed_json.filter_object(
     registration_json,
@@ -185,7 +215,9 @@ type User {
   )
 }
 
-fn user_registration(_request, registration_json) {
+fn user_registration(
+  registration_json: TypedJson,
+) -> Result(Response(String), Response(String)) {
   try RegistrationParams(user_email, _user_password, user_username) =
     read_registration_params(registration_json)
 
@@ -225,7 +257,7 @@ fn router(
     http.Post, ["api", "users"] -> {
       try string_body = check_utf8_encoding(request)
       try json_body = parse_json(string_body)
-      user_registration(request, json_body)
+      user_registration(json_body)
     }
     _, _ -> not_found()
   }
