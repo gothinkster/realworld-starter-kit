@@ -12,6 +12,21 @@ import gleam/regex
 import gleam/list
 import typed_json.{JsonObject, JsonString, TypedJson}
 
+fn apply_result(
+  result1: Result(fn(a) -> b, e),
+  result2: Result(a, e),
+  errors_joiner: fn(e, e) -> e,
+) -> Result(b, e) {
+  case result1, result2 {
+    Ok(f), Ok(x) -> Ok(f(x))
+    Ok(_), Error(errors) -> Error(errors)
+    Error(errors), Ok(_) -> Error(errors)
+    Error(errors1), Error(errors2) ->
+      errors_joiner(errors1, errors2)
+      |> Error()
+  }
+}
+
 fn check_utf8_encoding(
   request: Request(BitString),
 ) -> Result(String, Response(String)) {
@@ -78,6 +93,13 @@ fn validation_errors_joiner(
   |> list.reverse()
 }
 
+fn apply_validation_result(
+  result1: Result(fn(a) -> b, ConduitErrors),
+  result2: Result(a, ConduitErrors),
+) -> Result(b, ConduitErrors) {
+  apply_result(result1, result2, validation_errors_joiner)
+}
+
 fn validate_registration_email(
   user_json: TypedJson,
 ) -> Result(String, ConduitErrors) {
@@ -127,38 +149,14 @@ fn validate_registration_username(
   }
 }
 
-fn apply_validation_result(
-  result1: Result(fn(a) -> b, e),
-  result2: Result(a, e),
-  errors_joiner: fn(e, e) -> e,
-) -> Result(b, e) {
-  case result1, result2 {
-    Ok(f), Ok(x) -> Ok(f(x))
-    Ok(_), Error(errors) -> Error(errors)
-    Error(errors), Ok(_) -> Error(errors)
-    Error(errors1), Error(errors2) ->
-      errors_joiner(errors1, errors2)
-      |> Error()
-  }
-}
-
 fn validate_registration_user_fields(
   user_json: TypedJson,
 ) -> Result(RegistrationParams, ConduitErrors) {
   registration_params_builder()
   |> Ok()
-  |> apply_validation_result(
-    validate_registration_email(user_json),
-    validation_errors_joiner,
-  )
-  |> apply_validation_result(
-    validate_registration_password(user_json),
-    validation_errors_joiner,
-  )
-  |> apply_validation_result(
-    validate_registration_username(user_json),
-    validation_errors_joiner,
-  )
+  |> apply_validation_result(validate_registration_email(user_json))
+  |> apply_validation_result(validate_registration_password(user_json))
+  |> apply_validation_result(validate_registration_username(user_json))
 }
 
 fn render_errors_json(errors: ConduitErrors) -> Response(String) {
