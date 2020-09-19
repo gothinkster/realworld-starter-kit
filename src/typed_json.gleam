@@ -15,17 +15,14 @@ pub type TypedJson {
   JsonObject(v: List(tuple(String, TypedJson)))
 }
 
-fn type_atom(an_atom: Atom) -> TypedJson {
-  case atom.to_string(an_atom) {
-    "true" -> JsonBool(True)
-    "false" -> JsonBool(False)
-    _ -> JsonNull
-  }
-}
-
 fn type_json_data(data: Dynamic) -> TypedJson {
   case dynamic.atom(data) {
-    Ok(an_atom) -> type_atom(an_atom)
+    Ok(an_atom) ->
+      case atom.to_string(an_atom) {
+        "true" -> JsonBool(True)
+        "false" -> JsonBool(False)
+        "null" -> JsonNull
+      }
     Error(_) ->
       case dynamic.int(data) {
         Ok(an_int) -> JsonInt(an_int)
@@ -55,9 +52,6 @@ fn type_json_data(data: Dynamic) -> TypedJson {
                               string.compare(string_key_left, string_key_right)
                             }),
                           )
-                        Error(_) ->
-                          // ugh!
-                          JsonNull
                       }
                   }
               }
@@ -68,4 +62,17 @@ fn type_json_data(data: Dynamic) -> TypedJson {
 
 pub fn from_json(json_data: Json) -> TypedJson {
   type_json_data(dynamic.from(json_data))
+}
+
+pub fn filter_object(json_object: TypedJson, keys: List(String)) -> TypedJson {
+  case json_object {
+    JsonObject(tuple_list) ->
+      tuple_list
+      |> list.filter(fn(entry) {
+        let tuple(key, _value) = entry
+        list.contains(keys, key)
+      })
+      |> JsonObject()
+    _ -> json_object
+  }
 }

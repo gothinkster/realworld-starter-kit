@@ -7,6 +7,9 @@ import gleam/int
 import gleam/atom
 import gleam/pgo
 import gleam/option.{None, Option, Some}
+import gleam/string
+import gleam/regex
+import gleam/list
 import typed_json.{JsonObject, JsonString, TypedJson}
 
 fn check_utf8_encoding(
@@ -37,25 +40,139 @@ type RegistrationParams {
   RegistrationParams(email: String, password: String, username: String)
 }
 
-fn read_registration_params(
-  registration_json: TypedJson,
-) -> Result(RegistrationParams, Response(String)) {
-  // TODO: when pattern matching on a JsonObject, we need to filter it first to contain only keys we care about
-  case registration_json {
-    JsonObject([
-      tuple(
-        "user",
-        JsonObject([
-          tuple("email", JsonString(user_email)),
-          tuple("password", JsonString(user_password)),
-          tuple("username", JsonString(user_username)),
-        ]),
-      ),
-    ]) -> Ok(RegistrationParams(user_email, user_password, user_username))
-    _ ->
-      http.response(422)
-      |> http.set_resp_body("todo errors")
+fn validate_registration_email(user_json) {
+  case typed_json.filter_object(user_json, ["email"]) {
+    JsonObject([tuple("email", JsonString(email))]) -> {
+      assert Ok(email_regex) = regex.from_string("^[^@]+@[^@]+$")
+      case regex.check(email_regex, email) {
+        True -> Ok(email)
+        False -> Error([tuple("email", ["is not valid"])])
+      }
+    }
+    JsonObject([tuple("email", _)]) ->
+      Error([tuple("email", ["must be a string"])])
+    _ -> Error([tuple("email", ["must be present"])])
+  }
+}
+
+fn validate_registration_password(user_json) {
+  case typed_json.filter_object(user_json, ["password"]) {
+    JsonObject([tuple("password", JsonString(password))]) ->
+      case string.length(password) {
+        length if length >= 8 -> Ok(password)
+        _ -> Error([tuple("password", ["must be at least 8 characters long"])])
+      }
+    JsonObject([tuple("password", _)]) ->
+      Error([tuple("password", ["must be a string"])])
+    _ -> Error([tuple("password", ["must be present"])])
+  }
+}
+
+fn validate_registration_username(user_json) {
+  case typed_json.filter_object(user_json, ["username"]) {
+    JsonObject([tuple("username", JsonString(username))]) ->
+      // assert Ok(username_regex) = regex.from_string("^\S{1,20}$")
+      // case regex.check(username_regex, username) {
+      //   True -> Ok(username)
+      //   False -> Error([tuple("username", ["is not valid"])])
+      // }
+      Ok(username)
+    JsonObject([tuple("username", _)]) ->
+      Error([tuple("username", ["must be a string"])])
+    _ -> Error([tuple("username", ["must be present"])])
+  }
+}
+
+fn merge_errors(
+  result1: Result(a, List(tuple(String, List(String)))),
+  result2: Result(b, List(tuple(String, List(String)))),
+) -> Result(Nil, List(tuple(String, List(String)))) {
+  case result1, result2 {
+    Ok(_), Ok(_) -> Ok(Nil)
+    Ok(_), Error(errors) -> Error(errors)
+    Error(errors), Ok(_) -> Error(errors)
+    Error(errors1), Error(errors2) ->
+      list.append(errors1, errors2)
+      |> list.sort(fn(left, right) {
+        let tuple(string_key_left, _value_left) = left
+        let tuple(string_key_right, _value_right) = right
+        string.compare(string_key_left, string_key_right)
+      })
+      |> list.fold(
+        [],
+        fn(error, acc) {
+          case error, acc {
+            tuple(key, key_errors), [tuple(acc_key, acc_key_errors), ..rest] if key == acc_key -> [
+              tuple(key, list.append(acc_key_errors, key_errors)),
+              ..rest
+            ]
+            error, acc -> [error, ..acc]
+          }
+        },
+      )
+      |> list.reverse()
       |> Error()
+  }
+}
+
+fn validate_registration_user_fields(user_json) {
+  let email_validation_result = validate_registration_email(user_json)
+  let password_validation_result = validate_registration_password(user_json)
+  let username_validation_result = validate_registration_username(user_json)
+  let validation_result =
+    email_validation_result
+    |> merge_errors(password_validation_result)
+    |> merge_errors(username_validation_result)
+  case validation_result {
+    Ok(Nil) -> {
+      assert Ok(email) = email_validation_result
+      assert Ok(password) = password_validation_result
+      assert Ok(username) = username_validation_result
+      Ok(RegistrationParams(email, password, username))
+    }
+    Error(errors) -> Error(errors)
+  }
+}
+
+fn render_errors_json(errors) {
+  let error_response =
+    json.object([
+      tuple(
+        "errors",
+        json.object(
+          errors
+          |> list.map(fn(field_errors) {
+            let tuple(field, errors_list) = field_errors
+            tuple(
+              field,
+              json.list(list.map(
+                errors_list,
+                fn(error_string) { json.string(error_string) },
+              )),
+            )
+          }),
+        ),
+      ),
+    ])
+    |> json.encode()
+
+  http.response(422)
+  |> http.set_resp_body(error_response)
+}
+
+fn read_registration_params(registration_json) {
+  // What errors should be returned, exactly? This is not well-defined in the in realworld API spec
+  let validated_registration_params = case typed_json.filter_object(
+    registration_json,
+    ["user"],
+  ) {
+    JsonObject([tuple("user", user_json)]) ->
+      validate_registration_user_fields(user_json)
+    _ -> validate_registration_user_fields(JsonObject([]))
+  }
+  case validated_registration_params {
+    Ok(registration_params) -> Ok(registration_params)
+    Error(errors) -> Error(render_errors_json(errors))
   }
 }
 
