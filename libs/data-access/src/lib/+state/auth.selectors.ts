@@ -4,6 +4,11 @@ import { AuthStateModel } from './auth.state';
 
 export class AuthSelectors {
   @Selector([AuthState])
+  static username(state: AuthStateModel) {
+    return state?.user?.username;
+  }
+
+  @Selector([AuthState])
   static loggedOut(state: AuthStateModel) {
     return !state.user;
   }
