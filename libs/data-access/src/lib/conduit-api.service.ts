@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { LoginRequest, RegisterRequest, TagsResponse } from './conduit-api.model';
+import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse, TagsResponse } from './conduit-api.model';
 import { User } from './user';
 
 @Injectable({
@@ -20,13 +20,13 @@ export class ConduitApiService {
 
   login(loginRequest: LoginRequest) {
     return this.http
-      .post<User>(`${this.baseUrl}/users/login`, { user: loginRequest })
-      .pipe(map((response) => response));
+      .post<LoginResponse>(`${this.baseUrl}/users/login`, { user: loginRequest })
+      .pipe(map((response) => response.user));
   }
 
   register(registerRequest: RegisterRequest) {
     return this.http
-      .post<User>(`${this.baseUrl}/users`, { user: registerRequest })
-      .pipe(map((response) => response));
+      .post<RegisterResponse>(`${this.baseUrl}/users`, { user: registerRequest })
+      .pipe(map((response) => response.user));
   }
 }

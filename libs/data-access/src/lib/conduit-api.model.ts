@@ -1,5 +1,15 @@
+import { User } from './user';
+
 export interface TagsResponse {
   tags: string[];
+}
+
+export interface LoginResponse {
+  user: User;
+}
+
+export interface RegisterResponse {
+  user: User;
 }
 
 export interface LoginRequest {
