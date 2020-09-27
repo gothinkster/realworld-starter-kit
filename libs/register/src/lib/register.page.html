@@ -7,21 +7,35 @@
           <a [routerLink]="['/login']">Have an account?</a>
         </p>
 
-        <ul class="error-messages">
-          <li>That email is already taken</li>
+        <ul *ngIf="errors$ | async; let errors" class="error-messages">
+          <li *ngFor="let error of errors">{{error}}</li>
         </ul>
 
-        <form>
+        <form [formGroup]="form">
           <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Your Name" />
+            <input
+              class="form-control form-control-lg"
+              formControlName="username"
+              type="text"
+              placeholder="Your Name"
+            />
           </fieldset>
           <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Email" />
+            <input class="form-control form-control-lg" formControlName="email" type="text" placeholder="Email" />
           </fieldset>
           <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="password" placeholder="Password" />
+            <input
+              class="form-control form-control-lg"
+              formControlName="password"
+              type="password"
+              placeholder="Password"
+            />
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right">
+          <button
+            [disabled]="form.invalid || form.disabled"
+            (click)="signUp()"
+            class="btn btn-lg btn-primary pull-xs-right"
+          >
             Sign up
           </button>
         </form>

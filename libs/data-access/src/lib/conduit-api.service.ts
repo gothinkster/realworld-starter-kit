@@ -23,4 +23,10 @@ export class ConduitApiService {
       .post<User>(`${this.baseUrl}/users/login`, { user: loginRequest })
       .pipe(map((response) => response));
   }
+
+  register(registerRequest: RegisterRequest) {
+    return this.http
+      .post<User>(`${this.baseUrl}/users`, { user: registerRequest })
+      .pipe(map((response) => response));
+  }
 }

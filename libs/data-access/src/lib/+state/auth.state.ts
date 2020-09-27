@@ -39,4 +39,18 @@ export class AuthState {
       })
     );
   }
+
+  @Action(Register)
+  register(ctx: StateContext<AuthStateModel>, { payload }: Register) {
+    ctx.patchState({ user: null, errors: null });
+    return this.conduitApi.register(payload).pipe(
+      tap((user) => ctx.patchState({ user })),
+      catchError((err) => {
+        ctx.patchState({
+          errors: parseError(err)
+        });
+        return throwError(err);
+      })
+    );
+  }
 }
