@@ -27,7 +27,7 @@ import { DataAccessModule } from '@realworld-angular-nx-ngxs/data-access';
       executionStrategy: NoopNgxsExecutionStrategy
     }),
     NgxsRouterPluginModule.forRoot(),
-    NgxsStoragePluginModule.forRoot(),
+    NgxsStoragePluginModule.forRoot({ key: ['auth'] }),
     DataAccessModule
   ],
   providers: [],
