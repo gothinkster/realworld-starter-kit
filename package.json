@@ -4,25 +4,26 @@
   "author": "Jihchi Lee <achi@987.tw>",
   "license": "MIT",
   "keywords": [
+    "ReScript",
     "BuckleScript",
     "reason-react",
     "ReasonML",
     "react"
   ],
   "scripts": {
-    "pretest": "npm run clean:re && npm run build:re",
-    "start": "concurrently --names \"JS,RE\" --prefix-colors \"black.bgYellow.bold,white.bgRed.bold\" --kill-others-on-fail \"npm run start:js\" \"npm run start:re\"",
+    "build": "npm run build:res && npm run build:js",
     "build:js": "react-scripts build",
-    "build:re": "bsb -make-world",
-    "build": "npm run build:re && npm run build:js",
-    "clean:re": "bsb -clean-world",
-    "clean": "npm run clean:re",
+    "build:res": "bsb -make-world",
+    "clean": "npm run clean:res",
+    "clean:res": "bsb -clean-world",
     "format": "prettier --write \"**/*.{js,json,md,yml}\" \"!**/*.bs.js\" && find ./src -regex '.*\\.re' -exec bsrefmt --in-place '{}' \\;",
+    "pretest": "npm run clean:res && npm run build:res",
+    "start": "concurrently --names \"JS,RES\" --prefix-colors \"black.bgYellow.bold,white.bgRed.bold\" --kill-others-on-fail \"npm run start:js\" \"npm run start:re\"",
     "start:js": "react-scripts start",
-    "start:re": "npm run build:re -- -w",
+    "start:re": "npm run build:res -- -w",
+    "test": "react-scripts test",
     "test:ci": "CI=true npm test",
-    "test:coverage": "CI=true npm test -- --coverage",
-    "test": "react-scripts test"
+    "test:coverage": "CI=true npm test -- --coverage"
   },
   "dependencies": {
     "dompurify": "^2.1.1",
