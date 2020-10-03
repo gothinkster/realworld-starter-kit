@@ -16,39 +16,41 @@ let make = (~user: option<Shape.User.t>) => {
           </Link>
         </li>
         <Security.AnonymousOnly user>
-          {<>
+          {@JSX
+          list{
             <li className="nav-item">
               <Link className="nav-link" onClick={Link.login |> Link.location}>
                 {"Sign in" |> React.string}
               </Link>
-            </li>
+            </li>,
             <li className="nav-item">
               <Link className="nav-link" onClick={Link.register |> Link.location}>
                 {"Sign up" |> React.string}
               </Link>
-            </li>
-          </>}
+            </li>,
+          }}
         </Security.AnonymousOnly>
         <Security.AuthenticatedOnly user>
-          {<>
+          {@JSX
+          list{
             <li className="nav-item">
               <Link className="nav-link" onClick={Link.createArticle |> Link.location}>
                 <i className="ion-compose" /> {" New Post" |> React.string}
               </Link>
-            </li>
+            </li>,
             <li className="nav-item">
               <Link className="nav-link" onClick={Link.settings |> Link.location}>
                 <i className="ion-gear-a" /> {" Settings" |> React.string}
               </Link>
-            </li>
+            </li>,
             <li className="nav-item">
               <Link
                 className="nav-link"
                 onClick={Link.profile(~username=currentUser.username) |> Link.location}>
                 {currentUser.username |> React.string}
               </Link>
-            </li>
-          </>}
+            </li>,
+          }}
         </Security.AuthenticatedOnly>
       </ul>
     </div>

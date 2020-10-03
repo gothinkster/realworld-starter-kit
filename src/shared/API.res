@@ -53,18 +53,16 @@ let getErrorBodyText: Result.t<Js.Json.t, Fetch.Response.t> => Js.Promise.t<
   switch x {
   | Ok(_json) as ok => ok |> resolve
   | Error(resp) =>
-  let status = resp |> Fetch.Response.status
-  let statusText = resp |> Fetch.Response.statusText
-  let bodyText = #text("FIXME: show body text instead")
+    let status = resp |> Fetch.Response.status
+    let statusText = resp |> Fetch.Response.statusText
+    let bodyText = #text("FIXME: show body text instead")
 
-      Error.fetch((status, statusText,bodyText))
-      |> Result.error
-      |> resolve
+    Error.fetch((status, statusText, bodyText)) |> Result.error |> resolve
   }
 
 let parseJsonIfOk: Fetch.Response.t => Js.Promise.t<Result.t<Js.Json.t, Fetch.Response.t>> = resp =>
   if Fetch.Response.ok(resp) {
-     resp
+    resp
     |> Response.json
     |> then_(json => json |> Result.ok |> resolve)
     |> catch(_error => resp |> Result.error |> resolve)

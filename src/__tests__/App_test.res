@@ -372,7 +372,7 @@ describe("App component", () => {
           |> JestDom.expect
           |> JestDom.toBeInTheDocument
           |> resolve
-         )
+        )
       })
     })
   })

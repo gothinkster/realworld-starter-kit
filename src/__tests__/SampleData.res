@@ -39,7 +39,7 @@ let comments: unit => string = () =>
 }`
 
 let articles: (~articlesCount: int=?, unit) => string = (~articlesCount=1, ()) =>
-    `{
+  `{
   "articles": [
     {
       "title": "How to train your dragon",
@@ -62,7 +62,9 @@ let articles: (~articlesCount: int=?, unit) => string = (~articlesCount=1, ()) =
       "favoritesCount": 3
     }
   ],
-  "articlesCount": ${string_of_int(articlesCount)} 
+  "articlesCount": ${string_of_int(
+    articlesCount,
+  )} 
 }`
 
 let feeds = articles

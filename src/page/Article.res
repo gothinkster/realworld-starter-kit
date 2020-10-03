@@ -119,9 +119,7 @@ module Comments = {
             </span>
             <span className="mod-options">
               {// TODO: implement "edit" icon
-              false
-                ? <i className="ion-edit" />
-                : React.null}
+              false ? <i className="ion-edit" /> : React.null}
               {switch user {
               | Some({username}) when username == comment.author.username =>
                 <i
