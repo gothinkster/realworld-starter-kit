@@ -16,7 +16,7 @@
     "build:res": "bsb -make-world",
     "clean": "npm run clean:res",
     "clean:res": "bsb -clean-world",
-    "format": "prettier --write \"**/*.{js,json,md,yml}\" \"!**/*.bs.js\" && find ./src -regex '.*\\.re' -exec bsrefmt --in-place '{}' \\;",
+    "format": "prettier --write \"**/*.{js,json,md,yml}\" \"!**/*.bs.js\" && find -E ./src -regex \".*\\.resi?\" -exec bsrefmt --in-place '{}' \\;",
     "pretest": "npm run clean:res && npm run build:res",
     "start": "concurrently --names \"JS,RES\" --prefix-colors \"black.bgYellow.bold,white.bgRed.bold\" --kill-others-on-fail \"npm run start:js\" \"npm run start:re\"",
     "start:js": "react-scripts start",
