@@ -9,6 +9,7 @@ import gleam/string
 import gleam/atom.{Atom}
 import gleam/dynamic.{Dynamic}
 import gleam/json
+import gleam/pgo
 
 // external fn io_format(Atom, String, List(a)) -> Dynamic =
 //   "io" "format"
@@ -27,6 +28,10 @@ import gleam/json
 //   rand_uniform(2000)
 //   |> sleep()
 // }
+fn atom_(atom_name) {
+  atom.create_from_string(atom_name)
+}
+
 fn default_request() {
   http.default_req()
   |> http.set_req_body(<<>>)
@@ -81,8 +86,21 @@ fn registration_test() {
   assert Ok(user_response) = dynamic.field(data, "user")
   assert Ok(email) = dynamic.field(user_response, "email")
   assert Ok("user@example.com") = dynamic.string(email)
-  assert Ok(email) = dynamic.field(user_response, "username")
-  assert Ok("some_username") = dynamic.string(email)
+  assert Ok(username) = dynamic.field(user_response, "username")
+  assert Ok("some_username") = dynamic.string(username)
+
+  assert Ok(tuple(_, 1, [db_user])) =
+    pgo.query(atom_("default"), "SELECT email, username FROM users", [])
+
+  assert Ok(db_email_dynamic) = dynamic.element(db_user, 0)
+  assert Ok(db_email) = dynamic.string(db_email_dynamic)
+  db_email
+  |> should.equal("user@example.com")
+
+  assert Ok(db_username_dynamic) = dynamic.element(db_user, 1)
+  assert Ok(db_username) = dynamic.string(db_username_dynamic)
+  db_username
+  |> should.equal("some_username")
 
   Nil
 }

@@ -219,7 +219,21 @@ fn user_registration(
   try RegistrationParams(user_email, _user_password, user_username) =
     read_registration_params(registration_json)
 
-  let user = User(user_email, "some_token", user_username, None, None)
+  let user =
+    User(
+      email: user_email,
+      token: "some_token",
+      username: user_username,
+      bio: None,
+      image: None,
+    )
+
+  assert Ok(_) =
+    pgo.query(
+      atom.create_from_string("default"),
+      "insert into users (email, username) values ($1 , $2)",
+      [pgo.text(user.email), pgo.text(user.username)],
+    )
 
   let user_response =
     json.object([

@@ -68,12 +68,38 @@ type Migration {
 }
 
 fn migrations() {
-  []
+  [
+    Migration(
+      "create users table",
+      fn() {
+        erl_query(
+          "CREATE TABLE users (
+              id bigint NOT NULL PRIMARY KEY,
+              email text NOT NULL,
+              username text NOT NULL
+            )",
+          [],
+          conduit_db_query_options(),
+        )
+        erl_query(
+          "CREATE SEQUENCE users_id_seq OWNED BY users.id",
+          [],
+          conduit_db_query_options(),
+        )
+        erl_query(
+          "ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass)",
+          [],
+          conduit_db_query_options(),
+        )
+        Nil
+      },
+    ),
+  ]
 }
 
 pub fn migrate_database() {
   erl_query(
-    "CREATE TABLE IF NOT EXISTS schema_migrations (id text primary key)",
+    "CREATE TABLE IF NOT EXISTS schema_migrations (id text PRIMARY KEY)",
     [],
     conduit_db_query_options(),
   )
