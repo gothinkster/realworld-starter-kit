@@ -26,30 +26,30 @@
     "test:coverage": "CI=true npm test -- --coverage"
   },
   "dependencies": {
-    "dompurify": "^2.1.1",
-    "marked": "^1.2.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "dompurify": "^2.2.0",
+    "marked": "^1.2.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "reason-react": "^0.9.1"
   },
   "devDependencies": {
     "@glennsl/bs-jest": "^0.5.1",
     "@sheerun/mutationobserver-shim": "^0.3.3",
-    "bisect_ppx": "^2.4.1",
+    "bisect_ppx": "^2.5.0",
     "bs-bastet": "^1.2.5",
     "bs-decode": "^0.11.2",
     "bs-dom-testing-library": "^0.6.2",
     "bs-fetch": "^0.6.2",
     "bs-jest-dom": "^4.1.1",
     "bs-jest-fetch-mock": "^2.0.0",
-    "bs-platform": "^8.3.0",
+    "bs-platform": "^8.3.1",
     "bs-react-testing-library": "^0.7.3",
     "bs-webapi": "^0.19.1",
     "concurrently": "^5.3.0",
     "coveralls": "^3.1.0",
     "jest-fetch-mock": "^3.0.3",
     "prettier": "^2.1.2",
-    "react-scripts": "^4.0.0-next.98",
+    "react-scripts": "^4.0.0",
     "relude": "^0.63.1"
   },
   "prettier": {
