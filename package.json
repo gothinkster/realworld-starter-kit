@@ -22,7 +22,6 @@
     "start:js": "react-scripts start",
     "start:re": "npm run build:res -- -w",
     "test": "react-scripts test",
-    "test:ci": "CI=true npm test",
     "test:coverage": "CI=true npm test -- --coverage"
   },
   "dependencies": {
