@@ -1,7 +1,8 @@
 language: node_js
 node_js:
-  - 10
-cache: npm
+  - lts
+cache: 
+  npm: false
 script:
   - 'npm run test:ci'
 
