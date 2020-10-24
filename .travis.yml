@@ -1,7 +1,8 @@
 language: node_js
 os: linux
 dist: xenial
-cache: npm
+cache: 
+  npm: false
 script:
   - 'npm test'
 before_deploy:
