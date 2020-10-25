@@ -10,6 +10,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    container: docker://hexpm/erlang:23.1.1-alpine-3.12.0
     services:
       db:
         image: postgres:12
@@ -19,9 +20,6 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - uses: actions/checkout@v2.0.0
-      - uses: gleam-lang/setup-erlang@v1.1.0
-        with:
-          otp-version: 23.1.1
       - uses: gleam-lang/setup-gleam@v1.0.2
         with:
           gleam-version: 0.12.0-rc3
