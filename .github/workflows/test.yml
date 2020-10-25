@@ -20,10 +20,10 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - uses: actions/checkout@v2.0.0
-      - run: apk add bash git
-      - uses: gleam-lang/setup-gleam@v1.0.2
-        with:
-          gleam-version: 0.12.0-rc3
+      - run: apk add curl tar
+      - run: curl -Lo gleam.tar.gz "https://github.com/gleam-lang/gleam/releases/download/v0.12.0-rc3/gleam-v0.12.0-rc3-linux-amd64.tar.gz"
+      - run: tar -xf gleam.tar.gz -C .
+      - run: rm gleam.tar.gz
       - run: rebar3 install_deps
       - run: rebar3 eunit
       - run: gleam format --check src test
