@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.util.Array",
             "$kind": "class",
-            "id": 2571,
+            "id": 2688,
             "neoClassName": "Neo.util.Array"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2572,
+            "id": 2689,
             "neoClassName": "Neo.util.Array"
         },
         {
@@ -59,7 +59,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100082760",
+                    "id": "astnode100086507",
                     "name": "NeoArray.add",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -97,7 +97,7 @@
             "scope": "static",
             "$longname": "NeoArray.add",
             "$kind": "method",
-            "id": 2573,
+            "id": 2690,
             "neoClassName": "Neo.util.Array"
         },
         {
@@ -112,7 +112,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100082801",
+                    "id": "astnode100086548",
                     "name": "NeoArray.difference",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -161,7 +161,7 @@
             "scope": "static",
             "$longname": "NeoArray.difference",
             "$kind": "method",
-            "id": 2574,
+            "id": 2691,
             "neoClassName": "Neo.util.Array"
         },
         {
@@ -176,7 +176,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100082824",
+                    "id": "astnode100086571",
                     "name": "NeoArray.hasItem",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -214,7 +214,7 @@
             "scope": "static",
             "$longname": "NeoArray.hasItem",
             "$kind": "method",
-            "id": 2575,
+            "id": 2692,
             "neoClassName": "Neo.util.Array"
         },
         {
@@ -229,7 +229,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100082836",
+                    "id": "astnode100086583",
                     "name": "NeoArray.intersection",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -278,7 +278,7 @@
             "scope": "static",
             "$longname": "NeoArray.intersection",
             "$kind": "method",
-            "id": 2576,
+            "id": 2693,
             "neoClassName": "Neo.util.Array"
         },
         {
@@ -293,7 +293,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100082858",
+                    "id": "astnode100086605",
                     "name": "NeoArray.isEqual",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -342,7 +342,7 @@
             "scope": "static",
             "$longname": "NeoArray.isEqual",
             "$kind": "method",
-            "id": 2577,
+            "id": 2694,
             "neoClassName": "Neo.util.Array"
         },
         {
@@ -357,7 +357,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100082974",
+                    "id": "astnode100086721",
                     "name": "NeoArray.move",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -404,7 +404,7 @@
             "scope": "static",
             "$longname": "NeoArray.move",
             "$kind": "method",
-            "id": 2578,
+            "id": 2695,
             "neoClassName": "Neo.util.Array"
         },
         {
@@ -419,7 +419,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100083020",
+                    "id": "astnode100086767",
                     "name": "NeoArray.remove",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -457,7 +457,7 @@
             "scope": "static",
             "$longname": "NeoArray.remove",
             "$kind": "method",
-            "id": 2579,
+            "id": 2696,
             "neoClassName": "Neo.util.Array"
         },
         {
@@ -465,14 +465,14 @@
             "meta": {
                 "range": [
                     3719,
-                    3886
+                    3820
                 ],
                 "filename": "Array.mjs",
                 "lineno": 149,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100083071",
+                    "id": "astnode100086818",
                     "name": "NeoArray.toggle",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -510,22 +510,22 @@
             "scope": "static",
             "$longname": "NeoArray.toggle",
             "$kind": "method",
-            "id": 2580,
+            "id": 2697,
             "neoClassName": "Neo.util.Array"
         },
         {
             "comment": "/**\n     * Returns an array of items which are present in array1 and array2\n     * Only supports primitive items\n     * @param {Array} array1\n     * @param {Array} array2\n     * @returns {Array}\n     */",
             "meta": {
                 "range": [
-                    4099,
-                    4493
+                    4033,
+                    4427
                 ],
                 "filename": "Array.mjs",
-                "lineno": 164,
+                "lineno": 160,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100083100",
+                    "id": "astnode100086839",
                     "name": "NeoArray.union",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -572,22 +572,22 @@
             "scope": "static",
             "$longname": "NeoArray.union",
             "$kind": "method",
-            "id": 2581,
+            "id": 2698,
             "neoClassName": "Neo.util.Array"
         },
         {
             "comment": "/**\n     * Adds an item or Array of items to an array in case it does not already exist.\n     * Only primitive items will get found as duplicates\n     * @param {Array} arr\n     * @param {*} items\n     */",
             "meta": {
                 "range": [
-                    4707,
-                    4950
+                    4641,
+                    4884
                 ],
                 "filename": "Array.mjs",
-                "lineno": 189,
+                "lineno": 185,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100083157",
+                    "id": "astnode100086896",
                     "name": "NeoArray.unshift",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -625,7 +625,7 @@
             "scope": "static",
             "$longname": "NeoArray.unshift",
             "$kind": "method",
-            "id": 2582,
+            "id": 2699,
             "neoClassName": "Neo.util.Array"
         }
     ]

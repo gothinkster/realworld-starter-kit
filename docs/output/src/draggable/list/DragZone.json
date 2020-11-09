@@ -1,0 +1,410 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Neo.draggable.list.DragZone\n * @extends Neo.draggable.DragZone\n */",
+            "meta": {
+                "filename": "DragZone.mjs",
+                "lineno": 5,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable/list",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "DragZone",
+            "augments": [
+                "Neo.draggable.DragZone"
+            ],
+            "memberof": "Neo.draggable.list",
+            "longname": "Neo.draggable.list.DragZone",
+            "scope": "static",
+            "$longname": "Neo.draggable.list.DragZone",
+            "$kind": "class",
+            "id": 1257,
+            "neoClassName": "Neo.draggable.list.DragZone"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Neo.draggable.list.DragZone'\n         * @protected\n         */",
+            "meta": {
+                "filename": "DragZone.mjs",
+                "lineno": 15,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Neo.draggable.list.DragZone'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 1258,
+            "neoClassName": "Neo.draggable.list.DragZone"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='list-dragzone'\n         * @protected\n         */",
+            "meta": {
+                "filename": "DragZone.mjs",
+                "lineno": 20,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'list-dragzone'",
+            "access": "protected",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 1259,
+            "neoClassName": "Neo.draggable.list.DragZone"
+        },
+        {
+            "comment": "/**\n         * @member {Object|null} dragProxyConfig\n         */",
+            "meta": {
+                "filename": "DragZone.mjs",
+                "lineno": 24,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable/list",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "dragProxyConfig",
+            "type": {
+                "names": [
+                    "Object",
+                    "null"
+                ]
+            },
+            "longname": "dragProxyConfig",
+            "scope": "global",
+            "$longname": "dragProxyConfig",
+            "$kind": "property",
+            "id": 1260,
+            "neoClassName": "Neo.draggable.list.DragZone"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    804,
+                    1482
+                ],
+                "filename": "DragZone.mjs",
+                "lineno": 33,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable/list",
+                "code": {
+                    "id": "astnode100041855",
+                    "name": "DragZone",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "DragZone",
+            "longname": "DragZone",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "DragZone",
+            "$kind": "constructor",
+            "id": 1261,
+            "neoClassName": "Neo.draggable.list.DragZone"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} draggable\n     */",
+            "meta": {
+                "range": [
+                    1545,
+                    2025
+                ],
+                "filename": "DragZone.mjs",
+                "lineno": 64,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable/list",
+                "code": {
+                    "id": "astnode100041940",
+                    "name": "DragZone#adjustListItemCls",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "draggable"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "draggable"
+                }
+            ],
+            "name": "adjustListItemCls",
+            "longname": "DragZone#adjustListItemCls",
+            "kind": "function",
+            "memberof": "DragZone",
+            "scope": "instance",
+            "$longname": "DragZone#adjustListItemCls",
+            "$kind": "method",
+            "id": 1262,
+            "neoClassName": "Neo.draggable.list.DragZone"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} record\n     * @param {Number} index\n     * @returns {Object|null} vdom\n     */",
+            "meta": {
+                "range": [
+                    2148,
+                    2224
+                ],
+                "filename": "DragZone.mjs",
+                "lineno": 89,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable/list",
+                "code": {
+                    "id": "astnode100042017",
+                    "name": "DragZone#getItemVdom",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "record",
+                        "index"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "record"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "null"
+                        ]
+                    },
+                    "description": "vdom"
+                }
+            ],
+            "name": "getItemVdom",
+            "longname": "DragZone#getItemVdom",
+            "kind": "function",
+            "memberof": "DragZone",
+            "scope": "instance",
+            "$longname": "DragZone#getItemVdom",
+            "$kind": "method",
+            "id": 1263,
+            "neoClassName": "Neo.draggable.list.DragZone"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    2281,
+                    3029
+                ],
+                "filename": "DragZone.mjs",
+                "lineno": 97,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable/list",
+                "code": {
+                    "id": "astnode100042033",
+                    "name": "DragZone#onDragEnd",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onDragEnd",
+            "longname": "DragZone#onDragEnd",
+            "kind": "function",
+            "memberof": "DragZone",
+            "scope": "instance",
+            "$longname": "DragZone#onDragEnd",
+            "$kind": "method",
+            "id": 1264,
+            "neoClassName": "Neo.draggable.list.DragZone"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    3086,
+                    3301
+                ],
+                "filename": "DragZone.mjs",
+                "lineno": 126,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable/list",
+                "code": {
+                    "id": "astnode100042131",
+                    "name": "DragZone#onDragStart",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onDragStart",
+            "longname": "DragZone#onDragStart",
+            "kind": "function",
+            "memberof": "DragZone",
+            "scope": "instance",
+            "$longname": "DragZone#onDragStart",
+            "$kind": "method",
+            "id": 1265,
+            "neoClassName": "Neo.draggable.list.DragZone"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    3330,
+                    3389
+                ],
+                "filename": "DragZone.mjs",
+                "lineno": 138,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable/list",
+                "code": {
+                    "id": "astnode100042176",
+                    "name": "DragZone#onStoreLoad",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onStoreLoad",
+            "longname": "DragZone#onStoreLoad",
+            "kind": "function",
+            "memberof": "DragZone",
+            "scope": "instance",
+            "params": [],
+            "$longname": "DragZone#onStoreLoad",
+            "$kind": "method",
+            "id": 1266,
+            "neoClassName": "Neo.draggable.list.DragZone"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data={}\n     */",
+            "meta": {
+                "range": [
+                    3449,
+                    3689
+                ],
+                "filename": "DragZone.mjs",
+                "lineno": 146,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable/list",
+                "code": {
+                    "id": "astnode100042186",
+                    "name": "DragZone#setData",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "defaultvalue": "{}",
+                    "name": "data"
+                }
+            ],
+            "name": "setData",
+            "longname": "DragZone#setData",
+            "kind": "function",
+            "memberof": "DragZone",
+            "scope": "instance",
+            "$longname": "DragZone#setData",
+            "$kind": "method",
+            "id": 1267,
+            "neoClassName": "Neo.draggable.list.DragZone"
+        }
+    ]
+}

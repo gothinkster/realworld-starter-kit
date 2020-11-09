@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.controller.Application",
             "$kind": "class",
-            "id": 936,
+            "id": 929,
             "neoClassName": "Neo.controller.Application"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 937,
+            "id": 930,
             "neoClassName": "Neo.controller.Application"
         },
         {
@@ -68,7 +68,7 @@
             "scope": "global",
             "$longname": "createMainView",
             "$kind": "property",
-            "id": 938,
+            "id": 931,
             "neoClassName": "Neo.controller.Application"
         },
         {
@@ -92,14 +92,40 @@
             "scope": "global",
             "$longname": "mainView_",
             "$kind": "property",
-            "id": 939,
+            "id": 932,
+            "neoClassName": "Neo.controller.Application"
+        },
+        {
+            "comment": "/**\n         * mainView will get passed as a module, so we store the matching instance here\n         * @member {Neo.component.Base} mainViewInstance=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Application.mjs",
+                "lineno": 27,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
+                "code": {}
+            },
+            "description": "mainView will get passed as a module, so we store the matching instance here",
+            "kind": "member",
+            "name": "mainViewInstance",
+            "type": {
+                "names": [
+                    "Neo.component.Base"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "mainViewInstance",
+            "scope": "global",
+            "$longname": "mainViewInstance",
+            "$kind": "property",
+            "id": 933,
             "neoClassName": "Neo.controller.Application"
         },
         {
             "comment": "/**\n         * @member {String} name='MyApp'\n         */",
             "meta": {
                 "filename": "Application.mjs",
-                "lineno": 25,
+                "lineno": 31,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {}
@@ -116,14 +142,14 @@
             "scope": "global",
             "$longname": "name",
             "$kind": "property",
-            "id": 940,
+            "id": 934,
             "neoClassName": "Neo.controller.Application"
         },
         {
             "comment": "/**\n         * @member {String} parentId='document.body'\n         */",
             "meta": {
                 "filename": "Application.mjs",
-                "lineno": 29,
+                "lineno": 35,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {}
@@ -140,14 +166,14 @@
             "scope": "global",
             "$longname": "parentId",
             "$kind": "property",
-            "id": 941,
+            "id": 935,
             "neoClassName": "Neo.controller.Application"
         },
         {
             "comment": "/**\n         * @member {Boolean} rendered=false\n         * @protected\n         */",
             "meta": {
                 "filename": "Application.mjs",
-                "lineno": 34,
+                "lineno": 40,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {}
@@ -165,14 +191,14 @@
             "scope": "global",
             "$longname": "rendered",
             "$kind": "property",
-            "id": 942,
+            "id": 936,
             "neoClassName": "Neo.controller.Application"
         },
         {
             "comment": "/**\n         * @member {Boolean} rendering=false\n         * @protected\n         */",
             "meta": {
                 "filename": "Application.mjs",
-                "lineno": 39,
+                "lineno": 45,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {}
@@ -190,22 +216,22 @@
             "scope": "global",
             "$longname": "rendering",
             "$kind": "property",
-            "id": 943,
+            "id": 937,
             "neoClassName": "Neo.controller.Application"
         },
         {
             "comment": "",
             "meta": {
                 "range": [
-                    987,
-                    1262
+                    1215,
+                    1490
                 ],
                 "filename": "Application.mjs",
-                "lineno": 42,
+                "lineno": 48,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {
-                    "id": "astnode100033751",
+                    "id": "astnode100033375",
                     "name": "Application",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -224,7 +250,7 @@
             "params": [],
             "$longname": "Application",
             "$kind": "constructor",
-            "id": 944,
+            "id": 938,
             "neoClassName": "Neo.controller.Application"
         }
     ]

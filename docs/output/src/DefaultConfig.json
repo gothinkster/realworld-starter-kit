@@ -22,7 +22,7 @@
             "kind": "member",
             "$longname": "Neo.config",
             "$kind": "property",
-            "id": 1126,
+            "id": 1121,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
@@ -48,7 +48,7 @@
             "kind": "member",
             "$longname": "Neo.config.applyBodyCls",
             "$kind": "property",
-            "id": 1127,
+            "id": 1122,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
@@ -75,7 +75,7 @@
             "kind": "member",
             "$longname": "Neo.config.appPath",
             "$kind": "property",
-            "id": 1128,
+            "id": 1123,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
@@ -101,7 +101,7 @@
             "kind": "member",
             "$longname": "Neo.config.basePath",
             "$kind": "property",
-            "id": 1129,
+            "id": 1124,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
@@ -135,11 +135,11 @@
             "kind": "member",
             "$longname": "Neo.[config.cssPath]",
             "$kind": "property",
-            "id": 1130,
+            "id": 1125,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
-            "comment": "/**\n     * The current build => dist environment. Valid values: 'development', 'production'\n     * Used for automatically including the matching theme files\n     * @default 'production'\n     * @memberOf! module:Neo\n     * @name config.environment\n     * @type String\n     */",
+            "comment": "/**\n     * The current environment. Valid values: 'development', 'dist/development', 'dist/production'\n     * This config will get auto-generated\n     * @default 'dist/production'\n     * @memberOf! module:Neo\n     * @name config.environment\n     * @type String\n     */",
             "meta": {
                 "filename": "DefaultConfig.mjs",
                 "lineno": 55,
@@ -147,8 +147,8 @@
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
             },
-            "description": "The current build => dist environment. Valid values: 'development', 'production'<br />Used for automatically including the matching theme files",
-            "defaultvalue": "'production'",
+            "description": "The current environment. Valid values: 'development', 'dist/development', 'dist/production'<br />This config will get auto-generated",
+            "defaultvalue": "'dist/production'",
             "memberof": "module:Neo.config",
             "name": "config.environment",
             "type": {
@@ -161,7 +161,7 @@
             "kind": "member",
             "$longname": "Neo.config.environment",
             "$kind": "property",
-            "id": 1131,
+            "id": 1126,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
@@ -187,40 +187,14 @@
             "kind": "member",
             "$longname": "Neo.config.gtagId",
             "$kind": "property",
-            "id": 1132,
-            "neoClassName": "Neo.DefaultConfig"
-        },
-        {
-            "comment": "/**\n     * Flag if Neo is running without any JS builds\n     * @default false\n     * @memberOf! module:Neo\n     * @name config.isExperimental\n     * @type Boolean\n     */",
-            "meta": {
-                "filename": "DefaultConfig.mjs",
-                "lineno": 72,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
-                "code": {}
-            },
-            "description": "Flag if Neo is running without any JS builds",
-            "defaultvalue": "false",
-            "memberof": "module:Neo.config",
-            "name": "config.isExperimental",
-            "type": {
-                "names": [
-                    "Boolean"
-                ]
-            },
-            "scope": "static",
-            "longname": "module:Neo.config.isExperimental",
-            "kind": "member",
-            "$longname": "Neo.config.isExperimental",
-            "$kind": "property",
-            "id": 1133,
+            "id": 1127,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
             "comment": "/**\n     * Flag for running on https://neomjs.github.io/pages/\n     * => to use local images paths instead of raw.githubusercontent.com\n     * @default false\n     * @memberOf! module:Neo\n     * @name config.isGitHubPages\n     * @type Boolean\n     */",
             "meta": {
                 "filename": "DefaultConfig.mjs",
-                "lineno": 81,
+                "lineno": 73,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -239,14 +213,14 @@
             "kind": "member",
             "$longname": "Neo.config.isGitHubPages",
             "$kind": "property",
-            "id": 1134,
+            "id": 1128,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
             "comment": "/**\n     * Flag for running the Neo main thread inside an iframe (Siesta Browser Harness)\n     * @default false\n     * @memberOf! module:Neo\n     * @name config.isInsideSiesta\n     * @type Boolean\n     */",
             "meta": {
                 "filename": "DefaultConfig.mjs",
-                "lineno": 89,
+                "lineno": 81,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -265,14 +239,14 @@
             "kind": "member",
             "$longname": "Neo.config.isInsideSiesta",
             "$kind": "property",
-            "id": 1135,
+            "id": 1129,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
             "comment": "/**\n     * Used by Intl.DateTimeFormat, for details take a look at:\n     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat\n     * @default 'default'\n     * @memberOf! module:Neo\n     * @name config.locale\n     * @type String\n     */",
             "meta": {
                 "filename": "DefaultConfig.mjs",
-                "lineno": 98,
+                "lineno": 90,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -291,14 +265,14 @@
             "kind": "member",
             "$longname": "Neo.config.locale",
             "$kind": "property",
-            "id": 1136,
+            "id": 1130,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
             "comment": "/**\n     * Add addons for the main thread\n     * Possible values: AmCharts, AnalyticsByGoogle, HighlightJS, LocalStorage, MapboxGL, Markdown, Siesta, Stylesheet\n     * (src/main/addon)\n     * @default ['Stylesheet']\n     * @memberOf! module:Neo\n     * @name config.mainThreadAddons\n     * @type String[]\n     */",
             "meta": {
                 "filename": "DefaultConfig.mjs",
-                "lineno": 108,
+                "lineno": 100,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -317,19 +291,19 @@
             "kind": "member",
             "$longname": "Neo.config.mainThreadAddons",
             "$kind": "property",
-            "id": 1137,
+            "id": 1131,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
-            "comment": "/**\n     * Add themes you want to use here. The first theme will get applied.\n     * If config.useCss4 === true, other theme variables will get included as well\n     * @default ['neo-theme-light', 'neo-theme-dark']\n     * @memberOf! module:Neo\n     * @name config.themes\n     * @type String[]\n     */",
+            "comment": "/**\n     * Add themes you want to use here. The first theme will get applied.\n     * If config.useCssVars === true, other theme variables will get included as well\n     * @default ['neo-theme-light', 'neo-theme-dark']\n     * @memberOf! module:Neo\n     * @name config.themes\n     * @type String[]\n     */",
             "meta": {
                 "filename": "DefaultConfig.mjs",
-                "lineno": 117,
+                "lineno": 109,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
             },
-            "description": "Add themes you want to use here. The first theme will get applied.<br />If config.useCss4 === true, other theme variables will get included as well",
+            "description": "Add themes you want to use here. The first theme will get applied.<br />If config.useCssVars === true, other theme variables will get included as well",
             "defaultvalue": "== true, other theme variables will get included as well",
             "memberof": "module:Neo.config",
             "name": "config.themes",
@@ -343,14 +317,14 @@
             "kind": "member",
             "$longname": "Neo.config.themes",
             "$kind": "property",
-            "id": 1138,
+            "id": 1132,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
             "comment": "/**\n     * Flag for standalone Siesta module tests => prevent registerRemote worker messages\n     * @default false\n     * @memberOf! module:Neo\n     * @name config.unitTestMode\n     * @type Boolean\n     */",
             "meta": {
                 "filename": "DefaultConfig.mjs",
-                "lineno": 125,
+                "lineno": 117,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -369,40 +343,40 @@
             "kind": "member",
             "$longname": "Neo.config.unitTestMode",
             "$kind": "property",
-            "id": 1139,
+            "id": 1133,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
-            "comment": "/**\n     * Flag if CSS4 stylesheets are in use (important for switching themes)\n     * @default true\n     * @memberOf! module:Neo\n     * @name config.useCss4\n     * @type Boolean\n     */",
+            "comment": "/**\n     * Flag if CSS variable based stylesheets are in use (important for switching themes)\n     * @default true\n     * @memberOf! module:Neo\n     * @name config.useCssVars\n     * @type Boolean\n     */",
             "meta": {
                 "filename": "DefaultConfig.mjs",
-                "lineno": 133,
+                "lineno": 125,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
             },
-            "description": "Flag if CSS4 stylesheets are in use (important for switching themes)",
+            "description": "Flag if CSS variable based stylesheets are in use (important for switching themes)",
             "defaultvalue": "true",
             "memberof": "module:Neo.config",
-            "name": "config.useCss4",
+            "name": "config.useCssVars",
             "type": {
                 "names": [
                     "Boolean"
                 ]
             },
             "scope": "static",
-            "longname": "module:Neo.config.useCss4",
+            "longname": "module:Neo.config.useCssVars",
             "kind": "member",
-            "$longname": "Neo.config.useCss4",
+            "$longname": "Neo.config.useCssVars",
             "$kind": "property",
-            "id": 1140,
+            "id": 1134,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
             "comment": "/**\n     * True will automatically include the stylesheet\n     * @default true\n     * @memberOf! module:Neo\n     * @name config.useFontAwesome\n     * @type Boolean\n     */",
             "meta": {
                 "filename": "DefaultConfig.mjs",
-                "lineno": 141,
+                "lineno": 133,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -421,14 +395,14 @@
             "kind": "member",
             "$longname": "Neo.config.useFontAwesome",
             "$kind": "property",
-            "id": 1141,
+            "id": 1135,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
             "comment": "/**\n     * Intended for the online examples where we need an easy way to add GA to every generated app\n     * @default false\n     * @memberOf! module:Neo\n     * @name config.useGoogleAnalytics\n     * @type Boolean\n     */",
             "meta": {
                 "filename": "DefaultConfig.mjs",
-                "lineno": 149,
+                "lineno": 141,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -447,14 +421,14 @@
             "kind": "member",
             "$longname": "Neo.config.useGoogleAnalytics",
             "$kind": "property",
-            "id": 1142,
+            "id": 1136,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
             "comment": "/**\n     * Creates App, Data & VDom as SharedWorkers.\n     * Set this one to true in case you want to connect multiple main threads.\n     * @default false\n     * @memberOf! module:Neo\n     * @name config.useSharedWorkers\n     * @type Boolean\n     */",
             "meta": {
                 "filename": "DefaultConfig.mjs",
-                "lineno": 158,
+                "lineno": 150,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -473,14 +447,14 @@
             "kind": "member",
             "$longname": "Neo.config.useSharedWorkers",
             "$kind": "property",
-            "id": 1143,
+            "id": 1137,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
             "comment": "/**\n     * Adds global dom event listeners for mobile related events like rotate, swipe, tap\n     * @default true\n     * @memberOf! module:Neo\n     * @name config.useTouchEvents\n     * @type Boolean\n     */",
             "meta": {
                 "filename": "DefaultConfig.mjs",
-                "lineno": 166,
+                "lineno": 158,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -499,14 +473,14 @@
             "kind": "member",
             "$longname": "Neo.config.useTouchEvents",
             "$kind": "property",
-            "id": 1144,
+            "id": 1138,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
             "comment": "/**\n     * Path to the top level neo.mjs resources folder\n     * @default Neo.config.basePath + 'resources/'\n     * @memberOf! module:Neo\n     * @name config.resourcesPath\n     * @type String\n     */",
             "meta": {
                 "filename": "DefaultConfig.mjs",
-                "lineno": 177,
+                "lineno": 169,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -525,14 +499,14 @@
             "kind": "member",
             "$longname": "Neo.config.resourcesPath",
             "$kind": "property",
-            "id": 1145,
+            "id": 1139,
             "neoClassName": "Neo.DefaultConfig"
         },
         {
             "comment": "/**\n     * The default base URL for web worker entry points (App, Data, Vdom)\n     * @default Neo.config.basePath + 'src/worker/'\n     * @memberOf! module:Neo\n     * @name config.workerBasePath\n     * @type String\n     */",
             "meta": {
                 "filename": "DefaultConfig.mjs",
-                "lineno": 185,
+                "lineno": 177,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -551,7 +525,7 @@
             "kind": "member",
             "$longname": "Neo.config.workerBasePath",
             "$kind": "property",
-            "id": 1146,
+            "id": 1140,
             "neoClassName": "Neo.DefaultConfig"
         }
     ]

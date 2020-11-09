@@ -27,15 +27,15 @@
             "scope": "static",
             "$longname": "Neo.main.addon.Siesta",
             "$kind": "class",
-            "id": 1936,
+            "id": 2023,
             "neoClassName": "Neo.main.addon.Siesta"
         },
         {
-            "comment": "/**\n             * @member {String} className='Neo.main.addon.Siesta'\n             * @protected\n             */",
+            "comment": "/**\n         * @member {String} className='Neo.main.addon.Siesta'\n         * @protected\n         */",
             "meta": {
                 "filename": "Siesta.mjs",
-                "lineno": 16,
-                "columnno": 12,
+                "lineno": 15,
+                "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
@@ -52,15 +52,15 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1937,
+            "id": 2024,
             "neoClassName": "Neo.main.addon.Siesta"
         },
         {
-            "comment": "/**\n             * @member {Boolean} singleton=true\n             * @protected\n             */",
+            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @protected\n         */",
             "meta": {
                 "filename": "Siesta.mjs",
-                "lineno": 21,
-                "columnno": 12,
+                "lineno": 20,
+                "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
@@ -77,22 +77,22 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1938,
+            "id": 2025,
             "neoClassName": "Neo.main.addon.Siesta"
         },
         {
             "comment": "/**\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    641,
-                    731
+                    583,
+                    673
                 ],
                 "filename": "Siesta.mjs",
-                "lineno": 28,
+                "lineno": 26,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100058333",
+                    "id": "astnode100060685",
                     "name": "Siesta",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -119,22 +119,22 @@
             "scope": "global",
             "$longname": "Siesta",
             "$kind": "constructor",
-            "id": 1939,
+            "id": 2026,
             "neoClassName": "Neo.main.addon.Siesta"
         },
         {
             "comment": "/**\n     *\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    778,
-                    1189
+                    720,
+                    1131
                 ],
                 "filename": "Siesta.mjs",
-                "lineno": 37,
+                "lineno": 35,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100058347",
+                    "id": "astnode100060699",
                     "name": "Siesta#adjustSiestaEnvironment",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -152,7 +152,7 @@
             "params": [],
             "$longname": "Siesta#adjustSiestaEnvironment",
             "$kind": "method",
-            "id": 1940,
+            "id": 2027,
             "neoClassName": "Neo.main.addon.Siesta"
         }
     ]

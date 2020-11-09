@@ -1,8 +1,9 @@
-import TreeList from '../../../node_modules/neo.mjs/src/list/TreeList.mjs';
+import TreeList from '../../../node_modules/neo.mjs/src/tree/List.mjs';
+import ApiStore from '../store/Api.mjs';
 
 /**
  * @class Docs.app.view.ApiTreeList
- * @extends Neo.list.TreeList
+ * @extends Neo.tree.List
  */
 class ApiTreeList extends TreeList {
     static getConfig() {return {
@@ -15,7 +16,12 @@ class ApiTreeList extends TreeList {
          * @member {String} ntype='api-treelist'
          * @protected
          */
-        ntype: 'api-treelist'
+        ntype: 'api-treelist',
+        /**
+         * @member {Neo.data.Store|null} store=ApiStore
+         * @protected
+         */
+        store: ApiStore
     }}
 
     /**
@@ -32,7 +38,7 @@ class ApiTreeList extends TreeList {
             let vdom     = me.vdom,
                 itemRoot = me.getListItemsRoot();
 
-            me.store.items = data.json;
+            me.store.data = data.json;
             itemRoot = me.createItems(null, itemRoot, 0);
 
             me.vdom = vdom;

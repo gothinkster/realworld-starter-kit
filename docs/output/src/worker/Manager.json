@@ -27,7 +27,7 @@
             "scope": "static",
             "$longname": "Neo.worker.Manager",
             "$kind": "class",
-            "id": 2743,
+            "id": 2861,
             "neoClassName": "Neo.worker.Manager"
         },
         {
@@ -52,7 +52,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2744,
+            "id": 2862,
             "neoClassName": "Neo.worker.Manager"
         },
         {
@@ -77,7 +77,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2745,
+            "id": 2863,
             "neoClassName": "Neo.worker.Manager"
         },
         {
@@ -102,7 +102,7 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 2746,
+            "id": 2864,
             "neoClassName": "Neo.worker.Manager"
         },
         {
@@ -128,7 +128,7 @@
             "scope": "global",
             "$longname": "appName",
             "$kind": "property",
-            "id": 2747,
+            "id": 2865,
             "neoClassName": "Neo.worker.Manager"
         },
         {
@@ -155,7 +155,7 @@
             "scope": "global",
             "$longname": "basePath",
             "$kind": "property",
-            "id": 2748,
+            "id": 2866,
             "neoClassName": "Neo.worker.Manager"
         },
         {
@@ -180,7 +180,7 @@
             "scope": "global",
             "$longname": "constructedThreads",
             "$kind": "property",
-            "id": 2749,
+            "id": 2867,
             "neoClassName": "Neo.worker.Manager"
         },
         {
@@ -207,7 +207,7 @@
             "scope": "global",
             "$longname": "mixins",
             "$kind": "property",
-            "id": 2750,
+            "id": 2868,
             "neoClassName": "Neo.worker.Manager"
         },
         {
@@ -233,7 +233,7 @@
             "scope": "global",
             "$longname": "sharedWorkersEnabled",
             "$kind": "property",
-            "id": 2751,
+            "id": 2869,
             "neoClassName": "Neo.worker.Manager"
         },
         {
@@ -259,7 +259,7 @@
             "scope": "global",
             "$longname": "stopCommunication",
             "$kind": "property",
-            "id": 2752,
+            "id": 2870,
             "neoClassName": "Neo.worker.Manager"
         },
         {
@@ -285,7 +285,7 @@
             "scope": "global",
             "$longname": "sharedWorkersEnabled",
             "$kind": "property",
-            "id": 2753,
+            "id": 2871,
             "neoClassName": "Neo.worker.Manager"
         },
         {
@@ -310,22 +310,22 @@
             "scope": "global",
             "$longname": "workers",
             "$kind": "property",
-            "id": 2754,
+            "id": 2872,
             "neoClassName": "Neo.worker.Manager"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    3030,
-                    3649
+                    3075,
+                    3694
                 ],
                 "filename": "Manager.mjs",
                 "lineno": 93,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100090474",
+                    "id": "astnode100094298",
                     "name": "Manager",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -352,22 +352,22 @@
             "scope": "global",
             "$longname": "Manager",
             "$kind": "constructor",
-            "id": 2755,
+            "id": 2873,
             "neoClassName": "Neo.worker.Manager"
         },
         {
             "comment": "/**\n     * Sends a message to each worker defined inside the this.workers config.\n     * @param msg\n     */",
             "meta": {
                 "range": [
-                    3767,
-                    3894
+                    3812,
+                    3939
                 ],
                 "filename": "Manager.mjs",
                 "lineno": 120,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100090553",
+                    "id": "astnode100094377",
                     "name": "Manager#broadcast",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -391,22 +391,22 @@
             "scope": "instance",
             "$longname": "Manager#broadcast",
             "$kind": "method",
-            "id": 2756,
+            "id": 2874,
             "neoClassName": "Neo.worker.Manager"
         },
         {
             "comment": "/**\n     * Creates a web worker using the passed options as well as adding error & message event listeners.\n     * @param {Object} opts\n     * @returns {Worker}\n     */",
             "meta": {
                 "range": [
-                    4073,
-                    4749
+                    4118,
+                    4808
                 ],
                 "filename": "Manager.mjs",
                 "lineno": 131,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100090579",
+                    "id": "astnode100094403",
                     "name": "Manager#createWorker",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -444,22 +444,22 @@
             "scope": "instance",
             "$longname": "Manager#createWorker",
             "$kind": "method",
-            "id": 2757,
+            "id": 2875,
             "neoClassName": "Neo.worker.Manager"
         },
         {
             "comment": "/**\n     * Calls createWorker for each worker inside the this.workers config.\n     */",
             "meta": {
                 "range": [
-                    4845,
-                    5679
+                    4904,
+                    5738
                 ],
                 "filename": "Manager.mjs",
                 "lineno": 148,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100090672",
+                    "id": "astnode100094497",
                     "name": "Manager#createWorkers",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -477,22 +477,22 @@
             "params": [],
             "$longname": "Manager#createWorkers",
             "$kind": "method",
-            "id": 2758,
+            "id": 2876,
             "neoClassName": "Neo.worker.Manager"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    5708,
-                    6118
+                    5767,
+                    6177
                 ],
                 "filename": "Manager.mjs",
                 "lineno": 181,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100090771",
+                    "id": "astnode100094596",
                     "name": "Manager#detectFeatures",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -509,22 +509,22 @@
             "params": [],
             "$longname": "Manager#detectFeatures",
             "$kind": "method",
-            "id": 2759,
+            "id": 2877,
             "neoClassName": "Neo.worker.Manager"
         },
         {
             "comment": "/**\n     *\n     * @param {String|Worker} name\n     * @returns {Worker}\n     */",
             "meta": {
                 "range": [
-                    6207,
-                    6304
+                    6266,
+                    6363
                 ],
                 "filename": "Manager.mjs",
                 "lineno": 202,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100090822",
+                    "id": "astnode100094647",
                     "name": "Manager#getWorker",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -562,22 +562,22 @@
             "scope": "instance",
             "$longname": "Manager#getWorker",
             "$kind": "method",
-            "id": 2760,
+            "id": 2878,
             "neoClassName": "Neo.worker.Manager"
         },
         {
             "comment": "/**\n     *\n     * @param {String} path\n     */",
             "meta": {
                 "range": [
-                    6361,
-                    6567
+                    6420,
+                    6626
                 ],
                 "filename": "Manager.mjs",
                 "lineno": 210,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100090840",
+                    "id": "astnode100094665",
                     "name": "Manager#loadApplication",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -605,22 +605,22 @@
             "scope": "instance",
             "$longname": "Manager#loadApplication",
             "$kind": "method",
-            "id": 2761,
+            "id": 2879,
             "neoClassName": "Neo.worker.Manager"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    6624,
-                    7035
+                    6683,
+                    7094
                 ],
                 "filename": "Manager.mjs",
                 "lineno": 222,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100090862",
+                    "id": "astnode100094687",
                     "name": "Manager#onWorkerConstructed",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -648,22 +648,22 @@
             "scope": "instance",
             "$longname": "Manager#onWorkerConstructed",
             "$kind": "method",
-            "id": 2762,
+            "id": 2880,
             "neoClassName": "Neo.worker.Manager"
         },
         {
             "comment": "/**\n     * Handler method for worker error events\n     * @param {Object} e\n     */",
             "meta": {
                 "range": [
-                    7128,
-                    7324
+                    7187,
+                    7397
                 ],
                 "filename": "Manager.mjs",
                 "lineno": 240,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100090916",
+                    "id": "astnode100094741",
                     "name": "Manager#onWorkerError",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -692,22 +692,22 @@
             "scope": "instance",
             "$longname": "Manager#onWorkerError",
             "$kind": "method",
-            "id": 2763,
+            "id": 2881,
             "neoClassName": "Neo.worker.Manager"
         },
         {
             "comment": "/**\n     * Handler method for worker message events\n     * @param {Object} e\n     */",
             "meta": {
                 "range": [
-                    7419,
-                    9475
+                    7492,
+                    9548
                 ],
                 "filename": "Manager.mjs",
                 "lineno": 250,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100090936",
+                    "id": "astnode100094762",
                     "name": "Manager#onWorkerMessage",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -736,22 +736,22 @@
             "scope": "instance",
             "$longname": "Manager#onWorkerMessage",
             "$kind": "method",
-            "id": 2764,
+            "id": 2882,
             "neoClassName": "Neo.worker.Manager"
         },
         {
             "comment": "/**\n     *\n     * @param {String} dest app, data or vdom\n     * @param {Object} opts configs for Neo.worker.Message\n     * @param {Array} [transfer] An optional array of Transferable objects to transfer ownership of.\n     * If the ownership of an object is transferred, it becomes unusable (neutered) in the context it was sent from\n     * and becomes available only to the worker it was sent to.\n     * @returns {Promise<any>}\n     */",
             "meta": {
                 "range": [
-                    9921,
-                    10272
+                    9994,
+                    10345
                 ],
                 "filename": "Manager.mjs",
                 "lineno": 329,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100091175",
+                    "id": "astnode100095001",
                     "name": "Manager#promiseMessage",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -810,22 +810,22 @@
             "scope": "instance",
             "$longname": "Manager#promiseMessage",
             "$kind": "method",
-            "id": 2765,
+            "id": 2883,
             "neoClassName": "Neo.worker.Manager"
         },
         {
             "comment": "/**\n     *\n     * @param {String} replyId\n     */",
             "meta": {
                 "range": [
-                    10332,
-                    10594
+                    10405,
+                    10667
                 ],
                 "filename": "Manager.mjs",
                 "lineno": 347,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100091220",
+                    "id": "astnode100095046",
                     "name": "Manager#resolveDomOperationPromise",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -853,22 +853,22 @@
             "scope": "instance",
             "$longname": "Manager#resolveDomOperationPromise",
             "$kind": "method",
-            "id": 2766,
+            "id": 2884,
             "neoClassName": "Neo.worker.Manager"
         },
         {
             "comment": "/**\n     *\n     * @param {String} dest app, data or vdom\n     * @param {Object} opts configs for Neo.worker.Message\n     * @param {Array} [transfer] An optional array of Transferable objects to transfer ownership of.\n     * If the ownership of an object is transferred, it becomes unusable (neutered) in the context it was sent from\n     * and becomes available only to the worker it was sent to.\n     * @returns {Neo.worker.Message}\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    11064,
-                    11603
+                    11137,
+                    11676
                 ],
                 "filename": "Manager.mjs",
                 "lineno": 368,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100091254",
+                    "id": "astnode100095080",
                     "name": "Manager#sendMessage",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -928,7 +928,7 @@
             "scope": "instance",
             "$longname": "Manager#sendMessage",
             "$kind": "method",
-            "id": 2767,
+            "id": 2885,
             "neoClassName": "Neo.worker.Manager"
         }
     ]

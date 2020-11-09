@@ -1,8 +1,9 @@
-import TreeList from '../../../node_modules/neo.mjs/src/list/TreeList.mjs';
+import ExamplesStore from '../store/Examples.mjs';
+import TreeList      from '../../../node_modules/neo.mjs/src/tree/List.mjs';
 
 /**
  * @class Docs.app.view.ExamplesTreeList
- * @extends Neo.list.TreeList
+ * @extends Neo.tree.List
  */
 class ExamplesTreeList extends TreeList {
     static getConfig() {return {
@@ -24,7 +25,12 @@ class ExamplesTreeList extends TreeList {
             'neo-tree-list',
             'neo-list-container',
             'neo-list'
-        ]
+        ],
+        /**
+         * @member {Neo.data.Store|null} store=ExamplesStore
+         * @protected
+         */
+        store: ExamplesStore
     }}
 
     /**
@@ -41,7 +47,7 @@ class ExamplesTreeList extends TreeList {
             let vdom     = me.vdom,
                 itemRoot = me.getListItemsRoot();
 
-            me.store.items = data.json;
+            me.store.data = data.json;
             itemRoot = me.createItems(null, itemRoot, 0);
 
             me.vdom = vdom;

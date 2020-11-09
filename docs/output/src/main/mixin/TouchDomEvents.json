@@ -27,15 +27,15 @@
             "scope": "static",
             "$longname": "Neo.main.mixin.TouchDomEvents",
             "$kind": "class",
-            "id": 2070,
+            "id": 2157,
             "neoClassName": "Neo.main.mixin.TouchDomEvents"
         },
         {
-            "comment": "/**\n             * @member {String} className='Neo.main.mixin.TouchDomEvents'\n             * @protected\n             */",
+            "comment": "/**\n         * @member {String} className='Neo.main.mixin.TouchDomEvents'\n         * @protected\n         */",
             "meta": {
                 "filename": "TouchDomEvents.mjs",
-                "lineno": 16,
-                "columnno": 12,
+                "lineno": 15,
+                "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixin",
                 "code": {}
             },
@@ -52,22 +52,22 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2071,
+            "id": 2158,
             "neoClassName": "Neo.main.mixin.TouchDomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    531,
-                    616
+                    493,
+                    578
                 ],
                 "filename": "TouchDomEvents.mjs",
-                "lineno": 24,
+                "lineno": 22,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixin",
                 "code": {
-                    "id": "astnode100064648",
+                    "id": "astnode100067041",
                     "name": "TouchDomEvents#onTouchCancel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -95,22 +95,22 @@
             "scope": "instance",
             "$longname": "TouchDomEvents#onTouchCancel",
             "$kind": "method",
-            "id": 2072,
+            "id": 2159,
             "neoClassName": "Neo.main.mixin.TouchDomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    674,
-                    756
+                    636,
+                    718
                 ],
                 "filename": "TouchDomEvents.mjs",
-                "lineno": 32,
+                "lineno": 30,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixin",
                 "code": {
-                    "id": "astnode100064663",
+                    "id": "astnode100067056",
                     "name": "TouchDomEvents#onTouchEnd",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -138,22 +138,22 @@
             "scope": "instance",
             "$longname": "TouchDomEvents#onTouchEnd",
             "$kind": "method",
-            "id": 2073,
+            "id": 2160,
             "neoClassName": "Neo.main.mixin.TouchDomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    814,
-                    898
+                    776,
+                    860
                 ],
                 "filename": "TouchDomEvents.mjs",
-                "lineno": 40,
+                "lineno": 38,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixin",
                 "code": {
-                    "id": "astnode100064678",
+                    "id": "astnode100067071",
                     "name": "TouchDomEvents#onTouchEnter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -181,22 +181,22 @@
             "scope": "instance",
             "$longname": "TouchDomEvents#onTouchEnter",
             "$kind": "method",
-            "id": 2074,
+            "id": 2161,
             "neoClassName": "Neo.main.mixin.TouchDomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    956,
-                    1040
+                    918,
+                    1002
                 ],
                 "filename": "TouchDomEvents.mjs",
-                "lineno": 48,
+                "lineno": 46,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixin",
                 "code": {
-                    "id": "astnode100064693",
+                    "id": "astnode100067086",
                     "name": "TouchDomEvents#onTouchLeave",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -224,22 +224,22 @@
             "scope": "instance",
             "$longname": "TouchDomEvents#onTouchLeave",
             "$kind": "method",
-            "id": 2075,
+            "id": 2162,
             "neoClassName": "Neo.main.mixin.TouchDomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    1098,
-                    1181
+                    1060,
+                    1143
                 ],
                 "filename": "TouchDomEvents.mjs",
-                "lineno": 56,
+                "lineno": 54,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixin",
                 "code": {
-                    "id": "astnode100064708",
+                    "id": "astnode100067101",
                     "name": "TouchDomEvents#onTouchMove",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -267,22 +267,22 @@
             "scope": "instance",
             "$longname": "TouchDomEvents#onTouchMove",
             "$kind": "method",
-            "id": 2076,
+            "id": 2163,
             "neoClassName": "Neo.main.mixin.TouchDomEvents"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    1239,
-                    1367
+                    1201,
+                    1329
                 ],
                 "filename": "TouchDomEvents.mjs",
-                "lineno": 64,
+                "lineno": 62,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/mixin",
                 "code": {
-                    "id": "astnode100064723",
+                    "id": "astnode100067116",
                     "name": "TouchDomEvents#onTouchStart",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -310,7 +310,7 @@
             "scope": "instance",
             "$longname": "TouchDomEvents#onTouchStart",
             "$kind": "method",
-            "id": 2077,
+            "id": 2164,
             "neoClassName": "Neo.main.mixin.TouchDomEvents"
         }
     ]

@@ -20,7 +20,7 @@
             "scope": "static",
             "$longname": "Neo.tooltip.Base",
             "$kind": "class",
-            "id": 2546,
+            "id": 2638,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -45,7 +45,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2547,
+            "id": 2639,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -70,7 +70,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2548,
+            "id": 2640,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 2549,
+            "id": 2641,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -120,7 +120,7 @@
             "scope": "global",
             "$longname": "componentId_",
             "$kind": "property",
-            "id": 2550,
+            "id": 2642,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -146,7 +146,7 @@
             "scope": "global",
             "$longname": "delegate",
             "$kind": "property",
-            "id": 2551,
+            "id": 2643,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -172,7 +172,7 @@
             "scope": "global",
             "$longname": "dismissDelay",
             "$kind": "property",
-            "id": 2552,
+            "id": 2644,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -199,7 +199,7 @@
             "scope": "global",
             "$longname": "dismissDelayTaskId",
             "$kind": "property",
-            "id": 2553,
+            "id": 2645,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -225,7 +225,7 @@
             "scope": "global",
             "$longname": "hideDelay",
             "$kind": "property",
-            "id": 2554,
+            "id": 2646,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -252,7 +252,7 @@
             "scope": "global",
             "$longname": "hideDelayTaskId",
             "$kind": "property",
-            "id": 2555,
+            "id": 2647,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -276,7 +276,7 @@
             "scope": "global",
             "$longname": "mixins",
             "$kind": "property",
-            "id": 2556,
+            "id": 2648,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -302,7 +302,7 @@
             "scope": "global",
             "$longname": "showDelay",
             "$kind": "property",
-            "id": 2557,
+            "id": 2649,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -329,7 +329,7 @@
             "scope": "global",
             "$longname": "showDelayTaskId",
             "$kind": "property",
-            "id": 2558,
+            "id": 2650,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -355,7 +355,7 @@
             "scope": "global",
             "$longname": "stayOnHover_",
             "$kind": "property",
-            "id": 2559,
+            "id": 2651,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -380,7 +380,7 @@
             "scope": "global",
             "$longname": "text_",
             "$kind": "property",
-            "id": 2560,
+            "id": 2652,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -395,7 +395,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100082285",
+                    "id": "astnode100084939",
                     "name": "Base#afterSetComponentId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -434,7 +434,7 @@
             "scope": "instance",
             "$longname": "Base#afterSetComponentId",
             "$kind": "method",
-            "id": 2561,
+            "id": 2653,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
@@ -442,14 +442,14 @@
             "meta": {
                 "range": [
                     3586,
-                    4105
+                    4049
                 ],
                 "filename": "Base.mjs",
                 "lineno": 123,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100082348",
+                    "id": "astnode100085002",
                     "name": "Base#afterSetStayOnHover",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -488,22 +488,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetStayOnHover",
             "$kind": "method",
-            "id": 2562,
+            "id": 2654,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
             "comment": "/**\n     * Triggered after the text config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4259,
-                    4695
+                    4203,
+                    4639
                 ],
                 "filename": "Base.mjs",
-                "lineno": 150,
+                "lineno": 147,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100082396",
+                    "id": "astnode100085050",
                     "name": "Base#afterSetText",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -541,22 +541,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetText",
             "$kind": "method",
-            "id": 2563,
+            "id": 2655,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
             "comment": "/**\n     * Clears one or multiple setTimeout call(s)\n     * @param {String[]|String} timers valid values: dismiss, hide, show\n     */",
             "meta": {
                 "range": [
-                    4839,
-                    5183
+                    4783,
+                    5127
                 ],
                 "filename": "Base.mjs",
-                "lineno": 173,
+                "lineno": 170,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100082452",
+                    "id": "astnode100085106",
                     "name": "Base#clearTimeout",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -587,22 +587,22 @@
             "scope": "instance",
             "$longname": "Base#clearTimeout",
             "$kind": "method",
-            "id": 2564,
+            "id": 2656,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
             "comment": "/**\n     * Instantly hides the tooltip\n     * @param {Object|null} data\n     */",
             "meta": {
                 "range": [
-                    5273,
-                    5432
+                    5217,
+                    5376
                 ],
                 "filename": "Base.mjs",
-                "lineno": 195,
+                "lineno": 192,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100082507",
+                    "id": "astnode100085161",
                     "name": "Base#hide",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -632,22 +632,22 @@
             "scope": "instance",
             "$longname": "Base#hide",
             "$kind": "method",
-            "id": 2565,
+            "id": 2657,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
             "comment": "/**\n     * Hides the tooltip using the given hideDelay\n     * @param {Object|null} data\n     */",
             "meta": {
                 "range": [
-                    5538,
-                    5752
+                    5482,
+                    5696
                 ],
                 "filename": "Base.mjs",
-                "lineno": 209,
+                "lineno": 206,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100082535",
+                    "id": "astnode100085189",
                     "name": "Base#hideDelayed",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -677,22 +677,22 @@
             "scope": "instance",
             "$longname": "Base#hideDelayed",
             "$kind": "method",
-            "id": 2566,
+            "id": 2658,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
             "comment": "/**\n     * mouseenter event listener for the tooltip element\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    5859,
-                    6135
+                    5803,
+                    6079
                 ],
                 "filename": "Base.mjs",
-                "lineno": 223,
+                "lineno": 220,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100082574",
+                    "id": "astnode100085228",
                     "name": "Base#onMouseEnter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -721,22 +721,22 @@
             "scope": "instance",
             "$longname": "Base#onMouseEnter",
             "$kind": "method",
-            "id": 2567,
+            "id": 2659,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
             "comment": "/**\n     * mouseleave event listener for the tooltip element\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    6242,
-                    6502
+                    6186,
+                    6446
                 ],
                 "filename": "Base.mjs",
-                "lineno": 237,
+                "lineno": 234,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100082607",
+                    "id": "astnode100085261",
                     "name": "Base#onMouseLeave",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -765,22 +765,22 @@
             "scope": "instance",
             "$longname": "Base#onMouseLeave",
             "$kind": "method",
-            "id": 2568,
+            "id": 2660,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
             "comment": "/**\n     * Instantly shows the tooltip\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    6587,
-                    6891
+                    6531,
+                    6835
                 ],
                 "filename": "Base.mjs",
-                "lineno": 251,
+                "lineno": 248,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100082638",
+                    "id": "astnode100085292",
                     "name": "Base#show",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -809,22 +809,22 @@
             "scope": "instance",
             "$longname": "Base#show",
             "$kind": "method",
-            "id": 2569,
+            "id": 2661,
             "neoClassName": "Neo.tooltip.Base"
         },
         {
             "comment": "/**\n     * Shows the tooltip using the given showDelay\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    6992,
-                    7206
+                    6936,
+                    7150
                 ],
                 "filename": "Base.mjs",
-                "lineno": 271,
+                "lineno": 268,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tooltip",
                 "code": {
-                    "id": "astnode100082693",
+                    "id": "astnode100085347",
                     "name": "Base#showDelayed",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -853,7 +853,7 @@
             "scope": "instance",
             "$longname": "Base#showDelayed",
             "$kind": "method",
-            "id": 2570,
+            "id": 2662,
             "neoClassName": "Neo.tooltip.Base"
         }
     ]

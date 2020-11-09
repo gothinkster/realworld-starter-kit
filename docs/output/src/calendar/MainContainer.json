@@ -19,11 +19,11 @@
             "scope": "static",
             "$longname": "Neo.calendar.MainContainer",
             "$kind": "class",
-            "id": 69,
+            "id": 50,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
-            "comment": "/**\n         * Valid entries for the views config\n         * @member {String[]} validViews=['day', 'week', 'month', 'year']\n         * @static\n         */",
+            "comment": "/**\n         * Valid entries for the views config\n         * @member {String[]} validViews=['day','week','month','year']\n         * @static\n         */",
             "meta": {
                 "filename": "MainContainer.mjs",
                 "lineno": 28,
@@ -39,12 +39,12 @@
                     "Array.<String>"
                 ]
             },
-            "defaultvalue": "['day', 'week', 'month', 'year']",
+            "defaultvalue": "['day','week','month','year']",
             "scope": "static",
             "longname": "validViews",
             "$longname": "validViews",
             "$kind": "property",
-            "id": 70,
+            "id": 51,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 71,
+            "id": 52,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 72,
+            "id": 53,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -119,7 +119,7 @@
             "scope": "global",
             "$longname": "activeView_",
             "$kind": "property",
-            "id": 73,
+            "id": 54,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -145,7 +145,7 @@
             "scope": "global",
             "$longname": "baseFontSize_",
             "$kind": "property",
-            "id": 74,
+            "id": 55,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -170,7 +170,7 @@
             "scope": "global",
             "$longname": "calendarsContainer",
             "$kind": "property",
-            "id": 75,
+            "id": 56,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -195,7 +195,7 @@
             "scope": "global",
             "$longname": "calendarStore_",
             "$kind": "property",
-            "id": 76,
+            "id": 57,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -220,7 +220,7 @@
             "scope": "global",
             "$longname": "calendarStoreConfig",
             "$kind": "property",
-            "id": 77,
+            "id": 58,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -244,7 +244,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 78,
+            "id": 59,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -269,7 +269,7 @@
             "scope": "global",
             "$longname": "currentDate_",
             "$kind": "property",
-            "id": 79,
+            "id": 60,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -294,7 +294,7 @@
             "scope": "global",
             "$longname": "dateSelector",
             "$kind": "property",
-            "id": 80,
+            "id": 61,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -319,7 +319,7 @@
             "scope": "global",
             "$longname": "dateSelectorConfig",
             "$kind": "property",
-            "id": 81,
+            "id": 62,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -344,7 +344,7 @@
             "scope": "global",
             "$longname": "dayComponent",
             "$kind": "property",
-            "id": 82,
+            "id": 63,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -369,7 +369,7 @@
             "scope": "global",
             "$longname": "dayComponentConfig",
             "$kind": "property",
-            "id": 83,
+            "id": 64,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -394,7 +394,7 @@
             "scope": "global",
             "$longname": "eventStore_",
             "$kind": "property",
-            "id": 84,
+            "id": 65,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -419,7 +419,7 @@
             "scope": "global",
             "$longname": "eventStoreConfig",
             "$kind": "property",
-            "id": 85,
+            "id": 66,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -444,7 +444,7 @@
             "scope": "global",
             "$longname": "layout",
             "$kind": "property",
-            "id": 86,
+            "id": 67,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -468,7 +468,7 @@
             "scope": "global",
             "$longname": "locale_",
             "$kind": "property",
-            "id": 87,
+            "id": 68,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -493,7 +493,7 @@
             "scope": "global",
             "$longname": "monthComponent",
             "$kind": "property",
-            "id": 88,
+            "id": 69,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -518,7 +518,7 @@
             "scope": "global",
             "$longname": "monthComponentConfig",
             "$kind": "property",
-            "id": 89,
+            "id": 70,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -543,7 +543,7 @@
             "scope": "global",
             "$longname": "removeInactiveCards",
             "$kind": "property",
-            "id": 90,
+            "id": 71,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -568,7 +568,7 @@
             "scope": "global",
             "$longname": "scrollNewYearFromTop_",
             "$kind": "property",
-            "id": 91,
+            "id": 72,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -593,7 +593,7 @@
             "scope": "global",
             "$longname": "settingsContainerConfig",
             "$kind": "property",
-            "id": 92,
+            "id": 73,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -617,7 +617,7 @@
             "scope": "global",
             "$longname": "settingsContainerWidth",
             "$kind": "property",
-            "id": 93,
+            "id": 74,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -641,7 +641,7 @@
             "scope": "global",
             "$longname": "settingsExpanded_",
             "$kind": "property",
-            "id": 94,
+            "id": 75,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -665,7 +665,7 @@
             "scope": "global",
             "$longname": "showWeekends_",
             "$kind": "property",
-            "id": 95,
+            "id": 76,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -689,7 +689,7 @@
             "scope": "global",
             "$longname": "sideBarExpanded_",
             "$kind": "property",
-            "id": 96,
+            "id": 77,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -713,7 +713,7 @@
             "scope": "global",
             "$longname": "sideBarWidth",
             "$kind": "property",
-            "id": 97,
+            "id": 78,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -737,7 +737,7 @@
             "scope": "global",
             "$longname": "useSettingsContainer_",
             "$kind": "property",
-            "id": 98,
+            "id": 79,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -762,7 +762,7 @@
             "scope": "global",
             "$longname": "views_",
             "$kind": "property",
-            "id": 99,
+            "id": 80,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -787,7 +787,7 @@
             "scope": "global",
             "$longname": "weekComponent",
             "$kind": "property",
-            "id": 100,
+            "id": 81,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -812,7 +812,7 @@
             "scope": "global",
             "$longname": "weekComponentConfig",
             "$kind": "property",
-            "id": 101,
+            "id": 82,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -837,7 +837,7 @@
             "scope": "global",
             "$longname": "weekStartDay_",
             "$kind": "property",
-            "id": 102,
+            "id": 83,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -862,7 +862,7 @@
             "scope": "global",
             "$longname": "yearComponent",
             "$kind": "property",
-            "id": 103,
+            "id": 84,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
@@ -887,22 +887,22 @@
             "scope": "global",
             "$longname": "yearComponentConfig",
             "$kind": "property",
-            "id": 104,
+            "id": 85,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    5813,
-                    6020
+                    5810,
+                    6017
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 184,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100001751",
+                    "id": "astnode100001128",
                     "name": "MainContainer",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -929,22 +929,22 @@
             "scope": "global",
             "$longname": "MainContainer",
             "$kind": "constructor",
-            "id": 105,
+            "id": 86,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     * Triggered after the baseFontSize config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6180,
-                    6496
+                    6177,
+                    6493
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 202,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100001782",
+                    "id": "astnode100001159",
                     "name": "MainContainer#afterSetBaseFontSize",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -983,22 +983,22 @@
             "scope": "instance",
             "$longname": "MainContainer#afterSetBaseFontSize",
             "$kind": "method",
-            "id": 106,
+            "id": 87,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     * Triggered after the currentDate config got changed\n     * todo: Only update the active view, adjust the state on card change\n     * @param {Date} value\n     * @param {Date} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6725,
-                    7023
+                    6722,
+                    7020
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 223,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100001826",
+                    "id": "astnode100001203",
                     "name": "MainContainer#afterSetCurrentDate",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1037,22 +1037,22 @@
             "scope": "instance",
             "$longname": "MainContainer#afterSetCurrentDate",
             "$kind": "method",
-            "id": 107,
+            "id": 88,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     * Triggered after the locale config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7177,
-                    7313
+                    7174,
+                    7310
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 239,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100001869",
+                    "id": "astnode100001246",
                     "name": "MainContainer#afterSetLocale",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1091,22 +1091,22 @@
             "scope": "instance",
             "$longname": "MainContainer#afterSetLocale",
             "$kind": "method",
-            "id": 108,
+            "id": 89,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     * Triggered after the eventStore config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7471,
-                    7613
+                    7468,
+                    7610
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 251,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100001887",
+                    "id": "astnode100001264",
                     "name": "MainContainer#afterSetEventStore",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1145,22 +1145,22 @@
             "scope": "instance",
             "$longname": "MainContainer#afterSetEventStore",
             "$kind": "method",
-            "id": 109,
+            "id": 90,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     * Triggered after the showWeekends config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7775,
-                    7923
+                    7772,
+                    7920
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 263,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100001906",
+                    "id": "astnode100001283",
                     "name": "MainContainer#afterSetShowWeekends",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1199,22 +1199,22 @@
             "scope": "instance",
             "$longname": "MainContainer#afterSetShowWeekends",
             "$kind": "method",
-            "id": 110,
+            "id": 91,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     * Triggered after the settingsExpanded config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    8089,
-                    8463
+                    8086,
+                    8460
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 275,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100001924",
+                    "id": "astnode100001301",
                     "name": "MainContainer#afterSetSettingsExpanded",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1253,22 +1253,22 @@
             "scope": "instance",
             "$longname": "MainContainer#afterSetSettingsExpanded",
             "$kind": "method",
-            "id": 111,
+            "id": 92,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     * Triggered after the scrollNewYearFromTop config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    8631,
-                    8854
+                    8628,
+                    8851
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 294,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100001969",
+                    "id": "astnode100001346",
                     "name": "MainContainer#afterSetScrollNewYearFromTop",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1307,22 +1307,22 @@
             "scope": "instance",
             "$longname": "MainContainer#afterSetScrollNewYearFromTop",
             "$kind": "method",
-            "id": 112,
+            "id": 93,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     * Triggered after the sideBarExpanded config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    9019,
-                    10119
+                    9016,
+                    10116
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 307,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100001996",
+                    "id": "astnode100001373",
                     "name": "MainContainer#afterSetSideBarExpanded",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1361,22 +1361,22 @@
             "scope": "instance",
             "$longname": "MainContainer#afterSetSideBarExpanded",
             "$kind": "method",
-            "id": 113,
+            "id": 94,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     * Triggered after the weekStartDay config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    10279,
-                    10427
+                    10276,
+                    10424
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 347,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100002135",
+                    "id": "astnode100001512",
                     "name": "MainContainer#afterSetWeekStartDay",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1415,22 +1415,22 @@
             "scope": "instance",
             "$longname": "MainContainer#afterSetWeekStartDay",
             "$kind": "method",
-            "id": 114,
+            "id": 95,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     * Triggered before the calendarStore config gets changed.\n     * @param {Neo.calendar.store.Calendars} value\n     * @param {Neo.calendar.store.Calendars} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    10635,
-                    10968
+                    10632,
+                    10965
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 359,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100002153",
+                    "id": "astnode100001530",
                     "name": "MainContainer#beforeSetCalendarStore",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1469,22 +1469,22 @@
             "scope": "instance",
             "$longname": "MainContainer#beforeSetCalendarStore",
             "$kind": "method",
-            "id": 115,
+            "id": 96,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     * Triggered before the eventStore config gets changed.\n     * @param {Neo.calendar.store.Events} value\n     * @param {Neo.calendar.store.Events} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    11167,
-                    11488
+                    11164,
+                    11485
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 378,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100002193",
+                    "id": "astnode100001570",
                     "name": "MainContainer#beforeSetEventStore",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1523,22 +1523,22 @@
             "scope": "instance",
             "$longname": "MainContainer#beforeSetEventStore",
             "$kind": "method",
-            "id": 116,
+            "id": 97,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     * Triggered before the views config gets changed.\n     * @param {String[]} value\n     * @param {String[]} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    11648,
-                    12003
+                    11645,
+                    12000
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 397,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100002233",
+                    "id": "astnode100001610",
                     "name": "MainContainer#beforeSetViews",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1577,22 +1577,22 @@
             "scope": "instance",
             "$longname": "MainContainer#beforeSetViews",
             "$kind": "method",
-            "id": 117,
+            "id": 98,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     *\n     * @param {String} interval\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    12082,
-                    12446
+                    12079,
+                    12443
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 415,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100002275",
+                    "id": "astnode100001652",
                     "name": "MainContainer#changeTimeInterval",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1621,22 +1621,22 @@
             "scope": "instance",
             "$longname": "MainContainer#changeTimeInterval",
             "$kind": "method",
-            "id": 118,
+            "id": 99,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     *\n     * @returns {Neo.component.Base[]}\n     */",
             "meta": {
                 "range": [
-                    12514,
-                    13708
+                    12511,
+                    13705
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 433,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100002347",
+                    "id": "astnode100001724",
                     "name": "MainContainer#createHeaderItems",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1662,22 +1662,22 @@
             "params": [],
             "$longname": "MainContainer#createHeaderItems",
             "$kind": "method",
-            "id": 119,
+            "id": 100,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     *\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    13755,
-                    15988
+                    13752,
+                    15985
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 474,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100002465",
+                    "id": "astnode100001842",
                     "name": "MainContainer#createItemsContent",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1695,22 +1695,22 @@
             "params": [],
             "$longname": "MainContainer#createItemsContent",
             "$kind": "method",
-            "id": 120,
+            "id": 101,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     *\n     * @returns {Neo.component.Base[]}\n     */",
             "meta": {
                 "range": [
-                    16056,
-                    16617
+                    16053,
+                    16614
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 538,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100002680",
+                    "id": "astnode100002057",
                     "name": "MainContainer#createViewHeaderButtons",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1736,22 +1736,22 @@
             "params": [],
             "$longname": "MainContainer#createViewHeaderButtons",
             "$kind": "method",
-            "id": 121,
+            "id": 102,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     *\n     * @returns {Neo.component.Base[]}\n     */",
             "meta": {
                 "range": [
-                    16685,
-                    17964
+                    16682,
+                    17961
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 561,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100002746",
+                    "id": "astnode100002123",
                     "name": "MainContainer#createViews",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1777,22 +1777,22 @@
             "params": [],
             "$longname": "MainContainer#createViews",
             "$kind": "method",
-            "id": 122,
+            "id": 103,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    17993,
-                    18390
+                    17990,
+                    18387
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 610,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100002877",
+                    "id": "astnode100002254",
                     "name": "MainContainer#destroy",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1811,22 +1811,22 @@
             "params": [],
             "$longname": "MainContainer#destroy",
             "$kind": "method",
-            "id": 123,
+            "id": 104,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     *\n     * @param {Object[]} data\n     */",
             "meta": {
                 "range": [
-                    18449,
-                    18533
+                    18446,
+                    18530
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 628,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100002930",
+                    "id": "astnode100002307",
                     "name": "MainContainer#onCalendarStoreLoad",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1854,22 +1854,22 @@
             "scope": "instance",
             "$longname": "MainContainer#onCalendarStoreLoad",
             "$kind": "method",
-            "id": 124,
+            "id": 105,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} opts\n     * @param {String} opts.oldValue\n     * @param {String} opts.value\n     */",
             "meta": {
                 "range": [
-                    18661,
-                    18801
+                    18658,
+                    18798
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 638,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100002943",
+                    "id": "astnode100002320",
                     "name": "MainContainer#onDateSelectorChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1913,22 +1913,22 @@
             "scope": "instance",
             "$longname": "MainContainer#onDateSelectorChange",
             "$kind": "method",
-            "id": 125,
+            "id": 106,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     *\n     * @param {Object[]} data\n     */",
             "meta": {
                 "range": [
-                    18860,
-                    18980
+                    18857,
+                    18977
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 648,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100002965",
+                    "id": "astnode100002342",
                     "name": "MainContainer#onEventStoreLoad",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1956,22 +1956,22 @@
             "scope": "instance",
             "$longname": "MainContainer#onEventStoreLoad",
             "$kind": "method",
-            "id": 126,
+            "id": 107,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     *\n     * @param data\n     */",
             "meta": {
                 "range": [
-                    19028,
-                    19099
+                    19025,
+                    19096
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 657,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100002977",
+                    "id": "astnode100002354",
                     "name": "MainContainer#onNextIntervalButtonClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1994,22 +1994,22 @@
             "scope": "instance",
             "$longname": "MainContainer#onNextIntervalButtonClick",
             "$kind": "method",
-            "id": 127,
+            "id": 108,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     *\n     * @param data\n     */",
             "meta": {
                 "range": [
-                    19147,
-                    19223
+                    19144,
+                    19220
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 665,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100002988",
+                    "id": "astnode100002365",
                     "name": "MainContainer#onPreviousIntervalButtonClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2032,22 +2032,22 @@
             "scope": "instance",
             "$longname": "MainContainer#onPreviousIntervalButtonClick",
             "$kind": "method",
-            "id": 128,
+            "id": 109,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     *\n     * @param data\n     */",
             "meta": {
                 "range": [
-                    19271,
-                    19341
+                    19268,
+                    19338
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 673,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100003000",
+                    "id": "astnode100002377",
                     "name": "MainContainer#onTodayButtonClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2070,22 +2070,22 @@
             "scope": "instance",
             "$longname": "MainContainer#onTodayButtonClick",
             "$kind": "method",
-            "id": 129,
+            "id": 110,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     * Sets a config for the DateSelector and all views (cards)\n     * @param {String} key\n     * @param {*} value\n     */",
             "meta": {
                 "range": [
-                    19478,
-                    19670
+                    19475,
+                    19667
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 682,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100003011",
+                    "id": "astnode100002388",
                     "name": "MainContainer#setViewConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2123,22 +2123,22 @@
             "scope": "instance",
             "$longname": "MainContainer#setViewConfig",
             "$kind": "method",
-            "id": 130,
+            "id": 111,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     *\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    19717,
-                    19797
+                    19714,
+                    19794
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 696,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100003050",
+                    "id": "astnode100002427",
                     "name": "MainContainer#toggleSettings",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -2156,22 +2156,22 @@
             "params": [],
             "$longname": "MainContainer#toggleSettings",
             "$kind": "method",
-            "id": 131,
+            "id": 112,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     *\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    19844,
-                    19921
+                    19841,
+                    19918
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 704,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100003063",
+                    "id": "astnode100002440",
                     "name": "MainContainer#toggleSidebar",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -2189,22 +2189,22 @@
             "params": [],
             "$longname": "MainContainer#toggleSidebar",
             "$kind": "method",
-            "id": 132,
+            "id": 113,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
             "comment": "/**\n     *\n     * @param {Number} multiplier\n     */",
             "meta": {
                 "range": [
-                    19984,
-                    20572
+                    19981,
+                    20569
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 712,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100003076",
+                    "id": "astnode100002453",
                     "name": "MainContainer#switchInterval",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -2232,7 +2232,7 @@
             "scope": "instance",
             "$longname": "MainContainer#switchInterval",
             "$kind": "method",
-            "id": 133,
+            "id": 114,
             "neoClassName": "Neo.calendar.MainContainer"
         }
     ]

@@ -58,6 +58,7 @@ class MainContainer extends Viewport {
                 ntype   : 'tab-container',
                 cls     : ['neo-docs-navigation-tab-container', 'neo-tab-container'],
                 minWidth: 290,
+                sortable: true,
                 width   : 290,
 
                 items: [{
@@ -112,7 +113,7 @@ class MainContainer extends Viewport {
         }
 
         // Disable the examples Tab for dist versions until the webpack builds can handle this (see: #140)
-        me.items[1].items[0].items[2].tabButtonConfig.disabled = !Neo.config.isExperimental;
+        me.items[1].items[0].items[2].tabButtonConfig.disabled = Neo.config.environment !== 'development';
     }
 
     /**

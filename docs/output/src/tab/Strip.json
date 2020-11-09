@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.tab.Strip",
             "$kind": "class",
-            "id": 2426,
+            "id": 2518,
             "neoClassName": "Neo.tab.Strip"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2427,
+            "id": 2519,
             "neoClassName": "Neo.tab.Strip"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2428,
+            "id": 2520,
             "neoClassName": "Neo.tab.Strip"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 2429,
+            "id": 2521,
             "neoClassName": "Neo.tab.Strip"
         },
         {
@@ -118,7 +118,7 @@
             "scope": "global",
             "$longname": "tabContainerId",
             "$kind": "property",
-            "id": 2430,
+            "id": 2522,
             "neoClassName": "Neo.tab.Strip"
         },
         {
@@ -142,7 +142,7 @@
             "scope": "global",
             "$longname": "useActiveTabIndicator_",
             "$kind": "property",
-            "id": 2431,
+            "id": 2523,
             "neoClassName": "Neo.tab.Strip"
         },
         {
@@ -167,7 +167,7 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 2432,
+            "id": 2524,
             "neoClassName": "Neo.tab.Strip"
         },
         {
@@ -182,7 +182,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100078858",
+                    "id": "astnode100081512",
                     "name": "Strip#onConstructed",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -199,7 +199,7 @@
             "params": [],
             "$longname": "Strip#onConstructed",
             "$kind": "method",
-            "id": 2433,
+            "id": 2525,
             "neoClassName": "Neo.tab.Strip"
         },
         {
@@ -214,7 +214,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100078886",
+                    "id": "astnode100081540",
                     "name": "Strip#afterSetUseActiveTabIndicator",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -253,7 +253,7 @@
             "scope": "instance",
             "$longname": "Strip#afterSetUseActiveTabIndicator",
             "$kind": "method",
-            "id": 2434,
+            "id": 2526,
             "neoClassName": "Neo.tab.Strip"
         },
         {
@@ -261,14 +261,14 @@
             "meta": {
                 "range": [
                     2004,
-                    2788
+                    2748
                 ],
                 "filename": "Strip.mjs",
                 "lineno": 83,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100078942",
+                    "id": "astnode100081596",
                     "name": "Strip#getActiveTabRectThenMove",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -314,22 +314,22 @@
             "scope": "instance",
             "$longname": "Strip#getActiveTabRectThenMove",
             "$kind": "method",
-            "id": 2435,
+            "id": 2527,
             "neoClassName": "Neo.tab.Strip"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    2817,
-                    2896
+                    2777,
+                    2856
                 ],
                 "filename": "Strip.mjs",
-                "lineno": 111,
+                "lineno": 110,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100079047",
+                    "id": "astnode100081701",
                     "name": "Strip#getTabContainer",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -346,22 +346,22 @@
             "params": [],
             "$longname": "Strip#getTabContainer",
             "$kind": "method",
-            "id": 2436,
+            "id": 2528,
             "neoClassName": "Neo.tab.Strip"
         },
         {
             "comment": "/**\n     * Can either contain the new target rect or the new and old one\n     * @param {Object[]} rects\n     * @param {Number} rects[0].bottom\n     * @param {Number} rects[0].height\n     * @param {Number} rects[0].left\n     * @param {Number} rects[0].right\n     * @param {Number} rects[0].top\n     * @param {Number} rects[0].width\n     * @param {Number} rects[0].x\n     * @param {Number} rects[0].y\n     */",
             "meta": {
                 "range": [
-                    3313,
-                    4982
+                    3273,
+                    4942
                 ],
                 "filename": "Strip.mjs",
-                "lineno": 127,
+                "lineno": 126,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100079059",
+                    "id": "astnode100081713",
                     "name": "Strip#moveActiveIndicator",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -454,7 +454,7 @@
             "scope": "instance",
             "$longname": "Strip#moveActiveIndicator",
             "$kind": "method",
-            "id": 2437,
+            "id": 2529,
             "neoClassName": "Neo.tab.Strip"
         }
     ]

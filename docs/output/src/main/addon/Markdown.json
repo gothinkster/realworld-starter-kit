@@ -27,15 +27,15 @@
             "scope": "static",
             "$longname": "Neo.main.addon.Markdown",
             "$kind": "class",
-            "id": 1929,
+            "id": 2016,
             "neoClassName": "Neo.main.addon.Markdown"
         },
         {
-            "comment": "/**\n             * @member {String} className='Neo.main.addon.Markdown'\n             * @protected\n             */",
+            "comment": "/**\n         * @member {String} className='Neo.main.addon.Markdown'\n         * @protected\n         */",
             "meta": {
                 "filename": "Markdown.mjs",
-                "lineno": 20,
-                "columnno": 12,
+                "lineno": 19,
+                "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
@@ -52,15 +52,15 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1930,
+            "id": 2017,
             "neoClassName": "Neo.main.addon.Markdown"
         },
         {
-            "comment": "/**\n             * Remote method access for other workers\n             * @member {Object} remote={app: [//...]}\n             * @protected\n             */",
+            "comment": "/**\n         * Remote method access for other workers\n         * @member {Object} remote={app: [//...]}\n         * @protected\n         */",
             "meta": {
                 "filename": "Markdown.mjs",
-                "lineno": 26,
-                "columnno": 12,
+                "lineno": 25,
+                "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
@@ -78,15 +78,15 @@
             "scope": "global",
             "$longname": "remote",
             "$kind": "property",
-            "id": 1931,
+            "id": 2018,
             "neoClassName": "Neo.main.addon.Markdown"
         },
         {
-            "comment": "/**\n             * @member {String} showdownPath='https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js'\n             * @protected\n             */",
+            "comment": "/**\n         * @member {String} showdownPath='https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js'\n         * @protected\n         */",
             "meta": {
                 "filename": "Markdown.mjs",
-                "lineno": 35,
-                "columnno": 12,
+                "lineno": 34,
+                "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
@@ -103,15 +103,15 @@
             "scope": "global",
             "$longname": "showdownPath",
             "$kind": "property",
-            "id": 1932,
+            "id": 2019,
             "neoClassName": "Neo.main.addon.Markdown"
         },
         {
-            "comment": "/**\n             * @member {Boolean} singleton=true\n             * @protected\n             */",
+            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @protected\n         */",
             "meta": {
                 "filename": "Markdown.mjs",
-                "lineno": 40,
-                "columnno": 12,
+                "lineno": 39,
+                "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
@@ -128,22 +128,22 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1933,
+            "id": 2020,
             "neoClassName": "Neo.main.addon.Markdown"
         },
         {
             "comment": "/**\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    1468,
-                    1573
+                    1350,
+                    1455
                 ],
                 "filename": "Markdown.mjs",
-                "lineno": 47,
+                "lineno": 45,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100058254",
+                    "id": "astnode100060606",
                     "name": "Markdown",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -170,22 +170,22 @@
             "scope": "global",
             "$longname": "Markdown",
             "$kind": "constructor",
-            "id": 1934,
+            "id": 2021,
             "neoClassName": "Neo.main.addon.Markdown"
         },
         {
             "comment": "/**\n     * Markdown to HTML converter\n     * @param {String} markdown string to convert\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1697,
-                    1825
+                    1579,
+                    1707
                 ],
                 "filename": "Markdown.mjs",
-                "lineno": 57,
+                "lineno": 55,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100058273",
+                    "id": "astnode100060625",
                     "name": "Markdown#markdownToHtml",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -216,7 +216,7 @@
             "scope": "instance",
             "$longname": "Markdown#markdownToHtml",
             "$kind": "method",
-            "id": 1935,
+            "id": 2022,
             "neoClassName": "Neo.main.addon.Markdown"
         }
     ]

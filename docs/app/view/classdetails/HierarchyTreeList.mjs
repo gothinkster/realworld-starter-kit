@@ -1,9 +1,9 @@
-import TreeList from '../../../../node_modules/neo.mjs/src/list/TreeList.mjs';
+import TreeList from '../../../../node_modules/neo.mjs/src/tree/List.mjs';
 import NeoArray from '../../../../node_modules/neo.mjs/src/util/Array.mjs';
 
 /**
  * @class Docs.app.view.classdetails.HierarchyTreeList
- * @extends Neo.list.TreeList
+ * @extends Neo.tree.List
  */
 class HierarchyTreeList extends TreeList {
     static getConfig() {return {

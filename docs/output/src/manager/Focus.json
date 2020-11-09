@@ -26,7 +26,7 @@
             "scope": "static",
             "$longname": "Neo.manager.Focus",
             "$kind": "class",
-            "id": 2113,
+            "id": 2200,
             "neoClassName": "Neo.manager.Focus"
         },
         {
@@ -51,7 +51,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2114,
+            "id": 2201,
             "neoClassName": "Neo.manager.Focus"
         },
         {
@@ -76,7 +76,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2115,
+            "id": 2202,
             "neoClassName": "Neo.manager.Focus"
         },
         {
@@ -101,7 +101,7 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 2116,
+            "id": 2203,
             "neoClassName": "Neo.manager.Focus"
         },
         {
@@ -126,7 +126,7 @@
             "scope": "global",
             "$longname": "history",
             "$kind": "property",
-            "id": 2117,
+            "id": 2204,
             "neoClassName": "Neo.manager.Focus"
         },
         {
@@ -153,7 +153,7 @@
             "scope": "global",
             "$longname": "lastFocusInDate",
             "$kind": "property",
-            "id": 2118,
+            "id": 2205,
             "neoClassName": "Neo.manager.Focus"
         },
         {
@@ -180,7 +180,7 @@
             "scope": "global",
             "$longname": "lastFocusInDate",
             "$kind": "property",
-            "id": 2119,
+            "id": 2206,
             "neoClassName": "Neo.manager.Focus"
         },
         {
@@ -205,7 +205,7 @@
             "scope": "global",
             "$longname": "maxFocusInOutGap",
             "$kind": "property",
-            "id": 2120,
+            "id": 2207,
             "neoClassName": "Neo.manager.Focus"
         },
         {
@@ -230,7 +230,7 @@
             "scope": "global",
             "$longname": "maxHistoryLength",
             "$kind": "property",
-            "id": 2121,
+            "id": 2208,
             "neoClassName": "Neo.manager.Focus"
         },
         {
@@ -245,7 +245,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100066820",
+                    "id": "astnode100069277",
                     "name": "Focus#addToHistory",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -292,7 +292,7 @@
             "scope": "instance",
             "$longname": "Focus#addToHistory",
             "$kind": "method",
-            "id": 2122,
+            "id": 2209,
             "neoClassName": "Neo.manager.Focus"
         },
         {
@@ -307,7 +307,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100066851",
+                    "id": "astnode100069308",
                     "name": "Focus#focusEnter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -354,7 +354,7 @@
             "scope": "instance",
             "$longname": "Focus#focusEnter",
             "$kind": "method",
-            "id": 2123,
+            "id": 2210,
             "neoClassName": "Neo.manager.Focus"
         },
         {
@@ -369,7 +369,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100066869",
+                    "id": "astnode100069326",
                     "name": "Focus#focusLeave",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -416,7 +416,7 @@
             "scope": "instance",
             "$longname": "Focus#focusLeave",
             "$kind": "method",
-            "id": 2124,
+            "id": 2211,
             "neoClassName": "Neo.manager.Focus"
         },
         {
@@ -431,7 +431,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100066881",
+                    "id": "astnode100069338",
                     "name": "Focus#focusMove",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -478,7 +478,7 @@
             "scope": "instance",
             "$longname": "Focus#focusMove",
             "$kind": "method",
-            "id": 2125,
+            "id": 2212,
             "neoClassName": "Neo.manager.Focus"
         },
         {
@@ -493,7 +493,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100067025",
+                    "id": "astnode100069482",
                     "name": "Focus#onFocusin",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -540,7 +540,7 @@
             "scope": "instance",
             "$longname": "Focus#onFocusin",
             "$kind": "method",
-            "id": 2126,
+            "id": 2213,
             "neoClassName": "Neo.manager.Focus"
         },
         {
@@ -555,7 +555,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100067071",
+                    "id": "astnode100069528",
                     "name": "Focus#onFocusout",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -602,7 +602,7 @@
             "scope": "instance",
             "$longname": "Focus#onFocusout",
             "$kind": "method",
-            "id": 2127,
+            "id": 2214,
             "neoClassName": "Neo.manager.Focus"
         },
         {
@@ -617,7 +617,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/manager",
                 "code": {
-                    "id": "astnode100067110",
+                    "id": "astnode100069567",
                     "name": "Focus#setComponentFocus",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -673,7 +673,7 @@
             "scope": "instance",
             "$longname": "Focus#setComponentFocus",
             "$kind": "method",
-            "id": 2128,
+            "id": 2215,
             "neoClassName": "Neo.manager.Focus"
         }
     ]

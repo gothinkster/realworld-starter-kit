@@ -27,15 +27,15 @@
             "scope": "static",
             "$longname": "Neo.main.addon.LocalStorage",
             "$kind": "class",
-            "id": 1889,
+            "id": 1976,
             "neoClassName": "Neo.main.addon.LocalStorage"
         },
         {
-            "comment": "/**\n             * @member {String} className='Neo.main.addon.LocalStorage'\n             * @protected\n             */",
+            "comment": "/**\n         * @member {String} className='Neo.main.addon.LocalStorage'\n         * @protected\n         */",
             "meta": {
                 "filename": "LocalStorage.mjs",
-                "lineno": 16,
-                "columnno": 12,
+                "lineno": 15,
+                "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
@@ -52,15 +52,15 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1890,
+            "id": 1977,
             "neoClassName": "Neo.main.addon.LocalStorage"
         },
         {
-            "comment": "/**\n             * Remote method access for other workers\n             * @member {Object} remote={app: [//...]}\n             * @protected\n             */",
+            "comment": "/**\n         * Remote method access for other workers\n         * @member {Object} remote={app: [//...]}\n         * @protected\n         */",
             "meta": {
                 "filename": "LocalStorage.mjs",
-                "lineno": 22,
-                "columnno": 12,
+                "lineno": 21,
+                "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
@@ -78,15 +78,15 @@
             "scope": "global",
             "$longname": "remote",
             "$kind": "property",
-            "id": 1891,
+            "id": 1978,
             "neoClassName": "Neo.main.addon.LocalStorage"
         },
         {
-            "comment": "/**\n             * @member {Boolean} singleton=true\n             * @protected\n             */",
+            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @protected\n         */",
             "meta": {
                 "filename": "LocalStorage.mjs",
-                "lineno": 34,
-                "columnno": 12,
+                "lineno": 33,
+                "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
             },
@@ -103,22 +103,22 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1892,
+            "id": 1979,
             "neoClassName": "Neo.main.addon.LocalStorage"
         },
         {
             "comment": "/**\n     * Creates a new item into window.localStorage\n     * Uses updateLocalStorageItem() internally\n     * @param {Object} opts\n     * @param {String} opts.key\n     * @param {String} opts.value\n     */",
             "meta": {
                 "range": [
-                    1223,
-                    1302
+                    1113,
+                    1192
                 ],
                 "filename": "LocalStorage.mjs",
-                "lineno": 45,
+                "lineno": 43,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100056964",
+                    "id": "astnode100059316",
                     "name": "LocalStorage#createLocalStorageItem",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -163,22 +163,22 @@
             "scope": "instance",
             "$longname": "LocalStorage#createLocalStorageItem",
             "$kind": "method",
-            "id": 1893,
+            "id": 1980,
             "neoClassName": "Neo.main.addon.LocalStorage"
         },
         {
             "comment": "/**\n     * Removes an item from window.localStorage\n     * @param {Object} opts\n     * @param {String} opts.key\n     */",
             "meta": {
                 "range": [
-                    1432,
-                    1519
+                    1322,
+                    1409
                 ],
                 "filename": "LocalStorage.mjs",
-                "lineno": 54,
+                "lineno": 52,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100056975",
+                    "id": "astnode100059327",
                     "name": "LocalStorage#destroyLocalStorageItem",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -215,22 +215,22 @@
             "scope": "instance",
             "$longname": "LocalStorage#destroyLocalStorageItem",
             "$kind": "method",
-            "id": 1894,
+            "id": 1981,
             "neoClassName": "Neo.main.addon.LocalStorage"
         },
         {
             "comment": "/**\n     * Gets an item from window.localStorage\n     * @param {Object} opts\n     * @param {String} opts.key\n     */",
             "meta": {
                 "range": [
-                    1646,
-                    1793
+                    1536,
+                    1683
                 ],
                 "filename": "LocalStorage.mjs",
-                "lineno": 63,
+                "lineno": 61,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100056990",
+                    "id": "astnode100059342",
                     "name": "LocalStorage#readLocalStorageItem",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -267,22 +267,22 @@
             "scope": "instance",
             "$longname": "LocalStorage#readLocalStorageItem",
             "$kind": "method",
-            "id": 1895,
+            "id": 1982,
             "neoClassName": "Neo.main.addon.LocalStorage"
         },
         {
             "comment": "/**\n     * Reads an item from window.localStorage\n     * @param {Object} opts\n     * @param {String} opts.key\n     * @param {String} opts.value\n     */",
             "meta": {
                 "range": [
-                    1955,
-                    2050
+                    1845,
+                    1940
                 ],
                 "filename": "LocalStorage.mjs",
-                "lineno": 76,
+                "lineno": 74,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100057011",
+                    "id": "astnode100059363",
                     "name": "LocalStorage#updateLocalStorageItem",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -327,7 +327,7 @@
             "scope": "instance",
             "$longname": "LocalStorage#updateLocalStorageItem",
             "$kind": "method",
-            "id": 1896,
+            "id": 1983,
             "neoClassName": "Neo.main.addon.LocalStorage"
         }
     ]

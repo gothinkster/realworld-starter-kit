@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.tab.Container",
             "$kind": "class",
-            "id": 2371,
+            "id": 2458,
             "neoClassName": "Neo.tab.Container"
         },
         {
@@ -45,7 +45,7 @@
             "longname": "tabBarPositions",
             "$longname": "tabBarPositions",
             "$kind": "property",
-            "id": 2372,
+            "id": 2459,
             "neoClassName": "Neo.tab.Container"
         },
         {
@@ -70,7 +70,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2373,
+            "id": 2460,
             "neoClassName": "Neo.tab.Container"
         },
         {
@@ -95,7 +95,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2374,
+            "id": 2461,
             "neoClassName": "Neo.tab.Container"
         },
         {
@@ -119,7 +119,7 @@
             "scope": "global",
             "$longname": "activeIndex_",
             "$kind": "property",
-            "id": 2375,
+            "id": 2462,
             "neoClassName": "Neo.tab.Container"
         },
         {
@@ -144,7 +144,7 @@
             "scope": "global",
             "$longname": "activateInsertedTabs",
             "$kind": "property",
-            "id": 2376,
+            "id": 2463,
             "neoClassName": "Neo.tab.Container"
         },
         {
@@ -168,7 +168,7 @@
             "scope": "global",
             "$longname": "baseCls",
             "$kind": "property",
-            "id": 2377,
+            "id": 2464,
             "neoClassName": "Neo.tab.Container"
         },
         {
@@ -193,7 +193,7 @@
             "scope": "global",
             "$longname": "cardContainerId",
             "$kind": "property",
-            "id": 2378,
+            "id": 2465,
             "neoClassName": "Neo.tab.Container"
         },
         {
@@ -219,7 +219,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 2379,
+            "id": 2466,
             "neoClassName": "Neo.tab.Container"
         },
         {
@@ -245,7 +245,7 @@
             "scope": "global",
             "$longname": "contentContainerDefaults",
             "$kind": "property",
-            "id": 2380,
+            "id": 2467,
             "neoClassName": "Neo.tab.Container"
         },
         {
@@ -271,7 +271,7 @@
             "scope": "global",
             "$longname": "headerToolbarDefaults",
             "$kind": "property",
-            "id": 2381,
+            "id": 2468,
             "neoClassName": "Neo.tab.Container"
         },
         {
@@ -296,14 +296,39 @@
             "scope": "global",
             "$longname": "plain_",
             "$kind": "property",
-            "id": 2382,
+            "id": 2469,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n         * true enables sorting tabs via drag&drop.\n         * The config gets passed to the header toolbar\n         * @member {Boolean} sortable_=false\n         */",
+            "meta": {
+                "filename": "Container.mjs",
+                "lineno": 82,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
+                "code": {}
+            },
+            "description": "true enables sorting tabs via drag&drop.<br />The config gets passed to the header toolbar",
+            "kind": "member",
+            "name": "sortable_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "sortable_",
+            "scope": "global",
+            "$longname": "sortable_",
+            "$kind": "property",
+            "id": 2470,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n         * @member {String|null} tabBarId=null\n         */",
             "meta": {
                 "filename": "Container.mjs",
-                "lineno": 80,
+                "lineno": 86,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {}
@@ -321,14 +346,14 @@
             "scope": "global",
             "$longname": "tabBarId",
             "$kind": "property",
-            "id": 2383,
+            "id": 2471,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n         * Default configs for the tab.Strip\n         * @member {Object|null} [tabStripDefaults]=null\n         */",
             "meta": {
                 "filename": "Container.mjs",
-                "lineno": 85,
+                "lineno": 91,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {}
@@ -347,14 +372,14 @@
             "scope": "global",
             "$longname": "tabStripDefaults",
             "$kind": "property",
-            "id": 2384,
+            "id": 2472,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n         * @member {String|null} [tabStripId]=null\n         */",
             "meta": {
                 "filename": "Container.mjs",
-                "lineno": 89,
+                "lineno": 95,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {}
@@ -372,14 +397,14 @@
             "scope": "global",
             "$longname": "tabStripId",
             "$kind": "property",
-            "id": 2385,
+            "id": 2473,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n         * The position of the tab header toolbar.\n         * Valid values are top, right, bottom, left.\n         * @member {String} tabBarPosition_='top'\n         */",
             "meta": {
                 "filename": "Container.mjs",
-                "lineno": 95,
+                "lineno": 101,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {}
@@ -397,14 +422,14 @@
             "scope": "global",
             "$longname": "tabBarPosition_",
             "$kind": "property",
-            "id": 2386,
+            "id": 2474,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n         * @member {Boolean} useActiveTabIndicator_=true\n         */",
             "meta": {
                 "filename": "Container.mjs",
-                "lineno": 99,
+                "lineno": 105,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {}
@@ -421,22 +446,22 @@
             "scope": "global",
             "$longname": "useActiveTabIndicator_",
             "$kind": "property",
-            "id": 2387,
+            "id": 2475,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    3160,
-                    3278
+                    3363,
+                    3481
                 ],
                 "filename": "Container.mjs",
-                "lineno": 105,
+                "lineno": 111,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077255",
+                    "id": "astnode100079709",
                     "name": "Container#onConstructed",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -453,22 +478,22 @@
             "params": [],
             "$longname": "Container#onConstructed",
             "$kind": "method",
-            "id": 2388,
+            "id": 2476,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     * Adds one or multiple tabs at the end of the header\n     * @param {Object|Array} item\n     * @returns {Neo.component.Base|Neo.component.Base[]}\n     */",
             "meta": {
                 "range": [
-                    3450,
-                    3532
+                    3653,
+                    3735
                 ],
                 "filename": "Container.mjs",
-                "lineno": 115,
+                "lineno": 121,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077273",
+                    "id": "astnode100079727",
                     "name": "Container#add",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -508,22 +533,22 @@
             "scope": "instance",
             "$longname": "Container#add",
             "$kind": "method",
-            "id": 2389,
+            "id": 2477,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     * Triggered after the activeIndex config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3691,
-                    4195
+                    3894,
+                    4398
                 ],
                 "filename": "Container.mjs",
-                "lineno": 125,
+                "lineno": 131,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077292",
+                    "id": "astnode100079746",
                     "name": "Container#afterSetActiveIndex",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -562,22 +587,22 @@
             "scope": "instance",
             "$longname": "Container#afterSetActiveIndex",
             "$kind": "method",
-            "id": 2390,
+            "id": 2478,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     * Triggered after the plain config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4350,
-                    4582
+                    4553,
+                    4785
                 ],
                 "filename": "Container.mjs",
-                "lineno": 149,
+                "lineno": 155,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077348",
+                    "id": "astnode100079802",
                     "name": "Container#afterSetPlain",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -616,22 +641,76 @@
             "scope": "instance",
             "$longname": "Container#afterSetPlain",
             "$kind": "method",
-            "id": 2391,
+            "id": 2479,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     * Triggered after the sortable config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    4943,
+                    5079
+                ],
+                "filename": "Container.mjs",
+                "lineno": 170,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
+                "code": {
+                    "id": "astnode100079842",
+                    "name": "Container#afterSetSortable",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the sortable config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetSortable",
+            "longname": "Container#afterSetSortable",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "$longname": "Container#afterSetSortable",
+            "$kind": "method",
+            "id": 2480,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     * Triggered after the tabBarPosition config got changed\n     * @param {String} value 'top', 'right', 'bottom', 'left'\n     * @param {String} oldValue 'top', 'right', 'bottom', 'left'\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4810,
-                    5387
+                    5307,
+                    5884
                 ],
                 "filename": "Container.mjs",
-                "lineno": 164,
+                "lineno": 182,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077388",
+                    "id": "astnode100079862",
                     "name": "Container#afterSetTabBarPosition",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -672,22 +751,22 @@
             "scope": "instance",
             "$longname": "Container#afterSetTabBarPosition",
             "$kind": "method",
-            "id": 2392,
+            "id": 2481,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     * Triggered after the useActiveTabIndicator config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5558,
-                    5784
+                    6055,
+                    6281
                 ],
                 "filename": "Container.mjs",
-                "lineno": 191,
+                "lineno": 209,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077476",
+                    "id": "astnode100079950",
                     "name": "Container#afterSetUseActiveTabIndicator",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -726,22 +805,22 @@
             "scope": "instance",
             "$longname": "Container#afterSetUseActiveTabIndicator",
             "$kind": "method",
-            "id": 2393,
+            "id": 2482,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     * Triggered before the tabBarPosition config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     * @returns {String} value\n     */",
             "meta": {
                 "range": [
-                    5979,
-                    6102
+                    6476,
+                    6599
                 ],
                 "filename": "Container.mjs",
-                "lineno": 205,
+                "lineno": 223,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077505",
+                    "id": "astnode100079979",
                     "name": "Container#beforeSetTabBarPosition",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -790,22 +869,22 @@
             "scope": "instance",
             "$longname": "Container#beforeSetTabBarPosition",
             "$kind": "method",
-            "id": 2394,
+            "id": 2483,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     *\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6149,
-                    8270
+                    6646,
+                    8815
                 ],
                 "filename": "Container.mjs",
-                "lineno": 213,
+                "lineno": 231,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077519",
+                    "id": "astnode100079993",
                     "name": "Container#createItems",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -823,22 +902,22 @@
             "params": [],
             "$longname": "Container#createItems",
             "$kind": "method",
-            "id": 2395,
+            "id": 2484,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     * Returns the card matching this.activeIndex\n     * @returns {Neo.component.Base|null}\n     */",
             "meta": {
                 "range": [
-                    8384,
-                    8479
+                    8929,
+                    9024
                 ],
                 "filename": "Container.mjs",
-                "lineno": 271,
+                "lineno": 290,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077741",
+                    "id": "astnode100080219",
                     "name": "Container#getActiveCard",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -866,22 +945,22 @@
             "params": [],
             "$longname": "Container#getActiveCard",
             "$kind": "method",
-            "id": 2396,
+            "id": 2485,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     * Returns a card by a given index\n     * @param {Number} index\n     * @returns {Neo.component.Base|null}\n     */",
             "meta": {
                 "range": [
-                    8611,
-                    8694
+                    9156,
+                    9239
                 ],
                 "filename": "Container.mjs",
-                "lineno": 280,
+                "lineno": 299,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077758",
+                    "id": "astnode100080236",
                     "name": "Container#getCard",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -920,22 +999,22 @@
             "scope": "instance",
             "$longname": "Container#getCard",
             "$kind": "method",
-            "id": 2397,
+            "id": 2486,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     * @returns {Neo.container.Base}\n     */",
             "meta": {
                 "range": [
-                    8753,
-                    8834
+                    9298,
+                    9379
                 ],
                 "filename": "Container.mjs",
-                "lineno": 287,
+                "lineno": 306,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077774",
+                    "id": "astnode100080252",
                     "name": "Container#getCardContainer",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -961,22 +1040,22 @@
             "params": [],
             "$longname": "Container#getCardContainer",
             "$kind": "method",
-            "id": 2398,
+            "id": 2487,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     * Returns the amount of items inside the tab header toolbar\n     * @returns {Number}\n     */",
             "meta": {
                 "range": [
-                    8946,
-                    9010
+                    9491,
+                    9555
                 ],
                 "filename": "Container.mjs",
-                "lineno": 295,
+                "lineno": 314,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077786",
+                    "id": "astnode100080264",
                     "name": "Container#getCount",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1003,22 +1082,22 @@
             "params": [],
             "$longname": "Container#getCount",
             "$kind": "method",
-            "id": 2399,
+            "id": 2488,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     *\n     * @returns {Object} layoutConfig\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    9095,
-                    10230
+                    9640,
+                    10775
                 ],
                 "filename": "Container.mjs",
-                "lineno": 304,
+                "lineno": 323,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077799",
+                    "id": "astnode100080277",
                     "name": "Container#getLayoutConfig",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1046,22 +1125,22 @@
             "params": [],
             "$longname": "Container#getLayoutConfig",
             "$kind": "method",
-            "id": 2400,
+            "id": 2489,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     *\n     * @param {Number} index\n     * @returns {Neo.tab.header.Button|null}\n     */",
             "meta": {
                 "range": [
-                    10333,
-                    10415
+                    10878,
+                    10960
                 ],
                 "filename": "Container.mjs",
-                "lineno": 349,
+                "lineno": 368,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077872",
+                    "id": "astnode100080350",
                     "name": "Container#getTabAtIndex",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1099,22 +1178,22 @@
             "scope": "instance",
             "$longname": "Container#getTabAtIndex",
             "$kind": "method",
-            "id": 2401,
+            "id": 2490,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     * @returns {Neo.container.Toolbar}\n     */",
             "meta": {
                 "range": [
-                    10477,
-                    10544
+                    11022,
+                    11089
                 ],
                 "filename": "Container.mjs",
-                "lineno": 356,
+                "lineno": 375,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077888",
+                    "id": "astnode100080366",
                     "name": "Container#getTabBar",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1140,22 +1219,22 @@
             "params": [],
             "$longname": "Container#getTabBar",
             "$kind": "method",
-            "id": 2402,
+            "id": 2491,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     * @param {Number} index\n     * @returns {Object} The merged config\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    10693,
-                    11297
+                    11238,
+                    11762
                 ],
                 "filename": "Container.mjs",
-                "lineno": 367,
+                "lineno": 386,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077900",
+                    "id": "astnode100080378",
                     "name": "Container#getTabButtonConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1203,22 +1282,22 @@
             "scope": "instance",
             "$longname": "Container#getTabButtonConfig",
             "$kind": "method",
-            "id": 2403,
+            "id": 2492,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     * @returns {Neo.tab.Strip}\n     */",
             "meta": {
                 "range": [
-                    11351,
-                    11422
+                    11816,
+                    11887
                 ],
                 "filename": "Container.mjs",
-                "lineno": 391,
+                "lineno": 408,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077957",
+                    "id": "astnode100080428",
                     "name": "Container#getTabStrip",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1244,22 +1323,22 @@
             "params": [],
             "$longname": "Container#getTabStrip",
             "$kind": "method",
-            "id": 2404,
+            "id": 2493,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     * Inserts an item or array of items at a specific index\n     * @param {Number} index\n     * @param {Object|Object[]} item\n     * @returns {Neo.component.Base|Neo.component.Base[]}\n     */",
             "meta": {
                 "range": [
-                    11629,
-                    13368
+                    12094,
+                    13833
                 ],
                 "filename": "Container.mjs",
-                "lineno": 401,
+                "lineno": 418,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100077969",
+                    "id": "astnode100080440",
                     "name": "Container#insert",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1308,22 +1387,85 @@
             "scope": "instance",
             "$longname": "Container#insert",
             "$kind": "method",
-            "id": 2405,
+            "id": 2494,
+            "neoClassName": "Neo.tab.Container"
+        },
+        {
+            "comment": "/**\n     * Moves an existing item to a new index\n     * @param {Number} fromIndex\n     * @param {Number} toIndex\n     * @returns {Neo.component.Base} the card item\n     */",
+            "meta": {
+                "range": [
+                    14015,
+                    14718
+                ],
+                "filename": "Container.mjs",
+                "lineno": 484,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
+                "code": {
+                    "id": "astnode100080669",
+                    "name": "Container#moveTo",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "fromIndex",
+                        "toIndex"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Moves an existing item to a new index",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "fromIndex"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "toIndex"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "description": "the card item"
+                }
+            ],
+            "name": "moveTo",
+            "longname": "Container#moveTo",
+            "kind": "function",
+            "memberof": "Container",
+            "scope": "instance",
+            "$longname": "Container#moveTo",
+            "$kind": "method",
+            "id": 2495,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     * Gets triggered once a dynamically added header.Button gets mounted\n     * in case activateInsertedTabs is set to true\n     * @param {String} buttonId\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    13565,
-                    14406
+                    14915,
+                    15756
                 ],
                 "filename": "Container.mjs",
-                "lineno": 467,
+                "lineno": 516,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100078198",
+                    "id": "astnode100080760",
                     "name": "Container#onTabButtonMounted",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1353,22 +1495,22 @@
             "scope": "instance",
             "$longname": "Container#onTabButtonMounted",
             "$kind": "method",
-            "id": 2406,
+            "id": 2496,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     * Removes a container item by reference\n     * @param {Neo.component.Base} component\n     * @param {Boolean} [destroyItem=true]\n     * @param {Boolean} [silent=false]\n     */",
             "meta": {
                 "range": [
-                    14600,
-                    14929
+                    15950,
+                    16279
                 ],
                 "filename": "Container.mjs",
-                "lineno": 503,
+                "lineno": 552,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100078314",
+                    "id": "astnode100080876",
                     "name": "Container#remove",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1419,22 +1561,22 @@
             "scope": "instance",
             "$longname": "Container#remove",
             "$kind": "method",
-            "id": 2407,
+            "id": 2497,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     *\n     * @param {Number} index\n     * @param {Boolean} [destroyItem=true]\n     * @param {Boolean} [silent=false]\n     */",
             "meta": {
                 "range": [
-                    15069,
-                    15916
+                    16419,
+                    17266
                 ],
                 "filename": "Container.mjs",
-                "lineno": 521,
+                "lineno": 570,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100078370",
+                    "id": "astnode100080932",
                     "name": "Container#removeAt",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1484,22 +1626,22 @@
             "scope": "instance",
             "$longname": "Container#removeAt",
             "$kind": "method",
-            "id": 2408,
+            "id": 2498,
             "neoClassName": "Neo.tab.Container"
         },
         {
             "comment": "/**\n     *\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    15963,
-                    16260
+                    17313,
+                    17576
                 ],
                 "filename": "Container.mjs",
-                "lineno": 552,
+                "lineno": 601,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/tab",
                 "code": {
-                    "id": "astnode100078487",
+                    "id": "astnode100081049",
                     "name": "Container#updateTabButtons",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1517,7 +1659,7 @@
             "params": [],
             "$longname": "Container#updateTabButtons",
             "$kind": "method",
-            "id": 2409,
+            "id": 2499,
             "neoClassName": "Neo.tab.Container"
         }
     ]

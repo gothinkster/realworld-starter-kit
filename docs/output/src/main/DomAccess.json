@@ -26,7 +26,7 @@
             "scope": "static",
             "$longname": "Neo.main.DomAccess",
             "$kind": "class",
-            "id": 1952,
+            "id": 2039,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
@@ -51,11 +51,11 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1953,
+            "id": 2040,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
-            "comment": "/**\n         * @member {boolean} logDeltaUpdates=true\n         */",
+            "comment": "/**\n         * @member {boolean} logDeltaUpdates=false\n         */",
             "meta": {
                 "filename": "DomAccess.mjs",
                 "lineno": 20,
@@ -70,12 +70,12 @@
                     "boolean"
                 ]
             },
-            "defaultvalue": true,
+            "defaultvalue": false,
             "longname": "logDeltaUpdates",
             "scope": "global",
             "$longname": "logDeltaUpdates",
             "$kind": "property",
-            "id": 1954,
+            "id": 2041,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
@@ -100,7 +100,7 @@
             "scope": "global",
             "$longname": "mixins",
             "$kind": "property",
-            "id": 1955,
+            "id": 2042,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
@@ -126,7 +126,7 @@
             "scope": "global",
             "$longname": "remote",
             "$kind": "property",
-            "id": 1956,
+            "id": 2043,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
@@ -151,7 +151,7 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1957,
+            "id": 2044,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
@@ -176,22 +176,22 @@
             "scope": "global",
             "$longname": "voidAttributes",
             "$kind": "property",
-            "id": 1958,
+            "id": 2045,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    1748,
-                    1933
+                    1750,
+                    1935
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 71,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100059121",
+                    "id": "astnode100061486",
                     "name": "DomAccess",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -218,22 +218,22 @@
             "scope": "global",
             "$longname": "DomAccess",
             "$kind": "constructor",
-            "id": 1959,
+            "id": 2046,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Boolean} data.async\n     * @param {Boolean} [data.defer=false]\n     * @param {String} [data.src=true]\n     */",
             "meta": {
                 "range": [
-                    2107,
-                    2356
+                    2109,
+                    2358
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 89,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100059151",
+                    "id": "astnode100061516",
                     "name": "DomAccess#addScript",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -289,22 +289,22 @@
             "scope": "instance",
             "$longname": "DomAccess#addScript",
             "$kind": "method",
-            "id": 1960,
+            "id": 2047,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String[]} data.cls\n     */",
             "meta": {
                 "range": [
-                    2447,
-                    2554
+                    2449,
+                    2556
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 106,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100059193",
+                    "id": "astnode100061558",
                     "name": "DomAccess#applyBodyCls",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -340,22 +340,22 @@
             "scope": "instance",
             "$longname": "DomAccess#applyBodyCls",
             "$kind": "method",
-            "id": 1961,
+            "id": 2048,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.command\n     * @returns {Object} data\n     */",
             "meta": {
                 "range": [
-                    2677,
-                    2767
+                    2679,
+                    2769
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 117,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100059217",
+                    "id": "astnode100061582",
                     "name": "DomAccess#execCommand",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -401,22 +401,22 @@
             "scope": "instance",
             "$longname": "DomAccess#execCommand",
             "$kind": "method",
-            "id": 1962,
+            "id": 2049,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     * Calls focus on a node for a given dom node id\n     * @param {Object} data\n     * @returns {Object} obj.id => the passed id\n     */",
             "meta": {
                 "range": [
-                    2919,
-                    3071
+                    2921,
+                    3073
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 127,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100059232",
+                    "id": "astnode100061597",
                     "name": "DomAccess#focus",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -455,22 +455,22 @@
             "scope": "instance",
             "$longname": "DomAccess#focus",
             "$kind": "method",
-            "id": 1963,
+            "id": 2050,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     * Returns the attributes for a given dom node id\n     * @param {Object} data\n     * @param {Array|String} data.id either an id or an array of ids\n     * @param {Array|String} data.attributes either an attribute or an array of attributes\n     * @returns {Array|Object} In case id is an array, an array of atrrbute objects is returned, otherwise an object\n     */",
             "meta": {
                 "range": [
-                    3452,
-                    4239
+                    3454,
+                    4241
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 144,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100059261",
+                    "id": "astnode100061626",
                     "name": "DomAccess#getAttributes",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -530,22 +530,22 @@
             "scope": "instance",
             "$longname": "DomAccess#getAttributes",
             "$kind": "method",
-            "id": 1964,
+            "id": 2051,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     * Returns node.getBoundingClientRect() for a given dom node id\n     * @param {Object} data\n     * @param {Array|String} data.id either an id or an array of ids\n     * @returns {Array|Object} In case id is an array, an array of DomRects is returned, otherwise an DomRect object\n     */",
             "meta": {
                 "range": [
-                    4543,
-                    5504
+                    4545,
+                    5506
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 181,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100059365",
+                    "id": "astnode100061730",
                     "name": "DomAccess#getBoundingClientRect",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -595,22 +595,22 @@
             "scope": "instance",
             "$longname": "DomAccess#getBoundingClientRect",
             "$kind": "method",
-            "id": 1965,
+            "id": 2052,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {String} nodeId\n     * @returns {HTMLElement}\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5611,
-                    5685
+                    5613,
+                    5687
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 222,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100059477",
+                    "id": "astnode100061842",
                     "name": "DomAccess#getElement",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -648,22 +648,22 @@
             "scope": "instance",
             "$longname": "DomAccess#getElement",
             "$kind": "method",
-            "id": 1966,
+            "id": 2053,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {String} [nodeId='document.body']\n     * @returns {HTMLElement}\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5810,
-                    6006
+                    5812,
+                    6008
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 232,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100059488",
+                    "id": "astnode100061853",
                     "name": "DomAccess#getElementOrBody",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -703,22 +703,22 @@
             "scope": "instance",
             "$longname": "DomAccess#getElementOrBody",
             "$kind": "method",
-            "id": 1967,
+            "id": 2054,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     * Include a script into the document.head\n     * @param {String} src\n     * @param {Boolean} [async=true]\n     * @returns {Promise<unknown>}\n     */",
             "meta": {
                 "range": [
-                    6174,
-                    6576
+                    6176,
+                    6578
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 246,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100059514",
+                    "id": "astnode100061879",
                     "name": "DomAccess#loadScript",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -767,22 +767,22 @@
             "scope": "instance",
             "$longname": "DomAccess#loadScript",
             "$kind": "method",
-            "id": 1968,
+            "id": 2055,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     * Include a link into the document.head\n     * @param {String} href\n     * @returns {Promise<unknown>}\n     */",
             "meta": {
                 "range": [
-                    6706,
-                    7136
+                    6708,
+                    7138
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 268,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100059563",
+                    "id": "astnode100061928",
                     "name": "DomAccess#loadStylesheet",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -820,22 +820,22 @@
             "scope": "instance",
             "$longname": "DomAccess#loadStylesheet",
             "$kind": "method",
-            "id": 1969,
+            "id": 2056,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    7165,
-                    7294
+                    7167,
+                    7296
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 289,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100059611",
+                    "id": "astnode100061976",
                     "name": "DomAccess#onDomContentLoaded",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -852,22 +852,22 @@
             "params": [],
             "$longname": "DomAccess#onDomContentLoaded",
             "$kind": "method",
-            "id": 1970,
+            "id": 2057,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String[]} data.attributes\n     * @param {Array} data.functions An array containing strings and/or objects\n     * @param {String[]} data.styles\n     * @param {String} data.vnodeId\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7563,
-                    9448
+                    7565,
+                    9450
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 304,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100059631",
+                    "id": "astnode100061996",
                     "name": "DomAccess#onReadDom",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -929,22 +929,22 @@
             "scope": "instance",
             "$longname": "DomAccess#onReadDom",
             "$kind": "method",
-            "id": 1971,
+            "id": 2058,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    9523,
-                    9613
+                    9525,
+                    9615
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 366,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100059900",
+                    "id": "astnode100062265",
                     "name": "DomAccess#read",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -973,22 +973,22 @@
             "scope": "instance",
             "$longname": "DomAccess#read",
             "$kind": "method",
-            "id": 1972,
+            "id": 2059,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.id\n     * @param {String} [data.behavior='smooth']\n     * @param {String} [data.block='start']\n     * @param {String} [data.inline='nearest']\n     * @returns {Object} obj.id => the passed id\n     */",
             "meta": {
                 "range": [
-                    9889,
-                    10232
+                    9891,
+                    10234
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 381,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100059914",
+                    "id": "astnode100062279",
                     "name": "DomAccess#scrollIntoView",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1064,22 +1064,22 @@
             "scope": "instance",
             "$longname": "DomAccess#scrollIntoView",
             "$kind": "method",
-            "id": 1973,
+            "id": 2060,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.direction left, top\n     * @param {String} data.id\n     * @param {Number} data.value\n     * @returns {Object} obj.id => the passed id\n     */",
             "meta": {
                 "range": [
-                    10451,
-                    10655
+                    10453,
+                    10657
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 403,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100059962",
+                    "id": "astnode100062327",
                     "name": "DomAccess#scrollBy",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1142,22 +1142,22 @@
             "scope": "instance",
             "$longname": "DomAccess#scrollBy",
             "$kind": "method",
-            "id": 1974,
+            "id": 2061,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.direction left, top\n     * @param {String} data.id\n     * @param {Number} data.value\n     * @returns {Object} obj.id => the passed id\n     */",
             "meta": {
                 "range": [
-                    10874,
-                    11077
+                    10876,
+                    11079
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 421,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100060003",
+                    "id": "astnode100062368",
                     "name": "DomAccess#scrollTo",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1220,22 +1220,22 @@
             "scope": "instance",
             "$longname": "DomAccess#scrollTo",
             "$kind": "method",
-            "id": 1975,
+            "id": 2062,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.id\n     * @param {String} [data.behavior='smooth']\n     * @param {String} [data.offset=34]\n     * @returns {Object} obj.id => the passed id\n     */",
             "meta": {
                 "range": [
-                    11302,
-                    11891
+                    11304,
+                    11893
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 439,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100060044",
+                    "id": "astnode100062409",
                     "name": "DomAccess#scrollToTableRow",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1301,22 +1301,22 @@
             "scope": "instance",
             "$longname": "DomAccess#scrollToTableRow",
             "$kind": "method",
-            "id": 1976,
+            "id": 2063,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.id\n     * @param {Number} [data.start=0]\n     * @param {Number} [data.end=99999]\n     * @returns {Object} obj.id => the passed id\n     */",
             "meta": {
                 "range": [
-                    12106,
-                    12419
+                    12108,
+                    12421
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 465,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100060124",
+                    "id": "astnode100062489",
                     "name": "DomAccess#selectNode",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1382,22 +1382,22 @@
             "scope": "instance",
             "$longname": "DomAccess#selectNode",
             "$kind": "method",
-            "id": 1977,
+            "id": 2064,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     * @param {Object} data\n     * @param {String[]} data.add\n     * @param {Object[]} data.remove\n     */",
             "meta": {
                 "range": [
-                    12540,
-                    12682
+                    12542,
+                    12684
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 483,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100060182",
+                    "id": "astnode100062547",
                     "name": "DomAccess#setBodyCls",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1441,22 +1441,22 @@
             "scope": "instance",
             "$longname": "DomAccess#setBodyCls",
             "$kind": "method",
-            "id": 1978,
+            "id": 2065,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     * Not recommended to use => stick to vdom updates.\n     * Can be handy for custom CSS based animations though.\n     * @param {Object} data\n     * @param {String} data.id A node id or 'document.body'\n     * @param {Object} data.style\n     * @returns {Object} obj.id => the passed id\n     */",
             "meta": {
                 "range": [
-                    12991,
-                    13535
+                    12993,
+                    13537
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 496,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100060217",
+                    "id": "astnode100062582",
                     "name": "DomAccess#setStyle",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1512,22 +1512,22 @@
             "scope": "instance",
             "$longname": "DomAccess#setStyle",
             "$kind": "method",
-            "id": 1979,
+            "id": 2066,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} [data.behavior='smooth'] // auto or smooth\n     * @param {String} [data.left=0]\n     * @param {String} [data.top=0]\n     */",
             "meta": {
                 "range": [
-                    13731,
-                    13929
+                    13733,
+                    13931
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 520,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100060307",
+                    "id": "astnode100062672",
                     "name": "DomAccess#windowScrollTo",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1586,22 +1586,22 @@
             "scope": "instance",
             "$longname": "DomAccess#windowScrollTo",
             "$kind": "method",
-            "id": 1980,
+            "id": 2067,
             "neoClassName": "Neo.main.DomAccess"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    14004,
-                    14627
+                    14006,
+                    14629
                 ],
                 "filename": "DomAccess.mjs",
                 "lineno": 533,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main",
                 "code": {
-                    "id": "astnode100060336",
+                    "id": "astnode100062701",
                     "name": "DomAccess#write",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1630,7 +1630,7 @@
             "scope": "instance",
             "$longname": "DomAccess#write",
             "$kind": "method",
-            "id": 1981,
+            "id": 2068,
             "neoClassName": "Neo.main.DomAccess"
         }
     ]
