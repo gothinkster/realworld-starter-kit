@@ -19,6 +19,20 @@
       "webRoot": "${workspaceFolder}/src"
     },
     {
+      "name": "Launch Source Windows",
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": false,
+      "reloadOnChange": {
+        "watch": ["${workspaceFolder}\\src\\**\\*.js", "${workspaceFolder}\\src\\**\\*.html"],
+        "ignore": "**\\node_modules\\**"
+      },
+      "internalConsoleOptions": "openOnSessionStart",
+      "firefoxArgs": ["-devtools"],
+      "url": "${workspaceFolder}\\src\\index.html",
+      "webRoot": "${workspaceFolder}\\src"
+    },
+    {
       "name": "Launch Test",
       "type": "firefox",
       "request": "launch",
