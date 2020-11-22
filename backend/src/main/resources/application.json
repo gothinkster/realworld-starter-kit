@@ -1,0 +1,12 @@
+{
+  banner: '   __\n  /\\ \\   R E A L\n / /\\ \\\n/ /__\\ \\ W O R L D\n\\/____\\/',
+  bindPort: 9090,
+  bindAddress: '0.0.0.0',
+  contextPath: '/api',
+
+  mongodbUrl: 'mongodb://localhost:3010/real_world',
+
+  keyStoreResource: 'classpath:keystore.p12',
+  keyStorePassword: 'storepass',
+  keyPairAlias: 'realWorld'
+}

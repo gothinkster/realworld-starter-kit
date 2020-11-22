@@ -1,6 +1,5 @@
 package com.hexagonkt.realworld
 
-import com.hexagonkt.helpers.Resource
 import com.hexagonkt.helpers.require
 import com.hexagonkt.helpers.withZone
 import com.hexagonkt.http.server.*
@@ -14,6 +13,8 @@ import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.routes.*
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
+import com.hexagonkt.serialization.convertToObject
+import java.net.URL
 import java.time.LocalDateTime
 import java.time.ZoneOffset.UTC
 import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME
@@ -35,14 +36,14 @@ internal val injector = InjectionManager.apply {
 @Suppress("unused")
 class WebApplication : ServletServer(router)
 
-internal val server: Server = Server(injector.inject(), router, settings)
+internal val server: Server = Server(injector.inject(), router, settings.convertToObject())
 
 private fun createJwt(): Jwt {
     val keyStoreResource = settings.require("keyStoreResource").toString()
     val keyStorePassword = settings.require("keyStorePassword").toString()
     val keyPairAlias = settings.require("keyPairAlias").toString()
 
-    return Jwt(Resource(keyStoreResource), keyStorePassword, keyPairAlias)
+    return Jwt(URL(keyStoreResource), keyStorePassword, keyPairAlias)
 }
 
 private fun createUserStore(): Store<User, String> {

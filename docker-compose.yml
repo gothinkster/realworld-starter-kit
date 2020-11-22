@@ -32,7 +32,7 @@ services:
     depends_on:
       - mongodb
     environment:
-      APPLICATION_mongodbUrl: mongodb://mongodb/real_world
+      application_mongodbUrl: mongodb://mongodb/real_world
     build:
       context: backend
     ports:
