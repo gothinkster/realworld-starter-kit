@@ -30,7 +30,7 @@ export default class Register extends HTMLElement {
    * @return {void}
    */
   render () {
-    this.innerHTML = `
+    this.innerHTML = /* html */`
       <div class="auth-page">
         <div class="container page">
           <div class="row">
