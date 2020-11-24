@@ -35,12 +35,12 @@ export default class Router extends HTMLElement {
       // Sign in/Sign up pages (URL: /#/login, /#/register )
       {
         name: 'p-login',
-        path: '',
+        path: '../pages/Login.js',
         regExp: new RegExp(/^#\/login/)
       },
       {
         name: 'p-register',
-        path: '',
+        path: '../pages/Register.js',
         regExp: new RegExp(/^#\/register/)
       },
       // Settings page (URL: /#/settings )
