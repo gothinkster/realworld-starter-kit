@@ -10,7 +10,7 @@
         <a class="nav-link" href=""> <i class="ion-compose"></i>&nbsp;New Article </a>
       </li>
       <li *ngIf="loggedIn$ | async" class="nav-item">
-        <a class="nav-link" href=""> <i class="ion-gear-a"></i>&nbsp;Settings </a>
+        <a class="nav-link" [routerLink]="['/settings']"> <i class="ion-gear-a"></i>&nbsp;Settings </a>
       </li>
       <li *ngIf="loggedIn$ | async" class="nav-item">
         <span class="nav-link"> {{ username$ | async }} </span>

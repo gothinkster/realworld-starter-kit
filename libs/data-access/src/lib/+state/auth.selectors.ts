@@ -9,6 +9,16 @@ export class AuthSelectors {
   }
 
   @Selector([AuthState])
+  static user(state: AuthStateModel) {
+    return state?.user;
+  }
+
+  @Selector([AuthState])
+  static token(state: AuthStateModel) {
+    return state?.user?.token;
+  }
+
+  @Selector([AuthState])
   static loggedOut(state: AuthStateModel) {
     return !state.user;
   }

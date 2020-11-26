@@ -8,6 +8,14 @@ export interface LoginResponse {
   user: User;
 }
 
+export interface GetCurrentUserResponse {
+  user: User;
+}
+
+export interface UpdateCurrentUserResponse {
+  user: User;
+}
+
 export interface RegisterResponse {
   user: User;
 }
@@ -21,4 +29,12 @@ export interface RegisterRequest {
   username: string;
   email: string;
   password: string;
+}
+
+export interface UpdateAuthUserRequest {
+  email: string;
+  token: string;
+  username: string;
+  bio: string;
+  image: string;
 }

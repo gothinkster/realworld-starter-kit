@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext } from '@ngxs/store';
 import { ConduitApiService } from './../conduit-api.service';
-import { Login, Register } from './auth.actions';
+import { GetAuthUser, Login, Register, UpdateAuthUser } from './auth.actions';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from '../user';
 import { throwError } from 'rxjs';
@@ -52,5 +52,19 @@ export class AuthState {
         return throwError(err);
       })
     );
+  }
+
+  @Action(GetAuthUser)
+  getAuthUser(ctx: StateContext<AuthStateModel>) {
+    return this.conduitApi.getAuthUser().pipe(
+      tap((user) => {
+        ctx.patchState({ user });
+      })
+    );
+  }
+
+  @Action(UpdateAuthUser)
+  updateAuthUser(ctx: StateContext<AuthStateModel>, { payload }: UpdateAuthUser) {
+    return this.conduitApi.updateAuthUser(payload).pipe(tap(() => ctx.patchState({ user: payload })));
   }
 }

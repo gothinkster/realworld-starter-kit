@@ -170,7 +170,7 @@
       "projectType": "library",
       "root": "libs/login",
       "sourceRoot": "libs/login/src",
-      "prefix": "realworld-angular-nx-ngxs",
+      "prefix": "conduit",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -199,7 +199,7 @@
       "projectType": "library",
       "root": "libs/register",
       "sourceRoot": "libs/register/src",
-      "prefix": "realworld-angular-nx-ngxs",
+      "prefix": "conduit",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -215,6 +215,35 @@
             "tsConfig": "libs/register/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "libs/register/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "settings": {
+      "projectType": "library",
+      "root": "libs/settings",
+      "sourceRoot": "libs/settings/src",
+      "prefix": "conduit",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/settings/tsconfig.lib.json", "libs/settings/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/settings/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/settings/jest.config.js",
+            "tsConfig": "libs/settings/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/settings/src/test-setup.ts"
           }
         }
       },
