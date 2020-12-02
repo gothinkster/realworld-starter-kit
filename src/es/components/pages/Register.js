@@ -24,9 +24,9 @@ export default class Register extends HTMLElement {
         const url = `${Environment.fetchBaseUrl}users`
         const body = {
           'user': {
-            'username': this.userFieldValue,
-            'email': this.emailFieldValue,
-            'password': this.passwordFieldValue
+            'username': this.userField.value,
+            'email': this.emailField.value,
+            'password': this.passwordField.value
           }
         }
 
@@ -117,16 +117,25 @@ export default class Register extends HTMLElement {
     return this.querySelector('form')
   }
 
-  get userFieldValue() {
-    return this.querySelector('input[name="username"]').getAttribute('value')
+  /**
+   * @return {HTMLInputElement}
+   */
+  get userField() {
+    return this.querySelector('input[name="username"]')
   }
 
-  get emailFieldValue() {
-    return this.querySelector('input[name="email"]').getAttribute('value')
+  /**
+   * @return {HTMLInputElement}
+   */
+  get emailField() {
+    return this.querySelector('input[name="email"]')
   }
 
-  get passwordFieldValue() {
-    return document.querySelector('input[name="password"]').getAttribute('value')
+  /**
+   * @return {HTMLInputElement}
+   */
+  get passwordField() {
+    return document.querySelector('input[name="password"]')
   }
 
   get errorMessages() {
