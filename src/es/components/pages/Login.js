@@ -18,10 +18,11 @@ export default class Login extends HTMLElement {
     super()
 
     this.submitListener = event => {
-      const password = document.getElementById("password").getAttribute('value')
-      const email = document.getElementById("email").getAttribute('value')
+      /** @type {string} */
+      const password = this.password.value
+      const email = this.email.value
       const url = `${Environment.fetchBaseUrl}users/login`
-   
+      console.log(password, email);
       const body = {
         'user': {
           'email': email,
@@ -106,5 +107,21 @@ export default class Login extends HTMLElement {
         </div>
       </div>
     `
+  }
+
+  /**
+   * @return {HTMLInputElement}
+   * 
+   */
+  get password () {
+    return document.querySelector("input[name=password]")
+  }
+
+  /**
+   * @return {HTMLInputElement}
+   * 
+   */
+  get email () {
+    return document.querySelector("input[name=email]")
   }
 }
