@@ -2,6 +2,9 @@
 
 /* global HTMLElement */
 /* global customElements */
+/* global fetch */
+
+import { Environment } from '../../helpers/Environment.js'
 
 /**
  * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#home
@@ -10,9 +13,52 @@
  * @export
  * @class Login
  */
-export default class Login extends HTMLElement {
+export default class Register extends HTMLElement {
+  constructor() {
+    super()
+
+    this.submitListener = (e) => {
+      if(this.registerForm.checkValidity()) {
+        e.preventDefault();
+
+        const url = `${Environment.fetchBaseUrl}users`
+        const body = {
+          'user': {
+            'username': this.userFieldValue,
+            'email': this.emailFieldValue,
+            'password': this.passwordFieldValue
+          }
+        }
+
+        fetch(url, {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        }).then((response) => response.json())
+        .then(data => {
+          if (data.errors) return this.errorMessages = data.errors;
+
+          // TODO: store token and redirect
+          console.log(data)
+          // Environment.token = data.token
+          // window.location.href = '#/'
+        })
+        .catch((error) => console.error('Error:', error))
+      }
+
+    }
+  }
+
   connectedCallback () {
     if (this.shouldComponentRender()) this.render()
+    this.registerForm.addEventListener('submit', this.submitListener)
+  }
+
+  disconnectedCallback () {
+    this.registerForm.removeEventListener('submit', this.submitListener)
   }
 
   /**
@@ -38,7 +84,7 @@ export default class Login extends HTMLElement {
             <div class="col-md-6 offset-md-3 col-xs-12">
               <h1 class="text-xs-center">Sign up</h1>
               <p class="text-xs-center">
-                <a href="">Have an account?</a>
+                <a href="#/login">Have an account?</a>
               </p>
 
               <ul class="error-messages">
@@ -47,13 +93,13 @@ export default class Login extends HTMLElement {
 
               <form>
                 <fieldset class="form-group">
-                  <input class="form-control form-control-lg" type="text" placeholder="Your Name">
+                  <input class="form-control form-control-lg" type="text" name="username" placeholder="Your Name" required>
                 </fieldset>
                 <fieldset class="form-group">
-                  <input class="form-control form-control-lg" type="text" placeholder="Email">
+                  <input class="form-control form-control-lg" type="email" name="email" placeholder="Email" required>
                 </fieldset>
                 <fieldset class="form-group">
-                  <input class="form-control form-control-lg" type="password" placeholder="Password">
+                  <input class="form-control form-control-lg" type="password" name="password" placeholder="Password" required>
                 </fieldset>
                 <button class="btn btn-lg btn-primary pull-xs-right">
                   Sign up
@@ -65,5 +111,29 @@ export default class Login extends HTMLElement {
         </div>
       </div>
     `
+  }
+
+  get registerForm() {
+    return this.querySelector('form')
+  }
+
+  get userFieldValue() {
+    return this.querySelector('input[name="username"]').getAttribute('value')
+  }
+
+  get emailFieldValue() {
+    return this.querySelector('input[name="email"]').getAttribute('value')
+  }
+
+  get passwordFieldValue() {
+    return document.querySelector('input[name="password"]').getAttribute('value')
+  }
+
+  get errorMessages() {
+    return this.querySelector('.error-messages')
+  }
+
+  set errorMessages(value) {
+    console.log('val', value)
   }
 }

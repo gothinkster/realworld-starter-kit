@@ -10,9 +10,9 @@ import { Environment } from '../../helpers/Environment.js'
  * As a page, this component becomes a domain dependent container and shall hold organisms, molecules and/or atoms
  *
  * @export
- * @class Register
+ * @class Login
  */
-export default class Register extends HTMLElement {
+export default class Login extends HTMLElement {
   connectedCallback () {
     if (this.shouldComponentRender()) this.render()
     this.getElementsByTagName("form")[0].addEventListener('submit', this.submitListener);
@@ -24,7 +24,7 @@ export default class Register extends HTMLElement {
     // @ts-ignore
     const email = document.getElementById("email").value
     const url = `${Environment.fetchBaseUrl}users/login`
- 
+
     const body = {
       'user': {
         'email': email,
@@ -45,7 +45,7 @@ export default class Register extends HTMLElement {
       // tbd store Token and redirect
       console.log(data);
     })
-    
+
 
   }
 
