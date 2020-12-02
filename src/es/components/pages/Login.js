@@ -13,41 +13,51 @@ import { Environment } from '../../helpers/Environment.js'
  * @class Register
  */
 export default class Register extends HTMLElement {
+
+  constructor(){
+    super()
+
+    this.submitListener = event => {
+      const password = document.getElementById("password").getAttribute('value')
+      const email = document.getElementById("email").getAttribute('value')
+      const url = `${Environment.fetchBaseUrl}users/login`
+   
+      const body = {
+        'user': {
+          'email': email,
+          'password': password
+        }
+      }
+  
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      })
+      .then(response => response.json())
+      .then ( (data) => {
+        console.log(data.user.token);
+  
+        // tbd store Token and redirect
+        // Environment.storeToken(data.user.token)
+        // window.location.href = '#/'
+      })
+      .catch( error => console.log(error))
+      
+    }
+  }
+
   connectedCallback () {
     if (this.shouldComponentRender()) this.render()
-    this.getElementsByTagName("form")[0].addEventListener('submit', this.submitListener);
+    this.querySelector("form").addEventListener('submit', this.submitListener);
   }
 
-  submitListener () {
-    // @ts-ignore
-    const password = document.getElementById("password").value
-    // @ts-ignore
-    const email = document.getElementById("email").value
-    const url = `${Environment.fetchBaseUrl}users/login`
- 
-    const body = {
-      'user': {
-        'email': email,
-        'password': password
-      }
-    }
-
-    fetch(url, {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    }).then( (response) => {
-      return response.json()
-    }).then ( (data) => {
-      // tbd store Token and redirect
-      console.log(data);
-    })
-    
-
+  disconnectedCallback () {
+    this.querySelector("form").removeEventListener('submit', this.submitListener);
   }
+  
 
   /**
    * evaluates if a render is necessary
