@@ -10,9 +10,9 @@ import { Environment } from '../../helpers/Environment.js'
  * As a page, this component becomes a domain dependent container and shall hold organisms, molecules and/or atoms
  *
  * @export
- * @class Register
+ * @class Login
  */
-export default class Register extends HTMLElement {
+export default class Login extends HTMLElement {
 
   constructor(){
     super()
