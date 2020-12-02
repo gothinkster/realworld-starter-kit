@@ -18,6 +18,7 @@ export default class Login extends HTMLElement {
     super()
 
     this.submitListener = event => {
+      event.preventDefault()
       /** @type {string} */
       const password = this.password.value
       const email = this.email.value
@@ -33,7 +34,7 @@ export default class Login extends HTMLElement {
       fetch(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json; charset=utf-8',
         },
         body: JSON.stringify(body)
       })
@@ -92,10 +93,10 @@ export default class Login extends HTMLElement {
 
               <form id="login-form">
                 <fieldset class="form-group">
-                  <input class="form-control form-control-lg" id="email" type="email" placeholder="Email">
+                  <input class="form-control form-control-lg" type="email" placeholder="Email">
                 </fieldset>
                 <fieldset class="form-group">
-                  <input class="form-control form-control-lg" id="password" type="password" placeholder="Password">
+                  <input class="form-control form-control-lg" type="password" placeholder="Password">
                 </fieldset>
                 <button class="btn btn-lg btn-primary pull-xs-right">
                   Sign in
@@ -114,7 +115,7 @@ export default class Login extends HTMLElement {
    * 
    */
   get password () {
-    return document.querySelector("input[name=password]")
+    return document.querySelector("input[type=password]")
   }
 
   /**
@@ -122,6 +123,6 @@ export default class Login extends HTMLElement {
    * 
    */
   get email () {
-    return document.querySelector("input[name=email]")
+    return document.querySelector("input[type=email]")
   }
 }
