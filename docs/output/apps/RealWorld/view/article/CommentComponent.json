@@ -1,0 +1,553 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class RealWorld.view.article.CommentComponent\n * @extends Neo.component.Base\n */",
+            "meta": {
+                "filename": "CommentComponent.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "CommentComponent",
+            "augments": [
+                "Neo.component.Base"
+            ],
+            "memberof": "RealWorld.view.article",
+            "longname": "RealWorld.view.article.CommentComponent",
+            "scope": "static",
+            "$longname": "RealWorld.view.article.CommentComponent",
+            "$kind": "class",
+            "id": 3128,
+            "neoClassName": "RealWorld.view.article.CommentComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='RealWorld.view.article.CommentComponent'\n         * @protected\n         */",
+            "meta": {
+                "filename": "CommentComponent.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'RealWorld.view.article.CommentComponent'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 3129,
+            "neoClassName": "RealWorld.view.article.CommentComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Object|null} author_=null\n         */",
+            "meta": {
+                "filename": "CommentComponent.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "author_",
+            "type": {
+                "names": [
+                    "Object",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "author_",
+            "scope": "global",
+            "$longname": "author_",
+            "$kind": "property",
+            "id": 3130,
+            "neoClassName": "RealWorld.view.article.CommentComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} body_=null\n         */",
+            "meta": {
+                "filename": "CommentComponent.mjs",
+                "lineno": 22,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "body_",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "body_",
+            "scope": "global",
+            "$longname": "body_",
+            "$kind": "property",
+            "id": 3131,
+            "neoClassName": "RealWorld.view.article.CommentComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['card']\n         */",
+            "meta": {
+                "filename": "CommentComponent.mjs",
+                "lineno": 26,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['card']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 3132,
+            "neoClassName": "RealWorld.view.article.CommentComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Number|null} commentId=null\n         */",
+            "meta": {
+                "filename": "CommentComponent.mjs",
+                "lineno": 30,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "commentId",
+            "type": {
+                "names": [
+                    "Number",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "commentId",
+            "scope": "global",
+            "$longname": "commentId",
+            "$kind": "property",
+            "id": 3133,
+            "neoClassName": "RealWorld.view.article.CommentComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} createdAt_=null\n         */",
+            "meta": {
+                "filename": "CommentComponent.mjs",
+                "lineno": 34,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "createdAt_",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "createdAt_",
+            "scope": "global",
+            "$longname": "createdAt_",
+            "$kind": "property",
+            "id": 3134,
+            "neoClassName": "RealWorld.view.article.CommentComponent"
+        },
+        {
+            "comment": "/**\n         * Not in use\n         * @member {String|null} updatedAt=null\n         */",
+            "meta": {
+                "filename": "CommentComponent.mjs",
+                "lineno": 39,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
+                "code": {}
+            },
+            "description": "Not in use",
+            "kind": "member",
+            "name": "updatedAt",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "updatedAt",
+            "scope": "global",
+            "$longname": "updatedAt",
+            "$kind": "property",
+            "id": 3135,
+            "neoClassName": "RealWorld.view.article.CommentComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Object} _vdom\n         */",
+            "meta": {
+                "filename": "CommentComponent.mjs",
+                "lineno": 43,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "_vdom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "longname": "_vdom",
+            "scope": "global",
+            "$longname": "_vdom",
+            "$kind": "property",
+            "id": 3136,
+            "neoClassName": "RealWorld.view.article.CommentComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    2483,
+                    3155
+                ],
+                "filename": "CommentComponent.mjs",
+                "lineno": 87,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
+                "code": {
+                    "id": "astnode100102809",
+                    "name": "CommentComponent",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "CommentComponent",
+            "longname": "CommentComponent",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "CommentComponent",
+            "$kind": "constructor",
+            "id": 3137,
+            "neoClassName": "RealWorld.view.article.CommentComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the author config got changed\n     * @param {Object|null} value\n     * @param {Object|null} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    3319,
+                    3630
+                ],
+                "filename": "CommentComponent.mjs",
+                "lineno": 121,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
+                "code": {
+                    "id": "astnode100102864",
+                    "name": "CommentComponent#afterSetAuthor",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the author config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetAuthor",
+            "longname": "CommentComponent#afterSetAuthor",
+            "kind": "function",
+            "memberof": "CommentComponent",
+            "scope": "instance",
+            "$longname": "CommentComponent#afterSetAuthor",
+            "$kind": "method",
+            "id": 3138,
+            "neoClassName": "RealWorld.view.article.CommentComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the body config got changed\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    3792,
+                    3968
+                ],
+                "filename": "CommentComponent.mjs",
+                "lineno": 141,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
+                "code": {
+                    "id": "astnode100102929",
+                    "name": "CommentComponent#afterSetBody",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the body config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetBody",
+            "longname": "CommentComponent#afterSetBody",
+            "kind": "function",
+            "memberof": "CommentComponent",
+            "scope": "instance",
+            "$longname": "CommentComponent#afterSetBody",
+            "$kind": "method",
+            "id": 3139,
+            "neoClassName": "RealWorld.view.article.CommentComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the createdAt config got changed\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    4135,
+                    4483
+                ],
+                "filename": "CommentComponent.mjs",
+                "lineno": 156,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
+                "code": {
+                    "id": "astnode100102964",
+                    "name": "CommentComponent#afterSetCreatedAt",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the createdAt config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetCreatedAt",
+            "longname": "CommentComponent#afterSetCreatedAt",
+            "kind": "function",
+            "memberof": "CommentComponent",
+            "scope": "instance",
+            "$longname": "CommentComponent#afterSetCreatedAt",
+            "$kind": "method",
+            "id": 3140,
+            "neoClassName": "RealWorld.view.article.CommentComponent"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    4512,
+                    4842
+                ],
+                "filename": "CommentComponent.mjs",
+                "lineno": 173,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
+                "code": {
+                    "id": "astnode100103016",
+                    "name": "CommentComponent#onCurrentUserChange",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onCurrentUserChange",
+            "longname": "CommentComponent#onCurrentUserChange",
+            "kind": "function",
+            "memberof": "CommentComponent",
+            "scope": "instance",
+            "params": [],
+            "$longname": "CommentComponent#onCurrentUserChange",
+            "$kind": "method",
+            "id": 3141,
+            "neoClassName": "RealWorld.view.article.CommentComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    4899,
+                    4992
+                ],
+                "filename": "CommentComponent.mjs",
+                "lineno": 189,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
+                "code": {
+                    "id": "astnode100103065",
+                    "name": "CommentComponent#onDeleteButtonClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onDeleteButtonClick",
+            "longname": "CommentComponent#onDeleteButtonClick",
+            "kind": "function",
+            "memberof": "CommentComponent",
+            "scope": "instance",
+            "$longname": "CommentComponent#onDeleteButtonClick",
+            "$kind": "method",
+            "id": 3142,
+            "neoClassName": "RealWorld.view.article.CommentComponent"
+        },
+        {
+            "comment": "/**\n     * Not supported yet\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    5067,
+                    5140
+                ],
+                "filename": "CommentComponent.mjs",
+                "lineno": 197,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
+                "code": {
+                    "id": "astnode100103081",
+                    "name": "CommentComponent#onEditButtonClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Not supported yet",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onEditButtonClick",
+            "longname": "CommentComponent#onEditButtonClick",
+            "kind": "function",
+            "memberof": "CommentComponent",
+            "scope": "instance",
+            "$longname": "CommentComponent#onEditButtonClick",
+            "$kind": "method",
+            "id": 3143,
+            "neoClassName": "RealWorld.view.article.CommentComponent"
+        }
+    ]
+}

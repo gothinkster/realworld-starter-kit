@@ -1,0 +1,777 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class RealWorld.api.Base\n * @extends Neo.core.Base\n */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Base",
+            "augments": [
+                "Neo.core.Base"
+            ],
+            "memberof": "RealWorld.api",
+            "longname": "RealWorld.api.Base",
+            "scope": "static",
+            "$longname": "RealWorld.api.Base",
+            "$kind": "class",
+            "id": 3097,
+            "neoClassName": "RealWorld.api.Base"
+        },
+        {
+            "comment": "/**\n         * True automatically applies the core/Observable.mjs mixin\n         * @member {Boolean} observable=true\n         * @static\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 15,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {}
+            },
+            "description": "True automatically applies the core/Observable.mjs mixin",
+            "kind": "member",
+            "name": "observable",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "scope": "static",
+            "longname": "observable",
+            "$longname": "observable",
+            "$kind": "property",
+            "id": 3098,
+            "neoClassName": "RealWorld.api.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} token=null\n         * @protected\n         * @static\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 21,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "token",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "scope": "static",
+            "longname": "token",
+            "$longname": "token",
+            "$kind": "property",
+            "id": 3099,
+            "neoClassName": "RealWorld.api.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='RealWorld.api.Base'\n         * @protected\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 29,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'RealWorld.api.Base'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 3100,
+            "neoClassName": "RealWorld.api.Base"
+        },
+        {
+            "comment": "/**\n         * @member {Object|null} defaultHeaders=null\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 33,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "defaultHeaders",
+            "type": {
+                "names": [
+                    "Object",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "defaultHeaders",
+            "scope": "global",
+            "$longname": "defaultHeaders",
+            "$kind": "property",
+            "id": 3101,
+            "neoClassName": "RealWorld.api.Base"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} isReady=false\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 37,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "isReady",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "isReady",
+            "scope": "global",
+            "$longname": "isReady",
+            "$kind": "property",
+            "id": 3102,
+            "neoClassName": "RealWorld.api.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} resource=''\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 41,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "resource",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "''",
+            "longname": "resource",
+            "scope": "global",
+            "$longname": "resource",
+            "$kind": "property",
+            "id": 3103,
+            "neoClassName": "RealWorld.api.Base"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    1099,
+                    1188
+                ],
+                "filename": "Base.mjs",
+                "lineno": 47,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {
+                    "id": "astnode100101906",
+                    "name": "Base#onConstructed",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onConstructed",
+            "longname": "Base#onConstructed",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#onConstructed",
+            "$kind": "method",
+            "id": 3104,
+            "neoClassName": "RealWorld.api.Base"
+        },
+        {
+            "comment": "/**\n     * todo: this construct is just a workaround until webpack based builds are changed to the worker target\n     * and lazy loading apps is supported in dist/*\n     */",
+            "meta": {
+                "range": [
+                    1371,
+                    1790
+                ],
+                "filename": "Base.mjs",
+                "lineno": 56,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {
+                    "id": "astnode100101920",
+                    "name": "Base#onAfterConstructed",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "todo: this construct is just a workaround until webpack based builds are changed to the worker target<br />and lazy loading apps is supported in dist/*",
+            "name": "onAfterConstructed",
+            "longname": "Base#onAfterConstructed",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#onAfterConstructed",
+            "$kind": "method",
+            "id": 3105,
+            "neoClassName": "RealWorld.api.Base"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    1819,
+                    2552
+                ],
+                "filename": "Base.mjs",
+                "lineno": 75,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {
+                    "id": "astnode100101982",
+                    "name": "Base#onAppRendered",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onAppRendered",
+            "longname": "Base#onAppRendered",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#onAppRendered",
+            "$kind": "method",
+            "id": 3106,
+            "neoClassName": "RealWorld.api.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} [opts={}]\n     * @param {Object} [opts.data]\n     * @param {Object} [opts.params]\n     * @param {String} [opts.resource]\n     * @param {String} [opts.slug]\n     * @param {String} [opts.url]\n     * @returns {String} url\n     */",
+            "meta": {
+                "range": [
+                    2823,
+                    3016
+                ],
+                "filename": "Base.mjs",
+                "lineno": 114,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {
+                    "id": "astnode100102082",
+                    "name": "Base#createUrl",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": "{}",
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.params"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.resource"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.slug"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.url"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "url"
+                }
+            ],
+            "name": "createUrl",
+            "longname": "Base#createUrl",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#createUrl",
+            "$kind": "method",
+            "id": 3107,
+            "neoClassName": "RealWorld.api.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} [opts={}]\n     * @param {Object} [opts.data]\n     * @param {Object} [opts.params]\n     * @param {String} [opts.resource]\n     * @param {String} [opts.slug]\n     * @returns {Promise<any>}\n     */",
+            "meta": {
+                "range": [
+                    3255,
+                    3789
+                ],
+                "filename": "Base.mjs",
+                "lineno": 131,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {
+                    "id": "astnode100102119",
+                    "name": "Base#delete",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": "{}",
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.params"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.resource"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.slug"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Promise.<any>"
+                        ]
+                    }
+                }
+            ],
+            "name": "delete",
+            "longname": "Base#delete",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#delete",
+            "$kind": "method",
+            "id": 3108,
+            "neoClassName": "RealWorld.api.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} [opts={}]\n     * @param {Object} [opts.data]\n     * @param {Object} [opts.params]\n     * @param {String} [opts.resource]\n     * @param {String} [opts.slug]\n     * @returns {Promise<any>}\n     */",
+            "meta": {
+                "range": [
+                    4028,
+                    4553
+                ],
+                "filename": "Base.mjs",
+                "lineno": 159,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {
+                    "id": "astnode100102175",
+                    "name": "Base#get",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": "{}",
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.params"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.resource"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.slug"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Promise.<any>"
+                        ]
+                    }
+                }
+            ],
+            "name": "get",
+            "longname": "Base#get",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#get",
+            "$kind": "method",
+            "id": 3109,
+            "neoClassName": "RealWorld.api.Base"
+        },
+        {
+            "comment": "/**\n     * Placeholder method which gets triggered once the token is fetched from the local storage\n     * @param {String|null} token\n     */",
+            "meta": {
+                "range": [
+                    4705,
+                    4967
+                ],
+                "filename": "Base.mjs",
+                "lineno": 182,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {
+                    "id": "astnode100102231",
+                    "name": "Base#onReady",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "token"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Placeholder method which gets triggered once the token is fetched from the local storage",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "token"
+                }
+            ],
+            "name": "onReady",
+            "longname": "Base#onReady",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#onReady",
+            "$kind": "method",
+            "id": 3110,
+            "neoClassName": "RealWorld.api.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} [opts={}]\n     * @param {Object} [opts.data]\n     * @param {Object} [opts.params]\n     * @param {String} [opts.resource]\n     * @param {String} [opts.slug]\n     * @returns {Promise<any>}\n     */",
+            "meta": {
+                "range": [
+                    5206,
+                    5795
+                ],
+                "filename": "Base.mjs",
+                "lineno": 203,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {
+                    "id": "astnode100102276",
+                    "name": "Base#post",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": "{}",
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.params"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.resource"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.slug"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Promise.<any>"
+                        ]
+                    }
+                }
+            ],
+            "name": "post",
+            "longname": "Base#post",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#post",
+            "$kind": "method",
+            "id": 3111,
+            "neoClassName": "RealWorld.api.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} [opts={}]\n     * @param {Object} [opts.data]\n     * @param {Object} [opts.params]\n     * @param {String} [opts.resource]\n     * @param {String} [opts.slug]\n     * @returns {Promise<any>}\n     */",
+            "meta": {
+                "range": [
+                    6034,
+                    6619
+                ],
+                "filename": "Base.mjs",
+                "lineno": 234,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {
+                    "id": "astnode100102341",
+                    "name": "Base#put",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": "{}",
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.params"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.resource"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "opts.slug"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Promise.<any>"
+                        ]
+                    }
+                }
+            ],
+            "name": "put",
+            "longname": "Base#put",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#put",
+            "$kind": "method",
+            "id": 3112,
+            "neoClassName": "RealWorld.api.Base"
+        }
+    ]
+}

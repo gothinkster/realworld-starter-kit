@@ -1,0 +1,1214 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class RealWorld.view.MainContainerController\n * @extends Neo.controller.Component\n */",
+            "meta": {
+                "filename": "MainContainerController.mjs",
+                "lineno": 15,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "MainContainerController",
+            "augments": [
+                "Neo.controller.Component"
+            ],
+            "memberof": "RealWorld.view",
+            "longname": "RealWorld.view.MainContainerController",
+            "scope": "static",
+            "$longname": "RealWorld.view.MainContainerController",
+            "$kind": "class",
+            "id": 3295,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='RealWorld.view.MainContainerController'\n         * @protected\n         */",
+            "meta": {
+                "filename": "MainContainerController.mjs",
+                "lineno": 25,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'RealWorld.view.MainContainerController'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 3296,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n         * @member {RealWorld.view.article.Component|null} articleComponent=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "MainContainerController.mjs",
+                "lineno": 30,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "articleComponent",
+            "type": {
+                "names": [
+                    "RealWorld.view.article.Component",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "articleComponent",
+            "scope": "global",
+            "$longname": "articleComponent",
+            "$kind": "property",
+            "id": 3297,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n         * @member {Number} articlesOffset_=0\n         */",
+            "meta": {
+                "filename": "MainContainerController.mjs",
+                "lineno": 34,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "articlesOffset_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 0,
+            "longname": "articlesOffset_",
+            "scope": "global",
+            "$longname": "articlesOffset_",
+            "$kind": "property",
+            "id": 3298,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n         * @member {RealWorld.view.article.CreateComponent|null} createComponent=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "MainContainerController.mjs",
+                "lineno": 39,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "createComponent",
+            "type": {
+                "names": [
+                    "RealWorld.view.article.CreateComponent",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "createComponent",
+            "scope": "global",
+            "$longname": "createComponent",
+            "$kind": "property",
+            "id": 3299,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n         * Stores the current user data after logging in\n         * @member {Object|null} currentUser_=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "MainContainerController.mjs",
+                "lineno": 45,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "description": "Stores the current user data after logging in",
+            "kind": "member",
+            "name": "currentUser_",
+            "type": {
+                "names": [
+                    "Object",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "currentUser_",
+            "scope": "global",
+            "$longname": "currentUser_",
+            "$kind": "property",
+            "id": 3300,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} hashString=null\n         */",
+            "meta": {
+                "filename": "MainContainerController.mjs",
+                "lineno": 49,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "hashString",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "hashString",
+            "scope": "global",
+            "$longname": "hashString",
+            "$kind": "property",
+            "id": 3301,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n         * @member {RealWorld.view.HomeComponent|null} homeComponent=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "MainContainerController.mjs",
+                "lineno": 54,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "homeComponent",
+            "type": {
+                "names": [
+                    "RealWorld.view.HomeComponent",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "homeComponent",
+            "scope": "global",
+            "$longname": "homeComponent",
+            "$kind": "property",
+            "id": 3302,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n         * @member {RealWorld.view.user.ProfileComponent|null} profileComponent=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "MainContainerController.mjs",
+                "lineno": 59,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "profileComponent",
+            "type": {
+                "names": [
+                    "RealWorld.view.user.ProfileComponent",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "profileComponent",
+            "scope": "global",
+            "$longname": "profileComponent",
+            "$kind": "property",
+            "id": 3303,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n         * @member {RealWorld.view.user.SettingsComponent|null} settingsComponent=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "MainContainerController.mjs",
+                "lineno": 64,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "settingsComponent",
+            "type": {
+                "names": [
+                    "RealWorld.view.user.SettingsComponent",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "settingsComponent",
+            "scope": "global",
+            "$longname": "settingsComponent",
+            "$kind": "property",
+            "id": 3304,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n         * @member {RealWorld.view.user.SignUpComponent|null} signUpComponent=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "MainContainerController.mjs",
+                "lineno": 69,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "signUpComponent",
+            "type": {
+                "names": [
+                    "RealWorld.view.user.SignUpComponent",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "signUpComponent",
+            "scope": "global",
+            "$longname": "signUpComponent",
+            "$kind": "property",
+            "id": 3305,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     * Triggered after the articlesOffset config got changed\n     * @param {Object} value\n     * @param {Object} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    3207,
+                    3383
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 95,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108809",
+                    "name": "MainContainerController#afterSetArticlesOffset",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the articlesOffset config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetArticlesOffset",
+            "longname": "MainContainerController#afterSetArticlesOffset",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#afterSetArticlesOffset",
+            "$kind": "method",
+            "id": 3306,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     * Triggered after the currentUser config got changed\n     * @param {Object} value\n     * @param {Object} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    3542,
+                    4073
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 108,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108827",
+                    "name": "MainContainerController#afterSetCurrentUser",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the currentUser config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetCurrentUser",
+            "longname": "MainContainerController#afterSetCurrentUser",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#afterSetCurrentUser",
+            "$kind": "method",
+            "id": 3307,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} slug\n     */",
+            "meta": {
+                "range": [
+                    4130,
+                    4299
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 127,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108885",
+                    "name": "MainContainerController#deleteArticle",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "slug"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "slug"
+                }
+            ],
+            "name": "deleteArticle",
+            "longname": "MainContainerController#deleteArticle",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#deleteArticle",
+            "$kind": "method",
+            "id": 3308,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Number} id\n     * @return {Promise<any>}\n     */",
+            "meta": {
+                "range": [
+                    4384,
+                    4597
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 140,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108914",
+                    "name": "MainContainerController#deleteComment",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "id"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "id"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Promise.<any>"
+                        ]
+                    }
+                }
+            ],
+            "name": "deleteComment",
+            "longname": "MainContainerController#deleteComment",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#deleteComment",
+            "$kind": "method",
+            "id": 3309,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} slug\n     * @param {Boolean} favorited\n     */",
+            "meta": {
+                "range": [
+                    4688,
+                    4792
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 154,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108954",
+                    "name": "MainContainerController#favoriteArticle",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "slug",
+                        "favorited"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "slug"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "favorited"
+                }
+            ],
+            "name": "favoriteArticle",
+            "longname": "MainContainerController#favoriteArticle",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#favoriteArticle",
+            "$kind": "method",
+            "id": 3310,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} slug\n     * @param {Boolean} follow\n     */",
+            "meta": {
+                "range": [
+                    4880,
+                    4977
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 163,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108969",
+                    "name": "MainContainerController#followUser",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "slug",
+                        "follow"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "slug"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "follow"
+                }
+            ],
+            "name": "followUser",
+            "longname": "MainContainerController#followUser",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#followUser",
+            "$kind": "method",
+            "id": 3311,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     * Article details: get an article providing a user slug\n     * @param {String} slug\n     */",
+            "meta": {
+                "range": [
+                    5088,
+                    5179
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 171,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108984",
+                    "name": "MainContainerController#getArticle",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "slug"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Article details: get an article providing a user slug",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "slug"
+                }
+            ],
+            "name": "getArticle",
+            "longname": "MainContainerController#getArticle",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#getArticle",
+            "$kind": "method",
+            "id": 3312,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} [params={}]\n     * @param {Object} [opts={}]\n     * @returns {Promise<any>}\n     */",
+            "meta": {
+                "range": [
+                    5307,
+                    5546
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 183,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108997",
+                    "name": "MainContainerController#getArticles",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "params",
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": "{}",
+                    "name": "params"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": "{}",
+                    "name": "opts"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Promise.<any>"
+                        ]
+                    }
+                }
+            ],
+            "name": "getArticles",
+            "longname": "MainContainerController#getArticles",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#getArticles",
+            "$kind": "method",
+            "id": 3313,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} slug\n     */",
+            "meta": {
+                "range": [
+                    5603,
+                    5757
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 198,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100109025",
+                    "name": "MainContainerController#getComments",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "slug"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "slug"
+                }
+            ],
+            "name": "getComments",
+            "longname": "MainContainerController#getComments",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#getComments",
+            "$kind": "method",
+            "id": 3314,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} token\n     */",
+            "meta": {
+                "range": [
+                    5815,
+                    6068
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 208,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100109054",
+                    "name": "MainContainerController#getCurrentUser",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "token"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "token"
+                }
+            ],
+            "name": "getCurrentUser",
+            "longname": "MainContainerController#getCurrentUser",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#getCurrentUser",
+            "$kind": "method",
+            "id": 3315,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} slug\n     */",
+            "meta": {
+                "range": [
+                    6125,
+                    6458
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 222,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100109086",
+                    "name": "MainContainerController#getProfile",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "slug"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "slug"
+                }
+            ],
+            "name": "getProfile",
+            "longname": "MainContainerController#getProfile",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#getProfile",
+            "$kind": "method",
+            "id": 3316,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    6487,
+                    6614
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 238,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100109141",
+                    "name": "MainContainerController#getTags",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "getTags",
+            "longname": "MainContainerController#getTags",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "params": [],
+            "$longname": "MainContainerController#getTags",
+            "$kind": "method",
+            "id": 3317,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} key\n     * @param {Neo.component.Base} module\n     * @param {String} reference\n     * @returns {Neo.component.Base} The matching view instance\n     */",
+            "meta": {
+                "range": [
+                    6809,
+                    7095
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 251,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100109170",
+                    "name": "MainContainerController#getView",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "key",
+                        "module",
+                        "reference"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "key"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "name": "module"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "reference"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "description": "The matching view instance"
+                }
+            ],
+            "name": "getView",
+            "longname": "MainContainerController#getView",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#getView",
+            "$kind": "method",
+            "id": 3318,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     * @param {Object} userData\n     */",
+            "meta": {
+                "range": [
+                    7149,
+                    7615
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 268,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100109211",
+                    "name": "MainContainerController#login",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "userData"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "userData"
+                }
+            ],
+            "name": "login",
+            "longname": "MainContainerController#login",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#login",
+            "$kind": "method",
+            "id": 3319,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    7644,
+                    8063
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 287,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100109261",
+                    "name": "MainContainerController#logout",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "logout",
+            "longname": "MainContainerController#logout",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "params": [],
+            "$longname": "MainContainerController#logout",
+            "$kind": "method",
+            "id": 3320,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} value\n     * @param {Object} oldValue\n     */",
+            "meta": {
+                "range": [
+                    8153,
+                    12494
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 307,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100109306",
+                    "name": "MainContainerController#onHashChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "name": "onHashChange",
+            "longname": "MainContainerController#onHashChange",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#onHashChange",
+            "$kind": "method",
+            "id": 3321,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} [opts)\n     * @returns {Promise<any>}\n     */",
+            "meta": {
+                "range": [
+                    12584,
+                    12800
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 409,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100109805",
+                    "name": "MainContainerController#postComment",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts)"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Promise.<any>"
+                        ]
+                    }
+                }
+            ],
+            "name": "postComment",
+            "longname": "MainContainerController#postComment",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#postComment",
+            "$kind": "method",
+            "id": 3322,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @returns {Promise<any>}\n     */",
+            "meta": {
+                "range": [
+                    12888,
+                    12945
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 423,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100109847",
+                    "name": "MainContainerController#saveUser",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Promise.<any>"
+                        ]
+                    }
+                }
+            ],
+            "name": "saveUser",
+            "longname": "MainContainerController#saveUser",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#saveUser",
+            "$kind": "method",
+            "id": 3323,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} [opts)\n     * @returns {Promise<any>}\n     */",
+            "meta": {
+                "range": [
+                    13035,
+                    13348
+                ],
+                "filename": "MainContainerController.mjs",
+                "lineno": 432,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100109858",
+                    "name": "MainContainerController#updateSettings",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts)"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Promise.<any>"
+                        ]
+                    }
+                }
+            ],
+            "name": "updateSettings",
+            "longname": "MainContainerController#updateSettings",
+            "kind": "function",
+            "memberof": "MainContainerController",
+            "scope": "instance",
+            "$longname": "MainContainerController#updateSettings",
+            "$kind": "method",
+            "id": 3324,
+            "neoClassName": "RealWorld.view.MainContainerController"
+        }
+    ]
+}

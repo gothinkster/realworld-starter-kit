@@ -27,7 +27,7 @@
             "scope": "static",
             "$longname": "Neo.worker.App",
             "$kind": "class",
-            "id": 2823,
+            "id": 2844,
             "neoClassName": "Neo.worker.App"
         },
         {
@@ -52,7 +52,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2824,
+            "id": 2845,
             "neoClassName": "Neo.worker.App"
         },
         {
@@ -77,7 +77,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2825,
+            "id": 2846,
             "neoClassName": "Neo.worker.App"
         },
         {
@@ -103,7 +103,7 @@
             "scope": "global",
             "$longname": "data",
             "$kind": "property",
-            "id": 2826,
+            "id": 2847,
             "neoClassName": "Neo.worker.App"
         },
         {
@@ -128,7 +128,7 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 2827,
+            "id": 2848,
             "neoClassName": "Neo.worker.App"
         },
         {
@@ -153,27 +153,27 @@
             "scope": "global",
             "$longname": "workerId",
             "$kind": "property",
-            "id": 2828,
+            "id": 2849,
             "neoClassName": "Neo.worker.App"
         },
         {
-            "comment": "/**\n     * Only needed for the SharedWorkers context\n     * @param {String} appName\n     * @param {String} eventName\n     */",
+            "comment": "/**\n     * Only needed for the SharedWorkers context\n     * @param {String} eventName\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    1367,
-                    1540
+                    1364,
+                    1531
                 ],
                 "filename": "App.mjs",
                 "lineno": 50,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100093254",
+                    "id": "astnode100093895",
                     "name": "App#fireMainViewsEvent",
                     "type": "MethodDefinition",
                     "paramnames": [
-                        "appName",
-                        "eventName"
+                        "eventName",
+                        "data"
                     ]
                 },
                 "vars": {
@@ -188,15 +188,15 @@
                             "String"
                         ]
                     },
-                    "name": "appName"
+                    "name": "eventName"
                 },
                 {
                     "type": {
                         "names": [
-                            "String"
+                            "Object"
                         ]
                     },
-                    "name": "eventName"
+                    "name": "data"
                 }
             ],
             "name": "fireMainViewsEvent",
@@ -206,22 +206,22 @@
             "scope": "instance",
             "$longname": "App#fireMainViewsEvent",
             "$kind": "method",
-            "id": 2829,
+            "id": 2850,
             "neoClassName": "Neo.worker.App"
         },
         {
             "comment": "/**\n     *\n     * @param {String} path\n     * @returns {Promise}\n     */",
             "meta": {
                 "range": [
-                    1623,
-                    1989
+                    1614,
+                    1925
                 ],
                 "filename": "App.mjs",
                 "lineno": 61,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100093285",
+                    "id": "astnode100093926",
                     "name": "App#importApp",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -258,22 +258,22 @@
             "scope": "instance",
             "$longname": "App#importApp",
             "$kind": "method",
-            "id": 2830,
+            "id": 2851,
             "neoClassName": "Neo.worker.App"
         },
         {
             "comment": "/**\n     * Only relevant for SharedWorkers\n     */",
             "meta": {
                 "range": [
-                    2050,
-                    2171
+                    1986,
+                    2099
                 ],
                 "filename": "App.mjs",
-                "lineno": 78,
+                "lineno": 77,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100093309",
+                    "id": "astnode100093950",
                     "name": "App#onDisconnect",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -293,22 +293,22 @@
             "params": [],
             "$longname": "App#onDisconnect",
             "$kind": "method",
-            "id": 2831,
+            "id": 2852,
             "neoClassName": "Neo.worker.App"
         },
         {
             "comment": "/**\n     * Every dom event will get forwarded as a worker message from main and ends up here first\n     * @param {Object} data useful event properties, differs for different event types. See Neo.main.DomEvents.\n     */",
             "meta": {
                 "range": [
-                    2400,
-                    2460
+                    2328,
+                    2388
                 ],
                 "filename": "App.mjs",
-                "lineno": 87,
+                "lineno": 86,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100093329",
+                    "id": "astnode100093968",
                     "name": "App#onDomEvent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -338,22 +338,22 @@
             "scope": "instance",
             "$longname": "App#onDomEvent",
             "$kind": "method",
-            "id": 2832,
+            "id": 2853,
             "neoClassName": "Neo.worker.App"
         },
         {
             "comment": "/**\n     * Every URL hash-change will create a post message in main and end up here first.\n     * @param {Object} data parsed key-value pairs for each hash value\n     */",
             "meta": {
                 "range": [
-                    2640,
-                    2703
+                    2568,
+                    2631
                 ],
                 "filename": "App.mjs",
-                "lineno": 95,
+                "lineno": 94,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100093340",
+                    "id": "astnode100093979",
                     "name": "App#onHashChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -383,22 +383,22 @@
             "scope": "instance",
             "$longname": "App#onHashChange",
             "$kind": "method",
-            "id": 2833,
+            "id": 2854,
             "neoClassName": "Neo.worker.App"
         },
         {
             "comment": "/**\n     * The starting point for apps\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    2788,
-                    3425
+                    2716,
+                    3353
                 ],
                 "filename": "App.mjs",
-                "lineno": 103,
+                "lineno": 102,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100093353",
+                    "id": "astnode100093992",
                     "name": "App#onLoadApplication",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -427,26 +427,69 @@
             "scope": "instance",
             "$longname": "App#onLoadApplication",
             "$kind": "method",
-            "id": 2834,
+            "id": 2855,
             "neoClassName": "Neo.worker.App"
         },
         {
-            "comment": "/**\n     *\n     * @param {String} name\n     */",
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    3482,
-                    3562
+                    3410,
+                    3514
                 ],
                 "filename": "App.mjs",
-                "lineno": 132,
+                "lineno": 131,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
                 "code": {
-                    "id": "astnode100093453",
+                    "id": "astnode100094092",
+                    "name": "App#onWindowPositionChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onWindowPositionChange",
+            "longname": "App#onWindowPositionChange",
+            "kind": "function",
+            "memberof": "App",
+            "scope": "instance",
+            "$longname": "App#onWindowPositionChange",
+            "$kind": "method",
+            "id": 2856,
+            "neoClassName": "Neo.worker.App"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} appName\n     */",
+            "meta": {
+                "range": [
+                    3574,
+                    3671
+                ],
+                "filename": "App.mjs",
+                "lineno": 139,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/worker",
+                "code": {
+                    "id": "astnode100094106",
                     "name": "App#registerMainView",
                     "type": "MethodDefinition",
                     "paramnames": [
-                        "name"
+                        "appName"
                     ]
                 },
                 "vars": {
@@ -460,7 +503,7 @@
                             "String"
                         ]
                     },
-                    "name": "name"
+                    "name": "appName"
                 }
             ],
             "name": "registerMainView",
@@ -470,7 +513,7 @@
             "scope": "instance",
             "$longname": "App#registerMainView",
             "$kind": "method",
-            "id": 2835,
+            "id": 2857,
             "neoClassName": "Neo.worker.App"
         }
     ]

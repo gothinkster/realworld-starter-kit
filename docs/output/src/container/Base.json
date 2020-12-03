@@ -867,14 +867,14 @@
             "neoClassName": "Neo.container.Base"
         },
         {
-            "comment": "/**\n     * Inserts an item or array of items at a specific index\n     * @param {Number} index\n     * @param {Object|Array} item\n     * @returns {Neo.component.Base|Neo.component.Base[]}\n     */",
+            "comment": "/**\n     * Inserts an item or array of items at a specific index\n     * @param {Number} index\n     * @param {Object|Array} item\n     * @param {Boolean} [silent=false]\n     * @returns {Neo.component.Base|Neo.component.Base[]}\n     */",
             "meta": {
                 "range": [
-                    9646,
-                    11568
+                    9685,
+                    11557
                 ],
                 "filename": "Base.mjs",
-                "lineno": 349,
+                "lineno": 350,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
@@ -883,7 +883,8 @@
                     "type": "MethodDefinition",
                     "paramnames": [
                         "index",
-                        "item"
+                        "item",
+                        "silent"
                     ]
                 },
                 "vars": {
@@ -908,6 +909,16 @@
                         ]
                     },
                     "name": "item"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "silent"
                 }
             ],
             "returns": [
@@ -934,15 +945,15 @@
             "comment": "/**\n     * Moves an existing item to a new index\n     * @param {Number} fromIndex\n     * @param {Number} toIndex\n     * @returns {Neo.component.Base}\n     */",
             "meta": {
                 "range": [
-                    11736,
-                    11964
+                    11725,
+                    11953
                 ],
                 "filename": "Base.mjs",
-                "lineno": 420,
+                "lineno": 421,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100032042",
+                    "id": "astnode100032040",
                     "name": "Base#moveTo",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -996,15 +1007,15 @@
             "comment": "/**\n     *\n     * @param {Object|String} config\n     * @protected\n     * @returns {Object} layoutConfig\n     */",
             "meta": {
                 "range": [
-                    12731,
-                    13184
+                    12720,
+                    13173
                 ],
                 "filename": "Base.mjs",
-                "lineno": 457,
+                "lineno": 458,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100032164",
+                    "id": "astnode100032162",
                     "name": "Base#parseLayoutClass",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1051,15 +1062,15 @@
             "comment": "/**\n     * Removes a container item by reference\n     * @param {Neo.component.Base} component\n     * @param {Boolean} [destroyItem=true]\n     * @param {Boolean} [silent=false]\n     */",
             "meta": {
                 "range": [
-                    13378,
-                    13688
+                    13367,
+                    13677
                 ],
                 "filename": "Base.mjs",
-                "lineno": 482,
+                "lineno": 483,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100032223",
+                    "id": "astnode100032221",
                     "name": "Base#remove",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1117,15 +1128,15 @@
             "comment": "/**\n     * Removes a container item at a given index\n     * @param {Number} index\n     * @param {Boolean} [destroyItem=true]\n     * @param {Boolean} [silent=false]\n     */",
             "meta": {
                 "range": [
-                    13870,
-                    14602
+                    13859,
+                    14591
                 ],
                 "filename": "Base.mjs",
-                "lineno": 500,
+                "lineno": 501,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100032276",
+                    "id": "astnode100032274",
                     "name": "Base#removeAt",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1183,15 +1194,15 @@
             "comment": "/**\n     * Switches the position of 2 direct child items\n     * @param {String} item1id\n     * @param {String} item2id\n     */",
             "meta": {
                 "range": [
-                    14739,
-                    15099
+                    14728,
+                    15088
                 ],
                 "filename": "Base.mjs",
-                "lineno": 534,
+                "lineno": 535,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100032385",
+                    "id": "astnode100032383",
                     "name": "Base#switchItems",
                     "type": "MethodDefinition",
                     "paramnames": [

@@ -1,0 +1,99 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Docs.app.store.Tutorials\n * @extends Neo.data.Store\n */",
+            "meta": {
+                "filename": "Tutorials.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/store",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "Tutorials",
+            "augments": [
+                "Neo.data.Store"
+            ],
+            "memberof": "Docs.app.store",
+            "longname": "Docs.app.store.Tutorials",
+            "scope": "static",
+            "$longname": "Docs.app.store.Tutorials",
+            "$kind": "class",
+            "id": 2950,
+            "neoClassName": "Docs.app.store.Tutorials"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Docs.app.store.Tutorials'\n         * @protected\n         */",
+            "meta": {
+                "filename": "Tutorials.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/store",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Docs.app.store.Tutorials'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 2951,
+            "neoClassName": "Docs.app.store.Tutorials"
+        },
+        {
+            "comment": "/**\n         * @member {String} keyProperty='id'\n         */",
+            "meta": {
+                "filename": "Tutorials.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/store",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "keyProperty",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'id'",
+            "longname": "keyProperty",
+            "scope": "global",
+            "$longname": "keyProperty",
+            "$kind": "property",
+            "id": 2952,
+            "neoClassName": "Docs.app.store.Tutorials"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.data.Model} model=Tutorial\n         */",
+            "meta": {
+                "filename": "Tutorials.mjs",
+                "lineno": 22,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/store",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "model",
+            "type": {
+                "names": [
+                    "Neo.data.Model"
+                ]
+            },
+            "defaultvalue": "Tutorial",
+            "longname": "model",
+            "scope": "global",
+            "$longname": "model",
+            "$kind": "property",
+            "id": 2953,
+            "neoClassName": "Docs.app.store.Tutorials"
+        }
+    ]
+}

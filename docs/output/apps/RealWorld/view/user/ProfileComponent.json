@@ -1,0 +1,878 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class RealWorld.view.user.ProfileComponent\n * @extends Neo.component.Base\n */",
+            "meta": {
+                "filename": "ProfileComponent.mjs",
+                "lineno": 6,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "ProfileComponent",
+            "augments": [
+                "Neo.component.Base"
+            ],
+            "memberof": "RealWorld.view.user",
+            "longname": "RealWorld.view.user.ProfileComponent",
+            "scope": "static",
+            "$longname": "RealWorld.view.user.ProfileComponent",
+            "$kind": "class",
+            "id": 3325,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='RealWorld.view.user.ProfileComponent'\n         * @protected\n         */",
+            "meta": {
+                "filename": "ProfileComponent.mjs",
+                "lineno": 16,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'RealWorld.view.user.ProfileComponent'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 3326,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Object[]|null} articlePreviews_=null\n         */",
+            "meta": {
+                "filename": "ProfileComponent.mjs",
+                "lineno": 20,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "articlePreviews_",
+            "type": {
+                "names": [
+                    "Array.<Object>",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "articlePreviews_",
+            "scope": "global",
+            "$longname": "articlePreviews_",
+            "$kind": "property",
+            "id": 3327,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} bio_=null\n         */",
+            "meta": {
+                "filename": "ProfileComponent.mjs",
+                "lineno": 24,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "bio_",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "bio_",
+            "scope": "global",
+            "$longname": "bio_",
+            "$kind": "property",
+            "id": 3328,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['profile-page']\n         */",
+            "meta": {
+                "filename": "ProfileComponent.mjs",
+                "lineno": 28,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['profile-page']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 3329,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Number} countArticles_=5\n         */",
+            "meta": {
+                "filename": "ProfileComponent.mjs",
+                "lineno": 32,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "countArticles_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 5,
+            "longname": "countArticles_",
+            "scope": "global",
+            "$longname": "countArticles_",
+            "$kind": "property",
+            "id": 3330,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean|null} following_=null\n         */",
+            "meta": {
+                "filename": "ProfileComponent.mjs",
+                "lineno": 36,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "following_",
+            "type": {
+                "names": [
+                    "Boolean",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "following_",
+            "scope": "global",
+            "$longname": "following_",
+            "$kind": "property",
+            "id": 3331,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} image_=null\n         */",
+            "meta": {
+                "filename": "ProfileComponent.mjs",
+                "lineno": 40,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "image_",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "image_",
+            "scope": "global",
+            "$longname": "image_",
+            "$kind": "property",
+            "id": 3332,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} myProfile_=false\n         */",
+            "meta": {
+                "filename": "ProfileComponent.mjs",
+                "lineno": 44,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "myProfile_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "myProfile_",
+            "scope": "global",
+            "$longname": "myProfile_",
+            "$kind": "property",
+            "id": 3333,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n         * @member {RealWorld.view.article.PreviewComponent[]} previewComponents=[]\n         */",
+            "meta": {
+                "filename": "ProfileComponent.mjs",
+                "lineno": 48,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "previewComponents",
+            "type": {
+                "names": [
+                    "Array.<RealWorld.view.article.PreviewComponent>"
+                ]
+            },
+            "defaultvalue": "[]",
+            "longname": "previewComponents",
+            "scope": "global",
+            "$longname": "previewComponents",
+            "$kind": "property",
+            "id": 3334,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} username_=null\n         */",
+            "meta": {
+                "filename": "ProfileComponent.mjs",
+                "lineno": 52,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "username_",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "username_",
+            "scope": "global",
+            "$longname": "username_",
+            "$kind": "property",
+            "id": 3335,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Object} _vdom\n         */",
+            "meta": {
+                "filename": "ProfileComponent.mjs",
+                "lineno": 56,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "_vdom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "longname": "_vdom",
+            "scope": "global",
+            "$longname": "_vdom",
+            "$kind": "property",
+            "id": 3336,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    5508,
+                    6166
+                ],
+                "filename": "ProfileComponent.mjs",
+                "lineno": 148,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {
+                    "id": "astnode100110141",
+                    "name": "ProfileComponent",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "ProfileComponent",
+            "longname": "ProfileComponent",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "ProfileComponent",
+            "$kind": "constructor",
+            "id": 3337,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the articlePreviews config got changed\n     * @param {Object[]|null} value\n     * @param {Object[]|null} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    6343,
+                    7688
+                ],
+                "filename": "ProfileComponent.mjs",
+                "lineno": 178,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {
+                    "id": "astnode100110221",
+                    "name": "ProfileComponent#afterSetArticlePreviews",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the articlePreviews config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array.<Object>",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array.<Object>",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetArticlePreviews",
+            "longname": "ProfileComponent#afterSetArticlePreviews",
+            "kind": "function",
+            "memberof": "ProfileComponent",
+            "scope": "instance",
+            "$longname": "ProfileComponent#afterSetArticlePreviews",
+            "$kind": "method",
+            "id": 3338,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the bio config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    7839,
+                    8029
+                ],
+                "filename": "ProfileComponent.mjs",
+                "lineno": 223,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {
+                    "id": "astnode100110378",
+                    "name": "ProfileComponent#afterSetBio",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the bio config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetBio",
+            "longname": "ProfileComponent#afterSetBio",
+            "kind": "function",
+            "memberof": "ProfileComponent",
+            "scope": "instance",
+            "$longname": "ProfileComponent#afterSetBio",
+            "$kind": "method",
+            "id": 3339,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the following config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    8188,
+                    8811
+                ],
+                "filename": "ProfileComponent.mjs",
+                "lineno": 238,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {
+                    "id": "astnode100110410",
+                    "name": "ProfileComponent#afterSetFollowing",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the following config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetFollowing",
+            "longname": "ProfileComponent#afterSetFollowing",
+            "kind": "function",
+            "memberof": "ProfileComponent",
+            "scope": "instance",
+            "$longname": "ProfileComponent#afterSetFollowing",
+            "$kind": "method",
+            "id": 3340,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the image config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    8964,
+                    9114
+                ],
+                "filename": "ProfileComponent.mjs",
+                "lineno": 259,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {
+                    "id": "astnode100110494",
+                    "name": "ProfileComponent#afterSetImage",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the image config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetImage",
+            "longname": "ProfileComponent#afterSetImage",
+            "kind": "function",
+            "memberof": "ProfileComponent",
+            "scope": "instance",
+            "$longname": "ProfileComponent#afterSetImage",
+            "$kind": "method",
+            "id": 3341,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the myProfile config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    9273,
+                    9614
+                ],
+                "filename": "ProfileComponent.mjs",
+                "lineno": 272,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {
+                    "id": "astnode100110523",
+                    "name": "ProfileComponent#afterSetMyProfile",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the myProfile config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetMyProfile",
+            "longname": "ProfileComponent#afterSetMyProfile",
+            "kind": "function",
+            "memberof": "ProfileComponent",
+            "scope": "instance",
+            "$longname": "ProfileComponent#afterSetMyProfile",
+            "$kind": "method",
+            "id": 3342,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the username config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    9770,
+                    9993
+                ],
+                "filename": "ProfileComponent.mjs",
+                "lineno": 288,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {
+                    "id": "astnode100110578",
+                    "name": "ProfileComponent#afterSetUsername",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the username config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetUsername",
+            "longname": "ProfileComponent#afterSetUsername",
+            "kind": "function",
+            "memberof": "ProfileComponent",
+            "scope": "instance",
+            "$longname": "ProfileComponent#afterSetUsername",
+            "$kind": "method",
+            "id": 3343,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} params\n     */",
+            "meta": {
+                "range": [
+                    10052,
+                    10210
+                ],
+                "filename": "ProfileComponent.mjs",
+                "lineno": 300,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {
+                    "id": "astnode100110622",
+                    "name": "ProfileComponent#getArticles",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "params"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "params"
+                }
+            ],
+            "name": "getArticles",
+            "longname": "ProfileComponent#getArticles",
+            "kind": "function",
+            "memberof": "ProfileComponent",
+            "scope": "instance",
+            "$longname": "ProfileComponent#getArticles",
+            "$kind": "method",
+            "id": 3344,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} value\n     */",
+            "meta": {
+                "range": [
+                    10268,
+                    10412
+                ],
+                "filename": "ProfileComponent.mjs",
+                "lineno": 310,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {
+                    "id": "astnode100110652",
+                    "name": "ProfileComponent#onCurrentUserChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "value"
+                }
+            ],
+            "name": "onCurrentUserChange",
+            "longname": "ProfileComponent#onCurrentUserChange",
+            "kind": "function",
+            "memberof": "ProfileComponent",
+            "scope": "instance",
+            "$longname": "ProfileComponent#onCurrentUserChange",
+            "$kind": "method",
+            "id": 3345,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    10469,
+                    10675
+                ],
+                "filename": "ProfileComponent.mjs",
+                "lineno": 318,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {
+                    "id": "astnode100110678",
+                    "name": "ProfileComponent#onFollowButtonClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onFollowButtonClick",
+            "longname": "ProfileComponent#onFollowButtonClick",
+            "kind": "function",
+            "memberof": "ProfileComponent",
+            "scope": "instance",
+            "$longname": "ProfileComponent#onFollowButtonClick",
+            "$kind": "method",
+            "id": 3346,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    10732,
+                    11765
+                ],
+                "filename": "ProfileComponent.mjs",
+                "lineno": 330,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {
+                    "id": "astnode100110720",
+                    "name": "ProfileComponent#onNavLinkClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onNavLinkClick",
+            "longname": "ProfileComponent#onNavLinkClick",
+            "kind": "function",
+            "memberof": "ProfileComponent",
+            "scope": "instance",
+            "$longname": "ProfileComponent#onNavLinkClick",
+            "$kind": "method",
+            "id": 3347,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} configs\n     */",
+            "meta": {
+                "range": [
+                    11825,
+                    12309
+                ],
+                "filename": "ProfileComponent.mjs",
+                "lineno": 369,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
+                "code": {
+                    "id": "astnode100110853",
+                    "name": "ProfileComponent#update",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "configs"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "configs"
+                }
+            ],
+            "name": "update",
+            "longname": "ProfileComponent#update",
+            "kind": "function",
+            "memberof": "ProfileComponent",
+            "scope": "instance",
+            "$longname": "ProfileComponent#update",
+            "$kind": "method",
+            "id": 3348,
+            "neoClassName": "RealWorld.view.user.ProfileComponent"
+        }
+    ]
+}

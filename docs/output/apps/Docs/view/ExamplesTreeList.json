@@ -1,0 +1,159 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Docs.app.view.ExamplesTreeList\n * @extends Neo.tree.List\n */",
+            "meta": {
+                "filename": "ExamplesTreeList.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "ExamplesTreeList",
+            "augments": [
+                "Neo.tree.List"
+            ],
+            "memberof": "Docs.app.view",
+            "longname": "Docs.app.view.ExamplesTreeList",
+            "scope": "static",
+            "$longname": "Docs.app.view.ExamplesTreeList",
+            "$kind": "class",
+            "id": 3051,
+            "neoClassName": "Docs.app.view.ExamplesTreeList"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Docs.app.view.ExamplesTreeList'\n         * @protected\n         */",
+            "meta": {
+                "filename": "ExamplesTreeList.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Docs.app.view.ExamplesTreeList'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 3052,
+            "neoClassName": "Docs.app.view.ExamplesTreeList"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='examples-treelist'\n         * @protected\n         */",
+            "meta": {
+                "filename": "ExamplesTreeList.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'examples-treelist'",
+            "access": "protected",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 3053,
+            "neoClassName": "Docs.app.view.ExamplesTreeList"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['docs-examples-treelist', 'neo-tree-list', 'neo-list-container', 'neo-list']\n         */",
+            "meta": {
+                "filename": "ExamplesTreeList.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['docs-examples-treelist', 'neo-tree-list', 'neo-list-container', 'neo-list']",
+            "description": "'neo-tree-list', 'neo-list-container', 'neo-list']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 3054,
+            "neoClassName": "Docs.app.view.ExamplesTreeList"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.data.Store|null} store=ExamplesStore\n         * @protected\n         */",
+            "meta": {
+                "filename": "ExamplesTreeList.mjs",
+                "lineno": 33,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "store",
+            "type": {
+                "names": [
+                    "Neo.data.Store",
+                    "null"
+                ]
+            },
+            "defaultvalue": "ExamplesStore",
+            "access": "protected",
+            "longname": "store",
+            "scope": "global",
+            "$longname": "store",
+            "$kind": "property",
+            "id": 3055,
+            "neoClassName": "Docs.app.view.ExamplesTreeList"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    1042,
+                    1446
+                ],
+                "filename": "ExamplesTreeList.mjs",
+                "lineno": 39,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view",
+                "code": {
+                    "id": "astnode100100517",
+                    "name": "ExamplesTreeList#onConstructed",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onConstructed",
+            "longname": "ExamplesTreeList#onConstructed",
+            "kind": "function",
+            "memberof": "ExamplesTreeList",
+            "scope": "instance",
+            "params": [],
+            "$longname": "ExamplesTreeList#onConstructed",
+            "$kind": "method",
+            "id": 3056,
+            "neoClassName": "Docs.app.view.ExamplesTreeList"
+        }
+    ]
+}

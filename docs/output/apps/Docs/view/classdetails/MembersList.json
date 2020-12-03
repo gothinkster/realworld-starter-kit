@@ -1,0 +1,976 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Docs.app.view.classdetails.MembersList\n * @extends Neo.list.Base\n */",
+            "meta": {
+                "filename": "MembersList.mjs",
+                "lineno": 4,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "MembersList",
+            "augments": [
+                "Neo.list.Base"
+            ],
+            "memberof": "Docs.app.view.classdetails",
+            "longname": "Docs.app.view.classdetails.MembersList",
+            "scope": "static",
+            "$longname": "Docs.app.view.classdetails.MembersList",
+            "$kind": "class",
+            "id": 2992,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Docs.app.view.classdetails.MembersList'\n         * @protected\n         */",
+            "meta": {
+                "filename": "MembersList.mjs",
+                "lineno": 14,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Docs.app.view.classdetails.MembersList'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 2993,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='classdetails-memberslist'\n         * @protected\n         */",
+            "meta": {
+                "filename": "MembersList.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'classdetails-memberslist'",
+            "access": "protected",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 2994,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['docs-classhierarchy-memberslist']\n         */",
+            "meta": {
+                "filename": "MembersList.mjs",
+                "lineno": 23,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['docs-classhierarchy-memberslist']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 2995,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n         * @member {String} filterMembersQuery_=''\n         * @protected\n         */",
+            "meta": {
+                "filename": "MembersList.mjs",
+                "lineno": 28,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "filterMembersQuery_",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "''",
+            "access": "protected",
+            "longname": "filterMembersQuery_",
+            "scope": "global",
+            "$longname": "filterMembersQuery_",
+            "$kind": "property",
+            "id": 2996,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} showPrivateMembers_=true\n         */",
+            "meta": {
+                "filename": "MembersList.mjs",
+                "lineno": 32,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "showPrivateMembers_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "showPrivateMembers_",
+            "scope": "global",
+            "$longname": "showPrivateMembers_",
+            "$kind": "property",
+            "id": 2997,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} showProtectedMembers_=true\n         */",
+            "meta": {
+                "filename": "MembersList.mjs",
+                "lineno": 36,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "showProtectedMembers_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "showProtectedMembers_",
+            "scope": "global",
+            "$longname": "showProtectedMembers_",
+            "$kind": "property",
+            "id": 2998,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} showStaticMembers_=true\n         */",
+            "meta": {
+                "filename": "MembersList.mjs",
+                "lineno": 40,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "showStaticMembers_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "showStaticMembers_",
+            "scope": "global",
+            "$longname": "showStaticMembers_",
+            "$kind": "property",
+            "id": 2999,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.collection.Base} store=null\n         */",
+            "meta": {
+                "filename": "MembersList.mjs",
+                "lineno": 44,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "store",
+            "type": {
+                "names": [
+                    "Neo.collection.Base"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "store",
+            "scope": "global",
+            "$longname": "store",
+            "$kind": "property",
+            "id": 3000,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} targetClassName=null\n         */",
+            "meta": {
+                "filename": "MembersList.mjs",
+                "lineno": 48,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "targetClassName",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "targetClassName",
+            "scope": "global",
+            "$longname": "targetClassName",
+            "$kind": "property",
+            "id": 3001,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n         * @member {Object} _vdom={cn: []}\n         */",
+            "meta": {
+                "filename": "MembersList.mjs",
+                "lineno": 52,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "_vdom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{cn: []}",
+            "description": "[]}",
+            "longname": "_vdom",
+            "scope": "global",
+            "$longname": "_vdom",
+            "$kind": "property",
+            "id": 3002,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    1615,
+                    2162
+                ],
+                "filename": "MembersList.mjs",
+                "lineno": 60,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100098015",
+                    "name": "MembersList#onConstructed",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onConstructed",
+            "longname": "MembersList#onConstructed",
+            "kind": "function",
+            "memberof": "MembersList",
+            "scope": "instance",
+            "params": [],
+            "$longname": "MembersList#onConstructed",
+            "$kind": "method",
+            "id": 3003,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n     * Triggered after the filterMembersQuery config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    2328,
+                    2469
+                ],
+                "filename": "MembersList.mjs",
+                "lineno": 86,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100098082",
+                    "name": "MembersList#afterSetFilterMembersQuery",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the filterMembersQuery config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetFilterMembersQuery",
+            "longname": "MembersList#afterSetFilterMembersQuery",
+            "kind": "function",
+            "memberof": "MembersList",
+            "scope": "instance",
+            "$longname": "MembersList#afterSetFilterMembersQuery",
+            "$kind": "method",
+            "id": 3004,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n     * Triggered after the showProtectedMembers config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    2639,
+                    2782
+                ],
+                "filename": "MembersList.mjs",
+                "lineno": 98,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100098098",
+                    "name": "MembersList#afterSetShowProtectedMembers",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the showProtectedMembers config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetShowProtectedMembers",
+            "longname": "MembersList#afterSetShowProtectedMembers",
+            "kind": "function",
+            "memberof": "MembersList",
+            "scope": "instance",
+            "$longname": "MembersList#afterSetShowProtectedMembers",
+            "$kind": "method",
+            "id": 3005,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n     * Triggered after the showPrivateMembers config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    2950,
+                    3091
+                ],
+                "filename": "MembersList.mjs",
+                "lineno": 110,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100098114",
+                    "name": "MembersList#afterSetShowPrivateMembers",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the showPrivateMembers config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetShowPrivateMembers",
+            "longname": "MembersList#afterSetShowPrivateMembers",
+            "kind": "function",
+            "memberof": "MembersList",
+            "scope": "instance",
+            "$longname": "MembersList#afterSetShowPrivateMembers",
+            "$kind": "method",
+            "id": 3006,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n     * Triggered after the showStaticMembers config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    3258,
+                    3398
+                ],
+                "filename": "MembersList.mjs",
+                "lineno": 122,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100098130",
+                    "name": "MembersList#afterSetShowStaticMembers",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the showStaticMembers config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetShowStaticMembers",
+            "longname": "MembersList#afterSetShowStaticMembers",
+            "kind": "function",
+            "memberof": "MembersList",
+            "scope": "instance",
+            "$longname": "MembersList#afterSetShowStaticMembers",
+            "$kind": "method",
+            "id": 3007,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Neo.collection.Base} store\n     * @param {Object} vdom\n     * @returns {Object} vdom\n     */",
+            "meta": {
+                "range": [
+                    3527,
+                    3914
+                ],
+                "filename": "MembersList.mjs",
+                "lineno": 134,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100098146",
+                    "name": "MembersList#applyConfigsHeader",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "store",
+                        "vdom"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.collection.Base"
+                        ]
+                    },
+                    "name": "store"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "vdom"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "vdom"
+                }
+            ],
+            "name": "applyConfigsHeader",
+            "longname": "MembersList#applyConfigsHeader",
+            "kind": "function",
+            "memberof": "MembersList",
+            "scope": "instance",
+            "$longname": "MembersList#applyConfigsHeader",
+            "$kind": "method",
+            "id": 3008,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} item\n     * @param {Number} index\n     * @param {Neo.collection.Base} store\n     * @param {Object} vdom\n     * @returns {Object} vdom\n     */",
+            "meta": {
+                "range": [
+                    4100,
+                    4621
+                ],
+                "filename": "MembersList.mjs",
+                "lineno": 156,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100098187",
+                    "name": "MembersList#applyEventsHeader",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "item",
+                        "index",
+                        "store",
+                        "vdom"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "item"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.collection.Base"
+                        ]
+                    },
+                    "name": "store"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "vdom"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "vdom"
+                }
+            ],
+            "name": "applyEventsHeader",
+            "longname": "MembersList#applyEventsHeader",
+            "kind": "function",
+            "memberof": "MembersList",
+            "scope": "instance",
+            "$longname": "MembersList#applyEventsHeader",
+            "$kind": "method",
+            "id": 3009,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} item\n     * @param {Number} index\n     * @param {Neo.collection.Base} store\n     * @param {Object} vdom\n     * @returns {Object} vdom\n     */",
+            "meta": {
+                "range": [
+                    4807,
+                    5443
+                ],
+                "filename": "MembersList.mjs",
+                "lineno": 183,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100098244",
+                    "name": "MembersList#applyMethodsHeader",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "item",
+                        "index",
+                        "store",
+                        "vdom"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "item"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "index"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.collection.Base"
+                        ]
+                    },
+                    "name": "store"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "vdom"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "vdom"
+                }
+            ],
+            "name": "applyMethodsHeader",
+            "longname": "MembersList#applyMethodsHeader",
+            "kind": "function",
+            "memberof": "MembersList",
+            "scope": "instance",
+            "$longname": "MembersList#applyMethodsHeader",
+            "$kind": "method",
+            "id": 3010,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    5472,
+                    10553
+                ],
+                "filename": "MembersList.mjs",
+                "lineno": 209,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100098310",
+                    "name": "MembersList#createItems",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "createItems",
+            "longname": "MembersList#createItems",
+            "kind": "function",
+            "memberof": "MembersList",
+            "scope": "instance",
+            "params": [],
+            "$longname": "MembersList#createItems",
+            "$kind": "method",
+            "id": 3011,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} params\n     * @returns {Object} vdom\n     */",
+            "meta": {
+                "range": [
+                    10642,
+                    13974
+                ],
+                "filename": "MembersList.mjs",
+                "lineno": 355,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100098983",
+                    "name": "MembersList.createParametersTable",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "params"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "params"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "vdom"
+                }
+            ],
+            "name": "createParametersTable",
+            "longname": "MembersList.createParametersTable",
+            "kind": "function",
+            "memberof": "MembersList",
+            "scope": "static",
+            "$longname": "MembersList.createParametersTable",
+            "$kind": "method",
+            "id": 3012,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n     * Replaces '<' & '>'\n     * @param {String} value\n     * @returns {String}\n     */",
+            "meta": {
+                "range": [
+                    14076,
+                    14174
+                ],
+                "filename": "MembersList.mjs",
+                "lineno": 468,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100099341",
+                    "name": "MembersList.escapeHtml",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Replaces '<' & '>'",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    }
+                }
+            ],
+            "name": "escapeHtml",
+            "longname": "MembersList.escapeHtml",
+            "kind": "function",
+            "memberof": "MembersList",
+            "scope": "static",
+            "$longname": "MembersList.escapeHtml",
+            "$kind": "method",
+            "id": 3013,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    14203,
+                    18108
+                ],
+                "filename": "MembersList.mjs",
+                "lineno": 475,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100099358",
+                    "name": "MembersList#filterAndSortItems",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "filterAndSortItems",
+            "longname": "MembersList#filterAndSortItems",
+            "kind": "function",
+            "memberof": "MembersList",
+            "scope": "instance",
+            "params": [],
+            "$longname": "MembersList#filterAndSortItems",
+            "$kind": "method",
+            "id": 3014,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n     * Override to not call createItems() at this point => onRefreshClassMembers()\n     */",
+            "meta": {
+                "range": [
+                    18213,
+                    18231
+                ],
+                "filename": "MembersList.mjs",
+                "lineno": 608,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100099774",
+                    "name": "MembersList#onStoreFilter",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Override to not call createItems() at this point => onRefreshClassMembers()",
+            "name": "onStoreFilter",
+            "longname": "MembersList#onStoreFilter",
+            "kind": "function",
+            "memberof": "MembersList",
+            "scope": "instance",
+            "params": [],
+            "$longname": "MembersList#onStoreFilter",
+            "$kind": "method",
+            "id": 3015,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    18260,
+                    18354
+                ],
+                "filename": "MembersList.mjs",
+                "lineno": 613,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100099778",
+                    "name": "MembersList#onRefreshClassMembers",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onRefreshClassMembers",
+            "longname": "MembersList#onRefreshClassMembers",
+            "kind": "function",
+            "memberof": "MembersList",
+            "scope": "instance",
+            "params": [],
+            "$longname": "MembersList#onRefreshClassMembers",
+            "$kind": "method",
+            "id": 3016,
+            "neoClassName": "Docs.app.view.classdetails.MembersList"
+        }
+    ]
+}

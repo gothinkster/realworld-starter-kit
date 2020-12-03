@@ -208,7 +208,7 @@
             "comment": "/**\n         * @member {Boolean} running=false\n         * @protected\n         */",
             "meta": {
                 "filename": "Main.mjs",
-                "lineno": 65,
+                "lineno": 67,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -233,7 +233,7 @@
             "comment": "/**\n         * @member {Boolean} showFps=false\n         */",
             "meta": {
                 "filename": "Main.mjs",
-                "lineno": 69,
+                "lineno": 71,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -257,7 +257,7 @@
             "comment": "/**\n         * @member {Boolean} singleton=true\n         * @protected\n         */",
             "meta": {
                 "filename": "Main.mjs",
-                "lineno": 74,
+                "lineno": 76,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -282,7 +282,7 @@
             "comment": "/**\n         * @member {Number} timeLimit=15\n         */",
             "meta": {
                 "filename": "Main.mjs",
-                "lineno": 78,
+                "lineno": 80,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -306,7 +306,7 @@
             "comment": "/**\n         * should be dev only\n         * @member {Number} totalFrameCount=0\n         * @protected\n         */",
             "meta": {
                 "filename": "Main.mjs",
-                "lineno": 84,
+                "lineno": 86,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -332,7 +332,7 @@
             "comment": "/**\n         * @member {Array} updateQueue=[]\n         * @protected\n         */",
             "meta": {
                 "filename": "Main.mjs",
-                "lineno": 89,
+                "lineno": 91,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -357,7 +357,7 @@
             "comment": "/**\n         * @member {Array} writeQueue=[]\n         * @protected\n         */",
             "meta": {
                 "filename": "Main.mjs",
-                "lineno": 94,
+                "lineno": 96,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -382,15 +382,15 @@
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    2370,
-                    2783
+                    2436,
+                    3301
                 ],
                 "filename": "Main.mjs",
-                "lineno": 101,
+                "lineno": 103,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {
-                    "id": "astnode100056060",
+                    "id": "astnode100056087",
                     "name": "Main",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -424,15 +424,15 @@
             "comment": "/**\n     * Edit the location.hash value\n     * A value of null will remove the given key.\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    2919,
-                    3440
+                    3437,
+                    3958
                 ],
                 "filename": "Main.mjs",
-                "lineno": 122,
+                "lineno": 132,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {
-                    "id": "astnode100056107",
+                    "id": "astnode100056165",
                     "name": "Main#editRoute",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -468,15 +468,15 @@
             "comment": "/**\n     * window.screen is not spreadable\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    3526,
-                    4393
+                    4044,
+                    4911
                 ],
                 "filename": "Main.mjs",
-                "lineno": 145,
+                "lineno": 155,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {
-                    "id": "astnode100056195",
+                    "id": "astnode100056253",
                     "name": "Main#getWindowData",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -510,15 +510,15 @@
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    4422,
-                    5938
+                    4940,
+                    6065
                 ],
                 "filename": "Main.mjs",
-                "lineno": 173,
+                "lineno": 183,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {
-                    "id": "astnode100056282",
+                    "id": "astnode100056340",
                     "name": "Main#onDomContentLoaded",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -543,15 +543,15 @@
             "comment": "/**\n     *\n     * @param data\n     */",
             "meta": {
                 "range": [
-                    6151,
-                    6363
+                    6278,
+                    6490
                 ],
                 "filename": "Main.mjs",
-                "lineno": 222,
+                "lineno": 226,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {
-                    "id": "astnode100056422",
+                    "id": "astnode100056467",
                     "name": "Main#onMountDom",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -581,15 +581,15 @@
             "comment": "/**\n     *\n     * @param data\n     */",
             "meta": {
                 "range": [
-                    6411,
-                    6511
+                    6538,
+                    6638
                 ],
                 "filename": "Main.mjs",
-                "lineno": 236,
+                "lineno": 240,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {
-                    "id": "astnode100056452",
+                    "id": "astnode100056497",
                     "name": "Main#onRender",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -619,15 +619,15 @@
             "comment": "/**\n     *\n     * @param data\n     */",
             "meta": {
                 "range": [
-                    6559,
-                    6616
+                    6686,
+                    6743
                 ],
                 "filename": "Main.mjs",
-                "lineno": 245,
+                "lineno": 249,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {
-                    "id": "astnode100056475",
+                    "id": "astnode100056520",
                     "name": "Main#onUpdateDom",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -657,15 +657,15 @@
             "comment": "/**\n     *\n     * @param data\n     */",
             "meta": {
                 "range": [
-                    6664,
-                    6769
+                    6791,
+                    6896
                 ],
                 "filename": "Main.mjs",
-                "lineno": 253,
+                "lineno": 257,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {
-                    "id": "astnode100056486",
+                    "id": "astnode100056531",
                     "name": "Main#onUpdateVdom",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -695,15 +695,15 @@
             "comment": "/**\n     *\n     * @param queue\n     * @param start\n     * @returns {number}\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6881,
-                    7371
+                    7008,
+                    7498
                 ],
                 "filename": "Main.mjs",
-                "lineno": 265,
+                "lineno": 269,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {
-                    "id": "astnode100056509",
+                    "id": "astnode100056554",
                     "name": "Main#processQueue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -747,15 +747,15 @@
             "comment": "/**\n     *\n     * @param data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7437,
-                    7645
+                    7564,
+                    7772
                 ],
                 "filename": "Main.mjs",
-                "lineno": 286,
+                "lineno": 290,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {
-                    "id": "astnode100056575",
+                    "id": "astnode100056620",
                     "name": "Main#queueRead",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -786,15 +786,15 @@
             "comment": "/**\n     *\n     * @param data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7711,
-                    7923
+                    7838,
+                    8050
                 ],
                 "filename": "Main.mjs",
-                "lineno": 301,
+                "lineno": 305,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {
-                    "id": "astnode100056614",
+                    "id": "astnode100056659",
                     "name": "Main#queueUpdate",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -825,15 +825,15 @@
             "comment": "/**\n     *\n     * @param data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7989,
-                    8199
+                    8116,
+                    8326
                 ],
                 "filename": "Main.mjs",
-                "lineno": 316,
+                "lineno": 320,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {
-                    "id": "astnode100056653",
+                    "id": "astnode100056698",
                     "name": "Main#queueWrite",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -864,15 +864,15 @@
             "comment": "/**\n     * Triggers the different DOM operation queues\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    8290,
-                    9185
+                    8417,
+                    9312
                 ],
                 "filename": "Main.mjs",
-                "lineno": 330,
+                "lineno": 334,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {
-                    "id": "astnode100056692",
+                    "id": "astnode100056737",
                     "name": "Main#renderFrame",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -898,15 +898,15 @@
             "comment": "/**\n     * Change the location.hash value\n     * @param {Object} data\n     * @param {String} data.value\n     */",
             "meta": {
                 "range": [
-                    9307,
-                    9372
+                    9434,
+                    9499
                 ],
                 "filename": "Main.mjs",
-                "lineno": 372,
+                "lineno": 376,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {
-                    "id": "astnode100056815",
+                    "id": "astnode100056860",
                     "name": "Main#setRoute",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -950,15 +950,15 @@
             "comment": "/**\n     * Closes popup windows\n     * @param {Object} data\n     * @param {Array|String} data.names\n     */",
             "meta": {
                 "range": [
-                    9490,
-                    9742
+                    9617,
+                    9869
                 ],
                 "filename": "Main.mjs",
-                "lineno": 381,
+                "lineno": 385,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {
-                    "id": "astnode100056830",
+                    "id": "astnode100056875",
                     "name": "Main#windowClose",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1000,18 +1000,86 @@
             "neoClassName": "Neo.Main"
         },
         {
-            "comment": "/**\n     * Open a new popup window\n     * @param {Object} data\n     * @param {String} data.url\n     * @param {String} data.windowFeatures\n     * @param {String} data.windowName\n     */",
+            "comment": "/**\n     * Move a popup window\n     * @param {Object} data\n     * @param {String} data.windowName\n     * @param {String} data.x\n     * @param {String} data.y\n     */",
             "meta": {
                 "range": [
-                    9937,
-                    10066
+                    10045,
+                    10137
                 ],
                 "filename": "Main.mjs",
-                "lineno": 399,
+                "lineno": 403,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {
-                    "id": "astnode100056880",
+                    "id": "astnode100056925",
+                    "name": "Main#windowMoveTo",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Move a popup window",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.windowName"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.x"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.y"
+                }
+            ],
+            "name": "windowMoveTo",
+            "longname": "Main#windowMoveTo",
+            "kind": "function",
+            "memberof": "Main",
+            "scope": "instance",
+            "$longname": "Main#windowMoveTo",
+            "$kind": "method",
+            "id": 1904,
+            "neoClassName": "Neo.Main"
+        },
+        {
+            "comment": "/**\n     * Open a new popup window\n     * @param {Object} data\n     * @param {String} data.url\n     * @param {String} data.windowFeatures\n     * @param {String} data.windowName\n     */",
+            "meta": {
+                "range": [
+                    10332,
+                    10461
+                ],
+                "filename": "Main.mjs",
+                "lineno": 414,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
+                "code": {
+                    "id": "astnode100056947",
                     "name": "Main#windowOpen",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1064,7 +1132,77 @@
             "scope": "instance",
             "$longname": "Main#windowOpen",
             "$kind": "method",
-            "id": 1904,
+            "id": 1905,
+            "neoClassName": "Neo.Main"
+        },
+        {
+            "comment": "/**\n     * Move a popup window\n     * @param {Object} data\n     * @param {Number} [data.height]\n     * @param {Number} [data.width]\n     * @param {String} data.windowName\n     */",
+            "meta": {
+                "range": [
+                    10650,
+                    10877
+                ],
+                "filename": "Main.mjs",
+                "lineno": 425,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
+                "code": {
+                    "id": "astnode100056974",
+                    "name": "Main#windowResizeTo",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Move a popup window",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "data.height"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "optional": true,
+                    "name": "data.width"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.windowName"
+                }
+            ],
+            "name": "windowResizeTo",
+            "longname": "Main#windowResizeTo",
+            "kind": "function",
+            "memberof": "Main",
+            "scope": "instance",
+            "$longname": "Main#windowResizeTo",
+            "$kind": "method",
+            "id": 1906,
             "neoClassName": "Neo.Main"
         }
     ]

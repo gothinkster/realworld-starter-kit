@@ -1,0 +1,75 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class RealWorld.api.User\n * @extends RealWorld.api.Base\n */",
+            "meta": {
+                "filename": "User.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "User",
+            "augments": [
+                "RealWorld.api.Base"
+            ],
+            "memberof": "RealWorld.api",
+            "longname": "RealWorld.api.User",
+            "scope": "static",
+            "$longname": "RealWorld.api.User",
+            "$kind": "class",
+            "id": 3125,
+            "neoClassName": "RealWorld.api.User"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='RealWorld.api.User'\n         * @protected\n         */",
+            "meta": {
+                "filename": "User.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'RealWorld.api.User'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 3126,
+            "neoClassName": "RealWorld.api.User"
+        },
+        {
+            "comment": "/**\n         * @member {String} resource='/tags'\n         */",
+            "meta": {
+                "filename": "User.mjs",
+                "lineno": 17,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "resource",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'/tags'",
+            "longname": "resource",
+            "scope": "global",
+            "$longname": "resource",
+            "$kind": "property",
+            "id": 3127,
+            "neoClassName": "RealWorld.api.User"
+        }
+    ]
+}

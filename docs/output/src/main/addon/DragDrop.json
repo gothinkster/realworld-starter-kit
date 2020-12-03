@@ -26,7 +26,7 @@
             "scope": "static",
             "$longname": "Neo.main.addon.DragDrop",
             "$kind": "class",
-            "id": 1931,
+            "id": 1933,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
@@ -51,7 +51,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1932,
+            "id": 1934,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
@@ -75,7 +75,7 @@
             "scope": "global",
             "$longname": "alwaysFireDragMove",
             "$kind": "property",
-            "id": 1933,
+            "id": 1935,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
@@ -100,7 +100,7 @@
             "scope": "global",
             "$longname": "scrollContainerRect",
             "$kind": "property",
-            "id": 1934,
+            "id": 1936,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
@@ -124,7 +124,7 @@
             "scope": "global",
             "$longname": "clientX",
             "$kind": "property",
-            "id": 1935,
+            "id": 1937,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
@@ -148,14 +148,39 @@
             "scope": "global",
             "$longname": "clientY",
             "$kind": "property",
-            "id": 1936,
+            "id": 1938,
+            "neoClassName": "Neo.main.addon.DragDrop"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} dragElementRootId=null\n         */",
+            "meta": {
+                "filename": "DragDrop.mjs",
+                "lineno": 36,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "dragElementRootId",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "dragElementRootId",
+            "scope": "global",
+            "$longname": "dragElementRootId",
+            "$kind": "property",
+            "id": 1939,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n         * @member {String} dragProxyCls='neo-dragproxy'\n         */",
             "meta": {
                 "filename": "DragDrop.mjs",
-                "lineno": 36,
+                "lineno": 40,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -172,14 +197,14 @@
             "scope": "global",
             "$longname": "dragProxyCls",
             "$kind": "property",
-            "id": 1937,
+            "id": 1940,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n         * @member {HTMLElement|null} dragProxyElement=null\n         * @protected\n         */",
             "meta": {
                 "filename": "DragDrop.mjs",
-                "lineno": 41,
+                "lineno": 45,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -198,14 +223,14 @@
             "scope": "global",
             "$longname": "dragProxyElement",
             "$kind": "property",
-            "id": 1938,
+            "id": 1941,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n         * @member {DOMRect|null} dragProxyRect=null\n         */",
             "meta": {
                 "filename": "DragDrop.mjs",
-                "lineno": 45,
+                "lineno": 49,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -223,14 +248,14 @@
             "scope": "global",
             "$longname": "dragProxyRect",
             "$kind": "property",
-            "id": 1939,
+            "id": 1942,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n         * @member {String|null} dragZoneId=null\n         */",
             "meta": {
                 "filename": "DragDrop.mjs",
-                "lineno": 49,
+                "lineno": 53,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -248,14 +273,14 @@
             "scope": "global",
             "$longname": "dragZoneId",
             "$kind": "property",
-            "id": 1940,
+            "id": 1943,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n         * You can either pass an array of (dom) ids or cls rules or both\n         * @example\n         * dropZoneIdentifier: {\n         *     ids: ['foo','bar']\n         * }\n         * @example\n         * dropZoneIdentifier: {\n         *     cls: ['my-class-1','my-class-2']\n         * }\n         * @example\n         * dropZoneIdentifier: {\n         *     cls: ['my-class-1','my-class-2'],\n         *     ids: ['foo','bar']\n         * }\n         * @member {Object|null} dropZoneIdentifier=null\n         */",
             "meta": {
                 "filename": "DragDrop.mjs",
-                "lineno": 67,
+                "lineno": 71,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -279,14 +304,14 @@
             "scope": "global",
             "$longname": "dropZoneIdentifier",
             "$kind": "property",
-            "id": 1941,
+            "id": 1944,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n         * @member {Number} initialScrollLeft=0\n         */",
             "meta": {
                 "filename": "DragDrop.mjs",
-                "lineno": 71,
+                "lineno": 75,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -303,14 +328,14 @@
             "scope": "global",
             "$longname": "initialScrollLeft",
             "$kind": "property",
-            "id": 1942,
+            "id": 1945,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n         * @member {Number} initialScrollTop=0\n         */",
             "meta": {
                 "filename": "DragDrop.mjs",
-                "lineno": 75,
+                "lineno": 79,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -327,14 +352,62 @@
             "scope": "global",
             "$longname": "initialScrollTop",
             "$kind": "property",
-            "id": 1943,
+            "id": 1946,
+            "neoClassName": "Neo.main.addon.DragDrop"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} moveHorizontal=true\n         */",
+            "meta": {
+                "filename": "DragDrop.mjs",
+                "lineno": 83,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "moveHorizontal",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "moveHorizontal",
+            "scope": "global",
+            "$longname": "moveHorizontal",
+            "$kind": "property",
+            "id": 1947,
+            "neoClassName": "Neo.main.addon.DragDrop"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} moveVertical=true\n         */",
+            "meta": {
+                "filename": "DragDrop.mjs",
+                "lineno": 87,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "moveVertical",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": true,
+            "longname": "moveVertical",
+            "scope": "global",
+            "$longname": "moveVertical",
+            "$kind": "property",
+            "id": 1948,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n         * @member {Number} offsetX=0\n         */",
             "meta": {
                 "filename": "DragDrop.mjs",
-                "lineno": 79,
+                "lineno": 91,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -351,14 +424,14 @@
             "scope": "global",
             "$longname": "offsetX",
             "$kind": "property",
-            "id": 1944,
+            "id": 1949,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n         * @member {Number} offsetY=0\n         */",
             "meta": {
                 "filename": "DragDrop.mjs",
-                "lineno": 83,
+                "lineno": 95,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -375,14 +448,14 @@
             "scope": "global",
             "$longname": "offsetY",
             "$kind": "property",
-            "id": 1945,
+            "id": 1950,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n         * Remote method access for other workers\n         * @member {Object} remote\n         * @protected\n         */",
             "meta": {
                 "filename": "DragDrop.mjs",
-                "lineno": 89,
+                "lineno": 101,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -400,14 +473,14 @@
             "scope": "global",
             "$longname": "remote",
             "$kind": "property",
-            "id": 1946,
+            "id": 1951,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n         * @member {HTMLElement|null} scrollContainerElement=null\n         */",
             "meta": {
                 "filename": "DragDrop.mjs",
-                "lineno": 98,
+                "lineno": 110,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -425,14 +498,14 @@
             "scope": "global",
             "$longname": "scrollContainerElement",
             "$kind": "property",
-            "id": 1947,
+            "id": 1952,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n         * @member {DOMRect|null} scrollContainerRect=null\n         */",
             "meta": {
                 "filename": "DragDrop.mjs",
-                "lineno": 102,
+                "lineno": 114,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -450,14 +523,14 @@
             "scope": "global",
             "$longname": "scrollContainerRect",
             "$kind": "property",
-            "id": 1948,
+            "id": 1953,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n         * @member {Number} scrollFactorLeft=1\n         */",
             "meta": {
                 "filename": "DragDrop.mjs",
-                "lineno": 106,
+                "lineno": 118,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -474,14 +547,14 @@
             "scope": "global",
             "$longname": "scrollFactorLeft",
             "$kind": "property",
-            "id": 1949,
+            "id": 1954,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n         * @member {Number} scrollFactorTop=1\n         */",
             "meta": {
                 "filename": "DragDrop.mjs",
-                "lineno": 110,
+                "lineno": 122,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -498,14 +571,14 @@
             "scope": "global",
             "$longname": "scrollFactorTop",
             "$kind": "property",
-            "id": 1950,
+            "id": 1955,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n         * @member {Boolean} singleton=true\n         * @protected\n         */",
             "meta": {
                 "filename": "DragDrop.mjs",
-                "lineno": 115,
+                "lineno": 127,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -523,22 +596,22 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 1951,
+            "id": 1956,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    3086,
-                    3893
+                    3401,
+                    4208
                 ],
                 "filename": "DragDrop.mjs",
-                "lineno": 121,
+                "lineno": 133,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100057848",
+                    "id": "astnode100057961",
                     "name": "DragDrop",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -565,22 +638,22 @@
             "scope": "global",
             "$longname": "DragDrop",
             "$kind": "constructor",
-            "id": 1952,
+            "id": 1957,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    3922,
-                    4219
+                    4237,
+                    4534
                 ],
                 "filename": "DragDrop.mjs",
-                "lineno": 152,
+                "lineno": 164,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100057929",
+                    "id": "astnode100058042",
                     "name": "DragDrop#addGlobalEventListeners",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -597,22 +670,22 @@
             "params": [],
             "$longname": "DragDrop#addGlobalEventListeners",
             "$kind": "method",
-            "id": 1953,
+            "id": 1958,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n     *\n     * @param {Event} event\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    4301,
-                    4858
+                    4616,
+                    5173
                 ],
                 "filename": "DragDrop.mjs",
-                "lineno": 165,
+                "lineno": 177,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100057979",
+                    "id": "astnode100058092",
                     "name": "DragDrop#getEventData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -649,22 +722,22 @@
             "scope": "instance",
             "$longname": "DragDrop#getEventData",
             "$kind": "method",
-            "id": 1954,
+            "id": 1959,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    4916,
-                    6149
+                    5231,
+                    6590
                 ],
                 "filename": "DragDrop.mjs",
-                "lineno": 189,
+                "lineno": 201,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100058080",
+                    "id": "astnode100058193",
                     "name": "DragDrop#onDragEnd",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -692,22 +765,22 @@
             "scope": "instance",
             "$longname": "DragDrop#onDragEnd",
             "$kind": "method",
-            "id": 1955,
+            "id": 1960,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    6207,
-                    7634
+                    6648,
+                    8264
                 ],
                 "filename": "DragDrop.mjs",
-                "lineno": 233,
+                "lineno": 248,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100058184",
+                    "id": "astnode100058303",
                     "name": "DragDrop#onDragMove",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -735,22 +808,22 @@
             "scope": "instance",
             "$longname": "DragDrop#onDragMove",
             "$kind": "method",
-            "id": 1956,
+            "id": 1961,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    7692,
-                    8133
+                    8322,
+                    8828
                 ],
                 "filename": "DragDrop.mjs",
-                "lineno": 283,
+                "lineno": 307,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100058404",
+                    "id": "astnode100058551",
                     "name": "DragDrop#onDragStart",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -778,22 +851,22 @@
             "scope": "instance",
             "$longname": "DragDrop#onDragStart",
             "$kind": "method",
-            "id": 1957,
+            "id": 1962,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    8191,
-                    8470
+                    8886,
+                    9165
                 ],
                 "filename": "DragDrop.mjs",
-                "lineno": 304,
+                "lineno": 331,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100058476",
+                    "id": "astnode100058620",
                     "name": "DragDrop#onMouseEnter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -821,22 +894,22 @@
             "scope": "instance",
             "$longname": "DragDrop#onMouseEnter",
             "$kind": "method",
-            "id": 1958,
+            "id": 1963,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    8528,
-                    8807
+                    9223,
+                    9502
                 ],
                 "filename": "DragDrop.mjs",
-                "lineno": 320,
+                "lineno": 347,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100058508",
+                    "id": "astnode100058652",
                     "name": "DragDrop#onMouseLeave",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -864,22 +937,22 @@
             "scope": "instance",
             "$longname": "DragDrop#onMouseLeave",
             "$kind": "method",
-            "id": 1959,
+            "id": 1964,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n     *\n     * @param {Array} path\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    8889,
-                    9766
+                    9584,
+                    10461
                 ],
                 "filename": "DragDrop.mjs",
-                "lineno": 337,
+                "lineno": 364,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100058540",
+                    "id": "astnode100058684",
                     "name": "DragDrop#pathIncludesDropZone",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -916,22 +989,22 @@
             "scope": "instance",
             "$longname": "DragDrop#pathIncludesDropZone",
             "$kind": "method",
-            "id": 1960,
+            "id": 1965,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {Number} data.clientX\n     * @param {Number} data.clientY\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    9920,
-                    10875
+                    10615,
+                    11570
                 ],
                 "filename": "DragDrop.mjs",
-                "lineno": 379,
+                "lineno": 406,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100058634",
+                    "id": "astnode100058778",
                     "name": "DragDrop#scrollContainer",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -984,22 +1057,22 @@
             "scope": "instance",
             "$longname": "DragDrop#scrollContainer",
             "$kind": "method",
-            "id": 1961,
+            "id": 1966,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n     *\n     * @param {Object}  data\n     * @param {Boolean} data.alwaysFireDragMove\n     * @param {String}  data.boundaryContainerId\n     * @param {String}  data.scrollContainerId\n     * @param {Number}  data.scrollFactorLeft\n     * @param {Number}  data.scrollFactorTop\n     */",
             "meta": {
                 "range": [
-                    11168,
-                    12163
+                    11863,
+                    12858
                 ],
                 "filename": "DragDrop.mjs",
-                "lineno": 419,
+                "lineno": 446,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100058794",
+                    "id": "astnode100058938",
                     "name": "DragDrop#setConfigs",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1067,22 +1140,22 @@
             "scope": "instance",
             "$longname": "DragDrop#setConfigs",
             "$kind": "method",
-            "id": 1962,
+            "id": 1967,
             "neoClassName": "Neo.main.addon.DragDrop"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.id\n     */",
             "meta": {
                 "range": [
-                    12251,
-                    12350
+                    12946,
+                    13045
                 ],
                 "filename": "DragDrop.mjs",
-                "lineno": 457,
+                "lineno": 484,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100058909",
+                    "id": "astnode100059053",
                     "name": "DragDrop#setDragProxyElement",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1118,7 +1191,7 @@
             "scope": "instance",
             "$longname": "DragDrop#setDragProxyElement",
             "$kind": "method",
-            "id": 1963,
+            "id": 1968,
             "neoClassName": "Neo.main.addon.DragDrop"
         }
     ]

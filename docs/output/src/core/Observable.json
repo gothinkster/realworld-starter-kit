@@ -98,18 +98,18 @@
             "neoClassName": "Neo.core.Observable"
         },
         {
-            "comment": "/**\n     *\n     * @param {Object|String} name\n     * @param {Object} [opts]\n     * @param {Object} [scope]\n     * @param {String} [eventId]\n     * @param {Object} [data]\n     * @param {Number} [order]\n     * @returns {String} eventId\n     */",
+            "comment": "/**\n     *\n     * @param {Object|String} name\n     * @param {Object} [opts]\n     * @param {Object} [scope]\n     * @param {String} [eventId]\n     * @param {Object} [data]\n     * @param {Number} [order]\n     * @returns {String|null} eventId null in case an object gets passed as the name (multiple ids)\n     */",
             "meta": {
                 "range": [
-                    1844,
-                    3668
+                    1911,
+                    3931
                 ],
                 "filename": "Observable.mjs",
                 "lineno": 73,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100035877",
+                    "id": "astnode100035875",
                     "name": "Observable#addListener",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -185,10 +185,11 @@
                 {
                     "type": {
                         "names": [
-                            "String"
+                            "String",
+                            "null"
                         ]
                     },
-                    "description": "eventId"
+                    "description": "eventId null in case an object gets passed as the name (multiple ids)"
                 }
             ],
             "name": "addListener",
@@ -205,15 +206,15 @@
             "comment": "/**\n     *\n     * @param name\n     */",
             "meta": {
                 "range": [
-                    3716,
-                    4247
+                    3979,
+                    4510
                 ],
                 "filename": "Observable.mjs",
-                "lineno": 131,
+                "lineno": 136,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100036114",
+                    "id": "astnode100036121",
                     "name": "Observable#fire",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -243,15 +244,15 @@
             "comment": "/**\n     *\n     * @param name\n     * @param eventId\n     */",
             "meta": {
                 "range": [
-                    4317,
-                    4763
+                    4580,
+                    5026
                 ],
                 "filename": "Observable.mjs",
-                "lineno": 154,
+                "lineno": 159,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100036207",
+                    "id": "astnode100036214",
                     "name": "Observable#removeListener",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -285,15 +286,15 @@
             "comment": "/**\n     * Alias for addListener\n     * @param {Object|String} name\n     * @param {Object} [opts]\n     * @param {Object} [scope]\n     * @param {String} [eventId]\n     * @param {Object} [data]\n     * @param {Number} [order]\n     * @returns {String} eventId\n     */",
             "meta": {
                 "range": [
-                    5196,
-                    5257
+                    5459,
+                    5520
                 ],
                 "filename": "Observable.mjs",
-                "lineno": 193,
+                "lineno": 198,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100036263",
+                    "id": "astnode100036270",
                     "name": "Observable#on",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -385,15 +386,15 @@
             "comment": "/**\n     * Alias for removeListener\n     * @param name\n     * @param eventId\n     */",
             "meta": {
                 "range": [
-                    5352,
-                    5409
+                    5615,
+                    5672
                 ],
                 "filename": "Observable.mjs",
-                "lineno": 202,
+                "lineno": 207,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100036276",
+                    "id": "astnode100036283",
                     "name": "Observable#un",
                     "type": "MethodDefinition",
                     "paramnames": [

@@ -1,0 +1,1154 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class RealWorld.view.HomeComponent\n * @extends Neo.component.Base\n */",
+            "meta": {
+                "filename": "HomeComponent.mjs",
+                "lineno": 7,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "HomeComponent",
+            "augments": [
+                "Neo.component.Base"
+            ],
+            "memberof": "RealWorld.view",
+            "longname": "RealWorld.view.HomeComponent",
+            "scope": "static",
+            "$longname": "RealWorld.view.HomeComponent",
+            "$kind": "class",
+            "id": 3258,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='RealWorld.view.HomeComponent'\n         * @protected\n         */",
+            "meta": {
+                "filename": "HomeComponent.mjs",
+                "lineno": 17,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'RealWorld.view.HomeComponent'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 3259,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} activeTag=null\n         */",
+            "meta": {
+                "filename": "HomeComponent.mjs",
+                "lineno": 21,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "activeTag",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "activeTag",
+            "scope": "global",
+            "$longname": "activeTag",
+            "$kind": "property",
+            "id": 3260,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Object[]|null} articlePreviews_=null\n         */",
+            "meta": {
+                "filename": "HomeComponent.mjs",
+                "lineno": 25,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "articlePreviews_",
+            "type": {
+                "names": [
+                    "Array.<Object>",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "articlePreviews_",
+            "scope": "global",
+            "$longname": "articlePreviews_",
+            "$kind": "property",
+            "id": 3261,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['home-page']\n         */",
+            "meta": {
+                "filename": "HomeComponent.mjs",
+                "lineno": 29,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['home-page']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 3262,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Number} countArticles_=10\n         */",
+            "meta": {
+                "filename": "HomeComponent.mjs",
+                "lineno": 33,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "countArticles_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 10,
+            "longname": "countArticles_",
+            "scope": "global",
+            "$longname": "countArticles_",
+            "$kind": "property",
+            "id": 3263,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Number} countArticles_=10\n         */",
+            "meta": {
+                "filename": "HomeComponent.mjs",
+                "lineno": 37,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "countArticles_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 10,
+            "longname": "countArticles_",
+            "scope": "global",
+            "$longname": "countArticles_",
+            "$kind": "property",
+            "id": 3264,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Object[]} feeds_\n         */",
+            "meta": {
+                "filename": "HomeComponent.mjs",
+                "lineno": 41,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "feeds_",
+            "type": {
+                "names": [
+                    "Array.<Object>"
+                ]
+            },
+            "longname": "feeds_",
+            "scope": "global",
+            "$longname": "feeds_",
+            "$kind": "property",
+            "id": 3265,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Boolean} loggedIn_=false\n         */",
+            "meta": {
+                "filename": "HomeComponent.mjs",
+                "lineno": 48,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "loggedIn_",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "loggedIn_",
+            "scope": "global",
+            "$longname": "loggedIn_",
+            "$kind": "property",
+            "id": 3266,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Number} pageSize_=10\n         */",
+            "meta": {
+                "filename": "HomeComponent.mjs",
+                "lineno": 52,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "pageSize_",
+            "type": {
+                "names": [
+                    "Number"
+                ]
+            },
+            "defaultvalue": 10,
+            "longname": "pageSize_",
+            "scope": "global",
+            "$longname": "pageSize_",
+            "$kind": "property",
+            "id": 3267,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n         * @member {RealWorld.view.article.PreviewComponent[]} previewComponents=[]\n         */",
+            "meta": {
+                "filename": "HomeComponent.mjs",
+                "lineno": 56,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "previewComponents",
+            "type": {
+                "names": [
+                    "Array.<RealWorld.view.article.PreviewComponent>"
+                ]
+            },
+            "defaultvalue": "[]",
+            "longname": "previewComponents",
+            "scope": "global",
+            "$longname": "previewComponents",
+            "$kind": "property",
+            "id": 3268,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n         * @member {RealWorld.view.article.TagListComponent|null} tagList_=null\n         */",
+            "meta": {
+                "filename": "HomeComponent.mjs",
+                "lineno": 60,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "tagList_",
+            "type": {
+                "names": [
+                    "RealWorld.view.article.TagListComponent",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "tagList_",
+            "scope": "global",
+            "$longname": "tagList_",
+            "$kind": "property",
+            "id": 3269,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Object} _vdom\n         */",
+            "meta": {
+                "filename": "HomeComponent.mjs",
+                "lineno": 64,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "_vdom",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "longname": "_vdom",
+            "scope": "global",
+            "$longname": "_vdom",
+            "$kind": "property",
+            "id": 3270,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    3370,
+                    4018
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 110,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100107417",
+                    "name": "HomeComponent",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "HomeComponent",
+            "longname": "HomeComponent",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "HomeComponent",
+            "$kind": "constructor",
+            "id": 3271,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    4047,
+                    4461
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 137,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100107497",
+                    "name": "HomeComponent#onConstructed",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onConstructed",
+            "longname": "HomeComponent#onConstructed",
+            "kind": "function",
+            "memberof": "HomeComponent",
+            "scope": "instance",
+            "params": [],
+            "$longname": "HomeComponent#onConstructed",
+            "$kind": "method",
+            "id": 3272,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the articlePreviews config got changed\n     * @param {Object[]|null} value\n     * @param {Object[]|null} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    4638,
+                    6102
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 164,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100107565",
+                    "name": "HomeComponent#afterSetArticlePreviews",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the articlePreviews config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array.<Object>",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array.<Object>",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetArticlePreviews",
+            "longname": "HomeComponent#afterSetArticlePreviews",
+            "kind": "function",
+            "memberof": "HomeComponent",
+            "scope": "instance",
+            "$longname": "HomeComponent#afterSetArticlePreviews",
+            "$kind": "method",
+            "id": 3273,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the countArticles config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    6263,
+                    7363
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 212,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100107736",
+                    "name": "HomeComponent#afterSetCountArticles",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the countArticles config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetCountArticles",
+            "longname": "HomeComponent#afterSetCountArticles",
+            "kind": "function",
+            "memberof": "HomeComponent",
+            "scope": "instance",
+            "$longname": "HomeComponent#afterSetCountArticles",
+            "$kind": "method",
+            "id": 3274,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the currentPage config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    7522,
+                    8172
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 257,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100107855",
+                    "name": "HomeComponent#afterSetCurrentPage",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the currentPage config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetCurrentPage",
+            "longname": "HomeComponent#afterSetCurrentPage",
+            "kind": "function",
+            "memberof": "HomeComponent",
+            "scope": "instance",
+            "$longname": "HomeComponent#afterSetCurrentPage",
+            "$kind": "method",
+            "id": 3275,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the feeds config got changed\n     * @param {Object[]} value\n     * @param {Object[]} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    8329,
+                    9152
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 284,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100107963",
+                    "name": "HomeComponent#afterSetFeeds",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the feeds config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array.<Object>"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array.<Object>"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetFeeds",
+            "longname": "HomeComponent#afterSetFeeds",
+            "kind": "function",
+            "memberof": "HomeComponent",
+            "scope": "instance",
+            "$longname": "HomeComponent#afterSetFeeds",
+            "$kind": "method",
+            "id": 3276,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     * Triggered after the loggedIn config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    9310,
+                    9590
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 319,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108073",
+                    "name": "HomeComponent#afterSetLoggedIn",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the loggedIn config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetLoggedIn",
+            "longname": "HomeComponent#afterSetLoggedIn",
+            "kind": "function",
+            "memberof": "HomeComponent",
+            "scope": "instance",
+            "$longname": "HomeComponent#afterSetLoggedIn",
+            "$kind": "method",
+            "id": 3277,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     * todo\n     * Triggered after the pageSize config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    9758,
+                    9936
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 335,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108120",
+                    "name": "HomeComponent#afterSetPageSize",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "todo<br />Triggered after the pageSize config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetPageSize",
+            "longname": "HomeComponent#afterSetPageSize",
+            "kind": "function",
+            "memberof": "HomeComponent",
+            "scope": "instance",
+            "$longname": "HomeComponent#afterSetPageSize",
+            "$kind": "method",
+            "id": 3278,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     * Creates an article id using the view id as a prefix\n     * @returns {String} itemId\n     */",
+            "meta": {
+                "range": [
+                    10049,
+                    10109
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 350,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108147",
+                    "name": "HomeComponent#getArticleId",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "id"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Creates an article id using the view id as a prefix",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "description": "itemId"
+                }
+            ],
+            "name": "getArticleId",
+            "longname": "HomeComponent#getArticleId",
+            "kind": "function",
+            "memberof": "HomeComponent",
+            "scope": "instance",
+            "params": [],
+            "$longname": "HomeComponent#getArticleId",
+            "$kind": "method",
+            "id": 3279,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} [params={}]\n     * @param {Object} [opts={}]\n     */",
+            "meta": {
+                "range": [
+                    10206,
+                    10634
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 359,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108160",
+                    "name": "HomeComponent#getArticles",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "params",
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": "{}",
+                    "name": "params"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": "{}",
+                    "name": "opts"
+                }
+            ],
+            "name": "getArticles",
+            "longname": "HomeComponent#getArticles",
+            "kind": "function",
+            "memberof": "HomeComponent",
+            "scope": "instance",
+            "$longname": "HomeComponent#getArticles",
+            "$kind": "method",
+            "id": 3280,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @return {Object} vdom\n     */",
+            "meta": {
+                "range": [
+                    10692,
+                    10815
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 381,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108223",
+                    "name": "HomeComponent#getContainer",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "vdom"
+                }
+            ],
+            "name": "getContainer",
+            "longname": "HomeComponent#getContainer",
+            "kind": "function",
+            "memberof": "HomeComponent",
+            "scope": "instance",
+            "params": [],
+            "$longname": "HomeComponent#getContainer",
+            "$kind": "method",
+            "id": 3281,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {String} nodeId\n     * @returns {Number}\n     */",
+            "meta": {
+                "range": [
+                    10899,
+                    10975
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 391,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108246",
+                    "name": "HomeComponent#getNavLinkId",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "nodeId"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "nodeId"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Number"
+                        ]
+                    }
+                }
+            ],
+            "name": "getNavLinkId",
+            "longname": "HomeComponent#getNavLinkId",
+            "kind": "function",
+            "memberof": "HomeComponent",
+            "scope": "instance",
+            "$longname": "HomeComponent#getNavLinkId",
+            "$kind": "method",
+            "id": 3282,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Number|String} id\n     * @returns {String}\n     */",
+            "meta": {
+                "range": [
+                    11062,
+                    11126
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 400,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108261",
+                    "name": "HomeComponent#getNavLinkVdomId",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "id"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Number",
+                            "String"
+                        ]
+                    },
+                    "name": "id"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    }
+                }
+            ],
+            "name": "getNavLinkVdomId",
+            "longname": "HomeComponent#getNavLinkVdomId",
+            "kind": "function",
+            "memberof": "HomeComponent",
+            "scope": "instance",
+            "$longname": "HomeComponent#getNavLinkVdomId",
+            "$kind": "method",
+            "id": 3283,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    11183,
+                    12337
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 408,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108274",
+                    "name": "HomeComponent#onNavLinkClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onNavLinkClick",
+            "longname": "HomeComponent#onNavLinkClick",
+            "kind": "function",
+            "memberof": "HomeComponent",
+            "scope": "instance",
+            "$longname": "HomeComponent#onNavLinkClick",
+            "$kind": "method",
+            "id": 3284,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} value\n     */",
+            "meta": {
+                "range": [
+                    12395,
+                    12462
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 448,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108433",
+                    "name": "HomeComponent#onCurrentUserChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "value"
+                }
+            ],
+            "name": "onCurrentUserChange",
+            "longname": "HomeComponent#onCurrentUserChange",
+            "kind": "function",
+            "memberof": "HomeComponent",
+            "scope": "instance",
+            "$longname": "HomeComponent#onCurrentUserChange",
+            "$kind": "method",
+            "id": 3285,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    12519,
+                    12614
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 456,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108446",
+                    "name": "HomeComponent#onPageNavLinkClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onPageNavLinkClick",
+            "longname": "HomeComponent#onPageNavLinkClick",
+            "kind": "function",
+            "memberof": "HomeComponent",
+            "scope": "instance",
+            "$longname": "HomeComponent#onPageNavLinkClick",
+            "$kind": "method",
+            "id": 3286,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} opts\n     * @param {String|null} opts.oldValue\n     * @param {String|null} opts.value\n     */",
+            "meta": {
+                "range": [
+                    12752,
+                    13473
+                ],
+                "filename": "HomeComponent.mjs",
+                "lineno": 466,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
+                "code": {
+                    "id": "astnode100108467",
+                    "name": "HomeComponent#onTagChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "opts"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "opts"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "opts.oldValue"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "opts.value"
+                }
+            ],
+            "name": "onTagChange",
+            "longname": "HomeComponent#onTagChange",
+            "kind": "function",
+            "memberof": "HomeComponent",
+            "scope": "instance",
+            "$longname": "HomeComponent#onTagChange",
+            "$kind": "method",
+            "id": 3287,
+            "neoClassName": "RealWorld.view.HomeComponent"
+        }
+    ]
+}

@@ -1,0 +1,292 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class Docs.app.view.classdetails.TutorialComponent\n * @extends Neo.component.Base\n */",
+            "meta": {
+                "filename": "TutorialComponent.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "TutorialComponent",
+            "augments": [
+                "Neo.component.Base"
+            ],
+            "memberof": "Docs.app.view.classdetails",
+            "longname": "Docs.app.view.classdetails.TutorialComponent",
+            "scope": "static",
+            "$longname": "Docs.app.view.classdetails.TutorialComponent",
+            "$kind": "class",
+            "id": 3031,
+            "neoClassName": "Docs.app.view.classdetails.TutorialComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='Docs.app.view.classdetails.TutorialComponent'\n         * @protected\n         */",
+            "meta": {
+                "filename": "TutorialComponent.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Docs.app.view.classdetails.TutorialComponent'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 3032,
+            "neoClassName": "Docs.app.view.classdetails.TutorialComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String} ntype='classdetails-tutorialcomponent'\n         * @protected\n         */",
+            "meta": {
+                "filename": "TutorialComponent.mjs",
+                "lineno": 18,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "ntype",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'classdetails-tutorialcomponent'",
+            "access": "protected",
+            "longname": "ntype",
+            "scope": "global",
+            "$longname": "ntype",
+            "$kind": "property",
+            "id": 3033,
+            "neoClassName": "Docs.app.view.classdetails.TutorialComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neo-classdetails-tutorialcomponent']\n         */",
+            "meta": {
+                "filename": "TutorialComponent.mjs",
+                "lineno": 22,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neo-classdetails-tutorialcomponent']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 3034,
+            "neoClassName": "Docs.app.view.classdetails.TutorialComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} fileName=null\n         */",
+            "meta": {
+                "filename": "TutorialComponent.mjs",
+                "lineno": 26,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "fileName",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "fileName",
+            "scope": "global",
+            "$longname": "fileName",
+            "$kind": "property",
+            "id": 3035,
+            "neoClassName": "Docs.app.view.classdetails.TutorialComponent"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} fileType=null\n         */",
+            "meta": {
+                "filename": "TutorialComponent.mjs",
+                "lineno": 30,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "fileType",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "fileType",
+            "scope": "global",
+            "$longname": "fileType",
+            "$kind": "property",
+            "id": 3036,
+            "neoClassName": "Docs.app.view.classdetails.TutorialComponent"
+        },
+        {
+            "comment": "/**\n         * @member {Object} style={overflow: 'auto'}\n         */",
+            "meta": {
+                "filename": "TutorialComponent.mjs",
+                "lineno": 34,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "style",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": "{overflow: 'auto'}",
+            "description": "'auto'}",
+            "longname": "style",
+            "scope": "global",
+            "$longname": "style",
+            "$kind": "property",
+            "id": 3037,
+            "neoClassName": "Docs.app.view.classdetails.TutorialComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
+            "meta": {
+                "range": [
+                    1151,
+                    1609
+                ],
+                "filename": "TutorialComponent.mjs",
+                "lineno": 43,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100100151",
+                    "name": "TutorialComponent",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "config"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
+            "name": "TutorialComponent",
+            "longname": "TutorialComponent",
+            "kind": "class",
+            "scope": "global",
+            "$longname": "TutorialComponent",
+            "$kind": "constructor",
+            "id": 3038,
+            "neoClassName": "Docs.app.view.classdetails.TutorialComponent"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    1666,
+                    1995
+                ],
+                "filename": "TutorialComponent.mjs",
+                "lineno": 63,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100100216",
+                    "name": "TutorialComponent#applySourceCode",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "applySourceCode",
+            "longname": "TutorialComponent#applySourceCode",
+            "kind": "function",
+            "memberof": "TutorialComponent",
+            "scope": "instance",
+            "$longname": "TutorialComponent#applySourceCode",
+            "$kind": "method",
+            "id": 3039,
+            "neoClassName": "Docs.app.view.classdetails.TutorialComponent"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    2024,
+                    2114
+                ],
+                "filename": "TutorialComponent.mjs",
+                "lineno": 83,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view/classdetails",
+                "code": {
+                    "id": "astnode100100267",
+                    "name": "TutorialComponent.syntaxHighlight",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "syntaxHighlight",
+            "longname": "TutorialComponent.syntaxHighlight",
+            "kind": "function",
+            "memberof": "TutorialComponent",
+            "scope": "static",
+            "params": [],
+            "$longname": "TutorialComponent.syntaxHighlight",
+            "$kind": "method",
+            "id": 3040,
+            "neoClassName": "Docs.app.view.classdetails.TutorialComponent"
+        }
+    ]
+}
