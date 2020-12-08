@@ -19,35 +19,50 @@ export default class Login extends HTMLElement {
 
     this.submitListener = event => {
       event.preventDefault()
-      /** @type {string} */
+
       const password = this.password.value
       const email = this.email.value
-      const url = `${Environment.fetchBaseUrl}users/login`
-      console.log(password, email);
-      const body = {
-        'user': {
-          'email': email,
-          'password': password
-        }
-      }
-  
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-        },
-        body: JSON.stringify(body)
-      })
-      .then(response => response.json())
-      .then ( (data) => {
-        console.log(data.user.token);
-  
-        // tbd store Token and redirect
-        // Environment.storeToken(data.user.token)
-        // window.location.href = '#/'
-      })
-      .catch( error => console.log(error))
       
+      this.dispatchEvent(new CustomEvent('loginUser', {
+        /** @type {import("../controllers/User.js").loginUserEventDetail} */
+        detail: {
+          email: email,
+          password: password
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))
+      
+      // const url = `${Environment.fetchBaseUrl}users/login`
+      // const body = {
+      //   'user': {
+      //     'email': email,
+      //     'password': password
+      //   }
+      // }
+
+      // fetch(url, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json; charset=utf-8',
+      //   },
+      //   body: JSON.stringify(body)
+      // })
+      // .then(response => response.json())
+      // .then ( (data) => {
+      //   console.log(data.user.token);
+  
+      //   // tbd store Token and redirect
+      //   // Environment.storeToken(data.user.token)
+      //   // window.location.href = '#/'
+      // })
+      // .catch( error => console.log(error))
+      
+    }
+
+    this.loginListener = event => {
+
     }
   }
 

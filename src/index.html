@@ -10,8 +10,11 @@
   <link rel="stylesheet" href="//demo.productionready.io/main.css">
 </head>
 <body>
+
   <o-header></o-header>
-  <c-router></c-router>
+  <c-user>
+    <c-router></c-router>
+  </c-user>
   <o-footer></o-footer>
   <script rel=preload type=module>
     /**
@@ -23,6 +26,7 @@
       import('./es/helpers/Debugging.js').then(module => null),
       // Controllers
       import('./es/components/controllers/Router.js').then(module => ['c-router', module.default]),
+      import('./es/components/controllers/User.js').then(module => ['c-user', module.default]),
       // Components which are not effected by routing
       import('./es/components/organisms/Header.js').then(module => ['o-header', module.default]),
       import('./es/components/organisms/Footer.js').then(module => ['o-footer', module.default])
