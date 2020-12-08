@@ -2,16 +2,13 @@
 
 /* global HTMLElement */
 /* global customElements */
-/* global fetch */
-
-import { Environment } from '../../helpers/Environment.js'
 
 /**
  * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#home
  * As a page, this component becomes a domain dependent container and shall hold organisms, molecules and/or atoms
  *
  * @export
- * @class Login
+ * @class Register
  */
 export default class Register extends HTMLElement {
   constructor() {
@@ -23,6 +20,7 @@ export default class Register extends HTMLElement {
 
         this.dispatchEvent(new CustomEvent('registerUser', {
           detail: {
+            /** @type {import("../../helpers/Interfaces.js").Registration} */
             'user': {
               'username': this.userField.value,
               'email': this.emailField.value,
