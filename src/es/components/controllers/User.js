@@ -59,17 +59,14 @@ export default class User extends HTMLElement {
         }
       )
 
-
       // reset old AbortController and assign new one
       if (this.abortController) this.abortController.abort()
       this.abortController = new AbortController()
-      console.log(url, Object.assign(Environment.fetchHeader, {method: 'POST', body: body, signal: this.abortController.signal }));
-      console.log(url, Object.assign(Environment.fetchHeader, {body: body}, { signal: this.abortController.signal }));
       // answer with event
       this.dispatchEvent(new CustomEvent('user', {
         /** @type {UserEventDetail} */
         detail: {
-          fetch: fetch(url, Object.assign(Environment.fetchHeader, {method: 'POST', body: body, signal: this.abortController.signal }))
+          fetch: fetch(url, Object.assign(Environment.fetchHeaders, {method: 'POST', body: body, signal: this.abortController.signal }))
                 .then(response => {
                   if (response.status >= 200 && response.status <= 299)  return response.json()
                   throw new Error(response.statusText)
@@ -85,21 +82,36 @@ export default class User extends HTMLElement {
     this.registerUserListener = event => {
       if(!event.detail.user) return;
 
-      fetch(`${Environment.fetchBaseUrl}users`, {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8'
-        },
-        body: JSON.stringify(event.detail)
-      }).then((response) => response.json())
-      .then(data => {
-        if (data.errors) return this.errorMessages = data.errors;
+      //TODO:
+      if (this.abortController) this.abortController.abort()
+      this.abortController = new AbortController()
 
-        this.token = data.user.token
-        window.location.href = '#/'
-      })
-      .catch((error) => console.error('Error:', error))
+      const url = `${Environment.fetchBaseUrl}users`;
+      // answer with event
+      this.dispatchEvent(new CustomEvent('user', {
+        /** @type {UserEventDetail} */
+        detail: {
+          fetch: fetch(url,
+            {
+              method: 'POST',
+              ...Environment.fetchHeaders,
+              body: JSON.stringify(event.detail),
+              signal: this.abortController.signal
+            }).then(response => response.json())
+            .then(data => {
+              if (data.errors) throw new Error(data.errors)
+
+              if (data.user) this.token = data.user.token
+
+              //TODO: router
+              // window.location.href = '#/'
+              return data
+            })
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))
     }
   }
 

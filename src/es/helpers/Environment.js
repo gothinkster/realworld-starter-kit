@@ -46,7 +46,7 @@ class EnvironmentClass {
    *
    * @returns {{headers: Headers}}
    */
-  get fetchHeader () {
+  get fetchHeaders () {
     return {
       headers: new Headers({'Content-Type': 'application/json; charset=utf-8'}),
     }

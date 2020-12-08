@@ -33,15 +33,24 @@ export default class Register extends HTMLElement {
         }))
       }
     }
+
+    this.catchUser = event => {
+      event.detail.fetch.catch((error)=> {
+        //TODO:
+        this.errorMessages.textContent = error
+      })
+    }
   }
 
   connectedCallback () {
     if (this.shouldComponentRender()) this.render()
     this.registerForm.addEventListener('submit', this.submitListener)
+    document.body.addEventListener('user', this.catchUser)
   }
 
   disconnectedCallback () {
     this.registerForm.removeEventListener('submit', this.submitListener)
+    document.body.removeEventListener('user', this.catchUser)
   }
 
   /**
