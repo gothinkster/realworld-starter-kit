@@ -52,9 +52,9 @@ export default class User extends HTMLElement {
       const url = `${Environment.fetchBaseUrl}users/login`
       const body = JSON.stringify(
         {
-          'user': {
-            'email': event.detail.email,
-            'password': event.detail.password
+          user: {
+            email: event.detail.email,
+            password: event.detail.password
           }
         }
       )
@@ -63,6 +63,7 @@ export default class User extends HTMLElement {
       // reset old AbortController and assign new one
       if (this.abortController) this.abortController.abort()
       this.abortController = new AbortController()
+      console.log(url, Object.assign(Environment.fetchHeader, {method: 'POST', body: body, signal: this.abortController.signal }));
       console.log(url, Object.assign(Environment.fetchHeader, {body: body}, { signal: this.abortController.signal }));
       // answer with event
       this.dispatchEvent(new CustomEvent('user', {
@@ -70,7 +71,7 @@ export default class User extends HTMLElement {
         detail: {
           fetch: fetch(url, Object.assign(Environment.fetchHeader, {method: 'POST', body: body, signal: this.abortController.signal }))
                 .then(response => {
-                  if (response.status >= 200 && response.status <= 299)  console.log(response.json())
+                  if (response.status >= 200 && response.status <= 299)  return response.json()
                   throw new Error(response.statusText)
                 // @ts-ignore
                 }).catch(error => console.warn(url, error) || error)
