@@ -58,8 +58,8 @@ export default class User extends HTMLElement {
           }
         }
       )
-      
-      
+
+
       // reset old AbortController and assign new one
       if (this.abortController) this.abortController.abort()
       this.abortController = new AbortController()
@@ -80,13 +80,57 @@ export default class User extends HTMLElement {
         composed: true
       }))
     }
+
+    this.registerUserListener = event => {
+      if(!event.detail.user) return;
+
+      fetch(`${Environment.fetchBaseUrl}users`, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify(event.detail)
+      }).then((response) => response.json())
+      .then(data => {
+        if (data.errors) return this.errorMessages = data.errors;
+
+        this.token = data.user.token
+        window.location.href = '#/'
+      })
+      .catch((error) => console.error('Error:', error))
+    }
   }
 
   connectedCallback () {
     this.addEventListener('loginUser', this.loginUserListener)
+    this.addEventListener('registerUser', this.registerUserListener)
   }
 
   disconnectedCallback () {
     this.removeEventListener('loginUser', this.loginUserListener)
+    this.removeEventListener('registerUser', this.registerUserListener)
+  }
+
+  /**
+   * get JWT token
+   *
+   * @return {string}
+   */
+  get token() {
+    return window.localStorage.getItem('ID_TOKEN');
+  }
+
+  /**
+   * set JWT token
+   *
+   * @param {string} token
+   */
+  set token(token) {
+    if (token && token !== '') {
+      window.localStorage.setItem('ID_TOKEN', token);
+    } else {
+      window.localStorage.removeItem('ID_TOKEN');
+    }
   }
 }

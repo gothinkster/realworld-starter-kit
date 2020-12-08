@@ -19,36 +19,21 @@ export default class Register extends HTMLElement {
 
     this.submitListener = (e) => {
       if(this.registerForm.checkValidity()) {
-        e.preventDefault();
+        e.preventDefault()
 
-        const url = `${Environment.fetchBaseUrl}users`
-        const body = {
-          'user': {
-            'username': this.userField.value,
-            'email': this.emailField.value,
-            'password': this.passwordField.value
-          }
-        }
-
-        fetch(url, {
-          method: 'POST',
-          credentials: 'same-origin',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8'
+        this.dispatchEvent(new CustomEvent('registerUser', {
+          detail: {
+            'user': {
+              'username': this.userField.value,
+              'email': this.emailField.value,
+              'password': this.passwordField.value
+            }
           },
-          body: JSON.stringify(body)
-        }).then((response) => response.json())
-        .then(data => {
-          if (data.errors) return this.errorMessages = data.errors;
-
-          // TODO: store token and redirect
-          console.log(data)
-          // Environment.token = data.token
-          // window.location.href = '#/'
-        })
-        .catch((error) => console.error('Error:', error))
+          bubbles: true,
+          cancelable: true,
+          composed: true
+        }))
       }
-
     }
   }
 

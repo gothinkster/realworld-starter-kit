@@ -51,25 +51,6 @@ class EnvironmentClass {
       header: {'Content-Type': 'application/json; charset=utf-8'},
     }
   }
-
-  /**
-   * get JWT token
-   *
-   * @return {string}
-   */
-  get token() {
-    return window.localStorage.getItem('ID_TOKEN');
-  }
-
-  /**
-   * set JWT token
-   *
-   * @param {string} token
-   */
-  set token(token) {
-    const currentToken = token || '';
-    window.localStorage.setItem('ID_TOKEN', currentToken);
-  }
 }
 // @ts-ignore
 export const Environment = self.Environment = new EnvironmentClass()
