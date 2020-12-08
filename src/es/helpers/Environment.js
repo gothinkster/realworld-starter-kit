@@ -44,11 +44,11 @@ class EnvironmentClass {
   /**
    * get fetch header
    *
-   * @returns {Object}
+   * @returns {{headers: Headers}}
    */
   get fetchHeader () {
     return {
-      header: {'Content-Type': 'application/json; charset=utf-8'},
+      headers: new Headers({'Content-Type': 'application/json; charset=utf-8'}),
     }
   }
 }
