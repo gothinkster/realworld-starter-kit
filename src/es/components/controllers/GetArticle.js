@@ -64,7 +64,7 @@ export default class GetArticle extends HTMLElement {
             if (response.status >= 200 && response.status <= 299) return response.json()
             throw new Error(response.statusText)
           // @ts-ignore
-          }).catch(error => console.warn(url, error) || error)
+          })
         },
         bubbles: true,
         cancelable: true,
