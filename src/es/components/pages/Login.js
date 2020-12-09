@@ -19,15 +19,14 @@ export default class Login extends HTMLElement {
 
     this.submitListener = event => {
       event.preventDefault()
-
-      const password = this.password.value
-      const email = this.email.value
       
       this.dispatchEvent(new CustomEvent('loginUser', {
-        /** @type {import("../controllers/User.js").loginUserEventDetail} */
         detail: {
-          email: email,
-          password: password
+          /** @type {import("../../helpers/Interfaces.js").Authentication} */
+          'user': {
+            'email': this.emailField.value,
+            'password': this.passwordField.value
+          }
         },
         bubbles: true,
         cancelable: true,
@@ -129,7 +128,7 @@ export default class Login extends HTMLElement {
    * @return {HTMLInputElement}
    * 
    */
-  get password () {
+  get passwordField () {
     return document.querySelector("input[type=password]")
   }
 
@@ -137,7 +136,7 @@ export default class Login extends HTMLElement {
    * @return {HTMLInputElement}
    * 
    */
-  get email () {
+  get emailField () {
     return document.querySelector("input[type=email]")
   }
 }
