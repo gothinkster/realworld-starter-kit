@@ -11,20 +11,20 @@
  * @class Register
  */
 export default class Register extends HTMLElement {
-  constructor() {
+  constructor () {
     super()
 
     this.submitListener = (e) => {
-      if(this.registerForm.checkValidity()) {
+      if (this.registerForm.checkValidity()) {
         e.preventDefault()
 
         this.dispatchEvent(new CustomEvent('registerUser', {
           detail: {
             /** @type {import("../../helpers/Interfaces.js").Registration} */
-            'user': {
-              'username': this.userField.value,
-              'email': this.emailField.value,
-              'password': this.passwordField.value
+            user: {
+              username: this.userField.value,
+              email: this.emailField.value,
+              password: this.passwordField.value
             }
           },
           bubbles: true,
@@ -40,7 +40,7 @@ export default class Register extends HTMLElement {
      * @param {CustomEvent & {detail: import("../controllers/User.js").UserEventDetail}} event
      */
     this.userListener = event => {
-      event.detail.fetch.then(user => (self.location.hash = '#/')).catch((error)=> (this.errorMessages = error))
+      event.detail.fetch.then(user => (self.location.hash = '#/')).catch((error) => (this.errorMessages = error))
     }
   }
 
@@ -105,36 +105,36 @@ export default class Register extends HTMLElement {
     `
   }
 
-  get registerForm() {
+  get registerForm () {
     return this.querySelector('form')
   }
 
   /**
    * @return {HTMLInputElement}
    */
-  get userField() {
+  get userField () {
     return this.querySelector('input[name="username"]')
   }
 
   /**
    * @return {HTMLInputElement}
    */
-  get emailField() {
+  get emailField () {
     return this.querySelector('input[name="email"]')
   }
 
   /**
    * @return {HTMLInputElement}
    */
-  get passwordField() {
+  get passwordField () {
     return document.querySelector('input[name="password"]')
   }
 
-  get errorMessages() {
+  get errorMessages () {
     return this.querySelector('.error-messages')
   }
 
-  set errorMessages(errors) {
+  set errorMessages (errors) {
     const ul = this.querySelector('.error-messages')
     if (ul && typeof errors === 'object') {
       ul.innerHTML = ''

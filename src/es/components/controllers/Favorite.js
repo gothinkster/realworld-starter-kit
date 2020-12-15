@@ -36,7 +36,7 @@ export default class Favorite extends HTMLElement {
       const url = `${Environment.fetchBaseUrl}articles/${event.detail.article.slug}/favorite`
       return fetch(url, {
         method: event.detail.article.favorited ? 'DELETE' : 'POST',
-        ...Environment.fetchHeaders, 
+        ...Environment.fetchHeaders
       }).then(response => {
         if (response.status >= 200 && response.status <= 299) return response.json()
         throw new Error(response.statusText)

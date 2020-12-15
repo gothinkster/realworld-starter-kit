@@ -22,7 +22,6 @@
 
 import { Environment } from '../../helpers/Environment.js'
 
-
 /**
  * https://github.com/gothinkster/realworld/tree/master/api#get-article
  * As a controller, this component becomes a store and organizes events
@@ -60,11 +59,11 @@ export default class User extends HTMLElement {
       this.dispatchEvent(new CustomEvent('user', {
         /** @type {UserEventDetail} */
         detail: {
-          fetch: fetch(url, 
+          fetch: fetch(url,
             {
-              method: 'POST', 
-              ...Environment.fetchHeaders, 
-              body: JSON.stringify(event.detail), 
+              method: 'POST',
+              ...Environment.fetchHeaders,
+              body: JSON.stringify(event.detail),
               signal: this.abortController.signal
             }).then(response => response.json())
             .then(data => {
@@ -83,12 +82,12 @@ export default class User extends HTMLElement {
     }
 
     this.registerUserListener = event => {
-      if(!event.detail.user) return;
+      if (!event.detail.user) return
 
       if (this.abortController) this.abortController.abort()
       this.abortController = new AbortController()
 
-      const url = `${Environment.fetchBaseUrl}users`;
+      const url = `${Environment.fetchBaseUrl}users`
       // answer with event
       this.dispatchEvent(new CustomEvent('user', {
         /** @type {UserEventDetail} */
@@ -116,11 +115,10 @@ export default class User extends HTMLElement {
     }
 
     this.getUserListener = event => {
-
       if (this.abortController) this.abortController.abort()
       this.abortController = new AbortController()
 
-      const url = `${Environment.fetchBaseUrl}user`;
+      const url = `${Environment.fetchBaseUrl}user`
       // answer with event
       this.dispatchEvent(new CustomEvent('user', {
         /** @type {UserEventDetail} */

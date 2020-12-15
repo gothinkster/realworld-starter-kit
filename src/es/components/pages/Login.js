@@ -13,25 +13,24 @@ import { Environment } from '../../helpers/Environment.js'
  * @class Login
  */
 export default class Login extends HTMLElement {
-
-  constructor(){
+  constructor () {
     super()
 
     this.submitListener = event => {
       event.preventDefault()
-      
+
       this.dispatchEvent(new CustomEvent('loginUser', {
         detail: {
           /** @type {import("../../helpers/Interfaces.js").Authentication} */
-          'user': {
-            'email': this.emailField.value,
-            'password': this.passwordField.value
+          user: {
+            email: this.emailField.value,
+            password: this.passwordField.value
           }
         },
         bubbles: true,
         cancelable: true,
         composed: true
-      }))      
+      }))
     }
 
     /**
@@ -40,21 +39,20 @@ export default class Login extends HTMLElement {
      * @param {CustomEvent & {detail: import("../controllers/User.js").UserEventDetail}} event
      */
     this.userListener = event => {
-      event.detail.fetch.then(user => (self.location.hash = '#/')).catch((error)=> (this.errorMessages = error))
+      event.detail.fetch.then(user => (self.location.hash = '#/')).catch((error) => (this.errorMessages = error))
     }
   }
 
   connectedCallback () {
     if (this.shouldComponentRender()) this.render()
-    this.querySelector("form").addEventListener('submit', this.submitListener);
+    this.querySelector('form').addEventListener('submit', this.submitListener)
     document.body.addEventListener('user', this.userListener)
   }
 
   disconnectedCallback () {
-    this.querySelector("form").removeEventListener('submit', this.submitListener);
+    this.querySelector('form').removeEventListener('submit', this.submitListener)
     document.body.removeEventListener('user', this.userListener)
   }
-  
 
   /**
    * evaluates if a render is necessary
@@ -105,25 +103,25 @@ export default class Login extends HTMLElement {
 
   /**
    * @return {HTMLInputElement}
-   * 
+   *
    */
   get passwordField () {
-    return document.querySelector("input[type=password]")
+    return document.querySelector('input[type=password]')
   }
 
   /**
    * @return {HTMLInputElement}
-   * 
+   *
    */
   get emailField () {
-    return document.querySelector("input[type=email]")
+    return document.querySelector('input[type=email]')
   }
 
-  get errorMessages() {
+  get errorMessages () {
     return this.querySelector('.error-messages')
   }
 
-  set errorMessages(errors) {
+  set errorMessages (errors) {
     const ul = this.querySelector('.error-messages')
     if (ul && typeof errors === 'object') {
       ul.innerHTML = ''

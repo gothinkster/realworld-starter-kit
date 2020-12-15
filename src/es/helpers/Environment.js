@@ -52,9 +52,9 @@ class EnvironmentClass {
     }
     return {
       headers: this.token ? {
-        'authorization': `Token ${this.token}`,
+        authorization: `Token ${this.token}`,
         ...headers
-      } : headers,
+      } : headers
     }
   }
 
@@ -63,8 +63,8 @@ class EnvironmentClass {
    *
    * @return {string}
    */
-  get token() {
-    return self.localStorage.getItem('ID_TOKEN');
+  get token () {
+    return self.localStorage.getItem('ID_TOKEN')
   }
 
   /**
@@ -72,11 +72,11 @@ class EnvironmentClass {
    *
    * @param {string} token
    */
-  set token(token) {
+  set token (token) {
     if (token && token !== '') {
-      self.localStorage.setItem('ID_TOKEN', token);
+      self.localStorage.setItem('ID_TOKEN', token)
     } else {
-      self.localStorage.removeItem('ID_TOKEN');
+      self.localStorage.removeItem('ID_TOKEN')
     }
   }
 }
