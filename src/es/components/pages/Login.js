@@ -31,47 +31,28 @@ export default class Login extends HTMLElement {
         bubbles: true,
         cancelable: true,
         composed: true
-      }))
-      
-      // const url = `${Environment.fetchBaseUrl}users/login`
-      // const body = {
-      //   'user': {
-      //     'email': email,
-      //     'password': password
-      //   }
-      // }
-
-      // fetch(url, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json; charset=utf-8',
-      //   },
-      //   body: JSON.stringify(body)
-      // })
-      // .then(response => response.json())
-      // .then ( (data) => {
-      //   console.log(data.user.token);
-  
-      //   // tbd store Token and redirect
-      //   // Environment.storeToken(data.user.token)
-      //   // window.location.href = '#/'
-      // })
-      // .catch( error => console.log(error))
-      
+      }))      
     }
 
-    this.loginListener = event => {
-
+    /**
+     * Listens to the event name/typeArg: 'getArticle'
+     *
+     * @param {CustomEvent & {detail: import("../controllers/User.js").UserEventDetail}} event
+     */
+    this.userListener = event => {
+      event.detail.fetch.then(user => (self.location.hash = '#/')).catch((error)=> (this.errorMessages = error))
     }
   }
 
   connectedCallback () {
     if (this.shouldComponentRender()) this.render()
     this.querySelector("form").addEventListener('submit', this.submitListener);
+    document.body.addEventListener('user', this.userListener)
   }
 
   disconnectedCallback () {
     this.querySelector("form").removeEventListener('submit', this.submitListener);
+    document.body.removeEventListener('user', this.userListener)
   }
   
 
@@ -101,9 +82,7 @@ export default class Login extends HTMLElement {
                 <a href="#/register">Need an account?</a>
               </p>
 
-              <ul class="error-messages">
-                <li>That email is already taken</li>
-              </ul>
+              <ul class="error-messages"></ul>
 
               <form id="login-form">
                 <fieldset class="form-group">
@@ -138,5 +117,21 @@ export default class Login extends HTMLElement {
    */
   get emailField () {
     return document.querySelector("input[type=email]")
+  }
+
+  get errorMessages() {
+    return this.querySelector('.error-messages')
+  }
+
+  set errorMessages(errors) {
+    const ul = this.querySelector('.error-messages')
+    if (ul && typeof errors === 'object') {
+      ul.innerHTML = ''
+      for (const key in errors) {
+        const li = document.createElement('li')
+        li.textContent = `${key}: ${errors[key].reduce((acc, curr) => `${acc}${acc ? ' | ' : ''}${curr}`, '')}`
+        ul.appendChild(li)
+      }
+    }
   }
 }

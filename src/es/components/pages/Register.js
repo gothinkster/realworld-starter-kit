@@ -34,23 +34,25 @@ export default class Register extends HTMLElement {
       }
     }
 
-    this.catchUser = event => {
-      event.detail.fetch.catch((error)=> {
-        //TODO:
-        this.errorMessages.textContent = error
-      })
+    /**
+     * Listens to the event name/typeArg: 'getArticle'
+     *
+     * @param {CustomEvent & {detail: import("../controllers/User.js").UserEventDetail}} event
+     */
+    this.userListener = event => {
+      event.detail.fetch.then(user => (self.location.hash = '#/')).catch((error)=> (this.errorMessages = error))
     }
   }
 
   connectedCallback () {
     if (this.shouldComponentRender()) this.render()
     this.registerForm.addEventListener('submit', this.submitListener)
-    document.body.addEventListener('user', this.catchUser)
+    document.body.addEventListener('user', this.userListener)
   }
 
   disconnectedCallback () {
     this.registerForm.removeEventListener('submit', this.submitListener)
-    document.body.removeEventListener('user', this.catchUser)
+    document.body.removeEventListener('user', this.userListener)
   }
 
   /**
@@ -79,9 +81,7 @@ export default class Register extends HTMLElement {
                 <a href="#/login">Have an account?</a>
               </p>
 
-              <ul class="error-messages">
-                <li>That email is already taken</li>
-              </ul>
+              <ul class="error-messages"></ul>
 
               <form>
                 <fieldset class="form-group">
@@ -134,7 +134,15 @@ export default class Register extends HTMLElement {
     return this.querySelector('.error-messages')
   }
 
-  set errorMessages(value) {
-    console.log('val', value)
+  set errorMessages(errors) {
+    const ul = this.querySelector('.error-messages')
+    if (ul && typeof errors === 'object') {
+      ul.innerHTML = ''
+      for (const key in errors) {
+        const li = document.createElement('li')
+        li.textContent = `${key}: ${errors[key].reduce((acc, curr) => `${acc}${acc ? ' | ' : ''}${curr}`, '')}`
+        ul.appendChild(li)
+      }
+    }
   }
 }

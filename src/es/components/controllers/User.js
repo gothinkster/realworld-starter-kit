@@ -26,7 +26,9 @@ import { Environment } from '../../helpers/Environment.js'
 /**
  * https://github.com/gothinkster/realworld/tree/master/api#get-article
  * As a controller, this component becomes a store and organizes events
+ * dispatches: 'user' on 'registerUser'
  * dispatches: 'user' on 'loginUser'
+ * dispatches: 'user' on 'getUser'
  *
  * @export
  * @class User
@@ -66,13 +68,12 @@ export default class User extends HTMLElement {
               signal: this.abortController.signal
             }).then(response => response.json())
             .then(data => {
-              if (data.errors) throw new Error(data.errors)
-
-              if (data.user) this.token = data.user.token
-
-              //TODO: router
-              // window.location.href = '#/'
-              return data
+              if (data.errors) throw data.errors
+              if (data.user) {
+                this.user = data.user
+                Environment.token = data.user.token
+              }
+              return data.user
             })
         },
         bubbles: true,
@@ -84,7 +85,6 @@ export default class User extends HTMLElement {
     this.registerUserListener = event => {
       if(!event.detail.user) return;
 
-      //TODO:
       if (this.abortController) this.abortController.abort()
       this.abortController = new AbortController()
 
@@ -101,14 +101,44 @@ export default class User extends HTMLElement {
               signal: this.abortController.signal
             }).then(response => response.json())
             .then(data => {
-              if (data.errors) throw new Error(data.errors)
-
-              if (data.user) this.token = data.user.token
-
-              //TODO: router
-              // window.location.href = '#/'
-              return data
+              if (data.errors) throw data.errors
+              if (data.user) {
+                this.user = data.user
+                Environment.token = data.user.token
+              }
+              return data.user
             })
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))
+    }
+
+    this.getUserListener = event => {
+
+      if (this.abortController) this.abortController.abort()
+      this.abortController = new AbortController()
+
+      const url = `${Environment.fetchBaseUrl}user`;
+      // answer with event
+      this.dispatchEvent(new CustomEvent('user', {
+        /** @type {UserEventDetail} */
+        detail: {
+          fetch: this.user ? Promise.resolve(this.user) : fetch(url,
+            {
+              method: 'GET',
+              ...Environment.fetchHeaders,
+              signal: this.abortController.signal
+            }).then(response => response.json())
+            .then(data => {
+              if (data.user) {
+                this.user = data.user
+                Environment.token = data.user.token
+              }
+              return data.user
+            })
+            .catch(error => (Environment.token = ''))
         },
         bubbles: true,
         cancelable: true,
@@ -120,32 +150,12 @@ export default class User extends HTMLElement {
   connectedCallback () {
     this.addEventListener('loginUser', this.loginUserListener)
     this.addEventListener('registerUser', this.registerUserListener)
+    this.addEventListener('getUser', this.getUserListener)
   }
 
   disconnectedCallback () {
     this.removeEventListener('loginUser', this.loginUserListener)
     this.removeEventListener('registerUser', this.registerUserListener)
-  }
-
-  /**
-   * get JWT token
-   *
-   * @return {string}
-   */
-  get token() {
-    return window.localStorage.getItem('ID_TOKEN');
-  }
-
-  /**
-   * set JWT token
-   *
-   * @param {string} token
-   */
-  set token(token) {
-    if (token && token !== '') {
-      window.localStorage.setItem('ID_TOKEN', token);
-    } else {
-      window.localStorage.removeItem('ID_TOKEN');
-    }
+    this.removeEventListener('getUser', this.getUserListener)
   }
 }

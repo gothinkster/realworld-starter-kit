@@ -10,8 +10,30 @@
  * @class Header
  */
 export default class Header extends HTMLElement {
+  constructor () {
+    super()
+
+    /**
+     * Listens to the event name/typeArg: 'getArticle'
+     *
+     * @param {CustomEvent & {detail: import("../controllers/User.js").UserEventDetail}} event
+     */
+    this.userListener = event => {
+      event.detail.fetch.then(user => console.log('gotUser@header', user)).catch((error)=> console.log('gotNooooooooooooUser@header', error))
+    }
+  }
   connectedCallback () {
     if (this.shouldComponentRender()) this.render()
+    document.body.addEventListener('user', this.userListener)
+    this.dispatchEvent(new CustomEvent('getUser', {
+      bubbles: true,
+      cancelable: true,
+      composed: true
+    }))
+  }
+
+  disconnectedCallback () {
+    document.body.removeEventListener('user', this.userListener)
   }
 
   /**

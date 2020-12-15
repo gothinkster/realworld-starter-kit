@@ -66,7 +66,10 @@ export default class ListArticles extends HTMLElement {
         detail: {
           query: detail,
           queryString: query,
-          fetch: fetch(url, { signal: this.abortController.signal }).then(response => {
+          fetch: fetch(url, {
+            signal: this.abortController.signal,
+            ...Environment.fetchHeaders, 
+          }).then(response => {
             if (response.status >= 200 && response.status <= 299) return response.json()
             throw new Error(response.statusText)
           // @ts-ignore

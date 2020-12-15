@@ -44,11 +44,39 @@ class EnvironmentClass {
   /**
    * get fetch header
    *
-   * @returns {{headers: Headers}}
+   * @returns {{headers: {}}}
    */
   get fetchHeaders () {
+    const headers = {
+      'Content-Type': 'application/json;charset=utf-8'
+    }
     return {
-      headers: new Headers({'Content-Type': 'application/json; charset=utf-8'}),
+      headers: this.token ? {
+        'authorization': `Token ${this.token}`,
+        ...headers
+      } : headers,
+    }
+  }
+
+  /**
+   * get JWT token
+   *
+   * @return {string}
+   */
+  get token() {
+    return self.localStorage.getItem('ID_TOKEN');
+  }
+
+  /**
+   * set JWT token
+   *
+   * @param {string} token
+   */
+  set token(token) {
+    if (token && token !== '') {
+      self.localStorage.setItem('ID_TOKEN', token);
+    } else {
+      self.localStorage.removeItem('ID_TOKEN');
     }
   }
 }
