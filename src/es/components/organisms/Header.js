@@ -1,5 +1,7 @@
 // @ts-check
 
+import { Environment } from "../../helpers/Environment.js"
+
 /* global HTMLElement */
 
 /**
@@ -13,18 +15,24 @@ export default class Header extends HTMLElement {
   constructor () {
     super()
 
+    this.username = null
     /**
      * Listens to the event name/typeArg: 'getArticle'
      *
      * @param {CustomEvent & {detail: import("../controllers/User.js").UserEventDetail}} event
      */
     this.userListener = event => {
-      event.detail.fetch.then(user => console.log('gotUser@header', user)).catch((error) => console.log('gotNooooooooooooUser@header', error))
+      event.detail.fetch.then(user => {
+        console.log('gotUser@header', user)
+        if (this.shouldComponentRender(user.username)) this.render(user.username)
+        this.username = user.username
+      }).catch((error) => console.log(error))
+      
     }
   }
 
   connectedCallback () {
-    if (this.shouldComponentRender()) this.render()
+    this.render()
     document.body.addEventListener('user', this.userListener)
     this.dispatchEvent(new CustomEvent('getUser', {
       bubbles: true,
@@ -40,19 +48,21 @@ export default class Header extends HTMLElement {
   /**
    * evaluates if a render is necessary
    *
+   * @param {string} username
    * @return {boolean}
    */
-  shouldComponentRender () {
-    return !this.innerHTML
+  shouldComponentRender (username) {
+    return this.username !== username
   }
 
   /**
    * renders the header within the body, which is in this case the navbar
    *
+   * @param {string} [username = undefined]
    * @return {void}
    */
-  render () {
-    this.innerHTML = `
+  render (username) {
+    this.innerHTML = /* html */ `
       <nav class="navbar navbar-light">
         <div class="container">
           <a class="navbar-brand" href="index.html">conduit</a>
@@ -61,22 +71,30 @@ export default class Header extends HTMLElement {
               <!-- Add "active" class when you're on that page" -->
               <a class="nav-link active" href="#/">Home</a>
             </li>
-            <!-- <li class="nav-item">
-               <a class="nav-link" href="">
-                 <i class="ion-compose"></i>&nbsp;New Post
-               </a>
-             </li>
-             <li class="nav-item">
-               <a class="nav-link" href="">
-                 <i class="ion-gear-a"></i>&nbsp;Settings
-               </a>
-             </li> -->
-            <li class="nav-item">
-              <a class="nav-link" href="#/login">Sign in</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#/register">Sign up</a>
-            </li>
+            ${username ? /* html */ `
+              <li class="nav-item">
+                <a class="nav-link" href="#/editor">
+                  <i class="ion-compose"></i>&nbsp;New Post
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#/settings">
+                  <i class="ion-gear-a"></i>&nbsp;Settings
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#/profile/${username}">
+                  ${username}
+                </a>
+              </li>` : 
+              /* html */ `
+              <li class="nav-item">
+                <a class="nav-link" href="#/login">Sign in</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#/register">Sign up</a>
+              </li>`
+            }
           </ul>
         </div>
       </nav>

@@ -123,7 +123,7 @@ export default class User extends HTMLElement {
       this.dispatchEvent(new CustomEvent('user', {
         /** @type {UserEventDetail} */
         detail: {
-          fetch: this.user ? Promise.resolve(this.user) : fetch(url,
+          fetch: this.user ? Promise.resolve(this.user) : Environment.token ? fetch(url,
             {
               method: 'GET',
               ...Environment.fetchHeaders,
@@ -136,7 +136,7 @@ export default class User extends HTMLElement {
               }
               return data.user
             })
-            .catch(error => (Environment.token = ''))
+            .catch(error => (Environment.token = '')) : Promise.reject('No token found')
         },
         bubbles: true,
         cancelable: true,
