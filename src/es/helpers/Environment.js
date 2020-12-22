@@ -10,7 +10,7 @@
 class EnvironmentClass {
   constructor () {
     // https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#using-the-hosted-api
-    this.fetchBaseUrl = 'https://conduit.productionready.io/api/'
+    this._fetchBaseUrl = 'https://conduit.productionready.io/api/'
 
     /**
      * it seems as the conduit example always limits by 10 articles per page
@@ -39,6 +39,45 @@ class EnvironmentClass {
     link.setAttribute('rel', 'preconnect')
     link.setAttribute('href', this._fetchBaseUrl = url)
     document.head.appendChild(link)
+  }
+
+  /**
+   * get fetch header
+   *
+   * @returns {{headers: {}}}
+   */
+  get fetchHeaders () {
+    const headers = {
+      'Content-Type': 'application/json;charset=utf-8'
+    }
+    return {
+      headers: this.token ? {
+        authorization: `Token ${this.token}`,
+        ...headers
+      } : headers
+    }
+  }
+
+  /**
+   * get JWT token
+   *
+   * @return {string}
+   */
+  get token () {
+    return self.localStorage.getItem('ID_TOKEN')
+  }
+
+  /**
+   * set JWT token
+   *
+   * @param {string} token
+   */
+  set token (token) {
+    if (token && token !== '') {
+      self.localStorage.setItem('ID_TOKEN', token)
+    } else {
+      self.localStorage.removeItem('ID_TOKEN')
+    }
   }
 }
 // @ts-ignore

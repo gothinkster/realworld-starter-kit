@@ -56,13 +56,13 @@ export default class Home extends HTMLElement {
               </div>
 
               <div class="col-md-3">
-                <div class="sidebar">
+                <aside class="sidebar">
                   <p>Popular Tags</p>
 
                   <c-get-tags>
                     <m-tag-list><div class="tag-list">Loading...</div></m-tag-list>
                   </c-get-tags>
-                </div>
+                </aside>
               </div>
 
             </div>

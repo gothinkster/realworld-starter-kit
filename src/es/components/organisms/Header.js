@@ -10,8 +10,31 @@
  * @class Header
  */
 export default class Header extends HTMLElement {
+  constructor () {
+    super()
+
+    /**
+     * Listens to the event name/typeArg: 'getArticle'
+     *
+     * @param {CustomEvent & {detail: import("../controllers/User.js").UserEventDetail}} event
+     */
+    this.userListener = event => {
+      event.detail.fetch.then(user => console.log('gotUser@header', user)).catch((error) => console.log('gotNooooooooooooUser@header', error))
+    }
+  }
+
   connectedCallback () {
     if (this.shouldComponentRender()) this.render()
+    document.body.addEventListener('user', this.userListener)
+    this.dispatchEvent(new CustomEvent('getUser', {
+      bubbles: true,
+      cancelable: true,
+      composed: true
+    }))
+  }
+
+  disconnectedCallback () {
+    document.body.removeEventListener('user', this.userListener)
   }
 
   /**
@@ -36,20 +59,23 @@ export default class Header extends HTMLElement {
           <ul class="nav navbar-nav pull-xs-right">
             <li class="nav-item">
               <!-- Add "active" class when you're on that page" -->
-              <a class="nav-link active" href="">Home</a>
+              <a class="nav-link active" href="#/">Home</a>
+            </li>
+            <!-- <li class="nav-item">
+               <a class="nav-link" href="">
+                 <i class="ion-compose"></i>&nbsp;New Post
+               </a>
+             </li>
+             <li class="nav-item">
+               <a class="nav-link" href="">
+                 <i class="ion-gear-a"></i>&nbsp;Settings
+               </a>
+             </li> -->
+            <li class="nav-item">
+              <a class="nav-link" href="#/login">Sign in</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">
-                <i class="ion-compose"></i>&nbsp;New Post
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">
-                <i class="ion-gear-a"></i>&nbsp;Settings
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">Sign up</a>
+              <a class="nav-link" href="#/register">Sign up</a>
             </li>
           </ul>
         </div>

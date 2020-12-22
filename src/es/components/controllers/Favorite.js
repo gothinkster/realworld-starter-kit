@@ -34,7 +34,10 @@ export default class Favorite extends HTMLElement {
       // TODO: login/authentication
       if (!event.detail.article || !event.detail.resolve) return false
       const url = `${Environment.fetchBaseUrl}articles/${event.detail.article.slug}/favorite`
-      return fetch(url, { method: event.detail.article.favorited ? 'DELETE' : 'POST' }).then(response => {
+      return fetch(url, {
+        method: event.detail.article.favorited ? 'DELETE' : 'POST',
+        ...Environment.fetchHeaders
+      }).then(response => {
         if (response.status >= 200 && response.status <= 299) return response.json()
         throw new Error(response.statusText)
       }).then(
