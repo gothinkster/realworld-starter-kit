@@ -14,9 +14,10 @@ export default class Register extends HTMLElement {
   constructor () {
     super()
 
+    this.updated = false
+
     this.updateListener = event => {
       event.preventDefault()
-      console.log(this.userField.value, this.emailField.value, this.passwordField.value, this.bioField.value, this.imageField.value);
       
       let user = {
         username: this.userField.value,
@@ -27,7 +28,7 @@ export default class Register extends HTMLElement {
 
       if (this.passwordField.value) Object.assign(user, {password: this.passwordField.value})
       
-      console.log(user);
+      this.updated = true
 
       this.dispatchEvent(new CustomEvent('updateUser', {
         detail: {
@@ -46,6 +47,8 @@ export default class Register extends HTMLElement {
         this.emailField.value = user.email
         this.imageField.value = user.image
         this.bioField.value = user.bio
+        if(this.updated) self.location.hash = '#/'
+        this.updated = false
       }).catch((error) => console.log(error))
       
     }
