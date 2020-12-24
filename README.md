@@ -7,13 +7,13 @@
 ![GitHub](https://img.shields.io/github/license/jihchi/reason-react-realworld-example-app)
 [<img title="lighthouse" src="https://img.shields.io/badge/🗼-lighthouse-9cf.svg?logo=google">](https://lighthouse-dot-webdotdevsite.appspot.com//lh/html?url=https://reason-react-realworld-example-app.surge.sh/)
 
-> ### ReasonReact (ReasonML) codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
+> ### ReasonReact (ReScript) codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
 
 ### [Demo](https://reason-react-realworld-example-app.surge.sh/)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
 
-This codebase was created to demonstrate a fully fledged fullstack application built with **[ReasonReact](https://reasonml.github.io/reason-react/) ([ReasonML](https://reasonml.github.io/))** including CRUD operations, authentication, routing, pagination, and more.
+This codebase was created to demonstrate a fully fledged fullstack application built with **[ReasonReact](https://reasonml.github.io/reason-react/) ([ReScript](https://rescript-lang.org/))** including CRUD operations, authentication, routing, pagination, and more.
 
-We've gone to great lengths to adhere to the **[ReasonReact](https://reasonml.github.io/reason-react/) ([ReasonML](https://reasonml.github.io/))** community styleguides & best practices.
+We've gone to great lengths to adhere to the **[ReasonReact](https://reasonml.github.io/reason-react/) ([ReScript](https://rescript-lang.org/))** community styleguides & best practices.
 
 For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
 
@@ -22,7 +22,7 @@ For more information on how to this works with other frontends/backends, head ov
 Basically its just like React single-page-application but written in ReasonML with ReasonReact.
 
 - App bootstraped with [Create React App](https://github.com/facebook/create-react-app)
-- Along with [BuckleScript](https://bucklescript.github.io/)
+- Along with [ReScript](https://rescript-lang.org/) (also known as BuckleScript)
 - Routing - ReasonReact's [Router](https://reasonml.github.io/reason-react/docs/en/router.html)
 - Unit test - jest with [`@glennsl/bs-jest`](https://github.com/glennsl/bs-jest) plus [react-testing-library](https://github.com/kentcdodds/react-testing-library)
 
