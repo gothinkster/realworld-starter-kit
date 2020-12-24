@@ -56,9 +56,7 @@ For more information on how to this works with other frontends/backends, head ov
 
 0. Tests for: 
     - controllers/Favorite.js
-1. login
-2. register
-3. settings
-4. editor
-5. article
-6. profile
+1. settings
+2. editor
+3. article
+4. profile
