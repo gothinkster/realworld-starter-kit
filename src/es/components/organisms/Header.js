@@ -26,7 +26,11 @@ export default class Header extends HTMLElement {
         console.log('gotUser@header', user)
         if (this.shouldComponentRender(user.username)) this.render(user.username)
         this.username = user.username
-      }).catch((error) => console.log(error))
+      }).catch(error => {
+        console.log('didNotGetUser@header', error)
+        if (this.shouldComponentRender(null)) this.render(null)
+        this.username = null
+      })
       
     }
   }
