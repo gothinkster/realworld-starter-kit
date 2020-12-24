@@ -175,6 +175,16 @@ export default class User extends HTMLElement {
         composed: true
       }))
     }
+
+    this.logoutUserListener = event => {
+      Environment.token = ''
+      this.user = null
+      this.dispatchEvent(new CustomEvent('logout', {
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))
+    }
   }
 
   connectedCallback () {
@@ -182,6 +192,7 @@ export default class User extends HTMLElement {
     this.addEventListener('registerUser', this.registerUserListener)
     this.addEventListener('updateUser', this.updateUserListener)
     this.addEventListener('getUser', this.getUserListener)
+    this.addEventListener('logoutUser', this.logoutUserListener)
   }
 
   disconnectedCallback () {
@@ -189,5 +200,6 @@ export default class User extends HTMLElement {
     this.removeEventListener('registerUser', this.registerUserListener)
     this.removeEventListener('updateUser', this.updateUserListener)
     this.removeEventListener('getUser', this.getUserListener)
+    this.removeEventListener('logoutUser', this.logoutUserListener)
   }
 }

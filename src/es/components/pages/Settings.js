@@ -4,17 +4,15 @@
 /* global customElements */
 
 /**
- * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#home
+ * https://github.com/mits-gossau/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#settings
  * As a page, this component becomes a domain dependent container and shall hold organisms, molecules and/or atoms
  *
  * @export
- * @class Register
+ * @class Settings
  */
-export default class Register extends HTMLElement {
+export default class Settings extends HTMLElement {
   constructor () {
     super()
-
-    this.updated = false
 
     this.updateListener = event => {
       event.preventDefault()
@@ -53,11 +51,20 @@ export default class Register extends HTMLElement {
       
     }
 
+    this.logoutListener = event => {
+      this.dispatchEvent(new CustomEvent('logoutUser', {
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))
+      self.location.hash = '#/'
+    }
   }
 
   connectedCallback () {
     if (this.shouldComponentRender()) this.render()
-    this.querySelector('button').addEventListener('click', this.updateListener)
+    this.querySelector('button[name="update"]').addEventListener('click', this.updateListener)
+    this.querySelector('button[name="logout"]').addEventListener('click', this.logoutListener)
     document.body.addEventListener('user', this.userListener)
     this.dispatchEvent(new CustomEvent('getUser', {
       bubbles: true,
@@ -67,6 +74,9 @@ export default class Register extends HTMLElement {
   }
 
   disconnectedCallback () {
+    this.querySelector('button[name="update"]').removeEventListener('click', this.updateListener)
+    this.querySelector('button[name="logout"]').removeEventListener('click', this.logoutListener)
+    document.body.removeEventListener('user', this.userListener)
   }
 
   /**
@@ -79,7 +89,6 @@ export default class Register extends HTMLElement {
   }
 
   /**
-   * renders the footer
    *
    * @return {void}
    */
@@ -109,11 +118,14 @@ export default class Register extends HTMLElement {
                   <fieldset class="form-group">
                     <input class="form-control form-control-lg" type="password" name="password" placeholder="Password">
                   </fieldset>
-                  <button class="btn btn-lg btn-primary pull-xs-right">
+                  <button class="btn btn-lg btn-primary pull-xs-right" name="update">
                     Update Settings
                   </button>
               </fieldset>
             </form>
+
+            <hr>
+            <button class="btn btn-outline-danger" name="logout">Or click here to logout.</button>
           </div>
     
         </div>

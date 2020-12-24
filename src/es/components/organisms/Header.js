@@ -29,11 +29,17 @@ export default class Header extends HTMLElement {
       }).catch((error) => console.log(error))
       
     }
+
+    this.logoutListener = event => {
+      this.username = null
+      this.render()
+    }
   }
 
   connectedCallback () {
     this.render()
     document.body.addEventListener('user', this.userListener)
+    document.body.addEventListener('logout', this.logoutListener)
     this.dispatchEvent(new CustomEvent('getUser', {
       bubbles: true,
       cancelable: true,
@@ -43,6 +49,7 @@ export default class Header extends HTMLElement {
 
   disconnectedCallback () {
     document.body.removeEventListener('user', this.userListener)
+    document.body.removeEventListener('logout', this.logoutListener)
   }
 
   /**
