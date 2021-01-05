@@ -17,6 +17,7 @@
  *
  * @typedef {{
       fetch: Promise<import("../../helpers/Interfaces.js").User>
+      updated?: Boolean
     }} UserEventDetail
  */
 
@@ -138,7 +139,8 @@ export default class User extends HTMLElement {
                 this.user = data.user
               }
               return data.user
-            })
+            }),
+          updated: true
         },
         bubbles: true,
         cancelable: true,
@@ -179,7 +181,10 @@ export default class User extends HTMLElement {
     this.logoutUserListener = event => {
       Environment.token = ''
       this.user = null
-      this.dispatchEvent(new CustomEvent('logout', {
+      this.dispatchEvent(new CustomEvent('user', {
+        detail:{
+          fetch: Promise.reject(null)
+        },
         bubbles: true,
         cancelable: true,
         composed: true

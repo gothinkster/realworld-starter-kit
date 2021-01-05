@@ -25,21 +25,18 @@ export default class Header extends HTMLElement {
       event.detail.fetch.then(user => {
         console.log('gotUser@header', user)
         if (this.shouldComponentRender(user.username)) this.render(user.username)
-        this.username = user.username
-      }).catch((error) => console.log(error))
+      }).catch((error) => {
+        console.log(error)
+        if (this.shouldComponentRender(null)) this.render()
+      })
       
     }
 
-    this.logoutListener = event => {
-      this.username = null
-      this.render()
-    }
   }
 
   connectedCallback () {
     this.render()
     document.body.addEventListener('user', this.userListener)
-    document.body.addEventListener('logout', this.logoutListener)
     this.dispatchEvent(new CustomEvent('getUser', {
       bubbles: true,
       cancelable: true,
@@ -49,7 +46,6 @@ export default class Header extends HTMLElement {
 
   disconnectedCallback () {
     document.body.removeEventListener('user', this.userListener)
-    document.body.removeEventListener('logout', this.logoutListener)
   }
 
   /**
@@ -69,6 +65,7 @@ export default class Header extends HTMLElement {
    * @return {void}
    */
   render (username) {
+    this.username = username
     this.innerHTML = /* html */ `
       <nav class="navbar navbar-light">
         <div class="container">

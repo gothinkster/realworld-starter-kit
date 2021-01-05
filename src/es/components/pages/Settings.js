@@ -26,7 +26,6 @@ export default class Settings extends HTMLElement {
 
       if (this.passwordField.value) Object.assign(user, {password: this.passwordField.value})
       
-      this.updated = true
 
       this.dispatchEvent(new CustomEvent('updateUser', {
         detail: {
@@ -45,9 +44,11 @@ export default class Settings extends HTMLElement {
         this.emailField.value = user.email
         this.imageField.value = user.image
         this.bioField.value = user.bio
-        if(this.updated) self.location.hash = '#/'
-        this.updated = false
-      }).catch((error) => console.log(error))
+        if(event.detail.updated) self.location.hash = '#/'
+      }).catch((error) => {
+        console.log(error)
+        self.location.hash = '#/'
+      })
       
     }
 
@@ -57,7 +58,6 @@ export default class Settings extends HTMLElement {
         cancelable: true,
         composed: true
       }))
-      self.location.hash = '#/'
     }
   }
 
