@@ -61,3 +61,4 @@ For more information on how to this works with other frontends/backends, head ov
 0. following
 4. editor
 5. article/comments etc.
+0. clean error handling at controller level (linter is complaining if there are no error handlings)

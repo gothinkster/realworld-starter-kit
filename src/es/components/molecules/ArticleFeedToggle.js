@@ -30,13 +30,11 @@ export default class ArticleFeedToggle extends HTMLElement {
      */
     this.userListener = event => {
       event.detail.fetch.then(user => {
-        console.log('gotUser@ArticleFeedToggle', user)
         if (this.shouldComponentRender(!!user)) this.render(undefined, !!user)
-      }).catch((error) => {
-        console.log(error)
+      }).catch(error => {
+        console.log(`Error@UserFetch: ${error}`)
         if (this.shouldComponentRender(false)) this.render(undefined, false)
       })
-      
     }
 
     /**

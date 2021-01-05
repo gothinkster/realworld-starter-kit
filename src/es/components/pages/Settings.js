@@ -1,7 +1,8 @@
 // @ts-check
 
 /* global HTMLElement */
-/* global customElements */
+/* global CustomEvent */
+/* global self */
 
 /**
  * https://github.com/mits-gossau/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#settings
@@ -16,16 +17,15 @@ export default class Settings extends HTMLElement {
 
     this.updateListener = event => {
       event.preventDefault()
-      
-      let user = {
+
+      const user = {
         username: this.userField.value,
         email: this.emailField.value,
         bio: this.bioField.value,
         image: this.imageField.value
       }
 
-      if (this.passwordField.value) Object.assign(user, {password: this.passwordField.value})
-      
+      if (this.passwordField.value) Object.assign(user, { password: this.passwordField.value })
 
       this.dispatchEvent(new CustomEvent('updateUser', {
         detail: {
@@ -44,12 +44,11 @@ export default class Settings extends HTMLElement {
         this.emailField.value = user.email
         this.imageField.value = user.image
         this.bioField.value = user.bio
-        if(event.detail.updated) self.location.hash = '#/'
+        if (event.detail.updated) self.location.hash = '#/'
       }).catch((error) => {
-        console.log(error)
+        console.log(`Error@UserFetch: ${error}`)
         self.location.hash = '#/'
       })
-      
     }
 
     this.logoutListener = event => {
@@ -133,7 +132,7 @@ export default class Settings extends HTMLElement {
     </div>`
   }
 
- /**
+  /**
    * @return {HTMLInputElement}
    */
   get userField () {
@@ -156,7 +155,7 @@ export default class Settings extends HTMLElement {
     return document.querySelector('textarea[name=bio]')
   }
 
-   /**
+  /**
    * @return {HTMLInputElement}
    */
   get passwordField () {

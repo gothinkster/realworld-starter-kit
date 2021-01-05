@@ -4,7 +4,6 @@
 /* global AbortController */
 /* global CustomEvent */
 /* global fetch */
-/* global location */
 
 /**
  * https://github.com/gothinkster/realworld/tree/master/api#get-article
@@ -170,7 +169,10 @@ export default class User extends HTMLElement {
               }
               return data.user
             })
-            .catch(error => (Environment.token = '')) : Promise.reject('No token found')
+            .catch(error => {
+              Environment.token = ''
+              console.log(`Error@UserFetch: ${error}`)
+            }) : Promise.reject(new Error('No token found'))
         },
         bubbles: true,
         cancelable: true,
@@ -182,8 +184,8 @@ export default class User extends HTMLElement {
       Environment.token = ''
       this.user = null
       this.dispatchEvent(new CustomEvent('user', {
-        detail:{
-          fetch: Promise.reject(null)
+        detail: {
+          fetch: Promise.reject(new Error('User logged out'))
         },
         bubbles: true,
         cancelable: true,

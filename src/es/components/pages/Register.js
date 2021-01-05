@@ -1,7 +1,8 @@
 // @ts-check
 
+/* global CustomEvent */
 /* global HTMLElement */
-/* global customElements */
+/* global self */
 
 /**
  * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#home
@@ -40,7 +41,7 @@ export default class Register extends HTMLElement {
      * @param {CustomEvent & {detail: import("../controllers/User.js").UserEventDetail}} event
      */
     this.userListener = event => {
-      event.detail.fetch.then(user => (self.location.hash = '#/')).catch((error) => (this.errorMessages = error))
+      event.detail.fetch.then(user => (self.location.hash = '#/')).catch(error => (this.errorMessages = error))
     }
   }
 

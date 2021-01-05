@@ -43,7 +43,7 @@ export default class Pagination extends HTMLElement {
         detail: Object.assign({
           offset: (Number(event.target.textContent) - 1) * Environment.articlesPerPageLimit,
           showYourFeed: this.showYourFeed
-        }, this.tag ? {tag: this.tag} : {}),
+        }, this.tag ? { tag: this.tag } : {}),
         bubbles: true,
         cancelable: true,
         composed: true
