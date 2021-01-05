@@ -8,7 +8,7 @@
 /**
  * https://github.com/gothinkster/realworld/tree/master/api#list-articles
  *
- * @typedef {{ tag?: string, author?: string, favorited?: string, limit?: number, offset?: number, showFeed?: boolean }} RequestListArticlesEventDetail
+ * @typedef {{ tag?: string, author?: string, favorited?: string, limit?: number, offset?: number, showYourFeed?: boolean }} RequestListArticlesEventDetail
  */
 
 /**
@@ -54,9 +54,9 @@ export default class ListArticles extends HTMLElement {
       // assemble query
       let query = ''
       for (const key in detail) {
-        if (key !== 'showFeed') query += `${query ? '&' : '?'}${key}=${detail[key]}`
+        if (key !== 'showYourFeed') query += `${query ? '&' : '?'}${key}=${detail[key]}`
       }
-      const url = `${Environment.fetchBaseUrl}articles${detail.showFeed ? '/feed' : ''}${query}`
+      const url = `${Environment.fetchBaseUrl}articles${detail.showYourFeed ? '/feed' : ''}${query}`
       // reset old AbortController and assign new one
       if (this.abortController) this.abortController.abort()
       this.abortController = new AbortController()

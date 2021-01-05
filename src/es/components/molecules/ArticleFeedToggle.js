@@ -21,7 +21,7 @@ export default class ArticleFeedToggle extends HTMLElement {
      *
      * @param {CustomEvent & {detail: import("../controllers/ListArticles").ListArticlesEventDetail}} event
      */
-    this.listArticlesListener = event => this.render(event.detail.query.tag, undefined, event.detail.query.showFeed)
+    this.listArticlesListener = event => this.render(event.detail.query.tag, undefined, event.detail.query.showYourFeed)
 
     /**
      * Listens to the event name/typeArg: 'getArticle'
@@ -53,7 +53,7 @@ export default class ArticleFeedToggle extends HTMLElement {
         this.dispatchEvent(new CustomEvent('requestListArticles', {
           /** @type {import("../controllers/ListArticles.js").RequestListArticlesEventDetail} */
           detail: {
-            showFeed: true
+            showYourFeed: true
           },
           bubbles: true,
           cancelable: true,
@@ -105,19 +105,19 @@ export default class ArticleFeedToggle extends HTMLElement {
    *
    * @param {string} [tag = '']
    * @param {boolean} [isFeedDisabled = undefined]
-   * @param {boolean} [showFeed = undefined]
+   * @param {boolean} [showYourFeed = undefined]
    * @return {void}
    */
-  render (tag, isFeedDisabled, showFeed) {
+  render (tag, isFeedDisabled, showYourFeed) {
     if (isFeedDisabled !== undefined) this.isFeedDisabled = isFeedDisabled
     this.innerHTML = `
       <div class="feed-toggle">
         <ul class="nav nav-pills outline-active">
           <li class="nav-item">
-            <a id=your-feed class="nav-link${this.isFeedDisabled ? '' : ' disabled'} ${tag || !showFeed ? '' : 'active'}" href="">Your Feed</a>
+            <a id=your-feed class="nav-link${this.isFeedDisabled ? '' : ' disabled'} ${tag || !showYourFeed ? '' : 'active'}" href="">Your Feed</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link ${tag || showFeed ? '' : 'active'}" href="#/">Global Feed</a>
+            <a class="nav-link ${tag || showYourFeed ? '' : 'active'}" href="#/">Global Feed</a>
           </li>
           ${tag ? `
             <li class="nav-item">
