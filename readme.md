@@ -54,11 +54,10 @@ For more information on how to this works with other frontends/backends, head ov
 
 # TODO
 
-0. Tests for: 
-    - controllers/Favorite.js
-1. login
-2. register
-3. settings
+0. home/favorite(d)
+0. header/newPost
+3. header/profile
+0. otherUser/profile
+0. following
 4. editor
-5. article
-6. profile
+5. article/comments etc.

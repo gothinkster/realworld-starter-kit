@@ -18,6 +18,8 @@ export default class Pagination extends HTMLElement {
 
     // keep a reference with the last received listArticles tag used for new offset requests to avoid loosing tag focus
     this.tag = ''
+    // avoid loosing feed focus
+    this.showFeed = false
 
     /**
      * Listens to the event name/typeArg: 'listArticles'
@@ -40,7 +42,8 @@ export default class Pagination extends HTMLElement {
         /** @type {import("../controllers/ListArticles.js").RequestListArticlesEventDetail} */
         detail: {
           offset: (Number(event.target.textContent) - 1) * Environment.articlesPerPageLimit,
-          tag: this.tag
+          tag: this.tag,
+          showFeed: this.showFeed
         },
         bubbles: true,
         cancelable: true,
@@ -81,6 +84,7 @@ export default class Pagination extends HTMLElement {
       } else {
         // save the tag for further pagination requests
         this.tag = query.tag || ''
+        this.showFeed = query.showFeed || false
         const offset = query.offset || 0
         let pageItems = ''
         for (let i = 0; i < Math.ceil(multipleArticles.articlesCount / Environment.articlesPerPageLimit); ++i) {
