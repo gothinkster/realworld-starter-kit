@@ -25,9 +25,11 @@ export default class Header extends HTMLElement {
       event.detail.fetch.then(user => {
         console.log('gotUser@header', user)
         if (this.shouldComponentRender(user.username)) this.render(user.username)
+        this.username = user.username
       }).catch(error => {
         console.log('didNotGetUser@header', error)
         if (this.shouldComponentRender(null)) this.render(null)
+        this.username = null
       })
       
     }
@@ -64,7 +66,6 @@ export default class Header extends HTMLElement {
    * @return {void}
    */
   render (username) {
-    this.username = username
     this.innerHTML = /* html */ `
       <nav class="navbar navbar-light">
         <div class="container">
