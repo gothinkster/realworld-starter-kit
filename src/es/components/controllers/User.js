@@ -4,7 +4,6 @@
 /* global AbortController */
 /* global CustomEvent */
 /* global fetch */
-/* global location */
 
 /**
  * https://github.com/gothinkster/realworld/tree/master/api#get-article
@@ -17,6 +16,7 @@
  *
  * @typedef {{
       fetch: Promise<import("../../helpers/Interfaces.js").User>
+      updated?: Boolean
     }} UserEventDetail
  */
 
@@ -114,6 +114,39 @@ export default class User extends HTMLElement {
       }))
     }
 
+    this.updateUserListener = event => {
+      if (!event.detail.user) return
+
+      if (this.abortController) this.abortController.abort()
+      this.abortController = new AbortController()
+
+      const url = `${Environment.fetchBaseUrl}user`
+      // answer with event
+      this.dispatchEvent(new CustomEvent('user', {
+        /** @type {UserEventDetail} */
+        detail: {
+          fetch: fetch(url,
+            {
+              method: 'PUT',
+              ...Environment.fetchHeaders,
+              body: JSON.stringify(event.detail),
+              signal: this.abortController.signal
+            }).then(response => response.json())
+            .then(data => {
+              if (data.errors) throw data.errors
+              if (data.user) {
+                this.user = data.user
+              }
+              return data.user
+            }),
+          updated: true
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))
+    }
+
     this.getUserListener = event => {
       if (this.abortController) this.abortController.abort()
       this.abortController = new AbortController()
@@ -136,7 +169,23 @@ export default class User extends HTMLElement {
               }
               return data.user
             })
-            .catch(error => (Environment.token = '')) : Promise.reject('No token found')
+            .catch(error => {
+              Environment.token = ''
+              console.log(`Error@UserFetch: ${error}`)
+            }) : Promise.reject(new Error('No token found'))
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))
+    }
+
+    this.logoutUserListener = event => {
+      Environment.token = ''
+      this.user = null
+      this.dispatchEvent(new CustomEvent('user', {
+        detail: {
+          fetch: Promise.reject(new Error('User logged out'))
         },
         bubbles: true,
         cancelable: true,
@@ -148,12 +197,16 @@ export default class User extends HTMLElement {
   connectedCallback () {
     this.addEventListener('loginUser', this.loginUserListener)
     this.addEventListener('registerUser', this.registerUserListener)
+    this.addEventListener('updateUser', this.updateUserListener)
     this.addEventListener('getUser', this.getUserListener)
+    this.addEventListener('logoutUser', this.logoutUserListener)
   }
 
   disconnectedCallback () {
     this.removeEventListener('loginUser', this.loginUserListener)
     this.removeEventListener('registerUser', this.registerUserListener)
+    this.removeEventListener('updateUser', this.updateUserListener)
     this.removeEventListener('getUser', this.getUserListener)
+    this.removeEventListener('logoutUser', this.logoutUserListener)
   }
 }

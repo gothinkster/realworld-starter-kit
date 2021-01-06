@@ -1,7 +1,6 @@
 // @ts-check
 
-import { Environment } from "../../helpers/Environment.js"
-
+/* global CustomEvent */
 /* global HTMLElement */
 
 /**
@@ -23,15 +22,13 @@ export default class Header extends HTMLElement {
      */
     this.userListener = event => {
       event.detail.fetch.then(user => {
-        console.log('gotUser@header', user)
         if (this.shouldComponentRender(user.username)) this.render(user.username)
         this.username = user.username
       }).catch(error => {
-        console.log('didNotGetUser@header', error)
+        console.log(`Error@UserFetch: ${error}`)
         if (this.shouldComponentRender(null)) this.render(null)
         this.username = null
       })
-      
     }
   }
 
@@ -90,8 +87,8 @@ export default class Header extends HTMLElement {
                 <a class="nav-link" href="#/profile/${username}">
                   ${username}
                 </a>
-              </li>` : 
-              /* html */ `
+              </li>`
+              : /* html */ `
               <li class="nav-item">
                 <a class="nav-link" href="#/login">Sign in</a>
               </li>

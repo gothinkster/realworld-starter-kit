@@ -46,7 +46,7 @@ export default class Router extends HTMLElement {
       // Settings page (URL: /#/settings )
       {
         name: 'p-settings',
-        path: '',
+        path: '../pages/Settings.js',
         regExp: new RegExp(/^#\/settings/)
       },
       // Editor page to create/edit articles (URL: /#/editor, /#/editor/article-slug-here )

@@ -133,6 +133,8 @@
  * https://github.com/gothinkster/realworld/tree/master/api#update-user
  *
  * @typedef {{
+      username?: string,
+      password?: string,
       email: string,
       bio: string,
       image: string

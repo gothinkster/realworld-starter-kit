@@ -18,7 +18,7 @@ For more information on how to this works with other frontends/backends, head ov
 
 # How it works
 
-> Frontend Event Driven Architecture works basically like the DOM itself. There are loosely coupled components (nodes), which emmit events and those get captured by controllers called stores, routers, etc. 
+> Frontend Event Driven Architecture works basically like the DOM itself. There are loosely coupled components (nodes), which emmit events and those get captured by controllers called stores, routers, etc.
 
 # Getting started
 
@@ -54,9 +54,11 @@ For more information on how to this works with other frontends/backends, head ov
 
 # TODO
 
-0. Tests for: 
-    - controllers/Favorite.js
-1. settings
-2. editor
-3. article
-4. profile
+0. home/favorite(d)
+1. header/newPost
+2. header/profile
+3. otherUser/profile
+4. following
+5. editor
+6. article/comments etc.
+7. clean error handling at controller level (linter is complaining if there are no error handlings)
