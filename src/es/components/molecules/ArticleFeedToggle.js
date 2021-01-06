@@ -94,7 +94,7 @@ export default class ArticleFeedToggle extends HTMLElement {
    * @param {boolean} isFeedDisabled
    * @return {boolean}
    */
-  shouldComponentRender (isFeedDisabled) {
+  shouldComponentRender (isFeedDisabled = false) {
     return !this.innerHTML || this.isFeedDisabled !== isFeedDisabled
   }
 
@@ -112,7 +112,7 @@ export default class ArticleFeedToggle extends HTMLElement {
       <div class="feed-toggle">
         <ul class="nav nav-pills outline-active">
           <li class="nav-item">
-            <a id=your-feed class="nav-link${this.isFeedDisabled ? '' : ' disabled'} ${tag || !showYourFeed ? '' : 'active'}" href="">Your Feed</a>
+            <a id=your-feed class="nav-link${this.isFeedDisabled ? '' : ' disabled'} ${tag || !showYourFeed ? '' : 'active'}" href="#/">Your Feed</a>
           </li>
           <li class="nav-item">
             <a class="nav-link ${tag || showYourFeed ? '' : 'active'}" href="#/">Global Feed</a>
