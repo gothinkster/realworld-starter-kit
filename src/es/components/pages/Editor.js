@@ -18,7 +18,6 @@ export default class Editor extends HTMLElement {
 
     this.publishListener = event => {
       if (!event.target || event.target.tagName !== 'BUTTON') return false
-      console.log('publish')
       event.preventDefault()
 
       const body = {
@@ -48,7 +47,7 @@ export default class Editor extends HTMLElement {
 
   connectedCallback () {
     document.body.addEventListener('getArticle', this.getArticleListener)
-    // TBD if slug get Article
+
     if (Environment.slug) {
       this.dispatchEvent(new CustomEvent('requestGetArticle', {
         /** @type {import("../controllers/GetArticle.js").RequestGetArticleEventDetail} */
@@ -81,7 +80,7 @@ export default class Editor extends HTMLElement {
         <div class="container page">
           <div class="row">
 
-          
+
           <div class="col-md-10 offset-md-1 col-xs-12">
             <ul class="error-messages"></ul>
               <form>
@@ -104,7 +103,7 @@ export default class Editor extends HTMLElement {
                 </fieldset>
               </form>
             </div>
-      
+
           </div>
         </div>
       </div>
