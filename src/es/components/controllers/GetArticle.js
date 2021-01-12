@@ -50,7 +50,7 @@ export default class GetArticle extends HTMLElement {
      */
     this.requestGetArticleListener = event => {
       // if no slug is sent, we grab it here from the location, this logic could also be handle through an event at the router
-      const slug = event.detail.slug || (location.hash.match(/[^/]+$/) || [])[0] || ''
+      const slug = event.detail.slug || Environment.slug || ''
       const url = `${Environment.fetchBaseUrl}articles/${slug}`
       // reset old AbortController and assign new one
       if (this.abortController) this.abortController.abort()
@@ -74,13 +74,45 @@ export default class GetArticle extends HTMLElement {
         composed: true
       }))
     }
+
+    this.postArticleListener = event => {
+      console.log('submit@ArticleController');
+      const url = `${Environment.fetchBaseUrl}articles${event.detail.slug ? `/${event.detail.slug}`:''}`
+
+
+      if (this.abortController) this.abortController.abort()
+      this.abortController = new AbortController()
+      // answer with event
+      this.dispatchEvent(new CustomEvent('getArticle', {
+        detail: {
+          fetch: fetch(url,
+            {
+              method: event.detail.slug ? 'PUT' : 'POST',
+              ...Environment.fetchHeaders,
+              body: JSON.stringify(event.detail.body),
+              signal: this.abortController.signal
+            }).then(response => response.json())
+            .then(data => {
+              if (data.errors) throw data.errors
+              console.log(data.article);
+              self.location.hash = `#/articles/${data.article.slug}`
+            })
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))
+
+    }
   }
 
   connectedCallback () {
     this.addEventListener('requestGetArticle', this.requestGetArticleListener)
+    this.addEventListener('postArticle', this.postArticleListener)
   }
 
   disconnectedCallback () {
     this.removeEventListener('requestGetArticle', this.requestGetArticleListener)
+    this.removeEventListener('postArticle', this.postArticleListener)
   }
 }

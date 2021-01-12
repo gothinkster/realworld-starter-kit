@@ -79,6 +79,12 @@ class EnvironmentClass {
       self.localStorage.removeItem('ID_TOKEN')
     }
   }
+
+  get slug(){
+    const urlEnding = location.hash.match(/[^/]+$/)
+    if(urlEnding && urlEnding[0].match(/.*-[a-z0-9]{6}$/)) return urlEnding[0]
+    return null
+  }
 }
 // @ts-ignore
 export const Environment = self.Environment = new EnvironmentClass()
