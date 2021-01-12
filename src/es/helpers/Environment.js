@@ -1,6 +1,7 @@
 // @ts-check
 
 /* global self */
+/* global location */
 
 /**
  * This global Helper-Class holds all Environment relevant data
@@ -80,9 +81,9 @@ class EnvironmentClass {
     }
   }
 
-  get slug(){
+  get slug () {
     const urlEnding = location.hash.match(/[^/]+$/)
-    if(urlEnding && urlEnding[0].match(/.*-[a-z0-9]{6}$/)) return urlEnding[0]
+    if (urlEnding && urlEnding[0].match(/.*-[a-z0-9]{6}$/)) return urlEnding[0]
     return null
   }
 }

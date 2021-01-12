@@ -2,6 +2,8 @@
 
 /* global HTMLElement */
 /* global customElements */
+/* global CustomEvent */
+/* global self */
 
 /**
  * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#article

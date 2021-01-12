@@ -1,10 +1,9 @@
 // @ts-check
 
 /* global HTMLElement */
-/* global customElements */
+/* global CustomEvent */
 
 import { Environment } from '../../helpers/Environment.js'
-
 
 /**
  * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#createedit-article
@@ -14,21 +13,20 @@ import { Environment } from '../../helpers/Environment.js'
  * @class Editor
  */
 export default class Editor extends HTMLElement {
-
-  constructor(){
+  constructor () {
     super()
-    
+
     this.publishListener = event => {
       if (!event.target || event.target.tagName !== 'BUTTON') return false
-      console.log('publish');
+      console.log('publish')
       event.preventDefault()
 
       const body = {
         article: {
-          'title': this.titleField.value,
-          'description': this.descriptionField.value,
-          'body': this.bodyField.value,
-          'tagList': this.tagField.value.split(/(?:,| )+/)
+          title: this.titleField.value,
+          description: this.descriptionField.value,
+          body: this.bodyField.value,
+          tagList: this.tagField.value.split(/(?:,| )+/)
         }
       }
 
@@ -41,27 +39,26 @@ export default class Editor extends HTMLElement {
         cancelable: true,
         composed: true
       }))
-
     }
 
     this.getArticleListener = event => event.detail.fetch.then(response => {
-      if(response) this.render(response.article)
+      if (response) this.render(response.article)
     }).catch(error => (this.errorMessages = error))
   }
 
   connectedCallback () {
     document.body.addEventListener('getArticle', this.getArticleListener)
     // TBD if slug get Article
-    if(Environment.slug){
-        this.dispatchEvent(new CustomEvent('requestGetArticle', {
-          /** @type {import("../controllers/GetArticle.js").RequestGetArticleEventDetail} */
-          detail: {
-            slug: Environment.slug
-          }, // slug gets decided at GetArticle.js controller, could also be done by request event to router
-          bubbles: true,
-          cancelable: true,
-          composed: true
-        }))
+    if (Environment.slug) {
+      this.dispatchEvent(new CustomEvent('requestGetArticle', {
+        /** @type {import("../controllers/GetArticle.js").RequestGetArticleEventDetail} */
+        detail: {
+          slug: Environment.slug
+        }, // slug gets decided at GetArticle.js controller, could also be done by request event to router
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))
     }
     this.render()
     this.addEventListener('click', this.publishListener)
@@ -79,7 +76,7 @@ export default class Editor extends HTMLElement {
    * @return {void}
    */
   render (article) {
-    this.innerHTML = /*html*/`
+    this.innerHTML = /* html */`
         <div class="editor-page">
         <div class="container page">
           <div class="row">
@@ -90,16 +87,16 @@ export default class Editor extends HTMLElement {
               <form>
                 <fieldset>
                   <fieldset class="form-group">
-                      <input type="text" class="form-control form-control-lg" name="title" value="${article ? article.title: ''}" placeholder="Article Title">
+                      <input type="text" class="form-control form-control-lg" name="title" value="${article ? article.title : ''}" placeholder="Article Title">
                   </fieldset>
                   <fieldset class="form-group">
-                      <input type="text" class="form-control" name="description" value="${article ? article.description: ''}" placeholder="What's this article about?">
+                      <input type="text" class="form-control" name="description" value="${article ? article.description : ''}" placeholder="What's this article about?">
                   </fieldset>
                   <fieldset class="form-group">
-                      <textarea class="form-control" name="body" rows="8" placeholder="Write your article (in markdown)">${article ? article.body: ''}</textarea>
+                      <textarea class="form-control" name="body" rows="8" placeholder="Write your article (in markdown)">${article ? article.body : ''}</textarea>
                   </fieldset>
                   <fieldset class="form-group">
-                      <input type="text" class="form-control" name="tagList" value="${article ? article.tagList.reduce((acc,curr) => `${curr} ${acc}`,''): ''}" placeholder="Enter tags"><div class="tag-list"></div>
+                      <input type="text" class="form-control" name="tagList" value="${article ? article.tagList.reduce((acc, curr) => `${curr} ${acc}`, '') : ''}" placeholder="Enter tags"><div class="tag-list"></div>
                   </fieldset>
                   <button class="btn btn-lg pull-xs-right btn-primary" type="button">
                       Publish Article
@@ -132,7 +129,7 @@ export default class Editor extends HTMLElement {
    * @return {HTMLTextAreaElement}
    *
    */
-  get bodyField (){
+  get bodyField () {
     return this.querySelector('textarea[name=body]')
   }
 

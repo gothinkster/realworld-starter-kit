@@ -4,7 +4,7 @@
 /* global AbortController */
 /* global CustomEvent */
 /* global fetch */
-/* global location */
+/* global self */
 
 /**
  * https://github.com/gothinkster/realworld/tree/master/api#get-article
@@ -76,9 +76,7 @@ export default class GetArticle extends HTMLElement {
     }
 
     this.postArticleListener = event => {
-      console.log('submit@ArticleController');
-      const url = `${Environment.fetchBaseUrl}articles${event.detail.slug ? `/${event.detail.slug}`:''}`
-
+      const url = `${Environment.fetchBaseUrl}articles${event.detail.slug ? `/${event.detail.slug}` : ''}`
 
       if (this.abortController) this.abortController.abort()
       this.abortController = new AbortController()
@@ -94,7 +92,6 @@ export default class GetArticle extends HTMLElement {
             }).then(response => response.json())
             .then(data => {
               if (data.errors) throw data.errors
-              console.log(data.article);
               self.location.hash = `#/articles/${data.article.slug}`
             })
         },
@@ -102,7 +99,6 @@ export default class GetArticle extends HTMLElement {
         cancelable: true,
         composed: true
       }))
-
     }
   }
 
