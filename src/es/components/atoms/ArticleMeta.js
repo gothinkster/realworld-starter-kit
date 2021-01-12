@@ -49,10 +49,9 @@ export default class ArticleMeta extends HTMLElement {
         /**
          * Updates the article with the returned article on favorite api
          *
-         * @param {import("../../helpers/Interfaces.js").SingleArticle} article
          * @return {import("../../helpers/Interfaces.js").SingleArticle | any}
          */
-        article => this.render(article)
+        ({ article }) => this.render(article)
       )
     }
   }
@@ -83,6 +82,7 @@ export default class ArticleMeta extends HTMLElement {
    */
   render (article = this.article) {
     if (!article.author || !article.tagList) return (this.innerHTML = '<div class="article-meta">An error occurred rendering the article-meta!</div>')
+
     this.innerHTML = `
       <div class="article-meta">
         <a href="#/profile/${article.author.username}"><img src="${secureImageSrc(article.author.image)}" /></a>

@@ -23,6 +23,16 @@ import { Environment } from '../../helpers/Environment.js'
 export default class Favorite extends HTMLElement {
   constructor () {
     super()
+    this.isAuthenticated = false;
+    /**
+     * Listens to the event name/typeArg: 'user'
+     *
+     * @param {CustomEvent & {detail: import("../controllers/User.js").UserEventDetail}} event
+     */
+    this.userListener = event => {
+      event.detail.fetch.then(user => this.isAuthenticated = !!user)
+      .catch(error => this.isAuthenticated = false)
+    }
 
     /**
      * Listens to the event name/typeArg: 'setFavorite'
@@ -31,9 +41,12 @@ export default class Favorite extends HTMLElement {
      * @return {Promise<import("../../helpers/Interfaces.js").SingleArticle | Error> | false}
      */
     this.setFavoriteListener = event => {
-      // TODO: login/authentication
+      if (!this.isAuthenticated) self.location.href = '#/login';
+
       if (!event.detail.article || !event.detail.resolve) return false
+
       const url = `${Environment.fetchBaseUrl}articles/${event.detail.article.slug}/favorite`
+
       return fetch(url, {
         method: event.detail.article.favorited ? 'DELETE' : 'POST',
         ...Environment.fetchHeaders
@@ -55,10 +68,18 @@ export default class Favorite extends HTMLElement {
   }
 
   connectedCallback () {
+    document.body.addEventListener('user', this.userListener)
     this.addEventListener('setFavorite', this.setFavoriteListener)
+
+    this.dispatchEvent(new CustomEvent('getUser', {
+      bubbles: true,
+      cancelable: true,
+      composed: true
+    }))
   }
 
   disconnectedCallback () {
+    document.body.removeEventListener('user', this.userListener)
     this.removeEventListener('setFavorite', this.setFavoriteListener)
   }
 }

@@ -24,7 +24,7 @@ export default class ArticleFeedToggle extends HTMLElement {
     this.listArticlesListener = event => this.render(event.detail.query.tag, undefined, event.detail.query.showYourFeed)
 
     /**
-     * Listens to the event name/typeArg: 'getArticle'
+     * Listens to the event name/typeArg: 'user'
      *
      * @param {CustomEvent & {detail: import("../controllers/User.js").UserEventDetail}} event
      */
