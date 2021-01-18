@@ -43,7 +43,7 @@ export default class Favorite extends HTMLElement {
     this.setFavoriteListener = event => {
       if (!this.isAuthenticated) self.location.href = '#/login';
 
-      if (!event.detail.article || !event.detail.resolve) return false
+      if (!event.detail.article || !event.detail.resolve || !this.isAuthenticated) return false
 
       const url = `${Environment.fetchBaseUrl}articles/${event.detail.article.slug}/favorite`
 

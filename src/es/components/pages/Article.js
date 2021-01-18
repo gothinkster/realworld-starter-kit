@@ -33,9 +33,11 @@ export default class Article extends HTMLElement {
   render () {
     // TODO: Split out the components and add functionality
     this.innerHTML = `
-      <c-get-article>
-        <m-article></m-article>
-      </c-get-article>
+      <c-favorite>
+        <c-get-article>
+          <m-article></m-article>
+        </c-get-article>
+      </c-favorite>
     `
   }
 
@@ -46,6 +48,10 @@ export default class Article extends HTMLElement {
    */
   loadChildComponents () {
     return this.childComponentsPromise || (this.childComponentsPromise = Promise.all([
+      import('../controllers/Favorite.js').then(
+        /** @returns {[string, CustomElementConstructor]} */
+        module => ['c-favorite', module.default]
+      ),
       import('../controllers/GetArticle.js').then(
         /** @returns {[string, CustomElementConstructor]} */
         module => ['c-get-article', module.default]
