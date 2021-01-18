@@ -47,9 +47,7 @@ export default class Home extends HTMLElement {
               <div class="col-md-9">
                 <m-article-feed-toggle></m-article-feed-toggle>
 
-                <c-favorite>
-                  <o-list-article-previews><div class="article-preview">Loading...</div></o-list-article-previews>
-                </c-favorite>
+                <o-list-article-previews><div class="article-preview">Loading...</div></o-list-article-previews>
 
                 <m-pagination></m-pagination>
 
@@ -83,10 +81,6 @@ export default class Home extends HTMLElement {
       import('../controllers/ListArticles.js').then(
         /** @returns {[string, CustomElementConstructor]} */
         module => ['c-list-articles', module.default]
-      ),
-      import('../controllers/Favorite.js').then(
-        /** @returns {[string, CustomElementConstructor]} */
-        module => ['c-favorite', module.default]
       ),
       import('../controllers/GetTags.js').then(
         /** @returns {[string, CustomElementConstructor]} */

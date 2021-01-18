@@ -55,10 +55,9 @@ For more information on how to this works with other frontends/backends, head ov
 ## TODO
 
 0. home/favorite(d)
-1. header/newPost
-2. header/profile
-3. otherUser/profile
-4. following
-5. editor
-6. article/comments etc.
-7. clean error handling at controller level (linter is complaining if there are no error handlings)
+1. header/profile
+2. otherUser/profile
+3. following
+4. editor => edit & delete buttons
+5. article/comments etc.
+6. clean error handling at controller level (linter is complaining if there are no error handlings)
