@@ -52,7 +52,7 @@ export default class Router extends HTMLElement {
       // Editor page to create/edit articles (URL: /#/editor, /#/editor/article-slug-here )
       {
         name: 'p-editor',
-        path: '',
+        path: '../pages/Editor.js',
         regExp: new RegExp(/^#\/editor/)
       },
       // Article page (URL: /#/article/article-slug-here )
