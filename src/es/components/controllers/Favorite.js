@@ -41,7 +41,7 @@ export default class Favorite extends HTMLElement {
      * @return {Promise<import("../../helpers/Interfaces.js").SingleArticle | Error> | false}
      */
     this.setFavoriteListener = event => {
-      if (!this.isAuthenticated) self.location.href = '#/login';
+      if (!this.isAuthenticated) self.location.href = '#/register';
 
       if (!event.detail.article || !event.detail.resolve || !this.isAuthenticated) return false
 

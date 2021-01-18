@@ -1,13 +1,14 @@
 // @ts-check
 
-/* global HTMLElement */
 /* global customElements */
 /* global CustomEvent */
+/* global HTMLElement */
 /* global self */
 
 /**
  * https://github.com/Weedshaker/event-driven-web-components-realworld-example-app/blob/master/FRONTEND_INSTRUCTIONS.md#article
- * As a page, this component becomes a domain dependent container and shall hold organisms, molecules and/or atoms
+ * As a molecule, this component shall hold Atoms
+ * this organism always renders new when connected to keep most recent and does not need shouldComponentRender
  *
  * @export
  * @class Article
@@ -81,25 +82,7 @@ export default class Article extends HTMLElement {
             <hr />
 
             <div class="article-actions">
-              <div class="article-meta">
-                <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
-                <div class="info">
-                  <a href="" class="author">Eric Simons</a>
-                  <span class="date">January 20th</span>
-                </div>
-
-                <button class="btn btn-sm btn-outline-secondary">
-                  <i class="ion-plus-round"></i>
-                  &nbsp;
-                  Follow Eric Simons <span class="counter">(10)</span>
-                </button>
-                &nbsp;
-                <button class="btn btn-sm btn-outline-primary">
-                  <i class="ion-heart"></i>
-                  &nbsp;
-                  Favorite Post <span class="counter">(29)</span>
-                </button>
-              </div>
+              <div class="article-meta"></div>
             </div>
 
             <div class="row">
@@ -158,10 +141,11 @@ export default class Article extends HTMLElement {
         /** @type {import("../atoms/ArticleMeta.js").default} */
         // @ts-ignore
 
-        this.querySelectorAll('.article-meta').forEach(node => {
-          const articleMeta = new children[0][1](article,true)
+        // TODO: specific version for article with follow button
+        this.querySelectorAll('.article-meta').forEach(item => {
+          const articleMeta = new children[0][1](article, true)
 
-          node.replaceWith(articleMeta)
+          item.replaceWith(articleMeta)
         })
       })
     // @ts-ignore
