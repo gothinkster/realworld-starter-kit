@@ -159,7 +159,7 @@ export default class Article extends HTMLElement {
         // @ts-ignore
 
         this.querySelectorAll('.article-meta').forEach(node => {
-          const articleMeta = new children[0][1](article,true)
+          const articleMeta = new children[0][1](article, true)
 
           node.replaceWith(articleMeta)
         })

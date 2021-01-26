@@ -23,15 +23,15 @@ export default class ArticleMeta extends HTMLElement {
 
     // allow innerHTML ArticleMeta with article as a string attribute
     this.article = article || JSON.parse((this.getAttribute('article') || '').replace(/'/g, '"') || '{}')
-    this.actions = actions;
+    this.actions = actions
 
     /**
      * Listens to the event name/typeArg: 'getArticle'
      *
      * @param {CustomEvent & {detail: import("../controllers/GetArticle.js").GetArticleEventDetail}} event
      */
-    this.getArticleListener = event => event.detail.fetch.then(({article}) => {
-      if(article.slug === this.article.slug) this.render(article)
+    this.getArticleListener = event => event.detail.fetch.then(({ article }) => {
+      if (article.slug === this.article.slug) this.render(article)
     })
 
     /**
@@ -94,8 +94,8 @@ export default class ArticleMeta extends HTMLElement {
           <span class="date">${new Date(article.createdAt).toDateString()}</span>
         </div>
 
-        ${this.actions ?
-          `<button class="btn btn-sm btn-outline-secondary">
+        ${this.actions
+          ? `<button class="btn btn-sm btn-outline-secondary">
             <i class="ion-plus-round"></i>
             &nbsp;
             TODO: Follow Eric Simons <span class="counter">(10)</span>

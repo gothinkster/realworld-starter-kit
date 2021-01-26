@@ -3,6 +3,9 @@
 /* global fetch */
 /* global HTMLElement */
 /* global location */
+/* global self */
+/* global AbortController */
+/* global CustomEvent */
 
 /**
  * https://github.com/gothinkster/realworld/tree/master/api#favorite-article
@@ -23,16 +26,20 @@ import { Environment } from '../../helpers/Environment.js'
 export default class Favorite extends HTMLElement {
   constructor () {
     super()
-    this.isAuthenticated = false;
-    this.abortController = null;
+    this.isAuthenticated = false
+    this.abortController = null
     /**
      * Listens to the event name/typeArg: 'user'
      *
      * @param {CustomEvent & {detail: import("../controllers/User.js").UserEventDetail}} event
      */
     this.userListener = event => {
-      event.detail.fetch.then(user => this.isAuthenticated = !!user)
-      .catch(error => this.isAuthenticated = false)
+      event.detail.fetch.then(user => {
+        this.isAuthenticated = !!user
+      }).catch(error => {
+        this.isAuthenticated = false
+        console.log(`Error@UserFetch: ${error}`)
+      })
     }
 
     /**
@@ -42,7 +49,7 @@ export default class Favorite extends HTMLElement {
      * @return {Promise<import("../../helpers/Interfaces.js").SingleArticle | Error> | false}
      */
     this.setFavoriteListener = event => {
-      if (!this.isAuthenticated) self.location.href = '#/register';
+      if (!this.isAuthenticated) self.location.href = '#/register'
 
       if (!event.detail.article || !this.isAuthenticated) return false
 
