@@ -54,7 +54,6 @@ For more information on how to this works with other frontends/backends, head ov
 
 ## TODO
 
-0. home/favorite(d)
 1. header/profile
 2. otherUser/profile
 3. following
