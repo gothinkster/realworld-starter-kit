@@ -7,7 +7,7 @@
 /**
  * https://github.com/gothinkster/realworld/tree/master/api#favorite-article
  *
- * @typedef {{ article: import("../../helpers/Interfaces.js").SingleArticle, resolve: (article: import("../../helpers/Interfaces.js").SingleArticle)=>void }} SetFavoriteEventDetail
+ * @typedef {{ article: import("../../helpers/Interfaces.js").SingleArticle} SetFavoriteEventDetail
  */
 
 import { Environment } from '../../helpers/Environment.js'
@@ -44,7 +44,7 @@ export default class Favorite extends HTMLElement {
     this.setFavoriteListener = event => {
       if (!this.isAuthenticated) self.location.href = '#/register';
 
-      if (!event.detail.article || !event.detail.resolve || !this.isAuthenticated) return false
+      if (!event.detail.article || !this.isAuthenticated) return false
 
       if (this.abortController) this.abortController.abort()
       this.abortController = new AbortController()
@@ -66,8 +66,6 @@ export default class Favorite extends HTMLElement {
          * @return {void | false}
          */
         article => {
-          event.detail.resolve(article)
-
           this.dispatchEvent(new CustomEvent('getArticle', {
             /** @type {GetArticleEventDetail} */
             detail: {

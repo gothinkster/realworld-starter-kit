@@ -26,6 +26,15 @@ export default class ArticleMeta extends HTMLElement {
     this.actions = actions;
 
     /**
+     * Listens to the event name/typeArg: 'getArticle'
+     *
+     * @param {CustomEvent & {detail: import("../controllers/GetArticle.js").GetArticleEventDetail}} event
+     */
+    this.getArticleListener = event => event.detail.fetch.then(({article}) => {
+      if(article.slug === this.article.slug) this.render(article)
+    })
+
+    /**
      * target button or button's only child <i> click to dispatch a CustomEvent setFavorite, which expects a Promise.resolve(new article) as a response
      *
      * @param {event & {target: HTMLElement}} event
@@ -36,33 +45,26 @@ export default class ArticleMeta extends HTMLElement {
 
       if (!event.target || (event.target !== favoriteButton && event.target.parentElement !== favoriteButton)) return false
       event.preventDefault()
-      return new Promise(resolve => {
-        this.dispatchEvent(new CustomEvent('setFavorite', {
-          /** @type {import("../controllers/Favorite.js").SetFavoriteEventDetail} */
-          detail: {
-            article: this.article,
-            resolve
-          },
-          bubbles: true,
-          cancelable: true,
-          composed: true
-        }))
-      }).then(
-        /**
-         * Updates the article with the returned article on favorite api
-         *
-         * @return {import("../../helpers/Interfaces.js").SingleArticle | any}
-         */
-        ({ article }) => this.render(article))
+      this.dispatchEvent(new CustomEvent('setFavorite', {
+        /** @type {import("../controllers/Favorite.js").SetFavoriteEventDetail} */
+        detail: {
+          article: this.article
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))
     }
   }
 
   connectedCallback () {
+    document.body.addEventListener('getArticle', this.getArticleListener)
     this.addEventListener('click', this.clickListener)
     if (this.shouldComponentRender()) this.render(this.article)
   }
 
   disconnectedCallback () {
+    document.body.removeEventListener('getArticle', this.getArticleListener)
     this.removeEventListener('click', this.clickListener)
   }
 
