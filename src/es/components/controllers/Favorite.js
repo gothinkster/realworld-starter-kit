@@ -65,7 +65,20 @@ export default class Favorite extends HTMLElement {
          * @param {import("../../helpers/Interfaces.js").SingleArticle} article
          * @return {void | false}
          */
-        article => event.detail.resolve(article)
+        article => {
+          event.detail.resolve(article)
+
+          this.dispatchEvent(new CustomEvent('getArticle', {
+            /** @type {GetArticleEventDetail} */
+            detail: {
+              slug: article.slug,
+              fetch: Promise.resolve(article)
+            },
+            bubbles: true,
+            cancelable: true,
+            composed: true
+          }))
+        }
       // forward to login, if error means that the user is unauthorized
       // @ts-ignore
       ).catch(error => error.message === 'Unauthorized' ? (location.hash = console.warn(url, 'Unauthorized User:', error) || '#/login') : console.warn(url, error) || error)
