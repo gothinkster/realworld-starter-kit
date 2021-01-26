@@ -109,6 +109,6 @@ export default class ArticleMeta extends HTMLElement {
       </button>`}
       </div>
     `
-    return article
+    return (this.article = article)
   }
 }

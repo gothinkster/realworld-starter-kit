@@ -170,7 +170,7 @@ export default class User extends HTMLElement {
               return data.user
             })
             .catch(error => {
-              Environment.token = ''
+              if(!error.toString().includes("abort")) Environment.token = ''
               console.log(`Error@UserFetch: ${error}`)
             }) : Promise.reject(new Error('No token found'))
         },

@@ -24,6 +24,7 @@ export default class Favorite extends HTMLElement {
   constructor () {
     super()
     this.isAuthenticated = false;
+    this.abortController = null;
     /**
      * Listens to the event name/typeArg: 'user'
      *
@@ -45,11 +46,15 @@ export default class Favorite extends HTMLElement {
 
       if (!event.detail.article || !event.detail.resolve || !this.isAuthenticated) return false
 
+      if (this.abortController) this.abortController.abort()
+      this.abortController = new AbortController()
+
       const url = `${Environment.fetchBaseUrl}articles/${event.detail.article.slug}/favorite`
 
       return fetch(url, {
         method: event.detail.article.favorited ? 'DELETE' : 'POST',
-        ...Environment.fetchHeaders
+        ...Environment.fetchHeaders,
+        signal: this.abortController.signal
       }).then(response => {
         if (response.status >= 200 && response.status <= 299) return response.json()
         throw new Error(response.statusText)
