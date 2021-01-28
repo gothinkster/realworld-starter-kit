@@ -87,7 +87,6 @@ export default class Article extends HTMLElement {
                   <a href="" class="author">Eric Simons</a>
                   <span class="date">January 20th</span>
                 </div>
-
                 <button class="btn btn-sm btn-outline-secondary">
                   <i class="ion-plus-round"></i>
                   &nbsp;
@@ -117,7 +116,6 @@ export default class Article extends HTMLElement {
                     </button>
                   </div>
                 </form>
-
                 <div class="card">
                   <div class="card-block">
                     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
@@ -131,7 +129,6 @@ export default class Article extends HTMLElement {
                     <span class="date-posted">Dec 29th</span>
                   </div>
                 </div>
-
                 <div class="card">
                   <div class="card-block">
                     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
