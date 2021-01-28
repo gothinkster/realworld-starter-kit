@@ -52,9 +52,8 @@ For more information on how to this works with other frontends/backends, head ov
 ## Event Driven Vanilla JS Web Components (95)
 ![event-driven-web-components-realworld-example-app](./images/event-driven-web-components-realworld-example-app.png)
 
-# TODO
+## TODO
 
-0. home/favorite(d)
 1. header/profile
 2. otherUser/profile
 3. following

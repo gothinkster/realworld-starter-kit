@@ -18,11 +18,21 @@ export default class ArticleMeta extends HTMLElement {
    *
    * @param {import("../../helpers/Interfaces.js").SingleArticle | null} [article = null]
    */
-  constructor (article = null) {
+  constructor (article = null, actions = false) {
     super()
 
     // allow innerHTML ArticleMeta with article as a string attribute
     this.article = article || JSON.parse((this.getAttribute('article') || '').replace(/'/g, '"') || '{}')
+    this.actions = actions
+
+    /**
+     * Listens to the event name/typeArg: 'getArticle'
+     *
+     * @param {CustomEvent & {detail: import("../controllers/GetArticle.js").GetArticleEventDetail}} event
+     */
+    this.getArticleListener = event => event.detail.fetch.then(({ article }) => {
+      if (article.slug === this.article.slug) this.render(article)
+    })
 
     /**
      * target button or button's only child <i> click to dispatch a CustomEvent setFavorite, which expects a Promise.resolve(new article) as a response
@@ -31,38 +41,30 @@ export default class ArticleMeta extends HTMLElement {
      * @return {Promise<import("../../helpers/Interfaces.js").SingleArticle | false> | false}
      */
     this.clickListener = event => {
-      const button = this.querySelector('button')
-      if (!event.target || (event.target !== button && event.target.parentElement !== button)) return false
+      const favoriteButton = this.querySelector('button[name="favorite"]')
+
+      if (!event.target || (event.target !== favoriteButton && event.target.parentElement !== favoriteButton)) return false
       event.preventDefault()
-      return new Promise(resolve => {
-        this.dispatchEvent(new CustomEvent('setFavorite', {
-          /** @type {import("../controllers/Favorite.js").SetFavoriteEventDetail} */
-          detail: {
-            article: this.article,
-            resolve
-          },
-          bubbles: true,
-          cancelable: true,
-          composed: true
-        }))
-      }).then(
-        /**
-         * Updates the article with the returned article on favorite api
-         *
-         * @param {import("../../helpers/Interfaces.js").SingleArticle} article
-         * @return {import("../../helpers/Interfaces.js").SingleArticle | any}
-         */
-        article => this.render(article)
-      )
+      this.dispatchEvent(new CustomEvent('setFavorite', {
+        /** @type {import("../controllers/Favorite.js").SetFavoriteEventDetail} */
+        detail: {
+          article: this.article
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))
     }
   }
 
   connectedCallback () {
+    document.body.addEventListener('getArticle', this.getArticleListener)
     this.addEventListener('click', this.clickListener)
     if (this.shouldComponentRender()) this.render(this.article)
   }
 
   disconnectedCallback () {
+    document.body.removeEventListener('getArticle', this.getArticleListener)
     this.removeEventListener('click', this.clickListener)
   }
 
@@ -83,6 +85,7 @@ export default class ArticleMeta extends HTMLElement {
    */
   render (article = this.article) {
     if (!article.author || !article.tagList) return (this.innerHTML = '<div class="article-meta">An error occurred rendering the article-meta!</div>')
+
     this.innerHTML = `
       <div class="article-meta">
         <a href="#/profile/${article.author.username}"><img src="${secureImageSrc(article.author.image)}" /></a>
@@ -90,11 +93,24 @@ export default class ArticleMeta extends HTMLElement {
           <a href="#/profile/${article.author.username}" class="author">${article.author.username}</a>
           <span class="date">${new Date(article.createdAt).toDateString()}</span>
         </div>
-        <button class="btn ${article.favorited ? 'btn-primary' : 'btn-outline-primary'} btn-sm pull-xs-right">
-          <i class="ion-heart"></i> ${article.favoritesCount}
-        </button>
+
+        ${this.actions
+          ? `<button class="btn btn-sm btn-outline-secondary">
+            <i class="ion-plus-round"></i>
+            &nbsp;
+            TODO: Follow Eric Simons <span class="counter">(10)</span>
+          </button>
+          &nbsp;
+          <button name="favorite" class="btn btn-sm ${article.favorited ? 'btn-primary' : 'btn-outline-primary'}">
+            <i class="ion-heart"></i>
+            &nbsp;
+            Favorite Post <span class="counter">(${article.favoritesCount})</span>
+          </button>`
+        : `<button name="favorite" class="btn ${article.favorited ? 'btn-primary' : 'btn-outline-primary'} btn-sm pull-xs-right">
+        <i class="ion-heart"></i> ${article.favoritesCount}
+      </button>`}
       </div>
     `
-    return article
+    return (this.article = article)
   }
 }

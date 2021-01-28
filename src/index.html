@@ -12,13 +12,15 @@
 <body>
 
   <c-user>
-    <c-article>
-      <o-header></o-header>
-      <c-router></c-router>
-      <o-footer></o-footer>
+      <c-article>
+        <c-favorite>
+          <o-header></o-header>
+          <c-router></c-router>
+          <o-footer></o-footer>
+      </c-favorite>
     </c-article>
   </c-user>
-  
+
   <script rel=preload type=module>
     /**
      * First level controllers and organisms are loaded and defined here (loadChildComponents)
@@ -31,6 +33,7 @@
       import('./es/components/controllers/Router.js').then(module => ['c-router', module.default]),
       import('./es/components/controllers/User.js').then(module => ['c-user', module.default]),
       import('./es/components/controllers/GetArticle.js').then(module => ['c-article', module.default]),
+      import('./es/components/controllers/Favorite.js').then(module => ['c-favorite', module.default]),
       // Components which are not effected by routing
       import('./es/components/organisms/Header.js').then(module => ['o-header', module.default]),
       import('./es/components/organisms/Footer.js').then(module => ['o-footer', module.default])

@@ -3,11 +3,14 @@
 /* global fetch */
 /* global HTMLElement */
 /* global location */
+/* global self */
+/* global AbortController */
+/* global CustomEvent */
 
 /**
  * https://github.com/gothinkster/realworld/tree/master/api#favorite-article
  *
- * @typedef {{ article: import("../../helpers/Interfaces.js").SingleArticle, resolve: (article: import("../../helpers/Interfaces.js").SingleArticle)=>void }} SetFavoriteEventDetail
+ * @typedef {{ article: import("../../helpers/Interfaces.js").SingleArticle} SetFavoriteEventDetail
  */
 
 import { Environment } from '../../helpers/Environment.js'
@@ -23,6 +26,21 @@ import { Environment } from '../../helpers/Environment.js'
 export default class Favorite extends HTMLElement {
   constructor () {
     super()
+    this.isAuthenticated = false
+    this.abortController = null
+    /**
+     * Listens to the event name/typeArg: 'user'
+     *
+     * @param {CustomEvent & {detail: import("../controllers/User.js").UserEventDetail}} event
+     */
+    this.userListener = event => {
+      event.detail.fetch.then(user => {
+        this.isAuthenticated = !!user
+      }).catch(error => {
+        this.isAuthenticated = false
+        console.log(`Error@UserFetch: ${error}`)
+      })
+    }
 
     /**
      * Listens to the event name/typeArg: 'setFavorite'
@@ -31,12 +49,19 @@ export default class Favorite extends HTMLElement {
      * @return {Promise<import("../../helpers/Interfaces.js").SingleArticle | Error> | false}
      */
     this.setFavoriteListener = event => {
-      // TODO: login/authentication
-      if (!event.detail.article || !event.detail.resolve) return false
+      if (!this.isAuthenticated) self.location.href = '#/register'
+
+      if (!event.detail.article || !this.isAuthenticated) return false
+
+      if (this.abortController) this.abortController.abort()
+      this.abortController = new AbortController()
+
       const url = `${Environment.fetchBaseUrl}articles/${event.detail.article.slug}/favorite`
+
       return fetch(url, {
         method: event.detail.article.favorited ? 'DELETE' : 'POST',
-        ...Environment.fetchHeaders
+        ...Environment.fetchHeaders,
+        signal: this.abortController.signal
       }).then(response => {
         if (response.status >= 200 && response.status <= 299) return response.json()
         throw new Error(response.statusText)
@@ -47,7 +72,18 @@ export default class Favorite extends HTMLElement {
          * @param {import("../../helpers/Interfaces.js").SingleArticle} article
          * @return {void | false}
          */
-        article => event.detail.resolve(article)
+        article => {
+          this.dispatchEvent(new CustomEvent('getArticle', {
+            /** @type {GetArticleEventDetail} */
+            detail: {
+              slug: article.slug,
+              fetch: Promise.resolve(article)
+            },
+            bubbles: true,
+            cancelable: true,
+            composed: true
+          }))
+        }
       // forward to login, if error means that the user is unauthorized
       // @ts-ignore
       ).catch(error => error.message === 'Unauthorized' ? (location.hash = console.warn(url, 'Unauthorized User:', error) || '#/login') : console.warn(url, error) || error)
@@ -55,10 +91,18 @@ export default class Favorite extends HTMLElement {
   }
 
   connectedCallback () {
+    document.body.addEventListener('user', this.userListener)
     this.addEventListener('setFavorite', this.setFavoriteListener)
+
+    this.dispatchEvent(new CustomEvent('getUser', {
+      bubbles: true,
+      cancelable: true,
+      composed: true
+    }))
   }
 
   disconnectedCallback () {
+    document.body.removeEventListener('user', this.userListener)
     this.removeEventListener('setFavorite', this.setFavoriteListener)
   }
 }

@@ -57,16 +57,16 @@ export default class Article extends HTMLElement {
 
           <div class="banner">
             <div class="container">
-        
+
               <h1>${article.title}</h1>
-        
+
               <div class="article-meta"></div>
-        
+
             </div>
           </div>
-        
+
           <div class="container page">
-        
+
             <div class="row article-content">
               <div class="col-md-12">
                 <div>${markdownit.render(article.body)}</div>
@@ -77,9 +77,9 @@ export default class Article extends HTMLElement {
                 </ul>
               </div>
             </div>
-        
+
             <hr />
-        
+
             <div class="article-actions">
               <div class="article-meta">
                 <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
@@ -87,7 +87,6 @@ export default class Article extends HTMLElement {
                   <a href="" class="author">Eric Simons</a>
                   <span class="date">January 20th</span>
                 </div>
-        
                 <button class="btn btn-sm btn-outline-secondary">
                   <i class="ion-plus-round"></i>
                   &nbsp;
@@ -101,11 +100,11 @@ export default class Article extends HTMLElement {
                 </button>
               </div>
             </div>
-        
+
             <div class="row">
-        
+
               <div class="col-xs-12 col-md-8 offset-md-2">
-        
+
                 <form class="card comment-form">
                   <div class="card-block">
                     <textarea class="form-control" placeholder="Write a comment..." rows="3"></textarea>
@@ -117,7 +116,6 @@ export default class Article extends HTMLElement {
                     </button>
                   </div>
                 </form>
-                
                 <div class="card">
                   <div class="card-block">
                     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
@@ -131,7 +129,6 @@ export default class Article extends HTMLElement {
                     <span class="date-posted">Dec 29th</span>
                   </div>
                 </div>
-        
                 <div class="card">
                   <div class="card-block">
                     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
@@ -149,21 +146,20 @@ export default class Article extends HTMLElement {
                     </span>
                   </div>
                 </div>
-                
               </div>
-        
             </div>
-        
           </div>
-        
         </div>
       `
       this.loadChildComponents().then(children => {
         /** @type {import("../atoms/ArticleMeta.js").default} */
         // @ts-ignore
-        const articleMeta = new children[0][1](article)
-        // TODO: specific version for article with follow button
-        this.querySelector('.article-meta').replaceWith(articleMeta)
+
+        this.querySelectorAll('.article-meta').forEach(node => {
+          const articleMeta = new children[0][1](article, true)
+
+          node.replaceWith(articleMeta)
+        })
       })
     // @ts-ignore
     }).catch(error => (this.innerHTML = console.warn(error) || '<div class="article-page">An error occurred fetching the article!</div>'))
