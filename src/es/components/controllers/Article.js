@@ -12,6 +12,12 @@
  * @typedef {{ slug?: string }} RequestArticleEventDetail
  */
 
+ /**
+ * https://github.com/gothinkster/realworld/tree/master/api#delete-article
+ *
+ * @typedef {{ slug: string }} DeleteArticleEventDetail
+ */
+
 /**
  * https://github.com/gothinkster/realworld/tree/master/api#single-article
  *
@@ -118,6 +124,28 @@ export default class Article extends HTMLElement {
     }
 
     /**
+     * Listens to the event name/typeArg: 'deleteArticle'
+     *
+     * @param {CustomEvent & {detail: DeleteArticleEventDetail}} event
+     */
+    this.deleteArticleListener = event => {
+      // if no slug is sent, we grab it here from the location, this logic could also be handle through an event at the router
+      const slug = event.detail.slug || Environment.slug || ''
+      const url = `${Environment.fetchBaseUrl}articles/${slug}`
+      // reset old AbortController and assign new one
+      if (this.abortController) this.abortController.abort()
+      this.abortController = new AbortController()
+      fetch(url, {
+        method: 'DELETE',
+        signal: this.abortController.signal,
+        ...Environment.fetchHeaders
+      }).then(response => {
+        if (response.status >= 200 && response.status <= 299) return self.location.href = '#/'
+        throw new Error(response.statusText)
+      })
+    }
+
+    /**
      * Listens to the event name/typeArg: 'requestListArticles'
      *
      * @param {CustomEvent & {detail: RequestListArticlesEventDetail}} event
@@ -159,12 +187,14 @@ export default class Article extends HTMLElement {
   connectedCallback () {
     this.addEventListener('requestArticle', this.requestGetArticleListener)
     this.addEventListener('postArticle', this.postArticleListener)
+    this.addEventListener('deleteArticle', this.deleteArticleListener)
     this.addEventListener('requestListArticles', this.requestListArticlesListener)
   }
 
   disconnectedCallback () {
     this.removeEventListener('requestArticle', this.requestGetArticleListener)
     this.removeEventListener('postArticle', this.postArticleListener)
+    this.removeEventListener('deleteArticle', this.deleteArticleListener)
     this.removeEventListener('requestListArticles', this.requestListArticlesListener)
   }
 }

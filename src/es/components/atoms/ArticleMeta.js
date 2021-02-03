@@ -41,19 +41,36 @@ export default class ArticleMeta extends HTMLElement {
      * @return {Promise<import("../../helpers/Interfaces.js").SingleArticle | false> | false}
      */
     this.clickListener = event => {
+      if (!event.target) return false
       const favoriteButton = this.querySelector('button[name="favorite"]')
+      const isFavoriteButton = event.target === favoriteButton || event.target.parentElement === favoriteButton
+      const deleteButton = this.querySelector('button[name="delete"]')
+      const isDeleteButton = event.target === deleteButton || event.target.parentElement === deleteButton
+      if (!isFavoriteButton && !isDeleteButton) return false
 
-      if (!event.target || (event.target !== favoriteButton && event.target.parentElement !== favoriteButton)) return false
       event.preventDefault()
-      this.dispatchEvent(new CustomEvent('setFavorite', {
-        /** @type {import("../controllers/Favorite.js").SetFavoriteEventDetail} */
-        detail: {
-          article: this.article
-        },
-        bubbles: true,
-        cancelable: true,
-        composed: true
-      }))
+
+      if (isFavoriteButton) {
+        this.dispatchEvent(new CustomEvent('setFavorite', {
+          /** @type {import("../controllers/Favorite.js").SetFavoriteEventDetail} */
+          detail: {
+            article: this.article
+          },
+          bubbles: true,
+          cancelable: true,
+          composed: true
+        }))
+      } else {
+        this.dispatchEvent(new CustomEvent('deleteArticle', {
+          /** @type {import("../controllers/Article.js").DeleteArticleEventDetail} */
+          detail: {
+            slug: this.article.slug
+          },
+          bubbles: true,
+          cancelable: true,
+          composed: true
+        }))
+      }
     }
   }
 
@@ -97,7 +114,7 @@ export default class ArticleMeta extends HTMLElement {
           ? article.author.self
             ? `<a class="btn btn-outline-secondary btn-sm" href="#/editor/${article.slug}">
             <i class="ion-edit"></i>Edit Article</a>
-            <button class="btn btn-outline-danger btn-sm"><i class="ion-trash-a"></i>Delete Article</button>`
+            <button name="delete" class="btn btn-outline-danger btn-sm"><i class="ion-trash-a"></i>Delete Article</button>`
           : `<button class="btn btn-sm btn-outline-secondary">
             <i class="ion-plus-round"></i>
             &nbsp;
