@@ -32,42 +32,40 @@ export default class Home extends HTMLElement {
    */
   render () {
     this.innerHTML = `
-      <c-list-articles>
-        <div class="home-page">
-          <div class="banner">
-            <div class="container">
-              <h1 class="logo-font">conduit</h1>
-              <p>A place to share your knowledge.</p>
-            </div>
+      <div class="home-page">
+        <div class="banner">
+          <div class="container">
+            <h1 class="logo-font">conduit</h1>
+            <p>A place to share your knowledge.</p>
           </div>
-
-          <div class="container page">
-            <div class="row">
-
-              <div class="col-md-9">
-                <m-article-feed-toggle></m-article-feed-toggle>
-
-                <o-list-article-previews><div class="article-preview">Loading...</div></o-list-article-previews>
-
-                <m-pagination></m-pagination>
-
-              </div>
-
-              <div class="col-md-3">
-                <aside class="sidebar">
-                  <p>Popular Tags</p>
-
-                  <c-get-tags>
-                    <m-tag-list><div class="tag-list">Loading...</div></m-tag-list>
-                  </c-get-tags>
-                </aside>
-              </div>
-
-            </div>
-          </div>
-
         </div>
-      </c-list-articles>
+
+        <div class="container page">
+          <div class="row">
+
+            <div class="col-md-9">
+              <m-article-feed-toggle></m-article-feed-toggle>
+
+              <o-list-article-previews><div class="article-preview">Loading...</div></o-list-article-previews>
+
+              <m-pagination></m-pagination>
+
+            </div>
+
+            <div class="col-md-3">
+              <aside class="sidebar">
+                <p>Popular Tags</p>
+
+                <c-get-tags>
+                  <m-tag-list><div class="tag-list">Loading...</div></m-tag-list>
+                </c-get-tags>
+              </aside>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
     `
   }
 
@@ -78,10 +76,6 @@ export default class Home extends HTMLElement {
    */
   loadChildComponents () {
     return this.childComponentsPromise || (this.childComponentsPromise = Promise.all([
-      import('../controllers/ListArticles.js').then(
-        /** @returns {[string, CustomElementConstructor]} */
-        module => ['c-list-articles', module.default]
-      ),
       import('../controllers/GetTags.js').then(
         /** @returns {[string, CustomElementConstructor]} */
         module => ['c-get-tags', module.default]

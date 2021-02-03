@@ -33,7 +33,7 @@ export default class Login extends HTMLElement {
     }
 
     /**
-     * Listens to the event name/typeArg: 'getArticle'
+     * Listens to the event name/typeArg: 'article'
      *
      * @param {CustomEvent & {detail: import("../controllers/User.js").UserEventDetail}} event
      */

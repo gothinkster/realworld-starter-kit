@@ -17,28 +17,49 @@ export default class Article extends HTMLElement {
     super()
 
     /**
-     * Listens to the event name/typeArg: 'getArticle'
+     * Listens to the event name/typeArg: 'article'
      *
-     * @param {CustomEvent & {detail: import("../controllers/GetArticle.js").GetArticleEventDetail}} event
+     * @param {CustomEvent & {detail: import("../controllers/Article.js").ArticleEventDetail}} event
      */
-    this.getArticleListener = event => this.render(event.detail.fetch)
+    this.articleListener = event => this.render(event.detail.fetch)
+
+    /**
+     * Listens to the event name/typeArg: 'user'
+     *
+     * @param {CustomEvent & {detail: import("../controllers/User.js").UserEventDetail}} event
+     */
+    this.userListener = event => {
+      event.detail.fetch.then(user => {
+        this.username = user.username
+      }).catch(error => {
+        this.username = undefined
+        console.log(`Error@UserFetch: ${error}`)
+      })
+    }
   }
 
   connectedCallback () {
     // listen for articles
-    document.body.addEventListener('getArticle', this.getArticleListener)
+    document.body.addEventListener('article', this.articleListener)
     // on every connect it will attempt to get newest articles
-    this.dispatchEvent(new CustomEvent('requestGetArticle', {
-      /** @type {import("../controllers/GetArticle.js").RequestGetArticleEventDetail} */
-      detail: {}, // slug gets decided at GetArticle.js controller, could also be done by request event to router
+    this.dispatchEvent(new CustomEvent('requestArticle', {
+      /** @type {import("../controllers/Article.js").RequestArticleEventDetail} */
+      detail: {}, // slug gets decided at Article.js controller, could also be done by request event to router
+      bubbles: true,
+      cancelable: true,
+      composed: true
+    }))
+    document.body.addEventListener('user', this.userListener)
+    this.dispatchEvent(new CustomEvent('getUser', {
       bubbles: true,
       cancelable: true,
       composed: true
     }))
   }
-
+  
   disconnectedCallback () {
-    document.body.removeEventListener('getArticle', this.getArticleListener)
+    document.body.removeEventListener('article', this.articleListener)
+    document.body.removeEventListener('user', this.userListener)
   }
 
   /**
@@ -52,6 +73,7 @@ export default class Article extends HTMLElement {
       const [singleArticle, markdownit] = result
       const article = singleArticle.article
       if (!article || !article.author || !article.tagList) return (this.innerHTML = '<div class="article-page">An error occurred rendering the article-page!</div>')
+      article.author = Object.assign(article.author, {self: this.username === article.author.username})
       this.innerHTML = `
         <div class="article-page">
 
@@ -81,24 +103,7 @@ export default class Article extends HTMLElement {
             <hr />
 
             <div class="article-actions">
-              <div class="article-meta">
-                <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
-                <div class="info">
-                  <a href="" class="author">Eric Simons</a>
-                  <span class="date">January 20th</span>
-                </div>
-                <button class="btn btn-sm btn-outline-secondary">
-                  <i class="ion-plus-round"></i>
-                  &nbsp;
-                  Follow Eric Simons <span class="counter">(10)</span>
-                </button>
-                &nbsp;
-                <button class="btn btn-sm btn-outline-primary">
-                  <i class="ion-heart"></i>
-                  &nbsp;
-                  Favorite Post <span class="counter">(29)</span>
-                </button>
-              </div>
+              <div class="article-meta"></div>
             </div>
 
             <div class="row">

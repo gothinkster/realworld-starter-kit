@@ -40,20 +40,20 @@ export default class Editor extends HTMLElement {
       }))
     }
 
-    this.getArticleListener = event => event.detail.fetch.then(response => {
+    this.articleListener = event => event.detail.fetch.then(response => {
       if (response) this.render(response.article)
     }).catch(error => (this.errorMessages = error))
   }
 
   connectedCallback () {
-    document.body.addEventListener('getArticle', this.getArticleListener)
+    document.body.addEventListener('article', this.articleListener)
 
     if (Environment.slug) {
-      this.dispatchEvent(new CustomEvent('requestGetArticle', {
-        /** @type {import("../controllers/GetArticle.js").RequestGetArticleEventDetail} */
+      this.dispatchEvent(new CustomEvent('requestArticle', {
+        /** @type {import("../controllers/Article.js").RequestArticleEventDetail} */
         detail: {
           slug: Environment.slug
-        }, // slug gets decided at GetArticle.js controller, could also be done by request event to router
+        }, // slug gets decided at Article.js controller, could also be done by request event to router
         bubbles: true,
         cancelable: true,
         composed: true
@@ -65,7 +65,7 @@ export default class Editor extends HTMLElement {
 
   disconnectedCallback () {
     this.removeEventListener('click', this.publishListener)
-    document.body.removeEventListener('getArticle', this.getArticleListener)
+    document.body.removeEventListener('article', this.articleListener)
   }
 
   /**

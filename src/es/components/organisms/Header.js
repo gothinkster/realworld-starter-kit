@@ -16,7 +16,7 @@ export default class Header extends HTMLElement {
 
     this.username = null
     /**
-     * Listens to the event name/typeArg: 'getArticle'
+     * Listens to the event name/typeArg: 'article'
      *
      * @param {CustomEvent & {detail: import("../controllers/User.js").UserEventDetail}} event
      */
@@ -66,7 +66,7 @@ export default class Header extends HTMLElement {
     this.innerHTML = /* html */ `
       <nav class="navbar navbar-light">
         <div class="container">
-          <a class="navbar-brand" href="index.html">conduit</a>
+          <a class="navbar-brand" href="#/">conduit</a>
           <ul class="nav navbar-nav pull-xs-right">
             <li class="nav-item">
               <!-- Add "active" class when you're on that page" -->

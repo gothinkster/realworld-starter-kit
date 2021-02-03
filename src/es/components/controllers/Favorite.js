@@ -73,8 +73,7 @@ export default class Favorite extends HTMLElement {
          * @return {void | false}
          */
         article => {
-          this.dispatchEvent(new CustomEvent('getArticle', {
-            /** @type {GetArticleEventDetail} */
+          this.dispatchEvent(new CustomEvent('article', {
             detail: {
               slug: article.slug,
               fetch: Promise.resolve(article)

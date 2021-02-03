@@ -28,7 +28,7 @@ export default class ArticleMeta extends HTMLElement {
     /**
      * Listens to the event name/typeArg: 'getArticle'
      *
-     * @param {CustomEvent & {detail: import("../controllers/GetArticle.js").GetArticleEventDetail}} event
+     * @param {CustomEvent & {detail: import("../controllers/Article.js").ArticleEventDetail}} event
      */
     this.getArticleListener = event => event.detail.fetch.then(({ article }) => {
       if (article.slug === this.article.slug) this.render(article)
@@ -58,13 +58,13 @@ export default class ArticleMeta extends HTMLElement {
   }
 
   connectedCallback () {
-    document.body.addEventListener('getArticle', this.getArticleListener)
+    document.body.addEventListener('article', this.getArticleListener)
     this.addEventListener('click', this.clickListener)
     if (this.shouldComponentRender()) this.render(this.article)
   }
 
   disconnectedCallback () {
-    document.body.removeEventListener('getArticle', this.getArticleListener)
+    document.body.removeEventListener('article', this.getArticleListener)
     this.removeEventListener('click', this.clickListener)
   }
 
@@ -80,12 +80,11 @@ export default class ArticleMeta extends HTMLElement {
   /**
    * renders the article
    *
-   * @param {import("../../helpers/Interfaces.js").SingleArticle} [article = this.article]
+   * @param {import("../../helpers/Interfaces.js").SingleArticle & {author: {self: boolean}}} [article = this.article]
    * @return {article | string}
    */
   render (article = this.article) {
     if (!article.author || !article.tagList) return (this.innerHTML = '<div class="article-meta">An error occurred rendering the article-meta!</div>')
-
     this.innerHTML = `
       <div class="article-meta">
         <a href="#/profile/${article.author.username}"><img src="${secureImageSrc(article.author.image)}" /></a>
@@ -95,7 +94,11 @@ export default class ArticleMeta extends HTMLElement {
         </div>
 
         ${this.actions
-          ? `<button class="btn btn-sm btn-outline-secondary">
+          ? article.author.self
+            ? `<a class="btn btn-outline-secondary btn-sm" href="#/editor/${article.slug}">
+            <i class="ion-edit"></i>Edit Article</a>
+            <button class="btn btn-outline-danger btn-sm"><i class="ion-trash-a"></i>Delete Article</button>`
+          : `<button class="btn btn-sm btn-outline-secondary">
             <i class="ion-plus-round"></i>
             &nbsp;
             TODO: Follow Eric Simons <span class="counter">(10)</span>
