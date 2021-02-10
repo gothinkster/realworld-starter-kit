@@ -31,7 +31,7 @@ export default class Favorite extends HTMLElement {
     /**
      * Listens to the event name/typeArg: 'user'
      *
-     * @param {CustomEvent & {detail: import("../controllers/User.js").UserEventDetail}} event
+     * @param {CustomEvent & {detail: import("./User.js").UserEventDetail}} event
      */
     this.userListener = event => {
       event.detail.fetch.then(user => {

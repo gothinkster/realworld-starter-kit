@@ -46,7 +46,7 @@ export default class ArticleMeta extends HTMLElement {
       event.preventDefault()
 
         this.dispatchEvent(new CustomEvent('setFavorite', {
-          /** @type {import("../controllers/Favorite.js").SetFavoriteEventDetail} */
+          /** @type {import("../controllers/MetaActions.js").SetFavoriteEventDetail} */
           detail: {
             article: this.article
           },
@@ -60,7 +60,7 @@ export default class ArticleMeta extends HTMLElement {
       if (!event.target) return false
       event.preventDefault()
       this.dispatchEvent(new CustomEvent('followUser', {
-        /** @type {import("../controllers/Favorite.js").SetFavoriteEventDetail} */
+        /** @type {import("../controllers/MetaActions.js").SetFavoriteEventDetail} */
         detail: {
           article: this.article
         },
@@ -127,7 +127,7 @@ export default class ArticleMeta extends HTMLElement {
             ? `<a class="btn btn-outline-secondary btn-sm" href="#/editor/${article.slug}">
             <i class="ion-edit"></i>Edit Article</a>
             <button name="delete" class="btn btn-outline-danger btn-sm"><i class="ion-trash-a"></i>Delete Article</button>`
-          : `<button name="follow" class="btn btn-sm btn-outline-secondary">
+          : `<button name="follow" class="btn btn-sm ${article.author.following ? 'btn-secondary ': 'btn-outline-secondary '}">
             <i class="${article.author.following ? 'ion-minus-round': 'ion-plus-round'}"></i>
             &nbsp;
             ${article.author.following ? 'Unfollow': 'Follow'} ${article.author.username}
