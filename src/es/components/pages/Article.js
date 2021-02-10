@@ -56,7 +56,7 @@ export default class Article extends HTMLElement {
       composed: true
     }))
   }
-  
+
   disconnectedCallback () {
     document.body.removeEventListener('article', this.articleListener)
     document.body.removeEventListener('user', this.userListener)
@@ -73,7 +73,7 @@ export default class Article extends HTMLElement {
       const [singleArticle, markdownit] = result
       const article = singleArticle.article
       if (!article || !article.author || !article.tagList) return (this.innerHTML = '<div class="article-page">An error occurred rendering the article-page!</div>')
-      article.author = Object.assign(article.author, {self: this.username === article.author.username})
+      article.author = Object.assign(article.author, { self: this.username === article.author.username })
       this.innerHTML = `
         <div class="article-page">
 

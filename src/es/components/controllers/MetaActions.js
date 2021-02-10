@@ -119,14 +119,14 @@ export default class Favorite extends HTMLElement {
          * @param {import("../../helpers/Interfaces.js").Profile} profile
          * @return {void | false}
          */
-        ({profile}) => {
-          const article = Object.assign(event.detail.article, {author: profile})
-          console.log('changed', article);
+        ({ profile }) => {
+          const article = Object.assign(event.detail.article, { author: profile })
+          console.log('changed', article)
           this.dispatchEvent(new CustomEvent('article', {
             /** @type {GetArticleEventDetail} */
             detail: {
               slug: article.slug,
-              fetch: Promise.resolve({article: article})
+              fetch: Promise.resolve({ article: article })
             },
             bubbles: true,
             cancelable: true,

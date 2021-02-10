@@ -45,15 +45,15 @@ export default class ArticleMeta extends HTMLElement {
       if (!event.target) return false
       event.preventDefault()
 
-        this.dispatchEvent(new CustomEvent('setFavorite', {
-          /** @type {import("../controllers/MetaActions.js").SetFavoriteEventDetail} */
-          detail: {
-            article: this.article
-          },
-          bubbles: true,
-          cancelable: true,
-          composed: true
-        }))
+      this.dispatchEvent(new CustomEvent('setFavorite', {
+        /** @type {import("../controllers/MetaActions.js").SetFavoriteEventDetail} */
+        detail: {
+          article: this.article
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))
     }
 
     this.followBtnListener = event => {
@@ -127,10 +127,10 @@ export default class ArticleMeta extends HTMLElement {
             ? `<a class="btn btn-outline-secondary btn-sm" href="#/editor/${article.slug}">
             <i class="ion-edit"></i>Edit Article</a>
             <button name="delete" class="btn btn-outline-danger btn-sm"><i class="ion-trash-a"></i>Delete Article</button>`
-          : `<button name="follow" class="btn btn-sm ${article.author.following ? 'btn-secondary ': 'btn-outline-secondary '}">
-            <i class="${article.author.following ? 'ion-minus-round': 'ion-plus-round'}"></i>
+          : `<button name="follow" class="btn btn-sm ${article.author.following ? 'btn-secondary ' : 'btn-outline-secondary '}">
+            <i class="${article.author.following ? 'ion-minus-round' : 'ion-plus-round'}"></i>
             &nbsp;
-            ${article.author.following ? 'Unfollow': 'Follow'} ${article.author.username}
+            ${article.author.following ? 'Unfollow' : 'Follow'} ${article.author.username}
           </button>
           &nbsp;
           <button name="favorite" class="btn btn-sm ${article.favorited ? 'btn-primary' : 'btn-outline-primary'}">
@@ -149,16 +149,15 @@ export default class ArticleMeta extends HTMLElement {
     return (this.article = article)
   }
 
-  get btnFavorite() {
+  get btnFavorite () {
     return this.querySelector('button[name=favorite]')
   }
 
-  get btnFollow() {
+  get btnFollow () {
     return this.querySelector('button[name=follow]')
   }
 
-  get btnDelete() {
+  get btnDelete () {
     return this.querySelector('button[name=delete]')
   }
-
 }

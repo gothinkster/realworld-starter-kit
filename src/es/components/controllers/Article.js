@@ -12,7 +12,7 @@
  * @typedef {{ slug?: string }} RequestArticleEventDetail
  */
 
- /**
+/**
  * https://github.com/gothinkster/realworld/tree/master/api#delete-article
  *
  * @typedef {{ slug: string }} DeleteArticleEventDetail
@@ -27,7 +27,7 @@
     }} ArticleEventDetail
  */
 
- /**
+/**
  * https://github.com/gothinkster/realworld/tree/master/api#list-articles
  *
  * @typedef {{ tag?: string, author?: string, favorited?: string, limit?: number, offset?: number, showYourFeed?: boolean }} RequestListArticlesEventDetail
@@ -140,7 +140,7 @@ export default class Article extends HTMLElement {
         signal: this.abortController.signal,
         ...Environment.fetchHeaders
       }).then(response => {
-        if (response.status >= 200 && response.status <= 299) return self.location.href = '#/'
+        if (response.status >= 200 && response.status <= 299) return (self.location.href = '#/')
         throw new Error(response.statusText)
       })
     }
