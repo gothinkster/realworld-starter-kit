@@ -40,17 +40,11 @@ export default class ArticleMeta extends HTMLElement {
      * @param {event & {target: HTMLElement}} event
      * @return {Promise<import("../../helpers/Interfaces.js").SingleArticle | false> | false}
      */
-    this.clickListener = event => {
-      if (!event.target) return false
-      const favoriteButton = this.querySelector('button[name="favorite"]')
-      const isFavoriteButton = event.target === favoriteButton || event.target.parentElement === favoriteButton
-      const deleteButton = this.querySelector('button[name="delete"]')
-      const isDeleteButton = event.target === deleteButton || event.target.parentElement === deleteButton
-      if (!isFavoriteButton && !isDeleteButton) return false
 
+    this.favoriteBtnListener = event => {
+      if (!event.target) return false
       event.preventDefault()
 
-      if (isFavoriteButton) {
         this.dispatchEvent(new CustomEvent('setFavorite', {
           /** @type {import("../controllers/Favorite.js").SetFavoriteEventDetail} */
           detail: {
@@ -60,29 +54,47 @@ export default class ArticleMeta extends HTMLElement {
           cancelable: true,
           composed: true
         }))
-      } else {
-        this.dispatchEvent(new CustomEvent('deleteArticle', {
-          /** @type {import("../controllers/Article.js").DeleteArticleEventDetail} */
-          detail: {
-            slug: this.article.slug
-          },
-          bubbles: true,
-          cancelable: true,
-          composed: true
-        }))
-      }
+    }
+
+    this.followBtnListener = event => {
+      if (!event.target) return false
+      event.preventDefault()
+      this.dispatchEvent(new CustomEvent('followUser', {
+        /** @type {import("../controllers/Favorite.js").SetFavoriteEventDetail} */
+        detail: {
+          article: this.article
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))
+    }
+
+    this.deleteBtnListener = event => {
+      if (!event.target) return false
+      event.preventDefault()
+      this.dispatchEvent(new CustomEvent('deleteArticle', {
+        /** @type {import("../controllers/Article.js").DeleteArticleEventDetail} */
+        detail: {
+          slug: this.article.slug
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      }))
     }
   }
 
   connectedCallback () {
     document.body.addEventListener('article', this.getArticleListener)
-    this.addEventListener('click', this.clickListener)
     if (this.shouldComponentRender()) this.render(this.article)
   }
 
   disconnectedCallback () {
     document.body.removeEventListener('article', this.getArticleListener)
-    this.removeEventListener('click', this.clickListener)
+    if (this.btnFavorite) this.btnFavorite.removeEventListener('click', this.favoriteBtnListener)
+    if (this.btnFollow) this.btnFollow.removeEventListener('click', this.followBtnListener)
+    if (this.btnDelete) this.btnDelete.removeEventListener('click', this.deleteBtnListener)
   }
 
   /**
@@ -115,10 +127,10 @@ export default class ArticleMeta extends HTMLElement {
             ? `<a class="btn btn-outline-secondary btn-sm" href="#/editor/${article.slug}">
             <i class="ion-edit"></i>Edit Article</a>
             <button name="delete" class="btn btn-outline-danger btn-sm"><i class="ion-trash-a"></i>Delete Article</button>`
-          : `<button class="btn btn-sm btn-outline-secondary">
+          : `<button name="follow" class="btn btn-sm btn-outline-secondary">
             <i class="ion-plus-round"></i>
             &nbsp;
-            TODO: Follow Eric Simons <span class="counter">(10)</span>
+            Follow ${article.author.username}
           </button>
           &nbsp;
           <button name="favorite" class="btn btn-sm ${article.favorited ? 'btn-primary' : 'btn-outline-primary'}">
@@ -131,6 +143,22 @@ export default class ArticleMeta extends HTMLElement {
       </button>`}
       </div>
     `
+    if (this.btnFavorite) this.btnFavorite.addEventListener('click', this.favoriteBtnListener)
+    if (this.btnFollow) this.btnFollow.addEventListener('click', this.followBtnListener)
+    if (this.btnDelete) this.btnDelete.addEventListener('click', this.deleteBtnListener)
     return (this.article = article)
   }
+
+  get btnFavorite() {
+    return this.querySelector('button[name=favorite]')
+  }
+
+  get btnFollow() {
+    return this.querySelector('button[name=follow]')
+  }
+
+  get btnDelete() {
+    return this.querySelector('button[name=delete]')
+  }
+
 }
