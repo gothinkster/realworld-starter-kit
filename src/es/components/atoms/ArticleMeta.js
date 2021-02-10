@@ -128,9 +128,9 @@ export default class ArticleMeta extends HTMLElement {
             <i class="ion-edit"></i>Edit Article</a>
             <button name="delete" class="btn btn-outline-danger btn-sm"><i class="ion-trash-a"></i>Delete Article</button>`
           : `<button name="follow" class="btn btn-sm btn-outline-secondary">
-            <i class="ion-plus-round"></i>
+            <i class="${article.author.following ? 'ion-minus-round': 'ion-plus-round'}"></i>
             &nbsp;
-            Follow ${article.author.username}
+            ${article.author.following ? 'Unfollow': 'Follow'} ${article.author.username}
           </button>
           &nbsp;
           <button name="favorite" class="btn btn-sm ${article.favorited ? 'btn-primary' : 'btn-outline-primary'}">
