@@ -103,7 +103,7 @@ module Comments = {
             <Link
               onClick={Link.profile(~username=comment.author.username) |> Link.location}
               className="comment-author"
-              style={ReactDOMRe.Style.make(~marginRight="7px", ())}>
+              style={ReactDOM.Style.make(~marginRight="7px", ())}>
               {switch comment.author.image {
               | "" => <img className="comment-author-img" />
               | src => <img src className="comment-author-img" />
@@ -147,7 +147,7 @@ module EditArticleButton = {
       <Link
         className="btn btn-outline-secondary btn-sm"
         onClick={Link.editArticle(~slug=ok.slug) |> Link.location}>
-        <i className="ion-edit" style={ReactDOMRe.Style.make(~marginRight="5px", ())} />
+        <i className="ion-edit" style={ReactDOM.Style.make(~marginRight="5px", ())} />
         {"Edit Article" |> React.string}
       </Link>
     )
@@ -160,10 +160,10 @@ module DeleteArticleButton = {
     <Link.Button
       className="btn btn-outline-danger btn-sm"
       onClick
-      style={ReactDOMRe.Style.make(~marginLeft="5px", ())}>
+      style={ReactDOM.Style.make(~marginLeft="5px", ())}>
       <i
         className={isBusy ? "ion-load-a" : "ion-trash-a"}
-        style={ReactDOMRe.Style.make(~marginRight="5px", ())}
+        style={ReactDOM.Style.make(~marginRight="5px", ())}
       />
       {"Delete Article" |> React.string}
     </Link.Button>
@@ -180,14 +180,14 @@ module FavoriteButton = {
       | Complete((false, _, _)) => "btn btn-sm btn-outline-primary"
       | Reloading((true, _, _)) | Complete((true, _, _)) => "btn btn-sm btn-primary"
       }}
-      style={ReactDOMRe.Style.make(~marginLeft="5px", ())}
+      style={ReactDOM.Style.make(~marginLeft="5px", ())}
       onClick={switch data {
       | Init | Loading | Reloading((_, _, _)) => Link.customFn(ignore)
       | Complete((_, _, _)) => onClick
       }}>
       <i
         className={AsyncData.isBusy(data) ? "ion-load-a" : "ion-heart"}
-        style={ReactDOMRe.Style.make(~marginRight="5px", ())}
+        style={ReactDOM.Style.make(~marginRight="5px", ())}
       />
       {switch data {
       | Init | Loading => React.null
@@ -219,7 +219,7 @@ module FollowButton = {
       }}>
       <i
         className={AsyncData.isBusy(data) ? "ion-load-a" : "ion-plus-round"}
-        style={ReactDOMRe.Style.make(~marginRight="5px", ())}
+        style={ReactDOM.Style.make(~marginRight="5px", ())}
       />
       {switch data {
       | Init | Loading => React.null
@@ -311,7 +311,7 @@ let make = (~slug: string, ~user: option<Shape.User.t>) => {
     <div className="container page">
       <div className="row article-content">
         <div className="col-md-12">
-          <div style={ReactDOMRe.Style.make(~marginBottom="2rem", ())}>
+          <div style={ReactDOM.Style.make(~marginBottom="2rem", ())}>
             {switch article {
             | Init | Loading => <Spinner />
             | Reloading(Ok({body})) | Complete(Ok({body})) =>

@@ -30,7 +30,7 @@ module ArticlePreview = {
             }}>
           <i
             className={isFavoriteBusy ? "ion-load-a" : "ion-heart"}
-            style={ReactDOMRe.Style.make(~marginRight="3px", ())}
+            style={ReactDOM.Style.make(~marginRight="3px", ())}
           />
           {data.favoritesCount |> Js.Int.toString |> React.string}
         </button>

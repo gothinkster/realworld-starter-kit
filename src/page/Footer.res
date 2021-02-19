@@ -3,7 +3,7 @@ let make = () => <>
   <a
     href="https://github.com/jihchi/reason-react-realworld-example-app"
     target="_blank"
-    style={ReactDOMRe.Style.make(
+    style={ReactDOM.Style.make(
       ~position="fixed",
       ~bottom="0",
       ~width="100%",
@@ -17,7 +17,7 @@ let make = () => <>
       ~color="#fff",
       (),
     )}>
-    <i className="ion-social-github" style={ReactDOMRe.Style.make(~marginRight="8px", ())} />
+    <i className="ion-social-github" style={ReactDOM.Style.make(~marginRight="8px", ())} />
     {"Fork on GitHub" |> React.string}
   </a>
   <footer>

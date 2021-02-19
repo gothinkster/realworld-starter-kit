@@ -38,11 +38,11 @@ external makeProps: (
 } = ""
 
 let make: {
-  "children": ReasonReact.reactElement,
+  "children": React.element,
   "className": option<string>,
-  "style": option<ReactDOMRe.Style.t>,
+  "style": option<ReactDOM.Style.t>,
   "onClick": onClickAction,
-} => ReasonReact.reactElement
+} => React.element
 
 module Button: {
   @bs.obj
@@ -64,9 +64,9 @@ module Button: {
 
   let make: {
     "className": option<string>,
-    "style": option<ReactDOMRe.Style.t>,
+    "style": option<ReactDOM.Style.t>,
     "onClick": onClickAction,
     "disabled": option<bool>,
-    "children": ReasonReact.reactElement,
-  } => ReasonReact.reactElement
+    "children": React.element,
+  } => React.element
 }

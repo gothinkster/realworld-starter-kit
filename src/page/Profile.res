@@ -65,17 +65,17 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
                 {switch (follow, user) {
                 | (Init, Some(_) | None) =>
                   <i
-                    className="ion-plus-round" style={ReactDOMRe.Style.make(~marginRight="3px", ())}
+                    className="ion-plus-round" style={ReactDOM.Style.make(~marginRight="3px", ())}
                   />
                 | (Loading, Some(_) | None) | (Reloading((_, _)), _) =>
-                  <i className="ion-load-a" style={ReactDOMRe.Style.make(~marginRight="3px", ())} />
+                  <i className="ion-load-a" style={ReactDOM.Style.make(~marginRight="3px", ())} />
                 | (Complete((username, _following)), user) =>
                   user |> Option.flatMap((ok: Shape.User.t) =>
                     if ok.username == username {
                       Some(
                         <i
                           className="ion-gear-a"
-                          style={ReactDOMRe.Style.make(~marginRight="3px", ())}
+                          style={ReactDOM.Style.make(~marginRight="3px", ())}
                         />,
                       )
                     } else {
@@ -84,7 +84,7 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
                   ) |> Option.getOrElse(
                     <i
                       className="ion-plus-round"
-                      style={ReactDOMRe.Style.make(~marginRight="3px", ())}
+                      style={ReactDOM.Style.make(~marginRight="3px", ())}
                     />,
                   )
                 }}
@@ -196,7 +196,7 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
                       )}>
                       <i
                         className={isFavoriteBusy ? "ion-load-a" : "ion-heart"}
-                        style={ReactDOMRe.Style.make(~marginRight="3px", ())}
+                        style={ReactDOM.Style.make(~marginRight="3px", ())}
                       />
                       {article.favoritesCount |> string_of_int |> React.string}
                     </Link.Button>

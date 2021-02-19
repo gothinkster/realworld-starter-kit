@@ -12,7 +12,7 @@ type t =
   | Settings
 
 let useRoute: unit => t = () => {
-  let url = ReasonReactRouter.useUrl()
+  let url = RescriptReactRouter.useUrl()
   let hash = url.hash |> Js.String.split("/")
 
   switch hash {

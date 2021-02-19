@@ -25,11 +25,11 @@
     "test:coverage": "CI=true npm test -- --coverage"
   },
   "dependencies": {
+    "@rescript/react": "^0.10.1",
     "dompurify": "^2.2.3",
     "marked": "^2.0.0",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "reason-react": "^0.9.1"
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "@glennsl/bs-jest": "^0.5.1",
