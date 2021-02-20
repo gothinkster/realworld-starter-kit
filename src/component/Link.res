@@ -20,7 +20,7 @@ let article = (~slug) => make(Printf.sprintf("/#/article/%s", slug))
 let profile = (~username) => make(Printf.sprintf("/#/profile/%s", username))
 let favorited = (~username) => make(Printf.sprintf("/#/profile/%s/favorites", username))
 
-let push: location' => unit = location => location |> toString |> ReasonReactRouter.push
+let push: location' => unit = location => location |> toString |> RescriptReactRouter.push
 
 let availableIf: (bool, onClickAction) => onClickAction = (available, target) =>
   available ? target : CustomFn(ignore)
@@ -30,7 +30,7 @@ let handleClick = (onClick, event) => {
   | Location(location) =>
     if Utils.isMouseRightClick(event) {
       event |> ReactEvent.Mouse.preventDefault
-      location |> toString |> ReasonReactRouter.push
+      location |> toString |> RescriptReactRouter.push
     }
   | CustomFn(fn) => fn()
   }
@@ -38,7 +38,7 @@ let handleClick = (onClick, event) => {
 }
 
 @react.component
-let make = (~className="", ~style=ReactDOMRe.Style.make(), ~onClick, ~children) => {
+let make = (~className="", ~style=ReactDOM.Style.make(), ~onClick, ~children) => {
   let href = switch onClick {
   | Location(location) => Some(location |> toString)
   | CustomFn(_fn) => None
@@ -50,7 +50,7 @@ module Button = {
   @react.component
   let make = (
     ~className="",
-    ~style=ReactDOMRe.Style.make(),
+    ~style=ReactDOM.Style.make(),
     ~onClick,
     ~disabled=false,
     ~children,

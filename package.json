@@ -25,11 +25,11 @@
     "test:coverage": "CI=true npm test -- --coverage"
   },
   "dependencies": {
+    "@rescript/react": "^0.10.1",
     "dompurify": "^2.2.3",
     "marked": "^2.0.0",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "reason-react": "^0.9.1"
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "@glennsl/bs-jest": "^0.5.1",
@@ -41,7 +41,7 @@
     "bs-fetch": "^0.6.2",
     "bs-jest-dom": "^4.1.1",
     "bs-jest-fetch-mock": "^2.0.0",
-    "bs-platform": "^8.4.2",
+    "bs-platform": "^9.0.1",
     "bs-react-testing-library": "^0.7.3",
     "bs-webapi": "^0.19.1",
     "concurrently": "^5.3.0",
