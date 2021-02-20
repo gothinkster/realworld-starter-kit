@@ -14,7 +14,7 @@
   "bsc-flags": ["-bs-super-errors", "-bs-no-version-header"],
   "package-specs": [
     {
-      "module": "commonjs",
+      "module": "es6",
       "in-source": true
     }
   ],
@@ -29,10 +29,6 @@
     "relude"
   ],
   "bs-dev-dependencies": [
-    "@glennsl/bs-jest",
-    "bs-dom-testing-library",
-    "bs-jest-dom",
-    "bs-jest-fetch-mock"
   ],
   "refmt": 3,
   "warnings": {
