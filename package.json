@@ -15,7 +15,7 @@
     "build:res": "bsb -make-world",
     "clean": "npm run clean:res",
     "clean:res": "bsb -clean-world",
-    "format": "prettier --write \"**/*.{js,json,md,yml}\" \"!**/*.bs.js\" && find -E ./src -regex \".*\\.resi?\" -exec bsrefmt --in-place '{}' \\;",
+    "format": "prettier --write \"**/*.{js,json,md,yml}\" && find -E ./src -regex \".*\\.resi?\" -exec bsc -format '{}' \\;",
     "start": "snowpack dev",
     "test": "web-test-runner \"src/**/__tests__/*.bs.js\"",
     "test:coverage": "npm test -- --coverage"
@@ -49,10 +49,6 @@
     "trailingComma": "es5"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
     "ignorePatterns": [
       "src/**/*.bs.js"
     ]
