@@ -15,7 +15,9 @@
     "build:res": "bsb -make-world",
     "clean": "npm run clean:res",
     "clean:res": "bsb -clean-world",
-    "format": "prettier --write \"**/*.{js,json,md,yml}\" && find -E ./src -regex \".*\\.resi?\" -exec bsc -format '{}' \\;",
+    "format": "npm run format:js && npm run format:res",
+    "format:js": "prettier --write \"**/*.{js,json,md,yml}\"",
+    "format:res": "find -E ./src -regex \".*\\.resi?\" -print0 | xargs -0 -I '{}' bsc -format '{}'",
     "start": "snowpack dev",
     "test": "web-test-runner \"src/**/__tests__/*.bs.js\"",
     "test:coverage": "npm test -- --coverage"
