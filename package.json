@@ -11,18 +11,14 @@
     "react"
   ],
   "scripts": {
-    "build": "npm run build:res && npm run build:js",
-    "build:js": "react-scripts build",
+    "build": "snowpack build",
     "build:res": "bsb -make-world",
     "clean": "npm run clean:res",
     "clean:res": "bsb -clean-world",
     "format": "prettier --write \"**/*.{js,json,md,yml}\" \"!**/*.bs.js\" && find -E ./src -regex \".*\\.resi?\" -exec bsrefmt --in-place '{}' \\;",
-    "pretest": "npm run clean:res && npm run build:res",
-    "start": "concurrently --names \"JS,RES\" --prefix-colors \"black.bgYellow.bold,white.bgRed.bold\" --kill-others-on-fail \"npm run start:js\" \"npm run start:re\"",
-    "start:js": "react-scripts start",
-    "start:re": "npm run build:res -- -w",
-    "test": "react-scripts test",
-    "test:coverage": "CI=true npm test -- --coverage"
+    "start": "snowpack dev",
+    "test": "web-test-runner \"src/**/__tests__/*.bs.js\"",
+    "test:coverage": "npm test -- --coverage"
   },
   "dependencies": {
     "@rescript/react": "^0.10.1",
@@ -32,22 +28,21 @@
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
-    "@glennsl/bs-jest": "^0.5.1",
-    "@sheerun/mutationobserver-shim": "^0.3.3",
-    "bisect_ppx": "^2.5.0",
+    "@snowpack/plugin-dotenv": "^2.0.5",
+    "@snowpack/plugin-react-refresh": "^2.4.0",
+    "@snowpack/plugin-run-script": "^2.3.0",
+    "@snowpack/web-test-runner-plugin": "^0.2.1",
+    "@testing-library/react": "^11.2.5",
+    "@web/test-runner": "^0.12.15",
     "bs-bastet": "^1.2.5",
     "bs-decode": "^0.11.2",
-    "bs-dom-testing-library": "^0.6.2",
     "bs-fetch": "^0.6.2",
-    "bs-jest-dom": "^4.1.1",
-    "bs-jest-fetch-mock": "^2.0.0",
     "bs-platform": "^9.0.1",
-    "bs-react-testing-library": "^0.7.3",
     "bs-webapi": "^0.19.1",
-    "coveralls": "^3.1.0",
-    "jest-fetch-mock": "^3.0.3",
+    "chai": "^4.3.0",
     "prettier": "^2.2.1",
-    "relude": "^0.65.0"
+    "relude": "^0.65.0",
+    "snowpack": "^3.0.11"
   },
   "prettier": {
     "singleQuote": true,
