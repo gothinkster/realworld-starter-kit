@@ -90,7 +90,7 @@ Postman is also used to perform requests interactively: `backend/src/test/resour
 
 # Continuous Integration
 
-The build pipeline is implemented using Travis CI, it takes care of checking the tests (including
+The build pipeline is implemented using GitHub Actions, it takes care of checking the tests (including
 Postman collection tests) and the following tasks:
 
 ## Release
