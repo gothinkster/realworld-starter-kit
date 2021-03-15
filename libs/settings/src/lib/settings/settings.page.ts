@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { AuthSelectors, GetAuthUser, UpdateAuthUser } from '@realworld-angular-nx-ngxs/data-access';
@@ -22,7 +22,7 @@ export class SettingsPage implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new GetAuthUser()).subscribe(() => {
-      const user = this.store.selectSnapshot(AuthSelectors.user);
+      const user = this.store.selectSnapshot(AuthSelectors.slices.user);
       this.form.patchValue(user);
     });
   }

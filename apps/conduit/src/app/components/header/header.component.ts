@@ -1,5 +1,7 @@
+import { Observable } from 'rxjs';
+
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { AuthSelectors } from '@realworld-angular-nx-ngxs/data-access';
 
 @Component({
@@ -7,12 +9,10 @@ import { AuthSelectors } from '@realworld-angular-nx-ngxs/data-access';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
-  loggedIn$ = this.store.select(AuthSelectors.loggedIn);
-  loggedOut$ = this.store.select(AuthSelectors.loggedOut);
-  username$ = this.store.select(AuthSelectors.username);
+export class HeaderComponent {
+  @Select(AuthSelectors.loggedIn) loggedIn$: Observable<boolean>;
+  @Select(AuthSelectors.loggedOut) loggedOut$: Observable<boolean>;
+  @Select(AuthSelectors.username) username$: Observable<string>;
 
-  constructor(private store: Store) {}
-
-  ngOnInit() {}
+  constructor() {}
 }

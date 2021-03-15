@@ -1,35 +1,29 @@
 import { Selector } from '@ngxs/store';
-import { AuthState } from './auth.state';
-import { AuthStateModel } from './auth.state';
+
+import { createPropertySelectors } from '../../ngxs-next';
+import { User } from './auth.model';
+import { AuthState, AuthStateModel } from './auth.state';
 
 export class AuthSelectors {
-  @Selector([AuthState])
-  static username(state: AuthStateModel) {
-    return state?.user?.username;
+  static slices = createPropertySelectors<AuthStateModel>(AuthState);
+
+  @Selector([AuthSelectors.slices.user])
+  static username(user: User) {
+    return user?.username;
   }
 
-  @Selector([AuthState])
-  static user(state: AuthStateModel) {
-    return state?.user;
+  @Selector([AuthSelectors.slices.user])
+  static token(user: User) {
+    return user?.token;
   }
 
-  @Selector([AuthState])
-  static token(state: AuthStateModel) {
-    return state?.user?.token;
+  @Selector([AuthSelectors.slices.user])
+  static loggedOut(user: User) {
+    return !user;
   }
 
-  @Selector([AuthState])
-  static loggedOut(state: AuthStateModel) {
-    return !state.user;
-  }
-
-  @Selector([AuthState])
-  static loggedIn(state: AuthStateModel) {
-    return !!state.user;
-  }
-
-  @Selector([AuthState])
-  static errors(state: AuthStateModel) {
-    return state.errors;
+  @Selector([AuthSelectors.slices.user])
+  static loggedIn(user: User) {
+    return !!user;
   }
 }

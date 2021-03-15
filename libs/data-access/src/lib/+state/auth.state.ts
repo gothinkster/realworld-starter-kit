@@ -1,18 +1,16 @@
+import { throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext } from '@ngxs/store';
-import { ConduitApiService } from './../conduit-api.service';
+
+import { ConduitApiService } from '../conduit-api.service';
 import { GetAuthUser, Login, Register, UpdateAuthUser } from './auth.actions';
-import { catchError, tap } from 'rxjs/operators';
-import { User } from '../user';
-import { throwError } from 'rxjs';
+
+import type { AuthStateModel } from './auth.model';
 
 function parseError(err) {
   return Object.keys(err.error.errors).map((key) => `${key} ${err.error.errors[key]}`);
-}
-
-export interface AuthStateModel {
-  user: User;
-  errors: string[];
 }
 
 @State<AuthStateModel>({

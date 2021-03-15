@@ -5,3 +5,8 @@ export interface User {
   bio: string;
   image: string;
 }
+
+export interface AuthStateModel {
+  user: User;
+  errors: string[];
+}

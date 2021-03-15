@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { AuthSelectors, Register } from '@realworld-angular-nx-ngxs/data-access';
-import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'realworld-angular-nx-ngxs-register',
@@ -16,7 +16,7 @@ export class RegisterPage implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
   });
-  errors$ = this.store.select(AuthSelectors.errors);
+  errors$ = this.store.select(AuthSelectors.slices.errors);
 
   constructor(private store: Store) {}
 

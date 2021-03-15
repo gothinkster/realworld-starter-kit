@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Store } from '@ngxs/store';
-import { Login, AuthSelectors } from '@realworld-angular-nx-ngxs/data-access';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Navigate } from '@ngxs/router-plugin';
+import { Store } from '@ngxs/store';
+import { AuthSelectors, Login } from '@realworld-angular-nx-ngxs/data-access';
 
 @Component({
   selector: 'conduit-login',
@@ -15,7 +15,7 @@ export class LoginPage implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
   });
-  errors$ = this.store.select(AuthSelectors.errors);
+  errors$ = this.store.select(AuthSelectors.slices.errors);
 
   constructor(private store: Store) {}
 
