@@ -1,0 +1,271 @@
+{
+  "version": 1,
+  "projects": {
+    "conduit": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "apps/conduit",
+      "sourceRoot": "apps/conduit/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/conduit",
+            "index": "apps/conduit/src/index.html",
+            "main": "apps/conduit/src/main.ts",
+            "polyfills": "apps/conduit/src/polyfills.ts",
+            "tsConfig": "apps/conduit/tsconfig.app.json",
+            "aot": true,
+            "assets": ["apps/conduit/src/favicon.ico", "apps/conduit/src/assets"],
+            "styles": ["apps/conduit/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/conduit/src/environments/environment.ts",
+                  "with": "apps/conduit/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "conduit:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "conduit:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "conduit:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/conduit/tsconfig.app.json", "apps/conduit/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!apps/conduit/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/conduit/jest.config.js",
+            "tsConfig": "apps/conduit/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/conduit/src/test-setup.ts"
+          }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
+        }
+      }
+    },
+    "conduit-e2e": {
+      "root": "apps/conduit-e2e",
+      "sourceRoot": "apps/conduit-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/conduit-e2e/cypress.json",
+            "tsConfig": "apps/conduit-e2e/tsconfig.e2e.json",
+            "devServerTarget": "conduit:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "conduit:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/conduit-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/conduit-e2e/**/*"]
+          }
+        }
+      }
+    },
+    "home": {
+      "projectType": "library",
+      "root": "libs/home",
+      "sourceRoot": "libs/home/src",
+      "prefix": "conduit",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/home/tsconfig.lib.json", "libs/home/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/home/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/home/jest.config.js",
+            "tsConfig": "libs/home/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/home/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "data-access": {
+      "root": "libs/data-access",
+      "sourceRoot": "libs/data-access/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/data-access/tsconfig.lib.json", "libs/data-access/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/data-access/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/data-access/jest.config.js",
+            "tsConfig": "libs/data-access/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "login": {
+      "projectType": "library",
+      "root": "libs/login",
+      "sourceRoot": "libs/login/src",
+      "prefix": "conduit",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/login/tsconfig.lib.json", "libs/login/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/login/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/login/jest.config.js",
+            "tsConfig": "libs/login/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/login/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "register": {
+      "projectType": "library",
+      "root": "libs/register",
+      "sourceRoot": "libs/register/src",
+      "prefix": "conduit",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/register/tsconfig.lib.json", "libs/register/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/register/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/register/jest.config.js",
+            "tsConfig": "libs/register/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/register/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "settings": {
+      "projectType": "library",
+      "root": "libs/settings",
+      "sourceRoot": "libs/settings/src",
+      "prefix": "conduit",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/settings/tsconfig.lib.json", "libs/settings/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/settings/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/settings/jest.config.js",
+            "tsConfig": "libs/settings/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/settings/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "bf1611c3-a794-426c-ad2e-c9131a3771d5"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "conduit"
+}

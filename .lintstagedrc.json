@@ -1,0 +1,7 @@
+{
+  "*.ts": ["prettier --write", "git add"],
+  "*.html": ["prettier --write", "git add"],
+  "*.scss": ["prettier --write", "git add"],
+  "*.json": ["prettier --write", "git add"],
+  "*.md": ["prettier --write", "git add"]
+}

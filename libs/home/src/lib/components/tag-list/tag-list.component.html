@@ -1,0 +1,7 @@
+<ng-container *ngIf="tags$ | async as tags">
+  <p>Popular Tags</p>
+
+  <div class="tag-list">
+    <a href="" class="tag-pill tag-default" *ngFor="let tag of tags">{{ tag }}</a>
+  </div>
+</ng-container>

@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@realworld-angular-nx-ngxs/home": ["libs/home/src/index.ts"],
+      "@realworld-angular-nx-ngxs/data-access": ["libs/data-access/src/index.ts"],
+      "@realworld-angular-nx-ngxs/login": ["libs/login/src/index.ts"],
+      "@realworld-angular-nx-ngxs/register": ["libs/register/src/index.ts"],
+      "@realworld-angular-nx-ngxs/settings": ["libs/settings/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
