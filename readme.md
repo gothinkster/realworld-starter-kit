@@ -1,6 +1,6 @@
 # ![RealWorld Example App](logo.png)
 
-> ### Golang/Fiber codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API. Project based on RealWorld example for [Golang/Echo](https://github.com/xesina/golang-echo-realworld-example-app/)
+> ### [Golang/Fiber](https://gofiber.io) codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API. Project based on [RealWorld example](https://github.com/xesina/golang-echo-realworld-example-app/) for [Golang/Echo](https://echo.labstack.com/)
 
 
 ### [Demo](https://github.com/gothinkster/realworld)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
@@ -8,7 +8,7 @@
 
 This codebase was created to demonstrate a fully fledged fullstack application built with Golang/Fiber including CRUD operations, authentication, routing, pagination, and more.
 
-We've gone to great lengths to adhere to the Golang/Fiber community styleguides & best practices.
+We've gone to great lengths to adhere to the [Golang/Fiber](https://gofiber.io) community styleguides & best practices.
 
 For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
 
