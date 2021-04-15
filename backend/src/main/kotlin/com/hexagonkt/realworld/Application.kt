@@ -1,31 +1,28 @@
 package com.hexagonkt.realworld
 
-import com.hexagonkt.helpers.require
 import com.hexagonkt.helpers.withZone
 import com.hexagonkt.http.server.*
 import com.hexagonkt.http.server.jetty.JettyServletAdapter
 import com.hexagonkt.http.server.servlet.ServletServer
 import com.hexagonkt.injection.InjectionManager
-import com.hexagonkt.settings.SettingsManager.settings
-import com.hexagonkt.store.Store
-import com.hexagonkt.store.mongodb.MongoDbStore
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.routes.*
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
-import com.hexagonkt.serialization.convertToObject
+import com.hexagonkt.settings.SettingsManager
+import com.hexagonkt.store.Store
+import com.hexagonkt.store.mongodb.MongoDbStore
 import java.net.URL
 import java.time.LocalDateTime
 import java.time.ZoneOffset.UTC
 import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME
-
 import javax.servlet.annotation.WebListener
 
 internal val injector = InjectionManager.apply {
-    bindObject(createJwt())
-    bindObject<ServerPort>(JettyServletAdapter())
-    bindObject(User::class, createUserStore())
-    bindObject(Article::class, createArticleStore())
+    bind(createJwt())
+    bind<ServerPort>(JettyServletAdapter())
+    bind(User::class, createUserStore())
+    bind(Article::class, createArticleStore())
 }
 
 /**
@@ -36,18 +33,18 @@ internal val injector = InjectionManager.apply {
 @Suppress("unused")
 class WebApplication : ServletServer(router)
 
-internal val server: Server = Server(injector.inject(), router, settings.convertToObject())
+internal val server: Server = Server(injector.inject(), router, SettingsManager.settings.convertToObject())
 
 private fun createJwt(): Jwt {
-    val keyStoreResource = settings.require("keyStoreResource").toString()
-    val keyStorePassword = settings.require("keyStorePassword").toString()
-    val keyPairAlias = settings.require("keyPairAlias").toString()
+    val keyStoreResource = SettingsManager.settings.require("keyStoreResource").toString()
+    val keyStorePassword = SettingsManager.settings.require("keyStorePassword").toString()
+    val keyPairAlias = SettingsManager.settings.require("keyPairAlias").toString()
 
     return Jwt(URL(keyStoreResource), keyStorePassword, keyPairAlias)
 }
 
 private fun createUserStore(): Store<User, String> {
-    val mongodbUrl = settings.require("mongodbUrl").toString()
+    val mongodbUrl = SettingsManager.settings.require("mongodbUrl").toString()
     val userStore = MongoDbStore(User::class, User::username, mongodbUrl)
     userStore.createIndex(true, User::email)
 
@@ -55,7 +52,7 @@ private fun createUserStore(): Store<User, String> {
 }
 
 private fun createArticleStore(): Store<Article, String> {
-    val mongodbUrl = settings.require("mongodbUrl").toString()
+    val mongodbUrl = SettingsManager.settings.require("mongodbUrl").toString()
     val articleStore = MongoDbStore(Article::class, Article::slug, mongodbUrl)
     articleStore.createIndex(false, Article::author)
 
