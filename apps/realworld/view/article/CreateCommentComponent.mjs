@@ -1,4 +1,4 @@
-import {default as Component} from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
+import Component from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
 
 /**
  * @class RealWorld.view.article.CreateCommentComponent

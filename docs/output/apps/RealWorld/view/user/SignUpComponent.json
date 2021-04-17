@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "RealWorld.view.user.SignUpComponent",
             "$kind": "class",
-            "id": 3367,
+            "id": 3472,
             "neoClassName": "RealWorld.view.user.SignUpComponent"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 3368,
+            "id": 3473,
             "neoClassName": "RealWorld.view.user.SignUpComponent"
         },
         {
@@ -68,7 +68,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 3369,
+            "id": 3474,
             "neoClassName": "RealWorld.view.user.SignUpComponent"
         },
         {
@@ -92,7 +92,7 @@
             "scope": "global",
             "$longname": "errors_",
             "$kind": "property",
-            "id": 3370,
+            "id": 3475,
             "neoClassName": "RealWorld.view.user.SignUpComponent"
         },
         {
@@ -115,7 +115,7 @@
             "scope": "global",
             "$longname": "fieldsets_",
             "$kind": "property",
-            "id": 3371,
+            "id": 3476,
             "neoClassName": "RealWorld.view.user.SignUpComponent"
         },
         {
@@ -138,7 +138,7 @@
             "scope": "global",
             "$longname": "keys",
             "$kind": "property",
-            "id": 3372,
+            "id": 3477,
             "neoClassName": "RealWorld.view.user.SignUpComponent"
         },
         {
@@ -163,7 +163,7 @@
             "scope": "global",
             "$longname": "mode_",
             "$kind": "property",
-            "id": 3373,
+            "id": 3478,
             "neoClassName": "RealWorld.view.user.SignUpComponent"
         },
         {
@@ -186,22 +186,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 3374,
+            "id": 3479,
             "neoClassName": "RealWorld.view.user.SignUpComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    2621,
-                    2987
+                    2595,
+                    2961
                 ],
                 "filename": "SignUpComponent.mjs",
                 "lineno": 83,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100111754",
+                    "id": "astnode100114666",
                     "name": "SignUpComponent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -228,22 +228,22 @@
             "scope": "global",
             "$longname": "SignUpComponent",
             "$kind": "constructor",
-            "id": 3375,
+            "id": 3480,
             "neoClassName": "RealWorld.view.user.SignUpComponent"
         },
         {
             "comment": "/**\n     * Triggered after the errors config got changed\n     * @param {Object[]} value\n     * @param {Object[]} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3145,
-                    3533
+                    3119,
+                    3507
                 ],
                 "filename": "SignUpComponent.mjs",
                 "lineno": 106,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100111794",
+                    "id": "astnode100114706",
                     "name": "SignUpComponent#afterSetErrors",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -282,22 +282,22 @@
             "scope": "instance",
             "$longname": "SignUpComponent#afterSetErrors",
             "$kind": "method",
-            "id": 3376,
+            "id": 3481,
             "neoClassName": "RealWorld.view.user.SignUpComponent"
         },
         {
             "comment": "/**\n     * Triggered after the fieldsets config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3690,
-                    4446
+                    3664,
+                    4420
                 ],
                 "filename": "SignUpComponent.mjs",
                 "lineno": 129,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100111861",
+                    "id": "astnode100114773",
                     "name": "SignUpComponent#afterSetFieldsets",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -336,22 +336,22 @@
             "scope": "instance",
             "$longname": "SignUpComponent#afterSetFieldsets",
             "$kind": "method",
-            "id": 3377,
+            "id": 3482,
             "neoClassName": "RealWorld.view.user.SignUpComponent"
         },
         {
             "comment": "/**\n     * Triggered after the mode config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4598,
-                    5300
+                    4572,
+                    5274
                 ],
                 "filename": "SignUpComponent.mjs",
                 "lineno": 159,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100111961",
+                    "id": "astnode100114873",
                     "name": "SignUpComponent#afterSetMode",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -390,22 +390,22 @@
             "scope": "instance",
             "$longname": "SignUpComponent#afterSetMode",
             "$kind": "method",
-            "id": 3378,
+            "id": 3483,
             "neoClassName": "RealWorld.view.user.SignUpComponent"
         },
         {
             "comment": "/**\n     * Example for dynamically finding vdom elements\n     * @returns {Object} vdom\n     */",
             "meta": {
                 "range": [
-                    5405,
-                    5542
+                    5379,
+                    5516
                 ],
                 "filename": "SignUpComponent.mjs",
                 "lineno": 184,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100112089",
+                    "id": "astnode100115001",
                     "name": "SignUpComponent#getErrorMessagesList",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -433,22 +433,22 @@
             "params": [],
             "$longname": "SignUpComponent#getErrorMessagesList",
             "$kind": "method",
-            "id": 3379,
+            "id": 3484,
             "neoClassName": "RealWorld.view.user.SignUpComponent"
         },
         {
             "comment": "/**\n     * Creates an inputEl id using the view id as a prefix\n     * @returns {String} itemId\n     */",
             "meta": {
                 "range": [
-                    5655,
-                    5713
+                    5629,
+                    5687
                 ],
                 "filename": "SignUpComponent.mjs",
                 "lineno": 193,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100112112",
+                    "id": "astnode100115024",
                     "name": "SignUpComponent#getInputId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -478,22 +478,22 @@
             "params": [],
             "$longname": "SignUpComponent#getInputId",
             "$kind": "method",
-            "id": 3380,
+            "id": 3485,
             "neoClassName": "RealWorld.view.user.SignUpComponent"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    5742,
-                    5802
+                    5716,
+                    5776
                 ],
                 "filename": "SignUpComponent.mjs",
                 "lineno": 200,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100112125",
+                    "id": "astnode100115037",
                     "name": "SignUpComponent#onKeyDownEnter",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -510,22 +510,22 @@
             "params": [],
             "$longname": "SignUpComponent#onKeyDownEnter",
             "$kind": "method",
-            "id": 3381,
+            "id": 3486,
             "neoClassName": "RealWorld.view.user.SignUpComponent"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    5831,
-                    7116
+                    5805,
+                    7090
                 ],
                 "filename": "SignUpComponent.mjs",
                 "lineno": 207,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100112134",
+                    "id": "astnode100115046",
                     "name": "SignUpComponent#onSubmitButtonClick",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -542,7 +542,7 @@
             "params": [],
             "$longname": "SignUpComponent#onSubmitButtonClick",
             "$kind": "method",
-            "id": 3382,
+            "id": 3487,
             "neoClassName": "RealWorld.view.user.SignUpComponent"
         }
     ]

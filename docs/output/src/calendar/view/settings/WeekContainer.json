@@ -95,11 +95,11 @@
             "neoClassName": "Neo.calendar.view.settings.WeekContainer"
         },
         {
-            "comment": "/**\n     *\n     * @param config\n     */",
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    980,
-                    1058
+                    989,
+                    1067
                 ],
                 "filename": "WeekContainer.mjs",
                 "lineno": 35,
@@ -119,6 +119,11 @@
             },
             "params": [
                 {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
                     "name": "config"
                 }
             ],
@@ -135,8 +140,8 @@
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    1087,
-                    4038
+                    1096,
+                    4047
                 ],
                 "filename": "WeekContainer.mjs",
                 "lineno": 43,
@@ -167,8 +172,8 @@
             "comment": "/**\n     *\n     * @returns {Neo.calendar.view.TimeAxisComponent}\n     */",
             "meta": {
                 "range": [
-                    4121,
-                    4191
+                    4130,
+                    4200
                 ],
                 "filename": "WeekContainer.mjs",
                 "lineno": 120,
@@ -208,8 +213,8 @@
             "comment": "/**\n     *\n     * @returns {Neo.calendar.view.WeekComponent}\n     */",
             "meta": {
                 "range": [
-                    4270,
-                    4360
+                    4279,
+                    4369
                 ],
                 "filename": "WeekContainer.mjs",
                 "lineno": 128,
@@ -249,8 +254,8 @@
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    4417,
-                    4515
+                    4426,
+                    4524
                 ],
                 "filename": "WeekContainer.mjs",
                 "lineno": 136,
@@ -289,11 +294,11 @@
             "neoClassName": "Neo.calendar.view.settings.WeekContainer"
         },
         {
-            "comment": "/**\n     *\n     * @param data\n     */",
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    4563,
-                    4719
+                    4581,
+                    4737
                 ],
                 "filename": "WeekContainer.mjs",
                 "lineno": 144,
@@ -313,6 +318,11 @@
             },
             "params": [
                 {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
                     "name": "data"
                 }
             ],

@@ -176,11 +176,11 @@
             "neoClassName": "Neo.button.Split"
         },
         {
-            "comment": "/**\n     *\n     * @returns {Object} The new vdom root\n     */",
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    1739,
-                    1792
+                    1726,
+                    2251
                 ],
                 "filename": "Split.mjs",
                 "lineno": 61,
@@ -188,90 +188,6 @@
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/button",
                 "code": {
                     "id": "astnode100000741",
-                    "name": "Split#getVdomRoot",
-                    "type": "MethodDefinition",
-                    "paramnames": []
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "returns": [
-                {
-                    "type": {
-                        "names": [
-                            "Object"
-                        ]
-                    },
-                    "description": "The new vdom root"
-                }
-            ],
-            "name": "getVdomRoot",
-            "longname": "Split#getVdomRoot",
-            "kind": "function",
-            "memberof": "Split",
-            "scope": "instance",
-            "params": [],
-            "$longname": "Split#getVdomRoot",
-            "$kind": "method",
-            "id": 42,
-            "neoClassName": "Neo.button.Split"
-        },
-        {
-            "comment": "/**\n     *\n     * @returns {Object} The new vnode root\n     */",
-            "meta": {
-                "range": [
-                    1865,
-                    1928
-                ],
-                "filename": "Split.mjs",
-                "lineno": 69,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/button",
-                "code": {
-                    "id": "astnode100000753",
-                    "name": "Split#getVnodeRoot",
-                    "type": "MethodDefinition",
-                    "paramnames": []
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "returns": [
-                {
-                    "type": {
-                        "names": [
-                            "Object"
-                        ]
-                    },
-                    "description": "The new vnode root"
-                }
-            ],
-            "name": "getVnodeRoot",
-            "longname": "Split#getVnodeRoot",
-            "kind": "function",
-            "memberof": "Split",
-            "scope": "instance",
-            "params": [],
-            "$longname": "Split#getVnodeRoot",
-            "$kind": "method",
-            "id": 43,
-            "neoClassName": "Neo.button.Split"
-        },
-        {
-            "comment": "/**\n     *\n     * @param {Object} config\n     */",
-            "meta": {
-                "range": [
-                    1987,
-                    2512
-                ],
-                "filename": "Split.mjs",
-                "lineno": 77,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/button",
-                "code": {
-                    "id": "astnode100000765",
                     "name": "Split",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -298,22 +214,22 @@
             "scope": "global",
             "$longname": "Split",
             "$kind": "constructor",
-            "id": 44,
+            "id": 42,
             "neoClassName": "Neo.button.Split"
         },
         {
             "comment": "/**\n     * Triggered after the disabled config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2670,
-                    2874
+                    2409,
+                    2613
                 ],
                 "filename": "Split.mjs",
-                "lineno": 104,
+                "lineno": 88,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/button",
                 "code": {
-                    "id": "astnode100000843",
+                    "id": "astnode100000819",
                     "name": "Split#afterSetDisabled",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -352,22 +268,22 @@
             "scope": "instance",
             "$longname": "Split#afterSetDisabled",
             "$kind": "method",
-            "id": 45,
+            "id": 43,
             "neoClassName": "Neo.button.Split"
         },
         {
             "comment": "/**\n     * Triggered after the pressed config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3031,
-                    3232
+                    2770,
+                    2971
                 ],
                 "filename": "Split.mjs",
-                "lineno": 120,
+                "lineno": 104,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/button",
                 "code": {
-                    "id": "astnode100000873",
+                    "id": "astnode100000849",
                     "name": "Split#afterSetPressed",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -406,22 +322,22 @@
             "scope": "instance",
             "$longname": "Split#afterSetPressed",
             "$kind": "method",
-            "id": 46,
+            "id": 44,
             "neoClassName": "Neo.button.Split"
         },
         {
             "comment": "/**\n     * Triggered after the triggerButtonIconCls config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3400,
-                    3565
+                    3139,
+                    3304
                 ],
                 "filename": "Split.mjs",
-                "lineno": 136,
+                "lineno": 120,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/button",
                 "code": {
-                    "id": "astnode100000903",
+                    "id": "astnode100000879",
                     "name": "Split#afterSetTriggerButtonIconCls",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -460,22 +376,22 @@
             "scope": "instance",
             "$longname": "Split#afterSetTriggerButtonIconCls",
             "$kind": "method",
-            "id": 47,
+            "id": 45,
             "neoClassName": "Neo.button.Split"
         },
         {
             "comment": "/**\n     *\n     * @param {Boolean} [updateParentVdom=false]\n     * @param {Boolean} [silent=false]\n     */",
             "meta": {
                 "range": [
-                    3682,
-                    3858
+                    3421,
+                    3597
                 ],
                 "filename": "Split.mjs",
-                "lineno": 149,
+                "lineno": 133,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/button",
                 "code": {
-                    "id": "astnode100000926",
+                    "id": "astnode100000902",
                     "name": "Split#destroy",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -515,6 +431,90 @@
             "memberof": "Split",
             "scope": "instance",
             "$longname": "Split#destroy",
+            "$kind": "method",
+            "id": 46,
+            "neoClassName": "Neo.button.Split"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Object} The new vdom root\n     */",
+            "meta": {
+                "range": [
+                    3669,
+                    3722
+                ],
+                "filename": "Split.mjs",
+                "lineno": 142,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/button",
+                "code": {
+                    "id": "astnode100000926",
+                    "name": "Split#getVdomRoot",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The new vdom root"
+                }
+            ],
+            "name": "getVdomRoot",
+            "longname": "Split#getVdomRoot",
+            "kind": "function",
+            "memberof": "Split",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Split#getVdomRoot",
+            "$kind": "method",
+            "id": 47,
+            "neoClassName": "Neo.button.Split"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Object} The new vnode root\n     */",
+            "meta": {
+                "range": [
+                    3795,
+                    3858
+                ],
+                "filename": "Split.mjs",
+                "lineno": 150,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/button",
+                "code": {
+                    "id": "astnode100000938",
+                    "name": "Split#getVnodeRoot",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The new vnode root"
+                }
+            ],
+            "name": "getVnodeRoot",
+            "longname": "Split#getVnodeRoot",
+            "kind": "function",
+            "memberof": "Split",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Split#getVnodeRoot",
             "$kind": "method",
             "id": 48,
             "neoClassName": "Neo.button.Split"

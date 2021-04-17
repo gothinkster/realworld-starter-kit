@@ -20,7 +20,7 @@
             "scope": "static",
             "$longname": "Neo.main.draggable.sensor.Base",
             "$kind": "class",
-            "id": 2124,
+            "id": 2180,
             "neoClassName": "Neo.main.draggable.sensor.Base"
         },
         {
@@ -45,7 +45,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2125,
+            "id": 2181,
             "neoClassName": "Neo.main.draggable.sensor.Base"
         },
         {
@@ -71,7 +71,7 @@
             "scope": "global",
             "$longname": "currentElement",
             "$kind": "property",
-            "id": 2126,
+            "id": 2182,
             "neoClassName": "Neo.main.draggable.sensor.Base"
         },
         {
@@ -95,7 +95,7 @@
             "scope": "global",
             "$longname": "dragTargetClasses",
             "$kind": "property",
-            "id": 2127,
+            "id": 2183,
             "neoClassName": "Neo.main.draggable.sensor.Base"
         },
         {
@@ -120,7 +120,7 @@
             "scope": "global",
             "$longname": "isDragging",
             "$kind": "property",
-            "id": 2128,
+            "id": 2184,
             "neoClassName": "Neo.main.draggable.sensor.Base"
         },
         {
@@ -146,7 +146,7 @@
             "scope": "global",
             "$longname": "lastEvent",
             "$kind": "property",
-            "id": 2129,
+            "id": 2185,
             "neoClassName": "Neo.main.draggable.sensor.Base"
         },
         {
@@ -172,54 +172,22 @@
             "scope": "global",
             "$longname": "startEvent",
             "$kind": "property",
-            "id": 2130,
-            "neoClassName": "Neo.main.draggable.sensor.Base"
-        },
-        {
-            "comment": "/**\n     *\n     */",
-            "meta": {
-                "range": [
-                    1091,
-                    1168
-                ],
-                "filename": "Base.mjs",
-                "lineno": 44,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
-                "code": {
-                    "id": "astnode100065448",
-                    "name": "Base#onConstructed",
-                    "type": "MethodDefinition",
-                    "paramnames": []
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "name": "onConstructed",
-            "longname": "Base#onConstructed",
-            "kind": "function",
-            "memberof": "Base",
-            "scope": "instance",
-            "params": [],
-            "$longname": "Base#onConstructed",
-            "$kind": "method",
-            "id": 2131,
+            "id": 2186,
             "neoClassName": "Neo.main.draggable.sensor.Base"
         },
         {
             "comment": "/**\n     * Attaches sensors event listeners to the DOM\n     */",
             "meta": {
                 "range": [
-                    1241,
-                    1252
+                    1135,
+                    1146
                 ],
                 "filename": "Base.mjs",
-                "lineno": 52,
+                "lineno": 44,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
                 "code": {
-                    "id": "astnode100065462",
+                    "id": "astnode100066232",
                     "name": "Base#attach",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -237,22 +205,22 @@
             "params": [],
             "$longname": "Base#attach",
             "$kind": "method",
-            "id": 2132,
+            "id": 2187,
             "neoClassName": "Neo.main.draggable.sensor.Base"
         },
         {
             "comment": "/**\n     * Detaches sensors event listeners from the DOM\n     */",
             "meta": {
                 "range": [
-                    1327,
-                    1338
+                    1221,
+                    1232
                 ],
                 "filename": "Base.mjs",
-                "lineno": 57,
+                "lineno": 49,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
                 "code": {
-                    "id": "astnode100065466",
+                    "id": "astnode100066236",
                     "name": "Base#detach",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -270,7 +238,39 @@
             "params": [],
             "$longname": "Base#detach",
             "$kind": "method",
-            "id": 2133,
+            "id": 2188,
+            "neoClassName": "Neo.main.draggable.sensor.Base"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    1261,
+                    1338
+                ],
+                "filename": "Base.mjs",
+                "lineno": 54,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
+                "code": {
+                    "id": "astnode100066240",
+                    "name": "Base#onConstructed",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onConstructed",
+            "longname": "Base#onConstructed",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#onConstructed",
+            "$kind": "method",
+            "id": 2189,
             "neoClassName": "Neo.main.draggable.sensor.Base"
         },
         {
@@ -285,7 +285,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
                 "code": {
-                    "id": "astnode100065470",
+                    "id": "astnode100066254",
                     "name": "Base#trigger",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -334,7 +334,7 @@
             "scope": "instance",
             "$longname": "Base#trigger",
             "$kind": "method",
-            "id": 2134,
+            "id": 2190,
             "neoClassName": "Neo.main.draggable.sensor.Base"
         }
     ]

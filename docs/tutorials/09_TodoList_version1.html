@@ -36,14 +36,13 @@
             Neo = self.Neo || {}; Neo.config = Neo.config || {};
 
             Object.assign(Neo.config, {
-                appPath       : 'examples/todoList/version1/app.mjs',
-                basePath      : '../../../',
-                environment   : 'development',
-                isExperimental: true
+                appPath    : 'examples/todoList/version1/app.mjs',
+                basePath   : '../../../',
+                environment: 'development'
             });
         &lt;/script&gt;
 
-        &lt;script src="../../../node_modules/neo.mjs/src/Main.mjs" type="module"&gt;&lt;/script&gt;
+        &lt;script src="../../../src/Main.mjs" type="module"&gt;&lt;/script&gt;
     &lt;/body&gt;
     &lt;/html&gt;</code></pre></li>
         <li><h4>app.mjs:</h4>
@@ -69,7 +68,7 @@ export {onStart as onStart};</code></pre>
             in case you want to render a Neo App inside an already existing Container, you can do this as well.</br>
             In this case you would use renderTo: 'nodeId' inside your app.mjs file.</br>
             For version1 we will just extend component.Base to get you familiar with some basic concepts.</p>
-        <pre><code>import {default as Component} from '../../../node_modules/neo.mjs/src/component/Base.mjs';
+        <pre><code>import {default as Component} from '../../../src/component/Base.mjs';
 
 /**
  * @class TodoListApp1.MainComponent
@@ -103,7 +102,7 @@ export {MainComponent as default};</code></pre>
     <p>This is literally all you need to do to get started crafting your first custom component!</p>
     <p>Moving forward from here we will only need to apply changes to MainComponent.mjs.</p>
     <p>As a first step, let us add some content into our component:</p>
-    <pre><code>import {default as Component} from '../../../node_modules/neo.mjs/src/component/Base.mjs';
+    <pre><code>import {default as Component} from '../../../src/component/Base.mjs';
 
 /**
  * @class TodoListApp1.MainComponent
@@ -354,9 +353,9 @@ export {MainComponent as default};</code></pre>
         Here is the full code of our todoList component:
     </p>
 
-    <pre><code style="height: 500px;">import {default as Component} from '../../../node_modules/neo.mjs/src/component/Base.mjs';
-import NeoArray               from '../../../node_modules/neo.mjs/src/util/Array.mjs';
-import {default as VdomUtil}  from '../../../node_modules/neo.mjs/src/util/VDom.mjs';
+    <pre><code style="height: 500px;">import {default as Component} from '../../../src/component/Base.mjs';
+import NeoArray               from '../../../src/util/Array.mjs';
+import {default as VdomUtil}  from '../../../src/util/VDom.mjs';
 
 /**
  * @class TodoListApp1.MainComponent

@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "RealWorld.view.article.PreviewComponent",
             "$kind": "class",
-            "id": 3205,
+            "id": 3310,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 3206,
+            "id": 3311,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "author_",
             "$kind": "property",
-            "id": 3207,
+            "id": 3312,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 3208,
+            "id": 3313,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
@@ -119,7 +119,7 @@
             "scope": "global",
             "$longname": "createdAt_",
             "$kind": "property",
-            "id": 3209,
+            "id": 3314,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
@@ -144,7 +144,7 @@
             "scope": "global",
             "$longname": "description_",
             "$kind": "property",
-            "id": 3210,
+            "id": 3315,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
@@ -168,7 +168,7 @@
             "scope": "global",
             "$longname": "favorited_",
             "$kind": "property",
-            "id": 3211,
+            "id": 3316,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
@@ -193,7 +193,7 @@
             "scope": "global",
             "$longname": "favoritesCount_",
             "$kind": "property",
-            "id": 3212,
+            "id": 3317,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
@@ -218,7 +218,7 @@
             "scope": "global",
             "$longname": "slug_",
             "$kind": "property",
-            "id": 3213,
+            "id": 3318,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
@@ -243,7 +243,7 @@
             "scope": "global",
             "$longname": "tagList_",
             "$kind": "property",
-            "id": 3214,
+            "id": 3319,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
@@ -268,7 +268,7 @@
             "scope": "global",
             "$longname": "title_",
             "$kind": "property",
-            "id": 3215,
+            "id": 3320,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
@@ -293,7 +293,7 @@
             "scope": "global",
             "$longname": "userImage_",
             "$kind": "property",
-            "id": 3216,
+            "id": 3321,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
@@ -316,22 +316,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 3217,
+            "id": 3322,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    2900,
-                    3270
+                    2861,
+                    3231
                 ],
                 "filename": "PreviewComponent.mjs",
                 "lineno": 98,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100105869",
+                    "id": "astnode100108788",
                     "name": "PreviewComponent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -358,22 +358,22 @@
             "scope": "global",
             "$longname": "PreviewComponent",
             "$kind": "constructor",
-            "id": 3218,
+            "id": 3323,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
             "comment": "/**\n     * Triggered after the author config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3424,
-                    3734
+                    3385,
+                    3695
                 ],
                 "filename": "PreviewComponent.mjs",
                 "lineno": 121,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100105909",
+                    "id": "astnode100108828",
                     "name": "PreviewComponent#afterSetAuthor",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -412,22 +412,22 @@
             "scope": "instance",
             "$longname": "PreviewComponent#afterSetAuthor",
             "$kind": "method",
-            "id": 3219,
+            "id": 3324,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
             "comment": "/**\n     * Triggered after the createdAt config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3891,
-                    4201
+                    3852,
+                    4162
                 ],
                 "filename": "PreviewComponent.mjs",
                 "lineno": 140,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100105963",
+                    "id": "astnode100108882",
                     "name": "PreviewComponent#afterSetCreatedAt",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -466,22 +466,22 @@
             "scope": "instance",
             "$longname": "PreviewComponent#afterSetCreatedAt",
             "$kind": "method",
-            "id": 3220,
+            "id": 3325,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
             "comment": "/**\n     * Triggered after the description config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4360,
-                    4523
+                    4321,
+                    4484
                 ],
                 "filename": "PreviewComponent.mjs",
                 "lineno": 158,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100106009",
+                    "id": "astnode100108928",
                     "name": "PreviewComponent#afterSetDescription",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -520,22 +520,22 @@
             "scope": "instance",
             "$longname": "PreviewComponent#afterSetDescription",
             "$kind": "method",
-            "id": 3221,
+            "id": 3326,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
             "comment": "/**\n     * Triggered after the favorited config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4682,
-                    5167
+                    4643,
+                    5128
                 ],
                 "filename": "PreviewComponent.mjs",
                 "lineno": 171,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100106038",
+                    "id": "astnode100108957",
                     "name": "PreviewComponent#afterSetFavorited",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -574,22 +574,22 @@
             "scope": "instance",
             "$longname": "PreviewComponent#afterSetFavorited",
             "$kind": "method",
-            "id": 3222,
+            "id": 3327,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
             "comment": "/**\n     * Triggered after the favoritesCount config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5329,
-                    5504
+                    5290,
+                    5465
                 ],
                 "filename": "PreviewComponent.mjs",
                 "lineno": 193,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100106113",
+                    "id": "astnode100109032",
                     "name": "PreviewComponent#afterSetFavoritesCount",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -628,22 +628,22 @@
             "scope": "instance",
             "$longname": "PreviewComponent#afterSetFavoritesCount",
             "$kind": "method",
-            "id": 3223,
+            "id": 3328,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
             "comment": "/**\n     * Triggered after the slug config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5656,
-                    5828
+                    5617,
+                    5789
                 ],
                 "filename": "PreviewComponent.mjs",
                 "lineno": 206,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100106144",
+                    "id": "astnode100109063",
                     "name": "PreviewComponent#afterSetSlug",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -682,22 +682,22 @@
             "scope": "instance",
             "$longname": "PreviewComponent#afterSetSlug",
             "$kind": "method",
-            "id": 3224,
+            "id": 3329,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
             "comment": "/**\n     * Triggered after the tagList config got changed\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5981,
-                    6710
+                    5942,
+                    6671
                 ],
                 "filename": "PreviewComponent.mjs",
                 "lineno": 219,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100106175",
+                    "id": "astnode100109094",
                     "name": "PreviewComponent#afterSetTagList",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -736,22 +736,22 @@
             "scope": "instance",
             "$longname": "PreviewComponent#afterSetTagList",
             "$kind": "method",
-            "id": 3225,
+            "id": 3330,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
             "comment": "/**\n     * Triggered after the title config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6863,
-                    7014
+                    6824,
+                    6975
                 ],
                 "filename": "PreviewComponent.mjs",
                 "lineno": 256,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100106281",
+                    "id": "astnode100109200",
                     "name": "PreviewComponent#afterSetTitle",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -790,22 +790,22 @@
             "scope": "instance",
             "$longname": "PreviewComponent#afterSetTitle",
             "$kind": "method",
-            "id": 3226,
+            "id": 3331,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
             "comment": "/**\n     * Triggered after the userImage config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7171,
-                    7339
+                    7132,
+                    7300
                 ],
                 "filename": "PreviewComponent.mjs",
                 "lineno": 269,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100106310",
+                    "id": "astnode100109229",
                     "name": "PreviewComponent#afterSetUserImage",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -844,22 +844,22 @@
             "scope": "instance",
             "$longname": "PreviewComponent#afterSetUserImage",
             "$kind": "method",
-            "id": 3227,
+            "id": 3332,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    7396,
-                    7659
+                    7357,
+                    7620
                 ],
                 "filename": "PreviewComponent.mjs",
                 "lineno": 280,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100106343",
+                    "id": "astnode100109262",
                     "name": "PreviewComponent#onFavoriteButtonClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -887,7 +887,7 @@
             "scope": "instance",
             "$longname": "PreviewComponent#onFavoriteButtonClick",
             "$kind": "method",
-            "id": 3228,
+            "id": 3333,
             "neoClassName": "RealWorld.view.article.PreviewComponent"
         }
     ]

@@ -1,6 +1,6 @@
-import {default as Component} from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
-import NeoArray               from '../../../../node_modules/neo.mjs/src/util/Array.mjs';
-import {default as VDomUtil}  from '../../../../node_modules/neo.mjs/src/util/VDom.mjs';
+import Component from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
+import NeoArray  from '../../../../node_modules/neo.mjs/src/util/Array.mjs';
+import VDomUtil  from '../../../../node_modules/neo.mjs/src/util/VDom.mjs';
 
 /**
  * @class RealWorld.view.article.PreviewComponent

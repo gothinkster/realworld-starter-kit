@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Docs.app.view.MainContainerController",
             "$kind": "class",
-            "id": 3075,
+            "id": 3180,
             "neoClassName": "Docs.app.view.MainContainerController"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 3076,
+            "id": 3181,
             "neoClassName": "Docs.app.view.MainContainerController"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 3077,
+            "id": 3182,
             "neoClassName": "Docs.app.view.MainContainerController"
         },
         {
@@ -84,7 +84,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view",
                 "code": {
-                    "id": "astnode100101005",
+                    "id": "astnode100103934",
                     "name": "MainContainerController#onApiListLeafClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -112,7 +112,7 @@
             "scope": "instance",
             "$longname": "MainContainerController#onApiListLeafClick",
             "$kind": "method",
-            "id": 3078,
+            "id": 3183,
             "neoClassName": "Docs.app.view.MainContainerController"
         },
         {
@@ -120,14 +120,14 @@
             "meta": {
                 "range": [
                     1314,
-                    3206
+                    3175
                 ],
                 "filename": "MainContainerController.mjs",
                 "lineno": 46,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view",
                 "code": {
-                    "id": "astnode100101048",
+                    "id": "astnode100103977",
                     "name": "MainContainerController#onExamplesListLeafClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -155,22 +155,22 @@
             "scope": "instance",
             "$longname": "MainContainerController#onExamplesListLeafClick",
             "$kind": "method",
-            "id": 3079,
+            "id": 3184,
             "neoClassName": "Docs.app.view.MainContainerController"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} value\n     * @param {Object} oldValue\n     */",
             "meta": {
                 "range": [
-                    3296,
-                    4353
+                    3265,
+                    4322
                 ],
                 "filename": "MainContainerController.mjs",
                 "lineno": 108,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view",
                 "code": {
-                    "id": "astnode100101238",
+                    "id": "astnode100104159",
                     "name": "MainContainerController#onHashChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -207,22 +207,22 @@
             "scope": "instance",
             "$longname": "MainContainerController#onHashChange",
             "$kind": "method",
-            "id": 3080,
+            "id": 3185,
             "neoClassName": "Docs.app.view.MainContainerController"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    4410,
-                    4737
+                    4379,
+                    4706
                 ],
                 "filename": "MainContainerController.mjs",
                 "lineno": 141,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view",
                 "code": {
-                    "id": "astnode100101338",
+                    "id": "astnode100104259",
                     "name": "MainContainerController#onNavigationSearchFieldChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -250,22 +250,22 @@
             "scope": "instance",
             "$longname": "MainContainerController#onNavigationSearchFieldChange",
             "$kind": "method",
-            "id": 3081,
+            "id": 3186,
             "neoClassName": "Docs.app.view.MainContainerController"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    4766,
-                    5454
+                    4735,
+                    5423
                 ],
                 "filename": "MainContainerController.mjs",
                 "lineno": 153,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view",
                 "code": {
-                    "id": "astnode100101388",
+                    "id": "astnode100104309",
                     "name": "MainContainerController#onSwitchSourceViewThemeButtonClick",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -282,22 +282,22 @@
             "params": [],
             "$longname": "MainContainerController#onSwitchSourceViewThemeButtonClick",
             "$kind": "method",
-            "id": 3082,
+            "id": 3187,
             "neoClassName": "Docs.app.view.MainContainerController"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    5483,
-                    6658
+                    5452,
+                    6627
                 ],
                 "filename": "MainContainerController.mjs",
                 "lineno": 177,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view",
                 "code": {
-                    "id": "astnode100101459",
+                    "id": "astnode100104380",
                     "name": "MainContainerController#onSwitchThemeButtonClick",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -314,22 +314,22 @@
             "params": [],
             "$longname": "MainContainerController#onSwitchThemeButtonClick",
             "$kind": "method",
-            "id": 3083,
+            "id": 3188,
             "neoClassName": "Docs.app.view.MainContainerController"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} record\n     */",
             "meta": {
                 "range": [
-                    6717,
-                    7214
+                    6686,
+                    7183
                 ],
                 "filename": "MainContainerController.mjs",
                 "lineno": 220,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/docs/app/view",
                 "code": {
-                    "id": "astnode100101607",
+                    "id": "astnode100104528",
                     "name": "MainContainerController#onTutorialListLeafClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -357,7 +357,7 @@
             "scope": "instance",
             "$longname": "MainContainerController#onTutorialListLeafClick",
             "$kind": "method",
-            "id": 3084,
+            "id": 3189,
             "neoClassName": "Docs.app.view.MainContainerController"
         }
     ]

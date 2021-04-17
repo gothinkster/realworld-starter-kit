@@ -20,7 +20,7 @@
             "scope": "static",
             "$longname": "Neo.form.field.trigger.CopyToClipboard",
             "$kind": "class",
-            "id": 1679,
+            "id": 1721,
             "neoClassName": "Neo.form.field.trigger.CopyToClipboard"
         },
         {
@@ -45,7 +45,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1680,
+            "id": 1722,
             "neoClassName": "Neo.form.field.trigger.CopyToClipboard"
         },
         {
@@ -70,7 +70,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1681,
+            "id": 1723,
             "neoClassName": "Neo.form.field.trigger.CopyToClipboard"
         },
         {
@@ -95,7 +95,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1682,
+            "id": 1724,
             "neoClassName": "Neo.form.field.trigger.CopyToClipboard"
         },
         {
@@ -121,7 +121,7 @@
             "scope": "global",
             "$longname": "iconCls",
             "$kind": "property",
-            "id": 1683,
+            "id": 1725,
             "neoClassName": "Neo.form.field.trigger.CopyToClipboard"
         },
         {
@@ -145,7 +145,7 @@
             "scope": "global",
             "$longname": "showOnHover",
             "$kind": "property",
-            "id": 1684,
+            "id": 1726,
             "neoClassName": "Neo.form.field.trigger.CopyToClipboard"
         },
         {
@@ -171,7 +171,7 @@
             "scope": "global",
             "$longname": "type",
             "$kind": "property",
-            "id": 1685,
+            "id": 1727,
             "neoClassName": "Neo.form.field.trigger.CopyToClipboard"
         },
         {
@@ -195,54 +195,22 @@
             "scope": "global",
             "$longname": "weight_",
             "$kind": "property",
-            "id": 1686,
-            "neoClassName": "Neo.form.field.trigger.CopyToClipboard"
-        },
-        {
-            "comment": "/**\n     *\n     */",
-            "meta": {
-                "range": [
-                    1361,
-                    1630
-                ],
-                "filename": "CopyToClipboard.mjs",
-                "lineno": 48,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field/trigger",
-                "code": {
-                    "id": "astnode100052311",
-                    "name": "CopyToClipboard#onConstructed",
-                    "type": "MethodDefinition",
-                    "paramnames": []
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "name": "onConstructed",
-            "longname": "CopyToClipboard#onConstructed",
-            "kind": "function",
-            "memberof": "CopyToClipboard",
-            "scope": "instance",
-            "params": [],
-            "$longname": "CopyToClipboard#onConstructed",
-            "$kind": "method",
-            "id": 1687,
+            "id": 1728,
             "neoClassName": "Neo.form.field.trigger.CopyToClipboard"
         },
         {
             "comment": "/**\n     * Triggered after the hidden config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1786,
-                    1932
+                    1488,
+                    1634
                 ],
                 "filename": "CopyToClipboard.mjs",
-                "lineno": 68,
+                "lineno": 51,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field/trigger",
                 "code": {
-                    "id": "astnode100052351",
+                    "id": "astnode100052805",
                     "name": "CopyToClipboard#afterSetHidden",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -280,22 +248,22 @@
             "scope": "instance",
             "$longname": "CopyToClipboard#afterSetHidden",
             "$kind": "method",
-            "id": 1688,
+            "id": 1729,
             "neoClassName": "Neo.form.field.trigger.CopyToClipboard"
         },
         {
             "comment": "/**\n     *\n     * @returns {Boolean} true in case the trigger should be hidden\n     */",
             "meta": {
                 "range": [
-                    2029,
-                    2120
+                    1731,
+                    1822
                 ],
                 "filename": "CopyToClipboard.mjs",
-                "lineno": 78,
+                "lineno": 61,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field/trigger",
                 "code": {
-                    "id": "astnode100052378",
+                    "id": "astnode100052832",
                     "name": "CopyToClipboard#getHiddenState",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -322,7 +290,39 @@
             "params": [],
             "$longname": "CopyToClipboard#getHiddenState",
             "$kind": "method",
-            "id": 1689,
+            "id": 1730,
+            "neoClassName": "Neo.form.field.trigger.CopyToClipboard"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    1851,
+                    2120
+                ],
+                "filename": "CopyToClipboard.mjs",
+                "lineno": 68,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field/trigger",
+                "code": {
+                    "id": "astnode100052853",
+                    "name": "CopyToClipboard#onConstructed",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onConstructed",
+            "longname": "CopyToClipboard#onConstructed",
+            "kind": "function",
+            "memberof": "CopyToClipboard",
+            "scope": "instance",
+            "params": [],
+            "$longname": "CopyToClipboard#onConstructed",
+            "$kind": "method",
+            "id": 1731,
             "neoClassName": "Neo.form.field.trigger.CopyToClipboard"
         },
         {
@@ -337,7 +337,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field/trigger",
                 "code": {
-                    "id": "astnode100052399",
+                    "id": "astnode100052893",
                     "name": "CopyToClipboard#onFieldChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -365,7 +365,50 @@
             "scope": "instance",
             "$longname": "CopyToClipboard#onFieldChange",
             "$kind": "method",
-            "id": 1690,
+            "id": 1732,
+            "neoClassName": "Neo.form.field.trigger.CopyToClipboard"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    2306,
+                    2548
+                ],
+                "filename": "CopyToClipboard.mjs",
+                "lineno": 94,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field/trigger",
+                "code": {
+                    "id": "astnode100052907",
+                    "name": "CopyToClipboard#onTriggerClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onTriggerClick",
+            "longname": "CopyToClipboard#onTriggerClick",
+            "kind": "function",
+            "memberof": "CopyToClipboard",
+            "scope": "instance",
+            "$longname": "CopyToClipboard#onTriggerClick",
+            "$kind": "method",
+            "id": 1733,
             "neoClassName": "Neo.form.field.trigger.CopyToClipboard"
         }
     ]

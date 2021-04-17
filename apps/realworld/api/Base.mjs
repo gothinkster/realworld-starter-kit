@@ -1,5 +1,5 @@
 import {API_URL, LOCAL_STORAGE_KEY} from './config.mjs';
-import {default as CoreBase}        from '../../../node_modules/neo.mjs/src/core/Base.mjs';
+import CoreBase                     from '../../../node_modules/neo.mjs/src/core/Base.mjs';
 
 /**
  * @class RealWorld.api.Base

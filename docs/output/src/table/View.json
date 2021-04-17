@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.table.View",
             "$kind": "class",
-            "id": 2645,
+            "id": 2740,
             "neoClassName": "Neo.table.View"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2646,
+            "id": 2741,
             "neoClassName": "Neo.table.View"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2647,
+            "id": 2742,
             "neoClassName": "Neo.table.View"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 2648,
+            "id": 2743,
             "neoClassName": "Neo.table.View"
         },
         {
@@ -119,7 +119,7 @@
             "scope": "global",
             "$longname": "containerId",
             "$kind": "property",
-            "id": 2649,
+            "id": 2744,
             "neoClassName": "Neo.table.View"
         },
         {
@@ -143,7 +143,7 @@
             "scope": "global",
             "$longname": "recordVnodeMap",
             "$kind": "property",
-            "id": 2650,
+            "id": 2745,
             "neoClassName": "Neo.table.View"
         },
         {
@@ -168,7 +168,7 @@
             "scope": "global",
             "$longname": "store",
             "$kind": "property",
-            "id": 2651,
+            "id": 2746,
             "neoClassName": "Neo.table.View"
         },
         {
@@ -192,7 +192,7 @@
             "scope": "global",
             "$longname": "useRowRecordIds",
             "$kind": "property",
-            "id": 2652,
+            "id": 2747,
             "neoClassName": "Neo.table.View"
         },
         {
@@ -217,7 +217,7 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 2653,
+            "id": 2748,
             "neoClassName": "Neo.table.View"
         },
         {
@@ -225,14 +225,14 @@
             "meta": {
                 "range": [
                     1181,
-                    5419
+                    5438
                 ],
                 "filename": "View.mjs",
                 "lineno": 52,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100084868",
+                    "id": "astnode100087316",
                     "name": "View#createViewData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -260,22 +260,22 @@
             "scope": "instance",
             "$longname": "View#createViewData",
             "$kind": "method",
-            "id": 2654,
+            "id": 2749,
             "neoClassName": "Neo.table.View"
         },
         {
             "comment": "/**\n     *\n     * @param {Boolean} updateParentVdom\n     * @param {Boolean} silent\n     */",
             "meta": {
                 "range": [
-                    5520,
-                    5637
+                    5539,
+                    5656
                 ],
                 "filename": "View.mjs",
                 "lineno": 182,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100085408",
+                    "id": "astnode100087860",
                     "name": "View#destroy",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -312,22 +312,22 @@
             "scope": "instance",
             "$longname": "View#destroy",
             "$kind": "method",
-            "id": 2655,
+            "id": 2750,
             "neoClassName": "Neo.table.View"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} record\n     * @param {String} dataField\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    5754,
-                    5873
+                    5773,
+                    5892
                 ],
                 "filename": "View.mjs",
                 "lineno": 193,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100085427",
+                    "id": "astnode100087879",
                     "name": "View#getCellId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -373,22 +373,22 @@
             "scope": "instance",
             "$longname": "View#getCellId",
             "$kind": "method",
-            "id": 2656,
+            "id": 2751,
             "neoClassName": "Neo.table.View"
         },
         {
             "comment": "/**\n     * Override this method to apply custom CSS rules to table rows\n     * @param {Object} record\n     * @param {Number} rowIndex\n     * @returns {String[]}\n     */",
             "meta": {
                 "range": [
-                    6052,
-                    6122
+                    6071,
+                    6141
                 ],
                 "filename": "View.mjs",
                 "lineno": 203,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100085451",
+                    "id": "astnode100087903",
                     "name": "View#getTrClass",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -435,22 +435,22 @@
             "scope": "instance",
             "$longname": "View#getTrClass",
             "$kind": "method",
-            "id": 2657,
+            "id": 2752,
             "neoClassName": "Neo.table.View"
         },
         {
             "comment": "/**\n     * Gets triggered after changing the value of a record field.\n     * E.g. myRecord.foo = 'bar';\n     * @param {Object} opts\n     * @param {String} opts.field The name of the field which got changed\n     * @param {Neo.data.Model} opts.model The model instance of the changed record\n     * @param {*} opts.oldValue\n     * @param {Object} opts.record\n     * @param {*} opts.value\n     */",
             "meta": {
                 "range": [
-                    6525,
-                    6972
+                    6544,
+                    6991
                 ],
                 "filename": "View.mjs",
                 "lineno": 217,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/table",
                 "code": {
-                    "id": "astnode100085460",
+                    "id": "astnode100087912",
                     "name": "View#onStoreRecordChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -521,7 +521,7 @@
             "scope": "instance",
             "$longname": "View#onStoreRecordChange",
             "$kind": "method",
-            "id": 2658,
+            "id": 2753,
             "neoClassName": "Neo.table.View"
         }
     ]

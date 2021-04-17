@@ -26,7 +26,7 @@
             "scope": "static",
             "$longname": "Neo.Xhr",
             "$kind": "class",
-            "id": 2928,
+            "id": 3033,
             "neoClassName": "Neo.Xhr"
         },
         {
@@ -51,7 +51,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2929,
+            "id": 3034,
             "neoClassName": "Neo.Xhr"
         },
         {
@@ -76,7 +76,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2930,
+            "id": 3035,
             "neoClassName": "Neo.Xhr"
         },
         {
@@ -101,14 +101,14 @@
             "scope": "global",
             "$longname": "remote",
             "$kind": "property",
-            "id": 2931,
+            "id": 3036,
             "neoClassName": "Neo.Xhr"
         },
         {
-            "comment": "/**\n         * @member {boolean} singleton=true\n         * @protected\n         */",
+            "comment": "/**\n         * @member {Boolean} singleton=true\n         * @protected\n         */",
             "meta": {
                 "filename": "Xhr.mjs",
-                "lineno": 31,
+                "lineno": 34,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src",
                 "code": {}
@@ -117,7 +117,7 @@
             "name": "singleton",
             "type": {
                 "names": [
-                    "boolean"
+                    "Boolean"
                 ]
             },
             "defaultvalue": true,
@@ -126,7 +126,7 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 2932,
+            "id": 3037,
             "neoClassName": "Neo.Xhr"
         }
     ]

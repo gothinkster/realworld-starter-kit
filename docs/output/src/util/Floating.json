@@ -1,7 +1,7 @@
 {
     "classData": [
         {
-            "comment": "/**\n * Mixin to make Components floating (e.g. Windows)\n * @class Neo.util.Floating\n * @extends Neo.core.Base\n */",
+            "comment": "/**\n * todo: can probably get removed\n * Mixin to make Components floating (e.g. Windows)\n * @class Neo.util.Floating\n * @extends Neo.core.Base\n */",
             "meta": {
                 "filename": "Floating.mjs",
                 "lineno": 3,
@@ -9,7 +9,7 @@
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
             },
-            "description": "Mixin to make Components floating (e.g. Windows)",
+            "description": "todo: can probably get removed<br />Mixin to make Components floating (e.g. Windows)",
             "kind": "class",
             "name": "Floating",
             "augments": [
@@ -20,14 +20,14 @@
             "scope": "static",
             "$longname": "Neo.util.Floating",
             "$kind": "class",
-            "id": 2740,
+            "id": 2836,
             "neoClassName": "Neo.util.Floating"
         },
         {
             "comment": "/**\n         * @member {String} className='Neo.util.Floating'\n         * @protected\n         */",
             "meta": {
                 "filename": "Floating.mjs",
-                "lineno": 14,
+                "lineno": 15,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
@@ -45,14 +45,14 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2741,
+            "id": 2837,
             "neoClassName": "Neo.util.Floating"
         },
         {
             "comment": "/**\n         * @member {String} ntype='mixin-floating'\n         * @protected\n         */",
             "meta": {
                 "filename": "Floating.mjs",
-                "lineno": 19,
+                "lineno": 20,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
@@ -70,14 +70,14 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2742,
+            "id": 2838,
             "neoClassName": "Neo.util.Floating"
         },
         {
             "comment": "/**\n         * @member {Boolean} mixin=true\n         */",
             "meta": {
                 "filename": "Floating.mjs",
-                "lineno": 23,
+                "lineno": 24,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
@@ -94,14 +94,14 @@
             "scope": "global",
             "$longname": "mixin",
             "$kind": "property",
-            "id": 2743,
+            "id": 2839,
             "neoClassName": "Neo.util.Floating"
         },
         {
             "comment": "/**\n         * @member {String|null} animateTargetId=null\n         */",
             "meta": {
                 "filename": "Floating.mjs",
-                "lineno": 27,
+                "lineno": 28,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
@@ -119,14 +119,14 @@
             "scope": "global",
             "$longname": "animateTargetId",
             "$kind": "property",
-            "id": 2744,
+            "id": 2840,
             "neoClassName": "Neo.util.Floating"
         },
         {
             "comment": "/**\n         * @member {Boolean} modal=false\n         */",
             "meta": {
                 "filename": "Floating.mjs",
-                "lineno": 31,
+                "lineno": 32,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
@@ -143,7 +143,7 @@
             "scope": "global",
             "$longname": "modal",
             "$kind": "property",
-            "id": 2745,
+            "id": 2841,
             "neoClassName": "Neo.util.Floating"
         }
     ]

@@ -717,11 +717,11 @@
             "neoClassName": "Neo.collection.Base"
         },
         {
-            "comment": "/**\n     *\n     * @param {Map|null} value\n     * @param {Map|null} oldValue\n     * @protected\n     */",
+            "comment": "/**\n     *\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7165,
-                    7245
+                    7159,
+                    8661
                 ],
                 "filename": "Base.mjs",
                 "lineno": 253,
@@ -729,6 +729,59 @@
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
                     "id": "astnode100011988",
+                    "name": "Base#beforeSetFilters",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Array"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "beforeSetFilters",
+            "longname": "Base#beforeSetFilters",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#beforeSetFilters",
+            "$kind": "method",
+            "id": 365,
+            "neoClassName": "Neo.collection.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Map|null} value\n     * @param {Map|null} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    8773,
+                    8853
+                ],
+                "filename": "Base.mjs",
+                "lineno": 311,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
+                "code": {
+                    "id": "astnode100012177",
                     "name": "Base#beforeSetMap",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -767,59 +820,6 @@
             "memberof": "Base",
             "scope": "instance",
             "$longname": "Base#beforeSetMap",
-            "$kind": "method",
-            "id": 365,
-            "neoClassName": "Neo.collection.Base"
-        },
-        {
-            "comment": "/**\n     *\n     * @param {Array} value\n     * @param {Array} oldValue\n     * @protected\n     */",
-            "meta": {
-                "range": [
-                    7351,
-                    8853
-                ],
-                "filename": "Base.mjs",
-                "lineno": 263,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
-                "code": {
-                    "id": "astnode100012001",
-                    "name": "Base#beforeSetFilters",
-                    "type": "MethodDefinition",
-                    "paramnames": [
-                        "value",
-                        "oldValue"
-                    ]
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "params": [
-                {
-                    "type": {
-                        "names": [
-                            "Array"
-                        ]
-                    },
-                    "name": "value"
-                },
-                {
-                    "type": {
-                        "names": [
-                            "Array"
-                        ]
-                    },
-                    "name": "oldValue"
-                }
-            ],
-            "access": "protected",
-            "name": "beforeSetFilters",
-            "longname": "Base#beforeSetFilters",
-            "kind": "function",
-            "memberof": "Base",
-            "scope": "instance",
-            "$longname": "Base#beforeSetFilters",
             "$kind": "method",
             "id": 366,
             "neoClassName": "Neo.collection.Base"
@@ -882,7 +882,7 @@
             "meta": {
                 "range": [
                     10340,
-                    11399
+                    11408
                 ],
                 "filename": "Base.mjs",
                 "lineno": 373,
@@ -920,11 +920,11 @@
             "comment": "/**\n     * Removes all items and clears the map\n     */",
             "meta": {
                 "range": [
-                    11465,
-                    11572
+                    11474,
+                    11581
                 ],
                 "filename": "Base.mjs",
-                "lineno": 405,
+                "lineno": 406,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -953,11 +953,11 @@
             "comment": "/**\n     * Clears all current filters and optionally restores the original ones in case they existed.\n     * @param {boolean} [restoreOriginalFilters=false]\n     */",
             "meta": {
                 "range": [
-                    11747,
-                    11898
+                    11756,
+                    11907
                 ],
                 "filename": "Base.mjs",
-                "lineno": 416,
+                "lineno": 417,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -999,11 +999,11 @@
             "comment": "/**\n     * Clears all current sorters and optionally restores the original ones in case they existed.\n     * Without restoreInitialState as true this will not affect the current sorting of this collection.\n     * @param {boolean} [restoreOriginalSorters=false]\n     */",
             "meta": {
                 "range": [
-                    12177,
-                    12328
+                    12186,
+                    12337
                 ],
                 "filename": "Base.mjs",
-                "lineno": 425,
+                "lineno": 426,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1045,11 +1045,11 @@
             "comment": "/**\n     *\n     * @returns {Neo.collection.Base} The cloned collection\n     */",
             "meta": {
                 "range": [
-                    12417,
-                    13226
+                    12426,
+                    13235
                 ],
                 "filename": "Base.mjs",
-                "lineno": 433,
+                "lineno": 434,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1087,11 +1087,11 @@
             "comment": "/**\n     * Clears the map & items array before the super call\n     */",
             "meta": {
                 "range": [
-                    13306,
-                    13443
+                    13315,
+                    13452
                 ],
                 "filename": "Base.mjs",
-                "lineno": 467,
+                "lineno": 468,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1120,11 +1120,11 @@
             "comment": "/**\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    13483,
-                    16493
+                    13492,
+                    16502
                 ],
                 "filename": "Base.mjs",
-                "lineno": 479,
+                "lineno": 480,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1153,11 +1153,11 @@
             "comment": "/**\n     * Resumes the collection events.\n     * If you started an update using the startSilentUpdateMode flag,\n     * you must use the endSilentUpdateMode param for this call.\n     * Using the endSilentUpdateMode param will not fire a mutation event.\n     * @param {Boolean} [endSilentUpdateMode]\n     * @see {@link Neo.collection.Base#startUpdate startUpdate}\n     */",
             "meta": {
                 "range": [
-                    16873,
-                    17399
+                    16882,
+                    17408
                 ],
                 "filename": "Base.mjs",
-                "lineno": 578,
+                "lineno": 579,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1201,11 +1201,11 @@
             "comment": "/**\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    17439,
-                    20219
+                    17448,
+                    20228
                 ],
                 "filename": "Base.mjs",
-                "lineno": 601,
+                "lineno": 602,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1234,11 +1234,11 @@
             "comment": "/**\n     * Returns all items which match the property and value\n     * @param {Object|String} property\n     * @param {String|Number} value\n     * @returns {Array} Returns an empty Array in case no items are found\n     */",
             "meta": {
                 "range": [
-                    20450,
-                    21387
+                    20459,
+                    21396
                 ],
                 "filename": "Base.mjs",
-                "lineno": 694,
+                "lineno": 695,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1299,11 +1299,11 @@
             "comment": "/**\n     * Returns all items in the collection for which the passed function returns true\n     * @param {function} fn The function to run for each item inside the start-end range. Return true for a match.\n     * @param {Object} fn.item The current collection item\n     * @param {Object} [scope=this] The scope in which the passed function gets executed\n     * @param {Number} [start=0] The start index\n     * @param {Number} [end=this.getCount()] The end index (up to, last value excluded)\n     * @returns {Array} Returns an empty Array in case no items are found\n     */",
             "meta": {
                 "range": [
-                    21969,
-                    22329
+                    21978,
+                    22338
                 ],
                 "filename": "Base.mjs",
-                "lineno": 736,
+                "lineno": 737,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1399,11 +1399,11 @@
             "comment": "/**\n     * Returns the first item inside the collection\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    22428,
-                    22474
+                    22437,
+                    22483
                 ],
                 "filename": "Base.mjs",
-                "lineno": 757,
+                "lineno": 758,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1441,11 +1441,11 @@
             "comment": "/**\n     * Returns the object associated to the key, or undefined if there is none.\n     * @param key\n     * @returns {Object|undefined}\n     */",
             "meta": {
                 "range": [
-                    22629,
-                    22679
+                    22638,
+                    22688
                 ],
                 "filename": "Base.mjs",
-                "lineno": 766,
+                "lineno": 767,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1490,11 +1490,11 @@
             "comment": "/**\n     * Returns the item for a given index\n     * @param {Number} index\n     * @returns {Object|undefined}\n     */",
             "meta": {
                 "range": [
-                    22807,
-                    22862
+                    22816,
+                    22871
                 ],
                 "filename": "Base.mjs",
-                "lineno": 775,
+                "lineno": 776,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1544,11 +1544,11 @@
             "comment": "/**\n     * Returns the length of the internal items array\n     * @returns {Number}\n     */",
             "meta": {
                 "range": [
-                    22963,
-                    23016
+                    22972,
+                    23025
                 ],
                 "filename": "Base.mjs",
-                "lineno": 783,
+                "lineno": 784,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1586,11 +1586,11 @@
             "comment": "/**\n     *\n     * @returns {Number}\n     */",
             "meta": {
                 "range": [
-                    23070,
-                    23134
+                    23079,
+                    23143
                 ],
                 "filename": "Base.mjs",
-                "lineno": 791,
+                "lineno": 792,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1627,11 +1627,11 @@
             "comment": "/**\n     * Returns the first matching filter for the given property config\n     * @param {String} property\n     * @returns {Neo.collection.Filter|null}\n     */",
             "meta": {
                 "range": [
-                    23304,
-                    23601
+                    23313,
+                    23610
                 ],
                 "filename": "Base.mjs",
-                "lineno": 800,
+                "lineno": 801,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1681,11 +1681,11 @@
             "comment": "/**\n     * Returns the key for a given index\n     * @param {Number} index\n     * @returns {Number|String|undefined}\n     */",
             "meta": {
                 "range": [
-                    23735,
-                    23844
+                    23744,
+                    23853
                 ],
                 "filename": "Base.mjs",
-                "lineno": 819,
+                "lineno": 820,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1736,11 +1736,11 @@
             "comment": "/**\n     * Returns a shallow copy of a portion of the items array\n     * @param {Number} [start] Zero-based index at which to begin extraction.\n     * @param {Number} [end] Zero-based index before which to end extraction (extracts up to but not including end).\n     * @returns {Array}\n     * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice\n     */",
             "meta": {
                 "range": [
-                    24253,
-                    24327
+                    24262,
+                    24336
                 ],
                 "filename": "Base.mjs",
-                "lineno": 831,
+                "lineno": 832,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1810,11 +1810,11 @@
             "comment": "/**\n     * Returns the Source Collection in case the sourceCollectionId config was set\n     * @returns {Neo.collection.Base|undefined}\n     */",
             "meta": {
                 "range": [
-                    24480,
-                    24555
+                    24489,
+                    24564
                 ],
                 "filename": "Base.mjs",
-                "lineno": 839,
+                "lineno": 840,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1853,11 +1853,11 @@
             "comment": "/**\n     *\n     * Returns a boolean asserting whether a value has been associated to the key in the Collection or not\n     * @param {Number|String} key\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    24751,
-                    24801
+                    24760,
+                    24810
                 ],
                 "filename": "Base.mjs",
-                "lineno": 849,
+                "lineno": 850,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1907,11 +1907,11 @@
             "comment": "/**\n     * Returns a boolean asserting whether an item exists in the Collection or not\n     * @param {Object} item\n     * @returns {Boolean}\n     */",
             "meta": {
                 "range": [
-                    24960,
-                    25034
+                    24969,
+                    25043
                 ],
                 "filename": "Base.mjs",
-                "lineno": 858,
+                "lineno": 859,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -1960,11 +1960,11 @@
             "comment": "/**\n     * Returns the index for a given key or item\n     * @param {Number|String|Object} key\n     * @returns {Number} index (-1 in case no match is found)\n     */",
             "meta": {
                 "range": [
-                    25208,
-                    25310
+                    25217,
+                    25319
                 ],
                 "filename": "Base.mjs",
-                "lineno": 867,
+                "lineno": 868,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2016,11 +2016,11 @@
             "comment": "/**\n     * Returns the index for a given item\n     * @param {Object} item\n     * @returns {Number} index (-1 in case no match is found)\n     */",
             "meta": {
                 "range": [
-                    25464,
-                    25531
+                    25473,
+                    25540
                 ],
                 "filename": "Base.mjs",
-                "lineno": 876,
+                "lineno": 877,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2070,11 +2070,11 @@
             "comment": "/**\n     * Returns the index for a given key\n     * @param {Number|String} key\n     * @returns {Number} index (-1 in case no match is found)\n     */",
             "meta": {
                 "range": [
-                    25690,
-                    25768
+                    25699,
+                    25777
                 ],
                 "filename": "Base.mjs",
-                "lineno": 885,
+                "lineno": 886,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2125,11 +2125,11 @@
             "comment": "/**\n     * Inserts an item or an array of items at the specified index\n     * @param {Number} index\n     * @param {Array|Object} item\n     * @returns {Number} the collection count\n     */",
             "meta": {
                 "range": [
-                    25966,
-                    26062
+                    25975,
+                    26071
                 ],
                 "filename": "Base.mjs",
-                "lineno": 895,
+                "lineno": 896,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2189,11 +2189,11 @@
             "comment": "/**\n     *\n     * @returns {Boolean} true in case the collection is filtered\n     */",
             "meta": {
                 "range": [
-                    26157,
-                    26210
+                    26166,
+                    26219
                 ],
                 "filename": "Base.mjs",
-                "lineno": 904,
+                "lineno": 905,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2231,11 +2231,11 @@
             "comment": "/**\n     *\n     * @param {Object} item\n     * @returns {boolean}\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    26311,
-                    26698
+                    26320,
+                    26707
                 ],
                 "filename": "Base.mjs",
-                "lineno": 914,
+                "lineno": 915,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2284,11 +2284,11 @@
             "comment": "/**\n     *\n     * @returns {Boolean} true in case the collection is sorted\n     */",
             "meta": {
                 "range": [
-                    26791,
-                    26840
+                    26800,
+                    26849
                 ],
                 "filename": "Base.mjs",
-                "lineno": 935,
+                "lineno": 936,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2326,11 +2326,11 @@
             "comment": "/**\n     * Returns the last item inside the collection\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    26938,
-                    27000
+                    26947,
+                    27009
                 ],
                 "filename": "Base.mjs",
-                "lineno": 943,
+                "lineno": 944,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2368,11 +2368,11 @@
             "comment": "/**\n     *\n     * @param {Object} opts\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    27075,
-                    27126
+                    27084,
+                    27135
                 ],
                 "filename": "Base.mjs",
-                "lineno": 952,
+                "lineno": 953,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2412,11 +2412,11 @@
             "comment": "/**\n     *\n     * @param {Object} opts\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    27201,
-                    27459
+                    27210,
+                    27468
                 ],
                 "filename": "Base.mjs",
-                "lineno": 961,
+                "lineno": 962,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2456,11 +2456,11 @@
             "comment": "/**\n     *\n     * @param {Object} opts\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    27534,
-                    27620
+                    27543,
+                    27629
                 ],
                 "filename": "Base.mjs",
-                "lineno": 978,
+                "lineno": 979,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2500,11 +2500,11 @@
             "comment": "/**\n     * Removes the last element from the items array and returns this element.\n     * @returns {Object} The removed element from the collection; undefined if the collection is empty.\n     */",
             "meta": {
                 "range": [
-                    27825,
-                    27938
+                    27834,
+                    27947
                 ],
                 "filename": "Base.mjs",
-                "lineno": 987,
+                "lineno": 988,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2543,11 +2543,11 @@
             "comment": "/**\n     * Adds one or more items to the end of the collection and returns the new items count\n     * @param {Array|Object} item The item(s) to add\n     * @returns {Number} the collection count\n     */",
             "meta": {
                 "range": [
-                    28150,
-                    28199
+                    28159,
+                    28208
                 ],
                 "filename": "Base.mjs",
-                "lineno": 997,
+                "lineno": 998,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2599,11 +2599,11 @@
             "comment": "/**\n     * Removes a given key, item or Array containing keys|items\n     * @param {Number|String|Object|Array} key\n     * @returns {Number} the collection count\n     */",
             "meta": {
                 "range": [
-                    28378,
-                    28487
+                    28387,
+                    28496
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1006,
+                "lineno": 1007,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2656,11 +2656,11 @@
             "comment": "/**\n     * Removes the item at the given index\n     * @param {Number} index\n     * @returns {Number} the collection count\n     */",
             "meta": {
                 "range": [
-                    28627,
-                    28713
+                    28636,
+                    28722
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1016,
+                "lineno": 1017,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2710,11 +2710,11 @@
             "comment": "/**\n     * Reverses the items array in place.\n     * Intended for collections without sorters.\n     * @returns {Array} items\n     */",
             "meta": {
                 "range": [
-                    28856,
-                    28911
+                    28865,
+                    28920
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1026,
+                "lineno": 1027,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2753,11 +2753,11 @@
             "comment": "/**\n     * Removes the first element from the items array and returns this element.\n     * @returns {Object} The removed element from the collection; undefined if the collection is empty.\n     */",
             "meta": {
                 "range": [
-                    29117,
-                    29213
+                    29126,
+                    29222
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1034,
+                "lineno": 1035,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2796,11 +2796,11 @@
             "comment": "/**\n     *\n     * @param {function} callback Function to test for each item, taking three parameters:\n     * @param {Object}   callback.item The current collection item being processed\n     * @param {Number}  [callback.index] The index of the current item being processed\n     * @param {Array}   [callback.items] The items array of the collection\n     *\n     * @param {Object} [scope] Value to use as \"this\" when executing the callback\n     * @returns {boolean} true if the callback function returns a truthy value for any collection item, otherwise false\n     */",
             "meta": {
                 "range": [
-                    29787,
-                    29850
+                    29796,
+                    29859
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1049,
+                "lineno": 1050,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2889,11 +2889,11 @@
             "comment": "/**\n     * Removes items from and/or adds items to this collection\n     * If the toRemoveArray is used, then the index is not used for removing, the entries are found by key and removed from where they are.\n     * If index is not passed, toAddArray is appended to the Collection.\n     * @param {Number|null} index\n     * @param {Number|Array} [removeCountOrToRemoveArray]\n     * @param {Array| Object} [toAddArray]\n     * @returns {Object} An object containing the addedItems & removedItems arrays\n     */",
             "meta": {
                 "range": [
-                    30366,
-                    34025
+                    30375,
+                    34034
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1062,
+                "lineno": 1063,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -2966,11 +2966,11 @@
             "comment": "/**\n     * Prevents the collection from firing events until endUpdate gets called.\n     * If you start an update using the startSilentUpdateMode param,\n     * the mutation event will not fire after using endUpdate()\n     * (you must use the endSilentUpdateMode param for the endUpdate call in case you used\n     * startSilentUpdateMode here)\n     * @param {Boolean} [startSilentUpdateMode]\n     * @see {@link Neo.collection.Base#endUpdate endUpdate}\n     */",
             "meta": {
                 "range": [
-                    34493,
-                    34657
+                    34502,
+                    34666
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1175,
+                "lineno": 1176,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -3014,11 +3014,11 @@
             "comment": "/**\n     * Adds one or more elements to the beginning of the collection and returns the new items count\n     * @param {Array|Object} item The item(s) to add\n     * @returns {Number} the collection count\n     */",
             "meta": {
                 "range": [
-                    34878,
-                    34964
+                    34887,
+                    34973
                 ],
                 "filename": "Base.mjs",
-                "lineno": 1188,
+                "lineno": 1189,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {
@@ -3070,7 +3070,7 @@
             "comment": "/**\n * The mutate event fires after every splice call (invoked by all methods which change the content of the items array).\n * @event mutate\n * @param {Object[]} addedItems\n * @param {Boolean} preventBubbleUp private\n * @param {Object[]} removedItems\n * @returns {Object}\n */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 1194,
+                "lineno": 1195,
                 "columnno": 0,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/collection",
                 "code": {}

@@ -4,24 +4,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
 
-    <title>Neo Docs NoCss4</title>
+    <title>Neo Docs NoCssVars</title>
 </head>
 <body class="neo-body neo-body-viewport">
     <script>
         Neo = self.Neo || {}; Neo.config = Neo.config || {};
 
         Object.assign(Neo.config, {
-            appPath         : '../../docs/app.mjs',
+            appPath         : 'docs/app.mjs',
             basePath        : '../',
             environment     : 'development',
-            isExperimental  : true,
             mainThreadAddons: ['DragDrop', 'HighlightJS', 'Stylesheet'],
-            resourcesPath   : '../node_modules/neo.mjs/resources/',
-            useCssVars      : false,
-            workerBasePath  : '../node_modules/neo.mjs/src/worker/'
+            useCssVars      : false
         });
     </script>
-
-    <script src="../node_modules/neo.mjs/src/Main.mjs" type="module"></script>
+    <script src="../src/Main.mjs" type="module"></script>
 </body>
 </html>

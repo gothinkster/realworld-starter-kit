@@ -1,16 +1,16 @@
-import {default as ArticleComponent}    from './article/Component.mjs';
-import {default as ArticleApi}          from '../api/Article.mjs';
-import {default as ComponentController} from '../../../node_modules/neo.mjs/src/controller/Component.mjs';
-import CreateComponent                  from './article/CreateComponent.mjs';
-import {default as FavoriteApi}         from '../api/Favorite.mjs';
-import HomeComponent                    from './HomeComponent.mjs';
-import {LOCAL_STORAGE_KEY}              from '../api/config.mjs';
-import {default as ProfileApi}          from '../api/Profile.mjs';
-import ProfileComponent                 from './user/ProfileComponent.mjs';
-import SettingsComponent                from './user/SettingsComponent.mjs';
-import SignUpComponent                  from './user/SignUpComponent.mjs';
-import {default as TagApi}              from '../api/Tag.mjs';
-import {default as UserApi}             from '../api/User.mjs';
+import ArticleComponent    from './article/Component.mjs';
+import ArticleApi          from '../api/Article.mjs';
+import ComponentController from '../../../node_modules/neo.mjs/src/controller/Component.mjs';
+import CreateComponent     from './article/CreateComponent.mjs';
+import FavoriteApi         from '../api/Favorite.mjs';
+import HomeComponent       from './HomeComponent.mjs';
+import {LOCAL_STORAGE_KEY} from '../api/config.mjs';
+import ProfileApi          from '../api/Profile.mjs';
+import ProfileComponent    from './user/ProfileComponent.mjs';
+import SettingsComponent   from './user/SettingsComponent.mjs';
+import SignUpComponent     from './user/SignUpComponent.mjs';
+import TagApi              from '../api/Tag.mjs';
+import UserApi             from '../api/User.mjs';
 
 /**
  * @class RealWorld.view.MainContainerController
@@ -79,7 +79,7 @@ class MainContainerController extends ComponentController {
         // default route => home
         if (!Neo.config.hash) {
             me.onHashChange({
-                appName   : 'RealWorld',
+                appNames  : ['RealWorld'],
                 hash      : {'/': ''},
                 hashString: '/'
             }, null);
@@ -135,7 +135,7 @@ class MainContainerController extends ComponentController {
     /**
      *
      * @param {Number} id
-     * @return {Promise<any>}
+     * @returns {Promise<any>}
      */
     deleteComment(id) {
         let me   = this,
@@ -254,7 +254,7 @@ class MainContainerController extends ComponentController {
         if (!me[key]) {
             me[key] = Neo.create({
                 module   : module,
-                parentId : me.view.id,
+                parentId : me.component.id,
                 reference: reference
             });
         }
@@ -306,22 +306,20 @@ class MainContainerController extends ComponentController {
      */
     onHashChange(value, oldValue) {
         let me         = this,
+            component  = me.component,
             hash       = value.hash,
             hashString = value.hashString,
-            view       = me.view,
             newView, slug;
 
-        if (!view.mounted) { // the initial hash change gets triggered before the vnode got back from the vdom worker (using autoMount)
-            view.on('mounted', () => {
+        if (!component.mounted) { // the initial hash change gets triggered before the vnode got back from the vdom worker (using autoMount)
+            component.on('mounted', () => {
                 me.onHashChange(value, oldValue);
             });
         } else {
-            console.log('onHashChange', value, oldValue);
-
             me.hashString = hashString;
 
             // adjust the active header link
-            view.items[0].activeItem = Object.keys(hash)[0];
+            component.items[0].activeItem = Object.keys(hash)[0];
 
                  if (hashString === '/')                {newView = me.getView('homeComponent',     HomeComponent,     'home');}
             else if (hashString.includes('/article/'))  {newView = me.getView('articleComponent',  ArticleComponent,  'article');}
@@ -335,12 +333,12 @@ class MainContainerController extends ComponentController {
                 oldValue.hash.hasOwnProperty('/login')    && hash.hasOwnProperty('/register') ||
                 oldValue.hash.hasOwnProperty('/register') && hash.hasOwnProperty('/login')))
             ) {
-                if (view.items.length > 2) {
-                    view.removeAt(1, false, true);
+                if (component.items.length > 2) {
+                    component.removeAt(1, false, true);
                 }
 
                 if (newView) {
-                    view.insert(1, newView);
+                    component.insert(1, newView);
                 }
             }
 

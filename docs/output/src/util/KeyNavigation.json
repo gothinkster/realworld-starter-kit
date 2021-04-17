@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.util.KeyNavigation",
             "$kind": "class",
-            "id": 2761,
+            "id": 2857,
             "neoClassName": "Neo.util.KeyNavigation"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2762,
+            "id": 2858,
             "neoClassName": "Neo.util.KeyNavigation"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2763,
+            "id": 2859,
             "neoClassName": "Neo.util.KeyNavigation"
         },
         {
@@ -95,7 +95,7 @@
             "scope": "global",
             "$longname": "component_",
             "$kind": "property",
-            "id": 2764,
+            "id": 2860,
             "neoClassName": "Neo.util.KeyNavigation"
         },
         {
@@ -120,7 +120,7 @@
             "scope": "global",
             "$longname": "keyDownEventBubble",
             "$kind": "property",
-            "id": 2765,
+            "id": 2861,
             "neoClassName": "Neo.util.KeyNavigation"
         },
         {
@@ -145,7 +145,7 @@
             "scope": "global",
             "$longname": "keys_",
             "$kind": "property",
-            "id": 2766,
+            "id": 2862,
             "neoClassName": "Neo.util.KeyNavigation"
         },
         {
@@ -160,7 +160,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100088474",
+                    "id": "astnode100090967",
                     "name": "KeyNavigation#beforeGetComponent",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -187,7 +187,7 @@
             "params": [],
             "$longname": "KeyNavigation#beforeGetComponent",
             "$kind": "method",
-            "id": 2767,
+            "id": 2863,
             "neoClassName": "Neo.util.KeyNavigation"
         },
         {
@@ -202,7 +202,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100088486",
+                    "id": "astnode100090979",
                     "name": "KeyNavigation#beforeSetComponent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -241,7 +241,7 @@
             "scope": "instance",
             "$longname": "KeyNavigation#beforeSetComponent",
             "$kind": "method",
-            "id": 2768,
+            "id": 2864,
             "neoClassName": "Neo.util.KeyNavigation"
         },
         {
@@ -256,7 +256,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100088497",
+                    "id": "astnode100090990",
                     "name": "KeyNavigation#destroy",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -273,7 +273,7 @@
             "params": [],
             "$longname": "KeyNavigation#destroy",
             "$kind": "method",
-            "id": 2769,
+            "id": 2865,
             "neoClassName": "Neo.util.KeyNavigation"
         },
         {
@@ -281,14 +281,14 @@
             "meta": {
                 "range": [
                     1613,
-                    2343
+                    2258
                 ],
                 "filename": "KeyNavigation.mjs",
                 "lineno": 72,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100088511",
+                    "id": "astnode100091004",
                     "name": "KeyNavigation#onKeyDown",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -316,22 +316,22 @@
             "scope": "instance",
             "$longname": "KeyNavigation#onKeyDown",
             "$kind": "method",
-            "id": 2770,
+            "id": 2866,
             "neoClassName": "Neo.util.KeyNavigation"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} value\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    2426,
-                    2974
+                    2341,
+                    2889
                 ],
                 "filename": "KeyNavigation.mjs",
-                "lineno": 100,
+                "lineno": 98,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100088592",
+                    "id": "astnode100091085",
                     "name": "KeyNavigation#parseKeys",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -368,22 +368,22 @@
             "scope": "instance",
             "$longname": "KeyNavigation#parseKeys",
             "$kind": "method",
-            "id": 2771,
+            "id": 2867,
             "neoClassName": "Neo.util.KeyNavigation"
         },
         {
             "comment": "/**\n     * Replaces specific key names, e.g. \" \" => SPACE\n     * @param {String} key\n     * @protected\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    3120,
-                    3610
+                    3035,
+                    3525
                 ],
                 "filename": "KeyNavigation.mjs",
-                "lineno": 127,
+                "lineno": 125,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100088647",
+                    "id": "astnode100091140",
                     "name": "KeyNavigation#parseUpperCaseKey",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -422,22 +422,22 @@
             "scope": "instance",
             "$longname": "KeyNavigation#parseUpperCaseKey",
             "$kind": "method",
-            "id": 2772,
+            "id": 2868,
             "neoClassName": "Neo.util.KeyNavigation"
         },
         {
             "comment": "/**\n     *\n     * @param {Neo.component.Base} component\n     */",
             "meta": {
                 "range": [
-                    3684,
-                    4184
+                    3599,
+                    4099
                 ],
                 "filename": "KeyNavigation.mjs",
-                "lineno": 153,
+                "lineno": 151,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100088691",
+                    "id": "astnode100091184",
                     "name": "KeyNavigation#register",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -465,22 +465,22 @@
             "scope": "instance",
             "$longname": "KeyNavigation#register",
             "$kind": "method",
-            "id": 2773,
+            "id": 2869,
             "neoClassName": "Neo.util.KeyNavigation"
         },
         {
             "comment": "/**\n     * Remove a key listener using the same config used when creating it\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    4309,
-                    4660
+                    4224,
+                    4575
                 ],
                 "filename": "KeyNavigation.mjs",
-                "lineno": 177,
+                "lineno": 175,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100088750",
+                    "id": "astnode100091243",
                     "name": "KeyNavigation#removeKey",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -509,22 +509,22 @@
             "scope": "instance",
             "$longname": "KeyNavigation#removeKey",
             "$kind": "method",
-            "id": 2774,
+            "id": 2870,
             "neoClassName": "Neo.util.KeyNavigation"
         },
         {
             "comment": "/**\n     * Remove multiple key listeners passing an array of config items\n     * @param {Array} items\n     */",
             "meta": {
                 "range": [
-                    4780,
-                    4908
+                    4695,
+                    4823
                 ],
                 "filename": "KeyNavigation.mjs",
-                "lineno": 198,
+                "lineno": 196,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100088803",
+                    "id": "astnode100091296",
                     "name": "KeyNavigation#removeKeys",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -553,22 +553,22 @@
             "scope": "instance",
             "$longname": "KeyNavigation#removeKeys",
             "$kind": "method",
-            "id": 2775,
+            "id": 2871,
             "neoClassName": "Neo.util.KeyNavigation"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    4937,
-                    5023
+                    4852,
+                    4938
                 ],
                 "filename": "KeyNavigation.mjs",
-                "lineno": 207,
+                "lineno": 205,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100088827",
+                    "id": "astnode100091320",
                     "name": "KeyNavigation#unregister",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -585,7 +585,7 @@
             "params": [],
             "$longname": "KeyNavigation#unregister",
             "$kind": "method",
-            "id": 2776,
+            "id": 2872,
             "neoClassName": "Neo.util.KeyNavigation"
         }
     ]

@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "RealWorld.view.user.ProfileComponent",
             "$kind": "class",
-            "id": 3325,
+            "id": 3430,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 3326,
+            "id": 3431,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "articlePreviews_",
             "$kind": "property",
-            "id": 3327,
+            "id": 3432,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "bio_",
             "$kind": "property",
-            "id": 3328,
+            "id": 3433,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
@@ -118,7 +118,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 3329,
+            "id": 3434,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
@@ -142,7 +142,7 @@
             "scope": "global",
             "$longname": "countArticles_",
             "$kind": "property",
-            "id": 3330,
+            "id": 3435,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
@@ -167,7 +167,7 @@
             "scope": "global",
             "$longname": "following_",
             "$kind": "property",
-            "id": 3331,
+            "id": 3436,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
@@ -192,7 +192,7 @@
             "scope": "global",
             "$longname": "image_",
             "$kind": "property",
-            "id": 3332,
+            "id": 3437,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
@@ -216,7 +216,7 @@
             "scope": "global",
             "$longname": "myProfile_",
             "$kind": "property",
-            "id": 3333,
+            "id": 3438,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
@@ -240,7 +240,7 @@
             "scope": "global",
             "$longname": "previewComponents",
             "$kind": "property",
-            "id": 3334,
+            "id": 3439,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
@@ -265,7 +265,7 @@
             "scope": "global",
             "$longname": "username_",
             "$kind": "property",
-            "id": 3335,
+            "id": 3440,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
@@ -288,22 +288,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 3336,
+            "id": 3441,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    5508,
-                    6166
+                    5484,
+                    6142
                 ],
                 "filename": "ProfileComponent.mjs",
                 "lineno": 148,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100110141",
+                    "id": "astnode100113053",
                     "name": "ProfileComponent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -330,22 +330,22 @@
             "scope": "global",
             "$longname": "ProfileComponent",
             "$kind": "constructor",
-            "id": 3337,
+            "id": 3442,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
             "comment": "/**\n     * Triggered after the articlePreviews config got changed\n     * @param {Object[]|null} value\n     * @param {Object[]|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6343,
-                    7688
+                    6319,
+                    7664
                 ],
                 "filename": "ProfileComponent.mjs",
                 "lineno": 178,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100110221",
+                    "id": "astnode100113133",
                     "name": "ProfileComponent#afterSetArticlePreviews",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -386,22 +386,22 @@
             "scope": "instance",
             "$longname": "ProfileComponent#afterSetArticlePreviews",
             "$kind": "method",
-            "id": 3338,
+            "id": 3443,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
             "comment": "/**\n     * Triggered after the bio config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7839,
-                    8029
+                    7815,
+                    8005
                 ],
                 "filename": "ProfileComponent.mjs",
                 "lineno": 223,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100110378",
+                    "id": "astnode100113290",
                     "name": "ProfileComponent#afterSetBio",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -440,22 +440,22 @@
             "scope": "instance",
             "$longname": "ProfileComponent#afterSetBio",
             "$kind": "method",
-            "id": 3339,
+            "id": 3444,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
             "comment": "/**\n     * Triggered after the following config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    8188,
-                    8811
+                    8164,
+                    8787
                 ],
                 "filename": "ProfileComponent.mjs",
                 "lineno": 238,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100110410",
+                    "id": "astnode100113322",
                     "name": "ProfileComponent#afterSetFollowing",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -494,22 +494,22 @@
             "scope": "instance",
             "$longname": "ProfileComponent#afterSetFollowing",
             "$kind": "method",
-            "id": 3340,
+            "id": 3445,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
             "comment": "/**\n     * Triggered after the image config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    8964,
-                    9114
+                    8940,
+                    9090
                 ],
                 "filename": "ProfileComponent.mjs",
                 "lineno": 259,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100110494",
+                    "id": "astnode100113406",
                     "name": "ProfileComponent#afterSetImage",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -548,22 +548,22 @@
             "scope": "instance",
             "$longname": "ProfileComponent#afterSetImage",
             "$kind": "method",
-            "id": 3341,
+            "id": 3446,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
             "comment": "/**\n     * Triggered after the myProfile config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    9273,
-                    9614
+                    9249,
+                    9590
                 ],
                 "filename": "ProfileComponent.mjs",
                 "lineno": 272,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100110523",
+                    "id": "astnode100113435",
                     "name": "ProfileComponent#afterSetMyProfile",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -602,22 +602,22 @@
             "scope": "instance",
             "$longname": "ProfileComponent#afterSetMyProfile",
             "$kind": "method",
-            "id": 3342,
+            "id": 3447,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
             "comment": "/**\n     * Triggered after the username config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    9770,
-                    9993
+                    9746,
+                    9969
                 ],
                 "filename": "ProfileComponent.mjs",
                 "lineno": 288,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100110578",
+                    "id": "astnode100113490",
                     "name": "ProfileComponent#afterSetUsername",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -656,22 +656,22 @@
             "scope": "instance",
             "$longname": "ProfileComponent#afterSetUsername",
             "$kind": "method",
-            "id": 3343,
+            "id": 3448,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} params\n     */",
             "meta": {
                 "range": [
-                    10052,
-                    10210
+                    10028,
+                    10186
                 ],
                 "filename": "ProfileComponent.mjs",
                 "lineno": 300,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100110622",
+                    "id": "astnode100113534",
                     "name": "ProfileComponent#getArticles",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -699,22 +699,22 @@
             "scope": "instance",
             "$longname": "ProfileComponent#getArticles",
             "$kind": "method",
-            "id": 3344,
+            "id": 3449,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} value\n     */",
             "meta": {
                 "range": [
-                    10268,
-                    10412
+                    10244,
+                    10388
                 ],
                 "filename": "ProfileComponent.mjs",
                 "lineno": 310,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100110652",
+                    "id": "astnode100113564",
                     "name": "ProfileComponent#onCurrentUserChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -742,22 +742,22 @@
             "scope": "instance",
             "$longname": "ProfileComponent#onCurrentUserChange",
             "$kind": "method",
-            "id": 3345,
+            "id": 3450,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    10469,
-                    10675
+                    10445,
+                    10651
                 ],
                 "filename": "ProfileComponent.mjs",
                 "lineno": 318,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100110678",
+                    "id": "astnode100113590",
                     "name": "ProfileComponent#onFollowButtonClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -785,22 +785,22 @@
             "scope": "instance",
             "$longname": "ProfileComponent#onFollowButtonClick",
             "$kind": "method",
-            "id": 3346,
+            "id": 3451,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    10732,
-                    11765
+                    10708,
+                    11741
                 ],
                 "filename": "ProfileComponent.mjs",
                 "lineno": 330,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100110720",
+                    "id": "astnode100113632",
                     "name": "ProfileComponent#onNavLinkClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -828,22 +828,22 @@
             "scope": "instance",
             "$longname": "ProfileComponent#onNavLinkClick",
             "$kind": "method",
-            "id": 3347,
+            "id": 3452,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} configs\n     */",
             "meta": {
                 "range": [
-                    11825,
-                    12309
+                    11801,
+                    12285
                 ],
                 "filename": "ProfileComponent.mjs",
                 "lineno": 369,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100110853",
+                    "id": "astnode100113765",
                     "name": "ProfileComponent#update",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -871,7 +871,7 @@
             "scope": "instance",
             "$longname": "ProfileComponent#update",
             "$kind": "method",
-            "id": 3348,
+            "id": 3453,
             "neoClassName": "RealWorld.view.user.ProfileComponent"
         }
     ]

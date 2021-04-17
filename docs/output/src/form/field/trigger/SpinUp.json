@@ -20,7 +20,7 @@
             "scope": "static",
             "$longname": "Neo.form.field.trigger.SpinUp",
             "$kind": "class",
-            "id": 1706,
+            "id": 1751,
             "neoClassName": "Neo.form.field.trigger.SpinUp"
         },
         {
@@ -45,7 +45,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1707,
+            "id": 1752,
             "neoClassName": "Neo.form.field.trigger.SpinUp"
         },
         {
@@ -70,7 +70,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1708,
+            "id": 1753,
             "neoClassName": "Neo.form.field.trigger.SpinUp"
         },
         {
@@ -96,7 +96,7 @@
             "scope": "global",
             "$longname": "iconCls",
             "$kind": "property",
-            "id": 1709,
+            "id": 1754,
             "neoClassName": "Neo.form.field.trigger.SpinUp"
         },
         {
@@ -122,7 +122,50 @@
             "scope": "global",
             "$longname": "type",
             "$kind": "property",
-            "id": 1710,
+            "id": 1755,
+            "neoClassName": "Neo.form.field.trigger.SpinUp"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    872,
+                    942
+                ],
+                "filename": "SpinUp.mjs",
+                "lineno": 36,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field/trigger",
+                "code": {
+                    "id": "astnode100053109",
+                    "name": "SpinUp#onTriggerClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onTriggerClick",
+            "longname": "SpinUp#onTriggerClick",
+            "kind": "function",
+            "memberof": "SpinUp",
+            "scope": "instance",
+            "$longname": "SpinUp#onTriggerClick",
+            "$kind": "method",
+            "id": 1756,
             "neoClassName": "Neo.form.field.trigger.SpinUp"
         }
     ]

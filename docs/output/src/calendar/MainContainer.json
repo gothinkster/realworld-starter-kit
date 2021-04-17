@@ -1041,11 +1041,11 @@
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
-            "comment": "/**\n     * Triggered after the locale config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "comment": "/**\n     * Triggered after the eventStore config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7174,
-                    7310
+                    7178,
+                    7320
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 239,
@@ -1053,60 +1053,6 @@
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
                     "id": "astnode100001246",
-                    "name": "MainContainer#afterSetLocale",
-                    "type": "MethodDefinition",
-                    "paramnames": [
-                        "value",
-                        "oldValue"
-                    ]
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "description": "Triggered after the locale config got changed",
-            "params": [
-                {
-                    "type": {
-                        "names": [
-                            "String"
-                        ]
-                    },
-                    "name": "value"
-                },
-                {
-                    "type": {
-                        "names": [
-                            "String"
-                        ]
-                    },
-                    "name": "oldValue"
-                }
-            ],
-            "access": "protected",
-            "name": "afterSetLocale",
-            "longname": "MainContainer#afterSetLocale",
-            "kind": "function",
-            "memberof": "MainContainer",
-            "scope": "instance",
-            "$longname": "MainContainer#afterSetLocale",
-            "$kind": "method",
-            "id": 89,
-            "neoClassName": "Neo.calendar.MainContainer"
-        },
-        {
-            "comment": "/**\n     * Triggered after the eventStore config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
-            "meta": {
-                "range": [
-                    7468,
-                    7610
-                ],
-                "filename": "MainContainer.mjs",
-                "lineno": 251,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
-                "code": {
-                    "id": "astnode100001264",
                     "name": "MainContainer#afterSetEventStore",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1145,23 +1091,23 @@
             "scope": "instance",
             "$longname": "MainContainer#afterSetEventStore",
             "$kind": "method",
-            "id": 90,
+            "id": 89,
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
-            "comment": "/**\n     * Triggered after the showWeekends config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "comment": "/**\n     * Triggered after the locale config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7772,
-                    7920
+                    7474,
+                    7610
                 ],
                 "filename": "MainContainer.mjs",
-                "lineno": 263,
+                "lineno": 251,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100001283",
-                    "name": "MainContainer#afterSetShowWeekends",
+                    "id": "astnode100001265",
+                    "name": "MainContainer#afterSetLocale",
                     "type": "MethodDefinition",
                     "paramnames": [
                         "value",
@@ -1172,12 +1118,12 @@
                     "": null
                 }
             },
-            "description": "Triggered after the showWeekends config got changed",
+            "description": "Triggered after the locale config got changed",
             "params": [
                 {
                     "type": {
                         "names": [
-                            "Boolean"
+                            "String"
                         ]
                     },
                     "name": "value"
@@ -1185,19 +1131,73 @@
                 {
                     "type": {
                         "names": [
-                            "Boolean"
+                            "String"
                         ]
                     },
                     "name": "oldValue"
                 }
             ],
             "access": "protected",
-            "name": "afterSetShowWeekends",
-            "longname": "MainContainer#afterSetShowWeekends",
+            "name": "afterSetLocale",
+            "longname": "MainContainer#afterSetLocale",
             "kind": "function",
             "memberof": "MainContainer",
             "scope": "instance",
-            "$longname": "MainContainer#afterSetShowWeekends",
+            "$longname": "MainContainer#afterSetLocale",
+            "$kind": "method",
+            "id": 90,
+            "neoClassName": "Neo.calendar.MainContainer"
+        },
+        {
+            "comment": "/**\n     * Triggered after the scrollNewYearFromTop config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    7778,
+                    8001
+                ],
+                "filename": "MainContainer.mjs",
+                "lineno": 263,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
+                "code": {
+                    "id": "astnode100001283",
+                    "name": "MainContainer#afterSetScrollNewYearFromTop",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the scrollNewYearFromTop config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetScrollNewYearFromTop",
+            "longname": "MainContainer#afterSetScrollNewYearFromTop",
+            "kind": "function",
+            "memberof": "MainContainer",
+            "scope": "instance",
+            "$longname": "MainContainer#afterSetScrollNewYearFromTop",
             "$kind": "method",
             "id": 91,
             "neoClassName": "Neo.calendar.MainContainer"
@@ -1206,15 +1206,15 @@
             "comment": "/**\n     * Triggered after the settingsExpanded config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    8086,
-                    8460
+                    8167,
+                    8541
                 ],
                 "filename": "MainContainer.mjs",
-                "lineno": 275,
+                "lineno": 276,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100001301",
+                    "id": "astnode100001310",
                     "name": "MainContainer#afterSetSettingsExpanded",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1257,19 +1257,19 @@
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
-            "comment": "/**\n     * Triggered after the scrollNewYearFromTop config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
+            "comment": "/**\n     * Triggered after the showWeekends config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    8628,
+                    8703,
                     8851
                 ],
                 "filename": "MainContainer.mjs",
-                "lineno": 294,
+                "lineno": 295,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/calendar",
                 "code": {
-                    "id": "astnode100001346",
-                    "name": "MainContainer#afterSetScrollNewYearFromTop",
+                    "id": "astnode100001355",
+                    "name": "MainContainer#afterSetShowWeekends",
                     "type": "MethodDefinition",
                     "paramnames": [
                         "value",
@@ -1280,12 +1280,12 @@
                     "": null
                 }
             },
-            "description": "Triggered after the scrollNewYearFromTop config got changed",
+            "description": "Triggered after the showWeekends config got changed",
             "params": [
                 {
                     "type": {
                         "names": [
-                            "String"
+                            "Boolean"
                         ]
                     },
                     "name": "value"
@@ -1293,19 +1293,19 @@
                 {
                     "type": {
                         "names": [
-                            "String"
+                            "Boolean"
                         ]
                     },
                     "name": "oldValue"
                 }
             ],
             "access": "protected",
-            "name": "afterSetScrollNewYearFromTop",
-            "longname": "MainContainer#afterSetScrollNewYearFromTop",
+            "name": "afterSetShowWeekends",
+            "longname": "MainContainer#afterSetShowWeekends",
             "kind": "function",
             "memberof": "MainContainer",
             "scope": "instance",
-            "$longname": "MainContainer#afterSetScrollNewYearFromTop",
+            "$longname": "MainContainer#afterSetShowWeekends",
             "$kind": "method",
             "id": 93,
             "neoClassName": "Neo.calendar.MainContainer"
@@ -1625,11 +1625,11 @@
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
-            "comment": "/**\n     *\n     * @returns {Neo.component.Base[]}\n     */",
+            "comment": "/**\n     *\n     * @returns {Object[]}\n     */",
             "meta": {
                 "range": [
-                    12511,
-                    13705
+                    12499,
+                    13693
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 433,
@@ -1649,7 +1649,7 @@
                 {
                     "type": {
                         "names": [
-                            "Array.<Neo.component.Base>"
+                            "Array.<Object>"
                         ]
                     }
                 }
@@ -1669,8 +1669,8 @@
             "comment": "/**\n     *\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    13752,
-                    15985
+                    13740,
+                    15973
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 474,
@@ -1699,11 +1699,11 @@
             "neoClassName": "Neo.calendar.MainContainer"
         },
         {
-            "comment": "/**\n     *\n     * @returns {Neo.component.Base[]}\n     */",
+            "comment": "/**\n     *\n     * @returns {Object[]}\n     */",
             "meta": {
                 "range": [
-                    16053,
-                    16614
+                    16029,
+                    16590
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 538,
@@ -1723,7 +1723,7 @@
                 {
                     "type": {
                         "names": [
-                            "Array.<Neo.component.Base>"
+                            "Array.<Object>"
                         ]
                     }
                 }
@@ -1743,8 +1743,8 @@
             "comment": "/**\n     *\n     * @returns {Neo.component.Base[]}\n     */",
             "meta": {
                 "range": [
-                    16682,
-                    17961
+                    16658,
+                    17937
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 561,
@@ -1784,8 +1784,8 @@
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    17990,
-                    18387
+                    17966,
+                    18363
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 610,
@@ -1818,8 +1818,8 @@
             "comment": "/**\n     *\n     * @param {Object[]} data\n     */",
             "meta": {
                 "range": [
-                    18446,
-                    18530
+                    18422,
+                    18506
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 628,
@@ -1861,8 +1861,8 @@
             "comment": "/**\n     *\n     * @param {Object} opts\n     * @param {String} opts.oldValue\n     * @param {String} opts.value\n     */",
             "meta": {
                 "range": [
-                    18658,
-                    18798
+                    18634,
+                    18774
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 638,
@@ -1920,8 +1920,8 @@
             "comment": "/**\n     *\n     * @param {Object[]} data\n     */",
             "meta": {
                 "range": [
-                    18857,
-                    18977
+                    18833,
+                    18953
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 648,
@@ -1963,8 +1963,8 @@
             "comment": "/**\n     *\n     * @param data\n     */",
             "meta": {
                 "range": [
-                    19025,
-                    19096
+                    19001,
+                    19072
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 657,
@@ -2001,8 +2001,8 @@
             "comment": "/**\n     *\n     * @param data\n     */",
             "meta": {
                 "range": [
-                    19144,
-                    19220
+                    19120,
+                    19196
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 665,
@@ -2039,8 +2039,8 @@
             "comment": "/**\n     *\n     * @param data\n     */",
             "meta": {
                 "range": [
-                    19268,
-                    19338
+                    19244,
+                    19314
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 673,
@@ -2077,8 +2077,8 @@
             "comment": "/**\n     * Sets a config for the DateSelector and all views (cards)\n     * @param {String} key\n     * @param {*} value\n     */",
             "meta": {
                 "range": [
-                    19475,
-                    19667
+                    19451,
+                    19643
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 682,
@@ -2130,8 +2130,8 @@
             "comment": "/**\n     *\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    19714,
-                    19794
+                    19690,
+                    19770
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 696,
@@ -2163,8 +2163,8 @@
             "comment": "/**\n     *\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    19841,
-                    19918
+                    19817,
+                    19894
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 704,
@@ -2196,8 +2196,8 @@
             "comment": "/**\n     *\n     * @param {Number} multiplier\n     */",
             "meta": {
                 "range": [
-                    19981,
-                    20569
+                    19957,
+                    20545
                 ],
                 "filename": "MainContainer.mjs",
                 "lineno": 712,

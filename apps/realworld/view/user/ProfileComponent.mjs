@@ -1,7 +1,7 @@
-import {default as Component} from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
-import NeoArray               from '../../../../node_modules/neo.mjs/src/util/Array.mjs';
-import PreviewComponent       from '../article/PreviewComponent.mjs';
-import {default as VDomUtil}  from '../../../../node_modules/neo.mjs/src/util/VDom.mjs';
+import Component        from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
+import NeoArray         from '../../../../node_modules/neo.mjs/src/util/Array.mjs';
+import PreviewComponent from '../article/PreviewComponent.mjs';
+import VDomUtil         from '../../../../node_modules/neo.mjs/src/util/VDom.mjs';
 
 /**
  * @class RealWorld.view.user.ProfileComponent

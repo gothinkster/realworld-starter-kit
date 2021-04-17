@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "RealWorld.view.article.TagListComponent",
             "$kind": "class",
-            "id": 3229,
+            "id": 3334,
             "neoClassName": "RealWorld.view.article.TagListComponent"
         },
         {
@@ -44,7 +44,7 @@
             "longname": "observable",
             "$longname": "observable",
             "$kind": "property",
-            "id": 3230,
+            "id": 3335,
             "neoClassName": "RealWorld.view.article.TagListComponent"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 3231,
+            "id": 3336,
             "neoClassName": "RealWorld.view.article.TagListComponent"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "activeTag_",
             "$kind": "property",
-            "id": 3232,
+            "id": 3337,
             "neoClassName": "RealWorld.view.article.TagListComponent"
         },
         {
@@ -117,7 +117,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 3233,
+            "id": 3338,
             "neoClassName": "RealWorld.view.article.TagListComponent"
         },
         {
@@ -141,7 +141,7 @@
             "scope": "global",
             "$longname": "tags_",
             "$kind": "property",
-            "id": 3234,
+            "id": 3339,
             "neoClassName": "RealWorld.view.article.TagListComponent"
         },
         {
@@ -164,22 +164,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 3235,
+            "id": 3340,
             "neoClassName": "RealWorld.view.article.TagListComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    1338,
-                    1824
+                    1325,
+                    1811
                 ],
                 "filename": "TagListComponent.mjs",
                 "lineno": 55,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100106441",
+                    "id": "astnode100109360",
                     "name": "TagListComponent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -206,22 +206,22 @@
             "scope": "global",
             "$longname": "TagListComponent",
             "$kind": "constructor",
-            "id": 3236,
+            "id": 3341,
             "neoClassName": "RealWorld.view.article.TagListComponent"
         },
         {
             "comment": "/**\n     * Triggered after the activeTag config got changed\n     * @param {String[]|null} value\n     * @param {String[]|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1995,
-                    2206
+                    1982,
+                    2193
                 ],
                 "filename": "TagListComponent.mjs",
                 "lineno": 83,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100106495",
+                    "id": "astnode100109414",
                     "name": "TagListComponent#afterSetActiveTag",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -262,22 +262,22 @@
             "scope": "instance",
             "$longname": "TagListComponent#afterSetActiveTag",
             "$kind": "method",
-            "id": 3237,
+            "id": 3342,
             "neoClassName": "RealWorld.view.article.TagListComponent"
         },
         {
             "comment": "/**\n     * Triggered after the tags config got changed\n     * @param {String[]|null} value\n     * @param {String[]|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2372,
-                    2884
+                    2359,
+                    2871
                 ],
                 "filename": "TagListComponent.mjs",
                 "lineno": 98,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100106517",
+                    "id": "astnode100109436",
                     "name": "TagListComponent#afterSetTags",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -318,22 +318,22 @@
             "scope": "instance",
             "$longname": "TagListComponent#afterSetTags",
             "$kind": "method",
-            "id": 3238,
+            "id": 3343,
             "neoClassName": "RealWorld.view.article.TagListComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {String} nodeId\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    2968,
-                    3030
+                    2955,
+                    3017
                 ],
                 "filename": "TagListComponent.mjs",
                 "lineno": 124,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100106599",
+                    "id": "astnode100109518",
                     "name": "TagListComponent#getTagId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -370,22 +370,22 @@
             "scope": "instance",
             "$longname": "TagListComponent#getTagId",
             "$kind": "method",
-            "id": 3239,
+            "id": 3344,
             "neoClassName": "RealWorld.view.article.TagListComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {String} name\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    3112,
-                    3176
+                    3099,
+                    3163
                 ],
                 "filename": "TagListComponent.mjs",
                 "lineno": 133,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100106612",
+                    "id": "astnode100109531",
                     "name": "TagListComponent#getTagVdomId",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -422,22 +422,22 @@
             "scope": "instance",
             "$longname": "TagListComponent#getTagVdomId",
             "$kind": "method",
-            "id": 3240,
+            "id": 3345,
             "neoClassName": "RealWorld.view.article.TagListComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    3233,
-                    3318
+                    3220,
+                    3305
                 ],
                 "filename": "TagListComponent.mjs",
                 "lineno": 141,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100106625",
+                    "id": "astnode100109544",
                     "name": "TagListComponent#onTagLinkClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -465,7 +465,7 @@
             "scope": "instance",
             "$longname": "TagListComponent#onTagLinkClick",
             "$kind": "method",
-            "id": 3241,
+            "id": 3346,
             "neoClassName": "RealWorld.view.article.TagListComponent"
         }
     ]

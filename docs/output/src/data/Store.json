@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.data.Store",
             "$kind": "class",
-            "id": 1094,
+            "id": 1108,
             "neoClassName": "Neo.data.Store"
         },
         {
@@ -44,7 +44,7 @@
             "longname": "observable",
             "$longname": "observable",
             "$kind": "property",
-            "id": 1095,
+            "id": 1109,
             "neoClassName": "Neo.data.Store"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1096,
+            "id": 1110,
             "neoClassName": "Neo.data.Store"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1097,
+            "id": 1111,
             "neoClassName": "Neo.data.Store"
         },
         {
@@ -118,7 +118,7 @@
             "scope": "global",
             "$longname": "autoLoad",
             "$kind": "property",
-            "id": 1098,
+            "id": 1112,
             "neoClassName": "Neo.data.Store"
         },
         {
@@ -143,7 +143,7 @@
             "scope": "global",
             "$longname": "data_",
             "$kind": "property",
-            "id": 1099,
+            "id": 1113,
             "neoClassName": "Neo.data.Store"
         },
         {
@@ -168,7 +168,7 @@
             "scope": "global",
             "$longname": "initialData_",
             "$kind": "property",
-            "id": 1100,
+            "id": 1114,
             "neoClassName": "Neo.data.Store"
         },
         {
@@ -192,7 +192,7 @@
             "scope": "global",
             "$longname": "isGrouped",
             "$kind": "property",
-            "id": 1101,
+            "id": 1115,
             "neoClassName": "Neo.data.Store"
         },
         {
@@ -216,7 +216,7 @@
             "scope": "global",
             "$longname": "isLoaded",
             "$kind": "property",
-            "id": 1102,
+            "id": 1116,
             "neoClassName": "Neo.data.Store"
         },
         {
@@ -240,7 +240,7 @@
             "scope": "global",
             "$longname": "isLoading",
             "$kind": "property",
-            "id": 1103,
+            "id": 1117,
             "neoClassName": "Neo.data.Store"
         },
         {
@@ -264,7 +264,7 @@
             "scope": "global",
             "$longname": "model_",
             "$kind": "property",
-            "id": 1104,
+            "id": 1118,
             "neoClassName": "Neo.data.Store"
         },
         {
@@ -289,7 +289,7 @@
             "scope": "global",
             "$longname": "remoteFilter",
             "$kind": "property",
-            "id": 1105,
+            "id": 1119,
             "neoClassName": "Neo.data.Store"
         },
         {
@@ -314,7 +314,7 @@
             "scope": "global",
             "$longname": "remoteSort",
             "$kind": "property",
-            "id": 1106,
+            "id": 1120,
             "neoClassName": "Neo.data.Store"
         },
         {
@@ -340,22 +340,22 @@
             "scope": "global",
             "$longname": "url",
             "$kind": "property",
-            "id": 1107,
+            "id": 1121,
             "neoClassName": "Neo.data.Store"
         },
         {
-            "comment": "",
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    2036,
-                    2262
+                    2089,
+                    2315
                 ],
                 "filename": "Store.mjs",
-                "lineno": 79,
+                "lineno": 83,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data",
                 "code": {
-                    "id": "astnode100038435",
+                    "id": "astnode100038264",
                     "name": "Store",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -366,62 +366,38 @@
                     "": null
                 }
             },
-            "undocumented": true,
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "config"
+                }
+            ],
             "name": "Store",
             "longname": "Store",
             "kind": "class",
             "scope": "global",
-            "params": [],
             "$longname": "Store",
             "$kind": "constructor",
-            "id": 1108,
-            "neoClassName": "Neo.data.Store"
-        },
-        {
-            "comment": "/**\n     *\n     */",
-            "meta": {
-                "range": [
-                    2291,
-                    2566
-                ],
-                "filename": "Store.mjs",
-                "lineno": 95,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data",
-                "code": {
-                    "id": "astnode100038464",
-                    "name": "Store#onConstructed",
-                    "type": "MethodDefinition",
-                    "paramnames": []
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "name": "onConstructed",
-            "longname": "Store#onConstructed",
-            "kind": "function",
-            "memberof": "Store",
-            "scope": "instance",
-            "params": [],
-            "$longname": "Store#onConstructed",
-            "$kind": "method",
-            "id": 1109,
+            "id": 1122,
             "neoClassName": "Neo.data.Store"
         },
         {
             "comment": "/**\n     *\n     * @param value\n     * @param oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2656,
-                    2987
+                    2405,
+                    2736
                 ],
                 "filename": "Store.mjs",
-                "lineno": 117,
+                "lineno": 102,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data",
                 "code": {
-                    "id": "astnode100038506",
+                    "id": "astnode100038293",
                     "name": "Store#afterSetData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -449,22 +425,22 @@
             "scope": "instance",
             "$longname": "Store#afterSetData",
             "$kind": "method",
-            "id": 1110,
+            "id": 1123,
             "neoClassName": "Neo.data.Store"
         },
         {
             "comment": "/**\n     *\n     * @param value\n     * @param oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3077,
-                    3185
+                    2826,
+                    2934
                 ],
                 "filename": "Store.mjs",
-                "lineno": 139,
+                "lineno": 124,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data",
                 "code": {
-                    "id": "astnode100038547",
+                    "id": "astnode100038334",
                     "name": "Store#afterSetInitialData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -492,22 +468,22 @@
             "scope": "instance",
             "$longname": "Store#afterSetInitialData",
             "$kind": "method",
-            "id": 1111,
+            "id": 1124,
             "neoClassName": "Neo.data.Store"
         },
         {
             "comment": "/**\n     *\n     * @param value\n     * @param oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3275,
-                    3433
+                    3024,
+                    3182
                 ],
                 "filename": "Store.mjs",
-                "lineno": 149,
+                "lineno": 134,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data",
                 "code": {
-                    "id": "astnode100038553",
+                    "id": "astnode100038340",
                     "name": "Store#afterSetModel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -535,22 +511,22 @@
             "scope": "instance",
             "$longname": "Store#afterSetModel",
             "$kind": "method",
-            "id": 1112,
+            "id": 1125,
             "neoClassName": "Neo.data.Store"
         },
         {
             "comment": "/**\n     *\n     * @param value\n     * @param oldValue\n     * @protected\n     * @returns {*}\n     */",
             "meta": {
                 "range": [
-                    3543,
-                    4117
+                    3292,
+                    3866
                 ],
                 "filename": "Store.mjs",
-                "lineno": 163,
+                "lineno": 148,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data",
                 "code": {
-                    "id": "astnode100038576",
+                    "id": "astnode100038363",
                     "name": "Store#beforeSetData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -587,22 +563,22 @@
             "scope": "instance",
             "$longname": "Store#beforeSetData",
             "$kind": "method",
-            "id": 1113,
+            "id": 1126,
             "neoClassName": "Neo.data.Store"
         },
         {
             "comment": "/**\n     *\n     * @param value\n     * @param oldValue\n     * @protected\n     * @returns {*}\n     */",
             "meta": {
                 "range": [
-                    4227,
-                    4368
+                    3976,
+                    4117
                 ],
                 "filename": "Store.mjs",
-                "lineno": 193,
+                "lineno": 178,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data",
                 "code": {
-                    "id": "astnode100038643",
+                    "id": "astnode100038430",
                     "name": "Store#beforeSetInitialData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -639,22 +615,22 @@
             "scope": "instance",
             "$longname": "Store#beforeSetInitialData",
             "$kind": "method",
-            "id": 1114,
+            "id": 1127,
             "neoClassName": "Neo.data.Store"
         },
         {
             "comment": "/**\n     *\n     * @param {Neo.data.Model} value\n     * @param {Neo.data.Model} oldValue\n     * @protected\n     * @returns {Neo.data.Model}\n     */",
             "meta": {
                 "range": [
-                    4525,
-                    4695
+                    4274,
+                    4444
                 ],
                 "filename": "Store.mjs",
-                "lineno": 208,
+                "lineno": 193,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data",
                 "code": {
-                    "id": "astnode100038659",
+                    "id": "astnode100038446",
                     "name": "Store#beforeSetModel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -701,22 +677,22 @@
             "scope": "instance",
             "$longname": "Store#beforeSetModel",
             "$kind": "method",
-            "id": 1115,
+            "id": 1128,
             "neoClassName": "Neo.data.Store"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    4754,
-                    4826
+                    4503,
+                    4575
                 ],
                 "filename": "Store.mjs",
-                "lineno": 220,
+                "lineno": 205,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data",
                 "code": {
-                    "id": "astnode100038680",
+                    "id": "astnode100038467",
                     "name": "Store#createRecord",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -744,22 +720,22 @@
             "scope": "instance",
             "$longname": "Store#createRecord",
             "$kind": "method",
-            "id": 1116,
+            "id": 1129,
             "neoClassName": "Neo.data.Store"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} opts\n     */",
             "meta": {
                 "range": [
-                    5263,
-                    5457
+                    5012,
+                    5206
                 ],
                 "filename": "Store.mjs",
-                "lineno": 241,
+                "lineno": 226,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data",
                 "code": {
-                    "id": "astnode100038754",
+                    "id": "astnode100038541",
                     "name": "Store#onCollectionMutate",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -787,22 +763,22 @@
             "scope": "instance",
             "$longname": "Store#onCollectionMutate",
             "$kind": "method",
-            "id": 1117,
+            "id": 1130,
             "neoClassName": "Neo.data.Store"
         },
         {
             "comment": "/**\n     * todo: add will fire mutate and sort right after another\n     */",
             "meta": {
                 "range": [
-                    5542,
-                    5746
+                    5291,
+                    5495
                 ],
                 "filename": "Store.mjs",
-                "lineno": 253,
+                "lineno": 238,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data",
                 "code": {
-                    "id": "astnode100038777",
+                    "id": "astnode100038564",
                     "name": "Store#onCollectionSort",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -820,22 +796,54 @@
             "params": [],
             "$longname": "Store#onCollectionSort",
             "$kind": "method",
-            "id": 1118,
+            "id": 1131,
+            "neoClassName": "Neo.data.Store"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    5524,
+                    5799
+                ],
+                "filename": "Store.mjs",
+                "lineno": 250,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data",
+                "code": {
+                    "id": "astnode100038577",
+                    "name": "Store#onConstructed",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onConstructed",
+            "longname": "Store#onConstructed",
+            "kind": "function",
+            "memberof": "Store",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Store#onConstructed",
+            "$kind": "method",
+            "id": 1132,
             "neoClassName": "Neo.data.Store"
         },
         {
             "comment": "/**\n     * Gets triggered after changing the value of a record field.\n     * E.g. myRecord.foo = 'bar';\n     * @param {Object} opts\n     * @param {String} opts.field The name of the field which got changed\n     * @param {Neo.data.Model} opts.model The model instance of the changed record\n     * @param {*} opts.oldValue\n     * @param {Object} opts.record\n     * @param {*} opts.value\n     */",
             "meta": {
                 "range": [
-                    6149,
-                    6218
+                    6202,
+                    6271
                 ],
                 "filename": "Store.mjs",
-                "lineno": 272,
+                "lineno": 276,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data",
                 "code": {
-                    "id": "astnode100038790",
+                    "id": "astnode100038619",
                     "name": "Store#onRecordChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -906,22 +914,22 @@
             "scope": "instance",
             "$longname": "Store#onRecordChange",
             "$kind": "method",
-            "id": 1119,
+            "id": 1133,
             "neoClassName": "Neo.data.Store"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} opts\n     * @param {String} opts.direction\n     * @param {String} opts.property\n     */",
             "meta": {
                 "range": [
-                    6350,
-                    7079
+                    6403,
+                    7132
                 ],
                 "filename": "Store.mjs",
-                "lineno": 282,
+                "lineno": 286,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/data",
                 "code": {
-                    "id": "astnode100038802",
+                    "id": "astnode100038631",
                     "name": "Store#sort",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -965,7 +973,7 @@
             "scope": "instance",
             "$longname": "Store#sort",
             "$kind": "method",
-            "id": 1120,
+            "id": 1134,
             "neoClassName": "Neo.data.Store"
         }
     ]

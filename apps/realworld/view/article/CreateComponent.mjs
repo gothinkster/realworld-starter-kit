@@ -1,7 +1,7 @@
-import {default as Component}  from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
-import {default as VDomUtil}   from '../../../../node_modules/neo.mjs/src/util/VDom.mjs';
-import {default as VNodeUtil}  from '../../../../node_modules/neo.mjs/src/util/VNode.mjs';
-import {default as ArticleApi} from '../../api/Article.mjs';
+import Component  from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
+import VDomUtil   from '../../../../node_modules/neo.mjs/src/util/VDom.mjs';
+import VNodeUtil  from '../../../../node_modules/neo.mjs/src/util/VNode.mjs';
+import ArticleApi from '../../api/Article.mjs';
 
 /**
  * @class RealWorld.view.article.CreateComponent

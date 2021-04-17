@@ -4,7 +4,7 @@
             "comment": "/**\n * @class Neo.dialog.Base\n * @extends Neo.container.Panel\n */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 6,
+                "lineno": 7,
                 "columnno": 0,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -19,14 +19,40 @@
             "scope": "static",
             "$longname": "Neo.dialog.Base",
             "$kind": "class",
-            "id": 1141,
+            "id": 1156,
+            "neoClassName": "Neo.dialog.Base"
+        },
+        {
+            "comment": "/**\n         * Valid values for closeAction\n         * @member {String[]} closeActions=['close', 'hide']\n         * @protected\n         * @static\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 19,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
+                "code": {}
+            },
+            "description": "Valid values for closeAction",
+            "kind": "member",
+            "name": "closeActions",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['close', 'hide']",
+            "access": "protected",
+            "scope": "static",
+            "longname": "closeActions",
+            "$longname": "closeActions",
+            "$kind": "property",
+            "id": 1157,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {String} className='Neo.dialog.Base'\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 16,
+                "lineno": 27,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -44,14 +70,14 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1142,
+            "id": 1158,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {String} ntype='dialog'\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 21,
+                "lineno": 32,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -69,20 +95,44 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1143,
+            "id": 1159,
             "neoClassName": "Neo.dialog.Base"
         },
         {
-            "comment": "/**\n         * @member {String|null} animateTargetId=null\n         */",
+            "comment": "/**\n         * @member {Boolean} animateOnDragEnd=false\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 25,
+                "lineno": 36,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
             },
             "kind": "member",
-            "name": "animateTargetId",
+            "name": "animateOnDragEnd",
+            "type": {
+                "names": [
+                    "Boolean"
+                ]
+            },
+            "defaultvalue": false,
+            "longname": "animateOnDragEnd",
+            "scope": "global",
+            "$longname": "animateOnDragEnd",
+            "$kind": "property",
+            "id": 1160,
+            "neoClassName": "Neo.dialog.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String|null} animateTargetId_=null\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 40,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "animateTargetId_",
             "type": {
                 "names": [
                     "String",
@@ -90,18 +140,18 @@
                 ]
             },
             "defaultvalue": null,
-            "longname": "animateTargetId",
+            "longname": "animateTargetId_",
             "scope": "global",
-            "$longname": "animateTargetId",
+            "$longname": "animateTargetId_",
             "$kind": "property",
-            "id": 1144,
+            "id": 1161,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {Boolean} autoMount=true\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 29,
+                "lineno": 44,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -118,14 +168,14 @@
             "scope": "global",
             "$longname": "autoMount",
             "$kind": "property",
-            "id": 1145,
+            "id": 1162,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {Boolean} autoRender=true\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 33,
+                "lineno": 48,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -142,14 +192,14 @@
             "scope": "global",
             "$longname": "autoRender",
             "$kind": "property",
-            "id": 1146,
+            "id": 1163,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * Either a dom node id, 'document.body' or null\n         * @member {String|null} boundaryContainerId='document.body'\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 38,
+                "lineno": 53,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -168,14 +218,39 @@
             "scope": "global",
             "$longname": "boundaryContainerId",
             "$kind": "property",
-            "id": 1147,
+            "id": 1164,
+            "neoClassName": "Neo.dialog.Base"
+        },
+        {
+            "comment": "/**\n         * Define what happens in case you click on the close button\n         * close will destroy the instance, hide will keep it for later re-use.\n         * Valid values: close, hide\n         * @member {String} closeAction='close'\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 60,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
+                "code": {}
+            },
+            "description": "Define what happens in case you click on the close button<br />close will destroy the instance, hide will keep it for later re-use.<br />Valid values: close, hide",
+            "kind": "member",
+            "name": "closeAction",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'close'",
+            "longname": "closeAction",
+            "scope": "global",
+            "$longname": "closeAction",
+            "$kind": "property",
+            "id": 1165,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {String[]} cls=['neo-dialog','neo-panel','neo-container']\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 43,
+                "lineno": 65,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -193,14 +268,14 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1148,
+            "id": 1166,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {Boolean} draggable_=true\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 47,
+                "lineno": 69,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -217,14 +292,14 @@
             "scope": "global",
             "$longname": "draggable_",
             "$kind": "property",
-            "id": 1149,
+            "id": 1167,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {Boolean} dragListenersAdded=false\n         * @protected\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 52,
+                "lineno": 74,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -242,14 +317,14 @@
             "scope": "global",
             "$longname": "dragListenersAdded",
             "$kind": "property",
-            "id": 1150,
+            "id": 1168,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {Neo.draggable.DragZone|null} dragZone=null\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 56,
+                "lineno": 78,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -267,14 +342,14 @@
             "scope": "global",
             "$longname": "dragZone",
             "$kind": "property",
-            "id": 1151,
+            "id": 1169,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {Object} dragZoneConfig=null\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 60,
+                "lineno": 82,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -291,14 +366,14 @@
             "scope": "global",
             "$longname": "dragZoneConfig",
             "$kind": "property",
-            "id": 1152,
+            "id": 1170,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {Neo.container.Toolbar|null} headerToolbar=null\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 64,
+                "lineno": 86,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -316,14 +391,14 @@
             "scope": "global",
             "$longname": "headerToolbar",
             "$kind": "property",
-            "id": 1153,
+            "id": 1171,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {Boolean} isDragging=false\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 68,
+                "lineno": 90,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -340,14 +415,14 @@
             "scope": "global",
             "$longname": "isDragging",
             "$kind": "property",
-            "id": 1154,
+            "id": 1172,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {String} maximizeCls='far fa-window-maximize'\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 72,
+                "lineno": 94,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -365,14 +440,14 @@
             "scope": "global",
             "$longname": "maximizeCls",
             "$kind": "property",
-            "id": 1155,
+            "id": 1173,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {Boolean} maximized_=false\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 76,
+                "lineno": 98,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -389,14 +464,14 @@
             "scope": "global",
             "$longname": "maximized_",
             "$kind": "property",
-            "id": 1156,
+            "id": 1174,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {String} minimizeCls='far fa-window-minimize'\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 80,
+                "lineno": 102,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -414,14 +489,14 @@
             "scope": "global",
             "$longname": "minimizeCls",
             "$kind": "property",
-            "id": 1157,
+            "id": 1175,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {Boolean} resizable_=true\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 84,
+                "lineno": 106,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -438,14 +513,14 @@
             "scope": "global",
             "$longname": "resizable_",
             "$kind": "property",
-            "id": 1158,
+            "id": 1176,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {Object} resizablePluginConfig=null\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 88,
+                "lineno": 110,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -462,14 +537,39 @@
             "scope": "global",
             "$longname": "resizablePluginConfig",
             "$kind": "property",
-            "id": 1159,
+            "id": 1177,
+            "neoClassName": "Neo.dialog.Base"
+        },
+        {
+            "comment": "/**\n         * @member {String} title='Dialog Title'\n         */",
+            "meta": {
+                "filename": "Base.mjs",
+                "lineno": 114,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "title",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'Dialog",
+            "description": "Title'",
+            "longname": "title",
+            "scope": "global",
+            "$longname": "title",
+            "$kind": "property",
+            "id": 1178,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n         * @member {Object} _vdom\n         */",
             "meta": {
                 "filename": "Base.mjs",
-                "lineno": 92,
+                "lineno": 118,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {}
@@ -485,106 +585,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 1160,
-            "neoClassName": "Neo.dialog.Base"
-        },
-        {
-            "comment": "/**\n     *\n     * @returns {Object} The new vdom root\n     */",
-            "meta": {
-                "range": [
-                    2662,
-                    2715
-                ],
-                "filename": "Base.mjs",
-                "lineno": 104,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
-                "code": {
-                    "id": "astnode100039060",
-                    "name": "Base#getVdomRoot",
-                    "type": "MethodDefinition",
-                    "paramnames": []
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "returns": [
-                {
-                    "type": {
-                        "names": [
-                            "Object"
-                        ]
-                    },
-                    "description": "The new vdom root"
-                }
-            ],
-            "name": "getVdomRoot",
-            "longname": "Base#getVdomRoot",
-            "kind": "function",
-            "memberof": "Base",
-            "scope": "instance",
-            "params": [],
-            "$longname": "Base#getVdomRoot",
-            "$kind": "method",
-            "id": 1161,
-            "neoClassName": "Neo.dialog.Base"
-        },
-        {
-            "comment": "/**\n     *\n     * @returns {Object} The new vnode root\n     */",
-            "meta": {
-                "range": [
-                    2788,
-                    2851
-                ],
-                "filename": "Base.mjs",
-                "lineno": 112,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
-                "code": {
-                    "id": "astnode100039072",
-                    "name": "Base#getVnodeRoot",
-                    "type": "MethodDefinition",
-                    "paramnames": []
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "returns": [
-                {
-                    "type": {
-                        "names": [
-                            "Object"
-                        ]
-                    },
-                    "description": "The new vnode root"
-                }
-            ],
-            "name": "getVnodeRoot",
-            "longname": "Base#getVnodeRoot",
-            "kind": "function",
-            "memberof": "Base",
-            "scope": "instance",
-            "params": [],
-            "$longname": "Base#getVnodeRoot",
-            "$kind": "method",
-            "id": 1162,
+            "id": 1179,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    2910,
-                    3128
+                    3464,
+                    3682
                 ],
                 "filename": "Base.mjs",
-                "lineno": 120,
+                "lineno": 130,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {
-                    "id": "astnode100039084",
+                    "id": "astnode100038913",
                     "name": "Base",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -611,54 +627,134 @@
             "scope": "global",
             "$longname": "Base",
             "$kind": "constructor",
-            "id": 1163,
+            "id": 1180,
             "neoClassName": "Neo.dialog.Base"
         },
         {
-            "comment": "/**\n     *\n     */",
+            "comment": "/**\n     * Triggered after the animateTargetId config got changed\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3157,
-                    3325
+                    3855,
+                    3971
                 ],
                 "filename": "Base.mjs",
-                "lineno": 137,
+                "lineno": 150,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {
-                    "id": "astnode100039123",
-                    "name": "Base#onConstructed",
+                    "id": "astnode100038952",
+                    "name": "Base#afterSetAnimateTargetId",
                     "type": "MethodDefinition",
-                    "paramnames": []
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
                 },
                 "vars": {
                     "": null
                 }
             },
-            "name": "onConstructed",
-            "longname": "Base#onConstructed",
+            "description": "Triggered after the animateTargetId config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetAnimateTargetId",
+            "longname": "Base#afterSetAnimateTargetId",
             "kind": "function",
             "memberof": "Base",
             "scope": "instance",
-            "params": [],
-            "$longname": "Base#onConstructed",
+            "$longname": "Base#afterSetAnimateTargetId",
             "$kind": "method",
-            "id": 1164,
+            "id": 1181,
+            "neoClassName": "Neo.dialog.Base"
+        },
+        {
+            "comment": "/**\n     * Triggered after the appName config got changed\n     * @param {String|null} value\n     * @param {String|null} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    4136,
+                    4468
+                ],
+                "filename": "Base.mjs",
+                "lineno": 161,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
+                "code": {
+                    "id": "astnode100038972",
+                    "name": "Base#afterSetAppName",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered after the appName config got changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "afterSetAppName",
+            "longname": "Base#afterSetAppName",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#afterSetAppName",
+            "$kind": "method",
+            "id": 1182,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n     * Triggered after the draggable config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3484,
-                    4559
+                    4627,
+                    5954
                 ],
                 "filename": "Base.mjs",
-                "lineno": 153,
+                "lineno": 182,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {
-                    "id": "astnode100039151",
+                    "id": "astnode100039020",
                     "name": "Base#afterSetDraggable",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -697,22 +793,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetDraggable",
             "$kind": "method",
-            "id": 1165,
+            "id": 1183,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n     * Triggered after the maximized config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4718,
-                    4933
+                    6113,
+                    6328
                 ],
                 "filename": "Base.mjs",
-                "lineno": 190,
+                "lineno": 225,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {
-                    "id": "astnode100039261",
+                    "id": "astnode100039155",
                     "name": "Base#afterSetMaximized",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -751,22 +847,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetMaximized",
             "$kind": "method",
-            "id": 1166,
+            "id": 1184,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n     * Triggered after the mounted config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5090,
-                    5609
+                    6485,
+                    7004
                 ],
                 "filename": "Base.mjs",
-                "lineno": 205,
+                "lineno": 240,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {
-                    "id": "astnode100039297",
+                    "id": "astnode100039191",
                     "name": "Base#afterSetMounted",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -805,22 +901,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetMounted",
             "$kind": "method",
-            "id": 1167,
+            "id": 1185,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n     * Triggered after the resizable config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5768,
-                    6501
+                    7163,
+                    7947
                 ],
                 "filename": "Base.mjs",
-                "lineno": 230,
+                "lineno": 265,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {
-                    "id": "astnode100039347",
+                    "id": "astnode100039241",
                     "name": "Base#afterSetResizable",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -859,22 +955,22 @@
             "scope": "instance",
             "$longname": "Base#afterSetResizable",
             "$kind": "method",
-            "id": 1168,
+            "id": 1186,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    6530,
-                    8439
+                    7976,
+                    9890
                 ],
                 "filename": "Base.mjs",
-                "lineno": 256,
+                "lineno": 292,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {
-                    "id": "astnode100039411",
+                    "id": "astnode100039309",
                     "name": "Base#animateHide",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -891,22 +987,22 @@
             "params": [],
             "$longname": "Base#animateHide",
             "$kind": "method",
-            "id": 1169,
+            "id": 1187,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    8468,
-                    10213
+                    9919,
+                    11512
                 ],
                 "filename": "Base.mjs",
-                "lineno": 307,
+                "lineno": 343,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {
-                    "id": "astnode100039608",
+                    "id": "astnode100039502",
                     "name": "Base#animateShow",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -923,54 +1019,166 @@
             "params": [],
             "$longname": "Base#animateShow",
             "$kind": "method",
-            "id": 1170,
+            "id": 1188,
             "neoClassName": "Neo.dialog.Base"
         },
         {
-            "comment": "/**\n     *\n     */",
+            "comment": "/**\n     * Triggered before the closeAction config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    10242,
-                    10432
+                    11673,
+                    11790
                 ],
                 "filename": "Base.mjs",
-                "lineno": 355,
+                "lineno": 389,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {
-                    "id": "astnode100039781",
-                    "name": "Base#close",
+                    "id": "astnode100039657",
+                    "name": "Base#beforeSetCloseAction",
                     "type": "MethodDefinition",
-                    "paramnames": []
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
                 },
                 "vars": {
                     "": null
                 }
             },
+            "description": "Triggered before the closeAction config gets changed",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "beforeSetCloseAction",
+            "longname": "Base#beforeSetCloseAction",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#beforeSetCloseAction",
+            "$kind": "method",
+            "id": 1189,
+            "neoClassName": "Neo.dialog.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [animate=!!this.animateTargetId]\n     */",
+            "meta": {
+                "range": [
+                    11876,
+                    12085
+                ],
+                "filename": "Base.mjs",
+                "lineno": 397,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
+                "code": {
+                    "id": "astnode100039671",
+                    "name": "Base#close",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "animate"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": "!!this.animateTargetId",
+                    "name": "animate"
+                }
+            ],
             "name": "close",
             "longname": "Base#close",
             "kind": "function",
             "memberof": "Base",
             "scope": "instance",
-            "params": [],
             "$longname": "Base#close",
             "$kind": "method",
-            "id": 1171,
+            "id": 1190,
+            "neoClassName": "Neo.dialog.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [animate=!!this.animateTargetId]\n     */",
+            "meta": {
+                "range": [
+                    12171,
+                    12263
+                ],
+                "filename": "Base.mjs",
+                "lineno": 412,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
+                "code": {
+                    "id": "astnode100039707",
+                    "name": "Base#closeOrHide",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "animate"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": "!!this.animateTargetId",
+                    "name": "animate"
+                }
+            ],
+            "name": "closeOrHide",
+            "longname": "Base#closeOrHide",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#closeOrHide",
+            "$kind": "method",
+            "id": 1191,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    10461,
-                    11189
+                    12292,
+                    13020
                 ],
                 "filename": "Base.mjs",
-                "lineno": 369,
+                "lineno": 419,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {
-                    "id": "astnode100039812",
+                    "id": "astnode100039726",
                     "name": "Base#createHeader",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -987,22 +1195,22 @@
             "params": [],
             "$longname": "Base#createHeader",
             "$kind": "method",
-            "id": 1172,
+            "id": 1192,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n     * Returns the id of the animation node\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    11280,
-                    11345
+                    13111,
+                    13176
                 ],
                 "filename": "Base.mjs",
-                "lineno": 401,
+                "lineno": 451,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {
-                    "id": "astnode100039894",
+                    "id": "astnode100039810",
                     "name": "Base#getAnimateTargetId",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1029,22 +1237,22 @@
             "params": [],
             "$longname": "Base#getAnimateTargetId",
             "$kind": "method",
-            "id": 1173,
+            "id": 1193,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n     * Returns the id of the header toolbar\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    11436,
-                    11508
+                    13267,
+                    13339
                 ],
                 "filename": "Base.mjs",
-                "lineno": 409,
+                "lineno": 459,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {
-                    "id": "astnode100039904",
+                    "id": "astnode100039820",
                     "name": "Base#getHeaderToolbarId",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1071,22 +1279,148 @@
             "params": [],
             "$longname": "Base#getHeaderToolbarId",
             "$kind": "method",
-            "id": 1174,
+            "id": 1194,
+            "neoClassName": "Neo.dialog.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Object} vdom\n     */",
+            "meta": {
+                "range": [
+                    13398,
+                    13668
+                ],
+                "filename": "Base.mjs",
+                "lineno": 467,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
+                "code": {
+                    "id": "astnode100039830",
+                    "name": "Base#getProxyVdom",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "vdom"
+                }
+            ],
+            "name": "getProxyVdom",
+            "longname": "Base#getProxyVdom",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#getProxyVdom",
+            "$kind": "method",
+            "id": 1195,
+            "neoClassName": "Neo.dialog.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Object} The new vdom root\n     */",
+            "meta": {
+                "range": [
+                    13740,
+                    13793
+                ],
+                "filename": "Base.mjs",
+                "lineno": 481,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
+                "code": {
+                    "id": "astnode100039860",
+                    "name": "Base#getVdomRoot",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The new vdom root"
+                }
+            ],
+            "name": "getVdomRoot",
+            "longname": "Base#getVdomRoot",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#getVdomRoot",
+            "$kind": "method",
+            "id": 1196,
+            "neoClassName": "Neo.dialog.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @returns {Object} The new vnode root\n     */",
+            "meta": {
+                "range": [
+                    13866,
+                    13929
+                ],
+                "filename": "Base.mjs",
+                "lineno": 489,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
+                "code": {
+                    "id": "astnode100039872",
+                    "name": "Base#getVnodeRoot",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "description": "The new vnode root"
+                }
+            ],
+            "name": "getVnodeRoot",
+            "longname": "Base#getVnodeRoot",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#getVnodeRoot",
+            "$kind": "method",
+            "id": 1197,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n     * Returns the id of the header toolbar\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    11599,
-                    11658
+                    14020,
+                    14079
                 ],
                 "filename": "Base.mjs",
-                "lineno": 417,
+                "lineno": 497,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {
-                    "id": "astnode100039914",
+                    "id": "astnode100039884",
                     "name": "Base#getWrapperId",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1113,22 +1447,67 @@
             "params": [],
             "$longname": "Base#getWrapperId",
             "$kind": "method",
-            "id": 1175,
+            "id": 1198,
+            "neoClassName": "Neo.dialog.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [animate=!!this.animateTargetId]\n     */",
+            "meta": {
+                "range": [
+                    14165,
+                    14368
+                ],
+                "filename": "Base.mjs",
+                "lineno": 505,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
+                "code": {
+                    "id": "astnode100039894",
+                    "name": "Base#hide",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "animate"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": "!!this.animateTargetId",
+                    "name": "animate"
+                }
+            ],
+            "name": "hide",
+            "longname": "Base#hide",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#hide",
+            "$kind": "method",
+            "id": 1199,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    11708,
-                    11874
+                    14418,
+                    14584
                 ],
                 "filename": "Base.mjs",
-                "lineno": 424,
+                "lineno": 519,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {
-                    "id": "astnode100039924",
+                    "id": "astnode100039929",
                     "name": "Base#maximize",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1156,22 +1535,54 @@
             "scope": "instance",
             "$longname": "Base#maximize",
             "$kind": "method",
-            "id": 1176,
+            "id": 1200,
+            "neoClassName": "Neo.dialog.Base"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    14613,
+                    14781
+                ],
+                "filename": "Base.mjs",
+                "lineno": 530,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
+                "code": {
+                    "id": "astnode100039964",
+                    "name": "Base#onConstructed",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onConstructed",
+            "longname": "Base#onConstructed",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Base#onConstructed",
+            "$kind": "method",
+            "id": 1201,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n     *\n     * @param data\n     */",
             "meta": {
                 "range": [
-                    11922,
-                    12851
+                    14829,
+                    16337
                 ],
                 "filename": "Base.mjs",
-                "lineno": 436,
+                "lineno": 544,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {
-                    "id": "astnode100039959",
+                    "id": "astnode100039992",
                     "name": "Base#onDragEnd",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1194,22 +1605,61 @@
             "scope": "instance",
             "$longname": "Base#onDragEnd",
             "$kind": "method",
-            "id": 1177,
+            "id": 1202,
+            "neoClassName": "Neo.dialog.Base"
+        },
+        {
+            "comment": "/**\n     * This method will only get triggered in case alwaysFireDragMove is included inside the dragZoneConfig\n     * @param data\n     */",
+            "meta": {
+                "range": [
+                    16486,
+                    16548
+                ],
+                "filename": "Base.mjs",
+                "lineno": 593,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
+                "code": {
+                    "id": "astnode100040156",
+                    "name": "Base#onDragMove",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "This method will only get triggered in case alwaysFireDragMove is included inside the dragZoneConfig",
+            "params": [
+                {
+                    "name": "data"
+                }
+            ],
+            "name": "onDragMove",
+            "longname": "Base#onDragMove",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#onDragMove",
+            "$kind": "method",
+            "id": 1203,
             "neoClassName": "Neo.dialog.Base"
         },
         {
             "comment": "/**\n     *\n     * @param data\n     */",
             "meta": {
                 "range": [
-                    12899,
-                    13940
+                    16596,
+                    17938
                 ],
                 "filename": "Base.mjs",
-                "lineno": 470,
+                "lineno": 601,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
                 "code": {
-                    "id": "astnode100040073",
+                    "id": "astnode100040169",
                     "name": "Base#onDragStart",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1232,7 +1682,52 @@
             "scope": "instance",
             "$longname": "Base#onDragStart",
             "$kind": "method",
-            "id": 1178,
+            "id": 1204,
+            "neoClassName": "Neo.dialog.Base"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Boolean} [animate=!!this.animateTargetId]\n     */",
+            "meta": {
+                "range": [
+                    18024,
+                    18230
+                ],
+                "filename": "Base.mjs",
+                "lineno": 648,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/dialog",
+                "code": {
+                    "id": "astnode100040312",
+                    "name": "Base#show",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "animate"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": "!!this.animateTargetId",
+                    "name": "animate"
+                }
+            ],
+            "name": "show",
+            "longname": "Base#show",
+            "kind": "function",
+            "memberof": "Base",
+            "scope": "instance",
+            "$longname": "Base#show",
+            "$kind": "method",
+            "id": 1205,
             "neoClassName": "Neo.dialog.Base"
         }
     ]

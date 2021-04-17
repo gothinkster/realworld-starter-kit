@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "RealWorld.view.article.CreateCommentComponent",
             "$kind": "class",
-            "id": 3173,
+            "id": 3278,
             "neoClassName": "RealWorld.view.article.CreateCommentComponent"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 3174,
+            "id": 3279,
             "neoClassName": "RealWorld.view.article.CreateCommentComponent"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 3175,
+            "id": 3280,
             "neoClassName": "RealWorld.view.article.CreateCommentComponent"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "userImage_",
             "$kind": "property",
-            "id": 3176,
+            "id": 3281,
             "neoClassName": "RealWorld.view.article.CreateCommentComponent"
         },
         {
@@ -119,7 +119,7 @@
             "scope": "global",
             "$longname": "userName_",
             "$kind": "property",
-            "id": 3177,
+            "id": 3282,
             "neoClassName": "RealWorld.view.article.CreateCommentComponent"
         },
         {
@@ -142,22 +142,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 3178,
+            "id": 3283,
             "neoClassName": "RealWorld.view.article.CreateCommentComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    2007,
-                    2621
+                    1994,
+                    2608
                 ],
                 "filename": "CreateCommentComponent.mjs",
                 "lineno": 65,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100104664",
+                    "id": "astnode100107583",
                     "name": "CreateCommentComponent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -184,22 +184,22 @@
             "scope": "global",
             "$longname": "CreateCommentComponent",
             "$kind": "constructor",
-            "id": 3179,
+            "id": 3284,
             "neoClassName": "RealWorld.view.article.CreateCommentComponent"
         },
         {
             "comment": "/**\n     * Triggered after the userImage config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2778,
-                    2958
+                    2765,
+                    2945
                 ],
                 "filename": "CreateCommentComponent.mjs",
                 "lineno": 97,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100104747",
+                    "id": "astnode100107666",
                     "name": "CreateCommentComponent#afterSetUserImage",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -238,22 +238,22 @@
             "scope": "instance",
             "$longname": "CreateCommentComponent#afterSetUserImage",
             "$kind": "method",
-            "id": 3180,
+            "id": 3285,
             "neoClassName": "RealWorld.view.article.CreateCommentComponent"
         },
         {
             "comment": "/**\n     * Triggered after the userName config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3114,
-                    3294
+                    3101,
+                    3281
                 ],
                 "filename": "CreateCommentComponent.mjs",
                 "lineno": 112,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100104782",
+                    "id": "astnode100107701",
                     "name": "CreateCommentComponent#afterSetUserName",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -292,22 +292,22 @@
             "scope": "instance",
             "$longname": "CreateCommentComponent#afterSetUserName",
             "$kind": "method",
-            "id": 3181,
+            "id": 3286,
             "neoClassName": "RealWorld.view.article.CreateCommentComponent"
         },
         {
             "comment": "/**\n     *\n     * @returns {String}\n     */",
             "meta": {
                 "range": [
-                    3348,
-                    3406
+                    3335,
+                    3393
                 ],
                 "filename": "CreateCommentComponent.mjs",
                 "lineno": 125,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100104817",
+                    "id": "astnode100107736",
                     "name": "CreateCommentComponent#getInputElId",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -333,22 +333,22 @@
             "params": [],
             "$longname": "CreateCommentComponent#getInputElId",
             "$kind": "method",
-            "id": 3182,
+            "id": 3287,
             "neoClassName": "RealWorld.view.article.CreateCommentComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} value\n     */",
             "meta": {
                 "range": [
-                    3464,
-                    3603
+                    3451,
+                    3590
                 ],
                 "filename": "CreateCommentComponent.mjs",
                 "lineno": 133,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100104827",
+                    "id": "astnode100107746",
                     "name": "CreateCommentComponent#onCurrentUserChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -376,22 +376,22 @@
             "scope": "instance",
             "$longname": "CreateCommentComponent#onCurrentUserChange",
             "$kind": "method",
-            "id": 3183,
+            "id": 3288,
             "neoClassName": "RealWorld.view.article.CreateCommentComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    3660,
-                    4401
+                    3647,
+                    4388
                 ],
                 "filename": "CreateCommentComponent.mjs",
                 "lineno": 144,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100104846",
+                    "id": "astnode100107765",
                     "name": "CreateCommentComponent#onSubmitButtonClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -419,7 +419,7 @@
             "scope": "instance",
             "$longname": "CreateCommentComponent#onSubmitButtonClick",
             "$kind": "method",
-            "id": 3184,
+            "id": 3289,
             "neoClassName": "RealWorld.view.article.CreateCommentComponent"
         }
     ]

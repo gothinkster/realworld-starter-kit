@@ -20,7 +20,7 @@
             "scope": "static",
             "$longname": "Neo.container.Panel",
             "$kind": "class",
-            "id": 896,
+            "id": 904,
             "neoClassName": "Neo.container.Panel"
         },
         {
@@ -45,7 +45,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 897,
+            "id": 905,
             "neoClassName": "Neo.container.Panel"
         },
         {
@@ -70,7 +70,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 898,
+            "id": 906,
             "neoClassName": "Neo.container.Panel"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 899,
+            "id": 907,
             "neoClassName": "Neo.container.Panel"
         },
         {
@@ -118,7 +118,7 @@
             "scope": "global",
             "$longname": "containerConfig",
             "$kind": "property",
-            "id": 900,
+            "id": 908,
             "neoClassName": "Neo.container.Panel"
         },
         {
@@ -142,7 +142,7 @@
             "scope": "global",
             "$longname": "headerDefaults",
             "$kind": "property",
-            "id": 901,
+            "id": 909,
             "neoClassName": "Neo.container.Panel"
         },
         {
@@ -166,7 +166,7 @@
             "scope": "global",
             "$longname": "headers",
             "$kind": "property",
-            "id": 902,
+            "id": 910,
             "neoClassName": "Neo.container.Panel"
         },
         {
@@ -191,7 +191,7 @@
             "scope": "global",
             "$longname": "items",
             "$kind": "property",
-            "id": 903,
+            "id": 911,
             "neoClassName": "Neo.container.Panel"
         },
         {
@@ -215,7 +215,7 @@
             "scope": "global",
             "$longname": "verticalHeadersFirst",
             "$kind": "property",
-            "id": 904,
+            "id": 912,
             "neoClassName": "Neo.container.Panel"
         },
         {
@@ -223,14 +223,14 @@
             "meta": {
                 "range": [
                     1323,
-                    1632
+                    1591
                 ],
                 "filename": "Panel.mjs",
                 "lineno": 54,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100032491",
+                    "id": "astnode100032689",
                     "name": "Panel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -257,54 +257,22 @@
             "scope": "global",
             "$longname": "Panel",
             "$kind": "constructor",
-            "id": 905,
-            "neoClassName": "Neo.container.Panel"
-        },
-        {
-            "comment": "/**\n     *\n     */",
-            "meta": {
-                "range": [
-                    1661,
-                    4350
-                ],
-                "filename": "Panel.mjs",
-                "lineno": 71,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
-                "code": {
-                    "id": "astnode100032532",
-                    "name": "Panel#createItems",
-                    "type": "MethodDefinition",
-                    "paramnames": []
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "name": "createItems",
-            "longname": "Panel#createItems",
-            "kind": "function",
-            "memberof": "Panel",
-            "scope": "instance",
-            "params": [],
-            "$longname": "Panel#createItems",
-            "$kind": "method",
-            "id": 906,
+            "id": 913,
             "neoClassName": "Neo.container.Panel"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} header the header config\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    4452,
-                    5263
+                    1693,
+                    2568
                 ],
                 "filename": "Panel.mjs",
-                "lineno": 149,
+                "lineno": 70,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
                 "code": {
-                    "id": "astnode100032866",
+                    "id": "astnode100032723",
                     "name": "Panel.createHeaderConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -342,7 +310,39 @@
             "scope": "static",
             "$longname": "Panel.createHeaderConfig",
             "$kind": "method",
-            "id": 907,
+            "id": 914,
+            "neoClassName": "Neo.container.Panel"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    2597,
+                    5286
+                ],
+                "filename": "Panel.mjs",
+                "lineno": 104,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/container",
+                "code": {
+                    "id": "astnode100032807",
+                    "name": "Panel#createItems",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "createItems",
+            "longname": "Panel#createItems",
+            "kind": "function",
+            "memberof": "Panel",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Panel#createItems",
+            "$kind": "method",
+            "id": 915,
             "neoClassName": "Neo.container.Panel"
         }
     ]

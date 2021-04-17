@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "RealWorld.view.user.SettingsComponent",
             "$kind": "class",
-            "id": 3349,
+            "id": 3454,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 3350,
+            "id": 3455,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
@@ -68,7 +68,7 @@
             "scope": "global",
             "$longname": "bio_",
             "$kind": "property",
-            "id": 3351,
+            "id": 3456,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
@@ -92,7 +92,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 3352,
+            "id": 3457,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
@@ -116,7 +116,7 @@
             "scope": "global",
             "$longname": "email_",
             "$kind": "property",
-            "id": 3353,
+            "id": 3458,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
@@ -140,7 +140,7 @@
             "scope": "global",
             "$longname": "errors_",
             "$kind": "property",
-            "id": 3354,
+            "id": 3459,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
@@ -164,7 +164,7 @@
             "scope": "global",
             "$longname": "image_",
             "$kind": "property",
-            "id": 3355,
+            "id": 3460,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
@@ -188,7 +188,7 @@
             "scope": "global",
             "$longname": "userName_",
             "$kind": "property",
-            "id": 3356,
+            "id": 3461,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
@@ -211,22 +211,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 3357,
+            "id": 3462,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    5515,
-                    6050
+                    5489,
+                    6024
                 ],
                 "filename": "SettingsComponent.mjs",
                 "lineno": 135,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100111135",
+                    "id": "astnode100114047",
                     "name": "SettingsComponent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -253,22 +253,22 @@
             "scope": "global",
             "$longname": "SettingsComponent",
             "$kind": "constructor",
-            "id": 3358,
+            "id": 3463,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
             "comment": "/**\n     * Triggered after the bio config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6201,
-                    6349
+                    6175,
+                    6323
                 ],
                 "filename": "SettingsComponent.mjs",
                 "lineno": 160,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100111201",
+                    "id": "astnode100114113",
                     "name": "SettingsComponent#afterSetBio",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -307,22 +307,22 @@
             "scope": "instance",
             "$longname": "SettingsComponent#afterSetBio",
             "$kind": "method",
-            "id": 3359,
+            "id": 3464,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
             "comment": "/**\n     * Triggered after the email config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6502,
-                    6654
+                    6476,
+                    6628
                 ],
                 "filename": "SettingsComponent.mjs",
                 "lineno": 173,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100111230",
+                    "id": "astnode100114142",
                     "name": "SettingsComponent#afterSetEmail",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -361,22 +361,22 @@
             "scope": "instance",
             "$longname": "SettingsComponent#afterSetEmail",
             "$kind": "method",
-            "id": 3360,
+            "id": 3465,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
             "comment": "/**\n     * Triggered after the errors config got changed\n     * @param {Object[]} value=[]\n     * @param {Object[]} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6815,
-                    7261
+                    6789,
+                    7235
                 ],
                 "filename": "SettingsComponent.mjs",
                 "lineno": 186,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100111259",
+                    "id": "astnode100114171",
                     "name": "SettingsComponent#afterSetErrors",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -416,22 +416,22 @@
             "scope": "instance",
             "$longname": "SettingsComponent#afterSetErrors",
             "$kind": "method",
-            "id": 3361,
+            "id": 3466,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
             "comment": "/**\n     * Triggered after the image config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7414,
-                    7566
+                    7388,
+                    7540
                 ],
                 "filename": "SettingsComponent.mjs",
                 "lineno": 210,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100111338",
+                    "id": "astnode100114250",
                     "name": "SettingsComponent#afterSetImage",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -470,22 +470,22 @@
             "scope": "instance",
             "$longname": "SettingsComponent#afterSetImage",
             "$kind": "method",
-            "id": 3362,
+            "id": 3467,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
             "comment": "/**\n     * Triggered after the userName config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    7722,
-                    7880
+                    7696,
+                    7854
                 ],
                 "filename": "SettingsComponent.mjs",
                 "lineno": 223,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100111367",
+                    "id": "astnode100114279",
                     "name": "SettingsComponent#afterSetUserName",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -524,22 +524,22 @@
             "scope": "instance",
             "$longname": "SettingsComponent#afterSetUserName",
             "$kind": "method",
-            "id": 3363,
+            "id": 3468,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} value\n     */",
             "meta": {
                 "range": [
-                    7938,
-                    8228
+                    7912,
+                    8202
                 ],
                 "filename": "SettingsComponent.mjs",
                 "lineno": 234,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100111396",
+                    "id": "astnode100114308",
                     "name": "SettingsComponent#onCurrentUserChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -567,22 +567,22 @@
             "scope": "instance",
             "$longname": "SettingsComponent#onCurrentUserChange",
             "$kind": "method",
-            "id": 3364,
+            "id": 3469,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    8285,
-                    8357
+                    8259,
+                    8331
                 ],
                 "filename": "SettingsComponent.mjs",
                 "lineno": 250,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100111428",
+                    "id": "astnode100114340",
                     "name": "SettingsComponent#onLogoutButtonClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -610,22 +610,22 @@
             "scope": "instance",
             "$longname": "SettingsComponent#onLogoutButtonClick",
             "$kind": "method",
-            "id": 3365,
+            "id": 3470,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    8414,
-                    9737
+                    8388,
+                    9711
                 ],
                 "filename": "SettingsComponent.mjs",
                 "lineno": 258,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/user",
                 "code": {
-                    "id": "astnode100111441",
+                    "id": "astnode100114353",
                     "name": "SettingsComponent#onSubmitButtonClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -653,7 +653,7 @@
             "scope": "instance",
             "$longname": "SettingsComponent#onSubmitButtonClick",
             "$kind": "method",
-            "id": 3366,
+            "id": 3471,
             "neoClassName": "RealWorld.view.user.SettingsComponent"
         }
     ]

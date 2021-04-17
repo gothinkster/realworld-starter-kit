@@ -26,7 +26,7 @@
             "scope": "static",
             "$longname": "Neo.core.Logger",
             "$kind": "class",
-            "id": 991,
+            "id": 1004,
             "neoClassName": "Neo.core.Logger"
         },
         {
@@ -51,7 +51,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 992,
+            "id": 1005,
             "neoClassName": "Neo.core.Logger"
         },
         {
@@ -76,7 +76,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 993,
+            "id": 1006,
             "neoClassName": "Neo.core.Logger"
         },
         {
@@ -101,7 +101,7 @@
             "scope": "global",
             "$longname": "enableLogs",
             "$kind": "property",
-            "id": 994,
+            "id": 1007,
             "neoClassName": "Neo.core.Logger"
         },
         {
@@ -126,7 +126,7 @@
             "scope": "global",
             "$longname": "level",
             "$kind": "property",
-            "id": 995,
+            "id": 1008,
             "neoClassName": "Neo.core.Logger"
         },
         {
@@ -151,7 +151,7 @@
             "scope": "global",
             "$longname": "enableLogs",
             "$kind": "property",
-            "id": 996,
+            "id": 1009,
             "neoClassName": "Neo.core.Logger"
         },
         {
@@ -166,7 +166,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100035566",
+                    "id": "astnode100035385",
                     "name": "Logger",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -188,7 +188,7 @@
             "scope": "global",
             "$longname": "Logger",
             "$kind": "constructor",
-            "id": 997,
+            "id": 1010,
             "neoClassName": "Neo.core.Logger"
         },
         {
@@ -203,7 +203,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100035594",
+                    "id": "astnode100035413",
                     "name": "Logger#error",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -226,7 +226,7 @@
             "scope": "instance",
             "$longname": "Logger#error",
             "$kind": "method",
-            "id": 998,
+            "id": 1011,
             "neoClassName": "Neo.core.Logger"
         },
         {
@@ -234,53 +234,14 @@
             "meta": {
                 "range": [
                     1281,
-                    1358
+                    1360
                 ],
                 "filename": "Logger.mjs",
                 "lineno": 66,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100035603",
-                    "name": "Logger#log",
-                    "type": "MethodDefinition",
-                    "paramnames": [
-                        "args"
-                    ]
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "params": [
-                {
-                    "name": "args",
-                    "variable": true
-                }
-            ],
-            "name": "log",
-            "longname": "Logger#log",
-            "kind": "function",
-            "memberof": "Logger",
-            "scope": "instance",
-            "$longname": "Logger#log",
-            "$kind": "method",
-            "id": 999,
-            "neoClassName": "Neo.core.Logger"
-        },
-        {
-            "comment": "/**\n     *\n     * @param args\n     */",
-            "meta": {
-                "range": [
-                    1406,
-                    1485
-                ],
-                "filename": "Logger.mjs",
-                "lineno": 75,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
-                "code": {
-                    "id": "astnode100035622",
+                    "id": "astnode100035422",
                     "name": "Logger#info",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -304,7 +265,46 @@
             "scope": "instance",
             "$longname": "Logger#info",
             "$kind": "method",
-            "id": 1000,
+            "id": 1012,
+            "neoClassName": "Neo.core.Logger"
+        },
+        {
+            "comment": "/**\n     *\n     * @param args\n     */",
+            "meta": {
+                "range": [
+                    1408,
+                    1485
+                ],
+                "filename": "Logger.mjs",
+                "lineno": 75,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
+                "code": {
+                    "id": "astnode100035441",
+                    "name": "Logger#log",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "args"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "name": "args",
+                    "variable": true
+                }
+            ],
+            "name": "log",
+            "longname": "Logger#log",
+            "kind": "function",
+            "memberof": "Logger",
+            "scope": "instance",
+            "$longname": "Logger#log",
+            "$kind": "method",
+            "id": 1013,
             "neoClassName": "Neo.core.Logger"
         },
         {
@@ -319,7 +319,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100035641",
+                    "id": "astnode100035460",
                     "name": "Logger#logError",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -343,7 +343,7 @@
             "scope": "instance",
             "$longname": "Logger#logError",
             "$kind": "method",
-            "id": 1001,
+            "id": 1014,
             "neoClassName": "Neo.core.Logger"
         },
         {
@@ -358,7 +358,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100035660",
+                    "id": "astnode100035479",
                     "name": "Logger#warn",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -382,7 +382,7 @@
             "scope": "instance",
             "$longname": "Logger#warn",
             "$kind": "method",
-            "id": 1002,
+            "id": 1015,
             "neoClassName": "Neo.core.Logger"
         },
         {
@@ -397,7 +397,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/core",
                 "code": {
-                    "id": "astnode100035679",
+                    "id": "astnode100035498",
                     "name": "Logger#write",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -422,7 +422,7 @@
             "scope": "instance",
             "$longname": "Logger#write",
             "$kind": "method",
-            "id": 1003,
+            "id": 1016,
             "neoClassName": "Neo.core.Logger"
         }
     ]

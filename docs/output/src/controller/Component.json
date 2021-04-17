@@ -4,7 +4,7 @@
             "comment": "/**\n * @class Neo.controller.Component\n * @extends Neo.controller.Base\n */",
             "meta": {
                 "filename": "Component.mjs",
-                "lineno": 7,
+                "lineno": 6,
                 "columnno": 0,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {}
@@ -19,14 +19,14 @@
             "scope": "static",
             "$longname": "Neo.controller.Component",
             "$kind": "class",
-            "id": 945,
+            "id": 954,
             "neoClassName": "Neo.controller.Component"
         },
         {
             "comment": "/**\n         * @member {String} className='Neo.controller.Component'\n         * @protected\n         */",
             "meta": {
                 "filename": "Component.mjs",
-                "lineno": 17,
+                "lineno": 16,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {}
@@ -44,14 +44,14 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 946,
+            "id": 955,
             "neoClassName": "Neo.controller.Component"
         },
         {
-            "comment": "/**\n         * @member {String} ntype='view-controller'\n         * @protected\n         */",
+            "comment": "/**\n         * @member {String} ntype='component-controller'\n         * @protected\n         */",
             "meta": {
                 "filename": "Component.mjs",
-                "lineno": 22,
+                "lineno": 21,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {}
@@ -63,20 +63,70 @@
                     "String"
                 ]
             },
-            "defaultvalue": "'view-controller'",
+            "defaultvalue": "'component-controller'",
             "access": "protected",
             "longname": "ntype",
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 947,
+            "id": 956,
+            "neoClassName": "Neo.controller.Component"
+        },
+        {
+            "comment": "/**\n         * @member {Object} component=null\n         * @protected\n         */",
+            "meta": {
+                "filename": "Component.mjs",
+                "lineno": 26,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "component",
+            "type": {
+                "names": [
+                    "Object"
+                ]
+            },
+            "defaultvalue": null,
+            "access": "protected",
+            "longname": "component",
+            "scope": "global",
+            "$longname": "component",
+            "$kind": "property",
+            "id": 957,
+            "neoClassName": "Neo.controller.Component"
+        },
+        {
+            "comment": "/**\n         * @member {Neo.controller.Component|null} parent_=null\n         */",
+            "meta": {
+                "filename": "Component.mjs",
+                "lineno": 30,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "parent_",
+            "type": {
+                "names": [
+                    "Neo.controller.Component",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "parent_",
+            "scope": "global",
+            "$longname": "parent_",
+            "$kind": "property",
+            "id": 958,
             "neoClassName": "Neo.controller.Component"
         },
         {
             "comment": "/**\n         * @member {Object} references=null\n         * @protected\n         */",
             "meta": {
                 "filename": "Component.mjs",
-                "lineno": 27,
+                "lineno": 35,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {}
@@ -94,47 +144,22 @@
             "scope": "global",
             "$longname": "references",
             "$kind": "property",
-            "id": 948,
-            "neoClassName": "Neo.controller.Component"
-        },
-        {
-            "comment": "/**\n         * @member {Object} view_=null\n         * @protected\n         */",
-            "meta": {
-                "filename": "Component.mjs",
-                "lineno": 32,
-                "columnno": 8,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
-                "code": {}
-            },
-            "kind": "member",
-            "name": "view_",
-            "type": {
-                "names": [
-                    "Object"
-                ]
-            },
-            "defaultvalue": null,
-            "access": "protected",
-            "longname": "view_",
-            "scope": "global",
-            "$longname": "view_",
-            "$kind": "property",
-            "id": 949,
+            "id": 959,
             "neoClassName": "Neo.controller.Component"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    981,
-                    1173
+                    1052,
+                    1378
                 ],
                 "filename": "Component.mjs",
-                "lineno": 39,
+                "lineno": 42,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {
-                    "id": "astnode100033625",
+                    "id": "astnode100033819",
                     "name": "Component",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -161,23 +186,23 @@
             "scope": "global",
             "$longname": "Component",
             "$kind": "constructor",
-            "id": 950,
+            "id": 960,
             "neoClassName": "Neo.controller.Component"
         },
         {
-            "comment": "/**\n     * Triggered when accessing the view config\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "comment": "/**\n     * Triggered before the parent config gets changed\n     * @param {Neo.controller.Component|null} value\n     * @param {Neo.controller.Component|null} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1324,
-                    1393
+                    1580,
+                    1669
                 ],
                 "filename": "Component.mjs",
-                "lineno": 55,
+                "lineno": 64,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {
-                    "id": "astnode100033657",
-                    "name": "Component#beforeGetView",
+                    "id": "astnode100033866",
+                    "name": "Component#beforeSetParent",
                     "type": "MethodDefinition",
                     "paramnames": [
                         "value",
@@ -188,158 +213,52 @@
                     "": null
                 }
             },
-            "description": "Triggered when accessing the view config",
+            "description": "Triggered before the parent config gets changed",
             "params": [
-                {
-                    "type": {
-                        "names": [
-                            "Boolean"
-                        ]
-                    },
-                    "name": "value"
-                },
-                {
-                    "type": {
-                        "names": [
-                            "Boolean"
-                        ]
-                    },
-                    "name": "oldValue"
-                }
-            ],
-            "access": "protected",
-            "name": "beforeGetView",
-            "longname": "Component#beforeGetView",
-            "kind": "function",
-            "memberof": "Component",
-            "scope": "instance",
-            "$longname": "Component#beforeGetView",
-            "$kind": "method",
-            "id": 951,
-            "neoClassName": "Neo.controller.Component"
-        },
-        {
-            "comment": "/**\n     * Triggered before the view config gets changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
-            "meta": {
-                "range": [
-                    1549,
-                    1612
-                ],
-                "filename": "Component.mjs",
-                "lineno": 65,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
-                "code": {
-                    "id": "astnode100033669",
-                    "name": "Component#beforeSetView",
-                    "type": "MethodDefinition",
-                    "paramnames": [
-                        "value",
-                        "oldValue"
-                    ]
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "description": "Triggered before the view config gets changed",
-            "params": [
-                {
-                    "type": {
-                        "names": [
-                            "Boolean"
-                        ]
-                    },
-                    "name": "value"
-                },
-                {
-                    "type": {
-                        "names": [
-                            "Boolean"
-                        ]
-                    },
-                    "name": "oldValue"
-                }
-            ],
-            "access": "protected",
-            "name": "beforeSetView",
-            "longname": "Component#beforeSetView",
-            "kind": "function",
-            "memberof": "Component",
-            "scope": "instance",
-            "$longname": "Component#beforeSetView",
-            "$kind": "method",
-            "id": 952,
-            "neoClassName": "Neo.controller.Component"
-        },
-        {
-            "comment": "/**\n     *\n     * @param {String} [ntype]\n     * @returns {Neo.controller.Component|null}\n     */",
-            "meta": {
-                "range": [
-                    1720,
-                    2334
-                ],
-                "filename": "Component.mjs",
-                "lineno": 74,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
-                "code": {
-                    "id": "astnode100033679",
-                    "name": "Component#getParent",
-                    "type": "MethodDefinition",
-                    "paramnames": [
-                        "ntype"
-                    ]
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "params": [
-                {
-                    "type": {
-                        "names": [
-                            "String"
-                        ]
-                    },
-                    "optional": true,
-                    "name": "ntype"
-                }
-            ],
-            "returns": [
                 {
                     "type": {
                         "names": [
                             "Neo.controller.Component",
                             "null"
                         ]
-                    }
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Neo.controller.Component",
+                            "null"
+                        ]
+                    },
+                    "name": "oldValue"
                 }
             ],
-            "name": "getParent",
-            "longname": "Component#getParent",
+            "access": "protected",
+            "name": "beforeSetParent",
+            "longname": "Component#beforeSetParent",
             "kind": "function",
             "memberof": "Component",
             "scope": "instance",
-            "$longname": "Component#getParent",
+            "$longname": "Component#beforeSetParent",
             "$kind": "method",
-            "id": 953,
+            "id": 961,
             "neoClassName": "Neo.controller.Component"
         },
         {
             "comment": "/**\n     *\n     * @param {String} handlerName\n     * @returns {Neo.controller.Component|null}\n     */",
             "meta": {
                 "range": [
-                    2446,
-                    2910
+                    1781,
+                    2008
                 ],
                 "filename": "Component.mjs",
-                "lineno": 104,
+                "lineno": 73,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {
-                    "id": "astnode100033745",
-                    "name": "Component#getParentHandlerScope",
+                    "id": "astnode100033880",
+                    "name": "Component#getHandlerScope",
                     "type": "MethodDefinition",
                     "paramnames": [
                         "handlerName"
@@ -369,29 +288,118 @@
                     }
                 }
             ],
-            "name": "getParentHandlerScope",
-            "longname": "Component#getParentHandlerScope",
+            "name": "getHandlerScope",
+            "longname": "Component#getHandlerScope",
             "kind": "function",
             "memberof": "Component",
             "scope": "instance",
-            "$longname": "Component#getParentHandlerScope",
+            "$longname": "Component#getHandlerScope",
             "$kind": "method",
-            "id": 954,
+            "id": 962,
             "neoClassName": "Neo.controller.Component"
         },
         {
-            "comment": "/**\n     * todo: cleanup no longer existing references\n     * todo: update changed references (e.g. container.remove() then container.add() using the same key)\n     * @param {String} name\n     * @returns {*}\n     */",
+            "comment": "/**\n     * sameLevelOnly=false will return the closest VM inside the component parent tree,\n     * in case there is none on the same level.\n     * @param {Boolean} [sameLevelOnly=false]\n     */",
             "meta": {
                 "range": [
-                    3136,
-                    3582
+                    2212,
+                    2360
                 ],
                 "filename": "Component.mjs",
-                "lineno": 129,
+                "lineno": 87,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {
-                    "id": "astnode100033802",
+                    "id": "astnode100033912",
+                    "name": "Component#getModel",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "sameLevelOnly"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "sameLevelOnly=false will return the closest VM inside the component parent tree,<br />in case there is none on the same level.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "optional": true,
+                    "defaultvalue": false,
+                    "name": "sameLevelOnly"
+                }
+            ],
+            "name": "getModel",
+            "longname": "Component#getModel",
+            "kind": "function",
+            "memberof": "Component",
+            "scope": "instance",
+            "$longname": "Component#getModel",
+            "$kind": "method",
+            "id": 963,
+            "neoClassName": "Neo.controller.Component"
+        },
+        {
+            "comment": "/**\n     * Get the closest controller inside the components parent tree\n     * @returns {Neo.controller.Component|null}\n     */",
+            "meta": {
+                "range": [
+                    2498,
+                    2837
+                ],
+                "filename": "Component.mjs",
+                "lineno": 96,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
+                "code": {
+                    "id": "astnode100033935",
+                    "name": "Component#getParent",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Get the closest controller inside the components parent tree",
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.controller.Component",
+                            "null"
+                        ]
+                    }
+                }
+            ],
+            "name": "getParent",
+            "longname": "Component#getParent",
+            "kind": "function",
+            "memberof": "Component",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Component#getParent",
+            "$kind": "method",
+            "id": 964,
+            "neoClassName": "Neo.controller.Component"
+        },
+        {
+            "comment": "/**\n     * todo: update changed references (e.g. container.remove() then container.add() using the same key)\n     * @param {String} name\n     * @returns {*}\n     */",
+            "meta": {
+                "range": [
+                    3012,
+                    3340
+                ],
+                "filename": "Component.mjs",
+                "lineno": 115,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
+                "code": {
+                    "id": "astnode100033983",
                     "name": "Component#getReference",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -402,7 +410,7 @@
                     "": null
                 }
             },
-            "description": "todo: cleanup no longer existing references<br />todo: update changed references (e.g. container.remove() then container.add() using the same key)",
+            "description": "todo: update changed references (e.g. container.remove() then container.add() using the same key)",
             "params": [
                 {
                     "type": {
@@ -429,26 +437,59 @@
             "scope": "instance",
             "$longname": "Component#getReference",
             "$kind": "method",
-            "id": 955,
+            "id": 965,
             "neoClassName": "Neo.controller.Component"
         },
         {
-            "comment": "/**\n     *\n     * @param {Neo.component.Base} view\n     */",
+            "comment": "/**\n     * Override this method inside your view controllers as a starting point in case you need references\n     * (instead of using onConstructed() inside your controller)\n     */",
             "meta": {
                 "range": [
-                    3651,
-                    7502
+                    3532,
+                    3559
                 ],
                 "filename": "Component.mjs",
-                "lineno": 153,
+                "lineno": 134,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
                 "code": {
-                    "id": "astnode100033864",
-                    "name": "Component#onViewConstructed",
+                    "id": "astnode100034030",
+                    "name": "Component#onComponentConstructed",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Override this method inside your view controllers as a starting point in case you need references<br />(instead of using onConstructed() inside your controller)",
+            "name": "onComponentConstructed",
+            "longname": "Component#onComponentConstructed",
+            "kind": "function",
+            "memberof": "Component",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Component#onComponentConstructed",
+            "$kind": "method",
+            "id": 966,
+            "neoClassName": "Neo.controller.Component"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Neo.component.Base} [component=this.component]\n     */",
+            "meta": {
+                "range": [
+                    3650,
+                    6471
+                ],
+                "filename": "Component.mjs",
+                "lineno": 140,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
+                "code": {
+                    "id": "astnode100034034",
+                    "name": "Component#parseConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
-                        "view"
+                        "component"
                     ]
                 },
                 "vars": {
@@ -462,83 +503,9 @@
                             "Neo.component.Base"
                         ]
                     },
-                    "name": "view"
-                }
-            ],
-            "name": "onViewConstructed",
-            "longname": "Component#onViewConstructed",
-            "kind": "function",
-            "memberof": "Component",
-            "scope": "instance",
-            "$longname": "Component#onViewConstructed",
-            "$kind": "method",
-            "id": 956,
-            "neoClassName": "Neo.controller.Component"
-        },
-        {
-            "comment": "/**\n     * Override this method inside your view controllers as a starting point in case you need references\n     * (instead of using onConstructed() inside your controller)\n     */",
-            "meta": {
-                "range": [
-                    7694,
-                    7717
-                ],
-                "filename": "Component.mjs",
-                "lineno": 252,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
-                "code": {
-                    "id": "astnode100034228",
-                    "name": "Component#onViewParsed",
-                    "type": "MethodDefinition",
-                    "paramnames": []
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "description": "Override this method inside your view controllers as a starting point in case you need references<br />(instead of using onConstructed() inside your controller)",
-            "name": "onViewParsed",
-            "longname": "Component#onViewParsed",
-            "kind": "function",
-            "memberof": "Component",
-            "scope": "instance",
-            "params": [],
-            "$longname": "Component#onViewParsed",
-            "$kind": "method",
-            "id": 957,
-            "neoClassName": "Neo.controller.Component"
-        },
-        {
-            "comment": "/**\n     *\n     * @param {Object} config\n     */",
-            "meta": {
-                "range": [
-                    7776,
-                    10416
-                ],
-                "filename": "Component.mjs",
-                "lineno": 260,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
-                "code": {
-                    "id": "astnode100034232",
-                    "name": "Component#parseConfig",
-                    "type": "MethodDefinition",
-                    "paramnames": [
-                        "config"
-                    ]
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "params": [
-                {
-                    "type": {
-                        "names": [
-                            "Object"
-                        ]
-                    },
-                    "name": "config"
+                    "optional": true,
+                    "defaultvalue": "this.component",
+                    "name": "component"
                 }
             ],
             "name": "parseConfig",
@@ -548,7 +515,51 @@
             "scope": "instance",
             "$longname": "Component#parseConfig",
             "$kind": "method",
-            "id": 958,
+            "id": 967,
+            "neoClassName": "Neo.controller.Component"
+        },
+        {
+            "comment": "/**\n     * Will get called by component.Base: destroy() in case the component has a reference config\n     * @param {Neo.component.Base} component\n     */",
+            "meta": {
+                "range": [
+                    6635,
+                    6920
+                ],
+                "filename": "Component.mjs",
+                "lineno": 210,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/controller",
+                "code": {
+                    "id": "astnode100034305",
+                    "name": "Component#removeReference",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "component"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Will get called by component.Base: destroy() in case the component has a reference config",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Neo.component.Base"
+                        ]
+                    },
+                    "name": "component"
+                }
+            ],
+            "name": "removeReference",
+            "longname": "Component#removeReference",
+            "kind": "function",
+            "memberof": "Component",
+            "scope": "instance",
+            "$longname": "Component#removeReference",
+            "$kind": "method",
+            "id": 968,
             "neoClassName": "Neo.controller.Component"
         }
     ]

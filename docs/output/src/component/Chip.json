@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.component.Chip",
             "$kind": "class",
-            "id": 547,
+            "id": 554,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 548,
+            "id": 555,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 549,
+            "id": 556,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "closable_",
             "$kind": "property",
-            "id": 550,
+            "id": 557,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -118,7 +118,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 551,
+            "id": 558,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -143,7 +143,7 @@
             "scope": "global",
             "$longname": "display_",
             "$kind": "property",
-            "id": 552,
+            "id": 559,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -170,7 +170,7 @@
             "scope": "global",
             "$longname": "iconCls_",
             "$kind": "property",
-            "id": 553,
+            "id": 560,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -196,7 +196,7 @@
             "scope": "global",
             "$longname": "text_",
             "$kind": "property",
-            "id": 554,
+            "id": 561,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -221,7 +221,7 @@
             "scope": "global",
             "$longname": "useDomListeners",
             "$kind": "property",
-            "id": 555,
+            "id": 562,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -244,7 +244,7 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 556,
+            "id": 563,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -259,7 +259,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100018715",
+                    "id": "astnode100018919",
                     "name": "Chip",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -286,7 +286,7 @@
             "scope": "global",
             "$longname": "Chip",
             "$kind": "constructor",
-            "id": 557,
+            "id": 564,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -301,7 +301,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100018761",
+                    "id": "astnode100018965",
                     "name": "Chip#afterSetClosable",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -340,7 +340,7 @@
             "scope": "instance",
             "$longname": "Chip#afterSetClosable",
             "$kind": "method",
-            "id": 558,
+            "id": 565,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -355,7 +355,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100018793",
+                    "id": "astnode100018997",
                     "name": "Chip#afterSetDisplay",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -394,7 +394,7 @@
             "scope": "instance",
             "$longname": "Chip#afterSetDisplay",
             "$kind": "method",
-            "id": 559,
+            "id": 566,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -409,7 +409,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100018817",
+                    "id": "astnode100019021",
                     "name": "Chip#afterSetIconCls",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -448,7 +448,7 @@
             "scope": "instance",
             "$longname": "Chip#afterSetIconCls",
             "$kind": "method",
-            "id": 560,
+            "id": 567,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -463,7 +463,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100018884",
+                    "id": "astnode100019088",
                     "name": "Chip#afterSetText",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -502,7 +502,7 @@
             "scope": "instance",
             "$longname": "Chip#afterSetText",
             "$kind": "method",
-            "id": 561,
+            "id": 568,
             "neoClassName": "Neo.component.Chip"
         },
         {
@@ -517,7 +517,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/component",
                 "code": {
-                    "id": "astnode100018939",
+                    "id": "astnode100019143",
                     "name": "Chip#onCloseButtonClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -545,7 +545,7 @@
             "scope": "instance",
             "$longname": "Chip#onCloseButtonClick",
             "$kind": "method",
-            "id": 562,
+            "id": 569,
             "neoClassName": "Neo.component.Chip"
         }
     ]

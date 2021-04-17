@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.form.field.Date",
             "$kind": "class",
-            "id": 1400,
+            "id": 1429,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1401,
+            "id": 1430,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -69,7 +69,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1402,
+            "id": 1431,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1403,
+            "id": 1432,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -119,7 +119,7 @@
             "scope": "global",
             "$longname": "dateSelector",
             "$kind": "property",
-            "id": 1404,
+            "id": 1433,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -144,7 +144,7 @@
             "scope": "global",
             "$longname": "dateSelectorConfig",
             "$kind": "property",
-            "id": 1405,
+            "id": 1434,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -169,7 +169,7 @@
             "scope": "global",
             "$longname": "hidePickerOnSelect",
             "$kind": "property",
-            "id": 1406,
+            "id": 1435,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -193,7 +193,7 @@
             "scope": "global",
             "$longname": "inputType",
             "$kind": "property",
-            "id": 1407,
+            "id": 1436,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -217,7 +217,7 @@
             "scope": "global",
             "$longname": "pickerHeight",
             "$kind": "property",
-            "id": 1408,
+            "id": 1437,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -241,7 +241,7 @@
             "scope": "global",
             "$longname": "pickerWidth",
             "$kind": "property",
-            "id": 1409,
+            "id": 1438,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -268,7 +268,7 @@
             "scope": "global",
             "$longname": "triggers",
             "$kind": "property",
-            "id": 1410,
+            "id": 1439,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -283,7 +283,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100045640",
+                    "id": "astnode100045968",
                     "name": "DateField",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -305,7 +305,7 @@
             "scope": "global",
             "$longname": "DateField",
             "$kind": "constructor",
-            "id": 1411,
+            "id": 1440,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -320,7 +320,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100045717",
+                    "id": "astnode100046045",
                     "name": "DateField#createPickerComponent",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -346,7 +346,7 @@
             "params": [],
             "$longname": "DateField#createPickerComponent",
             "$kind": "method",
-            "id": 1412,
+            "id": 1441,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -361,7 +361,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100045725",
+                    "id": "astnode100046053",
                     "name": "DateField#onContainerKeyDownEscape",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -390,7 +390,7 @@
             "scope": "instance",
             "$longname": "DateField#onContainerKeyDownEscape",
             "$kind": "method",
-            "id": 1413,
+            "id": 1442,
             "neoClassName": "Neo.form.field.Date"
         },
         {
@@ -405,7 +405,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100045748",
+                    "id": "astnode100046076",
                     "name": "DateField#onDatePickerChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -433,66 +433,22 @@
             "scope": "instance",
             "$longname": "DateField#onDatePickerChange",
             "$kind": "method",
-            "id": 1414,
-            "neoClassName": "Neo.form.field.Date"
-        },
-        {
-            "comment": "/**\n     *\n     * @param {Object} data\n     * @protected\n     */",
-            "meta": {
-                "range": [
-                    3130,
-                    3422
-                ],
-                "filename": "Date.mjs",
-                "lineno": 130,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
-                "code": {
-                    "id": "astnode100045805",
-                    "name": "DateField#onKeyDownEnter",
-                    "type": "MethodDefinition",
-                    "paramnames": [
-                        "data"
-                    ]
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "params": [
-                {
-                    "type": {
-                        "names": [
-                            "Object"
-                        ]
-                    },
-                    "name": "data"
-                }
-            ],
-            "access": "protected",
-            "name": "onKeyDownEnter",
-            "longname": "DateField#onKeyDownEnter",
-            "kind": "function",
-            "memberof": "DateField",
-            "scope": "instance",
-            "$longname": "DateField#onKeyDownEnter",
-            "$kind": "method",
-            "id": 1415,
+            "id": 1443,
             "neoClassName": "Neo.form.field.Date"
         },
         {
             "comment": "/**\n     * @param {Object} data\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3490,
-                    3809
+                    3123,
+                    3442
                 ],
                 "filename": "Date.mjs",
-                "lineno": 145,
+                "lineno": 129,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100045847",
+                    "id": "astnode100046133",
                     "name": "DateField#onInputValueChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -521,7 +477,51 @@
             "scope": "instance",
             "$longname": "DateField#onInputValueChange",
             "$kind": "method",
-            "id": 1416,
+            "id": 1444,
+            "neoClassName": "Neo.form.field.Date"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    3517,
+                    3809
+                ],
+                "filename": "Date.mjs",
+                "lineno": 148,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
+                "code": {
+                    "id": "astnode100046178",
+                    "name": "DateField#onKeyDownEnter",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "access": "protected",
+            "name": "onKeyDownEnter",
+            "longname": "DateField#onKeyDownEnter",
+            "kind": "function",
+            "memberof": "DateField",
+            "scope": "instance",
+            "$longname": "DateField#onKeyDownEnter",
+            "$kind": "method",
+            "id": 1445,
             "neoClassName": "Neo.form.field.Date"
         }
     ]

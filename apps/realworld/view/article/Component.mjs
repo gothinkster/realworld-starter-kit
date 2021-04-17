@@ -1,8 +1,8 @@
-import {default as BaseComponent} from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
-import CommentComponent           from './CommentComponent.mjs';
-import CreateCommentComponent     from './CreateCommentComponent.mjs';
-import NeoArray                   from '../../../../node_modules/neo.mjs/src/util/Array.mjs';
-import {default as VDomUtil}      from '../../../../node_modules/neo.mjs/src/util/VDom.mjs';
+import BaseComponent          from '../../../../node_modules/neo.mjs/src/component/Base.mjs';
+import CommentComponent       from './CommentComponent.mjs';
+import CreateCommentComponent from './CreateCommentComponent.mjs';
+import NeoArray               from '../../../../node_modules/neo.mjs/src/util/Array.mjs';
+import VDomUtil               from '../../../../node_modules/neo.mjs/src/util/VDom.mjs';
 
 /**
  * @class RealWorld.view.article.Component

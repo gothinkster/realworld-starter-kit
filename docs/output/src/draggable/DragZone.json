@@ -4,7 +4,7 @@
             "comment": "/**\n * @class Neo.draggable.DragZone\n * @extends Neo.core.Base\n */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 6,
+                "lineno": 7,
                 "columnno": 0,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -19,14 +19,14 @@
             "scope": "static",
             "$longname": "Neo.draggable.DragZone",
             "$kind": "class",
-            "id": 1207,
+            "id": 1234,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * True automatically applies the core/Observable.mjs mixin\n         * @member {Boolean} observable=true\n         * @static\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 17,
+                "lineno": 18,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -44,14 +44,14 @@
             "longname": "observable",
             "$longname": "observable",
             "$kind": "property",
-            "id": 1208,
+            "id": 1235,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * @member {String} className='Neo.draggable.DragZone'\n         * @protected\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 25,
+                "lineno": 26,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -69,14 +69,14 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1209,
+            "id": 1236,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * @member {String} ntype='dragzone'\n         * @protected\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 30,
+                "lineno": 31,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -94,14 +94,14 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1210,
+            "id": 1237,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * Adds this.dragProxyCls => 'neo-dragproxy' to the top level dragProxyEl node\n         * @member {Boolean} addDragProxyCls=true\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 35,
+                "lineno": 36,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -119,14 +119,14 @@
             "scope": "global",
             "$longname": "addDragProxyCls",
             "$kind": "property",
-            "id": 1211,
+            "id": 1238,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * drag:move will by default only fire in case moveInMainThread === false.\n         * In case you want to move the dragProxy inside main but still get the event,\n         * set this config to true.\n         * @member {Boolean} alwaysFireDragMove=false\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 42,
+                "lineno": 43,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -144,14 +144,14 @@
             "scope": "global",
             "$longname": "alwaysFireDragMove",
             "$kind": "property",
-            "id": 1212,
+            "id": 1239,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * The name of the App this instance belongs to\n         * @member {String|null} appName=null\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 47,
+                "lineno": 48,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -170,14 +170,40 @@
             "scope": "global",
             "$longname": "appName",
             "$kind": "property",
-            "id": 1213,
+            "id": 1240,
+            "neoClassName": "Neo.draggable.DragZone"
+        },
+        {
+            "comment": "/**\n         * Optionally set a fixed cursor style to the document.body during drag operations\n         * @member {String|null} bodyCursorStyle=null\n         */",
+            "meta": {
+                "filename": "DragZone.mjs",
+                "lineno": 53,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
+                "code": {}
+            },
+            "description": "Optionally set a fixed cursor style to the document.body during drag operations",
+            "kind": "member",
+            "name": "bodyCursorStyle",
+            "type": {
+                "names": [
+                    "String",
+                    "null"
+                ]
+            },
+            "defaultvalue": null,
+            "longname": "bodyCursorStyle",
+            "scope": "global",
+            "$longname": "bodyCursorStyle",
+            "$kind": "property",
+            "id": 1241,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * @member {String|null} boundaryContainerId=null\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 51,
+                "lineno": 57,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -195,14 +221,14 @@
             "scope": "global",
             "$longname": "boundaryContainerId",
             "$kind": "property",
-            "id": 1214,
+            "id": 1242,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * Store data which you want to pass to drop related events here\n         * @member {Object|null} data=null\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 56,
+                "lineno": 62,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -221,14 +247,14 @@
             "scope": "global",
             "$longname": "data",
             "$kind": "property",
-            "id": 1215,
+            "id": 1243,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * The vdom (tree) of the element you want to drag\n         * @member {Object|null} dragElement=null\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 61,
+                "lineno": 67,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -247,14 +273,14 @@
             "scope": "global",
             "$longname": "dragElement",
             "$kind": "property",
-            "id": 1216,
+            "id": 1244,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * The bounding client rect of the dragElement\n         * Will get set inside dragStart()\n         * @member {Object|null} dragElementRect=null\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 67,
+                "lineno": 73,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -273,14 +299,14 @@
             "scope": "global",
             "$longname": "dragElementRect",
             "$kind": "property",
-            "id": 1217,
+            "id": 1245,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * @member {Neo.component.Base|null} dragProxy=null\n         * @protected\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 72,
+                "lineno": 78,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -299,14 +325,14 @@
             "scope": "global",
             "$longname": "dragProxy",
             "$kind": "property",
-            "id": 1218,
+            "id": 1246,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * @member {Object|null} dragProxyConfig=null\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 76,
+                "lineno": 82,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -324,14 +350,14 @@
             "scope": "global",
             "$longname": "dragProxyConfig",
             "$kind": "property",
-            "id": 1219,
+            "id": 1247,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * @member {String} dragProxyCls='neo-dragproxy'\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 80,
+                "lineno": 86,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -348,14 +374,14 @@
             "scope": "global",
             "$longname": "dragProxyCls",
             "$kind": "property",
-            "id": 1220,
+            "id": 1248,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * You can either pass an array of (dom) ids or cls rules or both\n         * @example\n         * dropZoneIdentifier: {\n         *     ids: ['foo','bar']\n         * }\n         * @example\n         * dropZoneIdentifier: {\n         *     cls: ['my-class-1','my-class-2']\n         * }\n         * @example\n         * dropZoneIdentifier: {\n         *     cls: ['my-class-1','my-class-2'],\n         *     ids: ['foo','bar']\n         * }\n         * @member {Object|null} dropZoneIdentifier=null\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 98,
+                "lineno": 104,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -379,14 +405,14 @@
             "scope": "global",
             "$longname": "dropZoneIdentifier",
             "$kind": "property",
-            "id": 1221,
+            "id": 1249,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * @member {Boolean} moveHorizontal=true\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 102,
+                "lineno": 108,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -403,14 +429,14 @@
             "scope": "global",
             "$longname": "moveHorizontal",
             "$kind": "property",
-            "id": 1222,
+            "id": 1250,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * @member {Boolean} moveInMainThread=true\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 106,
+                "lineno": 112,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -427,14 +453,14 @@
             "scope": "global",
             "$longname": "moveInMainThread",
             "$kind": "property",
-            "id": 1223,
+            "id": 1251,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * @member {Boolean} moveVertical=true\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 110,
+                "lineno": 116,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -451,14 +477,14 @@
             "scope": "global",
             "$longname": "moveVertical",
             "$kind": "property",
-            "id": 1224,
+            "id": 1252,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * @member {Number} offsetX=0\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 114,
+                "lineno": 120,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -475,14 +501,14 @@
             "scope": "global",
             "$longname": "offsetX",
             "$kind": "property",
-            "id": 1225,
+            "id": 1253,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * @member {Number} offsetY=0\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 118,
+                "lineno": 124,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -499,14 +525,14 @@
             "scope": "global",
             "$longname": "offsetY",
             "$kind": "property",
-            "id": 1226,
+            "id": 1254,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
-            "comment": "/**\n         * @member {Neo.component.Base} owner=null\n         */",
+            "comment": "/**\n         * @member {Neo.component.Base|null} owner=null\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 122,
+                "lineno": 128,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -515,7 +541,8 @@
             "name": "owner",
             "type": {
                 "names": [
-                    "Neo.component.Base"
+                    "Neo.component.Base",
+                    "null"
                 ]
             },
             "defaultvalue": null,
@@ -523,14 +550,14 @@
             "scope": "global",
             "$longname": "owner",
             "$kind": "property",
-            "id": 1227,
+            "id": 1255,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * @member {String} proxyParentId_='document.body'\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 126,
+                "lineno": 132,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -547,14 +574,14 @@
             "scope": "global",
             "$longname": "proxyParentId_",
             "$kind": "property",
-            "id": 1228,
+            "id": 1256,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * @member {String|null} scrollContainerId=null\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 130,
+                "lineno": 136,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -572,14 +599,14 @@
             "scope": "global",
             "$longname": "scrollContainerId",
             "$kind": "property",
-            "id": 1229,
+            "id": 1257,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * @member {Number} scrollFactorLeft=1\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 134,
+                "lineno": 140,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -596,14 +623,14 @@
             "scope": "global",
             "$longname": "scrollFactorLeft",
             "$kind": "property",
-            "id": 1230,
+            "id": 1258,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * @member {Number} scrollFactorTop=1\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 138,
+                "lineno": 144,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -620,14 +647,14 @@
             "scope": "global",
             "$longname": "scrollFactorTop",
             "$kind": "property",
-            "id": 1231,
+            "id": 1259,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n         * True creates a position:absolute wrapper div which contains the cloned element\n         * @member {Boolean} useProxyWrapper=true\n         */",
             "meta": {
                 "filename": "DragZone.mjs",
-                "lineno": 143,
+                "lineno": 149,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {}
@@ -645,22 +672,22 @@
             "scope": "global",
             "$longname": "useProxyWrapper",
             "$kind": "property",
-            "id": 1232,
+            "id": 1260,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    4324,
-                    4568
+                    4586,
+                    4830
                 ],
                 "filename": "DragZone.mjs",
-                "lineno": 150,
+                "lineno": 156,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {
-                    "id": "astnode100040996",
+                    "id": "astnode100041197",
                     "name": "DragZone",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -687,22 +714,22 @@
             "scope": "global",
             "$longname": "DragZone",
             "$kind": "constructor",
-            "id": 1233,
+            "id": 1261,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n     * Triggered when accessing the dragProxyConfig config\n     * We are re-using this config to create multiple dragProxies,\n     * so it is important to work with a clone. see: createDragProxy()\n     * @param {Object} value\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4834,
-                    4918
+                    5096,
+                    5180
                 ],
                 "filename": "DragZone.mjs",
-                "lineno": 165,
+                "lineno": 171,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {
-                    "id": "astnode100041024",
+                    "id": "astnode100041225",
                     "name": "DragZone#beforeGetDragProxyConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -732,22 +759,22 @@
             "scope": "instance",
             "$longname": "DragZone#beforeGetDragProxyConfig",
             "$kind": "method",
-            "id": 1234,
+            "id": 1262,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    4975,
-                    6192
+                    5237,
+                    6595
                 ],
                 "filename": "DragZone.mjs",
-                "lineno": 173,
+                "lineno": 179,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {
-                    "id": "astnode100041037",
+                    "id": "astnode100041238",
                     "name": "DragZone#createDragProxy",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -775,22 +802,22 @@
             "scope": "instance",
             "$longname": "DragZone#createDragProxy",
             "$kind": "method",
-            "id": 1235,
+            "id": 1263,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n     * Override for using custom animations\n     */",
             "meta": {
                 "range": [
-                    6258,
-                    6609
+                    6661,
+                    7051
                 ],
                 "filename": "DragZone.mjs",
-                "lineno": 216,
+                "lineno": 224,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {
-                    "id": "astnode100041225",
+                    "id": "astnode100041444",
                     "name": "DragZone#destroyDragProxy",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -808,54 +835,65 @@
             "params": [],
             "$longname": "DragZone#destroyDragProxy",
             "$kind": "method",
-            "id": 1236,
-            "neoClassName": "Neo.draggable.DragZone"
-        },
-        {
-            "comment": "/**\n     *\n     */",
-            "meta": {
-                "range": [
-                    6638,
-                    7131
-                ],
-                "filename": "DragZone.mjs",
-                "lineno": 233,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
-                "code": {
-                    "id": "astnode100041276",
-                    "name": "DragZone#dragEnd",
-                    "type": "MethodDefinition",
-                    "paramnames": []
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "name": "dragEnd",
-            "longname": "DragZone#dragEnd",
-            "kind": "function",
-            "memberof": "DragZone",
-            "scope": "instance",
-            "params": [],
-            "$longname": "DragZone#dragEnd",
-            "$kind": "method",
-            "id": 1237,
+            "id": 1264,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    7188,
-                    7623
+                    7108,
+                    7640
                 ],
                 "filename": "DragZone.mjs",
-                "lineno": 260,
+                "lineno": 243,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {
-                    "id": "astnode100041343",
+                    "id": "astnode100041499",
+                    "name": "DragZone#dragEnd",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "dragEnd",
+            "longname": "DragZone#dragEnd",
+            "kind": "function",
+            "memberof": "DragZone",
+            "scope": "instance",
+            "$longname": "DragZone#dragEnd",
+            "$kind": "method",
+            "id": 1265,
+            "neoClassName": "Neo.draggable.DragZone"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    7697,
+                    8168
+                ],
+                "filename": "DragZone.mjs",
+                "lineno": 272,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
+                "code": {
+                    "id": "astnode100041574",
                     "name": "DragZone#dragMove",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -883,22 +921,22 @@
             "scope": "instance",
             "$longname": "DragZone#dragMove",
             "$kind": "method",
-            "id": 1238,
+            "id": 1266,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    7680,
-                    8332
+                    8225,
+                    9226
                 ],
                 "filename": "DragZone.mjs",
-                "lineno": 283,
+                "lineno": 297,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {
-                    "id": "astnode100041420",
+                    "id": "astnode100041658",
                     "name": "DragZone#dragStart",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -926,22 +964,74 @@
             "scope": "instance",
             "$longname": "DragZone#dragStart",
             "$kind": "method",
-            "id": 1239,
+            "id": 1267,
+            "neoClassName": "Neo.draggable.DragZone"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     * @returns {Object}\n     */",
+            "meta": {
+                "range": [
+                    9308,
+                    9698
+                ],
+                "filename": "DragZone.mjs",
+                "lineno": 341,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
+                "code": {
+                    "id": "astnode100041793",
+                    "name": "DragZone#getDragElementRect",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    }
+                }
+            ],
+            "name": "getDragElementRect",
+            "longname": "DragZone#getDragElementRect",
+            "kind": "function",
+            "memberof": "DragZone",
+            "scope": "instance",
+            "$longname": "DragZone#getDragElementRect",
+            "$kind": "method",
+            "id": 1268,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n     * Override this method in case you want to wrap your dragElement.\n     * See: draggable.tree.DragZone\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    8486,
-                    8547
+                    9852,
+                    9913
                 ],
                 "filename": "DragZone.mjs",
-                "lineno": 313,
+                "lineno": 365,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {
-                    "id": "astnode100041526",
+                    "id": "astnode100041850",
                     "name": "DragZone#getDragElementRoot",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -968,22 +1058,22 @@
             "params": [],
             "$longname": "DragZone#getDragElementRoot",
             "$kind": "method",
-            "id": 1240,
+            "id": 1269,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n     * Override this method inside class extensions to add more configs\n     * which get passed to main.addon.DragDrop onDragStart()\n     * @returns {Object}\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    8745,
-                    9410
+                    10111,
+                    10829
                 ],
                 "filename": "DragZone.mjs",
-                "lineno": 323,
+                "lineno": 375,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {
-                    "id": "astnode100041534",
+                    "id": "astnode100041858",
                     "name": "DragZone#getMainThreadConfigs",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1011,22 +1101,22 @@
             "params": [],
             "$longname": "DragZone#getMainThreadConfigs",
             "$kind": "method",
-            "id": 1241,
+            "id": 1270,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n     * You can either extend this class and override the handler or listen to the event from the outside\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    9565,
-                    9618
+                    10984,
+                    11037
                 ],
                 "filename": "DragZone.mjs",
-                "lineno": 345,
+                "lineno": 398,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {
-                    "id": "astnode100041591",
+                    "id": "astnode100041919",
                     "name": "DragZone#onDrop",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1055,22 +1145,22 @@
             "scope": "instance",
             "$longname": "DragZone#onDrop",
             "$kind": "method",
-            "id": 1242,
+            "id": 1271,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n     * You can either extend this class and override the handler or listen to the event from the outside\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    9773,
-                    9837
+                    11192,
+                    11256
                 ],
                 "filename": "DragZone.mjs",
-                "lineno": 353,
+                "lineno": 406,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {
-                    "id": "astnode100041603",
+                    "id": "astnode100041931",
                     "name": "DragZone#onDropEnter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1099,22 +1189,22 @@
             "scope": "instance",
             "$longname": "DragZone#onDropEnter",
             "$kind": "method",
-            "id": 1243,
+            "id": 1272,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n     * You can either extend this class and override the handler or listen to the event from the outside\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    9992,
-                    10056
+                    11411,
+                    11475
                 ],
                 "filename": "DragZone.mjs",
-                "lineno": 361,
+                "lineno": 414,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {
-                    "id": "astnode100041615",
+                    "id": "astnode100041943",
                     "name": "DragZone#onDropLeave",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1143,22 +1233,22 @@
             "scope": "instance",
             "$longname": "DragZone#onDropLeave",
             "$kind": "method",
-            "id": 1244,
+            "id": 1273,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    10085,
-                    10177
+                    11504,
+                    11596
                 ],
                 "filename": "DragZone.mjs",
-                "lineno": 368,
+                "lineno": 421,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {
-                    "id": "astnode100041627",
+                    "id": "astnode100041955",
                     "name": "DragZone#resetData",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1175,22 +1265,22 @@
             "params": [],
             "$longname": "DragZone#resetData",
             "$kind": "method",
-            "id": 1245,
+            "id": 1274,
             "neoClassName": "Neo.draggable.DragZone"
         },
         {
             "comment": "/**\n     * Extend this method for child classes to pass additional properties\n     * @param {Object} data={}\n     */",
             "meta": {
                 "range": [
-                    10304,
-                    10485
+                    11723,
+                    11904
                 ],
                 "filename": "DragZone.mjs",
-                "lineno": 378,
+                "lineno": 431,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/draggable",
                 "code": {
-                    "id": "astnode100041643",
+                    "id": "astnode100041971",
                     "name": "DragZone#setData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1220,7 +1310,7 @@
             "scope": "instance",
             "$longname": "DragZone#setData",
             "$kind": "method",
-            "id": 1246,
+            "id": 1275,
             "neoClassName": "Neo.draggable.DragZone"
         }
     ]

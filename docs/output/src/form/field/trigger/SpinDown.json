@@ -20,7 +20,7 @@
             "scope": "static",
             "$longname": "Neo.form.field.trigger.SpinDown",
             "$kind": "class",
-            "id": 1700,
+            "id": 1744,
             "neoClassName": "Neo.form.field.trigger.SpinDown"
         },
         {
@@ -45,7 +45,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1701,
+            "id": 1745,
             "neoClassName": "Neo.form.field.trigger.SpinDown"
         },
         {
@@ -70,7 +70,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1702,
+            "id": 1746,
             "neoClassName": "Neo.form.field.trigger.SpinDown"
         },
         {
@@ -94,7 +94,7 @@
             "scope": "global",
             "$longname": "align_",
             "$kind": "property",
-            "id": 1703,
+            "id": 1747,
             "neoClassName": "Neo.form.field.trigger.SpinDown"
         },
         {
@@ -120,7 +120,7 @@
             "scope": "global",
             "$longname": "iconCls",
             "$kind": "property",
-            "id": 1704,
+            "id": 1748,
             "neoClassName": "Neo.form.field.trigger.SpinDown"
         },
         {
@@ -146,7 +146,50 @@
             "scope": "global",
             "$longname": "type",
             "$kind": "property",
-            "id": 1705,
+            "id": 1749,
+            "neoClassName": "Neo.form.field.trigger.SpinDown"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    975,
+                    1047
+                ],
+                "filename": "SpinDown.mjs",
+                "lineno": 40,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field/trigger",
+                "code": {
+                    "id": "astnode100053063",
+                    "name": "SpinDown#onTriggerClick",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                }
+            ],
+            "name": "onTriggerClick",
+            "longname": "SpinDown#onTriggerClick",
+            "kind": "function",
+            "memberof": "SpinDown",
+            "scope": "instance",
+            "$longname": "SpinDown#onTriggerClick",
+            "$kind": "method",
+            "id": 1750,
             "neoClassName": "Neo.form.field.trigger.SpinDown"
         }
     ]

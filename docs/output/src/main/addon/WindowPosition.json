@@ -26,7 +26,7 @@
             "scope": "static",
             "$longname": "Neo.main.addon.WindowPosition",
             "$kind": "class",
-            "id": 2044,
+            "id": 2095,
             "neoClassName": "Neo.main.addon.WindowPosition"
         },
         {
@@ -51,7 +51,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2045,
+            "id": 2096,
             "neoClassName": "Neo.main.addon.WindowPosition"
         },
         {
@@ -76,7 +76,7 @@
             "scope": "global",
             "$longname": "intervalId",
             "$kind": "property",
-            "id": 2046,
+            "id": 2097,
             "neoClassName": "Neo.main.addon.WindowPosition"
         },
         {
@@ -100,7 +100,7 @@
             "scope": "global",
             "$longname": "intervalTime",
             "$kind": "property",
-            "id": 2047,
+            "id": 2098,
             "neoClassName": "Neo.main.addon.WindowPosition"
         },
         {
@@ -125,14 +125,14 @@
             "scope": "global",
             "$longname": "remote",
             "$kind": "property",
-            "id": 2048,
+            "id": 2099,
             "neoClassName": "Neo.main.addon.WindowPosition"
         },
         {
             "comment": "/**\n         * @member {Number|null} screenLeft=null\n         */",
             "meta": {
                 "filename": "WindowPosition.mjs",
-                "lineno": 38,
+                "lineno": 39,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -150,14 +150,14 @@
             "scope": "global",
             "$longname": "screenLeft",
             "$kind": "property",
-            "id": 2049,
+            "id": 2100,
             "neoClassName": "Neo.main.addon.WindowPosition"
         },
         {
             "comment": "/**\n         * @member {Number|null} screenTop=null\n         */",
             "meta": {
                 "filename": "WindowPosition.mjs",
-                "lineno": 42,
+                "lineno": 43,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -175,14 +175,14 @@
             "scope": "global",
             "$longname": "screenTop",
             "$kind": "property",
-            "id": 2050,
+            "id": 2101,
             "neoClassName": "Neo.main.addon.WindowPosition"
         },
         {
             "comment": "/**\n         * @member {Boolean} singleton=true\n         * @protected\n         */",
             "meta": {
                 "filename": "WindowPosition.mjs",
-                "lineno": 47,
+                "lineno": 48,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -200,14 +200,14 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 2051,
+            "id": 2102,
             "neoClassName": "Neo.main.addon.WindowPosition"
         },
         {
             "comment": "/**\n         * @member {Object} windows={}\n         * @protected\n         */",
             "meta": {
                 "filename": "WindowPosition.mjs",
-                "lineno": 52,
+                "lineno": 53,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {}
@@ -225,22 +225,22 @@
             "scope": "global",
             "$longname": "windows",
             "$kind": "property",
-            "id": 2052,
+            "id": 2103,
             "neoClassName": "Neo.main.addon.WindowPosition"
         },
         {
             "comment": "/**\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    1299,
-                    1611
+                    1326,
+                    1638
                 ],
                 "filename": "WindowPosition.mjs",
-                "lineno": 58,
+                "lineno": 59,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100061610",
+                    "id": "astnode100062198",
                     "name": "WindowPosition",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -267,23 +267,149 @@
             "scope": "global",
             "$longname": "WindowPosition",
             "$kind": "constructor",
-            "id": 2053,
+            "id": 2104,
             "neoClassName": "Neo.main.addon.WindowPosition"
         },
         {
-            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    1668,
-                    2674
+                    1667,
+                    2010
                 ],
                 "filename": "WindowPosition.mjs",
                 "lineno": 75,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100061668",
+                    "id": "astnode100062256",
                     "name": "WindowPosition#adjustPositions",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "adjustPositions",
+            "longname": "WindowPosition#adjustPositions",
+            "kind": "function",
+            "memberof": "WindowPosition",
+            "scope": "instance",
+            "params": [],
+            "$longname": "WindowPosition#adjustPositions",
+            "$kind": "method",
+            "id": 2105,
+            "neoClassName": "Neo.main.addon.WindowPosition"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    2039,
+                    2748
+                ],
+                "filename": "WindowPosition.mjs",
+                "lineno": 92,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100062303",
+                    "name": "WindowPosition#checkMovement",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "checkMovement",
+            "longname": "WindowPosition#checkMovement",
+            "kind": "function",
+            "memberof": "WindowPosition",
+            "scope": "instance",
+            "params": [],
+            "$longname": "WindowPosition#checkMovement",
+            "$kind": "method",
+            "id": 2106,
+            "neoClassName": "Neo.main.addon.WindowPosition"
+        },
+        {
+            "comment": "/**\n     * Returns true in case the dock direction changes from horizontal (left, right)\n     * to vertical (bottom, top) or vice versa.\n     * @param {String} oldValue\n     * @param {String} newValue\n     * @returns {Boolean}\n     */",
+            "meta": {
+                "range": [
+                    2993,
+                    3261
+                ],
+                "filename": "WindowPosition.mjs",
+                "lineno": 125,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100062389",
+                    "name": "WindowPosition#dockDirectionChange",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "oldValue",
+                        "newValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Returns true in case the dock direction changes from horizontal (left, right)<br />to vertical (bottom, top) or vice versa.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "oldValue"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "newValue"
+                }
+            ],
+            "returns": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    }
+                }
+            ],
+            "name": "dockDirectionChange",
+            "longname": "WindowPosition#dockDirectionChange",
+            "kind": "function",
+            "memberof": "WindowPosition",
+            "scope": "instance",
+            "$longname": "WindowPosition#dockDirectionChange",
+            "$kind": "method",
+            "id": 2107,
+            "neoClassName": "Neo.main.addon.WindowPosition"
+        },
+        {
+            "comment": "/**\n     *\n     * @param {Object} data\n     */",
+            "meta": {
+                "range": [
+                    3318,
+                    4090
+                ],
+                "filename": "WindowPosition.mjs",
+                "lineno": 134,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100062427",
+                    "name": "WindowPosition#getPosition",
                     "type": "MethodDefinition",
                     "paramnames": [
                         "data"
@@ -303,61 +429,29 @@
                     "name": "data"
                 }
             ],
-            "name": "adjustPositions",
-            "longname": "WindowPosition#adjustPositions",
+            "name": "getPosition",
+            "longname": "WindowPosition#getPosition",
             "kind": "function",
             "memberof": "WindowPosition",
             "scope": "instance",
-            "$longname": "WindowPosition#adjustPositions",
+            "$longname": "WindowPosition#getPosition",
             "$kind": "method",
-            "id": 2054,
-            "neoClassName": "Neo.main.addon.WindowPosition"
-        },
-        {
-            "comment": "/**\n     *\n     */",
-            "meta": {
-                "range": [
-                    2703,
-                    3419
-                ],
-                "filename": "WindowPosition.mjs",
-                "lineno": 110,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
-                "code": {
-                    "id": "astnode100061795",
-                    "name": "WindowPosition#checkMovement",
-                    "type": "MethodDefinition",
-                    "paramnames": []
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "name": "checkMovement",
-            "longname": "WindowPosition#checkMovement",
-            "kind": "function",
-            "memberof": "WindowPosition",
-            "scope": "instance",
-            "params": [],
-            "$longname": "WindowPosition#checkMovement",
-            "$kind": "method",
-            "id": 2055,
+            "id": 2108,
             "neoClassName": "Neo.main.addon.WindowPosition"
         },
         {
             "comment": "/**\n     *\n     * @param {MouseEvent} event\n     */",
             "meta": {
                 "range": [
-                    3481,
-                    3821
+                    4152,
+                    4492
                 ],
                 "filename": "WindowPosition.mjs",
-                "lineno": 140,
+                "lineno": 167,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100061882",
+                    "id": "astnode100062534",
                     "name": "WindowPosition#onMouseOut",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -385,22 +479,22 @@
             "scope": "instance",
             "$longname": "WindowPosition#onMouseOut",
             "$kind": "method",
-            "id": 2056,
+            "id": 2109,
             "neoClassName": "Neo.main.addon.WindowPosition"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} event\n     */",
             "meta": {
                 "range": [
-                    3879,
-                    4600
+                    4550,
+                    5230
                 ],
                 "filename": "WindowPosition.mjs",
-                "lineno": 157,
+                "lineno": 184,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100061937",
+                    "id": "astnode100062589",
                     "name": "WindowPosition#onResize",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -428,22 +522,22 @@
             "scope": "instance",
             "$longname": "WindowPosition#onResize",
             "$kind": "method",
-            "id": 2057,
+            "id": 2110,
             "neoClassName": "Neo.main.addon.WindowPosition"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.dock\n     * @param {String} data.name\n     * @param {Number} data.size\n     */",
             "meta": {
                 "range": [
-                    4756,
-                    4824
+                    5386,
+                    5454
                 ],
                 "filename": "WindowPosition.mjs",
-                "lineno": 191,
+                "lineno": 218,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100062020",
+                    "id": "astnode100062666",
                     "name": "WindowPosition#registerWindow",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -495,22 +589,82 @@
             "scope": "instance",
             "$longname": "WindowPosition#registerWindow",
             "$kind": "method",
-            "id": 2058,
+            "id": 2111,
+            "neoClassName": "Neo.main.addon.WindowPosition"
+        },
+        {
+            "comment": "/**\n     * Docks an existing window to a new side\n     * @param {Object} data\n     * @param {String} data.dock\n     * @param {String} data.name\n     */",
+            "meta": {
+                "range": [
+                    5616,
+                    6514
+                ],
+                "filename": "WindowPosition.mjs",
+                "lineno": 228,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
+                "code": {
+                    "id": "astnode100062681",
+                    "name": "WindowPosition#setDock",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "data"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Docks an existing window to a new side",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
+                    "name": "data"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.dock"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "String"
+                        ]
+                    },
+                    "name": "data.name"
+                }
+            ],
+            "name": "setDock",
+            "longname": "WindowPosition#setDock",
+            "kind": "function",
+            "memberof": "WindowPosition",
+            "scope": "instance",
+            "$longname": "WindowPosition#setDock",
+            "$kind": "method",
+            "id": 2112,
             "neoClassName": "Neo.main.addon.WindowPosition"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.name\n     */",
             "meta": {
                 "range": [
-                    4914,
-                    4984
+                    6604,
+                    6674
                 ],
                 "filename": "WindowPosition.mjs",
-                "lineno": 200,
+                "lineno": 262,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/addon",
                 "code": {
-                    "id": "astnode100062035",
+                    "id": "astnode100062802",
                     "name": "WindowPosition#unregisterWindow",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -546,7 +700,7 @@
             "scope": "instance",
             "$longname": "WindowPosition#unregisterWindow",
             "$kind": "method",
-            "id": 2059,
+            "id": 2113,
             "neoClassName": "Neo.main.addon.WindowPosition"
         }
     ]

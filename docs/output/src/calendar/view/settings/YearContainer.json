@@ -72,11 +72,11 @@
             "neoClassName": "Neo.calendar.view.settings.YearContainer"
         },
         {
-            "comment": "/**\n     *\n     * @param config\n     */",
+            "comment": "/**\n     *\n     * @param {Object} config\n     */",
             "meta": {
                 "range": [
-                    728,
-                    806
+                    737,
+                    815
                 ],
                 "filename": "YearContainer.mjs",
                 "lineno": 26,
@@ -96,6 +96,11 @@
             },
             "params": [
                 {
+                    "type": {
+                        "names": [
+                            "Object"
+                        ]
+                    },
                     "name": "config"
                 }
             ],
@@ -112,8 +117,8 @@
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    835,
-                    3104
+                    844,
+                    3113
                 ],
                 "filename": "YearContainer.mjs",
                 "lineno": 34,
@@ -144,8 +149,8 @@
             "comment": "/**\n     *\n     * @returns {Neo.calendar.view.YearComponent}\n     */",
             "meta": {
                 "range": [
-                    3183,
-                    3273
+                    3192,
+                    3282
                 ],
                 "filename": "YearContainer.mjs",
                 "lineno": 98,
@@ -185,8 +190,8 @@
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    3330,
-                    3479
+                    3339,
+                    3488
                 ],
                 "filename": "YearContainer.mjs",
                 "lineno": 106,
@@ -228,8 +233,8 @@
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    3536,
-                    3631
+                    3545,
+                    3640
                 ],
                 "filename": "YearContainer.mjs",
                 "lineno": 116,

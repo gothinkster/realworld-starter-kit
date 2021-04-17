@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.util.ClassSystem",
             "$kind": "class",
-            "id": 2721,
+            "id": 2817,
             "neoClassName": "Neo.util.ClassSystem"
         },
         {
@@ -44,22 +44,22 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2722,
+            "id": 2818,
             "neoClassName": "Neo.util.ClassSystem"
         },
         {
-            "comment": "/**\n     * can get used inside beforeSet methods in case you want to create instances like stores\n     * @param {Object|Neo.core.Base|null} config\n     * @param {Neo.core.Base} [DefaultClass=null]\n     * @param {Object} [defaultValues={}]\n     * @returns {Neo.core.Base} instance\n     */",
+            "comment": "/**\n     * can get used inside beforeSet methods in case you want to create instances like stores\n     * @param {Object|Neo.core.Base|null} config\n     * @param {Neo.core.Base|String} [DefaultClass=null]\n     * @param {Object} [defaultValues={}]\n     * @returns {Neo.core.Base} instance\n     */",
             "meta": {
                 "range": [
-                    622,
-                    1537
+                    629,
+                    1646
                 ],
                 "filename": "ClassSystem.mjs",
                 "lineno": 23,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100087604",
+                    "id": "astnode100090078",
                     "name": "ClassSystem.beforeSetInstance",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -87,7 +87,8 @@
                 {
                     "type": {
                         "names": [
-                            "Neo.core.Base"
+                            "Neo.core.Base",
+                            "String"
                         ]
                     },
                     "optional": true,
@@ -122,7 +123,7 @@
             "scope": "static",
             "$longname": "ClassSystem.beforeSetInstance",
             "$kind": "method",
-            "id": 2723,
+            "id": 2819,
             "neoClassName": "Neo.util.ClassSystem"
         }
     ]

@@ -20,7 +20,7 @@
             "scope": "static",
             "$longname": "Neo.form.field.trigger.Clear",
             "$kind": "class",
-            "id": 1667,
+            "id": 1707,
             "neoClassName": "Neo.form.field.trigger.Clear"
         },
         {
@@ -45,7 +45,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1668,
+            "id": 1708,
             "neoClassName": "Neo.form.field.trigger.Clear"
         },
         {
@@ -70,7 +70,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1669,
+            "id": 1709,
             "neoClassName": "Neo.form.field.trigger.Clear"
         },
         {
@@ -95,7 +95,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1670,
+            "id": 1710,
             "neoClassName": "Neo.form.field.trigger.Clear"
         },
         {
@@ -121,7 +121,7 @@
             "scope": "global",
             "$longname": "iconCls",
             "$kind": "property",
-            "id": 1671,
+            "id": 1711,
             "neoClassName": "Neo.form.field.trigger.Clear"
         },
         {
@@ -147,7 +147,7 @@
             "scope": "global",
             "$longname": "type",
             "$kind": "property",
-            "id": 1672,
+            "id": 1712,
             "neoClassName": "Neo.form.field.trigger.Clear"
         },
         {
@@ -171,54 +171,22 @@
             "scope": "global",
             "$longname": "weight_",
             "$kind": "property",
-            "id": 1673,
-            "neoClassName": "Neo.form.field.trigger.Clear"
-        },
-        {
-            "comment": "/**\n     *\n     */",
-            "meta": {
-                "range": [
-                    1144,
-                    1458
-                ],
-                "filename": "Clear.mjs",
-                "lineno": 44,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field/trigger",
-                "code": {
-                    "id": "astnode100052116",
-                    "name": "Clear#onConstructed",
-                    "type": "MethodDefinition",
-                    "paramnames": []
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "name": "onConstructed",
-            "longname": "Clear#onConstructed",
-            "kind": "function",
-            "memberof": "Clear",
-            "scope": "instance",
-            "params": [],
-            "$longname": "Clear#onConstructed",
-            "$kind": "method",
-            "id": 1674,
+            "id": 1713,
             "neoClassName": "Neo.form.field.trigger.Clear"
         },
         {
             "comment": "/**\n     * Triggered after the hidden config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    1614,
-                    1772
+                    1271,
+                    1429
                 ],
                 "filename": "Clear.mjs",
-                "lineno": 64,
+                "lineno": 47,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field/trigger",
                 "code": {
-                    "id": "astnode100052156",
+                    "id": "astnode100052567",
                     "name": "Clear#afterSetHidden",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -257,22 +225,76 @@
             "scope": "instance",
             "$longname": "Clear#afterSetHidden",
             "$kind": "method",
-            "id": 1675,
+            "id": 1714,
+            "neoClassName": "Neo.form.field.trigger.Clear"
+        },
+        {
+            "comment": "/**\n     * Triggered before the hidden config gets changed.\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
+            "meta": {
+                "range": [
+                    1588,
+                    1737
+                ],
+                "filename": "Clear.mjs",
+                "lineno": 60,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field/trigger",
+                "code": {
+                    "id": "astnode100052595",
+                    "name": "Clear#beforeSetHidden",
+                    "type": "MethodDefinition",
+                    "paramnames": [
+                        "value",
+                        "oldValue"
+                    ]
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "description": "Triggered before the hidden config gets changed.",
+            "params": [
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "value"
+                },
+                {
+                    "type": {
+                        "names": [
+                            "Boolean"
+                        ]
+                    },
+                    "name": "oldValue"
+                }
+            ],
+            "access": "protected",
+            "name": "beforeSetHidden",
+            "longname": "Clear#beforeSetHidden",
+            "kind": "function",
+            "memberof": "Clear",
+            "scope": "instance",
+            "$longname": "Clear#beforeSetHidden",
+            "$kind": "method",
+            "id": 1715,
             "neoClassName": "Neo.form.field.trigger.Clear"
         },
         {
             "comment": "/**\n     *\n     * @returns {Boolean} true in case the trigger should be hidden\n     */",
             "meta": {
                 "range": [
-                    1869,
-                    2248
+                    1834,
+                    2213
                 ],
                 "filename": "Clear.mjs",
-                "lineno": 75,
+                "lineno": 72,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field/trigger",
                 "code": {
-                    "id": "astnode100052184",
+                    "id": "astnode100052615",
                     "name": "Clear#getHiddenState",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -299,22 +321,22 @@
             "params": [],
             "$longname": "Clear#getHiddenState",
             "$kind": "method",
-            "id": 1676,
+            "id": 1716,
             "neoClassName": "Neo.form.field.trigger.Clear"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} opts\n     */",
             "meta": {
                 "range": [
-                    2305,
-                    2377
+                    2270,
+                    2342
                 ],
                 "filename": "Clear.mjs",
-                "lineno": 95,
+                "lineno": 92,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field/trigger",
                 "code": {
-                    "id": "astnode100052239",
+                    "id": "astnode100052670",
                     "name": "Clear#onFieldChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -342,22 +364,87 @@
             "scope": "instance",
             "$longname": "Clear#onFieldChange",
             "$kind": "method",
-            "id": 1677,
+            "id": 1717,
+            "neoClassName": "Neo.form.field.trigger.Clear"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    2371,
+                    2685
+                ],
+                "filename": "Clear.mjs",
+                "lineno": 99,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field/trigger",
+                "code": {
+                    "id": "astnode100052684",
+                    "name": "Clear#onConstructed",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onConstructed",
+            "longname": "Clear#onConstructed",
+            "kind": "function",
+            "memberof": "Clear",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Clear#onConstructed",
+            "$kind": "method",
+            "id": 1718,
+            "neoClassName": "Neo.form.field.trigger.Clear"
+        },
+        {
+            "comment": "/**\n     * @override\n     */",
+            "meta": {
+                "range": [
+                    2724,
+                    2843
+                ],
+                "filename": "Clear.mjs",
+                "lineno": 116,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field/trigger",
+                "code": {
+                    "id": "astnode100052724",
+                    "name": "Clear#onMouseEnter",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "override": true,
+            "name": "onMouseEnter",
+            "longname": "Clear#onMouseEnter",
+            "kind": "function",
+            "memberof": "Clear",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Clear#onMouseEnter",
+            "$kind": "method",
+            "id": 1719,
             "neoClassName": "Neo.form.field.trigger.Clear"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     */",
             "meta": {
                 "range": [
-                    2434,
-                    2490
+                    2900,
+                    2956
                 ],
                 "filename": "Clear.mjs",
-                "lineno": 103,
+                "lineno": 127,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field/trigger",
                 "code": {
-                    "id": "astnode100052253",
+                    "id": "astnode100052747",
                     "name": "Clear#onTriggerClick",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -385,7 +472,7 @@
             "scope": "instance",
             "$longname": "Clear#onTriggerClick",
             "$kind": "method",
-            "id": 1678,
+            "id": 1720,
             "neoClassName": "Neo.form.field.trigger.Clear"
         }
     ]

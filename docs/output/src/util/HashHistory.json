@@ -4,7 +4,7 @@
             "comment": "/**\n * @class Neo.util.HashHistory\n * @extends Neo.core.Base\n * @singleton\n */",
             "meta": {
                 "filename": "HashHistory.mjs",
-                "lineno": 3,
+                "lineno": 4,
                 "columnno": 0,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
@@ -26,14 +26,14 @@
             "scope": "static",
             "$longname": "Neo.util.HashHistory",
             "$kind": "class",
-            "id": 2751,
+            "id": 2847,
             "neoClassName": "Neo.util.HashHistory"
         },
         {
             "comment": "/**\n         * True automatically applies the core/Observable.mjs mixin\n         * @member {Boolean} observable=true\n         * @static\n         */",
             "meta": {
                 "filename": "HashHistory.mjs",
-                "lineno": 15,
+                "lineno": 16,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
@@ -51,14 +51,14 @@
             "longname": "observable",
             "$longname": "observable",
             "$kind": "property",
-            "id": 2752,
+            "id": 2848,
             "neoClassName": "Neo.util.HashHistory"
         },
         {
             "comment": "/**\n         * @member {String} className='Neo.util.ClassSystem'\n         * @protected\n         */",
             "meta": {
                 "filename": "HashHistory.mjs",
-                "lineno": 23,
+                "lineno": 24,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
@@ -76,14 +76,14 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2753,
+            "id": 2849,
             "neoClassName": "Neo.util.HashHistory"
         },
         {
             "comment": "/**\n         * @member {String} ntype='hash-history'\n         * @protected\n         */",
             "meta": {
                 "filename": "HashHistory.mjs",
-                "lineno": 28,
+                "lineno": 29,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
@@ -101,14 +101,14 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2754,
+            "id": 2850,
             "neoClassName": "Neo.util.HashHistory"
         },
         {
             "comment": "/**\n         * @member {Boolean} singleton=true\n         * @protected\n         */",
             "meta": {
                 "filename": "HashHistory.mjs",
-                "lineno": 33,
+                "lineno": 34,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
@@ -126,14 +126,14 @@
             "scope": "global",
             "$longname": "singleton",
             "$kind": "property",
-            "id": 2755,
+            "id": 2851,
             "neoClassName": "Neo.util.HashHistory"
         },
         {
             "comment": "/**\n         * @member {Number} maxItems=50\n         * @protected\n         */",
             "meta": {
                 "filename": "HashHistory.mjs",
-                "lineno": 38,
+                "lineno": 39,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
@@ -151,14 +151,14 @@
             "scope": "global",
             "$longname": "maxItems",
             "$kind": "property",
-            "id": 2756,
+            "id": 2852,
             "neoClassName": "Neo.util.HashHistory"
         },
         {
             "comment": "/**\n         * @member {Array} stack=[]\n         * @protected\n         */",
             "meta": {
                 "filename": "HashHistory.mjs",
-                "lineno": 43,
+                "lineno": 44,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {}
@@ -176,22 +176,22 @@
             "scope": "global",
             "$longname": "stack",
             "$kind": "property",
-            "id": 2757,
+            "id": 2853,
             "neoClassName": "Neo.util.HashHistory"
         },
         {
             "comment": "/**\n     *\n     * @returns {Object}\n     */",
             "meta": {
                 "range": [
-                    1070,
-                    1115
+                    1125,
+                    1170
                 ],
                 "filename": "HashHistory.mjs",
-                "lineno": 50,
+                "lineno": 51,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100088330",
+                    "id": "astnode100090823",
                     "name": "HashHistory#first",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -217,22 +217,22 @@
             "params": [],
             "$longname": "HashHistory#first",
             "$kind": "method",
-            "id": 2758,
+            "id": 2854,
             "neoClassName": "Neo.util.HashHistory"
         },
         {
             "comment": "/**\n     *\n     * @returns {Number}\n     */",
             "meta": {
                 "range": [
-                    1169,
-                    1221
+                    1224,
+                    1276
                 ],
                 "filename": "HashHistory.mjs",
-                "lineno": 58,
+                "lineno": 59,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100088340",
+                    "id": "astnode100090833",
                     "name": "HashHistory#getCount",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -258,22 +258,22 @@
             "params": [],
             "$longname": "HashHistory#getCount",
             "$kind": "method",
-            "id": 2759,
+            "id": 2855,
             "neoClassName": "Neo.util.HashHistory"
         },
         {
             "comment": "/**\n     *\n     * @param {Object} data\n     * @param {String} data.appName\n     * @param {Object} data.hash\n     * @param {String} data.hashString\n     */",
             "meta": {
                 "range": [
-                    1386,
-                    1606
+                    1441,
+                    1661
                 ],
                 "filename": "HashHistory.mjs",
-                "lineno": 69,
+                "lineno": 70,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/util",
                 "code": {
-                    "id": "astnode100088350",
+                    "id": "astnode100090843",
                     "name": "HashHistory#push",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -325,7 +325,7 @@
             "scope": "instance",
             "$longname": "HashHistory#push",
             "$kind": "method",
-            "id": 2760,
+            "id": 2856,
             "neoClassName": "Neo.util.HashHistory"
         }
     ]

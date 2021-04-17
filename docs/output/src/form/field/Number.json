@@ -20,7 +20,7 @@
             "scope": "static",
             "$longname": "Neo.form.field.Number",
             "$kind": "class",
-            "id": 1421,
+            "id": 1456,
             "neoClassName": "Neo.form.field.Number"
         },
         {
@@ -46,7 +46,7 @@
             "longname": "triggerPositions",
             "$longname": "triggerPositions",
             "$kind": "property",
-            "id": 1422,
+            "id": 1457,
             "neoClassName": "Neo.form.field.Number"
         },
         {
@@ -71,7 +71,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 1423,
+            "id": 1458,
             "neoClassName": "Neo.form.field.Number"
         },
         {
@@ -96,7 +96,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 1424,
+            "id": 1459,
             "neoClassName": "Neo.form.field.Number"
         },
         {
@@ -121,7 +121,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 1425,
+            "id": 1460,
             "neoClassName": "Neo.form.field.Number"
         },
         {
@@ -146,7 +146,7 @@
             "scope": "global",
             "$longname": "excluded",
             "$kind": "property",
-            "id": 1426,
+            "id": 1461,
             "neoClassName": "Neo.form.field.Number"
         },
         {
@@ -171,7 +171,7 @@
             "scope": "global",
             "$longname": "inputEditable_",
             "$kind": "property",
-            "id": 1427,
+            "id": 1462,
             "neoClassName": "Neo.form.field.Number"
         },
         {
@@ -196,7 +196,7 @@
             "scope": "global",
             "$longname": "inputType",
             "$kind": "property",
-            "id": 1428,
+            "id": 1463,
             "neoClassName": "Neo.form.field.Number"
         },
         {
@@ -220,7 +220,7 @@
             "scope": "global",
             "$longname": "maxValue_",
             "$kind": "property",
-            "id": 1429,
+            "id": 1464,
             "neoClassName": "Neo.form.field.Number"
         },
         {
@@ -244,7 +244,7 @@
             "scope": "global",
             "$longname": "minValue_",
             "$kind": "property",
-            "id": 1430,
+            "id": 1465,
             "neoClassName": "Neo.form.field.Number"
         },
         {
@@ -268,7 +268,7 @@
             "scope": "global",
             "$longname": "stepSize_",
             "$kind": "property",
-            "id": 1431,
+            "id": 1466,
             "neoClassName": "Neo.form.field.Number"
         },
         {
@@ -293,7 +293,7 @@
             "scope": "global",
             "$longname": "triggerPosition",
             "$kind": "property",
-            "id": 1432,
+            "id": 1467,
             "neoClassName": "Neo.form.field.Number"
         },
         {
@@ -317,54 +317,22 @@
             "scope": "global",
             "$longname": "useSpinButtons_",
             "$kind": "property",
-            "id": 1433,
-            "neoClassName": "Neo.form.field.Number"
-        },
-        {
-            "comment": "/**\n     *\n     */",
-            "meta": {
-                "range": [
-                    2105,
-                    2190
-                ],
-                "filename": "Number.mjs",
-                "lineno": 77,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
-                "code": {
-                    "id": "astnode100045996",
-                    "name": "Number#onConstructed",
-                    "type": "MethodDefinition",
-                    "paramnames": []
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "name": "onConstructed",
-            "longname": "Number#onConstructed",
-            "kind": "function",
-            "memberof": "Number",
-            "scope": "instance",
-            "params": [],
-            "$longname": "Number#onConstructed",
-            "$kind": "method",
-            "id": 1434,
+            "id": 1468,
             "neoClassName": "Neo.form.field.Number"
         },
         {
             "comment": "/**\n     * Triggered after the inputEditable config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2351,
-                    2694
+                    2237,
+                    2580
                 ],
                 "filename": "Number.mjs",
-                "lineno": 88,
+                "lineno": 80,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100046010",
+                    "id": "astnode100046402",
                     "name": "Number#afterSetInputEditable",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -403,22 +371,22 @@
             "scope": "instance",
             "$longname": "Number#afterSetInputEditable",
             "$kind": "method",
-            "id": 1435,
+            "id": 1469,
             "neoClassName": "Neo.form.field.Number"
         },
         {
             "comment": "/**\n     * Triggered after the maxValue config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    2850,
-                    2936
+                    2736,
+                    2822
                 ],
                 "filename": "Number.mjs",
-                "lineno": 109,
+                "lineno": 101,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100046059",
+                    "id": "astnode100046451",
                     "name": "Number#afterSetMaxValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -457,22 +425,22 @@
             "scope": "instance",
             "$longname": "Number#afterSetMaxValue",
             "$kind": "method",
-            "id": 1436,
+            "id": 1470,
             "neoClassName": "Neo.form.field.Number"
         },
         {
             "comment": "/**\n     * Triggered after the minValue config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3092,
-                    3178
+                    2978,
+                    3064
                 ],
                 "filename": "Number.mjs",
-                "lineno": 119,
+                "lineno": 111,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100046072",
+                    "id": "astnode100046464",
                     "name": "Number#afterSetMinValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -511,22 +479,22 @@
             "scope": "instance",
             "$longname": "Number#afterSetMinValue",
             "$kind": "method",
-            "id": 1437,
+            "id": 1471,
             "neoClassName": "Neo.form.field.Number"
         },
         {
             "comment": "/**\n     * Triggered after the stepSize config got changed\n     * @param {Number} value\n     * @param {Number} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    3334,
-                    4131
+                    3220,
+                    4017
                 ],
                 "filename": "Number.mjs",
-                "lineno": 129,
+                "lineno": 121,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100046085",
+                    "id": "astnode100046477",
                     "name": "Number#afterSetStepSize",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -565,22 +533,22 @@
             "scope": "instance",
             "$longname": "Number#afterSetStepSize",
             "$kind": "method",
-            "id": 1438,
+            "id": 1472,
             "neoClassName": "Neo.form.field.Number"
         },
         {
             "comment": "/**\n     * Triggered after the triggerPosition config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4294,
-                    4411
+                    4180,
+                    4297
                 ],
                 "filename": "Number.mjs",
-                "lineno": 157,
+                "lineno": 149,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100046213",
+                    "id": "astnode100046605",
                     "name": "Number#afterSetTriggerPosition",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -619,22 +587,22 @@
             "scope": "instance",
             "$longname": "Number#afterSetTriggerPosition",
             "$kind": "method",
-            "id": 1439,
+            "id": 1473,
             "neoClassName": "Neo.form.field.Number"
         },
         {
             "comment": "/**\n     * Triggered after the useSpinButtons config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4575,
-                    4712
+                    4461,
+                    4598
                 ],
                 "filename": "Number.mjs",
-                "lineno": 169,
+                "lineno": 161,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100046227",
+                    "id": "astnode100046619",
                     "name": "Number#afterSetUseSpinButtons",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -673,22 +641,22 @@
             "scope": "instance",
             "$longname": "Number#afterSetUseSpinButtons",
             "$kind": "method",
-            "id": 1440,
+            "id": 1474,
             "neoClassName": "Neo.form.field.Number"
         },
         {
             "comment": "/**\n     * Triggered before the triggerPosition config gets changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4877,
-                    5002
+                    4763,
+                    4888
                 ],
                 "filename": "Number.mjs",
-                "lineno": 181,
+                "lineno": 173,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100046244",
+                    "id": "astnode100046636",
                     "name": "Number#beforeSetTriggerPosition",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -727,7 +695,39 @@
             "scope": "instance",
             "$longname": "Number#beforeSetTriggerPosition",
             "$kind": "method",
-            "id": 1441,
+            "id": 1475,
+            "neoClassName": "Neo.form.field.Number"
+        },
+        {
+            "comment": "/**\n     *\n     */",
+            "meta": {
+                "range": [
+                    4917,
+                    5002
+                ],
+                "filename": "Number.mjs",
+                "lineno": 180,
+                "columnno": 4,
+                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
+                "code": {
+                    "id": "astnode100046650",
+                    "name": "Number#onConstructed",
+                    "type": "MethodDefinition",
+                    "paramnames": []
+                },
+                "vars": {
+                    "": null
+                }
+            },
+            "name": "onConstructed",
+            "longname": "Number#onConstructed",
+            "kind": "function",
+            "memberof": "Number",
+            "scope": "instance",
+            "params": [],
+            "$longname": "Number#onConstructed",
+            "$kind": "method",
+            "id": 1476,
             "neoClassName": "Neo.form.field.Number"
         },
         {
@@ -742,7 +742,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100046258",
+                    "id": "astnode100046664",
                     "name": "Number#onInputValueChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -771,7 +771,7 @@
             "scope": "instance",
             "$longname": "Number#onInputValueChange",
             "$kind": "method",
-            "id": 1442,
+            "id": 1477,
             "neoClassName": "Neo.form.field.Number"
         },
         {
@@ -786,7 +786,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100046358",
+                    "id": "astnode100046764",
                     "name": "Number#onSpinButtonDownClick",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -804,7 +804,7 @@
             "params": [],
             "$longname": "Number#onSpinButtonDownClick",
             "$kind": "method",
-            "id": 1443,
+            "id": 1478,
             "neoClassName": "Neo.form.field.Number"
         },
         {
@@ -819,7 +819,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100046433",
+                    "id": "astnode100046839",
                     "name": "Number#onSpinButtonUpClick",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -837,7 +837,7 @@
             "params": [],
             "$longname": "Number#onSpinButtonUpClick",
             "$kind": "method",
-            "id": 1444,
+            "id": 1479,
             "neoClassName": "Neo.form.field.Number"
         },
         {
@@ -852,7 +852,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/form/field",
                 "code": {
-                    "id": "astnode100046508",
+                    "id": "astnode100046914",
                     "name": "Number#updateTriggers",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -869,7 +869,7 @@
             "params": [],
             "$longname": "Number#updateTriggers",
             "$kind": "method",
-            "id": 1445,
+            "id": 1480,
             "neoClassName": "Neo.form.field.Number"
         }
     ]
