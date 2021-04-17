@@ -176,7 +176,7 @@
             "meta": {
                 "range": [
                     1099,
-                    1188
+                    1186
                 ],
                 "filename": "Base.mjs",
                 "lineno": 47,
@@ -204,19 +204,19 @@
             "neoClassName": "RealWorld.api.Base"
         },
         {
-            "comment": "/**\n     * todo: this construct is just a workaround until webpack based builds are changed to the worker target\n     * and lazy loading apps is supported in dist/*\n     */",
+            "comment": "/**\n     * The class extensions Article, Favorite, Profile, Tag, User are singletons\n     * and get directly imported into the MainContainer(Controller)\n     * => their creation happens before the app is constructed\n     * => Neo.apps['RealWorld'] does most likely not exist yet.\n     */",
             "meta": {
                 "range": [
-                    1371,
-                    1790
+                    1484,
+                    1897
                 ],
                 "filename": "Base.mjs",
-                "lineno": 56,
+                "lineno": 58,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
                 "code": {
                     "id": "astnode100104843",
-                    "name": "Base#onAfterConstructed",
+                    "name": "Base#afterConstructed",
                     "type": "MethodDefinition",
                     "paramnames": []
                 },
@@ -224,14 +224,14 @@
                     "": null
                 }
             },
-            "description": "todo: this construct is just a workaround until webpack based builds are changed to the worker target<br />and lazy loading apps is supported in dist/*",
-            "name": "onAfterConstructed",
-            "longname": "Base#onAfterConstructed",
+            "description": "The class extensions Article, Favorite, Profile, Tag, User are singletons<br />and get directly imported into the MainContainer(Controller)<br />=> their creation happens before the app is constructed<br />=> Neo.apps['RealWorld'] does most likely not exist yet.",
+            "name": "afterConstructed",
+            "longname": "Base#afterConstructed",
             "kind": "function",
             "memberof": "Base",
             "scope": "instance",
             "params": [],
-            "$longname": "Base#onAfterConstructed",
+            "$longname": "Base#afterConstructed",
             "$kind": "method",
             "id": 3210,
             "neoClassName": "RealWorld.api.Base"
@@ -240,11 +240,11 @@
             "comment": "/**\n     *\n     */",
             "meta": {
                 "range": [
-                    1819,
-                    2552
+                    1926,
+                    2659
                 ],
                 "filename": "Base.mjs",
-                "lineno": 75,
+                "lineno": 77,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
                 "code": {
@@ -272,11 +272,11 @@
             "comment": "/**\n     *\n     * @param {Object} [opts={}]\n     * @param {Object} [opts.data]\n     * @param {Object} [opts.params]\n     * @param {String} [opts.resource]\n     * @param {String} [opts.slug]\n     * @param {String} [opts.url]\n     * @returns {String} url\n     */",
             "meta": {
                 "range": [
-                    2823,
-                    3016
+                    2930,
+                    3123
                 ],
                 "filename": "Base.mjs",
-                "lineno": 114,
+                "lineno": 116,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
                 "code": {
@@ -372,11 +372,11 @@
             "comment": "/**\n     *\n     * @param {Object} [opts={}]\n     * @param {Object} [opts.data]\n     * @param {Object} [opts.params]\n     * @param {String} [opts.resource]\n     * @param {String} [opts.slug]\n     * @returns {Promise<any>}\n     */",
             "meta": {
                 "range": [
-                    3255,
-                    3789
+                    3362,
+                    3896
                 ],
                 "filename": "Base.mjs",
-                "lineno": 131,
+                "lineno": 133,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
                 "code": {
@@ -462,11 +462,11 @@
             "comment": "/**\n     *\n     * @param {Object} [opts={}]\n     * @param {Object} [opts.data]\n     * @param {Object} [opts.params]\n     * @param {String} [opts.resource]\n     * @param {String} [opts.slug]\n     * @returns {Promise<any>}\n     */",
             "meta": {
                 "range": [
-                    4028,
-                    4553
+                    4135,
+                    4660
                 ],
                 "filename": "Base.mjs",
-                "lineno": 159,
+                "lineno": 161,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
                 "code": {
@@ -552,11 +552,11 @@
             "comment": "/**\n     * Placeholder method which gets triggered once the token is fetched from the local storage\n     * @param {String|null} token\n     */",
             "meta": {
                 "range": [
-                    4705,
-                    4967
+                    4812,
+                    5074
                 ],
                 "filename": "Base.mjs",
-                "lineno": 182,
+                "lineno": 184,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
                 "code": {
@@ -597,11 +597,11 @@
             "comment": "/**\n     *\n     * @param {Object} [opts={}]\n     * @param {Object} [opts.data]\n     * @param {Object} [opts.params]\n     * @param {String} [opts.resource]\n     * @param {String} [opts.slug]\n     * @returns {Promise<any>}\n     */",
             "meta": {
                 "range": [
-                    5206,
-                    5795
+                    5313,
+                    5902
                 ],
                 "filename": "Base.mjs",
-                "lineno": 203,
+                "lineno": 205,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
                 "code": {
@@ -687,11 +687,11 @@
             "comment": "/**\n     *\n     * @param {Object} [opts={}]\n     * @param {Object} [opts.data]\n     * @param {Object} [opts.params]\n     * @param {String} [opts.resource]\n     * @param {String} [opts.slug]\n     * @returns {Promise<any>}\n     */",
             "meta": {
                 "range": [
-                    6034,
-                    6619
+                    6141,
+                    6726
                 ],
                 "filename": "Base.mjs",
-                "lineno": 234,
+                "lineno": 236,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/api",
                 "code": {
