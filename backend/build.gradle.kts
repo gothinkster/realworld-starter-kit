@@ -25,6 +25,7 @@ tasks.named("assemble") {
 }
 
 dependencies {
+    "implementation"("com.hexagonkt:serialization_yaml:${properties["hexagonVersion"]}")
     "implementation"("com.hexagonkt:hexagon_settings:${properties["hexagonVersion"]}")
     "implementation"("com.hexagonkt:http_server_jetty:${properties["hexagonVersion"]}")
     "implementation"("com.hexagonkt:store_mongodb:${properties["hexagonVersion"]}")

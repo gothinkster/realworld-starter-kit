@@ -41,8 +41,7 @@ extensions.configure<KotlinJsProjectExtension> {
 
 repositories {
     mavenCentral()
-    jcenter()
-    maven("https://dl.bintray.com/kotlin/kotlinx")
+    maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
 }
 
 dependencies {
