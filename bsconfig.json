@@ -1,8 +1,13 @@
 {
   "name": "reason-react-realworld-example-app",
-  "reason": {
-    "react-jsx": 3
-  },
+  "namespace": true,
+  "refmt": 3,
+  "suffix": ".bs.js",
+  "reason": { "react-jsx": 3 },
+  "bsc-flags": [
+    "-bs-super-errors",
+    "-bs-no-version-header"
+  ],
   "sources": {
     "dir": "src",
     "subdirs": [
@@ -11,24 +16,16 @@
       { "dir": "shared" }
     ]
   },
-  "bsc-flags": ["-bs-super-errors", "-bs-no-version-header"],
   "package-specs": [
     {
       "module": "es6",
       "in-source": true
     }
   ],
-  "suffix": ".bs.js",
-  "namespace": true,
   "bs-dependencies": [
     "bs-fetch",
     "@rescript/react",
     "bs-webapi"
   ],
-  "bs-dev-dependencies": [
-  ],
-  "refmt": 3,
-  "warnings": {
-    "number": "-48"
-  }
+  "bs-dev-dependencies": []
 }
