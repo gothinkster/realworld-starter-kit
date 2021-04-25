@@ -5,8 +5,9 @@
   "suffix": ".bs.js",
   "reason": { "react-jsx": 3 },
   "bsc-flags": [
+    "-bs-no-version-header",
     "-bs-super-errors",
-    "-bs-no-version-header"
+    "-open Belt"
   ],
   "sources": {
     "dir": "src",
