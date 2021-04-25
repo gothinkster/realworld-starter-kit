@@ -1,5 +1,3 @@
-open Relude.Globals
-
 let authenticated: (Shape.User.t => React.element, option<Shape.User.t>) => React.element = (
   getPage,
   user,

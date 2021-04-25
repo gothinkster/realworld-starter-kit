@@ -1,5 +1,4 @@
 open Js.Promise
-open Relude.Globals
 
 let guardByDidCancel: (React.ref<bool>, unit => unit) => unit = (didCancel, cb) =>
   !didCancel.current ? cb() : ()

@@ -1,7 +1,3 @@
-open Relude.Globals
-
-module Decode = Decode.AsResult.OfParseError
-
 @react.component
 let make = (
   ~user: Shape.User.t,

@@ -1,5 +1,3 @@
-open Relude.Globals
-
 module ArticlePreview = {
   @react.component
   let make = (~data: Shape.Article.t, ~onToggleFavorite, ~isFavoriteBusy) =>

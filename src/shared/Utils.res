@@ -1,5 +1,3 @@
-open Relude.Globals
-
 type cookiePair = (string, option<string>)
 
 let secondInMs = 1000.

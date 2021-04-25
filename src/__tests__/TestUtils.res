@@ -1,7 +1,3 @@
-open Relude.Globals
-
-module Function = Relude.Function
-
 module ApiMock = {
   open BsJestFetchMock
 

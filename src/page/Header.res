@@ -1,5 +1,3 @@
-open Relude.Globals
-
 @react.component
 let make = (~user: option<Shape.User.t>) => {
   let currentUser = user |> Option.getOrElse(Shape.User.empty)

@@ -1,7 +1,3 @@
-open Relude.Globals
-
-module Decode = Decode.AsResult.OfParseError
-
 let parseTagList: string => array<string> = str =>
   str
   |> String.splitArray(~delimiter=",")

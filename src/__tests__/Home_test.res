@@ -1,13 +1,10 @@
 open Js.Promise
-open Relude.Globals
 open Jest
 open Expect
 open ReactTestingLibrary
 open BsJestFetchMock
 open TestUtils
 open ApiMock
-
-module Option = Relude.Option
 
 describe("Home component", () => {
   beforeEach(() => JestFetchMock.resetMocks())

@@ -1,8 +1,3 @@
-module Option = Relude.Option
-module Result = Relude.Result
-module Array = Relude.Array
-module AsyncResult = Relude.AsyncResult
-
 @react.component
 let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
   let (viewMode, changeOffset) = Hook.useViewMode(~route=viewMode)

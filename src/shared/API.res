@@ -1,8 +1,5 @@
 open Js.Promise
 open Fetch
-open Relude.Globals
-
-module Decode = Decode.AsResult.OfParseError
 
 module Action = {
   type article =

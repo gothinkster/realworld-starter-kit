@@ -1,7 +1,3 @@
-open Relude.Globals
-
-module Decode = Decode.AsResult.OfParseError
-
 @react.component
 let make = (~setUser) => {
   let (data, setData) = React.useState(() => AsyncData.complete(("", "", None)))

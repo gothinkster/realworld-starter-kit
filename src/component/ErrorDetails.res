@@ -1,5 +1,3 @@
-open Relude.Globals
-
 @react.component
 let make = (~label: string, ~error: option<array<string>>) =>
   error

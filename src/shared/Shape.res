@@ -1,7 +1,3 @@
-open Relude.Globals
-
-module Decode = Decode.AsResult.OfParseError
-
 module Profile = {
   type username = string
   type limit = int

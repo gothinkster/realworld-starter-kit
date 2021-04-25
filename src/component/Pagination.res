@@ -1,5 +1,3 @@
-open Relude.Globals
-
 @react.component
 let make = (~limit: int, ~offset: int, ~total: int, ~onClick: int => unit) =>
   if total == 0 {

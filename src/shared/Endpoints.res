@@ -1,5 +1,3 @@
-open Relude.Globals
-
 @bs.scope(("window", "app")) @bs.val external backend: string = "backend"
 
 module Articles = {

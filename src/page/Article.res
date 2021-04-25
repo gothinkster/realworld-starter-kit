@@ -1,5 +1,3 @@
-open Relude.Globals
-
 module PostComment = {
   @react.component
   let make = (
