@@ -117,12 +117,12 @@ public class ArticleService {
     public ArticleList findArticles(final String username,
                                     final String author,
                                     final String tag,
-                                    final String favorited,
+                                    final String favorite,
                                     final Integer offset,
                                     final int limit) {
-        final Long favoritedBy = favorited != null ? userRepository.findUserIdByUsername(favorited) : null;
-        final int count = articleRepository.countArticles(author, tag, favoritedBy);
-        final List<Article> articles = articleRepository.findArticles(author, tag, favoritedBy, offset, limit);
+        final Long favoriteBy = favorite != null ? userRepository.findUserIdByUsername(favorite) : null;
+        final int count = articleRepository.countArticles(author, tag, favoriteBy);
+        final List<Article> articles = articleRepository.findArticles(author, tag, favoriteBy, offset, limit);
         fillAdditionalData(articles, username);
         return articleList(articles, count);
     }
