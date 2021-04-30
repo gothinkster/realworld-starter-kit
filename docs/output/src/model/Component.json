@@ -20,7 +20,7 @@
             "scope": "static",
             "$longname": "Neo.model.Component",
             "$kind": "class",
-            "id": 2308,
+            "id": 2310,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -45,7 +45,7 @@
             "longname": "observable",
             "$longname": "observable",
             "$kind": "property",
-            "id": 2309,
+            "id": 2311,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -70,7 +70,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2310,
+            "id": 2312,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -95,7 +95,7 @@
             "scope": "global",
             "$longname": "ntype",
             "$kind": "property",
-            "id": 2311,
+            "id": 2313,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -121,7 +121,7 @@
             "scope": "global",
             "$longname": "bindings_",
             "$kind": "property",
-            "id": 2312,
+            "id": 2314,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -147,7 +147,7 @@
             "scope": "global",
             "$longname": "component",
             "$kind": "property",
-            "id": 2313,
+            "id": 2315,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -172,7 +172,7 @@
             "scope": "global",
             "$longname": "data_",
             "$kind": "property",
-            "id": 2314,
+            "id": 2316,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -197,7 +197,7 @@
             "scope": "global",
             "$longname": "parent_",
             "$kind": "property",
-            "id": 2315,
+            "id": 2317,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -222,7 +222,7 @@
             "scope": "global",
             "$longname": "stores_",
             "$kind": "property",
-            "id": 2316,
+            "id": 2318,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -237,7 +237,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100071411",
+                    "id": "astnode100071694",
                     "name": "Component",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -264,7 +264,7 @@
             "scope": "global",
             "$longname": "Component",
             "$kind": "constructor",
-            "id": 2317,
+            "id": 2319,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -279,7 +279,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100071434",
+                    "id": "astnode100071717",
                     "name": "Component#addDataProperty",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -318,7 +318,7 @@
             "scope": "instance",
             "$longname": "Component#addDataProperty",
             "$kind": "method",
-            "id": 2318,
+            "id": 2320,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -333,7 +333,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100071489",
+                    "id": "astnode100071772",
                     "name": "Component#afterSetData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -374,7 +374,7 @@
             "scope": "instance",
             "$longname": "Component#afterSetData",
             "$kind": "method",
-            "id": 2319,
+            "id": 2321,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -389,7 +389,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100071505",
+                    "id": "astnode100071788",
                     "name": "Component#beforeGetData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -419,7 +419,7 @@
             "scope": "instance",
             "$longname": "Component#beforeGetData",
             "$kind": "method",
-            "id": 2320,
+            "id": 2322,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -434,7 +434,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100071514",
+                    "id": "astnode100071797",
                     "name": "Component#beforeSetParent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -475,7 +475,7 @@
             "scope": "instance",
             "$longname": "Component#beforeSetParent",
             "$kind": "method",
-            "id": 2321,
+            "id": 2323,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -490,7 +490,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100071528",
+                    "id": "astnode100071811",
                     "name": "Component#beforeSetStores",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -541,7 +541,7 @@
             "scope": "instance",
             "$longname": "Component#beforeSetStores",
             "$kind": "method",
-            "id": 2322,
+            "id": 2324,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -556,7 +556,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100071561",
+                    "id": "astnode100071844",
                     "name": "Component#callFormatter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -605,7 +605,7 @@
             "scope": "instance",
             "$longname": "Component#callFormatter",
             "$kind": "method",
-            "id": 2323,
+            "id": 2325,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -620,7 +620,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100071587",
+                    "id": "astnode100071870",
                     "name": "Component#createBinding",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -676,7 +676,7 @@
             "scope": "instance",
             "$longname": "Component#createBinding",
             "$kind": "method",
-            "id": 2324,
+            "id": 2326,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -691,7 +691,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100071678",
+                    "id": "astnode100071961",
                     "name": "Component#createBindingByFormatter",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -738,7 +738,7 @@
             "scope": "instance",
             "$longname": "Component#createBindingByFormatter",
             "$kind": "method",
-            "id": 2325,
+            "id": 2327,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -753,7 +753,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100071713",
+                    "id": "astnode100071996",
                     "name": "Component#createBindings",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -781,7 +781,7 @@
             "scope": "instance",
             "$longname": "Component#createBindings",
             "$kind": "method",
-            "id": 2326,
+            "id": 2328,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -796,7 +796,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100071750",
+                    "id": "astnode100072033",
                     "name": "Component#createDataProperties",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -833,7 +833,7 @@
             "scope": "instance",
             "$longname": "Component#createDataProperties",
             "$kind": "method",
-            "id": 2327,
+            "id": 2329,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -848,7 +848,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100071863",
+                    "id": "astnode100072146",
                     "name": "Component#createDataProperty",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -896,7 +896,7 @@
             "scope": "instance",
             "$longname": "Component#createDataProperty",
             "$kind": "method",
-            "id": 2328,
+            "id": 2330,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -911,7 +911,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100071971",
+                    "id": "astnode100072254",
                     "name": "Component#getData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -961,7 +961,7 @@
             "scope": "instance",
             "$longname": "Component#getData",
             "$kind": "method",
-            "id": 2329,
+            "id": 2331,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -976,7 +976,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100072043",
+                    "id": "astnode100072326",
                     "name": "Component#getDataScope",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1009,7 +1009,7 @@
             "scope": "instance",
             "$longname": "Component#getDataScope",
             "$kind": "method",
-            "id": 2330,
+            "id": 2332,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -1024,7 +1024,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100072102",
+                    "id": "astnode100072385",
                     "name": "Component#getFormatterVariables",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1053,7 +1053,7 @@
             "scope": "instance",
             "$longname": "Component#getFormatterVariables",
             "$kind": "method",
-            "id": 2331,
+            "id": 2333,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -1068,7 +1068,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100072190",
+                    "id": "astnode100072473",
                     "name": "Component#getHierarchyData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1108,7 +1108,7 @@
             "scope": "instance",
             "$longname": "Component#getHierarchyData",
             "$kind": "method",
-            "id": 2332,
+            "id": 2334,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -1123,7 +1123,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100072231",
+                    "id": "astnode100072514",
                     "name": "Component#getPlainData",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1150,7 +1150,7 @@
             "params": [],
             "$longname": "Component#getPlainData",
             "$kind": "method",
-            "id": 2333,
+            "id": 2335,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -1165,7 +1165,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100072247",
+                    "id": "astnode100072530",
                     "name": "Component#getParent",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -1193,7 +1193,7 @@
             "params": [],
             "$longname": "Component#getParent",
             "$kind": "method",
-            "id": 2334,
+            "id": 2336,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -1208,7 +1208,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100072295",
+                    "id": "astnode100072578",
                     "name": "Component#internalSetData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1258,7 +1258,7 @@
             "scope": "instance",
             "$longname": "Component#internalSetData",
             "$kind": "method",
-            "id": 2335,
+            "id": 2337,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -1273,7 +1273,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100072415",
+                    "id": "astnode100072698",
                     "name": "Component#isStoreValue",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1311,7 +1311,7 @@
             "scope": "instance",
             "$longname": "Component#isStoreValue",
             "$kind": "method",
-            "id": 2336,
+            "id": 2338,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -1326,7 +1326,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100072432",
+                    "id": "astnode100072715",
                     "name": "Component#onDataPropertyChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1372,7 +1372,7 @@
             "scope": "instance",
             "$longname": "Component#onDataPropertyChange",
             "$kind": "method",
-            "id": 2337,
+            "id": 2339,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -1387,7 +1387,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100072576",
+                    "id": "astnode100072859",
                     "name": "Component#parseConfig",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1418,7 +1418,7 @@
             "scope": "instance",
             "$longname": "Component#parseConfig",
             "$kind": "method",
-            "id": 2338,
+            "id": 2340,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -1433,7 +1433,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100072653",
+                    "id": "astnode100072936",
                     "name": "Component#removeBindings",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1462,7 +1462,7 @@
             "scope": "instance",
             "$longname": "Component#removeBindings",
             "$kind": "method",
-            "id": 2339,
+            "id": 2341,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -1477,7 +1477,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100072696",
+                    "id": "astnode100072979",
                     "name": "Component#resolveStore",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1535,7 +1535,7 @@
             "scope": "instance",
             "$longname": "Component#resolveStore",
             "$kind": "method",
-            "id": 2340,
+            "id": 2342,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -1550,7 +1550,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100072765",
+                    "id": "astnode100073048",
                     "name": "Component#setData",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1589,7 +1589,7 @@
             "scope": "instance",
             "$longname": "Component#setData",
             "$kind": "method",
-            "id": 2341,
+            "id": 2343,
             "neoClassName": "Neo.model.Component"
         },
         {
@@ -1604,7 +1604,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/model",
                 "code": {
-                    "id": "astnode100072779",
+                    "id": "astnode100073062",
                     "name": "Component#setDataAtSameLevel",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -1643,7 +1643,7 @@
             "scope": "instance",
             "$longname": "Component#setDataAtSameLevel",
             "$kind": "method",
-            "id": 2342,
+            "id": 2344,
             "neoClassName": "Neo.model.Component"
         }
     ]

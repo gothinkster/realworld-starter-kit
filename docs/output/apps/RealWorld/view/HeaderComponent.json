@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "RealWorld.view.HeaderComponent",
             "$kind": "class",
-            "id": 3347,
+            "id": 3350,
             "neoClassName": "RealWorld.view.HeaderComponent"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 3348,
+            "id": 3351,
             "neoClassName": "RealWorld.view.HeaderComponent"
         },
         {
@@ -68,7 +68,7 @@
             "scope": "global",
             "$longname": "activeItem_",
             "$kind": "property",
-            "id": 3349,
+            "id": 3352,
             "neoClassName": "RealWorld.view.HeaderComponent"
         },
         {
@@ -93,7 +93,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 3350,
+            "id": 3353,
             "neoClassName": "RealWorld.view.HeaderComponent"
         },
         {
@@ -117,7 +117,7 @@
             "scope": "global",
             "$longname": "loggedIn_",
             "$kind": "property",
-            "id": 3351,
+            "id": 3354,
             "neoClassName": "RealWorld.view.HeaderComponent"
         },
         {
@@ -142,7 +142,7 @@
             "scope": "global",
             "$longname": "userImage_",
             "$kind": "property",
-            "id": 3352,
+            "id": 3355,
             "neoClassName": "RealWorld.view.HeaderComponent"
         },
         {
@@ -167,7 +167,7 @@
             "scope": "global",
             "$longname": "userName_",
             "$kind": "property",
-            "id": 3353,
+            "id": 3356,
             "neoClassName": "RealWorld.view.HeaderComponent"
         },
         {
@@ -190,22 +190,22 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 3354,
+            "id": 3357,
             "neoClassName": "RealWorld.view.HeaderComponent"
         },
         {
             "comment": "/**\n     * Triggered after the activeItem config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    4649,
-                    4994
+                    3179,
+                    3524
                 ],
                 "filename": "HeaderComponent.mjs",
-                "lineno": 138,
+                "lineno": 82,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
                 "code": {
-                    "id": "astnode100109696",
+                    "id": "astnode100110063",
                     "name": "HeaderComponent#afterSetActiveItem",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -244,22 +244,22 @@
             "scope": "instance",
             "$longname": "HeaderComponent#afterSetActiveItem",
             "$kind": "method",
-            "id": 3355,
+            "id": 3358,
             "neoClassName": "RealWorld.view.HeaderComponent"
         },
         {
             "comment": "/**\n     * Triggered after the loggedIn config got changed\n     * @param {Boolean} value\n     * @param {Boolean} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5152,
-                    5643
+                    3682,
+                    4173
                 ],
                 "filename": "HeaderComponent.mjs",
-                "lineno": 157,
+                "lineno": 101,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
                 "code": {
-                    "id": "astnode100109778",
+                    "id": "astnode100110145",
                     "name": "HeaderComponent#afterSetLoggedIn",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -298,22 +298,22 @@
             "scope": "instance",
             "$longname": "HeaderComponent#afterSetLoggedIn",
             "$kind": "method",
-            "id": 3356,
+            "id": 3359,
             "neoClassName": "RealWorld.view.HeaderComponent"
         },
         {
             "comment": "/**\n     * Triggered after the userImage config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5800,
-                    6082
+                    4330,
+                    4612
                 ],
                 "filename": "HeaderComponent.mjs",
-                "lineno": 179,
+                "lineno": 123,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
                 "code": {
-                    "id": "astnode100109870",
+                    "id": "astnode100110237",
                     "name": "HeaderComponent#afterSetUserImage",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -352,22 +352,22 @@
             "scope": "instance",
             "$longname": "HeaderComponent#afterSetUserImage",
             "$kind": "method",
-            "id": 3357,
+            "id": 3360,
             "neoClassName": "RealWorld.view.HeaderComponent"
         },
         {
             "comment": "/**\n     * Triggered after the userName config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6238,
-                    6583
+                    4768,
+                    5113
                 ],
                 "filename": "HeaderComponent.mjs",
-                "lineno": 196,
+                "lineno": 140,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
                 "code": {
-                    "id": "astnode100109931",
+                    "id": "astnode100110298",
                     "name": "HeaderComponent#afterSetUserName",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -406,22 +406,22 @@
             "scope": "instance",
             "$longname": "HeaderComponent#afterSetUserName",
             "$kind": "method",
-            "id": 3358,
+            "id": 3361,
             "neoClassName": "RealWorld.view.HeaderComponent"
         },
         {
             "comment": "/**\n     *\n     * @param {String} value\n     * @returns {Number} The target index\n     */",
             "meta": {
                 "range": [
-                    6683,
-                    7062
+                    5213,
+                    5592
                 ],
                 "filename": "HeaderComponent.mjs",
-                "lineno": 214,
+                "lineno": 158,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
                 "code": {
-                    "id": "astnode100109994",
+                    "id": "astnode100110361",
                     "name": "HeaderComponent#getActiveIndex",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -459,7 +459,7 @@
             "scope": "instance",
             "$longname": "HeaderComponent#getActiveIndex",
             "$kind": "method",
-            "id": 3359,
+            "id": 3362,
             "neoClassName": "RealWorld.view.HeaderComponent"
         }
     ]

@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "RealWorld.view.article.CreateComponent",
             "$kind": "class",
-            "id": 3287,
+            "id": 3290,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 3288,
+            "id": 3291,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
@@ -68,7 +68,7 @@
             "scope": "global",
             "$longname": "body_",
             "$kind": "property",
-            "id": 3289,
+            "id": 3292,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
@@ -92,7 +92,7 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 3290,
+            "id": 3293,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
@@ -116,7 +116,7 @@
             "scope": "global",
             "$longname": "errors_",
             "$kind": "property",
-            "id": 3291,
+            "id": 3294,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
@@ -140,7 +140,7 @@
             "scope": "global",
             "$longname": "description_",
             "$kind": "property",
-            "id": 3292,
+            "id": 3295,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
@@ -165,7 +165,7 @@
             "scope": "global",
             "$longname": "slug",
             "$kind": "property",
-            "id": 3293,
+            "id": 3296,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
@@ -189,7 +189,7 @@
             "scope": "global",
             "$longname": "tagList_",
             "$kind": "property",
-            "id": 3294,
+            "id": 3297,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
@@ -213,7 +213,7 @@
             "scope": "global",
             "$longname": "title_",
             "$kind": "property",
-            "id": 3295,
+            "id": 3298,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
@@ -236,7 +236,7 @@
             "scope": "global",
             "$longname": "_vdom",
             "$kind": "property",
-            "id": 3296,
+            "id": 3299,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
@@ -244,14 +244,14 @@
             "meta": {
                 "range": [
                     5141,
-                    5840
+                    5630
                 ],
                 "filename": "CreateComponent.mjs",
                 "lineno": 128,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100107908",
+                    "id": "astnode100108275",
                     "name": "CreateComponent",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -279,22 +279,22 @@
             "scope": "global",
             "$longname": "CreateComponent",
             "$kind": "constructor",
-            "id": 3297,
+            "id": 3300,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
             "comment": "/**\n     * Triggered after the body config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    5992,
-                    6142
+                    5782,
+                    5932
                 ],
                 "filename": "CreateComponent.mjs",
-                "lineno": 163,
+                "lineno": 149,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100107970",
+                    "id": "astnode100108337",
                     "name": "CreateComponent#afterSetBody",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -333,22 +333,22 @@
             "scope": "instance",
             "$longname": "CreateComponent#afterSetBody",
             "$kind": "method",
-            "id": 3298,
+            "id": 3301,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
             "comment": "/**\n     * Triggered after the description config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6301,
-                    6465
+                    6091,
+                    6255
                 ],
                 "filename": "CreateComponent.mjs",
-                "lineno": 176,
+                "lineno": 162,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100107999",
+                    "id": "astnode100108366",
                     "name": "CreateComponent#afterSetDescription",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -387,22 +387,22 @@
             "scope": "instance",
             "$longname": "CreateComponent#afterSetDescription",
             "$kind": "method",
-            "id": 3299,
+            "id": 3302,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
             "comment": "/**\n     * Triggered after the errors config got changed\n     * @param {Object[]} value\n     * @param {Object[]} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    6623,
-                    7020
+                    6413,
+                    6810
                 ],
                 "filename": "CreateComponent.mjs",
-                "lineno": 189,
+                "lineno": 175,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100108028",
+                    "id": "astnode100108395",
                     "name": "CreateComponent#afterSetErrors",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -441,22 +441,22 @@
             "scope": "instance",
             "$longname": "CreateComponent#afterSetErrors",
             "$kind": "method",
-            "id": 3300,
+            "id": 3303,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
             "comment": "/**\n     * Triggered after the tagList config got changed\n     * Render tag list and reset tag field value\n     * @param {String[]} value\n     * @param {String[]} oldValue\n     */",
             "meta": {
                 "range": [
-                    7210,
-                    8017
+                    7000,
+                    7807
                 ],
                 "filename": "CreateComponent.mjs",
-                "lineno": 212,
+                "lineno": 198,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100108097",
+                    "id": "astnode100108464",
                     "name": "CreateComponent#afterSetTagList",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -494,22 +494,22 @@
             "scope": "instance",
             "$longname": "CreateComponent#afterSetTagList",
             "$kind": "method",
-            "id": 3301,
+            "id": 3304,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
             "comment": "/**\n     * Triggered after the title config got changed\n     * @param {String} value\n     * @param {String} oldValue\n     * @protected\n     */",
             "meta": {
                 "range": [
-                    8170,
-                    8322
+                    7960,
+                    8112
                 ],
                 "filename": "CreateComponent.mjs",
-                "lineno": 245,
+                "lineno": 231,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100108188",
+                    "id": "astnode100108555",
                     "name": "CreateComponent#afterSetTitle",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -548,22 +548,22 @@
             "scope": "instance",
             "$longname": "CreateComponent#afterSetTitle",
             "$kind": "method",
-            "id": 3302,
+            "id": 3305,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
             "comment": "/**\n     * on field tags key down enter add tag to tag list\n     * @param event\n     */",
             "meta": {
                 "range": [
-                    8420,
-                    8874
+                    8210,
+                    8664
                 ],
                 "filename": "CreateComponent.mjs",
-                "lineno": 256,
+                "lineno": 242,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100108217",
+                    "id": "astnode100108584",
                     "name": "CreateComponent#onFieldTagsKeyDown",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -587,22 +587,22 @@
             "scope": "instance",
             "$longname": "CreateComponent#onFieldTagsKeyDown",
             "$kind": "method",
-            "id": 3303,
+            "id": 3306,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
             "comment": "/**\n     * get the form data and post the article via api\n     */",
             "meta": {
                 "range": [
-                    8950,
-                    10250
+                    8740,
+                    10040
                 ],
                 "filename": "CreateComponent.mjs",
-                "lineno": 273,
+                "lineno": 259,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100108291",
+                    "id": "astnode100108658",
                     "name": "CreateComponent#onSubmitButtonClick",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -620,22 +620,22 @@
             "params": [],
             "$longname": "CreateComponent#onSubmitButtonClick",
             "$kind": "method",
-            "id": 3304,
+            "id": 3307,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
             "comment": "/**\n     * Remove clicked tag from list\n     * @param event\n     */",
             "meta": {
                 "range": [
-                    10328,
-                    10433
+                    10118,
+                    10223
                 ],
                 "filename": "CreateComponent.mjs",
-                "lineno": 317,
+                "lineno": 303,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100108447",
+                    "id": "astnode100108814",
                     "name": "CreateComponent#onTagClose",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -659,22 +659,22 @@
             "scope": "instance",
             "$longname": "CreateComponent#onTagClose",
             "$kind": "method",
-            "id": 3305,
+            "id": 3308,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         },
         {
             "comment": "/**\n     * Resets the value of all fields\n     */",
             "meta": {
                 "range": [
-                    10493,
-                    10689
+                    10283,
+                    10479
                 ],
                 "filename": "CreateComponent.mjs",
-                "lineno": 324,
+                "lineno": 310,
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view/article",
                 "code": {
-                    "id": "astnode100108474",
+                    "id": "astnode100108841",
                     "name": "CreateComponent#resetForm",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -692,7 +692,7 @@
             "params": [],
             "$longname": "CreateComponent#resetForm",
             "$kind": "method",
-            "id": 3306,
+            "id": 3309,
             "neoClassName": "RealWorld.view.article.CreateComponent"
         }
     ]

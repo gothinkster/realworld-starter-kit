@@ -4,7 +4,7 @@
             "comment": "/**\n * @class RealWorld.view.MainContainer\n * @extends Neo.container.Viewport\n */",
             "meta": {
                 "filename": "MainContainer.mjs",
-                "lineno": 7,
+                "lineno": 6,
                 "columnno": 0,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
                 "code": {}
@@ -19,14 +19,14 @@
             "scope": "static",
             "$longname": "RealWorld.view.MainContainer",
             "$kind": "class",
-            "id": 3390,
+            "id": 3393,
             "neoClassName": "RealWorld.view.MainContainer"
         },
         {
             "comment": "/**\n         * @member {String} className='RealWorld.view.MainContainer'\n         * @protected\n         */",
             "meta": {
                 "filename": "MainContainer.mjs",
-                "lineno": 17,
+                "lineno": 16,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
                 "code": {}
@@ -44,14 +44,14 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 3391,
+            "id": 3394,
             "neoClassName": "RealWorld.view.MainContainer"
         },
         {
             "comment": "/**\n         * @member {Boolean} autoMount=true\n         */",
             "meta": {
                 "filename": "MainContainer.mjs",
-                "lineno": 21,
+                "lineno": 20,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
                 "code": {}
@@ -68,14 +68,14 @@
             "scope": "global",
             "$longname": "autoMount",
             "$kind": "property",
-            "id": 3392,
+            "id": 3395,
             "neoClassName": "RealWorld.view.MainContainer"
         },
         {
             "comment": "/**\n         * @member {Array} cls=[]\n         */",
             "meta": {
                 "filename": "MainContainer.mjs",
-                "lineno": 25,
+                "lineno": 24,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
                 "code": {}
@@ -92,14 +92,14 @@
             "scope": "global",
             "$longname": "cls",
             "$kind": "property",
-            "id": 3393,
+            "id": 3396,
             "neoClassName": "RealWorld.view.MainContainer"
         },
         {
             "comment": "/**\n         * @member {Neo.controller.Component} controller=MainContainerController\n         */",
             "meta": {
                 "filename": "MainContainer.mjs",
-                "lineno": 29,
+                "lineno": 28,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
                 "code": {}
@@ -116,14 +116,14 @@
             "scope": "global",
             "$longname": "controller",
             "$kind": "property",
-            "id": 3394,
+            "id": 3397,
             "neoClassName": "RealWorld.view.MainContainer"
         },
         {
             "comment": "/**\n         * @member {Object} layout={ntype: 'vbox'}\n         */",
             "meta": {
                 "filename": "MainContainer.mjs",
-                "lineno": 33,
+                "lineno": 32,
                 "columnno": 8,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
                 "code": {}
@@ -141,49 +141,7 @@
             "scope": "global",
             "$longname": "layout",
             "$kind": "property",
-            "id": 3395,
-            "neoClassName": "RealWorld.view.MainContainer"
-        },
-        {
-            "comment": "/**\n     *\n     * @param {Object} config\n     */",
-            "meta": {
-                "range": [
-                    1309,
-                    1563
-                ],
-                "filename": "MainContainer.mjs",
-                "lineno": 47,
-                "columnno": 4,
-                "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/apps/realworld/view",
-                "code": {
-                    "id": "astnode100111406",
-                    "name": "MainContainer",
-                    "type": "MethodDefinition",
-                    "paramnames": [
-                        "config"
-                    ]
-                },
-                "vars": {
-                    "": null
-                }
-            },
-            "params": [
-                {
-                    "type": {
-                        "names": [
-                            "Object"
-                        ]
-                    },
-                    "name": "config"
-                }
-            ],
-            "name": "MainContainer",
-            "longname": "MainContainer",
-            "kind": "class",
-            "scope": "global",
-            "$longname": "MainContainer",
-            "$kind": "constructor",
-            "id": 3396,
+            "id": 3398,
             "neoClassName": "RealWorld.view.MainContainer"
         }
     ]

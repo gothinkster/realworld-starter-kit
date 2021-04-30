@@ -19,7 +19,7 @@
             "scope": "static",
             "$longname": "Neo.main.draggable.sensor.Touch",
             "$kind": "class",
-            "id": 2206,
+            "id": 2208,
             "neoClassName": "Neo.main.draggable.sensor.Touch"
         },
         {
@@ -44,7 +44,7 @@
             "scope": "global",
             "$longname": "className",
             "$kind": "property",
-            "id": 2207,
+            "id": 2209,
             "neoClassName": "Neo.main.draggable.sensor.Touch"
         },
         {
@@ -68,7 +68,7 @@
             "scope": "global",
             "$longname": "delay",
             "$kind": "property",
-            "id": 2208,
+            "id": 2210,
             "neoClassName": "Neo.main.draggable.sensor.Touch"
         },
         {
@@ -92,7 +92,7 @@
             "scope": "global",
             "$longname": "minDistance",
             "$kind": "property",
-            "id": 2209,
+            "id": 2211,
             "neoClassName": "Neo.main.draggable.sensor.Touch"
         },
         {
@@ -118,7 +118,7 @@
             "scope": "global",
             "$longname": "pageX",
             "$kind": "property",
-            "id": 2210,
+            "id": 2212,
             "neoClassName": "Neo.main.draggable.sensor.Touch"
         },
         {
@@ -144,7 +144,7 @@
             "scope": "global",
             "$longname": "pageY",
             "$kind": "property",
-            "id": 2211,
+            "id": 2213,
             "neoClassName": "Neo.main.draggable.sensor.Touch"
         },
         {
@@ -169,7 +169,7 @@
             "scope": "global",
             "$longname": "tapTimeout",
             "$kind": "property",
-            "id": 2212,
+            "id": 2214,
             "neoClassName": "Neo.main.draggable.sensor.Touch"
         },
         {
@@ -193,7 +193,7 @@
             "scope": "global",
             "$longname": "touchStartTime",
             "$kind": "property",
-            "id": 2213,
+            "id": 2215,
             "neoClassName": "Neo.main.draggable.sensor.Touch"
         },
         {
@@ -208,7 +208,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
                 "code": {
-                    "id": "astnode100066952",
+                    "id": "astnode100067231",
                     "name": "Touch",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -230,7 +230,7 @@
             "scope": "global",
             "$longname": "Touch",
             "$kind": "constructor",
-            "id": 2214,
+            "id": 2216,
             "neoClassName": "Neo.main.draggable.sensor.Touch"
         },
         {
@@ -245,7 +245,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
                 "code": {
-                    "id": "astnode100066973",
+                    "id": "astnode100067252",
                     "name": "Touch#attach",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -263,7 +263,7 @@
             "params": [],
             "$longname": "Touch#attach",
             "$kind": "method",
-            "id": 2215,
+            "id": 2217,
             "neoClassName": "Neo.main.draggable.sensor.Touch"
         },
         {
@@ -278,7 +278,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
                 "code": {
-                    "id": "astnode100066986",
+                    "id": "astnode100067265",
                     "name": "Touch#detach",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -296,7 +296,7 @@
             "params": [],
             "$longname": "Touch#detach",
             "$kind": "method",
-            "id": 2216,
+            "id": 2218,
             "neoClassName": "Neo.main.draggable.sensor.Touch"
         },
         {
@@ -311,7 +311,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
                 "code": {
-                    "id": "astnode100066999",
+                    "id": "astnode100067278",
                     "name": "Touch#onDistanceChange",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -342,7 +342,7 @@
             "scope": "instance",
             "$longname": "Touch#onDistanceChange",
             "$kind": "method",
-            "id": 2217,
+            "id": 2219,
             "neoClassName": "Neo.main.draggable.sensor.Touch"
         },
         {
@@ -357,7 +357,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
                 "code": {
-                    "id": "astnode100067104",
+                    "id": "astnode100067383",
                     "name": "Touch#onTouchEnd",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -385,7 +385,7 @@
             "scope": "instance",
             "$longname": "Touch#onTouchEnd",
             "$kind": "method",
-            "id": 2218,
+            "id": 2220,
             "neoClassName": "Neo.main.draggable.sensor.Touch"
         },
         {
@@ -400,7 +400,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
                 "code": {
-                    "id": "astnode100067275",
+                    "id": "astnode100067554",
                     "name": "Touch#onTouchMove",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -428,7 +428,7 @@
             "scope": "instance",
             "$longname": "Touch#onTouchMove",
             "$kind": "method",
-            "id": 2219,
+            "id": 2221,
             "neoClassName": "Neo.main.draggable.sensor.Touch"
         },
         {
@@ -443,7 +443,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
                 "code": {
-                    "id": "astnode100067361",
+                    "id": "astnode100067640",
                     "name": "Touch#onTouchStart",
                     "type": "MethodDefinition",
                     "paramnames": [
@@ -471,7 +471,7 @@
             "scope": "instance",
             "$longname": "Touch#onTouchStart",
             "$kind": "method",
-            "id": 2220,
+            "id": 2222,
             "neoClassName": "Neo.main.draggable.sensor.Touch"
         },
         {
@@ -486,7 +486,7 @@
                 "columnno": 4,
                 "path": "/Users/Shared/github/neomjs/neomjs-realworld-example-app/node_modules/neo.mjs/src/main/draggable/sensor",
                 "code": {
-                    "id": "astnode100067483",
+                    "id": "astnode100067762",
                     "name": "Touch#startDrag",
                     "type": "MethodDefinition",
                     "paramnames": []
@@ -503,7 +503,7 @@
             "params": [],
             "$longname": "Touch#startDrag",
             "$kind": "method",
-            "id": 2221,
+            "id": 2223,
             "neoClassName": "Neo.main.draggable.sensor.Touch"
         }
     ]
