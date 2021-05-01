@@ -210,6 +210,17 @@ module User = {
     token: string,
   }
 
+  let empty = {
+    id: 0,
+    email: "",
+    createdAt: Js.Date.make(),
+    updatedAt: Js.Date.make(),
+    username: "",
+    bio: None,
+    image: None,
+    token: "",
+  }
+
   let decodeUser = (json: Json.t): Result.t<t, decodeError> => {
     try {
       let obj = json->Json.decodeObject->Option.getExn
