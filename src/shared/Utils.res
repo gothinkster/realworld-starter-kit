@@ -74,3 +74,10 @@ let formatDate: Js.Date.t => string = date =>
     date |> Js.Date.getMonth,
     date |> Js.Date.getDate,
   )
+
+module Json = {
+  let decodeArrayString = (json: option<Js.Json.t>): option<array<string>> =>
+    json
+    ->Belt.Option.flatMap(Js.Json.decodeArray)
+    ->Belt.Option.map(xs => xs->Belt.Array.keepMap(Js.Json.decodeString))
+}
