@@ -7,6 +7,8 @@ let completeOk = a => AsyncData.complete(Ok(a))
 let completeError = e => AsyncData.complete(Error(e))
 let reloadingOk = a => AsyncData.reloading(Ok(a))
 
+let isBusy = AsyncData.isBusy;
+
 let getOk = (v: t<'a, 'e>): option<'a> =>
   switch v {
   | Init => None

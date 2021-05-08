@@ -7,7 +7,15 @@ type t<'a> =
 
 let init = Init
 
-let reloading = a => Reloading(a);
+let reloading = v => Reloading(v)
+
+let isBusy = v =>
+  switch v {
+  | Init => false
+  | Loading => true
+  | Reloading(_) => true
+  | Complete(_) => false
+  }
 
 let toBusy = v =>
   switch v {

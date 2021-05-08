@@ -43,7 +43,7 @@ module ArticlePreview = {
 
 module PopularTags = {
   @react.component
-  let make = (~data: AsyncResult.t<Shape.Tags.t, Error.t>, ~onClick) => <>
+  let make = (~data: AsyncResult.t<Shape.Tags.t, AppError.t>, ~onClick) => <>
     <p> {"Popular Tags" |> React.string} </p>
     <WithTestId id="tag-list">
       <div className="tag-list">
