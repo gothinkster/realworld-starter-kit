@@ -38,6 +38,7 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
             | Init | Loading | Reloading(Error(_)) | Complete(Error(_)) => React.null
             | Reloading(Ok(_)) | Complete(Ok(_)) =>
               <Link.Button
+                disabled={follow->AsyncResult.isBusy}
                 className={switch follow {
                 | Init
                 | Loading
@@ -190,13 +191,11 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
                         : "btn btn-outline-primary btn-sm pull-xs-right"}
                       disabled=isFavoriteBusy
                       onClick={Link.customFn(() =>
-                        if !isFavoriteBusy {
-                          onToggleFavorite(
-                            ~action=article.favorited
-                              ? API.Action.Unfavorite(article.slug)
-                              : API.Action.Favorite(article.slug),
-                          )
-                        }
+                        onToggleFavorite(
+                          ~action=article.favorited
+                            ? API.Action.Unfavorite(article.slug)
+                            : API.Action.Favorite(article.slug),
+                        )
                       )}>
                       <i
                         className={isFavoriteBusy ? "ion-load-a" : "ion-heart"}

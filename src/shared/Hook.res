@@ -367,10 +367,10 @@ let useFollowInProfile: (
   (follow, onClick)
 }
 
-let useFavorite: (
+let useFavorite = (
   ~article: AsyncResult.t<Shape.Article.t, AppError.t>,
   ~user: option<Shape.User.t>,
-) => (AsyncData.t<(bool, int, string)>, Link.onClickAction) = (~article, ~user) => {
+): (AsyncData.t<(bool, int, string)>, Link.onClickAction) => {
   let didCancel = React.useRef(false)
   let guard = guardByDidCancel(didCancel)
 

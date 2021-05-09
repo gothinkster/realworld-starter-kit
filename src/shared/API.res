@@ -163,7 +163,21 @@ let favoriteArticle: (
   |> then_(parseJsonIfOk)
   |> then_(getErrorBodyText)
   |> then_(result =>
-    result->Belt.Result.flatMap(json => json->Shape.Article.decode->AppError.decode)->resolve
+    result
+    ->Belt.Result.flatMap(json =>
+      try {
+        json
+        ->Js.Json.decodeObject
+        ->Belt.Option.getExn
+        ->Js.Dict.get("article")
+        ->Belt.Option.getExn
+        ->Shape.Article.decode
+        ->AppError.decode
+      } catch {
+      | _ => AppError.decode(Error("API.favoriteArticle: failed to decode json"))
+      }
+    )
+    ->resolve
   )
 }
 

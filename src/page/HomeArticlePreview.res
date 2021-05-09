@@ -17,14 +17,13 @@ let make = (~data: Shape.Article.t, ~onToggleFavorite, ~isFavoriteBusy) =>
         className={data.favorited
           ? "btn btn-primary btn-sm pull-xs-right"
           : "btn btn-outline-primary btn-sm pull-xs-right"}
+        disabled={isFavoriteBusy}
         onClick={_event =>
-          if !isFavoriteBusy {
-            onToggleFavorite(
-              ~action=data.favorited
-                ? API.Action.Unfavorite(data.slug)
-                : API.Action.Favorite(data.slug),
-            )
-          }}>
+          onToggleFavorite(
+            ~action=data.favorited
+              ? API.Action.Unfavorite(data.slug)
+              : API.Action.Favorite(data.slug),
+          )}>
         <i
           className={isFavoriteBusy ? "ion-load-a" : "ion-heart"}
           style={ReactDOM.Style.make(~marginRight="3px", ())}
