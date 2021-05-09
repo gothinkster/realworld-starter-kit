@@ -68,3 +68,11 @@ let toIdle = v =>
   | Reloading(a) => Complete(a)
   | Complete(_) as a => a
   }
+
+let debug = v =>
+  switch v {
+  | Init => "Init"
+  | Loading => "Loading"
+  | Reloading(_) => "Reloading(_)"
+  | Complete(_) => "Complete(_)"
+  }

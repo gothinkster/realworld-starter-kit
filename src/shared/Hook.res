@@ -3,14 +3,12 @@ open Js.Promise
 let guardByDidCancel: (React.ref<bool>, unit => unit) => unit = (didCancel, cb) =>
   !didCancel.current ? cb() : ()
 
-let useArticles: (
-  ~feedType: Shape.FeedType.t,
-) => (
+let useArticles = (~feedType: Shape.FeedType.t): (
   AsyncResult.t<Shape.Articles.t, AppError.t>,
   (
     AsyncResult.t<Shape.Articles.t, AppError.t> => AsyncResult.t<Shape.Articles.t, AppError.t>
   ) => unit,
-) = (~feedType) => {
+) => {
   let didCancel = React.useRef(false)
   let (data, setData) = React.useState(() => AsyncResult.init)
   let guard = guardByDidCancel(didCancel)
@@ -25,7 +23,8 @@ let useArticles: (
     | Global(limit, offset) => API.listArticles(~limit, ~offset, ())
     | Personal(limit, offset) => API.feedArticles(~limit, ~offset, ())
     }
-    |> then_(data =>
+    |> then_(data => {
+      Js.log(data)
       guard(() =>
         setData(_prev =>
           switch data {
@@ -34,7 +33,7 @@ let useArticles: (
           }
         )
       ) |> resolve
-    )
+    })
     |> ignore
 
     None

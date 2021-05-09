@@ -66,7 +66,7 @@ module Article = {
     author: Author.t,
   }
 
-  let decodeArticle = (json: Json.t): Result.t<t, decodeError> => {
+  let decode = (json: Json.t): Result.t<t, decodeError> => {
     try {
       let obj = json->Json.decodeObject->Option.getExn
       let slug = obj->Dict.get("slug")->Option.flatMap(Json.decodeString)->Option.getExn
@@ -122,15 +122,6 @@ module Article = {
         favoritesCount: favoritesCount,
         author: author,
       })
-    } catch {
-    | _ => Error("Shape.Article: failed to decode json")
-    }
-  }
-
-  let decode = (json: Json.t): Result.t<t, decodeError> => {
-    try {
-      let obj = json->Json.decodeObject->Option.getExn
-      obj->Dict.get("article")->Option.getExn->decodeArticle
     } catch {
     | _ => Error("Shape.Article: failed to decode json")
     }

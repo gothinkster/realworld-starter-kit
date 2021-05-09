@@ -29,4 +29,6 @@ let map = (v: t<'a, 'e>, fn): t<'b, 'e> =>
   | Complete(Error(_)) as r => r
   }
 
-let toIdle = AsyncData.toIdle;
+let toIdle = AsyncData.toIdle
+
+let debug = AsyncData.debug
