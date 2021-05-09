@@ -1,3 +1,5 @@
+module Option = Belt.Option
+
 @react.component
 let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
   let (viewMode, changeOffset) = Hook.useViewMode(~route=viewMode)
@@ -17,10 +19,10 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
         <div className="row">
           <div className="col-xs-12 col-md-10 offset-md-1">
             {profile
-            |> AsyncResult.getOk
-            |> Option.flatMap((user: Shape.Author.t) => user.image == "" ? None : Some(user.image))
-            |> Option.map(src => <img src className="user-img" />)
-            |> Option.getOrElse(<img className="user-img" />)}
+            ->AsyncResult.getOk
+            ->Option.flatMap((user: Shape.Author.t) => user.image == "" ? None : Some(user.image))
+            ->Option.map(src => <img src className="user-img" />)
+            ->Option.getWithDefault(<img className="user-img" />)}
             <h4>
               {switch profile {
               | Init | Loading | Reloading(Error(_)) | Complete(Error(_)) => "..."
@@ -30,7 +32,7 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
             {switch profile {
             | Init | Loading | Reloading(Error(_)) | Complete(Error(_)) => React.null
             | Reloading(Ok(user)) | Complete(Ok(user)) =>
-              user.bio |> Option.map(bio => bio |> React.string) |> Option.getOrElse(React.null)
+              user.bio->Option.map(bio => bio->React.string)->Option.getWithDefault(React.null)
             }}
             {switch profile {
             | Init | Loading | Reloading(Error(_)) | Complete(Error(_)) => React.null
@@ -49,13 +51,16 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
                 | (Loading, Some(_) | None)
                 | (Reloading((_, _)), Some(_) | None) =>
                   Link.customFn(ignore)
-                | (Complete((username, _)), user) => user |> Option.flatMap((ok: Shape.User.t) =>
+                | (Complete((username, _)), user) =>
+                  user
+                  ->Option.flatMap((ok: Shape.User.t) =>
                     if ok.username == username {
                       Some(Link.settings |> Link.location)
                     } else {
                       None
                     }
-                  ) |> Option.getOrElse(onFollowClick)
+                  )
+                  ->Option.getWithDefault(onFollowClick)
                 }}>
                 {switch (follow, user) {
                 | (Init, Some(_) | None) =>
@@ -65,21 +70,21 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
                 | (Loading, Some(_) | None) | (Reloading((_, _)), _) =>
                   <i className="ion-load-a" style={ReactDOM.Style.make(~marginRight="3px", ())} />
                 | (Complete((username, _following)), user) =>
-                  user |> Option.flatMap((ok: Shape.User.t) =>
+                  user
+                  ->Option.flatMap((ok: Shape.User.t) =>
                     if ok.username == username {
                       Some(
                         <i
-                          className="ion-gear-a"
-                          style={ReactDOM.Style.make(~marginRight="3px", ())}
+                          className="ion-gear-a" style={ReactDOM.Style.make(~marginRight="3px", ())}
                         />,
                       )
                     } else {
                       None
                     }
-                  ) |> Option.getOrElse(
+                  )
+                  ->Option.getWithDefault(
                     <i
-                      className="ion-plus-round"
-                      style={ReactDOM.Style.make(~marginRight="3px", ())}
+                      className="ion-plus-round" style={ReactDOM.Style.make(~marginRight="3px", ())}
                     />,
                   )
                 }}
@@ -87,15 +92,18 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
                 | (Init, Some(_) | None) | (Loading, Some(_) | None) => "..." |> React.string
                 | (Reloading((username, following)), user)
                 | (Complete((username, following)), user) =>
-                  user |> Option.flatMap((ok: Shape.User.t) =>
+                  user
+                  ->Option.flatMap((ok: Shape.User.t) =>
                     if ok.username == username {
                       Some("Edit Profile Settings")
                     } else {
                       None
                     }
-                  ) |> Option.getOrElse(
+                  )
+                  ->Option.getWithDefault(
                     Printf.sprintf(" %s %s", following ? "Unfollow" : "Follow", username),
-                  ) |> React.string
+                  )
+                  ->React.string
                 }}
               </Link.Button>
             }}
@@ -153,7 +161,8 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
           | Init | Loading => React.null
           | Reloading(Error(_)) | Complete(Error(_)) => "ERROR" |> React.string
           | Reloading(Ok(ok)) | Complete(Ok(ok)) => <>
-              {ok.articles |> Array.map((article: Shape.Article.t) => {
+              {ok.articles
+              |> Array.map((article: Shape.Article.t) => {
                 let isFavoriteBusy = toggleFavoriteBusy |> Belt.Set.String.has(_, article.slug)
 
                 <div className="article-preview" key=article.slug>
@@ -217,7 +226,9 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
                     }}
                   </Link>
                 </div>
-              }) |> React.array} <Pagination
+              })
+              |> React.array}
+              <Pagination
                 limit
                 offset
                 total=ok.articlesCount

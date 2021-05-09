@@ -1,22 +1,24 @@
+module Option = Belt.Option
+
 module PostComment = {
   @react.component
   let make = (
     ~slug: string,
     ~image: string,
     ~setComments: (
-      AsyncResult.t<array<Shape.Comment.t>, Error.t> => AsyncResult.t<
+      AsyncResult.t<array<Shape.Comment.t>, AppError.t> => AsyncResult.t<
         array<Shape.Comment.t>,
-        Error.t,
+        AppError.t,
       >
     ) => unit,
   ) => {
     let (comment, setComment) = React.useState(() => AsyncData.complete(""))
     let isCommentValid =
       comment
-      |> AsyncData.getValue
-      |> Option.map(v => Js.String.trim(v) != "")
-      |> Option.getOrElse(false)
-    let body = comment |> AsyncData.getValue |> Option.getOrElse("")
+      ->AsyncData.getValue
+      ->Option.map(v => Js.String.trim(v) != "")
+      ->Option.getWithDefault(false)
+    let body = comment->AsyncData.getValue->Option.getWithDefault("")
 
     <form className="card comment-form">
       <div className="card-block">
@@ -43,17 +45,23 @@ module PostComment = {
           onClick={event => {
             if isCommentValid && AsyncData.isComplete(comment) {
               setComment(AsyncData.toBusy)
-              API.addComment(~slug, ~body, ()) |> Js.Promise.then_(x =>
+              API.addComment(~slug, ~body, ())
+              |> Js.Promise.then_(x =>
                 switch x {
                 | Ok(comment) =>
-                  setComments(prev => prev |> AsyncResult.map(Array.prepend(comment)))
+                  setComments(prev =>
+                    prev->AsyncResult.map(comments => {
+                      let _ = comments->Js.Array2.unshift(comment)
+                      comments
+                    })
+                  )
                   setComment(_prev => AsyncData.complete(""))
                   ignore() |> Js.Promise.resolve
                 | Error(_error) => setComment(AsyncData.toIdle) |> Js.Promise.resolve
                 }
-              ) |> Js.Promise.catch(_error =>
-                setComment(AsyncData.toIdle) |> Js.Promise.resolve
-              ) |> ignore
+              )
+              |> Js.Promise.catch(_error => setComment(AsyncData.toIdle) |> Js.Promise.resolve)
+              |> ignore
             }
             event |> ReactEvent.Mouse.preventDefault
             event |> ReactEvent.Mouse.stopPropagation
@@ -81,7 +89,7 @@ module Comments = {
   @react.component
   let make = (
     ~slug: string,
-    ~data: AsyncResult.t<array<Shape.Comment.t>, Error.t>,
+    ~data: AsyncResult.t<array<Shape.Comment.t>, AppError.t>,
     ~user: option<Shape.User.t>,
     ~onDeleteClick: (~slug: string, ~id: int) => unit,
     ~busy: Belt.Set.Int.t,
@@ -90,7 +98,8 @@ module Comments = {
     | Init | Loading | Reloading(Error(_)) => <Spinner />
     | Complete(Error(_)) => "ERROR" |> React.string
     | Reloading(Ok(comments)) | Complete(Ok(comments)) =>
-      comments |> Array.map((comment: Shape.Comment.t) => {
+      comments
+      |> Array.map((comment: Shape.Comment.t) => {
         let isAPIBusy = Belt.Set.Int.has(busy, comment.id)
 
         <div className="card" key={comment.id |> string_of_int}>
@@ -116,10 +125,12 @@ module Comments = {
               {comment.createdAt |> Utils.formatDate |> React.string}
             </span>
             <span className="mod-options">
-              {// TODO: implement "edit" icon
-              false ? <i className="ion-edit" /> : React.null}
+              {
+                // TODO: implement "edit" icon
+                false ? <i className="ion-edit" /> : React.null
+              }
               {switch user {
-              | Some({username}) when username == comment.author.username =>
+              | Some({username}) if username == comment.author.username =>
                 <i
                   className={isAPIBusy ? "ion-load-a" : "ion-trash-a"}
                   onClick={event =>
@@ -132,7 +143,8 @@ module Comments = {
             </span>
           </div>
         </div>
-      }) |> React.array
+      })
+      |> React.array
     }
 }
 
@@ -140,8 +152,8 @@ module EditArticleButton = {
   @react.component
   let make = (~data) =>
     data
-    |> AsyncResult.getOk
-    |> Option.map((ok: Shape.Article.t) =>
+    ->AsyncResult.getOk
+    ->Option.map((ok: Shape.Article.t) =>
       <Link
         className="btn btn-outline-secondary btn-sm"
         onClick={Link.editArticle(~slug=ok.slug) |> Link.location}>
@@ -149,7 +161,7 @@ module EditArticleButton = {
         {"Edit Article" |> React.string}
       </Link>
     )
-    |> Option.getOrElse(React.null)
+    ->Option.getWithDefault(React.null)
 }
 
 module DeleteArticleButton = {
@@ -231,33 +243,33 @@ module ArticleDate = {
   @react.component
   let make = (~article) =>
     article
-    |> AsyncResult.getOk
-    |> Option.map((ok: Shape.Article.t) => ok.createdAt)
-    |> Option.map(createdAt => createdAt |> Utils.formatDate |> React.string)
-    |> Option.getOrElse(React.null)
+    ->AsyncResult.getOk
+    ->Option.map((ok: Shape.Article.t) => ok.createdAt)
+    ->Option.map(createdAt => createdAt |> Utils.formatDate |> React.string)
+    ->Option.getWithDefault(React.null)
 }
 
 module ArticleAuthorName = {
   @react.component
   let make = (~article) =>
     article
-    |> AsyncResult.getOk
-    |> Option.map((ok: Shape.Article.t) => ok.author)
-    |> Option.map((author: Shape.Author.t) =>
+    ->AsyncResult.getOk
+    ->Option.map((ok: Shape.Article.t) => ok.author)
+    ->Option.map((author: Shape.Author.t) =>
       <Link onClick={Link.profile(~username=author.username) |> Link.location} className="author">
         {author.username |> React.string}
       </Link>
     )
-    |> Option.getOrElse(React.null)
+    ->Option.getWithDefault(React.null)
 }
 
 module ArticleAuthorAvatar = {
   @react.component
   let make = (~article) =>
     article
-    |> AsyncResult.getOk
-    |> Option.map((ok: Shape.Article.t) => ok.author)
-    |> Option.map((author: Shape.Author.t) =>
+    ->AsyncResult.getOk
+    ->Option.map((ok: Shape.Article.t) => ok.author)
+    ->Option.map((author: Shape.Author.t) =>
       <Link onClick={Link.profile(~username=author.username) |> Link.location}>
         {switch author.image {
         | "" => <img />
@@ -265,13 +277,13 @@ module ArticleAuthorAvatar = {
         }}
       </Link>
     )
-    |> Option.getOrElse(React.null)
+    ->Option.getWithDefault(React.null)
 }
 
 @react.component
 let make = (~slug: string, ~user: option<Shape.User.t>) => {
   let (articleAndTagList, _setArticle) = Hook.useArticle(~slug)
-  let article = articleAndTagList |> AsyncResult.map(((article, _tagList, _editor)) => article)
+  let article = articleAndTagList->AsyncResult.map(((article, _tagList, _editor)) => article)
   let (comments, busyComments, deleteComment, setComments) = Hook.useComments(~slug)
   let (follow, onFollowClick) = Hook.useFollow(~article, ~user)
   let (favorite, onFavoriteClick) = Hook.useFavorite(~article, ~user)
@@ -287,10 +299,10 @@ let make = (~slug: string, ~user: option<Shape.User.t>) => {
       <div className="container">
         <h1>
           {article
-          |> AsyncResult.getOk
-          |> Option.map((ok: Shape.Article.t) => ok.title)
-          |> Option.map(title => title |> React.string)
-          |> Option.getOrElse(React.null)}
+          ->AsyncResult.getOk
+          ->Option.map((ok: Shape.Article.t) => ok.title)
+          ->Option.map(title => title |> React.string)
+          ->Option.getWithDefault(React.null)}
         </h1>
         <div className="article-meta">
           <ArticleAuthorAvatar article />
@@ -345,7 +357,8 @@ let make = (~slug: string, ~user: option<Shape.User.t>) => {
       <div className="row">
         <div className="col-xs-12 col-md-8 offset-md-2">
           {switch user {
-          | Some({image}) => <PostComment image={image |> Option.getOrElse("")} slug setComments />
+          | Some({image}) =>
+            <PostComment image={image->Option.getWithDefault("")} slug setComments />
           | None =>
             <p>
               <Link className="nav-link" onClick={Link.login |> Link.location}>

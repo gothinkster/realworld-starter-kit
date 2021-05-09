@@ -35,12 +35,12 @@ let make = (
                   value={form.image->Belt.Option.getWithDefault("")}
                   onChange={event => {
                     let image = ReactEvent.Form.target(event)["value"]
-                    setResult(
-                      AsyncData.map(((use: Shape.User.t, password, error)) => (
+                    setResult(prev =>
+                      prev->AsyncData.map(((use: Shape.User.t, password, error)) => (
                         {...use, image: image},
                         password,
                         error,
-                      )),
+                      ))
                     )
                   }}
                 />
@@ -54,12 +54,12 @@ let make = (
                   value=form.username
                   onChange={event => {
                     let username = ReactEvent.Form.target(event)["value"]
-                    setResult(
-                      AsyncData.map(((user: Shape.User.t, password, error)) => (
+                    setResult(prev =>
+                      prev->AsyncData.map(((user: Shape.User.t, password, error)) => (
                         {...user, username: username},
                         password,
                         error,
-                      )),
+                      ))
                     )
                   }}
                 />
@@ -73,12 +73,12 @@ let make = (
                   value={form.bio->Belt.Option.getWithDefault("")}
                   onChange={event => {
                     let bio = ReactEvent.Form.target(event)["value"]
-                    setResult(
-                      AsyncData.map(((user: Shape.User.t, password, error)) => (
+                    setResult(prev =>
+                      prev->AsyncData.map(((user: Shape.User.t, password, error)) => (
                         {...user, bio: bio},
                         password,
                         error,
-                      )),
+                      ))
                     )
                   }}
                 />
@@ -92,12 +92,12 @@ let make = (
                   value=form.email
                   onChange={event => {
                     let email = ReactEvent.Form.target(event)["value"]
-                    setResult(
-                      AsyncData.map(((user: Shape.User.t, password, error)) => (
+                    setResult(prev =>
+                      prev->AsyncData.map(((user: Shape.User.t, password, error)) => (
                         {...user, email: email},
                         password,
                         error,
-                      )),
+                      ))
                     )
                   }}
                 />
@@ -111,7 +111,9 @@ let make = (
                   value=password
                   onChange={event => {
                     let password = ReactEvent.Form.target(event)["value"]
-                    setResult(AsyncData.map(((user, _password, error)) => (user, password, error)))
+                    setResult(prev =>
+                      prev->AsyncData.map(((user, _password, error)) => (user, password, error))
+                    )
                   }}
                 />
               </fieldset>
@@ -121,8 +123,7 @@ let make = (
                 onClick={event => {
                   event |> ReactEvent.Mouse.preventDefault
                   event |> ReactEvent.Mouse.stopPropagation
-                  result
-                  |> AsyncData.tapComplete(((user, password, _error)) => {
+                  result->AsyncData.tapComplete(((user, password, _error)) => {
                     setResult(AsyncData.toBusy)
                     API.updateUser(~user, ~password, ())
                     |> Js.Promise.then_(res => {
@@ -130,10 +131,10 @@ let make = (
                       | Ok(user) =>
                         setResult(prev =>
                           prev
-                          |> AsyncData.toIdle
-                          |> AsyncData.map(((_user, _password, _error)) => (user, "", None))
+                          ->AsyncData.toIdle
+                          ->AsyncData.map(((_user, _password, _error)) => (user, "", None))
                         )
-                        setUser(AsyncData.map(_prev => Some(user)))
+                        setUser(prev => prev->AsyncData.map(_prev => Some(user)))
                       | Error(AppError.Fetch((_code, _message, #json(json)))) =>
                         try {
                           let result =
@@ -147,8 +148,8 @@ let make = (
                           | Ok(errors) =>
                             setResult(prev =>
                               prev
-                              |> AsyncData.toIdle
-                              |> AsyncData.map(((user, _password, _error)) => (
+                              ->AsyncData.toIdle
+                              ->AsyncData.map(((user, _password, _error)) => (
                                 user,
                                 "",
                                 Some(errors),
@@ -167,8 +168,7 @@ let make = (
                       ignore() |> Js.Promise.resolve
                     })
                     |> ignore
-                  })
-                  |> ignore
+                  }) |> ignore
                 }}>
                 {"Update Settings" |> React.string}
               </button>

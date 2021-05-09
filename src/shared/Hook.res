@@ -234,7 +234,7 @@ let useComments: (
       switch resp {
       | Ok((_slug, id)) =>
         setData(prev =>
-          prev |> AsyncResult.map(comments =>
+          prev->AsyncResult.map(comments =>
             comments->Belt.Array.keep((comment: Shape.Comment.t) => comment.id != id)
           )
         )
@@ -506,7 +506,7 @@ let useToggleFavorite: (
         switch data {
         | Ok(_) =>
           setArticles(prev =>
-            prev |> AsyncResult.map((articles: Shape.Articles.t) => {
+            prev->AsyncResult.map((articles: Shape.Articles.t) => {
               ...articles,
               articles: articles.articles->Belt.Array.map((article: Shape.Article.t) =>
                 if article.slug == slug {

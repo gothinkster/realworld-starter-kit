@@ -7,19 +7,19 @@ let completeOk = a => AsyncData.complete(Ok(a))
 let completeError = e => AsyncData.complete(Error(e))
 let reloadingOk = a => AsyncData.reloading(Ok(a))
 
-let isBusy = AsyncData.isBusy;
+let isBusy = AsyncData.isBusy
 
 let getOk = (v: t<'a, 'e>): option<'a> =>
   switch v {
   | Init => None
   | Loading => None
   | Reloading(Error(_)) => None
-  | Reloading(Ok(v)) => Some(v)
+  | Reloading(Ok(a)) => Some(a)
   | Complete(Error(_)) => None
-  | Complete(Ok(v)) => Some(v)
+  | Complete(Ok(a)) => Some(a)
   }
 
-let map = (fn, v: t<'a, 'e>): t<'b, 'e> =>
+let map = (v: t<'a, 'e>, fn): t<'b, 'e> =>
   switch v {
   | Init => Init
   | Loading => Loading
@@ -28,3 +28,5 @@ let map = (fn, v: t<'a, 'e>): t<'b, 'e> =>
   | Complete(Ok(a)) => completeOk(fn(a))
   | Complete(Error(_)) as r => r
   }
+
+let toIdle = AsyncData.toIdle;

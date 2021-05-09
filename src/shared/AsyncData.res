@@ -17,6 +17,14 @@ let isBusy = v =>
   | Complete(_) => false
   }
 
+let isComplete = v =>
+  switch v {
+  | Init => false
+  | Loading => false
+  | Reloading(_) => false
+  | Complete(_) => true
+  }
+
 let toBusy = v =>
   switch v {
   | Init => Loading
@@ -27,14 +35,6 @@ let toBusy = v =>
 
 let complete = v => Complete(v)
 
-let isBusy = v =>
-  switch v {
-  | Init => false
-  | Loading => true
-  | Reloading(_) => true
-  | Complete(_) => false
-  }
-
 let getValue = v =>
   switch v {
   | Init => None
@@ -43,7 +43,7 @@ let getValue = v =>
   | Complete(a) => Some(a)
   }
 
-let map = (fn, v) =>
+let map = (v, fn) =>
   switch v {
   | Init => Init
   | Loading => Loading
@@ -51,7 +51,7 @@ let map = (fn, v) =>
   | Complete(a) => Complete(fn(a))
   }
 
-let tapComplete = (fn, v) =>
+let tapComplete = (v, fn) =>
   switch v {
   | Init => v
   | Loading => v
