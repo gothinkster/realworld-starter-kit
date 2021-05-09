@@ -12,12 +12,10 @@
   ],
   "scripts": {
     "build": "snowpack build",
-    "build:res": "bsb -make-world",
-    "clean": "npm run clean:res",
-    "clean:res": "bsb -clean-world",
+    "clean": "rescript clean -with-deps",
     "format": "npm run format:js && npm run format:res",
     "format:js": "prettier --write \"**/*.{js,json,md,yml}\"",
-    "format:res": "find -E ./src -regex \".*\\.resi?\" -print0 | xargs -0 -I '{}' bsc -format '{}'",
+    "format:res": "rescript format -all",
     "start": "snowpack dev",
     "test": "web-test-runner \"src/**/__tests__/*.bs.js\"",
     "test:coverage": "npm test -- --coverage"
@@ -30,17 +28,17 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
+    "@jihchi/plugin-rescript": "^1.0.0",
     "@snowpack/plugin-dotenv": "^2.1.0",
     "@snowpack/plugin-react-refresh": "^2.5.0",
-    "@snowpack/plugin-run-script": "^2.3.0",
     "@snowpack/web-test-runner-plugin": "^0.2.2",
     "@testing-library/react": "^11.2.6",
     "@web/test-runner": "^0.13.4",
     "bs-fetch": "^0.6.2",
-    "bs-platform": "^9.0.2",
     "bs-webapi": "^0.19.1",
     "chai": "^4.3.4",
     "prettier": "^2.2.1",
+    "rescript": "^9.1.2",
     "snowpack": "~3.0"
   },
   "prettier": {

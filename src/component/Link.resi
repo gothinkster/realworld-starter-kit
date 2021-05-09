@@ -22,7 +22,7 @@ let favorited: (~username: string) => location'
 let push: location' => unit
 let availableIf: (bool, onClickAction) => onClickAction
 
-@bs.obj
+@obj
 external makeProps: (
   ~className: 'className=?,
   ~style: 'style=?,
@@ -45,7 +45,7 @@ let make: {
 } => React.element
 
 module Button: {
-  @bs.obj
+  @obj
   external makeProps: (
     ~className: 'className=?,
     ~style: 'style=?,

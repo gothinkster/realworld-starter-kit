@@ -122,11 +122,9 @@ let make = (~setUser) => {
                         | Error(_e) => ignore()
                         }
                       } catch {
-                      | _ =>
-                        Js.log("Button.UpdateSettings: failed to decode json")
+                      | _ => Js.log("Button.UpdateSettings: failed to decode json")
                       }
-                    | Error(Fetch((_, _, #text(_)))) | Error(Decode(_)) =>
-                      setData(AsyncData.toIdle)
+                    | Error(Fetch((_, _, #text(_)))) | Error(Decode(_)) => setData(AsyncData.toIdle)
                     }
                     ignore() |> Js.Promise.resolve
                   })

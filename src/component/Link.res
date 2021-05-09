@@ -48,11 +48,6 @@ let make = (~className="", ~style=ReactDOM.Style.make(), ~onClick, ~children) =>
 
 module Button = {
   @react.component
-  let make = (
-    ~className="",
-    ~style=ReactDOM.Style.make(),
-    ~onClick,
-    ~disabled=false,
-    ~children,
-  ) => <button className style onClick={handleClick(onClick)} disabled> children </button>
+  let make = (~className="", ~style=ReactDOM.Style.make(), ~onClick, ~disabled=false, ~children) =>
+    <button className style onClick={handleClick(onClick)} disabled> children </button>
 }

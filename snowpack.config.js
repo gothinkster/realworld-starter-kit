@@ -5,17 +5,11 @@ module.exports = {
     public: { url: '/', static: true },
     src: { url: '/dist' },
   },
-  exclude: ["**/*.{res,resi}"],
+  exclude: ['**/*.{res,resi}'],
   plugins: [
     '@snowpack/plugin-react-refresh',
     '@snowpack/plugin-dotenv',
-    [
-      '@snowpack/plugin-run-script',
-      {
-        cmd: 'bsb -make-world',
-        watch: '$1 -w',
-      },
-    ],
+    '@jihchi/plugin-rescript',
   ],
   packageOptions: {
     /* ... */

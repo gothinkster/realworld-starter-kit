@@ -1,1 +1,1 @@
-@bs.module("./EscapeHatch.js") external markdownToHtml: string => string = "markdownToHtml"
+@module("./EscapeHatch.js") external markdownToHtml: string => string = "markdownToHtml"
