@@ -1,15 +1,14 @@
 open Js.Promise
-open Relude.Globals
 
 let guardByDidCancel: (React.ref<bool>, unit => unit) => unit = (didCancel, cb) =>
   !didCancel.current ? cb() : ()
 
-let useArticles: (
-  ~feedType: Shape.FeedType.t,
-) => (
-  AsyncResult.t<Shape.Articles.t, Error.t>,
-  (AsyncResult.t<Shape.Articles.t, Error.t> => AsyncResult.t<Shape.Articles.t, Error.t>) => unit,
-) = (~feedType) => {
+let useArticles = (~feedType: Shape.FeedType.t): (
+  AsyncResult.t<Shape.Articles.t, AppError.t>,
+  (
+    AsyncResult.t<Shape.Articles.t, AppError.t> => AsyncResult.t<Shape.Articles.t, AppError.t>
+  ) => unit,
+) => {
   let didCancel = React.useRef(false)
   let (data, setData) = React.useState(() => AsyncResult.init)
   let guard = guardByDidCancel(didCancel)
@@ -24,12 +23,16 @@ let useArticles: (
     | Global(limit, offset) => API.listArticles(~limit, ~offset, ())
     | Personal(limit, offset) => API.feedArticles(~limit, ~offset, ())
     }
-    |> then_(data => guard(() => setData(_prev =>
+    |> then_(data =>
+      guard(() =>
+        setData(_prev =>
           switch data {
           | Ok(ok) => AsyncResult.completeOk(ok)
           | Error(error) => AsyncResult.completeError(error)
           }
-        )) |> resolve)
+        )
+      ) |> resolve
+    )
     |> ignore
 
     None
@@ -41,8 +44,10 @@ let useArticles: (
 let useArticlesInProfile: (
   ~viewMode: Shape.Profile.viewMode,
 ) => (
-  AsyncResult.t<Shape.Articles.t, Error.t>,
-  (AsyncResult.t<Shape.Articles.t, Error.t> => AsyncResult.t<Shape.Articles.t, Error.t>) => unit,
+  AsyncResult.t<Shape.Articles.t, AppError.t>,
+  (
+    AsyncResult.t<Shape.Articles.t, AppError.t> => AsyncResult.t<Shape.Articles.t, AppError.t>
+  ) => unit,
 ) = (~viewMode) => {
   let didCancel = React.useRef(false)
   let (data, setData) = React.useState(() => AsyncResult.init)
@@ -57,12 +62,16 @@ let useArticlesInProfile: (
     | Author(author, limit, offset) => API.listArticles(~author, ~limit, ~offset, ())
     | Favorited(favorited, limit, offset) => API.listArticles(~favorited, ~limit, ~offset, ())
     }
-    |> then_(data => guard(() => setData(_prev =>
+    |> then_(data =>
+      guard(() =>
+        setData(_prev =>
           switch data {
           | Ok(ok) => AsyncResult.completeOk(ok)
           | Error(error) => AsyncResult.completeError(error)
           }
-        )) |> resolve)
+        )
+      ) |> resolve
+    )
     |> ignore
 
     None
@@ -71,22 +80,30 @@ let useArticlesInProfile: (
   (data, setData)
 }
 
-let useTags: unit => AsyncResult.t<Shape.Tags.t, Error.t> = () => {
+let useTags: unit => AsyncResult.t<Shape.Tags.t, AppError.t> = () => {
   let didCancel = React.useRef(false)
   let (data, setData) = React.useState(() => AsyncResult.init)
   let guard = guardByDidCancel(didCancel)
 
   React.useEffect0(() => {
     guard(() =>
-      setData(prev => prev |> AsyncResult.getOk |> Option.getOrElse([]) |> AsyncResult.reloadingOk)
+      setData(prev =>
+        prev->AsyncResult.getOk->Belt.Option.getWithDefault([])->AsyncResult.reloadingOk
+      )
     )
 
-    API.tags() |> then_(data => guard(() => setData(_prev =>
+    API.tags()
+    |> then_(data =>
+      guard(() =>
+        setData(_prev =>
           switch data {
           | Ok(ok) => ok |> AsyncResult.completeOk
           | Error(error) => AsyncResult.completeError(error)
           }
-        )) |> resolve) |> ignore
+        )
+      ) |> resolve
+    )
+    |> ignore
 
     Some(() => didCancel.current = true)
   })
@@ -105,14 +122,19 @@ let useCurrentUser: unit => (
   React.useEffect0(() => {
     guard(() => setData(prev => prev |> AsyncData.toBusy))
 
-    API.currentUser() |> then_(data => guard(() => setData(_prev =>
+    API.currentUser()
+    |> then_(data =>
+      guard(() =>
+        setData(_prev =>
           switch data {
           | Ok(data') => Some(data') |> AsyncData.complete
           | Error(_error) => None |> AsyncData.complete
           }
-        )) |> resolve) |> catch(_error =>
-      guard(() => setData(_prev => None |> AsyncData.complete)) |> resolve
-    ) |> ignore
+        )
+      ) |> resolve
+    )
+    |> catch(_error => guard(() => setData(_prev => None |> AsyncData.complete)) |> resolve)
+    |> ignore
 
     Some(() => didCancel.current = true)
   })
@@ -120,17 +142,15 @@ let useCurrentUser: unit => (
   (data, setData)
 }
 
-let useArticle: (
-  ~slug: string,
-) => (
-  AsyncResult.t<(Shape.Article.t, string, option<Shape.Editor.t>), Error.t>,
+let useArticle = (~slug: string): (
+  AsyncResult.t<(Shape.Article.t, string, option<Shape.Editor.t>), AppError.t>,
   (
-    AsyncResult.t<(Shape.Article.t, string, option<Shape.Editor.t>), Error.t> => AsyncResult.t<
+    AsyncResult.t<(Shape.Article.t, string, option<Shape.Editor.t>), AppError.t> => AsyncResult.t<
       (Shape.Article.t, string, option<Shape.Editor.t>),
-      Error.t,
+      AppError.t,
     >
   ) => unit,
-) = (~slug) => {
+) => {
   let didCancel = React.useRef(false)
   let (data, setData) = React.useState(() => AsyncResult.init)
   let guard = guardByDidCancel(didCancel)
@@ -140,13 +160,19 @@ let useArticle: (
   React.useEffect1(() => {
     guard(() => setData(AsyncResult.toBusy))
 
-    API.article(~action=Read(slug), ()) |> then_(data => guard(() => setData(_prev =>
+    API.article(~action=Read(slug), ())
+    |> then_(data =>
+      guard(() =>
+        setData(_prev =>
           switch data {
           | Ok(ok: Shape.Article.t) =>
-            AsyncResult.completeOk((ok, ok.tagList |> Array.String.joinWith(","), None))
+            AsyncResult.completeOk((ok, ok.tagList->Js.Array2.joinWith(","), None))
           | Error(error) => AsyncResult.completeError(error)
           }
-        )) |> resolve) |> ignore
+        )
+      ) |> resolve
+    )
+    |> ignore
 
     None
   }, [slug])
@@ -157,11 +183,14 @@ let useArticle: (
 let useComments: (
   ~slug: string,
 ) => (
-  AsyncResult.t<array<Shape.Comment.t>, Error.t>,
+  AsyncResult.t<array<Shape.Comment.t>, AppError.t>,
   Belt.Set.Int.t,
   (~slug: string, ~id: int) => unit,
   (
-    AsyncResult.t<array<Shape.Comment.t>, Error.t> => AsyncResult.t<array<Shape.Comment.t>, Error.t>
+    AsyncResult.t<array<Shape.Comment.t>, AppError.t> => AsyncResult.t<
+      array<Shape.Comment.t>,
+      AppError.t,
+    >
   ) => unit,
 ) = (~slug) => {
   let didCancel = React.useRef(false)
@@ -175,12 +204,18 @@ let useComments: (
     guard(() => setData(prev => prev |> AsyncResult.toBusy))
     guard(() => setBusy(_prev => Belt.Set.Int.empty))
 
-    API.getComments(~slug, ()) |> then_(data => guard(() => setData(_prev =>
+    API.getComments(~slug, ())
+    |> then_(data =>
+      guard(() =>
+        setData(_prev =>
           switch data {
           | Ok(ok) => AsyncResult.completeOk(ok)
           | Error(error) => AsyncResult.completeError(error)
           }
-        )) |> resolve) |> ignore
+        )
+      ) |> resolve
+    )
+    |> ignore
 
     None
   }, (slug, setData))
@@ -188,28 +223,30 @@ let useComments: (
   let deleteComment = (~slug, ~id) => {
     setBusy(prev => prev |> Belt.Set.Int.add(_, id))
 
-    API.deleteComment(~slug, ~id, ()) |> Js.Promise.then_(resp => {
+    API.deleteComment(~slug, ~id, ())
+    |> Js.Promise.then_(resp => {
       setBusy(prev => prev |> Belt.Set.Int.remove(_, id))
 
       switch resp {
       | Ok((_slug, id)) =>
         setData(prev =>
-          prev |> AsyncResult.map(comments =>
-            comments |> Array.keep((comment: Shape.Comment.t) => comment.id != id)
+          prev->AsyncResult.map(comments =>
+            comments->Belt.Array.keep((comment: Shape.Comment.t) => comment.id != id)
           )
         )
       | Error(_error) => ignore()
       }
 
       ignore() |> resolve
-    }) |> ignore
+    })
+    |> ignore
   }
 
   (data, busy, deleteComment, setData)
 }
 
 let useFollow: (
-  ~article: AsyncResult.t<Shape.Article.t, Error.t>,
+  ~article: AsyncResult.t<Shape.Article.t, AppError.t>,
   ~user: option<Shape.User.t>,
 ) => (AsyncData.t<(string, bool)>, Link.onClickAction) = (~article, ~user) => {
   let didCancel = React.useRef(false)
@@ -222,39 +259,44 @@ let useFollow: (
   let follow = switch state {
   | Init =>
     article
-    |> AsyncResult.getOk
-    |> Option.map((ok: Shape.Article.t) =>
+    ->AsyncResult.getOk
+    ->Belt.Option.map((ok: Shape.Article.t) =>
       AsyncData.complete((ok.author.username, ok.author.following))
     )
-    |> Option.getOrElse(AsyncData.complete(("", false)))
+    ->Belt.Option.getWithDefault(AsyncData.complete(("", false)))
   | Loading as orig | Reloading(_) as orig | Complete(_) as orig => orig
   }
 
   let sendRequest = () => {
     let username =
       follow
-      |> AsyncData.getValue
-      |> Option.map(((username, _following)) => username)
-      |> Option.getOrElse("")
+      ->AsyncData.getValue
+      ->Belt.Option.map(((username, _following)) => username)
+      ->Belt.Option.getWithDefault("")
 
     let action =
       follow
-      |> AsyncData.getValue
-      |> Option.flatMap(((_username, following)) =>
+      ->AsyncData.getValue
+      ->Belt.Option.flatMap(((_username, following)) =>
         following ? Some(API.Action.Unfollow(username)) : None
       )
-      |> Option.getOrElse(API.Action.Follow(username))
+      ->Belt.Option.getWithDefault(API.Action.Follow(username))
 
     guard(() => setState(_prev => follow |> AsyncData.toBusy))
 
-    API.followUser(~action, ()) |> then_(data => guard(() => setState(_prev =>
+    API.followUser(~action, ())
+    |> then_(data =>
+      guard(() =>
+        setState(_prev =>
           switch data {
           | Ok(ok: Shape.Author.t) => AsyncData.complete((ok.username, ok.following))
           | Error(_error) => AsyncData.complete(("", false))
           }
-        )) |> resolve) |> catch(_error =>
-      guard(() => setState(_prev => AsyncData.complete(("", false)))) |> resolve
-    ) |> ignore
+        )
+      ) |> resolve
+    )
+    |> catch(_error => guard(() => setState(_prev => AsyncData.complete(("", false)))) |> resolve)
+    |> ignore
   }
 
   let onClick = switch user {
@@ -266,7 +308,7 @@ let useFollow: (
 }
 
 let useFollowInProfile: (
-  ~profile: AsyncResult.t<Shape.Author.t, Error.t>,
+  ~profile: AsyncResult.t<Shape.Author.t, AppError.t>,
   ~user: option<Shape.User.t>,
 ) => (AsyncData.t<(string, bool)>, Link.onClickAction) = (~profile, ~user) => {
   let didCancel = React.useRef(false)
@@ -279,37 +321,42 @@ let useFollowInProfile: (
   let follow = switch state {
   | Init =>
     profile
-    |> AsyncResult.getOk
-    |> Option.map((ok: Shape.Author.t) => AsyncData.complete((ok.username, ok.following)))
-    |> Option.getOrElse(AsyncData.complete(("", false)))
+    ->AsyncResult.getOk
+    ->Belt.Option.map((ok: Shape.Author.t) => AsyncData.complete((ok.username, ok.following)))
+    ->Belt.Option.getWithDefault(AsyncData.complete(("", false)))
   | Loading as orig | Reloading(_) as orig | Complete(_) as orig => orig
   }
 
   let sendRequest = () => {
     let username =
       follow
-      |> AsyncData.getValue
-      |> Option.map(((username, _following)) => username)
-      |> Option.getOrElse("")
+      ->AsyncData.getValue
+      ->Belt.Option.map(((username, _following)) => username)
+      ->Belt.Option.getWithDefault("")
 
     let action =
       follow
-      |> AsyncData.getValue
-      |> Option.flatMap(((_username, following)) =>
+      ->AsyncData.getValue
+      ->Belt.Option.flatMap(((_username, following)) =>
         following ? Some(API.Action.Unfollow(username)) : None
       )
-      |> Option.getOrElse(API.Action.Follow(username))
+      ->Belt.Option.getWithDefault(API.Action.Follow(username))
 
     guard(() => setState(_prev => follow |> AsyncData.toBusy))
 
-    API.followUser(~action, ()) |> then_(data => guard(() => setState(_prev =>
+    API.followUser(~action, ())
+    |> then_(data =>
+      guard(() =>
+        setState(_prev =>
           switch data {
           | Ok(ok: Shape.Author.t) => AsyncData.complete((ok.username, ok.following))
           | Error(_error) => AsyncData.complete(("", false))
           }
-        )) |> resolve) |> catch(_error =>
-      guard(() => setState(_prev => AsyncData.complete(("", false)))) |> resolve
-    ) |> ignore
+        )
+      ) |> resolve
+    )
+    |> catch(_error => guard(() => setState(_prev => AsyncData.complete(("", false)))) |> resolve)
+    |> ignore
   }
 
   let onClick = switch user {
@@ -320,10 +367,10 @@ let useFollowInProfile: (
   (follow, onClick)
 }
 
-let useFavorite: (
-  ~article: AsyncResult.t<Shape.Article.t, Error.t>,
+let useFavorite = (
+  ~article: AsyncResult.t<Shape.Article.t, AppError.t>,
   ~user: option<Shape.User.t>,
-) => (AsyncData.t<(bool, int, string)>, Link.onClickAction) = (~article, ~user) => {
+): (AsyncData.t<(bool, int, string)>, Link.onClickAction) => {
   let didCancel = React.useRef(false)
   let guard = guardByDidCancel(didCancel)
 
@@ -334,31 +381,38 @@ let useFavorite: (
   let favorite = switch state {
   | Init =>
     article
-    |> AsyncResult.getOk
-    |> Option.map((ok: Shape.Article.t) =>
+    ->AsyncResult.getOk
+    ->Belt.Option.map((ok: Shape.Article.t) =>
       AsyncData.complete((ok.favorited, ok.favoritesCount, ok.slug))
     )
-    |> Option.getOrElse(AsyncData.complete((false, 0, "")))
+    ->Belt.Option.getWithDefault(AsyncData.complete((false, 0, "")))
   | Loading as orig | Reloading(_) as orig | Complete(_) as orig => orig
   }
 
   let sendRequest = () => {
     let (favorited, _favoritesCount, slug) =
-      favorite |> AsyncData.getValue |> Option.getOrElse((false, 0, ""))
+      favorite->AsyncData.getValue->Belt.Option.getWithDefault((false, 0, ""))
 
     let action = favorited ? API.Action.Unfavorite(slug) : API.Action.Favorite(slug)
 
     guard(() => setState(_prev => favorite |> AsyncData.toBusy))
 
-    API.favoriteArticle(~action, ()) |> then_(data => guard(() => setState(_prev =>
+    API.favoriteArticle(~action, ())
+    |> then_(data =>
+      guard(() =>
+        setState(_prev =>
           switch data {
           | Ok(ok: Shape.Article.t) =>
             AsyncData.complete((ok.favorited, ok.favoritesCount, ok.slug))
           | Error(_error) => AsyncData.complete((false, 0, ""))
           }
-        )) |> resolve) |> catch(_error =>
+        )
+      ) |> resolve
+    )
+    |> catch(_error =>
       guard(() => setState(_prev => AsyncData.complete((false, 0, "")))) |> resolve
-    ) |> ignore
+    )
+    |> ignore
   }
 
   let onClick = switch user {
@@ -370,7 +424,7 @@ let useFavorite: (
 }
 
 let useDeleteArticle: (
-  ~article: AsyncResult.t<Shape.Article.t, Error.t>,
+  ~article: AsyncResult.t<Shape.Article.t, AppError.t>,
   ~user: option<Shape.User.t>,
 ) => (bool, Link.onClickAction) = (~article, ~user) => {
   let didCancel = React.useRef(false)
@@ -383,17 +437,20 @@ let useDeleteArticle: (
   let sendRequest = () => {
     let slug =
       article
-      |> AsyncResult.getOk
-      |> Option.map((ok: Shape.Article.t) => ok.slug)
-      |> Option.getOrElse("")
+      ->AsyncResult.getOk
+      ->Belt.Option.map((ok: Shape.Article.t) => ok.slug)
+      ->Belt.Option.getWithDefault("")
 
     guard(() => setState(_prev => true))
 
-    API.article(~action=Delete(slug), ()) |> then_(_data => {
+    API.article(~action=Delete(slug), ())
+    |> then_(_data => {
       guard(() => setState(_prev => false))
       Link.push(Link.home)
       ignore() |> resolve
-    }) |> catch(_error => guard(() => setState(_prev => false)) |> resolve) |> ignore
+    })
+    |> catch(_error => guard(() => setState(_prev => false)) |> resolve)
+    |> ignore
   }
 
   let onClick = switch (user, state) {
@@ -419,7 +476,7 @@ let useDeleteArticle: (
 
 let useToggleFavorite: (
   ~setArticles: (
-    AsyncResult.t<Shape.Articles.t, Error.t> => AsyncResult.t<Shape.Articles.t, Error.t>
+    AsyncResult.t<Shape.Articles.t, AppError.t> => AsyncResult.t<Shape.Articles.t, AppError.t>
   ) => unit,
   ~user: option<Shape.User.t>,
 ) => (Belt.Set.String.t, (~action: API.Action.favorite) => unit) = (~setArticles, ~user) => {
@@ -437,14 +494,17 @@ let useToggleFavorite: (
 
     guard(() => setBusy(prev => prev |> Belt.Set.String.add(_, slug)))
 
-    API.favoriteArticle(~action, ()) |> Js.Promise.then_(data => {
+    API.favoriteArticle(~action, ())
+    |> Js.Promise.then_(data => {
       guard(() => {
         setBusy(prev => prev |> Belt.Set.String.remove(_, slug))
 
         switch data {
-        | Ok(_) => setArticles(prev => prev |> AsyncResult.map((articles: Shape.Articles.t) => {
+        | Ok(_) =>
+          setArticles(prev =>
+            prev->AsyncResult.map((articles: Shape.Articles.t) => {
               ...articles,
-              articles: articles.articles |> Relude.Array.map((article: Shape.Article.t) =>
+              articles: articles.articles->Belt.Array.map((article: Shape.Article.t) =>
                 if article.slug == slug {
                   {
                     ...article,
@@ -461,16 +521,19 @@ let useToggleFavorite: (
                   article
                 }
               ),
-            }))
+            })
+          )
         | Error(_error) => ignore()
         }
       })
 
       ignore() |> resolve
-    }) |> Js.Promise.catch(_error => {
+    })
+    |> Js.Promise.catch(_error => {
       guard(() => setBusy(prev => prev |> Belt.Set.String.remove(_, slug)))
       ignore() |> resolve
-    }) |> ignore
+    })
+    |> ignore
   }
 
   let onToggle = (~action) =>
@@ -482,7 +545,7 @@ let useToggleFavorite: (
   (busy, onToggle)
 }
 
-let useProfile: (~username: string) => AsyncResult.t<Shape.Author.t, Error.t> = (~username) => {
+let useProfile: (~username: string) => AsyncResult.t<Shape.Author.t, AppError.t> = (~username) => {
   let didCancel = React.useRef(false)
   let (data, setData) = React.useState(() => AsyncResult.init)
   let guard = guardByDidCancel(didCancel)
@@ -492,12 +555,18 @@ let useProfile: (~username: string) => AsyncResult.t<Shape.Author.t, Error.t> = 
   React.useEffect2(() => {
     guard(() => setData(prev => prev |> AsyncResult.toBusy))
 
-    API.getProfile(~username, ()) |> then_(data => guard(() => setData(_prev =>
+    API.getProfile(~username, ())
+    |> then_(data =>
+      guard(() =>
+        setData(_prev =>
           switch data {
           | Ok(ok) => AsyncResult.completeOk(ok)
           | Error(error) => AsyncResult.completeError(error)
           }
-        )) |> resolve) |> ignore
+        )
+      ) |> resolve
+    )
+    |> ignore
 
     None
   }, (username, setData))
@@ -509,14 +578,15 @@ let useViewMode: (~route: Shape.Profile.viewMode) => (Shape.Profile.viewMode, in
   ~route,
 ) => {
   let (viewMode, setViewMode) = React.useState(() => None)
-  let finalViewMode = viewMode |> Option.getOrElse(route)
+  let finalViewMode = viewMode->Belt.Option.getWithDefault(route)
 
   React.useEffect2(() => {
     setViewMode(_prev => None)
     None
   }, (route, setViewMode))
 
-  let changeOffset = offset => setViewMode(_prev => Some(
+  let changeOffset = offset =>
+    setViewMode(_prev => Some(
       switch finalViewMode {
       | Author(username, limit, _offset) => Author(username, limit, offset)
       | Favorited(username, limit, _offset) => Favorited(username, limit, offset)

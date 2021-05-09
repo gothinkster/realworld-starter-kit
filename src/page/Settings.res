@@ -1,7 +1,3 @@
-open Relude.Globals
-
-module Decode = Decode.AsResult.OfParseError
-
 @react.component
 let make = (
   ~user: Shape.User.t,
@@ -9,7 +5,8 @@ let make = (
 ) => {
   let (result, setResult) = React.useState(() => AsyncData.complete((user, "", None)))
   let isBusy = result |> AsyncData.isBusy
-  let (form, password, error) = result |> AsyncData.getValue |> Option.getOrElse((user, "", None))
+  let (form, password, error) =
+    result->AsyncData.getValue->Belt.Option.getWithDefault((user, "", None))
 
   <div className="settings-page">
     <div className="container page">
@@ -35,15 +32,15 @@ let make = (
                   type_="text"
                   placeholder="URL of profile picture"
                   disabled=isBusy
-                  value={form.image |> Option.getOrElse("")}
+                  value={form.image->Belt.Option.getWithDefault("")}
                   onChange={event => {
                     let image = ReactEvent.Form.target(event)["value"]
-                    setResult(
-                      AsyncData.map(((use: Shape.User.t, password, error)) => (
+                    setResult(prev =>
+                      prev->AsyncData.map(((use: Shape.User.t, password, error)) => (
                         {...use, image: image},
                         password,
                         error,
-                      )),
+                      ))
                     )
                   }}
                 />
@@ -57,12 +54,12 @@ let make = (
                   value=form.username
                   onChange={event => {
                     let username = ReactEvent.Form.target(event)["value"]
-                    setResult(
-                      AsyncData.map(((user: Shape.User.t, password, error)) => (
+                    setResult(prev =>
+                      prev->AsyncData.map(((user: Shape.User.t, password, error)) => (
                         {...user, username: username},
                         password,
                         error,
-                      )),
+                      ))
                     )
                   }}
                 />
@@ -73,15 +70,15 @@ let make = (
                   rows=8
                   placeholder="Short bio about you"
                   disabled=isBusy
-                  value={form.bio |> Option.getOrElse("")}
+                  value={form.bio->Belt.Option.getWithDefault("")}
                   onChange={event => {
                     let bio = ReactEvent.Form.target(event)["value"]
-                    setResult(
-                      AsyncData.map(((user: Shape.User.t, password, error)) => (
+                    setResult(prev =>
+                      prev->AsyncData.map(((user: Shape.User.t, password, error)) => (
                         {...user, bio: bio},
                         password,
                         error,
-                      )),
+                      ))
                     )
                   }}
                 />
@@ -95,12 +92,12 @@ let make = (
                   value=form.email
                   onChange={event => {
                     let email = ReactEvent.Form.target(event)["value"]
-                    setResult(
-                      AsyncData.map(((user: Shape.User.t, password, error)) => (
+                    setResult(prev =>
+                      prev->AsyncData.map(((user: Shape.User.t, password, error)) => (
                         {...user, email: email},
                         password,
                         error,
-                      )),
+                      ))
                     )
                   }}
                 />
@@ -114,7 +111,9 @@ let make = (
                   value=password
                   onChange={event => {
                     let password = ReactEvent.Form.target(event)["value"]
-                    setResult(AsyncData.map(((user, _password, error)) => (user, password, error)))
+                    setResult(prev =>
+                      prev->AsyncData.map(((user, _password, error)) => (user, password, error))
+                    )
                   }}
                 />
               </fieldset>
@@ -124,33 +123,51 @@ let make = (
                 onClick={event => {
                   event |> ReactEvent.Mouse.preventDefault
                   event |> ReactEvent.Mouse.stopPropagation
-                  result |> AsyncData.tapComplete(((user, password, _error)) => {
+                  result->AsyncData.tapComplete(((user, password, _error)) => {
                     setResult(AsyncData.toBusy)
-                    API.updateUser(~user, ~password, ()) |> Js.Promise.then_(res => {
+                    API.updateUser(~user, ~password, ())
+                    |> Js.Promise.then_(res => {
                       switch res {
                       | Ok(user) =>
                         setResult(prev =>
                           prev
-                          |> AsyncData.toIdle
-                          |> AsyncData.map(((_user, _password, _error)) => (user, "", None))
+                          ->AsyncData.toIdle
+                          ->AsyncData.map(((_user, _password, _error)) => (user, "", None))
                         )
-                        setUser(AsyncData.map(_prev => Some(user)))
-                      | Error(Error.Fetch((_code, _message, #json(json)))) =>
-                        json
-                        |> Decode.field("errors", Shape.Settings.decode)
-                        |> Result.tapOk(error =>
-                          setResult(prev =>
-                            prev
-                            |> AsyncData.toIdle
-                            |> AsyncData.map(((user, _password, _error)) => (user, "", Some(error)))
-                          )
-                        )
-                        |> ignore
+                        setUser(prev => prev->AsyncData.map(_prev => Some(user)))
+                      | Error(AppError.Fetch((_code, _message, #json(json)))) =>
+                        try {
+                          let result =
+                            json
+                            ->Js.Json.decodeObject
+                            ->Belt.Option.getExn
+                            ->Js.Dict.get("errors")
+                            ->Belt.Option.getExn
+                            ->Shape.Settings.decode
+                          switch result {
+                          | Ok(errors) =>
+                            setResult(prev =>
+                              prev
+                              ->AsyncData.toIdle
+                              ->AsyncData.map(((user, _password, _error)) => (
+                                user,
+                                "",
+                                Some(errors),
+                              ))
+                            )
+                          | Error(_e) => ignore()
+                          }
+                        } catch {
+                        | _ =>
+                          Js.log("Button.UpdateSettings: failed to decode json")
+                          ignore()
+                        }
                       | Error(Fetch((_, _, #text(_)))) | Error(Decode(_)) => ignore()
                       }
 
                       ignore() |> Js.Promise.resolve
-                    }) |> ignore
+                    })
+                    |> ignore
                   }) |> ignore
                 }}>
                 {"Update Settings" |> React.string}

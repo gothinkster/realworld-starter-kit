@@ -1,12 +1,15 @@
-open Relude.Globals
+module Option = Belt.Option
 
 let authenticated: (Shape.User.t => React.element, option<Shape.User.t>) => React.element = (
   getPage,
   user,
-) => user |> Option.map(getPage) |> Option.getOrElseLazy(() => {
+) =>
+  switch user {
+  | Some(s) => getPage(s)
+  | None =>
     Link.home |> Link.push
     React.null
-  })
+  }
 
 @react.component
 let make = () => {

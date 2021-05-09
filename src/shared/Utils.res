@@ -1,5 +1,3 @@
-open Relude.Globals
-
 type cookiePair = (string, option<string>)
 
 let secondInMs = 1000.
@@ -10,19 +8,20 @@ let monthInMs = 30. *. dayInMs
 
 let parseCookies: unit => array<cookiePair> = () =>
   Webapi.Dom.document
-  |> Webapi.Dom.Document.asHtmlDocument
-  |> Relude.Option.getOrThrow
-  |> Webapi.Dom.HtmlDocument.cookie
-  |> Js.String.split(";")
-  |> Relude.Array.flatMap(str => {
-    let pair = str |> Js.String.split("=") |> Relude.Array.map(Js.String.trim)
-    let key = pair |> Relude.Array.at(0)
-    let value = pair |> Relude.Array.at(1)
+  ->Webapi.Dom.Document.asHtmlDocument
+  ->Belt.Option.getExn
+  ->Webapi.Dom.HtmlDocument.cookie
+  ->Js.String2.split(";")
+  ->Js.Array2.reduce((acc, str) => {
+    let pair = str->Js.String2.split("=")->Js.Array2.map(Js.String.trim)
+    let key = pair->Belt.Array.getExn(0)
+    let value = pair->Belt.Array.get(1)
 
-    key |> Relude.Option.map(str => [(str, value)]) |> Relude.Option.getOrElse([])
-  })
+    acc->Js.Array2.concat([(key, value)])
+  }, [])
 
-let getCookie = (name: string): option<cookiePair> => parseCookies() |> Relude.Array.find(pair => {
+let getCookie = (name: string): option<cookiePair> =>
+  parseCookies()->Js.Array2.find(pair => {
     let key = fst(pair)
     key == name
   })
@@ -34,18 +33,17 @@ let setCookieRaw: (
   ~path: string=?,
   unit,
 ) => unit = (~key, ~value=?, ~expires, ~path=?, ()) => {
-  let htmlDocument =
-    Webapi.Dom.document |> Webapi.Dom.Document.asHtmlDocument |> Relude.Option.getOrThrow
+  let htmlDocument = Webapi.Dom.document->Webapi.Dom.Document.asHtmlDocument->Belt.Option.getExn
 
   let cookie = Printf.sprintf(
     "%s=%s;%s%s",
     key,
-    value |> Relude.Option.getOrElse(""),
+    value->Belt.Option.getWithDefault(""),
     expires == "" ? "" : Printf.sprintf(" expires=%s;", expires),
     path
-    |> Option.flatMap(path => path == "" ? None : Some(path))
-    |> Option.map(path => Printf.sprintf(" path=%s;", path))
-    |> Option.getOrElse(""),
+    ->Belt.Option.flatMap(path => path == "" ? None : Some(path))
+    ->Belt.Option.map(path => Printf.sprintf(" path=%s;", path))
+    ->Belt.Option.getWithDefault(""),
   )
 
   Webapi.Dom.HtmlDocument.setCookie(htmlDocument, cookie)
@@ -77,12 +75,9 @@ let formatDate: Js.Date.t => string = date =>
     date |> Js.Date.getDate,
   )
 
-let debugAsyncResult: AsyncResult.t<'a, 'e> => unit = asyncResult =>
-  switch asyncResult {
-  | Init => "Init" |> Js.log
-  | Loading => "Loading" |> Js.log
-  | Reloading(Ok(_)) => "Reloading(Ok())" |> Js.log
-  | Reloading(Error(e)) => Js.log2("Reloading(Error(%o)", e)
-  | Complete(Ok(_)) => "Complete(Ok())" |> Js.log
-  | Complete(Error(e)) => Js.log2("Complete(Error(%o)", e)
-  }
+module Json = {
+  let decodeArrayString = (json: option<Js.Json.t>): option<array<string>> =>
+    json
+    ->Belt.Option.flatMap(Js.Json.decodeArray)
+    ->Belt.Option.map(xs => xs->Belt.Array.keepMap(Js.Json.decodeString))
+}

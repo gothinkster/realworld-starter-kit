@@ -1,18 +1,16 @@
-open Relude.Globals
+module Option = Belt.Option
 
-module Decode = Decode.AsResult.OfParseError
-
-let parseTagList: string => array<string> = str =>
+let parseTagList = (str: string): array<string> =>
   str
-  |> String.splitArray(~delimiter=",")
-  |> Array.map(String.trim)
-  |> Array.filterNot(String.isEmpty)
+  ->Js.String2.split(",")
+  ->Belt.Array.map(Js.String2.trim)
+  ->Belt.Array.keep(v => Js.String2.length(v) > 0)
 
 module Form = {
   @react.component
   let make = (~data, ~setData, ~onSubmit: ((Shape.Article.t, string)) => unit) => {
-    let isBusy = data |> AsyncResult.isBusy
-    let error = data |> AsyncResult.getOk |> Option.flatMap(((_article, _tagList, error)) => error)
+    let isBusy = data->AsyncResult.isBusy
+    let error = data->AsyncResult.getOk->Option.flatMap(((_article, _tagList, error)) => error)
 
     <>
       {switch error {
@@ -33,21 +31,21 @@ module Form = {
               placeholder="Article Title"
               disabled=isBusy
               value={data
-              |> AsyncResult.getOk
-              |> Option.map(((
+              ->AsyncResult.getOk
+              ->Option.map(((
                 article: Shape.Article.t,
                 _tagList: string,
                 _error: option<Shape.Editor.t>,
               )) => article.title)
-              |> Option.getOrElse("")}
+              ->Option.getWithDefault("")}
               onChange={event => {
                 let title = ReactEvent.Form.target(event)["value"]
-                setData(
-                  AsyncResult.map(((
+                setData(prev =>
+                  prev->AsyncResult.map(((
                     article: Shape.Article.t,
                     tagList: string,
                     error: option<Shape.Editor.t>,
-                  )) => ({...article, title: title}, tagList, error)),
+                  )) => ({...article, title: title}, tagList, error))
                 )
               }}
             />
@@ -59,21 +57,21 @@ module Form = {
               placeholder="What's this article about?"
               disabled=isBusy
               value={data
-              |> AsyncResult.getOk
-              |> Option.map(((
+              ->AsyncResult.getOk
+              ->Option.map(((
                 article: Shape.Article.t,
                 _tagList: string,
                 _error: option<Shape.Editor.t>,
               )) => article.description)
-              |> Option.getOrElse("")}
+              ->Option.getWithDefault("")}
               onChange={event => {
                 let description = ReactEvent.Form.target(event)["value"]
-                setData(
-                  AsyncResult.map(((
+                setData(prev =>
+                  prev->AsyncResult.map(((
                     article: Shape.Article.t,
                     tagList: string,
                     error: option<Shape.Editor.t>,
-                  )) => ({...article, description: description}, tagList, error)),
+                  )) => ({...article, description: description}, tagList, error))
                 )
               }}
             />
@@ -85,21 +83,21 @@ module Form = {
               placeholder="Write your article (in markdown)"
               disabled=isBusy
               value={data
-              |> AsyncResult.getOk
-              |> Option.map(((
+              ->AsyncResult.getOk
+              ->Option.map(((
                 article: Shape.Article.t,
                 _tagList: string,
                 _error: option<Shape.Editor.t>,
               )) => article.body)
-              |> Option.getOrElse("")}
+              ->Option.getWithDefault("")}
               onChange={event => {
                 let body = ReactEvent.Form.target(event)["value"]
-                setData(
-                  AsyncResult.map(((
+                setData(prev =>
+                  prev->AsyncResult.map(((
                     article: Shape.Article.t,
                     tagList: string,
                     error: option<Shape.Editor.t>,
-                  )) => ({...article, body: body}, tagList, error)),
+                  )) => ({...article, body: body}, tagList, error))
                 )
               }}
             />
@@ -111,21 +109,21 @@ module Form = {
               placeholder="Enter tags"
               disabled=isBusy
               value={data
-              |> AsyncResult.getOk
-              |> Option.map(((
+              ->AsyncResult.getOk
+              ->Option.map(((
                 _article: Shape.Article.t,
                 tagList: string,
                 _error: option<Shape.Editor.t>,
               )) => tagList)
-              |> Option.getOrElse("")}
+              ->Option.getWithDefault("")}
               onChange={event => {
                 let tagList = ReactEvent.Form.target(event)["value"]
-                setData(
-                  AsyncResult.map(((
+                setData(prev =>
+                  prev->AsyncResult.map(((
                     article: Shape.Article.t,
                     _tagList: string,
                     error: option<Shape.Editor.t>,
-                  )) => (article, tagList, error)),
+                  )) => (article, tagList, error))
                 )
               }}
             />
@@ -142,14 +140,16 @@ module Form = {
               if isBusy {
                 ignore()
               } else {
-                data
-                |> AsyncResult.getOk
-                |> Option.tapSome(((
-                  article: Shape.Article.t,
-                  tagList: string,
-                  _error: option<Shape.Editor.t>,
-                )) => onSubmit((article, tagList)))
-                |> ignore
+                switch data->AsyncResult.getOk {
+                | Some((
+                    article: Shape.Article.t,
+                    tagList: string,
+                    _error: option<Shape.Editor.t>,
+                  )) =>
+                  onSubmit((article, tagList))
+                  ignore()
+                | None => ignore()
+                }
               }
             }}>
             {"Publish Article" |> React.string}
@@ -161,11 +161,31 @@ module Form = {
 }
 
 module Create = {
+  let empty = (
+    {
+      Shape.Article.slug: "",
+      title: "",
+      description: "",
+      body: "",
+      tagList: [],
+      createdAt: Js.Date.make(),
+      updatedAt: Js.Date.make(),
+      favorited: false,
+      favoritesCount: 0,
+      author: {
+        Shape.Author.username: "",
+        bio: None,
+        image: "",
+        following: false,
+      },
+    },
+    "",
+    None,
+  )
+
   @react.component
   let make = () => {
-    let (article, setArticle) = React.useState(() =>
-      AsyncResult.completeOk((Shape.Article.empty, "", None))
-    )
+    let (article, setArticle) = React.useState(() => AsyncResult.completeOk(empty))
 
     <Form
       data=article
@@ -173,27 +193,40 @@ module Create = {
       onSubmit={((article, tagList)) => {
         setArticle(AsyncResult.toBusy)
         API.article(~action=Create({...article, tagList: parseTagList(tagList)}), ())
-        |> Js.Promise.then_(x =>
+        |> Js.Promise.then_(x => {
           switch x {
           | Ok(ok: Shape.Article.t) =>
             Link.article(~slug=ok.slug) |> Link.push
-            setArticle(AsyncResult.toIdle) |> Js.Promise.resolve
-          | Error(Error.Fetch((_code, _message, #json(json)))) =>
-            json
-            |> Decode.field("errors", Shape.Editor.decode)
-            |> Result.tapOk(error =>
-              setArticle(prev =>
-                prev
-                |> AsyncResult.toIdle
-                |> AsyncResult.map(((article, tagList, _error)) => (article, tagList, Some(error)))
-              )
-            )
-            |> ignore
-            |> Js.Promise.resolve
-          | Error(Fetch((_, _, #text(_)))) | Error(Decode(_)) =>
-            setArticle(AsyncResult.toIdle) |> Js.Promise.resolve
+            setArticle(prev => prev->AsyncResult.toIdle)
+          | Error(AppError.Fetch((_code, _message, #json(json)))) =>
+            try {
+              let result =
+                json
+                ->Js.Json.decodeObject
+                ->Belt.Option.getExn
+                ->Js.Dict.get("errors")
+                ->Belt.Option.getExn
+                ->Shape.Editor.decode
+              switch result {
+              | Ok(errors) =>
+                setArticle(prev =>
+                  prev
+                  ->AsyncData.toIdle
+                  ->AsyncResult.map(((article, tagList, _error)) => (
+                    article,
+                    tagList,
+                    Some(errors),
+                  ))
+                )
+              | Error(_e) => ignore()
+              }
+            } catch {
+            | _ => Js.log("Button.UpdateSettings: failed to decode json")
+            }
+          | Error(Fetch((_, _, #text(_)))) | Error(Decode(_)) => setArticle(AsyncResult.toIdle)
           }
-        )
+          Js.Promise.resolve()
+        })
         |> ignore
       }}
     />

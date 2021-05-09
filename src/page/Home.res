@@ -1,78 +1,8 @@
-open Relude.Globals
+module ArticlePreview = HomeArticlePreview
+module PopularTags = HomePopularTags
 
-module ArticlePreview = {
-  @react.component
-  let make = (~data: Shape.Article.t, ~onToggleFavorite, ~isFavoriteBusy) =>
-    <div className="article-preview">
-      <div className="article-meta">
-        <Link onClick={Link.profile(~username=data.author.username) |> Link.location}>
-          <img src=data.author.image />
-        </Link>
-        <div className="info">
-          <Link
-            className="author"
-            onClick={Link.profile(~username=data.author.username) |> Link.location}>
-            {data.author.username |> React.string}
-          </Link>
-          <span className="date"> {data.createdAt |> Js.Date.toLocaleString |> React.string} </span>
-        </div>
-        <button
-          className={data.favorited
-            ? "btn btn-primary btn-sm pull-xs-right"
-            : "btn btn-outline-primary btn-sm pull-xs-right"}
-          onClick={_event =>
-            if !isFavoriteBusy {
-              onToggleFavorite(
-                ~action=data.favorited
-                  ? API.Action.Unfavorite(data.slug)
-                  : API.Action.Favorite(data.slug),
-              )
-            }}>
-          <i
-            className={isFavoriteBusy ? "ion-load-a" : "ion-heart"}
-            style={ReactDOM.Style.make(~marginRight="3px", ())}
-          />
-          {data.favoritesCount |> Js.Int.toString |> React.string}
-        </button>
-      </div>
-      <Link onClick={Link.article(~slug=data.slug) |> Link.location} className="preview-link">
-        <h1> {data.title |> React.string} </h1>
-        <p> {data.description |> React.string} </p>
-        <span> {"Read more..." |> React.string} </span>
-      </Link>
-    </div>
-}
-
-module PopularTags = {
-  @react.component
-  let make = (~data: AsyncResult.t<Shape.Tags.t, Error.t>, ~onClick) => <>
-    <p> {"Popular Tags" |> React.string} </p>
-    <WithTestId id="tag-list">
-      <div className="tag-list">
-        {switch data {
-        | Init => React.string("Initilizing...")
-        | Loading => React.string("Loading...")
-        | Reloading(Ok(tags)) | Complete(Ok(tags)) => tags |> Js.Array.map(tag =>
-            <a
-              key=tag
-              href="#"
-              className="tag-pill tag-default"
-              onClick={event =>
-                if Utils.isMouseRightClick(event) {
-                  event |> ReactEvent.Mouse.preventDefault
-                  tag |> onClick |> ignore
-                }}>
-              {tag |> React.string}
-            </a>
-          ) |> React.array
-        | Reloading(Error(_error)) | Complete(Error(_error)) => React.string("ERROR")
-        }}
-      </div>
-    </WithTestId>
-  </>
-}
-
-let useFeedType = (~user: option<Shape.User.t>) => React.useState(() =>
+let useFeedType = (~user: option<Shape.User.t>) =>
+  React.useState(() =>
     switch user {
     | None => Shape.FeedType.Global(10, 0)
     | Some(_) => Shape.FeedType.Personal(10, 0)
@@ -139,7 +69,7 @@ let make = (~user: option<Shape.User.t>) => {
                       href="#"
                       onClick={event => event |> ReactEvent.Mouse.preventDefault}>
                       <i className="ion-pound" />
-                      {/* TODO: Get rid of "space" string below */
+                      {/* FIXME: Get rid of "space" string below */
                       " " |> React.string}
                       {tag |> React.string}
                     </a>
@@ -159,7 +89,7 @@ let make = (~user: option<Shape.User.t>) => {
           | Loading => React.null
           | Reloading(Ok({articles})) | Complete(Ok({articles})) =>
             articles
-            |> Js.Array.map(item =>
+            ->Js.Array2.map(item =>
               <ArticlePreview
                 key=item.slug
                 data=item
@@ -167,7 +97,7 @@ let make = (~user: option<Shape.User.t>) => {
                 isFavoriteBusy={toggleFavoriteBusy |> Belt.Set.String.has(_, item.slug)}
               />
             )
-            |> React.array
+            ->React.array
           | Reloading(Error(_error)) | Complete(Error(_error)) => React.string("ERROR")
           }}
           {switch feedType {
@@ -177,22 +107,34 @@ let make = (~user: option<Shape.User.t>) => {
             | Reloading(Ok({articlesCount})) | Complete(Ok({articlesCount})) => articlesCount
             }
 
-            <Pagination limit offset total onClick={offset => setFeedType(x =>
+            <Pagination
+              limit
+              offset
+              total
+              onClick={offset =>
+                setFeedType(x =>
                   switch x {
                   | Tag(tag, limit, _) => Tag(tag, limit, offset)
                   | Global(limit, _) => Global(limit, offset)
                   | Personal(limit, _) => Personal(limit, offset)
                   }
-                )} />
+                )}
+            />
           }}
         </div>
         <div className="col-md-3">
-          <div className="sidebar"> <PopularTags data=tags onClick={tag => setFeedType(x =>
+          <div className="sidebar">
+            <PopularTags
+              data=tags
+              onClick={tag =>
+                setFeedType(x =>
                   switch x {
                   | Tag(_, limit, offset) => Tag(tag, limit, offset)
                   | Global(_) | Personal(_) => Tag(tag, 10, 0)
                   }
-                )} /> </div>
+                )}
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,9 @@
-open Relude.Globals
+module Option = Belt.Option
+module Result = Belt.Result
+module Json = Js.Json
+module Dict = Js.Dict
 
-module Decode = Decode.AsResult.OfParseError
+type decodeError = string
 
 module Profile = {
   type username = string
@@ -29,23 +32,23 @@ module Author = {
     following: bool,
   }
 
-  let make = (username, bio, image, following) => {
-    username: username,
-    bio: bio,
-    image: image,
-    following: following,
-  }
+  let decode = (json: Json.t): Result.t<t, decodeError> => {
+    try {
+      let obj = json->Json.decodeObject->Option.getExn
+      let username = obj->Dict.get("username")->Option.flatMap(Json.decodeString)->Option.getExn
+      let bio = obj->Dict.get("bio")->Option.flatMap(Json.decodeString)
+      let image = obj->Dict.get("image")->Option.flatMap(Json.decodeString)->Option.getExn
+      let following = obj->Dict.get("following")->Option.flatMap(Json.decodeBoolean)->Option.getExn
 
-  let empty = make("", None, "", false)
-
-  let decode = (json: Js.Json.t): Result.t<t, Decode.ParseError.failure> => {
-    open Decode.Pipeline
-    succeed(make)
-    |> field("username", string)
-    |> optionalField("bio", string)
-    |> field("image", string)
-    |> field("following", boolean)
-    |> run(json)
+      Result.Ok({
+        username: username,
+        bio: bio,
+        image: image,
+        following: following,
+      })
+    } catch {
+    | _ => Error("Shape.Author: failed to decode json")
+    }
   }
 }
 
@@ -63,51 +66,65 @@ module Article = {
     author: Author.t,
   }
 
-  let make = (
-    slug,
-    title,
-    description,
-    body,
-    tagList,
-    createdAt,
-    updatedAt,
-    favorited,
-    favoritesCount,
-    author,
-  ) => {
-    slug: slug,
-    title: title,
-    description: description,
-    body: body,
-    tagList: tagList,
-    createdAt: createdAt,
-    updatedAt: updatedAt,
-    favorited: favorited,
-    favoritesCount: favoritesCount,
-    author: author,
-  }
+  let decode = (json: Json.t): Result.t<t, decodeError> => {
+    try {
+      let obj = json->Json.decodeObject->Option.getExn
+      let slug = obj->Dict.get("slug")->Option.flatMap(Json.decodeString)->Option.getExn
+      let title = obj->Dict.get("title")->Option.flatMap(Json.decodeString)->Option.getExn
+      let description =
+        obj->Dict.get("description")->Option.flatMap(Json.decodeString)->Option.getExn
+      let body = obj->Dict.get("body")->Option.flatMap(Json.decodeString)->Option.getExn
+      let tagList =
+        obj
+        ->Dict.get("tagList")
+        ->Option.flatMap(Json.decodeArray)
+        ->Option.flatMap(tagList => Some(tagList->Belt.Array.keepMap(Json.decodeString)))
+        ->Option.getExn
+      let createdAt =
+        obj
+        ->Dict.get("createdAt")
+        ->Option.flatMap(Json.decodeString)
+        ->Option.getExn
+        ->Js.Date.fromString
+      let updatedAt =
+        obj
+        ->Dict.get("updatedAt")
+        ->Option.flatMap(Json.decodeString)
+        ->Option.getExn
+        ->Js.Date.fromString
+      let favorited = obj->Dict.get("favorited")->Option.flatMap(Json.decodeBoolean)->Option.getExn
+      let favoritesCount =
+        obj
+        ->Dict.get("favoritesCount")
+        ->Option.flatMap(Json.decodeNumber)
+        ->Option.getExn
+        ->int_of_float
+      let author =
+        obj
+        ->Dict.get("author")
+        ->Option.flatMap(author => {
+          switch author->Author.decode {
+          | Ok(ok) => Some(ok)
+          | Error(_err) => None
+          }
+        })
+        ->Option.getExn
 
-  let empty = make("", "", "", "", [], Js.Date.make(), Js.Date.make(), false, 0, Author.empty)
-
-  let decodeArticle = (json: Js.Json.t): Result.t<t, Decode.ParseError.failure> => {
-    open Decode.Pipeline
-    succeed(make)
-    |> field("slug", string)
-    |> field("title", string)
-    |> field("description", string)
-    |> field("body", string)
-    |> field("tagList", array(string))
-    |> field("createdAt", date)
-    |> field("updatedAt", date)
-    |> field("favorited", boolean)
-    |> field("favoritesCount", intFromNumber)
-    |> field("author", Author.decode)
-    |> run(json)
-  }
-
-  let decode = (json: Js.Json.t): Result.t<t, Decode.ParseError.failure> => {
-    open Decode
-    field("article", decodeArticle, json)
+      Result.Ok({
+        slug: slug,
+        title: title,
+        description: description,
+        body: body,
+        tagList: tagList,
+        createdAt: createdAt,
+        updatedAt: updatedAt,
+        favorited: favorited,
+        favoritesCount: favoritesCount,
+        author: author,
+      })
+    } catch {
+    | _ => Error("Shape.Article: failed to decode json")
+    }
   }
 }
 
@@ -117,27 +134,58 @@ module Articles = {
     articlesCount: int,
   }
 
-  let make = (articles, articlesCount) => {articles: articles, articlesCount: articlesCount}
+  let decode = (json: Json.t): Result.t<t, decodeError> => {
+    try {
+      let obj = json->Json.decodeObject->Option.getExn
+      let articles =
+        obj
+        ->Dict.get("articles")
+        ->Option.flatMap(Json.decodeArray)
+        ->Option.flatMap(articles => {
+          articles
+          ->Belt.Array.keepMap(article =>
+            switch article->Article.decode {
+            | Ok(ok) => Some(ok)
+            | Error(_err) => None
+            }
+          )
+          ->Some
+        })
+        ->Option.getExn
+      let articlesCount =
+        obj
+        ->Dict.get("articlesCount")
+        ->Option.flatMap(Json.decodeNumber)
+        ->Option.map(int_of_float)
+        ->Option.getExn
 
-  let empty = make([], 0)
-
-  let decode = (json: Js.Json.t): Result.t<t, Decode.ParseError.failure> => {
-    open Decode.Pipeline
-    succeed(make)
-    |> field("articles", array(Article.decodeArticle))
-    |> field("articlesCount", intFromNumber)
-    |> run(json)
+      Result.Ok({
+        articles: articles,
+        articlesCount: articlesCount,
+      })
+    } catch {
+    | _ => Error("Shape.Article: failed to decode json")
+    }
   }
 }
 
 module Tags = {
   type t = array<string>
 
-  let empty: array<string> = []
+  let decode = (json: Json.t): Result.t<t, decodeError> => {
+    try {
+      let obj = json->Json.decodeObject->Option.getExn
+      let tags =
+        obj
+        ->Dict.get("tags")
+        ->Option.flatMap(Json.decodeArray)
+        ->Option.map(tags => tags->Belt.Array.keepMap(Json.decodeString))
+        ->Option.getExn
 
-  let decode = (json: Js.Json.t): Result.t<t, Decode.ParseError.failure> => {
-    open Decode
-    field("tags", array(string), json)
+      Result.Ok(tags)
+    } catch {
+    | _ => Error("Shape.Tags: failed to decode json")
+    }
   }
 }
 
@@ -153,35 +201,78 @@ module User = {
     token: string,
   }
 
-  let make = (id, email, createdAt, updatedAt, username, bio, image, token) => {
-    id: id,
-    email: email,
-    createdAt: createdAt,
-    updatedAt: updatedAt,
-    username: username,
-    bio: bio,
-    image: image,
-    token: token,
+  let empty = {
+    id: 0,
+    email: "",
+    createdAt: Js.Date.make(),
+    updatedAt: Js.Date.make(),
+    username: "",
+    bio: None,
+    image: None,
+    token: "",
   }
 
-  let empty = make(0, "", Js.Date.make(), Js.Date.make(), "", None, None, "")
+  let decodeUser = (json: Json.t): Result.t<t, decodeError> => {
+    try {
+      let obj = json->Json.decodeObject->Option.getExn
+      let id =
+        obj
+        ->Dict.get("id")
+        ->Option.flatMap(Json.decodeNumber)
+        ->Option.map(int_of_float)
+        ->Option.getExn
+      let email = obj->Dict.get("email")->Option.flatMap(Json.decodeString)->Option.getExn
+      let createdAt =
+        obj
+        ->Dict.get("createdAt")
+        ->Option.flatMap(Json.decodeString)
+        ->Option.map(Js.Date.fromString)
+        ->Option.getExn
+      let updatedAt =
+        obj
+        ->Dict.get("updatedAt")
+        ->Option.flatMap(Json.decodeString)
+        ->Option.map(Js.Date.fromString)
+        ->Option.getExn
+      let username = obj->Dict.get("username")->Option.flatMap(Json.decodeString)->Option.getExn
+      let bio = obj->Dict.get("bio")->Option.flatMap(Json.decodeString)
+      let image = obj->Dict.get("image")->Option.flatMap(Json.decodeString)
+      let token = obj->Dict.get("token")->Option.flatMap(Json.decodeString)->Option.getExn
 
-  let decodeUser = (json: Js.Json.t): Result.t<t, Decode.ParseError.failure> => {
-    open Decode.Pipeline
-    succeed(make)
-    |> field("id", intFromNumber)
-    |> field("email", string)
-    |> field("createdAt", date)
-    |> field("updatedAt", date)
-    |> field("username", string)
-    |> optionalField("bio", string)
-    |> optionalField("image", string)
-    |> field("token", string)
-    |> run(json)
+      Result.Ok({
+        id: id,
+        email: email,
+        createdAt: createdAt,
+        updatedAt: updatedAt,
+        username: username,
+        bio: bio,
+        image: image,
+        token: token,
+      })
+    } catch {
+    | _ => Error("Shape.User: failed to decode json")
+    }
   }
 
-  let decode = (json: Js.Json.t): Result.t<t, Decode.ParseError.failure> =>
-    Decode.field("user", decodeUser, json)
+  let decode = (json: Json.t): Result.t<t, decodeError> => {
+    try {
+      let obj = json->Json.decodeObject->Option.getExn
+      let user =
+        obj
+        ->Dict.get("user")
+        ->Option.flatMap(user => {
+          switch user->decodeUser {
+          | Ok(ok) => Some(ok)
+          | Error(_err) => None
+          }
+        })
+        ->Option.getExn
+
+      Result.Ok(user)
+    } catch {
+    | _ => Error("Shape.User: failed to decode json")
+    }
+  }
 }
 
 module CommentUser = {
@@ -192,23 +283,23 @@ module CommentUser = {
     following: bool,
   }
 
-  let make = (username, bio, image, following) => {
-    username: username,
-    bio: bio,
-    image: image,
-    following: following,
-  }
+  let decode = (json: Json.t): Result.t<t, decodeError> => {
+    try {
+      let obj = json->Json.decodeObject->Option.getExn
+      let username = obj->Dict.get("username")->Option.flatMap(Json.decodeString)->Option.getExn
+      let bio = obj->Dict.get("bio")->Option.flatMap(Json.decodeString)
+      let image = obj->Dict.get("image")->Option.flatMap(Json.decodeString)->Option.getExn
+      let following = obj->Dict.get("following")->Option.flatMap(Json.decodeBoolean)->Option.getExn
 
-  let empty = make("", None, "", false)
-
-  let decode = (json: Js.Json.t): Result.t<t, Decode.ParseError.failure> => {
-    open Decode.Pipeline
-    succeed(make)
-    |> field("username", string)
-    |> optionalField("bio", string)
-    |> field("image", string)
-    |> field("following", boolean)
-    |> run(json)
+      Result.Ok({
+        username: username,
+        bio: bio,
+        image: image,
+        following: following,
+      })
+    } catch {
+    | _ => Error("Shape.CommentUser: failed to decode json")
+    }
   }
 }
 
@@ -221,29 +312,73 @@ module Comment = {
     author: CommentUser.t,
   }
 
-  let make = (id, createdAt, updatedAt, body, author) => {
-    id: id,
-    createdAt: createdAt,
-    updatedAt: updatedAt,
-    body: body,
-    author: author,
+  let decodeComment = (json: Json.t): Result.t<t, decodeError> => {
+    try {
+      let obj = json->Json.decodeObject->Option.getExn
+      let id =
+        obj
+        ->Dict.get("id")
+        ->Option.flatMap(Json.decodeNumber)
+        ->Option.map(int_of_float)
+        ->Option.getExn
+      let createdAt =
+        obj
+        ->Dict.get("createdAt")
+        ->Option.flatMap(Json.decodeString)
+        ->Option.map(Js.Date.fromString)
+        ->Option.getExn
+      let updatedAt =
+        obj
+        ->Dict.get("updatedAt")
+        ->Option.flatMap(Json.decodeString)
+        ->Option.map(Js.Date.fromString)
+        ->Option.getExn
+      let body = obj->Dict.get("body")->Option.flatMap(Json.decodeString)->Option.getExn
+      let author =
+        obj
+        ->Dict.get("author")
+        ->Option.flatMap(author => {
+          switch author->CommentUser.decode {
+          | Ok(ok) => Some(ok)
+          | Error(_err) => None
+          }
+        })
+        ->Option.getExn
+
+      Result.Ok({
+        id: id,
+        createdAt: createdAt,
+        updatedAt: updatedAt,
+        body: body,
+        author: author,
+      })
+    } catch {
+    | _ => Error("Shape.Comment: failed to decode json")
+    }
   }
 
-  let empty = make(0, Js.Date.make(), Js.Date.make(), "", CommentUser.empty)
+  let decode = (json: Json.t): Result.t<array<t>, decodeError> => {
+    try {
+      let obj = json->Json.decodeObject->Option.getExn
+      let comments =
+        obj
+        ->Dict.get("comments")
+        ->Option.flatMap(Json.decodeArray)
+        ->Option.map(comments => {
+          comments->Belt.Array.keepMap(comment => {
+            switch comment->decodeComment {
+            | Ok(ok) => Some(ok)
+            | Error(_err) => None
+            }
+          })
+        })
+        ->Option.getExn
 
-  let decodeComment = (json: Js.Json.t): Result.t<t, Decode.ParseError.failure> => {
-    open Decode.Pipeline
-    succeed(make)
-    |> field("id", intFromNumber)
-    |> field("createdAt", date)
-    |> field("updatedAt", date)
-    |> field("body", string)
-    |> field("author", CommentUser.decode)
-    |> run(json)
+      Result.Ok(comments)
+    } catch {
+    | _ => Error("Shape.Comment: failed to decode json")
+    }
   }
-
-  let decode = (json: Js.Json.t): Result.t<array<t>, Decode.ParseError.failure> =>
-    Decode.field("comments", Decode.Pipeline.array(decodeComment), json)
 }
 
 module Settings = {
@@ -255,25 +390,25 @@ module Settings = {
     password: option<array<string>>,
   }
 
-  let make = (email, bio, image, username, password) => {
-    email: email,
-    bio: bio,
-    image: image,
-    username: username,
-    password: password,
-  }
+  let decode = (json: Json.t): Result.t<t, decodeError> => {
+    try {
+      let obj = json->Json.decodeObject->Option.getExn
+      let email = obj->Dict.get("email")->Utils.Json.decodeArrayString
+      let bio = obj->Dict.get("bio")->Utils.Json.decodeArrayString
+      let image = obj->Dict.get("image")->Utils.Json.decodeArrayString
+      let username = obj->Dict.get("username")->Utils.Json.decodeArrayString
+      let password = obj->Dict.get("password")->Utils.Json.decodeArrayString
 
-  let empty = make(None, None, None, None, None)
-
-  let decode = (json: Js.Json.t): Result.t<t, Decode.ParseError.failure> => {
-    open Decode.Pipeline
-    succeed(make)
-    |> optionalField("email", array(string))
-    |> optionalField("bio", array(string))
-    |> optionalField("image", array(string))
-    |> optionalField("username", array(string))
-    |> optionalField("password", array(string))
-    |> run(json)
+      Result.Ok({
+        email: email,
+        bio: bio,
+        image: image,
+        username: username,
+        password: password,
+      })
+    } catch {
+    | _ => Error("Shape.Settings: failed to decode json")
+    }
   }
 }
 
@@ -284,30 +419,38 @@ module Editor = {
     description: option<array<string>>,
   }
 
-  let make = (title, body, description) => {title: title, body: body, description: description}
+  let decode = (json: Json.t): Result.t<t, decodeError> => {
+    try {
+      let obj = json->Json.decodeObject->Option.getExn
+      let title = obj->Dict.get("title")->Utils.Json.decodeArrayString
+      let body = obj->Dict.get("body")->Utils.Json.decodeArrayString
+      let description = obj->Dict.get("description")->Utils.Json.decodeArrayString
 
-  let empty = make(None, None, None)
-
-  let decode = (json: Js.Json.t): Result.t<t, Decode.ParseError.failure> => {
-    open Decode.Pipeline
-    succeed(make)
-    |> optionalField("title", array(string))
-    |> optionalField("body", array(string))
-    |> optionalField("description", array(string))
-    |> run(json)
+      Result.Ok({
+        title: title,
+        body: body,
+        description: description,
+      })
+    } catch {
+    | _ => Error("Shape.Editor: failed to decode json")
+    }
   }
 }
 
 module Login = {
   type t = option<array<string>>
 
-  let make = id
-
-  let empty = make(None)
-
-  let decode = (json: Js.Json.t): Result.t<t, Decode.ParseError.failure> => {
-    open Decode.Pipeline
-    succeed(make) |> optionalField("email or password", array(string)) |> run(json)
+  let decode = (json: Json.t): Result.t<t, decodeError> => {
+    try {
+      json
+      ->Json.decodeObject
+      ->Option.getExn
+      ->Dict.get("email or password")
+      ->Utils.Json.decodeArrayString
+      ->Ok
+    } catch {
+    | _ => Error("Shape.Login: failed to decode json")
+    }
   }
 }
 
@@ -318,16 +461,20 @@ module Register = {
     username: option<array<string>>,
   }
 
-  let make = (email, password, username) => {email: email, password: password, username: username}
+  let decode = (json: Json.t): Result.t<t, decodeError> => {
+    try {
+      let obj = json->Json.decodeObject->Option.getExn
+      let email = obj->Dict.get("email")->Utils.Json.decodeArrayString
+      let username = obj->Dict.get("username")->Utils.Json.decodeArrayString
+      let password = obj->Dict.get("password")->Utils.Json.decodeArrayString
 
-  let empty = make(None, None, None)
-
-  let decode = (json: Js.Json.t): Result.t<t, Decode.ParseError.failure> => {
-    open Decode.Pipeline
-    succeed(make)
-    |> optionalField("email", array(string))
-    |> optionalField("password", array(string))
-    |> optionalField("username", array(string))
-    |> run(json)
+      Result.Ok({
+        email: email,
+        password: password,
+        username: username,
+      })
+    } catch {
+    | _ => Error("Shape.Register: failed to decode json")
+    }
   }
 }

@@ -1,6 +1,4 @@
-open Relude.Globals
-
-@bs.scope(("window", "app")) @bs.val external backend: string = "backend"
+@scope(("window", "app")) @val external backend: string = "backend"
 
 module Articles = {
   let root: (
@@ -16,9 +14,11 @@ module Articles = {
       backend,
       limit,
       offset,
-      tag |> Option.map(tag' => "&tag=" ++ tag') |> Option.getOrElse(""),
-      author |> Option.map(author' => "&author=" ++ author') |> Option.getOrElse(""),
-      favorited |> Option.map(favorited' => "&favorited=" ++ favorited') |> Option.getOrElse(""),
+      tag->Belt.Option.map(tag' => "&tag=" ++ tag')->Belt.Option.getWithDefault(""),
+      author->Belt.Option.map(author' => "&author=" ++ author')->Belt.Option.getWithDefault(""),
+      favorited
+      ->Belt.Option.map(favorited' => "&favorited=" ++ favorited')
+      ->Belt.Option.getWithDefault(""),
     )
 
   let article: (~slug: string, unit) => string = (~slug, ()) =>

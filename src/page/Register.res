@@ -1,6 +1,4 @@
-open Relude.Globals
-
-module Decode = Decode.AsResult.OfParseError
+module Option = Belt.Option
 
 type t = {
   username: string,
@@ -14,7 +12,7 @@ let empty = ({username: "", email: "", password: ""}, None)
 let make = (~setUser) => {
   let (data, setData) = React.useState(() => AsyncData.complete(empty))
   let isBusy = data |> AsyncData.isBusy
-  let (form, error) = data |> AsyncData.getValue |> Option.getOrElse(empty)
+  let (form, error) = data->AsyncData.getValue->Option.getWithDefault(empty)
 
   <div className="auth-page">
     <div className="container page">
@@ -45,7 +43,9 @@ let make = (~setUser) => {
                 value=form.username
                 onChange={event => {
                   let username = ReactEvent.Form.target(event)["value"]
-                  setData(AsyncData.map(((form, error)) => ({...form, username: username}, error)))
+                  setData(prev =>
+                    prev->AsyncData.map(((form, error)) => ({...form, username: username}, error))
+                  )
                 }}
               />
             </fieldset>
@@ -58,7 +58,9 @@ let make = (~setUser) => {
                 value=form.email
                 onChange={event => {
                   let email = ReactEvent.Form.target(event)["value"]
-                  setData(AsyncData.map(((form, error)) => ({...form, email: email}, error)))
+                  setData(prev =>
+                    prev->AsyncData.map(((form, error)) => ({...form, email: email}, error))
+                  )
                 }}
               />
             </fieldset>
@@ -71,7 +73,9 @@ let make = (~setUser) => {
                 value=form.password
                 onChange={event => {
                   let password = ReactEvent.Form.target(event)["value"]
-                  setData(AsyncData.map(((form, error)) => ({...form, password: password}, error)))
+                  setData(prev =>
+                    prev->AsyncData.map(((form, error)) => ({...form, password: password}, error))
+                  )
                 }}
               />
             </fieldset>
@@ -92,30 +96,40 @@ let make = (~setUser) => {
                     ~password=form.password,
                     (),
                   )
-                  |> Js.Promise.then_(x =>
+                  |> Js.Promise.then_(x => {
                     switch x {
                     | Ok(user: Shape.User.t) =>
-                      setUser(_prev => user |> Option.some |> AsyncData.complete)
+                      setUser(_prev => Some(user)->AsyncData.complete)
                       setData(AsyncData.toIdle)
                       Utils.setCookie("jwtToken", Some(user.token))
                       Link.home |> Link.push
-                      ignore() |> Js.Promise.resolve
-                    | Error(Error.Fetch((_code, _message, #json(json)))) =>
-                      json
-                      |> Decode.field("errors", Shape.Register.decode)
-                      |> Result.tapOk(error =>
-                        setData(prev =>
-                          prev
-                          |> AsyncData.toIdle
-                          |> AsyncData.map(((form, _error)) => (form, error |> Option.some))
-                        )
-                      )
-                      |> ignore
-                      |> Js.Promise.resolve
+                    | Error(AppError.Fetch((_code, _message, #json(json)))) =>
+                      try {
+                        let result =
+                          json
+                          ->Js.Json.decodeObject
+                          ->Belt.Option.getExn
+                          ->Js.Dict.get("errors")
+                          ->Belt.Option.getExn
+                          ->Shape.Register.decode
+                        switch result {
+                        | Ok(errors) =>
+                          setData(prev =>
+                            prev
+                            ->AsyncData.toIdle
+                            ->AsyncData.map(((form, _error)) => (form, Some(errors)))
+                          )
+                        | Error(_e) => ignore()
+                        }
+                      } catch {
+                      | _ =>
+                        Js.log("Button.UpdateSettings: failed to decode json")
+                      }
                     | Error(Fetch((_, _, #text(_)))) | Error(Decode(_)) =>
-                      setData(AsyncData.toIdle) |> Js.Promise.resolve
+                      setData(AsyncData.toIdle)
                     }
-                  )
+                    ignore() |> Js.Promise.resolve
+                  })
                   |> ignore
                 }
               }}>
