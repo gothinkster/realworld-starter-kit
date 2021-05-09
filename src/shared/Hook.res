@@ -142,9 +142,7 @@ let useCurrentUser: unit => (
   (data, setData)
 }
 
-let useArticle: (
-  ~slug: string,
-) => (
+let useArticle = (~slug: string): (
   AsyncResult.t<(Shape.Article.t, string, option<Shape.Editor.t>), AppError.t>,
   (
     AsyncResult.t<(Shape.Article.t, string, option<Shape.Editor.t>), AppError.t> => AsyncResult.t<
@@ -152,7 +150,7 @@ let useArticle: (
       AppError.t,
     >
   ) => unit,
-) = (~slug) => {
+) => {
   let didCancel = React.useRef(false)
   let (data, setData) = React.useState(() => AsyncResult.init)
   let guard = guardByDidCancel(didCancel)

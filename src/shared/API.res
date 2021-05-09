@@ -120,9 +120,23 @@ let article: (
   )
   |> then_(parseJsonIfOk)
   |> then_(getErrorBodyJson)
-  |> then_(result =>
-    result->Belt.Result.flatMap(json => json->Shape.Article.decode->AppError.decode)->resolve
-  )
+  |> then_(result => {
+    result
+    ->Belt.Result.flatMap(json => {
+      try {
+        json
+        ->Js.Json.decodeObject
+        ->Belt.Option.getExn
+        ->Js.Dict.get("article")
+        ->Belt.Option.getExn
+        ->Shape.Article.decode
+        ->AppError.decode
+      } catch {
+      | _ => AppError.decode(Error("API.article: failed to decode json"))
+      }
+    })
+    ->resolve
+  })
 }
 
 let favoriteArticle: (

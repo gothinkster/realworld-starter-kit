@@ -11,7 +11,7 @@
   "sources": {
     "dir": "src",
     "subdirs": [
-      { "dir": "page" },
+      { "dir": "page", "subdirs": [{ "dir": "Article" }] },
       { "dir": "component" },
       { "dir": "shared" }
     ]
