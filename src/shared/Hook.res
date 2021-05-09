@@ -23,8 +23,7 @@ let useArticles = (~feedType: Shape.FeedType.t): (
     | Global(limit, offset) => API.listArticles(~limit, ~offset, ())
     | Personal(limit, offset) => API.feedArticles(~limit, ~offset, ())
     }
-    |> then_(data => {
-      Js.log(data)
+    |> then_(data =>
       guard(() =>
         setData(_prev =>
           switch data {
@@ -33,7 +32,7 @@ let useArticles = (~feedType: Shape.FeedType.t): (
           }
         )
       ) |> resolve
-    })
+    )
     |> ignore
 
     None
