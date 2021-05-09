@@ -66,47 +66,41 @@ let make = (~setUser) => {
               onClick={event => {
                 event |> ReactEvent.Mouse.preventDefault
                 event |> ReactEvent.Mouse.stopPropagation
-                if !isBusy {
-                  setData(AsyncData.toBusy)
-                  API.login(~email, ~password, ())
-                  |> Js.Promise.then_(x => {
-                    switch x {
-                    | Ok(user: Shape.User.t) =>
-                      setUser(_prev => Some(user)->AsyncData.complete)
-                      setData(AsyncData.toIdle)
-                      Utils.setCookie("jwtToken", Some(user.token))
-                      Link.home |> Link.push
-                    | Error(AppError.Fetch((_code, _message, #json(json)))) =>
-                      try {
-                        let result =
-                          json
-                          ->Js.Json.decodeObject
-                          ->Belt.Option.getExn
-                          ->Js.Dict.get("errors")
-                          ->Belt.Option.getExn
-                          ->Shape.Login.decode
-                        switch result {
-                        | Ok(errors) =>
-                          setData(prev =>
-                            prev
-                            ->AsyncData.toIdle
-                            ->AsyncData.map(((email, password, _error)) => (
-                              email,
-                              password,
-                              errors,
-                            ))
-                          )
-                        | Error(_e) => ignore()
-                        }
-                      } catch {
-                      | _ => Js.log("Button.SignIn: failed to decode json")
+                setData(AsyncData.toBusy)
+                API.login(~email, ~password, ())
+                |> Js.Promise.then_(x => {
+                  switch x {
+                  | Ok(user: Shape.User.t) =>
+                    setUser(_prev => Some(user)->AsyncData.complete)
+                    setData(AsyncData.toIdle)
+                    Utils.setCookie("jwtToken", Some(user.token))
+                    Link.home |> Link.push
+                  | Error(AppError.Fetch((_code, _message, #json(json)))) =>
+                    try {
+                      let result =
+                        json
+                        ->Js.Json.decodeObject
+                        ->Belt.Option.getExn
+                        ->Js.Dict.get("errors")
+                        ->Belt.Option.getExn
+                        ->Shape.Login.decode
+                      switch result {
+                      | Ok(errors) =>
+                        setData(prev =>
+                          prev
+                          ->AsyncData.toIdle
+                          ->AsyncData.map(((email, password, _error)) => (email, password, errors))
+                        )
+                      | Error(_e) => ignore()
                       }
-                    | Error(Fetch((_, _, #text(_)))) | Error(Decode(_)) => setData(AsyncData.toIdle)
+                    } catch {
+                    | _ => Js.log("Button.SignIn: failed to decode json")
                     }
-                    Js.Promise.resolve()
-                  })
-                  |> ignore
-                }
+                  | Error(Fetch((_, _, #text(_)))) | Error(Decode(_)) => setData(AsyncData.toIdle)
+                  }
+                  Js.Promise.resolve()
+                })
+                |> ignore
               }}>
               {"Sign in" |> React.string}
             </button>

@@ -422,11 +422,9 @@ let getProfile: (~username: string, unit) => Js.Promise.t<result<Shape.Author.t,
   )
 }
 
-let login: (
-  ~email: string,
-  ~password: string,
-  unit,
-) => Js.Promise.t<result<Shape.User.t, AppError.t>> = (~email, ~password, ()) => {
+let login = (~email: string, ~password: string, ()): Js.Promise.t<
+  result<Shape.User.t, AppError.t>,
+> => {
   let user =
     list{("email", Js.Json.string(email)), ("password", Js.Json.string(password))}
     |> Js.Dict.fromList

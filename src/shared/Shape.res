@@ -441,7 +441,16 @@ module Login = {
   type t = option<array<string>>
 
   let decode = (json: Json.t): Result.t<t, decodeError> => {
-    json->Json.decodeArray->Option.map(xs => xs->Belt.Array.keepMap(Json.decodeString))->Ok
+    try {
+      json
+      ->Json.decodeObject
+      ->Option.getExn
+      ->Dict.get("email or password")
+      ->Utils.Json.decodeArrayString
+      ->Ok
+    } catch {
+    | _ => Error("Shape.Login: failed to decode json")
+    }
   }
 }
 
