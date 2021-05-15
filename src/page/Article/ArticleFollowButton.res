@@ -19,6 +19,6 @@ let make = (~data: AsyncData.t<(string, bool)>, ~onClick: Link.onClickAction) =>
     {switch data {
     | Init | Loading => React.null
     | Reloading((username, following)) | Complete((username, following)) =>
-      Printf.sprintf("%s %s", following ? "Unfollow" : "Follow", username) |> React.string
+      `${following ? "Unfollow" : "Follow"} ${username}`->React.string
     }}
   </Link.Button>

@@ -101,9 +101,7 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
                       None
                     }
                   )
-                  ->Option.getWithDefault(
-                    Printf.sprintf(" %s %s", following ? "Unfollow" : "Follow", username),
-                  )
+                  ->Option.getWithDefault(` ${following ? "Unfollow" : "Follow"} ${username}`)
                   ->React.string
                 }}
               </Link.Button>

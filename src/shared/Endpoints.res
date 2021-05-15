@@ -8,48 +8,55 @@ module Articles = {
     ~author: string=?,
     ~favorited: string=?,
     unit,
-  ) => string = (~limit=10, ~offset=0, ~tag=?, ~author=?, ~favorited=?, ()) =>
-    Printf.sprintf(
-      "%s/api/articles?limit=%d&offset=%d%s%s%s",
-      backend,
-      limit,
-      offset,
-      tag->Belt.Option.map(tag' => "&tag=" ++ tag')->Belt.Option.getWithDefault(""),
-      author->Belt.Option.map(author' => "&author=" ++ author')->Belt.Option.getWithDefault(""),
+  ) => string = (~limit=10, ~offset=0, ~tag=?, ~author=?, ~favorited=?, ()) => {
+    let limit = limit->Belt.Int.toString
+    let offset = offset->Belt.Int.toString
+    let tag = tag->Belt.Option.map(tag' => "&tag=" ++ tag')->Belt.Option.getWithDefault("")
+    let author =
+      author->Belt.Option.map(author' => "&author=" ++ author')->Belt.Option.getWithDefault("")
+    let favorited =
       favorited
       ->Belt.Option.map(favorited' => "&favorited=" ++ favorited')
-      ->Belt.Option.getWithDefault(""),
-    )
+      ->Belt.Option.getWithDefault("")
 
-  let article: (~slug: string, unit) => string = (~slug, ()) =>
-    Printf.sprintf("%s/api/articles/%s", backend, slug)
+    `${backend}/api/articles?limit=${limit}&offset=${offset}${tag}${author}${favorited}`
+  }
+
+  let article: (~slug: string, unit) => string = (~slug, ()) => `${backend}/api/articles/${slug}`
 
   let favorite: (~slug: string, unit) => string = (~slug, ()) =>
-    Printf.sprintf("%s/api/articles/%s/favorite", backend, slug)
+    `${backend}/api/articles/${slug}/favorite`
 
-  let feed: (~limit: int=?, ~offset: int=?, unit) => string = (~limit=10, ~offset=0, ()) =>
-    Printf.sprintf("%s/api/articles/feed?limit=%d&offset=%d", backend, limit, offset)
+  let feed: (~limit: int=?, ~offset: int=?, unit) => string = (~limit=10, ~offset=0, ()) => {
+    let limit = limit->Belt.Int.toString
+    let offset = offset->Belt.Int.toString
+
+    `${backend}/api/articles/feed?limit=${limit}&offset=${offset}`
+  }
 
   let comments: (~slug: string, unit) => string = (~slug: string, ()) =>
-    Printf.sprintf("%s/api/articles/%s/comments", backend, slug)
+    `${backend}/api/articles/${slug}/comments`
 
-  let comment: (~slug: string, ~id: int, unit) => string = (~slug, ~id, ()) =>
-    Printf.sprintf("%s/api/articles/%s/comments/%d", backend, slug, id)
+  let comment: (~slug: string, ~id: int, unit) => string = (~slug, ~id, ()) => {
+    let id = id->Belt.Int.toString
+
+    `${backend}/api/articles/${slug}/comments/${id}`
+  }
 }
 
 module Profiles = {
   let profile: (~username: string, unit) => string = (~username, ()) =>
-    Printf.sprintf("%s/api/profiles/%s", backend, username)
+    `${backend}/api/profiles/${username}`
 
   let follow: (~username: string, unit) => string = (~username, ()) =>
-    Printf.sprintf("%s/api/profiles/%s/follow", backend, username)
+    `${backend}/api/profiles/${username}/follow`
 }
 
 module Users = {
-  let root = Printf.sprintf("%s/api/users", backend)
-  let login = Printf.sprintf("%s/api/users/login", backend)
+  let root = `${backend}/api/users`
+  let login = `${backend}/api/users/login`
 }
 
-let tags = Printf.sprintf("%s/api/tags", backend)
+let tags = `${backend}/api/tags`
 
-let user = Printf.sprintf("%s/api/user", backend)
+let user = `${backend}/api/user`

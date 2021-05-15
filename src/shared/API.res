@@ -21,7 +21,7 @@ module Headers = {
   let addJwtToken: unit => array<(string, string)> = () =>
     Utils.getCookie("jwtToken")
     ->Belt.Option.flatMap(snd)
-    ->Belt.Option.map(token => [("Authorization", Printf.sprintf("Token %s", token))])
+    ->Belt.Option.map(token => [("Authorization", `Token ${token}`)])
     ->Belt.Option.getWithDefault([])
 
   let addContentTypeAsJson: unit => array<(string, string)> = () => [

@@ -15,10 +15,10 @@ let settings = make("/#/settings")
 let register = make("/#/register")
 let login = make("/#/login")
 let createArticle = make("/#/editor")
-let editArticle = (~slug) => make(Printf.sprintf("/#/editor/%s", slug))
-let article = (~slug) => make(Printf.sprintf("/#/article/%s", slug))
-let profile = (~username) => make(Printf.sprintf("/#/profile/%s", username))
-let favorited = (~username) => make(Printf.sprintf("/#/profile/%s/favorites", username))
+let editArticle = (~slug) => make(`/#/editor/${slug}`)
+let article = (~slug) => make(`/#/article/${slug}`)
+let profile = (~username) => make(`/#/profile/${username}`)
+let favorited = (~username) => make(`/#/profile/${username}/favorites`)
 
 let push: location' => unit = location => location |> toString |> RescriptReactRouter.push
 

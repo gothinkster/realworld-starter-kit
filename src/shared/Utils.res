@@ -35,16 +35,14 @@ let setCookieRaw: (
 ) => unit = (~key, ~value=?, ~expires, ~path=?, ()) => {
   let htmlDocument = Webapi.Dom.document->Webapi.Dom.Document.asHtmlDocument->Belt.Option.getExn
 
-  let cookie = Printf.sprintf(
-    "%s=%s;%s%s",
-    key,
-    value->Belt.Option.getWithDefault(""),
-    expires == "" ? "" : Printf.sprintf(" expires=%s;", expires),
+  let value = value->Belt.Option.getWithDefault("")
+  let expires = expires !== "" ? `expires=${expires};` : ""
+  let path =
     path
     ->Belt.Option.flatMap(path => path == "" ? None : Some(path))
-    ->Belt.Option.map(path => Printf.sprintf(" path=%s;", path))
-    ->Belt.Option.getWithDefault(""),
-  )
+    ->Belt.Option.map(path => ` path=${path};`)
+    ->Belt.Option.getWithDefault("")
+  let cookie = `${key}=${value};${expires}${path}`
 
   Webapi.Dom.HtmlDocument.setCookie(htmlDocument, cookie)
 }
@@ -67,13 +65,13 @@ let isMouseRightClick = event =>
   !ReactEvent.Mouse.metaKey(event) &&
   !ReactEvent.Mouse.shiftKey(event)
 
-let formatDate: Js.Date.t => string = date =>
-  Printf.sprintf(
-    "%04.0f/%02.0f/%02.0f",
-    date |> Js.Date.getFullYear,
-    date |> Js.Date.getMonth,
-    date |> Js.Date.getDate,
-  )
+let formatDate: Js.Date.t => string = date => {
+  let yyyy = date->Js.Date.getFullYear->Belt.Int.fromFloat->Belt.Int.toString
+  let mm = date->Js.Date.getMonth->Belt.Int.fromFloat->Belt.Int.toString
+  let dd = date->Js.Date.getDate->Belt.Int.fromFloat->Belt.Int.toString
+
+  `${yyyy}/${mm}/${dd}`
+}
 
 module Json = {
   let decodeArrayString = (json: option<Js.Json.t>): option<array<string>> =>

@@ -21,9 +21,7 @@ let make = (~setUser) => {
             <ul className="error-messages">
               {messages
               |> Array.map(message =>
-                <li key=message>
-                  {Printf.sprintf("email or password %s", message) |> React.string}
-                </li>
+                <li key=message> {`email or password ${message}`->React.string} </li>
               )
               |> React.array}
             </ul>

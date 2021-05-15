@@ -22,7 +22,7 @@ let make = (~data: AsyncData.t<(bool, int, string)>, ~onClick: Link.onClickActio
     | Reloading((favorited, favoritesCount, _slug))
     | Complete((favorited, favoritesCount, _slug)) => <>
         {(favorited ? "Unfavorite Article " : "Favorite Article ") |> React.string}
-        <span className="counter"> {Printf.sprintf("(%d)", favoritesCount) |> React.string} </span>
+        <span className="counter"> {`(${favoritesCount->Belt.Int.toString})`->React.string} </span>
       </>
     }}
   </Link.Button>
