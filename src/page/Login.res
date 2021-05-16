@@ -66,7 +66,7 @@ let make = (~setUser) => {
                 event |> ReactEvent.Mouse.stopPropagation
                 setData(AsyncData.toBusy)
                 API.login(~email, ~password, ())
-                |> Js.Promise.then_(x => {
+                ->Promise.then(x => {
                   switch x {
                   | Ok(user: Shape.User.t) =>
                     setUser(_prev => Some(user)->AsyncData.complete)
@@ -96,9 +96,9 @@ let make = (~setUser) => {
                     }
                   | Error(Fetch((_, _, #text(_)))) | Error(Decode(_)) => setData(AsyncData.toIdle)
                   }
-                  Js.Promise.resolve()
+                  Promise.resolve()
                 })
-                |> ignore
+                ->ignore
               }}>
               {"Sign in" |> React.string}
             </button>

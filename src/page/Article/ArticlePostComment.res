@@ -45,7 +45,7 @@ let make = (
           if isCommentValid && AsyncData.isComplete(comment) {
             setComment(AsyncData.toBusy)
             API.addComment(~slug, ~body, ())
-            |> Js.Promise.then_(x =>
+            ->Promise.then(x => {
               switch x {
               | Ok(comment) =>
                 setComments(prev =>
@@ -55,12 +55,15 @@ let make = (
                   })
                 )
                 setComment(_prev => AsyncData.complete(""))
-                ignore() |> Js.Promise.resolve
-              | Error(_error) => setComment(AsyncData.toIdle) |> Js.Promise.resolve
+              | Error(_error) => setComment(AsyncData.toIdle)
               }
-            )
-            |> Js.Promise.catch(_error => setComment(AsyncData.toIdle) |> Js.Promise.resolve)
-            |> ignore
+              Promise.resolve()
+            })
+            ->Promise.catch(_error => {
+              setComment(AsyncData.toIdle)
+              Promise.resolve()
+            })
+            ->ignore
           }
           event |> ReactEvent.Mouse.preventDefault
           event |> ReactEvent.Mouse.stopPropagation
