@@ -1,4 +1,4 @@
-open Js.Promise
+open Promise
 open Fetch
 
 module Action = {
@@ -29,15 +29,15 @@ module Headers = {
   ]
 }
 
-let getErrorBodyJson: result<Js.Json.t, Response.t> => Js.Promise.t<
+let getErrorBodyJson: result<Js.Json.t, Response.t> => Promise.t<
   result<Js.Json.t, AppError.t>,
 > = x =>
   switch x {
   | Ok(_json) as ok => ok |> resolve
   | Error(resp) =>
     resp
-    |> Response.json
-    |> then_(json => {
+    ->Response.json
+    ->then(json => {
       let status = Response.status(resp)
       let statusText = Response.statusText(resp)
       let bodyJson = #json(json)
@@ -46,7 +46,7 @@ let getErrorBodyJson: result<Js.Json.t, Response.t> => Js.Promise.t<
     })
   }
 
-let getErrorBodyText: result<Js.Json.t, Response.t> => Js.Promise.t<
+let getErrorBodyText: result<Js.Json.t, Response.t> => Promise.t<
   result<Js.Json.t, AppError.t>,
 > = x =>
   switch x {
@@ -59,20 +59,20 @@ let getErrorBodyText: result<Js.Json.t, Response.t> => Js.Promise.t<
     AppError.fetch((status, statusText, bodyText))->Belt.Result.Error->resolve
   }
 
-let parseJsonIfOk: Response.t => Js.Promise.t<result<Js.Json.t, Response.t>> = resp =>
+let parseJsonIfOk: Response.t => Promise.t<result<Js.Json.t, Response.t>> = resp =>
   if Response.ok(resp) {
     resp
-    |> Response.json
-    |> then_(json => json->Ok->resolve)
-    |> catch(_error => resp->Belt.Result.Error->resolve)
+    ->Response.json
+    ->then(json => json->Ok->resolve)
+    ->catch(_error => resp->Belt.Result.Error->resolve)
   } else {
     resp->Belt.Result.Error->resolve
   }
 
-let article: (
-  ~action: Action.article,
-  unit,
-) => Js.Promise.t<result<Shape.Article.t, AppError.t>> = (~action, ()) => {
+let article: (~action: Action.article, unit) => Promise.t<result<Shape.Article.t, AppError.t>> = (
+  ~action,
+  (),
+) => {
   let body = switch action {
   | Create(article) | Update(_, article) =>
     let article =
@@ -118,9 +118,9 @@ let article: (
     Endpoints.Articles.article(~slug, ()),
     RequestInit.make(~method_=method__, ~headers, ~body?, ()),
   )
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyJson)
-  |> then_(result => {
+  ->then(parseJsonIfOk)
+  ->then(getErrorBodyJson)
+  ->then(result => {
     result
     ->Belt.Result.flatMap(json => {
       try {
@@ -142,7 +142,7 @@ let article: (
 let favoriteArticle: (
   ~action: Action.favorite,
   unit,
-) => Js.Promise.t<result<Shape.Article.t, AppError.t>> = (~action, ()) => {
+) => Promise.t<result<Shape.Article.t, AppError.t>> = (~action, ()) => {
   let requestInit = RequestInit.make(
     ~method_=switch action {
     | Favorite(_slug) => Post
@@ -159,10 +159,10 @@ let favoriteArticle: (
     },
     (),
   )
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result =>
+  ->fetchWithInit(_, requestInit)
+  ->then(parseJsonIfOk)
+  ->then(getErrorBodyText)
+  ->then(result =>
     result
     ->Belt.Result.flatMap(json =>
       try {
@@ -188,7 +188,7 @@ let listArticles: (
   ~author: string=?,
   ~favorited: string=?,
   unit,
-) => Js.Promise.t<result<Shape.Articles.t, AppError.t>> = (
+) => Promise.t<result<Shape.Articles.t, AppError.t>> = (
   ~limit=10,
   ~offset=0,
   ~tag=?,
@@ -199,10 +199,10 @@ let listArticles: (
   let requestInit = RequestInit.make(~headers=Headers.addJwtToken()->HeadersInit.makeWithArray, ())
 
   Endpoints.Articles.root(~limit, ~offset, ~tag?, ~author?, ~favorited?, ())
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result =>
+  ->fetchWithInit(_, requestInit)
+  ->then(parseJsonIfOk)
+  ->then(getErrorBodyText)
+  ->then(result =>
     result->Belt.Result.flatMap(json => json->Shape.Articles.decode->AppError.decode)->resolve
   )
 }
@@ -211,35 +211,35 @@ let feedArticles: (
   ~limit: int=?,
   ~offset: int=?,
   unit,
-) => Js.Promise.t<result<Shape.Articles.t, AppError.t>> = (~limit=10, ~offset=0, ()) => {
+) => Promise.t<result<Shape.Articles.t, AppError.t>> = (~limit=10, ~offset=0, ()) => {
   let requestInit = RequestInit.make(~headers=Headers.addJwtToken()->HeadersInit.makeWithArray, ())
 
   Endpoints.Articles.feed(~limit, ~offset, ())
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result =>
+  ->fetchWithInit(_, requestInit)
+  ->then(parseJsonIfOk)
+  ->then(getErrorBodyText)
+  ->then(result =>
     result->Belt.Result.flatMap(json => json->Shape.Articles.decode->AppError.decode)->resolve
   )
 }
 
-let tags: unit => Js.Promise.t<result<Shape.Tags.t, AppError.t>> = () =>
+let tags: unit => Promise.t<result<Shape.Tags.t, AppError.t>> = () =>
   Endpoints.tags
-  |> fetch
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result =>
+  ->fetch
+  ->then(parseJsonIfOk)
+  ->then(getErrorBodyText)
+  ->then(result =>
     result->Belt.Result.flatMap(json => json->Shape.Tags.decode->AppError.decode)->resolve
   )
 
-let currentUser: unit => Js.Promise.t<result<Shape.User.t, AppError.t>> = () => {
+let currentUser: unit => Promise.t<result<Shape.User.t, AppError.t>> = () => {
   let requestInit = RequestInit.make(~headers=Headers.addJwtToken()->HeadersInit.makeWithArray, ())
 
   Endpoints.user
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result =>
+  ->fetchWithInit(_, requestInit)
+  ->then(parseJsonIfOk)
+  ->then(getErrorBodyText)
+  ->then(result =>
     result->Belt.Result.flatMap(json => json->Shape.User.decode->AppError.decode)->resolve
   )
 }
@@ -248,7 +248,7 @@ let updateUser: (
   ~user: Shape.User.t,
   ~password: string,
   unit,
-) => Js.Promise.t<result<Shape.User.t, AppError.t>> = (~user, ~password, ()) => {
+) => Promise.t<result<Shape.User.t, AppError.t>> = (~user, ~password, ()) => {
   let user =
     list{
       list{("email", Js.Json.string(user.email))},
@@ -281,18 +281,18 @@ let updateUser: (
   )
 
   Endpoints.user
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyJson)
-  |> then_(result =>
+  ->fetchWithInit(_, requestInit)
+  ->then(parseJsonIfOk)
+  ->then(getErrorBodyJson)
+  ->then(result =>
     result->Belt.Result.flatMap(json => json->Shape.User.decode->AppError.decode)->resolve
   )
 }
 
-let followUser: (
-  ~action: Action.follow,
-  unit,
-) => Js.Promise.t<result<Shape.Author.t, AppError.t>> = (~action, ()) => {
+let followUser: (~action: Action.follow, unit) => Promise.t<result<Shape.Author.t, AppError.t>> = (
+  ~action,
+  (),
+) => {
   let requestInit = RequestInit.make(
     ~method_=switch action {
     | Follow(_username) => Post
@@ -308,10 +308,10 @@ let followUser: (
     },
     (),
   )
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result =>
+  ->fetchWithInit(_, requestInit)
+  ->then(parseJsonIfOk)
+  ->then(getErrorBodyText)
+  ->then(result =>
     result->Belt.Result.flatMap(json => {
       try {
         json
@@ -328,17 +328,17 @@ let followUser: (
   )
 }
 
-let getComments: (
-  ~slug: string,
-  unit,
-) => Js.Promise.t<result<array<Shape.Comment.t>, AppError.t>> = (~slug, ()) => {
+let getComments: (~slug: string, unit) => Promise.t<result<array<Shape.Comment.t>, AppError.t>> = (
+  ~slug,
+  (),
+) => {
   let requestInit = RequestInit.make(~headers=Headers.addJwtToken()->HeadersInit.makeWithArray, ())
 
   Endpoints.Articles.comments(~slug, ())
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result =>
+  ->fetchWithInit(_, requestInit)
+  ->then(parseJsonIfOk)
+  ->then(getErrorBodyText)
+  ->then(result =>
     result->Belt.Result.flatMap(json => json->Shape.Comment.decode->AppError.decode)->resolve
   )
 }
@@ -347,7 +347,7 @@ let deleteComment: (
   ~slug: string,
   ~id: int,
   unit,
-) => Js.Promise.t<result<(string, int), AppError.t>> = (~slug, ~id, ()) => {
+) => Promise.t<result<(string, int), AppError.t>> = (~slug, ~id, ()) => {
   let requestInit = RequestInit.make(
     ~method_=Delete,
     ~headers=Headers.addJwtToken()->HeadersInit.makeWithArray,
@@ -355,17 +355,17 @@ let deleteComment: (
   )
 
   Endpoints.Articles.comment(~slug, ~id, ())
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result => result->Belt.Result.flatMap(_json => Belt.Result.Ok((slug, id)))->resolve)
+  ->fetchWithInit(_, requestInit)
+  ->then(parseJsonIfOk)
+  ->then(getErrorBodyText)
+  ->then(result => result->Belt.Result.flatMap(_json => Belt.Result.Ok((slug, id)))->resolve)
 }
 
 let addComment: (
   ~slug: string,
   ~body: string,
   unit,
-) => Js.Promise.t<result<Shape.Comment.t, AppError.t>> = (~slug, ~body, ()) => {
+) => Promise.t<result<Shape.Comment.t, AppError.t>> = (~slug, ~body, ()) => {
   let comment = list{("body", Js.Json.string(body))} |> Js.Dict.fromList |> Js.Json.object_
 
   let body =
@@ -385,10 +385,10 @@ let addComment: (
   )
 
   Endpoints.Articles.comments(~slug, ())
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result =>
+  ->fetchWithInit(_, requestInit)
+  ->then(parseJsonIfOk)
+  ->then(getErrorBodyText)
+  ->then(result =>
     result
     ->Belt.Result.flatMap(json => {
       try {
@@ -407,17 +407,17 @@ let addComment: (
   )
 }
 
-let getProfile: (~username: string, unit) => Js.Promise.t<result<Shape.Author.t, AppError.t>> = (
+let getProfile: (~username: string, unit) => Promise.t<result<Shape.Author.t, AppError.t>> = (
   ~username,
   (),
 ) => {
   let requestInit = RequestInit.make(~headers=Headers.addJwtToken()->HeadersInit.makeWithArray, ())
 
   Endpoints.Profiles.profile(~username, ())
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyText)
-  |> then_(result =>
+  ->fetchWithInit(_, requestInit)
+  ->then(parseJsonIfOk)
+  ->then(getErrorBodyText)
+  ->then(result =>
     result
     ->Belt.Result.flatMap(json => {
       try {
@@ -436,7 +436,7 @@ let getProfile: (~username: string, unit) => Js.Promise.t<result<Shape.Author.t,
   )
 }
 
-let login = (~email: string, ~password: string, ()): Js.Promise.t<
+let login = (~email: string, ~password: string, ()): Promise.t<
   result<Shape.User.t, AppError.t>,
 > => {
   let user =
@@ -459,10 +459,10 @@ let login = (~email: string, ~password: string, ()): Js.Promise.t<
   )
 
   Endpoints.Users.login
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyJson)
-  |> then_(result =>
+  ->fetchWithInit(_, requestInit)
+  ->then(parseJsonIfOk)
+  ->then(getErrorBodyJson)
+  ->then(result =>
     result->Belt.Result.flatMap(json => json->Shape.User.decode->AppError.decode)->resolve
   )
 }
@@ -472,7 +472,7 @@ let register: (
   ~email: string,
   ~password: string,
   unit,
-) => Js.Promise.t<result<Shape.User.t, AppError.t>> = (~username, ~email, ~password, ()) => {
+) => Promise.t<result<Shape.User.t, AppError.t>> = (~username, ~email, ~password, ()) => {
   let user =
     list{
       ("email", Js.Json.string(email)),
@@ -497,10 +497,10 @@ let register: (
   )
 
   Endpoints.Users.root
-  |> fetchWithInit(_, requestInit)
-  |> then_(parseJsonIfOk)
-  |> then_(getErrorBodyJson)
-  |> then_(result =>
+  ->fetchWithInit(_, requestInit)
+  ->then(parseJsonIfOk)
+  ->then(getErrorBodyJson)
+  ->then(result =>
     result->Belt.Result.flatMap(json => json->Shape.User.decode->AppError.decode)->resolve
   )
 }

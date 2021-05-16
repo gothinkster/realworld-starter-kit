@@ -123,10 +123,11 @@ let make = (
                 onClick={event => {
                   event |> ReactEvent.Mouse.preventDefault
                   event |> ReactEvent.Mouse.stopPropagation
-                  result->AsyncData.tapComplete(((user, password, _error)) => {
+                  result
+                  ->AsyncData.tapComplete(((user, password, _error)) => {
                     setResult(AsyncData.toBusy)
                     API.updateUser(~user, ~password, ())
-                    |> Js.Promise.then_(res => {
+                    ->Promise.then(res => {
                       switch res {
                       | Ok(user) =>
                         setResult(prev =>
@@ -165,10 +166,11 @@ let make = (
                       | Error(Fetch((_, _, #text(_)))) | Error(Decode(_)) => ignore()
                       }
 
-                      ignore() |> Js.Promise.resolve
+                      Promise.resolve()
                     })
-                    |> ignore
-                  }) |> ignore
+                    ->ignore
+                  })
+                  ->ignore
                 }}>
                 {"Update Settings" |> React.string}
               </button>
