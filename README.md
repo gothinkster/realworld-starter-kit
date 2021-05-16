@@ -1,40 +1,39 @@
 # ![RealWorld Example App](logo.png)
 
-[![Travis (.org)](https://img.shields.io/travis/jihchi/reason-react-realworld-example-app)](https://travis-ci.org/jihchi/reason-react-realworld-example-app)
-[![Coverage Status](https://img.shields.io/coveralls/github/jihchi/reason-react-realworld-example-app)](https://coveralls.io/github/jihchi/reason-react-realworld-example-app?branch=master)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/jihchi/reason-react-realworld-example-app)
-![GitHub last commit](https://img.shields.io/github/last-commit/jihchi/reason-react-realworld-example-app)
-![GitHub](https://img.shields.io/github/license/jihchi/reason-react-realworld-example-app)
-[<img title="lighthouse" src="https://img.shields.io/badge/🗼-lighthouse-9cf.svg?logo=google">](https://lighthouse-dot-webdotdevsite.appspot.com//lh/html?url=https://reason-react-realworld-example-app.surge.sh/)
+[![Travis (.org)](https://img.shields.io/travis/jihchi/rescript-react-realworld-example-app)](https://travis-ci.org/jihchi/rescript-react-realworld-example-app)
+[![Coverage Status](https://img.shields.io/coveralls/github/jihchi/rescript-react-realworld-example-app)](https://coveralls.io/github/jihchi/rescript-react-realworld-example-app?branch=main)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/jihchi/rescript-react-realworld-example-app)
+![GitHub last commit](https://img.shields.io/github/last-commit/jihchi/rescript-react-realworld-example-app)
+![GitHub](https://img.shields.io/github/license/jihchi/rescript-react-realworld-example-app)
+[<img title="lighthouse" src="https://img.shields.io/badge/🗼-lighthouse-9cf.svg?logo=google">](https://lighthouse-dot-webdotdevsite.appspot.com//lh/html?url=https://rescript-react-realworld-example-app.vercel.app)
 
-> ### ReasonReact (ReScript) codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
+> ### ReScript + React codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
 
-### [Demo](https://reason-react-realworld-example-app.surge.sh/)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
+### [Demo](https://rescript-react-realworld-example-app.vercel.app)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
 
-This codebase was created to demonstrate a fully fledged fullstack application built with **[ReasonReact](https://reasonml.github.io/reason-react/) ([ReScript](https://rescript-lang.org/))** including CRUD operations, authentication, routing, pagination, and more.
+This codebase was created to demonstrate a fully fledged fullstack application built with **[ReScript & React](https://rescript-lang.org/docs/react/latest/introduction)** including CRUD operations, authentication, routing, pagination, and more.
 
-We've gone to great lengths to adhere to the **[ReasonReact](https://reasonml.github.io/reason-react/) ([ReScript](https://rescript-lang.org/))** community styleguides & best practices.
+We've gone to great lengths to adhere to the **ReScript & React** community styleguides & best practices.
 
 For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
 
 # How it works
 
-Basically its just like React single-page-application but written in ReasonML with ReasonReact.
+Basically its just like React single-page-application but written in [ReScript](https://rescript-lang.org/) with [React](https://reactjs.org/).
 
-- App bootstraped with [Create React App](https://github.com/facebook/create-react-app)
-- Along with [ReScript](https://rescript-lang.org/) (also known as BuckleScript)
-- Routing - ReasonReact's [Router](https://reasonml.github.io/reason-react/docs/en/router.html)
-- Unit test - jest with [`@glennsl/bs-jest`](https://github.com/glennsl/bs-jest) plus [react-testing-library](https://github.com/kentcdodds/react-testing-library)
+- Using [Snowpack](https://www.snowpack.dev/) as the frontend build tool
+- Seamlessly integrate with [ReScript](https://rescript-lang.org/) (previously known as BuckleScript/ReasonML)
+- Routing - ReScript React [Router](https://rescript-lang.org/docs/react/latest/router)
 
 # Getting started
 
-You can view a live demo over at https://reason-react-realworld-example-app.surge.sh/
+You can view a live demo over at https://rescript-react-realworld-example-app.vercel.app
 
 To get the frontend running locally:
 
 ```bash
-git clone https://github.com/jihchi/reason-react-realworld-example-app.git
-cd reason-react-realworld-example-app
+git clone https://github.com/jihchi/rescript-react-realworld-example-app.git
+cd rescript-react-realworld-example-app
 npm install
 npm start
 ```
