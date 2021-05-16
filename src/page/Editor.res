@@ -192,10 +192,8 @@ module Create = {
       setData=setArticle
       onSubmit={((article, tagList)) => {
         setArticle(AsyncResult.toBusy)
-        API.article(
-          ~action=Create({...article, tagList: parseTagList(tagList)}),
-          (),
-        )->Promise.then(x => {
+        API.article(~action=Create({...article, tagList: parseTagList(tagList)}), ())
+        ->Promise.then(x => {
           switch x {
           | Ok(ok: Shape.Article.t) =>
             Link.article(~slug=ok.slug) |> Link.push
@@ -228,7 +226,8 @@ module Create = {
           | Error(Fetch((_, _, #text(_)))) | Error(Decode(_)) => setArticle(AsyncResult.toIdle)
           }
           Promise.resolve()
-        }) |> ignore
+        })
+        ->ignore
       }}
     />
   }
@@ -245,11 +244,10 @@ module Edit = {
       onSubmit={((article, tagList)) => {
         setArticle(AsyncResult.toBusy)
         API.article(~action=Update(slug, {...article, tagList: parseTagList(tagList)}), ())
-        ->Promise.then(x =>
-          switch x {
-          | Ok(_) | Error(_) => setArticle(AsyncResult.toIdle) |> Promise.resolve
-          }
-        )
+        ->Promise.then(_x => {
+          setArticle(AsyncResult.toIdle)
+          Promise.resolve()
+        })
         ->ignore
       }}
     />

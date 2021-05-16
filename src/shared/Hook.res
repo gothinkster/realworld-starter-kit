@@ -543,7 +543,8 @@ let useProfile: (~username: string) => AsyncResult.t<Shape.Author.t, AppError.t>
   React.useEffect2(() => {
     guard(() => setData(prev => prev |> AsyncResult.toBusy))
 
-    API.getProfile(~username, ())->then(data =>
+    API.getProfile(~username, ())
+    ->then(data =>
       guard(() =>
         setData(_prev =>
           switch data {
@@ -552,7 +553,8 @@ let useProfile: (~username: string) => AsyncResult.t<Shape.Author.t, AppError.t>
           }
         )
       ) |> resolve
-    ) |> ignore
+    )
+    ->ignore
 
     None
   }, (username, setData))
