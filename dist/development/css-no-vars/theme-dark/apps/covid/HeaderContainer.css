@@ -1,0 +1,98 @@
+.covid-header-container .covid-numberbox {
+  margin-right: 20px;
+  width: 150px;
+}
+.covid-header-container .covid-numberbox .covid-numberbox-title {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  margin: 10px 10px 0 0;
+  padding: 5px 0 5px 10px;
+  position: relative;
+  text-align: left;
+  text-shadow: 1px 1px 1px #000, 1px 1px 1px #fff;
+}
+.covid-header-container .covid-numberbox .covid-numberbox-title:after {
+  bottom: 10px;
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: 0;
+  width: 10px;
+}
+.covid-header-container .covid-numberbox .covid-numberbox-title:before {
+  border-style: solid;
+  border-width: 5px;
+  bottom: 0;
+  content: "";
+  height: 0;
+  position: absolute;
+  right: -10px;
+  width: 0;
+}
+.covid-header-container .covid-numberbox .covid-numberbox-title.active {
+  background-color: rgba(100, 181, 246, 0.5);
+  border-left: 5px solid #64b5f6;
+}
+.covid-header-container .covid-numberbox .covid-numberbox-title.active:after {
+  background-color: rgba(100, 181, 246, 0.5);
+}
+.covid-header-container .covid-numberbox .covid-numberbox-title.active:before {
+  border-bottom: 5px solid rgba(100, 181, 246, 0.5);
+  border-right: 5px solid rgba(100, 181, 246, 0.5);
+  border-color: rgba(100, 181, 246, 0.5) transparent transparent rgba(100, 181, 246, 0.5);
+}
+.covid-header-container .covid-numberbox .covid-numberbox-title.cases {
+  background-color: rgba(187, 187, 187, 0.5);
+  border-left: 5px solid #bbbbbb;
+}
+.covid-header-container .covid-numberbox .covid-numberbox-title.cases:after {
+  background-color: rgba(187, 187, 187, 0.5);
+}
+.covid-header-container .covid-numberbox .covid-numberbox-title.cases:before {
+  border-bottom: 5px solid rgba(187, 187, 187, 0.5);
+  border-right: 5px solid rgba(187, 187, 187, 0.5);
+  border-color: rgba(187, 187, 187, 0.5) transparent transparent rgba(187, 187, 187, 0.5);
+}
+.covid-header-container .covid-numberbox .covid-numberbox-title.deaths {
+  background-color: rgba(251, 103, 103, 0.5);
+  border-left: 5px solid #fb6767;
+}
+.covid-header-container .covid-numberbox .covid-numberbox-title.deaths:after {
+  background-color: rgba(251, 103, 103, 0.5);
+}
+.covid-header-container .covid-numberbox .covid-numberbox-title.deaths:before {
+  border-bottom: 5px solid rgba(251, 103, 103, 0.5);
+  border-right: 5px solid rgba(251, 103, 103, 0.5);
+  border-color: rgba(251, 103, 103, 0.5) transparent transparent rgba(251, 103, 103, 0.5);
+}
+.covid-header-container .covid-numberbox .covid-numberbox-title.recovered {
+  background-color: rgba(40, 218, 111, 0.5);
+  border-left: 5px solid #28da6f;
+}
+.covid-header-container .covid-numberbox .covid-numberbox-title.recovered:after {
+  background-color: rgba(40, 218, 111, 0.5);
+}
+.covid-header-container .covid-numberbox .covid-numberbox-title.recovered:before {
+  border-bottom: 5px solid rgba(40, 218, 111, 0.5);
+  border-right: 5px solid rgba(40, 218, 111, 0.5);
+  border-color: rgba(40, 218, 111, 0.5) transparent transparent rgba(40, 218, 111, 0.5);
+}
+.covid-header-container .covid-numberbox .covid-numberbox-number {
+  font-size: 20px;
+  margin: 5px 0;
+}
+.covid-header-container .covid-numberbox .covid-numberbox-number.active {
+  color: #64b5f6;
+}
+.covid-header-container .covid-numberbox .covid-numberbox-number.cases {
+  color: #bbb;
+}
+.covid-header-container .covid-numberbox .covid-numberbox-number.deaths {
+  color: #fb6767;
+}
+.covid-header-container .covid-numberbox .covid-numberbox-number.recovered {
+  color: #28ca68;
+}
+/*# sourceMappingURL=HeaderContainer.css.map */

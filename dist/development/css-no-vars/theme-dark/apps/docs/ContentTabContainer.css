@@ -1,0 +1,19 @@
+@charset "UTF-8";
+.docs-content-tabcontainer {
+  overflow: hidden;
+}
+.docs-content-tabcontainer .docs-tab-header-toolbar .neo-button-glyph {
+  pointer-events: all;
+  margin: 0 4px 0 0 !important;
+  width: 16px;
+}
+.docs-content-tabcontainer .docs-tab-header-toolbar .neo-button-glyph:hover {
+  cursor: pointer;
+}
+.docs-content-tabcontainer .docs-tab-header-toolbar .neo-button-glyph:hover::before {
+  content: "" !important;
+}
+.docs-content-tabcontainer .neo-docs-tab-content-container {
+  border: 0;
+}
+/*# sourceMappingURL=ContentTabContainer.css.map */

@@ -1,0 +1,71 @@
+.neo-animate-dialog {
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #1c60a0;
+  position: fixed;
+  z-index: 1000;
+  transition-duration: 250ms;
+  transition-property: height, left, top, transform, width;
+  transition-timing-function: ease-out;
+}
+.neo-animate-dialog.neo-hide {
+  transform: none !important;
+  transition-property: height, left, top, width;
+}
+
+.neo-dialog-wrapper {
+  display: flex;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition-duration: 200ms;
+  transition-property: height, left, top, transform, width;
+  transition-timing-function: ease-out;
+}
+.neo-dialog-wrapper.neo-maximized {
+  height: 98% !important;
+  left: 1% !important;
+  top: 1% !important;
+  transform: none;
+  width: 98% !important;
+}
+.neo-dialog-wrapper.neo-maximized.neo-panel .neo-header-toolbar.neo-draggable {
+  cursor: default;
+}
+
+.neo-dialog {
+  border: 1px solid #ddd;
+  flex: 1 0 auto;
+  position: relative;
+}
+.neo-dialog.neo-panel .neo-header-toolbar {
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+.neo-dialog.neo-panel .neo-header-toolbar.neo-draggable {
+  cursor: move;
+}
+.neo-dialog.neo-panel .neo-header-toolbar .neo-button {
+  border: 0;
+  margin-right: 0.3em;
+  padding: 0;
+}
+.neo-dialog.neo-panel .neo-header-toolbar .neo-button:last-child {
+  margin-right: 0;
+}
+.neo-dialog.neo-panel .neo-header-toolbar .neo-button-glyph {
+  color: #1c60a0;
+  font-size: 1.8em;
+}
+.neo-dialog.neo-panel .neo-header-toolbar .neo-panel-header-text {
+  color: #1c60a0;
+  pointer-events: none;
+  user-drag: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-user-drag: none;
+}
+/*# sourceMappingURL=Base.css.map */

@@ -1,0 +1,16 @@
+@charset "UTF-8";
+.neo-searchfield::before {
+  color: var(--searchfield-glyph-color);
+  content: "";
+  display: inline-block;
+  font-family: "Font Awesome 5 Free";
+  font-size: 14px;
+  font-weight: 900;
+  padding: 7px;
+  position: absolute;
+  width: 25px;
+}
+.neo-searchfield.neo-textfield .neo-textfield-input {
+  padding-left: 25px;
+}
+/*# sourceMappingURL=Search.css.map */

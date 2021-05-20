@@ -1,0 +1,17 @@
+.neo-trigger-clipboard {
+  border-left-color: var(--textfield-border-color);
+  overflow: hidden;
+  transition: 250ms width cubic-bezier(0.4, 0, 0.2, 1);
+}
+.neo-trigger-clipboard.neo-align-start {
+  border-left: 0;
+  border-right: 1px solid var(--textfield-border-color);
+}
+.neo-trigger-clipboard.neo-align-start.neo-is-hidden {
+  border-right-color: transparent;
+}
+.neo-trigger-clipboard.neo-is-hidden {
+  border-left-color: transparent;
+  width: 0;
+}
+/*# sourceMappingURL=CopyToClipboard.css.map */

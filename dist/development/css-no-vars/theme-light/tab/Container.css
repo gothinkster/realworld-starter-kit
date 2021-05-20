@@ -1,0 +1,25 @@
+.neo-tab-container {
+  overflow: hidden;
+}
+.neo-tab-container.neo-bottom > .neo-tab-content-container {
+  border-bottom: 0;
+}
+.neo-tab-container.neo-left > .neo-tab-content-container {
+  border-left: 0;
+}
+.neo-tab-container.neo-right > .neo-tab-content-container {
+  border-right: 0;
+}
+.neo-tab-container.neo-top > .neo-tab-content-container {
+  border-top: 0;
+}
+
+.neo-tab-content-container {
+  border: 1px solid #ddd;
+}
+
+.neo-tab-header-toolbar {
+  background-color: transparent;
+  padding: 0;
+}
+/*# sourceMappingURL=Container.css.map */

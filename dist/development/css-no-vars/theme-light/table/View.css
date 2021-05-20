@@ -1,0 +1,50 @@
+.neo-table-view .neo-center {
+  text-align: center;
+}
+.neo-table-view .neo-right {
+  text-align: right;
+}
+.neo-table-view .neo-table-row:hover .neo-table-cell {
+  background-color: #e9e9ec;
+}
+.neo-table-view .neo-table-row.neo-selected .neo-table-cell {
+  background-color: #cee8fc;
+  color: #2b2b2b;
+}
+.neo-table-view .neo-table-row .neo-table-cell.neo-selected {
+  background-color: #cee8fc !important;
+  color: #2b2b2b !important;
+}
+.neo-table-view .neo-table-row .neo-table-cell.selected-column-cell {
+  background-color: #edeef5;
+  color: #2b2b2b;
+}
+
+.neo-selection-cellrowmodel .neo-table-row.neo-selected .neo-table-cell,
+.neo-selection-cellcolumnrowmodel .neo-table-row.neo-selected .neo-table-cell {
+  background-color: #edeef5;
+  color: #2b2b2b;
+}
+.neo-selection-cellrowmodel .neo-table-row .neo-table-cell.neo-selected,
+.neo-selection-cellcolumnrowmodel .neo-table-row .neo-table-cell.neo-selected {
+  background-color: #cee8fc;
+  color: #2b2b2b;
+}
+
+.neo-selection-cellcolumnmodel .neo-table-row:focus,
+.neo-selection-cellcolumnrowmodel .neo-table-row:focus,
+.neo-selection-cellmodel .neo-table-row:focus,
+.neo-selection-columnmodel .neo-table-row:focus,
+.neo-selection-cellrowmodel .neo-table-row:focus,
+.neo-selection-rowmodel .neo-table-row:focus {
+  outline: 0;
+}
+.neo-selection-cellcolumnmodel .neo-table-row .neo-table-cell:focus,
+.neo-selection-cellcolumnrowmodel .neo-table-row .neo-table-cell:focus,
+.neo-selection-cellmodel .neo-table-row .neo-table-cell:focus,
+.neo-selection-columnmodel .neo-table-row .neo-table-cell:focus,
+.neo-selection-cellrowmodel .neo-table-row .neo-table-cell:focus,
+.neo-selection-rowmodel .neo-table-row .neo-table-cell:focus {
+  outline: 0;
+}
+/*# sourceMappingURL=View.css.map */

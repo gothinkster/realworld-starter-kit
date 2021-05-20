@@ -1,0 +1,18 @@
+.neo-calendar-maincontainer .neo-calendar-header-toolbar {
+  border-bottom: 1px solid #ddd;
+}
+.neo-calendar-maincontainer .neo-calendar-header-toolbar.neo-left {
+  padding-right: 0;
+}
+.neo-calendar-maincontainer .neo-calendar-sidebar {
+  border-right: 1px solid #ddd;
+  transition: margin-left 350ms ease-out;
+}
+.neo-calendar-maincontainer .neo-dateselector .neo-dateselector-content {
+  border-right: 0;
+}
+.neo-calendar-maincontainer .neo-dateselector .neo-dateselector-header {
+  border-right: 0;
+  border-top: 0;
+}
+/*# sourceMappingURL=MainContainer.css.map */

@@ -1,0 +1,145 @@
+.neo-calendar-weekcomponent {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+.neo-calendar-weekcomponent.neo-timeaxis-end .neo-c-w-column {
+  border-left: 1px solid var(--c-w-border-color);
+  border-right: none;
+}
+.neo-calendar-weekcomponent.neo-timeaxis-end .neo-c-w-column:first-child {
+  border-left: 1px solid transparent;
+}
+.neo-calendar-weekcomponent.neo-timeaxis-end .neo-c-w-column:last-child {
+  border-right: none;
+}
+.neo-calendar-weekcomponent.neo-timeaxis-end .neo-header-row {
+  margin-left: unset;
+  margin-right: 50px;
+}
+.neo-calendar-weekcomponent.neo-timeaxis-end .neo-scroll-overlay {
+  left: unset;
+  right: 0;
+}
+.neo-calendar-weekcomponent .neo-c-w-scrollcontainer {
+  display: flex;
+  flex: 1 1 100%;
+  flex-direction: column;
+  overflow: auto;
+}
+.neo-calendar-weekcomponent .neo-c-w-column {
+  border-right: 1px solid var(--c-w-border-color);
+  display: flex;
+  flex: 1 0 calc(100% / 21);
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+.neo-calendar-weekcomponent .neo-c-w-column:last-child {
+  border-right: 1px solid transparent;
+}
+.neo-calendar-weekcomponent .neo-c-w-column.neo-weekend {
+  background-color: var(--c-w-weekend-background-color);
+}
+.neo-calendar-weekcomponent .neo-c-w-column-timeaxis-container {
+  align-items: stretch;
+  display: flex;
+  flex: 1 0 100%;
+  min-width: calc(300% - 100px);
+}
+.neo-calendar-weekcomponent .neo-c-w-column-container {
+  align-items: stretch;
+  display: flex;
+  flex: 1 1 100%;
+}
+.neo-calendar-weekcomponent .neo-event {
+  background-color: rgba(255, 0, 0, 0.1);
+  border-left: 2px solid red;
+  border-right: 1px solid transparent;
+  cursor: pointer;
+  font-size: 0.8em;
+  padding: 0.2em 0.4em;
+  position: absolute;
+  transition-duration: 400ms;
+  transition-property: height, top, width;
+  transition-timing-function: ease-out;
+}
+.neo-calendar-weekcomponent .neo-event:focus {
+  background-color: rgba(255, 0, 0, 0.6);
+  outline: 0;
+}
+.neo-calendar-weekcomponent .neo-event:focus .neo-event-time {
+  color: #fff;
+}
+.neo-calendar-weekcomponent .neo-event:focus .neo-event-title {
+  color: #fff;
+}
+.neo-calendar-weekcomponent .neo-event-time,
+.neo-calendar-weekcomponent .neo-event-title {
+  color: red;
+  pointer-events: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.neo-calendar-weekcomponent .neo-event-title {
+  font-weight: bold;
+}
+.neo-calendar-weekcomponent .neo-header-row-item {
+  align-items: center;
+  background-color: var(--c-w-header-background-color);
+  border-bottom: 1px solid var(--c-w-border-color);
+  cursor: pointer;
+  display: flex;
+  flex: 1 0 calc(100% / 7);
+  flex-direction: column;
+  height: 4.7em;
+  justify-content: center;
+  padding-bottom: 0.3125em;
+  padding-top: 0.625em;
+}
+.neo-calendar-weekcomponent .neo-header-row-item:hover .neo-date {
+  background-color: var(--c-w-header-date-background-color-hover);
+  color: var(--c-w-header-date-color-hover);
+}
+.neo-calendar-weekcomponent .neo-header-row-item .neo-date {
+  align-items: center;
+  border-radius: 50%;
+  color: var(--c-w-header-date-color);
+  display: flex;
+  font-size: 1.6em;
+  height: 1.62em;
+  justify-content: center;
+  transition: background-color 100ms ease-out;
+  width: 1.62em;
+}
+.neo-calendar-weekcomponent .neo-header-row-item .neo-date.neo-today {
+  background-color: var(--c-w-header-today-background-color);
+  color: var(--c-w-header-today-color);
+}
+.neo-calendar-weekcomponent .neo-header-row-item .neo-day {
+  color: var(--c-w-header-day-color);
+  font-size: 0.7em;
+  margin-bottom: 0.3em;
+}
+.neo-calendar-weekcomponent .neo-header-row {
+  display: flex;
+  flex: none;
+  margin-left: 50px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.neo-calendar-weekcomponent .neo-scroll-overlay {
+  background-color: var(--c-w-header-background-color);
+  height: 4.4em;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 51px;
+  z-index: 500;
+}
+/*# sourceMappingURL=WeekComponent.css.map */

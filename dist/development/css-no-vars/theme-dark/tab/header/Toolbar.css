@@ -1,0 +1,44 @@
+.neo-tab-header-toolbar {
+  background-color: transparent;
+  padding: 0;
+}
+.neo-tab-header-toolbar.neo-dock-bottom .neo-tab-header-button.pressed {
+  background-image: !important;
+}
+.neo-tab-header-toolbar.neo-dock-bottom .neo-tab-button-indicator {
+  bottom: unset;
+  height: 4px;
+  top: calc(4px * -1);
+  width: 100%;
+}
+.neo-tab-header-toolbar.neo-dock-left .neo-tab-header-button {
+  height: unset;
+  width: 25px;
+}
+.neo-tab-header-toolbar.neo-dock-left .neo-tab-header-button.pressed {
+  background-image: !important;
+}
+.neo-tab-header-toolbar.neo-dock-left .neo-tab-button-indicator {
+  bottom: unset;
+  height: 100%;
+  right: calc(4px * -1);
+  width: 4px;
+}
+.neo-tab-header-toolbar.neo-dock-right .neo-tab-header-button {
+  height: unset;
+  width: 25px;
+}
+.neo-tab-header-toolbar.neo-dock-right .neo-tab-header-button.pressed {
+  background-image: !important;
+}
+.neo-tab-header-toolbar.neo-dock-right .neo-tab-button-indicator {
+  bottom: unset;
+  height: 100%;
+  left: calc(4px * -1);
+  width: 4px;
+}
+.neo-tab-header-toolbar.neo-no-animation .neo-tab-button-indicator {
+  -webkit-animation-duration: 0ms !important;
+          animation-duration: 0ms !important;
+}
+/*# sourceMappingURL=Toolbar.css.map */

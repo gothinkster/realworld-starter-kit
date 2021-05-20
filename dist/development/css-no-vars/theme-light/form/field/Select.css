@@ -1,0 +1,36 @@
+.neo-selectfield .neo-input-field-wrapper {
+  flex: 1 1 30px;
+  position: relative;
+}
+.neo-selectfield .neo-input-field-wrapper .neo-textfield-input, .neo-selectfield .neo-input-field-wrapper .neo-typeahead-input {
+  height: 100% !important;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100% !important;
+}
+.neo-selectfield .neo-input-field-wrapper .neo-textfield-input {
+  background-color: transparent;
+}
+.neo-selectfield .neo-input-field-wrapper .neo-typeahead-input {
+  border-color: transparent;
+  color: #333;
+  min-height: 25px;
+  opacity: 0.6;
+}
+.neo-selectfield .neo-list {
+  text-align: left;
+}
+.neo-selectfield .neo-list .neo-highlight-search {
+  background-color: inherit;
+  color: red !important;
+}
+.neo-selectfield .neo-list .neo-selected .neo-highlight-search {
+  color: red !important;
+}
+.neo-selectfield .neo-picker-container {
+  border: 1px solid #1c60a0;
+  border-radius: 3px;
+  font-weight: 400;
+}
+/*# sourceMappingURL=Select.css.map */

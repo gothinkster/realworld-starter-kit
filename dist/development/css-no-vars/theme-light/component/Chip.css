@@ -1,0 +1,35 @@
+.neo-chip {
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  flex-direction: row;
+  height: 30px;
+  justify-content: center;
+  transition: border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.neo-chip:focus {
+  border-color: #1c60a0;
+  outline: 0;
+}
+.neo-chip .neo-chip-close-button {
+  color: #ddd;
+  cursor: pointer;
+  margin: 0 calc(15px / 2);
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.neo-chip .neo-chip-close-button:hover {
+  color: #1c60a0;
+}
+.neo-chip .neo-chip-glyph {
+  color: #1c60a0;
+  margin: 0 calc(15px / 2);
+  pointer-events: none;
+}
+.neo-chip .neo-chip-text {
+  color: #000;
+  flex: 1;
+  font-size: 12px;
+  pointer-events: none;
+  text-align: left;
+}
+/*# sourceMappingURL=Chip.css.map */

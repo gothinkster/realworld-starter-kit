@@ -1,0 +1,52 @@
+@-webkit-keyframes delaybgcolor {
+  0% {
+    background-color: transparent;
+  }
+  99% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: #5d83a7;
+  }
+}
+@keyframes delaybgcolor {
+  0% {
+    background-color: transparent;
+  }
+  99% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: #5d83a7;
+  }
+}
+.neo-tab-header-button {
+  border-width: 0;
+  height: 25px;
+  margin: 0;
+  padding: 7px 12px 6px 12px;
+}
+.neo-tab-header-button:hover {
+  background-image: none;
+}
+.neo-tab-header-button.pressed {
+  background-image: !important;
+  cursor: default;
+}
+.neo-tab-header-button.pressed .neo-tab-button-indicator {
+  -webkit-animation-duration: 260ms;
+          animation-duration: 260ms;
+  -webkit-animation-name: delaybgcolor;
+          animation-name: delaybgcolor;
+  background-color: #5d83a7;
+}
+.neo-tab-header-button .neo-tab-button-indicator {
+  background-color: transparent;
+  bottom: calc(4px * -1);
+  height: 4px;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+/*# sourceMappingURL=Button.css.map */

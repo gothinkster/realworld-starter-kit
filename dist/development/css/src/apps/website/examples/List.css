@@ -1,0 +1,133 @@
+.website-examples-list.neo-list-container.neo-list {
+  transition: padding var(--website-transition-duration) ease-out;
+}
+.website-examples-list.neo-list-container.neo-list .neo-list-item {
+  cursor: default;
+  display: flex;
+  max-width: 800px;
+  overflow: hidden;
+  padding: 0;
+  transition: height var(--website-transition-duration) ease-out, margin-bottom var(--website-transition-duration) ease-out;
+  white-space: normal;
+  width: 100%;
+}
+.website-examples-list.neo-list-container.neo-list .neo-list-item .content {
+  flex: 1;
+}
+.website-examples-list.neo-list-container.neo-list .neo-list-item .neo-absolute {
+  position: absolute;
+}
+.website-examples-list.neo-list-container.neo-list .neo-list-item .neo-full-size {
+  height: 100%;
+  width: 100%;
+}
+.website-examples-list.neo-list-container.neo-list .neo-list-item .neo-github-image {
+  color: #ddd;
+  text-decoration: none;
+  transition-duration: var(--website-transition-duration);
+  transition-property: font-size, height, width;
+  transition-timing-function: ease-out;
+}
+.website-examples-list.neo-list-container.neo-list .neo-list-item .neo-inner-content {
+  color: #fff;
+  display: inline-block;
+  margin-left: 10px;
+  text-shadow: 1px 1px 1px #000, 1px 1px 1px #fff;
+  transition: font-size var(--website-transition-duration) ease-out;
+}
+.website-examples-list.neo-list-container.neo-list .neo-list-item .neo-inner-details {
+  transition: line-height var(--website-transition-duration) ease-out;
+}
+.website-examples-list.neo-list-container.neo-list .neo-list-item .neo-item-bottom-position {
+  bottom: 0;
+  left: 0;
+  transition: margin var(--website-transition-duration) ease-out;
+}
+.website-examples-list.neo-list-container.neo-list .neo-list-item .neo-relative {
+  position: relative;
+}
+.website-examples-list.neo-list-container.neo-list .neo-list-item .neo-title {
+  color: #fff;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px #000, 1px 1px 1px #fff;
+  transition: color 250ms ease-out;
+}
+.website-examples-list.neo-list-container.neo-list .neo-list-item .neo-title:hover {
+  color: #5d83a7;
+}
+.website-examples-list.neo-list-container.neo-list .neo-list-item .neo-top-20 {
+  align-items: center;
+  display: flex;
+  transition: margin var(--website-transition-duration) ease-out;
+}
+.website-examples-list.neo-list-container.neo-list .neo-list-item .preview-image {
+  background-blend-mode: overlay;
+  background-size: cover;
+  height: 100%;
+}
+@media (max-height: 400px), (max-width: 600px) {
+  .website-examples-list.neo-list-container.neo-list {
+    padding: 5px 5px 0 5px;
+  }
+  .website-examples-list.neo-list-container.neo-list .neo-github-image {
+    font-size: 30px;
+    height: 30px;
+    width: 30px;
+  }
+  .website-examples-list.neo-list-container.neo-list .neo-inner-content {
+    font-size: 12px;
+  }
+  .website-examples-list.neo-list-container.neo-list .neo-inner-details {
+    line-height: 16px;
+  }
+  .website-examples-list.neo-list-container.neo-list .neo-item-bottom-position {
+    margin: 9px 12px;
+    right: 15%;
+  }
+  .website-examples-list.neo-list-container.neo-list .neo-list-item {
+    border-radius: 10px;
+    height: 200px;
+    margin-bottom: 5px;
+  }
+  .website-examples-list.neo-list-container.neo-list .neo-title {
+    font-size: 20px;
+  }
+  .website-examples-list.neo-list-container.neo-list .neo-top-20 {
+    margin-top: 10px;
+  }
+}
+@media (min-height: 401px) and (min-width: 601px) {
+  .website-examples-list.neo-list-container.neo-list {
+    padding: 10px 10px 0 10px;
+  }
+  .website-examples-list.neo-list-container.neo-list .neo-github-image {
+    font-size: 44px;
+    height: 44px;
+    width: 44px;
+  }
+  .website-examples-list.neo-list-container.neo-list .neo-inner-content {
+    font-size: 16px;
+  }
+  .website-examples-list.neo-list-container.neo-list .neo-inner-details {
+    font-size: 16px;
+    line-height: 22px;
+  }
+  .website-examples-list.neo-list-container.neo-list .neo-item-bottom-position {
+    margin: 30px 40px;
+    right: 30%;
+  }
+  .website-examples-list.neo-list-container.neo-list .neo-list-item {
+    border-radius: 20px;
+    height: 400px;
+    margin-bottom: 10px;
+  }
+  .website-examples-list.neo-list-container.neo-list .neo-title {
+    font-size: 34px;
+  }
+  .website-examples-list.neo-list-container.neo-list .neo-top-20 {
+    margin-top: 20px;
+  }
+}
+/*# sourceMappingURL=List.css.map */

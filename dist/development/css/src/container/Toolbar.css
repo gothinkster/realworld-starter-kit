@@ -1,0 +1,61 @@
+.neo-toolbar {
+  background-color: var(--toolbar-background-color);
+  box-sizing: border-box;
+  padding: var(--toolbar-padding);
+}
+.neo-toolbar .neo-button {
+  margin: 0;
+}
+.neo-toolbar.neo-dock-left .neo-button {
+  padding: 12px 6px;
+}
+.neo-toolbar.neo-dock-left .neo-button.icon-left {
+  flex-direction: column-reverse;
+}
+.neo-toolbar.neo-dock-left .neo-button.icon-left .neo-button-glyph {
+  margin: 10px 0 0 0;
+}
+.neo-toolbar.neo-dock-left .neo-button-glyph {
+  transform: rotate(-90deg);
+}
+.neo-toolbar.neo-dock-left .neo-button-text {
+  transform: rotate(180deg);
+  -ms-writing-mode: tb-rl;
+      writing-mode: vertical-rl;
+}
+.neo-toolbar.neo-dock-left .neo-label {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  transform: rotate(180deg);
+  -ms-writing-mode: tb-rl;
+      writing-mode: vertical-rl;
+}
+.neo-toolbar.neo-dock-right .neo-button {
+  padding: 12px 6px;
+}
+.neo-toolbar.neo-dock-right .neo-button.icon-left {
+  flex-direction: column;
+}
+.neo-toolbar.neo-dock-right .neo-button.icon-left .neo-button-glyph {
+  margin: 0 0 10px 0;
+}
+.neo-toolbar.neo-dock-right .neo-button-glyph {
+  transform: rotate(90deg);
+}
+.neo-toolbar.neo-dock-right .neo-button-text {
+  -ms-writing-mode: tb-lr;
+      writing-mode: vertical-lr;
+}
+.neo-toolbar.neo-dock-right .neo-label {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  -ms-writing-mode: tb-lr;
+      writing-mode: vertical-lr;
+}
+.neo-toolbar.neo-dock-bottom .neo-button.icon-left .neo-button-glyph, .neo-toolbar.neo-dock-top .neo-button.icon-left .neo-button-glyph {
+  margin: 0 6px 0 0;
+}
+.neo-toolbar.neo-dock-bottom .neo-label, .neo-toolbar.neo-dock-top .neo-label {
+  margin: 0 10px 0 5px;
+}
+/*# sourceMappingURL=Toolbar.css.map */

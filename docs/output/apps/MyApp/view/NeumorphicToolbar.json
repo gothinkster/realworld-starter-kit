@@ -1,0 +1,75 @@
+{
+    "classData": [
+        {
+            "comment": "/**\n * @class MyApp.view.NeumorphicToolbar\n * @extends Neo.container.Toolbar\n */",
+            "meta": {
+                "filename": "NeumorphicToolbar.mjs",
+                "lineno": 3,
+                "columnno": 0,
+                "path": "/Users/Shared/github/neomjs/theming-demo/apps/myapp/view",
+                "code": {}
+            },
+            "kind": "class",
+            "name": "NeumorphicToolbar",
+            "augments": [
+                "Neo.container.Toolbar"
+            ],
+            "memberof": "MyApp.view",
+            "longname": "MyApp.view.NeumorphicToolbar",
+            "scope": "static",
+            "$longname": "MyApp.view.NeumorphicToolbar",
+            "$kind": "class",
+            "id": 3222,
+            "neoClassName": "MyApp.view.NeumorphicToolbar"
+        },
+        {
+            "comment": "/**\n         * @member {String} className='MyApp.view.NeumorphicToolbar'\n         * @protected\n         */",
+            "meta": {
+                "filename": "NeumorphicToolbar.mjs",
+                "lineno": 13,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/theming-demo/apps/myapp/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "className",
+            "type": {
+                "names": [
+                    "String"
+                ]
+            },
+            "defaultvalue": "'MyApp.view.NeumorphicToolbar'",
+            "access": "protected",
+            "longname": "className",
+            "scope": "global",
+            "$longname": "className",
+            "$kind": "property",
+            "id": 3223,
+            "neoClassName": "MyApp.view.NeumorphicToolbar"
+        },
+        {
+            "comment": "/**\n         * @member {String[]} cls=['neumorphic','neo-toolbar']\n         */",
+            "meta": {
+                "filename": "NeumorphicToolbar.mjs",
+                "lineno": 17,
+                "columnno": 8,
+                "path": "/Users/Shared/github/neomjs/theming-demo/apps/myapp/view",
+                "code": {}
+            },
+            "kind": "member",
+            "name": "cls",
+            "type": {
+                "names": [
+                    "Array.<String>"
+                ]
+            },
+            "defaultvalue": "['neumorphic','neo-toolbar']",
+            "longname": "cls",
+            "scope": "global",
+            "$longname": "cls",
+            "$kind": "property",
+            "id": 3224,
+            "neoClassName": "MyApp.view.NeumorphicToolbar"
+        }
+    ]
+}

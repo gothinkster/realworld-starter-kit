@@ -2,16 +2,16 @@ import Component from '../../../node_modules/neo.mjs/src/controller/Component.mj
 import NeoArray  from '../../../node_modules/neo.mjs/src/util/Array.mjs';
 
 /**
- * @class Docs.app.view.MainContainerController
+ * @class Docs.view.MainContainerController
  * @extends Neo.controller.Component
  */
 class MainContainerController extends Component {
     static getConfig() {return {
         /**
-         * @member {String} className='Docs.app.view.MainContainerController'
+         * @member {String} className='Docs.view.MainContainerController'
          * @protected
          */
-        className: 'Docs.app.view.MainContainerController',
+        className: 'Docs.view.MainContainerController',
         /**
          * @member {String} ntype='docs-maincontainer-controller'
          * @protected
@@ -177,16 +177,14 @@ class MainContainerController extends Component {
     onSwitchThemeButtonClick() {
         let me     = this,
             button = me.getReference('theme-button'),
-            view   = me.view,
-            buttonText, cls, href, theme;
+            view   = me.component,
+            buttonText, cls, theme;
 
         if (button.text === 'Theme Light') {
             buttonText = 'Theme Dark';
-            href       = '../dist/development/neo-theme-light-no-css-vars.css';
             theme      = 'neo-theme-light';
         } else {
             buttonText = 'Theme Light';
-            href       = '../dist/development/neo-theme-dark-no-css-vars.css';
             theme      = 'neo-theme-dark';
         }
 
@@ -203,13 +201,6 @@ class MainContainerController extends Component {
             view.cls = cls;
 
             button.text = buttonText;
-        } else {
-            Neo.main.addon.Stylesheet.swapStyleSheet({
-                href: href,
-                id  : 'neo-theme'
-            }).then(data => {
-                button.text = buttonText;
-            });
         }
     }
 
