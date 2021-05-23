@@ -4,7 +4,7 @@ let make = (
   ~setUser: (AsyncData.t<option<Shape.User.t>> => AsyncData.t<option<Shape.User.t>>) => unit,
 ) => {
   let (result, setResult) = React.useState(() => AsyncData.complete((user, "", None)))
-  let isBusy = result |> AsyncData.isBusy
+  let isBusy = result->AsyncData.isBusy
   let (form, password, error) =
     result->AsyncData.getValue->Belt.Option.getWithDefault((user, "", None))
 
@@ -12,7 +12,7 @@ let make = (
     <div className="container page">
       <div className="row">
         <div className="col-md-6 offset-md-3 col-xs-12">
-          <h1 className="text-xs-center"> {"Your Settings" |> React.string} </h1>
+          <h1 className="text-xs-center"> {"Your Settings"->React.string} </h1>
           {switch error {
           | None => React.null
           | Some(error: Shape.Settings.t) =>
@@ -121,8 +121,8 @@ let make = (
                 className="btn btn-lg btn-primary pull-xs-right"
                 disabled=isBusy
                 onClick={event => {
-                  event |> ReactEvent.Mouse.preventDefault
-                  event |> ReactEvent.Mouse.stopPropagation
+                  event->ReactEvent.Mouse.preventDefault
+                  event->ReactEvent.Mouse.stopPropagation
                   result
                   ->AsyncData.tapComplete(((user, password, _error)) => {
                     setResult(AsyncData.toBusy)
@@ -172,7 +172,7 @@ let make = (
                   })
                   ->ignore
                 }}>
-                {"Update Settings" |> React.string}
+                {"Update Settings"->React.string}
               </button>
             </fieldset>
           </form>
@@ -181,17 +181,17 @@ let make = (
             className="btn btn-outline-danger"
             disabled=isBusy
             onClick={event => {
-              event |> ReactEvent.Mouse.preventDefault
-              event |> ReactEvent.Mouse.stopPropagation
+              event->ReactEvent.Mouse.preventDefault
+              event->ReactEvent.Mouse.stopPropagation
               if isBusy {
                 ignore()
               } else {
                 setUser(_prev => AsyncData.complete(None))
                 Utils.deleteCookie("jwtToken")
-                Link.home |> Link.push
+                Link.home->Link.push
               }
             }}>
-            {"Or click here to logout." |> React.string}
+            {"Or click here to logout."->React.string}
           </button>
         </div>
       </div>

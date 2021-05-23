@@ -51,7 +51,7 @@ let setCookie: (string, option<string>) => unit = (key, value) => {
   let expires = Js.Date.make()
   let _ = Js.Date.setTime(expires, Js.Date.getTime(expires) +. monthInMs)
 
-  setCookieRaw(~key, ~value?, ~expires=expires |> Js.Date.toUTCString, ~path="/", ())
+  setCookieRaw(~key, ~value?, ~expires=expires->Js.Date.toUTCString, ~path="/", ())
 }
 
 let deleteCookie: string => unit = key =>

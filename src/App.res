@@ -7,7 +7,7 @@ let authenticated: (Shape.User.t => React.element, option<Shape.User.t>) => Reac
   switch user {
   | Some(s) => getPage(s)
   | None =>
-    Link.home |> Link.push
+    Link.home->Link.push
     React.null
   }
 

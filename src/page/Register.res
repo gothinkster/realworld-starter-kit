@@ -11,18 +11,16 @@ let empty = ({username: "", email: "", password: ""}, None)
 @react.component
 let make = (~setUser) => {
   let (data, setData) = React.useState(() => AsyncData.complete(empty))
-  let isBusy = data |> AsyncData.isBusy
+  let isBusy = data->AsyncData.isBusy
   let (form, error) = data->AsyncData.getValue->Option.getWithDefault(empty)
 
   <div className="auth-page">
     <div className="container page">
       <div className="row">
         <div className="col-md-6 offset-md-3 col-xs-12">
-          <h1 className="text-xs-center"> {"Sign up" |> React.string} </h1>
+          <h1 className="text-xs-center"> {"Sign up"->React.string} </h1>
           <p className="text-xs-center">
-            <Link onClick={Link.login |> Link.location}>
-              {"Have an account?" |> React.string}
-            </Link>
+            <Link onClick={Link.login->Link.location}> {"Have an account?"->React.string} </Link>
           </p>
           {switch error {
           | Some(detail: Shape.Register.t) =>
@@ -83,8 +81,8 @@ let make = (~setUser) => {
               className="btn btn-lg btn-primary pull-xs-right"
               disabled=isBusy
               onClick={event => {
-                event |> ReactEvent.Mouse.preventDefault
-                event |> ReactEvent.Mouse.stopPropagation
+                event->ReactEvent.Mouse.preventDefault
+                event->ReactEvent.Mouse.stopPropagation
 
                 if isBusy {
                   ignore()
@@ -102,7 +100,7 @@ let make = (~setUser) => {
                       setUser(_prev => Some(user)->AsyncData.complete)
                       setData(AsyncData.toIdle)
                       Utils.setCookie("jwtToken", Some(user.token))
-                      Link.home |> Link.push
+                      Link.home->Link.push
                     | Error(AppError.Fetch((_code, _message, #json(json)))) =>
                       try {
                         let result =
@@ -131,7 +129,7 @@ let make = (~setUser) => {
                   ->ignore
                 }
               }}>
-              {"Sign up" |> React.string}
+              {"Sign up"->React.string}
             </button>
           </form>
         </div>

@@ -16,13 +16,14 @@ let useArticles = (~feedType: Shape.FeedType.t): (
   React.useEffect0(() => Some(() => didCancel.current = true))
 
   React.useEffect2(() => {
-    guard(() => setData(prev => prev |> AsyncResult.toBusy))
+    guard(() => setData(prev => prev->AsyncResult.toBusy))
 
     switch feedType {
     | Tag(tag, limit, offset) => API.listArticles(~limit, ~offset, ~tag=?Some(tag), ())
     | Global(limit, offset) => API.listArticles(~limit, ~offset, ())
     | Personal(limit, offset) => API.feedArticles(~limit, ~offset, ())
-    }->then(data =>
+    }
+    ->then(data =>
       guard(() =>
         setData(_prev =>
           switch data {
@@ -30,8 +31,9 @@ let useArticles = (~feedType: Shape.FeedType.t): (
           | Error(error) => AsyncResult.completeError(error)
           }
         )
-      ) |> resolve
-    ) |> ignore
+      )->resolve
+    )
+    ->ignore
 
     None
   }, (feedType, setData))
@@ -54,12 +56,13 @@ let useArticlesInProfile: (
   React.useEffect0(() => Some(() => didCancel.current = true))
 
   React.useEffect2(() => {
-    guard(() => setData(prev => prev |> AsyncResult.toBusy))
+    guard(() => setData(prev => prev->AsyncResult.toBusy))
 
     switch viewMode {
     | Author(author, limit, offset) => API.listArticles(~author, ~limit, ~offset, ())
     | Favorited(favorited, limit, offset) => API.listArticles(~favorited, ~limit, ~offset, ())
-    }->then(data =>
+    }
+    ->then(data =>
       guard(() =>
         setData(_prev =>
           switch data {
@@ -67,8 +70,9 @@ let useArticlesInProfile: (
           | Error(error) => AsyncResult.completeError(error)
           }
         )
-      ) |> resolve
-    ) |> ignore
+      )->resolve
+    )
+    ->ignore
 
     None
   }, (viewMode, setData))
@@ -88,16 +92,18 @@ let useTags: unit => AsyncResult.t<Shape.Tags.t, AppError.t> = () => {
       )
     )
 
-    API.tags()->then(data =>
+    API.tags()
+    ->then(data =>
       guard(() =>
         setData(_prev =>
           switch data {
-          | Ok(ok) => ok |> AsyncResult.completeOk
+          | Ok(ok) => ok->AsyncResult.completeOk
           | Error(error) => AsyncResult.completeError(error)
           }
         )
-      ) |> resolve
-    ) |> ignore
+      )->resolve
+    )
+    ->ignore
 
     Some(() => didCancel.current = true)
   })
@@ -114,20 +120,20 @@ let useCurrentUser: unit => (
   let guard = guardByDidCancel(didCancel)
 
   React.useEffect0(() => {
-    guard(() => setData(prev => prev |> AsyncData.toBusy))
+    guard(() => setData(prev => prev->AsyncData.toBusy))
 
     API.currentUser()
     ->then(data =>
       guard(() =>
         setData(_prev =>
           switch data {
-          | Ok(data') => Some(data') |> AsyncData.complete
-          | Error(_error) => None |> AsyncData.complete
+          | Ok(data') => Some(data')->AsyncData.complete
+          | Error(_error) => None->AsyncData.complete
           }
         )
-      ) |> resolve
+      )->resolve
     )
-    ->catch(_error => guard(() => setData(_prev => None |> AsyncData.complete)) |> resolve)
+    ->catch(_error => guard(() => setData(_prev => None->AsyncData.complete))->resolve)
     ->ignore
 
     Some(() => didCancel.current = true)
@@ -154,7 +160,8 @@ let useArticle = (~slug: string): (
   React.useEffect1(() => {
     guard(() => setData(AsyncResult.toBusy))
 
-    API.article(~action=Read(slug), ())->then(data =>
+    API.article(~action=Read(slug), ())
+    ->then(data =>
       guard(() =>
         setData(_prev =>
           switch data {
@@ -163,8 +170,9 @@ let useArticle = (~slug: string): (
           | Error(error) => AsyncResult.completeError(error)
           }
         )
-      ) |> resolve
-    ) |> ignore
+      )->resolve
+    )
+    ->ignore
 
     None
   }, [slug])
@@ -193,10 +201,11 @@ let useComments: (
   React.useEffect0(() => Some(() => didCancel.current = true))
 
   React.useEffect2(() => {
-    guard(() => setData(prev => prev |> AsyncResult.toBusy))
+    guard(() => setData(prev => prev->AsyncResult.toBusy))
     guard(() => setBusy(_prev => Belt.Set.Int.empty))
 
-    API.getComments(~slug, ())->then(data =>
+    API.getComments(~slug, ())
+    ->then(data =>
       guard(() =>
         setData(_prev =>
           switch data {
@@ -204,18 +213,19 @@ let useComments: (
           | Error(error) => AsyncResult.completeError(error)
           }
         )
-      ) |> resolve
-    ) |> ignore
+      )->resolve
+    )
+    ->ignore
 
     None
   }, (slug, setData))
 
   let deleteComment = (~slug, ~id) => {
-    setBusy(prev => prev |> Belt.Set.Int.add(_, id))
+    setBusy(prev => prev->Belt.Set.Int.add(_, id))
 
     API.deleteComment(~slug, ~id, ())
     ->then(resp => {
-      setBusy(prev => prev |> Belt.Set.Int.remove(_, id))
+      setBusy(prev => prev->Belt.Set.Int.remove(_, id))
 
       switch resp {
       | Ok((_slug, id)) =>
@@ -227,7 +237,7 @@ let useComments: (
       | Error(_error) => ignore()
       }
 
-      ignore() |> resolve
+      ignore()->resolve
     })
     ->ignore
   }
@@ -272,7 +282,7 @@ let useFollow: (
       )
       ->Belt.Option.getWithDefault(API.Action.Follow(username))
 
-    guard(() => setState(_prev => follow |> AsyncData.toBusy))
+    guard(() => setState(_prev => follow->AsyncData.toBusy))
 
     API.followUser(~action, ())
     ->then(data =>
@@ -283,9 +293,9 @@ let useFollow: (
           | Error(_error) => AsyncData.complete(("", false))
           }
         )
-      ) |> resolve
+      )->resolve
     )
-    ->catch(_error => guard(() => setState(_prev => AsyncData.complete(("", false)))) |> resolve)
+    ->catch(_error => guard(() => setState(_prev => AsyncData.complete(("", false))))->resolve)
     ->ignore
   }
 
@@ -332,7 +342,7 @@ let useFollowInProfile: (
       )
       ->Belt.Option.getWithDefault(API.Action.Follow(username))
 
-    guard(() => setState(_prev => follow |> AsyncData.toBusy))
+    guard(() => setState(_prev => follow->AsyncData.toBusy))
 
     API.followUser(~action, ())
     ->then(data =>
@@ -343,9 +353,9 @@ let useFollowInProfile: (
           | Error(_error) => AsyncData.complete(("", false))
           }
         )
-      ) |> resolve
+      )->resolve
     )
-    ->catch(_error => guard(() => setState(_prev => AsyncData.complete(("", false)))) |> resolve)
+    ->catch(_error => guard(() => setState(_prev => AsyncData.complete(("", false))))->resolve)
     ->ignore
   }
 
@@ -385,7 +395,7 @@ let useFavorite = (
 
     let action = favorited ? API.Action.Unfavorite(slug) : API.Action.Favorite(slug)
 
-    guard(() => setState(_prev => favorite |> AsyncData.toBusy))
+    guard(() => setState(_prev => favorite->AsyncData.toBusy))
 
     API.favoriteArticle(~action, ())
     ->then(data =>
@@ -397,9 +407,9 @@ let useFavorite = (
           | Error(_error) => AsyncData.complete((false, 0, ""))
           }
         )
-      ) |> resolve
+      )->resolve
     )
-    ->catch(_error => guard(() => setState(_prev => AsyncData.complete((false, 0, "")))) |> resolve)
+    ->catch(_error => guard(() => setState(_prev => AsyncData.complete((false, 0, ""))))->resolve)
     ->ignore
   }
 
@@ -435,9 +445,9 @@ let useDeleteArticle: (
     ->then(_data => {
       guard(() => setState(_prev => false))
       Link.push(Link.home)
-      ignore() |> resolve
+      ignore()->resolve
     })
-    ->catch(_error => guard(() => setState(_prev => false)) |> resolve)
+    ->catch(_error => guard(() => setState(_prev => false))->resolve)
     ->ignore
   }
 
@@ -480,12 +490,12 @@ let useToggleFavorite: (
     | Favorite(slug) | Unfavorite(slug) => slug
     }
 
-    guard(() => setBusy(prev => prev |> Belt.Set.String.add(_, slug)))
+    guard(() => setBusy(prev => prev->Belt.Set.String.add(_, slug)))
 
     API.favoriteArticle(~action, ())
     ->then(data => {
       guard(() => {
-        setBusy(prev => prev |> Belt.Set.String.remove(_, slug))
+        setBusy(prev => prev->Belt.Set.String.remove(_, slug))
 
         switch data {
         | Ok(_) =>
@@ -515,11 +525,11 @@ let useToggleFavorite: (
         }
       })
 
-      ignore() |> resolve
+      ignore()->resolve
     })
     ->catch(_error => {
-      guard(() => setBusy(prev => prev |> Belt.Set.String.remove(_, slug)))
-      ignore() |> resolve
+      guard(() => setBusy(prev => prev->Belt.Set.String.remove(_, slug)))
+      ignore()->resolve
     })
     ->ignore
   }
@@ -541,7 +551,7 @@ let useProfile: (~username: string) => AsyncResult.t<Shape.Author.t, AppError.t>
   React.useEffect0(() => Some(() => didCancel.current = true))
 
   React.useEffect2(() => {
-    guard(() => setData(prev => prev |> AsyncResult.toBusy))
+    guard(() => setData(prev => prev->AsyncResult.toBusy))
 
     API.getProfile(~username, ())
     ->then(data =>
@@ -552,7 +562,7 @@ let useProfile: (~username: string) => AsyncResult.t<Shape.Author.t, AppError.t>
           | Error(error) => AsyncResult.completeError(error)
           }
         )
-      ) |> resolve
+      )->resolve
     )
     ->ignore
 

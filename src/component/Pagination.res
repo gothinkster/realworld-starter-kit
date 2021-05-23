@@ -8,27 +8,27 @@ let make = (~limit: int, ~offset: int, ~total: int, ~onClick: int => unit) =>
     <WithTestId id="page-link">
       <ul className="pagination">
         {Belt.Array.range(0, pages)
-        |> Array.map(page => {
+        ->Js.Array2.map(page => {
           let className = if (offset == 0 && page == 0) || page == offset / limit {
             "page-item active"
           } else {
             "page-item"
           }
 
-          <li key={page |> string_of_int} className>
+          <li key={page->string_of_int} className>
             <a
               className="page-link"
               href={`#${page->Belt.Int.toString}`}
               onClick={event =>
                 if Utils.isMouseRightClick(event) {
-                  event |> ReactEvent.Mouse.preventDefault
+                  event->ReactEvent.Mouse.preventDefault
                   onClick(page * limit)
                 }}>
-              {string_of_int(page + 1) |> React.string}
+              {string_of_int(page + 1)->React.string}
             </a>
           </li>
         })
-        |> React.array}
+        ->React.array}
       </ul>
     </WithTestId>
   }

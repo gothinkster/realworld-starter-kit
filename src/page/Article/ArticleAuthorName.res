@@ -6,8 +6,8 @@ let make = (~article) =>
   ->AsyncResult.getOk
   ->Option.map((ok: Shape.Article.t) => ok.author)
   ->Option.map((author: Shape.Author.t) =>
-    <Link onClick={Link.profile(~username=author.username) |> Link.location} className="author">
-      {author.username |> React.string}
+    <Link onClick={Link.profile(~username=author.username)->Link.location} className="author">
+      {author.username->React.string}
     </Link>
   )
   ->Option.getWithDefault(React.null)

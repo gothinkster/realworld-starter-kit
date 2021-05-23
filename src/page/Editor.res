@@ -134,8 +134,8 @@ module Form = {
             type_="button"
             disabled=isBusy
             onClick={event => {
-              event |> ReactEvent.Mouse.preventDefault
-              event |> ReactEvent.Mouse.stopPropagation
+              event->ReactEvent.Mouse.preventDefault
+              event->ReactEvent.Mouse.stopPropagation
 
               if isBusy {
                 ignore()
@@ -152,7 +152,7 @@ module Form = {
                 }
               }
             }}>
-            {"Publish Article" |> React.string}
+            {"Publish Article"->React.string}
           </button>
         </fieldset>
       </form>
@@ -196,7 +196,7 @@ module Create = {
         ->Promise.then(x => {
           switch x {
           | Ok(ok: Shape.Article.t) =>
-            Link.article(~slug=ok.slug) |> Link.push
+            Link.article(~slug=ok.slug)->Link.push
             setArticle(prev => prev->AsyncResult.toIdle)
           | Error(AppError.Fetch((_code, _message, #json(json)))) =>
             try {

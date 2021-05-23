@@ -20,7 +20,7 @@ let article = (~slug) => make(`/#/article/${slug}`)
 let profile = (~username) => make(`/#/profile/${username}`)
 let favorited = (~username) => make(`/#/profile/${username}/favorites`)
 
-let push: location' => unit = location => location |> toString |> RescriptReactRouter.push
+let push: location' => unit = location => location->toString->RescriptReactRouter.push
 
 let availableIf: (bool, onClickAction) => onClickAction = (available, target) =>
   available ? target : CustomFn(ignore)
@@ -29,8 +29,8 @@ let handleClick = (onClick, event) => {
   switch onClick {
   | Location(location) =>
     if Utils.isMouseRightClick(event) {
-      event |> ReactEvent.Mouse.preventDefault
-      location |> toString |> RescriptReactRouter.push
+      event->ReactEvent.Mouse.preventDefault
+      location->toString->RescriptReactRouter.push
     }
   | CustomFn(fn) => fn()
   }
@@ -40,7 +40,7 @@ let handleClick = (onClick, event) => {
 @react.component
 let make = (~className="", ~style=ReactDOM.Style.make(), ~onClick, ~children) => {
   let href = switch onClick {
-  | Location(location) => Some(location |> toString)
+  | Location(location) => Some(location->toString)
   | CustomFn(_fn) => None
   }
   <a className ?href style onClick={handleClick(onClick)}> children </a>

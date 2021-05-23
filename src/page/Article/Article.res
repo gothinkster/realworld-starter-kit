@@ -21,7 +21,7 @@ let make = (~slug: string, ~user: option<Shape.User.t>) => {
           {article
           ->AsyncResult.getOk
           ->Option.map((ok: Shape.Article.t) => ok.title)
-          ->Option.map(title => title |> React.string)
+          ->Option.map(title => title->React.string)
           ->Option.getWithDefault(React.null)}
         </h1>
         <div className="article-meta">
@@ -50,7 +50,7 @@ let make = (~slug: string, ~user: option<Shape.User.t>) => {
                   "__html": EscapeHatch.markdownToHtml(body),
                 }
               />
-            | Reloading(Error(_error)) | Complete(Error(_error)) => "ERROR" |> React.string
+            | Reloading(Error(_error)) | Complete(Error(_error)) => "ERROR"->React.string
             }}
           </div>
           {switch article {
@@ -81,14 +81,14 @@ let make = (~slug: string, ~user: option<Shape.User.t>) => {
             <ArticlePostComment image={image->Option.getWithDefault("")} slug setComments />
           | None =>
             <p>
-              <Link className="nav-link" onClick={Link.login |> Link.location}>
-                {"Sign in" |> React.string}
+              <Link className="nav-link" onClick={Link.login->Link.location}>
+                {"Sign in"->React.string}
               </Link>
-              {" or " |> React.string}
-              <Link className="nav-link" onClick={Link.register |> Link.location}>
-                {"sign up" |> React.string}
+              {" or "->React.string}
+              <Link className="nav-link" onClick={Link.register->Link.location}>
+                {"sign up"->React.string}
               </Link>
-              {" to add comments on this article." |> React.string}
+              {" to add comments on this article."->React.string}
             </p>
           }}
           <ArticleComments slug data=comments busy=busyComments user onDeleteClick=deleteComment />

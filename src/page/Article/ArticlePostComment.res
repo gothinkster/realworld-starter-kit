@@ -30,7 +30,7 @@ let make = (
           let value = ReactEvent.Form.target(event)["value"]
           setComment(_prev => AsyncData.complete(value))
         }}
-        disabled={comment |> AsyncData.isBusy}
+        disabled={comment->AsyncData.isBusy}
       />
     </div>
     <div className="card-footer">
@@ -65,10 +65,10 @@ let make = (
             })
             ->ignore
           }
-          event |> ReactEvent.Mouse.preventDefault
-          event |> ReactEvent.Mouse.stopPropagation
+          event->ReactEvent.Mouse.preventDefault
+          event->ReactEvent.Mouse.stopPropagation
         }}>
-        {"Post Comment" |> React.string}
+        {"Post Comment"->React.string}
       </button>
     </div>
   </form>

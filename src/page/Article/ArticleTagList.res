@@ -2,8 +2,8 @@
 let make = (~data: array<string>) =>
   <ul className="tag-list">
     {data
-    |> Array.map(tag =>
-      <li key=tag className="tag-default tag-pill tag-outline"> {tag |> React.string} </li>
+    ->Js.Array2.map(tag =>
+      <li key=tag className="tag-default tag-pill tag-outline"> {tag->React.string} </li>
     )
-    |> React.array}
+    ->React.array}
   </ul>

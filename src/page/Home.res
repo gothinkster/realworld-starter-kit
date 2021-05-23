@@ -19,8 +19,8 @@ let make = (~user: option<Shape.User.t>) => {
   <div className="home-page">
     <div className="banner">
       <div className="container">
-        <h1 className="logo-font"> {"conduit" |> React.string} </h1>
-        <p> {"A place to share your knowledge." |> React.string} </p>
+        <h1 className="logo-font"> {"conduit"->React.string} </h1>
+        <p> {"A place to share your knowledge."->React.string} </p>
       </div>
     </div>
     <div className="container page">
@@ -39,10 +39,10 @@ let make = (~user: option<Shape.User.t>) => {
                       href="#your_feed"
                       onClick={event =>
                         if Utils.isMouseRightClick(event) {
-                          event |> ReactEvent.Mouse.preventDefault
+                          event->ReactEvent.Mouse.preventDefault
                           setFeedType(_ => Personal(10, 0))
                         }}>
-                      {"Your Feed" |> React.string}
+                      {"Your Feed"->React.string}
                     </a>
                   </li>
                 </Security.AuthenticatedOnly>
@@ -55,10 +55,10 @@ let make = (~user: option<Shape.User.t>) => {
                     href="#global"
                     onClick={event =>
                       if Utils.isMouseRightClick(event) {
-                        event |> ReactEvent.Mouse.preventDefault
+                        event->ReactEvent.Mouse.preventDefault
                         setFeedType(_ => Global(10, 0))
                       }}>
-                    {"Global Feed" |> React.string}
+                    {"Global Feed"->React.string}
                   </a>
                 </li>
                 {switch feedType {
@@ -67,16 +67,16 @@ let make = (~user: option<Shape.User.t>) => {
                     <a
                       className="nav-link active"
                       href="#"
-                      onClick={event => event |> ReactEvent.Mouse.preventDefault}>
+                      onClick={event => event->ReactEvent.Mouse.preventDefault}>
                       <i className="ion-pound" />
                       {/* FIXME: Get rid of "space" string below */
-                      " " |> React.string}
-                      {tag |> React.string}
+                      " "->React.string}
+                      {tag->React.string}
                     </a>
                   </li>
                 | Global(_) | Personal(_) => React.null
                 }}
-                {if articles |> AsyncResult.isBusy {
+                {if articles->AsyncResult.isBusy {
                   <li className="nav-item"> <Spinner /> </li>
                 } else {
                   React.null
@@ -94,7 +94,7 @@ let make = (~user: option<Shape.User.t>) => {
                 key=item.slug
                 data=item
                 onToggleFavorite
-                isFavoriteBusy={toggleFavoriteBusy |> Belt.Set.String.has(_, item.slug)}
+                isFavoriteBusy={toggleFavoriteBusy->Belt.Set.String.has(_, item.slug)}
               />
             )
             ->React.array

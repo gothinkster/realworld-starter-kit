@@ -11,7 +11,7 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
   let (articles, setArticles) = Hook.useArticlesInProfile(~viewMode)
   let (follow, onFollowClick) = Hook.useFollowInProfile(~profile, ~user)
   let (toggleFavoriteBusy, onToggleFavorite) = Hook.useToggleFavorite(~setArticles, ~user)
-  let isArticlesBusy = articles |> AsyncResult.isBusy
+  let isArticlesBusy = articles->AsyncResult.isBusy
 
   <div className="profile-page">
     <div className="user-info">
@@ -27,7 +27,7 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
               {switch profile {
               | Init | Loading | Reloading(Error(_)) | Complete(Error(_)) => "..."
               | Reloading(Ok(user)) | Complete(Ok(user)) => user.username
-              } |> React.string}
+              }->React.string}
             </h4>
             {switch profile {
             | Init | Loading | Reloading(Error(_)) | Complete(Error(_)) => React.null
@@ -56,7 +56,7 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
                   user
                   ->Option.flatMap((ok: Shape.User.t) =>
                     if ok.username == username {
-                      Some(Link.settings |> Link.location)
+                      Some(Link.settings->Link.location)
                     } else {
                       None
                     }
@@ -90,7 +90,7 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
                   )
                 }}
                 {switch (follow, user) {
-                | (Init, Some(_) | None) | (Loading, Some(_) | None) => "..." |> React.string
+                | (Init, Some(_) | None) | (Loading, Some(_) | None) => "..."->React.string
                 | (Reloading((username, following)), user)
                 | (Complete((username, following)), user) =>
                   user
@@ -129,7 +129,7 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
                     },
                     Link.Location(Link.profile(~username)),
                   )}>
-                  {"My Articles" |> React.string}
+                  {"My Articles"->React.string}
                 </Link>
               </li>
               <li className="nav-item">
@@ -146,10 +146,10 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
                     },
                     Link.Location(Link.favorited(~username)),
                   )}>
-                  {"Favorited Articles" |> React.string}
+                  {"Favorited Articles"->React.string}
                 </Link>
               </li>
-              {if articles |> AsyncResult.isBusy {
+              {if articles->AsyncResult.isBusy {
                 <li className="nav-item"> <Spinner /> </li>
               } else {
                 React.null
@@ -158,16 +158,15 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
           </div>
           {switch articles {
           | Init | Loading => React.null
-          | Reloading(Error(_)) | Complete(Error(_)) => "ERROR" |> React.string
+          | Reloading(Error(_)) | Complete(Error(_)) => "ERROR"->React.string
           | Reloading(Ok(ok)) | Complete(Ok(ok)) => <>
               {ok.articles
-              |> Array.map((article: Shape.Article.t) => {
-                let isFavoriteBusy = toggleFavoriteBusy |> Belt.Set.String.has(_, article.slug)
+              ->Js.Array2.map((article: Shape.Article.t) => {
+                let isFavoriteBusy = toggleFavoriteBusy->Belt.Set.String.has(_, article.slug)
 
                 <div className="article-preview" key=article.slug>
                   <div className="article-meta">
-                    <Link
-                      onClick={Link.profile(~username=article.author.username) |> Link.location}>
+                    <Link onClick={Link.profile(~username=article.author.username)->Link.location}>
                       {switch article.author.image {
                       | "" => <img />
                       | src => <img src />
@@ -176,11 +175,11 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
                     <div className="info">
                       <Link
                         className="author"
-                        onClick={Link.profile(~username=article.author.username) |> Link.location}>
-                        {article.author.username |> React.string}
+                        onClick={Link.profile(~username=article.author.username)->Link.location}>
+                        {article.author.username->React.string}
                       </Link>
                       <span className="date">
-                        {article.createdAt |> Utils.formatDate |> React.string}
+                        {article.createdAt->Utils.formatDate->React.string}
                       </span>
                     </div>
                     <Link.Button
@@ -199,37 +198,37 @@ let make = (~viewMode: Shape.Profile.viewMode, ~user: option<Shape.User.t>) => {
                         className={isFavoriteBusy ? "ion-load-a" : "ion-heart"}
                         style={ReactDOM.Style.make(~marginRight="3px", ())}
                       />
-                      {article.favoritesCount |> string_of_int |> React.string}
+                      {article.favoritesCount->string_of_int->React.string}
                     </Link.Button>
                   </div>
                   <Link
                     className="preview-link"
-                    onClick={Link.article(~slug=article.slug) |> Link.location}>
-                    <h1> {article.title |> React.string} </h1>
-                    <p> {article.description |> React.string} </p>
-                    <span> {"Read more..." |> React.string} </span>
+                    onClick={Link.article(~slug=article.slug)->Link.location}>
+                    <h1> {article.title->React.string} </h1>
+                    <p> {article.description->React.string} </p>
+                    <span> {"Read more..."->React.string} </span>
                     {switch article.tagList {
                     | [] => React.null
                     | tagList =>
                       <ul className="tag-list">
                         {tagList
-                        |> Array.map(tag =>
+                        ->Js.Array2.map(tag =>
                           <li key=tag className="tag-default tag-pill tag-outline">
-                            {tag |> React.string}
+                            {tag->React.string}
                           </li>
                         )
-                        |> React.array}
+                        ->React.array}
                       </ul>
                     }}
                   </Link>
                 </div>
               })
-              |> React.array}
+              ->React.array}
               <Pagination
                 limit
                 offset
                 total=ok.articlesCount
-                onClick={articles |> AsyncResult.isBusy ? ignore : changeOffset}
+                onClick={articles->AsyncResult.isBusy ? ignore : changeOffset}
               />
             </>
           }}

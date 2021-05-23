@@ -33,7 +33,7 @@ let getErrorBodyJson: result<Js.Json.t, Response.t> => Promise.t<
   result<Js.Json.t, AppError.t>,
 > = x =>
   switch x {
-  | Ok(_json) as ok => ok |> resolve
+  | Ok(_json) as ok => ok->resolve
   | Error(resp) =>
     resp
     ->Response.json
@@ -50,7 +50,7 @@ let getErrorBodyText: result<Js.Json.t, Response.t> => Promise.t<
   result<Js.Json.t, AppError.t>,
 > = x =>
   switch x {
-  | Ok(_json) as ok => ok |> resolve
+  | Ok(_json) as ok => ok->resolve
   | Error(resp) =>
     let status = Response.status(resp)
     let statusText = Response.statusText(resp)
@@ -82,8 +82,8 @@ let article: (~action: Action.article, unit) => Promise.t<result<Shape.Article.t
         ("body", Js.Json.string(article.body)),
         ("tagList", Js.Json.stringArray(article.tagList)),
       }
-      |> Js.Dict.fromList
-      |> Js.Json.object_
+      ->Js.Dict.fromList
+      ->Js.Json.object_
 
     list{("article", article)}
     ->Js.Dict.fromList
@@ -261,15 +261,11 @@ let updateUser: (
         list{("password", Js.Json.string(password))}
       },
     }
-    |> List.flatten
-    |> Js.Dict.fromList
-    |> Js.Json.object_
+    ->List.flatten
+    ->Js.Dict.fromList
+    ->Js.Json.object_
   let body =
-    list{("user", user)}
-    |> Js.Dict.fromList
-    |> Js.Json.object_
-    |> Js.Json.stringify
-    |> BodyInit.make
+    list{("user", user)}->Js.Dict.fromList->Js.Json.object_->Js.Json.stringify->BodyInit.make
 
   let requestInit = RequestInit.make(
     ~method_=Put,
@@ -312,7 +308,8 @@ let followUser: (~action: Action.follow, unit) => Promise.t<result<Shape.Author.
   ->then(parseJsonIfOk)
   ->then(getErrorBodyText)
   ->then(result =>
-    result->Belt.Result.flatMap(json => {
+    result
+    ->Belt.Result.flatMap(json => {
       try {
         json
         ->Js.Json.decodeObject
@@ -324,7 +321,8 @@ let followUser: (~action: Action.follow, unit) => Promise.t<result<Shape.Author.
       } catch {
       | _ => AppError.decode(Belt.Result.Error("API.followUser: failed to decode json"))
       }
-    }) |> resolve
+    })
+    ->resolve
   )
 }
 
@@ -366,14 +364,10 @@ let addComment: (
   ~body: string,
   unit,
 ) => Promise.t<result<Shape.Comment.t, AppError.t>> = (~slug, ~body, ()) => {
-  let comment = list{("body", Js.Json.string(body))} |> Js.Dict.fromList |> Js.Json.object_
+  let comment = list{("body", Js.Json.string(body))}->Js.Dict.fromList->Js.Json.object_
 
   let body =
-    list{("comment", comment)}
-    |> Js.Dict.fromList
-    |> Js.Json.object_
-    |> Js.Json.stringify
-    |> BodyInit.make
+    list{("comment", comment)}->Js.Dict.fromList->Js.Json.object_->Js.Json.stringify->BodyInit.make
 
   let requestInit = RequestInit.make(
     ~method_=Post,
@@ -441,15 +435,11 @@ let login = (~email: string, ~password: string, ()): Promise.t<
 > => {
   let user =
     list{("email", Js.Json.string(email)), ("password", Js.Json.string(password))}
-    |> Js.Dict.fromList
-    |> Js.Json.object_
+    ->Js.Dict.fromList
+    ->Js.Json.object_
 
   let body =
-    list{("user", user)}
-    |> Js.Dict.fromList
-    |> Js.Json.object_
-    |> Js.Json.stringify
-    |> BodyInit.make
+    list{("user", user)}->Js.Dict.fromList->Js.Json.object_->Js.Json.stringify->BodyInit.make
 
   let requestInit = RequestInit.make(
     ~method_=Post,
@@ -479,15 +469,11 @@ let register: (
       ("password", Js.Json.string(password)),
       ("username", Js.Json.string(username)),
     }
-    |> Js.Dict.fromList
-    |> Js.Json.object_
+    ->Js.Dict.fromList
+    ->Js.Json.object_
 
   let body =
-    list{("user", user)}
-    |> Js.Dict.fromList
-    |> Js.Json.object_
-    |> Js.Json.stringify
-    |> BodyInit.make
+    list{("user", user)}->Js.Dict.fromList->Js.Json.object_->Js.Json.stringify->BodyInit.make
 
   let requestInit = RequestInit.make(
     ~method_=Post,

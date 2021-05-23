@@ -8,5 +8,5 @@ let make = (~isBusy, ~onClick) =>
       className={isBusy ? "ion-load-a" : "ion-trash-a"}
       style={ReactDOM.Style.make(~marginRight="5px", ())}
     />
-    {"Delete Article" |> React.string}
+    {"Delete Article"->React.string}
   </Link.Button>
