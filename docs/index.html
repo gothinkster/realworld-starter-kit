@@ -3,23 +3,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-
     <title>Neo Docs</title>
 </head>
 <body>
-    <script>
-        Neo = self.Neo || {}; Neo.config = Neo.config || {};
-
-        Object.assign(Neo.config, {
-            appPath         : '../../docs/app.mjs',
-            basePath        : '../',
-            environment     : 'development',
-            mainThreadAddons: ['DragDrop', 'HighlightJS', 'Stylesheet'],
-            resourcesPath   : '../node_modules/neo.mjs/resources/',
-            workerBasePath  : '../node_modules/neo.mjs/src/worker/'
-        });
-    </script>
-
-    <script src="../node_modules/neo.mjs/src/Main.mjs" type="module"></script>
+    <script src="../src/MicroLoader.mjs" type="module"></script>
 </body>
 </html>

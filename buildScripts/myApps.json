@@ -1,6 +1,11 @@
 {
-    "bodyTag": "<body>",
+    "mainInput": "./src/Main.mjs",
+    "mainOutput": "main.js",
     "workers": {
+        "app": {
+            "input": "./src/worker/App.mjs",
+            "output": "appworker.js"
+        },
         "data": {
             "input": "./src/worker/Data.mjs",
             "output": "dataworker.js"
@@ -10,20 +15,8 @@
             "output": "vdomworker.js"
         }
     },
-    "apps": {
-        "Docs": {
-            "input": "./docs/app.mjs",
-            "mainThreadAddons": "'DragDrop', 'HighlightJS', 'Stylesheet'",
-            "output": "/docs/",
-            "title": "Neo Docs"
-        },
-        "RealWorld": {
-            "indexPath": "apps/realworld/index.ejs",
-            "input": "./apps/realworld/app.mjs",
-            "mainThreadAddons": "'LocalStorage', 'Markdown'",
-            "output": "/apps/realworld/",
-            "themes": "",
-            "title": "RealWorld"
-        }
-    }
+    "apps": [
+        "Docs",
+        "RealWorld"
+    ]
 }

@@ -1,6 +1,6 @@
 {
     "name": "neo.mjs-realworld-example-app",
-    "version": "1.0.23",
+    "version": "1.0.24",
     "description": "neo.mjs: Real World example app",
     "repository": {
         "type": "git",
@@ -12,6 +12,7 @@
         "build-my-apps": "node ./node_modules/neo.mjs/buildScripts/webpack/buildMyApps.js",
         "build-themes": "node ./node_modules/neo.mjs/buildScripts/webpack/buildThemes.js",
         "build-threads": "node ./node_modules/neo.mjs/buildScripts/webpack/buildThreads.js",
+        "copy-examples": "node ./buildScripts/copyExamples.js",
         "create-app": "node ./node_modules/neo.mjs/buildScripts/createApp.js",
         "generate-docs-json": "node ./node_modules/neo.mjs/buildScripts/docs/jsdocx.js",
         "server-start": "webpack serve -c ./node_modules/neo.mjs/buildScripts/webpack/webpack.server.config.js --open",
@@ -25,6 +26,6 @@
     },
     "homepage": "https://neomjs.github.io/pages/",
     "dependencies": {
-        "neo.mjs": "^2.1.5"
+        "neo.mjs": "^2.2.0"
     }
 }
