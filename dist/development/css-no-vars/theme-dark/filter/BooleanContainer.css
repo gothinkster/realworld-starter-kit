@@ -1,0 +1,18 @@
+@charset "UTF-8";
+.neo-filter-booleancontainer {
+  height: 37px;
+}
+.neo-filter-booleancontainer .neo-radiofield .neo-radio-input {
+  margin-right: 0;
+}
+.neo-filter-booleancontainer .neo-radiofield .neo-radio-input::after {
+  width: 18px;
+}
+.neo-filter-booleancontainer .neo-radiofield .neo-radio-input:checked::after {
+  content: "";
+  font-weight: 400;
+}
+.neo-filter-booleancontainer .neo-radiofield .neo-radio-value-label {
+  margin-right: 0.5em;
+}
+/*# sourceMappingURL=BooleanContainer.css.map */

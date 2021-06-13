@@ -1,0 +1,12 @@
+.neo-layout-card {
+  display: flex;
+  align-items: stretch;
+}
+
+.neo-layout-card-item {
+  flex: 1 0 100%;
+}
+.neo-layout-card-item.inactive-item {
+  display: none !important;
+}
+/*# sourceMappingURL=Card.css.map */

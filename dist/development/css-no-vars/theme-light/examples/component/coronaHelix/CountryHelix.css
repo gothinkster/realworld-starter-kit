@@ -1,0 +1,57 @@
+.neo-helix-maincontainer .neo-controls-panel {
+  transition: width 0.5s ease-in-out;
+}
+.neo-helix-maincontainer .neo-link-color a {
+  color: #ddd;
+}
+
+.neo-country-helix {
+  color: #000;
+  text-align: left;
+}
+.neo-country-helix .neo-align-right {
+  text-align: right;
+}
+.neo-country-helix .neo-content-critical {
+  color: orange;
+}
+.neo-country-helix .neo-content-deaths {
+  color: red;
+}
+.neo-country-helix .neo-content-recovered {
+  color: green;
+}
+.neo-country-helix .neo-content-table {
+  white-space: nowrap;
+}
+.neo-country-helix .neo-flag {
+  height: 40px;
+  margin-right: 10px;
+  width: 40px;
+}
+.neo-country-helix .neo-item-wrapper {
+  background-color: rgba(73, 160, 154, 0.35);
+  pointer-events: none;
+  transition-duration: 0.55s;
+  transition-property: transform;
+}
+.neo-country-helix .neo-country-helix-item {
+  background-color: #fff;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 210px;
+  padding: 20px;
+}
+.neo-country-helix .neo-country-helix-item .neo-item-header {
+  align-items: center;
+  display: flex;
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+.neo-country-helix .neo-helix-item {
+  border-radius: 10px;
+  height: 280px;
+  width: 340px;
+}
+/*# sourceMappingURL=CountryHelix.css.map */

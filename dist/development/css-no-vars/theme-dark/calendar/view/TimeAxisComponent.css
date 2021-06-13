@@ -1,0 +1,30 @@
+.neo-calendar-timeaxis {
+  background-color: #2b2b2b;
+  background-position-x: 100%;
+  background-position-y: 0;
+  background-repeat: repeat-y;
+  border-right: 1px solid #3c3f41;
+  box-shadow: -1px 0 0 #2b2b2b;
+  flex: none;
+  left: 0;
+  margin-top: -1px;
+  position: sticky;
+  width: 50px;
+  z-index: 150;
+}
+.neo-calendar-timeaxis .neo-c-w-timeaxis-item {
+  align-items: center;
+  color: #999;
+  display: flex;
+  font-size: 0.625em;
+  justify-content: center;
+}
+
+.neo-timeaxis-end .neo-calendar-timeaxis {
+  background-position-x: 0;
+  border-left: 1px solid #3c3f41;
+  border-right: none;
+  left: unset;
+  right: 0;
+}
+/*# sourceMappingURL=TimeAxisComponent.css.map */

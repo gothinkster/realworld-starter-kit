@@ -1,0 +1,15 @@
+.neo-datefield input::-webkit-clear-button,
+.neo-datefield input::-webkit-inner-spin-button,
+.neo-datefield input::-webkit-calendar-picker-indicator,
+.neo-datefield input::-webkit-outer-spin-button {
+  display: none;
+  margin: 0;
+  -webkit-appearance: none;
+}
+.neo-datefield ::-moz-datetime-reset-button {
+  display: none;
+}
+.neo-datefield .datetime-reset-button {
+  display: none;
+}
+/*# sourceMappingURL=Date.css.map */

@@ -1,0 +1,10 @@
+{
+    "appPath": "../../apps/realworld/app.mjs",
+    "basePath": "../../",
+    "environment": "development",
+    "mainPath": "../node_modules/neo.mjs/src/Main.mjs",
+    "mainThreadAddons": ["LocalStorage", "Markdown"],
+    "themes": [],
+    "useFontAwesome": false,
+    "workerBasePath": "../../node_modules/neo.mjs/src/worker/"
+}

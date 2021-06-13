@@ -1,0 +1,20 @@
+.neo-calendar-settingscontainer {
+  border-left: 1px solid var(--calendar-border-color);
+  transition: margin-right 350ms ease-out;
+}
+.neo-calendar-settingscontainer .neo-tab-content-container {
+  border: 0 !important;
+}
+
+.neo-header {
+  align-items: center;
+  background-color: var(--calendar-settings-header-background-color);
+  color: var(--calendar-settings-header-color);
+  display: flex;
+  padding: 0 10px;
+}
+.neo-header .fa {
+  font-size: 18px;
+  margin-right: 5px;
+}
+/*# sourceMappingURL=SettingsContainer.css.map */

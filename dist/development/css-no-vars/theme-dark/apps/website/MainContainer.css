@@ -1,0 +1,25 @@
+.website-main-container {
+  background-image: linear-gradient(#444, #222);
+  justify-content: center;
+  min-width: 310px;
+}
+.website-main-container .website-center-region {
+  max-width: 824px;
+}
+.website-main-container .website-main-tabcontainer {
+  transition: margin 300ms ease-out;
+}
+.website-main-container .website-main-tabcontainer .neo-tab-content-container {
+  border: none;
+}
+@media (max-height: 400px), (max-width: 600px) {
+  .website-main-container .website-main-tabcontainer {
+    margin: 0;
+  }
+}
+@media (min-height: 401px) and (min-width: 601px) {
+  .website-main-container .website-main-tabcontainer {
+    margin: 10px 0;
+  }
+}
+/*# sourceMappingURL=MainContainer.css.map */

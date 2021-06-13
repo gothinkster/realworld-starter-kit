@@ -1,0 +1,46 @@
+.neo-flex-container {
+  display: flex;
+}
+.neo-flex-container.neo-flex-align-center {
+  align-items: center;
+}
+.neo-flex-container.neo-flex-align-end {
+  align-items: flex-end;
+}
+.neo-flex-container.neo-flex-align-start {
+  align-items: flex-start;
+}
+.neo-flex-container.neo-flex-align-stretch {
+  align-items: stretch;
+}
+.neo-flex-container.neo-flex-direction-column {
+  flex-direction: column;
+}
+.neo-flex-container.neo-flex-direction-column-reverse {
+  flex-direction: column-reverse;
+}
+.neo-flex-container.neo-flex-direction-row {
+  flex-direction: row;
+}
+.neo-flex-container.neo-flex-direction-row-reverse {
+  flex-direction: row-reverse;
+}
+.neo-flex-container.neo-flex-pack-center {
+  justify-content: center;
+}
+.neo-flex-container.neo-flex-pack-end {
+  justify-content: flex-end;
+}
+.neo-flex-container.neo-flex-pack-start {
+  justify-content: flex-start;
+}
+.neo-flex-container.neo-flex-wrap-nowrap {
+  flex-wrap: nowrap;
+}
+.neo-flex-container.neo-flex-wrap-wrap {
+  flex-wrap: wrap;
+}
+.neo-flex-container.neo-flex-wrap-wrap-reverse {
+  flex-wrap: wrap-reverse;
+}
+/*# sourceMappingURL=Flexbox.css.map */

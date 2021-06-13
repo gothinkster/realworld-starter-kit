@@ -1,0 +1,12 @@
+{
+    "appPath": "docs/app.mjs",
+    "basePath": "../../../",
+    "environment": "dist/development",
+    "mainPath": "../main.js",
+    "mainThreadAddons": [
+        "DragDrop",
+        "HighlightJS",
+        "Stylesheet"
+    ],
+    "workerBasePath": "../"
+}

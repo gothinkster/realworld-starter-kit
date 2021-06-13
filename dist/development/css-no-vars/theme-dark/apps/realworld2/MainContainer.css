@@ -1,0 +1,177 @@
+.rw2-main-container {
+  background-color: #fff;
+  color: #373a3c;
+  font-family: source sans pro, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+@media (min-width: 544px) {
+  .rw2-main-container .container {
+    max-width: 576px;
+  }
+}
+@media (min-width: 768px) {
+  .rw2-main-container .container {
+    max-width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .rw2-main-container .container {
+    max-width: 940px;
+  }
+}
+@media (min-width: 1200px) {
+  .rw2-main-container .container {
+    max-width: 1140px;
+  }
+}
+.rw2-main-container a {
+  color: #5cb85c;
+  text-decoration: none;
+}
+.rw2-main-container h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+.rw2-main-container h1, .rw2-main-container h2, .rw2-main-container h3, .rw2-main-container h4, .rw2-main-container h5, .rw2-main-container h6 {
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+}
+.rw2-main-container h1, .rw2-main-container h2, .rw2-main-container h3, .rw2-main-container h4, .rw2-main-container h5, .rw2-main-container h6, .rw2-main-container .h1, .rw2-main-container .h2, .rw2-main-container .h3, .rw2-main-container .h4, .rw2-main-container .h5, .rw2-main-container .h6 {
+  color: inherit;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+.rw2-main-container ol, .rw2-main-container ul, .rw2-main-container dl {
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+.rw2-main-container p {
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+.rw2-main-container ul.tag-list {
+  display: inline-block;
+  list-style: none !important;
+  padding-left: 0 !important;
+}
+.rw2-main-container ul.tag-list li {
+  display: inline-block !important;
+}
+.rw2-main-container .article-meta {
+  display: block;
+  font-weight: 300;
+  position: relative;
+}
+.rw2-main-container .article-meta img {
+  border-radius: 30px;
+  display: inline-block;
+  height: 32px;
+  vertical-align: middle;
+  width: 32px;
+}
+.rw2-main-container .article-meta .info {
+  display: inline-block;
+  line-height: 1rem;
+  margin: 0 1.5rem 0 0.3rem;
+  vertical-align: middle;
+}
+.rw2-main-container .article-meta .info .author {
+  display: block;
+  font-weight: 500 !important;
+}
+.rw2-main-container .article-meta .info .date {
+  color: #888;
+  display: block;
+  font-size: 0.8rem;
+}
+.rw2-main-container .banner {
+  background: #333;
+  color: #fff;
+  margin-bottom: 2rem;
+  padding: 2rem;
+}
+.rw2-main-container .banner h1 {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  margin-bottom: 0;
+}
+.rw2-main-container .btn {
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.25;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.rw2-main-container .btn-outline-primary {
+  background-color: transparent;
+  background-image: none;
+  border-color: #5cb85c;
+  color: #5cb85c;
+}
+.rw2-main-container .btn-outline-primary:hover {
+  background-color: #5cb85c;
+  border-color: #5cb85c;
+  color: #fff;
+}
+.rw2-main-container .btn-primary {
+  background-color: #5cb85c;
+  border-color: #5cb85c;
+  color: #fff;
+}
+.rw2-main-container .btn-primary:hover {
+  background-color: #449d44;
+  border-color: #419641;
+  color: #fff;
+}
+.rw2-main-container .pull-xs-right {
+  float: right !important;
+}
+.rw2-main-container .btn-sm, .rw2-main-container .btn-group-sm > .btn {
+  border-radius: 0.2rem;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+}
+.rw2-main-container .container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.rw2-main-container .logo-font {
+  font-family: "Titillium Web", sans-serif;
+  vertical-align: middle;
+}
+.rw2-main-container .tag-default {
+  background-color: #818a91;
+  color: #fff !important;
+  display: inline-block;
+  font-size: 0.8rem;
+  margin-bottom: 0.2rem;
+  margin-right: 3px;
+  padding-bottom: 0.1rem;
+  padding-top: 0.1rem;
+  white-space: nowrap;
+}
+.rw2-main-container .tag-default.tag-outline {
+  background: 0 0 !important;
+  border: 1px solid #ddd;
+  color: #aaa !important;
+}
+.rw2-main-container .tag-pill {
+  border-radius: 10rem;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+}
+/*# sourceMappingURL=MainContainer.css.map */
