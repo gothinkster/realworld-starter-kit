@@ -1,7 +1,5 @@
 # ![RealWorld Example App](logo.png)
 
-[![Travis (.org)](https://img.shields.io/travis/jihchi/rescript-react-realworld-example-app)](https://travis-ci.org/jihchi/rescript-react-realworld-example-app)
-[![Coverage Status](https://img.shields.io/coveralls/github/jihchi/rescript-react-realworld-example-app)](https://coveralls.io/github/jihchi/rescript-react-realworld-example-app?branch=main)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/jihchi/rescript-react-realworld-example-app)
 ![GitHub last commit](https://img.shields.io/github/last-commit/jihchi/rescript-react-realworld-example-app)
 ![GitHub](https://img.shields.io/github/license/jihchi/rescript-react-realworld-example-app)
