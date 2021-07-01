@@ -2,7 +2,7 @@
 
 > ### Dropwizard + JDBI3 codebase that tries to adhere to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
 
-This codebase was created to demonstrate a fully fledged fullstack application built with [Dropwizard](https://www.dropwizard.io) including CRUD operations, authentication, pagination, and more.
+This codebase was created to demonstrate a backend application built with [Dropwizard](https://www.dropwizard.io) including CRUD operations, authentication, pagination and more.
 
 For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
 
