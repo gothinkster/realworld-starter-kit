@@ -1,17 +1,11 @@
+import classNames from 'classnames'
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import { http } from '../utils'
+import ArticleList from '../components/ArticleList'
 
 function Home() {
-  const { data } = useQuery('articles', () => http.get('/articles'), {
-    select: ({ data }) => data,
-    staleTime: 30000,
-    placeholderData: {
-      articles: [],
-      articlesCount: null,
-    },
-  })
+  const [activeTag, setActiveTag] = React.useState()
+  const { data } = useQuery('/tags', { placeholderData: { tags: [] } })
 
   return (
     <div className="home-page">
@@ -21,79 +15,52 @@ function Home() {
           <p>A place to share your knowledge.</p>
         </div>
       </div>
-
       <div className="container page">
         <div className="row">
           <div className="col-md-9">
             <div className="feed-toggle">
               <ul className="nav nav-pills outline-active">
                 <li className="nav-item">
-                  <a className="nav-link disabled" href="">
-                    Your Feed
-                  </a>
+                  <a className="nav-link disabled">Your Feed</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link active" href="">
+                  <a
+                    href=""
+                    className={classNames('nav-link', { active: !activeTag })}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setActiveTag(undefined)
+                    }}
+                  >
                     Global Feed
                   </a>
                 </li>
+                {activeTag && (
+                  <li className="nav-item">
+                    <a className="nav-link active"># {activeTag}</a>
+                  </li>
+                )}
               </ul>
             </div>
-
-            {data.articles.map((article = {}) => (
-              <div className="article-preview">
-                <div className="article-meta">
-                  <Link to={`/profile/${article.author.username}`}>
-                    <img src={article.author.image} />
-                  </Link>
-                  <div className="info">
-                    <Link to={`/profile/${article.author.username}`} className="author">
-                      {article.author.username}
-                    </Link>
-                    <span className="date">{article.createdAt}</span>
-                  </div>
-                  <button className="btn btn-outline-primary btn-sm pull-xs-right">
-                    <i className="ion-heart"></i> {article.favoritesCount}
-                  </button>
-                </div>
-                <Link to={`/article/${article.slug}`} className="preview-link">
-                  <h1>{article.title}</h1>
-                  <p>{article.description}</p>
-                  <span>Read more...</span>
-                </Link>
-              </div>
-            ))}
+            <ArticleList activeTag={activeTag} />
           </div>
-
           <div className="col-md-3">
             <div className="sidebar">
               <p>Popular Tags</p>
-
               <div className="tag-list">
-                <a href="" className="tag-pill tag-default">
-                  programming
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  javascript
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  emberjs
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  angularjs
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  react
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  mean
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  node
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  rails
-                </a>
+                {data.tags.map((tag) => (
+                  <a
+                    key={tag}
+                    href=""
+                    className="tag-pill tag-default"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setActiveTag(tag)
+                    }}
+                  >
+                    {tag}
+                  </a>
+                ))}
               </div>
             </div>
           </div>

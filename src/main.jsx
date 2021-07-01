@@ -2,9 +2,22 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import { http } from './utils'
 import App from './App'
 
-const queryClient = new QueryClient()
+const defaultQueryFn = async ({ queryKey }) => {
+  const { data } = await http.get(queryKey[0])
+  return data
+}
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      queryFn: defaultQueryFn,
+      staleTime: 30000,
+    },
+  },
+})
 
 ReactDOM.render(
   <React.StrictMode>

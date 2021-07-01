@@ -18,12 +18,12 @@ function Article() {
               <span className="date">January 20th</span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">
-              <i className="ion-plus-round"></i>
+              <i className="ion-plus-round" />
               &nbsp; Follow Eric Simons <span className="counter">(10)</span>
             </button>
             &nbsp;&nbsp;
             <button className="btn btn-sm btn-outline-primary">
-              <i className="ion-heart"></i>
+              <i className="ion-heart" />
               &nbsp; Favorite Post <span className="counter">(29)</span>
             </button>
           </div>
@@ -53,12 +53,12 @@ function Article() {
               <span className="date">January 20th</span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">
-              <i className="ion-plus-round"></i>
+              <i className="ion-plus-round" />
               &nbsp; Follow Eric Simons <span className="counter">(10)</span>
             </button>
             &nbsp;
             <button className="btn btn-sm btn-outline-primary">
-              <i className="ion-heart"></i>
+              <i className="ion-heart" />
               &nbsp; Favorite Post <span className="counter">(29)</span>
             </button>
           </div>
@@ -68,7 +68,7 @@ function Article() {
           <div className="col-xs-12 col-md-8 offset-md-2">
             <form className="card comment-form">
               <div className="card-block">
-                <textarea className="form-control" placeholder="Write a comment..." rows="3"></textarea>
+                <textarea className="form-control" placeholder="Write a comment..." rows="3" />
               </div>
               <div className="card-footer">
                 <img src="http://i.imgur.com/Qr71crq.jpg" className="comment-author-img" />
@@ -106,8 +106,8 @@ function Article() {
                 </a>
                 <span className="date-posted">Dec 29th</span>
                 <span className="mod-options">
-                  <i className="ion-edit"></i>
-                  <i className="ion-trash-a"></i>
+                  <i className="ion-edit" />
+                  <i className="ion-trash-a" />
                 </span>
               </div>
             </div>
