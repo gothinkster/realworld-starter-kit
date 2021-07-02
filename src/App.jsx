@@ -1,6 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import { Home, SignUp, Settings, Editor, Article, Profile } from './pages'
+import { Home, SignUp, Settings, Editor, Article, Profile, SignIn } from './pages'
+
+import './App.css'
 
 function App() {
   return (
@@ -20,17 +22,24 @@ function App() {
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/editor">
-                    <i className="ion-compose"></i>&nbsp;New Post
+                    <i className="ion-compose" />
+                    &nbsp;New Post
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/settings">
-                    <i className="ion-gear-a"></i>&nbsp;Settings
+                    <i className="ion-gear-a" />
+                    &nbsp;Settings
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/register">
                     Sign up
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">
+                    Sign in
                   </Link>
                 </li>
               </ul>
@@ -41,6 +50,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<SignUp />} />
+            <Route path="/login" element={<SignIn />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/editor" element={<Editor />} />
             <Route path="/editor/:articleId" element={<Editor />} />
@@ -50,9 +60,9 @@ function App() {
         </main>
         <footer>
           <div className="container">
-            <a href="/" className="logo-font">
+            <Link to="/" className="logo-font">
               conduit
-            </a>
+            </Link>
             <span className="attribution">
               An interactive learning project from <a href="https://thinkster.io">Thinkster</a>. Code &amp; design
               licensed under MIT.

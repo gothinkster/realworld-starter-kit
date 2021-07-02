@@ -1,11 +1,9 @@
 import classNames from 'classnames'
 import React from 'react'
-import { useQuery } from 'react-query'
-import ArticleList from '../components/ArticleList'
+import { ArticleList, PopularTags } from '../components'
 
 function Home() {
   const [activeTag, setActiveTag] = React.useState()
-  const { data } = useQuery('/tags', { placeholderData: { tags: [] } })
 
   return (
     <div className="home-page">
@@ -24,16 +22,13 @@ function Home() {
                   <a className="nav-link disabled">Your Feed</a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    href=""
+                  <button
+                    type="button"
                     className={classNames('nav-link', { active: !activeTag })}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setActiveTag(undefined)
-                    }}
+                    onClick={() => setActiveTag(undefined)}
                   >
                     Global Feed
-                  </a>
+                  </button>
                 </li>
                 {activeTag && (
                   <li className="nav-item">
@@ -45,24 +40,7 @@ function Home() {
             <ArticleList activeTag={activeTag} />
           </div>
           <div className="col-md-3">
-            <div className="sidebar">
-              <p>Popular Tags</p>
-              <div className="tag-list">
-                {data.tags.map((tag) => (
-                  <a
-                    key={tag}
-                    href=""
-                    className="tag-pill tag-default"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setActiveTag(tag)
-                    }}
-                  >
-                    {tag}
-                  </a>
-                ))}
-              </div>
-            </div>
+            <PopularTags onTagClick={setActiveTag} />
           </div>
         </div>
       </div>
