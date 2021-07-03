@@ -1,60 +1,27 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import { Home, SignUp, Settings, Editor, Article, Profile, SignIn } from './pages'
+import { Home, Settings, Editor, Article, Profile, Auth } from './pages'
+import { AuthProvider } from './providers'
+import { Navbar } from './components'
 
 import './App.css'
 
 function App() {
   return (
-    <div>
+    <AuthProvider>
       <Router>
         <header>
-          <nav className="navbar navbar-light">
-            <div className="container">
-              <Link className="navbar-brand" to="/">
-                conduit
-              </Link>
-              <ul className="nav navbar-nav pull-xs-right">
-                <li className="nav-item">
-                  <Link className="nav-link active" to="/">
-                    Home
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/editor">
-                    <i className="ion-compose" />
-                    &nbsp;New Post
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/settings">
-                    <i className="ion-gear-a" />
-                    &nbsp;Settings
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/register">
-                    Sign up
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/login">
-                    Sign in
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </nav>
+          <Navbar />
         </header>
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/register" element={<SignUp />} />
-            <Route path="/login" element={<SignIn />} />
+            <Route path="/register" element={<Auth key="register" />} />
+            <Route path="/login" element={<Auth key="login" />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/editor" element={<Editor />} />
-            <Route path="/editor/:articleId" element={<Editor />} />
-            <Route path="/article/:articleId" element={<Article />} />
+            <Route path="/editor/:slug" element={<Editor />} />
+            <Route path="/article/:slug" element={<Article />} />
             <Route path="/profile/:username" element={<Profile />} />
           </Routes>
         </main>
@@ -70,7 +37,7 @@ function App() {
           </div>
         </footer>
       </Router>
-    </div>
+    </AuthProvider>
   )
 }
 

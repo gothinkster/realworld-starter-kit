@@ -1,18 +1,15 @@
 import axios from 'axios'
+import authUser from './auth-user'
 
 const instance = axios.create({
   baseURL: 'https://conduit.productionready.io/api',
 })
 
 instance.interceptors.request.use((config) => {
-  const jwt = window.localStorage.getItem('jwtToken')
+  const user = authUser()
 
-  if (!jwt) return config
-
-  const { token } = JSON.parse(atob(jwt))
-
-  if (token) {
-    config.headers.Authorization = `Token ${token}`
+  if (user) {
+    config.headers.Authorization = `Token ${user.token}`
   }
 
   return config

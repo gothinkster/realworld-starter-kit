@@ -6,7 +6,7 @@ import { http } from './utils'
 import App from './App'
 
 const defaultQueryFn = async ({ queryKey }) => {
-  const { data } = await http.get(queryKey[0])
+  const { data } = await http.get(queryKey[0], { params: queryKey[1] })
   return data
 }
 

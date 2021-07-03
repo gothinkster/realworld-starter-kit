@@ -1,8 +1,10 @@
 import React from 'react'
 import { useQuery } from 'react-query'
+import { useSearchParams } from 'react-router-dom'
 
-function PopularTags({ onTagClick }) {
+function PopularTags() {
   const { data, isFetching, isError, isSuccess } = useQuery('/tags', { placeholderData: { tags: [] } })
+  const [, setSearchParams] = useSearchParams()
 
   return (
     <div className="sidebar">
@@ -16,8 +18,10 @@ function PopularTags({ onTagClick }) {
               href="#"
               key={tag}
               className="tag-pill tag-default"
-              onClick={() => {
-                onTagClick(tag)
+              onClick={(e) => {
+                e.preventDefault()
+
+                setSearchParams({ tag })
               }}
             >
               {tag}
