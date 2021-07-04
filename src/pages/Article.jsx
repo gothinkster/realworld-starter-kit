@@ -1,28 +1,26 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { useParams } from 'react-router-dom'
 import { ArticleMeta } from '../components'
+import useArticleQuery from '../hooks/useArticleQuery'
 
 function Article() {
-  const { slug } = useParams()
+  const { data } = useArticleQuery()
 
-  const queryKey = `/articles/${slug}`
-
-  const { data } = useQuery(queryKey, { placeholderData: { article: {} } })
+  const { title, description, body } = data.article
 
   return (
     <div className="article-page">
       <div className="banner">
         <div className="container">
-          <h1>{data.article.title}</h1>
+          <h1>{title}</h1>
           <ArticleMeta />
         </div>
       </div>
       <div className="container page">
         <div className="row article-content">
           <div className="col-md-12">
-            <p>{data.article.description}</p>
-            <p>{data.article.body}</p>
+            <p>{description}</p>
+            <p>{body}</p>
           </div>
         </div>
         <hr />
@@ -34,7 +32,7 @@ function Article() {
           <div className="col-xs-12 col-md-8 offset-md-2">
             <form className="card comment-form">
               <div className="card-block">
-                <textarea className="form-control" placeholder="Write a comment..." rows="3" />
+                <textarea className="form-control" placeholder="Write a comment..." rows={3} />
               </div>
               <div className="card-footer">
                 <img src="http://i.imgur.com/Qr71crq.jpg" className="comment-author-img" />
