@@ -8,8 +8,8 @@ import './App.css'
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <header>
           <Navbar />
         </header>
@@ -36,8 +36,8 @@ function App() {
             </span>
           </div>
         </footer>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   )
 }
 

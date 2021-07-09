@@ -5,7 +5,8 @@
     "module": "commonJS",
     "target": "es2020",
     "checkJs": true,
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": "./"
   },
   "include": ["src/**/*.js", "src/**/*.jsx"],
   "exclude": ["node_modules"]

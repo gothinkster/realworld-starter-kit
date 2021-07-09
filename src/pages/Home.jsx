@@ -1,16 +1,32 @@
 import classNames from 'classnames'
 import React from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
 import { ArticleList, PopularTags } from '../components'
 import { useAuth } from '../hooks'
 
+/**
+ * @type {object} Filters
+ * @property {string} Filter.tag
+ */
+const initialFilters = { tag: '' }
+
 function Home() {
   const { isAuth } = useAuth()
-  const [searchParams, setSearchParams] = useSearchParams()
-  const navigate = useNavigate()
+  const [filters, setFilters] = React.useState(initialFilters)
+  const [isFeed, setIsFeed] = React.useState(false)
 
-  const tagFilter = searchParams.has('tag')
-  const feedFilter = searchParams.has('feed')
+  React.useEffect(() => {
+    setIsFeed(isAuth)
+  }, [isAuth])
+
+  function onTagClick(tag) {
+    setFilters((prevFilters) => ({ ...prevFilters, tag }))
+    setIsFeed(false)
+  }
+
+  function onGlobalFeedClick() {
+    setFilters(initialFilters)
+    setIsFeed(false)
+  }
 
   return (
     <div className="home-page">
@@ -28,10 +44,10 @@ function Home() {
                 {isAuth && (
                   <li className="nav-item">
                     <button
-                      onClick={() => setSearchParams({ feed: 'true' })}
+                      onClick={() => setIsFeed(true)}
                       type="button"
                       className={classNames('nav-link', {
-                        active: feedFilter,
+                        active: isFeed,
                       })}
                     >
                       Your Feed
@@ -42,24 +58,24 @@ function Home() {
                   <button
                     type="button"
                     className={classNames('nav-link', {
-                      active: !tagFilter && !feedFilter,
+                      active: !filters?.tag && !isFeed,
                     })}
-                    onClick={() => navigate('/')}
+                    onClick={onGlobalFeedClick}
                   >
                     Global Feed
                   </button>
                 </li>
-                {tagFilter && (
+                {filters?.tag && (
                   <li className="nav-item">
-                    <a className="nav-link active"># {searchParams.get('tag')}</a>
+                    <a className="nav-link active"># {filters?.tag}</a>
                   </li>
                 )}
               </ul>
             </div>
-            <ArticleList />
+            <ArticleList isFeed={isFeed} filters={filters} />
           </div>
           <div className="col-md-3">
-            <PopularTags />
+            <PopularTags onTagClick={onTagClick} />
           </div>
         </div>
       </div>

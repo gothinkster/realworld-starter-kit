@@ -1,14 +1,12 @@
-import classNames from 'classnames'
-import { get } from 'lodash-es'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import useArticleQuery from '../hooks/useArticleQuery'
-import useFavoriteArticleMutation from '../hooks/useFavoriteArticleMutation'
+import { useArticleQuery } from '../hooks'
+import FavoriteArticleButton from './FavoriteArticleButton'
+import FollowAuthorButton from './FollowAuthorButton'
 
 function ArticleMeta() {
   const { data } = useArticleQuery()
-  const { mutate, isLoading } = useFavoriteArticleMutation()
-  const { author, createdAt, favorited, favoritesCount } = data.article
+  const { author, createdAt, favorited, favoritesCount, slug } = data.article
 
   return (
     <div className="article-meta">
@@ -21,22 +19,11 @@ function ArticleMeta() {
         </Link>
         <span className="date">{new Date(createdAt).toDateString()}</span>
       </div>
-      <button className="btn btn-sm btn-outline-secondary">
-        <i className="ion-plus-round" />
-        &nbsp; Follow {get(data, 'article.author.username', '')}
-      </button>
+      <FollowAuthorButton />
       &nbsp;&nbsp;
-      <button
-        className={classNames('btn btn-sm', {
-          'btn-outline-primary': !favorited,
-          'btn-primary': favorited,
-        })}
-        onClick={() => mutate()}
-        disabled={isLoading}
-      >
-        <i className="ion-heart" />
+      <FavoriteArticleButton slug={slug} favorited={favorited}>
         &nbsp; {favorited ? 'Unfavorite' : 'Favorite'} Article <span className="counter">({favoritesCount})</span>
-      </button>
+      </FavoriteArticleButton>
     </div>
   )
 }

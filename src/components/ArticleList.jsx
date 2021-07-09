@@ -1,55 +1,34 @@
 import { isEmpty } from 'lodash-es'
 import React from 'react'
-import { useQuery } from 'react-query'
-import { useSearchParams } from 'react-router-dom'
+import { useArticlesQuery } from '../hooks'
 import ArticlePreview from './ArticlePreview'
 
 const limit = 10
 
-function ArticleList() {
+function ArticleList({ filters = {}, isFeed = false }) {
   const [offset, setOffset] = React.useState(0)
-  const [searchParams] = useSearchParams()
-  const isFeed = searchParams.has('feed')
+  const { data, isFetching, isError, isSuccess } = useArticlesQuery({ isFeed, filters: { offset, ...filters } })
 
-  const filters = {
-    limit,
-    offset,
-    tag: searchParams.get('tag'),
-  }
-
-  const { data, isFetching, isSuccess, isError } = useQuery([`/articles${isFeed ? '/feed' : ''}`, filters], {
-    placeholderData: {
-      articles: [],
-      articlesCount: null,
-    },
-    keepPreviousData: true,
-  })
+  if (isFetching) return <p className="article-preview">Loading articles...</p>
+  if (isError) return <p className="article-preview">Loading articles failed :(</p>
+  if (isSuccess && isEmpty(data?.articles)) return <p className="article-preview">No articles are here... yet.</p>
 
   return (
     <>
-      {isFetching && isEmpty(data.articles) && <p className="article-preview">Loading articles...</p>}
-      {isError && <p className="article-preview">Loading articles failed :(</p>}
-      {isSuccess && !isFetching && isEmpty(data.articles) && (
-        <p className="article-preview">No articles are here... yet.</p>
-      )}
-      {isSuccess && !isEmpty(data.articles) && (
-        <>
-          {data.articles.map((article) => (
-            <ArticlePreview key={article.slug} article={article} />
+      {data.articles.map((article) => (
+        <ArticlePreview key={article.slug} article={article} />
+      ))}
+      <nav>
+        <ul className="pagination">
+          {Array.from({ length: data.articlesCount / limit }, (_, i) => (
+            <li className={offset === i ? 'page-item active' : 'page-item'} key={i}>
+              <button type="button" className="page-link" onClick={() => setOffset(i)}>
+                {i + 1}
+              </button>
+            </li>
           ))}
-          <nav>
-            <ul className="pagination">
-              {Array.from({ length: data.articlesCount / limit }, (_, i) => (
-                <li className={offset === i ? 'page-item active' : 'page-item'} key={i}>
-                  <button type="button" className="page-link" onClick={() => setOffset(i)}>
-                    {i + 1}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </>
-      )}
+        </ul>
+      </nav>
     </>
   )
 }

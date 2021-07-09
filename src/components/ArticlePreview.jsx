@@ -1,19 +1,17 @@
-import classNames from 'classnames'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import useArticleQuery from '../hooks/useArticleQuery'
-import useFavoriteArticleMutation from '../hooks/useFavoriteArticleMutation'
+import { useArticleQuery } from '../hooks'
+import FavoriteArticleButton from './FavoriteArticleButton'
 
 function ArticlePreview({ article }) {
-  const { data, isFetching } = useArticleQuery(article)
-  const favoriteArticleMutation = useFavoriteArticleMutation()
-  const { slug, author, createdAt, favorited, favoritesCount, title, body, tagList } = data.article
+  const { data } = useArticleQuery({ article })
+  const { slug, author, createdAt, favoritesCount, favorited, title, body, tagList } = data?.article
 
   return (
     <div className="article-preview" key={slug}>
       <div className="article-meta">
         <Link to={`/profile/${author?.username}`}>
-          <img src={author?.image} alt="Author avatar" />
+          <img src={author?.image} />
         </Link>
         <div className="info">
           <Link to={`/profile/${author?.username}`} className="author">
@@ -21,17 +19,9 @@ function ArticlePreview({ article }) {
           </Link>
           <span className="date">{new Date(createdAt).toDateString()}</span>
         </div>
-        <button
-          disabled={favoriteArticleMutation.isLoading || isFetching}
-          onClick={() => favoriteArticleMutation.mutate()}
-          type="button"
-          className={classNames('btn btn-sm pull-xs-right', {
-            'btn-outline-primary': !favorited,
-            'btn-primary': favorited,
-          })}
-        >
-          <i className="ion-heart" /> {favoritesCount}
-        </button>
+        <FavoriteArticleButton className="pull-xs-right" favorited={favorited} slug={slug}>
+          &nbsp;{favoritesCount}
+        </FavoriteArticleButton>
       </div>
       <Link to={`/article/${slug}`} className="preview-link">
         <h1>{title}</h1>
