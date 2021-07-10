@@ -1,10 +1,8 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
 import { useDeleteArticleMutation } from '../hooks'
 
 function DeleteArticleButton() {
-  const { slug } = useParams()
-  const { mutate, isLoading } = useDeleteArticleMutation({ slug })
+  const { mutate, isLoading } = useDeleteArticleMutation()
 
   return (
     <button disabled={isLoading} onClick={() => mutate()} type="button" className="btn btn-outline-danger btn-sm">

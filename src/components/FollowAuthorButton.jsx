@@ -13,44 +13,41 @@ function FollowAuthorButton() {
   const { author } = data.article
   const queryKey = `/articles/${slug}`
 
-  const { mutate, isLoading } = useFollowAuthorMutation(
-    { following: author?.following, username: author?.username },
-    {
-      onMutate: async () => {
-        const previousArticle = queryClient.getQueryData(queryKey)
+  const { mutate, isLoading } = useFollowAuthorMutation({
+    onMutate: async () => {
+      const previousArticle = queryClient.getQueryData(queryKey)
 
-        if (isAuth) {
-          await queryClient.cancelQueries(queryKey)
+      if (isAuth) {
+        await queryClient.cancelQueries(queryKey)
 
-          queryClient.setQueryData(queryKey, ({ article: currentArticle }) => ({
-            article: {
-              ...currentArticle,
-              author: {
-                ...currentArticle?.author,
-                following: !currentArticle?.author?.following,
-              },
+        queryClient.setQueryData(queryKey, ({ article: currentArticle }) => ({
+          article: {
+            ...currentArticle,
+            author: {
+              ...currentArticle?.author,
+              following: !currentArticle?.author?.following,
             },
-          }))
-        } else {
-          navigate('/login')
-        }
+          },
+        }))
+      } else {
+        navigate('/login')
+      }
 
-        return { previousArticle }
-      },
-      onError: (err, _, context) => {
-        queryClient.setQueryData(queryKey, context.previousArticle)
-      },
-      onSettled: () => {
-        queryClient.invalidateQueries(queryKey)
-      },
-    }
-  )
+      return { previousArticle }
+    },
+    onError: (err, _, context) => {
+      queryClient.setQueryData(queryKey, context.previousArticle)
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(queryKey)
+    },
+  })
 
   return (
     <FollowButton
       disabled={isLoading}
       following={author?.following}
-      onClick={() => mutate()}
+      onClick={() => mutate({ following: author?.following, username: author?.username })}
       username={author?.username}
     />
   )

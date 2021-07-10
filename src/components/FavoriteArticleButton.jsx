@@ -3,7 +3,7 @@ import React from 'react'
 import { useFavoriteArticleMutation } from '../hooks'
 
 function FavoriteArticleButton({ slug, favorited, children, className = '' }) {
-  const { mutate, isLoading } = useFavoriteArticleMutation({ slug, favorited })
+  const { mutate, isLoading } = useFavoriteArticleMutation(slug)
 
   return (
     <button
@@ -16,7 +16,7 @@ function FavoriteArticleButton({ slug, favorited, children, className = '' }) {
         },
         className
       )}
-      onClick={() => mutate()}
+      onClick={() => mutate({ favorited })}
       disabled={isLoading}
     >
       <i className="ion-heart" />

@@ -19,6 +19,8 @@ function Editor() {
 
       if (slug) {
         queryClient.invalidateQueries(`/articles/${slug}`)
+      } else {
+        queryClient.invalidateQueries('/articles')
       }
 
       navigate(`/article/${data?.article?.slug}`)

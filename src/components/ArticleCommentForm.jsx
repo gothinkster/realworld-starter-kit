@@ -34,7 +34,7 @@ function ArticleCommentForm() {
           <div className="card-footer">
             <img src={author?.image} className="comment-author-img" />
             <button disabled={isSubmitting} type="submit" className="btn btn-sm btn-primary">
-              {isSubmitting ? 'Loading...' : 'Post Comment'}
+              Post Comment
             </button>
           </div>
         </Form>
