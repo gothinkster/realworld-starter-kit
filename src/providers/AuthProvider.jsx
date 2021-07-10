@@ -6,20 +6,18 @@ import { useInterval } from '../hooks'
 import { AuthContext } from '../context'
 
 function AuthProvider({ children }) {
-  const [isAuth, setIsAuth] = React.useState(false)
-  const [authUser, setAuthUser] = React.useState({})
+  const [authUser, setAuthUser] = React.useState(getAuthUser())
+  const isAuth = !isEmpty(authUser)
   const navigate = useNavigate()
 
   function checkAuth() {
     const user = getAuthUser()
     const userUpdated = !isEqual(user, authUser)
 
-    if ((user && isEmpty(authUser) && !isAuth) || userUpdated) {
+    if ((user && !isAuth) || userUpdated) {
       setAuthUser(user)
-      setIsAuth(true)
-    } else if (!user && !isEmpty(authUser) && isAuth) {
+    } else if (!user && isAuth) {
       setAuthUser(null)
-      setIsAuth(false)
     }
   }
 

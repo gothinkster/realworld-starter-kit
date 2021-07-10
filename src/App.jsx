@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { Home, Settings, Editor, Article, Profile, Auth } from './pages'
 import { AuthProvider } from './providers'
-import { AuthRoute, Navbar } from './components'
+import { AuthRoute, GuestRoute, Navbar } from './components'
 
 import './App.css'
 
@@ -16,8 +16,8 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/register" element={<Auth key="register" />} />
-            <Route path="/login" element={<Auth key="login" />} />
+            <GuestRoute path="/register" element={<Auth key="register" />} />
+            <GuestRoute path="/login" element={<Auth key="login" />} />
             <AuthRoute path="/settings" element={<Settings />} />
             <AuthRoute path="/editor" element={<Editor />} />
             <Route path="/editor/:slug" element={<Editor />} />
