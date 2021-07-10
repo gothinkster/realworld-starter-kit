@@ -1,11 +1,11 @@
 import React from 'react'
 import { useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
-import { useAuth, useFollowAuthorMutation, useProfile } from '../hooks'
+import { useAuth, useFollowAuthorMutation, useProfileQuery } from '../hooks'
 import FollowButton from './FollowButton'
 
 function FollowProfileButton() {
-  const { data } = useProfile()
+  const { data } = useProfileQuery()
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   const { isAuth } = useAuth()

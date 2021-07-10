@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { useAuth } from '../hooks'
 
 function Navbar() {
-  const { isAuth } = useAuth()
+  const { isAuth, authUser } = useAuth()
 
   return (
     <nav className="navbar navbar-light">
@@ -29,6 +29,12 @@ function Navbar() {
                 <NavLink activeClassName="active" className="nav-link" to="/settings">
                   <i className="ion-gear-a" />
                   &nbsp;Settings
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to={`/@${authUser?.username}`}>
+                  <img src={authUser?.image} />
+                  &nbsp;{authUser?.username}
                 </NavLink>
               </li>
             </>

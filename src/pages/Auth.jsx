@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link, useNavigate, useMatch } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
-import { isEmpty } from 'lodash-es'
-import { http } from '../utils'
+import { FormErrors } from '../components'
+import { http, setAuthUser } from '../utils'
 
 function Auth() {
   const navigate = useNavigate()
@@ -12,7 +12,7 @@ function Auth() {
     try {
       const { data } = await http.post(`/users${isRegister ? '' : '/login'}`, { user: values })
 
-      window.localStorage.setItem('jwtToken', btoa(JSON.stringify(data.user)))
+      setAuthUser(data.user)
 
       navigate('/')
     } catch (error) {
@@ -21,8 +21,6 @@ function Auth() {
       if (status === 422) {
         actions.setErrors(data.errors)
       }
-
-      // TODO: Log error to a tracking service
     }
   }
 
@@ -41,19 +39,9 @@ function Auth() {
               onSubmit={onSubmit}
               initialValues={isRegister ? { ...loginInitialValues, username: '' } : loginInitialValues}
             >
-              {({ isSubmitting, errors }) => (
+              {({ isSubmitting }) => (
                 <>
-                  {!isEmpty(errors) && (
-                    <ul className="error-messages">
-                      {Object.entries(errors).map(([key, messages]) =>
-                        /** @type {string[]} */ (messages).map((message) => (
-                          <li>
-                            {key} {message}
-                          </li>
-                        ))
-                      )}
-                    </ul>
-                  )}
+                  <FormErrors />
                   <Form>
                     {isRegister && (
                       <fieldset className="form-group">

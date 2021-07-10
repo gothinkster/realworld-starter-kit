@@ -1,7 +1,8 @@
 import classNames from 'classnames'
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { ArticleList, FollowProfileButton } from '../components'
-import { useProfile } from '../hooks'
+import { useAuth, useProfileQuery } from '../hooks'
 
 /**
  * @type {object} Filters
@@ -11,9 +12,11 @@ import { useProfile } from '../hooks'
 const initialFilters = { author: '', favorited: '' }
 
 function Profile() {
-  const { data } = useProfile()
+  const { data } = useProfileQuery()
+  const { authUser } = useAuth()
   const [filters, setFilters] = React.useState(initialFilters)
   const { username, image, bio } = data.profile
+  const canUpdateProfile = authUser?.username === username
 
   function setAuthorFilter() {
     setFilters((prevFilters) => ({ ...prevFilters, author: username, favorited: '' }))
@@ -32,7 +35,13 @@ function Profile() {
               <img src={image} className="user-img" />
               <h4>{username}</h4>
               <p>{bio}</p>
-              <FollowProfileButton />
+              {canUpdateProfile ? (
+                <Link className="btn btn-sm btn-outline-secondary action-btn" to="/settings">
+                  <i className="ion-gear-a" /> Edit Profile Settings
+                </Link>
+              ) : (
+                <FollowProfileButton />
+              )}
             </div>
           </div>
         </div>

@@ -1,17 +1,27 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { noop } from 'lodash-es'
-import { authUser } from '../utils'
+import { isEmpty, isEqual } from 'lodash-es'
+import { getAuthUser } from '../utils'
 import { useInterval } from '../hooks'
-
-export const AuthContext = React.createContext({
-  isAuth: false,
-  attempt: noop,
-})
+import { AuthContext } from '../context'
 
 function AuthProvider({ children }) {
   const [isAuth, setIsAuth] = React.useState(false)
+  const [authUser, setAuthUser] = React.useState({})
   const navigate = useNavigate()
+
+  function checkAuth() {
+    const user = getAuthUser()
+    const userUpdated = !isEqual(user, authUser)
+
+    if ((user && isEmpty(authUser) && !isAuth) || userUpdated) {
+      setAuthUser(user)
+      setIsAuth(true)
+    } else if (!user && !isEmpty(authUser) && isAuth) {
+      setAuthUser(null)
+      setIsAuth(false)
+    }
+  }
 
   function attempt(callback) {
     if (isAuth) {
@@ -22,18 +32,10 @@ function AuthProvider({ children }) {
   }
 
   useInterval(() => {
-    const user = authUser()
-
-    if (user && !isAuth) {
-      setIsAuth(true)
-    }
-
-    if (!user && isAuth) {
-      setIsAuth(false)
-    }
+    checkAuth()
   }, 1000)
 
-  return <AuthContext.Provider value={{ isAuth, attempt }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ isAuth, attempt, authUser }}>{children}</AuthContext.Provider>
 }
 
 export default AuthProvider
