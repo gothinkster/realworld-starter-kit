@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from 'react-query'
-import { useParams } from 'react-router-dom'
-import { http } from '../utils'
+import { useMutation, useQueryClient } from "react-query"
+import { useParams } from "react-router-dom"
+import { http } from "../utils"
 
 function useAddCommentMutation() {
   const { slug } = useParams()

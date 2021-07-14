@@ -2,11 +2,9 @@
   "compilerOptions": {
     "lib": ["es2020", "DOM"],
     "moduleResolution": "node",
-    "module": "commonJS",
     "target": "es2020",
     "checkJs": true,
     "jsx": "react",
-    "baseUrl": "./"
   },
   "include": ["src/**/*.js", "src/**/*.jsx"],
   "exclude": ["node_modules"]

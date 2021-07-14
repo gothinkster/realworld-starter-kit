@@ -18,13 +18,13 @@ function Profile() {
   const { username, image, bio } = data.profile
   const canUpdateProfile = authUser?.username === username
 
-  function setAuthorFilter() {
-    setFilters((prevFilters) => ({ ...prevFilters, author: username, favorited: '' }))
-  }
+  const setAuthorFilter = React.useCallback(() => {
+      setFilters((prevFilters) => ({ ...prevFilters, author: username, favorited: '' }))
+  }, [username]);
 
   React.useEffect(() => {
     setAuthorFilter()
-  }, [username])
+  }, [username, setAuthorFilter])
 
   return (
     <div className="profile-page">
