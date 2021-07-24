@@ -1,45 +1,12 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/bower_components
-
-# IDEs and editors
-/.idea
-.project
-.classpath
-*.launch
-.settings/
-
-
-#System Files
+node_modules
 .DS_Store
-Thumbs.db
-# See https://help.github.com/ignore-files/ for more about ignoring files.
+dist
+dist-ssr
+*.local
 
-# dependencies
-/node_modules
-
-# testing
-/coverage
-
-# production
-/build
-
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# bucklescript
-/lib
-/types
-.merlin
-*.bs.js
+# ReScript
 .bsb.lock
+.merlin
+/lib/
+*.bs.js
+
