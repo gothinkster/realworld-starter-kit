@@ -18,8 +18,8 @@ For more information on how to this works with other frontends/backends, head ov
 
 Basically its just like React single-page-application but written in [ReScript](https://rescript-lang.org/) with [React](https://reactjs.org/).
 
-- Using [Snowpack](https://www.snowpack.dev/) as the frontend build tool
-- Seamlessly integrate with [ReScript](https://rescript-lang.org/) (previously known as BuckleScript/ReasonML)
+- Using [Vite](https://vitejs.dev/) as the frontend build tool
+- Seamlessly integrate with [ReScript](https://rescript-lang.org/) (previously known as BuckleScript/ReasonML) and [rescript-react](https://rescript-lang.org/docs/react/latest/introduction)
 - Routing - ReScript React [Router](https://rescript-lang.org/docs/react/latest/router)
 
 # Getting started
@@ -37,4 +37,4 @@ npm start
 
 Then open http://localhost:3000 to see your app.
 
-When you’re ready to deploy to production, create a minified bundle with `npm run build` and you will find result in folder `/build`
+When you’re ready to deploy to production, create a production build with `npm run build` and you will find result in folder `/dist`, after you created a production build, you can execute `npm run serve` to serve the folder.
