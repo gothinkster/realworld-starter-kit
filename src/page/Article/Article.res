@@ -47,7 +47,7 @@ let make = (~slug: string, ~user: option<Shape.User.t>) => {
             | Reloading(Ok({body})) | Complete(Ok({body})) =>
               <div
                 dangerouslySetInnerHTML={
-                  "__html": EscapeHatch.markdownToHtml(body),
+                  "__html": Markdown.toHTML(body),
                 }
               />
             | Reloading(Error(_error)) | Complete(Error(_error)) => "ERROR"->React.string
