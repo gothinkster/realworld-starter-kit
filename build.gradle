@@ -6,7 +6,10 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'jacoco'
+    id 'io.freefair.lombok' version "6.2.0"  // Lombok Gradle용 플러그인을 사용하는 설정
 }
+
+
 
 group = 'pw.wlz.realworld'
 version = '0.0.1-SNAPSHOT'
@@ -27,17 +30,14 @@ dependencies {
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.session:spring-session-core'
 
-    compileOnly 'org.projectlombok:lombok'
-    compileOnly 'org.mapstruct:mapstruct:1.4.2.Final'
-    compileOnly 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'com.h2database:h2:1.4.200'
 
-    annotationProcessor 'org.projectlombok:lombok'
-    annotationProcessor "org.mapstruct:mapstruct-processor:1.4.2.Final"
-    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //    testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.mockito:mockito-inline:3.9.0'
@@ -63,6 +63,11 @@ test {
 //        jmx = false
     }
 }
+
+lombok { // 롬복 설정
+    version = "1.18.20"
+}
+
 
 jacoco {  // JaCoCo 기본 빌드 구성
 
@@ -137,7 +142,7 @@ jacocoTestCoverageVerification { // 코드 커버리지 측정항목 및 규칙
 
             // 커버리지 체크를 제외할 클래스 설정
             excludes = [
-                // '*.test.*' // 이처럼 와일드 카드 (*, ?)를 사용 가능
+                    // '*.test.*' // 이처럼 와일드 카드 (*, ?)를 사용 가능
             ];
         }
 
