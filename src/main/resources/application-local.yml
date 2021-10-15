@@ -3,6 +3,8 @@ server:
 spring:
   jpa:
     database: h2
+    hibernate:
+      ddl-auto: none
   h2:
     console:
       enabled: true
@@ -10,17 +12,24 @@ spring:
       settings:
         trace: false
         web-allow-others: false
+
   datasource:
     url: jdbc:h2:mem:testdb
     username: root
     password:
     driver-class-name: org.h2.Driver
+
 logging:
   level:
     root: info
     org:
       hibernate: trace
 
+
+# 로컬환경에서 h2-console 이 security 적용받지 않도록 적용
+app:
+  security:
+    ignore: /h2-console/**
 
 # Note.
 #

@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "app.security",
+      "type": "pw.wlz.realworld.config.security.AppSecurityConfigProperties",
+      "description": "Properties for security configurer..."
+    },
+    {
+      "name": "app.security.ignore",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Configure web ignoring with this lists."
+    }
+  ]
+}

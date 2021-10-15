@@ -1,3 +1,13 @@
 spring:
   profiles:
     active: local
+  application:
+    name: Real-World-SpringBoot-App
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      force-response: true
+  server-header: Real-World-SpringBoot-App
+

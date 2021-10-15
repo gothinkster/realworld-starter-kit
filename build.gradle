@@ -9,8 +9,6 @@ plugins {
     id 'io.freefair.lombok' version "6.2.0"  // Lombok Gradle용 플러그인을 사용하는 설정
 }
 
-
-
 group = 'pw.wlz.realworld'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
@@ -27,7 +25,7 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
@@ -35,11 +33,13 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2:1.4.200'
 
+//    compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.mockito:mockito-inline:3.9.0'
 }
 
@@ -150,6 +150,8 @@ jacocoTestCoverageVerification { // 코드 커버리지 측정항목 및 규칙
 }
 
 // 커스텀 테스크 생성해보기
+// -- 실행 순서 확인을 위한 커스텀 태스크 연습
+// -- 실제 실행은 test 만 해도 다음 태스크를 실행하도록 구성함.
 task runJaCoCo(type: Test) {
     group = 'verification'
     description = 'Execute the JaCoCo coverage verification after verifying the unit tests and generating JaCoCo Report.'
