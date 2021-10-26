@@ -1,0 +1,7 @@
+{
+  "8139BA2188CC2D95D012678D6C78CA4C6217A20F": {
+    "status": true,
+    "query": "CREATE TABLE \"users\" ('id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 'email' VARCHAR NOT NULL CHECK (length('email') <= 255), 'username' VARCHAR NOT NULL CHECK (length('username') <= 255), 'bio' VARCHAR NOT NULL CHECK (length('bio') <= 255), 'image' VARCHAR NOT NULL CHECK (length('image') <= 255)); ",
+    "run_at": "2021-10-25 20:05:50"
+  }
+}
