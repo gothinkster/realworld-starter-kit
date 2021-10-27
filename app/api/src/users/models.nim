@@ -1,5 +1,5 @@
 import json
-import std/[strformat, asyncdispatch, options]
+import std/[asyncdispatch, options]
 
 import allographer/schema_builder
 import allographer/query_builder
@@ -62,9 +62,9 @@ proc registerUser*(self: Repository, email: string, username: string, password: 
   return id
 
 
-proc getUserRaw*(self: Repository, id: int): Future[Option[JsonNode]] {.async.} =
+proc getUserRaw*(self: Repository, id: int, columns:varargs[string, `$`]): Future[Option[JsonNode]] {.async.} =
   let user = await self.rdb.table(t_users)
-    .select("email", "username", "password", "bio", "image")
+    .select(columns)
     .find(id)
   return user
 
@@ -83,3 +83,7 @@ proc getUser*[T](self: Repository, field: string, value: T): Future[Option[User]
     .find(value, field)
   ).orm(User)
   return user
+
+
+proc updateUser*(self: Repository, id: int, data: JsonNode) {.async.} =
+  await self.rdb.table(t_users).where("id", "=", id).update(%*data)

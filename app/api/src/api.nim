@@ -1,7 +1,6 @@
 import prologue
 import prologue/openapi
 import prologue/middlewares/staticfile
-import allographer/connection
 
 import core/middleware
 import core/views as coreViews
@@ -31,5 +30,6 @@ app.registerErrorHandler(Http422, coreViews.go422View)
 app.addRoute("/api/users", usersViews.registerView, @[HttpPost])
 app.addRoute("/api/users/login", usersViews.loginView, @[HttpPost])
 app.addRoute("/api/user", usersViews.getUserView, @[HttpGet])
+app.addRoute("/api/user", usersViews.editUserView, @[HttpPut])
 
 app.run(RepositoryContext)

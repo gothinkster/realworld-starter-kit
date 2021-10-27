@@ -61,11 +61,38 @@ proc loginView*(ctx: Context) {.async.} =
   usr["token"] = newJString(token.get)
   let data = %{"user": usr}
 
-  resp jsonResponse(data, code=Http201)
+  resp jsonResponse(data, code=Http200)
 
 
 proc getUserView*(ctx: Context) {.async.} =
-  var user = parseJson(ctx.ctxData["user"])
-  user["token"] = newJString(sign(user))
-  user.delete("id")
-  resp jsonResponse(%*{"user": user}, code=Http200)
+  let
+    ctx = RepositoryContext(ctx)
+    usr = parseJson(ctx.ctxData["user"])
+  var
+    user = await ctx.rdb.getUserRaw(usr["id"].getInt, "id", "email", "username", "password", "bio", "image")
+    data = user.get()
+    # data = %*user.get()
+
+  echo data
+  data["token"] = newJString(sign(data))
+  data.delete("id")
+  data.delete("password")
+  resp jsonResponse(%*{"user": data}, code=Http200)
+
+
+proc editUserView*(ctx: Context) {.async.} =
+  let
+    ctx = RepositoryContext(ctx)
+    input = parseJson(ctx.request.body)["user"]
+    header_user = parseJson(ctx.ctxData["user"])
+
+  await ctx.rdb.updateUser(header_user["id"].getInt, input)
+
+  var
+    user = await ctx.rdb.getUser(header_user["id"].getInt)
+    data = %*user.get()
+
+  data["token"] = newJString(sign(data))
+  data.delete("id")
+  data.delete("password")
+  resp jsonResponse(%*{"user": data}, code=Http200)

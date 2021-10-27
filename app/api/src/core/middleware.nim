@@ -4,7 +4,6 @@ import strutils
 import prologue
 import quickjwt
 
-import allographer/connection
 import database
 
 
@@ -26,7 +25,7 @@ proc jwtMiddleware*(secret: string, exclude: seq[string]): HandlerAsync =
         resp "Authorization token missing", Http401
         return
 
-      let token = auth[0].split(" ")[1]
+      let token = auth[0]
       try:
         token.verifyEx(secret, @["HS256"])
       except:
@@ -42,7 +41,5 @@ proc jwtMiddleware*(secret: string, exclude: seq[string]): HandlerAsync =
 
 proc repositoryMiddleware*(): HandlerAsync =
   result = proc(ctx: Context) {.async.} =
-    echo "Creating session"
     let ctx = RepositoryContext(ctx)
     await switch(ctx)
-    echo "Done with the session"

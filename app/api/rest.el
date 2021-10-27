@@ -7,7 +7,7 @@
 # register use
 POST :domain/users
 Content-Type: application/json
-Authorization: Bearer :token
+Authorization: :token
 {
   "user": {
     "username": "username",
@@ -19,7 +19,7 @@ Authorization: Bearer :token
 # login user
 POST :domain/users/login
 Content-Type: application/json
-Authorization: Bearer :token
+Authorization: :token
 {
   "user": {
     "email": "vlad@vlad.com",
@@ -31,10 +31,23 @@ Authorization: Bearer :token
 # get user details
 GET :domain/user
 Content-Type: application/json
-Authorization: Bearer :token
+Authorization: :token
+
+
+# update user
+PUT :domain/user
+Content-Type: application/json
+Authorization: :token
+{
+  "user": {
+    "username": "changed2",
+    "bio": "new bio",
+    "image": "string"
+  }
+}
 
 
 # get not found
 GET :domain/article
 Content-Type: application/json
-Authorization: Bearer :token
+Authorization: :token

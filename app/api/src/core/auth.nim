@@ -9,7 +9,6 @@ import prologue/security/hasher
 
 
 proc sign*(payload: JsonNode): string =
-  echo payload
   let
     env = loadPrologueEnv(".env")
     til = env.getOrDefault("jwtExpires", "60").parseFloat
