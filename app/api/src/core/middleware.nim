@@ -1,19 +1,22 @@
-import json
-import strutils
+import std/[json, strutils, logging]
 
-import prologue
 import quickjwt
-
-import database
+import prologue
+import allographer/[connection, query_builder]
 
 
 type
-  RepositoryContext* = ref object of Context
-    rdb*: Repository
+  DbContext* = ref object of Context
+    db*: Rdb
 
 
-method extend(ctx: RepositoryContext) =
-  ctx.rdb = newRepository()
+method extend(ctx: DbContext) =
+  let
+    env = loadPrologueEnv(".env")
+    dbUrl = env.getOrDefault("databaseUrl", "real.db")
+    db: Rdb = dbOpen(Sqlite3, dbUrl, shouldDisplayLog=true)
+  logging.info "Connecting to database"
+  ctx.db = db
 
 
 proc jwtMiddleware*(secret: string, exclude: seq[string]): HandlerAsync =
@@ -30,16 +33,17 @@ proc jwtMiddleware*(secret: string, exclude: seq[string]): HandlerAsync =
         token.verifyEx(secret, @["HS256"])
       except:
         let
-          e = getCurrentException()
+          # e = getCurrentException()
           msg = getCurrentExceptionMsg()
         resp msg, Http401
         return
 
-      ctx.ctxData["user"] = $token.claim["payload"]
+      ctx.ctxData["payload"] = $token.claim["payload"]
     await switch(ctx)
 
 
-proc repositoryMiddleware*(): HandlerAsync =
+proc dbMiddleware*(): HandlerAsync =
   result = proc(ctx: Context) {.async.} =
-    let ctx = RepositoryContext(ctx)
+    let ctx = DbContext(ctx)
     await switch(ctx)
+    logging.info "Clossing the database"

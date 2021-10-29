@@ -3,5 +3,10 @@
     "status": true,
     "query": "CREATE TABLE \"users\" ('id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 'email' VARCHAR NOT NULL CHECK (length('email') <= 255), 'username' VARCHAR NOT NULL CHECK (length('username') <= 255), 'bio' VARCHAR NOT NULL CHECK (length('bio') <= 255), 'image' VARCHAR NOT NULL CHECK (length('image') <= 255)); ",
     "run_at": "2021-10-25 20:05:50"
+  },
+  "CFC4BEAC5BF050855831494BC189A6FF9479B653": {
+    "status": true,
+    "query": "CREATE TABLE \"user\" ('id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 'email' VARCHAR NOT NULL CHECK (length('email') <= 255), 'username' VARCHAR NOT NULL CHECK (length('username') <= 255), 'password' VARCHAR NOT NULL CHECK (length('password') <= 255), 'bio' VARCHAR NOT NULL CHECK (length('bio') <= 255), 'image' VARCHAR NOT NULL CHECK (length('image') <= 255)); ",
+    "run_at": "2021-10-29 12:49:29"
   }
 }

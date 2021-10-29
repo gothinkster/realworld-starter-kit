@@ -2,7 +2,7 @@ import prologue
 import prologue/openapi
 import prologue/middlewares/staticfile
 
-import core/middleware
+import core/[middleware, events]
 import core/views as coreViews
 import ./users/views as usersViews
 
@@ -14,12 +14,15 @@ let
     debug = env.getOrDefault("debug", true),
     port = Port(env.getOrDefault("port", 8080)),
     secretKey = env.getOrDefault("secretKey", ""))
+  logEvent = initEvent(setLoggingLevel)
+  createTablesEvent = initEvent(createDatabaseTables)
 
 
-var app = newApp(settings = settings)
-app.use(repositoryMiddleware())
+echo env
+var app = newApp(settings = settings, startup = @[logEvent, createTablesEvent])
 app.use(jwtMiddleware(env.get("secretKey"), @["/api/users", "/api/users/login"]))
 app.use(staticFileMiddleware(env.get("staticDir")))
+app.use(dbMiddleware())
 
 app.serveDocs("schema/swagger.json")
 
@@ -32,4 +35,4 @@ app.addRoute("/api/users/login", usersViews.loginView, @[HttpPost])
 app.addRoute("/api/user", usersViews.getUserView, @[HttpGet])
 app.addRoute("/api/user", usersViews.editUserView, @[HttpPut])
 
-app.run(RepositoryContext)
+app.run(DbContext)

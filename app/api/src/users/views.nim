@@ -1,98 +1,93 @@
-import json
+import std/[json]
 
 import prologue
+import jsony
 
-import ../core/auth
+import ../core/[auth, middleware]
+import ../core/views
+import allographer/query_builder
 import models
-from ../core/middleware import RepositoryContext
+
+
+type
+  UserFields = object
+    email: string
+    username: string
+    password: string
+  UserInput = object
+    user: UserFields
+
 
 
 proc registerView*(ctx: Context) {.async.} =
-  let ctx = RepositoryContext(ctx)
   let
-      env = loadPrologueEnv(".env")
-      input = parseJson(ctx.request.body)["user"]
-      email = input["email"].getStr
-      username = input["username"].getStr
-      password = encode(input["password"].getStr)
-      userId = await ctx.rdb.registerUser(email=email, username=username, password=password)
-      user = await ctx.rdb.getUser(userId)
+    ctx = DbContext(ctx)
 
-  var usr = %*user
+  var input = ctx.request.body.fromJson(UserInput)
 
-  usr.delete("password")
-  usr["token"] = newJString(sign(usr))
-  usr.delete("id")
-  let data = %{"user": usr}
+  input.user.password = encode(input.user.password)
+  var user =  %*input.user
+  user["bio"] = newJString("")
+  user["image"] = newJString("")
 
-  resp jsonResponse(data, code=Http201)
+  user["id"] = newJInt(await ctx.db.table(t_user).insertId(user))
+  user["token"] = newJString(sign(user))
+  user.delete("password")
+  user["token"] = newJString(sign(user))
+  user.delete("id")
+  jresp %*{"user": user}, Http201
 
 
 proc loginView*(ctx: Context) {.async.} =
-  let ctx = RepositoryContext(ctx)
+  let ctx = DbContext(ctx)
   let
-    env = loadPrologueEnv(".env")
     input = parseJson(ctx.request.body)["user"]
-    user = await ctx.rdb.getUser("email", input["email"].getStr)
+
+  var user = await ctx.db.getUser(input["email"].getStr, by="email")
 
   if not user.isSome:
-    let data = %*{
-      "errors": {
-        "body": ["User not found"]}
-    }
-
-    resp jsonResponse(data, code=Http401)
+    jerror "Incorrect email or password", Http404
     return
 
-  var usr = %*user.get()
-  usr.delete("password")
-  let token = authenticate(input["password"].getStr, user.get().password, payload=usr)
-
+  let password = user.get()["password"].getStr
+  user.get().delete("password")
+  let token = authenticate(input["password"].getStr, password, payload=user.get())
   if not token.isSome:
-    let data = %*{
-      "errors": {
-        "body": ["Wrong login stuff"]}
-    }
-
-    resp jsonResponse(data, code=Http422)
+    jerror "Incorrect email or password", Http404
     return
 
-  usr.delete("id")
-  usr["token"] = newJString(token.get)
-  let data = %{"user": usr}
-
-  resp jsonResponse(data, code=Http200)
+  user.get()["token"] = newJString(token.get)
+  user.get().delete("id")
+  jresp %*{"user": user.get()}, Http200
 
 
 proc getUserView*(ctx: Context) {.async.} =
   let
-    ctx = RepositoryContext(ctx)
-    usr = parseJson(ctx.ctxData["user"])
-  var
-    user = await ctx.rdb.getUserRaw(usr["id"].getInt, "id", "email", "username", "password", "bio", "image")
-    data = user.get()
-    # data = %*user.get()
+    ctx = DbContext(ctx)
+    id = parseJson(ctx.ctxData["payload"])["id"].getInt
 
-  echo data
-  data["token"] = newJString(sign(data))
-  data.delete("id")
-  data.delete("password")
-  resp jsonResponse(%*{"user": data}, code=Http200)
+  var user = await ctx.db.getUser(id, exclude= @["password"])
+  if not user.isSome:
+    jerror "User not found", Http404
+  else:
+    user.get["token"] = newJString(sign(user.get))
+    user.get.delete("id")
+    jresp %*{"user": user.get}, Http200
 
 
 proc editUserView*(ctx: Context) {.async.} =
   let
-    ctx = RepositoryContext(ctx)
+    ctx = DbContext(ctx)
     input = parseJson(ctx.request.body)["user"]
-    header_user = parseJson(ctx.ctxData["user"])
+    payload = parseJson(ctx.ctxData["payload"])
+    id = payload["id"].getInt
 
-  await ctx.rdb.updateUser(header_user["id"].getInt, input)
+  await ctx.db.table(t_user).where("id", "=", id).update(input)
 
-  var
-    user = await ctx.rdb.getUser(header_user["id"].getInt)
-    data = %*user.get()
-
-  data["token"] = newJString(sign(data))
-  data.delete("id")
-  data.delete("password")
-  resp jsonResponse(%*{"user": data}, code=Http200)
+  var user = await ctx.db.getUser(id, exclude= @["password"])
+  if not user.isSome:
+    jerror "User not found", Http404
+  else:
+    user.get["token"] = newJString(sign(user.get))
+    user.get.delete("id")
+    jresp %*{"user": user.get}, Http200

@@ -19,11 +19,11 @@ requires "jsony"
 
 task release, "Builds a release version":
   echo("\nRelease Build...\n")
-  exec("nimble c -d:release -d:usestd --opt:speed --gc:orc --threads:on --d:ssl --passL:\"-lcrypto\" src/api --outdir:./bin")
+  exec("nimble c -d:release src/api --outdir:./bin")
 
 task debug, "Builds a debug version":
   echo("\nDebug Build\n")
-  exec("nimble c -d:debug --lineDir:on --debuginfo --debugger:native -d:usestd --opt:speed --gc:orc --threads:on --d:ssl --passL:\"-lcrypto\" src/api --outdir:./bin")
+  exec("nimble c --verbose -d:debug --lineDir:on --debuginfo --debugger:native src/api --outdir:./bin")
 
 # pre runner for 'exec' to first carry out a 'debug' task build above
 before exec:
