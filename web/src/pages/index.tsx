@@ -1,9 +1,7 @@
+import HomeView from '@Modules/Home/HomeView'
+
 function HomePage() {
-  const person = {
-    home: 'hi',
-    name: 'edgar'
-  }
-  return <div>Welcome to Next.js!</div>
+  return <HomeView />
 }
 
 export default HomePage
