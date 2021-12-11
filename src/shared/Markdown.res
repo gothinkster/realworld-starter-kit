@@ -1,4 +1,4 @@
-@module("marked") external marked: string => string = "default"
+@module("marked") external marked: string => string = "marked"
 
 type domPurify
 @module("dompurify") external createDompurify: Dom.window => domPurify = "default"
