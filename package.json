@@ -11,6 +11,10 @@
     "rescript-react",
     "react"
   ],
+  "engines": {
+    "node": "14",
+    "npm": "7"
+  },
   "scripts": {
     "build": "vite build",
     "clean": "rescript clean -with-deps",
