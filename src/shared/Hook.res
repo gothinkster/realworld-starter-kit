@@ -210,7 +210,10 @@ let useFollow: (
     article
     ->AsyncResult.getOk
     ->Belt.Option.map((ok: Shape.Article.t) =>
-      AsyncData.complete((ok.author.username, ok.author.following))
+      AsyncData.complete((
+        ok.author.username,
+        ok.author.following->Belt.Option.getWithDefault(false),
+      ))
     )
     ->Belt.Option.getWithDefault(AsyncData.complete(("", false)))
   | Loading as orig | Reloading(_) as orig | Complete(_) as orig => orig
@@ -237,7 +240,8 @@ let useFollow: (
     ->then(data =>
       setState(_prev =>
         switch data {
-        | Ok(ok: Shape.Author.t) => AsyncData.complete((ok.username, ok.following))
+        | Ok(ok: Shape.Author.t) =>
+          AsyncData.complete((ok.username, ok.following->Belt.Option.getWithDefault(false)))
         | Error(_error) => AsyncData.complete(("", false))
         }
       )->resolve
@@ -264,7 +268,9 @@ let useFollowInProfile: (
   | Init =>
     profile
     ->AsyncResult.getOk
-    ->Belt.Option.map((ok: Shape.Author.t) => AsyncData.complete((ok.username, ok.following)))
+    ->Belt.Option.map((ok: Shape.Author.t) =>
+      AsyncData.complete((ok.username, ok.following->Belt.Option.getWithDefault(false)))
+    )
     ->Belt.Option.getWithDefault(AsyncData.complete(("", false)))
   | Loading as orig | Reloading(_) as orig | Complete(_) as orig => orig
   }
@@ -290,7 +296,8 @@ let useFollowInProfile: (
     ->then(data =>
       setState(_prev =>
         switch data {
-        | Ok(ok: Shape.Author.t) => AsyncData.complete((ok.username, ok.following))
+        | Ok(ok: Shape.Author.t) =>
+          AsyncData.complete((ok.username, ok.following->Belt.Option.getWithDefault(false)))
         | Error(_error) => AsyncData.complete(("", false))
         }
       )->resolve

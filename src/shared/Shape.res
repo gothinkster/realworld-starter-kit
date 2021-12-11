@@ -29,7 +29,7 @@ module Author = {
     username: string,
     bio: option<string>,
     image: string,
-    following: bool,
+    following: option<bool>,
   }
 
   let decode = (json: Json.t): Result.t<t, decodeError> => {
@@ -38,7 +38,7 @@ module Author = {
       let username = obj->Dict.get("username")->Option.flatMap(Json.decodeString)->Option.getExn
       let bio = obj->Dict.get("bio")->Option.flatMap(Json.decodeString)
       let image = obj->Dict.get("image")->Option.flatMap(Json.decodeString)->Option.getExn
-      let following = obj->Dict.get("following")->Option.flatMap(Json.decodeBoolean)->Option.getExn
+      let following = obj->Dict.get("following")->Option.flatMap(Json.decodeBoolean)
 
       Result.Ok({
         username: username,
