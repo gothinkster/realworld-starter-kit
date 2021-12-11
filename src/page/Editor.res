@@ -176,7 +176,7 @@ module Create = {
         Shape.Author.username: "",
         bio: None,
         image: "",
-        following: false,
+        following: Some(false),
       },
     },
     "",
