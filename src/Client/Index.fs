@@ -2,6 +2,7 @@ module Index
 
 open Elmish
 open Fable.Remoting.Client
+open Fable.Reactstrap
 open Shared
 
 type Model = { Todos: Todo list; Input: string }

@@ -19,3 +19,29 @@ module Route =
 type ITodosApi =
     { getTodos: unit -> Async<Todo list>
       addTodo: Todo -> Async<Todo> }
+
+
+
+type Bio = Bio of string
+type Image = Image of string
+
+type User = {
+    Email:    string;
+    Password: string;
+    Bio:      Bio;
+    Image:    Image
+}
+
+type Profile = {
+    Username:  string;
+    Bio:       Bio;
+    Image:     Image;
+    Following: Boolean;
+}
+
+type Data = unit
+type Api = {
+    login:    Data -> User -> User
+    register: Data -> User -> User
+}
+
