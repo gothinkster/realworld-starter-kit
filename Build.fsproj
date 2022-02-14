@@ -7,8 +7,5 @@
     <Compile Include="Helpers.fs" />
     <Compile Include="Build.fs" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Fable.Reactstrap" Version="0.5.1" />
-  </ItemGroup>
   <Import Project=".paket\Paket.Restore.targets" />
 </Project>

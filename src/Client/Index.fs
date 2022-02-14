@@ -1,123 +1,93 @@
 module Index
 
 open Elmish
-open Fable.Remoting.Client
-open Fable.Reactstrap
-open Shared
 
-type Model = { Todos: Todo list; Input: string }
+type Model = { Value : string }
 
 type Msg =
-    | GotTodos of Todo list
-    | SetInput of string
-    | AddTodo
-    | AddedTodo of Todo
+    | ChangeValue of string
 
-let todosApi =
-    Remoting.createApi ()
-    |> Remoting.withRouteBuilder Route.builder
-    |> Remoting.buildProxy<ITodosApi>
+let init () =
+    { Value = "" }, Cmd.none
 
-let init () : Model * Cmd<Msg> =
-    let model = { Todos = []; Input = "" }
-
-    let cmd =
-        Cmd.OfAsync.perform todosApi.getTodos () GotTodos
-
-    model, cmd
-
-let update (msg: Msg) (model: Model) : Model * Cmd<Msg> =
+let update (msg:Msg) (model:Model) =
     match msg with
-    | GotTodos todos -> { model with Todos = todos }, Cmd.none
-    | SetInput value -> { model with Input = value }, Cmd.none
-    | AddTodo ->
-        let todo = Todo.create model.Input
-
-        let cmd =
-            Cmd.OfAsync.perform todosApi.addTodo todo AddedTodo
-
-        { model with Input = "" }, cmd
-    | AddedTodo todo ->
-        { model with
-              Todos = model.Todos @ [ todo ] },
-        Cmd.none
+    | ChangeValue newValue ->
+        { model with Value = newValue }, Cmd.none
 
 open Feliz
-open Feliz.Bulma
-
-let navBrand =
-    Bulma.navbarBrand.div [
-        Bulma.navbarItem.a [
-            prop.href "https://safe-stack.github.io/"
-            navbarItem.isActive
-            prop.children [
-                Html.img [
-                    prop.src "/favicon.png"
-                    prop.alt "Logo"
-                ]
-            ]
-        ]
-    ]
-
-let containerBox (model: Model) (dispatch: Msg -> unit) =
-    Bulma.box [
-        Bulma.content [
-            Html.ol [
-                for todo in model.Todos do
-                    Html.li [ prop.text todo.Description ]
-            ]
-        ]
-        Bulma.field.div [
-            field.isGrouped
-            prop.children [
-                Bulma.control.p [
-                    control.isExpanded
-                    prop.children [
-                        Bulma.input.text [
-                            prop.value model.Input
-                            prop.placeholder "What needs to be done?"
-                            prop.onChange (fun x -> SetInput x |> dispatch)
-                        ]
-                    ]
-                ]
-                Bulma.control.p [
-                    Bulma.button.a [
-                        color.isPrimary
-                        prop.disabled (Todo.isValid model.Input |> not)
-                        prop.onClick (fun _ -> dispatch AddTodo)
-                        prop.text "Add"
-                    ]
-                ]
-            ]
-        ]
-    ]
-
-let view (model: Model) (dispatch: Msg -> unit) =
-    Bulma.hero [
-        hero.isFullHeight
-        color.isPrimary
-        prop.style [
-            style.backgroundSize "cover"
-            style.backgroundImageUrl "https://unsplash.it/1200/900?random"
-            style.backgroundPosition "no-repeat center center fixed"
-        ]
+let view model dispatch =
+    Html.nav [
+        prop.className "navbar navbar-light"
         prop.children [
-            Bulma.heroHead [
-                Bulma.navbar [
-                    Bulma.container [ navBrand ]
+            Html.div [
+                Html.a [
+                    prop.className "navbar-brand"
+                    prop.href "index.html"
+                    prop.text "Conduit"
                 ]
-            ]
-            Bulma.heroBody [
-                Bulma.container [
-                    Bulma.column [
-                        column.is6
-                        column.isOffset3
-                        prop.children [
-                            Bulma.title [
-                                text.hasTextCentered
-                                prop.text "realworld_starter_kit"
+                Html.ul [
+                    prop.className "nav navbar-nav pull-xs-right"
+                    prop.children [
+                        Html.li [
+                            prop.className "nav-item"
+                            prop.children [
+                                Html.a [
+                                    prop.className "nav-link active"
+                                    prop.href "#"
+                                    prop.text "Home"
+                                ]
                             ]
-                            containerBox model dispatch
+                        ]
+                        Html.li [
+                            prop.className "nav-item"
+                            prop.children [
+                                Html.a [
+                                    prop.className "nav-link"
+                                    prop.href "#"
+                                    prop.children [
+                                        Html.i [
+                                            prop.className "ion-compose"
+                                        ]
+                                        Html.text " New Article"
+                                    ]
+                                ]
+                            ]
+                        ]
+                        Html.li [
+                            prop.className "nav-item"
+                            prop.children [
+                                Html.a [
+                                    prop.className "nav-link"
+                                    prop.href "#"
+                                    prop.children [
+                                        Html.i [
+                                            prop.className "ion-gear-a"
+                                        ]
+                                        Html.text " Settings"
+                                    ]
+                                ]
+                            ]
+                        ]
+                        Html.li [
+                            prop.className "nav-item"
+                            prop.children [
+                                Html.a [
+                                    prop.className "nav-link"
+                                    prop.href "#"
+                                    prop.text "Sign In"
+                                ]
+                            ]
+                        ]
+                        Html.li [
+                            prop.className "nav-item"
+                            prop.children [
+                                Html.a [
+                                    prop.className "nav-link"
+                                    prop.href "#"
+                                    prop.text "Sign Up"
+                                ]
+                            ]
                         ]
                     ]
                 ]
