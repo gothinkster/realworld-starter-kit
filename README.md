@@ -23,6 +23,22 @@ Install the [Dart SDK](https://dart.dev/get-dart).
 
 ## Running the App
 
+### Create the database
+
+This app uses [PostgreSQL](https://www.postgresql.org/). Check the [documentation](https://www.postgresql.org/docs/current/app-createdb.html) 
+on how to create a database.
+
+### Define the environment variables
+
+Create a `.env` file according to the [template](.env.template) and run 
+[dotenv](https://github.com/mockturtl/dotenv).
+
+### Run the database migrations
+
+```bash
+$ dart run bin/migrations/migrate.dart up
+```
+
 ### Running with the Dart SDK
 
 You can run the example with the [Dart SDK](https://dart.dev/get-dart)

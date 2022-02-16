@@ -1,29 +1,62 @@
 import 'dart:io';
 
+import 'package:dart_shelf_realworld_example_app/app_router.dart';
+import 'package:dotenv/dotenv.dart';
+import 'package:postgres/postgres.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
-import 'package:shelf_router/shelf_router.dart';
-
-// Configure routes.
-final _router = Router()
-  ..get('/', _rootHandler)
-  ..get('/echo/<message>', _echoHandler);
-
-Response _rootHandler(Request req) {
-  return Response.ok('Hello, World!\n');
-}
-
-Response _echoHandler(Request request) {
-  final message = params(request, 'message');
-  return Response.ok('$message\n');
-}
 
 void main(List<String> args) async {
+  load();
+
+  final authSecretKey = env["AUTH_SECRET_KEY"];
+  final authIssuer = env["AUTH_ISSUER"];
+  final dbHost = env["DB_HOST"];
+  final envDbPort = env["DB_PORT"];
+  final dbName = env["DB_NAME"];
+  final dbUser = env["DB_USER"];
+  final dbPassword = env["DB_PASSWORD"];
+
+  if (authSecretKey == null) {
+    throw StateError("Environment variable AUTH_SECRET_KEY is required");
+  }
+
+  if (authIssuer == null) {
+    throw StateError("Environment variable AUTH_ISSUER is required");
+  }
+
+  if (dbHost == null) {
+    throw StateError("Environment variable DB_HOST is required");
+  }
+
+  if (envDbPort == null) {
+    throw StateError("Environment variable DB_PORT is required");
+  }
+
+  if (dbName == null) {
+    throw StateError("Environment variable DB_NAME is required");
+  }
+
+  final dbPort = int.tryParse(envDbPort);
+
+  if (dbPort == null) {
+    throw ArgumentError("Environment variable DB_PORT must be an integer");
+  }
+
+  final connection = PostgreSQLConnection(dbHost, dbPort, dbName,
+      username: dbUser, password: dbPassword);
+
+  await connection.open();
+
+  final router = AppRouter(
+          secretKey: authSecretKey, issuer: authIssuer, connection: connection)
+      .router;
+
   // Use any available host or container IP (usually `0.0.0.0`).
   final ip = InternetAddress.anyIPv4;
 
   // Configure a pipeline that logs requests.
-  final _handler = Pipeline().addMiddleware(logRequests()).addHandler(_router);
+  final _handler = Pipeline().addMiddleware(logRequests()).addHandler(router);
 
   // For running in containers, we respect the PORT environment variable.
   final port = int.parse(Platform.environment['PORT'] ?? '8080');
