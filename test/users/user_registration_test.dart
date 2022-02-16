@@ -69,6 +69,48 @@ void main() {
       expect(response.statusCode, 422);
       expect(errorDto.errors[0], 'username is required');
     });
+
+    test('Given empty username should return 422', () async {
+      final username = '';
+      final email = faker.internet.email();
+      final password = faker.internet.password();
+
+      final requestData = {
+        'user': {'username': username, 'email': email, 'password': password}
+      };
+
+      final uri = Uri.parse(host + '/users');
+
+      final response = await post(uri, body: jsonEncode(requestData));
+
+      final responseJson = jsonDecode(response.body);
+
+      final errorDto = ErrorDto.fromJson(responseJson);
+
+      expect(response.statusCode, 422);
+      expect(errorDto.errors[0], 'username cannot be blank');
+    });
+
+    test('Given whitespace username should return 422', () async {
+      final username = ' ';
+      final email = faker.internet.email();
+      final password = faker.internet.password();
+
+      final requestData = {
+        'user': {'username': username, 'email': email, 'password': password}
+      };
+
+      final uri = Uri.parse(host + '/users');
+
+      final response = await post(uri, body: jsonEncode(requestData));
+
+      final responseJson = jsonDecode(response.body);
+
+      final errorDto = ErrorDto.fromJson(responseJson);
+
+      expect(response.statusCode, 422);
+      expect(errorDto.errors[0], 'username cannot be blank');
+    });
   });
 
   group('email validation', () {
@@ -112,6 +154,48 @@ void main() {
       expect(response.statusCode, 422);
       expect(errorDto.errors[0], 'Invalid email: $email');
     });
+
+    test('Given empty email should return 422', () async {
+      final username = faker.internet.userName();
+      final email = '';
+      final password = faker.internet.password();
+
+      final requestData = {
+        'user': {'username': username, 'email': email, 'password': password}
+      };
+
+      final uri = Uri.parse(host + '/users');
+
+      final response = await post(uri, body: jsonEncode(requestData));
+
+      final responseJson = jsonDecode(response.body);
+
+      final errorDto = ErrorDto.fromJson(responseJson);
+
+      expect(response.statusCode, 422);
+      expect(errorDto.errors[0], 'email cannot be blank');
+    });
+
+    test('Given whitespace email should return 422', () async {
+      final username = faker.internet.userName();
+      final email = ' ';
+      final password = faker.internet.password();
+
+      final requestData = {
+        'user': {'username': username, 'email': email, 'password': password}
+      };
+
+      final uri = Uri.parse(host + '/users');
+
+      final response = await post(uri, body: jsonEncode(requestData));
+
+      final responseJson = jsonDecode(response.body);
+
+      final errorDto = ErrorDto.fromJson(responseJson);
+
+      expect(response.statusCode, 422);
+      expect(errorDto.errors[0], 'email cannot be blank');
+    });
   });
 
   group('password validation', () {
@@ -133,6 +217,52 @@ void main() {
 
       expect(response.statusCode, 422);
       expect(errorDto.errors[0], 'password is required');
+    });
+
+    test('Given password length is less than 8 should return 422', () async {
+      final username = faker.internet.userName();
+      final email = faker.internet.email();
+      final password = 'abcdefg';
+
+      final requestData = {
+        'user': {'username': username, 'email': email, 'password': password}
+      };
+
+      final uri = Uri.parse(host + '/users');
+
+      final response = await post(uri, body: jsonEncode(requestData));
+
+      final responseJson = jsonDecode(response.body);
+
+      final errorDto = ErrorDto.fromJson(responseJson);
+
+      expect(response.statusCode, 422);
+      expect(errorDto.errors[0],
+          'Password length must be greater than or equal to 8');
+    });
+
+    test('Given password length is greater than 64 should return 422',
+        () async {
+      final username = faker.internet.userName();
+      final email = faker.internet.email();
+      final password =
+          'xcXzfXLMuJ6rZOimrcelA1CTDaptfowQFUAOHYBcAfUr5gJmhmw0paBulNt78RL34';
+
+      final requestData = {
+        'user': {'username': username, 'email': email, 'password': password}
+      };
+
+      final uri = Uri.parse(host + '/users');
+
+      final response = await post(uri, body: jsonEncode(requestData));
+
+      final responseJson = jsonDecode(response.body);
+
+      final errorDto = ErrorDto.fromJson(responseJson);
+
+      expect(response.statusCode, 422);
+      expect(errorDto.errors[0],
+          'Password length must be less than or equal to 64');
     });
   });
 }
