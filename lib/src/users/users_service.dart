@@ -1,4 +1,6 @@
+import 'package:dart_shelf_realworld_example_app/src/common/exceptions/argument_exception.dart';
 import 'package:dart_shelf_realworld_example_app/src/users/model/user.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:postgres/postgres.dart';
 
 class UsersService {
@@ -10,6 +12,11 @@ class UsersService {
 
   Future<User> createUser(
       String username, String email, String password) async {
+    if (!EmailValidator.validate(email)) {
+      throw ArgumentException(
+          message: 'Invalid email: $email', parameterName: 'email');
+    }
+
     final sql =
         "INSERT INTO $usersTable(username, email, password_hash) VALUES (@username, @email, crypt(@password, gen_salt('bf'))) RETURNING id, created_at, updated_at;";
 

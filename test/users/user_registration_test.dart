@@ -72,7 +72,7 @@ void main() {
   });
 
   group('email validation', () {
-    test('Should return 422', () async {
+    test('Given no email should return 422', () async {
       final username = faker.internet.userName();
       final password = faker.internet.password();
 
@@ -90,6 +90,27 @@ void main() {
 
       expect(response.statusCode, 422);
       expect(errorDto.errors[0], 'email is required');
+    });
+
+    test('Given invalid email should return 422', () async {
+      final username = faker.internet.userName();
+      final email = 'foo@';
+      final password = faker.internet.password();
+
+      final requestData = {
+        'user': {'username': username, 'email': email, 'password': password}
+      };
+
+      final uri = Uri.parse(host + '/users');
+
+      final response = await post(uri, body: jsonEncode(requestData));
+
+      final responseJson = jsonDecode(response.body);
+
+      final errorDto = ErrorDto.fromJson(responseJson);
+
+      expect(response.statusCode, 422);
+      expect(errorDto.errors[0], 'Invalid email: $email');
     });
   });
 

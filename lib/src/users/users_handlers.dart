@@ -2,9 +2,12 @@ import 'dart:convert';
 
 import 'package:dart_shelf_realworld_example_app/src/auth/auth_service.dart';
 import 'package:dart_shelf_realworld_example_app/src/common/errors/dtos/error_dto.dart';
+import 'package:dart_shelf_realworld_example_app/src/common/exceptions/argument_exception.dart';
 import 'package:dart_shelf_realworld_example_app/src/users/dtos/user_dto.dart';
 import 'package:dart_shelf_realworld_example_app/src/users/users_service.dart';
 import 'package:shelf/shelf.dart';
+
+import 'model/user.dart';
 
 class UsersHandlers {
   final UsersService usersService;
@@ -36,7 +39,13 @@ class UsersHandlers {
           body: jsonEncode(ErrorDto(errors: ['password is required'])));
     }
 
-    final user = await usersService.createUser(username, email, password);
+    User user;
+
+    try {
+      user = await usersService.createUser(username, email, password);
+    } on ArgumentException catch (e) {
+      return Response(422, body: jsonEncode(ErrorDto(errors: [e.message])));
+    }
 
     final token = await authService.getToken(username, password);
 
