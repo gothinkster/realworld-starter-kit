@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-dart bin/migrations/migrate.dart up && dart test
+dart bin/migrations/migrate.dart up && dart test --concurrency=1

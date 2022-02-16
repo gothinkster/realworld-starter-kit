@@ -1,52 +1,30 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:corsac_jwt/corsac_jwt.dart';
 import 'package:dart_shelf_realworld_example_app/app.dart';
 import 'package:dart_shelf_realworld_example_app/src/common/errors/dtos/error_dto.dart';
-import 'package:dart_shelf_realworld_example_app/src/users/dtos/user_dto.dart';
 import 'package:http/http.dart';
 import 'package:test/test.dart';
 
-import '../test_utils.dart';
+import '../helpers/users_helper.dart';
+import '../test_fixtures.dart';
 
 void main() {
-  late HttpServer server;
+  final uri = Uri.parse(host + '/users');
+
+  HttpServer? server;
 
   setUp(() async {
     server = await createServer();
   });
 
   tearDown(() {
-    server.close();
+    server?.close();
+    server = null;
   });
 
   test('Should return 201', () async {
-    final username = faker.internet.userName();
-    final email = faker.internet.email();
-    final password = faker.internet.password();
-
-    final requestData = {
-      'user': {'username': username, 'email': email, 'password': password}
-    };
-
-    final uri = Uri.parse(host + '/users');
-
-    final response = await post(uri, body: jsonEncode(requestData));
-
-    final responseJson = jsonDecode(response.body);
-
-    final userDto = UserDto.fromJson(responseJson);
-
-    final decodedToken = JWT.parse(userDto.token);
-    final decodedTokenUser = decodedToken.claims['user'];
-
-    expect(response.statusCode, 201);
-    expect(userDto.username, username);
-    expect(userDto.email, email);
-    expect(decodedTokenUser, {'username': username});
-    expect(userDto.bio, null);
-    expect(userDto.image, null);
+    await registerRandomUser();
   });
 
   group('username validation', () {
@@ -57,8 +35,6 @@ void main() {
       final requestData = {
         'user': {'email': email, 'password': password}
       };
-
-      final uri = Uri.parse(host + '/users');
 
       final response = await post(uri, body: jsonEncode(requestData));
 
@@ -79,8 +55,6 @@ void main() {
         'user': {'username': username, 'email': email, 'password': password}
       };
 
-      final uri = Uri.parse(host + '/users');
-
       final response = await post(uri, body: jsonEncode(requestData));
 
       final responseJson = jsonDecode(response.body);
@@ -99,8 +73,6 @@ void main() {
       final requestData = {
         'user': {'username': username, 'email': email, 'password': password}
       };
-
-      final uri = Uri.parse(host + '/users');
 
       final response = await post(uri, body: jsonEncode(requestData));
 
@@ -122,8 +94,6 @@ void main() {
         'user': {'username': username, 'password': password}
       };
 
-      final uri = Uri.parse(host + '/users');
-
       final response = await post(uri, body: jsonEncode(requestData));
 
       final responseJson = jsonDecode(response.body);
@@ -142,8 +112,6 @@ void main() {
       final requestData = {
         'user': {'username': username, 'email': email, 'password': password}
       };
-
-      final uri = Uri.parse(host + '/users');
 
       final response = await post(uri, body: jsonEncode(requestData));
 
@@ -164,8 +132,6 @@ void main() {
         'user': {'username': username, 'email': email, 'password': password}
       };
 
-      final uri = Uri.parse(host + '/users');
-
       final response = await post(uri, body: jsonEncode(requestData));
 
       final responseJson = jsonDecode(response.body);
@@ -185,8 +151,6 @@ void main() {
         'user': {'username': username, 'email': email, 'password': password}
       };
 
-      final uri = Uri.parse(host + '/users');
-
       final response = await post(uri, body: jsonEncode(requestData));
 
       final responseJson = jsonDecode(response.body);
@@ -195,6 +159,30 @@ void main() {
 
       expect(response.statusCode, 422);
       expect(errorDto.errors[0], 'email cannot be blank');
+    });
+
+    test('Given email already exists should return 409', () async {
+      final userAndPassword = await registerRandomUser();
+
+      final username = faker.internet.userName();
+      final password = faker.internet.password();
+
+      final requestData = {
+        'user': {
+          'username': username,
+          'email': userAndPassword.user.email,
+          'password': password
+        }
+      };
+
+      final response = await post(uri, body: jsonEncode(requestData));
+
+      final responseJson = jsonDecode(response.body);
+
+      final errorDto = ErrorDto.fromJson(responseJson);
+
+      expect(response.statusCode, 409);
+      expect(errorDto.errors[0], 'User already exists');
     });
   });
 
@@ -206,8 +194,6 @@ void main() {
       final requestData = {
         'user': {'username': username, 'email': email}
       };
-
-      final uri = Uri.parse(host + '/users');
 
       final response = await post(uri, body: jsonEncode(requestData));
 
@@ -227,8 +213,6 @@ void main() {
       final requestData = {
         'user': {'username': username, 'email': email, 'password': password}
       };
-
-      final uri = Uri.parse(host + '/users');
 
       final response = await post(uri, body: jsonEncode(requestData));
 
@@ -251,8 +235,6 @@ void main() {
       final requestData = {
         'user': {'username': username, 'email': email, 'password': password}
       };
-
-      final uri = Uri.parse(host + '/users');
 
       final response = await post(uri, body: jsonEncode(requestData));
 

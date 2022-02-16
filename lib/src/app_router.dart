@@ -1,4 +1,4 @@
-import 'package:dart_shelf_realworld_example_app/src/auth/auth_service.dart';
+import 'package:dart_shelf_realworld_example_app/src/users/jwt_service.dart';
 import 'package:dart_shelf_realworld_example_app/src/users/users_handlers.dart';
 import 'package:dart_shelf_realworld_example_app/src/users/users_service.dart';
 import 'package:postgres/postgres.dart';
@@ -13,17 +13,17 @@ class AppRouter {
       required String issuer,
       required PostgreSQLConnection connection}) {
     final usersService = UsersService(connection: connection);
-    final authService = AuthService(
-        secretKey: secretKey, issuer: issuer, usersService: usersService);
+    final authService = JwtService(secretKey: secretKey, issuer: issuer);
 
     _usersHandlers =
-        UsersHandlers(authService: authService, usersService: usersService);
+        UsersHandlers(jwtService: authService, usersService: usersService);
   }
 
   Handler get router {
     final router = Router();
 
     router.post("/api/users", _usersHandlers.registerUserHandler);
+    router.post("/api/users/login", _usersHandlers.loginUserHandler);
 
     return router;
   }

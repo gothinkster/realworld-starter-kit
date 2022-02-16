@@ -1,3 +1,4 @@
+import 'package:dart_shelf_realworld_example_app/src/common/exceptions/already_exists_exception.dart';
 import 'package:dart_shelf_realworld_example_app/src/common/exceptions/argument_exception.dart';
 import 'package:dart_shelf_realworld_example_app/src/users/model/user.dart';
 import 'package:email_validator/email_validator.dart';
@@ -48,16 +49,23 @@ class UsersService {
           parameterName: 'password');
     }
 
+    var alreadyExistingUser = await getUserByEmail(email);
+
+    if (alreadyExistingUser != null) {
+      throw AlreadyExistsException(
+          message: 'User already exists', parameterName: 'email');
+    }
+
     final sql =
         "INSERT INTO $usersTable(username, email, password_hash) VALUES (@username, @email, crypt(@password, gen_salt('bf'))) RETURNING id, created_at, updated_at;";
 
-    var results = await connection.query(sql, substitutionValues: {
+    final result = await connection.query(sql, substitutionValues: {
       'username': username,
       'email': email,
       'password': password
     });
 
-    final userRow = results[0];
+    final userRow = result[0];
     final userId = userRow[0];
     final createdAt = userRow[1];
     final updatedAt = userRow[2];
@@ -70,17 +78,21 @@ class UsersService {
         updatedAt: updatedAt);
   }
 
-  Future<User> getUserByUsername(String username) async {
+  Future<User?> getUserByEmail(String email) async {
     final sql =
-        'SELECT id, email, bio, image, created_at, updated_at FROM $usersTable WHERE username = @username;';
+        'SELECT id, username, bio, image, created_at, updated_at FROM $usersTable WHERE email = @email;';
 
-    var results =
-        await connection.query(sql, substitutionValues: {'username': username});
+    final result =
+        await connection.query(sql, substitutionValues: {'email': email});
 
-    final userRow = results[0];
+    if (result.isEmpty) {
+      return null;
+    }
+
+    final userRow = result[0];
 
     final userId = userRow[0];
-    final email = userRow[1];
+    final username = userRow[1];
     final bio = userRow[2];
     final image = userRow[3];
     final createdAt = userRow[4];
@@ -96,13 +108,33 @@ class UsersService {
         updatedAt: updatedAt);
   }
 
-  Future<bool> verifyPassword(String username, String password) async {
+  Future<User?> getUserByEmailAndPassword(String email, String password) async {
     final sql =
-        'SELECT password_hash = crypt(@password, password_hash) FROM $usersTable WHERE username = @username;';
+        'SELECT id, username, bio, image, created_at, updated_at FROM $usersTable WHERE email = @email AND password_hash = crypt(@password, password_hash);';
 
-    var results = await connection.query(sql,
-        substitutionValues: {'username': username, 'password': password});
+    final result = await connection
+        .query(sql, substitutionValues: {'email': email, 'password': password});
 
-    return results[0][0];
+    if (result.isEmpty) {
+      return null;
+    }
+
+    final userRow = result[0];
+
+    final userId = userRow[0];
+    final username = userRow[1];
+    final bio = userRow[2];
+    final image = userRow[3];
+    final createdAt = userRow[4];
+    final updatedAt = userRow[5];
+
+    return User(
+        id: userId,
+        username: username,
+        email: email,
+        bio: bio,
+        image: image,
+        createdAt: createdAt,
+        updatedAt: updatedAt);
   }
 }
