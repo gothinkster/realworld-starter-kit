@@ -30,8 +30,7 @@ on how to create a database.
 
 ### Define the environment variables
 
-Create a `.env` file according to the [template](.env.template) and run 
-[dotenv](https://github.com/mockturtl/dotenv).
+Create a [`.env`](https://github.com/mockturtl/dotenv) file according to the [template](.env.template).
 
 ### Run the database migrations
 
