@@ -59,3 +59,19 @@ $ docker build . -t myserver
 $ docker run -it -p 8080:8080 myserver
 Server listening on port 8080
 ```
+
+## Running the tests
+
+### Create the database
+
+See above.
+
+### Define the environment variables
+
+Copy the [`.env.test`](./.env.test) file contents to the `.env` file.
+
+### Run the test script
+
+```
+$ ./test.sh
+```

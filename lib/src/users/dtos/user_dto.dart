@@ -12,6 +12,13 @@ class UserDto {
       this.bio,
       this.image});
 
+  UserDto.fromJson(Map<String, dynamic> json)
+      : username = json['username'],
+        email = json['email'],
+        token = json['token'],
+        bio = json['bio'],
+        image = json['image'];
+
   Map<String, dynamic> toJson() => {
         'username': username,
         'email': email,
