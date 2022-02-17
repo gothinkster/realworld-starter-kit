@@ -35,10 +35,6 @@ $ ./start.sh
 
 ## Running the tests
 
-### Define the environment variables
-
-Copy the [`.env.test`](./.env.test) file contents to the `.env` file.
-
 ### Run the test script
 
 ```
