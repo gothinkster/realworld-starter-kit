@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:corsac_jwt/corsac_jwt.dart';
-import 'package:dart_shelf_realworld_example_app/app.dart';
 import 'package:dart_shelf_realworld_example_app/src/users/dtos/user_dto.dart';
 import 'package:http/http.dart';
 import 'package:test/test.dart';
@@ -13,17 +11,6 @@ import '../test_fixtures.dart';
 
 void main() {
   final uri = Uri.parse(host + '/user');
-
-  HttpServer? server;
-
-  setUp(() async {
-    server = await createServer();
-  });
-
-  tearDown(() {
-    server?.close();
-    server = null;
-  });
 
   test('Given all fields should return 200', () async {
     final userAndPassword = await registerRandomUser();

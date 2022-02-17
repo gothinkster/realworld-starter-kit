@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-dart bin/migrations/migrate.dart up && dart test --concurrency=1
+cp .env.test .env && ./start.sh && dart test --concurrency=1 && docker compose down --volumes

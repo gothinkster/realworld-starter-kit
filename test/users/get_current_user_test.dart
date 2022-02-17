@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:dart_shelf_realworld_example_app/app.dart';
 import 'package:http/http.dart';
 import 'package:test/test.dart';
 
@@ -10,17 +7,6 @@ import '../test_fixtures.dart';
 
 void main() {
   final uri = Uri.parse(host + '/user');
-
-  HttpServer? server;
-
-  setUp(() async {
-    server = await createServer();
-  });
-
-  tearDown(() {
-    server?.close();
-    server = null;
-  });
 
   test('Should return 200', () async {
     final userAndPassword = await registerRandomUser();
