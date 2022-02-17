@@ -27,6 +27,19 @@ void main() {
     await registerRandomUser();
   });
 
+  test('Given no user should return 422', () async {
+    final requestData = {};
+
+    final response = await post(uri, body: jsonEncode(requestData));
+
+    final responseJson = jsonDecode(response.body);
+
+    final errorDto = ErrorDto.fromJson(responseJson);
+
+    expect(response.statusCode, 422);
+    expect(errorDto.errors[0], 'user is required');
+  });
+
   group('username validation', () {
     test('Given no username should return 422', () async {
       final email = faker.internet.email();

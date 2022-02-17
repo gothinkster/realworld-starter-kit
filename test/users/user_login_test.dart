@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dart_shelf_realworld_example_app/app.dart';
+import 'package:dart_shelf_realworld_example_app/src/common/errors/dtos/error_dto.dart';
 import 'package:dart_shelf_realworld_example_app/src/users/dtos/user_dto.dart';
 import 'package:http/http.dart';
 import 'package:test/test.dart';
@@ -41,6 +42,14 @@ void main() {
 
     expect(response.statusCode, 200);
     expect(userAndPassword.user.toJson(), user.toJson());
+  });
+
+  test('Given no user should return 401', () async {
+    final requestData = {};
+
+    final response = await post(uri, body: jsonEncode(requestData));
+
+    expect(response.statusCode, 401);
   });
 
   group('email validation', () {

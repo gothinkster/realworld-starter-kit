@@ -137,4 +137,80 @@ class UsersService {
         createdAt: createdAt,
         updatedAt: updatedAt);
   }
+
+  Future<User> updateUserByEmail(String email,
+      {String? username,
+      String? emailForUpdate,
+      String? password,
+      String? bio,
+      String? image}) async {
+    final initialSql = 'UPDATE $usersTable';
+
+    var sql = initialSql;
+
+    if (username != null) {
+      if (sql == initialSql) {
+        sql = sql + ' SET username = @username';
+      } else {
+        sql = sql + ', username = @username';
+      }
+    }
+
+    if (emailForUpdate != null) {
+      if (sql == initialSql) {
+        sql = sql + ' SET email = @emailForUpdate';
+      } else {
+        sql = sql + ', email = @emailForUpdate';
+      }
+    }
+
+    if (password != null) {
+      if (sql == initialSql) {
+        sql = sql + " SET password_hash = crypt(@password, gen_salt('bf'))";
+      } else {
+        sql = sql + ", password_hash = crypt(@password, gen_salt('bf'))";
+      }
+    }
+
+    if (bio != null) {
+      if (sql == initialSql) {
+        sql = sql + ' SET bio = @bio';
+      } else {
+        sql = sql + ', bio = @bio';
+      }
+    }
+
+    if (image != null) {
+      if (sql == initialSql) {
+        sql = sql + ' SET image = @image';
+      } else {
+        sql = sql + ', image = @image';
+      }
+    }
+
+    var updatedEmail = email;
+    if (sql != initialSql) {
+      sql = sql + ' WHERE email = @email RETURNING email;';
+
+      final result = await connection.query(sql, substitutionValues: {
+        'email': email,
+        'username': username,
+        'emailForUpdate': emailForUpdate,
+        'password': password,
+        'bio': bio,
+        'image': image
+      });
+
+      updatedEmail = result[0][0];
+    }
+
+    final user = await getUserByEmail(updatedEmail);
+
+    if (user == null) {
+      throw AssertionError(
+          "User cannot be null at this point. Email: $email. Updated Email: $updatedEmail");
+    }
+
+    return user;
+  }
 }

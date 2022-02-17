@@ -21,6 +21,12 @@ class UsersHandlers {
     final requestData = json.decode(requestBody);
 
     final userData = requestData['user'];
+
+    if (userData == null) {
+      return Response(422,
+          body: jsonEncode(ErrorDto(errors: ['user is required'])));
+    }
+
     final username = userData['username'];
     final email = userData['email'];
     final password = userData['password'];
@@ -50,7 +56,7 @@ class UsersHandlers {
       return Response(409, body: jsonEncode(ErrorDto(errors: [e.message])));
     }
 
-    final token = jwtService.getToken(user);
+    final token = jwtService.getToken(user.email);
 
     final userDto =
         UserDto(username: user.username, email: user.email, token: token);
@@ -63,6 +69,11 @@ class UsersHandlers {
     final requestData = json.decode(requestBody);
 
     final userData = requestData['user'];
+
+    if (userData == null) {
+      return Response(401);
+    }
+
     final email = userData['email'];
     final password = userData['password'];
 
@@ -80,7 +91,7 @@ class UsersHandlers {
       return Response(401);
     }
 
-    final token = jwtService.getToken(user);
+    final token = jwtService.getToken(user.email);
 
     final userDto = UserDto(
         username: user.username,
@@ -88,6 +99,53 @@ class UsersHandlers {
         token: token,
         bio: user.bio,
         image: user.image);
+
+    return Response.ok(jsonEncode(userDto));
+  }
+
+  Future<Response> getCurrentUserHandler(Request request) async {
+    final user = request.context['user'] as User;
+
+    final token = jwtService.getToken(user.email);
+
+    final userDto = UserDto(
+        username: user.username,
+        email: user.email,
+        token: token,
+        bio: user.bio,
+        image: user.image);
+
+    return Response.ok(jsonEncode(userDto));
+  }
+
+  Future<Response> updateUserHandler(Request request) async {
+    final user = request.context['user'] as User;
+
+    final requestBody = await request.readAsString();
+    final requestData = json.decode(requestBody);
+
+    final userData = requestData['user'];
+    final username = userData['username'];
+    final emailForUpdate = userData['email'];
+    final password = userData['password'];
+    final bio = userData['bio'];
+    final image = userData['image'];
+
+    final updatedUser = await usersService.updateUserByEmail(user.email,
+        username: username,
+        emailForUpdate: emailForUpdate,
+        password: password,
+        bio: bio,
+        image: image);
+
+    final token = jwtService.getToken(updatedUser.email);
+
+    final userDto = UserDto(
+        username: updatedUser.username,
+        email: updatedUser.email,
+        token: token,
+        bio: updatedUser.bio,
+        image: updatedUser.image);
 
     return Response.ok(jsonEncode(userDto));
   }

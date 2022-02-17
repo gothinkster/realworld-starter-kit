@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:test/test.dart';
 
 import '../test_fixtures.dart';
+import 'auth_helper.dart';
 import 'user_and_password.dart';
 
 Future<UserAndPassword> registerRandomUser() async {
@@ -31,9 +32,23 @@ Future<UserAndPassword> registerRandomUser() async {
   expect(response.statusCode, 201);
   expect(user.username, username);
   expect(user.email, email);
-  expect(decodedTokenUser, {'username': username});
+  expect(decodedTokenUser, {'email': user.email});
   expect(user.bio, null);
   expect(user.image, null);
 
   return UserAndPassword(user: user, password: password);
+}
+
+Future<UserDto> getCurrentUser(String token) async {
+  final uri = Uri.parse(host + '/user');
+
+  final response = await get(uri, headers: makeAuthorizationHeader(token));
+
+  final responseJson = jsonDecode(response.body);
+
+  final user = UserDto.fromJson(responseJson);
+
+  expect(response.statusCode, 200);
+
+  return user;
 }

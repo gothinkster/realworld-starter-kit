@@ -1,23 +1,31 @@
 import 'package:corsac_jwt/corsac_jwt.dart';
-
-import 'model/user.dart';
+import 'package:dart_shelf_realworld_example_app/src/users/dtos/user_token_claim.dart';
 
 class JwtService {
   final String issuer;
-  final String secretKey;
+  late JWTHmacSha256Signer signer;
 
-  JwtService({required this.issuer, required this.secretKey});
+  JwtService({required this.issuer, required String secretKey}) {
+    signer = JWTHmacSha256Signer(secretKey);
+  }
 
-  String getToken(User user) {
+  String getToken(String email) {
     final builder = JWTBuilder()
       ..issuer = issuer
-      ..expiresAt = DateTime.now().add(Duration(seconds: 86400))
-      ..setClaim('user', {'username': user.username});
-
-    final signer = JWTHmacSha256Signer(secretKey);
+      ..setClaim('user', UserTokenClaim(email: email).toJson());
 
     final token = builder.getSignedToken(signer);
 
     return token.toString();
+  }
+
+  UserTokenClaim? getUserTokenClaim(String token) {
+    final decodedToken = JWT.parse(token);
+
+    if (!decodedToken.verify(signer)) {
+      return null;
+    }
+
+    return UserTokenClaim.fromJson(decodedToken.getClaim('user'));
   }
 }
