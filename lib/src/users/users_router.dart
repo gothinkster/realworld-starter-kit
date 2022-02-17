@@ -3,20 +3,22 @@ import 'dart:convert';
 import 'package:dart_shelf_realworld_example_app/src/common/errors/dtos/error_dto.dart';
 import 'package:dart_shelf_realworld_example_app/src/common/exceptions/already_exists_exception.dart';
 import 'package:dart_shelf_realworld_example_app/src/common/exceptions/argument_exception.dart';
+import 'package:dart_shelf_realworld_example_app/src/common/middleware/authorize.dart';
 import 'package:dart_shelf_realworld_example_app/src/users/dtos/user_dto.dart';
 import 'package:dart_shelf_realworld_example_app/src/users/jwt_service.dart';
 import 'package:dart_shelf_realworld_example_app/src/users/users_service.dart';
 import 'package:shelf/shelf.dart';
+import 'package:shelf_router/shelf_router.dart';
 
 import 'model/user.dart';
 
-class UsersHandlers {
+class UsersRouter {
   final UsersService usersService;
   final JwtService jwtService;
 
-  UsersHandlers({required this.usersService, required this.jwtService});
+  UsersRouter({required this.usersService, required this.jwtService});
 
-  Future<Response> registerUserHandler(Request request) async {
+  Future<Response> _registerUserHandler(Request request) async {
     final requestBody = await request.readAsString();
     final requestData = json.decode(requestBody);
 
@@ -64,7 +66,7 @@ class UsersHandlers {
     return Response(201, body: jsonEncode(userDto));
   }
 
-  Future<Response> loginUserHandler(Request request) async {
+  Future<Response> _loginUserHandler(Request request) async {
     final requestBody = await request.readAsString();
     final requestData = json.decode(requestBody);
 
@@ -103,7 +105,7 @@ class UsersHandlers {
     return Response.ok(jsonEncode(userDto));
   }
 
-  Future<Response> getCurrentUserHandler(Request request) async {
+  Future<Response> _getCurrentUserHandler(Request request) async {
     final user = request.context['user'] as User;
 
     final token = jwtService.getToken(user.email);
@@ -118,7 +120,7 @@ class UsersHandlers {
     return Response.ok(jsonEncode(userDto));
   }
 
-  Future<Response> updateUserHandler(Request request) async {
+  Future<Response> _updateUserHandler(Request request) async {
     final user = request.context['user'] as User;
 
     final requestBody = await request.readAsString();
@@ -148,5 +150,27 @@ class UsersHandlers {
         image: updatedUser.image);
 
     return Response.ok(jsonEncode(userDto));
+  }
+
+  Handler get router {
+    final router = Router();
+
+    router.post('/users', _registerUserHandler);
+
+    router.post('/users/login', _loginUserHandler);
+
+    router.get(
+        '/user',
+        Pipeline()
+            .addMiddleware(authorize(usersService, jwtService))
+            .addHandler(_getCurrentUserHandler));
+
+    router.put(
+        '/user',
+        Pipeline()
+            .addMiddleware(authorize(usersService, jwtService))
+            .addHandler(_updateUserHandler));
+
+    return router;
   }
 }
