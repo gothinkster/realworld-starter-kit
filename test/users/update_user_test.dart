@@ -35,6 +35,8 @@ void main() {
         headers: makeAuthorizationHeader(userAndPassword.user.token),
         body: jsonEncode(requestData));
 
+    expect(response.statusCode, 200);
+
     final responseJson = jsonDecode(response.body);
 
     final updatedUser = UserDto.fromJson(responseJson);
@@ -44,7 +46,6 @@ void main() {
     final decodedToken = JWT.parse(updatedUser.token);
     final decodedTokenUser = decodedToken.claims['user'];
 
-    expect(response.statusCode, 200);
     expect(updatedUser.username, username);
     expect(updatedUser.email, email);
     expect(decodedTokenUser, {'email': updatedUser.email});
@@ -69,6 +70,8 @@ void main() {
         headers: makeAuthorizationHeader(userAndPassword.user.token),
         body: jsonEncode(requestData));
 
+    expect(response.statusCode, 200);
+
     final responseJson = jsonDecode(response.body);
 
     final updatedUser = UserDto.fromJson(responseJson);
@@ -78,7 +81,6 @@ void main() {
     final decodedToken = JWT.parse(updatedUser.token);
     final decodedTokenUser = decodedToken.claims['user'];
 
-    expect(response.statusCode, 200);
     expect(updatedUser.username, username);
     expect(updatedUser.email, userAndPassword.user.email);
     expect(decodedTokenUser, {'email': userAndPassword.user.email});
@@ -103,6 +105,8 @@ void main() {
         headers: makeAuthorizationHeader(userAndPassword.user.token),
         body: jsonEncode(requestData));
 
+    expect(response.statusCode, 200);
+
     final responseJson = jsonDecode(response.body);
 
     final updatedUser = UserDto.fromJson(responseJson);
@@ -112,7 +116,6 @@ void main() {
     final decodedToken = JWT.parse(updatedUser.token);
     final decodedTokenUser = decodedToken.claims['user'];
 
-    expect(response.statusCode, 200);
     expect(updatedUser.username, userAndPassword.user.username);
     expect(updatedUser.email, email);
     expect(decodedTokenUser, {'email': email});
@@ -137,6 +140,8 @@ void main() {
         headers: makeAuthorizationHeader(userAndPassword.user.token),
         body: jsonEncode(requestData));
 
+    expect(response.statusCode, 200);
+
     final responseJson = jsonDecode(response.body);
 
     final updatedUser = UserDto.fromJson(responseJson);
@@ -146,7 +151,6 @@ void main() {
     final decodedToken = JWT.parse(updatedUser.token);
     final decodedTokenUser = decodedToken.claims['user'];
 
-    expect(response.statusCode, 200);
     expect(updatedUser.username, userAndPassword.user.username);
     expect(updatedUser.email, userAndPassword.user.email);
     expect(decodedTokenUser, {'email': userAndPassword.user.email});
@@ -171,6 +175,8 @@ void main() {
         headers: makeAuthorizationHeader(userAndPassword.user.token),
         body: jsonEncode(requestData));
 
+    expect(response.statusCode, 200);
+
     final responseJson = jsonDecode(response.body);
 
     final updatedUser = UserDto.fromJson(responseJson);
@@ -180,7 +186,6 @@ void main() {
     final decodedToken = JWT.parse(updatedUser.token);
     final decodedTokenUser = decodedToken.claims['user'];
 
-    expect(response.statusCode, 200);
     expect(updatedUser.username, userAndPassword.user.username);
     expect(updatedUser.email, userAndPassword.user.email);
     expect(decodedTokenUser, {'email': userAndPassword.user.email});
@@ -199,13 +204,14 @@ void main() {
         headers: makeAuthorizationHeader(userAndPassword.user.token),
         body: jsonEncode(requestData));
 
+    expect(response.statusCode, 200);
+
     final responseJson = jsonDecode(response.body);
 
     final updatedUser = UserDto.fromJson(responseJson);
 
     final fetchedUserAfterUpdate = await getCurrentUser(updatedUser.token);
 
-    expect(response.statusCode, 200);
     expect(userAndPassword.user.toJson(), updatedUser.toJson());
     expect(updatedUser.toJson(), fetchedUserAfterUpdate.toJson());
   });

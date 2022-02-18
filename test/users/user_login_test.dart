@@ -22,11 +22,12 @@ void main() {
 
     final response = await post(uri, body: jsonEncode(requestData));
 
+    expect(response.statusCode, 200);
+
     final responseJson = jsonDecode(response.body);
 
     final user = UserDto.fromJson(responseJson);
 
-    expect(response.statusCode, 200);
     expect(userAndPassword.user.toJson(), user.toJson());
   });
 

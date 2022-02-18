@@ -49,11 +49,11 @@ class UsersService {
           parameterName: 'password');
     }
 
-    var alreadyExistingUser = await getUserByEmail(email);
+    var alreadyExistingUser =
+        await getUserByEmail(email) ?? await getUserByUsername(username);
 
     if (alreadyExistingUser != null) {
-      throw AlreadyExistsException(
-          message: 'User already exists', parameterName: 'email');
+      throw AlreadyExistsException(message: 'User already exists');
     }
 
     final sql =
@@ -78,12 +78,12 @@ class UsersService {
         updatedAt: updatedAt);
   }
 
-  Future<User?> getUserByEmail(String email) async {
+  Future<User?> getUserById(String userId) async {
     final sql =
-        'SELECT id, username, bio, image, created_at, updated_at FROM $usersTable WHERE email = @email;';
+        'SELECT email, username, bio, image, created_at, updated_at FROM $usersTable WHERE id = @id;';
 
     final result =
-        await connection.query(sql, substitutionValues: {'email': email});
+        await connection.query(sql, substitutionValues: {'id': userId});
 
     if (result.isEmpty) {
       return null;
@@ -91,7 +91,7 @@ class UsersService {
 
     final userRow = result[0];
 
-    final userId = userRow[0];
+    final email = userRow[0];
     final username = userRow[1];
     final bio = userRow[2];
     final image = userRow[3];
@@ -108,9 +108,26 @@ class UsersService {
         updatedAt: updatedAt);
   }
 
+  Future<User?> getUserByEmail(String email) async {
+    final sql = 'SELECT id FROM $usersTable WHERE email = @email;';
+
+    final result =
+        await connection.query(sql, substitutionValues: {'email': email});
+
+    if (result.isEmpty) {
+      return null;
+    }
+
+    final userRow = result[0];
+
+    final userId = userRow[0];
+
+    return await getUserById(userId);
+  }
+
   Future<User?> getUserByEmailAndPassword(String email, String password) async {
     final sql =
-        'SELECT id, username, bio, image, created_at, updated_at FROM $usersTable WHERE email = @email AND password_hash = crypt(@password, password_hash);';
+        'SELECT id FROM $usersTable WHERE email = @email AND password_hash = crypt(@password, password_hash);';
 
     final result = await connection
         .query(sql, substitutionValues: {'email': email, 'password': password});
@@ -122,20 +139,25 @@ class UsersService {
     final userRow = result[0];
 
     final userId = userRow[0];
-    final username = userRow[1];
-    final bio = userRow[2];
-    final image = userRow[3];
-    final createdAt = userRow[4];
-    final updatedAt = userRow[5];
 
-    return User(
-        id: userId,
-        username: username,
-        email: email,
-        bio: bio,
-        image: image,
-        createdAt: createdAt,
-        updatedAt: updatedAt);
+    return await getUserById(userId);
+  }
+
+  Future<User?> getUserByUsername(String username) async {
+    final sql = 'SELECT id FROM $usersTable WHERE username = @username;';
+
+    final result =
+        await connection.query(sql, substitutionValues: {'username': username});
+
+    if (result.isEmpty) {
+      return null;
+    }
+
+    final userRow = result[0];
+
+    final userId = userRow[0];
+
+    return await getUserById(userId);
   }
 
   Future<User> updateUserByEmail(String email,
@@ -190,6 +212,7 @@ class UsersService {
 
     var updatedEmail = email;
     if (sql != initialSql) {
+      sql = sql + ', updated_at = current_timestamp';
       sql = sql + ' WHERE email = @email RETURNING email;';
 
       final result = await connection.query(sql, substitutionValues: {

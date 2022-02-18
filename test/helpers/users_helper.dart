@@ -22,6 +22,8 @@ Future<UserAndPassword> registerRandomUser() async {
 
   final response = await post(uri, body: jsonEncode(requestData));
 
+  expect(response.statusCode, 201);
+
   final responseJson = jsonDecode(response.body);
 
   final user = UserDto.fromJson(responseJson);
@@ -29,7 +31,6 @@ Future<UserAndPassword> registerRandomUser() async {
   final decodedToken = JWT.parse(user.token);
   final decodedTokenUser = decodedToken.claims['user'];
 
-  expect(response.statusCode, 201);
   expect(user.username, username);
   expect(user.email, email);
   expect(decodedTokenUser, {'email': user.email});
@@ -39,16 +40,42 @@ Future<UserAndPassword> registerRandomUser() async {
   return UserAndPassword(user: user, password: password);
 }
 
+Future<UserAndPassword> registerRandomUserAndUpdateBioAndImage() async {
+  final userAndPassword = await registerRandomUser();
+
+  final uri = Uri.parse(host + '/user');
+
+  final bio = faker.job.title();
+  final image = faker.internet.httpsUrl();
+
+  final requestData = {
+    'user': {'bio': bio, 'image': image}
+  };
+
+  final headers = makeAuthorizationHeader(userAndPassword.user.token);
+
+  final response =
+      await put(uri, headers: headers, body: jsonEncode(requestData));
+
+  expect(response.statusCode, 200);
+
+  final responseJson = jsonDecode(response.body);
+
+  final updatedUser = UserDto.fromJson(responseJson);
+
+  return UserAndPassword(user: updatedUser, password: userAndPassword.password);
+}
+
 Future<UserDto> getCurrentUser(String token) async {
   final uri = Uri.parse(host + '/user');
 
   final response = await get(uri, headers: makeAuthorizationHeader(token));
 
+  expect(response.statusCode, 200);
+
   final responseJson = jsonDecode(response.body);
 
   final user = UserDto.fromJson(responseJson);
-
-  expect(response.statusCode, 200);
 
   return user;
 }

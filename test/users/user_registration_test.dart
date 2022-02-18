@@ -19,11 +19,12 @@ void main() {
 
     final response = await post(uri, body: jsonEncode(requestData));
 
+    expect(response.statusCode, 422);
+
     final responseJson = jsonDecode(response.body);
 
     final errorDto = ErrorDto.fromJson(responseJson);
 
-    expect(response.statusCode, 422);
     expect(errorDto.errors[0], 'user is required');
   });
 
@@ -38,11 +39,12 @@ void main() {
 
       final response = await post(uri, body: jsonEncode(requestData));
 
+      expect(response.statusCode, 422);
+
       final responseJson = jsonDecode(response.body);
 
       final errorDto = ErrorDto.fromJson(responseJson);
 
-      expect(response.statusCode, 422);
       expect(errorDto.errors[0], 'username is required');
     });
 
@@ -57,11 +59,12 @@ void main() {
 
       final response = await post(uri, body: jsonEncode(requestData));
 
+      expect(response.statusCode, 422);
+
       final responseJson = jsonDecode(response.body);
 
       final errorDto = ErrorDto.fromJson(responseJson);
 
-      expect(response.statusCode, 422);
       expect(errorDto.errors[0], 'username cannot be blank');
     });
 
@@ -76,11 +79,12 @@ void main() {
 
       final response = await post(uri, body: jsonEncode(requestData));
 
+      expect(response.statusCode, 422);
+
       final responseJson = jsonDecode(response.body);
 
       final errorDto = ErrorDto.fromJson(responseJson);
 
-      expect(response.statusCode, 422);
       expect(errorDto.errors[0], 'username cannot be blank');
     });
   });
@@ -96,11 +100,12 @@ void main() {
 
       final response = await post(uri, body: jsonEncode(requestData));
 
+      expect(response.statusCode, 422);
+
       final responseJson = jsonDecode(response.body);
 
       final errorDto = ErrorDto.fromJson(responseJson);
 
-      expect(response.statusCode, 422);
       expect(errorDto.errors[0], 'email is required');
     });
 
@@ -115,11 +120,12 @@ void main() {
 
       final response = await post(uri, body: jsonEncode(requestData));
 
+      expect(response.statusCode, 422);
+
       final responseJson = jsonDecode(response.body);
 
       final errorDto = ErrorDto.fromJson(responseJson);
 
-      expect(response.statusCode, 422);
       expect(errorDto.errors[0], 'Invalid email: $email');
     });
 
@@ -134,11 +140,12 @@ void main() {
 
       final response = await post(uri, body: jsonEncode(requestData));
 
+      expect(response.statusCode, 422);
+
       final responseJson = jsonDecode(response.body);
 
       final errorDto = ErrorDto.fromJson(responseJson);
 
-      expect(response.statusCode, 422);
       expect(errorDto.errors[0], 'email cannot be blank');
     });
 
@@ -153,11 +160,12 @@ void main() {
 
       final response = await post(uri, body: jsonEncode(requestData));
 
+      expect(response.statusCode, 422);
+
       final responseJson = jsonDecode(response.body);
 
       final errorDto = ErrorDto.fromJson(responseJson);
 
-      expect(response.statusCode, 422);
       expect(errorDto.errors[0], 'email cannot be blank');
     });
 
@@ -177,11 +185,12 @@ void main() {
 
       final response = await post(uri, body: jsonEncode(requestData));
 
+      expect(response.statusCode, 409);
+
       final responseJson = jsonDecode(response.body);
 
       final errorDto = ErrorDto.fromJson(responseJson);
 
-      expect(response.statusCode, 409);
       expect(errorDto.errors[0], 'User already exists');
     });
   });
@@ -197,11 +206,12 @@ void main() {
 
       final response = await post(uri, body: jsonEncode(requestData));
 
+      expect(response.statusCode, 422);
+
       final responseJson = jsonDecode(response.body);
 
       final errorDto = ErrorDto.fromJson(responseJson);
 
-      expect(response.statusCode, 422);
       expect(errorDto.errors[0], 'password is required');
     });
 
@@ -216,11 +226,12 @@ void main() {
 
       final response = await post(uri, body: jsonEncode(requestData));
 
+      expect(response.statusCode, 422);
+
       final responseJson = jsonDecode(response.body);
 
       final errorDto = ErrorDto.fromJson(responseJson);
 
-      expect(response.statusCode, 422);
       expect(errorDto.errors[0],
           'Password length must be greater than or equal to 8');
     });
@@ -238,11 +249,12 @@ void main() {
 
       final response = await post(uri, body: jsonEncode(requestData));
 
+      expect(response.statusCode, 422);
+
       final responseJson = jsonDecode(response.body);
 
       final errorDto = ErrorDto.fromJson(responseJson);
 
-      expect(response.statusCode, 422);
       expect(errorDto.errors[0],
           'Password length must be less than or equal to 64');
     });
