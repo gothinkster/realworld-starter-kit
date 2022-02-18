@@ -9,6 +9,11 @@ class Follow extends BaseEntity {
       required this.followerId,
       required this.followeeId,
       required DateTime createdAt,
-      required DateTime updatedAt})
-      : super(id: id, createdAt: createdAt, updatedAt: updatedAt);
+      required DateTime updatedAt,
+      required DateTime? deletedAt})
+      : super(
+            id: id,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            deletedAt: deletedAt);
 }

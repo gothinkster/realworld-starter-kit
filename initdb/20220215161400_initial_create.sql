@@ -16,5 +16,7 @@ CREATE TABLE IF NOT EXISTS follows(
   follower_id UUID references users(id),
   followee_id UUID references users(id),
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT current_timestamp,
-  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT current_timestamp
+  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT current_timestamp,
+  deleted_at TIMESTAMP,
+  UNIQUE(follower_id, followee_id)
 );

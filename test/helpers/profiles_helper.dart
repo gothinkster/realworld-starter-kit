@@ -39,3 +39,18 @@ Future<ProfileDto> followUser(
 
   return ProfileDto.fromJson(responseJson);
 }
+
+Future<ProfileDto> unfollowUser(
+    {required String followeeUsername, required String followerToken}) async {
+  final uri = Uri.parse(host + '/profiles/$followeeUsername/follow');
+
+  var headers = makeAuthorizationHeader(followerToken);
+
+  final response = await delete(uri, headers: headers);
+
+  expect(response.statusCode, 200);
+
+  final responseJson = jsonDecode(response.body);
+
+  return ProfileDto.fromJson(responseJson);
+}

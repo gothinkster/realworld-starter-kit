@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dart_shelf_realworld_example_app/src/common/errors/dtos/error_dto.dart';
+import 'package:dart_shelf_realworld_example_app/src/common/exceptions/argument_exception.dart';
 import 'package:dart_shelf_realworld_example_app/src/profiles/dtos/profile_dto.dart';
 import 'package:dart_shelf_realworld_example_app/src/profiles/profiles_service.dart';
 import 'package:dart_shelf_realworld_example_app/src/users/users_service.dart';
@@ -66,13 +67,45 @@ class ProfilesRouter {
           jsonEncode(ErrorDto(errors: ['User not found'])));
     }
 
-    await profilesService.createFollow(follower.id, followee.id);
+    try {
+      await profilesService.createFollow(follower.id, followee.id);
+    } on ArgumentException catch (e) {
+      return Response(422, body: jsonEncode(ErrorDto(errors: [e.message])));
+    }
 
     return Response.ok(jsonEncode(ProfileDto(
         username: followee.username,
         bio: followee.bio,
         image: followee.image,
         following: true)));
+  }
+
+  Future<Response> _unfollowUser(Request request) async {
+    final follower = request.context['user'] as User;
+
+    final followeeUsername = request.params['username'];
+
+    if (followeeUsername == null) {
+      throw UnsupportedError('username must be in the request params');
+    }
+
+    final followee = await usersService.getUserByUsername(followeeUsername);
+
+    if (followee == null) {
+      return Response.notFound(
+          jsonEncode(ErrorDto(errors: ['User not found'])));
+    }
+
+    if ((await profilesService.isFollowing(follower.id, followee.id))) {
+      await profilesService.deleteFollowByFollowerAndFollowee(
+          follower.id, followee.id);
+    }
+
+    return Response.ok(jsonEncode(ProfileDto(
+        username: followee.username,
+        bio: followee.bio,
+        image: followee.image,
+        following: false)));
   }
 
   Handler get router {
@@ -89,6 +122,12 @@ class ProfilesRouter {
         Pipeline()
             .addMiddleware(authProvider.requireAuth())
             .addHandler(_followUser));
+
+    router.delete(
+        '/profiles/<username>/follow',
+        Pipeline()
+            .addMiddleware(authProvider.requireAuth())
+            .addHandler(_unfollowUser));
 
     return router;
   }
