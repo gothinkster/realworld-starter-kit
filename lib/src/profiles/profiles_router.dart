@@ -20,6 +20,36 @@ class ProfilesRouter {
       required this.usersService,
       required this.authProvider});
 
+  Future<Response> _getProfile(Request request) async {
+    final profileUsername = request.params['username'];
+
+    if (profileUsername == null) {
+      throw UnsupportedError('username must be in the request params');
+    }
+
+    final profileUser = await usersService.getUserByUsername(profileUsername);
+
+    if (profileUser == null) {
+      return Response.notFound(
+          jsonEncode(ErrorDto(errors: ['User not found'])));
+    }
+
+    var isFollowing = false;
+
+    var authUser = request.context['user'];
+    if (authUser != null) {
+      authUser = authUser as User;
+      isFollowing =
+          await profilesService.isFollowing(authUser.id, profileUser.id);
+    }
+
+    return Response.ok(jsonEncode(ProfileDto(
+        username: profileUser.username,
+        bio: profileUser.bio,
+        image: profileUser.image,
+        following: isFollowing)));
+  }
+
   Future<Response> _followUser(Request request) async {
     final follower = request.context['user'] as User;
 
@@ -47,6 +77,12 @@ class ProfilesRouter {
 
   Handler get router {
     final router = Router();
+
+    router.get(
+        '/profiles/<username>',
+        Pipeline()
+            .addMiddleware(authProvider.optionalAuth())
+            .addHandler(_getProfile));
 
     router.post(
         '/profiles/<username>/follow',

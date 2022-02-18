@@ -26,6 +26,8 @@ void main() {
 
     final response = await post(uri, headers: headers);
 
+    expect(response.statusCode, 200);
+
     final responseJson = jsonDecode(response.body);
 
     final profile = ProfileDto.fromJson(responseJson);
