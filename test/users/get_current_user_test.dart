@@ -6,8 +6,6 @@ import '../helpers/users_helper.dart';
 import '../test_fixtures.dart';
 
 void main() {
-  final uri = Uri.parse(host + '/user');
-
   test('Should return 200', () async {
     final userAndPassword = await registerRandomUser();
 
@@ -18,21 +16,21 @@ void main() {
 
   group('authorization', () {
     test('Given no authorization header should return 401', () async {
-      final response = await get(uri);
+      final response = await get(getCurrentUserUri());
 
       expect(response.statusCode, 401);
     });
 
     test('Given invalid authorization header should return 401', () async {
       final headers = {'Authorization': 'invalid'};
-      final response = await get(uri, headers: headers);
+      final response = await get(getCurrentUserUri(), headers: headers);
 
       expect(response.statusCode, 401);
     });
 
     test('Given no token should return 401', () async {
       final headers = {'Authorization': 'Token '};
-      final response = await get(uri, headers: headers);
+      final response = await get(getCurrentUserUri(), headers: headers);
 
       expect(response.statusCode, 401);
     });
@@ -43,7 +41,7 @@ void main() {
 
       final headers = {'Authorization': 'Token $token'};
 
-      final response = await get(uri, headers: headers);
+      final response = await get(getCurrentUserUri(), headers: headers);
 
       expect(response.statusCode, 401);
     });

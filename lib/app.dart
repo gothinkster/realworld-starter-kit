@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:dart_shelf_realworld_example_app/src/api_router.dart';
+import 'package:dart_shelf_realworld_example_app/src/articles/articles_router.dart';
+import 'package:dart_shelf_realworld_example_app/src/articles/articles_service.dart';
 import 'package:dart_shelf_realworld_example_app/src/common/middleware/auth.dart';
 import 'package:dart_shelf_realworld_example_app/src/profiles/profiles_router.dart';
 import 'package:dart_shelf_realworld_example_app/src/profiles/profiles_service.dart';
@@ -55,6 +57,8 @@ Future<HttpServer> createServer() async {
   final jwtService = JwtService(issuer: authIssuer, secretKey: authSecretKey);
   final profilesService =
       ProfilesService(connection: connection, usersService: usersService);
+  final articlesService =
+      ArticlesService(connection: connection, usersService: usersService);
 
   final authProvider =
       AuthProvider(usersService: usersService, jwtService: jwtService);
@@ -67,10 +71,17 @@ Future<HttpServer> createServer() async {
       profilesService: profilesService,
       usersService: usersService,
       authProvider: authProvider);
+  final articlesRouter = ArticlesRouter(
+      articlesService: articlesService,
+      usersService: usersService,
+      profilesService: profilesService,
+      authProvider: authProvider);
 
-  final apiRouter =
-      ApiRouter(usersRouter: usersRouter, profilesRouter: profilesRouter)
-          .router;
+  final apiRouter = ApiRouter(
+          usersRouter: usersRouter,
+          profilesRouter: profilesRouter,
+          articlesRouter: articlesRouter)
+      .router;
 
   // Use any available host or container IP (usually `0.0.0.0`).
   final ip = InternetAddress.anyIPv4;

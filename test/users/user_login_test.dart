@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:dart_shelf_realworld_example_app/src/users/dtos/user_dto.dart';
 import 'package:http/http.dart';
 import 'package:test/test.dart';
 
@@ -8,25 +7,11 @@ import '../helpers/users_helper.dart';
 import '../test_fixtures.dart';
 
 void main() {
-  final uri = Uri.parse(host + '/users/login');
-
   test('Should return 200', () async {
     final userAndPassword = await registerRandomUser();
 
-    final requestData = {
-      'user': {
-        'email': userAndPassword.user.email,
-        'password': userAndPassword.password
-      }
-    };
-
-    final response = await post(uri, body: jsonEncode(requestData));
-
-    expect(response.statusCode, 200);
-
-    final responseJson = jsonDecode(response.body);
-
-    final user = UserDto.fromJson(responseJson);
+    final user = await loginUserAndDecode(
+        userAndPassword.user.email, userAndPassword.password);
 
     expect(userAndPassword.user.toJson(), user.toJson());
   });
@@ -34,7 +19,7 @@ void main() {
   test('Given no user should return 401', () async {
     final requestData = {};
 
-    final response = await post(uri, body: jsonEncode(requestData));
+    final response = await post(userLoginUri(), body: jsonEncode(requestData));
 
     expect(response.statusCode, 401);
   });
@@ -47,7 +32,8 @@ void main() {
         'user': {'password': password}
       };
 
-      final response = await post(uri, body: jsonEncode(requestData));
+      final response =
+          await post(userLoginUri(), body: jsonEncode(requestData));
 
       expect(response.statusCode, 401);
       expect(response.body.isEmpty, true);
@@ -61,7 +47,8 @@ void main() {
         'user': {'email': email, 'password': password}
       };
 
-      final response = await post(uri, body: jsonEncode(requestData));
+      final response =
+          await post(userLoginUri(), body: jsonEncode(requestData));
 
       expect(response.statusCode, 401);
       expect(response.body.isEmpty, true);
@@ -75,7 +62,8 @@ void main() {
         'user': {'email': email, 'password': password}
       };
 
-      final response = await post(uri, body: jsonEncode(requestData));
+      final response =
+          await post(userLoginUri(), body: jsonEncode(requestData));
 
       expect(response.statusCode, 401);
       expect(response.body.isEmpty, true);
@@ -85,11 +73,7 @@ void main() {
       final email = faker.internet.userName();
       final password = faker.internet.password();
 
-      final requestData = {
-        'user': {'email': email, 'password': password}
-      };
-
-      final response = await post(uri, body: jsonEncode(requestData));
+      final response = await loginUser(email, password);
 
       expect(response.statusCode, 401);
       expect(response.body.isEmpty, true);
@@ -104,7 +88,8 @@ void main() {
         'user': {'username': username}
       };
 
-      final response = await post(uri, body: jsonEncode(requestData));
+      final response =
+          await post(userLoginUri(), body: jsonEncode(requestData));
 
       expect(response.statusCode, 401);
       expect(response.body.isEmpty, true);
@@ -114,11 +99,7 @@ void main() {
       final userAndPassword = await registerRandomUser();
       final password = faker.internet.password();
 
-      final requestData = {
-        'user': {'username': userAndPassword.user.username, 'email': password}
-      };
-
-      final response = await post(uri, body: jsonEncode(requestData));
+      final response = await loginUser(userAndPassword.user.email, password);
 
       expect(response.statusCode, 401);
       expect(response.body.isEmpty, true);

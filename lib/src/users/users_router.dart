@@ -137,12 +137,20 @@ class UsersRouter {
     final bio = userData['bio'];
     final image = userData['image'];
 
-    final updatedUser = await usersService.updateUserByEmail(user.email,
-        username: username,
-        emailForUpdate: emailForUpdate,
-        password: password,
-        bio: bio,
-        image: image);
+    User updatedUser;
+
+    try {
+      updatedUser = await usersService.updateUserByEmail(user.email,
+          username: username,
+          emailForUpdate: emailForUpdate,
+          password: password,
+          bio: bio,
+          image: image);
+    } on ArgumentException catch (e) {
+      return Response(422, body: jsonEncode(ErrorDto(errors: [e.message])));
+    } on AlreadyExistsException catch (e) {
+      return Response(409, body: jsonEncode(ErrorDto(errors: [e.message])));
+    }
 
     final token = jwtService.getToken(updatedUser.email);
 

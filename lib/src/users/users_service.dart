@@ -1,5 +1,6 @@
 import 'package:dart_shelf_realworld_example_app/src/common/exceptions/already_exists_exception.dart';
 import 'package:dart_shelf_realworld_example_app/src/common/exceptions/argument_exception.dart';
+import 'package:dart_shelf_realworld_example_app/src/common/exceptions/not_found_exception.dart';
 import 'package:dart_shelf_realworld_example_app/src/users/model/user.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:postgres/postgres.dart';
@@ -13,48 +14,11 @@ class UsersService {
 
   Future<User> createUser(
       String username, String email, String password) async {
-    username = username.trim();
-    email = email.trim();
+    await _validateUsernameOrThrow(username);
 
-    if (username.isEmpty) {
-      throw ArgumentException(
-          message: 'username cannot be blank', parameterName: 'username');
-    }
+    await _validateEmailOrThrow(email);
 
-    if (email.isEmpty) {
-      throw ArgumentException(
-          message: 'email cannot be blank', parameterName: 'email');
-    }
-
-    if (!EmailValidator.validate(email)) {
-      throw ArgumentException(
-          message: 'Invalid email: $email', parameterName: 'email');
-    }
-
-    // See https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#implement-proper-password-strength-controls
-    final passwordMinLength = 8;
-    final passwordMaxLength = 64;
-
-    if (password.length < passwordMinLength) {
-      throw ArgumentException(
-          message:
-              'Password length must be greater than or equal to $passwordMinLength',
-          parameterName: 'password');
-    }
-
-    if (password.length > passwordMaxLength) {
-      throw ArgumentException(
-          message:
-              'Password length must be less than or equal to $passwordMaxLength',
-          parameterName: 'password');
-    }
-
-    var alreadyExistingUser =
-        await getUserByEmail(email) ?? await getUserByUsername(username);
-
-    if (alreadyExistingUser != null) {
-      throw AlreadyExistsException(message: 'User already exists');
-    }
+    _validatePasswordOrThrow(password);
 
     final sql =
         "INSERT INTO $usersTable(username, email, password_hash) VALUES (@username, @email, crypt(@password, gen_salt('bf'))) RETURNING id, created_at, updated_at;";
@@ -118,9 +82,7 @@ class UsersService {
       return null;
     }
 
-    final userRow = result[0];
-
-    final userId = userRow[0];
+    final userId = result[0][0];
 
     return await getUserById(userId);
   }
@@ -136,9 +98,7 @@ class UsersService {
       return null;
     }
 
-    final userRow = result[0];
-
-    final userId = userRow[0];
+    final userId = result[0][0];
 
     return await getUserById(userId);
   }
@@ -153,9 +113,7 @@ class UsersService {
       return null;
     }
 
-    final userRow = result[0];
-
-    final userId = userRow[0];
+    final userId = result[0][0];
 
     return await getUserById(userId);
   }
@@ -166,11 +124,19 @@ class UsersService {
       String? password,
       String? bio,
       String? image}) async {
+    final user = await getUserByEmail(email);
+
+    if (user == null) {
+      throw NotFoundException(message: 'User not found');
+    }
+
     final initialSql = 'UPDATE $usersTable';
 
     var sql = initialSql;
 
-    if (username != null) {
+    if (username != null && username != user.username) {
+      await _validateUsernameOrThrow(username);
+
       if (sql == initialSql) {
         sql = sql + ' SET username = @username';
       } else {
@@ -178,7 +144,9 @@ class UsersService {
       }
     }
 
-    if (emailForUpdate != null) {
+    if (emailForUpdate != null && emailForUpdate != user.email) {
+      await _validateEmailOrThrow(emailForUpdate);
+
       if (sql == initialSql) {
         sql = sql + ' SET email = @emailForUpdate';
       } else {
@@ -187,6 +155,8 @@ class UsersService {
     }
 
     if (password != null) {
+      _validatePasswordOrThrow(password);
+
       if (sql == initialSql) {
         sql = sql + " SET password_hash = crypt(@password, gen_salt('bf'))";
       } else {
@@ -194,7 +164,7 @@ class UsersService {
       }
     }
 
-    if (bio != null) {
+    if (bio != null && bio != user.bio) {
       if (sql == initialSql) {
         sql = sql + ' SET bio = @bio';
       } else {
@@ -202,7 +172,9 @@ class UsersService {
       }
     }
 
-    if (image != null) {
+    if (image != null && image != user.image) {
+      _validateImageOrThrow(image);
+
       if (sql == initialSql) {
         sql = sql + ' SET image = @image';
       } else {
@@ -211,6 +183,7 @@ class UsersService {
     }
 
     var updatedEmail = email;
+
     if (sql != initialSql) {
       sql = sql + ', updated_at = current_timestamp';
       sql = sql + ' WHERE email = @email RETURNING email;';
@@ -227,13 +200,65 @@ class UsersService {
       updatedEmail = result[0][0];
     }
 
-    final user = await getUserByEmail(updatedEmail);
+    final updatedUser = await getUserByEmail(updatedEmail);
 
-    if (user == null) {
+    if (updatedUser == null) {
       throw AssertionError(
           "User cannot be null at this point. Email: $email. Updated Email: $updatedEmail");
     }
 
-    return user;
+    return updatedUser;
+  }
+
+  Future<void> _validateUsernameOrThrow(String username) async {
+    if (username.trim().isEmpty) {
+      throw ArgumentException(
+          message: 'username cannot be blank', parameterName: 'username');
+    }
+
+    if ((await getUserByUsername(username)) != null) {
+      throw AlreadyExistsException(message: 'Username is taken');
+    }
+  }
+
+  Future<void> _validateEmailOrThrow(String email) async {
+    if (!EmailValidator.validate(email)) {
+      throw ArgumentException(
+          message: 'Invalid email: $email', parameterName: 'email');
+    }
+
+    if ((await getUserByEmail(email)) != null) {
+      throw AlreadyExistsException(message: 'Email is taken');
+    }
+  }
+
+  void _validatePasswordOrThrow(String password) {
+    // See https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#implement-proper-password-strength-controls
+    final passwordMinLength = 8;
+    final passwordMaxLength = 64;
+
+    if (password.length < passwordMinLength) {
+      throw ArgumentException(
+          message:
+              'Password length must be greater than or equal to $passwordMinLength',
+          parameterName: 'password');
+    }
+
+    if (password.length > passwordMaxLength) {
+      throw ArgumentException(
+          message:
+              'Password length must be less than or equal to $passwordMaxLength',
+          parameterName: 'password');
+    }
+  }
+
+  void _validateImageOrThrow(String image) {
+    final imageUri = Uri.tryParse(image);
+
+    if (imageUri == null ||
+        !(imageUri.isScheme('HTTP') || imageUri.isScheme('HTTPS'))) {
+      throw ArgumentException(
+          message: 'image must be a HTTP/HTTPS URL', parameterName: 'image');
+    }
   }
 }

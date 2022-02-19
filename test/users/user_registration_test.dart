@@ -8,8 +8,6 @@ import '../helpers/users_helper.dart';
 import '../test_fixtures.dart';
 
 void main() {
-  final uri = Uri.parse(host + '/users');
-
   test('Should return 201', () async {
     await registerRandomUser();
   });
@@ -17,7 +15,8 @@ void main() {
   test('Given no user should return 422', () async {
     final requestData = {};
 
-    final response = await post(uri, body: jsonEncode(requestData));
+    final response =
+        await post(registerUserUri(), body: jsonEncode(requestData));
 
     expect(response.statusCode, 422);
 
@@ -37,7 +36,8 @@ void main() {
         'user': {'email': email, 'password': password}
       };
 
-      final response = await post(uri, body: jsonEncode(requestData));
+      final response =
+          await post(registerUserUri(), body: jsonEncode(requestData));
 
       expect(response.statusCode, 422);
 
@@ -53,11 +53,8 @@ void main() {
       final email = faker.internet.email();
       final password = faker.internet.password();
 
-      final requestData = {
-        'user': {'username': username, 'email': email, 'password': password}
-      };
-
-      final response = await post(uri, body: jsonEncode(requestData));
+      final response = await registerUser(
+          username: username, email: email, password: password);
 
       expect(response.statusCode, 422);
 
@@ -73,11 +70,8 @@ void main() {
       final email = faker.internet.email();
       final password = faker.internet.password();
 
-      final requestData = {
-        'user': {'username': username, 'email': email, 'password': password}
-      };
-
-      final response = await post(uri, body: jsonEncode(requestData));
+      final response = await registerUser(
+          username: username, email: email, password: password);
 
       expect(response.statusCode, 422);
 
@@ -98,7 +92,8 @@ void main() {
         'user': {'username': username, 'password': password}
       };
 
-      final response = await post(uri, body: jsonEncode(requestData));
+      final response =
+          await post(registerUserUri(), body: jsonEncode(requestData));
 
       expect(response.statusCode, 422);
 
@@ -109,16 +104,13 @@ void main() {
       expect(errorDto.errors[0], 'email is required');
     });
 
-    test('Given invalid email should return 422', () async {
+    test('Given empty email should return 422', () async {
       final username = faker.internet.userName();
-      final email = 'foo@';
+      final email = ' ';
       final password = faker.internet.password();
 
-      final requestData = {
-        'user': {'username': username, 'email': email, 'password': password}
-      };
-
-      final response = await post(uri, body: jsonEncode(requestData));
+      final response = await registerUser(
+          username: username, email: email, password: password);
 
       expect(response.statusCode, 422);
 
@@ -129,36 +121,13 @@ void main() {
       expect(errorDto.errors[0], 'Invalid email: $email');
     });
 
-    test('Given empty email should return 422', () async {
-      final username = faker.internet.userName();
-      final email = '';
-      final password = faker.internet.password();
-
-      final requestData = {
-        'user': {'username': username, 'email': email, 'password': password}
-      };
-
-      final response = await post(uri, body: jsonEncode(requestData));
-
-      expect(response.statusCode, 422);
-
-      final responseJson = jsonDecode(response.body);
-
-      final errorDto = ErrorDto.fromJson(responseJson);
-
-      expect(errorDto.errors[0], 'email cannot be blank');
-    });
-
     test('Given whitespace email should return 422', () async {
       final username = faker.internet.userName();
       final email = ' ';
       final password = faker.internet.password();
 
-      final requestData = {
-        'user': {'username': username, 'email': email, 'password': password}
-      };
-
-      final response = await post(uri, body: jsonEncode(requestData));
+      final response = await registerUser(
+          username: username, email: email, password: password);
 
       expect(response.statusCode, 422);
 
@@ -166,7 +135,24 @@ void main() {
 
       final errorDto = ErrorDto.fromJson(responseJson);
 
-      expect(errorDto.errors[0], 'email cannot be blank');
+      expect(errorDto.errors[0], 'Invalid email: $email');
+    });
+
+    test('Given invalid email should return 422', () async {
+      final username = faker.internet.userName();
+      final email = 'foo@';
+      final password = faker.internet.password();
+
+      final response = await registerUser(
+          username: username, email: email, password: password);
+
+      expect(response.statusCode, 422);
+
+      final responseJson = jsonDecode(response.body);
+
+      final errorDto = ErrorDto.fromJson(responseJson);
+
+      expect(errorDto.errors[0], 'Invalid email: $email');
     });
 
     test('Given email already exists should return 409', () async {
@@ -175,15 +161,10 @@ void main() {
       final username = faker.internet.userName();
       final password = faker.internet.password();
 
-      final requestData = {
-        'user': {
-          'username': username,
-          'email': userAndPassword.user.email,
-          'password': password
-        }
-      };
-
-      final response = await post(uri, body: jsonEncode(requestData));
+      final response = await registerUser(
+          username: username,
+          email: userAndPassword.user.email,
+          password: password);
 
       expect(response.statusCode, 409);
 
@@ -191,7 +172,7 @@ void main() {
 
       final errorDto = ErrorDto.fromJson(responseJson);
 
-      expect(errorDto.errors[0], 'User already exists');
+      expect(errorDto.errors[0], 'Email is taken');
     });
   });
 
@@ -204,7 +185,8 @@ void main() {
         'user': {'username': username, 'email': email}
       };
 
-      final response = await post(uri, body: jsonEncode(requestData));
+      final response =
+          await post(registerUserUri(), body: jsonEncode(requestData));
 
       expect(response.statusCode, 422);
 
@@ -220,11 +202,8 @@ void main() {
       final email = faker.internet.email();
       final password = 'abcdefg';
 
-      final requestData = {
-        'user': {'username': username, 'email': email, 'password': password}
-      };
-
-      final response = await post(uri, body: jsonEncode(requestData));
+      final response = await registerUser(
+          username: username, email: email, password: password);
 
       expect(response.statusCode, 422);
 
@@ -243,11 +222,8 @@ void main() {
       final password =
           'xcXzfXLMuJ6rZOimrcelA1CTDaptfowQFUAOHYBcAfUr5gJmhmw0paBulNt78RL34';
 
-      final requestData = {
-        'user': {'username': username, 'email': email, 'password': password}
-      };
-
-      final response = await post(uri, body: jsonEncode(requestData));
+      final response = await registerUser(
+          username: username, email: email, password: password);
 
       expect(response.statusCode, 422);
 

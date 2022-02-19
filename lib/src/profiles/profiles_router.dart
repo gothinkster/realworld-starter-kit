@@ -42,6 +42,8 @@ class ProfilesRouter {
       authUser = authUser as User;
       isFollowing =
           await profilesService.isFollowing(authUser.id, profileUser.id);
+      print(authUser);
+      print(isFollowing);
     }
 
     return Response.ok(jsonEncode(ProfileDto(

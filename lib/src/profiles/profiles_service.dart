@@ -18,38 +18,38 @@ class ProfilesService {
       throw ArgumentException(message: 'Cannot follow own user');
     }
 
-    final followerUser = await usersService.getUserById(followerId);
+    final follower = await usersService.getUserById(followerId);
 
-    if (followerUser == null) {
+    if (follower == null) {
       throw NotFoundException(message: 'Follower not found');
     }
 
-    final followeeUser = await usersService.getUserById(followerId);
+    final followee = await usersService.getUserById(followeeId);
 
-    if (followeeUser == null) {
+    if (followee == null) {
       throw NotFoundException(message: 'Followee not found');
     }
 
     final existingFollow =
-        await getFollowByFollowerAndFollowee(followeeUser.id, followeeUser.id);
+        await getFollowByFollowerAndFollowee(follower.id, followee.id);
 
     if (existingFollow != null) {
       return existingFollow;
     }
 
-    final hasPreviousUnfollowSql =
+    final hasDeletedFollowSql =
         'SELECT EXISTS(SELECT 1 FROM $followsTable WHERE follower_id = @followerId AND followee_id = @followeeId AND deleted_at IS NOT NULL);';
 
-    final hasPreviousFollowResult =
-        await connection.query(hasPreviousUnfollowSql, substitutionValues: {
-      'followerId': followerUser.id,
-      'followeeId': followeeUser.id,
+    final hasDeletedFollowResult =
+        await connection.query(hasDeletedFollowSql, substitutionValues: {
+      'followerId': follower.id,
+      'followeeId': followee.id,
     });
 
-    var hasPreviousFollow = hasPreviousFollowResult[0][0];
+    var hasDeletedFollow = hasDeletedFollowResult[0][0];
 
     String sql;
-    if (hasPreviousFollow) {
+    if (hasDeletedFollow) {
       sql =
           'UPDATE $followsTable SET deleted_at = NULL, created_at = current_timestamp WHERE follower_id = @followerId AND followee_id = @followeeId RETURNING id, created_at, updated_at, deleted_at';
     } else {
@@ -58,8 +58,8 @@ class ProfilesService {
     }
 
     final result = await connection.query(sql, substitutionValues: {
-      'followerId': followerUser.id,
-      'followeeId': followeeUser.id,
+      'followerId': follower.id,
+      'followeeId': followee.id,
     });
 
     final followRow = result[0];
@@ -71,8 +71,8 @@ class ProfilesService {
 
     return Follow(
         id: followId,
-        followerId: followerUser.id,
-        followeeId: followeeUser.id,
+        followerId: follower.id,
+        followeeId: followee.id,
         createdAt: createdAt,
         updatedAt: updatedAt,
         deletedAt: deletedAt);
@@ -141,14 +141,6 @@ class ProfilesService {
   }
 
   Future<bool> isFollowing(String followerId, String followeeId) async {
-    final sql =
-        'SELECT EXISTS(SELECT 1 FROM $followsTable WHERE follower_id = @followerId AND followee_id = @followeeId AND deleted_at IS NULL);';
-
-    final result = await connection.query(sql, substitutionValues: {
-      'followerId': followerId,
-      'followeeId': followeeId,
-    });
-
-    return result[0][0];
+    return await getFollowByFollowerAndFollowee(followerId, followeeId) != null;
   }
 }

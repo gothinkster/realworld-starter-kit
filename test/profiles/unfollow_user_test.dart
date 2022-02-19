@@ -11,12 +11,10 @@ import '../helpers/users_helper.dart';
 import '../test_fixtures.dart';
 
 void main() {
-  late Uri uri;
   late UserDto followee;
 
   setUp(() async {
     followee = (await registerRandomUserAndUpdateBioAndImage()).user;
-    uri = Uri.parse(host + '/profiles/${followee.username}/follow');
   });
 
   test('Given caller already follows should return 200', () async {
@@ -25,36 +23,46 @@ void main() {
     await followUser(
         followeeUsername: followee.username, followerToken: caller.user.token);
 
-    final profile = await unfollowUser(
+    final profile = await unfollowUserAndDecode(
         followeeUsername: followee.username, followerToken: caller.user.token);
 
-    final fetchedProfile = await getProfile(username: followee.username);
+    final fetchedProfileAfterUpdate =
+        await getProfileAndDecode(username: followee.username);
 
-    expect(profile.following, false);
-    expect(profile.toJson(), fetchedProfile.toJson());
+    expect(fetchedProfileAfterUpdate.following, false);
+
+    expect(fetchedProfileAfterUpdate.username, followee.username);
+    expect(fetchedProfileAfterUpdate.bio, followee.bio);
+    expect(fetchedProfileAfterUpdate.image, followee.image);
+
+    expect(profile.toJson(), fetchedProfileAfterUpdate.toJson());
   });
 
   test('Given caller does not follow should return 200', () async {
     final caller = await registerRandomUser();
 
-    final profile = await unfollowUser(
+    final profile = await unfollowUserAndDecode(
         followeeUsername: followee.username, followerToken: caller.user.token);
 
-    final fetchedProfile = await getProfile(username: followee.username);
+    final fetchedProfileAfterUpdate =
+        await getProfileAndDecode(username: followee.username);
 
-    expect(profile.following, false);
-    expect(profile.toJson(), fetchedProfile.toJson());
+    expect(fetchedProfileAfterUpdate.following, false);
+
+    expect(fetchedProfileAfterUpdate.username, followee.username);
+    expect(fetchedProfileAfterUpdate.bio, followee.bio);
+    expect(fetchedProfileAfterUpdate.image, followee.image);
+
+    expect(profile.toJson(), fetchedProfileAfterUpdate.toJson());
   });
 
   test('Given followee is not found should return 404', () async {
     final caller = await registerRandomUser();
 
-    final uri =
-        Uri.parse(host + '/profiles/${faker.internet.userName()}/follow');
+    final username = faker.internet.userName();
 
-    final headers = makeAuthorizationHeader(caller.user.token);
-
-    final response = await delete(uri, headers: headers);
+    final response = await unfollowUser(
+        followeeUsername: username, followerToken: caller.user.token);
 
     expect(response.statusCode, 404);
 
@@ -67,21 +75,23 @@ void main() {
 
   group('authorization', () {
     test('Given no authorization header should return 401', () async {
-      final response = await delete(uri);
+      final response = await delete(unfollowUserUri(followee.username));
 
       expect(response.statusCode, 401);
     });
 
     test('Given invalid authorization header should return 401', () async {
       final headers = {'Authorization': 'invalid'};
-      final response = await delete(uri, headers: headers);
+      final response =
+          await delete(unfollowUserUri(followee.username), headers: headers);
 
       expect(response.statusCode, 401);
     });
 
     test('Given no token should return 401', () async {
       final headers = {'Authorization': 'Token '};
-      final response = await delete(uri, headers: headers);
+      final response =
+          await delete(unfollowUserUri(followee.username), headers: headers);
 
       expect(response.statusCode, 401);
     });
@@ -92,7 +102,8 @@ void main() {
 
       final headers = {'Authorization': 'Token $token'};
 
-      final response = await delete(uri, headers: headers);
+      final response =
+          await delete(unfollowUserUri(followee.username), headers: headers);
 
       expect(response.statusCode, 401);
     });
