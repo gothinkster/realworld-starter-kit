@@ -12,12 +12,12 @@ extensions.configure<KotlinJsProjectExtension> {
             getByName(it) {
                 kotlin.srcDir(file(name))
                 resources.srcDir(file(name))
-                resources.exclude("js", "**/*.kt", "**/*.java")
+                resources.exclude("**/*.kt", "**/*.java")
             }
         }
     }
 
-    js {
+    js(IR) {
         binaries.executable()
 
         browser {
@@ -41,9 +41,11 @@ extensions.configure<KotlinJsProjectExtension> {
 
 repositories {
     mavenCentral()
-    maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
 }
 
 dependencies {
-    "implementation"("org.jetbrains.kotlinx:kotlinx-html-js:${project.extra["kotlinxHtmlVersion"]}")
+    val kotlinxHtmlVersion = properties["kotlinxHtmlVersion"]
+
+    implementation("org.jetbrains.kotlinx:kotlinx-html-js:$kotlinxHtmlVersion")
+    testImplementation(kotlin("test"))
 }

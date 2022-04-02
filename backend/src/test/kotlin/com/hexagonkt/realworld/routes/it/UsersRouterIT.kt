@@ -7,7 +7,7 @@ import com.hexagonkt.realworld.RealWorldClient
 import com.hexagonkt.realworld.main
 import com.hexagonkt.realworld.messages.ErrorResponseRoot
 import com.hexagonkt.realworld.server
-import com.hexagonkt.serialization.Json
+import com.hexagonkt.serialization.json.Json
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.parse
 import org.junit.jupiter.api.AfterAll

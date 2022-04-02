@@ -1,7 +1,6 @@
 
 plugins {
-    kotlin("jvm") version("1.4.32") apply(false)
-    id("org.jetbrains.dokka") version("1.4.30") apply(false)
+    kotlin("jvm") version("1.6.10") apply(false)
 }
 
 defaultTasks("build")

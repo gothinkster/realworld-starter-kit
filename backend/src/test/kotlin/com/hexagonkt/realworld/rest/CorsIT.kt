@@ -5,7 +5,7 @@ import com.hexagonkt.http.client.ClientSettings
 import com.hexagonkt.http.client.ahc.AhcAdapter
 import com.hexagonkt.realworld.main
 import com.hexagonkt.realworld.server
-import com.hexagonkt.serialization.Json
+import com.hexagonkt.serialization.json.Json
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test

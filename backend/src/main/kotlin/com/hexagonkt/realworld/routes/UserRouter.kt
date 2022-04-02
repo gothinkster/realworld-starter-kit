@@ -2,29 +2,32 @@ package com.hexagonkt.realworld.routes
 
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
-import com.hexagonkt.realworld.injector
+import com.hexagonkt.realworld.createJwt
+import com.hexagonkt.realworld.createUserStore
 import com.hexagonkt.realworld.messages.PutUserRequestRoot
 import com.hexagonkt.realworld.messages.UserResponseRoot
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.services.User
-import com.hexagonkt.serialization.convertToMap
+import com.hexagonkt.serialization.toFieldsMap
 import com.hexagonkt.store.Store
 
 import kotlin.text.Charsets.UTF_8
 
-internal val userRouter = Router {
-    val jwt: Jwt = injector.inject()
-    val users: Store<User, String> = injector.inject<Store<User, String>>(User::class)
+internal val userRouter by lazy {
+    Router {
+        val jwt: Jwt = createJwt()
+        val users: Store<User, String> = createUserStore()
 
-    authenticate(jwt)
-    get { getUser(users, jwt) }
-    put { putUser(users, jwt) }
+        authenticate(jwt)
+        get { getUser(users, jwt) }
+        put { putUser(users, jwt) }
+    }
 }
 
 internal fun Call.putUser(users: Store<User, String>, jwt: Jwt) {
     val principal = requirePrincipal(jwt)
     val body = request.body<PutUserRequestRoot>().user
-    val updates = body.convertToMap().mapKeys { it.key.toString() }
+    val updates = body.toFieldsMap().mapKeys { it.key.toString() }
 
     val updated = users.updateOne(principal.subject, updates)
 

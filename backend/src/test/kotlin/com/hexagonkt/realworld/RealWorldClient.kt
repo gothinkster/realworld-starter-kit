@@ -5,7 +5,7 @@ import com.hexagonkt.http.client.ClientSettings
 import com.hexagonkt.http.client.Response
 import com.hexagonkt.http.client.ahc.AhcAdapter
 import com.hexagonkt.realworld.messages.*
-import com.hexagonkt.serialization.Json
+import com.hexagonkt.serialization.json.Json
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.parse
@@ -41,7 +41,7 @@ internal class RealWorldClient(val client: Client) {
         }
     }
 
-    fun registerUser(user: User, callback: Response.() -> Unit) {
+    fun registerUser(user: User, callback: Response<String>.() -> Unit) {
         client.post("/users", user.toRegistrationRequest()).apply(callback)
     }
 
@@ -84,7 +84,7 @@ internal class RealWorldClient(val client: Client) {
         }
     }
 
-    fun getUser(user: User, callback: Response.(User) -> Unit) {
+    fun getUser(user: User, callback: Response<String>.(User) -> Unit) {
         client.get("/user").apply { callback(user) }
     }
 
@@ -100,7 +100,7 @@ internal class RealWorldClient(val client: Client) {
         }
     }
 
-    fun updateUser(user: User, updateRequest: PutUserRequest, callback: Response.(User) -> Unit) {
+    fun updateUser(user: User, updateRequest: PutUserRequest, callback: Response<String>.(User) -> Unit) {
         client.put("/user", PutUserRequestRoot(updateRequest)).apply { callback(user) }
     }
 

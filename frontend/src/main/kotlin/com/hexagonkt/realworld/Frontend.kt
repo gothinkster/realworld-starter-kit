@@ -1,12 +1,12 @@
 package com.hexagonkt.realworld
 
+import kotlinx.browser.document
+import kotlinx.browser.window
 import kotlinx.html.a
 import kotlinx.html.div
 import kotlinx.html.dom.create
 import kotlinx.html.i
 import kotlinx.html.js.div
-import kotlin.browser.document
-import kotlin.browser.window
 
 fun main() {
     window.setInterval({

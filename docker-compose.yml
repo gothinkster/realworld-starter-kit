@@ -3,14 +3,14 @@
 # Check `README.md` for usage instructions.
 #
 
-version: '3'
+version: '3.8'
 
 services:
 
   mongodb:
     image: mongo:4.4-bionic
     ports:
-      - 3010:27017
+      - "3010:27017"
 
   frontend:
     image: nginx:1.15
@@ -22,7 +22,7 @@ services:
     volumes:
       - ./frontend/build/web:/usr/share/nginx/html:ro
     ports:
-      - 3080:80
+      - "3080:80"
 
   backend:
     image: ${registry:-localhost:5000/}realworld:1.0
@@ -36,4 +36,4 @@ services:
     build:
       context: backend
     ports:
-      - 3090:9090
+      - "3090:9090"

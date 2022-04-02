@@ -1,8 +1,10 @@
 package com.hexagonkt.realworld.routes
 
-import com.hexagonkt.helpers.require
+import com.hexagonkt.core.helpers.require
 import com.hexagonkt.http.server.Router
-import com.hexagonkt.realworld.injector
+import com.hexagonkt.realworld.createArticleStore
+import com.hexagonkt.realworld.createJwt
+import com.hexagonkt.realworld.createUserStore
 import com.hexagonkt.realworld.messages.*
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.services.Article
@@ -12,9 +14,9 @@ import com.hexagonkt.store.Store
 import kotlin.text.Charsets.UTF_8
 
 internal val commentsRouter = Router {
-    val jwt: Jwt = injector.inject()
-    val users: Store<User, String> = injector.inject<Store<User, String>>(User::class)
-    val articles: Store<Article, String> = injector.inject<Store<Article, String>>(Article::class)
+    val jwt: Jwt = createJwt()
+    val users: Store<User, String> = createUserStore()
+    val articles: Store<Article, String> = createArticleStore()
 
     post {
         val principal = requirePrincipal(jwt)
@@ -25,7 +27,7 @@ internal val commentsRouter = Router {
         val user = users.findOne(subject) ?: halt(404, "$subject user not found")
         val commentRequest = request.body<CommentRequestRoot>().comment
         val comment = Comment(
-            id = (article.comments.map { it.id }.max() ?: 0) + 1,
+            id = (article.comments.maxOf { it.id }) + 1,
             author = subject,
             body = commentRequest.body
         )

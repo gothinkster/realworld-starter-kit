@@ -1,24 +1,27 @@
 package com.hexagonkt.realworld.routes
 
 import com.auth0.jwt.interfaces.DecodedJWT
-import com.hexagonkt.helpers.require
+import com.hexagonkt.core.helpers.require
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
-import com.hexagonkt.realworld.injector
+import com.hexagonkt.realworld.createJwt
+import com.hexagonkt.realworld.createUserStore
 import com.hexagonkt.realworld.messages.ProfileResponse
 import com.hexagonkt.realworld.messages.ProfileResponseRoot
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.store.Store
 
-internal val profilesRouter = Router {
-    val jwt: Jwt = injector.inject()
-    val users: Store<User, String> = injector.inject<Store<User, String>>(User::class)
+internal val profilesRouter by lazy {
+    Router {
+        val jwt: Jwt = createJwt()
+        val users: Store<User, String> = createUserStore()
 
-    authenticate(jwt)
-    post("/follow") { followProfile(users, true) }
-    delete("/follow") { followProfile(users, false) }
-    get { getProfile(users) }
+        authenticate(jwt)
+        post("/follow") { followProfile(users, true) }
+        delete("/follow") { followProfile(users, false) }
+        get { getProfile(users) }
+    }
 }
 
 private fun Call.getProfile(users: Store<User, String>) {

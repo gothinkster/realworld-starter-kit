@@ -1,24 +1,27 @@
 package com.hexagonkt.realworld.routes
 
-import com.hexagonkt.helpers.require
+import com.hexagonkt.core.helpers.require
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
-import com.hexagonkt.realworld.injector
+import com.hexagonkt.realworld.createJwt
+import com.hexagonkt.realworld.createUserStore
 import com.hexagonkt.realworld.messages.*
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.services.User
-import com.hexagonkt.serialization.Json
+import com.hexagonkt.serialization.json.Json
 import com.hexagonkt.store.Store
 
 import kotlin.text.Charsets.UTF_8
 
-internal val usersRouter = Router {
-    val jwt: Jwt = injector.inject()
-    val users: Store<User, String> = injector.inject<Store<User, String>>(User::class)
+internal val usersRouter by lazy {
+    Router {
+        val jwt: Jwt = createJwt()
+        val users: Store<User, String> = createUserStore()
 
-    delete("/{username}") { deleteUser(users) }
-    post("/login") { login(users, jwt) }
-    post { register(users, jwt) }
+        delete("/{username}") { deleteUser(users) }
+        post("/login") { login(users, jwt) }
+        post { register(users, jwt) }
+    }
 }
 
 private fun Call.register(users: Store<User, String>, jwt: Jwt) {

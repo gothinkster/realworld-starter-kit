@@ -1,32 +1,34 @@
 package com.hexagonkt.realworld.routes
 
 import com.auth0.jwt.interfaces.DecodedJWT
-import com.hexagonkt.helpers.CodedException
-import com.hexagonkt.helpers.MultipleException
+import com.hexagonkt.core.helpers.CodedException
+import com.hexagonkt.core.helpers.MultipleException
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.CorsSettings
 import com.hexagonkt.http.server.Router
 import com.hexagonkt.realworld.messages.ErrorResponse
 import com.hexagonkt.realworld.messages.ErrorResponseRoot
 import com.hexagonkt.realworld.rest.Jwt
-import com.hexagonkt.serialization.Json
+import com.hexagonkt.serialization.json.Json
 import kotlin.text.Charsets.UTF_8
 
-internal val router: Router = Router {
-    cors(CorsSettings(allowedHeaders = setOf("Accept", "User-Agent", "Host", "Content-Type")))
+internal val router: Router by lazy {
+    Router {
+        cors(CorsSettings(allowedHeaders = setOf("Accept", "User-Agent", "Host", "Content-Type")))
 
-    path("/users", usersRouter)
-    path("/user", userRouter)
-    path("/profiles/{username}", profilesRouter)
-    path("/articles", articlesRouter)
-    path("/tags", tagsRouter)
+        path("/users", usersRouter)
+        path("/user", userRouter)
+        path("/profiles/{username}", profilesRouter)
+        path("/articles", articlesRouter)
+        path("/tags", tagsRouter)
 
-    setOf(401, 403, 404, 500).forEach { code ->
-        error(code) { statusCodeHandler(it) }
+        setOf(401, 403, 404, 500).forEach { code ->
+            error(code) { statusCodeHandler(it) }
+        }
+
+        error(MultipleException::class) { multipleExceptionHandler(it) }
+        error(Exception::class) { exceptionHandler(it) }
     }
-
-    error(MultipleException::class) { multipleExceptionHandler(it) }
-    error(Exception::class) { exceptionHandler(it) }
 }
 
 internal fun Call.statusCodeHandler(exception: CodedException) {

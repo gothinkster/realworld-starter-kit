@@ -1,44 +1,50 @@
 package com.hexagonkt.realworld.routes
 
 import com.auth0.jwt.interfaces.DecodedJWT
-import com.hexagonkt.helpers.require
+import com.hexagonkt.core.helpers.Jvm
+import com.hexagonkt.core.helpers.fail
+import com.hexagonkt.core.helpers.require
 import com.hexagonkt.http.server.Call
 import com.hexagonkt.http.server.Router
-import com.hexagonkt.realworld.injector
+import com.hexagonkt.realworld.createArticleStore
+import com.hexagonkt.realworld.createJwt
+import com.hexagonkt.realworld.createUserStore
 import com.hexagonkt.realworld.toIso8601
 import com.hexagonkt.realworld.messages.*
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
-import com.hexagonkt.serialization.convertToMap
+import com.hexagonkt.serialization.toFieldsMap
 import com.hexagonkt.store.Store
 import java.time.LocalDateTime
 
 import kotlin.text.Charsets.UTF_8
 
-internal val articlesRouter = Router {
-    val jwt: Jwt = injector.inject()
-    val users: Store<User, String> = injector.inject<Store<User, String>>(User::class)
-    val articles: Store<Article, String> = injector.inject<Store<Article, String>>(Article::class)
+internal val articlesRouter by lazy {
+    Router {
+        val jwt: Jwt = createJwt()
+        val users: Store<User, String> = createUserStore()
+        val articles: Store<Article, String> = createArticleStore()
 
-    get("/feed") { getFeed(jwt, users, articles) }
+        get("/feed") { getFeed(jwt, users, articles) }
 
-    path("/{slug}") {
-        path("/favorite") {
-            authenticate(jwt)
-            post { favoriteArticle(users, articles, true) }
-            delete { favoriteArticle(users, articles, false) }
+        path("/{slug}") {
+            path("/favorite") {
+                authenticate(jwt)
+                post { favoriteArticle(users, articles, true) }
+                delete { favoriteArticle(users, articles, false) }
+            }
+
+            path("/comments", commentsRouter)
+
+            delete { deleteArticle(jwt, articles) }
+            put { updateArticle(jwt, articles) }
+            get { getArticle(jwt, users, articles) }
         }
 
-        path("/comments", commentsRouter)
-
-        delete { deleteArticle(jwt, articles) }
-        put { updateArticle(jwt, articles) }
-        get { getArticle(jwt, users, articles) }
+        post { createArticle(jwt, articles) }
+        get { findArticles(jwt, users, articles) }
     }
-
-    post { createArticle(jwt, articles) }
-    get { findArticles(jwt, users, articles) }
 }
 
 internal fun Call.findArticles(
@@ -115,7 +121,7 @@ internal fun Call.updateArticle(jwt: Jwt, articles: Store<Article, String>) {
 
     val updatedAt = LocalDateTime.now()
     val updatedAtPair = Article::updatedAt.name to updatedAt
-    val requestUpdates = body.convertToMap().mapKeys { it.key.toString() } + updatedAtPair
+    val requestUpdates = body.toFieldsMap().mapKeys { it.key.toString() } + updatedAtPair
 
     val updates =
         if (body.title != null) requestUpdates + (Article::slug.name to body.title.toSlug())
@@ -158,7 +164,7 @@ internal fun Call.getFeed(jwt: Jwt, users: Store<User, String>, articles: Store<
 }
 
 internal fun String.toSlug() =
-    this.toLowerCase().replace(' ', '-')
+    this.lowercase().replace(' ', '-')
 
 internal fun Call.searchArticles(
     users: Store<User, String>,
@@ -169,8 +175,8 @@ internal fun Call.searchArticles(
 
     val sort = mapOf(Article::createdAt.name to false)
     val queryParameters = request.queryParameters
-    val limit = queryParameters["limit"]?.first()?.toInt() ?: 20
-    val offset = queryParameters["offset"]?.first()?.toInt() ?: 0
+    val limit = queryParameters["limit"]?.first()?.code ?: 20
+    val offset = queryParameters["offset"]?.first()?.code ?: 0
     val allArticles = articles.findMany(filter, limit, offset, sort)
     val userNames = allArticles.map { it.author } + subject
     val authors = users.findMany(mapOf(User::username.name to userNames))
