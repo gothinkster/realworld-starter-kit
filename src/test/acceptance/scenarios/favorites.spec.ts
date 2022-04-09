@@ -1,5 +1,6 @@
 import { RealWorldDSL } from '../support/realworld.dsl'
 import { dslFactory } from '../support/factory.dsl'
+import { Users } from '../support/interface.driver'
 
 /**
  Users should be able to favorite and unfavorite articles.
@@ -18,18 +19,17 @@ describe('Favorites', () => {
   })
 
   async function background() {
-    dsl.givenILogin()
+    dsl.loginAs(Users.Me)
   }
 
   it('should include me in the favoriters list', () => {
-    dsl.givenICanSeeAPublishedArticle()
-    dsl.whenIFavoriteTheArticle()
-    dsl.thenICanSeeMyselfInTheListOfFavoriters()
+    dsl.favoriteAnArticle()
+    dsl.assertICanSeeMeInTheListOfFavoriters()
   })
 
   it('should exclude me from favoriters list when I unfavorite an article', () => {
-    dsl.givenIFavoritedAnArticle()
-    dsl.whenIUndoTheFavoriting()
-    dsl.thenIAmNotInTheFavoritersList()
+    dsl.favoriteAnArticle()
+    dsl.undoTheFavoriting()
+    dsl.assertIAmNotInTheFavoritersList()
   })
 })

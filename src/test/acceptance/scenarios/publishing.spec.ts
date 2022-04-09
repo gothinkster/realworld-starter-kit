@@ -1,5 +1,6 @@
 import { RealWorldDSL } from '../support/realworld.dsl'
 import { dslFactory } from '../support/factory.dsl'
+import { Users } from '../support/interface.driver'
 
 /**
    Articles can be published and unpublished. Users should be able to write articles and not publish them.
@@ -20,24 +21,24 @@ describe('Feed', () => {
   })
 
   async function background() {
-    dsl.givenILogin()
+    dsl.loginAs(Users.Me)
   }
 
   it('should not make my article public right after I create it', () => {
-    dsl.whenICreateAnArticle()
-    dsl.thenMyArticleCanNotBeFoundByOtherUsers()
+    dsl.createAnArticle()
+    dsl.assertMyArticleCanNotBeFoundByOtherUsers()
   })
 
   it('should make my article public after I publish it', () => {
-    dsl.givenICreateAnArticle()
-    dsl.whenIPublishTheArticle()
-    dsl.thenMyArticleCanBeFoundByOtherUsers()
+    dsl.createAnArticle()
+    dsl.publishTheArticle()
+    dsl.assertMyArticleCanBeFoundByOtherUsers()
   })
 
   it('should unpublish my article when I decide', () => {
-    dsl.givenIPublishAnArticle()
-    dsl.whenIUnpublishTheArticle()
-    dsl.thenMyArticleCanNotBeFoundByOtherUsers()
-    dsl.butICanSeeMyArticle()
+    dsl.publishAnArticle()
+    dsl.unpublishTheArticle()
+    dsl.assertMyArticleCanNotBeFoundByOtherUsers()
+    dsl.assertICanSeeMyArticle()
   })
 })

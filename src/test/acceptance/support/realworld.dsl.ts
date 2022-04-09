@@ -7,102 +7,95 @@ export class RealWorldDSL {
     return this.driver
   }
 
-  givenILogin(as: Users = Users.Me): void {}
-  givenIFollowCostello() {}
-  givenCostelloPublishesAnArticle(tags?: string[]) {}
-  givenIFavoritedAnArticle() {}
-  givenICanSeeAPublishedArticle() {}
-  givenICreateAnArticle(): void {}
-  givenIPublishTheArticle(): void {}
-  givenIPublishAnArticle(): void {
-    this.givenILogin()
-    this.givenICreateAnArticle()
-    this.givenIPublishTheArticle()
+  loginAs(user: Users = Users.Me): void {}
+  follow(user: Users): void {}
+  unfollow(user: Users): void {}
+
+  createAnArticle(): void {}
+  publishTheArticle(): void {}
+
+  unpublishTheArticle() {}
+  deleteTheArticle(): void {}
+
+  editTheArticle(): void {}
+
+  favoriteTheArticle() {}
+  undoTheFavoriting() {}
+
+  commentOnArticleFrom(author: Users, as: Users = null) {}
+
+  unpublishArticlesFrom(author: Users) {}
+
+  publishAnArticle(author: Users = Users.Me, tags: string[] = null): void {
+    this.loginAs(author)
+    this.createAnArticle()
+    this.publishTheArticle()
   }
-  whenIUnfollowCostello() {}
 
-  whenIUnpublishTheArticle() {}
-  whenIDeleteTheArticle(): void {}
+  favoriteAnArticle() {
+    this.publishAnArticle(Users.Abbott)
+    this.favoriteTheArticle()
+  }
 
-  whenIEditTheArticle(): void {}
-
-  whenIFavoriteTheArticle() {}
-  whenIUndoTheFavoriting() {}
-
-  whenICommentOnCostellosArticle() {}
-  whenAbbottCommentsOnCostellosArticle() {}
-  whenCostelloUnpublishesHisArticle() {}
-
-  whenICreateAnArticle = this.givenICreateAnArticle
-  whenIPublishTheArticle = this.givenIPublishTheArticle
-  whenCostelloPublishesAnArticle = this.givenCostelloPublishesAnArticle
-  whenIPublishAnArticle = this.givenIPublishAnArticle
-  andIFollowCostello = this.givenIFollowCostello
-  andIEditTheArticle = this.whenIEditTheArticle
-  butIUnfollowCostello = this.whenIUnfollowCostello
-  butIDeleteTheArticle = this.whenIDeleteTheArticle
-  butICanSeeMyArticle = this.thenICanSeeMyArticle
-  butCostelloUnpublishesHisArticle = this.whenCostelloUnpublishesHisArticle
-
-  thenICanSeeThePublishedVersionIsTheLastIWrote() {
+  assertThePublishedVersionIsTheLastIWrote() {
     expect(false).toBe(true)
   }
 
-  thenICanSeeCostellosArticleIsPublished() {
+  assertCostellosArticleIsPublished() {
     expect(false).toBe(true)
   }
 
-  thenICanFindTheArticleFilteringBy(filters: ArticleFilters) {
+  assertICanFindTheArticleFilteringBy(filters: ArticleFilters) {
     expect(false).toBe(true)
   }
 
-  thenICanNotFindTheArticleFilteringBy(filters: ArticleFilters) {
+  assertICanNotFindTheArticleFilteringBy(filters: ArticleFilters) {
     expect(false).toBe(true)
   }
 
-  thenICanSeeTheArticleInMyList(): void {
+  assertTheArticleIsInMyList(): void {
     expect(false).toBe(true)
   }
 
-  thenICanNotSeeTheArticleInMyList(): void {
+  assertTheArticleIsNotInMyList(): void {
     expect(false).toBe(true)
   }
 
-  thenICanSeeMyCommentInCostellosArticleCommentsSession() {
+  assertICommentedOnTheArticleFrom(author: Users) {
+    this.assertArticleFromAuthorHasCommentFrom(author, Users.Me)
+  }
+
+  assertArticleFromAuthorHasCommentFrom(author: Users, commenter: Users) {
     expect(false).toBe(true)
   }
 
-  thenCostellosArticleHasCommentsFrom(user: Users) {
+  assertICanSeeMeInTheListOfFavoriters() {
     expect(false).toBe(true)
   }
 
-  thenICanSeeMyselfInTheListOfFavoriters() {
+  assertIAmNotInTheFavoritersList() {
     expect(false).toBe(true)
   }
 
-  thenIAmNotInTheFavoritersList() {
+  assertIAmAtFollowersListFor(user: Users) {
     expect(false).toBe(true)
   }
-
-  thenIAmAtCostelloFollowersList() {
+  assertIAmNotAtFollowersListFor(user: Users) {
     expect(false).toBe(true)
   }
-  thenIAmNotAtCostelloFollowersList() {
+  assertMyFeedHasAnArticleFrom(author: Users) {
     expect(false).toBe(true)
   }
-  thenICanSeeCostellosArticleInMyFeed() {
+  assertMyFeedHasNotAnArticleFrom(author: Users) {
     expect(false).toBe(true)
   }
-  thenICanNotSeeCostellosArticleInMyFeed() {
+  assertMyArticleCanBeFoundByOtherUsers() {
     expect(false).toBe(true)
   }
-  thenMyArticleCanBeFoundByOtherUsers() {
+  assertMyArticleCanNotBeFoundByOtherUsers() {
     expect(false).toBe(true)
   }
-  thenMyArticleCanNotBeFoundByOtherUsers() {
-    expect(false).toBe(true)
-  }
-  thenICanSeeMyArticle() {
+  assertICanSeeMyArticle() {
     expect(false).toBe(true)
   }
 }

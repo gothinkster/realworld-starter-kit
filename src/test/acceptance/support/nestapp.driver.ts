@@ -18,7 +18,5 @@ export class NestAppDriver implements ProtocolDriver {
     await this.app.close()
   }
 
-  loginAs(user: Users) {
-
-  }
+  loginAs(user: Users) {}
 }

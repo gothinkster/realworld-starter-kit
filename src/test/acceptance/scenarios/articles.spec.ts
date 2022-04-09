@@ -21,42 +21,42 @@ describe('Article', () => {
   })
 
   it('should appear in my private list after creation', () => {
-    dsl.givenILogin()
-    dsl.whenICreateAnArticle()
-    dsl.thenICanSeeTheArticleInMyList()
+    dsl.loginAs()
+    dsl.createAnArticle()
+    dsl.assertTheArticleIsInMyList()
   })
 
   it('should not be found after deletion', () => {
-    dsl.givenILogin()
-    dsl.whenIPublishAnArticle()
-    dsl.butIDeleteTheArticle()
-    dsl.thenICanNotSeeTheArticleInMyList()
+    dsl.loginAs()
+    dsl.publishAnArticle()
+    dsl.deleteTheArticle()
+    dsl.assertTheArticleIsNotInMyList()
   })
 
   it('should be found only as the latest version', () => {
-    dsl.givenILogin()
-    dsl.whenIPublishAnArticle()
-    dsl.andIEditTheArticle()
-    dsl.thenICanSeeThePublishedVersionIsTheLastIWrote()
+    dsl.loginAs()
+    dsl.publishAnArticle()
+    dsl.editTheArticle()
+    dsl.assertThePublishedVersionIsTheLastIWrote()
   })
 
   it('should be shown in the global feed', () => {
-    dsl.whenCostelloPublishesAnArticle()
-    dsl.thenICanSeeCostellosArticleIsPublished()
+    dsl.publishAnArticle(Users.Costello)
+    dsl.assertCostellosArticleIsPublished()
   })
 
   it('should be excluded from search by author', () => {
-    dsl.whenCostelloPublishesAnArticle()
-    dsl.thenICanNotFindTheArticleFilteringBy({ author: Users.Abbott })
+    dsl.publishAnArticle(Users.Costello)
+    dsl.assertICanNotFindTheArticleFilteringBy({ author: Users.Abbott })
   })
 
   it('should be found by tag', () => {
-    dsl.whenCostelloPublishesAnArticle(['physics', 'programming'])
-    dsl.thenICanFindTheArticleFilteringBy({ tags: ['physics'] })
+    dsl.publishAnArticle(Users.Costello, ['physics', 'programming'])
+    dsl.assertICanFindTheArticleFilteringBy({ tags: ['physics'] })
   })
 
   it('should be excluded from search by tags', () => {
-    dsl.whenCostelloPublishesAnArticle(['physics', 'programming'])
-    dsl.thenICanNotFindTheArticleFilteringBy({ tags: ['drinks'] })
+    dsl.publishAnArticle(Users.Costello, ['physics', 'programming'])
+    dsl.assertICanNotFindTheArticleFilteringBy({ tags: ['drinks'] })
   })
 })

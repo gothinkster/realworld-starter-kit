@@ -1,5 +1,6 @@
 import { RealWorldDSL } from '../support/realworld.dsl'
 import { dslFactory } from '../support/factory.dsl'
+import { Users } from '../support/interface.driver'
 
 /**
  The feed is where users can see articles published by their followers
@@ -18,33 +19,33 @@ describe('Feed', () => {
   })
 
   async function background() {
-    dsl.givenILogin()
-    dsl.andIFollowCostello()
+    dsl.loginAs(Users.Me)
+    dsl.follow(Users.Costello)
   }
 
   it('should show me I am following Costello', () => {
-    dsl.thenIAmAtCostelloFollowersList()
+    dsl.assertIAmAtFollowersListFor(Users.Costello)
   })
 
   it('should be able to unfollow an author', () => {
-    dsl.whenIUnfollowCostello()
-    dsl.thenIAmNotAtCostelloFollowersList()
+    dsl.unfollow(Users.Costello)
+    dsl.assertIAmNotAtFollowersListFor(Users.Costello)
   })
 
   it('should show articles from authors I follow in my feed', () => {
-    dsl.whenCostelloPublishesAnArticle()
-    dsl.thenICanSeeCostellosArticleInMyFeed()
+    dsl.publishAnArticle(Users.Costello)
+    dsl.assertMyFeedHasAnArticleFrom(Users.Costello)
   })
 
   it('should not show me unpublished articles', () => {
-    dsl.whenCostelloPublishesAnArticle()
-    dsl.butCostelloUnpublishesHisArticle()
-    dsl.thenICanNotSeeCostellosArticleInMyFeed()
+    dsl.publishAnArticle(Users.Costello)
+    dsl.unpublishArticlesFrom(Users.Costello)
+    dsl.assertMyFeedHasNotAnArticleFrom(Users.Costello)
   })
 
   it('should not show articles from authors I unfollowed', () => {
-    dsl.whenCostelloPublishesAnArticle()
-    dsl.butIUnfollowCostello()
-    dsl.thenICanNotSeeCostellosArticleInMyFeed()
+    dsl.publishAnArticle(Users.Costello)
+    dsl.unfollow(Users.Costello)
+    dsl.assertMyFeedHasNotAnArticleFrom(Users.Costello)
   })
 })

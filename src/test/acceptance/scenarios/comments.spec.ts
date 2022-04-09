@@ -19,17 +19,17 @@ describe('Comments on articles', () => {
   })
 
   async function background() {
-    dsl.givenILogin()
-    dsl.givenCostelloPublishesAnArticle()
+    dsl.publishAnArticle(Users.Costello)
+    dsl.loginAs(Users.Me)
   }
 
   it('should contain my comments', () => {
-    dsl.whenICommentOnCostellosArticle()
-    dsl.thenICanSeeMyCommentInCostellosArticleCommentsSession()
+    dsl.commentOnArticleFrom(Users.Costello)
+    dsl.assertICommentedOnTheArticleFrom(Users.Costello)
   })
 
   it('should contain other people comments', () => {
-    dsl.whenAbbottCommentsOnCostellosArticle()
-    dsl.thenCostellosArticleHasCommentsFrom(Users.Abbott)
+    dsl.commentOnArticleFrom(Users.Costello, Users.Abbott)
+    dsl.assertArticleFromAuthorHasCommentFrom(Users.Costello, Users.Abbott)
   })
 })
