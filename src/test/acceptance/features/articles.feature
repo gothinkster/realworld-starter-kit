@@ -14,20 +14,20 @@ Feature: # Users should be able to edit and delete articles.
     Given I log in
     Given I publish an article
     When I edit the article
-    Then I can see the published version is the one I last wrote
+    Then I can see the published version is the last one I wrote
 
   Scenario: # The global list contains all articles
     Given Costello publishes an article
-    Then I can see Costello's article in the global list
+    Then I can see Costello's article is published
 
   Scenario: # I can filter the global list by tag
     Given Costello publishes an article about physics and programming
-    Then I can find Costello's article when filtering tags by physics
+    Then I can find Costello's article when filtering by tag=physics
 
   Scenario: # I can filter the global list by tag
     Given Costello publishes an article about physics and programming
-    Then I can not find Costello's article when filtering tags by drinks
+    Then I can not find Costello's article when filtering by tag=drinks
 
   Scenario: # I can filter the global list by author
     Given Costello publishes an article about physics and programming
-    Then I can not find Costello's article when filtering author by Abbot
+    Then I can not find Costello's article when filtering by author=Abbot

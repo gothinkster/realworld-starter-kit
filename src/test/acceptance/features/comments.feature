@@ -11,4 +11,4 @@ Feature: # I can comment on an article
 
   Scenario: # I can see other people comments on article
     When Abbot comment on Costello's article
-    Then I can see Costello's article have a comment from Abbot
+    Then I can see Costello's article has a comment from Abbot

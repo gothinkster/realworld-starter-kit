@@ -13,4 +13,4 @@ Feature: # Users interacting with articles by favoriting them
   Scenario: # I can unfavorite an article
     Given I favorited an article
     When I undo the favoriting
-    Then I can see I am no longer in the favoriters list
+    Then I can see I am not in the favoriters list

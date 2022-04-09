@@ -8,7 +8,7 @@ Feature: # Articles can be published and unpublished
 
   Scenario: # My article is only public when I decide to publish it
     When I create an article
-    Then my article can not be found by other users yet
+    Then my article can not be found by other users
 
   Scenario: # My article shows in my feed after I publish it
     Given I create an article
