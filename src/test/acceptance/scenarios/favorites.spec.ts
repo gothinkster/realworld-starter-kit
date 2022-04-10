@@ -10,7 +10,6 @@ describe('Favorites', () => {
 
   beforeEach(async () => {
     dsl = await dslFactory()
-    await dsl.getDriver().init()
     await background()
   })
 
@@ -19,17 +18,17 @@ describe('Favorites', () => {
   })
 
   async function background() {
-    dsl.loginAs(Users.Me)
+    dsl.login()
   }
 
   it('should include me in the favoriters list', () => {
     dsl.favoriteAnArticle()
-    dsl.assertICanSeeMeInTheListOfFavoriters()
+    dsl.assertIFavoritedTheArticle()
   })
 
   it('should exclude me from favoriters list when I unfavorite an article', () => {
     dsl.favoriteAnArticle()
     dsl.undoTheFavoriting()
-    dsl.assertIAmNotInTheFavoritersList()
+    dsl.assertIDidntFavoriteTheArticle()
   })
 })

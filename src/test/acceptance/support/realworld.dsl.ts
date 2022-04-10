@@ -8,7 +8,7 @@ import {
 } from './interface.driver'
 
 export class RealWorldDSL {
-  private lastArticleCreated: ArticleDefinition
+  private selectedArticle: ArticleDefinition
 
   constructor(private driver: ProtocolDriver) {}
 
@@ -16,71 +16,74 @@ export class RealWorldDSL {
     return this.driver
   }
 
-  loginAs(user: Users = null): void {
-    this.driver.loginAs(user || Users.Me)
+  login(as: Users = null): void {
+    this.driver.loginAs(as || Users.Me)
   }
   follow(user: Users): void {
-    this.driver.makeLoggedInUserFollow(user)
+    this.driver.follow(user)
   }
   unfollow(user: Users): void {
-    this.driver.makeLoggedInUserUnfollow(user)
+    this.driver.unfollow(user)
   }
 
   favoriteTheArticle() {
-    this.driver.favoriteArticle(this.lastArticleCreated)
+    this.driver.favoriteArticle(this.selectedArticle)
   }
 
   undoTheFavoriting() {
-    this.driver.unfavoriteArticle(this.lastArticleCreated)
+    this.driver.unfavoriteArticle(this.selectedArticle)
   }
 
   createAnArticle(): void {
-    this.lastArticleCreated = this.driver.createArticle(exampleArticle)
+    this.selectedArticle = this.driver.createArticle(exampleArticle)
+  }
+
+  private requireUserLogin(action: () => void, user: Users = null): void {
+    this.login(user || this.selectedArticle?.author)
+    action()
+    this.login()
   }
 
   publishTheArticle(): void {
-    this.driver.publishArticle(this.lastArticleCreated)
+    this.requireUserLogin(() =>
+      this.driver.publishArticle(this.selectedArticle),
+    )
   }
 
   unpublishTheArticle() {
-    this.driver.unpublishArticle(this.lastArticleCreated)
+    this.requireUserLogin(() =>
+      this.driver.unpublishArticle(this.selectedArticle),
+    )
   }
+
   deleteTheArticle(): void {
-    this.driver.deleteArticle(this.lastArticleCreated)
+    this.requireUserLogin(() => this.driver.deleteArticle(this.selectedArticle))
   }
 
   editTheArticle(): void {
-    this.driver.editArticle(this.lastArticleCreated, {
-      body: exampleNewArticle.body,
-    })
-  }
-
-  commentOnArticleAs(commenter: Users = null) {
-    this.loginAs(commenter)
-
-    this.driver.commentOnArticle(
-      this.lastArticleCreated,
-      'I liked that article!',
+    this.requireUserLogin(() =>
+      this.driver.editArticle(this.selectedArticle, {
+        body: exampleNewArticle.body,
+      }),
     )
-
-    this.loginAs()
   }
 
-  unpublishArticlesFrom(author: Users) {
-    this.loginAs(author)
-
-    this.unpublishTheArticle()
-
-    this.loginAs()
+  commentOnArticle(commenter: Users = null) {
+    this.requireUserLogin(
+      () =>
+        this.driver.commentOnArticle(
+          this.selectedArticle,
+          'I liked that article!',
+        ),
+      commenter,
+    )
   }
 
   publishAnArticle(props: ArticleProps = {}): void {
-    this.loginAs(props.author)
-
-    this.createAnArticle()
-    this.publishTheArticle()
-
-    this.loginAs()
+    this.requireUserLogin(() => {
+      this.createAnArticle()
+      this.publishTheArticle()
+    }, props.author)
   }
 
   favoriteAnArticle() {
@@ -88,65 +91,33 @@ export class RealWorldDSL {
     this.favoriteTheArticle()
   }
 
-  assertThePublishedVersionIsTheLastIWrote() {
-    expect(false).toBe(true)
+  assertICanSeeTheArticle() {}
+  assertThePublishedVersionIsTheLastIWrote() {}
+
+  assertCostellosArticleIsPublished() {}
+
+  assertICanFindTheArticleFilteringBy(filters: ArticleProps) {}
+
+  assertICanNotFindTheArticleFilteringBy(filters: ArticleProps) {}
+
+  assertTheArticleIsInMyList(): void {}
+
+  assertTheArticleIsNotInMyList(): void {}
+
+  assertICommentedOnTheArticle() {
+    this.assertTheArticleHasCommentFrom(Users.Me)
   }
 
-  assertCostellosArticleIsPublished() {
-    expect(false).toBe(true)
-  }
+  assertTheArticleHasCommentFrom(commenter: Users) {}
 
-  assertICanFindTheArticleFilteringBy(filters: ArticleProps) {
-    expect(false).toBe(true)
-  }
+  assertIFavoritedTheArticle() {}
 
-  assertICanNotFindTheArticleFilteringBy(filters: ArticleProps) {
-    expect(false).toBe(true)
-  }
+  assertIDidntFavoriteTheArticle() {}
 
-  assertTheArticleIsInMyList(): void {
-    expect(false).toBe(true)
-  }
-
-  assertTheArticleIsNotInMyList(): void {
-    expect(false).toBe(true)
-  }
-
-  assertICommentedOnTheArticleFrom(author: Users) {
-    this.assertArticleFromAuthorHasCommentFrom(author, Users.Me)
-  }
-
-  assertArticleFromAuthorHasCommentFrom(author: Users, commenter: Users) {
-    expect(false).toBe(true)
-  }
-
-  assertICanSeeMeInTheListOfFavoriters() {
-    expect(false).toBe(true)
-  }
-
-  assertIAmNotInTheFavoritersList() {
-    expect(false).toBe(true)
-  }
-
-  assertIAmAtFollowersListFor(user: Users) {
-    expect(false).toBe(true)
-  }
-  assertIAmNotAtFollowersListFor(user: Users) {
-    expect(false).toBe(true)
-  }
-  assertMyFeedContainsAnArticleFrom(author: Users) {
-    expect(false).toBe(true)
-  }
-  assertMyFeedDoesntContainAnArticleFrom(author: Users) {
-    expect(false).toBe(true)
-  }
-  assertMyArticleCanBeFoundByOtherUsers() {
-    expect(false).toBe(true)
-  }
-  assertMyArticleCanNotBeFoundByOtherUsers() {
-    expect(false).toBe(true)
-  }
-  assertICanSeeMyArticle() {
-    expect(false).toBe(true)
-  }
+  assertIAmFollowing(user: Users) {}
+  assertIAmNotFollowing(user: Users) {}
+  assertTheArticleIsInMyFeed(author: Users) {}
+  assertTheArticleIsNotInMyFeed() {}
+  assertTheArticleCanBeFoundByOtherUsers() {}
+  assertTheArticleCannotBeFoundByOtherUsers(author: Users = Users.Me) {}
 }

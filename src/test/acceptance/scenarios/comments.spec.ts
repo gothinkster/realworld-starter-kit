@@ -10,7 +10,6 @@ describe('Comments on articles', () => {
 
   beforeEach(async () => {
     dsl = await dslFactory()
-    await dsl.getDriver().init()
     await background()
   })
 
@@ -20,16 +19,16 @@ describe('Comments on articles', () => {
 
   async function background() {
     dsl.publishAnArticle({ author: Users.Costello })
-    dsl.loginAs(Users.Me)
+    dsl.login()
   }
 
   it('should contain my comments', () => {
-    dsl.commentOnArticleAs()
-    dsl.assertICommentedOnTheArticleFrom(Users.Costello)
+    dsl.commentOnArticle()
+    dsl.assertICommentedOnTheArticle()
   })
 
   it('should contain other people comments', () => {
-    dsl.commentOnArticleAs(Users.Abbott)
-    dsl.assertArticleFromAuthorHasCommentFrom(Users.Costello, Users.Abbott)
+    dsl.commentOnArticle(Users.Abbott)
+    dsl.assertTheArticleHasCommentFrom(Users.Abbott)
   })
 })

@@ -1,6 +1,5 @@
 import { RealWorldDSL } from '../support/realworld.dsl'
 import { dslFactory } from '../support/factory.dsl'
-import { Users } from '../support/interface.driver'
 
 /**
    Articles can be published and unpublished. Users should be able to write articles and not publish them.
@@ -12,7 +11,6 @@ describe('Feed', () => {
 
   beforeEach(async () => {
     dsl = await dslFactory()
-    await dsl.getDriver().init()
     await background()
   })
 
@@ -21,24 +19,29 @@ describe('Feed', () => {
   })
 
   async function background() {
-    dsl.loginAs(Users.Me)
+    dsl.login()
   }
 
   it('should not make my article public right after I create it', () => {
     dsl.createAnArticle()
-    dsl.assertMyArticleCanNotBeFoundByOtherUsers()
+    dsl.assertTheArticleCannotBeFoundByOtherUsers()
   })
 
   it('should make my article public after I publish it', () => {
     dsl.createAnArticle()
     dsl.publishTheArticle()
-    dsl.assertMyArticleCanBeFoundByOtherUsers()
+    dsl.assertTheArticleCanBeFoundByOtherUsers()
+  })
+
+  it('should be still visible for me, the author, after unpublishing', () => {
+    dsl.publishAnArticle()
+    dsl.unpublishTheArticle()
+    dsl.assertICanSeeTheArticle()
   })
 
   it('should unpublish my article when I decide', () => {
     dsl.publishAnArticle()
     dsl.unpublishTheArticle()
-    dsl.assertMyArticleCanNotBeFoundByOtherUsers()
-    dsl.assertICanSeeMyArticle()
+    dsl.assertTheArticleCannotBeFoundByOtherUsers()
   })
 })

@@ -13,7 +13,6 @@ describe('Article', () => {
 
   beforeEach(async () => {
     dsl = await dslFactory()
-    await dsl.getDriver().init()
   })
 
   afterEach(async () => {
@@ -21,20 +20,20 @@ describe('Article', () => {
   })
 
   it('should appear in my private list after creation', () => {
-    dsl.loginAs()
+    dsl.login()
     dsl.createAnArticle()
     dsl.assertTheArticleIsInMyList()
   })
 
   it('should not be found after deletion', () => {
-    dsl.loginAs()
+    dsl.login()
     dsl.publishAnArticle()
     dsl.deleteTheArticle()
     dsl.assertTheArticleIsNotInMyList()
   })
 
   it('should be found only as the latest version', () => {
-    dsl.loginAs()
+    dsl.login()
     dsl.publishAnArticle()
     dsl.editTheArticle()
     dsl.assertThePublishedVersionIsTheLastIWrote()

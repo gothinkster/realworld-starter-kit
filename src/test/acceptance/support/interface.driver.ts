@@ -1,5 +1,3 @@
-import { PartialType } from '@nestjs/mapped-types'
-
 export interface ProtocolDriver {
   init(): Promise<void>
   stop(): Promise<void>
@@ -7,9 +5,9 @@ export interface ProtocolDriver {
   loginAs(user: Users)
   getCurrentUser(): Users
 
-  makeLoggedInUserFollow(user: Users): void
+  follow(user: Users): void
 
-  makeLoggedInUserUnfollow(user: Users): void
+  unfollow(user: Users): void
 
   publishArticle(searchParams: ArticleDefinition): void
 
@@ -17,10 +15,7 @@ export interface ProtocolDriver {
 
   unpublishArticle(searchParams: ArticleDefinition): void
 
-  editArticle(
-    searchParams: ArticleDefinition,
-    editions: PartialType<Article>,
-  ): void
+  editArticle(searchParams: ArticleDefinition, editions: ArticleEditions): void
 
   unfavoriteArticle(searchParams: ArticleDefinition): void
 
@@ -52,6 +47,13 @@ export interface Article {
   description: string
   body: string
   tags: string[]
+}
+
+export interface ArticleEditions {
+  title?: string
+  description?: string
+  body?: string
+  tags?: string[]
 }
 
 export const exampleArticle: Readonly<Article> = {

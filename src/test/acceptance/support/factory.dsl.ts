@@ -1,6 +1,8 @@
 import { RealWorldDSL } from './realworld.dsl'
-import { RESTDriver } from './RESTDriver'
+import { RestDriver } from './rest.driver'
 
 export async function dslFactory(): Promise<RealWorldDSL> {
-  return new RealWorldDSL(new RESTDriver())
+  const driver = new RestDriver()
+  await driver.init()
+  return new RealWorldDSL(driver)
 }
