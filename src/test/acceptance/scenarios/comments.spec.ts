@@ -19,17 +19,17 @@ describe('Comments on articles', () => {
   })
 
   async function background() {
-    dsl.publishAnArticle(Users.Costello)
+    dsl.publishAnArticle({ author: Users.Costello })
     dsl.loginAs(Users.Me)
   }
 
   it('should contain my comments', () => {
-    dsl.commentOnArticleFrom(Users.Costello)
+    dsl.commentOnArticleAs()
     dsl.assertICommentedOnTheArticleFrom(Users.Costello)
   })
 
   it('should contain other people comments', () => {
-    dsl.commentOnArticleFrom(Users.Costello, Users.Abbott)
+    dsl.commentOnArticleAs(Users.Abbott)
     dsl.assertArticleFromAuthorHasCommentFrom(Users.Costello, Users.Abbott)
   })
 })

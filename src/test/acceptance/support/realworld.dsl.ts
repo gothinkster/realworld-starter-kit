@@ -1,39 +1,90 @@
-import { ArticleFilters, ProtocolDriver, Users } from './interface.driver'
+import {
+  ArticleProps,
+  ArticleDefinition,
+  ProtocolDriver,
+  Users,
+  exampleArticle,
+  exampleNewArticle,
+} from './interface.driver'
 
 export class RealWorldDSL {
+  private lastArticleCreated: ArticleDefinition
+
   constructor(private driver: ProtocolDriver) {}
 
   public getDriver(): ProtocolDriver {
     return this.driver
   }
 
-  loginAs(user: Users = Users.Me): void {}
-  follow(user: Users): void {}
-  unfollow(user: Users): void {}
+  loginAs(user: Users = null): void {
+    this.driver.loginAs(user || Users.Me)
+  }
+  follow(user: Users): void {
+    this.driver.makeLoggedInUserFollow(user)
+  }
+  unfollow(user: Users): void {
+    this.driver.makeLoggedInUserUnfollow(user)
+  }
 
-  createAnArticle(): void {}
-  publishTheArticle(): void {}
+  favoriteTheArticle() {
+    this.driver.favoriteArticle(this.lastArticleCreated)
+  }
 
-  unpublishTheArticle() {}
-  deleteTheArticle(): void {}
+  undoTheFavoriting() {
+    this.driver.unfavoriteArticle(this.lastArticleCreated)
+  }
 
-  editTheArticle(): void {}
+  createAnArticle(): void {
+    this.lastArticleCreated = this.driver.createArticle(exampleArticle)
+  }
 
-  favoriteTheArticle() {}
-  undoTheFavoriting() {}
+  publishTheArticle(): void {
+    this.driver.publishArticle(this.lastArticleCreated)
+  }
 
-  commentOnArticleFrom(author: Users, as: Users = null) {}
+  unpublishTheArticle() {
+    this.driver.unpublishArticle(this.lastArticleCreated)
+  }
+  deleteTheArticle(): void {
+    this.driver.deleteArticle(this.lastArticleCreated)
+  }
 
-  unpublishArticlesFrom(author: Users) {}
+  editTheArticle(): void {
+    this.driver.editArticle(this.lastArticleCreated, {
+      body: exampleNewArticle.body,
+    })
+  }
 
-  publishAnArticle(author: Users = Users.Me, tags: string[] = null): void {
+  commentOnArticleAs(commenter: Users = null) {
+    this.loginAs(commenter)
+
+    this.driver.commentOnArticle(
+      this.lastArticleCreated,
+      'I liked that article!',
+    )
+
+    this.loginAs()
+  }
+
+  unpublishArticlesFrom(author: Users) {
     this.loginAs(author)
+
+    this.unpublishTheArticle()
+
+    this.loginAs()
+  }
+
+  publishAnArticle(props: ArticleProps = {}): void {
+    this.loginAs(props.author)
+
     this.createAnArticle()
     this.publishTheArticle()
+
+    this.loginAs()
   }
 
   favoriteAnArticle() {
-    this.publishAnArticle(Users.Abbott)
+    this.publishAnArticle({ author: Users.Abbott })
     this.favoriteTheArticle()
   }
 
@@ -45,11 +96,11 @@ export class RealWorldDSL {
     expect(false).toBe(true)
   }
 
-  assertICanFindTheArticleFilteringBy(filters: ArticleFilters) {
+  assertICanFindTheArticleFilteringBy(filters: ArticleProps) {
     expect(false).toBe(true)
   }
 
-  assertICanNotFindTheArticleFilteringBy(filters: ArticleFilters) {
+  assertICanNotFindTheArticleFilteringBy(filters: ArticleProps) {
     expect(false).toBe(true)
   }
 
@@ -83,10 +134,10 @@ export class RealWorldDSL {
   assertIAmNotAtFollowersListFor(user: Users) {
     expect(false).toBe(true)
   }
-  assertMyFeedHasAnArticleFrom(author: Users) {
+  assertMyFeedContainsAnArticleFrom(author: Users) {
     expect(false).toBe(true)
   }
-  assertMyFeedHasNotAnArticleFrom(author: Users) {
+  assertMyFeedDoesntContainAnArticleFrom(author: Users) {
     expect(false).toBe(true)
   }
   assertMyArticleCanBeFoundByOtherUsers() {

@@ -41,22 +41,28 @@ describe('Article', () => {
   })
 
   it('should be shown in the global feed', () => {
-    dsl.publishAnArticle(Users.Costello)
+    dsl.publishAnArticle({ author: Users.Costello })
     dsl.assertCostellosArticleIsPublished()
   })
 
   it('should be excluded from search by author', () => {
-    dsl.publishAnArticle(Users.Costello)
+    dsl.publishAnArticle({ author: Users.Costello })
     dsl.assertICanNotFindTheArticleFilteringBy({ author: Users.Abbott })
   })
 
   it('should be found by tag', () => {
-    dsl.publishAnArticle(Users.Costello, ['physics', 'programming'])
+    dsl.publishAnArticle({
+      author: Users.Costello,
+      tags: ['physics', 'programming'],
+    })
     dsl.assertICanFindTheArticleFilteringBy({ tags: ['physics'] })
   })
 
   it('should be excluded from search by tags', () => {
-    dsl.publishAnArticle(Users.Costello, ['physics', 'programming'])
+    dsl.publishAnArticle({
+      author: Users.Costello,
+      tags: ['physics', 'programming'],
+    })
     dsl.assertICanNotFindTheArticleFilteringBy({ tags: ['drinks'] })
   })
 })

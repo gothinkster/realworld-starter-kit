@@ -1,9 +1,9 @@
-import { ProtocolDriver, Users } from './interface.driver'
+import { ProtocolDriver } from './interface.driver'
 import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { AppModule } from '../../../main/app.module'
 
-export class NestAppDriver implements ProtocolDriver {
+export class RESTDriver implements ProtocolDriver {
   private app: INestApplication
 
   public async init(): Promise<void> {
@@ -17,6 +17,4 @@ export class NestAppDriver implements ProtocolDriver {
   public async stop(): Promise<void> {
     await this.app.close()
   }
-
-  loginAs(user: Users) {}
 }

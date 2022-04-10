@@ -33,19 +33,19 @@ describe('Feed', () => {
   })
 
   it('should show articles from authors I follow in my feed', () => {
-    dsl.publishAnArticle(Users.Costello)
-    dsl.assertMyFeedHasAnArticleFrom(Users.Costello)
+    dsl.publishAnArticle({ author: Users.Costello })
+    dsl.assertMyFeedContainsAnArticleFrom(Users.Costello)
   })
 
   it('should not show me unpublished articles', () => {
-    dsl.publishAnArticle(Users.Costello)
+    dsl.publishAnArticle({ author: Users.Costello })
     dsl.unpublishArticlesFrom(Users.Costello)
-    dsl.assertMyFeedHasNotAnArticleFrom(Users.Costello)
+    dsl.assertMyFeedDoesntContainAnArticleFrom(Users.Costello)
   })
 
   it('should not show articles from authors I unfollowed', () => {
-    dsl.publishAnArticle(Users.Costello)
+    dsl.publishAnArticle({ author: Users.Costello })
     dsl.unfollow(Users.Costello)
-    dsl.assertMyFeedHasNotAnArticleFrom(Users.Costello)
+    dsl.assertMyFeedDoesntContainAnArticleFrom(Users.Costello)
   })
 })
