@@ -19,10 +19,10 @@ describe('Article', () => {
     await dsl.getDriver().stop()
   })
 
-  it('should appear in my private list after creation', () => {
-    dsl.login()
-    dsl.createAnArticle()
-    dsl.assertTheArticleIsInMyList()
+  it('should appear in my private list after creation', async () => {
+    await dsl.login()
+    await dsl.createAnArticle()
+    await dsl.assertTheArticleIsInMyList()
   })
 
   it('should not be found after deletion', () => {
@@ -41,7 +41,7 @@ describe('Article', () => {
 
   it('should be shown in the global feed', () => {
     dsl.publishAnArticle({ author: Users.Costello })
-    dsl.assertCostellosArticleIsPublished()
+    dsl.assertTheArticleIsPublished()
   })
 
   it('should be excluded from search by author', () => {

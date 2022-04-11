@@ -47,4 +47,10 @@ describe('Feed', () => {
     dsl.unfollow(Users.Costello)
     dsl.assertTheArticleIsNotInMyFeed()
   })
+
+  it('should not show articles from authors I unfollowed', () => {
+    await dsl.publishAnArticle({ author: Users.Costello })
+    await dsl.unfollow(Users.Costello)
+    await dsl.assertTheArticleIsNotInMyFeed()
+  })
 })

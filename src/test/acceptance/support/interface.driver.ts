@@ -3,25 +3,25 @@ export interface ProtocolDriver {
   stop(): Promise<void>
 
   loginAs(user: Users)
-  getCurrentUser(): Users
+  getCurrentUser(): Promise<Users>
 
-  follow(user: Users): void
+  follow(user: Users)
 
-  unfollow(user: Users): void
+  unfollow(user: Users)
 
-  publishArticle(searchParams: ArticleDefinition): void
+  publishArticle(searchParams: ArticleDefinition)
 
-  deleteArticle(searchParams: ArticleDefinition): void
+  deleteArticle(searchParams: ArticleDefinition)
 
-  unpublishArticle(searchParams: ArticleDefinition): void
+  unpublishArticle(searchParams: ArticleDefinition)
 
-  editArticle(searchParams: ArticleDefinition, editions: ArticleEditions): void
+  editArticle(searchParams: ArticleDefinition, editions: ArticleEditions)
 
-  unfavoriteArticle(searchParams: ArticleDefinition): void
+  unfavoriteArticle(searchParams: ArticleDefinition)
 
-  favoriteArticle(searchParams: ArticleDefinition): void
+  favoriteArticle(searchParams: ArticleDefinition)
 
-  createArticle(article: Article): ArticleDefinition
+  createArticle(article: Article): Promise<ArticleDefinition>
 
   commentOnArticle(article: ArticleDefinition, comment: string)
 }

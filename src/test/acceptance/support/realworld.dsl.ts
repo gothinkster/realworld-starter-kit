@@ -12,66 +12,54 @@ export class RealWorldDSL {
 
   constructor(private driver: ProtocolDriver) {}
 
-  public getDriver(): ProtocolDriver {
-    return this.driver
+  getDriver = () => this.driver
+  login = (as: Users = null) => this.driver.loginAs(as || Users.Me)
+  follow = this.driver.follow
+  unfollow = this.driver.unfollow
+  favoriteTheArticle = () => this.driver.favoriteArticle(this.selectedArticle)
+  undoTheFavoriting = () => this.driver.unfavoriteArticle(this.selectedArticle)
+  createAnArticle = () => this.driver.createArticle(exampleArticle)
+
+  private async requireUserLogin(
+    action: () => Promise<void>,
+    user: Users = null,
+  ) {
+    await this.login(user || this.selectedArticle?.author)
+    await action()
+    await this.login()
   }
 
-  login(as: Users = null): void {
-    this.driver.loginAs(as || Users.Me)
-  }
-  follow(user: Users): void {
-    this.driver.follow(user)
-  }
-  unfollow(user: Users): void {
-    this.driver.unfollow(user)
-  }
-
-  favoriteTheArticle() {
-    this.driver.favoriteArticle(this.selectedArticle)
-  }
-
-  undoTheFavoriting() {
-    this.driver.unfavoriteArticle(this.selectedArticle)
-  }
-
-  createAnArticle(): void {
-    this.selectedArticle = this.driver.createArticle(exampleArticle)
-  }
-
-  private requireUserLogin(action: () => void, user: Users = null): void {
-    this.login(user || this.selectedArticle?.author)
-    action()
-    this.login()
-  }
-
-  publishTheArticle(): void {
-    this.requireUserLogin(() =>
-      this.driver.publishArticle(this.selectedArticle),
+  async publishTheArticle() {
+    await this.requireUserLogin(
+      async () => await this.driver.publishArticle(this.selectedArticle),
     )
   }
 
-  unpublishTheArticle() {
-    this.requireUserLogin(() =>
+  async unpublishTheArticle() {
+    await this.requireUserLogin(async () =>
       this.driver.unpublishArticle(this.selectedArticle),
     )
   }
 
-  deleteTheArticle(): void {
-    this.requireUserLogin(() => this.driver.deleteArticle(this.selectedArticle))
-  }
-
-  editTheArticle(): void {
-    this.requireUserLogin(() =>
-      this.driver.editArticle(this.selectedArticle, {
-        body: exampleNewArticle.body,
-      }),
+  async deleteTheArticle() {
+    await this.requireUserLogin(async () =>
+      this.driver.deleteArticle(this.selectedArticle),
     )
   }
 
-  commentOnArticle(commenter: Users = null) {
-    this.requireUserLogin(
-      () =>
-        this.driver.commentOnArticle(
+  async editTheArticle() {
+    await this.requireUserLogin(
+      async () =>
+        await this.driver.editArticle(this.selectedArticle, {
+          body: exampleNewArticle.body,
+        }),
+    )
+  }
+
+  async commentOnArticle(commenter: Users = null) {
+    await this.requireUserLogin(
+      async () =>
+        await this.driver.commentOnArticle(
           this.selectedArticle,
           'I liked that article!',
         ),
@@ -79,30 +67,31 @@ export class RealWorldDSL {
     )
   }
 
-  publishAnArticle(props: ArticleProps = {}): void {
-    this.requireUserLogin(() => {
-      this.createAnArticle()
-      this.publishTheArticle()
+  async publishAnArticle(props: ArticleProps = {}) {
+    await this.requireUserLogin(async () => {
+      await this.createAnArticle()
+      await this.publishTheArticle()
     }, props.author)
   }
 
-  favoriteAnArticle() {
-    this.publishAnArticle({ author: Users.Abbott })
-    this.favoriteTheArticle()
+  async favoriteAnArticle() {
+    await this.publishAnArticle({ author: Users.Abbott })
+    await this.favoriteTheArticle()
   }
 
   assertICanSeeTheArticle() {}
+
   assertThePublishedVersionIsTheLastIWrote() {}
 
-  assertCostellosArticleIsPublished() {}
+  assertTheArticleIsPublished() {}
 
   assertICanFindTheArticleFilteringBy(filters: ArticleProps) {}
 
   assertICanNotFindTheArticleFilteringBy(filters: ArticleProps) {}
 
-  assertTheArticleIsInMyList(): void {}
+  assertTheArticleIsInMyList() {}
 
-  assertTheArticleIsNotInMyList(): void {}
+  assertTheArticleIsNotInMyList() {}
 
   assertICommentedOnTheArticle() {
     this.assertTheArticleHasCommentFrom(Users.Me)
@@ -115,9 +104,14 @@ export class RealWorldDSL {
   assertIDidntFavoriteTheArticle() {}
 
   assertIAmFollowing(user: Users) {}
+
   assertIAmNotFollowing(user: Users) {}
+
   assertTheArticleIsInMyFeed(author: Users) {}
+
   assertTheArticleIsNotInMyFeed() {}
+
   assertTheArticleCanBeFoundByOtherUsers() {}
+
   assertTheArticleCannotBeFoundByOtherUsers(author: Users = Users.Me) {}
 }
