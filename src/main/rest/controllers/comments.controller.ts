@@ -20,7 +20,7 @@ import { validateModel } from '../functions.utils'
 export class CommentsController {
   @Post()
   addCommentToAnArticle(
-    @Param('slug') articleSlug: string,
+    @Param() slug: string,
     @Query(validateModel()) pagination: Pagination,
     @Body(validateModel()) comment: CommentRequestPayload,
   ): CommentResponsePayload {
@@ -29,7 +29,7 @@ export class CommentsController {
 
   @Get()
   getCommentsFromAnArticle(
-    @Param('slug') articleSlug: string,
+    @Param() slug: string,
     @Query(validateModel()) pagination: Pagination,
   ): CommentsResponsePayload {
     return undefined
@@ -37,8 +37,8 @@ export class CommentsController {
 
   @Delete(':id')
   deleteCommentFromArticle(
-    @Param('slug') articleSlug: string,
-    @Param('id', ParseIntPipe) id: number,
+    @Param() slug: string,
+    @Param(ParseIntPipe) id: number,
   ) {
     return undefined
   }

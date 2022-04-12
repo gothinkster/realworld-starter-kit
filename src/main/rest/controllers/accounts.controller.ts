@@ -9,7 +9,7 @@ import {
 import { validateModel } from '../functions.utils'
 
 @Controller('users')
-export class UsersController {
+export class AuthController {
   @Post('login')
   authenticate(
     @Body(validateModel())
@@ -28,13 +28,13 @@ export class UsersController {
 }
 
 @Controller('user')
-export class UserController {
+export class UsersController {
   @Get()
   getCurrent(): UserResponsePayload {
     return undefined
   }
 
-  @Patch
+  @Patch()
   @Put()
   update(
     @Body(validateModel()) userUpdate: UserRequestPayload<UserUpdateDTO>,

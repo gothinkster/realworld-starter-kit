@@ -33,7 +33,7 @@ export class ArticlesController {
   @Patch(':slug')
   @Put(':slug')
   updateArticle(
-    @Param('slug') articleSlug: string,
+    @Param() slug: string,
     @Body(validateModel())
     articleUpdate: ArticleRequestPayload<ArticleUpdateDTO>,
   ): ArticleResponsePayload {
@@ -41,17 +41,17 @@ export class ArticlesController {
   }
 
   @Delete(':slug')
-  deleteArticle(@Param('slug') articleSlug: string) {
+  deleteArticle(@Param() slug: string) {
     return undefined
   }
 
   @Post(':slug/publication')
-  publishArticle(@Param('slug') articleSlug: string) {
+  publishArticle(@Param() slug: string) {
     return undefined
   }
 
   @Delete(':slug/publication')
-  unpublishArticle(@Param('slug') articleSlug: string) {
+  unpublishArticle(@Param() slug: string) {
     return undefined
   }
 
@@ -64,7 +64,7 @@ export class ArticlesController {
   }
 
   @Get(':slug')
-  getArticle(@Param('slug') articleSlug: string): ArticleResponsePayload {
+  getArticle(@Param() slug: string): ArticleResponsePayload {
     return undefined
   }
 
@@ -76,12 +76,12 @@ export class ArticlesController {
   }
 
   @Post(':slug/favorite')
-  favoriteArticle(@Param('slug') articleSlug: string) {
+  favoriteArticle(@Param() slug: string) {
     return undefined
   }
 
   @Delete(':slug/favorite')
-  unfavoriteArticle(@Param('slug') articleSlug: string) {
+  unfavoriteArticle(@Param() slug: string) {
     return undefined
   }
 }
