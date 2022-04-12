@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator'
+import { IsEmail, IsNotEmpty, IsString, ValidateNested } from 'class-validator'
 
 export class UserAuthenticationDTO {
   @IsEmail()
@@ -16,6 +16,7 @@ export class UserRegistrationDTO extends UserAuthenticationDTO {
 
 export class UserRequestPayload<T> {
   @IsNotEmpty()
+  @ValidateNested()
   user: T
 }
 

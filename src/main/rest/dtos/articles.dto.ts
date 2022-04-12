@@ -1,6 +1,11 @@
 import { PartialType } from '@nestjs/mapped-types'
 import { ProfileResponseDTO } from './profiles.dto'
-import { IsString, MaxLength } from 'class-validator'
+import {
+  IsOptional,
+  IsString,
+  MaxLength,
+  ValidateNested,
+} from 'class-validator'
 
 export class ArticleCreateDTO {
   @IsString()
@@ -16,8 +21,14 @@ export class ArticleCreateDTO {
 }
 
 export class ArticleFilters {
+  @IsString()
+  @IsOptional()
   tag?: string
+  @IsString()
+  @IsOptional()
   author?: string
+  @IsString()
+  @IsOptional()
   favorited?: string
 }
 
@@ -41,6 +52,7 @@ export class ArticleResponseDTO extends ArticleCreateDTO {
 }
 
 export class ArticleRequestPayload<T> {
+  @ValidateNested()
   article: T
 }
 

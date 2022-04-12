@@ -1,10 +1,5 @@
-import { IsInt, IsNumberString } from 'class-validator'
+import { DefaultValuePipe, ParseIntPipe, Query } from '@nestjs/common'
 
-export class Pagination {
-  @IsInt()
-  @IsNumberString()
-  offset: number = 0
-
-  @IsNumberString()
-  limit: number = 20
+export function QueryInt(name: string, defaultValue: number) {
+  return Query(name, new DefaultValuePipe(defaultValue), ParseIntPipe)
 }

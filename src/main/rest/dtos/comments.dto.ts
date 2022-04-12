@@ -1,4 +1,4 @@
-import { IsString, MaxLength } from 'class-validator'
+import { IsString, MaxLength, ValidateNested } from 'class-validator'
 import { ProfileResponseDTO } from './profiles.dto'
 
 export class CommentDTO {
@@ -15,6 +15,7 @@ export class CommentResponseDTO extends CommentDTO {
 }
 
 export class CommentRequestPayload {
+  @ValidateNested()
   comment: CommentDTO
 }
 

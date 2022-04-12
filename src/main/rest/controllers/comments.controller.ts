@@ -6,9 +6,8 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  Query,
 } from '@nestjs/common'
-import { Pagination } from '../dtos/pagination.dtos'
+import { QueryInt } from '../dtos/pagination.dtos'
 import {
   CommentRequestPayload,
   CommentResponsePayload,
@@ -21,7 +20,8 @@ export class CommentsController {
   @Post()
   addCommentToAnArticle(
     @Param() slug: string,
-    @Query(validateModel()) pagination: Pagination,
+    @QueryInt('limit', 20) limit: number,
+    @QueryInt('offset', 0) offset: number,
     @Body(validateModel()) comment: CommentRequestPayload,
   ): CommentResponsePayload {
     return undefined
@@ -30,7 +30,8 @@ export class CommentsController {
   @Get()
   getCommentsFromAnArticle(
     @Param() slug: string,
-    @Query(validateModel()) pagination: Pagination,
+    @QueryInt('limit', 20) limit: number,
+    @QueryInt('offset', 0) offset: number,
   ): CommentsResponsePayload {
     return undefined
   }

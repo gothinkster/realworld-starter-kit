@@ -17,7 +17,7 @@ import {
   ArticlesResponsePayload,
   ArticleUpdateDTO,
 } from '../dtos/articles.dto'
-import { Pagination } from '../dtos/pagination.dtos'
+import { QueryInt } from '../dtos/pagination.dtos'
 import { validateModel } from '../functions.utils'
 
 @Controller('articles')
@@ -57,8 +57,9 @@ export class ArticlesController {
 
   @Get()
   getManyArticles(
+    @QueryInt('limit', 20) limit: number,
+    @QueryInt('offset', 0) offset: number,
     @Query(validateModel()) filters: ArticleFilters,
-    @Query(validateModel()) pagination: Pagination,
   ): ArticlesResponsePayload {
     return undefined
   }
@@ -70,7 +71,8 @@ export class ArticlesController {
 
   @Get('feed')
   getFeed(
-    @Query(validateModel()) pagination: Pagination,
+    @QueryInt('limit', 20) limit: number,
+    @QueryInt('offset', 0) offset: number,
   ): ArticlesResponsePayload {
     return undefined
   }
