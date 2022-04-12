@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types'
-import { ProfileResponseDTO } from '../profiles/profiles.dto'
+import { ProfileResponseDTO } from './profiles.dto'
 import { IsString, MaxLength } from 'class-validator'
 
 export class ArticleCreateDTO {
@@ -12,7 +12,13 @@ export class ArticleCreateDTO {
   @IsString()
   body: string
   @IsString({ each: true })
-  tagList: string[]
+  tagList?: string[] = []
+}
+
+export class ArticleFilters {
+  tag?: string
+  author?: string
+  favorited?: string
 }
 
 export class ArticleUpdateDTO extends PartialType(ArticleCreateDTO) {}
@@ -34,10 +40,14 @@ export class ArticleResponseDTO extends ArticleCreateDTO {
   }
 }
 
-export class ArticleRequestPayload {
-  article: ArticleCreateDTO
+export class ArticleRequestPayload<T> {
+  article: T
 }
 
 export class ArticleResponsePayload {
   article: ArticleResponseDTO
+}
+
+export class ArticlesResponsePayload {
+  articles: ArticleResponseDTO[]
 }

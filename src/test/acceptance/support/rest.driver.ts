@@ -1,5 +1,5 @@
 import {
-  Article,
+  ArticleCreation,
   ArticleDefinition,
   ArticleEditions,
   ProtocolDriver,
@@ -42,34 +42,27 @@ export class RestDriver implements ProtocolDriver {
     this.app = await appFactory()
     this.axios = await axiosFactory(this.app)
   }
-
-  public async stop(): Promise<void> {
-    await this.app.close()
-  }
+  stop = () => this.app.close()
 
   async commentOnArticle(article: ArticleDefinition, comment: string) {}
 
-  async createArticle(article: Article): Promise<ArticleDefinition> {
-    const postData = {
-      article: {
-        title: article.title,
-        description: article.description,
-        body: article.body,
-        tagList: article.tags,
-      },
-    }
+  async createArticle(article: ArticleCreation): Promise<ArticleDefinition> {
     const response = await this.axios.post(
       'api/articles',
-      JSON.stringify(postData),
+      JSON.stringify({
+        article: article,
+      }),
     )
-    const responseData = JSON.parse(response.data)
+    const body = JSON.parse(response.data)
 
     expect(response.status).toBe(201)
-    expect(responseData).toStrictEqual(expect.objectContaining(postData))
+    expect(body).toMatchObject({
+      article: article,
+    })
 
     return {
-      author: responseData.author.username,
-      slug: responseData.slug,
+      author: body.article.author.username,
+      slug: body.article.slug,
     }
   }
 
@@ -78,7 +71,9 @@ export class RestDriver implements ProtocolDriver {
   async editArticle(
     searchParams: ArticleDefinition,
     editions: ArticleEditions,
-  ) {}
+  ): Promise<ArticleDefinition> {
+    return undefined
+  }
 
   async favoriteArticle(searchParams: ArticleDefinition) {}
 

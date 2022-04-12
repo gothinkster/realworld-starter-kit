@@ -25,43 +25,43 @@ describe('Article', () => {
     await dsl.assertTheArticleIsInMyList()
   })
 
-  it('should not be found after deletion', () => {
-    dsl.login()
-    dsl.publishAnArticle()
-    dsl.deleteTheArticle()
-    dsl.assertTheArticleIsNotInMyList()
+  it('should not be found after deletion', async () => {
+    await dsl.login()
+    await dsl.publishAnArticle()
+    await dsl.deleteTheArticle()
+    await dsl.assertTheArticleIsNotInMyList()
   })
 
-  it('should be found only as the latest version', () => {
-    dsl.login()
-    dsl.publishAnArticle()
-    dsl.editTheArticle()
-    dsl.assertThePublishedVersionIsTheLastIWrote()
+  it('should be found only as the latest version', async () => {
+    await dsl.login()
+    await dsl.publishAnArticle()
+    await dsl.editTheArticle()
+    await dsl.assertThePublishedVersionIsTheLastIWrote()
   })
 
-  it('should be shown in the global feed', () => {
-    dsl.publishAnArticle({ author: Users.Costello })
-    dsl.assertTheArticleIsPublished()
+  it('should be shown in the global feed', async () => {
+    await dsl.publishAnArticle({ author: Users.Costello })
+    await dsl.assertTheArticleIsPublished()
   })
 
-  it('should be excluded from search by author', () => {
-    dsl.publishAnArticle({ author: Users.Costello })
-    dsl.assertICanNotFindTheArticleFilteringBy({ author: Users.Abbott })
+  it('should be excluded from search by author', async () => {
+    await dsl.publishAnArticle({ author: Users.Costello })
+    await dsl.assertICanNotFindTheArticleFilteringBy({ author: Users.Abbott })
   })
 
-  it('should be found by tag', () => {
-    dsl.publishAnArticle({
+  it('should be found by tag', async () => {
+    await dsl.publishAnArticle({
       author: Users.Costello,
       tags: ['physics', 'programming'],
     })
-    dsl.assertICanFindTheArticleFilteringBy({ tags: ['physics'] })
+    await dsl.assertICanFindTheArticleFilteringBy({ tags: ['physics'] })
   })
 
-  it('should be excluded from search by tags', () => {
-    dsl.publishAnArticle({
+  it('should be excluded from search by tags', async () => {
+    await dsl.publishAnArticle({
       author: Users.Costello,
       tags: ['physics', 'programming'],
     })
-    dsl.assertICanNotFindTheArticleFilteringBy({ tags: ['drinks'] })
+    await dsl.assertICanNotFindTheArticleFilteringBy({ tags: ['drinks'] })
   })
 })

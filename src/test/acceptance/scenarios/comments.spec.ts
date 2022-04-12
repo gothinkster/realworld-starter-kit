@@ -18,17 +18,17 @@ describe('Comments on articles', () => {
   })
 
   async function background() {
-    dsl.publishAnArticle({ author: Users.Costello })
-    dsl.login()
+    await dsl.publishAnArticle({ author: Users.Costello })
+    await dsl.login()
   }
 
-  it('should contain my comments', () => {
-    dsl.commentOnArticle()
-    dsl.assertICommentedOnTheArticle()
+  it('should contain my comments', async () => {
+    await dsl.commentOnArticle()
+    await dsl.assertICommentedOnTheArticle()
   })
 
-  it('should contain other people comments', () => {
-    dsl.commentOnArticle(Users.Abbott)
-    dsl.assertTheArticleHasCommentFrom(Users.Abbott)
+  it('should contain other people comments', async () => {
+    await dsl.commentOnArticle(Users.Abbott)
+    await dsl.assertTheArticleHasCommentFrom(Users.Abbott)
   })
 })

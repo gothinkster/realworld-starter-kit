@@ -9,3 +9,7 @@ export class ProfileResponseDTO {
   image: string
   following: boolean
 }
+
+export class ProfileResponsePayload {
+  profile: ProfileResponseDTO
+}

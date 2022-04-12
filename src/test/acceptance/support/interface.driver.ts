@@ -1,29 +1,34 @@
+import { LoremIpsum } from 'lorem-ipsum'
+
 export interface ProtocolDriver {
   init(): Promise<void>
   stop(): Promise<void>
 
-  loginAs(user: Users)
+  loginAs(user: Users): Promise<void>
   getCurrentUser(): Promise<Users>
 
-  follow(user: Users)
+  follow(user: Users): Promise<void>
 
-  unfollow(user: Users)
+  unfollow(user: Users): Promise<void>
 
-  publishArticle(searchParams: ArticleDefinition)
+  publishArticle(searchParams: ArticleDefinition): Promise<void>
 
-  deleteArticle(searchParams: ArticleDefinition)
+  deleteArticle(searchParams: ArticleDefinition): Promise<void>
 
-  unpublishArticle(searchParams: ArticleDefinition)
+  unpublishArticle(searchParams: ArticleDefinition): Promise<void>
 
-  editArticle(searchParams: ArticleDefinition, editions: ArticleEditions)
+  editArticle(
+    searchParams: ArticleDefinition,
+    editions: ArticleEditions,
+  ): Promise<ArticleDefinition>
 
-  unfavoriteArticle(searchParams: ArticleDefinition)
+  unfavoriteArticle(searchParams: ArticleDefinition): Promise<void>
 
-  favoriteArticle(searchParams: ArticleDefinition)
+  favoriteArticle(searchParams: ArticleDefinition): Promise<void>
 
-  createArticle(article: Article): Promise<ArticleDefinition>
+  createArticle(article: ArticleCreation): Promise<ArticleDefinition>
 
-  commentOnArticle(article: ArticleDefinition, comment: string)
+  commentOnArticle(article: ArticleDefinition, comment: string): Promise<void>
 }
 
 export interface ArticleProps {
@@ -37,35 +42,35 @@ export interface ArticleDefinition {
 }
 
 export enum Users {
-  Me = 'Amy-Adams',
+  Me = 'AmyAdams',
   Costello = 'Costello',
   Abbott = 'Abbott',
 }
 
-export interface Article {
+export interface ArticleCreation {
   title: string
   description: string
   body: string
-  tags: string[]
+  tagList: string[]
 }
 
 export interface ArticleEditions {
   title?: string
   description?: string
   body?: string
-  tags?: string[]
+  tagList?: string[]
 }
 
-export const exampleArticle: Readonly<Article> = {
-  title: 'How to train your dragon',
-  description: 'Ever wonder how?',
-  body: 'You have to believe',
-  tags: ['reactjs', 'angularjs', 'dragons'],
-}
+const lorem = new LoremIpsum()
 
-export const exampleNewArticle: Readonly<Article> = {
-  title: 'Lord of the Rings',
-  description: 'What does Gandalf says?',
-  body: 'You shall not pass',
-  tags: ['magic', 'culture', 'dragons'],
+export function makeRandomArticle(
+  article: ArticleEditions = {},
+): Readonly<ArticleCreation> {
+  return {
+    title: article?.title || lorem.generateSentences(1),
+    description: article?.description || lorem.generateSentences(2),
+    body: article?.body || lorem.generateParagraphs(1),
+    tagList:
+      article?.tagList || lorem.generateWords(4).toLowerCase().split(' '),
+  }
 }

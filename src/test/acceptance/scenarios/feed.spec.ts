@@ -18,37 +18,37 @@ describe('Feed', () => {
   })
 
   async function background() {
-    dsl.login()
-    dsl.follow(Users.Costello)
+    await dsl.login()
+    await dsl.follow(Users.Costello)
   }
 
-  it('should show me I am following Costello', () => {
-    dsl.assertIAmFollowing(Users.Costello)
+  it('should show me I am following Costello', async () => {
+    await dsl.assertIAmFollowing(Users.Costello)
   })
 
-  it('should be able to unfollow an author', () => {
-    dsl.unfollow(Users.Costello)
-    dsl.assertIAmNotFollowing(Users.Costello)
+  it('should be able to unfollow an author', async () => {
+    await dsl.unfollow(Users.Costello)
+    await dsl.assertIAmNotFollowing(Users.Costello)
   })
 
-  it('should show articles from authors I follow in my feed', () => {
-    dsl.publishAnArticle({ author: Users.Costello })
-    dsl.assertTheArticleIsInMyFeed(Users.Costello)
+  it('should show articles from authors I follow in my feed', async () => {
+    await dsl.publishAnArticle({ author: Users.Costello })
+    await dsl.assertTheArticleIsInMyFeed(Users.Costello)
   })
 
-  it('should not show me unpublished articles', () => {
-    dsl.publishAnArticle({ author: Users.Costello })
-    dsl.unpublishTheArticle()
-    dsl.assertTheArticleIsNotInMyFeed()
+  it('should not show me unpublished articles', async () => {
+    await dsl.publishAnArticle({ author: Users.Costello })
+    await dsl.unpublishTheArticle()
+    await dsl.assertTheArticleIsNotInMyFeed()
   })
 
-  it('should not show articles from authors I unfollowed', () => {
-    dsl.publishAnArticle({ author: Users.Costello })
-    dsl.unfollow(Users.Costello)
-    dsl.assertTheArticleIsNotInMyFeed()
+  it('should not show articles from authors I unfollowed', async () => {
+    await dsl.publishAnArticle({ author: Users.Costello })
+    await dsl.unfollow(Users.Costello)
+    await dsl.assertTheArticleIsNotInMyFeed()
   })
 
-  it('should not show articles from authors I unfollowed', () => {
+  it('should not show articles from authors I unfollowed', async () => {
     await dsl.publishAnArticle({ author: Users.Costello })
     await dsl.unfollow(Users.Costello)
     await dsl.assertTheArticleIsNotInMyFeed()

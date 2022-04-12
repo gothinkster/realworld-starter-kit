@@ -19,29 +19,29 @@ describe('Feed', () => {
   })
 
   async function background() {
-    dsl.login()
+    await dsl.login()
   }
 
-  it('should not make my article public right after I create it', () => {
-    dsl.createAnArticle()
-    dsl.assertTheArticleCannotBeFoundByOtherUsers()
+  it('should not make my article public right after I create it', async () => {
+    await dsl.createAnArticle()
+    await dsl.assertTheArticleCannotBeFoundByOtherUsers()
   })
 
-  it('should make my article public after I publish it', () => {
-    dsl.createAnArticle()
-    dsl.publishTheArticle()
-    dsl.assertTheArticleCanBeFoundByOtherUsers()
+  it('should make my article public after I publish it', async () => {
+    await dsl.createAnArticle()
+    await dsl.publishTheArticle()
+    await dsl.assertTheArticleCanBeFoundByOtherUsers()
   })
 
-  it('should be still visible for me, the author, after unpublishing', () => {
-    dsl.publishAnArticle()
-    dsl.unpublishTheArticle()
-    dsl.assertICanSeeTheArticle()
+  it('should be still visible for me, the author, after unpublishing', async () => {
+    await dsl.publishAnArticle()
+    await dsl.unpublishTheArticle()
+    await dsl.assertICanSeeTheArticle()
   })
 
-  it('should unpublish my article when I decide', () => {
-    dsl.publishAnArticle()
-    dsl.unpublishTheArticle()
-    dsl.assertTheArticleCannotBeFoundByOtherUsers()
+  it('should unpublish my article when I decide', async () => {
+    await dsl.publishAnArticle()
+    await dsl.unpublishTheArticle()
+    await dsl.assertTheArticleCannotBeFoundByOtherUsers()
   })
 })
