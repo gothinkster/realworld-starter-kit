@@ -5,7 +5,7 @@ import {
   ProtocolDriver,
   Users,
 } from './interface.driver'
-import { INestApplication } from '@nestjs/common'
+import { HttpStatus, INestApplication } from '@nestjs/common'
 import { Axios } from 'axios'
 import { Test, TestingModule } from '@nestjs/testing'
 import { AppModule } from '../../../main/app.module'
@@ -14,7 +14,7 @@ function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-async function appFactory() {
+async function startNestApp() {
   const moduleFixture: TestingModule = await Test.createTestingModule({
     imports: [AppModule],
   }).compile()
@@ -25,26 +25,17 @@ async function appFactory() {
   return app
 }
 
-async function axiosFactory(app: INestApplication): Promise<Axios> {
-  return new Axios({
-    baseURL: await app.getUrl(),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-}
-
 export class RestDriver implements ProtocolDriver {
   private app: INestApplication
   private axios: Axios
 
   public async init(): Promise<void> {
-    this.app = await appFactory()
-    this.axios = await axiosFactory(this.app)
+    this.app = await startNestApp()
+    this.axios = new Axios({
+      baseURL: await this.app.getUrl(),
+    })
   }
   stop = () => this.app.close()
-
-  async commentOnArticle(article: ArticleDefinition, comment: string) {}
 
   async createArticle(article: ArticleCreation): Promise<ArticleDefinition> {
     const response = await this.axios.post(
@@ -52,10 +43,15 @@ export class RestDriver implements ProtocolDriver {
       JSON.stringify({
         article: article,
       }),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
     )
     const body = JSON.parse(response.data)
 
-    expect(response.status).toBe(201)
+    expect([HttpStatus.CREATED, HttpStatus.CONFLICT]).toContain(response.status)
     expect(body).toMatchObject({
       article: article,
     })
@@ -66,7 +62,12 @@ export class RestDriver implements ProtocolDriver {
     }
   }
 
-  async deleteArticle(searchParams: ArticleDefinition) {}
+  async deleteArticle(searchParams: ArticleDefinition) {
+    const response = await this.axios.delete(
+      `api/articles/${searchParams.slug}`,
+    )
+    expect(response.status).toBe(204)
+  }
 
   async editArticle(
     searchParams: ArticleDefinition,
@@ -75,21 +76,51 @@ export class RestDriver implements ProtocolDriver {
     return undefined
   }
 
-  async favoriteArticle(searchParams: ArticleDefinition) {}
+  async publishArticle(searchParams: ArticleDefinition) {
+    const response = await this.axios.post(
+      `api/articles/${searchParams.slug}/publication`,
+    )
+    expect([HttpStatus.CREATED, HttpStatus.NOT_FOUND]).toContain(
+      response.status,
+    )
+  }
+
+  async unpublishArticle(searchParams: ArticleDefinition) {
+    const response = await this.axios.delete(
+      `api/articles/${searchParams.slug}/publication`,
+    )
+    expect([HttpStatus.NO_CONTENT, HttpStatus.NOT_FOUND]).toContain(
+      response.status,
+    )
+  }
+
+  async favoriteArticle(searchParams: ArticleDefinition) {
+    const response = await this.axios.post(
+      `api/articles/${searchParams.slug}/favorite`,
+    )
+    expect([HttpStatus.CREATED, HttpStatus.NOT_FOUND]).toContain(
+      response.status,
+    )
+  }
+
+  async unfavoriteArticle(searchParams: ArticleDefinition) {
+    const response = await this.axios.delete(
+      `api/articles/${searchParams.slug}/favorite`,
+    )
+    expect([HttpStatus.NO_CONTENT, HttpStatus.NOT_FOUND]).toContain(
+      response.status,
+    )
+  }
 
   async follow(user: Users) {}
+
+  async unfollow(user: Users) {}
+
+  async commentOnArticle(article: ArticleDefinition, comment: string) {}
 
   async getCurrentUser(): Promise<Users> {
     return undefined
   }
 
   async loginAs(user: Users) {}
-
-  async publishArticle(searchParams: ArticleDefinition) {}
-
-  async unfavoriteArticle(searchParams: ArticleDefinition) {}
-
-  async unfollow(user: Users) {}
-
-  async unpublishArticle(searchParams: ArticleDefinition) {}
 }
