@@ -2,26 +2,21 @@ import {
   Body,
   Controller,
   Delete,
-  Get,
   Param,
   Patch,
   Post,
   Put,
-  Query,
 } from '@nestjs/common'
 import {
   ArticleCreateDTO,
-  ArticleFilters,
   ArticleRequestPayload,
   ArticleResponsePayload,
-  ArticlesResponsePayload,
   ArticleUpdateDTO,
 } from '../dtos/articles.dto'
-import { QueryInt } from '../dtos/pagination.dtos'
 import { validateModel } from '../functions.utils'
 
 @Controller('articles')
-export class ArticlesController {
+export class ArticlesLifecycleController {
   @Post()
   createArticle(
     @Body(validateModel())
@@ -52,38 +47,6 @@ export class ArticlesController {
 
   @Delete(':slug/publication')
   unpublishArticle(@Param() slug: string) {
-    return undefined
-  }
-
-  @Get()
-  getManyArticles(
-    @QueryInt('limit', 20) limit: number,
-    @QueryInt('offset', 0) offset: number,
-    @Query(validateModel()) filters: ArticleFilters,
-  ): ArticlesResponsePayload {
-    return undefined
-  }
-
-  @Get(':slug')
-  getArticle(@Param() slug: string): ArticleResponsePayload {
-    return undefined
-  }
-
-  @Get('feed')
-  getFeed(
-    @QueryInt('limit', 20) limit: number,
-    @QueryInt('offset', 0) offset: number,
-  ): ArticlesResponsePayload {
-    return undefined
-  }
-
-  @Post(':slug/favorite')
-  favoriteArticle(@Param() slug: string) {
-    return undefined
-  }
-
-  @Delete(':slug/favorite')
-  unfavoriteArticle(@Param() slug: string) {
     return undefined
   }
 }
