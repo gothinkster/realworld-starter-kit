@@ -9,10 +9,7 @@ import { HttpStatus, INestApplication } from '@nestjs/common'
 import { Axios } from 'axios'
 import { Test, TestingModule } from '@nestjs/testing'
 import { AppModule } from '../../../main/app.module'
-
-function getRndInteger(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
+import { getRndInteger } from '../../../main/utils/helpers'
 
 async function startNestApp() {
   const moduleFixture: TestingModule = await Test.createTestingModule({

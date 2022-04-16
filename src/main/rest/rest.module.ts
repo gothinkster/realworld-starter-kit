@@ -1,17 +1,15 @@
 import { Module } from '@nestjs/common'
-import { ArticlesLifecycleController } from './controllers/articles.controller'
+import { ArticlesController } from './controllers/articles.controller'
 import { CommentsController } from './controllers/comments.controller'
 import { ProfilesController } from './controllers/profiles.controller'
 import {
   AuthController,
   UsersController,
 } from './controllers/accounts.controller'
-import { ReadingController } from './controllers/reading.controller'
 
 @Module({
   controllers: [
-    ArticlesLifecycleController,
-    ReadingController,
+    ArticlesController,
     CommentsController,
     ProfilesController,
     AuthController,
