@@ -1,7 +1,7 @@
-import { Author } from './cms/cms.models'
 import { ContentManagementSystem } from './cms/cms.service'
 import { CMSPersistence } from './cms/cms.persistence'
 import { ArticleViews } from './views/views.service'
+import { Author } from './views/views.models'
 
 export class ArticlesService {
   constructor(private persistence: CMSPersistence) {}

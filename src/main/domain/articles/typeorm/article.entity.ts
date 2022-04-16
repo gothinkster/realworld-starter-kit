@@ -5,7 +5,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
@@ -16,7 +15,6 @@ import { EditableArticle } from '../cms/cms.models'
 import { ReadonlyArticle } from '../views/views.models'
 import { TagEntity } from './tag.entity'
 import { EditorTypeORM } from './editor.impl'
-import { SaveOptions } from 'typeorm/repository/SaveOptions'
 
 @Entity({ name: 'Article' })
 export class ArticleEntity

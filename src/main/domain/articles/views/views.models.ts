@@ -9,3 +9,7 @@ export interface ReadonlyArticle {
   getAuthorID(): number
   isPublished(): boolean
 }
+
+export interface Author {
+  getAuthorID(): number
+}

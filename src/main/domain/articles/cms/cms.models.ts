@@ -8,7 +8,3 @@ export interface EditableArticle extends ReadonlyArticle {
   setTags(tags: string[])
   getEditor(): Editor
 }
-
-export interface Author {
-  getAuthorID(): number
-}

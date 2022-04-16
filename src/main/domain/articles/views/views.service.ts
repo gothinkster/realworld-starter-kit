@@ -1,7 +1,6 @@
-import { Author } from '../cms/cms.models'
 import { ArticleNotFound } from './views.exceptions'
 import { ViewsPersistence } from './views.persistence'
-import { ReadonlyArticle } from './views.models'
+import { Author, ReadonlyArticle } from './views.models'
 
 export class ArticleViews {
   constructor(private persistence: ViewsPersistence, private user?: Author) {}

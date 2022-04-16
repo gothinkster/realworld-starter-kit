@@ -3,10 +3,10 @@ import { CMSPersistence } from './cms.persistence'
 import { createConnection, getConnection } from 'typeorm'
 import { ArticleEntity } from '../typeorm/article.entity'
 import { UserNotAllowedToChangeArticle } from './cms.exceptions'
-import { Author } from './cms.models'
 import { CMSPersistenceTypeORM } from '../typeorm/persistence.impl'
 import { exampleArticle, exampleArticle2 } from '../../../utils/helpers'
 import { testConnectionOptions } from '../../../../test/local/local.typeorm'
+import { Author } from '../views/views.models'
 
 beforeEach(() => {
   return createConnection(testConnectionOptions)

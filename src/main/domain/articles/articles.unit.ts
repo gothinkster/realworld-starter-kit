@@ -1,11 +1,11 @@
 import { createConnection, getConnection } from 'typeorm'
 import { ArticleEntity } from './typeorm/article.entity'
-import { Author } from './cms/cms.models'
 import { CMSPersistenceTypeORM } from './typeorm/persistence.impl'
 import { exampleArticle, exampleTags } from '../../utils/helpers'
 import { ArticlesService } from './articles.service'
 import { ArticleNotFound } from './views/views.exceptions'
 import { testConnectionOptions } from '../../../test/local/local.typeorm'
+import { Author } from './views/views.models'
 
 beforeEach(() => {
   return createConnection(testConnectionOptions)
