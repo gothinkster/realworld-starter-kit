@@ -6,7 +6,7 @@ import { Users } from '../support/interface.driver'
  Users should be able to edit and delete articles.
  The article list is global and should return all articles, filtered by tags,
  authors and who favorited them. However, unpublished articles should be
- acessible only to the owner.
+ accessible only to the owner.
  **/
 describe('Article', () => {
   let dsl: RealWorldDSL

@@ -6,8 +6,10 @@ import {
   AuthController,
   UsersController,
 } from './controllers/accounts.controller'
+import { AppProviders } from '../app.providers'
 
 @Module({
+  imports: [AppProviders],
   controllers: [
     ArticlesController,
     CommentsController,

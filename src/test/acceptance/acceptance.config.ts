@@ -1,11 +1,18 @@
 import type { Config } from '@jest/types'
-import { generalConfig } from '../local/local.config'
 
-export default async (): Promise<Config.InitialOptions> => {
+async function exportConfig(): Promise<Config.InitialOptions> {
   return {
-    ...generalConfig,
+    moduleFileExtensions: ['js', 'json', 'ts'],
     rootDir: '.',
+    preset: 'ts-jest',
+    transform: {
+      '^.+\\.(t|j)s$': 'ts-jest',
+    },
+    collectCoverageFrom: ['**/*.(t|j)s'],
+    testEnvironment: 'node',
     testRegex: '.*\\.(spec)\\.ts$',
     coverageDirectory: '../coverageAcceptance',
   }
 }
+
+module.exports = exportConfig

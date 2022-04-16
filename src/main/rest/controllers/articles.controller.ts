@@ -20,10 +20,14 @@ import {
 import { validateModel } from '../functions.utils'
 import { QueryInt } from '../dtos/pagination.dtos'
 import { ArticlesService } from '../../domain/articles/articles.service'
+import { ProfilesService } from '../../domain/profiles/profiles.service'
 
 @Controller('articles')
 export class ArticlesController {
-  constructor(private service: ArticlesService) {}
+  constructor(
+    private articles: ArticlesService,
+    private profiles: ProfilesService,
+  ) {}
   @Post()
   createArticle(
     @Body(validateModel())

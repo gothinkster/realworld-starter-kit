@@ -13,7 +13,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
-  let conn = getConnection()
+  const conn = getConnection()
   return conn.close()
 })
 

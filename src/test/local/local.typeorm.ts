@@ -5,7 +5,6 @@ import { TagEntity } from '../../main/domain/articles/typeorm/tag.entity'
 const memoryConnectionOptions: DataSourceOptions = {
   type: 'sqlite',
   database: ':memory:',
-  // database: 'local.sqlite3',
   dropSchema: true,
   entities: [ArticleEntity, TagEntity],
   synchronize: true,
