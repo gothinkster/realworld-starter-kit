@@ -4,8 +4,8 @@ import { Author } from './cms/cms.models'
 import { CMSPersistenceTypeORM } from './typeorm/persistence.impl'
 import { exampleArticle, exampleTags } from '../../utils/helpers'
 import { ArticlesService } from './articles.service'
-import { testConnectionOptions } from '../../utils/configs'
 import { ArticleNotFound } from './views/views.exceptions'
+import { testConnectionOptions } from '../../../test/local/local.typeorm'
 
 beforeEach(() => {
   return createConnection(testConnectionOptions)
