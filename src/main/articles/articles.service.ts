@@ -2,15 +2,19 @@ import { ContentManagementSystem } from './cms/cms.service'
 import { CMSPersistence } from './cms/cms.persistence'
 import { ArticleViews } from './views/views.service'
 import { Author } from './views/views.models'
+import { ViewsPersistence } from './views/views.persistence'
 
 export class ArticlesService {
-  constructor(private persistence: CMSPersistence) {}
+  constructor(
+    private viewPersistence: ViewsPersistence,
+    private cmsPersistence: CMSPersistence,
+  ) {}
 
   getCMS(author: Author): ContentManagementSystem {
-    return new ContentManagementSystem(this.persistence, author)
+    return new ContentManagementSystem(this.cmsPersistence, author)
   }
 
   getViews(author?: Author): ArticleViews {
-    return new ArticleViews(this.persistence, author)
+    return new ArticleViews(this.viewPersistence, author)
   }
 }

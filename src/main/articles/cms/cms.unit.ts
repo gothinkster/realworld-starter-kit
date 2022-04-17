@@ -1,12 +1,12 @@
 import { ContentManagementSystem } from './cms.service'
 import { CMSPersistence } from './cms.persistence'
 import { createConnection, getConnection } from 'typeorm'
-import { ArticleEntity } from '../typeorm/article.entity'
+import { ArticleEntity } from '../persistence/article.entity'
 import { UserNotAllowedToChangeArticle } from './cms.exceptions'
-import { CMSPersistenceTypeORM } from '../typeorm/persistence.impl'
-import { exampleArticle, exampleArticle2 } from '../../../utils/helpers'
-import { testConnectionOptions } from '../../../../test/local/local.typeorm'
+import { CMSPersistenceTypeORM } from '../persistence/persistence.impl'
+import { testConnectionOptions } from '../../../test/local/local.typeorm'
 import { Author } from '../views/views.models'
+import { exampleArticle, exampleArticle2 } from '../../utils/test.utils'
 
 beforeEach(() => {
   return createConnection(testConnectionOptions)

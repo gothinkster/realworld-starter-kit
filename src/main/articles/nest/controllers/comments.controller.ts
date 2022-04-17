@@ -7,13 +7,12 @@ import {
   ParseIntPipe,
   Post,
 } from '@nestjs/common'
-import { QueryInt } from '../dtos/pagination.dtos'
 import {
   CommentRequestPayload,
   CommentResponsePayload,
   CommentsResponsePayload,
 } from '../dtos/comments.dto'
-import { validateModel } from '../functions.utils'
+import { QueryInt, validateModel } from '../../../utils/validation.utils'
 
 @Controller('articles/:slug/comments')
 export class CommentsController {

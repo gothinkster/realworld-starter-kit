@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types'
-import { ProfileResponseDTO } from './profiles.dto'
+import { ProfileResponseDTO } from '../../../profiles/nest/profiles.dto'
 import {
   IsOptional,
   IsString,
@@ -41,14 +41,6 @@ export class ArticleResponseDTO extends ArticleCreateDTO {
   favorited?: boolean
   favoritesCount: number
   author: ProfileResponseDTO
-
-  constructor(createArticleDTO?: ArticleCreateDTO) {
-    super()
-    this.title = createArticleDTO.title
-    this.description = createArticleDTO.description
-    this.body = createArticleDTO.body
-    this.tagList = createArticleDTO.tagList
-  }
 }
 
 export class ArticleRequestPayload<T> {

@@ -2,28 +2,23 @@ import {
   Body,
   Controller,
   Delete,
-  Get,
   Param,
   Patch,
   Post,
   Put,
-  Query,
 } from '@nestjs/common'
 import {
   ArticleCreateDTO,
-  ArticleFilters,
   ArticleRequestPayload,
   ArticleResponsePayload,
-  ArticlesResponsePayload,
   ArticleUpdateDTO,
 } from '../dtos/articles.dto'
-import { validateModel } from '../functions.utils'
-import { QueryInt } from '../dtos/pagination.dtos'
-import { ArticlesService } from '../../domain/articles/articles.service'
-import { ProfilesService } from '../../domain/profiles/profiles.service'
+import { validateModel } from '../../../utils/validation.utils'
+import { ArticlesService } from '../../articles.service'
+import { ProfilesService } from '../../../profiles/profiles.service'
 
 @Controller('articles')
-export class ArticlesController {
+export class ArticlesLifecycleController {
   constructor(
     private articles: ArticlesService,
     private profiles: ProfilesService,
@@ -58,36 +53,6 @@ export class ArticlesController {
 
   @Delete(':slug/publication')
   unpublishArticle(@Param() slug: string) {
-    return undefined
-  }
-
-  @Get()
-  getManyArticles(
-    @QueryInt('limit', 20) limit: number,
-    @QueryInt('offset', 0) offset: number,
-    @Query(validateModel()) filters: ArticleFilters,
-  ): ArticlesResponsePayload {
-    return undefined
-  }
-  @Get('feed')
-  getFeed(
-    @QueryInt('limit', 20) limit: number,
-    @QueryInt('offset', 0) offset: number,
-  ): ArticlesResponsePayload {
-    return undefined
-  }
-  @Get(':slug')
-  getArticle(@Param() slug: string): ArticleResponsePayload {
-    return undefined
-  }
-
-  @Post(':slug/favorite')
-  favoriteArticle(@Param() slug: string) {
-    return undefined
-  }
-
-  @Delete(':slug/favorite')
-  unfavoriteArticle(@Param() slug: string) {
     return undefined
   }
 }

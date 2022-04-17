@@ -1,11 +1,11 @@
 import { createConnection, getConnection } from 'typeorm'
-import { ArticleEntity } from './typeorm/article.entity'
-import { CMSPersistenceTypeORM } from './typeorm/persistence.impl'
-import { exampleArticle, exampleTags } from '../../utils/helpers'
+import { ArticleEntity } from './persistence/article.entity'
+import { CMSPersistenceTypeORM } from './persistence/persistence.impl'
 import { ArticlesService } from './articles.service'
 import { ArticleNotFound } from './views/views.exceptions'
-import { testConnectionOptions } from '../../../test/local/local.typeorm'
+import { testConnectionOptions } from '../../test/local/local.typeorm'
 import { Author } from './views/views.models'
+import { exampleArticle, exampleTags } from '../utils/test.utils'
 
 beforeEach(() => {
   return createConnection(testConnectionOptions)
@@ -21,9 +21,10 @@ describe('Articles', () => {
   let service: ArticlesService
 
   beforeEach(() => {
-    service = new ArticlesService(
-      new CMSPersistenceTypeORM(getConnection().getRepository(ArticleEntity)),
+    const persistence = new CMSPersistenceTypeORM(
+      getConnection().getRepository(ArticleEntity),
     )
+    service = new ArticlesService(persistence, persistence)
   })
 
   it('should be accessible to other users after published', async () => {

@@ -10,7 +10,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { slugify } from '../../../utils/helpers'
+import { slugify } from '../../utils/transformation.utils'
 import { EditableArticle } from '../cms/cms.models'
 import { ReadonlyArticle } from '../views/views.models'
 import { TagEntity } from './tag.entity'

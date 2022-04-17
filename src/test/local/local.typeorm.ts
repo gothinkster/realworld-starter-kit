@@ -1,6 +1,6 @@
 import { DataSourceOptions } from 'typeorm/data-source/DataSourceOptions'
-import { ArticleEntity } from '../../main/domain/articles/typeorm/article.entity'
-import { TagEntity } from '../../main/domain/articles/typeorm/tag.entity'
+import { ArticleEntity } from '../../main/articles/persistence/article.entity'
+import { TagEntity } from '../../main/articles/persistence/tag.entity'
 
 const memoryConnectionOptions: DataSourceOptions = {
   type: 'sqlite',

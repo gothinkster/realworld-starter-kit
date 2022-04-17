@@ -1,5 +1,5 @@
 import { IsString, MaxLength, ValidateNested } from 'class-validator'
-import { ProfileResponseDTO } from './profiles.dto'
+import { ProfileResponseDTO } from '../../../profiles/nest/profiles.dto'
 
 export class CommentDTO {
   @IsString()
