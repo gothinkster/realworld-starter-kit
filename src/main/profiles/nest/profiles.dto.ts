@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator'
 import { PartialType } from '@nestjs/mapped-types'
 
-class ProfileCreateDTO {
+export class ProfileCreateDTO {
   @IsString()
   @IsNotEmpty()
   username
@@ -14,17 +14,9 @@ class ProfileCreateDTO {
   image: string
 }
 
-class ProfileUpdateDTO extends PartialType<ProfileCreateDTO>(
+export class ProfileUpdateDTO extends PartialType<ProfileCreateDTO>(
   ProfileCreateDTO,
 ) {}
-
-export class ProfileCreatePayload {
-  profile: ProfileCreateDTO
-}
-
-export class ProfileUpdatePayload {
-  profile: ProfileUpdateDTO
-}
 
 export class ProfileResponseDTO extends ProfileCreateDTO {
   following: boolean

@@ -6,22 +6,25 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  UseGuards,
 } from '@nestjs/common'
 import {
-  CommentRequestPayload,
+  CommentDTO,
   CommentResponsePayload,
   CommentsResponsePayload,
 } from '../dtos/comments.dto'
 import { QueryInt, validateModel } from '../../../utils/validation.utils'
+import { JwtAuthGuard } from '../../../accounts/guards'
 
 @Controller('articles/:slug/comments')
 export class CommentsController {
+  @UseGuards(JwtAuthGuard)
   @Post()
   addCommentToAnArticle(
     @Param() slug: string,
     @QueryInt('limit', 20) limit: number,
     @QueryInt('offset', 0) offset: number,
-    @Body(validateModel()) comment: CommentRequestPayload,
+    @Body('comment', validateModel()) comment: CommentDTO,
   ): CommentResponsePayload {
     return undefined
   }
@@ -35,6 +38,7 @@ export class CommentsController {
     return undefined
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   deleteCommentFromArticle(
     @Param() slug: string,

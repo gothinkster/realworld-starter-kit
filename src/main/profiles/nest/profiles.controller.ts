@@ -7,16 +7,19 @@ import {
   Patch,
   Put,
   Body,
+  UseGuards,
 } from '@nestjs/common'
 import {
   OwnProfileResponseDTO,
-  ProfileCreatePayload,
+  ProfileCreateDTO,
   ProfileResponseDTO,
   ProfileResponsePayload,
-  ProfileUpdatePayload,
+  ProfileUpdateDTO,
 } from './profiles.dto'
 import { validateModel } from '../../utils/validation.utils'
+import { JwtAuthGuard } from '../../accounts/guards'
 
+@UseGuards(JwtAuthGuard)
 @Controller('profiles')
 export class ProfilesLifecycleController {
   @Get()
@@ -26,7 +29,7 @@ export class ProfilesLifecycleController {
 
   @Post()
   create(
-    @Body(validateModel()) profile: ProfileCreatePayload,
+    @Body('profile', validateModel()) profile: ProfileCreateDTO,
   ): ProfileResponsePayload<OwnProfileResponseDTO> {
     return undefined
   }
@@ -34,7 +37,7 @@ export class ProfilesLifecycleController {
   @Patch()
   @Put()
   update(
-    @Body(validateModel()) profile: ProfileUpdatePayload,
+    @Body('profile', validateModel()) profile: ProfileUpdateDTO,
   ): ProfileResponsePayload<OwnProfileResponseDTO> {
     return undefined
   }

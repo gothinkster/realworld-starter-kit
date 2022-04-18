@@ -14,11 +14,6 @@ export class CommentResponseDTO extends CommentDTO {
   author: ProfileResponseDTO
 }
 
-export class CommentRequestPayload {
-  @ValidateNested()
-  comment: CommentDTO
-}
-
 export class CommentResponsePayload {
   comment: CommentResponseDTO
 }
