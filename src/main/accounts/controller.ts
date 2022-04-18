@@ -1,60 +1,57 @@
-import { Controller, Post, Put, Patch, Body, Inject } from '@nestjs/common'
 import {
-  CreateAccountDTO,
-  AccountRequestPayload,
+  Controller,
+  Post,
+  Put,
+  Patch,
+  Body,
+  UseGuards,
+  Request,
+} from '@nestjs/common'
+import {
+  AccountDTO,
   AccountResponsePayload,
-  UpdateAccountDTO,
-} from './dto'
+  PartialAccountDTO,
+} from './models/account.dtos'
 import { validateModel } from '../utils/validation.utils'
-import { AccountEntity } from './entity'
-import { Repository } from 'typeorm'
-import { InvalidCredentialsError } from './exceptions'
-import { createTokenForAccount } from './jwt'
-
-export const AccountRepositoryToken = 'AccountRepository'
+import { createTokenForAccount } from './models/token'
+import { LocalAuthGuard } from './auth/local.guard'
+import { AccountsService } from './auth/accounts.service'
+import { AccountEntity } from './models/account.entity'
 
 @Controller('accounts')
 export class AccountsController {
-  constructor(
-    @Inject(AccountRepositoryToken)
-    private repository: Repository<AccountEntity>,
-  ) {}
+  constructor(private service: AccountsService) {}
+
+  private static createResponsePayload(
+    account: AccountEntity,
+  ): AccountResponsePayload {
+    return {
+      access_token: createTokenForAccount(account),
+    }
+  }
 
   @Post('signup')
   async signup(
-    @Body(validateModel())
-    userRegistration: AccountRequestPayload<CreateAccountDTO>,
+    @Body('user', validateModel())
+    user: AccountDTO,
   ): Promise<AccountResponsePayload> {
-    const user = userRegistration.user
-    const account = new AccountEntity(user.email, user.password)
-    await this.repository.save(account)
-    return {
-      user: { email: account.email, token: createTokenForAccount(account) },
-    }
+    const account = await this.service.createAccount(user)
+    return AccountsController.createResponsePayload(account)
   }
 
+  @UseGuards(LocalAuthGuard)
   @Put('signup')
   @Patch('signup')
-  update(
-    @Body(validateModel()) userUpdate: AccountRequestPayload<UpdateAccountDTO>,
+  async update(
+    @Request() req: { user: AccountEntity },
+    @Body('user', validateModel()) user: PartialAccountDTO,
   ) {
-    return undefined
+    await req.user.changeEmail(user.email).changePassword(user.password).save()
   }
 
+  @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(
-    @Body(validateModel())
-    userAuthentication: AccountRequestPayload<CreateAccountDTO>,
-  ): Promise<AccountResponsePayload> {
-    const user = userAuthentication.user
-    const account: AccountEntity = await this.repository.findOneBy({
-      email: user.email,
-    })
-    if (!account.passwordMatch(user.password)) {
-      throw new InvalidCredentialsError()
-    }
-    return {
-      user: { email: account.email, token: createTokenForAccount(account) },
-    }
+  login(@Request() req: { user: AccountEntity }): AccountResponsePayload {
+    return AccountsController.createResponsePayload(req.user)
   }
 }

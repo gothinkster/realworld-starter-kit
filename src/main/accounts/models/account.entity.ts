@@ -18,23 +18,25 @@ export class AccountEntity extends BaseEntity {
     this.changePassword(password)
   }
 
-  changeEmail(email: string) {
+  changeEmail(email: string): this {
     if (email) {
       this.email = email
     }
+    return this
   }
 
-  changePassword(password: string) {
+  changePassword(password: string): this {
     if (password) {
       this.hashedPassword = bcrypt.hashSync(password, 10)
     }
+    return this
   }
 
   passwordMatch(password: string): boolean {
     return bcrypt.compareSync(password, this.hashedPassword)
   }
 
-  getSubject(): string {
-    return this.id.toString()
+  getAccountID(): number {
+    return this.id
   }
 }

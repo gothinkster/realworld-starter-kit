@@ -5,11 +5,10 @@ import {
   Matches,
   MaxLength,
   MinLength,
-  ValidateNested,
 } from 'class-validator'
 import { PartialType } from '@nestjs/mapped-types'
 
-export class CreateAccountDTO {
+export class AccountDTO {
   @IsEmail()
   @IsNotEmpty()
   email: string
@@ -25,16 +24,8 @@ export class CreateAccountDTO {
   password: string
 }
 
-export class UpdateAccountDTO extends PartialType<CreateAccountDTO>(
-  CreateAccountDTO,
-) {}
-
-export class AccountRequestPayload<T> {
-  @ValidateNested()
-  @IsNotEmpty()
-  user: T
-}
+export class PartialAccountDTO extends PartialType<AccountDTO>(AccountDTO) {}
 
 export class AccountResponsePayload {
-  user: { email: string; token: string }
+  access_token: string
 }
