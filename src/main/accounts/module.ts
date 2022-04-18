@@ -1,14 +1,14 @@
 import { Module, Scope } from '@nestjs/common'
 import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
 import { Connection } from 'typeorm'
-import { DatabaseModule } from '../db.module'
 import { AccountsController } from './controller'
 import { AccountEntity } from './models/account.entity'
 import {
   AccountRepositoryToken,
   AccountsService,
 } from './auth/accounts.service'
-import { BasicAuthStrategy } from './auth/local.auth'
+import { LocalAuthPassport } from './auth/local.auth'
+import { GlobalModule } from '../global.module'
 
 const AccountRepository: Provider = {
   provide: AccountRepositoryToken,
@@ -19,8 +19,8 @@ const AccountRepository: Provider = {
 }
 
 @Module({
-  imports: [DatabaseModule],
-  providers: [AccountRepository, AccountsService, BasicAuthStrategy],
+  imports: [GlobalModule],
+  providers: [AccountRepository, AccountsService, LocalAuthPassport],
   controllers: [AccountsController],
 })
 export class AccountsModule {}

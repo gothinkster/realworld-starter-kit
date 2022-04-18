@@ -8,7 +8,7 @@ import { AccountsService } from './accounts.service'
 import { InvalidCredentialsError } from '../models/exceptions'
 import { AccountEntity } from '../models/account.entity'
 
-export class BasicAuthStrategy extends NestGuardStrategyFor(LocalStrategy) {
+export class LocalAuthPassport extends NestGuardStrategyFor(LocalStrategy) {
   constructor(private service: AccountsService) {
     super({ usernameField: 'email' })
   }

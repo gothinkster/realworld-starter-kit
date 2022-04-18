@@ -1,10 +1,11 @@
-import { Module, Scope } from '@nestjs/common'
+import { Global, Module, Scope } from '@nestjs/common'
 import { Connection, createConnection } from 'typeorm'
 import { ArticleEntity } from './articles/persistence/article.entity'
 import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
 import { DataSourceOptions } from 'typeorm/data-source/DataSourceOptions'
 import { TagEntity } from './articles/persistence/tag.entity'
 import { AccountEntity } from './accounts/models/account.entity'
+import { JWTAuthPassport } from './utils/jwt.strategy'
 
 function connectionSettings(): DataSourceOptions {
   const entities = [ArticleEntity, TagEntity, AccountEntity]
@@ -40,8 +41,9 @@ export const dbProvider: Provider = {
   scope: Scope.DEFAULT,
 }
 
+@Global()
 @Module({
-  providers: [dbProvider],
-  exports: [dbProvider],
+  providers: [dbProvider, JWTAuthPassport],
+  exports: [dbProvider, JWTAuthPassport],
 })
-export class DatabaseModule {}
+export class GlobalModule {}
