@@ -6,7 +6,7 @@ import { UserNotAllowedToChangeArticle } from './cms.exceptions'
 import { CMSPersistenceTypeORM } from '../persistence/persistence.impl'
 import { testConnectionOptions } from '../../../test/local/local.typeorm'
 import { Author } from '../views/views.models'
-import { exampleArticle, exampleArticle2 } from '../../utils/test.utils'
+import { exampleArticle, exampleArticle2 } from '../examples'
 
 beforeEach(() => {
   return createConnection(testConnectionOptions)

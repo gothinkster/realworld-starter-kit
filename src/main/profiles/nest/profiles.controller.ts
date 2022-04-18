@@ -17,9 +17,9 @@ import {
   ProfileUpdateDTO,
 } from './profiles.dto'
 import { validateModel } from '../../utils/validation.utils'
-import { JwtAuthGuard } from '../../accounts/guards'
+import { JWTAuthGuard } from '../../utils/jwt.guard'
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JWTAuthGuard)
 @Controller('profiles')
 export class ProfilesLifecycleController {
   @Get()

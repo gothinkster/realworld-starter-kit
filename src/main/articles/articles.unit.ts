@@ -5,7 +5,7 @@ import { ArticlesService } from './articles.service'
 import { ArticleNotFound } from './views/views.exceptions'
 import { testConnectionOptions } from '../../test/local/local.typeorm'
 import { Author } from './views/views.models'
-import { exampleArticle, exampleTags } from '../utils/test.utils'
+import { exampleArticle, exampleTags } from './examples'
 
 beforeEach(() => {
   return createConnection(testConnectionOptions)

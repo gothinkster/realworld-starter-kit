@@ -16,9 +16,9 @@ import {
 import { validateModel } from '../../../utils/validation.utils'
 import { ArticlesService } from '../../articles.service'
 import { ProfilesService } from '../../../profiles/profiles.service'
-import { JwtAuthGuard } from '../../../accounts/guards'
+import { JWTAuthGuard } from '../../../utils/jwt.guard'
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JWTAuthGuard)
 @Controller('articles')
 export class ArticlesLifecycleController {
   constructor(

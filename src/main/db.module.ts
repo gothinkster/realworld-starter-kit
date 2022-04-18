@@ -4,7 +4,7 @@ import { ArticleEntity } from './articles/persistence/article.entity'
 import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
 import { DataSourceOptions } from 'typeorm/data-source/DataSourceOptions'
 import { TagEntity } from './articles/persistence/tag.entity'
-import { AccountEntity } from './accounts/entity'
+import { AccountEntity } from './accounts/models/account.entity'
 
 function connectionSettings(): DataSourceOptions {
   const entities = [ArticleEntity, TagEntity, AccountEntity]

@@ -14,11 +14,11 @@ import {
   CommentsResponsePayload,
 } from '../dtos/comments.dto'
 import { QueryInt, validateModel } from '../../../utils/validation.utils'
-import { JwtAuthGuard } from '../../../accounts/guards'
+import { JWTAuthGuard } from '../../../utils/jwt.guard'
 
 @Controller('articles/:slug/comments')
 export class CommentsController {
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JWTAuthGuard)
   @Post()
   addCommentToAnArticle(
     @Param() slug: string,
@@ -38,7 +38,7 @@ export class CommentsController {
     return undefined
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JWTAuthGuard)
   @Delete(':id')
   deleteCommentFromArticle(
     @Param() slug: string,
