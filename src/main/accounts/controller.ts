@@ -14,9 +14,9 @@ import {
 } from './models/account.dtos'
 import { validateModel } from '../utils/validation.utils'
 import { createTokenForAccount } from './models/token'
-import { LocalAuthGuard } from './auth/local.guard'
 import { AccountsService } from './auth/accounts.service'
 import { AccountEntity } from './models/account.entity'
+import { BasicAuthGuard } from './auth/local.auth'
 
 @Controller('accounts')
 export class AccountsController {
@@ -39,7 +39,7 @@ export class AccountsController {
     return AccountsController.createResponsePayload(account)
   }
 
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(BasicAuthGuard)
   @Put('signup')
   @Patch('signup')
   async update(
@@ -49,7 +49,7 @@ export class AccountsController {
     await req.user.changeEmail(user.email).changePassword(user.password).save()
   }
 
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(BasicAuthGuard)
   @Post('login')
   login(@Request() req: { user: AccountEntity }): AccountResponsePayload {
     return AccountsController.createResponsePayload(req.user)

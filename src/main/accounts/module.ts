@@ -8,9 +8,9 @@ import {
   AccountRepositoryToken,
   AccountsService,
 } from './auth/accounts.service'
-import { LocalStrategy } from './auth/local.strategy'
+import { BasicAuthStrategy } from './auth/local.auth'
 
-const AccountRepositoryORMProvider: Provider = {
+const AccountRepository: Provider = {
   provide: AccountRepositoryToken,
   useFactory: (connection: Connection) =>
     new connection.getRepository(AccountEntity),
@@ -20,7 +20,7 @@ const AccountRepositoryORMProvider: Provider = {
 
 @Module({
   imports: [DatabaseModule],
-  providers: [AccountRepositoryORMProvider, AccountsService, LocalStrategy],
+  providers: [AccountRepository, AccountsService, BasicAuthStrategy],
   controllers: [AccountsController],
 })
 export class AccountsModule {}

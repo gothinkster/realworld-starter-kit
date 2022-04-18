@@ -1,11 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common'
+import { Inject } from '@nestjs/common'
 import { Repository } from 'typeorm'
 import { AccountEntity } from '../models/account.entity'
 import { InvalidCredentialsError } from '../models/exceptions'
 import { AccountDTO } from '../models/account.dtos'
 
 export const AccountRepositoryToken = 'AccountRepository'
-@Injectable()
+
 export class AccountsService {
   constructor(
     @Inject(AccountRepositoryToken)

@@ -1,13 +1,14 @@
-import { Strategy } from 'passport-local'
-import { PassportStrategy } from '@nestjs/passport'
-import { Injectable, UnauthorizedException, Dependencies } from '@nestjs/common'
+import { Strategy as LocalStrategy } from 'passport-local'
+import {
+  AuthGuard,
+  PassportStrategy as NestGuardStrategyFor,
+} from '@nestjs/passport'
+import { UnauthorizedException } from '@nestjs/common'
 import { AccountsService } from './accounts.service'
 import { InvalidCredentialsError } from '../models/exceptions'
 import { AccountEntity } from '../models/account.entity'
 
-@Injectable()
-@Dependencies(AccountsService)
-export class LocalStrategy extends PassportStrategy(Strategy) {
+export class BasicAuthStrategy extends NestGuardStrategyFor(LocalStrategy) {
   constructor(private service: AccountsService) {
     super({ usernameField: 'email' })
   }
@@ -23,3 +24,5 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     }
   }
 }
+
+export class BasicAuthGuard extends AuthGuard('local') {}
