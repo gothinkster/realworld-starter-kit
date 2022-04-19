@@ -1,6 +1,6 @@
-import { RealWorldDSL } from '../support/realworld.dsl'
 import { dslFactory } from '../support/factory.dsl'
 import { Users } from '../support/interface.driver'
+import { RealWorldDSL } from '../support/realworld.dsl'
 
 /**
  Users should be able to edit and delete articles.

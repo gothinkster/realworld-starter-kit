@@ -1,14 +1,14 @@
 import { Module, Scope } from '@nestjs/common'
+import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
+import { Connection } from 'typeorm'
+import { GlobalModule } from '../../global.module'
+import { ProfilesModule } from '../../profiles/nest/profiles.module'
+import { ArticlesService } from '../articles.service'
+import { ArticleEntity } from '../persistence/article.entity'
+import { CMSPersistenceTypeORM } from '../persistence/persistence.impl'
 import { ArticlesLifecycleController } from './controllers/cms.controller'
 import { CommentsController } from './controllers/comments.controller'
 import { ArticlesViewsController } from './controllers/views.controller'
-import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
-import { ArticlesService } from '../articles.service'
-import { Connection } from 'typeorm'
-import { CMSPersistenceTypeORM } from '../persistence/persistence.impl'
-import { ArticleEntity } from '../persistence/article.entity'
-import { ProfilesModule } from '../../profiles/nest/profiles.module'
-import { GlobalModule } from '../../global.module'
 
 const CMSPersistenceTypeORMProvider: Provider = {
   provide: CMSPersistenceTypeORM,

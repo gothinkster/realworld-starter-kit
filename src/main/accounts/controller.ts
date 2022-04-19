@@ -1,23 +1,17 @@
-import {
-  Controller,
-  Post,
-  Put,
-  Patch,
-  Body,
-  UseGuards,
-  Request,
-} from '@nestjs/common'
+import { Body, Controller, Post, Put, Request, UseGuards } from '@nestjs/common'
+import { ApiBasicAuth, ApiTags } from '@nestjs/swagger'
+import { validateModel } from '../utils/validation.utils'
+import { AccountsService } from './auth/accounts.service'
+import { BasicAuthGuard } from './auth/local.auth'
 import {
   AccountDTO,
   AccountResponsePayload,
   PartialAccountDTO,
-} from './models/account.dtos'
-import { validateModel } from '../utils/validation.utils'
-import { createTokenForAccount } from './models/token'
-import { AccountsService } from './auth/accounts.service'
+} from './models/account.dto'
 import { AccountEntity } from './models/account.entity'
-import { BasicAuthGuard } from './auth/local.auth'
+import { createTokenForAccount } from './models/token'
 
+@ApiTags('accounts')
 @Controller('accounts')
 export class AccountsController {
   constructor(private service: AccountsService) {}
@@ -40,8 +34,8 @@ export class AccountsController {
   }
 
   @UseGuards(BasicAuthGuard)
+  @ApiBasicAuth()
   @Put('signup')
-  @Patch('signup')
   async update(
     @Request() req: { user: AccountEntity },
     @Body('user', validateModel()) user: PartialAccountDTO,
@@ -50,6 +44,7 @@ export class AccountsController {
   }
 
   @UseGuards(BasicAuthGuard)
+  @ApiBasicAuth()
   @Post('login')
   login(@Request() req: { user: AccountEntity }): AccountResponsePayload {
     return AccountsController.createResponsePayload(req.user)

@@ -13,8 +13,8 @@ import {
 import { slugify } from '../../utils/transformation.utils'
 import { EditableArticle } from '../cms/cms.models'
 import { ReadonlyArticle } from '../views/views.models'
-import { TagEntity } from './tag.entity'
 import { EditorTypeORM } from './editor.impl'
+import { TagEntity } from './tag.entity'
 
 @Entity({ name: 'Article' })
 export class ArticleEntity

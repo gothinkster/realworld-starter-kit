@@ -1,5 +1,5 @@
-import { ArticleEntity } from './article.entity'
 import { Editor } from '../cms/cms.editor'
+import { ArticleEntity } from './article.entity'
 
 export class EditorTypeORM extends Editor {
   protected article: ArticleEntity

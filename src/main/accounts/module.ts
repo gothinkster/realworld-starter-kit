@@ -1,19 +1,19 @@
 import { Module, Scope } from '@nestjs/common'
 import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
 import { Connection } from 'typeorm'
-import { AccountsController } from './controller'
-import { AccountEntity } from './models/account.entity'
+import { GlobalModule } from '../global.module'
 import {
   AccountRepositoryToken,
   AccountsService,
 } from './auth/accounts.service'
 import { LocalAuthPassport } from './auth/local.auth'
-import { GlobalModule } from '../global.module'
+import { AccountsController } from './controller'
+import { AccountEntity } from './models/account.entity'
 
 const AccountRepository: Provider = {
   provide: AccountRepositoryToken,
   useFactory: (connection: Connection) =>
-    new connection.getRepository(AccountEntity),
+    connection.getRepository(AccountEntity),
   inject: [Connection],
   scope: Scope.DEFAULT,
 }

@@ -1,12 +1,12 @@
-import { Strategy as LocalStrategy } from 'passport-local'
+import { UnauthorizedException } from '@nestjs/common'
 import {
   AuthGuard,
   PassportStrategy as NestGuardStrategyFor,
 } from '@nestjs/passport'
-import { UnauthorizedException } from '@nestjs/common'
-import { AccountsService } from './accounts.service'
-import { InvalidCredentialsError } from '../models/exceptions'
+import { Strategy as LocalStrategy } from 'passport-local'
 import { AccountEntity } from '../models/account.entity'
+import { InvalidCredentialsError } from '../models/exceptions'
+import { AccountsService } from './accounts.service'
 
 export class LocalAuthPassport extends NestGuardStrategyFor(LocalStrategy) {
   constructor(private service: AccountsService) {

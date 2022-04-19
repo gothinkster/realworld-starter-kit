@@ -1,7 +1,8 @@
-import { IsNotEmpty, IsString } from 'class-validator'
 import { PartialType } from '@nestjs/mapped-types'
+import { ApiResponseProperty } from '@nestjs/swagger'
+import { IsNotEmpty, IsString } from 'class-validator'
 
-export class ProfileCreateDTO {
+export class CreateProfileDTO {
   @IsString()
   @IsNotEmpty()
   username
@@ -14,18 +15,21 @@ export class ProfileCreateDTO {
   image: string
 }
 
-export class ProfileUpdateDTO extends PartialType<ProfileCreateDTO>(
-  ProfileCreateDTO,
+export class UpdateProfileDTO extends PartialType<CreateProfileDTO>(
+  CreateProfileDTO,
 ) {}
 
-export class ProfileResponseDTO extends ProfileCreateDTO {
+export class ProfileResponseDTO extends CreateProfileDTO {
+  @ApiResponseProperty()
   following: boolean
 }
 
-export class OwnProfileResponseDTO extends ProfileCreateDTO {
+export class OwnProfileResponseDTO extends CreateProfileDTO {
+  @ApiResponseProperty()
   email: string
 }
 
-export class ProfileResponsePayload<T = ProfileCreateDTO> {
+export class ProfileResponsePayload<T = CreateProfileDTO> {
+  @ApiResponseProperty()
   profile: T
 }

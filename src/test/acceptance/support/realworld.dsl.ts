@@ -1,9 +1,9 @@
 import {
-  ArticleProps,
   ArticleDefinition,
+  ArticleProps,
+  makeRandomArticle,
   ProtocolDriver,
   Users,
-  makeRandomArticle,
 } from './interface.driver'
 
 export class RealWorldDSL {

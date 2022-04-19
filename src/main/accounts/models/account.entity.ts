@@ -1,5 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 import * as bcrypt from 'bcrypt'
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity({ name: 'Account' })
 export class AccountEntity extends BaseEntity {

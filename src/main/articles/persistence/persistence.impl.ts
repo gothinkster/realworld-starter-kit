@@ -1,9 +1,9 @@
-import { ArticleEntity } from './article.entity'
-import { CMSPersistence } from '../cms/cms.persistence'
 import { Repository } from 'typeorm'
-import { ViewsPersistence } from '../views/views.persistence'
-import { EditorTypeORM } from './editor.impl'
+import { CMSPersistence } from '../cms/cms.persistence'
 import { Author } from '../views/views.models'
+import { ViewsPersistence } from '../views/views.persistence'
+import { ArticleEntity } from './article.entity'
+import { EditorTypeORM } from './editor.impl'
 
 export class CMSPersistenceTypeORM implements CMSPersistence, ViewsPersistence {
   constructor(private articleRepository: Repository<ArticleEntity>) {}

@@ -1,13 +1,15 @@
 import { Controller, Delete, Get, Param, Post, Query } from '@nestjs/common'
-import { ArticlesService } from '../../articles.service'
+import { ApiTags } from '@nestjs/swagger'
 import { ProfilesService } from '../../../profiles/profiles.service'
 import { QueryInt, validateModel } from '../../../utils/validation.utils'
+import { ArticlesService } from '../../articles.service'
 import {
   ArticleFilters,
   ArticleResponsePayload,
   ArticlesResponsePayload,
 } from '../dtos/articles.dto'
 
+@ApiTags('articles')
 @Controller('articles')
 export class ArticlesViewsController {
   constructor(
@@ -17,17 +19,17 @@ export class ArticlesViewsController {
 
   @Get()
   getManyArticles(
-    @QueryInt('limit', 20) limit: number,
-    @QueryInt('offset', 0) offset: number,
     @Query(validateModel()) filters: ArticleFilters,
+    @QueryInt('limit', 20) limit?: number,
+    @QueryInt('offset', 0) offset?: number,
   ): ArticlesResponsePayload {
     return undefined
   }
 
   @Get('feed')
   getFeed(
-    @QueryInt('limit', 20) limit: number,
-    @QueryInt('offset', 0) offset: number,
+    @QueryInt('limit', 20) limit?: number,
+    @QueryInt('offset', 0) offset?: number,
   ): ArticlesResponsePayload {
     return undefined
   }

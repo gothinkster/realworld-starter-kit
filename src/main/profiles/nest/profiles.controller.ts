@@ -1,43 +1,44 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Param,
-  Delete,
-  Patch,
-  Put,
   Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
   UseGuards,
 } from '@nestjs/common'
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
+import { JWTAuthGuard } from '../../utils/jwt.guard'
+import { validateModel } from '../../utils/validation.utils'
 import {
+  CreateProfileDTO,
   OwnProfileResponseDTO,
-  ProfileCreateDTO,
   ProfileResponseDTO,
   ProfileResponsePayload,
-  ProfileUpdateDTO,
+  UpdateProfileDTO,
 } from './profiles.dto'
-import { validateModel } from '../../utils/validation.utils'
-import { JWTAuthGuard } from '../../utils/jwt.guard'
 
+@ApiTags('profiles')
 @UseGuards(JWTAuthGuard)
+@ApiBearerAuth()
 @Controller('profiles')
 export class ProfilesLifecycleController {
-  @Get()
+  @Get('me')
   getCurrent(): ProfileResponsePayload<OwnProfileResponseDTO> {
     return undefined
   }
 
   @Post()
   create(
-    @Body('profile', validateModel()) profile: ProfileCreateDTO,
+    @Body('profile', validateModel()) profile: CreateProfileDTO,
   ): ProfileResponsePayload<OwnProfileResponseDTO> {
     return undefined
   }
 
-  @Patch()
   @Put()
   update(
-    @Body('profile', validateModel()) profile: ProfileUpdateDTO,
+    @Body('profile', validateModel()) profile: UpdateProfileDTO,
   ): ProfileResponsePayload<OwnProfileResponseDTO> {
     return undefined
   }
@@ -57,6 +58,7 @@ export class ProfilesLifecycleController {
   }
 }
 
+@ApiTags('profiles')
 @Controller('profiles')
 export class ProfilesViewsController {
   @Get(':username')

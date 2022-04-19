@@ -1,8 +1,8 @@
-import { EditableArticle } from './cms.models'
-import { CMSPersistence } from './cms.persistence'
-import { UserNotAllowedToChangeArticle } from './cms.exceptions'
 import { ArticleNotFound } from '../views/views.exceptions'
 import { Author } from '../views/views.models'
+import { UserNotAllowedToChangeArticle } from './cms.exceptions'
+import { EditableArticle } from './cms.models'
+import { CMSPersistence } from './cms.persistence'
 
 /**
 The ContentManagementSystem is responsible for letting only the authors

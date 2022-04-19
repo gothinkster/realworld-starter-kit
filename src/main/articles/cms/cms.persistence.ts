@@ -1,7 +1,7 @@
-import { EditableArticle } from './cms.models'
+import { Author } from '../views/views.models'
 import { ViewsPersistence } from '../views/views.persistence'
 import { Editor } from './cms.editor'
-import { Author } from '../views/views.models'
+import { EditableArticle } from './cms.models'
 
 export interface CMSPersistence extends ViewsPersistence {
   getArticle(slug: string): Promise<EditableArticle>

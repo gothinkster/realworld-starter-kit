@@ -1,5 +1,5 @@
-import { RealWorldDSL } from '../support/realworld.dsl'
 import { dslFactory } from '../support/factory.dsl'
+import { RealWorldDSL } from '../support/realworld.dsl'
 
 /**
  Users should be able to favorite and unfavorite articles.

@@ -3,21 +3,23 @@ import {
   Controller,
   Delete,
   Param,
-  Patch,
   Post,
   Put,
   UseGuards,
 } from '@nestjs/common'
-import {
-  ArticleCreateDTO,
-  ArticleResponsePayload,
-  ArticleUpdateDTO,
-} from '../dtos/articles.dto'
-import { validateModel } from '../../../utils/validation.utils'
-import { ArticlesService } from '../../articles.service'
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { ProfilesService } from '../../../profiles/profiles.service'
 import { JWTAuthGuard } from '../../../utils/jwt.guard'
+import { validateModel } from '../../../utils/validation.utils'
+import { ArticlesService } from '../../articles.service'
+import {
+  ArticleResponsePayload,
+  CreateArticleDTO,
+  UpdateArticleDTO,
+} from '../dtos/articles.dto'
 
+@ApiTags('articles')
+@ApiBearerAuth()
 @UseGuards(JWTAuthGuard)
 @Controller('articles')
 export class ArticlesLifecycleController {
@@ -28,17 +30,16 @@ export class ArticlesLifecycleController {
   @Post()
   createArticle(
     @Body('article', validateModel())
-    article: ArticleCreateDTO,
+    article: CreateArticleDTO,
   ): ArticleResponsePayload {
     return undefined
   }
 
-  @Patch(':slug')
   @Put(':slug')
   updateArticle(
     @Param() slug: string,
     @Body('article', validateModel())
-    article: ArticleUpdateDTO,
+    article: UpdateArticleDTO,
   ): ArticleResponsePayload {
     return undefined
   }

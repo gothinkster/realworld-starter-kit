@@ -1,3 +1,5 @@
+import { HttpStatus, INestApplication } from '@nestjs/common'
+import { Axios } from 'axios'
 import {
   ArticleCreation,
   ArticleDefinition,
@@ -5,8 +7,6 @@ import {
   ProtocolDriver,
   Users,
 } from './interface.driver'
-import { HttpStatus, INestApplication } from '@nestjs/common'
-import { Axios } from 'axios'
 import { connectToNestApp } from './rest.connection'
 
 export class RestDriver implements ProtocolDriver {

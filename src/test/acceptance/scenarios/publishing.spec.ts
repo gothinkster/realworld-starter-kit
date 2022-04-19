@@ -1,5 +1,5 @@
-import { RealWorldDSL } from '../support/realworld.dsl'
 import { dslFactory } from '../support/factory.dsl'
+import { RealWorldDSL } from '../support/realworld.dsl'
 
 /**
    Articles can be published and unpublished. Users should be able to write articles and not publish them.

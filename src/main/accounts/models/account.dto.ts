@@ -1,3 +1,5 @@
+import { PartialType } from '@nestjs/mapped-types'
+import { ApiResponseProperty } from '@nestjs/swagger'
 import {
   IsEmail,
   IsNotEmpty,
@@ -6,7 +8,6 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator'
-import { PartialType } from '@nestjs/mapped-types'
 
 export class AccountDTO {
   @IsEmail()
@@ -27,5 +28,6 @@ export class AccountDTO {
 export class PartialAccountDTO extends PartialType<AccountDTO>(AccountDTO) {}
 
 export class AccountResponsePayload {
+  @ApiResponseProperty()
   access_token: string
 }

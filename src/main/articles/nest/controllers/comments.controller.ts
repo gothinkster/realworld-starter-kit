@@ -8,23 +8,26 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common'
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
+import { JWTAuthGuard } from '../../../utils/jwt.guard'
+import { QueryInt, validateModel } from '../../../utils/validation.utils'
 import {
   CommentDTO,
   CommentResponsePayload,
   CommentsResponsePayload,
 } from '../dtos/comments.dto'
-import { QueryInt, validateModel } from '../../../utils/validation.utils'
-import { JWTAuthGuard } from '../../../utils/jwt.guard'
 
+@ApiTags('comments')
 @Controller('articles/:slug/comments')
 export class CommentsController {
   @UseGuards(JWTAuthGuard)
+  @ApiBearerAuth()
   @Post()
   addCommentToAnArticle(
     @Param() slug: string,
-    @QueryInt('limit', 20) limit: number,
-    @QueryInt('offset', 0) offset: number,
     @Body('comment', validateModel()) comment: CommentDTO,
+    @QueryInt('limit', 20) limit?: number,
+    @QueryInt('offset', 0) offset?: number,
   ): CommentResponsePayload {
     return undefined
   }
@@ -32,13 +35,14 @@ export class CommentsController {
   @Get()
   getCommentsFromAnArticle(
     @Param() slug: string,
-    @QueryInt('limit', 20) limit: number,
-    @QueryInt('offset', 0) offset: number,
+    @QueryInt('limit', 20) limit?: number,
+    @QueryInt('offset', 0) offset?: number,
   ): CommentsResponsePayload {
     return undefined
   }
 
   @UseGuards(JWTAuthGuard)
+  @ApiBearerAuth()
   @Delete(':id')
   deleteCommentFromArticle(
     @Param() slug: string,

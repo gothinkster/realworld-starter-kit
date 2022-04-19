@@ -1,6 +1,6 @@
 import { ArticleNotFound } from './views.exceptions'
-import { ViewsPersistence } from './views.persistence'
 import { Author, ReadonlyArticle } from './views.models'
+import { ViewsPersistence } from './views.persistence'
 
 export class ArticleViews {
   constructor(private persistence: ViewsPersistence, private user?: Author) {}
