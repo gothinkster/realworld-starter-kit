@@ -2,8 +2,7 @@ import { createConnection, getConnection } from 'typeorm'
 import { testConnectionOptions } from '../../test/local/local.typeorm'
 import { ArticlesService } from './articles.service'
 import { exampleArticle, exampleTags } from './examples'
-import { ArticleEntity } from './persistence/article.entity'
-import { CMSPersistenceTypeORM } from './persistence/persistence.impl'
+import { ArticlesTypeORMPersistence } from './persistence/persistence.impl'
 import { ArticleNotFound } from './views/views.exceptions'
 import { Author } from './views/views.models'
 
@@ -21,9 +20,7 @@ describe('Articles', () => {
   let service: ArticlesService
 
   beforeEach(() => {
-    const persistence = new CMSPersistenceTypeORM(
-      getConnection().getRepository(ArticleEntity),
-    )
+    const persistence = new ArticlesTypeORMPersistence()
     service = new ArticlesService(persistence, persistence)
   })
 

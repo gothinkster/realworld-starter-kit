@@ -1,8 +1,7 @@
 import { createConnection, getConnection } from 'typeorm'
 import { testConnectionOptions } from '../../../test/local/local.typeorm'
 import { exampleArticle, exampleArticle2 } from '../examples'
-import { ArticleEntity } from '../persistence/article.entity'
-import { CMSPersistenceTypeORM } from '../persistence/persistence.impl'
+import { ArticlesTypeORMPersistence } from '../persistence/persistence.impl'
 import { Author } from '../views/views.models'
 import { UserNotAllowedToChangeArticle } from './cms.exceptions'
 import { CMSPersistence } from './cms.persistence'
@@ -23,9 +22,7 @@ describe('Content Management System', () => {
   const author: Author = { getAuthorID: () => 1 }
 
   beforeEach(() => {
-    persistence = new CMSPersistenceTypeORM(
-      getConnection().getRepository(ArticleEntity),
-    )
+    persistence = new ArticlesTypeORMPersistence()
     cms = new ContentManagementSystem(persistence, author)
   })
 
