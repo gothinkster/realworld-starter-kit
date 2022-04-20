@@ -1721,6 +1721,14 @@
   resolved "https://registry.npmjs.org/@types/parse-json/-/parse-json-4.0.0.tgz"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
+"@types/passport-http@^0.3.9":
+  version "0.3.9"
+  resolved "https://registry.yarnpkg.com/@types/passport-http/-/passport-http-0.3.9.tgz#268e483ade820d4f0edb3d35cec090d1990cc081"
+  integrity sha512-uQ4vyRdvM0jdWuKpLmi6Q6ri9Nwt8YnHmF7kE6snbthxPrsMWcjRCVc5WcPaQ356ODSZTDgiRYURMPIspCkn3Q==
+  dependencies:
+    "@types/express" "*"
+    "@types/passport" "*"
+
 "@types/passport-jwt@^3.0.6":
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/@types/passport-jwt/-/passport-jwt-3.0.6.tgz#41cc8b5803d5f5f06eb33e19c453b42716def4f1"
@@ -1728,15 +1736,6 @@
   dependencies:
     "@types/express" "*"
     "@types/jsonwebtoken" "*"
-    "@types/passport-strategy" "*"
-
-"@types/passport-local@^1.0.34":
-  version "1.0.34"
-  resolved "https://registry.yarnpkg.com/@types/passport-local/-/passport-local-1.0.34.tgz#84d3b35b2fd4d36295039ded17fe5f3eaa62f4f6"
-  integrity sha512-PSc07UdYx+jhadySxxIYWuv6sAnY5e+gesn/5lkPKfBeGuIYn9OPR+AAEDq73VRUh6NBTpvE/iPE62rzZUslog==
-  dependencies:
-    "@types/express" "*"
-    "@types/passport" "*"
     "@types/passport-strategy" "*"
 
 "@types/passport-strategy@*":
@@ -5945,6 +5944,13 @@ parseurl@~1.3.2, parseurl@~1.3.3:
   resolved "https://registry.npmjs.org/parseurl/-/parseurl-1.3.3.tgz"
   integrity sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==
 
+passport-http@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/passport-http/-/passport-http-0.3.0.tgz#8ee53d4380be9c60df2151925029826f77115603"
+  integrity sha1-juU9Q4C+nGDfIVGSUCmCb3cRVgM=
+  dependencies:
+    passport-strategy "1.x.x"
+
 passport-jwt@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/passport-jwt/-/passport-jwt-4.0.0.tgz#7f0be7ba942e28b9f5d22c2ebbb8ce96ef7cf065"
@@ -5952,13 +5958,6 @@ passport-jwt@^4.0.0:
   dependencies:
     jsonwebtoken "^8.2.0"
     passport-strategy "^1.0.0"
-
-passport-local@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/passport-local/-/passport-local-1.0.0.tgz#1fe63268c92e75606626437e3b906662c15ba6ee"
-  integrity sha1-H+YyaMkudWBmJkN+O5BmYsFbpu4=
-  dependencies:
-    passport-strategy "1.x.x"
 
 passport-strategy@1.x.x, passport-strategy@^1.0.0:
   version "1.0.0"

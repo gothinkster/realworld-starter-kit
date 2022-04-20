@@ -1,13 +1,13 @@
-import { UnauthorizedException } from '@nestjs/common'
+import { Inject, UnauthorizedException } from '@nestjs/common'
 import { PassportStrategy as NestGuardStrategyFor } from '@nestjs/passport'
-import { Strategy as LocalStrategy } from 'passport-local'
+import { BasicStrategy } from 'passport-http'
 import { AccountEntity } from '../models/accounts.entity'
 import { InvalidCredentialsError } from '../models/accounts.exceptions'
 import { AccountsService } from './accounts.service'
 
-export class LocalAuthPassport extends NestGuardStrategyFor(LocalStrategy) {
-  constructor(private service: AccountsService) {
-    super({ usernameField: 'email' })
+export class BasicAuthStrategy extends NestGuardStrategyFor(BasicStrategy) {
+  constructor(@Inject(AccountsService) private service: AccountsService) {
+    super()
   }
 
   async validate(email, password): Promise<AccountEntity> {
