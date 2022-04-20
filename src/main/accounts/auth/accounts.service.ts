@@ -1,6 +1,8 @@
+import * as jwt from 'jsonwebtoken'
 import { Repository } from 'typeorm'
+import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../../constants'
 import { InjectAccountRepository } from '../accounts.providers'
-import { AccountDTO } from '../models/accounts.dto'
+import { AccountDTO, AccountResponsePayload } from '../models/accounts.dto'
 import { AccountEntity } from '../models/accounts.entity'
 import { InvalidCredentialsError } from '../models/accounts.exceptions'
 
@@ -24,5 +26,20 @@ export class AccountsService {
       throw new InvalidCredentialsError()
     }
     return account
+  }
+
+  getJWTResponse(account: AccountEntity): AccountResponsePayload {
+    return {
+      access_token: jwt.sign(
+        { account_id: account.getAccountID(), email: account.email },
+        TOKEN_PRIVATE_KEY,
+        {
+          expiresIn: '24h',
+          subject: account.getAccountID().toString(),
+          issuer: account.getAccountID().toString(),
+          audience: AUDIENCE,
+        },
+      ),
+    }
   }
 }
