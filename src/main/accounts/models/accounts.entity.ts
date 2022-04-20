@@ -4,7 +4,7 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 @Entity({ name: 'Account' })
 export class AccountEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
-  private id: number
+  id: number
 
   @Column({ unique: true })
   email: string
@@ -19,9 +19,7 @@ export class AccountEntity extends BaseEntity {
   }
 
   changeEmail(email: string): this {
-    if (email) {
-      this.email = email
-    }
+    this.email = email ?? this.email
     return this
   }
 

@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken'
 import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../../constants'
-import { AccountEntity } from './account.entity'
+import { AccountEntity } from './accounts.entity'
 
 export function createTokenForAccount(account: AccountEntity): string {
   return jwt.sign(

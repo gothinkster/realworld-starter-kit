@@ -1,14 +1,12 @@
-import { Inject } from '@nestjs/common'
 import { Repository } from 'typeorm'
-import { AccountDTO } from '../models/account.dto'
-import { AccountEntity } from '../models/account.entity'
-import { InvalidCredentialsError } from '../models/exceptions'
-
-export const AccountRepositoryToken = 'AccountRepository'
+import { InjectAccountRepository } from '../accounts.providers'
+import { AccountDTO } from '../models/accounts.dto'
+import { AccountEntity } from '../models/accounts.entity'
+import { InvalidCredentialsError } from '../models/accounts.exceptions'
 
 export class AccountsService {
   constructor(
-    @Inject(AccountRepositoryToken)
+    @InjectAccountRepository()
     private repository: Repository<AccountEntity>,
   ) {}
 

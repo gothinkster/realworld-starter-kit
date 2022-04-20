@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { AccountsModule } from './accounts/module'
+import { AccountsModule } from './accounts/accounts.module'
 import { ArticlesModule } from './articles/nest/articles.module'
 import { ProfilesModule } from './profiles/nest/profiles.module'
 

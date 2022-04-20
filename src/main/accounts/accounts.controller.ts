@@ -2,14 +2,14 @@ import { Body, Controller, Post, Put, Request, UseGuards } from '@nestjs/common'
 import { ApiBasicAuth, ApiTags } from '@nestjs/swagger'
 import { validateModel } from '../utils/validation.utils'
 import { AccountsService } from './auth/accounts.service'
-import { BasicAuthGuard } from './auth/local.auth'
+import { BasicAuthGuard } from './auth/basic.guard'
 import {
   AccountDTO,
   AccountResponsePayload,
   PartialAccountDTO,
-} from './models/account.dto'
-import { AccountEntity } from './models/account.entity'
-import { createTokenForAccount } from './models/token'
+} from './models/accounts.dto'
+import { AccountEntity } from './models/accounts.entity'
+import { createTokenForAccount } from './models/token.factory'
 
 @ApiTags('accounts')
 @Controller('accounts')

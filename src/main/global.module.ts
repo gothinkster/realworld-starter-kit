@@ -2,7 +2,7 @@ import { Module, Scope } from '@nestjs/common'
 import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
 import { Connection, createConnection } from 'typeorm'
 import { DataSourceOptions } from 'typeorm/data-source/DataSourceOptions'
-import { AccountEntity } from './accounts/models/account.entity'
+import { AccountEntity } from './accounts/models/accounts.entity'
 import { ArticleEntity } from './articles/persistence/article.entity'
 import { TagEntity } from './articles/persistence/tag.entity'
 import {
