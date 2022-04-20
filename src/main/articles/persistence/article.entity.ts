@@ -40,7 +40,7 @@ export class ArticleEntity
     cascade: ['insert'],
     eager: true,
   })
-  @JoinTable()
+  @JoinTable({ name: 'ArticlesHaveTags' })
   tagList: TagEntity[]
 
   @CreateDateColumn()

@@ -82,7 +82,7 @@ export class ProfilesController {
     @InjectProfile() me: Profile,
     @Param() username: string,
   ): Promise<ProfileResponsePayload<OtherProfileResponse>> {
-    const user = await this.service.getProfile({ username: username })
+    const user = await this.service.getProfileOrFail({ username: username })
     await me.follow(user)
     return {
       profile: { ...user.createSnapshot(), following: true },
@@ -94,7 +94,7 @@ export class ProfilesController {
     @InjectProfile() me: Profile,
     @Param() username: string,
   ): Promise<ProfileResponsePayload<OtherProfileResponse>> {
-    const user = await this.service.getProfile({ username: username })
+    const user = await this.service.getProfileOrFail({ username: username })
     await me.unfollow(user)
     return {
       profile: { ...user.createSnapshot(), following: false },
@@ -107,7 +107,7 @@ export class ProfilesController {
     @InjectProfile() me: ReadonlyProfile | null,
     @Param() username: string,
   ): Promise<ProfileResponsePayload<OtherProfileResponse>> {
-    const user = await this.service.getProfile({ username: username })
+    const user = await this.service.getProfileOrFail({ username: username })
     const profileResponse: OtherProfileResponse = user.createSnapshot()
     if (!!me) {
       profileResponse.following = await me.following(user)

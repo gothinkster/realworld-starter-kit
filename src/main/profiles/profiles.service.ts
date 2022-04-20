@@ -1,5 +1,6 @@
 import { Repository } from 'typeorm'
 import { ProfileEntity } from './persistence/profiles.entity'
+import { ProfileNotFound } from './profiles.exceptions'
 import { Profile, ProfileSnapshot } from './profiles.models'
 
 export class ProfilesService {
@@ -17,7 +18,7 @@ export class ProfilesService {
   async getProfile(filters: {
     username?: string
     account?: { id: number }
-  }): Promise<Profile> {
+  }): Promise<Profile | null> {
     if (!filters.username && !filters.account?.id) {
       throw Error('I can only find profiles with at least one filter!')
     }
@@ -33,5 +34,16 @@ export class ProfilesService {
         where: { accountId: filters.account.id },
       })
     }
+  }
+
+  async getProfileOrFail(filters: {
+    username?: string
+    account?: { id: number }
+  }): Promise<Profile> {
+    const profile = await this.getProfile(filters)
+    if (!!profile) {
+      throw new ProfileNotFound(filters.username)
+    }
+    return profile
   }
 }

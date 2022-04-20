@@ -35,23 +35,23 @@ export class ProfileEntity extends BaseEntity implements Profile {
 
   async following(profile: this): Promise<boolean> {
     const followingRelation = await FollowersRelation.findOneBy({
-      followerId: this.id,
-      followedId: profile.id,
+      userId: this.id,
+      followsId: profile.id,
     })
     return !!followingRelation
   }
 
   async follow(profile: this): Promise<void> {
     const followingRelation = new FollowersRelation()
-    followingRelation.followerId = this.id
-    followingRelation.followedId = profile.id
+    followingRelation.userId = this.id
+    followingRelation.followsId = profile.id
     await followingRelation.save()
   }
 
   async unfollow(profile: this): Promise<void> {
     const followingRelation = await FollowersRelation.findOneByOrFail({
-      followerId: this.id,
-      followedId: profile.id,
+      userId: this.id,
+      followsId: profile.id,
     })
     await followingRelation.remove()
   }
@@ -85,13 +85,13 @@ export class ProfileEntity extends BaseEntity implements Profile {
   }
 }
 
-@Unique(['followedId', 'followerId'])
+@Unique(['userId', 'followsId'])
 @Entity({ name: 'Followers' })
 export class FollowersRelation extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
   @Column({ type: 'integer' })
-  public followedId: number
+  public userId: number
   @Column({ type: 'integer' })
-  public followerId: number
+  public followsId: number
 }
