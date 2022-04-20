@@ -3,6 +3,11 @@ import { PassportStrategy as NestGuardStrategyFor } from '@nestjs/passport'
 import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt'
 import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../constants'
 
+export interface AccountType {
+  id: number
+  email: string
+}
+
 @Injectable()
 export class JWTAuthPassport extends NestGuardStrategyFor(JWTStrategy) {
   constructor() {
@@ -14,7 +19,7 @@ export class JWTAuthPassport extends NestGuardStrategyFor(JWTStrategy) {
     })
   }
 
-  async validate(payload: any) {
+  async validate(payload: any): Promise<AccountType> {
     // To add here:
     //  - Additional validation
     //  - Remote token introspection, Therefore, we should get access to required roles.

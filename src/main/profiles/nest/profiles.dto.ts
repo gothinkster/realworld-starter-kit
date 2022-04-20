@@ -1,11 +1,11 @@
 import { PartialType } from '@nestjs/mapped-types'
-import { ApiResponseProperty } from '@nestjs/swagger'
 import { IsNotEmpty, IsString } from 'class-validator'
+import { PartialProfileSnapshot, ProfileSnapshot } from '../profile.entity'
 
-export class CreateProfileDTO {
+export class CreateProfileDTO implements ProfileSnapshot {
   @IsString()
   @IsNotEmpty()
-  username
+  username: string
 
   @IsString()
   bio: string
@@ -15,21 +15,18 @@ export class CreateProfileDTO {
   image: string
 }
 
-export class UpdateProfileDTO extends PartialType<CreateProfileDTO>(
-  CreateProfileDTO,
-) {}
+export class UpdateProfileDTO
+  extends PartialType<CreateProfileDTO>(CreateProfileDTO)
+  implements PartialProfileSnapshot {}
 
-export class ProfileResponseDTO extends CreateProfileDTO {
-  @ApiResponseProperty()
-  following: boolean
+export interface OtherProfileResponse extends ProfileSnapshot {
+  following?: boolean
 }
 
-export class OwnProfileResponseDTO extends CreateProfileDTO {
-  @ApiResponseProperty()
+export interface OwnProfileResponse extends ProfileSnapshot {
   email: string
 }
 
-export class ProfileResponsePayload<T = CreateProfileDTO> {
-  @ApiResponseProperty()
+export interface ProfileResponsePayload<T = ProfileSnapshot> {
   profile: T
 }

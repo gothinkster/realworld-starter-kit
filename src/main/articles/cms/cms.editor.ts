@@ -4,28 +4,22 @@ export abstract class Editor {
   protected article: EditableArticle
 
   setTitle(title: string): Editor {
-    if (title) {
-      this.article.title = title
-    }
+    this.article.title = title ?? this.article.title
     return this
   }
 
   setDescription(description: string): Editor {
-    if (description) {
-      this.article.description = description
-    }
+    this.article.description = description ?? this.article.description
     return this
   }
 
   setBody(body: string): Editor {
-    if (body) {
-      this.article.body = body
-    }
+    this.article.body = body ?? this.article.body
     return this
   }
 
   setTags(tags: string[]): Editor {
-    if (tags) {
+    if (!!tags) {
       this.article.setTags(tags)
     }
     return this

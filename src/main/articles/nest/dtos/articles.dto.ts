@@ -1,7 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types'
 import { ApiResponseProperty } from '@nestjs/swagger'
 import { IsOptional, IsString, MaxLength } from 'class-validator'
-import { ProfileResponseDTO } from '../../../profiles/nest/profiles.dto'
+import { OtherProfileResponse } from '../../../profiles/nest/profiles.dto'
 
 export class CreateArticleDTO {
   @IsString()
@@ -42,7 +42,7 @@ export class ArticleResponseDTO extends CreateArticleDTO {
   @ApiResponseProperty() createdAt: Date
   @ApiResponseProperty() favorited?: boolean
   @ApiResponseProperty() favoritesCount: number
-  @ApiResponseProperty() author: ProfileResponseDTO
+  @ApiResponseProperty() author: OtherProfileResponse
 }
 
 export class ArticleResponsePayload {
