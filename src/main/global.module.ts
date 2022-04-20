@@ -5,10 +5,20 @@ import { DataSourceOptions } from 'typeorm/data-source/DataSourceOptions'
 import { AccountEntity } from './accounts/models/account.entity'
 import { ArticleEntity } from './articles/persistence/article.entity'
 import { TagEntity } from './articles/persistence/tag.entity'
+import {
+  FollowersRelation,
+  ProfileEntity,
+} from './profiles/persistence/profiles.entity'
 import { JWTAuthPassport } from './utils/jwt.strategy'
 
 function connectionSettings(): DataSourceOptions {
-  const entities = [ArticleEntity, TagEntity, AccountEntity]
+  const entities = [
+    ArticleEntity,
+    TagEntity,
+    AccountEntity,
+    ProfileEntity,
+    FollowersRelation,
+  ]
   const sqliteOption: DataSourceOptions = {
     type: 'sqlite',
     database: ':memory:',

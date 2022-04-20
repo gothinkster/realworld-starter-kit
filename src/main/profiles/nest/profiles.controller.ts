@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Put,
   Req,
@@ -13,7 +14,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AuthIsOptional, JWTAuthGuard } from '../../utils/jwt.guard'
 import { AccountType } from '../../utils/jwt.strategy'
 import { validateModel } from '../../utils/validation.utils'
-import { Profile } from '../profile.entity'
+import { Profile, ReadonlyProfile } from '../profiles.models'
 import { ProfilesService } from '../profiles.service'
 import {
   CreateProfileDTO,
@@ -22,6 +23,7 @@ import {
   ProfileResponsePayload,
   UpdateProfileDTO,
 } from './profiles.dto'
+import { InjectProfile } from './profiles.providers'
 
 @ApiTags('profiles')
 @UseGuards(JWTAuthGuard)
@@ -32,11 +34,9 @@ export class ProfilesController {
 
   @Get('me')
   async getCurrent(
+    @InjectProfile() me: ReadonlyProfile,
     @Req() req: { user: AccountType },
   ): Promise<ProfileResponsePayload<OwnProfileResponse>> {
-    const me = await this.service.getProfile({
-      accountId: req.user.id,
-    })
     return {
       profile: { ...me.createSnapshot(), email: req.user.email },
     }
@@ -47,9 +47,7 @@ export class ProfilesController {
     @Req() req: { user: AccountType },
     @Body('profile', validateModel()) profile: CreateProfileDTO,
   ): Promise<ProfileResponsePayload<OwnProfileResponse>> {
-    const me = new Profile(req.user.id)
-    me.loadSnapshot(profile)
-    await me.save()
+    const me = await this.service.createForAccount(req.user, profile)
     return {
       profile: { ...me.createSnapshot(), email: req.user.email },
     }
@@ -57,14 +55,23 @@ export class ProfilesController {
 
   @Put()
   async update(
+    @InjectProfile() me: Profile,
+    @Req() req: { user: AccountType },
+    @Body('profile', validateModel()) profile: CreateProfileDTO,
+  ): Promise<ProfileResponsePayload<OwnProfileResponse>> {
+    await me.loadSnapshot(profile)
+    return {
+      profile: { ...me.createSnapshot(), email: req.user.email },
+    }
+  }
+
+  @Patch()
+  async partialUpdate(
+    @InjectProfile() me: Profile,
     @Req() req: { user: AccountType },
     @Body('profile', validateModel()) profile: UpdateProfileDTO,
   ): Promise<ProfileResponsePayload<OwnProfileResponse>> {
-    const me = await this.service.getProfile({
-      accountId: req.user.id,
-    })
-    me.loadSnapshot(profile)
-    await me.save()
+    await me.loadPartialSnapshot(profile)
     return {
       profile: { ...me.createSnapshot(), email: req.user.email },
     }
@@ -72,10 +79,9 @@ export class ProfilesController {
 
   @Post(':username/follow')
   async followProfile(
-    @Req() req: { user: AccountType },
+    @InjectProfile() me: Profile,
     @Param() username: string,
   ): Promise<ProfileResponsePayload<OtherProfileResponse>> {
-    const me = await this.service.getProfile({ accountId: req.user.id })
     const user = await this.service.getProfile({ username: username })
     await me.follow(user)
     return {
@@ -85,10 +91,9 @@ export class ProfilesController {
 
   @Delete(':username/follow')
   async unfollowProfile(
-    @Req() req: { user: AccountType },
+    @InjectProfile() me: Profile,
     @Param() username: string,
   ): Promise<ProfileResponsePayload<OtherProfileResponse>> {
-    const me = await this.service.getProfile({ accountId: req.user.id })
     const user = await this.service.getProfile({ username: username })
     await me.unfollow(user)
     return {
@@ -99,17 +104,14 @@ export class ProfilesController {
   @AuthIsOptional()
   @Get(':username')
   async getProfile(
-    @Req() req: { user: AccountType | null },
+    @InjectProfile() me: ReadonlyProfile | null,
     @Param() username: string,
   ): Promise<ProfileResponsePayload<OtherProfileResponse>> {
     const user = await this.service.getProfile({ username: username })
-    const profile: OtherProfileResponse = user.createSnapshot()
-    if (!!req.user) {
-      const me = await this.service.getProfile({
-        accountId: req.user.id,
-      })
-      profile.following = await me.following(user)
+    const profileResponse: OtherProfileResponse = user.createSnapshot()
+    if (!!me) {
+      profileResponse.following = await me.following(user)
     }
-    return { profile: profile }
+    return { profile: profileResponse }
   }
 }

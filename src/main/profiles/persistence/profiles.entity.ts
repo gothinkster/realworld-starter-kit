@@ -5,9 +5,14 @@ import {
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm'
+import {
+  PartialProfileSnapshot,
+  Profile,
+  ProfileSnapshot,
+} from '../profiles.models'
 
 @Entity({ name: 'Profile' })
-export class Profile extends BaseEntity {
+export class ProfileEntity extends BaseEntity implements Profile {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -28,23 +33,23 @@ export class Profile extends BaseEntity {
     this.accountId = accountId
   }
 
-  async following(profile: Profile): Promise<boolean> {
-    const followingRelation = await Followers.findOneBy({
+  async following(profile: this): Promise<boolean> {
+    const followingRelation = await FollowersRelation.findOneBy({
       followerId: this.id,
       followedId: profile.id,
     })
     return !!followingRelation
   }
 
-  async follow(profile: Profile): Promise<void> {
-    const followingRelation = new Followers()
+  async follow(profile: this): Promise<void> {
+    const followingRelation = new FollowersRelation()
     followingRelation.followerId = this.id
     followingRelation.followedId = profile.id
     await followingRelation.save()
   }
 
-  async unfollow(profile: Profile): Promise<void> {
-    const followingRelation = await Followers.findOneByOrFail({
+  async unfollow(profile: this): Promise<void> {
+    const followingRelation = await FollowersRelation.findOneByOrFail({
       followerId: this.id,
       followedId: profile.id,
     })
@@ -59,31 +64,34 @@ export class Profile extends BaseEntity {
     }
   }
 
-  loadSnapshot(snapshot: PartialProfileSnapshot): this {
+  async loadSnapshot(snapshot: ProfileSnapshot): Promise<this> {
+    this.username = snapshot.username
+    this.bio = snapshot.bio
+    this.image = snapshot.image
+    await this.save()
+    return this
+  }
+
+  async loadPartialSnapshot(snapshot: PartialProfileSnapshot): Promise<this> {
     this.username = snapshot.username ?? this.username
     this.bio = snapshot.bio ?? this.bio
     this.image = snapshot.image ?? this.image
+    await this.save()
     return this
+  }
+
+  getAuthorID(): number {
+    return this.id
   }
 }
 
 @Unique(['followedId', 'followerId'])
 @Entity({ name: 'Followers' })
-class Followers extends BaseEntity {
+export class FollowersRelation extends BaseEntity {
   @PrimaryGeneratedColumn()
-  private id: number
+  id: number
+  @Column({ type: 'integer' })
   public followedId: number
+  @Column({ type: 'integer' })
   public followerId: number
-}
-
-export interface PartialProfileSnapshot {
-  username?: string
-  bio?: string
-  image?: string
-}
-
-export interface ProfileSnapshot extends PartialProfileSnapshot {
-  username: string
-  bio: string
-  image: string
 }

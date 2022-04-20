@@ -1,23 +1,17 @@
-import { Module, Scope } from '@nestjs/common'
-import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
-import { Connection } from 'typeorm'
+import { Module } from '@nestjs/common'
 import { GlobalModule } from '../../global.module'
-import { Profile } from '../profile.entity'
 import { ProfilesService } from '../profiles.service'
 import { ProfilesController } from './profiles.controller'
-
-const ProfilesServiceProvider: Provider = {
-  provide: ProfilesService,
-  useFactory: (connection: Connection) =>
-    new ProfilesService(connection.getRepository(Profile)),
-  inject: [Connection],
-  scope: Scope.DEFAULT,
-}
+import {
+  CurrentProfile,
+  CurrentProfileProvider,
+  ProfilesServiceProvider,
+} from './profiles.providers'
 
 @Module({
   imports: [GlobalModule],
-  providers: [ProfilesServiceProvider],
+  providers: [ProfilesServiceProvider, CurrentProfileProvider],
   controllers: [ProfilesController],
-  exports: [ProfilesService],
+  exports: [ProfilesService, CurrentProfile],
 })
 export class ProfilesModule {}
