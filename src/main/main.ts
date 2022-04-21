@@ -4,7 +4,7 @@ import { AppModule } from './app.module'
 
 export async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule)
-  app.setGlobalPrefix(process.env.PREFIX || 'api')
+  app.setGlobalPrefix(process.env.API_PREFIX || 'api')
 
   const config = new DocumentBuilder()
     .setTitle('Real World APP')
@@ -16,7 +16,7 @@ export async function bootstrap(): Promise<void> {
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('docs', app, document, { useGlobalPrefix: true })
 
-  await app.listen(process.env.PORT || 3000)
+  await app.listen(process.env.API_PORT || 3000)
 }
 
 bootstrap()

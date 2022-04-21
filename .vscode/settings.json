@@ -1,0 +1,10 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "Local",
+      "database": "${workspaceFolder:TwitterLike-App}/local.sqlite3"
+    }
+  ]
+}
