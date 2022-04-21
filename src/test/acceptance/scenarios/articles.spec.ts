@@ -1,5 +1,5 @@
-import { dslFactory } from '../support/factory.dsl'
-import { Users } from '../support/interface.driver'
+import { getDriver } from '../support/factory.dsl'
+import { ProtocolDriver, Users } from '../support/interface.driver'
 import { RealWorldDSL } from '../support/realworld.dsl'
 
 /**
@@ -10,13 +10,19 @@ import { RealWorldDSL } from '../support/realworld.dsl'
  **/
 describe('Article', () => {
   let dsl: RealWorldDSL
+  let driver: ProtocolDriver
 
-  beforeEach(async () => {
-    dsl = await dslFactory()
+  beforeAll(async () => {
+    driver = getDriver()
+    await driver.init()
   })
 
-  afterEach(async () => {
-    await dsl.getDriver().stop()
+  afterAll(async () => {
+    await driver.stop()
+  })
+
+  beforeEach(async () => {
+    dsl = new RealWorldDSL(driver)
   })
 
   it('should appear in my private list after creation', async () => {

@@ -1,5 +1,5 @@
-import { dslFactory } from '../support/factory.dsl'
-import { Users } from '../support/interface.driver'
+import { getDriver } from '../support/factory.dsl'
+import { ProtocolDriver, Users } from '../support/interface.driver'
 import { RealWorldDSL } from '../support/realworld.dsl'
 
 /**
@@ -7,16 +7,21 @@ import { RealWorldDSL } from '../support/realworld.dsl'
  **/
 describe('Comments on articles', () => {
   let dsl: RealWorldDSL
+  let driver: ProtocolDriver
+
+  beforeAll(async () => {
+    driver = getDriver()
+    await driver.init()
+  })
+
+  afterAll(async () => {
+    await driver.stop()
+  })
 
   beforeEach(async () => {
-    dsl = await dslFactory()
+    dsl = new RealWorldDSL(driver)
     await background()
   })
-
-  afterEach(async () => {
-    await dsl.getDriver().stop()
-  })
-
   async function background() {
     await dsl.publishAnArticle({ author: Users.Costello })
     await dsl.login()

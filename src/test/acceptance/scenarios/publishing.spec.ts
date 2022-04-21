@@ -1,4 +1,5 @@
-import { dslFactory } from '../support/factory.dsl'
+import { getDriver } from '../support/factory.dsl'
+import { ProtocolDriver } from '../support/interface.driver'
 import { RealWorldDSL } from '../support/realworld.dsl'
 
 /**
@@ -8,14 +9,20 @@ import { RealWorldDSL } from '../support/realworld.dsl'
  **/
 describe('Feed', () => {
   let dsl: RealWorldDSL
+  let driver: ProtocolDriver
 
-  beforeEach(async () => {
-    dsl = await dslFactory()
-    await background()
+  beforeAll(async () => {
+    driver = getDriver()
+    await driver.init()
   })
 
-  afterEach(async () => {
-    await dsl.getDriver().stop()
+  afterAll(async () => {
+    await driver.stop()
+  })
+
+  beforeEach(async () => {
+    dsl = new RealWorldDSL(driver)
+    await background()
   })
 
   async function background() {

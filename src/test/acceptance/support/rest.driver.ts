@@ -1,4 +1,4 @@
-import { HttpStatus, INestApplication } from '@nestjs/common'
+import { INestApplication } from '@nestjs/common'
 import { Axios } from 'axios'
 import {
   ArticleCreation,
@@ -36,7 +36,6 @@ export class RestDriver implements ProtocolDriver {
     )
     const body = JSON.parse(response.data)
 
-    expect([HttpStatus.CREATED, HttpStatus.CONFLICT]).toContain(response.status)
     expect(body).toMatchObject({
       article: article,
     })
@@ -63,17 +62,11 @@ export class RestDriver implements ProtocolDriver {
     const response = await this.axios.post(
       `articles/${searchParams.slug}/publication`,
     )
-    expect([HttpStatus.CREATED, HttpStatus.NOT_FOUND]).toContain(
-      response.status,
-    )
   }
 
   async unpublishArticle(searchParams: ArticleDefinition) {
     const response = await this.axios.delete(
       `articles/${searchParams.slug}/publication`,
-    )
-    expect([HttpStatus.NO_CONTENT, HttpStatus.NOT_FOUND]).toContain(
-      response.status,
     )
   }
 
@@ -81,17 +74,11 @@ export class RestDriver implements ProtocolDriver {
     const response = await this.axios.post(
       `articles/${searchParams.slug}/favorite`,
     )
-    expect([HttpStatus.CREATED, HttpStatus.NOT_FOUND]).toContain(
-      response.status,
-    )
   }
 
   async unfavoriteArticle(searchParams: ArticleDefinition) {
     const response = await this.axios.delete(
       `articles/${searchParams.slug}/favorite`,
-    )
-    expect([HttpStatus.NO_CONTENT, HttpStatus.NOT_FOUND]).toContain(
-      response.status,
     )
   }
 

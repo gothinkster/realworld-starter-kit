@@ -11,7 +11,6 @@ export class RealWorldDSL {
 
   constructor(private driver: ProtocolDriver) {}
 
-  getDriver = () => this.driver
   login = (as: Users = null) => this.driver.loginAs(as || Users.Me)
   follow = (user: Users) => this.driver.follow(user)
   unfollow = (user: Users) => this.driver.unfollow(user)
