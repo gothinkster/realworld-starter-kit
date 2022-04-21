@@ -86,7 +86,7 @@ export class ProfileEntity extends BaseEntity implements Profile {
 }
 
 @Unique(['userId', 'followsId'])
-@Entity({ name: 'Followers' })
+@Entity({ name: 'UserIsFollowing' })
 export class FollowersRelation extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number

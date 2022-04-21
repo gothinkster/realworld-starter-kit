@@ -1,6 +1,13 @@
 export class ProfileNotFound extends Error {
-  constructor(username: string) {
-    super(`Profile with username=${username} doesn't exist.`)
+  constructor(filters: { username?: string; account?: { id: number } }) {
+    let message = ''
+    if (!!filters.username) {
+      message = `Profile with username=${filters.username} doesn't exist.`
+    }
+    if (!!filters.account?.id) {
+      message = `Profile with accountId=${filters.account.id} doesn't exist.`
+    }
+    super(message)
     this.name = 'ProfileNotFound'
   }
 }

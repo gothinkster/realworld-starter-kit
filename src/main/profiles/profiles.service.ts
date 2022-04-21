@@ -41,8 +41,8 @@ export class ProfilesService {
     account?: { id: number }
   }): Promise<Profile> {
     const profile = await this.getProfile(filters)
-    if (!!profile) {
-      throw new ProfileNotFound(filters.username)
+    if (!profile) {
+      throw new ProfileNotFound(filters)
     }
     return profile
   }

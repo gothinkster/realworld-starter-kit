@@ -14,7 +14,6 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { AuthIsOptional, JWTAuthGuard } from '../../utils/jwt.guard'
 import { AccountType } from '../../utils/jwt.strategy'
 import { validateModel } from '../../utils/validation.utils'
-import { Profile, ReadonlyProfile } from '../profiles.models'
 import { ProfilesService } from '../profiles.service'
 import {
   CreateProfileDTO,
@@ -23,7 +22,6 @@ import {
   ProfileResponsePayload,
   UpdateProfileDTO,
 } from './profiles.dto'
-import { InjectProfile } from './profiles.providers'
 
 @ApiTags('profiles')
 @UseGuards(JWTAuthGuard)
@@ -34,9 +32,9 @@ export class ProfilesController {
 
   @Get('me')
   async getCurrent(
-    @InjectProfile() me: ReadonlyProfile,
     @Req() req: { user: AccountType },
   ): Promise<ProfileResponsePayload<OwnProfileResponse>> {
+    const me = await this.service.getProfileOrFail({ account: req.user })
     return {
       profile: { ...me.createSnapshot(), email: req.user.email },
     }
@@ -55,10 +53,10 @@ export class ProfilesController {
 
   @Put()
   async update(
-    @InjectProfile() me: Profile,
     @Req() req: { user: AccountType },
     @Body('profile', validateModel()) profile: CreateProfileDTO,
   ): Promise<ProfileResponsePayload<OwnProfileResponse>> {
+    const me = await this.service.getProfileOrFail({ account: req.user })
     await me.loadSnapshot(profile)
     return {
       profile: { ...me.createSnapshot(), email: req.user.email },
@@ -67,10 +65,10 @@ export class ProfilesController {
 
   @Patch()
   async partialUpdate(
-    @InjectProfile() me: Profile,
     @Req() req: { user: AccountType },
     @Body('profile', validateModel()) profile: UpdateProfileDTO,
   ): Promise<ProfileResponsePayload<OwnProfileResponse>> {
+    const me = await this.service.getProfileOrFail({ account: req.user })
     await me.loadPartialSnapshot(profile)
     return {
       profile: { ...me.createSnapshot(), email: req.user.email },
@@ -79,9 +77,10 @@ export class ProfilesController {
 
   @Post(':username/follow')
   async followProfile(
-    @InjectProfile() me: Profile,
+    @Req() req: { user: AccountType },
     @Param() username: string,
   ): Promise<ProfileResponsePayload<OtherProfileResponse>> {
+    const me = await this.service.getProfileOrFail({ account: req.user })
     const user = await this.service.getProfileOrFail({ username: username })
     await me.follow(user)
     return {
@@ -91,9 +90,10 @@ export class ProfilesController {
 
   @Delete(':username/follow')
   async unfollowProfile(
-    @InjectProfile() me: Profile,
+    @Req() req: { user: AccountType },
     @Param() username: string,
   ): Promise<ProfileResponsePayload<OtherProfileResponse>> {
+    const me = await this.service.getProfileOrFail({ account: req.user })
     const user = await this.service.getProfileOrFail({ username: username })
     await me.unfollow(user)
     return {
@@ -104,13 +104,16 @@ export class ProfilesController {
   @AuthIsOptional()
   @Get(':username')
   async getProfile(
-    @InjectProfile() me: ReadonlyProfile | null,
+    @Req() req: { user: AccountType },
     @Param() username: string,
   ): Promise<ProfileResponsePayload<OtherProfileResponse>> {
     const user = await this.service.getProfileOrFail({ username: username })
     const profileResponse: OtherProfileResponse = user.createSnapshot()
-    if (!!me) {
-      profileResponse.following = await me.following(user)
+    if (!!req.user) {
+      const me = await this.service.getProfile({ account: req.user })
+      if (!!me) {
+        profileResponse.following = await me.following(user)
+      }
     }
     return { profile: profileResponse }
   }
