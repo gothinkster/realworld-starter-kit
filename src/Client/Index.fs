@@ -1,7 +1,7 @@
 module Index
 
+open ClientComponents
 open Elmish
-open Fable.React
 open Feliz
 open Feliz.Router
 type State = { CurrentUrl : string list }
@@ -21,62 +21,8 @@ let update msg state =
     // Router.navigate with query string parameters
     | NavigateToUser userId -> state, Cmd.navigate("users", [ "id", userId ])
 
-
-[<ReactComponent>]
-let layout (url: string) : ReactElement =
-    Html.nav [
-        prop.className "navbar navbar-light"
-        prop.children [
-            Html.div [
-                prop.className "container"
-                prop.children[
-                    Html.div [
-                        Html.a [
-                            prop.className "navbar-brand"
-                            prop.href "index.html"
-                            prop.text "Conduit"
-                        ]
-                        Html.ul [
-                            prop.className "nav navbar-nav pull-xs-right"
-                            prop.children [
-                                Html.li [
-                                    prop.className "nav-item"
-                                    prop.children [
-                                        Html.a [
-                                            if url = ""
-                                            then prop.className "nav-link active" else prop.className "nav-link"
-                                            prop.href (Router.format(""))
-                                            prop.text "Home"
-                                        ]
-                                    ]
-                                ]
-                                Html.li [
-                                    prop.className "nav-item"
-                                    prop.children [
-                                        Html.a [
-                                            if url = "login" then prop.className "nav-link active" else prop.className "nav-link"
-                                            prop.href (Router.format("login"))
-                                            prop.text "Sign In"
-                                        ]
-                                    ]
-                                ]
-                                Html.li [
-                                    prop.className "nav-item"
-                                    prop.children [
-                                        Html.a [
-                                            if url = "register" then prop.className "nav-link active" else prop.className "nav-link"
-                                            prop.href  (Router.format("register"))
-                                            prop.text "Sign Up"
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ]
-    ]
+open ClientComponents.NonLoginLayout
+open ClientComponents.LoginForm
 
 let render state dispatch =
 
@@ -86,7 +32,7 @@ let render state dispatch =
             Html.div [
                 prop.className "container"
                 prop.children [
-                    layout ""
+                    NonLoginLayout ""
                 ]
             ]
 
@@ -126,58 +72,8 @@ let render state dispatch =
             Html.div [
                 prop.className "container"
                 prop.children [
-                    layout "login"
-                    Html.div [
-                        prop.className "row"
-                        prop.children [
-                            Html.div [
-                                prop.className "col-md-6 offset-md-3 col-xs-12"
-                                prop.children [
-                                    Html.h1 [
-                                        prop.className "text-xs-center"
-                                        prop.text "Sign in"
-                                    ]
-                                    Html.p [
-                                        prop.className "text-xs-center"
-                                        prop.children [
-                                            Html.a [
-                                                prop.href (Router.format("register"))
-                                                prop.text "Need an account?"
-                                            ]
-                                        ]
-                                    ]
-                                    Html.form[
-                                        prop.children[
-                                            Html.fieldSet [
-                                                prop.className "form-group"
-                                                prop.children [
-                                                    Html.input [
-                                                        prop.className "form-control form-control-lg"
-                                                        prop.type' "email"
-                                                        prop.placeholder "Email"
-                                                    ]
-                                                ]
-                                            ]
-                                            Html.fieldSet [
-                                                prop.className "form-group"
-                                                prop.children [
-                                                    Html.input [
-                                                        prop.className "form-control form-control-lg"
-                                                        prop.type' "password"
-                                                        prop.placeholder "Password"
-                                                    ]
-                                                ]
-                                            ]
-                                            Html.button [
-                                                prop.className "btn btn-lg btn-primary pull-xs-right"
-                                                prop.text "Sign in"
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
+                    NonLoginLayout "login"
+                    LoginForm
                 ]
             ]
 
