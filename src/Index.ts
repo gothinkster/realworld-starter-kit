@@ -1,11 +1,20 @@
 import 'dotenv/config';
-import 'reflect-metadata';
+import { Server } from './Server';
 import App from './App';
-import Server from './Server';
+import { KnexInstance } from './Database/knex';
 
-async function startServer() {
-    const server = new Server(new App());
-    await server.start();
+async function start() {
+    await testDatabase();
+    const server = new Server(new App(), KnexInstance);
+    server.startServer();
 }
 
-startServer().then();
+async function testDatabase() {
+    try {
+        await KnexInstance.raw('SELECT now()');
+    } catch (error) {
+        throw new Error(`Database connection not set up properly: ${error}`);
+    }
+}
+
+start().then();

@@ -1,33 +1,103 @@
+import * as http from 'http';
+import { Knex } from 'knex';
+import App from './App';
+import { publicRoutes } from './Routes/PublicRoutes';
 import { NextFunction, Request, Response } from 'express';
-import RouteNoteFoundException from './Api/Exceptions/RouteNotFoundException';
-import ErrorMiddleware from './Api/Middlewares/ErrorMiddleware';
-import { PrivateRoutes } from './Routes/PrivateRoutes';
-import { PublicRoutes } from './Routes/PublicRoutes';
+import RouteNotFoundException from './Api/Exception/RouteNotFoundException';
+import errorMiddleware from './Api/Middleware/ErrorMiddleware';
 
-export default class Server {
-    constructor(private readonly application) {
-        this.port = this.normalizePort();
-        this.applyRoutes();
+const GRACEFUL_SHUTDOWN_TIME = 100 * 1000; // 100 seconds
+
+export class Server {
+    protected port: number;
+    protected server: http.Server;
+
+    constructor(private readonly application: App, private readonly knexInstance: Knex) {
+        this.port = Server.normalizePort(Number(process.env.PORT || 3000));
+
+        Server.validateEnvironment();
+        this.registerRouter();
+
+        this.server = http.createServer(this.application.app);
+
+        this.server.keepAliveTimeout = 61 * 1000;
+        this.server.headersTimeout = 62 * 1000;
+        this.server.maxHeadersCount = 0;
     }
 
-    private port: number;
+    public startServer(): void {
+        this.server.listen(this.port);
+        this.server.on('error', this.onError);
+        this.server.on('listening', () => console.info(`Server listening port ${this.port}`));
+        this.processSignal();
+    }
 
-    public async start() {
-        this.application.app.listen(this.port, () => {
-            console.log(`Server is listening on port ${this.port}`);
+    private static normalizePort(value: number): number {
+        if (isNaN(value)) return value;
+        if (value >= 0) return value;
+        throw new Error('PORT is undefined');
+    }
+
+    private static validateEnvironment(): void {
+        if (!process.env.NODE_ENV) {
+            console.error(new Error('NODE_ENV is undefined'));
+            process.exit(1);
+        }
+
+        if (process.env.NODE_ENV !== 'production') {
+            Server.processError();
+        }
+    }
+
+    private static processError(): void {
+        process.on('uncaughtException', error => {
+            console.error(error);
+            process.exit(1);
+        });
+        process.on('unhandledRejection', error => {
+            console.error(error);
+            process.exit(1);
         });
     }
 
-    private normalizePort(): number {
-        return Number(process.env.PORT) || 3000;
-    }
-
-    private applyRoutes(): void {
-        this.application.app.use(PublicRoutes);
-        this.application.app.use(PrivateRoutes);
+    private registerRouter(): void {
+        this.application.app.use('/', publicRoutes);
         this.application.app.use((req: Request, res: Response, next: NextFunction) => {
-            next(new RouteNoteFoundException());
+            next(new RouteNotFoundException());
         });
-        this.application.app.use(ErrorMiddleware);
+        this.application.app.use(errorMiddleware);
+        // TODO: add route not found exception and error middleware
+    }
+
+    private gracefulShutdown(signal: string): void {
+        console.info(`Graceful shutdown application: ${signal} signal received.`);
+        this.server.close(() => {
+            setTimeout(async () => {
+                await this.knexInstance.destroy();
+                process.exit();
+            }, GRACEFUL_SHUTDOWN_TIME);
+        });
+    }
+
+    private processSignal(): void {
+        if (process.env.NODE_ENV === 'production') {
+            this.server.on('SIGTERM', () => this.gracefulShutdown('SIGTERM'));
+        }
+    }
+
+    private onError(error: NodeJS.ErrnoException): void {
+        if (error.syscall !== 'listen') throw error;
+        const bind = typeof this.port === 'string' ? 'Pipe ' + this.port : 'Port ' + this.port;
+        switch (error.code) {
+            case 'EACCES':
+                console.error(new Error(`${bind} requires elevated privileges`));
+                break;
+            case 'EADDRINUSE':
+                console.error(new Error(`${bind} is already in use`));
+                break;
+            default:
+                throw error;
+        }
+        process.exit(1);
     }
 }

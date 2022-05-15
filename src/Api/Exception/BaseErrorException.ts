@@ -1,9 +1,8 @@
-import ErrorDetailsDto from '../Dtos/ErrorDetailsDto';
+import ErrorDetailsDto from '../Dto/ErrorDetailsDto';
 
 export default abstract class BaseErrorException extends Error {
-    protected constructor(statusCode: number, errors: ErrorDetailsDto[]) {
+    constructor(statusCode: number, errors: ErrorDetailsDto[]) {
         super(errors ? JSON.stringify(errors) : 'SERVER_INTERNAL_ERROR');
-
         this.statusCode = statusCode;
         this.errors = errors;
     }

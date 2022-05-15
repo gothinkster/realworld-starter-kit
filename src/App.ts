@@ -6,14 +6,14 @@ import cors from 'cors';
 export default class App {
     constructor() {
         this.app = express();
-        this.applyMiddlewares();
+        this.applyMiddleware();
     }
 
     public app: express.Application;
 
-    private applyMiddlewares(): void {
-        this.app.use(express.json({ limit: '20mb' }));
-        this.app.use(express.urlencoded({ limit: '20mb', extended: true }));
+    private applyMiddleware(): void {
+        this.app.use(express.json({ limit: '200mb' }));
+        this.app.use(express.urlencoded({ limit: '200mb', extended: true }));
         this.app.use(compression());
         this.app.use(helmet());
         this.app.use(cors());

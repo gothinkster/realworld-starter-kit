@@ -1,4 +1,4 @@
-import ErrorDetailsDto from '../Dtos/ErrorDetailsDto';
+import ErrorDetailsDto from '../Dto/ErrorDetailsDto';
 
 export default interface ResponseError {
     errors: ErrorDetailsDto[];
