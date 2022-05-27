@@ -1,19 +1,18 @@
 package com.hexagonkt.realworld.routes
 
 import com.auth0.jwt.interfaces.DecodedJWT
-import com.hexagonkt.core.helpers.CodedException
-import com.hexagonkt.core.helpers.MultipleException
-import com.hexagonkt.http.server.Call
-import com.hexagonkt.http.server.CorsSettings
-import com.hexagonkt.http.server.Router
+import com.hexagonkt.core.CodedException
+import com.hexagonkt.core.MultipleException
+import com.hexagonkt.http.model.ClientErrorStatus
+import com.hexagonkt.http.server.handlers.HttpServerContext
+import com.hexagonkt.http.server.handlers.path
 import com.hexagonkt.realworld.messages.ErrorResponse
 import com.hexagonkt.realworld.messages.ErrorResponseRoot
 import com.hexagonkt.realworld.rest.Jwt
-import com.hexagonkt.serialization.json.Json
 import kotlin.text.Charsets.UTF_8
 
-internal val router: Router by lazy {
-    Router {
+internal val router by lazy {
+    path {
         cors(CorsSettings(allowedHeaders = setOf("Accept", "User-Agent", "Host", "Content-Type")))
 
         path("/users", usersRouter)
@@ -31,7 +30,7 @@ internal val router: Router by lazy {
     }
 }
 
-internal fun Call.statusCodeHandler(exception: CodedException) {
+internal fun HttpServerContext.statusCodeHandler(exception: CodedException): HttpServerContext {
     @Suppress("MoveVariableDeclarationIntoWhen") // Required because response.body is an expression
     val body = response.body
 
@@ -40,17 +39,18 @@ internal fun Call.statusCodeHandler(exception: CodedException) {
         else -> listOf(exception.message ?: exception::class.java.name)
     }
 
-    send(exception.code, ErrorResponseRoot(ErrorResponse(messages)), Json, UTF_8)
+    return send(exception.code, ErrorResponseRoot(ErrorResponse(messages)), Json, UTF_8)
 }
 
-internal fun Call.multipleExceptionHandler(error: Exception) {
-    if (error is MultipleException) {
+internal fun HttpServerContext.multipleExceptionHandler(error: Exception): HttpServerContext {
+    return if (error is MultipleException) {
         val messages = error.causes.map { it.message ?: "<no message>" }
-        send(500, ErrorResponseRoot(ErrorResponse(messages)), Json, UTF_8)
+        internalServerError(ErrorResponseRoot(ErrorResponse(messages)), Json, UTF_8)
     }
+    else this
 }
 
-internal fun Call.exceptionHandler(error: Exception) {
+internal fun HttpServerContext.exceptionHandler(error: Exception) {
     val errorMessage = error.javaClass.simpleName + ": " + (error.message ?: "<no message>")
     send(500, ErrorResponseRoot(ErrorResponse(listOf(errorMessage))), Json, UTF_8)
 }
@@ -60,10 +60,10 @@ internal fun Router.authenticate(jwt: Jwt) {
     before("/*") { requirePrincipal(jwt) }
 }
 
-internal fun Call.requirePrincipal(jwt: Jwt): DecodedJWT =
-    parsePrincipal(jwt) ?: halt(401, "Unauthorized")
+internal fun HttpServerContext.requirePrincipal(jwt: Jwt): DecodedJWT =
+    parsePrincipal(jwt) ?: clientError(ClientErrorStatus.UNAUTHORIZED, "Unauthorized")
 
-internal fun Call.parsePrincipal(jwt: Jwt): DecodedJWT? {
+internal fun HttpServerContext.parsePrincipal(jwt: Jwt): DecodedJWT? {
     val token = request.headers["Authorization"]
 
     return if (token == null) {

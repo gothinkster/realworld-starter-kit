@@ -1,20 +1,23 @@
 package com.hexagonkt.realworld.routes
 
-import com.hexagonkt.core.helpers.require
-import com.hexagonkt.http.server.Call
-import com.hexagonkt.http.server.Router
+import com.hexagonkt.core.media.ApplicationMedia.JSON
+import com.hexagonkt.core.require
+import com.hexagonkt.http.model.ClientErrorStatus.UNAUTHORIZED
+import com.hexagonkt.http.model.ContentType
+import com.hexagonkt.http.server.handlers.HttpServerContext
+import com.hexagonkt.http.server.handlers.path
 import com.hexagonkt.realworld.createJwt
 import com.hexagonkt.realworld.createUserStore
 import com.hexagonkt.realworld.messages.*
 import com.hexagonkt.realworld.rest.Jwt
+import com.hexagonkt.realworld.rest.parseBodyMap
 import com.hexagonkt.realworld.services.User
-import com.hexagonkt.serialization.json.Json
 import com.hexagonkt.store.Store
 
 import kotlin.text.Charsets.UTF_8
 
 internal val usersRouter by lazy {
-    Router {
+    path {
         val jwt: Jwt = createJwt()
         val users: Store<User, String> = createUserStore()
 
@@ -24,8 +27,9 @@ internal val usersRouter by lazy {
     }
 }
 
-private fun Call.register(users: Store<User, String>, jwt: Jwt) {
-    val user = request.body<RegistrationRequestRoot>().user
+private fun HttpServerContext.register(users: Store<User, String>, jwt: Jwt): HttpServerContext {
+    val user = RegistrationRequest(parseBodyMap(JSON))
+
     val key = users.insertOne(User(user.username, user.email, user.password))
     val content = UserResponseRoot(
         UserResponse(
@@ -37,24 +41,26 @@ private fun Call.register(users: Store<User, String>, jwt: Jwt) {
         )
     )
 
-    send(201, content, Json, UTF_8)
+    return created(content, contentType = ContentType(JSON, charset = UTF_8))
 }
 
-private fun Call.login(users: Store<User, String>, jwt: Jwt) {
-    val bodyUser = request.body<LoginRequestRoot>().user
+private fun HttpServerContext.login(users: Store<User, String>, jwt: Jwt): HttpServerContext {
+    val bodyUser = LoginRequest(parseBodyMap(JSON))
     val filter = mapOf(User::email.name to bodyUser.email)
-    val user = users.findOne(filter) ?: halt(404, "Not Found")
-    if (user.password == bodyUser.password) {
+    val user = users.findOne(filter) ?: return notFound("Not Found")
+    return if (user.password == bodyUser.password) {
         val content = UserResponseRoot(user, jwt.sign(user.username))
-        ok(content, charset = UTF_8)
+        ok(content, contentType = ContentType(JSON, charset = UTF_8))
     } else {
-        send(401, "Bad credentials")
+        clientError(UNAUTHORIZED, "Bad credentials")
     }
 }
 
 // TODO Authenticate and require 'root' user or owner
-private fun Call.deleteUser(users: Store<User, String>) {
+private fun HttpServerContext.deleteUser(users: Store<User, String>): HttpServerContext {
     val username = pathParameters.require("username")
-    if (users.deleteOne(username)) ok(OkResponse("$username deleted"), Json, charset = UTF_8)
-    else halt(404, "$username not found")
+    return if (users.deleteOne(username))
+        ok(OkResponse("$username deleted"), contentType = ContentType(JSON, charset = UTF_8))
+    else
+        notFound("$username not found")
 }

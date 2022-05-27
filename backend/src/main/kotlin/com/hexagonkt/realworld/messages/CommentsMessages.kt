@@ -2,7 +2,7 @@ package com.hexagonkt.realworld.messages
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
-import com.hexagonkt.realworld.toIso8601
+import com.hexagonkt.http.toHttpFormat
 import com.hexagonkt.realworld.services.Comment
 import com.hexagonkt.realworld.services.User
 
@@ -19,8 +19,8 @@ data class CommentResponse(
 ) {
     constructor(comment: Comment, author: User, user: User?): this(
         id = comment.id,
-        createdAt = comment.createdAt.toIso8601(),
-        updatedAt = comment.updatedAt.toIso8601(),
+        createdAt = comment.createdAt.toHttpFormat(),
+        updatedAt = comment.updatedAt.toHttpFormat(),
         body = comment.body,
         author = AuthorResponse(
             username = author.username,

@@ -1,15 +1,14 @@
 package com.hexagonkt.realworld.routes
 
 import com.auth0.jwt.interfaces.DecodedJWT
-import com.hexagonkt.core.helpers.Jvm
-import com.hexagonkt.core.helpers.fail
-import com.hexagonkt.core.helpers.require
-import com.hexagonkt.http.server.Call
-import com.hexagonkt.http.server.Router
+import com.hexagonkt.core.Jvm
+import com.hexagonkt.core.fail
+import com.hexagonkt.core.require
+import com.hexagonkt.http.server.handlers.path
+import com.hexagonkt.http.toHttpFormat
 import com.hexagonkt.realworld.createArticleStore
 import com.hexagonkt.realworld.createJwt
 import com.hexagonkt.realworld.createUserStore
-import com.hexagonkt.realworld.toIso8601
 import com.hexagonkt.realworld.messages.*
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.services.Article
@@ -21,7 +20,7 @@ import java.time.LocalDateTime
 import kotlin.text.Charsets.UTF_8
 
 internal val articlesRouter by lazy {
-    Router {
+    path {
         val jwt: Jwt = createJwt()
         val users: Store<User, String> = createUserStore()
         val articles: Store<Article, String> = createArticleStore()
@@ -191,8 +190,8 @@ internal fun Call.searchArticles(
             description = it.description,
             body = it.body,
             tagList = it.tagList,
-            createdAt = it.createdAt.toIso8601(),
-            updatedAt = it.updatedAt.toIso8601(),
+            createdAt = it.createdAt.toHttpFormat(),
+            updatedAt = it.updatedAt.toHttpFormat(),
             favorited = it.favoritedBy.contains(subject),
             favoritesCount = it.favoritedBy.size,
             author = AuthorResponse(

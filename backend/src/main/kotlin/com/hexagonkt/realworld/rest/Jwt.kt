@@ -3,21 +3,10 @@ package com.hexagonkt.realworld.rest
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
+import com.hexagonkt.core.security.getPrivateKey
+import com.hexagonkt.core.security.getPublicKey
+import com.hexagonkt.core.security.loadKeyStore
 import java.net.URL
-import java.security.KeyStore
-import java.security.interfaces.RSAPrivateKey
-import java.security.interfaces.RSAPublicKey
-
-fun loadKeyStore(resource: URL, password: String): KeyStore =
-    KeyStore.getInstance("PKCS12").apply {
-        load(resource.openStream(), password.toCharArray())
-    }
-
-fun KeyStore.getPrivateKey(alias: String, password: String): RSAPrivateKey =
-    this.getKey(alias, password.toCharArray()) as RSAPrivateKey
-
-fun KeyStore.getPublicKey(alias: String): RSAPublicKey =
-    this.getCertificate(alias).publicKey as RSAPublicKey
 
 class Jwt(keyStoreResource: URL, password: String, private val alias: String) {
     private val keyStore = loadKeyStore(keyStoreResource, password)

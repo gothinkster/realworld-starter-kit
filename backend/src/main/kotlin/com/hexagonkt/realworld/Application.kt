@@ -1,8 +1,6 @@
 package com.hexagonkt.realworld
 
-import com.hexagonkt.core.helpers.Jvm
-import com.hexagonkt.core.helpers.fail
-import com.hexagonkt.core.helpers.withZone
+import com.hexagonkt.core.Jvm
 import com.hexagonkt.http.server.*
 import com.hexagonkt.http.server.jetty.JettyServletAdapter
 import com.hexagonkt.http.server.servlet.ServletServer
@@ -13,10 +11,7 @@ import com.hexagonkt.realworld.services.User
 import com.hexagonkt.store.Store
 import com.hexagonkt.store.mongodb.MongoDbStore
 import java.net.URL
-import java.time.LocalDateTime
-import java.time.ZoneOffset.UTC
-import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME
-import javax.servlet.annotation.WebListener
+import jakarta.servlet.annotation.WebListener
 
 /**
  * This class is the application's Servlet shell. It allows this application to be bundled
@@ -26,18 +21,18 @@ import javax.servlet.annotation.WebListener
 @Suppress("unused")
 class WebApplication : ServletServer(router)
 
-internal val server: Server = Server(JettyServletAdapter(), router, ServerSettings())
+internal val server: HttpServer = HttpServer(JettyServletAdapter(), router, HttpServerSettings())
 
 internal fun createJwt(): Jwt {
-    val keyStoreResource = Jvm.systemSetting<String>("keyStoreResource") ?: error("resource")
-    val keyStorePassword = Jvm.systemSetting<String>("keyStorePassword") ?: error("password")
-    val keyPairAlias = Jvm.systemSetting<String>("keyPairAlias") ?: error("alias")
+    val keyStoreResource = Jvm.systemSettingOrNull<String>("keyStoreResource") ?: error("resource")
+    val keyStorePassword = Jvm.systemSettingOrNull<String>("keyStorePassword") ?: error("password")
+    val keyPairAlias = Jvm.systemSettingOrNull<String>("keyPairAlias") ?: error("alias")
 
     return Jwt(URL(keyStoreResource), keyStorePassword, keyPairAlias)
 }
 
 internal fun createUserStore(): Store<User, String> {
-    val mongodbUrl = Jvm.systemSetting<String>("mongodbUrl") ?: error("dbUrl")
+    val mongodbUrl = Jvm.systemSettingOrNull<String>("mongodbUrl") ?: error("dbUrl")
     val userStore = MongoDbStore(User::class, User::username, mongodbUrl)
     userStore.createIndex(true, User::email)
 
@@ -45,15 +40,12 @@ internal fun createUserStore(): Store<User, String> {
 }
 
 internal fun createArticleStore(): Store<Article, String> {
-    val mongodbUrl = Jvm.systemSetting<String>("mongodbUrl") ?: error("dbUrl")
+    val mongodbUrl = Jvm.systemSettingOrNull<String>("mongodbUrl") ?: error("dbUrl")
     val articleStore = MongoDbStore(Article::class, Article::slug, mongodbUrl)
     articleStore.createIndex(false, Article::author)
 
     return articleStore
 }
-
-internal fun LocalDateTime.toIso8601() =
-    withZone().withZoneSameInstant(UTC).format(ISO_LOCAL_DATE_TIME) + "Z"
 
 internal fun main() {
     server.start()

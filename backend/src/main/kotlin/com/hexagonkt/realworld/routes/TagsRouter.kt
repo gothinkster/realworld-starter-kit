@@ -1,6 +1,8 @@
 package com.hexagonkt.realworld.routes
 
-import com.hexagonkt.http.server.Router
+import com.hexagonkt.core.media.ApplicationMedia.JSON
+import com.hexagonkt.http.model.ContentType
+import com.hexagonkt.http.server.handlers.path
 import com.hexagonkt.realworld.createArticleStore
 import com.hexagonkt.realworld.messages.TagsResponseRoot
 import com.hexagonkt.realworld.services.Article
@@ -8,7 +10,7 @@ import com.hexagonkt.store.Store
 import kotlin.text.Charsets.UTF_8
 
 internal val tagsRouter by lazy {
-    Router {
+    path {
         val articles: Store<Article, String> = createArticleStore()
 
         get {
@@ -24,7 +26,7 @@ internal val tagsRouter by lazy {
                 }
                 .distinct()
 
-            ok(TagsResponseRoot(tags), charset = UTF_8)
+            ok(TagsResponseRoot(tags), contentType = ContentType(JSON, charset = UTF_8))
         }
     }
 }

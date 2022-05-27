@@ -1,9 +1,8 @@
 package com.hexagonkt.realworld.routes
 
 import com.auth0.jwt.interfaces.DecodedJWT
-import com.hexagonkt.core.helpers.require
-import com.hexagonkt.http.server.Call
-import com.hexagonkt.http.server.Router
+import com.hexagonkt.core.require
+import com.hexagonkt.http.server.handlers.path
 import com.hexagonkt.realworld.createJwt
 import com.hexagonkt.realworld.createUserStore
 import com.hexagonkt.realworld.messages.ProfileResponse
@@ -13,7 +12,7 @@ import com.hexagonkt.realworld.services.User
 import com.hexagonkt.store.Store
 
 internal val profilesRouter by lazy {
-    Router {
+    path {
         val jwt: Jwt = createJwt()
         val users: Store<User, String> = createUserStore()
 

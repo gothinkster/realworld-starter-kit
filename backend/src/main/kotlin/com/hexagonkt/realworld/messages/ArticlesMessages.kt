@@ -2,7 +2,7 @@ package com.hexagonkt.realworld.messages
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
-import com.hexagonkt.realworld.toIso8601
+import com.hexagonkt.http.toHttpFormat
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
 
@@ -44,8 +44,8 @@ data class ArticleCreationResponseRoot(val article: ArticleCreationResponse) {
             description = article.description,
             body = article.body,
             tagList = article.tagList,
-            createdAt = article.createdAt.toIso8601(),
-            updatedAt = article.updatedAt.toIso8601(),
+            createdAt = article.createdAt.toHttpFormat(),
+            updatedAt = article.updatedAt.toHttpFormat(),
             favorited = false,
             favoritesCount = 0,
             author = subject
@@ -83,8 +83,8 @@ data class ArticleResponseRoot(val article: ArticleResponse) {
             description = article.description,
             body = article.body,
             tagList = article.tagList,
-            createdAt = article.createdAt.toIso8601(),
-            updatedAt = article.updatedAt.toIso8601(),
+            createdAt = article.createdAt.toHttpFormat(),
+            updatedAt = article.updatedAt.toHttpFormat(),
             favorited = article.favoritedBy.contains(user?.username),
             favoritesCount = article.favoritedBy.size,
             author = AuthorResponse(

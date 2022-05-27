@@ -1,7 +1,7 @@
 package com.hexagonkt.realworld.routes
 
-import com.hexagonkt.core.helpers.require
-import com.hexagonkt.http.server.Router
+import com.hexagonkt.core.require
+import com.hexagonkt.http.server.handlers.path
 import com.hexagonkt.realworld.createArticleStore
 import com.hexagonkt.realworld.createJwt
 import com.hexagonkt.realworld.createUserStore
@@ -13,7 +13,7 @@ import com.hexagonkt.realworld.services.User
 import com.hexagonkt.store.Store
 import kotlin.text.Charsets.UTF_8
 
-internal val commentsRouter = Router {
+internal val commentsRouter = path {
     val jwt: Jwt = createJwt()
     val users: Store<User, String> = createUserStore()
     val articles: Store<Article, String> = createArticleStore()
