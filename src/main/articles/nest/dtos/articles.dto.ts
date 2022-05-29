@@ -5,11 +5,9 @@ import { OtherProfileResponse } from '../../../profiles/nest/profiles.dto'
 
 export class CreateArticleDTO {
   @IsString()
-  @MaxLength(80)
   title: string
 
   @IsString()
-  @MaxLength(500)
   description: string
 
   @IsString()
