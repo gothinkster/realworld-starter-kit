@@ -9,7 +9,7 @@ async function createAppForLocalTest(): Promise<INestApplication> {
 
   const app = moduleFixture.createNestApplication()
   app.setGlobalPrefix('api')
-  await app.listen(10000 + Math.floor(Math.random() * 90000))
+  await app.listen(10000 + Math.floor(Math.random() * 55000))
   return app
 }
 
