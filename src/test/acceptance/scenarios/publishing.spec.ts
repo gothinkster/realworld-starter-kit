@@ -26,7 +26,7 @@ describe('Feed', () => {
   })
 
   async function background() {
-    await dsl.login()
+    await dsl.login(Users.Me)
   }
 
   it('should not make my article public right after I create it', async () => {

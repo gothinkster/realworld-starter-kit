@@ -1,6 +1,6 @@
 import { ApiResponseProperty } from '@nestjs/swagger'
 import { IsString, MaxLength } from 'class-validator'
-import { OtherProfileResponse } from '../../../profiles/nest/profiles.dto'
+import { OtherProfileResponse } from '../../profiles/profiles.dto'
 
 export class CommentDTO {
   @IsString()

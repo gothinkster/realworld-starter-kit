@@ -1,5 +1,5 @@
+import { Author, ReadonlyArticle } from '../articles.models'
 import { ArticleNotFound } from './views.exceptions'
-import { Author, ReadonlyArticle } from './views.models'
 import { ViewsPersistence } from './views.persistence'
 
 export class ArticleViews {

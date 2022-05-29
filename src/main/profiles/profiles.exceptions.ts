@@ -1,4 +1,6 @@
-export class ProfileNotFound extends Error {
+import { NotFoundException } from '@nestjs/common'
+
+export class ProfileNotFound extends NotFoundException {
   constructor(filters: { username?: string; account?: { id: number } }) {
     let message = ''
     if (!!filters.username) {

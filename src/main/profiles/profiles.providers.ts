@@ -2,9 +2,9 @@ import { Inject, Scope } from '@nestjs/common'
 import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
 import { REQUEST } from '@nestjs/core'
 import { Connection } from 'typeorm'
-import { AccountType } from '../../utils/jwt.strategy'
-import { ProfileEntity } from '../persistence/profiles.entity'
-import { ProfilesService } from '../profiles.service'
+import { AccountType } from '../utils/jwt.strategy'
+import { ProfileEntity } from './persistence/profiles.entity'
+import { ProfilesService } from './profiles.service'
 
 export const ProfilesServiceProvider: Provider = {
   provide: ProfilesService,

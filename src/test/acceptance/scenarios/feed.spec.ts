@@ -24,7 +24,7 @@ describe('Feed', () => {
   })
 
   async function background() {
-    await dsl.login()
+    await dsl.login(Users.Me)
     await dsl.follow(Users.Costello)
   }
 

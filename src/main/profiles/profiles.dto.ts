@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types'
 import { IsNotEmpty, IsString, Matches } from 'class-validator'
-import { PartialProfileSnapshot, ProfileSnapshot } from '../profiles.models'
+import { PartialProfileSnapshot, ProfileSnapshot } from './profiles.models'
 
 export class CreateProfileDTO implements ProfileSnapshot {
   @IsString()

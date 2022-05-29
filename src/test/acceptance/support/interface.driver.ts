@@ -1,10 +1,11 @@
 import { LoremIpsum } from 'lorem-ipsum'
+import {
+  ArticleSnapshot,
+  PartialArticleSnapshot,
+} from '../../../main/articles/articles.models'
 
 export interface ProtocolDriver {
-  init(): Promise<void>
-  stop(): Promise<void>
-
-  loginAs(user: Users): Promise<void>
+  login(user: Users): Promise<void>
   getCurrentUser(): Promise<Users>
 
   follow(user: Users): Promise<void>
@@ -17,16 +18,18 @@ export interface ProtocolDriver {
 
   unpublishArticle(searchParams: ArticleDefinition): Promise<void>
 
+  findArticle(searchParams: ArticleDefinition): Promise<ArticleSnapshot>
+
   editArticle(
     searchParams: ArticleDefinition,
-    editions: ArticleEditions,
+    editions: PartialArticleSnapshot,
   ): Promise<ArticleDefinition>
 
   unfavoriteArticle(searchParams: ArticleDefinition): Promise<void>
 
   favoriteArticle(searchParams: ArticleDefinition): Promise<void>
 
-  createArticle(article: ArticleCreation): Promise<ArticleDefinition>
+  createArticle(article: ArticleSnapshot): Promise<ArticleDefinition>
 
   commentOnArticle(article: ArticleDefinition, comment: string): Promise<void>
 }
@@ -47,30 +50,29 @@ export enum Users {
   Abbott = 'Abbott',
 }
 
-export interface ArticleCreation {
-  title: string
-  description: string
-  body: string
-  tagList: string[]
+export interface UserAccess {
+  access: { email: string; password: string }
+  token?: string
 }
 
-export interface ArticleEditions {
-  title?: string
-  description?: string
-  body?: string
-  tagList?: string[]
+export function createCredentials(user: Users): UserAccess {
+  return {
+    access: {
+      email: `${user.toLowerCase()}@mail.com`,
+      password: 'asdaWAdji!oi8809jk',
+    },
+  }
 }
 
 const lorem = new LoremIpsum()
 
 export function makeRandomArticle(
-  article: ArticleEditions = {},
-): Readonly<ArticleCreation> {
+  article: PartialArticleSnapshot = {},
+): Readonly<ArticleSnapshot> {
   return {
     title: article?.title || lorem.generateSentences(1),
     description: article?.description || lorem.generateSentences(2),
     body: article?.body || lorem.generateParagraphs(1),
-    tagList:
-      article?.tagList || lorem.generateWords(4).toLowerCase().split(' '),
+    tags: article?.tags || lorem.generateWords(4).toLowerCase().split(' '),
   }
 }

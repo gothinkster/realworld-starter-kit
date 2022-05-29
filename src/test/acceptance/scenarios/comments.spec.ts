@@ -24,7 +24,7 @@ describe('Comments on articles', () => {
   })
   async function background() {
     await dsl.publishAnArticle({ author: Users.Costello })
-    await dsl.login()
+    await dsl.login(Users.Me)
   }
 
   it('should contain my comments', async () => {

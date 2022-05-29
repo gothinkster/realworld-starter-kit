@@ -1,10 +1,10 @@
 import { createConnection, getConnection } from 'typeorm'
 import { testConnectionOptions } from '../../test/local/local.typeorm'
+import { ArticleSnapshot, Author, Dated } from './articles.models'
 import { ArticlesService } from './articles.service'
 import { exampleArticle, exampleTags } from './examples'
 import { ArticlesTypeORMPersistence } from './persistence/persistence.impl'
 import { ArticleNotFound } from './views/views.exceptions'
-import { Author } from './views/views.models'
 
 beforeEach(() => {
   return createConnection(testConnectionOptions)
@@ -15,7 +15,7 @@ afterEach(() => {
   return conn.close()
 })
 
-describe('Articles', () => {
+describe('Article', () => {
   const author: Author = { getAuthorID: () => 1 }
   let service: ArticlesService
 
@@ -26,34 +26,22 @@ describe('Articles', () => {
 
   it('should be accessible to other users after published', async () => {
     // Arrange
-    await service
-      .getCMS(author)
-      .createNewEditor()
-      .setTitle(exampleArticle.title)
-      .setDescription(exampleArticle.description)
-      .setBody(exampleArticle.body)
-      .setTags(exampleTags)
-      .publish()
-      .save()
+    await service.getCMS(author).createFromSnapshot(exampleArticle, true)
 
     // Act
-    const article = await service.getViews(null).getArticle(exampleArticle.slug)
+    const article: Dated<ArticleSnapshot> = await service
+      .getViews(null)
+      .getArticle(exampleArticle.slug)
+      .then((v) => v.createSnapshot())
 
     // Assert
     expect(article).toMatchObject(exampleArticle)
-    expect(article.getTags()).toEqual(exampleTags)
+    expect(article.tags).toEqual(exampleTags)
   })
 
   it('should always be accessible to the author', async () => {
     // Arrange
-    await service
-      .getCMS(author)
-      .createNewEditor()
-      .setTitle(exampleArticle.title)
-      .setDescription(exampleArticle.description)
-      .setBody(exampleArticle.body)
-      .publish()
-      .save()
+    await service.getCMS(author).createFromSnapshot(exampleArticle)
 
     // Act
     const article = await service
@@ -61,16 +49,15 @@ describe('Articles', () => {
       .getArticle(exampleArticle.slug)
 
     // Assert
-    expect(article).toMatchObject(exampleArticle)
+    expect(article).toMatchObject({
+      title: exampleArticle.title,
+      body: exampleArticle.body,
+    })
   })
 
   it('should not be accessible to other users if not published', async () => {
     // Arrange
-    await service
-      .getCMS(author)
-      .createNewEditor()
-      .setTitle(exampleArticle.title)
-      .save()
+    await service.getCMS(author).createFromSnapshot(exampleArticle)
 
     // Act - Assert
     await expect(

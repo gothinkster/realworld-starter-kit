@@ -1,59 +1,86 @@
-import { INestApplication } from '@nestjs/common'
 import { Axios } from 'axios'
 import {
-  ArticleCreation,
+  ArticleSnapshot,
+  PartialArticleSnapshot,
+} from '../../../main/articles/articles.models'
+import {
   ArticleDefinition,
-  ArticleEditions,
+  createCredentials,
   ProtocolDriver,
   Users,
 } from './interface.driver'
-import { connectToNestApp } from './rest.connection'
 
 export class RestDriver implements ProtocolDriver {
-  private app: INestApplication
-  private axios: Axios
-
-  public async init(): Promise<void> {
-    const connectionObj = await connectToNestApp()
-    this.app = connectionObj.app
-    this.axios = new Axios({
-      baseURL: connectionObj.url,
-    })
+  private usersAccesses = {
+    [Users.Me]: createCredentials(Users.Me),
+    [Users.Costello]: createCredentials(Users.Costello),
+    [Users.Abbott]: createCredentials(Users.Abbott),
   }
-  stop = () => this.app?.close()
+  private user: Users
 
-  async createArticle(article: ArticleCreation): Promise<ArticleDefinition> {
+  constructor(private axios: Axios) {}
+
+  private getAuth(): string {
+    return `Bearer ${this.usersAccesses[this.user].token}`
+  }
+
+  async createArticle(article: ArticleSnapshot): Promise<ArticleDefinition> {
     const response = await this.axios.post(
       'articles',
-      JSON.stringify({
+      {
         article: article,
-      }),
+      },
       {
         headers: {
-          'Content-Type': 'application/json',
+          Authorization: this.getAuth(),
         },
       },
     )
-    const body = JSON.parse(response.data)
-
-    expect(body).toMatchObject({
+    expect(response.data).toMatchObject({
       article: article,
     })
 
     return {
-      author: body.article.author.username,
-      slug: body.article.slug,
+      author: response.data.article.author.username,
+      slug: response.data.article.slug,
     }
   }
 
   async deleteArticle(searchParams: ArticleDefinition) {
-    const response = await this.axios.delete(`articles/${searchParams.slug}`)
+    const response = await this.axios.delete(`articles/${searchParams.slug}`, {
+      headers: {
+        Authorization: this.getAuth(),
+      },
+    })
     expect(response.status).toBe(204)
+  }
+
+  async findArticle(
+    article: ArticleDefinition,
+  ): Promise<ArticleSnapshot | null> {
+    const response = await this.axios.get(`articles/${article.slug}`, {
+      headers: {
+        Authorization: this.getAuth(),
+      },
+    })
+    if (response.data?.article) {
+      expect(response.status).toBe(200)
+      const articleResponse = response.data.article
+      return {
+        title: articleResponse.title,
+        description: articleResponse.description,
+        body: articleResponse.body,
+        tags: articleResponse.tags,
+      }
+    } else {
+      expect(response.status).toBe(404)
+      return null
+    }
   }
 
   async editArticle(
     searchParams: ArticleDefinition,
-    editions: ArticleEditions,
+    editions: PartialArticleSnapshot,
   ): Promise<ArticleDefinition> {
     return undefined
   }
@@ -61,12 +88,15 @@ export class RestDriver implements ProtocolDriver {
   async publishArticle(searchParams: ArticleDefinition) {
     const response = await this.axios.post(
       `articles/${searchParams.slug}/publication`,
+      undefined,
+      { headers: { Authorization: this.getAuth() } },
     )
   }
 
   async unpublishArticle(searchParams: ArticleDefinition) {
     const response = await this.axios.delete(
       `articles/${searchParams.slug}/publication`,
+      { headers: { Authorization: this.getAuth() } },
     )
   }
 
@@ -92,5 +122,29 @@ export class RestDriver implements ProtocolDriver {
     return undefined
   }
 
-  async loginAs(user: Users) {}
+  async login(user: Users) {
+    this.user = user
+    const userAccess = this.usersAccesses[this.user]
+    if (!userAccess.token) {
+      const response = await this.axios.post('accounts/signup', {
+        user: userAccess.access,
+      })
+      userAccess.token = response.data.access_token
+      const profile = await this.axios.post(
+        'profiles',
+        {
+          profile: {
+            username: user,
+            bio: 'a2frasf',
+            image: 'af2fasf',
+          },
+        },
+        {
+          headers: {
+            Authorization: this.getAuth(),
+          },
+        },
+      )
+    }
+  }
 }

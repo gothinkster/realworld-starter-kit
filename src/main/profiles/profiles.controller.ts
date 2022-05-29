@@ -11,17 +11,16 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { AuthIsOptional, JWTAuthGuard } from '../../utils/jwt.guard'
-import { AccountType } from '../../utils/jwt.strategy'
-import { validateModel } from '../../utils/validation.utils'
-import { ProfilesService } from '../profiles.service'
+import { AuthIsOptional, JWTAuthGuard } from '../utils/jwt.guard'
+import { AccountType } from '../utils/jwt.strategy'
+import { validateModel } from '../utils/validation.utils'
 import {
   CreateProfileDTO,
   OtherProfileResponse,
   OwnProfileResponse,
-  ProfileResponsePayload,
   UpdateProfileDTO,
 } from './profiles.dto'
+import { ProfilesService } from './profiles.service'
 
 @ApiTags('profiles')
 @UseGuards(JWTAuthGuard)
@@ -33,7 +32,7 @@ export class ProfilesController {
   @Get('me')
   async getCurrent(
     @Req() req: { user: AccountType },
-  ): Promise<ProfileResponsePayload<OwnProfileResponse>> {
+  ): Promise<{ profile: OwnProfileResponse }> {
     const me = await this.service.getProfileOrFail({ account: req.user })
     return {
       profile: { ...me.createSnapshot(), email: req.user.email },
@@ -44,7 +43,7 @@ export class ProfilesController {
   async create(
     @Req() req: { user: AccountType },
     @Body('profile', validateModel()) profile: CreateProfileDTO,
-  ): Promise<ProfileResponsePayload<OwnProfileResponse>> {
+  ): Promise<{ profile: OwnProfileResponse }> {
     const me = await this.service.createForAccount(req.user, profile)
     return {
       profile: { ...me.createSnapshot(), email: req.user.email },
@@ -55,7 +54,7 @@ export class ProfilesController {
   async update(
     @Req() req: { user: AccountType },
     @Body('profile', validateModel()) profile: CreateProfileDTO,
-  ): Promise<ProfileResponsePayload<OwnProfileResponse>> {
+  ): Promise<{ profile: OwnProfileResponse }> {
     const me = await this.service.getProfileOrFail({ account: req.user })
     await me.loadSnapshot(profile)
     return {
@@ -67,7 +66,7 @@ export class ProfilesController {
   async partialUpdate(
     @Req() req: { user: AccountType },
     @Body('profile', validateModel()) profile: UpdateProfileDTO,
-  ): Promise<ProfileResponsePayload<OwnProfileResponse>> {
+  ): Promise<{ profile: OwnProfileResponse }> {
     const me = await this.service.getProfileOrFail({ account: req.user })
     await me.loadPartialSnapshot(profile)
     return {
@@ -79,7 +78,7 @@ export class ProfilesController {
   async followProfile(
     @Req() req: { user: AccountType },
     @Param() username: string,
-  ): Promise<ProfileResponsePayload<OtherProfileResponse>> {
+  ): Promise<{ profile: OtherProfileResponse }> {
     const me = await this.service.getProfileOrFail({ account: req.user })
     const user = await this.service.getProfileOrFail({ username: username })
     await me.follow(user)
@@ -92,7 +91,7 @@ export class ProfilesController {
   async unfollowProfile(
     @Req() req: { user: AccountType },
     @Param() username: string,
-  ): Promise<ProfileResponsePayload<OtherProfileResponse>> {
+  ): Promise<{ profile: OtherProfileResponse }> {
     const me = await this.service.getProfileOrFail({ account: req.user })
     const user = await this.service.getProfileOrFail({ username: username })
     await me.unfollow(user)
@@ -106,7 +105,7 @@ export class ProfilesController {
   async getProfile(
     @Req() req: { user: AccountType },
     @Param() username: string,
-  ): Promise<ProfileResponsePayload<OtherProfileResponse>> {
+  ): Promise<{ profile: OtherProfileResponse }> {
     const user = await this.service.getProfileOrFail({ username: username })
     const profileResponse: OtherProfileResponse = user.createSnapshot()
     if (!!req.user) {

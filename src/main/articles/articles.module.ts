@@ -1,12 +1,12 @@
 import { Module, Scope } from '@nestjs/common'
 import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
-import { GlobalModule } from '../../global.module'
-import { ProfilesModule } from '../../profiles/nest/profiles.module'
-import { ArticlesService } from '../articles.service'
-import { ArticlesTypeORMPersistence } from '../persistence/persistence.impl'
-import { ArticlesLifecycleController } from './controllers/cms.controller'
-import { CommentsController } from './controllers/comments.controller'
-import { ArticlesViewsController } from './controllers/views.controller'
+import { GlobalModule } from '../global.module'
+import { ProfilesModule } from '../profiles/profiles.module'
+import { ArticlesService } from './articles.service'
+import { ArticlesLifecycleController } from './cms/cms.controller'
+import { CommentsController } from './comments/comments.controller'
+import { ArticlesTypeORMPersistence } from './persistence/persistence.impl'
+import { ArticlesViewsController } from './views/views.controller'
 
 const ArticlesProvider: Provider = {
   provide: ArticlesService,
@@ -19,8 +19,8 @@ const ArticlesProvider: Provider = {
 @Module({
   imports: [GlobalModule, ProfilesModule],
   controllers: [
-    ArticlesLifecycleController,
     ArticlesViewsController,
+    ArticlesLifecycleController,
     CommentsController,
   ],
   providers: [ArticlesProvider, ArticlesTypeORMPersistence],

@@ -1,3 +1,4 @@
+import { PartialArticleSnapshot } from '../../../main/articles/articles.models'
 import {
   ArticleDefinition,
   ArticleProps,
@@ -11,67 +12,41 @@ export class RealWorldDSL {
 
   constructor(private driver: ProtocolDriver) {}
 
-  login = (as: Users = null) => this.driver.loginAs(as || Users.Me)
+  login = (user: Users) => this.driver.login(user)
   follow = (user: Users) => this.driver.follow(user)
   unfollow = (user: Users) => this.driver.unfollow(user)
   favoriteTheArticle = () => this.driver.favoriteArticle(this.selectedArticle)
   undoTheFavoriting = () => this.driver.unfavoriteArticle(this.selectedArticle)
-  async createAnArticle() {
-    this.selectedArticle = await this.driver.createArticle(makeRandomArticle())
+
+  async createAnArticle(article: PartialArticleSnapshot = {}) {
+    this.selectedArticle = await this.driver.createArticle({
+      ...makeRandomArticle(),
+      ...article,
+    })
   }
 
-  private async requireAuthorLogin<T>(
-    action: () => Promise<T>,
-    author: Users = null,
-  ): Promise<T> {
-    await this.login(author || this.selectedArticle?.author)
-    const ret = await action()
-    await this.login()
-    return ret
-  }
+  publishTheArticle = () => this.driver.publishArticle(this.selectedArticle)
+  unpublishTheArticle = () => this.driver.unpublishArticle(this.selectedArticle)
+  deleteTheArticle = () => this.driver.deleteArticle(this.selectedArticle)
+  editTheArticle = () =>
+    this.driver.editArticle(this.selectedArticle, {
+      body: makeRandomArticle().body,
+    })
 
-  publishTheArticle() {
-    return this.requireAuthorLogin(() =>
-      this.driver.publishArticle(this.selectedArticle),
+  async commentOnArticle(commenter: Users = null) {
+    await this.login(commenter || Users.Me)
+    await this.driver.commentOnArticle(
+      this.selectedArticle,
+      'I liked that article!',
     )
+    await this.login(Users.Me)
   }
 
-  unpublishTheArticle() {
-    return this.requireAuthorLogin(() =>
-      this.driver.unpublishArticle(this.selectedArticle),
-    )
-  }
-
-  deleteTheArticle() {
-    return this.requireAuthorLogin(() =>
-      this.driver.deleteArticle(this.selectedArticle),
-    )
-  }
-
-  async editTheArticle() {
-    this.selectedArticle = await this.requireAuthorLogin(() =>
-      this.driver.editArticle(this.selectedArticle, {
-        body: makeRandomArticle().body,
-      }),
-    )
-  }
-
-  commentOnArticle(commenter: Users = null) {
-    return this.requireAuthorLogin(
-      () =>
-        this.driver.commentOnArticle(
-          this.selectedArticle,
-          'I liked that article!',
-        ),
-      commenter,
-    )
-  }
-
-  publishAnArticle(props: ArticleProps = {}) {
-    return this.requireAuthorLogin(async () => {
-      await this.createAnArticle()
-      await this.publishTheArticle()
-    }, props.author)
+  async publishAnArticle(props: ArticleProps = {}) {
+    await this.login(props.author || Users.Me)
+    await this.createAnArticle()
+    await this.publishTheArticle()
+    await this.login(Users.Me)
   }
 
   async favoriteAnArticle() {
@@ -89,11 +64,13 @@ export class RealWorldDSL {
 
   assertICanNotFindTheArticleFilteringBy(filters: ArticleProps) {}
 
-  assertTheArticleIsInMyList() {
-    expect(false).toBe(true)
+  async assertICanFindTheArticle() {
+    expect(await this.driver.findArticle(this.selectedArticle)).toBeTruthy()
   }
 
-  assertTheArticleIsNotInMyList() {}
+  async assertICanNotFindTheArticle() {
+    expect(await this.driver.findArticle(this.selectedArticle)).toBeFalsy()
+  }
 
   assertICommentedOnTheArticle = () =>
     this.assertTheArticleHasCommentFrom(Users.Me)

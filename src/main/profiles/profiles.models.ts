@@ -1,4 +1,4 @@
-import { Author } from '../articles/views/views.models'
+import { Author } from '../articles/articles.models'
 
 export interface ReadonlyProfile extends Author {
   username: string

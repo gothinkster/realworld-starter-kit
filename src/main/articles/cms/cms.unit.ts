@@ -1,8 +1,8 @@
 import { createConnection, getConnection } from 'typeorm'
 import { testConnectionOptions } from '../../../test/local/local.typeorm'
+import { Author } from '../articles.models'
 import { exampleArticle, exampleArticle2 } from '../examples'
 import { ArticlesTypeORMPersistence } from '../persistence/persistence.impl'
-import { Author } from '../views/views.models'
 import { UserNotAllowedToChangeArticle } from './cms.exceptions'
 import { CMSPersistence } from './cms.persistence'
 import { ContentManagementSystem } from './cms.service'
@@ -28,11 +28,7 @@ describe('Content Management System', () => {
 
   it("should let author access it's own article", async () => {
     // Arrange
-    await cms
-      .createNewEditor()
-      .setTitle(exampleArticle.title)
-      .setBody(exampleArticle.body)
-      .save()
+    await cms.createFromSnapshot(exampleArticle)
 
     // Act
     const article = await cms.getArticle(exampleArticle.slug)
@@ -43,31 +39,22 @@ describe('Content Management System', () => {
 
   it("should let author change it's own article", async () => {
     // Arrange
-    await cms
-      .createNewEditor()
-      .setTitle(exampleArticle.title)
-      .setDescription(exampleArticle.description)
-      .setBody(exampleArticle.body)
-      .save()
+    await cms.createFromSnapshot(exampleArticle)
 
     // Act
     const article = await cms.getArticle(exampleArticle.slug)
-    await article.getEditor().setBody(exampleArticle2.body).save()
+    await article.loadSnapshot({ body: exampleArticle2.body }).save()
 
     // Assert
     expect(await cms.getArticle(exampleArticle.slug)).toMatchObject({
-      ...exampleArticle,
+      title: exampleArticle.title,
       body: exampleArticle2.body,
     })
   })
 
   it('should not let another author change the article', async () => {
     // Arrange
-    await cms
-      .createNewEditor()
-      .setTitle(exampleArticle.title)
-      .setBody(exampleArticle.body)
-      .save()
+    await cms.createFromSnapshot(exampleArticle)
 
     //
     const cmsForOtherAuthor = new ContentManagementSystem(persistence, {

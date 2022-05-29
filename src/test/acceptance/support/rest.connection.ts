@@ -1,5 +1,6 @@
 import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
+import { Axios } from 'axios'
 import { AppModule } from '../../../main/app.module'
 
 async function createAppForLocalTest(): Promise<INestApplication> {
@@ -13,17 +14,33 @@ async function createAppForLocalTest(): Promise<INestApplication> {
   return app
 }
 
-export async function connectToNestApp(): Promise<{
-  app: INestApplication
-  url: string
-}> {
-  const apiUrl: string = process.env.API_URL
+export interface AppConnection {
+  axios: Axios
+  stop: () => Promise<void>
+}
+
+export async function connectToNestApp(): Promise<AppConnection> {
+  let stop: () => Promise<void> = () => Promise.resolve()
+
+  let apiUrl: string = process.env.API_URL
   if (!apiUrl) {
-    const app = await createAppForLocalTest()
-    return {
-      app: app,
-      url: `${await app.getUrl()}/api`,
-    }
+    const nest = await createAppForLocalTest()
+    apiUrl = `${await nest.getUrl()}/api`
+    stop = nest.close
   }
-  return { app: null, url: apiUrl }
+
+  const axios = new Axios({
+    baseURL: apiUrl,
+    responseType: 'json',
+    transformRequest: (data) => (data ? JSON.stringify(data) : data),
+    transformResponse: (data) => (data ? JSON.parse(data) : data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+
+  return {
+    axios: axios,
+    stop: stop,
+  }
 }

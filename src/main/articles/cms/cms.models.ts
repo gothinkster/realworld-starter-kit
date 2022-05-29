@@ -1,10 +1,9 @@
-import { ReadonlyArticle } from '../views/views.models'
-import { Editor } from './cms.editor'
+import { PartialArticleSnapshot, ReadonlyArticle } from '../articles.models'
 
 export interface EditableArticle extends ReadonlyArticle {
-  title: string
-  description: string
-  body: string
-  setTags(tags: string[])
-  getEditor(): Editor
+  loadSnapshot(snapshot: PartialArticleSnapshot): this
+  publish(): this
+  unpublish(): this
+  save(): Promise<this>
+  delete(): Promise<void>
 }

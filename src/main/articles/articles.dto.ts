@@ -1,9 +1,15 @@
 import { PartialType } from '@nestjs/mapped-types'
 import { ApiResponseProperty } from '@nestjs/swagger'
-import { IsOptional, IsString, MaxLength } from 'class-validator'
-import { OtherProfileResponse } from '../../../profiles/nest/profiles.dto'
+import { IsOptional, IsString } from 'class-validator'
+import { OtherProfileResponse } from '../profiles/profiles.dto'
+import {
+  ArticleSnapshot,
+  Dated,
+  PartialArticleSnapshot,
+  Sluged,
+} from './articles.models'
 
-export class CreateArticleDTO {
+export class CreateArticleDTO implements ArticleSnapshot {
   @IsString()
   title: string
 
@@ -14,7 +20,7 @@ export class CreateArticleDTO {
   body: string
 
   @IsString({ each: true })
-  tagList?: string[] = []
+  tags: string[] = []
 }
 
 export class ArticleFilters {
@@ -31,9 +37,14 @@ export class ArticleFilters {
   favorited?: string
 }
 
-export class UpdateArticleDTO extends PartialType(CreateArticleDTO) {}
+export class UpdateArticleDTO
+  extends PartialType(CreateArticleDTO)
+  implements PartialArticleSnapshot {}
 
-export class ArticleResponseDTO extends CreateArticleDTO {
+export class ArticleResponseDTO
+  extends CreateArticleDTO
+  implements Dated<Sluged<ArticleSnapshot>>
+{
   @ApiResponseProperty()
   slug: string
   @ApiResponseProperty() updatedAt: Date
@@ -41,12 +52,4 @@ export class ArticleResponseDTO extends CreateArticleDTO {
   @ApiResponseProperty() favorited?: boolean
   @ApiResponseProperty() favoritesCount: number
   @ApiResponseProperty() author: OtherProfileResponse
-}
-
-export class ArticleResponsePayload {
-  @ApiResponseProperty() article: ArticleResponseDTO
-}
-
-export class ArticlesResponsePayload {
-  @ApiResponseProperty() articles: ArticleResponseDTO[]
 }

@@ -39,7 +39,7 @@ export class JWTAuthGuard extends AuthGuard('jwt') {
 const authIsOptionalString = 'authIsOptional'
 export const AuthIsOptional = () => SetMetadata(authIsOptionalString, true)
 
-export function Auth(optional: boolean = false) {
+export function Auth(optional = false) {
   const decorators = [
     UseGuards(JWTAuthGuard),
     ApiBearerAuth(),

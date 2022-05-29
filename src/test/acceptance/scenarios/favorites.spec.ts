@@ -24,7 +24,7 @@ describe('Favorites', () => {
   })
 
   async function background() {
-    await dsl.login()
+    await dsl.login(Users.Me)
   }
 
   it('should include me in the favoriters list', async () => {

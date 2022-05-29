@@ -1,6 +1,7 @@
-import { getDriver } from '../support/factory.dsl'
 import { ProtocolDriver, Users } from '../support/interface.driver'
 import { RealWorldDSL } from '../support/realworld.dsl'
+import { AppConnection, connectToNestApp } from '../support/rest.connection'
+import { RestDriver } from '../support/rest.driver'
 
 /**
  Users should be able to edit and delete articles.
@@ -11,35 +12,36 @@ import { RealWorldDSL } from '../support/realworld.dsl'
 describe('Article', () => {
   let dsl: RealWorldDSL
   let driver: ProtocolDriver
+  let connection: AppConnection
 
   beforeAll(async () => {
-    driver = getDriver()
-    await driver.init()
+    connection = await connectToNestApp()
   })
 
   afterAll(async () => {
-    await driver.stop()
+    await connection.stop()
   })
 
   beforeEach(async () => {
+    driver = new RestDriver(connection.axios)
     dsl = new RealWorldDSL(driver)
   })
 
-  it('should appear in my private list after creation', async () => {
-    await dsl.login()
+  it('should be accessible to the author', async () => {
+    await dsl.login(Users.Me)
     await dsl.createAnArticle()
-    await dsl.assertTheArticleIsInMyList()
+    await dsl.assertICanFindTheArticle()
   })
 
   it('should not be found after deletion', async () => {
-    await dsl.login()
-    await dsl.publishAnArticle()
+    await dsl.login(Users.Me)
+    await dsl.createAnArticle()
     await dsl.deleteTheArticle()
-    await dsl.assertTheArticleIsNotInMyList()
+    await dsl.assertICanNotFindTheArticle()
   })
 
   it('should be found only as the latest version', async () => {
-    await dsl.login()
+    await dsl.login(Users.Me)
     await dsl.publishAnArticle()
     await dsl.editTheArticle()
     await dsl.assertThePublishedVersionIsTheLastIWrote()

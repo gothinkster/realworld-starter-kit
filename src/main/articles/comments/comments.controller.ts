@@ -9,13 +9,13 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { JWTAuthGuard } from '../../../utils/jwt.guard'
-import { QueryInt, validateModel } from '../../../utils/validation.utils'
+import { JWTAuthGuard } from '../../utils/jwt.guard'
+import { QueryInt, validateModel } from '../../utils/validation.utils'
 import {
   CommentDTO,
   CommentResponsePayload,
   CommentsResponsePayload,
-} from '../dtos/comments.dto'
+} from './comments.dto'
 
 @ApiTags('comments')
 @Controller('articles/:slug/comments')

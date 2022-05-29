@@ -1,6 +1,6 @@
+import { Author } from './articles.models'
 import { CMSPersistence } from './cms/cms.persistence'
 import { ContentManagementSystem } from './cms/cms.service'
-import { Author } from './views/views.models'
 import { ViewsPersistence } from './views/views.persistence'
 import { ArticleViews } from './views/views.service'
 
