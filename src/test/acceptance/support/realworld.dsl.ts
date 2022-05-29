@@ -58,18 +58,24 @@ export class RealWorldDSL {
 
   assertThePublishedVersionIsTheLastIWrote() {}
 
-  assertTheArticleIsPublished() {}
+  async assertTheArticleIsPublished() {
+    const article = await this.driver.findArticle(this.selectedArticle)
+    expect(this.selectedArticle.author !== Users.Me).toBeTruthy()
+    expect(article).toBeTruthy()
+  }
 
   assertICanFindTheArticleFilteringBy(filters: ArticleProps) {}
 
   assertICanNotFindTheArticleFilteringBy(filters: ArticleProps) {}
 
   async assertICanFindTheArticle() {
-    expect(await this.driver.findArticle(this.selectedArticle)).toBeTruthy()
+    const article = await this.driver.findArticle(this.selectedArticle)
+    expect(article).toBeTruthy()
   }
 
   async assertICanNotFindTheArticle() {
-    expect(await this.driver.findArticle(this.selectedArticle)).toBeFalsy()
+    const article = await this.driver.findArticle(this.selectedArticle)
+    expect(article).toBeFalsy()
   }
 
   assertICommentedOnTheArticle = () =>

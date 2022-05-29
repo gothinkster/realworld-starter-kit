@@ -45,22 +45,15 @@ export interface ArticleDefinition {
 }
 
 export enum Users {
-  Me = 'AmyAdams',
+  Me = 'Me',
   Costello = 'Costello',
   Abbott = 'Abbott',
 }
 
-export interface UserAccess {
-  access: { email: string; password: string }
-  token?: string
-}
-
-export function createCredentials(user: Users): UserAccess {
+export function createCredentials(user: Users) {
   return {
-    access: {
-      email: `${user.toLowerCase()}@mail.com`,
-      password: 'asdaWAdji!oi8809jk',
-    },
+    email: `${user.toLowerCase()}@mail.com`,
+    password: 'asdaWAdji!oi8809jk',
   }
 }
 

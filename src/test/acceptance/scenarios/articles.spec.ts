@@ -16,6 +16,8 @@ describe('Article', () => {
 
   beforeAll(async () => {
     connection = await connectToNestApp()
+    await RestDriver.createAccounts(connection.axios)
+    await RestDriver.createProfiles(connection.axios)
   })
 
   afterAll(async () => {
@@ -38,13 +40,6 @@ describe('Article', () => {
     await dsl.createAnArticle()
     await dsl.deleteTheArticle()
     await dsl.assertICanNotFindTheArticle()
-  })
-
-  it('should be found only as the latest version', async () => {
-    await dsl.login(Users.Me)
-    await dsl.publishAnArticle()
-    await dsl.editTheArticle()
-    await dsl.assertThePublishedVersionIsTheLastIWrote()
   })
 
   it('should be shown in the global feed', async () => {

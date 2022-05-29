@@ -11,29 +11,69 @@ import {
 } from './interface.driver'
 
 export class RestDriver implements ProtocolDriver {
-  private usersAccesses = {
-    [Users.Me]: createCredentials(Users.Me),
-    [Users.Costello]: createCredentials(Users.Costello),
-    [Users.Abbott]: createCredentials(Users.Abbott),
-  }
   private user: Users
+  private static userAuth = {}
+
+  public static async createAccounts(axios: Axios) {
+    await Promise.all(
+      Object.keys(Users).map(async (key) => {
+        const user: Users = Users[key]
+        const signup = await axios.post('accounts/signup', {
+          user: createCredentials(user),
+        })
+        RestDriver.userAuth[user] = `Bearer ${signup.data.access_token}`
+      }),
+    )
+  }
+  public static async createProfiles(axios) {
+    return await Promise.all(
+      Object.keys(Users).map(async (key) => {
+        const user: Users = Users[key]
+        return await axios.post(
+          'profiles',
+          {
+            profile: {
+              username: user,
+              bio: 'a2frasf',
+              image: 'af2fasf',
+            },
+          },
+          {
+            headers: {
+              Authorization: RestDriver.userAuth[user],
+            },
+          },
+        )
+      }),
+    )
+  }
 
   constructor(private axios: Axios) {}
 
+  async login(user: Users) {
+    this.user = user
+  }
+
   private getAuth(): string {
-    return `Bearer ${this.usersAccesses[this.user].token}`
+    return RestDriver.userAuth[this.user]
+  }
+
+  async getCurrentUser(): Promise<Users> {
+    return this.user
   }
 
   async createArticle(article: ArticleSnapshot): Promise<ArticleDefinition> {
+    const headers = {
+      Authorization: this.getAuth(),
+    }
+    console.log(headers)
     const response = await this.axios.post(
       'articles',
       {
         article: article,
       },
       {
-        headers: {
-          Authorization: this.getAuth(),
-        },
+        headers: headers,
       },
     )
     expect(response.data).toMatchObject({
@@ -117,34 +157,4 @@ export class RestDriver implements ProtocolDriver {
   async unfollow(user: Users) {}
 
   async commentOnArticle(article: ArticleDefinition, comment: string) {}
-
-  async getCurrentUser(): Promise<Users> {
-    return undefined
-  }
-
-  async login(user: Users) {
-    this.user = user
-    const userAccess = this.usersAccesses[this.user]
-    if (!userAccess.token) {
-      const response = await this.axios.post('accounts/signup', {
-        user: userAccess.access,
-      })
-      userAccess.token = response.data.access_token
-      const profile = await this.axios.post(
-        'profiles',
-        {
-          profile: {
-            username: user,
-            bio: 'a2frasf',
-            image: 'af2fasf',
-          },
-        },
-        {
-          headers: {
-            Authorization: this.getAuth(),
-          },
-        },
-      )
-    }
-  }
 }
