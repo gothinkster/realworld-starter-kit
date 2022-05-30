@@ -1,5 +1,4 @@
-import { createConnection, getConnection } from 'typeorm'
-import { testConnectionOptions } from '../../../test/local/local.typeorm'
+import { testDataSource } from '../../database/database.providers'
 import { Author } from '../articles.models'
 import { exampleArticle, exampleArticle2 } from '../examples'
 import { ArticlesTypeORMPersistence } from '../persistence/persistence.impl'
@@ -8,12 +7,11 @@ import { CMSPersistence } from './cms.persistence'
 import { ContentManagementSystem } from './cms.service'
 
 beforeEach(() => {
-  return createConnection(testConnectionOptions)
+  return testDataSource.initialize()
 })
 
 afterEach(() => {
-  const conn = getConnection()
-  return conn.close()
+  return testDataSource.destroy()
 })
 
 describe('Content Management System', () => {

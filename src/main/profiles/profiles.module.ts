@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common'
-import { GlobalModule } from '../global.module'
 import { ProfilesController } from './profiles.controller'
 import {
   CurrentProfile,
@@ -9,7 +8,6 @@ import {
 import { ProfilesService } from './profiles.service'
 
 @Module({
-  imports: [GlobalModule],
   providers: [ProfilesServiceProvider, CurrentProfileProvider],
   controllers: [ProfilesController],
   exports: [ProfilesService, CurrentProfile],

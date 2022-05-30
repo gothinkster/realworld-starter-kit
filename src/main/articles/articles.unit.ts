@@ -1,5 +1,4 @@
-import { createConnection, getConnection } from 'typeorm'
-import { testConnectionOptions } from '../../test/local/local.typeorm'
+import { testDataSource } from '../database/database.providers'
 import { ArticleSnapshot, Author, Dated } from './articles.models'
 import { ArticlesService } from './articles.service'
 import { exampleArticle, exampleTags } from './examples'
@@ -7,12 +6,11 @@ import { ArticlesTypeORMPersistence } from './persistence/persistence.impl'
 import { ArticleNotFound } from './views/views.exceptions'
 
 beforeEach(() => {
-  return createConnection(testConnectionOptions)
+  return testDataSource.initialize()
 })
 
 afterEach(() => {
-  const conn = getConnection()
-  return conn.close()
+  return testDataSource.destroy()
 })
 
 describe('Article', () => {
@@ -21,7 +19,7 @@ describe('Article', () => {
 
   beforeEach(() => {
     const persistence = new ArticlesTypeORMPersistence()
-    service = new ArticlesService(persistence, persistence)
+    service = new ArticlesService(persistence)
   })
 
   it('should be accessible to other users after published', async () => {
