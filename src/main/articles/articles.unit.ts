@@ -110,6 +110,6 @@ describe('Article', () => {
       .then((v) => v.createSnapshot())
 
     // Assert
-    expect(article.tags).toEqual(['physics', 'food'])
+    expect(article.tags).toEqual(['food', 'physics'])
   })
 })

@@ -78,7 +78,7 @@ export class ArticleEntity
   }
 
   private getTags(): string[] {
-    return this.tagList.map((value) => value.name)
+    return this.tagList.map((value) => value.name).sort()
   }
 
   private async setTags(): Promise<this> {

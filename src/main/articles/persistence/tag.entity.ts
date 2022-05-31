@@ -20,13 +20,13 @@ export class TagEntity extends BaseEntity {
   articles: ArticleEntity[]
 
   static async getOrCreateFromNames(tags: string[]): Promise<TagEntity[]> {
-    const entities: TagEntity[] = await TagEntity.findBy({ name: In(tags) })
+    let entities: TagEntity[] = await TagEntity.findBy({ name: In(tags) })
     const missingTags = tags.filter(
       (tag) => !entities.some((entity) => entity.name === tag),
     )
-    for (let tag of missingTags) {
-      entities.push(await TagEntity.create({ name: tag }).save())
-    }
-    return entities
+    const missingTagsPromises = missingTags.map((tag) =>
+      TagEntity.create({ name: tag }).save(),
+    )
+    return entities.concat(await Promise.all(missingTagsPromises))
   }
 }
