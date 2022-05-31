@@ -71,23 +71,45 @@ describe('Article', () => {
 
   it('should ignore duplicated tags', async () => {
     // Arrange
-    await service.getCMS(author).createFromSnapshot(
-      {
-        title: exampleArticle.title,
-        description: exampleArticle.description,
-        body: exampleArticle.body,
-        tags: ['programming', 'physics', 'programming'],
-      },
-      true,
-    )
+    await service.getCMS(author).createFromSnapshot({
+      title: exampleArticle.title,
+      description: exampleArticle.description,
+      body: exampleArticle.body,
+      tags: ['programming', 'physics', 'programming'],
+    })
 
     // Act
     const article: ArticleSnapshot = await service
-      .getViews(null)
+      .getViews(author)
       .getArticle(exampleArticle.slug)
       .then((v) => v.createSnapshot())
 
     // Assert
-    expect(article.tags.sort()).toEqual(['physics', 'programming'].sort())
+    expect(article.tags).toEqual(['physics', 'programming'])
+  })
+
+  it('should be able to reuse tags from other articles', async () => {
+    // Arrange
+    await service.getCMS(author).createFromSnapshot({
+      title: 'One article',
+      description: 'One article',
+      body: 'One article',
+      tags: ['programming', 'physics'],
+    })
+    await service.getCMS(author).createFromSnapshot({
+      title: 'Other article',
+      description: 'Other article',
+      body: 'Other article',
+      tags: ['physics', 'food'],
+    })
+
+    // Act
+    const article: ArticleSnapshot = await service
+      .getViews(author)
+      .getArticle('other-article')
+      .then((v) => v.createSnapshot())
+
+    // Assert
+    expect(article.tags).toEqual(['physics', 'food'])
   })
 })

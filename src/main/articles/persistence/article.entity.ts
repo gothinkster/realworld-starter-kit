@@ -60,6 +60,8 @@ export class ArticleEntity
   @Column()
   authorId: number
 
+  tags: string[]
+
   @BeforeInsert()
   @BeforeUpdate()
   getSlug(): string {
@@ -79,13 +81,10 @@ export class ArticleEntity
     return this.tagList.map((value) => value.name)
   }
 
-  private async setTags(tags: string[]) {
-    const uniqueTags = [...new Set(tags)]
-    this.tagList = uniqueTags.map((value) => {
-      const tag = new TagEntity()
-      tag.name = value
-      return tag
-    })
+  private async setTags(): Promise<this> {
+    const uniqueTags = [...new Set(this.tags)].sort()
+    this.tagList = await TagEntity.getOrCreateFromNames(uniqueTags)
+    return this
   }
 
   createSnapshot(): Dated<Sluged<ArticleSnapshot>> {
@@ -104,9 +103,7 @@ export class ArticleEntity
     this.title = snapshot.title ?? this.title
     this.description = snapshot.description ?? this.description
     this.body = snapshot.body ?? this.body
-    if (!!snapshot.tags) {
-      this.setTags(snapshot.tags)
-    }
+    this.tags = [...new Set(snapshot.tags ?? this.tags)]
     return this
   }
 
@@ -117,6 +114,12 @@ export class ArticleEntity
 
   unpublish(): this {
     this.published = true
+    return this
+  }
+
+  async save() {
+    await this.setTags()
+    await super.save()
     return this
   }
 

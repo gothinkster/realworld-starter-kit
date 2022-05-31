@@ -2,6 +2,7 @@ import {
   BaseEntity,
   Column,
   Entity,
+  In,
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm'
@@ -17,4 +18,15 @@ export class TagEntity extends BaseEntity {
 
   @ManyToMany(() => ArticleEntity, (article) => article.tagList)
   articles: ArticleEntity[]
+
+  static async getOrCreateFromNames(tags: string[]): Promise<TagEntity[]> {
+    const entities: TagEntity[] = await TagEntity.findBy({ name: In(tags) })
+    const missingTags = tags.filter(
+      (tag) => !entities.some((entity) => entity.name === tag),
+    )
+    for (let tag of missingTags) {
+      entities.push(await TagEntity.create({ name: tag }).save())
+    }
+    return entities
+  }
 }
