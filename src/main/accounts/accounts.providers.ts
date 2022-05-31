@@ -1,7 +1,7 @@
 import { Inject, Scope } from '@nestjs/common'
 import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
 import { DataSource } from 'typeorm'
-import { DATA_SOURCE_PROVIDER } from '../database/database.providers'
+import { DATA_SOURCE_PROVIDER } from '../database.providers'
 import { AccountEntity } from './models/accounts.entity'
 
 const AccountRepositoryToken = 'AccountRepository'

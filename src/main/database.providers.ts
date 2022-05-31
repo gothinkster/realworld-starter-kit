@@ -1,7 +1,7 @@
 import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
 import { DataSource } from 'typeorm'
 
-const entities = [__dirname + '/../**/*.entity.{ts,js}']
+const entities = [__dirname + '/**/*.entity{.ts,.js}']
 
 export const testDataSource = new DataSource({
   type: 'sqlite',

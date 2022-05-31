@@ -1,5 +1,5 @@
 import { getDriver } from '../support/factory.dsl'
-import { ProtocolDriver } from '../support/interface.driver'
+import {ProtocolDriver, Users} from '../support/interface.driver'
 import { RealWorldDSL } from '../support/realworld.dsl'
 
 /**

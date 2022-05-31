@@ -1,4 +1,4 @@
-import { testDataSource } from '../database/database.providers'
+import { testDataSource } from '../database.providers'
 import { ArticleSnapshot, Author, Dated } from './articles.models'
 import { ArticlesService } from './articles.service'
 import { exampleArticle, exampleTags } from './examples'

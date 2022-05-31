@@ -2,13 +2,20 @@ import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { Axios } from 'axios'
 import { AppModule } from '../../../main/app.module'
+import {
+  DATA_SOURCE_PROVIDER,
+  testDataSource,
+} from '../../../main/database.providers'
 
 async function createAppForLocalTest(): Promise<INestApplication> {
-  const moduleFixture: TestingModule = await Test.createTestingModule({
+  const moduleBuilder = await Test.createTestingModule({
     imports: [AppModule],
-  }).compile()
+  })
+  await testDataSource.initialize()
+  moduleBuilder.overrideProvider(DATA_SOURCE_PROVIDER).useValue(testDataSource)
+  const testingModule: TestingModule = await moduleBuilder.compile()
 
-  const app = moduleFixture.createNestApplication()
+  const app = testingModule.createNestApplication()
   app.setGlobalPrefix('api')
   await app.listen(10000 + Math.floor(Math.random() * 55000))
   return app

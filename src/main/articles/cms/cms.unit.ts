@@ -1,4 +1,4 @@
-import { testDataSource } from '../../database/database.providers'
+import { testDataSource } from '../../database.providers'
 import { Author } from '../articles.models'
 import { exampleArticle, exampleArticle2 } from '../examples'
 import { ArticlesTypeORMPersistence } from '../persistence/persistence.impl'
