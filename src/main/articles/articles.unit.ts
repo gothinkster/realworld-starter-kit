@@ -61,10 +61,33 @@ describe('Article', () => {
     await expect(
       service.getViews().getArticle(exampleArticle.slug),
     ).rejects.toThrow(ArticleNotFound)
+
     await expect(
       service
         .getViews({ getAuthorID: () => 10 })
         .getArticle(exampleArticle.slug),
     ).rejects.toThrow(ArticleNotFound)
+  })
+
+  it('should ignore duplicated tags', async () => {
+    // Arrange
+    await service.getCMS(author).createFromSnapshot(
+      {
+        title: exampleArticle.title,
+        description: exampleArticle.description,
+        body: exampleArticle.body,
+        tags: ['programming', 'physics', 'programming'],
+      },
+      true,
+    )
+
+    // Act
+    const article: ArticleSnapshot = await service
+      .getViews(null)
+      .getArticle(exampleArticle.slug)
+      .then((v) => v.createSnapshot())
+
+    // Assert
+    expect(article.tags.sort()).toEqual(['physics', 'programming'].sort())
   })
 })

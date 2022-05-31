@@ -79,8 +79,9 @@ export class ArticleEntity
     return this.tagList.map((value) => value.name)
   }
 
-  private setTags(tags: string[]) {
-    this.tagList = tags.map((value) => {
+  private async setTags(tags: string[]) {
+    const uniqueTags = [...new Set(tags)]
+    this.tagList = uniqueTags.map((value) => {
       const tag = new TagEntity()
       tag.name = value
       return tag
