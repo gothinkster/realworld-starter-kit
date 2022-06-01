@@ -1,5 +1,5 @@
-import { ProtocolDriver, Users } from '../support/interface.driver'
-import { RealWorldDSL } from '../support/realworld.dsl'
+import { ProtocolDriver } from '../drivers/protocol.driver'
+import { RealWorldDSL } from '../dsl/realworld.dsl'
 
 /**
  Users should be able to favorite and unfavorite articles.
@@ -23,7 +23,7 @@ describe('Favorites', () => {
   })
 
   async function background() {
-    await dsl.login(Users.Me)
+    await dsl.login()
   }
 
   it('should include me in the favoriters list', async () => {

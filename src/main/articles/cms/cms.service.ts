@@ -1,23 +1,28 @@
+import { Repository } from 'typeorm'
+import { ProfilesService } from '../../profiles/profiles.service'
 import { ArticleSnapshot, Author } from '../articles.models'
+import { ArticleEntity } from '../persistence/article.entity'
 import { ArticleNotFound } from '../views/views.exceptions'
-import { UserNotAllowedToChangeArticle } from './cms.exceptions'
 import { EditableArticle } from './cms.models'
-import { CMSPersistence } from './cms.persistence'
 
 /**
 The ContentManagementSystem is responsible for letting only the authors
  change the content.
 **/
 export class ContentManagementSystem {
-  constructor(private persistence: CMSPersistence, private author: Author) {}
+  constructor(
+    private repository: Repository<ArticleEntity>,
+    private author: Author,
+    private profiles?: ProfilesService,
+  ) {}
 
   async getArticle(slug: string): Promise<EditableArticle> {
-    const article = await this.persistence.getArticle(slug)
+    const article = await this.repository.findOneBy({
+      slug: slug,
+      authorId: this.author.getAuthorID(),
+    })
     if (!article) {
       throw new ArticleNotFound(slug)
-    }
-    if (article.getAuthorID() !== this.author.getAuthorID()) {
-      throw new UserNotAllowedToChangeArticle(this.author, article)
     }
     return article
   }
@@ -26,7 +31,9 @@ export class ContentManagementSystem {
     snapshot: ArticleSnapshot,
     publish: boolean = false,
   ): Promise<EditableArticle> {
-    const article = this.persistence.createArticle(this.author)
+    const article = this.repository.create({
+      authorId: this.author.getAuthorID(),
+    })
     article.loadSnapshot(snapshot)
     if (publish) {
       article.publish()

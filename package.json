@@ -15,10 +15,9 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "format": "prettier --write .",
     "test": "yarn test:all",
-    "test:unit": "jest --config src/test/unit/unit.config.ts",
-    "test:watch": "jest --config src/test/unit/unit.config.ts --watch",
-    "test:acceptance": "jest --config src/test/acceptance/acceptance.config.ts",
-    "test:all": "jest --config src/test/local/local.config.ts",
+    "test:unit": "jest --testRegex .*\\.unit\\.ts$",
+    "test:acceptance": "jest --testRegex .*\\.spec\\.ts$",
+    "test:all": "jest",
     "typeorm": "typeorm-ts-node-commonjs"
   },
   "dependencies": {
@@ -72,5 +71,23 @@
     "swagger-ui-express": "^4.3.0",
     "tsconfig-paths": "^3.10.1",
     "typescript": "4.5.2"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "./src",
+    "preset": "ts-jest",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "testRegex": ".*\\.(unit|spec)\\.ts$",
+    "collectCoverageFrom": [
+      "src/main/*.(t|j)s"
+    ],
+    "coverageDirectory": "./coverage",
+    "testEnvironment": "node"
   }
 }

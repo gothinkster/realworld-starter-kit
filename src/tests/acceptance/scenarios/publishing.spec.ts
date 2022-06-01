@@ -1,6 +1,6 @@
-import { getDriver } from '../support/factory.dsl'
-import { ProtocolDriver, Users } from '../support/interface.driver'
-import { RealWorldDSL } from '../support/realworld.dsl'
+import { getDriver } from '../drivers/factory.dsl'
+import { ProtocolDriver } from '../drivers/protocol.driver'
+import { RealWorldDSL } from '../dsl/realworld.dsl'
 
 /**
    Articles can be published and unpublished. Users should be able to write articles and not publish them.
@@ -26,7 +26,7 @@ describe('Feed', () => {
   })
 
   async function background() {
-    await dsl.login(Users.Me)
+    await dsl.login()
   }
 
   it('should not make my article public right after I create it', async () => {
@@ -43,7 +43,7 @@ describe('Feed', () => {
   it('should be still visible for me, the author, after unpublishing', async () => {
     await dsl.publishAnArticle()
     await dsl.unpublishTheArticle()
-    await dsl.assertICanSeeTheArticle()
+    await dsl.assertICanFindTheArticle()
   })
 
   it('should unpublish my article when I decide', async () => {

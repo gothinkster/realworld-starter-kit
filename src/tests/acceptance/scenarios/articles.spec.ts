@@ -1,7 +1,7 @@
-import { ProtocolDriver, Users } from '../support/interface.driver'
-import { RealWorldDSL } from '../support/realworld.dsl'
-import { AppConnection, connectToNestApp } from '../support/rest.connection'
-import { RestDriver } from '../support/rest.driver'
+import { ProtocolDriver, Users } from '../drivers/protocol.driver'
+import { AppConnection, connectToNestApp } from '../drivers/rest.connection'
+import { RestDriver } from '../drivers/rest.driver'
+import { RealWorldDSL } from '../dsl/realworld.dsl'
 
 /**
  Users should be able to edit and delete articles.
@@ -30,13 +30,13 @@ describe('Article', () => {
   })
 
   it('should be accessible to the author', async () => {
-    await dsl.login(Users.Me)
+    await dsl.login()
     await dsl.createAnArticle()
     await dsl.assertICanFindTheArticle()
   })
 
   it('should not be found after deletion', async () => {
-    await dsl.login(Users.Me)
+    await dsl.login()
     await dsl.createAnArticle()
     await dsl.deleteTheArticle()
     await dsl.assertICanNotFindTheArticle()

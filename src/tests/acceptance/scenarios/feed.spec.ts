@@ -1,6 +1,6 @@
-import { getDriver } from '../support/factory.dsl'
-import { ProtocolDriver, Users } from '../support/interface.driver'
-import { RealWorldDSL } from '../support/realworld.dsl'
+import { getDriver } from '../drivers/factory.dsl'
+import { ProtocolDriver, Users } from '../drivers/protocol.driver'
+import { RealWorldDSL } from '../dsl/realworld.dsl'
 
 /**
  The feed is where users can see articles published by their followers
@@ -24,7 +24,7 @@ describe('Feed', () => {
   })
 
   async function background() {
-    await dsl.login(Users.Me)
+    await dsl.login()
     await dsl.follow(Users.Costello)
   }
 

@@ -2,7 +2,7 @@ import { Inject, Scope } from '@nestjs/common'
 import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
 import { REQUEST } from '@nestjs/core'
 import { DataSource } from 'typeorm'
-import { DATA_SOURCE_PROVIDER } from '../database.providers'
+import { DATASOURCE_PROVIDER } from '../database.providers'
 import { AccountType } from '../utils/jwt.strategy'
 import { ProfileEntity } from './persistence/profiles.entity'
 import { ProfilesService } from './profiles.service'
@@ -11,7 +11,7 @@ export const ProfilesServiceProvider: Provider = {
   provide: ProfilesService,
   useFactory: (dataSource: DataSource) =>
     new ProfilesService(dataSource.getRepository(ProfileEntity)),
-  inject: [DATA_SOURCE_PROVIDER],
+  inject: [DATASOURCE_PROVIDER],
   scope: Scope.DEFAULT,
 }
 

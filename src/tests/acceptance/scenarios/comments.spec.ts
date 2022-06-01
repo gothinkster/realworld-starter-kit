@@ -1,6 +1,6 @@
-import { getDriver } from '../support/factory.dsl'
-import { ProtocolDriver, Users } from '../support/interface.driver'
-import { RealWorldDSL } from '../support/realworld.dsl'
+import { getDriver } from '../drivers/factory.dsl'
+import { ProtocolDriver, Users } from '../drivers/protocol.driver'
+import { RealWorldDSL } from '../dsl/realworld.dsl'
 
 /**
  Users can comment on articles
@@ -24,7 +24,7 @@ describe('Comments on articles', () => {
   })
   async function background() {
     await dsl.publishAnArticle({ author: Users.Costello })
-    await dsl.login(Users.Me)
+    await dsl.login()
   }
 
   it('should contain my comments', async () => {

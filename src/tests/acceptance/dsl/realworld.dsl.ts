@@ -5,14 +5,14 @@ import {
   makeRandomArticle,
   ProtocolDriver,
   Users,
-} from './interface.driver'
+} from '../drivers/protocol.driver'
 
 export class RealWorldDSL {
   private selectedArticle: ArticleDefinition
 
   constructor(private driver: ProtocolDriver) {}
 
-  login = (user: Users) => this.driver.login(user)
+  login = () => this.driver.login(Users.Me)
   follow = (user: Users) => this.driver.follow(user)
   unfollow = (user: Users) => this.driver.unfollow(user)
   favoriteTheArticle = () => this.driver.favoriteArticle(this.selectedArticle)
@@ -34,19 +34,19 @@ export class RealWorldDSL {
     })
 
   async commentOnArticle(commenter: Users = null) {
-    await this.login(commenter || Users.Me)
+    await this.driver.login(commenter || Users.Me)
     await this.driver.commentOnArticle(
       this.selectedArticle,
       'I liked that article!',
     )
-    await this.login(Users.Me)
+    await this.login()
   }
 
   async publishAnArticle(props: ArticleProps = {}) {
-    await this.login(props.author || Users.Me)
+    await this.driver.login(props.author || Users.Me)
     await this.createAnArticle()
     await this.publishTheArticle()
-    await this.login(Users.Me)
+    await this.login()
   }
 
   async favoriteAnArticle() {
@@ -54,48 +54,68 @@ export class RealWorldDSL {
     await this.favoriteTheArticle()
   }
 
-  assertICanSeeTheArticle() {}
-
-  assertThePublishedVersionIsTheLastIWrote() {}
-
   async assertTheArticleIsPublished() {
-    const article = await this.driver.findArticle(this.selectedArticle)
+    const article = await this.driver.getArticle(this.selectedArticle.slug)
     expect(this.selectedArticle.author !== Users.Me).toBeTruthy()
     expect(article).toBeTruthy()
   }
 
-  assertICanFindTheArticleFilteringBy(filters: ArticleProps) {}
+  async assertICanFindTheArticleFilteringBy(filters: ArticleProps) {
+    const articles = await this.driver.findArticles(filters)
+    expect(articles).toContainEqual(this.selectedArticle)
+  }
 
-  assertICanNotFindTheArticleFilteringBy(filters: ArticleProps) {}
+  async assertICanNotFindTheArticleFilteringBy(filters: ArticleProps) {
+    const articles = await this.driver.findArticles(filters)
+    expect(articles).not.toContainEqual(this.selectedArticle)
+  }
 
   async assertICanFindTheArticle() {
-    const article = await this.driver.findArticle(this.selectedArticle)
+    const article = await this.driver.getArticle(this.selectedArticle.slug)
     expect(article).toBeTruthy()
   }
 
   async assertICanNotFindTheArticle() {
-    const article = await this.driver.findArticle(this.selectedArticle)
+    const article = await this.driver.getArticle(this.selectedArticle.slug)
     expect(article).toBeFalsy()
   }
 
   assertICommentedOnTheArticle = () =>
     this.assertTheArticleHasCommentFrom(Users.Me)
 
-  assertTheArticleHasCommentFrom(commenter: Users) {}
+  assertTheArticleHasCommentFrom(commenter: Users) {
+    expect(false).toBeTruthy()
+  }
 
-  assertIFavoritedTheArticle() {}
+  assertIFavoritedTheArticle() {
+    expect(false).toBeTruthy()
+  }
 
-  assertIDidntFavoriteTheArticle() {}
+  assertIDidntFavoriteTheArticle() {
+    expect(false).toBeTruthy()
+  }
 
-  assertIAmFollowing(user: Users) {}
+  assertIAmFollowing(user: Users) {
+    expect(false).toBeTruthy()
+  }
 
-  assertIAmNotFollowing(user: Users) {}
+  assertIAmNotFollowing(user: Users) {
+    expect(false).toBeTruthy()
+  }
 
-  assertTheArticleIsInMyFeed(author: Users) {}
+  assertTheArticleIsInMyFeed(author: Users) {
+    expect(false).toBeTruthy()
+  }
 
-  assertTheArticleIsNotInMyFeed() {}
+  assertTheArticleIsNotInMyFeed() {
+    expect(false).toBeTruthy()
+  }
 
-  assertTheArticleCanBeFoundByOtherUsers() {}
+  assertTheArticleCanBeFoundByOtherUsers() {
+    expect(false).toBeTruthy()
+  }
 
-  assertTheArticleCannotBeFoundByOtherUsers(author: Users = Users.Me) {}
+  assertTheArticleCannotBeFoundByOtherUsers(author: Users = Users.Me) {
+    expect(false).toBeTruthy()
+  }
 }

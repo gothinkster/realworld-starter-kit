@@ -5,10 +5,11 @@ import {
 } from '../../../main/articles/articles.models'
 import {
   ArticleDefinition,
+  ArticleProps,
   createCredentials,
   ProtocolDriver,
   Users,
-} from './interface.driver'
+} from './protocol.driver'
 
 export class RestDriver implements ProtocolDriver {
   private user: Users
@@ -66,7 +67,6 @@ export class RestDriver implements ProtocolDriver {
     const headers = {
       Authorization: this.getAuth(),
     }
-    console.log(headers)
     const response = await this.axios.post(
       'articles',
       {
@@ -77,7 +77,7 @@ export class RestDriver implements ProtocolDriver {
       },
     )
     expect(response.data).toMatchObject({
-      article: article,
+      article: { ...article, tags: article.tags.sort() },
     })
 
     return {
@@ -95,27 +95,36 @@ export class RestDriver implements ProtocolDriver {
     expect(response.status).toBe(204)
   }
 
-  async findArticle(
-    article: ArticleDefinition,
-  ): Promise<ArticleSnapshot | null> {
-    const response = await this.axios.get(`articles/${article.slug}`, {
+  async getArticle(slug: string): Promise<ArticleSnapshot | null> {
+    const response = await this.axios.get(`articles/${slug}`, {
       headers: {
         Authorization: this.getAuth(),
       },
     })
     if (response.data?.article) {
       expect(response.status).toBe(200)
-      const articleResponse = response.data.article
+      const article = response.data.article
       return {
-        title: articleResponse.title,
-        description: articleResponse.description,
-        body: articleResponse.body,
-        tags: articleResponse.tags,
+        title: article.title,
+        description: article.description,
+        body: article.body,
+        tags: article.tags,
       }
     } else {
       expect(response.status).toBe(404)
       return null
     }
+  }
+
+  async findArticles(filters: ArticleProps): Promise<ArticleSnapshot[]> {
+    const response = await this.axios.get(`articles/`, {
+      headers: {
+        Authorization: this.getAuth(),
+      },
+      params: filters,
+    })
+    expect(response.status).toBe(200)
+    return response.data.articles
   }
 
   async editArticle(

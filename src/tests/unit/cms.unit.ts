@@ -1,10 +1,11 @@
-import { testDataSource } from '../../database.providers'
-import { Author } from '../articles.models'
-import { exampleArticle, exampleArticle2 } from '../examples'
-import { ArticlesTypeORMPersistence } from '../persistence/persistence.impl'
-import { UserNotAllowedToChangeArticle } from './cms.exceptions'
-import { CMSPersistence } from './cms.persistence'
-import { ContentManagementSystem } from './cms.service'
+import { Repository } from 'typeorm'
+import { Author } from '../../main/articles/articles.models'
+import { EditableArticle } from '../../main/articles/cms/cms.models'
+import { ContentManagementSystem } from '../../main/articles/cms/cms.service'
+import { exampleArticle, exampleArticle2 } from '../../main/articles/examples'
+import { ArticleEntity } from '../../main/articles/persistence/article.entity'
+import { ArticleNotFound } from '../../main/articles/views/views.exceptions'
+import { testDataSource } from '../utils'
 
 beforeEach(() => {
   return testDataSource.initialize()
@@ -15,19 +16,20 @@ afterEach(() => {
 })
 
 describe('Content Management System', () => {
-  let persistence: CMSPersistence
+  let repository: Repository<ArticleEntity>
   let cms: ContentManagementSystem
+  let article: EditableArticle
   const author: Author = { getAuthorID: () => 1 }
 
-  beforeEach(() => {
-    persistence = new ArticlesTypeORMPersistence()
-    cms = new ContentManagementSystem(persistence, author)
+  beforeEach(async () => {
+    repository = testDataSource.getRepository(ArticleEntity)
+    cms = new ContentManagementSystem(repository, author)
+
+    // Arange
+    article = await cms.createFromSnapshot(exampleArticle)
   })
 
   it("should let author access it's own article", async () => {
-    // Arrange
-    await cms.createFromSnapshot(exampleArticle)
-
     // Act
     const article = await cms.getArticle(exampleArticle.slug)
 
@@ -36,9 +38,6 @@ describe('Content Management System', () => {
   })
 
   it("should let author change it's own article", async () => {
-    // Arrange
-    await cms.createFromSnapshot(exampleArticle)
-
     // Act
     const article = await cms.getArticle(exampleArticle.slug)
     await article.loadSnapshot({ body: exampleArticle2.body }).save()
@@ -52,16 +51,13 @@ describe('Content Management System', () => {
 
   it('should not let another author change the article', async () => {
     // Arrange
-    await cms.createFromSnapshot(exampleArticle)
-
-    //
-    const cmsForOtherAuthor = new ContentManagementSystem(persistence, {
-      getAuthorID: () => 10,
+    const cmsForOtherAuthor = new ContentManagementSystem(repository, {
+      getAuthorID: () => 2,
     })
 
     // Act - Assert
     await expect(() =>
       cmsForOtherAuthor.getArticle(exampleArticle.slug),
-    ).rejects.toThrow(UserNotAllowedToChangeArticle)
+    ).rejects.toThrow(ArticleNotFound)
   })
 })

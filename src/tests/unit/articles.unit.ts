@@ -1,9 +1,14 @@
-import { testDataSource } from '../database.providers'
-import { ArticleSnapshot, Author, Dated } from './articles.models'
-import { ArticlesService } from './articles.service'
-import { exampleArticle, exampleTags } from './examples'
-import { ArticlesTypeORMPersistence } from './persistence/persistence.impl'
-import { ArticleNotFound } from './views/views.exceptions'
+import {
+  ArticleSnapshot,
+  Author,
+  Dated,
+} from '../../main/articles/articles.models'
+import { ArticlesService } from '../../main/articles/articles.service'
+import { ContentManagementSystem } from '../../main/articles/cms/cms.service'
+import { exampleArticle, exampleTags } from '../../main/articles/examples'
+import { ArticleEntity } from '../../main/articles/persistence/article.entity'
+import { ArticleNotFound } from '../../main/articles/views/views.exceptions'
+import { testDataSource } from '../utils'
 
 beforeEach(() => {
   return testDataSource.initialize()
@@ -16,15 +21,16 @@ afterEach(() => {
 describe('Article', () => {
   const author: Author = { getAuthorID: () => 1 }
   let service: ArticlesService
+  let cms: ContentManagementSystem
 
   beforeEach(() => {
-    const persistence = new ArticlesTypeORMPersistence()
-    service = new ArticlesService(persistence)
+    service = new ArticlesService(testDataSource.getRepository(ArticleEntity))
+    cms = service.getCMS(author)
   })
 
   it('should be accessible to other users after published', async () => {
     // Arrange
-    await service.getCMS(author).createFromSnapshot(exampleArticle, true)
+    await cms.createFromSnapshot(exampleArticle, true)
 
     // Act
     const article: Dated<ArticleSnapshot> = await service
@@ -39,7 +45,7 @@ describe('Article', () => {
 
   it('should always be accessible to the author', async () => {
     // Arrange
-    await service.getCMS(author).createFromSnapshot(exampleArticle)
+    await cms.createFromSnapshot(exampleArticle)
 
     // Act
     const article = await service
@@ -55,7 +61,7 @@ describe('Article', () => {
 
   it('should not be accessible to other users if not published', async () => {
     // Arrange
-    await service.getCMS(author).createFromSnapshot(exampleArticle)
+    await cms.createFromSnapshot(exampleArticle)
 
     // Act - Assert
     await expect(
@@ -71,7 +77,7 @@ describe('Article', () => {
 
   it('should ignore duplicated tags', async () => {
     // Arrange
-    await service.getCMS(author).createFromSnapshot({
+    await cms.createFromSnapshot({
       title: exampleArticle.title,
       description: exampleArticle.description,
       body: exampleArticle.body,
@@ -90,13 +96,13 @@ describe('Article', () => {
 
   it('should be able to reuse tags from other articles', async () => {
     // Arrange
-    await service.getCMS(author).createFromSnapshot({
+    await cms.createFromSnapshot({
       title: 'One article',
       description: 'One article',
       body: 'One article',
       tags: ['programming', 'physics'],
     })
-    await service.getCMS(author).createFromSnapshot({
+    await cms.createFromSnapshot({
       title: 'Other article',
       description: 'Other article',
       body: 'Other article',

@@ -23,7 +23,7 @@ export class JWTAuthGuard extends AuthGuard('jwt') {
 
   handleRequest(err, user, info, context: ExecutionContext) {
     // You can throw an exception based on either "info" or "err" arguments
-    console.log('Calling handleRequest from JWTAuthGuard')
+    // console.log('Calling handleRequest from JWTAuthGuard')
     const userIsOptional = this.reflector.get<boolean | null>(
       authIsOptionalString,
       context.getHandler(),

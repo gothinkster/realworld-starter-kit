@@ -18,7 +18,9 @@ export interface ProtocolDriver {
 
   unpublishArticle(searchParams: ArticleDefinition): Promise<void>
 
-  findArticle(searchParams: ArticleDefinition): Promise<ArticleSnapshot>
+  getArticle(slug: string): Promise<ArticleSnapshot>
+
+  findArticles(filters: ArticleProps): Promise<ArticleSnapshot[]>
 
   editArticle(
     searchParams: ArticleDefinition,
@@ -66,6 +68,10 @@ export function makeRandomArticle(
     title: article?.title || lorem.generateSentences(1),
     description: article?.description || lorem.generateSentences(2),
     body: article?.body || lorem.generateParagraphs(1),
-    tags: article?.tags || lorem.generateWords(4).toLowerCase().split(' '),
+    tags: [
+      ...new Set(
+        article?.tags || lorem.generateWords(4).toLowerCase().split(' '),
+      ),
+    ].sort(),
   }
 }

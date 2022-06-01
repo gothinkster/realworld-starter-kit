@@ -23,7 +23,7 @@ export class JWTAuthPassport extends NestGuardStrategyFor(JWTStrategy) {
     // To add here:
     //  - Additional validation
     //  - Remote token introspection, Therefore, we should get access to required roles.
-    console.log('Calling validate from JWTAuthPassport')
+    // console.log('Calling validate from JWTAuthPassport')
     return { id: parseInt(payload.sub), email: payload.email }
   }
 }

@@ -26,12 +26,16 @@ export class ArticlesViewsController {
     private profiles: ProfilesService,
   ) {}
 
+  @AuthIsOptional()
   @Get()
-  getManyArticles(
+  async getManyArticles(
+    @Req() req: { user: AccountType },
     @Query(validateModel()) filters: ArticleFilters,
     @QueryInt('limit', 20) limit?: number,
     @QueryInt('offset', 0) offset?: number,
-  ) {
+  ): Promise<{ articles: ArticleResponseDTO }> {
+    const user = await this.profiles.getProfile({ account: req.user })
+    const views = await this.articles.getViews(user)
     return undefined
   }
 
