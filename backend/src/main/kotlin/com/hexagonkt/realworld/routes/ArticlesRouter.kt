@@ -1,8 +1,6 @@
 package com.hexagonkt.realworld.routes
 
 import com.auth0.jwt.interfaces.DecodedJWT
-import com.hexagonkt.core.Jvm
-import com.hexagonkt.core.fail
 import com.hexagonkt.core.require
 import com.hexagonkt.http.server.handlers.path
 import com.hexagonkt.http.toHttpFormat
