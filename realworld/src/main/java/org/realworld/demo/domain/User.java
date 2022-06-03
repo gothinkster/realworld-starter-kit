@@ -1,13 +1,14 @@
 package org.realworld.demo.domain;
 
-import com.google.common.base.Preconditions;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
 @Entity
+@Table(name="users")
 public class User extends BaseEntity{
     private String email;
 
@@ -26,13 +27,33 @@ public class User extends BaseEntity{
         checkArgument(StringUtils.hasText(email));
         checkArgument(StringUtils.hasText(password));
         checkArgument(StringUtils.hasText(userName));
-        checkArgument(StringUtils.hasText(bio));
-        checkArgument(StringUtils.hasText(image));
+//        checkArgument(StringUtils.hasText(bio));
+//        checkArgument(StringUtils.hasText(image));
 
         this.email = email;
         this.password = password;
         this.userName = userName;
         this.bio = bio;
         this.image = image;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

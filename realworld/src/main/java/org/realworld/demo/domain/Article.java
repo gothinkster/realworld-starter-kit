@@ -1,6 +1,5 @@
 package org.realworld.demo.domain;
 
-import com.google.common.base.Preconditions;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.Entity;
@@ -66,10 +65,10 @@ public class Article extends BaseTimeEntity{
 
 
     public static class Builder {
-        private User author;
-        private String title;
+        private final User author;
+        private final String title;
         private String description;
-        private String body;
+        private final String body;
         private List<Tag> tags;
 
         // 필수적인 필드 : brand

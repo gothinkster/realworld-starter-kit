@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: "jdbc:h2:file:./db;DATABASE_TO_LOWER=TRUE;"
+    username: sa
+    password:
+
+  jpa:
+#    generate-ddl: true
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+  h2:
+    console:
+      enabled: true
+
+
