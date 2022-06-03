@@ -1,16 +1,19 @@
 import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { Axios } from 'axios'
+import { DataSource } from 'typeorm'
 import { AppModule } from '../../../main/app.module'
 import { DATASOURCE_PROVIDER } from '../../../main/database.providers'
 import { testDataSource } from '../../utils'
 
-async function createAppForLocalTest(): Promise<INestApplication> {
+async function createAppForLocalTest(
+  dataSource: DataSource,
+): Promise<INestApplication> {
   const moduleBuilder = await Test.createTestingModule({
     imports: [AppModule],
   })
-  await testDataSource.initialize()
-  moduleBuilder.overrideProvider(DATASOURCE_PROVIDER).useValue(testDataSource)
+  await dataSource.initialize()
+  moduleBuilder.overrideProvider(DATASOURCE_PROVIDER).useValue(dataSource)
   const testingModule: TestingModule = await moduleBuilder.compile()
 
   const app = testingModule.createNestApplication()
@@ -29,9 +32,12 @@ export async function connectToNestApp(): Promise<AppConnection> {
 
   let apiUrl: string = process.env.API_URL
   if (!apiUrl) {
-    const nest = await createAppForLocalTest()
+    const nest = await createAppForLocalTest(testDataSource)
     apiUrl = `${await nest.getUrl()}/api`
-    stop = nest.close
+    stop = async () => {
+      await nest.close()
+      await testDataSource.destroy()
+    }
   }
 
   const axios = new Axios({

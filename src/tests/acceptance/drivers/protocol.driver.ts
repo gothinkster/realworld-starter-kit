@@ -5,56 +5,51 @@ import {
 } from '../../../main/articles/articles.models'
 
 export interface ProtocolDriver {
-  login(user: Users): Promise<void>
-  getCurrentUser(): Promise<Users>
+  login(user: User): void
+  getCurrentUser(): Promise<User>
 
-  follow(user: Users): Promise<void>
+  follow(user: User): Promise<void>
 
-  unfollow(user: Users): Promise<void>
+  unfollow(user: User): Promise<void>
 
-  publishArticle(searchParams: ArticleDefinition): Promise<void>
+  publishArticle(slug: string): Promise<void>
 
-  deleteArticle(searchParams: ArticleDefinition): Promise<void>
+  deleteArticle(slug: string): Promise<void>
 
-  unpublishArticle(searchParams: ArticleDefinition): Promise<void>
+  unpublishArticle(slug: string): Promise<void>
 
   getArticle(slug: string): Promise<ArticleSnapshot>
 
-  findArticles(filters: ArticleProps): Promise<ArticleSnapshot[]>
+  findArticles(filters: ArticleSearch): Promise<ArticleSnapshot[]>
 
-  editArticle(
-    searchParams: ArticleDefinition,
-    editions: PartialArticleSnapshot,
-  ): Promise<ArticleDefinition>
+  editArticle(slug: string, editions: PartialArticleSnapshot): Promise<string>
 
-  unfavoriteArticle(searchParams: ArticleDefinition): Promise<void>
+  unfavoriteArticle(slug: string): Promise<void>
 
-  favoriteArticle(searchParams: ArticleDefinition): Promise<void>
+  favoriteArticle(slug: string): Promise<void>
 
-  createArticle(article: ArticleSnapshot): Promise<ArticleDefinition>
+  createArticle(article: ArticleSnapshot): Promise<string>
 
-  commentOnArticle(article: ArticleDefinition, comment: string): Promise<void>
+  commentOnArticle(slug: string, comment: string): Promise<void>
 }
 
-export interface ArticleProps {
+export interface ArticleSearch {
   tags?: string[]
-  author?: Users
+  author?: User | { user: User }
 }
 
-export interface ArticleDefinition {
-  slug: string
-  author: Users
+export interface ArticleContext {
+  slug?: string
+  author?: User
 }
 
-export enum Users {
-  Me = 'Me',
-  Costello = 'Costello',
-  Abbott = 'Abbott',
+export interface User {
+  name: string
 }
 
-export function createCredentials(user: Users) {
+export function createCredentials(username: string) {
   return {
-    email: `${user.toLowerCase()}@mail.com`,
+    email: `${username.toLowerCase()}@mail.com`,
     password: 'asdaWAdji!oi8809jk',
   }
 }

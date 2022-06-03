@@ -4,44 +4,43 @@ import {
   PartialArticleSnapshot,
 } from '../../../main/articles/articles.models'
 import {
-  ArticleDefinition,
-  ArticleProps,
+  ArticleSearch,
   createCredentials,
   ProtocolDriver,
-  Users,
+  User,
 } from './protocol.driver'
 
 export class RestDriver implements ProtocolDriver {
-  private user: Users
-  private static userAuth = {}
+  private user: User
+  private static userAuth: { [key: string]: string } = {}
 
-  public static async createAccounts(axios: Axios) {
+  public static async createAccounts(axios: Axios, usernames: string[]) {
     await Promise.all(
-      Object.keys(Users).map(async (key) => {
-        const user: Users = Users[key]
+      usernames.map(async (username) => {
         const signup = await axios.post('accounts/signup', {
-          user: createCredentials(user),
+          user: createCredentials(username),
         })
-        RestDriver.userAuth[user] = `Bearer ${signup.data.access_token}`
+        if (signup.data.access_token) {
+          RestDriver.userAuth[username] = `Bearer ${signup.data.access_token}`
+        }
       }),
     )
   }
-  public static async createProfiles(axios) {
+  public static async createProfiles(axios: Axios, usernames: string[]) {
     return await Promise.all(
-      Object.keys(Users).map(async (key) => {
-        const user: Users = Users[key]
+      usernames.map(async (username) => {
         return await axios.post(
           'profiles',
           {
             profile: {
-              username: user,
-              bio: 'a2frasf',
+              username: username,
+              bio: `Me chamo ${username}`,
               image: 'af2fasf',
             },
           },
           {
             headers: {
-              Authorization: RestDriver.userAuth[user],
+              Authorization: RestDriver.userAuth[username],
             },
           },
         )
@@ -51,19 +50,19 @@ export class RestDriver implements ProtocolDriver {
 
   constructor(private axios: Axios) {}
 
-  async login(user: Users) {
+  login(user: User) {
     this.user = user
   }
 
   private getAuth(): string {
-    return RestDriver.userAuth[this.user]
+    return RestDriver.userAuth[this.user.name]
   }
 
-  async getCurrentUser(): Promise<Users> {
+  async getCurrentUser(): Promise<User> {
     return this.user
   }
 
-  async createArticle(article: ArticleSnapshot): Promise<ArticleDefinition> {
+  async createArticle(article: ArticleSnapshot): Promise<string> {
     const headers = {
       Authorization: this.getAuth(),
     }
@@ -80,14 +79,11 @@ export class RestDriver implements ProtocolDriver {
       article: { ...article, tags: article.tags.sort() },
     })
 
-    return {
-      author: response.data.article.author.username,
-      slug: response.data.article.slug,
-    }
+    return response.data.article.slug
   }
 
-  async deleteArticle(searchParams: ArticleDefinition) {
-    const response = await this.axios.delete(`articles/${searchParams.slug}`, {
+  async deleteArticle(slug: string) {
+    const response = await this.axios.delete(`articles/${slug}`, {
       headers: {
         Authorization: this.getAuth(),
       },
@@ -116,7 +112,7 @@ export class RestDriver implements ProtocolDriver {
     }
   }
 
-  async findArticles(filters: ArticleProps): Promise<ArticleSnapshot[]> {
+  async findArticles(filters: ArticleSearch): Promise<ArticleSnapshot[]> {
     const response = await this.axios.get(`articles/`, {
       headers: {
         Authorization: this.getAuth(),
@@ -128,42 +124,37 @@ export class RestDriver implements ProtocolDriver {
   }
 
   async editArticle(
-    searchParams: ArticleDefinition,
+    slug: string,
     editions: PartialArticleSnapshot,
-  ): Promise<ArticleDefinition> {
+  ): Promise<string> {
     return undefined
   }
 
-  async publishArticle(searchParams: ArticleDefinition) {
+  async publishArticle(slug: string) {
     const response = await this.axios.post(
-      `articles/${searchParams.slug}/publication`,
+      `articles/${slug}/publication`,
       undefined,
       { headers: { Authorization: this.getAuth() } },
     )
   }
 
-  async unpublishArticle(searchParams: ArticleDefinition) {
-    const response = await this.axios.delete(
-      `articles/${searchParams.slug}/publication`,
-      { headers: { Authorization: this.getAuth() } },
-    )
+  async unpublishArticle(slug: string) {
+    const response = await this.axios.delete(`articles/${slug}/publication`, {
+      headers: { Authorization: this.getAuth() },
+    })
   }
 
-  async favoriteArticle(searchParams: ArticleDefinition) {
-    const response = await this.axios.post(
-      `articles/${searchParams.slug}/favorite`,
-    )
+  async favoriteArticle(slug: string) {
+    const response = await this.axios.post(`articles/${slug}/favorite`)
   }
 
-  async unfavoriteArticle(searchParams: ArticleDefinition) {
-    const response = await this.axios.delete(
-      `articles/${searchParams.slug}/favorite`,
-    )
+  async unfavoriteArticle(slug: string) {
+    const response = await this.axios.delete(`articles/${slug}/favorite`)
   }
 
-  async follow(user: Users) {}
+  async follow(user: User) {}
 
-  async unfollow(user: Users) {}
+  async unfollow(user: User) {}
 
-  async commentOnArticle(article: ArticleDefinition, comment: string) {}
+  async commentOnArticle(slug: string, comment: string) {}
 }
