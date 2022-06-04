@@ -2,7 +2,7 @@ import { Repository } from 'typeorm'
 import { ProfilesService } from '../../profiles/profiles.service'
 import { ArticleSnapshot, Author } from '../articles.models'
 import { ArticleEntity } from '../persistence/article.entity'
-import { ArticleNotFound } from '../views/views.exceptions'
+import { ArticleFinder } from '../views/articles.finder'
 import { EditableArticle } from './cms.models'
 
 /**
@@ -17,14 +17,10 @@ export class ContentManagementSystem {
   ) {}
 
   async getArticle(slug: string): Promise<EditableArticle> {
-    const article = await this.repository.findOneBy({
-      slug: slug,
-      authorId: this.author.getAuthorID(),
-    })
-    if (!article) {
-      throw new ArticleNotFound(slug)
-    }
-    return article
+    return new ArticleFinder()
+      .filterBySlug(slug)
+      .filterByAuthor(this.author)
+      .getOne()
   }
 
   async createFromSnapshot(

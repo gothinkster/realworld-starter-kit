@@ -36,7 +36,7 @@ export class ArticlesViewsController {
   ): Promise<{ articles: ArticleResponseDTO[] }> {
     const user = await this.profiles.getProfile({ account: req.user })
     const view = await this.articles.getViews(user)
-    const articles = await view.getArticlesByFilter(filters, limit, offset)
+    const articles = await view.getArticlesByFilters(filters, limit, offset)
     return {
       articles: articles.map((article) => {
         return {
@@ -49,11 +49,23 @@ export class ArticlesViewsController {
   }
 
   @Get('feed')
-  getFeed(
+  async getFeed(
+    @Req() req: { user: AccountType },
     @QueryInt('limit', 20) limit?: number,
     @QueryInt('offset', 0) offset?: number,
-  ) {
-    return undefined
+  ): Promise<{ articles: ArticleResponseDTO[] }> {
+    const user = await this.profiles.getProfile({ account: req.user })
+    const view = await this.articles.getViews(user)
+    const articles = await view.getFeed(limit, offset)
+    return {
+      articles: articles.map((article) => {
+        return {
+          ...article.createSnapshot(),
+          author: user.createSnapshot(),
+          favoritesCount: 0,
+        }
+      }),
+    }
   }
 
   @AuthIsOptional()

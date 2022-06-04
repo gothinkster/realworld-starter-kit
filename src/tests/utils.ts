@@ -7,5 +7,4 @@ export const testDataSource = new DataSource({
   dropSchema: true,
   entities: entities,
   synchronize: true,
-  logging: true,
 })
