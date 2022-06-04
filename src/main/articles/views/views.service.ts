@@ -2,7 +2,8 @@ import { Repository, SelectQueryBuilder } from 'typeorm'
 import { Brackets } from 'typeorm/query-builder/Brackets'
 import { ProfilesService } from '../../profiles/profiles.service'
 import { ArticleFilters } from '../articles.dto'
-import { Author, ReadonlyArticle } from '../articles.models'
+import { Author, Dated, ReadonlyArticle, Sluged } from '../articles.models'
+import { EditableArticle } from '../cms/cms.models'
 import { ArticleEntity } from '../persistence/article.entity'
 import { ArticleNotFound } from './views.exceptions'
 
@@ -14,14 +15,10 @@ export class ArticleViews {
   ) {}
 
   async getArticle(slug: string): Promise<ReadonlyArticle> {
-    const article = await new ArticleFinder(this.repository)
+    return await new ArticleFinder()
       .filterBySlug(slug)
       .filterByPublishedOrOwnedBy(this.user)
       .getOne()
-    if (!article) {
-      throw new ArticleNotFound(slug)
-    }
-    return article
   }
 
   async getArticlesByFilter(
@@ -29,7 +26,7 @@ export class ArticleViews {
     limit: number = 20,
     offset: number = 0,
   ): Promise<ReadonlyArticle[]> {
-    const finder = new ArticleFinder(this.repository, limit, offset)
+    const finder = new ArticleFinder(limit, offset)
       .filterByPublishedOrOwnedBy(this.user)
       .filterByTags(filters.tags?.split(','))
     await finder.filterByAuthor(this.profiles, filters.author)
@@ -37,14 +34,12 @@ export class ArticleViews {
   }
 }
 
-class ArticleFinder {
+export class ArticleFinder {
   private readonly qb: SelectQueryBuilder<ArticleEntity>
-  constructor(
-    private readonly repository: Repository<ArticleEntity>,
-    limit: number = 20,
-    offset: number = 0,
-  ) {
-    this.qb = this.repository
+  slug: string
+
+  constructor(limit: number = 20, offset: number = 0) {
+    this.qb = ArticleEntity.getRepository()
       .createQueryBuilder()
       .where('true')
       .limit(limit)
@@ -54,6 +49,7 @@ class ArticleFinder {
 
   filterBySlug(slug: string) {
     this.qb.andWhere({ slug: slug })
+    this.slug = slug
     return this
   }
 
@@ -90,11 +86,15 @@ class ArticleFinder {
     return this
   }
 
-  getOne() {
-    return this.qb.getOne()
+  async getOne(): Promise<Sluged<Dated<EditableArticle>>> {
+    const article = await this.qb.getOne()
+    if (!article) {
+      throw new ArticleNotFound(this.slug)
+    }
+    return article
   }
 
-  getMany() {
-    return this.qb.getMany()
+  async getMany(): Promise<Sluged<Dated<EditableArticle>>[]> {
+    return await this.qb.getMany()
   }
 }
