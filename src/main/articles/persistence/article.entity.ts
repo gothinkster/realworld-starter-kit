@@ -60,40 +60,35 @@ export class ArticleEntity
   @Column()
   authorId: number
 
-  tags: string[]
-
   @BeforeInsert()
   @BeforeUpdate()
-  getSlug(): string {
+  private slugify() {
     this.slug = slugify(this.title)
-    return this.slug
   }
 
-  getAuthorID(): number {
-    return this.authorId
+  private tagStrings: string[]
+
+  get tags(): string[] {
+    return this.tagList ? this.tagList.map((value) => value.name).sort() : []
   }
 
-  isPublished(): boolean {
-    return this.published
+  set tags(tags: string[]) {
+    this.tagStrings = [...new Set(tags)]
   }
 
-  private getTags(): string[] {
-    return this.tagList.map((value) => value.name).sort()
-  }
-
-  private async setTags(): Promise<this> {
-    const uniqueTags = [...new Set(this.tags)].sort()
-    this.tagList = await TagEntity.getOrCreateFromNames(uniqueTags)
-    return this
+  private async persistTags() {
+    if (this.tagStrings) {
+      this.tagList = await TagEntity.getOrCreateFromNames(this.tagStrings)
+    }
   }
 
   createSnapshot(): Dated<Sluged<ArticleSnapshot>> {
     return {
-      slug: this.getSlug(),
+      slug: this.slug,
       title: this.title,
       description: this.description,
       body: this.body,
-      tags: this.getTags(),
+      tags: this.tags,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     }
@@ -103,7 +98,7 @@ export class ArticleEntity
     this.title = snapshot.title ?? this.title
     this.description = snapshot.description ?? this.description
     this.body = snapshot.body ?? this.body
-    this.tags = [...new Set(snapshot.tags ?? this.tags)]
+    this.tags = snapshot.tags ?? this.tags
     return this
   }
 
@@ -113,12 +108,12 @@ export class ArticleEntity
   }
 
   unpublish(): this {
-    this.published = true
+    this.published = false
     return this
   }
 
   async save() {
-    await this.setTags()
+    await this.persistTags()
     await super.save()
     return this
   }
