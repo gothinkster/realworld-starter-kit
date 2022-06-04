@@ -14,10 +14,10 @@ export class ArticleViews {
   ) {}
 
   async getArticle(slug: string): Promise<ReadonlyArticle> {
-    const qb = this.newQueryBuilder()
-    this.filterBySlug(qb, slug)
-    this.filterByPublishedOrOwned(qb, this.user)
-    const article = await qb.getOne()
+    const article = await new ArticleFinder(this.repository)
+      .filterBySlug(slug)
+      .filterByPublishedOrOwnedBy(this.user)
+      .getOne()
     if (!article) {
       throw new ArticleNotFound(slug)
     }
@@ -29,58 +29,57 @@ export class ArticleViews {
     limit: number = 20,
     offset: number = 0,
   ): Promise<ReadonlyArticle[]> {
-    const qb = this.newQueryBuilder(limit, offset)
-    this.filterByPublishedOrOwned(qb, this.user)
-    this.filterByTags(qb, filters.tags?.split(','))
-    await this.filterByAuthor(qb, filters.author)
-
-    return await qb.getMany()
+    const finder = new ArticleFinder(this.repository, limit, offset)
+      .filterByPublishedOrOwnedBy(this.user)
+      .filterByTags(filters.tags?.split(','))
+    await finder.filterByAuthor(this.profiles, filters.author)
+    return await finder.getMany()
   }
+}
 
-  private newQueryBuilder(
+class ArticleFinder {
+  private readonly qb: SelectQueryBuilder<ArticleEntity>
+  constructor(
+    private readonly repository: Repository<ArticleEntity>,
     limit: number = 20,
     offset: number = 0,
-  ): SelectQueryBuilder<ArticleEntity> {
-    const qb = this.repository
+  ) {
+    this.qb = this.repository
       .createQueryBuilder()
       .where('true')
       .limit(limit)
       .skip(offset)
-    qb.leftJoinAndSelect(`${qb.alias}.tagList`, 'tags')
-    return qb
+    this.qb.leftJoinAndSelect(`${this.qb.alias}.tagList`, 'tags')
   }
 
-  private filterBySlug(qb: SelectQueryBuilder<ArticleEntity>, slug: string) {
-    qb.andWhere({ slug: slug })
+  filterBySlug(slug: string) {
+    this.qb.andWhere({ slug: slug })
+    return this
   }
 
-  private async filterByAuthor(
-    qb: SelectQueryBuilder<ArticleEntity>,
-    author?: string,
-  ) {
+  async filterByAuthor(profiles: ProfilesService, author?: string) {
     if (author) {
-      const authorProfile = await this.profiles.getProfile({
+      const authorProfile = await profiles.getProfile({
         username: author,
       })
       if (!authorProfile) {
-        qb.andWhere('false')
+        this.qb.andWhere('false')
       } else {
-        qb.andWhere({ authorId: authorProfile.getAuthorID() })
+        this.qb.andWhere({ authorId: authorProfile.getAuthorID() })
       }
     }
+    return this
   }
 
-  private filterByTags(qb: SelectQueryBuilder<ArticleEntity>, tags: string[]) {
+  filterByTags(tags: string[]) {
     if (tags && tags !== []) {
-      qb.andWhere('tags.name IN (:...tags)', { tags: tags })
+      this.qb.andWhere('tags.name IN (:...tags)', { tags: tags })
     }
+    return this
   }
 
-  private filterByPublishedOrOwned(
-    qb: SelectQueryBuilder<ArticleEntity>,
-    author?: Author,
-  ) {
-    qb.andWhere(
+  filterByPublishedOrOwnedBy(author?: Author) {
+    this.qb.andWhere(
       new Brackets((qb) => {
         qb.where({ published: true })
         if (author) {
@@ -88,5 +87,14 @@ export class ArticleViews {
         }
       }),
     )
+    return this
+  }
+
+  getOne() {
+    return this.qb.getOne()
+  }
+
+  getMany() {
+    return this.qb.getMany()
   }
 }
