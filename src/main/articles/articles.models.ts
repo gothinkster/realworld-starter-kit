@@ -22,9 +22,9 @@ export interface ArticleSnapshot extends PartialArticleSnapshot {
 }
 
 export interface ReadonlyArticle {
-  getSlug(): string
-  getAuthorID(): number
-  isPublished(): boolean
+  slug: string
+  authorId: number
+  published: boolean
   createSnapshot(): Dated<Sluged<ArticleSnapshot>>
 }
 

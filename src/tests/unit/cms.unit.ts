@@ -32,7 +32,7 @@ describe('Content Management System', () => {
     const article = await cms.getArticle(exampleArticle.slug)
 
     // Assert
-    expect(article.getAuthorID()).toEqual(author.getAuthorID())
+    expect(article.authorId).toEqual(author.getAuthorID())
   })
 
   it("should let author change it's own article", async () => {

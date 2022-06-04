@@ -49,23 +49,23 @@ describe('Article', () => {
     await costello.shouldFindTheArticle()
   })
 
-  it('should be found by author', async () => {
+  it('should be found by correct author', async () => {
     await abbott.publishAnArticle()
     await costello.shouldFindArticleBy({ author: abbott.username })
   })
 
-  it('should not be found by author', async () => {
+  it('should not be found by wrong author', async () => {
     await abbott.publishAnArticle()
     await costello.shouldNotFindArticleBy({ author: costello.username })
-    // await costello.shouldNotFindArticleBy({ author: 'amy-adams' })
+    await costello.shouldNotFindArticleBy({ author: 'amy-adams' })
   })
 
-  it.skip('should be found by tag', async () => {
+  it('should be found by correct tag', async () => {
     await abbott.publishAnArticle({ tags: ['physics', 'programming'] })
     await costello.shouldFindArticleBy({ tags: ['physics'] })
   })
 
-  it.skip('should not be found by tag', async () => {
+  it('should not be found by wrong tag', async () => {
     await abbott.publishAnArticle({ tags: ['physics', 'programming'] })
     await costello.shouldNotFindArticleBy({ tags: ['drinks'] })
   })

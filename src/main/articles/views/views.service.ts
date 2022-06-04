@@ -1,10 +1,9 @@
-import { In, Repository } from 'typeorm'
+import { Repository, SelectQueryBuilder } from 'typeorm'
 import { Brackets } from 'typeorm/query-builder/Brackets'
 import { ProfilesService } from '../../profiles/profiles.service'
 import { ArticleFilters } from '../articles.dto'
 import { Author, ReadonlyArticle } from '../articles.models'
 import { ArticleEntity } from '../persistence/article.entity'
-import { TagEntity } from '../persistence/tag.entity'
 import { ArticleNotFound } from './views.exceptions'
 
 export class ArticleViews {
@@ -18,8 +17,8 @@ export class ArticleViews {
     const article = await this.repository.findOneBy({ slug: slug })
     if (
       !article ||
-      (!article.isPublished() &&
-        (!this.user || this.user.getAuthorID() !== article.getAuthorID()))
+      (!article.published &&
+        (!this.user || this.user.getAuthorID() !== article.authorId))
     ) {
       throw new ArticleNotFound(slug)
     }
@@ -33,7 +32,6 @@ export class ArticleViews {
   ): Promise<ReadonlyArticle[]> {
     const qb = this.repository
       .createQueryBuilder()
-      .setFindOptions({ loadEagerRelations: true })
       .limit(limit)
       .skip(offset)
       .where(
@@ -55,11 +53,22 @@ export class ArticleViews {
         qb.andWhere({ authorId: author.getAuthorID() })
       }
     }
-    if (filters.tags) {
-      const tags = await TagEntity.getOrCreateFromNames(filters.tags.split(','))
-      qb.innerJoinAndSelect('article.tagList', 'tag')
-      qb.andWhere('tag.id = :tagId', { tagId: In(tags.map((tag) => tag.id)) })
+    await ArticleViews.filterByTags(qb, filters.tags)
+    const query = qb.getQuery()
+    const result = await qb.getMany()
+    return result
+  }
+
+  private static async filterByTags(
+    qb: SelectQueryBuilder<ArticleEntity>,
+    tags: string | null | undefined,
+  ) {
+    if (!tags) {
+      qb.leftJoinAndSelect(`${qb.alias}.tagList`, 'tags')
+    } else {
+      qb.leftJoin('ArticlesHaveTags', 'aht', `aht.articleId = ${qb.alias}.id`)
+      qb.leftJoin('TagEntity', 'tags', 'tags.id = aht.tagId')
+      qb.andWhere('tags.name IN (:...tags)', { tags: tags.split(',') })
     }
-    return await qb.getMany()
   }
 }

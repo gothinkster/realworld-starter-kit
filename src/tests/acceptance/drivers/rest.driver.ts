@@ -116,7 +116,10 @@ export class RestDriver implements ProtocolDriver {
       headers: {
         Authorization: this.getAuth(),
       },
-      params: filters,
+      params: {
+        author: filters.author,
+        tags: filters.tags?.join(','),
+      },
     })
     expect(response.status).toBe(200)
     return response.data.articles
@@ -145,6 +148,7 @@ export class RestDriver implements ProtocolDriver {
       undefined,
       { headers: { Authorization: this.getAuth() } },
     )
+    expect(response.status).toBe(201)
   }
 
   async unpublishArticle(slug: string) {
