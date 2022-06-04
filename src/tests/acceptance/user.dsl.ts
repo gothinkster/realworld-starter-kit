@@ -1,8 +1,8 @@
 import { PartialArticleSnapshot } from '../../main/articles/articles.models'
+import { makeRandomArticle } from './drivers/factories/articles.factory'
 import {
   ArticleContext,
   ArticleSearch,
-  makeRandomArticle,
   ProtocolDriver,
   User,
 } from './drivers/protocol.driver'
@@ -11,20 +11,16 @@ export class UserDSL implements User {
   private readonly selectedArticle: ArticleContext
 
   constructor(public name: string, private driver: ProtocolDriver) {
-    this.driver.login(this)
     this.selectedArticle = {}
     return this
   }
 
+  login = () => this.driver.login(this)
   follow = (user: UserDSL) => this.driver.follow(user)
   unfollow = (user: UserDSL) => this.driver.unfollow(user)
-  favoriteTheArticle = (slug?: string) =>
-    this.driver.favoriteArticle(slug || this.selectedArticle.slug)
-  unfavoriteArticle = (slug?: string) =>
-    this.driver.unfavoriteArticle(slug || this.selectedArticle.slug)
 
   async writeArticle(article: PartialArticleSnapshot = {}) {
-    this.selectedArticle.slug = await this.driver.createArticle({
+    this.selectedArticle.slug = await this.driver.writeArticle({
       ...makeRandomArticle(),
       ...article,
     })

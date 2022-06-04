@@ -3,12 +3,8 @@ import {
   ArticleSnapshot,
   PartialArticleSnapshot,
 } from '../../../main/articles/articles.models'
-import {
-  ArticleSearch,
-  createCredentials,
-  ProtocolDriver,
-  User,
-} from './protocol.driver'
+import { createCredentials } from './factories/credentials.factory'
+import { ArticleSearch, ProtocolDriver, User } from './protocol.driver'
 
 export class RestDriver implements ProtocolDriver {
   private user: User
@@ -50,7 +46,7 @@ export class RestDriver implements ProtocolDriver {
 
   constructor(private axios: Axios) {}
 
-  login(user: User) {
+  async login(user: User) {
     this.user = user
   }
 
@@ -58,11 +54,7 @@ export class RestDriver implements ProtocolDriver {
     return RestDriver.userAuth[this.user.name]
   }
 
-  async getCurrentUser(): Promise<User> {
-    return this.user
-  }
-
-  async createArticle(article: ArticleSnapshot): Promise<string> {
+  async writeArticle(article: ArticleSnapshot): Promise<string> {
     const headers = {
       Authorization: this.getAuth(),
     }
@@ -142,14 +134,6 @@ export class RestDriver implements ProtocolDriver {
     const response = await this.axios.delete(`articles/${slug}/publication`, {
       headers: { Authorization: this.getAuth() },
     })
-  }
-
-  async favoriteArticle(slug: string) {
-    const response = await this.axios.post(`articles/${slug}/favorite`)
-  }
-
-  async unfavoriteArticle(slug: string) {
-    const response = await this.axios.delete(`articles/${slug}/favorite`)
   }
 
   async follow(user: User) {}

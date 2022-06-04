@@ -1,12 +1,10 @@
-import { LoremIpsum } from 'lorem-ipsum'
 import {
   ArticleSnapshot,
   PartialArticleSnapshot,
 } from '../../../main/articles/articles.models'
 
 export interface ProtocolDriver {
-  login(user: User): void
-  getCurrentUser(): Promise<User>
+  login(user: User): Promise<void>
 
   follow(user: User): Promise<void>
 
@@ -24,13 +22,13 @@ export interface ProtocolDriver {
 
   editArticle(slug: string, editions: PartialArticleSnapshot): Promise<string>
 
-  unfavoriteArticle(slug: string): Promise<void>
-
-  favoriteArticle(slug: string): Promise<void>
-
-  createArticle(article: ArticleSnapshot): Promise<string>
+  writeArticle(article: ArticleSnapshot): Promise<string>
 
   commentOnArticle(slug: string, comment: string): Promise<void>
+}
+
+export interface User {
+  name: string
 }
 
 export interface ArticleSearch {
@@ -41,32 +39,4 @@ export interface ArticleSearch {
 export interface ArticleContext {
   slug?: string
   author?: User
-}
-
-export interface User {
-  name: string
-}
-
-export function createCredentials(username: string) {
-  return {
-    email: `${username.toLowerCase()}@mail.com`,
-    password: 'asdaWAdji!oi8809jk',
-  }
-}
-
-const lorem = new LoremIpsum()
-
-export function makeRandomArticle(
-  article: PartialArticleSnapshot = {},
-): Readonly<ArticleSnapshot> {
-  return {
-    title: article?.title || lorem.generateSentences(1),
-    description: article?.description || lorem.generateSentences(2),
-    body: article?.body || lorem.generateParagraphs(1),
-    tags: [
-      ...new Set(
-        article?.tags || lorem.generateWords(4).toLowerCase().split(' '),
-      ),
-    ].sort(),
-  }
 }

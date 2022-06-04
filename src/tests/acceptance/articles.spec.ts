@@ -3,11 +3,17 @@ import { RestDriver } from './drivers/rest.driver'
 import { UserDSL } from './user.dsl'
 
 let connection: AppConnection
+let abbott: UserDSL
+let costello: UserDSL
 
 beforeEach(async () => {
   connection = await connectToNestApp()
   await RestDriver.createAccounts(connection.axios, ['Abbott', 'Costello'])
   await RestDriver.createProfiles(connection.axios, ['Abbott', 'Costello'])
+  abbott = new UserDSL('Abbott', new RestDriver(connection.axios))
+  costello = new UserDSL('Costello', new RestDriver(connection.axios))
+  await abbott.login()
+  await costello.login()
 })
 
 afterEach(async () => {
@@ -21,14 +27,6 @@ afterEach(async () => {
  accessible only to the owner.
  **/
 describe('Article', () => {
-  let abbott: UserDSL
-  let costello: UserDSL
-
-  beforeEach(async () => {
-    abbott = new UserDSL('Abbott', new RestDriver(connection.axios))
-    costello = new UserDSL('Costello', new RestDriver(connection.axios))
-  })
-
   it('should be found by the author', async () => {
     await abbott.writeArticle()
     await abbott.shouldFindTheArticle()
@@ -76,14 +74,6 @@ describe('Article', () => {
  The feed is where users can see articles published by their followers
  **/
 describe('Feed', () => {
-  let abbott: UserDSL
-  let costello: UserDSL
-
-  beforeEach(async () => {
-    abbott = new UserDSL('Abbott', new RestDriver(connection.axios))
-    costello = new UserDSL('Costello', new RestDriver(connection.axios))
-  })
-
   it.skip('should show articles from authors I follow', async () => {
     await costello.follow(abbott)
     await abbott.publishAnArticle({ title: 'How to train your dragon?' })
