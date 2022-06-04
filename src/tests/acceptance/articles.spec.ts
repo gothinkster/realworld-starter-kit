@@ -50,22 +50,22 @@ describe('Article', () => {
     await costello.shouldFindTheArticle('how-to-train-your-dragon')
   })
 
-  it('should not be found by author', async () => {
+  it.skip('should not be found by author', async () => {
     await abbott.publishAnArticle({ title: 'How to train your dragon?' })
     await costello.shouldNotFindArticleBy({ author: abbott })
   })
 
-  it('should be found by tag', async () => {
+  it.skip('should be found by tag', async () => {
     await abbott.publishAnArticle({ tags: ['physics', 'programming'] })
     await costello.shouldFindArticleBy({ tags: ['physics'] })
   })
 
-  it('should not be found by tag', async () => {
+  it.skip('should not be found by tag', async () => {
     await abbott.publishAnArticle({ tags: ['physics', 'programming'] })
     await costello.shouldNotFindArticleBy({ tags: ['drinks'] })
   })
 
-  it('should show other people comments', async () => {
+  it.skip('should show other people comments', async () => {
     await abbott.publishAnArticle({ title: 'How to train your dragon?' })
     await costello.commentOnArticle('how-to-train-your-dragon')
     await abbott.shouldSeeCommentFrom(costello)
@@ -82,23 +82,25 @@ describe('Feed', () => {
   beforeEach(async () => {
     abbott = new UserDSL('Abbott', new RestDriver(connection.axios))
     costello = new UserDSL('Costello', new RestDriver(connection.axios))
-    await costello.follow(abbott)
   })
 
-  it('should show articles from authors I follow in my feed', async () => {
+  it.skip('should show articles from authors I follow', async () => {
+    await costello.follow(abbott)
     await abbott.publishAnArticle({ title: 'How to train your dragon?' })
     await costello.shouldSeeTheArticleInTheFeed('how-to-train-your-dragon')
   })
 
-  it('should not show me unpublished articles', async () => {
+  it.skip('should not show articles from authors I unfollowed', async () => {
+    await costello.follow(abbott)
     await abbott.publishAnArticle({ title: 'How to train your dragon?' })
-    await abbott.unpublishTheArticle()
+    await costello.unfollow(abbott)
     await costello.shouldNotSeeTheArticleInTheFeed('how-to-train-your-dragon')
   })
 
-  it('should not show articles from authors I unfollowed', async () => {
+  it.skip('should not show me unpublished articles', async () => {
+    await costello.follow(abbott)
     await abbott.publishAnArticle({ title: 'How to train your dragon?' })
-    await costello.unfollow(abbott)
+    await abbott.unpublishTheArticle()
     await costello.shouldNotSeeTheArticleInTheFeed('how-to-train-your-dragon')
   })
 })
