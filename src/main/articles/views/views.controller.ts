@@ -33,10 +33,19 @@ export class ArticlesViewsController {
     @Query(validateModel()) filters: ArticleFilters,
     @QueryInt('limit', 20) limit?: number,
     @QueryInt('offset', 0) offset?: number,
-  ): Promise<{ articles: ArticleResponseDTO }> {
+  ): Promise<{ articles: ArticleResponseDTO[] }> {
     const user = await this.profiles.getProfile({ account: req.user })
-    const views = await this.articles.getViews(user)
-    return undefined
+    const view = await this.articles.getViews(user)
+    const articles = await view.getArticlesByFilter(filters, limit, offset)
+    return {
+      articles: articles.map((article) => {
+        return {
+          ...article.createSnapshot(),
+          author: user.createSnapshot(),
+          favoritesCount: 0,
+        }
+      }),
+    }
   }
 
   @Get('feed')
@@ -53,12 +62,12 @@ export class ArticlesViewsController {
     @Req() req: { user: AccountType },
     @Param('slug') slug: string,
   ): Promise<{ article: ArticleResponseDTO }> {
-    const author = await this.profiles.getProfile({ account: req.user })
-    const article = await this.articles.getViews(author).getArticle(slug)
+    const user = await this.profiles.getProfile({ account: req.user })
+    const article = await this.articles.getViews(user).getArticle(slug)
     return {
       article: {
         ...article.createSnapshot(),
-        author: author.createSnapshot(),
+        author: user.createSnapshot(),
         favoritesCount: 0,
       },
     }

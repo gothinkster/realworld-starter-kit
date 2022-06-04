@@ -1,48 +1,43 @@
 import { PartialArticleSnapshot } from '../../main/articles/articles.models'
 import { makeRandomArticle } from './drivers/factories/articles.factory'
-import {
-  ArticleContext,
-  ArticleSearch,
-  ProtocolDriver,
-  User,
-} from './drivers/protocol.driver'
+import { ArticleSearch, ProtocolDriver } from './drivers/protocol.driver'
 
-export class UserDSL implements User {
-  private readonly selectedArticle: ArticleContext
+export interface Context {
+  slug?: string
+}
 
-  constructor(public name: string, private driver: ProtocolDriver) {
-    this.selectedArticle = {}
-    return this
-  }
+export class UserDSL {
+  constructor(
+    public readonly username: string,
+    private driver: ProtocolDriver,
+    private context: Context,
+  ) {}
 
-  login = () => this.driver.login(this)
-  follow = (user: UserDSL) => this.driver.follow(user)
-  unfollow = (user: UserDSL) => this.driver.unfollow(user)
+  login = () => this.driver.login(this.username)
+  follow = (user: UserDSL) => this.driver.follow(user.username)
+  unfollow = (user: UserDSL) => this.driver.unfollow(user.username)
 
   async writeArticle(article: PartialArticleSnapshot = {}) {
-    this.selectedArticle.slug = await this.driver.writeArticle({
+    this.context.slug = await this.driver.writeArticle({
       ...makeRandomArticle(),
       ...article,
     })
-    if (this.selectedArticle.slug) {
-      this.selectedArticle.author = this
-    }
   }
 
   publishTheArticle = (slug?: string) =>
-    this.driver.publishArticle(slug || this.selectedArticle.slug)
+    this.driver.publishArticle(slug || this.context.slug)
   unpublishTheArticle = (slug?: string) =>
-    this.driver.unpublishArticle(slug || this.selectedArticle.slug)
+    this.driver.unpublishArticle(slug || this.context.slug)
   deleteTheArticle = (slug?: string) =>
-    this.driver.deleteArticle(slug || this.selectedArticle.slug)
+    this.driver.deleteArticle(slug || this.context.slug)
   editTheArticle = (slug?: string) =>
-    this.driver.editArticle(slug || this.selectedArticle.slug, {
+    this.driver.editArticle(slug || this.context.slug, {
       body: makeRandomArticle().body,
     })
 
   async commentOnArticle(slug?: string, comment?: string) {
     await this.driver.commentOnArticle(
-      slug || this.selectedArticle.slug,
+      slug || this.context.slug,
       comment || 'I liked that article!',
     )
   }
@@ -53,26 +48,20 @@ export class UserDSL implements User {
   }
 
   async shouldFindArticleBy(filters: ArticleSearch) {
-    const articles = await this.driver.findArticles(filters)
-    expect(articles).toContainEqual(this.selectedArticle)
+    await this.driver.shouldFindArticleBy(filters, this.context.slug)
   }
 
   async shouldNotFindArticleBy(filters: ArticleSearch) {
-    const articles = await this.driver.findArticles(filters)
-    expect(articles).not.toContainEqual(this.selectedArticle)
+    await this.driver.shouldNotFindArticleBy(filters, this.context.slug)
   }
 
   async shouldFindTheArticle(slug?: string) {
-    const article = await this.driver.getArticle(
-      slug || this.selectedArticle.slug,
-    )
+    const article = await this.driver.getArticle(slug || this.context.slug)
     expect(article).toBeTruthy()
   }
 
   async shouldNotFindTheArticle(slug?: string) {
-    const article = await this.driver.getArticle(
-      slug || this.selectedArticle.slug,
-    )
+    const article = await this.driver.getArticle(slug || this.context.slug)
     expect(article).toBeFalsy()
   }
 

@@ -26,7 +26,7 @@ export class CreateArticleDTO implements ArticleSnapshot {
 export class ArticleFilters {
   @IsString()
   @IsOptional()
-  tag?: string
+  tags?: string
 
   @IsString()
   @IsOptional()

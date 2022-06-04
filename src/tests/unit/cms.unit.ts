@@ -1,6 +1,5 @@
 import { Repository } from 'typeorm'
 import { Author } from '../../main/articles/articles.models'
-import { EditableArticle } from '../../main/articles/cms/cms.models'
 import { ContentManagementSystem } from '../../main/articles/cms/cms.service'
 import { exampleArticle, exampleArticle2 } from '../../main/articles/examples'
 import { ArticleEntity } from '../../main/articles/persistence/article.entity'
@@ -18,18 +17,17 @@ afterEach(() => {
 describe('Content Management System', () => {
   let repository: Repository<ArticleEntity>
   let cms: ContentManagementSystem
-  let article: EditableArticle
   const author: Author = { getAuthorID: () => 1 }
 
   beforeEach(async () => {
     repository = testDataSource.getRepository(ArticleEntity)
     cms = new ContentManagementSystem(repository, author)
-
-    // Arange
-    article = await cms.createFromSnapshot(exampleArticle)
   })
 
   it("should let author access it's own article", async () => {
+    // Arange
+    await cms.createFromSnapshot(exampleArticle)
+
     // Act
     const article = await cms.getArticle(exampleArticle.slug)
 
@@ -38,6 +36,9 @@ describe('Content Management System', () => {
   })
 
   it("should let author change it's own article", async () => {
+    // Arange
+    await cms.createFromSnapshot(exampleArticle)
+
     // Act
     const article = await cms.getArticle(exampleArticle.slug)
     await article.loadSnapshot({ body: exampleArticle2.body }).save()
@@ -50,6 +51,9 @@ describe('Content Management System', () => {
   })
 
   it('should not let another author change the article', async () => {
+    // Arange
+    await cms.createFromSnapshot(exampleArticle)
+
     // Arrange
     const cmsForOtherAuthor = new ContentManagementSystem(repository, {
       getAuthorID: () => 2,

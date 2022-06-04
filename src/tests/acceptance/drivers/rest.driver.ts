@@ -2,12 +2,13 @@ import { Axios } from 'axios'
 import {
   ArticleSnapshot,
   PartialArticleSnapshot,
+  Sluged,
 } from '../../../main/articles/articles.models'
 import { createCredentials } from './factories/credentials.factory'
-import { ArticleSearch, ProtocolDriver, User } from './protocol.driver'
+import { ArticleSearch, ProtocolDriver } from './protocol.driver'
 
 export class RestDriver implements ProtocolDriver {
-  private user: User
+  private username: string
   private static userAuth: { [key: string]: string } = {}
 
   public static async createAccounts(axios: Axios, usernames: string[]) {
@@ -46,12 +47,16 @@ export class RestDriver implements ProtocolDriver {
 
   constructor(private axios: Axios) {}
 
-  async login(user: User) {
-    this.user = user
+  async login(username: string) {
+    this.username = username
   }
 
+  async follow(username: string) {}
+
+  async unfollow(username: string) {}
+
   private getAuth(): string {
-    return RestDriver.userAuth[this.user.name]
+    return RestDriver.userAuth[this.username]
   }
 
   async writeArticle(article: ArticleSnapshot): Promise<string> {
@@ -104,7 +109,9 @@ export class RestDriver implements ProtocolDriver {
     }
   }
 
-  async findArticles(filters: ArticleSearch): Promise<ArticleSnapshot[]> {
+  private async findArticles(
+    filters: ArticleSearch,
+  ): Promise<Sluged<ArticleSnapshot>[]> {
     const response = await this.axios.get(`articles/`, {
       headers: {
         Authorization: this.getAuth(),
@@ -113,6 +120,16 @@ export class RestDriver implements ProtocolDriver {
     })
     expect(response.status).toBe(200)
     return response.data.articles
+  }
+
+  async shouldFindArticleBy(filters: ArticleSearch, slug: string) {
+    const articles = await this.findArticles(filters)
+    expect(articles.map((v) => v.slug)).toContainEqual(slug)
+  }
+
+  async shouldNotFindArticleBy(filters: ArticleSearch, slug: string) {
+    const articles = await this.findArticles(filters)
+    expect(articles.map((v) => v.slug)).not.toContainEqual(slug)
   }
 
   async editArticle(
@@ -135,10 +152,6 @@ export class RestDriver implements ProtocolDriver {
       headers: { Authorization: this.getAuth() },
     })
   }
-
-  async follow(user: User) {}
-
-  async unfollow(user: User) {}
 
   async commentOnArticle(slug: string, comment: string) {}
 }

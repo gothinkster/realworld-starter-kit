@@ -10,8 +10,9 @@ beforeEach(async () => {
   connection = await connectToNestApp()
   await RestDriver.createAccounts(connection.axios, ['Abbott', 'Costello'])
   await RestDriver.createProfiles(connection.axios, ['Abbott', 'Costello'])
-  abbott = new UserDSL('Abbott', new RestDriver(connection.axios))
-  costello = new UserDSL('Costello', new RestDriver(connection.axios))
+  const context = {}
+  abbott = new UserDSL('Abbott', new RestDriver(connection.axios), context)
+  costello = new UserDSL('Costello', new RestDriver(connection.axios), context)
   await abbott.login()
   await costello.login()
 })
@@ -39,18 +40,24 @@ describe('Article', () => {
   })
 
   it('should not be found by others if not published', async () => {
-    await abbott.writeArticle({ title: 'How to train your dragon?' })
-    await costello.shouldNotFindTheArticle('how-to-train-your-dragon')
+    await abbott.writeArticle()
+    await costello.shouldNotFindTheArticle()
   })
 
   it('should be found by other users after published', async () => {
-    await abbott.publishAnArticle({ title: 'How to train your dragon?' })
-    await costello.shouldFindTheArticle('how-to-train-your-dragon')
+    await abbott.publishAnArticle()
+    await costello.shouldFindTheArticle()
   })
 
-  it.skip('should not be found by author', async () => {
-    await abbott.publishAnArticle({ title: 'How to train your dragon?' })
-    await costello.shouldNotFindArticleBy({ author: abbott })
+  it('should be found by author', async () => {
+    await abbott.publishAnArticle()
+    await costello.shouldFindArticleBy({ author: abbott.username })
+  })
+
+  it('should not be found by author', async () => {
+    await abbott.publishAnArticle()
+    await costello.shouldNotFindArticleBy({ author: costello.username })
+    // await costello.shouldNotFindArticleBy({ author: 'amy-adams' })
   })
 
   it.skip('should be found by tag', async () => {
@@ -64,8 +71,8 @@ describe('Article', () => {
   })
 
   it.skip('should show other people comments', async () => {
-    await abbott.publishAnArticle({ title: 'How to train your dragon?' })
-    await costello.commentOnArticle('how-to-train-your-dragon')
+    await abbott.publishAnArticle()
+    await costello.commentOnArticle()
     await abbott.shouldSeeCommentFrom(costello)
   })
 })
@@ -76,21 +83,21 @@ describe('Article', () => {
 describe('Feed', () => {
   it.skip('should show articles from authors I follow', async () => {
     await costello.follow(abbott)
-    await abbott.publishAnArticle({ title: 'How to train your dragon?' })
-    await costello.shouldSeeTheArticleInTheFeed('how-to-train-your-dragon')
+    await abbott.publishAnArticle()
+    await costello.shouldSeeTheArticleInTheFeed()
   })
 
   it.skip('should not show articles from authors I unfollowed', async () => {
     await costello.follow(abbott)
-    await abbott.publishAnArticle({ title: 'How to train your dragon?' })
+    await abbott.publishAnArticle()
     await costello.unfollow(abbott)
-    await costello.shouldNotSeeTheArticleInTheFeed('how-to-train-your-dragon')
+    await costello.shouldNotSeeTheArticleInTheFeed()
   })
 
   it.skip('should not show me unpublished articles', async () => {
     await costello.follow(abbott)
-    await abbott.publishAnArticle({ title: 'How to train your dragon?' })
+    await abbott.publishAnArticle()
     await abbott.unpublishTheArticle()
-    await costello.shouldNotSeeTheArticleInTheFeed('how-to-train-your-dragon')
+    await costello.shouldNotSeeTheArticleInTheFeed()
   })
 })
