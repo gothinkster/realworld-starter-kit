@@ -22,9 +22,9 @@ afterEach(async () => {
 })
 
 /**
- Users should be able to edit and delete articles.
- The article list is global and should return all articles, filtered by tags,
- authors and who favorited them. However, unpublished articles should be
+ Users should be able to edit and delete domain.
+ The article list is global and should return all domain, filtered by tags,
+ authors and who favorited them. However, unpublished domain should be
  accessible only to the owner.
  **/
 describe('Article', () => {
@@ -78,7 +78,7 @@ describe('Article', () => {
 })
 
 /**
- The feed is where users can see articles published by their followers
+ The feed is where users can see domain published by their followers
  **/
 describe('Feed', () => {
   it.skip('should show articles from authors I follow', async () => {
@@ -87,7 +87,7 @@ describe('Feed', () => {
     await costello.shouldSeeTheArticleInTheFeed()
   })
 
-  it.skip('should not show articles from authors I unfollowed', async () => {
+  it.skip('should not show articles from authors I am not following', async () => {
     await costello.follow(abbott)
     await abbott.publishAnArticle()
     await costello.unfollow(abbott)

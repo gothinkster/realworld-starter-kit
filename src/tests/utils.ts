@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm'
-import { entities } from '../main/database.providers'
+import { entities } from '../main/persistence/utils'
 
 export const testDataSource = new DataSource({
   type: 'sqlite',
@@ -7,4 +7,5 @@ export const testDataSource = new DataSource({
   dropSchema: true,
   entities: entities,
   synchronize: true,
+  logging: false,
 })

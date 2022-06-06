@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import { AppModule } from './app.module'
+import { AppModule } from './nest/app.module'
 
 export async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule)
@@ -8,7 +8,7 @@ export async function bootstrap(): Promise<void> {
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Real World APP')
-    .setDescription('An api for publishing articles.')
+    .setDescription('An api for publishing domain.')
     .setVersion('1.0')
     .addBasicAuth()
     .addBearerAuth()

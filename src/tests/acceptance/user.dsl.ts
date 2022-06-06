@@ -1,4 +1,4 @@
-import { PartialArticleSnapshot } from '../../main/articles/articles.models'
+import { ArticleFields } from '../../main/domain/articles/models'
 import { makeRandomArticle } from './drivers/factories/articles.factory'
 import { ArticleSearch, ProtocolDriver } from './drivers/protocol.driver'
 
@@ -17,7 +17,7 @@ export class UserDSL {
   follow = (user: UserDSL) => this.driver.follow(user.username)
   unfollow = (user: UserDSL) => this.driver.unfollow(user.username)
 
-  async writeArticle(article: PartialArticleSnapshot = {}) {
+  async writeArticle(article: ArticleFields = {}) {
     this.context.slug = await this.driver.writeArticle({
       ...makeRandomArticle(),
       ...article,
@@ -42,7 +42,7 @@ export class UserDSL {
     )
   }
 
-  async publishAnArticle(article: PartialArticleSnapshot = {}) {
+  async publishAnArticle(article: ArticleFields = {}) {
     await this.writeArticle(article)
     await this.publishTheArticle()
   }

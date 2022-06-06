@@ -1,13 +1,8 @@
-import {
-  ArticleSnapshot,
-  Author,
-  Dated,
-} from '../../main/articles/articles.models'
-import { ArticlesService } from '../../main/articles/articles.service'
-import { ContentManagementSystem } from '../../main/articles/cms/cms.service'
-import { exampleArticle, exampleTags } from '../../main/articles/examples'
-import { ArticleEntity } from '../../main/articles/persistence/article.entity'
-import { ArticleNotFound } from '../../main/articles/views/views.exceptions'
+import { ArticlesService } from '../../main/domain/articles/articles.service'
+import { ArticleNotFound } from '../../main/domain/articles/exceptions'
+import { Article, Author } from '../../main/domain/articles/models'
+import { ArticleEntity } from '../../main/persistence/article.entity'
+import { exampleArticle, exampleTags } from '../examples'
 import { testDataSource } from '../utils'
 
 beforeEach(() => {
@@ -19,24 +14,21 @@ afterEach(() => {
 })
 
 describe('Article', () => {
-  const author: Author = { getAuthorID: () => 1 }
+  const author: Author = { id: 1 }
   let service: ArticlesService
-  let cms: ContentManagementSystem
 
   beforeEach(() => {
     service = new ArticlesService(testDataSource.getRepository(ArticleEntity))
-    cms = service.getCMS(author)
   })
 
   it('should be accessible to other users after published', async () => {
     // Arrange
-    await cms.createFromSnapshot(exampleArticle, true)
+    const cms = service.getCMS(author)
+    await cms.createArticle(exampleArticle)
+    await cms.publish(exampleArticle.slug)
 
     // Act
-    const article: Dated<ArticleSnapshot> = await service
-      .getViews(null)
-      .getArticle(exampleArticle.slug)
-      .then((v) => v.createSnapshot())
+    const article = await service.getViews(null).getArticle(exampleArticle.slug)
 
     // Assert
     expect(article).toMatchObject(exampleArticle)
@@ -45,7 +37,8 @@ describe('Article', () => {
 
   it('should always be accessible to the author', async () => {
     // Arrange
-    await cms.createFromSnapshot(exampleArticle)
+    const cms = service.getCMS(author)
+    await cms.createArticle(exampleArticle)
 
     // Act
     const article = await service
@@ -61,7 +54,8 @@ describe('Article', () => {
 
   it('should not be accessible to other users if not published', async () => {
     // Arrange
-    await cms.createFromSnapshot(exampleArticle)
+    const cms = service.getCMS(author)
+    await cms.createArticle(exampleArticle)
 
     // Act - Assert
     await expect(
@@ -69,15 +63,14 @@ describe('Article', () => {
     ).rejects.toThrow(ArticleNotFound)
 
     await expect(
-      service
-        .getViews({ getAuthorID: () => 10 })
-        .getArticle(exampleArticle.slug),
+      service.getViews({ id: 10 }).getArticle(exampleArticle.slug),
     ).rejects.toThrow(ArticleNotFound)
   })
 
   it('should ignore duplicated tags', async () => {
     // Arrange
-    await cms.createFromSnapshot({
+    const cms = service.getCMS(author)
+    await cms.createArticle({
       title: exampleArticle.title,
       description: exampleArticle.description,
       body: exampleArticle.body,
@@ -85,24 +78,24 @@ describe('Article', () => {
     })
 
     // Act
-    const article: ArticleSnapshot = await service
+    const article: Article = await service
       .getViews(author)
       .getArticle(exampleArticle.slug)
-      .then((v) => v.createSnapshot())
 
     // Assert
     expect(article.tags).toEqual(['physics', 'programming'])
   })
 
-  it('should be able to reuse tags from other articles', async () => {
+  it('should be able to reuse tags from other domain', async () => {
     // Arrange
-    await cms.createFromSnapshot({
+    const cms = service.getCMS(author)
+    await cms.createArticle({
       title: 'One article',
       description: 'One article',
       body: 'One article',
       tags: ['programming', 'physics'],
     })
-    await cms.createFromSnapshot({
+    await cms.createArticle({
       title: 'Other article',
       description: 'Other article',
       body: 'Other article',
@@ -110,10 +103,9 @@ describe('Article', () => {
     })
 
     // Act
-    const article: ArticleSnapshot = await service
+    const article: Article = await service
       .getViews(author)
       .getArticle('other-article')
-      .then((v) => v.createSnapshot())
 
     // Assert
     expect(article.tags).toEqual(['food', 'physics'])

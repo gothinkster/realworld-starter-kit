@@ -1,7 +1,4 @@
-import {
-  ArticleSnapshot,
-  PartialArticleSnapshot,
-} from '../../../main/articles/articles.models'
+import { Article, ArticleFields } from '../../../main/domain/articles/models'
 
 export interface ProtocolDriver {
   login(username: string): Promise<void>
@@ -16,15 +13,15 @@ export interface ProtocolDriver {
 
   unpublishArticle(slug: string): Promise<void>
 
-  getArticle(slug: string): Promise<ArticleSnapshot>
+  getArticle(slug: string): Promise<Article>
 
   shouldFindArticleBy(filters: ArticleSearch, slug: string): Promise<void>
 
   shouldNotFindArticleBy(filters: ArticleSearch, slug: string): Promise<void>
 
-  editArticle(slug: string, editions: PartialArticleSnapshot): Promise<string>
+  editArticle(slug: string, editions: ArticleFields): Promise<string>
 
-  writeArticle(article: ArticleSnapshot): Promise<string>
+  writeArticle(article: Article): Promise<string>
 
   commentOnArticle(slug: string, comment: string): Promise<void>
 }

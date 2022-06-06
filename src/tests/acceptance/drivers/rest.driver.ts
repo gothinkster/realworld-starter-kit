@@ -1,9 +1,9 @@
 import { Axios } from 'axios'
 import {
-  ArticleSnapshot,
-  PartialArticleSnapshot,
+  Article,
+  ArticleFields,
   Sluged,
-} from '../../../main/articles/articles.models'
+} from '../../../main/domain/articles/models'
 import { createCredentials } from './factories/credentials.factory'
 import { ArticleSearch, ProtocolDriver } from './protocol.driver'
 
@@ -12,7 +12,7 @@ export class RestDriver implements ProtocolDriver {
   private static userAuth: { [key: string]: string } = {}
 
   public static async createAccounts(axios: Axios, usernames: string[]) {
-    await Promise.all(
+    const accounts = await Promise.all(
       usernames.map(async (username) => {
         const signup = await axios.post('accounts/signup', {
           user: createCredentials(username),
@@ -22,9 +22,10 @@ export class RestDriver implements ProtocolDriver {
         }
       }),
     )
+    return accounts
   }
   public static async createProfiles(axios: Axios, usernames: string[]) {
-    return await Promise.all(
+    const profiles = await Promise.all(
       usernames.map(async (username) => {
         return await axios.post(
           'profiles',
@@ -43,6 +44,7 @@ export class RestDriver implements ProtocolDriver {
         )
       }),
     )
+    return profiles
   }
 
   constructor(private axios: Axios) {}
@@ -59,7 +61,7 @@ export class RestDriver implements ProtocolDriver {
     return RestDriver.userAuth[this.username]
   }
 
-  async writeArticle(article: ArticleSnapshot): Promise<string> {
+  async writeArticle(article: Article): Promise<string> {
     const headers = {
       Authorization: this.getAuth(),
     }
@@ -88,7 +90,7 @@ export class RestDriver implements ProtocolDriver {
     expect(response.status).toBe(204)
   }
 
-  async getArticle(slug: string): Promise<ArticleSnapshot | null> {
+  async getArticle(slug: string): Promise<Article | null> {
     const response = await this.axios.get(`articles/${slug}`, {
       headers: {
         Authorization: this.getAuth(),
@@ -111,7 +113,7 @@ export class RestDriver implements ProtocolDriver {
 
   private async findArticles(
     filters: ArticleSearch,
-  ): Promise<Sluged<ArticleSnapshot>[]> {
+  ): Promise<Sluged<Article>[]> {
     const response = await this.axios.get(`articles/`, {
       headers: {
         Authorization: this.getAuth(),
@@ -135,10 +137,7 @@ export class RestDriver implements ProtocolDriver {
     expect(articles.map((v) => v.slug)).not.toContainEqual(slug)
   }
 
-  async editArticle(
-    slug: string,
-    editions: PartialArticleSnapshot,
-  ): Promise<string> {
+  async editArticle(slug: string, editions: ArticleFields): Promise<string> {
     return undefined
   }
 

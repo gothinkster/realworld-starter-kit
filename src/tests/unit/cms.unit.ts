@@ -1,9 +1,7 @@
-import { Repository } from 'typeorm'
-import { Author } from '../../main/articles/articles.models'
-import { ContentManagementSystem } from '../../main/articles/cms/cms.service'
-import { exampleArticle, exampleArticle2 } from '../../main/articles/examples'
-import { ArticleEntity } from '../../main/articles/persistence/article.entity'
-import { ArticleNotFound } from '../../main/articles/views/views.exceptions'
+import { ContentManagementSystem } from '../../main/domain/articles/cms.service'
+import { ArticleNotFound } from '../../main/domain/articles/exceptions'
+import { Author } from '../../main/domain/articles/models'
+import { exampleArticle } from '../examples'
 import { testDataSource } from '../utils'
 
 beforeEach(() => {
@@ -15,53 +13,41 @@ afterEach(() => {
 })
 
 describe('Content Management System', () => {
-  let repository: Repository<ArticleEntity>
   let cms: ContentManagementSystem
-  const author: Author = { getAuthorID: () => 1 }
+  const author: Author = { id: 1 }
 
   beforeEach(async () => {
-    repository = testDataSource.getRepository(ArticleEntity)
-    cms = new ContentManagementSystem(repository, author)
-  })
-
-  it("should let author access it's own article", async () => {
-    // Arange
-    await cms.createFromSnapshot(exampleArticle)
-
-    // Act
-    const article = await cms.getArticle(exampleArticle.slug)
-
-    // Assert
-    expect(article.authorId).toEqual(author.getAuthorID())
+    cms = new ContentManagementSystem(author)
   })
 
   it("should let author change it's own article", async () => {
     // Arange
-    await cms.createFromSnapshot(exampleArticle)
+    await cms.createArticle(exampleArticle)
 
     // Act
-    const article = await cms.getArticle(exampleArticle.slug)
-    await article.loadSnapshot({ body: exampleArticle2.body }).save()
+    const article = await cms.updateArticle(exampleArticle.slug, {
+      body: 'Other body',
+    })
 
     // Assert
-    expect(await cms.getArticle(exampleArticle.slug)).toMatchObject({
+    expect(article).toMatchObject({
       title: exampleArticle.title,
-      body: exampleArticle2.body,
+      body: 'Other body',
     })
   })
 
   it('should not let another author change the article', async () => {
     // Arange
-    await cms.createFromSnapshot(exampleArticle)
+    await cms.createArticle(exampleArticle)
 
     // Arrange
-    const cmsForOtherAuthor = new ContentManagementSystem(repository, {
-      getAuthorID: () => 2,
-    })
+    const cmsForOtherAuthor = new ContentManagementSystem({ id: 2 })
 
     // Act - Assert
     await expect(() =>
-      cmsForOtherAuthor.getArticle(exampleArticle.slug),
+      cmsForOtherAuthor.updateArticle(exampleArticle.slug, {
+        title: 'Other title',
+      }),
     ).rejects.toThrow(ArticleNotFound)
   })
 })

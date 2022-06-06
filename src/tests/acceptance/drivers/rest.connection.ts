@@ -2,8 +2,8 @@ import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { Axios } from 'axios'
 import { DataSource } from 'typeorm'
-import { AppModule } from '../../../main/app.module'
-import { DATASOURCE_PROVIDER } from '../../../main/database.providers'
+import { AppModule } from '../../../main/nest/app.module'
+import { DATASOURCE_PROVIDER } from '../../../main/nest/providers/database.providers'
 import { testDataSource } from '../../utils'
 
 async function createAppForLocalTest(
