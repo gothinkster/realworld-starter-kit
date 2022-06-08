@@ -7,10 +7,36 @@ public class UserDto {
 
     private UserDto(){}
 
-    public static class UserCreateRequst {
+    public static class UserUpdateRequest{
+        @JsonProperty(value = "user")
+        public UserUpdateRequest.Request request;
+
+        public static class Request{
+            public final String email;
+
+            public final String username;
+
+            public final String password;
+
+            public final String image;
+
+            public final String bio;
+
+            public Request(String email, String username, String password, String image, String bio){
+                this.email = email;
+                this.username = username;
+                this.password = password;
+                this.image = image;
+                this.bio = bio;
+            }
+
+        }
+    }
+
+    public static class UserCreateRequest {
 
         @JsonProperty(value = "user")
-        public UserCreateRequst.Request request;
+        public UserCreateRequest.Request request;
 
         public static class Request{
 
@@ -32,7 +58,7 @@ public class UserDto {
         }
     }
 
-    public static class UserCreateResponse{
+    public static class UserResponse {
 
         @JsonProperty(value="user")
         public Response response;
@@ -81,13 +107,13 @@ public class UserDto {
             }
         }
 
-        public UserCreateResponse(Response response){
+        public UserResponse(Response response){
             this.response = response;
         }
 
-        public static UserCreateResponse fromUser(User user){
-            return new UserCreateResponse(
-                    new Response(user.getEmail(), "", user.getUserName(), user.getBio(), user.getImage())
+        public static UserResponse fromUser(User user){
+            return new UserResponse(
+                    new Response(user.getEmail(), "", user.getUsername(), user.getBio(), user.getImage())
             );
         }
     }

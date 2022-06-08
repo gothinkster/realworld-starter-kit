@@ -1,20 +1,22 @@
 package org.realworld.demo.domain;
 
-import org.springframework.util.StringUtils;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static org.springframework.util.StringUtils.hasText;
 
 @Entity
 @Table(name="users")
 public class User extends BaseEntity{
+
+    @Column(unique = true)
     private String email;
 
     private String password;
 
-    private String userName;
+    private String username;
 
     private String bio;
 
@@ -23,18 +25,28 @@ public class User extends BaseEntity{
     /* for table row -> object mapping */
     protected User(){}
 
-    public User(String email, String password, String userName, String bio, String image){
-        checkArgument(StringUtils.hasText(email));
-        checkArgument(StringUtils.hasText(password));
-        checkArgument(StringUtils.hasText(userName));
-//        checkArgument(StringUtils.hasText(bio));
-//        checkArgument(StringUtils.hasText(image));
+    public User(String email, String password, String username, String bio, String image){
+        checkArgument(hasText(email));
+        checkArgument(hasText(password));
+        checkArgument(hasText(username));
 
         this.email = email;
         this.password = password;
-        this.userName = userName;
+        this.username = username;
         this.bio = bio;
         this.image = image;
+    }
+
+    public User update(String password, String username, String bio, String image){
+        if(hasText(password))
+            this.password = password;
+        if(hasText(username))
+            this.username = username;
+        if(hasText(bio))
+            this.bio = bio;
+        if(hasText(image))
+            this.image = image;
+        return this;
     }
 
     public String getEmail() {
@@ -45,8 +57,8 @@ public class User extends BaseEntity{
         return password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
     public String getBio() {
