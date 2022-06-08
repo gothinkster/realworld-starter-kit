@@ -1,3 +1,4 @@
+
 spring:
   datasource:
     url: "jdbc:h2:file:./db;DATABASE_TO_LOWER=TRUE;"
@@ -16,5 +17,7 @@ spring:
   h2:
     console:
       enabled: true
-
+logging:
+  level:
+    org.springframework.security: trace
 

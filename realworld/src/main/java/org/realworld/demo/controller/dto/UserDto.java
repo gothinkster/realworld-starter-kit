@@ -117,4 +117,31 @@ public class UserDto {
             );
         }
     }
+
+    public static class UserLoginRequest{
+
+        @JsonProperty(value="user")
+        public Request request;
+
+        public String getEmail(){
+            return request.email;
+        }
+
+        public String getPassword(){
+            return request.password;
+        }
+
+
+        public static class Request{
+            public final String email;
+
+            public final String password;
+
+            public Request(String email, String password){
+                this.email = email;
+                this.password = password;
+            }
+
+        }
+    }
 }

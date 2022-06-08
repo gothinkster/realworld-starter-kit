@@ -1,6 +1,7 @@
 package org.realworld.demo.controller;
 
 import org.realworld.demo.controller.dto.UserDto.UserCreateRequest;
+import org.realworld.demo.controller.dto.UserDto.UserLoginRequest;
 import org.realworld.demo.controller.dto.UserDto.UserResponse;
 import org.realworld.demo.controller.dto.UserDto.UserUpdateRequest;
 import org.realworld.demo.domain.User;
@@ -14,6 +15,13 @@ public class UserRestController {
 
     public UserRestController(UserService userService) {
         this.userService = userService;
+    }
+
+    @PostMapping("/users/login")
+    public UserResponse login(@RequestBody UserLoginRequest request){
+        User loginUser = userService.login(request.getEmail(), request.getPassword());
+        return null;
+
     }
 
     @PostMapping("/users")

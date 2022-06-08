@@ -2,12 +2,15 @@ package org.realworld.demo.service;
 
 import org.realworld.demo.domain.User;
 import org.realworld.demo.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -24,5 +27,20 @@ public class UserService {
         User user = userOptional.orElseThrow();
         user.update(password, username, bio, image);
         return userRepository.save(user);
+    }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userRepository.findByEmail(email).orElseThrow();
+    }
+
+    public User login(String email, String password){
+        Optional<User> maybeUser = userRepository.findByEmail(email);
+        User user = maybeUser.orElseThrow();
+        if(!user.getPassword().equals(password)){
+            throw new IllegalArgumentException();
+        }
+        return user;
     }
 }
