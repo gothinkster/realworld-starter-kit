@@ -13,9 +13,7 @@ import {
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { ArticlesService } from '../../domain/articles/articles.service'
-import { ContentManagementSystem } from '../../domain/articles/cms.service'
-import { ArticleView } from '../../domain/articles/views.service'
-import { Account, Profile } from '../../domain/profiles/models'
+import { Account } from '../../domain/profiles/models'
 import { ProfilesService } from '../../domain/profiles/service'
 import { InjectAccount } from '../decorators/account.decorator'
 import {
@@ -25,7 +23,6 @@ import {
   CreateArticleDTO,
   UpdateArticleDTO,
 } from '../parsing/articles.dto'
-import { cloneProfileToOutput } from '../parsing/profiles.dto'
 import { AuthIsOptional, JWTAuthGuard } from '../security/jwt.guard'
 import { QueryInt, validateModel } from '../validation/validation.utils'
 
@@ -35,8 +32,8 @@ import { QueryInt, validateModel } from '../validation/validation.utils'
 @Controller('articles')
 export class ArticlesController {
   constructor(
-    private articles: ArticlesService,
-    private profiles: ProfilesService,
+    private articlesService: ArticlesService,
+    private profilesService: ProfilesService,
   ) {}
 
   @Get('feed')
@@ -45,12 +42,12 @@ export class ArticlesController {
     @QueryInt('limit', 20) limit?: number,
     @QueryInt('offset', 0) offset?: number,
   ): Promise<{ articles: ArticleResponseDTO[] }> {
-    const { view } = await this.getKit(account)
-    const articles = await view.getFeed(limit, offset)
+    const me = await this.profilesService.getByAccount(account)
+    const articles = await this.articlesService
+      .getView(me)
+      .getFeed(limit, offset)
     return {
-      articles: articles.map((article) => {
-        return cloneArticleToOutput(article)
-      }),
+      articles: articles.map((article) => cloneArticleToOutput(article)),
     }
   }
 
@@ -62,12 +59,14 @@ export class ArticlesController {
     @QueryInt('limit', 20) limit?: number,
     @QueryInt('offset', 0) offset?: number,
   ): Promise<{ articles: ArticleResponseDTO[] }> {
-    const { view } = await this.getKit(account, false)
-    const articles = await view.getArticlesByFilters(filters, limit, offset)
+    const me = await this.profilesService
+      .getByAccount(account)
+      .catch(() => null)
+    const articles = await this.articlesService
+      .getView(me)
+      .getArticlesByFilters(filters, limit, offset)
     return {
-      articles: articles.map((article) => {
-        return cloneArticleToOutput(article)
-      }),
+      articles: articles.map((article) => cloneArticleToOutput(article)),
     }
   }
 
@@ -77,13 +76,12 @@ export class ArticlesController {
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
   ): Promise<{ article: ArticleResponseDTO }> {
-    const { view } = await this.getKit(account, false)
-    const article = await view.getArticle(slug)
+    const me = await this.profilesService
+      .getByAccount(account)
+      .catch(() => null)
+    const article = await this.articlesService.getView(me).getArticle(slug)
     return {
-      article: cloneArticleToOutput(
-        article,
-        cloneProfileToOutput(await this.profiles.getByAuthor(article.author)),
-      ),
+      article: cloneArticleToOutput(article),
     }
   }
 
@@ -108,13 +106,12 @@ export class ArticlesController {
     @Body('article', validateModel())
     articleDTO: CreateArticleDTO,
   ): Promise<{ article: ArticleResponseDTO }> {
-    const { me, cms } = await this.getKit(account)
-    const article = await cms.createArticle(articleDTO)
+    const me = await this.profilesService.getByAccount(account)
+    const article = await this.articlesService
+      .getCMS(me)
+      .createArticle(articleDTO)
     return {
-      article: cloneArticleToOutput(
-        article,
-        cloneProfileToOutput(me, account.email),
-      ),
+      article: cloneArticleToOutput(article),
     }
   }
 
@@ -126,13 +123,12 @@ export class ArticlesController {
     @Body('article', validateModel())
     articleDTO: UpdateArticleDTO,
   ): Promise<{ article: ArticleResponseDTO }> {
-    const { me, cms } = await this.getKit(account)
-    const article = await cms.updateArticle(slug, articleDTO)
+    const me = await this.profilesService.getByAccount(account)
+    const article = await this.articlesService
+      .getCMS(me)
+      .updateArticle(slug, articleDTO)
     return {
-      article: cloneArticleToOutput(
-        article,
-        cloneProfileToOutput(me, account.email),
-      ),
+      article: cloneArticleToOutput(article),
     }
   }
 
@@ -142,8 +138,8 @@ export class ArticlesController {
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
   ) {
-    const { cms } = await this.getKit(account)
-    await cms.deleteArticle(slug)
+    const me = await this.profilesService.getByAccount(account)
+    await this.articlesService.getCMS(me).deleteArticle(slug)
   }
 
   @HttpCode(HttpStatus.CREATED)
@@ -152,13 +148,10 @@ export class ArticlesController {
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
   ): Promise<{ article: ArticleResponseDTO }> {
-    const { me, cms } = await this.getKit(account)
-    const article = await cms.publish(slug)
+    const me = await this.profilesService.getByAccount(account)
+    const article = await this.articlesService.getCMS(me).publishArticle(slug)
     return {
-      article: cloneArticleToOutput(
-        article,
-        cloneProfileToOutput(me, account.email),
-      ),
+      article: cloneArticleToOutput(article),
     }
   }
 
@@ -168,38 +161,10 @@ export class ArticlesController {
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
   ): Promise<{ article: ArticleResponseDTO }> {
-    const { me, cms } = await this.getKit(account)
-    const article = await cms.unpublish(slug)
+    const me = await this.profilesService.getByAccount(account)
+    const article = await this.articlesService.getCMS(me).unpublishArticle(slug)
     return {
-      article: cloneArticleToOutput(
-        article,
-        cloneProfileToOutput(me, account.email),
-      ),
-    }
-  }
-
-  private async getKit(
-    account: Account,
-    userRequired: boolean = true,
-  ): Promise<{
-    me: Profile
-    cms: ContentManagementSystem
-    view: ArticleView
-  }> {
-    const promise = this.profiles.getByAccount(account)
-    let me: Profile
-    let cms: ContentManagementSystem
-    if (userRequired) {
-      me = await promise
-      cms = this.articles.getCMS(me)
-    } else {
-      me = await promise.catch(() => null)
-    }
-    const view = this.articles.getViews(me)
-    return {
-      me,
-      cms,
-      view,
+      article: cloneArticleToOutput(article),
     }
   }
 }

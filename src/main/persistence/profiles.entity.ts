@@ -8,6 +8,7 @@ import {
 } from 'typeorm'
 import { Account, Profile, ProfileFields } from '../domain/profiles/models'
 import { ArticleEntity } from './article.entity'
+import { CommentEntity } from './comment.entity'
 
 @Entity({ name: 'Profile' })
 export class ProfileEntity implements Profile {
@@ -17,14 +18,20 @@ export class ProfileEntity implements Profile {
   @Column({ unique: true })
   username: string
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   bio: string
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   image: string
 
   @Column({ nullable: false })
   accountId: number
+
+  @OneToMany(() => CommentEntity, (comment) => comment.author)
+  comments: CommentEntity[]
+
+  @OneToMany(() => ArticleEntity, (article) => article.author)
+  articles: ArticleEntity[]
 
   get account(): Account {
     return { id: this.accountId }
@@ -33,9 +40,6 @@ export class ProfileEntity implements Profile {
   set account(account: Account) {
     this.accountId = account.id
   }
-
-  @OneToMany(() => ArticleEntity, (article) => article.author)
-  articles: ArticleEntity[]
 
   async isFollowing(profile: this): Promise<boolean> {
     return await Following.exists(this, profile)
@@ -58,7 +62,7 @@ export class ProfileEntity implements Profile {
 }
 
 @Unique(['userId', 'followsId'])
-@Entity({ name: 'UserIsFollowing' })
+@Entity()
 export class Following extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number

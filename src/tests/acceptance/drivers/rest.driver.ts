@@ -104,7 +104,7 @@ export class RestDriver implements ProtocolDriver {
 
   async commentOnArticle(slug: string, comment: string) {
     const response = await this.axios.post(`articles/${slug}/comments`, {
-      comment,
+      comment: { body: comment },
     })
     expect(response.status).toBe(201)
   }
@@ -141,5 +141,13 @@ export class RestDriver implements ProtocolDriver {
     const response = await this.getArticle(slug)
     expect(response.status).toBe(404)
     expect(response.data.article).toBeFalsy()
+  }
+
+  async shouldSeeCommentFrom(slug: string, username: string) {
+    const response = await this.axios.get(`articles/${slug}/comments`)
+    expect(response.status).toBe(200)
+    expect(response.data.comments.map((v) => v.author.username)).toContainEqual(
+      username,
+    )
   }
 }

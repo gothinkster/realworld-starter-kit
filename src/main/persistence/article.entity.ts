@@ -7,11 +7,15 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { ArticleFields, Author, FullArticle } from '../domain/articles/models'
+import { ArticleFields, FullArticle } from '../domain/articles/models'
 import { slugify } from '../domain/utils/slug.utils'
+import { CommentEntity } from './comment.entity'
+import { ProfileEntity } from './profiles.entity'
 import { Tag } from './tag.entity'
 
 @Entity({ name: 'Article' })
@@ -47,16 +51,11 @@ export class ArticleEntity extends BaseEntity implements FullArticle {
   @Column()
   published: boolean = false
 
-  @Column()
-  authorId: number
+  @ManyToOne(() => ProfileEntity, (profile) => profile.articles)
+  author: ProfileEntity
 
-  get author(): Author {
-    return { id: this.authorId }
-  }
-
-  set author(author: Author) {
-    this.authorId = author.id
-  }
+  @OneToMany(() => CommentEntity, (comment) => comment.article)
+  comments: CommentEntity[]
 
   @BeforeInsert()
   @BeforeUpdate()

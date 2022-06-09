@@ -1,3 +1,5 @@
+import { Authored } from '../profiles/models'
+
 export type Dated<T extends {}> = T & {
   readonly createdAt: Date
   readonly updatedAt: Date
@@ -21,16 +23,14 @@ export interface Article {
   tags: string[]
 }
 
-export interface Author {
-  id: number
-}
-
-export interface FullArticle extends Dated<Sluged<Article>> {
-  author: Author
-}
+export type FullArticle = Authored<Dated<Sluged<Article>>>
 
 export interface ArticleFilters {
   tags?: string
   author?: string
   favorited?: boolean
+}
+
+export interface Author {
+  id: number
 }

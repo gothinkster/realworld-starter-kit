@@ -1,6 +1,8 @@
 import { ContentManagementSystem } from '../../main/domain/articles/cms.service'
 import { ArticleNotFound } from '../../main/domain/articles/exceptions'
 import { Author } from '../../main/domain/articles/models'
+import { ProfilesService } from '../../main/domain/profiles/service'
+import { ProfileEntity } from '../../main/persistence/profiles.entity'
 import { exampleArticle } from '../examples'
 import { testDataSource } from '../utils'
 
@@ -14,9 +16,12 @@ afterEach(() => {
 
 describe('Content Management System', () => {
   let cms: ContentManagementSystem
-  const author: Author = { id: 1 }
+  let author: Author
 
   beforeEach(async () => {
+    author = await new ProfilesService(
+      testDataSource.getRepository(ProfileEntity),
+    ).createForAccount({ id: 1 }, { username: 'john-doe' })
     cms = new ContentManagementSystem(author)
   })
 

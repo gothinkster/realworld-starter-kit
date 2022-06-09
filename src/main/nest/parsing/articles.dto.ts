@@ -4,12 +4,11 @@ import {
   Article,
   ArticleFields,
   ArticleFilters,
-  Author,
   Dated,
   FullArticle,
   Sluged,
 } from '../../domain/articles/models'
-import { ProfileResponseDTO } from './profiles.dto'
+import { cloneProfileToOutput, ProfileResponseDTO } from './profiles.dto'
 
 export class CreateArticleDTO implements Article {
   @IsString()
@@ -46,12 +45,11 @@ export class UpdateArticleDTO
 export interface ArticleResponseDTO extends Dated<Sluged<Article>> {
   favorited?: boolean
   favoritesCount?: number
-  author: Author | ProfileResponseDTO
+  author: ProfileResponseDTO
 }
 
 export function cloneArticleToOutput(
   article: FullArticle,
-  author?: ProfileResponseDTO,
   favorited?: boolean,
 ): ArticleResponseDTO {
   const output: ArticleResponseDTO = {
@@ -62,13 +60,10 @@ export function cloneArticleToOutput(
     tags: article.tags,
     createdAt: article.createdAt,
     updatedAt: article.updatedAt,
-    author: { id: article.author.id },
+    author: cloneProfileToOutput(article.author),
   }
   if (typeof favorited === 'boolean') {
     output.favorited = favorited
-  }
-  if (author) {
-    output.author = author
   }
   return output
 }

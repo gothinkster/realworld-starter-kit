@@ -37,7 +37,7 @@ export class ProfilesController {
   ): Promise<{ profile: ProfileResponseDTO }> {
     const me = await this.service.getByAccount(account)
     return {
-      profile: cloneProfileToOutput(me, account.email),
+      profile: cloneProfileToOutput(me),
     }
   }
 
@@ -48,7 +48,7 @@ export class ProfilesController {
   ): Promise<{ profile: ProfileResponseDTO }> {
     const me = await this.service.createForAccount(account, profile)
     return {
-      profile: cloneProfileToOutput(me, account.email),
+      profile: cloneProfileToOutput(me),
     }
   }
 
@@ -59,7 +59,7 @@ export class ProfilesController {
   ): Promise<{ profile: ProfileResponseDTO }> {
     const me = await this.service.updateByAccount(account, profile)
     return {
-      profile: cloneProfileToOutput(me, account.email),
+      profile: cloneProfileToOutput(me),
     }
   }
 
@@ -70,7 +70,7 @@ export class ProfilesController {
   ): Promise<{ profile: ProfileResponseDTO }> {
     const me = await this.service.updateByAccount(account, profile)
     return {
-      profile: cloneProfileToOutput(me, account.email),
+      profile: cloneProfileToOutput(me),
     }
   }
 
@@ -83,7 +83,7 @@ export class ProfilesController {
     const user = await this.service.getByUsername(username)
     await me.follow(user)
     return {
-      profile: cloneProfileToOutput(user, account.email, true),
+      profile: cloneProfileToOutput(user, true),
     }
   }
 
@@ -97,7 +97,7 @@ export class ProfilesController {
     const user = await this.service.getByUsername(username)
     await me.unfollow(user)
     return {
-      profile: cloneProfileToOutput(user, account.email, false),
+      profile: cloneProfileToOutput(user, false),
     }
   }
 
@@ -108,8 +108,13 @@ export class ProfilesController {
     @Param('username') username: string,
   ): Promise<{ profile: ProfileResponseDTO }> {
     const profile = await this.service.getByUsername(username)
+    let following: boolean
+    if (account) {
+      const me = await this.service.getByAccount(account)
+      following = await me.isFollowing(profile)
+    }
     return {
-      profile: cloneProfileToOutput(profile, account.email),
+      profile: cloneProfileToOutput(profile, following),
     }
   }
 }

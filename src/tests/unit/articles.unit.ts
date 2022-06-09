@@ -1,7 +1,9 @@
 import { ArticlesService } from '../../main/domain/articles/articles.service'
 import { ArticleNotFound } from '../../main/domain/articles/exceptions'
 import { Article, Author } from '../../main/domain/articles/models'
+import { ProfilesService } from '../../main/domain/profiles/service'
 import { ArticleEntity } from '../../main/persistence/article.entity'
+import { ProfileEntity } from '../../main/persistence/profiles.entity'
 import { exampleArticle, exampleTags } from '../examples'
 import { testDataSource } from '../utils'
 
@@ -14,10 +16,13 @@ afterEach(() => {
 })
 
 describe('Article', () => {
-  const author: Author = { id: 1 }
+  let author: Author
   let service: ArticlesService
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    author = await new ProfilesService(
+      testDataSource.getRepository(ProfileEntity),
+    ).createForAccount({ id: 1 }, { username: 'john-doe' })
     service = new ArticlesService(testDataSource.getRepository(ArticleEntity))
   })
 
@@ -25,10 +30,10 @@ describe('Article', () => {
     // Arrange
     const cms = service.getCMS(author)
     await cms.createArticle(exampleArticle)
-    await cms.publish(exampleArticle.slug)
+    await cms.publishArticle(exampleArticle.slug)
 
     // Act
-    const article = await service.getViews(null).getArticle(exampleArticle.slug)
+    const article = await service.getView(null).getArticle(exampleArticle.slug)
 
     // Assert
     expect(article).toMatchObject(exampleArticle)
@@ -42,7 +47,7 @@ describe('Article', () => {
 
     // Act
     const article = await service
-      .getViews(author)
+      .getView(author)
       .getArticle(exampleArticle.slug)
 
     // Assert
@@ -59,11 +64,11 @@ describe('Article', () => {
 
     // Act - Assert
     await expect(
-      service.getViews().getArticle(exampleArticle.slug),
+      service.getView().getArticle(exampleArticle.slug),
     ).rejects.toThrow(ArticleNotFound)
 
     await expect(
-      service.getViews({ id: 10 }).getArticle(exampleArticle.slug),
+      service.getView({ id: 10 }).getArticle(exampleArticle.slug),
     ).rejects.toThrow(ArticleNotFound)
   })
 
@@ -79,7 +84,7 @@ describe('Article', () => {
 
     // Act
     const article: Article = await service
-      .getViews(author)
+      .getView(author)
       .getArticle(exampleArticle.slug)
 
     // Assert
@@ -104,7 +109,7 @@ describe('Article', () => {
 
     // Act
     const article: Article = await service
-      .getViews(author)
+      .getView(author)
       .getArticle('other-article')
 
     // Assert

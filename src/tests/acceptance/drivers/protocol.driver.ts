@@ -16,6 +16,7 @@ export interface ProtocolDriver {
   shouldNotFindTheArticle(slug: string): Promise<void>
   shouldSeeTheArticleInTheFeed(slug: string): Promise<void>
   shouldNotSeeTheArticleInTheFeed(slug: string): Promise<void>
+  shouldSeeCommentFrom(slug: string, username: string): Promise<void>
 }
 
 export interface ArticleSearch {

@@ -78,8 +78,11 @@ export class UserDSL {
     await this.driver.shouldNotFindTheArticle(slug || this.context.slug)
   }
 
-  shouldSeeCommentFrom(author: UserDSL, slug?: string) {
-    expect(false).toBeTruthy()
+  async shouldSeeCommentFrom(author: UserDSL, slug?: string) {
+    await this.driver.shouldSeeCommentFrom(
+      slug || this.context.slug,
+      author.username,
+    )
   }
 
   async shouldSeeTheArticleInTheFeed(slug?: string) {

@@ -15,6 +15,7 @@ export class ArticleFinder {
       .limit(limit)
       .skip(offset)
     this.qb.leftJoinAndSelect(`${this.qb.alias}.tagList`, 'tags')
+    this.qb.leftJoinAndSelect(`${this.qb.alias}.author`, 'profiles')
   }
 
   filterBySlug(slug: string) {

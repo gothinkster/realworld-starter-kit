@@ -15,7 +15,7 @@ export class ArticlesService {
     return new ContentManagementSystem(author)
   }
 
-  getViews(author?: Author): ArticleView {
+  getView(author?: Author): ArticleView {
     return new ArticleView(this.repository, author, this.profiles)
   }
 }

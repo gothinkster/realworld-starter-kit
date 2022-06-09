@@ -67,7 +67,7 @@ describe('Article', () => {
     await costello.shouldNotFindArticleBy({ tags: ['drinks'] })
   })
 
-  it.skip('should show other people comments', async () => {
+  it('should show other people comments', async () => {
     await abbott.publishAnArticle()
     await costello.commentOnArticle()
     await abbott.shouldSeeCommentFrom(costello)

@@ -27,20 +27,20 @@ export interface ProfileResponseDTO extends ProfileFields {
   username: string
   bio: string
   image: string
-  email: string
   following?: boolean
 }
 
 export function cloneProfileToOutput(
   profile: Profile,
-  email?: string,
-  following: boolean = false,
+  following?: boolean,
 ): ProfileResponseDTO {
-  return {
+  const output: ProfileResponseDTO = {
     username: profile.username,
     bio: profile.bio,
     image: profile.image,
-    email: email,
-    following: following,
   }
+  if (typeof following === 'boolean') {
+    output.following = following
+  }
+  return output
 }

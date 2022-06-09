@@ -10,10 +10,10 @@ export class ContentManagementSystem {
   constructor(private author: Author) {}
 
   async createArticle(snapshot: Article): Promise<FullArticle> {
-    const article = new ArticleEntity()
-    article.loadData(snapshot)
-    article.author = this.author
-    return await article.save()
+    const article = ArticleEntity.create({
+      author: this.author,
+    })
+    return await article.loadData(snapshot).save()
   }
 
   private async getArticleForModification(
@@ -25,7 +25,10 @@ export class ContentManagementSystem {
       .getOne()
   }
 
-  async updateArticle(slug: string, snapshot: ArticleFields) {
+  async updateArticle(
+    slug: string,
+    snapshot: ArticleFields,
+  ): Promise<FullArticle> {
     const article = await this.getArticleForModification(slug)
     return await article.loadData(snapshot).save()
   }
@@ -35,12 +38,12 @@ export class ContentManagementSystem {
     await article.delete()
   }
 
-  async publish(slug: string) {
+  async publishArticle(slug: string): Promise<FullArticle> {
     const article = await this.getArticleForModification(slug)
     return await article.publish().save()
   }
 
-  async unpublish(slug: string) {
+  async unpublishArticle(slug: string): Promise<FullArticle> {
     const article = await this.getArticleForModification(slug)
     return await article.unpublish().save()
   }

@@ -9,45 +9,73 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
+import { ArticleFinder } from '../../domain/articles/finder'
+import { Account } from '../../domain/profiles/models'
+import { ProfilesService } from '../../domain/profiles/service'
+import { CommentEntity } from '../../persistence/comment.entity'
+import { InjectAccount } from '../decorators/account.decorator'
 import {
+  cloneCommentToOutput,
   CommentDTO,
-  CommentResponsePayload,
-  CommentsResponsePayload,
-} from '../../domain/comments/comments.dto'
+  CommentResponseDTO,
+} from '../parsing/comments.dto'
 import { JWTAuthGuard } from '../security/jwt.guard'
 import { QueryInt, validateModel } from '../validation/validation.utils'
 
 @ApiTags('comments')
-@Controller('domain/:slug/comments')
+@Controller('articles/:slug/comments')
 export class CommentsController {
+  constructor(private profilesService: ProfilesService) {}
+
   @UseGuards(JWTAuthGuard)
   @ApiBearerAuth()
   @Post()
-  addCommentToAnArticle(
-    @Param() slug: string,
+  async addCommentToAnArticle(
+    @InjectAccount() account: Account,
+    @Param('slug') slug: string,
     @Body('comment', validateModel()) comment: CommentDTO,
     @QueryInt('limit', 20) limit?: number,
     @QueryInt('offset', 0) offset?: number,
-  ): CommentResponsePayload {
-    return undefined
+  ): Promise<{ comment: CommentResponseDTO }> {
+    const me = await this.profilesService.getByAccount(account)
+    const article = await new ArticleFinder().filterBySlug(slug).getOne()
+    const commentEntity = await CommentEntity.create({
+      body: comment.body,
+      author: me,
+      article: article,
+    }).save()
+    return { comment: cloneCommentToOutput(commentEntity) }
   }
 
   @Get()
-  getCommentsFromAnArticle(
-    @Param() slug: string,
+  async getCommentsFromAnArticle(
+    @Param('slug') slug: string,
     @QueryInt('limit', 20) limit?: number,
     @QueryInt('offset', 0) offset?: number,
-  ): CommentsResponsePayload {
-    return undefined
+  ): Promise<{ comments: CommentResponseDTO[] }> {
+    const article = await new ArticleFinder().filterBySlug(slug).getOne()
+    const comments = await CommentEntity.createQueryBuilder('comment')
+      .where({ article: article })
+      .leftJoinAndSelect('comment.author', 'author')
+      .getMany()
+    return {
+      comments: comments.map(cloneCommentToOutput),
+    }
   }
 
   @UseGuards(JWTAuthGuard)
   @ApiBearerAuth()
   @Delete(':id')
-  deleteCommentFromArticle(
-    @Param() slug: string,
+  async deleteCommentFromArticle(
+    @InjectAccount() account: Account,
+    @Param('slug') slug: string,
     @Param(ParseIntPipe) id: number,
   ) {
-    return undefined
+    const article = await new ArticleFinder().filterBySlug(slug).getOne()
+    const me = await this.profilesService.getByAccount(account)
+    await CommentEntity.createQueryBuilder('comment')
+      .delete()
+      .where({ article: article, author: me, id: id })
+      .execute()
   }
 }
