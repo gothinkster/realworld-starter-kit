@@ -33,7 +33,7 @@ import { QueryInt, validateModel } from '../validation/validation.utils'
 @ApiBearerAuth()
 @UseGuards(JWTAuthGuard)
 @Controller('articles')
-export class ArticlesViewsController {
+export class ArticlesController {
   constructor(
     private articles: ArticlesService,
     private profiles: ProfilesService,

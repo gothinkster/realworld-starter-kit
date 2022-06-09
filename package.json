@@ -73,6 +73,7 @@
     "typescript": "4.5.2"
   },
   "jest": {
+    "testEnvironment": "node",
     "moduleFileExtensions": [
       "js",
       "json",
@@ -87,7 +88,7 @@
     "collectCoverageFrom": [
       "src/main/*.(t|j)s"
     ],
-    "coverageDirectory": "./coverage",
-    "testEnvironment": "node"
+    "collectCoverage": true,
+    "coverageDirectory": "./coverage"
   }
 }

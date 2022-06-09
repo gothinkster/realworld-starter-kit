@@ -7,7 +7,7 @@ import { AccountEntity } from '../../persistence/accounts.entity'
 import { AccountsController } from '../controllers/accounts.controller'
 import { DATASOURCE_PROVIDER } from '../providers/database.providers'
 
-const AccountsProvider: Provider = {
+const AccountsServiceProvider: Provider = {
   provide: AccountsService,
   useFactory: (dataSource: DataSource) =>
     new AccountsService(dataSource.getRepository(AccountEntity)),
@@ -16,7 +16,7 @@ const AccountsProvider: Provider = {
 }
 
 @Module({
-  providers: [AccountsProvider, BasicAuthStrategy],
+  providers: [AccountsServiceProvider, BasicAuthStrategy],
   controllers: [AccountsController],
 })
 export class AccountsModule {}
