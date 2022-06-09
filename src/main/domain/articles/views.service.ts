@@ -4,7 +4,7 @@ import { ProfilesService } from '../profiles/service'
 import { ArticleFinder } from './finder'
 import { ArticleFilters, Author, FullArticle } from './models'
 
-export class ArticleViews {
+export class ArticleView {
   constructor(
     private repository: Repository<ArticleEntity>,
     private user?: Author,

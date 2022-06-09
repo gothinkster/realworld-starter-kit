@@ -3,7 +3,7 @@ import { ArticleEntity } from '../../persistence/article.entity'
 import { ProfilesService } from '../profiles/service'
 import { ContentManagementSystem } from './cms.service'
 import { Author } from './models'
-import { ArticleViews } from './views.service'
+import { ArticleView } from './views.service'
 
 export class ArticlesService {
   constructor(
@@ -15,7 +15,7 @@ export class ArticlesService {
     return new ContentManagementSystem(author)
   }
 
-  getViews(author?: Author): ArticleViews {
-    return new ArticleViews(this.repository, author, this.profiles)
+  getViews(author?: Author): ArticleView {
+    return new ArticleView(this.repository, author, this.profiles)
   }
 }

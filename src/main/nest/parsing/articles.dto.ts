@@ -62,7 +62,7 @@ export function cloneArticleToOutput(
     tags: article.tags,
     createdAt: article.createdAt,
     updatedAt: article.updatedAt,
-    author: article.author,
+    author: { id: article.author.id },
   }
   if (typeof favorited === 'boolean') {
     output.favorited = favorited
