@@ -13,9 +13,21 @@ export class UserDSL {
     private context: Context,
   ) {}
 
-  login = () => this.driver.login(this.username)
-  follow = (user: UserDSL) => this.driver.follow(user.username)
-  unfollow = (user: UserDSL) => this.driver.unfollow(user.username)
+  async login() {
+    await this.driver.login(this.username)
+  }
+
+  async createProfile() {
+    await this.driver.createProfile(this.username)
+  }
+
+  async follow(user: UserDSL) {
+    await this.driver.follow(user.username)
+  }
+
+  async unfollow(user: UserDSL) {
+    await this.driver.unfollow(user.username)
+  }
 
   async writeArticle(article: ArticleFields = {}) {
     this.context.slug = await this.driver.writeArticle({
@@ -24,16 +36,23 @@ export class UserDSL {
     })
   }
 
-  publishTheArticle = (slug?: string) =>
-    this.driver.publishArticle(slug || this.context.slug)
-  unpublishTheArticle = (slug?: string) =>
-    this.driver.unpublishArticle(slug || this.context.slug)
-  deleteTheArticle = (slug?: string) =>
-    this.driver.deleteArticle(slug || this.context.slug)
-  editTheArticle = (slug?: string) =>
-    this.driver.editArticle(slug || this.context.slug, {
+  async publishTheArticle(slug?: string) {
+    await this.driver.publishArticle(slug || this.context.slug)
+  }
+
+  async unpublishTheArticle(slug?: string) {
+    await this.driver.unpublishArticle(slug || this.context.slug)
+  }
+
+  async deleteTheArticle(slug?: string) {
+    await this.driver.deleteArticle(slug || this.context.slug)
+  }
+
+  async editTheArticle(slug?: string) {
+    await this.driver.editArticle(slug || this.context.slug, {
       body: makeRandomArticle().body,
     })
+  }
 
   async commentOnArticle(slug?: string, comment?: string) {
     await this.driver.commentOnArticle(
@@ -56,13 +75,11 @@ export class UserDSL {
   }
 
   async shouldFindTheArticle(slug?: string) {
-    const article = await this.driver.getArticle(slug || this.context.slug)
-    expect(article).toBeTruthy()
+    await this.driver.shouldFindTheArticle(slug || this.context.slug)
   }
 
   async shouldNotFindTheArticle(slug?: string) {
-    const article = await this.driver.getArticle(slug || this.context.slug)
-    expect(article).toBeFalsy()
+    await this.driver.shouldNotFindTheArticle(slug || this.context.slug)
   }
 
   shouldSeeCommentFrom(author: UserDSL, slug?: string) {

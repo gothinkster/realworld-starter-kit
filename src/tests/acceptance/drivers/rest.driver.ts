@@ -8,8 +8,8 @@ import { createCredentials } from './factories/credentials.factory'
 import { ArticleSearch, ProtocolDriver } from './protocol.driver'
 
 export class RestDriver implements ProtocolDriver {
-  private username: string
   private static userAuth: { [key: string]: string } = {}
+  private username: string
 
   public static async createAccounts(axios: Axios, usernames: string[]) {
     const accounts = await Promise.all(
@@ -24,65 +24,41 @@ export class RestDriver implements ProtocolDriver {
     )
     return accounts
   }
-  public static async createProfiles(axios: Axios, usernames: string[]) {
-    const profiles = await Promise.all(
-      usernames.map(async (username) => {
-        return await axios.post(
-          'profiles',
-          {
-            profile: {
-              username: username,
-              bio: `Me chamo ${username}`,
-              image: 'af2fasf',
-            },
-          },
-          {
-            headers: {
-              Authorization: RestDriver.userAuth[username],
-            },
-          },
-        )
-      }),
-    )
-    return profiles
-  }
 
   constructor(private axios: Axios) {}
 
-  private getAuth(): string {
-    return RestDriver.userAuth[this.username]
-  }
-
   async login(username: string) {
     this.username = username
+    const auth = RestDriver.userAuth[username]
+    expect(auth).toBeDefined()
+    this.axios.defaults.headers.common = { Authorization: auth }
   }
 
-  async follow(username: string) {
-    const response = await this.axios.post(`profiles/${username}/follow`, '', {
-      headers: { Authorization: this.getAuth() },
+  async createProfile() {
+    const response = await this.axios.post('profiles', {
+      profile: {
+        username: this.username,
+        bio: `Me chamo ${this.username}`,
+        image: 'af2fasf',
+      },
     })
     expect(response.status).toBe(201)
   }
 
+  async follow(username: string) {
+    const response = await this.axios.post(`profiles/${username}/follow`, '')
+    expect(response.status).toBe(201)
+  }
+
   async unfollow(username: string) {
-    const response = await this.axios.delete(`profiles/${username}/follow`, {
-      headers: { Authorization: this.getAuth() },
-    })
+    const response = await this.axios.delete(`profiles/${username}/follow`)
     expect(response.status).toBe(204)
   }
 
   async writeArticle(article: Article): Promise<string> {
-    const response = await this.axios.post(
-      'articles',
-      {
-        article: article,
-      },
-      {
-        headers: {
-          Authorization: this.getAuth(),
-        },
-      },
-    )
+    const response = await this.axios.post('articles', {
+      article: article,
+    })
     expect(response.data).toMatchObject({
       article: { ...article, tags: article.tags.sort() },
     })
@@ -91,42 +67,14 @@ export class RestDriver implements ProtocolDriver {
   }
 
   async deleteArticle(slug: string) {
-    const response = await this.axios.delete(`articles/${slug}`, {
-      headers: {
-        Authorization: this.getAuth(),
-      },
-    })
+    const response = await this.axios.delete(`articles/${slug}`)
     expect(response.status).toBe(204)
-  }
-
-  async getArticle(slug: string): Promise<Article | null> {
-    const response = await this.axios.get(`articles/${slug}`, {
-      headers: {
-        Authorization: this.getAuth(),
-      },
-    })
-    if (response.data?.article) {
-      expect(response.status).toBe(200)
-      const article = response.data.article
-      return {
-        title: article.title,
-        description: article.description,
-        body: article.body,
-        tags: article.tags,
-      }
-    } else {
-      expect(response.status).toBe(404)
-      return null
-    }
   }
 
   private async findArticles(
     filters: ArticleSearch,
   ): Promise<Sluged<Article>[]> {
     const response = await this.axios.get(`articles/`, {
-      headers: {
-        Authorization: this.getAuth(),
-      },
       params: {
         author: filters.author,
         tags: filters.tags?.join(','),
@@ -151,34 +99,24 @@ export class RestDriver implements ProtocolDriver {
   }
 
   async publishArticle(slug: string) {
-    const response = await this.axios.post(
-      `articles/${slug}/publication`,
-      undefined,
-      { headers: { Authorization: this.getAuth() } },
-    )
+    const response = await this.axios.post(`articles/${slug}/publication`)
     expect(response.status).toBe(201)
   }
 
   async unpublishArticle(slug: string) {
-    const response = await this.axios.delete(`articles/${slug}/publication`, {
-      headers: { Authorization: this.getAuth() },
-    })
+    const response = await this.axios.delete(`articles/${slug}/publication`)
     expect(response.status).toBe(204)
   }
 
   async commentOnArticle(slug: string, comment: string) {
-    const response = await this.axios.post(
-      `articles/${slug}/comments`,
-      { comment },
-      { headers: { Authorization: this.getAuth() } },
-    )
+    const response = await this.axios.post(`articles/${slug}/comments`, {
+      comment,
+    })
     expect(response.status).toBe(201)
   }
 
   private async getFeed(): Promise<Sluged<Article>[]> {
-    const response = await this.axios.get(`articles/feed`, {
-      headers: { Authorization: this.getAuth() },
-    })
+    const response = await this.axios.get(`articles/feed`)
     expect(response.status).toBe(200)
     return response.data.articles
   }
@@ -190,5 +128,22 @@ export class RestDriver implements ProtocolDriver {
   async shouldNotSeeTheArticleInTheFeed(slug: string): Promise<void> {
     const feed = await this.getFeed()
     expect(feed.map((v) => v.slug)).not.toContainEqual(slug)
+  }
+
+  private async getArticle(slug: string) {
+    const response = await this.axios.get(`articles/${slug}`)
+    expect(response.status).not.toBe(500)
+    return response
+  }
+
+  async shouldFindTheArticle(slug: string): Promise<void> {
+    const response = await this.getArticle(slug)
+    expect(response.status).toBe(200)
+    expect(response.data.article).toBeTruthy()
+  }
+  async shouldNotFindTheArticle(slug: string): Promise<void> {
+    const response = await this.getArticle(slug)
+    expect(response.status).toBe(404)
+    expect(response.data.article).toBeFalsy()
   }
 }

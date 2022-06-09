@@ -9,12 +9,15 @@ let costello: UserDSL
 beforeEach(async () => {
   connection = await connectToNestApp()
   await RestDriver.createAccounts(connection.axios, ['Abbott', 'Costello'])
-  await RestDriver.createProfiles(connection.axios, ['Abbott', 'Costello'])
   const context = {}
   abbott = new UserDSL('Abbott', new RestDriver(connection.axios), context)
   costello = new UserDSL('Costello', new RestDriver(connection.axios), context)
-  await abbott.login()
-  await costello.login()
+  await Promise.all(
+    [abbott, costello].map(async (user) => {
+      await user.login()
+      await user.createProfile()
+    }),
+  )
 })
 
 afterEach(async () => {

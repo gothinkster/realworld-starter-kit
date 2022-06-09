@@ -22,14 +22,24 @@ async function createAppForLocalTest(
   return app
 }
 
-export interface AppConnection {
-  axios: Axios
-  stop: () => Promise<void>
+export class AppConnection {
+  constructor(private apiUrl: string, public stop: () => Promise<void>) {}
+
+  get axios(): Axios {
+    return new Axios({
+      baseURL: this.apiUrl,
+      responseType: 'json',
+      transformRequest: (data) => (data ? JSON.stringify(data) : data),
+      transformResponse: (data) => (data ? JSON.parse(data) : data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  }
 }
 
 export async function connectToNestApp(): Promise<AppConnection> {
   let stop: () => Promise<void> = () => Promise.resolve()
-
   let apiUrl: string = process.env.API_URL
   if (!apiUrl) {
     const nest = await createAppForLocalTest(testDataSource)
@@ -39,19 +49,5 @@ export async function connectToNestApp(): Promise<AppConnection> {
       await testDataSource.destroy()
     }
   }
-
-  const axios = new Axios({
-    baseURL: apiUrl,
-    responseType: 'json',
-    transformRequest: (data) => (data ? JSON.stringify(data) : data),
-    transformResponse: (data) => (data ? JSON.parse(data) : data),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-
-  return {
-    axios: axios,
-    stop: stop,
-  }
+  return new AppConnection(apiUrl, stop)
 }
