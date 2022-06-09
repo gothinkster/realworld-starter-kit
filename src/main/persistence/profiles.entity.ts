@@ -75,7 +75,7 @@ export class Following extends BaseEntity {
     return !!following
   }
 
-  public static async get(
+  private static async get(
     user: ProfileEntity,
     follows: ProfileEntity,
   ): Promise<Following> {

@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Patch,
   Post,
@@ -86,6 +88,7 @@ export class ProfilesController {
   }
 
   @Delete(':username/follow')
+  @HttpCode(HttpStatus.NO_CONTENT)
   async unfollowProfile(
     @InjectAccount() account: Account,
     @Param('username') username: string,

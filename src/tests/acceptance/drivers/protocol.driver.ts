@@ -24,6 +24,10 @@ export interface ProtocolDriver {
   writeArticle(article: Article): Promise<string>
 
   commentOnArticle(slug: string, comment: string): Promise<void>
+
+  shouldSeeTheArticleInTheFeed(slug: string): Promise<void>
+
+  shouldNotSeeTheArticleInTheFeed(slug: string): Promise<void>
 }
 
 export interface ArticleSearch {

@@ -1,6 +1,7 @@
 import { SelectQueryBuilder } from 'typeorm'
 import { Brackets } from 'typeorm/query-builder/Brackets'
 import { ArticleEntity } from '../../persistence/article.entity'
+import { Following } from '../../persistence/profiles.entity'
 import { ArticleNotFound } from './exceptions'
 import { Author } from './models'
 
@@ -52,6 +53,10 @@ export class ArticleFinder {
   }
 
   filterByFollowedBy(user: Author) {
+    const userFollows = Following.createQueryBuilder('following')
+      .select('followsId')
+      .where('userId = :userId', { userId: user.id })
+    this.qb.andWhere(`authorId IN (${userFollows.getSql()})`)
     return this
   }
 

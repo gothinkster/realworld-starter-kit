@@ -81,20 +81,20 @@ describe('Article', () => {
  The feed is where users can see domain published by their followers
  **/
 describe('Feed', () => {
-  it.skip('should show articles from authors I follow', async () => {
+  it('should show articles from authors I follow', async () => {
     await costello.follow(abbott)
     await abbott.publishAnArticle()
     await costello.shouldSeeTheArticleInTheFeed()
   })
 
-  it.skip('should not show articles from authors I am not following', async () => {
+  it('should not show articles from authors I am not following', async () => {
     await costello.follow(abbott)
     await abbott.publishAnArticle()
     await costello.unfollow(abbott)
     await costello.shouldNotSeeTheArticleInTheFeed()
   })
 
-  it.skip('should not show me unpublished articles', async () => {
+  it('should not show me unpublished articles', async () => {
     await costello.follow(abbott)
     await abbott.publishAnArticle()
     await abbott.unpublishTheArticle()

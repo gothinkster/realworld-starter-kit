@@ -69,11 +69,11 @@ export class UserDSL {
     expect(false).toBeTruthy()
   }
 
-  shouldSeeTheArticleInTheFeed(slug?: string) {
-    expect(false).toBeTruthy()
+  async shouldSeeTheArticleInTheFeed(slug?: string) {
+    await this.driver.shouldSeeTheArticleInTheFeed(slug || this.context.slug)
   }
 
-  shouldNotSeeTheArticleInTheFeed(slug?: string) {
-    expect(false).toBeTruthy()
+  async shouldNotSeeTheArticleInTheFeed(slug?: string) {
+    await this.driver.shouldNotSeeTheArticleInTheFeed(slug || this.context.slug)
   }
 }
