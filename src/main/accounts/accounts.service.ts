@@ -1,18 +1,12 @@
-import { Injectable } from '@nestjs/common'
 import * as jwt from 'jsonwebtoken'
 import { Repository } from 'typeorm'
 import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../constants'
-import { InjectAccountRepository } from '../nest/providers/accounts.providers'
 import { AccountEntity } from '../persistence/accounts.entity'
 import { AccountDTO, AccountResponsePayload } from './accounts.dto'
 import { InvalidCredentialsError } from './accounts.exceptions'
 
-@Injectable()
 export class AccountsService {
-  constructor(
-    @InjectAccountRepository()
-    private repository: Repository<AccountEntity>,
-  ) {}
+  constructor(private repository: Repository<AccountEntity>) {}
 
   async createAccount(user: AccountDTO): Promise<AccountEntity> {
     const account = new AccountEntity(user.email, user.password)

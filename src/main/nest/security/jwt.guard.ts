@@ -1,13 +1,6 @@
-import {
-  applyDecorators,
-  ExecutionContext,
-  Injectable,
-  SetMetadata,
-  UseGuards,
-} from '@nestjs/common'
+import { ExecutionContext, Injectable, SetMetadata } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { AuthGuard } from '@nestjs/passport'
-import { ApiBearerAuth, ApiUnauthorizedResponse } from '@nestjs/swagger'
 
 @Injectable()
 export class JWTAuthGuard extends AuthGuard('jwt') {
@@ -38,15 +31,3 @@ export class JWTAuthGuard extends AuthGuard('jwt') {
 
 const authIsOptionalString = 'authIsOptional'
 export const AuthIsOptional = () => SetMetadata(authIsOptionalString, true)
-
-export function Auth(optional = false) {
-  const decorators = [
-    UseGuards(JWTAuthGuard),
-    ApiBearerAuth(),
-    ApiUnauthorizedResponse({ description: 'Unauthorized' }),
-  ]
-  if (optional) {
-    decorators.push(AuthIsOptional())
-  }
-  return applyDecorators(...decorators)
-}
