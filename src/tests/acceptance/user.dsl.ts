@@ -17,10 +17,6 @@ export class UserDSL {
     await this.driver.login(this.username)
   }
 
-  async createProfile() {
-    await this.driver.createProfile(this.username)
-  }
-
   async follow(user: UserDSL) {
     await this.driver.follow(user.username)
   }

@@ -8,33 +8,21 @@ import { createCredentials } from './factories/credentials.factory'
 import { ArticleSearch, ProtocolDriver } from './protocol.driver'
 
 export class RestDriver implements ProtocolDriver {
-  private static userAuth: { [key: string]: string } = {}
   private username: string
-
-  public static async createAccounts(axios: Axios, usernames: string[]) {
-    const accounts = await Promise.all(
-      usernames.map(async (username) => {
-        const signup = await axios.post('accounts/signup', {
-          user: createCredentials(username),
-        })
-        if (signup.data.access_token) {
-          RestDriver.userAuth[username] = `Bearer ${signup.data.access_token}`
-        }
-      }),
-    )
-    return accounts
-  }
 
   constructor(private axios: Axios) {}
 
-  async login(username: string) {
-    this.username = username
-    const auth = RestDriver.userAuth[username]
-    expect(auth).toBeDefined()
-    this.axios.defaults.headers.common = { Authorization: auth }
+  private async createAccount() {
+    const signup = await this.axios.post('accounts/signup', {
+      user: createCredentials(this.username),
+    })
+    expect(signup.data.access_token).toBeDefined()
+    this.axios.defaults.headers.common = {
+      Authorization: `Bearer ${signup.data.access_token}`,
+    }
   }
 
-  async createProfile() {
+  private async createProfile() {
     const response = await this.axios.post('profiles', {
       profile: {
         username: this.username,
@@ -43,6 +31,12 @@ export class RestDriver implements ProtocolDriver {
       },
     })
     expect(response.status).toBe(201)
+  }
+
+  async login(username: string) {
+    this.username = username
+    await this.createAccount()
+    await this.createProfile()
   }
 
   async follow(username: string) {
@@ -125,6 +119,7 @@ export class RestDriver implements ProtocolDriver {
     const feed = await this.getFeed()
     expect(feed.map((v) => v.slug)).toContainEqual(slug)
   }
+
   async shouldNotSeeTheArticleInTheFeed(slug: string): Promise<void> {
     const feed = await this.getFeed()
     expect(feed.map((v) => v.slug)).not.toContainEqual(slug)
@@ -141,6 +136,7 @@ export class RestDriver implements ProtocolDriver {
     expect(response.status).toBe(200)
     expect(response.data.article).toBeTruthy()
   }
+
   async shouldNotFindTheArticle(slug: string): Promise<void> {
     const response = await this.getArticle(slug)
     expect(response.status).toBe(404)

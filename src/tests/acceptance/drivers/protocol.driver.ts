@@ -2,7 +2,6 @@ import { Article, ArticleFields } from '../../../main/domain/articles/models'
 
 export interface ProtocolDriver {
   login(username: string): Promise<void>
-  createProfile(username: string): Promise<void>
   follow(username: string): Promise<void>
   unfollow(username: string): Promise<void>
   publishArticle(slug: string): Promise<void>
