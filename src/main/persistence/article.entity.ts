@@ -39,7 +39,7 @@ export class ArticleEntity extends BaseEntity implements FullArticle {
     cascade: ['insert'],
     eager: true,
   })
-  @JoinTable({ name: 'ArticlesHaveTags' })
+  @JoinTable({ name: 'articles_have_tags' })
   tagList: Tag[]
 
   @CreateDateColumn()

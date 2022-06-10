@@ -1,8 +1,10 @@
+import { Injectable } from '@nestjs/common'
 import { CommentEntity } from '../../persistence/comment.entity'
 import { ArticlesService } from '../articles/articles.service'
 import { Account } from '../authors/models'
 import { AuthorsService } from '../authors/service'
 
+@Injectable()
 export class CommentsService {
   constructor(
     private articlesService: ArticlesService,

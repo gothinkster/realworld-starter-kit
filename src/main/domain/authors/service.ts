@@ -1,10 +1,10 @@
+import { Injectable } from '@nestjs/common'
 import { AuthorEntity } from '../../persistence/author.entity'
 import { AuthorNotFound } from './exceptions'
 import { Account, Profile, ProfileFields } from './models'
 
+@Injectable()
 export class AuthorsService {
-  constructor() {}
-
   async createForAccount(
     account: Account,
     fields: ProfileFields,

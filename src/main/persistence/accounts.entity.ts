@@ -1,9 +1,8 @@
 import * as bcrypt from 'bcrypt'
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
-import { Account } from '../domain/authors/models'
 
 @Entity({ name: 'accounts' })
-export class AccountEntity extends BaseEntity implements Account {
+export class AccountEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -12,12 +11,6 @@ export class AccountEntity extends BaseEntity implements Account {
 
   @Column()
   private hashedPassword: string
-
-  constructor(email: string, password: string) {
-    super()
-    this.email = email
-    this.changePassword(password)
-  }
 
   changeEmail(email: string): this {
     this.email = email ?? this.email

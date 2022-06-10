@@ -2,15 +2,15 @@ import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { Axios } from 'axios'
 import { DataSource } from 'typeorm'
-import { AppModule } from '../../../main/nest/app.module'
-import { DATASOURCE_PROVIDER } from '../../../main/nest/providers/database.providers'
+import { AppModules } from '../../../main/nest/app.modules'
+import { DATASOURCE_PROVIDER } from '../../../main/nest/db.providers'
 import { testDataSource } from '../../utils'
 
 async function createAppForLocalTest(
   dataSource: DataSource,
 ): Promise<INestApplication> {
   const moduleBuilder = await Test.createTestingModule({
-    imports: [AppModule],
+    imports: [AppModules],
   })
   await dataSource.initialize()
   moduleBuilder.overrideProvider(DATASOURCE_PROVIDER).useValue(dataSource)

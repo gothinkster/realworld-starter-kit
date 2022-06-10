@@ -1,7 +1,7 @@
 import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
-import { getDataSource } from '../../persistence/utils'
+import { getDataSource } from '../persistence/utils'
 
-export const DATASOURCE_PROVIDER = 'DATA_SOURCE_PROVIDER'
+export const DATASOURCE_PROVIDER = 'DATASOURCE_PROVIDER'
 
 export const databaseProviders: Provider[] = [
   {

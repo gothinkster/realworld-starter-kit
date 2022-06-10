@@ -1,9 +1,9 @@
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import { AppModule } from './nest/app.module'
+import { AppModules } from './nest/app.modules'
 
 export async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create(AppModules)
   app.setGlobalPrefix(process.env.API_PREFIX || 'api')
 
   const swaggerConfig = new DocumentBuilder()

@@ -80,10 +80,10 @@ export class AuthorsController {
     @Param('username') username: string,
   ): Promise<{ profile: ProfileResponseDTO }> {
     const me = await this.authorsService.getByAccount(account)
-    const user = await this.authorsService.getByUsername(username)
-    await me.follow(user)
+    const profile = await this.authorsService.getByUsername(username)
+    await me.follow(profile)
     return {
-      profile: cloneProfileToOutput(user, true),
+      profile: cloneProfileToOutput(profile, true),
     }
   }
 
@@ -94,10 +94,10 @@ export class AuthorsController {
     @Param('username') username: string,
   ): Promise<{ profile: ProfileResponseDTO }> {
     const me = await this.authorsService.getByAccount(account)
-    const user = await this.authorsService.getByUsername(username)
-    await me.unfollow(user)
+    const profile = await this.authorsService.getByUsername(username)
+    await me.unfollow(profile)
     return {
-      profile: cloneProfileToOutput(user, false),
+      profile: cloneProfileToOutput(profile, false),
     }
   }
 
