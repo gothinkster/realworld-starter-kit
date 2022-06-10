@@ -6,8 +6,11 @@ export interface AppConnection {
   stop(): Promise<void>
 }
 
-const connections: { [key: string]: () => Promise<AppConnection> } = {
+const connectionFactories: { [key: string]: () => Promise<AppConnection> } = {
   rest: connectToRest,
 }
 
-export const connectToApp = connections[process.env.TEST_DRIVER || 'rest']
+export async function connectToApp() {
+  const protocolDriver: string = process.env.DRIVER?.toLowerCase() || 'rest'
+  return await connectionFactories[protocolDriver]()
+}
