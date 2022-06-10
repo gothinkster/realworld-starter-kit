@@ -1,21 +1,23 @@
-import { AppConnection, connectToNestApp } from './drivers/rest.connection'
-import { RestDriver } from './drivers/rest.driver'
+import { AppConnection, connectToApp } from './drivers/main'
 import { UserDSL } from './user.dsl'
 
 let connection: AppConnection
 let abbott: UserDSL
 let costello: UserDSL
 
-beforeEach(async () => {
-  connection = await connectToNestApp()
-  const context = {}
-  abbott = new UserDSL('Abbott', new RestDriver(connection.axios), context)
-  costello = new UserDSL('Costello', new RestDriver(connection.axios), context)
-  await Promise.all([abbott, costello].map((user) => user.login()))
+beforeAll(async () => {
+  connection = await connectToApp()
 })
 
-afterEach(async () => {
+afterAll(async () => {
   await connection.stop()
+})
+
+beforeEach(async () => {
+  const context = {}
+  abbott = new UserDSL('Abbott', connection.driverFactory(), context)
+  costello = new UserDSL('Costello', connection.driverFactory(), context)
+  await Promise.all([abbott, costello].map((user) => user.login()))
 })
 
 /**

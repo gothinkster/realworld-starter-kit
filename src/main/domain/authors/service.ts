@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { AuthorEntity } from '../../persistence/author.entity'
-import { AuthorNotFound } from './exceptions'
+import { AuthorAlreadyExists, AuthorNotFound } from './exceptions'
 import { Account, Profile, ProfileFields } from './models'
 
 @Injectable()
@@ -12,7 +12,12 @@ export class AuthorsService {
     return await AuthorEntity.create({
       ...fields,
       accountId: account.id,
-    }).save()
+    })
+      .save()
+      .catch((err) => {
+        console.log(err)
+        throw new AuthorAlreadyExists(fields.username)
+      })
   }
 
   async getByUsername(username: string): Promise<AuthorEntity> {

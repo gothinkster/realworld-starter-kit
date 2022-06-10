@@ -13,12 +13,27 @@ export class RestDriver implements ProtocolDriver {
   constructor(private axios: Axios) {}
 
   private async createAccount() {
-    const signup = await this.axios.post('accounts/signup', {
-      user: createCredentials(this.username),
+    const credentials = createCredentials(this.username)
+
+    let sign = await this.axios.post('accounts/signup', {
+      user: credentials,
     })
-    expect(signup.data.access_token).toBeDefined()
+
+    if (!sign.data.access_token) {
+      expect(sign.status).toBe(409)
+      sign = await this.axios.post('accounts/login', '', {
+        auth: {
+          username: credentials.email,
+          password: credentials.password,
+        },
+      })
+    }
+
+    expect(sign.status).toBe(201)
+    expect(sign.data.access_token).toBeDefined()
+
     this.axios.defaults.headers.common = {
-      Authorization: `Bearer ${signup.data.access_token}`,
+      Authorization: `Bearer ${sign.data.access_token}`,
     }
   }
 
@@ -27,10 +42,10 @@ export class RestDriver implements ProtocolDriver {
       profile: {
         username: this.username,
         bio: `Me chamo ${this.username}`,
-        image: 'af2fasf',
+        image: 'afs3fas',
       },
     })
-    expect(response.status).toBe(201)
+    expect(response.status).not.toBe(500)
   }
 
   async login(username: string) {
@@ -72,6 +87,7 @@ export class RestDriver implements ProtocolDriver {
       params: {
         author: filters.author,
         tags: filters.tags?.join(','),
+        limit: 100,
       },
     })
     expect(response.status).toBe(200)
@@ -110,7 +126,11 @@ export class RestDriver implements ProtocolDriver {
   }
 
   private async getFeed(): Promise<Sluged<Article>[]> {
-    const response = await this.axios.get(`articles/feed`)
+    const response = await this.axios.get(`articles/feed`, {
+      params: {
+        limit: 100,
+      },
+    })
     expect(response.status).toBe(200)
     return response.data.articles
   }

@@ -2,7 +2,7 @@ import { ArticlesService } from '../../main/domain/articles/articles.service'
 import { ArticleNotFound } from '../../main/domain/articles/exceptions'
 import { Article, Author } from '../../main/domain/articles/models'
 import { AuthorsService } from '../../main/domain/authors/service'
-import { exampleArticle, exampleTags } from '../examples'
+import { exampleArticle } from '../examples'
 import { testDataSource } from '../utils'
 
 beforeEach(() => {
@@ -36,7 +36,6 @@ describe('Article', () => {
 
     // Assert
     expect(article).toMatchObject(exampleArticle)
-    expect(article.tags).toEqual(exampleTags)
   })
 
   it('should always be accessible to the author', async () => {

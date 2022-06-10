@@ -5,8 +5,11 @@ import { DataSource } from 'typeorm'
 import { AppModules } from '../../../main/nest/app.modules'
 import { DATASOURCE_PROVIDER } from '../../../main/nest/db.providers'
 import { testDataSource } from '../../utils'
+import { AppConnection } from './main'
+import { ProtocolDriver } from './protocol.driver'
+import { RestDriver } from './rest.driver'
 
-async function createAppForLocalTest(
+async function createNestForLocalTest(
   dataSource: DataSource,
 ): Promise<INestApplication> {
   const moduleBuilder = await Test.createTestingModule({
@@ -22,10 +25,10 @@ async function createAppForLocalTest(
   return app
 }
 
-export class AppConnection {
+class RestAppConnection implements AppConnection {
   constructor(private apiUrl: string, public stop: () => Promise<void>) {}
 
-  get axios(): Axios {
+  private createAxios(): Axios {
     return new Axios({
       baseURL: this.apiUrl,
       responseType: 'json',
@@ -36,18 +39,22 @@ export class AppConnection {
       },
     })
   }
+
+  driverFactory(): ProtocolDriver {
+    return new RestDriver(this.createAxios())
+  }
 }
 
-export async function connectToNestApp(): Promise<AppConnection> {
+export async function connectToRest(): Promise<AppConnection> {
   let stop: () => Promise<void> = () => Promise.resolve()
   let apiUrl: string = process.env.API_URL
   if (!apiUrl) {
-    const nest = await createAppForLocalTest(testDataSource)
+    const nest = await createNestForLocalTest(testDataSource)
     apiUrl = `${await nest.getUrl()}/api`
     stop = async () => {
       await nest.close()
       await testDataSource.destroy()
     }
   }
-  return new AppConnection(apiUrl, stop)
+  return new RestAppConnection(apiUrl, stop)
 }
