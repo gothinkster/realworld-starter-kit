@@ -8,7 +8,7 @@ import {
   FullArticle,
   Sluged,
 } from '../../domain/articles/models'
-import { cloneProfileToOutput, ProfileResponseDTO } from './profiles.dto'
+import { cloneProfileToOutput, ProfileResponseDTO } from './authors.dto'
 
 export class CreateArticleDTO implements Article {
   @IsString()

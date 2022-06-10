@@ -13,8 +13,8 @@ import {
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { ArticlesService } from '../../domain/articles/articles.service'
-import { Account } from '../../domain/profiles/models'
-import { ProfilesService } from '../../domain/profiles/service'
+import { Account } from '../../domain/authors/models'
+import { AuthorsService } from '../../domain/authors/service'
 import { InjectAccount } from '../decorators/account.decorator'
 import {
   ArticleFiltersDTO,
@@ -33,7 +33,7 @@ import { QueryInt, validateModel } from '../validation/validation.utils'
 export class ArticlesController {
   constructor(
     private articlesService: ArticlesService,
-    private profilesService: ProfilesService,
+    private authorsService: AuthorsService,
   ) {}
 
   @Get('feed')
@@ -42,7 +42,7 @@ export class ArticlesController {
     @QueryInt('limit', 20) limit?: number,
     @QueryInt('offset', 0) offset?: number,
   ): Promise<{ articles: ArticleResponseDTO[] }> {
-    const me = await this.profilesService.getByAccount(account)
+    const me = await this.authorsService.getByAccount(account)
     const articles = await this.articlesService
       .getView(me)
       .getFeed(limit, offset)
@@ -59,9 +59,7 @@ export class ArticlesController {
     @QueryInt('limit', 20) limit?: number,
     @QueryInt('offset', 0) offset?: number,
   ): Promise<{ articles: ArticleResponseDTO[] }> {
-    const me = await this.profilesService
-      .getByAccount(account)
-      .catch(() => null)
+    const me = await this.authorsService.getByAccount(account).catch(() => null)
     const articles = await this.articlesService
       .getView(me)
       .getArticlesByFilters(filters, limit, offset)
@@ -76,9 +74,7 @@ export class ArticlesController {
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
   ): Promise<{ article: ArticleResponseDTO }> {
-    const me = await this.profilesService
-      .getByAccount(account)
-      .catch(() => null)
+    const me = await this.authorsService.getByAccount(account).catch(() => null)
     const article = await this.articlesService.getView(me).getArticle(slug)
     return {
       article: cloneArticleToOutput(article),
@@ -106,7 +102,7 @@ export class ArticlesController {
     @Body('article', validateModel())
     articleDTO: CreateArticleDTO,
   ): Promise<{ article: ArticleResponseDTO }> {
-    const me = await this.profilesService.getByAccount(account)
+    const me = await this.authorsService.getByAccount(account)
     const article = await this.articlesService
       .getCMS(me)
       .createArticle(articleDTO)
@@ -123,7 +119,7 @@ export class ArticlesController {
     @Body('article', validateModel())
     articleDTO: UpdateArticleDTO,
   ): Promise<{ article: ArticleResponseDTO }> {
-    const me = await this.profilesService.getByAccount(account)
+    const me = await this.authorsService.getByAccount(account)
     const article = await this.articlesService
       .getCMS(me)
       .updateArticle(slug, articleDTO)
@@ -138,7 +134,7 @@ export class ArticlesController {
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
   ) {
-    const me = await this.profilesService.getByAccount(account)
+    const me = await this.authorsService.getByAccount(account)
     await this.articlesService.getCMS(me).deleteArticle(slug)
   }
 
@@ -148,7 +144,7 @@ export class ArticlesController {
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
   ): Promise<{ article: ArticleResponseDTO }> {
-    const me = await this.profilesService.getByAccount(account)
+    const me = await this.authorsService.getByAccount(account)
     const article = await this.articlesService.getCMS(me).publishArticle(slug)
     return {
       article: cloneArticleToOutput(article),
@@ -161,7 +157,7 @@ export class ArticlesController {
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
   ): Promise<{ article: ArticleResponseDTO }> {
-    const me = await this.profilesService.getByAccount(account)
+    const me = await this.authorsService.getByAccount(account)
     const article = await this.articlesService.getCMS(me).unpublishArticle(slug)
     return {
       article: cloneArticleToOutput(article),

@@ -12,15 +12,15 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { Account } from '../../domain/profiles/models'
-import { ProfilesService } from '../../domain/profiles/service'
+import { Account } from '../../domain/authors/models'
+import { AuthorsService } from '../../domain/authors/service'
 import { InjectAccount } from '../decorators/account.decorator'
 import {
   cloneProfileToOutput,
   CreateProfileDTO,
   ProfileResponseDTO,
   UpdateProfileDTO,
-} from '../parsing/profiles.dto'
+} from '../parsing/authors.dto'
 import { AuthIsOptional, JWTAuthGuard } from '../security/jwt.guard'
 import { validateModel } from '../validation/validation.utils'
 
@@ -28,14 +28,14 @@ import { validateModel } from '../validation/validation.utils'
 @UseGuards(JWTAuthGuard)
 @ApiBearerAuth()
 @Controller('profiles')
-export class ProfilesController {
-  constructor(private service: ProfilesService) {}
+export class AuthorsController {
+  constructor(private authorsService: AuthorsService) {}
 
   @Get('me')
   async getCurrent(
     @InjectAccount() account: Account,
   ): Promise<{ profile: ProfileResponseDTO }> {
-    const me = await this.service.getByAccount(account)
+    const me = await this.authorsService.getByAccount(account)
     return {
       profile: cloneProfileToOutput(me),
     }
@@ -46,7 +46,7 @@ export class ProfilesController {
     @InjectAccount() account: Account,
     @Body('profile', validateModel()) profile: CreateProfileDTO,
   ): Promise<{ profile: ProfileResponseDTO }> {
-    const me = await this.service.createForAccount(account, profile)
+    const me = await this.authorsService.createForAccount(account, profile)
     return {
       profile: cloneProfileToOutput(me),
     }
@@ -57,7 +57,7 @@ export class ProfilesController {
     @InjectAccount() account: Account,
     @Body('profile', validateModel()) profile: CreateProfileDTO,
   ): Promise<{ profile: ProfileResponseDTO }> {
-    const me = await this.service.updateByAccount(account, profile)
+    const me = await this.authorsService.updateByAccount(account, profile)
     return {
       profile: cloneProfileToOutput(me),
     }
@@ -68,7 +68,7 @@ export class ProfilesController {
     @InjectAccount() account: Account,
     @Body('profile', validateModel()) profile: UpdateProfileDTO,
   ): Promise<{ profile: ProfileResponseDTO }> {
-    const me = await this.service.updateByAccount(account, profile)
+    const me = await this.authorsService.updateByAccount(account, profile)
     return {
       profile: cloneProfileToOutput(me),
     }
@@ -79,8 +79,8 @@ export class ProfilesController {
     @InjectAccount() account: Account,
     @Param('username') username: string,
   ): Promise<{ profile: ProfileResponseDTO }> {
-    const me = await this.service.getByAccount(account)
-    const user = await this.service.getByUsername(username)
+    const me = await this.authorsService.getByAccount(account)
+    const user = await this.authorsService.getByUsername(username)
     await me.follow(user)
     return {
       profile: cloneProfileToOutput(user, true),
@@ -93,8 +93,8 @@ export class ProfilesController {
     @InjectAccount() account: Account,
     @Param('username') username: string,
   ): Promise<{ profile: ProfileResponseDTO }> {
-    const me = await this.service.getByAccount(account)
-    const user = await this.service.getByUsername(username)
+    const me = await this.authorsService.getByAccount(account)
+    const user = await this.authorsService.getByUsername(username)
     await me.unfollow(user)
     return {
       profile: cloneProfileToOutput(user, false),
@@ -107,10 +107,10 @@ export class ProfilesController {
     @InjectAccount() account: Account,
     @Param('username') username: string,
   ): Promise<{ profile: ProfileResponseDTO }> {
-    const profile = await this.service.getByUsername(username)
+    const profile = await this.authorsService.getByUsername(username)
     let following: boolean
     if (account) {
-      const me = await this.service.getByAccount(account)
+      const me = await this.authorsService.getByAccount(account)
       following = await me.isFollowing(profile)
     }
     return {

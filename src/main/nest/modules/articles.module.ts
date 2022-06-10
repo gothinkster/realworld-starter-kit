@@ -2,27 +2,26 @@ import { Module, Scope } from '@nestjs/common'
 import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
 import { DataSource } from 'typeorm'
 import { ArticlesService } from '../../domain/articles/articles.service'
-import { ProfilesService } from '../../domain/profiles/service'
+import { AuthorsService } from '../../domain/authors/service'
 import { ArticleEntity } from '../../persistence/article.entity'
 import { ArticlesController } from '../controllers/articles.controller'
-import { CommentsController } from '../controllers/comments.controller'
 import { DATASOURCE_PROVIDER } from '../providers/database.providers'
-import { ProfilesModule } from './profiles.module'
+import { AuthorsModule } from './authors.module'
 
 const ArticlesServiceProvider: Provider = {
   provide: ArticlesService,
-  useFactory: (dataSource: DataSource, profilesService: ProfilesService) =>
+  useFactory: (dataSource: DataSource, authorsService: AuthorsService) =>
     new ArticlesService(
       dataSource.getRepository(ArticleEntity),
-      profilesService,
+      authorsService,
     ),
-  inject: [DATASOURCE_PROVIDER, ProfilesService],
+  inject: [DATASOURCE_PROVIDER, AuthorsService],
   scope: Scope.DEFAULT,
 }
 
 @Module({
-  imports: [ProfilesModule],
-  controllers: [ArticlesController, CommentsController],
+  imports: [AuthorsModule],
+  controllers: [ArticlesController],
   providers: [ArticlesServiceProvider],
   exports: [ArticlesService],
 })

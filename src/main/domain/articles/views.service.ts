@@ -1,20 +1,20 @@
 import { Repository } from 'typeorm'
 import { ArticleEntity } from '../../persistence/article.entity'
-import { ProfilesService } from '../profiles/service'
+import { AuthorsService } from '../authors/service'
 import { ArticleFinder } from './finder'
 import { ArticleFilters, Author, FullArticle } from './models'
 
 export class ArticleView {
   constructor(
     private repository: Repository<ArticleEntity>,
-    private user?: Author,
-    private profiles?: ProfilesService,
+    private author?: Author,
+    private authorsService?: AuthorsService,
   ) {}
 
   async getArticle(slug: string): Promise<FullArticle> {
     return await new ArticleFinder()
       .filterBySlug(slug)
-      .filterByPublishedOrOwnedBy(this.user)
+      .filterByPublishedOrOwnedBy(this.author)
       .getOne()
   }
 
@@ -24,7 +24,7 @@ export class ArticleView {
   ): Promise<FullArticle[]> {
     return await new ArticleFinder(limit, offset)
       .filterByPublished()
-      .filterByFollowedBy(this.user)
+      .filterByFollowedBy(this.author)
       .getMany()
   }
 
@@ -34,11 +34,11 @@ export class ArticleView {
     offset: number = 0,
   ): Promise<FullArticle[]> {
     const finder = new ArticleFinder(limit, offset)
-      .filterByPublishedOrOwnedBy(this.user)
+      .filterByPublishedOrOwnedBy(this.author)
       .filterByTags(filters.tags?.split(','))
 
     if (filters.author) {
-      const author = await this.profiles.getByUsername(filters.author)
+      const author = await this.authorsService.getByUsername(filters.author)
       if (!author) {
         return []
       }

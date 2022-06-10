@@ -1,8 +1,8 @@
 import { NotFoundException } from '@nestjs/common'
 
-export class ProfileNotFound extends NotFoundException {
+export class AuthorNotFound extends NotFoundException {
   constructor(message: string) {
     super(message)
-    this.name = 'ProfileNotFound'
+    this.name = 'AuthorNotFound'
   }
 }

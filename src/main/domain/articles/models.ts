@@ -1,4 +1,4 @@
-import { Authored } from '../profiles/models'
+import { Authored } from '../authors/models'
 
 export type Dated<T extends {}> = T & {
   readonly createdAt: Date

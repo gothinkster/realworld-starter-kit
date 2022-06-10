@@ -14,11 +14,11 @@ import {
 } from 'typeorm'
 import { ArticleFields, FullArticle } from '../domain/articles/models'
 import { slugify } from '../domain/utils/slug.utils'
+import { AuthorEntity } from './author.entity'
 import { CommentEntity } from './comment.entity'
-import { ProfileEntity } from './profiles.entity'
 import { Tag } from './tag.entity'
 
-@Entity({ name: 'Article' })
+@Entity({ name: 'articles' })
 export class ArticleEntity extends BaseEntity implements FullArticle {
   @PrimaryGeneratedColumn()
   id: number
@@ -51,8 +51,8 @@ export class ArticleEntity extends BaseEntity implements FullArticle {
   @Column()
   published: boolean = false
 
-  @ManyToOne(() => ProfileEntity, (profile) => profile.articles)
-  author: ProfileEntity
+  @ManyToOne(() => AuthorEntity, (profile) => profile.articles)
+  author: AuthorEntity
 
   @OneToMany(() => CommentEntity, (comment) => comment.article)
   comments: CommentEntity[]

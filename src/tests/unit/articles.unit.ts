@@ -1,9 +1,9 @@
 import { ArticlesService } from '../../main/domain/articles/articles.service'
 import { ArticleNotFound } from '../../main/domain/articles/exceptions'
 import { Article, Author } from '../../main/domain/articles/models'
-import { ProfilesService } from '../../main/domain/profiles/service'
+import { AuthorsService } from '../../main/domain/authors/service'
 import { ArticleEntity } from '../../main/persistence/article.entity'
-import { ProfileEntity } from '../../main/persistence/profiles.entity'
+import { AuthorEntity } from '../../main/persistence/author.entity'
 import { exampleArticle, exampleTags } from '../examples'
 import { testDataSource } from '../utils'
 
@@ -20,8 +20,8 @@ describe('Article', () => {
   let service: ArticlesService
 
   beforeEach(async () => {
-    author = await new ProfilesService(
-      testDataSource.getRepository(ProfileEntity),
+    author = await new AuthorsService(
+      testDataSource.getRepository(AuthorEntity),
     ).createForAccount({ id: 1 }, { username: 'john-doe' })
     service = new ArticlesService(testDataSource.getRepository(ArticleEntity))
   })

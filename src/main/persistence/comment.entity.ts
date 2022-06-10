@@ -8,9 +8,9 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 import { ArticleEntity } from './article.entity'
-import { ProfileEntity } from './profiles.entity'
+import { AuthorEntity } from './author.entity'
 
-@Entity({ name: 'Comment' })
+@Entity({ name: 'comments' })
 export class CommentEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
@@ -18,8 +18,8 @@ export class CommentEntity extends BaseEntity {
   @Column({ type: 'text', nullable: false })
   body: string
 
-  @ManyToOne(() => ProfileEntity, (profile) => profile.comments)
-  author: ProfileEntity
+  @ManyToOne(() => AuthorEntity, (profile) => profile.comments)
+  author: AuthorEntity
 
   @ManyToOne(() => ArticleEntity, (article) => article.comments)
   article: ArticleEntity

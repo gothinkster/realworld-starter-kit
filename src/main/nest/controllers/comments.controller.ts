@@ -9,10 +9,8 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { ArticleFinder } from '../../domain/articles/finder'
-import { Account } from '../../domain/profiles/models'
-import { ProfilesService } from '../../domain/profiles/service'
-import { CommentEntity } from '../../persistence/comment.entity'
+import { Account } from '../../domain/authors/models'
+import { CommentsService } from '../../domain/comments/comments.service'
 import { InjectAccount } from '../decorators/account.decorator'
 import {
   cloneCommentToOutput,
@@ -25,7 +23,7 @@ import { QueryInt, validateModel } from '../validation/validation.utils'
 @ApiTags('comments')
 @Controller('articles/:slug/comments')
 export class CommentsController {
-  constructor(private profilesService: ProfilesService) {}
+  constructor(private commentsService: CommentsService) {}
 
   @UseGuards(JWTAuthGuard)
   @ApiBearerAuth()
@@ -33,18 +31,16 @@ export class CommentsController {
   async addCommentToAnArticle(
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
-    @Body('comment', validateModel()) comment: CommentDTO,
-    @QueryInt('limit', 20) limit?: number,
-    @QueryInt('offset', 0) offset?: number,
+    @Body('comment', validateModel()) commentDTO: CommentDTO,
   ): Promise<{ comment: CommentResponseDTO }> {
-    const me = await this.profilesService.getByAccount(account)
-    const article = await new ArticleFinder().filterBySlug(slug).getOne()
-    const commentEntity = await CommentEntity.create({
-      body: comment.body,
-      author: me,
-      article: article,
-    }).save()
-    return { comment: cloneCommentToOutput(commentEntity) }
+    const comment = await this.commentsService.commentArticle({
+      account: account,
+      slug: slug,
+      body: commentDTO.body,
+    })
+    return {
+      comment: cloneCommentToOutput(comment),
+    }
   }
 
   @Get()
@@ -53,11 +49,11 @@ export class CommentsController {
     @QueryInt('limit', 20) limit?: number,
     @QueryInt('offset', 0) offset?: number,
   ): Promise<{ comments: CommentResponseDTO[] }> {
-    const article = await new ArticleFinder().filterBySlug(slug).getOne()
-    const comments = await CommentEntity.createQueryBuilder('comment')
-      .where({ article: article })
-      .leftJoinAndSelect('comment.author', 'author')
-      .getMany()
+    const comments = await this.commentsService.getCommentsFromArticle(
+      slug,
+      limit,
+      offset,
+    )
     return {
       comments: comments.map(cloneCommentToOutput),
     }
@@ -71,11 +67,6 @@ export class CommentsController {
     @Param('slug') slug: string,
     @Param(ParseIntPipe) id: number,
   ) {
-    const article = await new ArticleFinder().filterBySlug(slug).getOne()
-    const me = await this.profilesService.getByAccount(account)
-    await CommentEntity.createQueryBuilder('comment')
-      .delete()
-      .where({ article: article, author: me, id: id })
-      .execute()
+    await this.commentsService.deleteCommentFromArticle(id, slug, account)
   }
 }

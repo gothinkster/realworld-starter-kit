@@ -1,7 +1,7 @@
 import { ApiResponseProperty } from '@nestjs/swagger'
 import { IsString, MaxLength } from 'class-validator'
 import { CommentEntity } from '../../persistence/comment.entity'
-import { cloneProfileToOutput } from './profiles.dto'
+import { cloneProfileToOutput } from './authors.dto'
 
 export class CommentDTO {
   @IsString()

@@ -6,12 +6,12 @@ import {
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm'
-import { Account, Profile, ProfileFields } from '../domain/profiles/models'
+import { Account, Profile, ProfileFields } from '../domain/authors/models'
 import { ArticleEntity } from './article.entity'
 import { CommentEntity } from './comment.entity'
 
-@Entity({ name: 'Profile' })
-export class ProfileEntity implements Profile {
+@Entity({ name: 'authors' })
+export class AuthorEntity implements Profile {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -42,15 +42,15 @@ export class ProfileEntity implements Profile {
   }
 
   async isFollowing(profile: this): Promise<boolean> {
-    return await Following.exists(this, profile)
+    return await UserFollows.exists(this, profile)
   }
 
   async follow(profile: this): Promise<void> {
-    await Following.set(this, profile)
+    await UserFollows.set(this, profile)
   }
 
   async unfollow(profile: this): Promise<void> {
-    await Following.unset(this, profile)
+    await UserFollows.unset(this, profile)
   }
 
   loadData(fields: ProfileFields) {
@@ -62,8 +62,8 @@ export class ProfileEntity implements Profile {
 }
 
 @Unique(['userId', 'followsId'])
-@Entity()
-export class Following extends BaseEntity {
+@Entity({ name: 'user_follows' })
+export class UserFollows extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
   @Column({ nullable: false, type: 'bigint' })
@@ -72,27 +72,27 @@ export class Following extends BaseEntity {
   public followsId: number
 
   public static async exists(
-    user: ProfileEntity,
-    follows: ProfileEntity,
+    user: AuthorEntity,
+    follows: AuthorEntity,
   ): Promise<boolean> {
-    const following = await Following.get(user, follows)
+    const following = await UserFollows.get(user, follows)
     return !!following
   }
 
   private static async get(
-    user: ProfileEntity,
-    follows: ProfileEntity,
-  ): Promise<Following> {
-    return await Following.createQueryBuilder()
+    user: AuthorEntity,
+    follows: AuthorEntity,
+  ): Promise<UserFollows> {
+    return await UserFollows.createQueryBuilder()
       .where({ userId: user.id, followsId: follows })
       .getOne()
   }
 
   public static async set(
-    user: ProfileEntity,
-    follows: ProfileEntity,
+    user: AuthorEntity,
+    follows: AuthorEntity,
   ): Promise<void> {
-    await Following.createQueryBuilder()
+    await UserFollows.createQueryBuilder()
       .insert()
       .values({ userId: user.id, followsId: follows.id })
       .orIgnore()
@@ -100,10 +100,10 @@ export class Following extends BaseEntity {
   }
 
   public static async unset(
-    user: ProfileEntity,
-    follows: ProfileEntity,
+    user: AuthorEntity,
+    follows: AuthorEntity,
   ): Promise<void> {
-    await Following.createQueryBuilder()
+    await UserFollows.createQueryBuilder()
       .delete()
       .where({ userId: user.id, followsId: follows.id })
       .execute()

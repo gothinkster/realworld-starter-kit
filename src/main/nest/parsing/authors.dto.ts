@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types'
 import { IsNotEmpty, IsString, Matches } from 'class-validator'
-import { Profile, ProfileFields } from '../../domain/profiles/models'
+import { Profile, ProfileFields } from '../../domain/authors/models'
 
 export class CreateProfileDTO implements ProfileFields {
   @IsString()

@@ -1,8 +1,9 @@
 import * as bcrypt from 'bcrypt'
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Account } from '../domain/authors/models'
 
-@Entity({ name: 'Account' })
-export class AccountEntity extends BaseEntity {
+@Entity({ name: 'accounts' })
+export class AccountEntity extends BaseEntity implements Account {
   @PrimaryGeneratedColumn()
   id: number
 
