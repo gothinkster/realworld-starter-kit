@@ -11,11 +11,13 @@ export class ArticleFinder {
 
   constructor(limit: number = 20, offset: number = 0) {
     this.qb = ArticleEntity.createQueryBuilder('article')
+    this.qb
       .where('true')
       .limit(limit)
       .skip(offset)
-    this.qb.leftJoinAndSelect(`${this.qb.alias}.tagList`, 'tags')
-    this.qb.leftJoinAndSelect(`${this.qb.alias}.author`, 'authors')
+      .orderBy(`${this.qb.alias}.createdAt`, 'DESC')
+      .leftJoinAndSelect(`${this.qb.alias}.tagList`, 'tags')
+      .leftJoinAndSelect(`${this.qb.alias}.author`, 'authors')
   }
 
   filterBySlug(slug: string) {
