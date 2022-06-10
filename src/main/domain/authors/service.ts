@@ -1,25 +1,22 @@
-import { Repository } from 'typeorm'
 import { AuthorEntity } from '../../persistence/author.entity'
 import { AuthorNotFound } from './exceptions'
 import { Account, Profile, ProfileFields } from './models'
 
 export class AuthorsService {
-  constructor(private authorsRepository: Repository<AuthorEntity>) {}
+  constructor() {}
 
   async createForAccount(
     account: Account,
     fields: ProfileFields,
   ): Promise<Profile> {
-    const author = await this.authorsRepository.create({
+    return await AuthorEntity.create({
       ...fields,
       accountId: account.id,
-    })
-    await this.authorsRepository.save(author)
-    return author
+    }).save()
   }
 
   async getByUsername(username: string): Promise<AuthorEntity> {
-    const profile = this.authorsRepository.findOne({
+    const profile = await AuthorEntity.findOne({
       where: { username: username },
     })
     if (!profile) {
@@ -31,8 +28,7 @@ export class AuthorsService {
   }
 
   async getByAccount(account: Account): Promise<AuthorEntity> {
-    const profile = this.authorsRepository
-      .createQueryBuilder('profile')
+    const profile = await AuthorEntity.createQueryBuilder('profile')
       .select()
       .where({ accountId: account.id })
       .getOne()
@@ -49,7 +45,6 @@ export class AuthorsService {
     fields: ProfileFields,
   ): Promise<AuthorEntity> {
     const profile = await this.getByAccount(account)
-    profile.loadData(fields)
-    return await this.authorsRepository.save(profile)
+    return await profile.loadData(fields).save()
   }
 }

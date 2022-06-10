@@ -11,7 +11,7 @@ import { ArticleEntity } from './article.entity'
 import { CommentEntity } from './comment.entity'
 
 @Entity({ name: 'authors' })
-export class AuthorEntity implements Profile {
+export class AuthorEntity extends BaseEntity implements Profile {
   @PrimaryGeneratedColumn()
   id: number
 

@@ -2,7 +2,6 @@ import { ContentManagementSystem } from '../../main/domain/articles/cms.service'
 import { ArticleNotFound } from '../../main/domain/articles/exceptions'
 import { Author } from '../../main/domain/articles/models'
 import { AuthorsService } from '../../main/domain/authors/service'
-import { AuthorEntity } from '../../main/persistence/author.entity'
 import { exampleArticle } from '../examples'
 import { testDataSource } from '../utils'
 
@@ -19,9 +18,10 @@ describe('Content Management System', () => {
   let author: Author
 
   beforeEach(async () => {
-    author = await new AuthorsService(
-      testDataSource.getRepository(AuthorEntity),
-    ).createForAccount({ id: 1 }, { username: 'john-doe' })
+    author = await new AuthorsService().createForAccount(
+      { id: 1 },
+      { username: 'john-doe' },
+    )
     cms = new ContentManagementSystem(author)
   })
 

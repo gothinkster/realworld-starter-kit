@@ -1,12 +1,10 @@
-import { Repository } from 'typeorm'
-import { ArticleEntity } from '../../persistence/article.entity'
+import { AuthorNotFound } from '../authors/exceptions'
 import { AuthorsService } from '../authors/service'
 import { ArticleFinder } from './finder'
 import { ArticleFilters, Author, FullArticle } from './models'
 
 export class ArticleView {
   constructor(
-    private repository: Repository<ArticleEntity>,
     private author?: Author,
     private authorsService?: AuthorsService,
   ) {}
@@ -38,11 +36,16 @@ export class ArticleView {
       .filterByTags(filters.tags?.split(','))
 
     if (filters.author) {
-      const author = await this.authorsService.getByUsername(filters.author)
-      if (!author) {
-        return []
+      try {
+        const author = await this.authorsService.getByUsername(filters.author)
+        finder.filterByAuthor(author)
+      } catch (error) {
+        if (error instanceof AuthorNotFound) {
+          return []
+        } else {
+          throw error
+        }
       }
-      finder.filterByAuthor(author)
     }
 
     return await finder.getMany()

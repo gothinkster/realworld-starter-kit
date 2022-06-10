@@ -2,8 +2,6 @@ import { ArticlesService } from '../../main/domain/articles/articles.service'
 import { ArticleNotFound } from '../../main/domain/articles/exceptions'
 import { Article, Author } from '../../main/domain/articles/models'
 import { AuthorsService } from '../../main/domain/authors/service'
-import { ArticleEntity } from '../../main/persistence/article.entity'
-import { AuthorEntity } from '../../main/persistence/author.entity'
 import { exampleArticle, exampleTags } from '../examples'
 import { testDataSource } from '../utils'
 
@@ -20,10 +18,11 @@ describe('Article', () => {
   let service: ArticlesService
 
   beforeEach(async () => {
-    author = await new AuthorsService(
-      testDataSource.getRepository(AuthorEntity),
-    ).createForAccount({ id: 1 }, { username: 'john-doe' })
-    service = new ArticlesService(testDataSource.getRepository(ArticleEntity))
+    author = await new AuthorsService().createForAccount(
+      { id: 1 },
+      { username: 'john-doe' },
+    )
+    service = new ArticlesService()
   })
 
   it('should be accessible to other users after published', async () => {
