@@ -9,6 +9,7 @@ import {
   ParseIntPipe,
   Post,
   Query,
+  Req,
   UseGuards,
 } from '@nestjs/common'
 import {
@@ -28,7 +29,7 @@ import {
   CommentsResponseBody,
   CreateCommentBody,
 } from '../parsing/comments.dto'
-import { PaginationDTO } from '../parsing/pagination.dto'
+import { buildUrl, PaginationDTO } from '../parsing/pagination.dto'
 import { JWTAuthGuard } from '../security/jwt.guard'
 import { validateModel } from '../validation/validation.utils'
 
@@ -44,6 +45,7 @@ export class CommentsController {
   @Post()
   @Slug()
   async addCommentToAnArticle(
+    @Req() req,
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
     @Body(validateModel()) body: CreateCommentBody,
@@ -54,7 +56,10 @@ export class CommentsController {
       body: body.comment.body,
     })
     return {
-      comment: cloneCommentToOutput(comment),
+      comment: {
+        ...cloneCommentToOutput(req, comment),
+        $article: buildUrl(req, `/articles/${slug}`),
+      },
     }
   }
 
@@ -63,6 +68,7 @@ export class CommentsController {
   @Get()
   @Slug()
   async getCommentsFromAnArticle(
+    @Req() req,
     @Param('slug') slug: string,
     @Query(validateModel()) pagination: PaginationDTO,
   ): Promise<CommentsResponseBody> {
@@ -70,9 +76,18 @@ export class CommentsController {
       slug,
       pagination,
     )
-    return {
-      comments: comments.map(cloneCommentToOutput),
+    const response: CommentsResponseBody = {
+      comments: comments.map((comment) => cloneCommentToOutput(req, comment)),
+      $article: buildUrl(req, `/articles/${slug}`),
     }
+    if (comments.length > 0) {
+      response.$next = buildUrl(
+        req,
+        `articles/${slug}/comments`,
+        pagination.getNextPage().toParams(),
+      )
+    }
+    return response
   }
 
   @ApiNoContentResponse({ type: CommentsResponseBody })
@@ -82,10 +97,14 @@ export class CommentsController {
   @Delete(':id')
   @Slug()
   async deleteCommentFromArticle(
+    @Req() req,
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
     @Param(ParseIntPipe) id: number,
   ) {
     await this.commentsService.deleteCommentFromArticle(id, slug, account)
+    return {
+      $article: buildUrl(req, `/articles/${slug}`),
+    }
   }
 }

@@ -15,6 +15,13 @@ export class Pagination {
     newPage.skip = this.skip + this.take
     return newPage
   }
+
+  toParams(): { [key: string]: string } {
+    return {
+      take: this.take.toString(),
+      skip: this.skip.toString(),
+    }
+  }
 }
 
 export class ArticleFinder {

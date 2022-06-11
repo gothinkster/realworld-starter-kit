@@ -9,6 +9,7 @@ import {
   Patch,
   Post,
   Put,
+  Req,
   UseGuards,
 } from '@nestjs/common'
 import {
@@ -42,11 +43,12 @@ export class AuthorsController {
   @HttpCode(HttpStatus.OK)
   @Get('me')
   async getCurrent(
+    @Req() req,
     @InjectAccount() account: Account,
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.getByAccount(account)
     return {
-      profile: cloneProfileToOutput(me),
+      profile: cloneProfileToOutput(req, me),
     }
   }
 
@@ -54,12 +56,13 @@ export class AuthorsController {
   @HttpCode(HttpStatus.CREATED)
   @Post()
   async create(
+    @Req() req,
     @InjectAccount() account: Account,
     @Body(validateModel()) body: CreateProfileBody,
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.createForAccount(account, body.profile)
     return {
-      profile: cloneProfileToOutput(me),
+      profile: cloneProfileToOutput(req, me),
     }
   }
 
@@ -67,12 +70,13 @@ export class AuthorsController {
   @HttpCode(HttpStatus.OK)
   @Put()
   async update(
+    @Req() req,
     @InjectAccount() account: Account,
     @Body(validateModel()) body: CreateProfileBody,
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.updateByAccount(account, body.profile)
     return {
-      profile: cloneProfileToOutput(me),
+      profile: cloneProfileToOutput(req, me),
     }
   }
 
@@ -80,12 +84,13 @@ export class AuthorsController {
   @HttpCode(HttpStatus.OK)
   @Patch()
   async partialUpdate(
+    @Req() req,
     @InjectAccount() account: Account,
     @Body(validateModel()) body: UpdateProfileBody,
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.updateByAccount(account, body.profile)
     return {
-      profile: cloneProfileToOutput(me),
+      profile: cloneProfileToOutput(req, me),
     }
   }
 
@@ -94,6 +99,7 @@ export class AuthorsController {
   @Username()
   @Post(':username/follow')
   async followProfile(
+    @Req() req,
     @InjectAccount() account: Account,
     @Param('username') username: string,
   ): Promise<ProfileResponseBody> {
@@ -101,7 +107,7 @@ export class AuthorsController {
     const profile = await this.authorsService.getByUsername(username)
     await me.follow(profile)
     return {
-      profile: cloneProfileToOutput(profile, true),
+      profile: cloneProfileToOutput(req, profile, true),
     }
   }
 
@@ -110,6 +116,7 @@ export class AuthorsController {
   @Username()
   @Delete(':username/follow')
   async unfollowProfile(
+    @Req() req,
     @InjectAccount() account: Account,
     @Param('username') username: string,
   ): Promise<ProfileResponseBody> {
@@ -117,7 +124,7 @@ export class AuthorsController {
     const profile = await this.authorsService.getByUsername(username)
     await me.unfollow(profile)
     return {
-      profile: cloneProfileToOutput(profile, false),
+      profile: cloneProfileToOutput(req, profile, false),
     }
   }
 
@@ -127,6 +134,7 @@ export class AuthorsController {
   @Username()
   @Get(':username')
   async getProfile(
+    @Req() req,
     @InjectAccount() account: Account,
     @Param('username') username: string,
   ): Promise<ProfileResponseBody> {
@@ -137,7 +145,7 @@ export class AuthorsController {
       following = await me.isFollowing(profile)
     }
     return {
-      profile: cloneProfileToOutput(profile, following),
+      profile: cloneProfileToOutput(req, profile, following),
     }
   }
 }

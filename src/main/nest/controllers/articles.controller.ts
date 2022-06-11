@@ -32,7 +32,7 @@ import {
   Slug,
   UpdateArticleBody,
 } from '../parsing/articles.dto'
-import { buildPageUrl, PaginationDTO } from '../parsing/pagination.dto'
+import { buildUrl, PaginationDTO } from '../parsing/pagination.dto'
 import { AuthIsOptional, JWTAuthGuard } from '../security/jwt.guard'
 import { validateModel } from '../validation/validation.utils'
 
@@ -49,18 +49,22 @@ export class ArticlesController {
   @ApiOkResponse({ type: ArticlesResponseBody })
   @Get('feed')
   async getFeed(
+    @Req() req,
     @InjectAccount() account: Account,
     @Query(validateModel()) pagination: PaginationDTO,
-    @Req() req,
   ): Promise<ArticlesResponseBody> {
     const me = await this.authorsService.getByAccount(account)
     const articles = await this.articlesService.getView(me).getFeed(pagination)
 
     const response: ArticlesResponseBody = {
-      articles: articles.map((article) => cloneArticleToOutput(article)),
+      articles: articles.map((article) => cloneArticleToOutput(req, article)),
     }
     if (articles.length > 0) {
-      response.$next = buildPageUrl(req, pagination.getNextPage())
+      response.$next = buildUrl(
+        req,
+        'articles/feed',
+        pagination.getNextPage().toParams(),
+      )
     }
     return response
   }
@@ -69,10 +73,10 @@ export class ArticlesController {
   @AuthIsOptional()
   @Get()
   async getManyArticles(
+    @Req() req,
     @InjectAccount() account: Account,
     @Query(validateModel()) filters: ArticleFiltersDTO,
     @Query(validateModel()) pagination: PaginationDTO,
-    @Req() req,
   ): Promise<ArticlesResponseBody> {
     const me = await this.authorsService.getByAccount(account).catch(() => null)
     const articles = await this.articlesService
@@ -80,13 +84,14 @@ export class ArticlesController {
       .getArticlesByFilters(filters, pagination)
 
     const response: ArticlesResponseBody = {
-      articles: articles.map((article) => cloneArticleToOutput(article)),
+      articles: articles.map((article) => cloneArticleToOutput(req, article)),
     }
     if (articles.length > 0) {
-      response.$next = buildPageUrl(
+      response.$next = buildUrl(
         req,
-        pagination.getNextPage(),
+        'articles',
         filters.toParams(),
+        pagination.getNextPage().toParams(),
       )
     }
     return response
@@ -97,13 +102,14 @@ export class ArticlesController {
   @AuthIsOptional()
   @Get(':slug')
   async getArticle(
+    @Req() req,
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
   ): Promise<ArticleResponseBody> {
     const me = await this.authorsService.getByAccount(account).catch(() => null)
     const article = await this.articlesService.getView(me).getArticle(slug)
     return {
-      article: cloneArticleToOutput(article),
+      article: cloneArticleToOutput(req, article),
     }
   }
 
@@ -111,7 +117,10 @@ export class ArticlesController {
   @HttpCode(HttpStatus.CREATED)
   @Slug()
   @Post(':slug/favorite')
-  favoriteArticle(@Param() slug: string): Promise<ArticleResponseBody> {
+  favoriteArticle(
+    @Req() req,
+    @Param() slug: string,
+  ): Promise<ArticleResponseBody> {
     return undefined
   }
 
@@ -119,7 +128,10 @@ export class ArticlesController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Slug()
   @Delete(':slug/favorite')
-  unfavoriteArticle(@Param() slug: string): Promise<ArticleResponseBody> {
+  unfavoriteArticle(
+    @Req() req,
+    @Param() slug: string,
+  ): Promise<ArticleResponseBody> {
     return undefined
   }
 
@@ -127,6 +139,7 @@ export class ArticlesController {
   @HttpCode(HttpStatus.CREATED)
   @Post()
   async createArticle(
+    @Req() req,
     @InjectAccount() account: Account,
     @Body(validateModel())
     body: CreateArticleBody,
@@ -136,7 +149,7 @@ export class ArticlesController {
       .getCMS(me)
       .createArticle(body.article)
     return {
-      article: cloneArticleToOutput(article),
+      article: cloneArticleToOutput(req, article),
     }
   }
 
@@ -145,6 +158,7 @@ export class ArticlesController {
   @Slug()
   @Put(':slug')
   async updateArticle(
+    @Req() req,
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
     @Body(validateModel())
@@ -155,7 +169,7 @@ export class ArticlesController {
       .getCMS(me)
       .updateArticle(slug, body.article)
     return {
-      article: cloneArticleToOutput(article),
+      article: cloneArticleToOutput(req, article),
     }
   }
 
@@ -177,13 +191,14 @@ export class ArticlesController {
   @Slug()
   @Post(':slug/publication')
   async publishArticle(
+    @Req() req,
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
   ): Promise<ArticleResponseBody> {
     const me = await this.authorsService.getByAccount(account)
     const article = await this.articlesService.getCMS(me).publishArticle(slug)
     return {
-      article: cloneArticleToOutput(article),
+      article: cloneArticleToOutput(req, article),
     }
   }
 
@@ -192,13 +207,14 @@ export class ArticlesController {
   @Slug()
   @Delete(':slug/publication')
   async unpublishArticle(
+    @Req() req,
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
   ): Promise<ArticleResponseBody> {
     const me = await this.authorsService.getByAccount(account)
     const article = await this.articlesService.getCMS(me).unpublishArticle(slug)
     return {
-      article: cloneArticleToOutput(article),
+      article: cloneArticleToOutput(req, article),
     }
   }
 }

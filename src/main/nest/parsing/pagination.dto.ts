@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsInt } from 'class-validator'
+import { GLOBAL_PREFIX } from '../../constants'
 import { Pagination } from '../../domain/articles/finder'
 
 export class PaginationDTO extends Pagination {
@@ -18,23 +19,27 @@ export class PaginationDTO extends Pagination {
   take: number = 20
 }
 
-export function buildPageUrl(
+export function buildUrl(
   req,
-  pagination: Pagination,
-  params: { [key: string]: string } = {},
+  path: string,
+  ...paramsArray: { [key: string]: string }[]
 ): string {
-  const baseUrl = `${req.protocol}://${req.get('host')}${req.path}`
+  path = path.replace(/^\//, '').replace(/\/$/, '')
+  let url = `${req.protocol}://${req.get('host')}` + `/${GLOBAL_PREFIX}/${path}`
   const query = new URLSearchParams()
-  if (pagination.skip) {
-    query.set('skip', pagination.skip.toString())
-  }
-  if (pagination.take) {
-    query.set('take', pagination.take.toString())
-  }
-  for (let key of Object.keys(params)) {
-    if (params[key]) {
-      query.set(key, params[key])
+
+  paramsArray.forEach((params) => {
+    for (let key of Object.keys(params)) {
+      if (params[key]) {
+        query.set(key, params[key])
+      }
     }
+  })
+
+  const queryString = query.toString()
+  if (queryString) {
+    url += `?${queryString}`
   }
-  return `${baseUrl}?${query.toString()}`
+
+  return url
 }

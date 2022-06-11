@@ -15,6 +15,7 @@ import {
   Sluged,
 } from '../../domain/articles/models'
 import { cloneProfileToOutput, ProfileResponseDTO } from './authors.dto'
+import { buildUrl } from './pagination.dto'
 
 export const articlesSwaggerOptions = {
   title: { example: 'How to train your dragon' },
@@ -175,6 +176,12 @@ class ArticleResponseDTO implements Dated<Sluged<Article>> {
 
   @ApiResponseModelProperty({ type: ProfileResponseDTO })
   author: ProfileResponseDTO
+
+  @ApiResponseProperty({ type: 'string', format: 'url' })
+  '$self': string
+
+  @ApiResponseProperty({ type: 'string', format: 'url' })
+  '$comments': string
 }
 
 export class ArticleResponseBody {
@@ -185,15 +192,18 @@ export class ArticleResponseBody {
 export class ArticlesResponseBody {
   @ApiResponseModelProperty({ type: [ArticleResponseDTO] })
   articles: ArticleResponseDTO[]
+
   @ApiResponseProperty({ type: 'string', format: 'url' })
-  '$next'?: string
+  $next?: string
 }
 
 export function cloneArticleToOutput(
+  req,
   article: FullArticle,
   favorited?: boolean,
 ): ArticleResponseDTO {
   const output: ArticleResponseDTO = {
+    $self: buildUrl(req, `/articles/${article.slug}`),
     slug: article.slug,
     title: article.title,
     description: article.description,
@@ -201,7 +211,8 @@ export function cloneArticleToOutput(
     tags: article.tags,
     createdAt: article.createdAt,
     updatedAt: article.updatedAt,
-    author: cloneProfileToOutput(article.author),
+    author: cloneProfileToOutput(req, article.author),
+    $comments: buildUrl(req, `/articles/${article.slug}/comments`),
   }
   if (typeof favorited === 'boolean') {
     output.favorited = favorited

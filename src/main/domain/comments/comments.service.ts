@@ -36,6 +36,7 @@ export class CommentsService {
     return await CommentEntity.createQueryBuilder('comment')
       .take(pagination.take)
       .skip(pagination.skip)
+      .orderBy('comment.createdAt', 'DESC')
       .where({ article: article })
       .leftJoinAndSelect('comment.author', 'author')
       .getMany()

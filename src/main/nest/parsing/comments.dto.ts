@@ -29,14 +29,21 @@ export class CreateCommentBody {
 export class CommentResponseDTO extends CommentDTO {
   @ApiResponseProperty()
   body: string
+
   @ApiResponseProperty()
   id: number
+
   @ApiResponseProperty()
   updatedAt: Date
+
   @ApiResponseProperty()
   createdAt: Date
+
   @ApiResponseModelProperty({ type: ProfileResponseDTO })
   author: ProfileResponseDTO
+
+  @ApiResponseProperty({ type: 'string', format: 'url' })
+  $article?: string
 }
 
 export class CommentResponseBody {
@@ -46,9 +53,16 @@ export class CommentResponseBody {
 export class CommentsResponseBody {
   @ApiResponseProperty({ type: [CommentResponseDTO] })
   comments: CommentResponseDTO[]
+
+  @ApiResponseProperty({ type: 'string', format: 'url' })
+  $next?: string
+
+  @ApiResponseProperty({ type: 'string', format: 'url' })
+  $article: string
 }
 
 export function cloneCommentToOutput(
+  req,
   comment: CommentEntity,
 ): CommentResponseDTO {
   return {
@@ -56,6 +70,6 @@ export function cloneCommentToOutput(
     body: comment.body,
     createdAt: comment.createdAt,
     updatedAt: comment.updatedAt,
-    author: cloneProfileToOutput(comment.author),
+    author: cloneProfileToOutput(req, comment.author),
   }
 }

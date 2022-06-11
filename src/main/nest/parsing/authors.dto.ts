@@ -4,6 +4,7 @@ import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-prop
 import { Type } from 'class-transformer'
 import { IsNotEmpty, IsString, Matches, ValidateNested } from 'class-validator'
 import { Profile, ProfileFields } from '../../domain/authors/models'
+import { buildUrl } from './pagination.dto'
 
 const authorSwaggerOptions = {
   username: {
@@ -75,12 +76,21 @@ export class UpdateProfileBody {
 export class ProfileResponseDTO implements ProfileFields {
   @ApiResponseProperty()
   username: string
+
   @ApiResponseProperty()
   bio: string
+
   @ApiResponseProperty()
   image: string
+
   @ApiResponseProperty()
   following?: boolean
+
+  @ApiResponseProperty({ type: 'string', format: 'url' })
+  $self: string
+
+  @ApiResponseProperty({ type: 'string', format: 'url' })
+  $articles: string
 }
 
 export class ProfileResponseBody {
@@ -89,13 +99,16 @@ export class ProfileResponseBody {
 }
 
 export function cloneProfileToOutput(
+  req,
   profile: Profile,
   following?: boolean,
 ): ProfileResponseDTO {
   const output: ProfileResponseDTO = {
+    $self: buildUrl(req, `/profiles/${profile.username}`),
     username: profile.username,
     bio: profile.bio,
     image: profile.image,
+    $articles: buildUrl(req, `/articles?author=${profile.username}`),
   }
   if (typeof following === 'boolean') {
     output.following = following
