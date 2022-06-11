@@ -9,6 +9,7 @@ import {
   Post,
   Put,
   Query,
+  Req,
   UseGuards,
 } from '@nestjs/common'
 import {
@@ -31,7 +32,7 @@ import {
   Slug,
   UpdateArticleBody,
 } from '../parsing/articles.dto'
-import { PaginationDTO } from '../parsing/pagination.dto'
+import { buildPageUrl, PaginationDTO } from '../parsing/pagination.dto'
 import { AuthIsOptional, JWTAuthGuard } from '../security/jwt.guard'
 import { validateModel } from '../validation/validation.utils'
 
@@ -50,12 +51,18 @@ export class ArticlesController {
   async getFeed(
     @InjectAccount() account: Account,
     @Query(validateModel()) pagination: PaginationDTO,
+    @Req() req,
   ): Promise<ArticlesResponseBody> {
     const me = await this.authorsService.getByAccount(account)
     const articles = await this.articlesService.getView(me).getFeed(pagination)
-    return {
+
+    const response: ArticlesResponseBody = {
       articles: articles.map((article) => cloneArticleToOutput(article)),
     }
+    if (articles.length > 0) {
+      response.$next = buildPageUrl(req, pagination.getNextPage())
+    }
+    return response
   }
 
   @ApiOkResponse({ type: ArticlesResponseBody })
@@ -65,14 +72,24 @@ export class ArticlesController {
     @InjectAccount() account: Account,
     @Query(validateModel()) filters: ArticleFiltersDTO,
     @Query(validateModel()) pagination: PaginationDTO,
+    @Req() req,
   ): Promise<ArticlesResponseBody> {
     const me = await this.authorsService.getByAccount(account).catch(() => null)
     const articles = await this.articlesService
       .getView(me)
       .getArticlesByFilters(filters, pagination)
-    return {
+
+    const response: ArticlesResponseBody = {
       articles: articles.map((article) => cloneArticleToOutput(article)),
     }
+    if (articles.length > 0) {
+      response.$next = buildPageUrl(
+        req,
+        pagination.getNextPage(),
+        filters.toParams(),
+      )
+    }
+    return response
   }
 
   @ApiOkResponse({ type: ArticleResponseBody })

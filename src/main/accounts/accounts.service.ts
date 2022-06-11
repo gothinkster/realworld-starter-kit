@@ -15,7 +15,6 @@ export class AccountsService {
       .changePassword(user.password)
       .save()
       .catch((err) => {
-        console.log(err)
         throw new AccountAlreadyExistsException(user.email)
       })
   }

@@ -26,7 +26,7 @@ export interface Article {
 export type FullArticle = Authored<Dated<Sluged<Article>>>
 
 export interface ArticleFilters {
-  tags?: string
+  tags?: string[]
   author?: string
   favorited?: boolean
 }

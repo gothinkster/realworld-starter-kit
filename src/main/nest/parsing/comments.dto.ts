@@ -29,10 +29,14 @@ export class CreateCommentBody {
 export class CommentResponseDTO extends CommentDTO {
   @ApiResponseProperty()
   body: string
-  @ApiResponseProperty() id: number
-  @ApiResponseProperty() updatedAt: Date
-  @ApiResponseProperty() createdAt: Date
-  @ApiResponseModelProperty() author: ProfileResponseDTO
+  @ApiResponseProperty()
+  id: number
+  @ApiResponseProperty()
+  updatedAt: Date
+  @ApiResponseProperty()
+  createdAt: Date
+  @ApiResponseModelProperty({ type: ProfileResponseDTO })
+  author: ProfileResponseDTO
 }
 
 export class CommentResponseBody {

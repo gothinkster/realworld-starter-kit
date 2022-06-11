@@ -109,10 +109,15 @@ export class ArticleFiltersDTO implements ArticleFilters {
   @ApiProperty({
     description: 'Comma separated list of tags',
     required: false,
+    type: 'string',
   })
-  @IsString()
-  @IsOptional()
-  tags?: string
+  @Transform(({ obj }) =>
+    obj.tags
+      ?.split(/[\s,-]+/)
+      ?.map((tag) => tag.trim())
+      ?.filter((tag) => tag.length > 0),
+  )
+  tags?: string[]
 
   @ApiProperty({
     description: 'Author username',
@@ -130,6 +135,14 @@ export class ArticleFiltersDTO implements ArticleFilters {
     ['True', 'true', true, 'yes', 'Yes', 'y', 'Y'].includes(obj.favorited),
   )
   favorited: boolean = false
+
+  toParams(): { [key: string]: string } {
+    return {
+      ...(this.tags ? { tags: this.tags.join(',') } : {}),
+      ...(this.author ? { author: this.author } : {}),
+      ...(this.favorited ? { favorited: this.favorited.toString() } : {}),
+    }
+  }
 }
 
 class ArticleResponseDTO implements Dated<Sluged<Article>> {
@@ -160,7 +173,7 @@ class ArticleResponseDTO implements Dated<Sluged<Article>> {
   @ApiResponseProperty({ ...articlesSwaggerOptions.favoritesCount })
   favoritesCount?: number
 
-  @ApiResponseModelProperty()
+  @ApiResponseModelProperty({ type: ProfileResponseDTO })
   author: ProfileResponseDTO
 }
 
@@ -172,6 +185,8 @@ export class ArticleResponseBody {
 export class ArticlesResponseBody {
   @ApiResponseModelProperty({ type: [ArticleResponseDTO] })
   articles: ArticleResponseDTO[]
+  @ApiResponseProperty({ type: 'string', format: 'url' })
+  '$next'?: string
 }
 
 export function cloneArticleToOutput(

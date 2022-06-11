@@ -29,7 +29,7 @@ export class ArticleView {
   ): Promise<FullArticle[]> {
     const finder = new ArticleFinder(pagination)
       .filterByPublishedOrOwnedBy(this.author)
-      .filterByTags(filters.tags?.split(','))
+      .filterByTags(filters.tags)
 
     if (filters.author) {
       try {

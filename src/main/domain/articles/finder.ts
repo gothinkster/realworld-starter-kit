@@ -5,9 +5,16 @@ import { UserFollows } from '../../persistence/author.entity'
 import { ArticleNotFound } from './exceptions'
 import { Author } from './models'
 
-export interface Pagination {
+export class Pagination {
   take: number
   skip: number
+
+  getNextPage(): Pagination {
+    const newPage = new Pagination()
+    newPage.take = this.take
+    newPage.skip = this.skip + this.take
+    return newPage
+  }
 }
 
 export class ArticleFinder {

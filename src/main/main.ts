@@ -7,8 +7,10 @@ export async function bootstrap(): Promise<void> {
   app.setGlobalPrefix(process.env.API_PREFIX || 'api')
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('Real World APP')
-    .setDescription('An api for publishing domain.')
+    .setTitle('Magazine API')
+    .setDescription(
+      'A Rest API for publishing articles and consuming articles from authors you follow.',
+    )
     .setVersion('1.0')
     .addBasicAuth()
     .addBearerAuth()

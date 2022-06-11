@@ -15,7 +15,6 @@ export class AuthorsService {
     })
       .save()
       .catch((err) => {
-        console.log(err)
         throw new AuthorAlreadyExists(fields.username)
       })
   }

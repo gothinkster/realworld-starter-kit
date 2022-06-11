@@ -22,7 +22,6 @@ export class JWTAuthGuard extends AuthGuard('jwt') {
       context.getHandler(),
     )
     if (!user && userIsOptional) {
-      console.log('Entering userIsOptional block.')
       return null
     }
     return super.handleRequest(err, user, info, context)
