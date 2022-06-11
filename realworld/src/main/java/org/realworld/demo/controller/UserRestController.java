@@ -5,6 +5,7 @@ import org.realworld.demo.controller.dto.UserDto.UserLoginRequest;
 import org.realworld.demo.controller.dto.UserDto.UserResponse;
 import org.realworld.demo.controller.dto.UserDto.UserUpdateRequest;
 import org.realworld.demo.domain.User;
+import org.realworld.demo.jwt.JwtUtil;
 import org.realworld.demo.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,27 +14,32 @@ import org.springframework.web.bind.annotation.*;
 public class UserRestController {
     private final UserService userService;
 
-    public UserRestController(UserService userService) {
+    private final JwtUtil jwtUtil;
+
+    public UserRestController(UserService userService, JwtUtil jwtUtil) {
         this.userService = userService;
+        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("/users/login")
     public UserResponse login(@RequestBody UserLoginRequest request){
         User loginUser = userService.login(request.getEmail(), request.getPassword());
-        return null;
+        String token = jwtUtil.createToken(loginUser.getEmail());
+        return UserResponse.from(loginUser, token);
 
     }
 
     @PostMapping("/users")
     public UserResponse registerUser(@RequestBody UserCreateRequest request){
         User user = userService.saveUser(request.request.toUser());
-        return UserResponse.fromUser(user);
+//        SecurityContextHolder.getContext().getAuthentication();
+        return UserResponse.from(user, "");
     }
 
     @GetMapping("/user")
-    public UserResponse getUser(){
+    public String getUser(){
         // authentication required
-        return null;
+        return "Hello";
     }
 
     @PutMapping("/user")
@@ -48,6 +54,6 @@ public class UserRestController {
                 innerRequest.bio
         );
 
-        return UserResponse.fromUser(user);
+        return UserResponse.from(user, "");
     }
 }
