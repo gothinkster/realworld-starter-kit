@@ -113,4 +113,19 @@ describe('Article', () => {
     // Assert
     expect(article.tags).toEqual(['food', 'physics'])
   })
+
+  it.skip('should return article by tag', async () => {
+    // Arrange
+    const example = { ...exampleArticle, tags: ['programming', 'physics'] }
+    const cms = service.getCMS(author)
+    await cms.createArticle(example)
+
+    // Act
+    const articles = await service
+      .getView(author)
+      .getArticlesByFilters({ tags: ['programming'] })
+
+    // Assert
+    expect(articles[0].tags).toEqual(['programming', 'physics'])
+  })
 })
