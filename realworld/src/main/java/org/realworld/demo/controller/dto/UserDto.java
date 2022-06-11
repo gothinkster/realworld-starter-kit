@@ -111,9 +111,9 @@ public class UserDto {
             this.response = response;
         }
 
-        public static UserResponse fromUser(User user){
+        public static UserResponse from(User user, String jwtToken){
             return new UserResponse(
-                    new Response(user.getEmail(), "", user.getUsername(), user.getBio(), user.getImage())
+                    new Response(user.getEmail(), jwtToken, user.getUsername(), user.getBio(), user.getImage())
             );
         }
     }

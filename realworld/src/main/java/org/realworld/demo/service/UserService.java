@@ -2,6 +2,7 @@ package org.realworld.demo.service;
 
 import org.realworld.demo.domain.User;
 import org.realworld.demo.repository.UserRepository;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,7 +40,7 @@ public class UserService implements UserDetailsService {
         Optional<User> maybeUser = userRepository.findByEmail(email);
         User user = maybeUser.orElseThrow();
         if(!user.getPassword().equals(password)){
-            throw new IllegalArgumentException();
+            throw new BadCredentialsException("비밀번호가 맞지 않습니다");
         }
         return user;
     }
