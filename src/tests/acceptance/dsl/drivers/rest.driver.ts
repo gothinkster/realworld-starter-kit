@@ -87,7 +87,6 @@ export class UserRestDriver implements UserDriver {
       params: {
         author: filters.author,
         tags: filters.tags?.join(','),
-        limit: 100,
       },
     })
     expect(response.status).toBe(200)
@@ -126,11 +125,7 @@ export class UserRestDriver implements UserDriver {
   }
 
   private async getFeed(): Promise<Sluged<Article>[]> {
-    const response = await this.axios.get(`articles/feed`, {
-      params: {
-        limit: 100,
-      },
-    })
+    const response = await this.axios.get(`articles/feed`)
     expect(response.status).toBe(200)
     return response.data.articles
   }
