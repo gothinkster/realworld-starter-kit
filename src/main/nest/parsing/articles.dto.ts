@@ -126,10 +126,10 @@ export class ArticleFiltersDTO implements ArticleFilters {
     description: 'Filter by articles favorited by you (requires logging)',
     required: false,
   })
-  @Transform(({ value }) =>
-    ['True', 'true', true, 'yes', 'Yes', 'y', 'Y'].includes(value),
+  @Transform(({ obj }) =>
+    ['True', 'true', true, 'yes', 'Yes', 'y', 'Y'].includes(obj.favorited),
   )
-  favorited: boolean
+  favorited: boolean = false
 }
 
 class ArticleResponseDTO implements Dated<Sluged<Article>> {
