@@ -3,11 +3,11 @@ import {
   Article,
   ArticleFields,
   Sluged,
-} from '../../../main/domain/articles/models'
-import { createCredentials } from './factories/credentials.factory'
-import { ArticleSearch, ProtocolDriver } from './protocol.driver'
+} from '../../../../main/domain/articles/models'
+import { createCredentials } from '../utils/credentials.factory'
+import { ArticleSearch, UserDriver } from './interface.driver'
 
-export class RestDriver implements ProtocolDriver {
+export class UserRestDriver implements UserDriver {
   private username: string
 
   constructor(private axios: Axios) {}

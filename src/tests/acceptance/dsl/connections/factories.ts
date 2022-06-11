@@ -1,10 +1,5 @@
-import { ProtocolDriver } from './protocol.driver'
+import { AppConnection } from './interface'
 import { connectToRest } from './rest'
-
-export interface AppConnection {
-  driverFactory(): ProtocolDriver
-  stop(): Promise<void>
-}
 
 const connectionFactories: { [key: string]: () => Promise<AppConnection> } = {
   rest: connectToRest,

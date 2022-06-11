@@ -1,6 +1,6 @@
-import { ArticleFields } from '../../main/domain/articles/models'
-import { makeRandomArticle } from './drivers/factories/articles.factory'
-import { ArticleSearch, ProtocolDriver } from './drivers/protocol.driver'
+import { ArticleFields } from '../../../main/domain/articles/models'
+import { ArticleSearch, UserDriver } from './drivers/interface.driver'
+import { makeRandomArticle } from './utils/articles.factory'
 
 export interface Context {
   slug?: string
@@ -9,7 +9,7 @@ export interface Context {
 export class UserDSL {
   constructor(
     public readonly username: string,
-    private driver: ProtocolDriver,
+    private driver: UserDriver,
     private context: Context,
   ) {}
 

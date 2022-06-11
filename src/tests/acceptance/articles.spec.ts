@@ -1,5 +1,6 @@
-import { AppConnection, connectToApp } from './drivers/main'
-import { UserDSL } from './user.dsl'
+import { connectToApp } from './dsl/connections/factories'
+import { AppConnection } from './dsl/connections/interface'
+import { UserDSL } from './dsl/user.dsl'
 
 let connection: AppConnection
 let abbott: UserDSL

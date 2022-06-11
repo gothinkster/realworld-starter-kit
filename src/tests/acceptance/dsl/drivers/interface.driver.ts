@@ -1,6 +1,6 @@
-import { Article, ArticleFields } from '../../../main/domain/articles/models'
+import { Article, ArticleFields } from '../../../../main/domain/articles/models'
 
-export interface ProtocolDriver {
+export interface UserDriver {
   login(username: string): Promise<void>
   follow(username: string): Promise<void>
   unfollow(username: string): Promise<void>
