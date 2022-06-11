@@ -22,7 +22,8 @@ export const articlesSwaggerOptions = {
   body: { example: 'Give it a lot a training and feed it with fish.' },
   slug: {
     name: 'slug',
-    type: 'slug',
+    type: 'string',
+    format: 'slug',
     description:
       'The article title written in slug format. Example: how-to-train-your-dragon',
   },
@@ -73,7 +74,7 @@ export class CreateArticleDTO implements Article {
 }
 
 export class CreateArticleBody {
-  @ApiModelProperty({ type: CreateArticleDTO })
+  @ApiModelProperty({ type: CreateArticleDTO, required: true })
   @ValidateNested()
   @Type(() => CreateArticleDTO)
   article: CreateArticleDTO
@@ -125,16 +126,10 @@ export class ArticleFiltersDTO implements ArticleFilters {
     description: 'Filter by articles favorited by you (requires logging)',
     required: false,
   })
-  @Transform(({ value }) => {
-    if (['true', true].includes(value)) {
-      return true
-    }
-    if (['false', false].includes(value)) {
-      return false
-    }
-  })
-  @IsOptional()
-  favorited?: boolean
+  @Transform(({ value }) =>
+    ['True', 'true', true, 'yes', 'Yes', 'y', 'Y'].includes(value),
+  )
+  favorited: boolean
 }
 
 class ArticleResponseDTO implements Dated<Sluged<Article>> {

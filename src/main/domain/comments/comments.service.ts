@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { CommentEntity } from '../../persistence/comment.entity'
 import { ArticlesService } from '../articles/articles.service'
+import { Pagination } from '../articles/finder'
 import { Account } from '../authors/models'
 import { AuthorsService } from '../authors/service'
 
@@ -29,13 +30,12 @@ export class CommentsService {
 
   async getCommentsFromArticle(
     slug: string,
-    limit: number = 20,
-    offset: number = 0,
+    pagination: Pagination,
   ): Promise<CommentEntity[]> {
     const article = await this.articlesService.getView().getArticle(slug)
     return await CommentEntity.createQueryBuilder('comment')
-      .limit(limit)
-      .skip(offset)
+      .take(pagination.take)
+      .skip(pagination.skip)
       .where({ article: article })
       .leftJoinAndSelect('comment.author', 'author')
       .getMany()
