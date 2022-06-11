@@ -5,16 +5,21 @@ import { UserFollows } from '../../persistence/author.entity'
 import { ArticleNotFound } from './exceptions'
 import { Author } from './models'
 
+export interface Pagination {
+  take: number
+  skip: number
+}
+
 export class ArticleFinder {
   private readonly qb: SelectQueryBuilder<ArticleEntity>
   slug: string
 
-  constructor(limit: number = 20, offset: number = 0) {
+  constructor(pagination?: Pagination) {
     this.qb = ArticleEntity.createQueryBuilder('article')
     this.qb
       .where('true')
-      .limit(limit)
-      .skip(offset)
+      .take(pagination?.take || 20)
+      .skip(pagination?.skip || 0)
       .orderBy(`${this.qb.alias}.createdAt`, 'DESC')
       .leftJoinAndSelect(`${this.qb.alias}.tagList`, 'tags')
       .leftJoinAndSelect(`${this.qb.alias}.author`, 'authors')

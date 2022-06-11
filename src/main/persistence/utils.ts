@@ -8,7 +8,6 @@ function getLocalDataSource(): DataSource {
     database: 'local.sqlite3',
     entities: entities,
     synchronize: true,
-    logging: true,
   })
 }
 

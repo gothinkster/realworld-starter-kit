@@ -1,5 +1,5 @@
-import { PartialType } from '@nestjs/mapped-types'
-import { ApiResponseProperty } from '@nestjs/swagger'
+import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger'
+import { Type } from 'class-transformer'
 import {
   IsEmail,
   IsNotEmpty,
@@ -7,13 +7,16 @@ import {
   Matches,
   MaxLength,
   MinLength,
+  ValidateNested,
 } from 'class-validator'
 
 export class AccountDTO {
+  @ApiProperty({ example: 'me@mail.com' })
   @IsEmail()
   @IsNotEmpty()
   email: string
 
+  @ApiProperty({ example: 'askljh3#892d1!' })
   @MinLength(8, { message: 'requires at least 8 characters' })
   @MaxLength(32, { message: 'requires at most 32 characters' })
   @Matches(String.raw`[A-Z]`, '', { message: 'requires upper-case characters' })
@@ -27,9 +30,14 @@ export class AccountDTO {
   password: string
 }
 
-export class PartialAccountDTO extends PartialType<AccountDTO>(AccountDTO) {}
-
-export class AccountResponsePayload {
+export class AccountResponseBody {
   @ApiResponseProperty()
   access_token: string
+}
+
+export class CreateAccountBody {
+  @ApiProperty({ type: AccountDTO })
+  @ValidateNested()
+  @Type(() => AccountDTO)
+  user: AccountDTO
 }

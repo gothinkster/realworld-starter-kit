@@ -1,6 +1,6 @@
 import { AuthorNotFound } from '../authors/exceptions'
 import { AuthorsService } from '../authors/service'
-import { ArticleFinder } from './finder'
+import { ArticleFinder, Pagination } from './finder'
 import { ArticleFilters, Author, FullArticle } from './models'
 
 export class ArticleView {
@@ -16,11 +16,8 @@ export class ArticleView {
       .getOne()
   }
 
-  async getFeed(
-    limit: number = 20,
-    offset: number = 0,
-  ): Promise<FullArticle[]> {
-    return await new ArticleFinder(limit, offset)
+  async getFeed(pagination?: Pagination): Promise<FullArticle[]> {
+    return await new ArticleFinder(pagination)
       .filterByPublished()
       .filterByFollowedBy(this.author)
       .getMany()
@@ -28,10 +25,9 @@ export class ArticleView {
 
   async getArticlesByFilters(
     filters: ArticleFilters,
-    limit: number = 20,
-    offset: number = 0,
+    pagination?: Pagination,
   ): Promise<FullArticle[]> {
-    const finder = new ArticleFinder(limit, offset)
+    const finder = new ArticleFinder(pagination)
       .filterByPublishedOrOwnedBy(this.author)
       .filterByTags(filters.tags?.split(','))
 

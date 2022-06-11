@@ -3,7 +3,7 @@ import * as jwt from 'jsonwebtoken'
 import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../constants'
 import { Account } from '../domain/authors/models'
 import { AccountEntity } from '../persistence/accounts.entity'
-import { AccountDTO, AccountResponsePayload } from './accounts.dto'
+import { AccountDTO, AccountResponseBody } from './accounts.dto'
 import { InvalidCredentialsError } from './accounts.exceptions'
 import { AccountAlreadyExistsException } from './exeptions'
 
@@ -30,7 +30,7 @@ export class AccountsService {
     return account
   }
 
-  getJWTResponse(account: Account): AccountResponsePayload {
+  getJWTResponse(account: Account): AccountResponseBody {
     return {
       access_token: jwt.sign(
         { account_id: account.id, email: account.email },

@@ -12,6 +12,8 @@ export function validateModel(
   return new ValidationPipe({
     transform: true,
     errorHttpStatusCode: status.valueOf(),
+    transformOptions: { enableImplicitConversion: true },
+    forbidNonWhitelisted: true,
   })
 }
 

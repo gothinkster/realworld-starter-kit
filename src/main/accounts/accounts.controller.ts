@@ -1,9 +1,9 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common'
-import { ApiBasicAuth, ApiTags } from '@nestjs/swagger'
+import { ApiBasicAuth, ApiCreatedResponse, ApiTags } from '@nestjs/swagger'
 import { Account } from '../domain/authors/models'
 import { InjectAccount } from '../nest/decorators/account.decorator'
 import { validateModel } from '../nest/validation/validation.utils'
-import { AccountDTO, AccountResponsePayload } from './accounts.dto'
+import { AccountResponseBody, CreateAccountBody } from './accounts.dto'
 import { AccountsService } from './accounts.service'
 import { BasicAuthGuard } from './basic.guard'
 
@@ -12,19 +12,27 @@ import { BasicAuthGuard } from './basic.guard'
 export class AccountsController {
   constructor(private service: AccountsService) {}
 
+  @ApiCreatedResponse({
+    description: 'When you signup sucesfully',
+    type: AccountResponseBody,
+  })
   @Post('signup')
   async signup(
-    @Body('user', validateModel())
-    user: AccountDTO,
-  ): Promise<AccountResponsePayload> {
-    const account = await this.service.createAccount(user)
+    @Body(validateModel())
+    body: CreateAccountBody,
+  ): Promise<AccountResponseBody> {
+    const account = await this.service.createAccount(body.user)
     return this.service.getJWTResponse(account)
   }
 
+  @ApiCreatedResponse({
+    description: 'When you login sucesfully',
+    type: AccountResponseBody,
+  })
   @UseGuards(BasicAuthGuard)
   @ApiBasicAuth()
   @Post('login')
-  login(@InjectAccount() account: Account): AccountResponsePayload {
+  login(@InjectAccount() account: Account): AccountResponseBody {
     return this.service.getJWTResponse(account)
   }
 }

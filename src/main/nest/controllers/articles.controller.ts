@@ -11,20 +11,29 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common'
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiNoContentResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger'
 import { ArticlesService } from '../../domain/articles/articles.service'
 import { Account } from '../../domain/authors/models'
 import { AuthorsService } from '../../domain/authors/service'
 import { InjectAccount } from '../decorators/account.decorator'
 import {
   ArticleFiltersDTO,
-  ArticleResponseDTO,
+  ArticleResponseBody,
+  ArticlesResponseBody,
   cloneArticleToOutput,
-  CreateArticleDTO,
-  UpdateArticleDTO,
+  CreateArticleBody,
+  Slug,
+  UpdateArticleBody,
 } from '../parsing/articles.dto'
+import { PaginationDTO } from '../parsing/pagination.dto'
 import { AuthIsOptional, JWTAuthGuard } from '../security/jwt.guard'
-import { QueryInt, validateModel } from '../validation/validation.utils'
+import { validateModel } from '../validation/validation.utils'
 
 @ApiTags('articles')
 @ApiBearerAuth()
@@ -36,44 +45,44 @@ export class ArticlesController {
     private authorsService: AuthorsService,
   ) {}
 
+  @ApiOkResponse({ type: ArticlesResponseBody })
   @Get('feed')
   async getFeed(
     @InjectAccount() account: Account,
-    @QueryInt('limit', 20) limit?: number,
-    @QueryInt('offset', 0) offset?: number,
-  ): Promise<{ articles: ArticleResponseDTO[] }> {
+    @Query(validateModel()) pagination: PaginationDTO,
+  ): Promise<ArticlesResponseBody> {
     const me = await this.authorsService.getByAccount(account)
-    const articles = await this.articlesService
-      .getView(me)
-      .getFeed(limit, offset)
+    const articles = await this.articlesService.getView(me).getFeed(pagination)
     return {
       articles: articles.map((article) => cloneArticleToOutput(article)),
     }
   }
 
+  @ApiOkResponse({ type: ArticlesResponseBody })
   @AuthIsOptional()
   @Get()
   async getManyArticles(
     @InjectAccount() account: Account,
     @Query(validateModel()) filters: ArticleFiltersDTO,
-    @QueryInt('limit', 20) limit?: number,
-    @QueryInt('offset', 0) offset?: number,
-  ): Promise<{ articles: ArticleResponseDTO[] }> {
+    @Query(validateModel()) pagination: PaginationDTO,
+  ): Promise<ArticlesResponseBody> {
     const me = await this.authorsService.getByAccount(account).catch(() => null)
     const articles = await this.articlesService
       .getView(me)
-      .getArticlesByFilters(filters, limit, offset)
+      .getArticlesByFilters(filters, pagination)
     return {
       articles: articles.map((article) => cloneArticleToOutput(article)),
     }
   }
 
+  @ApiOkResponse({ type: ArticleResponseBody })
+  @Slug()
   @AuthIsOptional()
   @Get(':slug')
   async getArticle(
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
-  ): Promise<{ article: ArticleResponseDTO }> {
+  ): Promise<ArticleResponseBody> {
     const me = await this.authorsService.getByAccount(account).catch(() => null)
     const article = await this.articlesService.getView(me).getArticle(slug)
     return {
@@ -81,53 +90,61 @@ export class ArticlesController {
     }
   }
 
-  @Post(':slug/favorite')
-  favoriteArticle(
-    @Param() slug: string,
-  ): Promise<{ article: ArticleResponseDTO }> {
-    return undefined
-  }
-
-  @Delete(':slug/favorite')
-  unfavoriteArticle(
-    @Param() slug: string,
-  ): Promise<{ article: ArticleResponseDTO }> {
-    return undefined
-  }
-
-  @Post()
+  @ApiCreatedResponse({ type: ArticleResponseBody })
   @HttpCode(HttpStatus.CREATED)
+  @Slug()
+  @Post(':slug/favorite')
+  favoriteArticle(@Param() slug: string): Promise<ArticleResponseBody> {
+    return undefined
+  }
+
+  @ApiNoContentResponse({ type: ArticleResponseBody })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Slug()
+  @Delete(':slug/favorite')
+  unfavoriteArticle(@Param() slug: string): Promise<ArticleResponseBody> {
+    return undefined
+  }
+
+  @ApiCreatedResponse({ type: ArticleResponseBody })
+  @HttpCode(HttpStatus.CREATED)
+  @Post()
   async createArticle(
     @InjectAccount() account: Account,
-    @Body('article', validateModel())
-    articleDTO: CreateArticleDTO,
-  ): Promise<{ article: ArticleResponseDTO }> {
+    @Body(validateModel())
+    body: CreateArticleBody,
+  ): Promise<ArticleResponseBody> {
     const me = await this.authorsService.getByAccount(account)
     const article = await this.articlesService
       .getCMS(me)
-      .createArticle(articleDTO)
+      .createArticle(body.article)
     return {
       article: cloneArticleToOutput(article),
     }
   }
 
-  @Put(':slug')
+  @ApiOkResponse({ type: ArticleResponseBody })
   @HttpCode(HttpStatus.OK)
+  @Slug()
+  @Put(':slug')
   async updateArticle(
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
-    @Body('article', validateModel())
-    articleDTO: UpdateArticleDTO,
-  ): Promise<{ article: ArticleResponseDTO }> {
+    @Body(validateModel())
+    body: UpdateArticleBody,
+  ): Promise<ArticleResponseBody> {
     const me = await this.authorsService.getByAccount(account)
     const article = await this.articlesService
       .getCMS(me)
-      .updateArticle(slug, articleDTO)
+      .updateArticle(slug, body.article)
     return {
       article: cloneArticleToOutput(article),
     }
   }
 
+  @ApiNoContentResponse()
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Slug()
   @Delete(':slug')
   @HttpCode(HttpStatus.NO_CONTENT)
   async deleteArticle(
@@ -138,12 +155,14 @@ export class ArticlesController {
     await this.articlesService.getCMS(me).deleteArticle(slug)
   }
 
+  @ApiCreatedResponse({ type: ArticleResponseBody })
   @HttpCode(HttpStatus.CREATED)
+  @Slug()
   @Post(':slug/publication')
   async publishArticle(
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
-  ): Promise<{ article: ArticleResponseDTO }> {
+  ): Promise<ArticleResponseBody> {
     const me = await this.authorsService.getByAccount(account)
     const article = await this.articlesService.getCMS(me).publishArticle(slug)
     return {
@@ -151,12 +170,14 @@ export class ArticlesController {
     }
   }
 
+  @ApiNoContentResponse({ type: ArticleResponseBody })
   @HttpCode(HttpStatus.NO_CONTENT)
+  @Slug()
   @Delete(':slug/publication')
   async unpublishArticle(
     @InjectAccount() account: Account,
     @Param('slug') slug: string,
-  ): Promise<{ article: ArticleResponseDTO }> {
+  ): Promise<ArticleResponseBody> {
     const me = await this.authorsService.getByAccount(account)
     const article = await this.articlesService.getCMS(me).unpublishArticle(slug)
     return {
