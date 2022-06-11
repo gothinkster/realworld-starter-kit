@@ -1,6 +1,6 @@
 import { UserDriver } from '../drivers/interface.driver'
 
 export interface AppConnection {
-  driverFactory(): UserDriver
+  createUserDriver(): UserDriver
   stop(): Promise<void>
 }

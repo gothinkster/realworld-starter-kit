@@ -16,8 +16,8 @@ afterAll(async () => {
 
 beforeEach(async () => {
   const context = {}
-  abbott = new UserDSL('Abbott', connection.driverFactory(), context)
-  costello = new UserDSL('Costello', connection.driverFactory(), context)
+  abbott = new UserDSL('Abbott', connection.createUserDriver(), context)
+  costello = new UserDSL('Costello', connection.createUserDriver(), context)
   await Promise.all([abbott, costello].map((user) => user.login()))
 })
 

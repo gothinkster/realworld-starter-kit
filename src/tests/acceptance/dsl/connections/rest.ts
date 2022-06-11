@@ -7,12 +7,17 @@ import { UserDriver } from '../drivers/interface.driver'
 import { UserRestDriver } from '../drivers/rest.driver'
 import { AppConnection } from './interface'
 
+interface ConnectionArgs {
+  apiUrl: string
+  stop(): Promise<void>
+}
+
 class RestAppConnection implements AppConnection {
-  constructor(private apiUrl: string, public stop: () => Promise<void>) {}
+  constructor(private args: ConnectionArgs) {}
 
   private createAxios(): Axios {
     return new Axios({
-      baseURL: this.apiUrl,
+      baseURL: this.args.apiUrl,
       responseType: 'json',
       transformRequest: (data) => (data ? JSON.stringify(data) : data),
       transformResponse: (data) => (data ? JSON.parse(data) : data),
@@ -22,12 +27,16 @@ class RestAppConnection implements AppConnection {
     })
   }
 
-  driverFactory(): UserDriver {
+  createUserDriver(): UserDriver {
     return new UserRestDriver(this.createAxios())
+  }
+
+  async stop() {
+    await this.args.stop()
   }
 }
 
-async function createAndConnectToAppWithInMemoryPersistence(): Promise<RestAppConnection> {
+async function createAppWithInMemoryPersistence(): Promise<ConnectionArgs> {
   const moduleBuilder = await Test.createTestingModule({
     imports: [AppModules],
   })
@@ -41,16 +50,22 @@ async function createAndConnectToAppWithInMemoryPersistence(): Promise<RestAppCo
   app.setGlobalPrefix('api')
   await app.listen(10000 + Math.floor(Math.random() * 55000))
 
-  return new RestAppConnection(`${await app.getUrl()}/api`, async () => {
-    await app.close()
-    await testDataSource.destroy()
-  })
+  return {
+    apiUrl: `${await app.getUrl()}/api`,
+    stop: async () => {
+      await app.close()
+      await testDataSource.destroy()
+    },
+  }
 }
 
 export async function connectToRest(): Promise<RestAppConnection> {
   let API_URL: string = process.env.API_URL
   if (!API_URL) {
-    return await createAndConnectToAppWithInMemoryPersistence()
+    return new RestAppConnection(await createAppWithInMemoryPersistence())
   }
-  return new RestAppConnection(API_URL, () => Promise.resolve())
+  return new RestAppConnection({
+    apiUrl: API_URL,
+    stop: () => Promise.resolve(),
+  })
 }
