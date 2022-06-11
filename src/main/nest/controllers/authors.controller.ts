@@ -29,6 +29,7 @@ import {
   UpdateProfileBody,
   Username,
 } from '../parsing/authors.dto'
+import { buildUrl } from '../parsing/url'
 import { AuthIsOptional, JWTAuthGuard } from '../security/jwt.guard'
 import { validateModel } from '../validation/validation.utils'
 
@@ -48,7 +49,11 @@ export class AuthorsController {
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.getByAccount(account)
     return {
-      profile: cloneProfileToOutput(req, me),
+      profile: cloneProfileToOutput(req, me, undefined, {
+        articles: buildUrl(req, 'articles', {
+          author: me.username,
+        }),
+      }),
     }
   }
 
@@ -62,7 +67,11 @@ export class AuthorsController {
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.createForAccount(account, body.profile)
     return {
-      profile: cloneProfileToOutput(req, me),
+      profile: cloneProfileToOutput(req, me, undefined, {
+        articles: buildUrl(req, 'articles', {
+          author: me.username,
+        }),
+      }),
     }
   }
 
@@ -76,7 +85,11 @@ export class AuthorsController {
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.updateByAccount(account, body.profile)
     return {
-      profile: cloneProfileToOutput(req, me),
+      profile: cloneProfileToOutput(req, me, undefined, {
+        articles: buildUrl(req, 'articles', {
+          author: me.username,
+        }),
+      }),
     }
   }
 
@@ -90,7 +103,11 @@ export class AuthorsController {
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.updateByAccount(account, body.profile)
     return {
-      profile: cloneProfileToOutput(req, me),
+      profile: cloneProfileToOutput(req, me, undefined, {
+        articles: buildUrl(req, 'articles', {
+          author: me.username,
+        }),
+      }),
     }
   }
 
@@ -107,7 +124,11 @@ export class AuthorsController {
     const profile = await this.authorsService.getByUsername(username)
     await me.follow(profile)
     return {
-      profile: cloneProfileToOutput(req, profile, true),
+      profile: cloneProfileToOutput(req, profile, true, {
+        articles: buildUrl(req, 'articles', {
+          author: me.username,
+        }),
+      }),
     }
   }
 
@@ -124,7 +145,11 @@ export class AuthorsController {
     const profile = await this.authorsService.getByUsername(username)
     await me.unfollow(profile)
     return {
-      profile: cloneProfileToOutput(req, profile, false),
+      profile: cloneProfileToOutput(req, profile, false, {
+        articles: buildUrl(req, 'articles', {
+          author: me.username,
+        }),
+      }),
     }
   }
 
@@ -145,7 +170,11 @@ export class AuthorsController {
       following = await me.isFollowing(profile)
     }
     return {
-      profile: cloneProfileToOutput(req, profile, following),
+      profile: cloneProfileToOutput(req, profile, following, {
+        articles: buildUrl(req, 'articles', {
+          author: profile.username,
+        }),
+      }),
     }
   }
 }

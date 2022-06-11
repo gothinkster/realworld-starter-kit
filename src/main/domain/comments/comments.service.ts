@@ -2,28 +2,23 @@ import { Injectable } from '@nestjs/common'
 import { CommentEntity } from '../../persistence/comment.entity'
 import { ArticlesService } from '../articles/articles.service'
 import { Pagination } from '../articles/finder'
-import { Account } from '../authors/models'
-import { AuthorsService } from '../authors/service'
+import { Author } from '../articles/models'
 
 @Injectable()
 export class CommentsService {
-  constructor(
-    private articlesService: ArticlesService,
-    private authorsService: AuthorsService,
-  ) {}
+  constructor(private articlesService: ArticlesService) {}
 
   async commentArticle(parameters: {
-    account: Account
+    me: Author
     body: string
     slug: string
   }): Promise<CommentEntity> {
-    const me = await this.authorsService.getByAccount(parameters.account)
     const article = await this.articlesService
-      .getView(me)
+      .getView(parameters.me)
       .getArticle(parameters.slug)
     return await CommentEntity.create({
       body: parameters.body,
-      author: me,
+      author: parameters.me,
       article: article,
     }).save()
   }
@@ -45,9 +40,8 @@ export class CommentsService {
   async deleteCommentFromArticle(
     id: number,
     slug: string,
-    account: Account,
+    me: Author,
   ): Promise<void> {
-    const me = await this.authorsService.getByAccount(account)
     const article = await this.articlesService.getView(me).getArticle(slug)
     await CommentEntity.createQueryBuilder('comment')
       .delete()

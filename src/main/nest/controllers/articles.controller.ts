@@ -29,10 +29,12 @@ import {
   ArticlesResponseBody,
   cloneArticleToOutput,
   CreateArticleBody,
+  createLinksForArticle,
   Slug,
   UpdateArticleBody,
 } from '../parsing/articles.dto'
-import { buildUrl, PaginationDTO } from '../parsing/pagination.dto'
+import { PaginationDTO } from '../parsing/pagination.dto'
+import { buildUrl } from '../parsing/url'
 import { AuthIsOptional, JWTAuthGuard } from '../security/jwt.guard'
 import { validateModel } from '../validation/validation.utils'
 
@@ -57,14 +59,23 @@ export class ArticlesController {
     const articles = await this.articlesService.getView(me).getFeed(pagination)
 
     const response: ArticlesResponseBody = {
-      articles: articles.map((article) => cloneArticleToOutput(req, article)),
+      articles: articles.map((article) => {
+        return cloneArticleToOutput(
+          req,
+          article,
+          undefined,
+          createLinksForArticle(req, article),
+        )
+      }),
     }
     if (articles.length > 0) {
-      response.$next = buildUrl(
-        req,
-        'articles/feed',
-        pagination.getNextPage().toParams(),
-      )
+      response.links = {
+        next: buildUrl(
+          req,
+          'articles/feed',
+          pagination.getNextPage().toParams(),
+        ),
+      }
     }
     return response
   }
@@ -84,15 +95,24 @@ export class ArticlesController {
       .getArticlesByFilters(filters, pagination)
 
     const response: ArticlesResponseBody = {
-      articles: articles.map((article) => cloneArticleToOutput(req, article)),
+      articles: articles.map((article) => {
+        return cloneArticleToOutput(
+          req,
+          article,
+          undefined,
+          createLinksForArticle(req, article),
+        )
+      }),
     }
     if (articles.length > 0) {
-      response.$next = buildUrl(
-        req,
-        'articles',
-        filters.toParams(),
-        pagination.getNextPage().toParams(),
-      )
+      response.links = {
+        next: buildUrl(
+          req,
+          'articles',
+          filters.toParams(),
+          pagination.getNextPage().toParams(),
+        ),
+      }
     }
     return response
   }
@@ -109,7 +129,12 @@ export class ArticlesController {
     const me = await this.authorsService.getByAccount(account).catch(() => null)
     const article = await this.articlesService.getView(me).getArticle(slug)
     return {
-      article: cloneArticleToOutput(req, article),
+      article: cloneArticleToOutput(
+        req,
+        article,
+        undefined,
+        createLinksForArticle(req, article),
+      ),
     }
   }
 
@@ -149,7 +174,12 @@ export class ArticlesController {
       .getCMS(me)
       .createArticle(body.article)
     return {
-      article: cloneArticleToOutput(req, article),
+      article: cloneArticleToOutput(
+        req,
+        article,
+        undefined,
+        createLinksForArticle(req, article),
+      ),
     }
   }
 
@@ -169,7 +199,12 @@ export class ArticlesController {
       .getCMS(me)
       .updateArticle(slug, body.article)
     return {
-      article: cloneArticleToOutput(req, article),
+      article: cloneArticleToOutput(
+        req,
+        article,
+        undefined,
+        createLinksForArticle(req, article),
+      ),
     }
   }
 
@@ -198,7 +233,12 @@ export class ArticlesController {
     const me = await this.authorsService.getByAccount(account)
     const article = await this.articlesService.getCMS(me).publishArticle(slug)
     return {
-      article: cloneArticleToOutput(req, article),
+      article: cloneArticleToOutput(
+        req,
+        article,
+        undefined,
+        createLinksForArticle(req, article),
+      ),
     }
   }
 
@@ -214,7 +254,12 @@ export class ArticlesController {
     const me = await this.authorsService.getByAccount(account)
     const article = await this.articlesService.getCMS(me).unpublishArticle(slug)
     return {
-      article: cloneArticleToOutput(req, article),
+      article: cloneArticleToOutput(
+        req,
+        article,
+        undefined,
+        createLinksForArticle(req, article),
+      ),
     }
   }
 }

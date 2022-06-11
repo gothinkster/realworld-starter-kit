@@ -20,6 +20,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger'
 import { Account } from '../../domain/authors/models'
+import { AuthorsService } from '../../domain/authors/service'
 import { CommentsService } from '../../domain/comments/comments.service'
 import { InjectAccount } from '../decorators/account.decorator'
 import { Slug } from '../parsing/articles.dto'
@@ -29,14 +30,18 @@ import {
   CommentsResponseBody,
   CreateCommentBody,
 } from '../parsing/comments.dto'
-import { buildUrl, PaginationDTO } from '../parsing/pagination.dto'
+import { PaginationDTO } from '../parsing/pagination.dto'
+import { buildUrl } from '../parsing/url'
 import { JWTAuthGuard } from '../security/jwt.guard'
 import { validateModel } from '../validation/validation.utils'
 
 @ApiTags('comments')
 @Controller('articles/:slug/comments')
 export class CommentsController {
-  constructor(private commentsService: CommentsService) {}
+  constructor(
+    private commentsService: CommentsService,
+    private authorsService: AuthorsService,
+  ) {}
 
   @ApiCreatedResponse({ type: CommentResponseBody })
   @HttpCode(HttpStatus.CREATED)
@@ -50,16 +55,17 @@ export class CommentsController {
     @Param('slug') slug: string,
     @Body(validateModel()) body: CreateCommentBody,
   ): Promise<CommentResponseBody> {
+    const me = await this.authorsService.getByAccount(account)
     const comment = await this.commentsService.commentArticle({
-      account: account,
-      slug: slug,
+      me,
+      slug,
       body: body.comment.body,
     })
     return {
-      comment: {
-        ...cloneCommentToOutput(req, comment),
-        $article: buildUrl(req, `/articles/${slug}`),
-      },
+      comment: cloneCommentToOutput(req, comment, {
+        article: buildUrl(req, `/articles/${slug}`),
+        author: buildUrl(req, `/profiles/${me.username}`),
+      }),
     }
   }
 
@@ -77,15 +83,21 @@ export class CommentsController {
       pagination,
     )
     const response: CommentsResponseBody = {
-      comments: comments.map((comment) => cloneCommentToOutput(req, comment)),
-      $article: buildUrl(req, `/articles/${slug}`),
+      comments: comments.map((comment) =>
+        cloneCommentToOutput(req, comment, {
+          article: buildUrl(req, `/articles/${slug}`),
+          author: buildUrl(req, `/profiles/${comment.author.username}`),
+        }),
+      ),
     }
     if (comments.length > 0) {
-      response.$next = buildUrl(
-        req,
-        `articles/${slug}/comments`,
-        pagination.getNextPage().toParams(),
-      )
+      response.links = {
+        next: buildUrl(
+          req,
+          `articles/${slug}/comments`,
+          pagination.getNextPage().toParams(),
+        ),
+      }
     }
     return response
   }
@@ -102,9 +114,10 @@ export class CommentsController {
     @Param('slug') slug: string,
     @Param(ParseIntPipe) id: number,
   ) {
-    await this.commentsService.deleteCommentFromArticle(id, slug, account)
+    const me = await this.authorsService.getByAccount(account)
+    await this.commentsService.deleteCommentFromArticle(id, slug, me)
     return {
-      $article: buildUrl(req, `/articles/${slug}`),
+      links: { article: buildUrl(req, `/articles/${slug}`) },
     }
   }
 }
