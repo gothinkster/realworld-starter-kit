@@ -1,0 +1,18 @@
+services:
+  magazine:
+    container_name: magazine-app
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      DB_URL: postgres://postgres:postgres@postgres:5432/magazine
+
+  postgres:
+    container_name: magazine-postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: magazine
+    ports:
+      - '5432:5432'
