@@ -1,6 +1,7 @@
+import { join } from 'path'
 import { DataSource } from 'typeorm'
 
-export const entities = [`${__dirname}/*.entity{.ts,.js}`]
+export const entities = [join(__dirname, '**', '*.entity.{ts,js}')]
 
 function getLocalDataSource(): DataSource {
   return new DataSource({

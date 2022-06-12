@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm'
-import { entities } from '../main/persistence/utils'
+import { entities, getRemoteDataSource } from '../main/persistence/utils'
 
 export const testDataSource = new DataSource({
   type: 'sqlite',
@@ -9,3 +9,11 @@ export const testDataSource = new DataSource({
   synchronize: true,
   logging: false,
 })
+
+export function getAcceptanceTestsDataSource(): DataSource {
+  const DB_URL = process.env.DB_URL
+  if (!DB_URL) {
+    return testDataSource
+  }
+  return getRemoteDataSource(DB_URL)
+}

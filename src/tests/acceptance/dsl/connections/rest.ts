@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { Axios } from 'axios'
 import { AppModules } from '../../../../main/nest/app.modules'
 import { DATASOURCE_PROVIDER } from '../../../../main/nest/db.providers'
-import { testDataSource } from '../../../utils'
+import { getAcceptanceTestsDataSource } from '../../../utils'
 import { UserDriver } from '../drivers/interface.driver'
 import { UserRestDriver } from '../drivers/rest.driver'
 import { AppConnection } from './interface'
@@ -36,13 +36,14 @@ class RestAppConnection implements AppConnection {
   }
 }
 
-async function createAppWithInMemoryPersistence(): Promise<ConnectionArgs> {
+async function createAppForLocalTest(): Promise<ConnectionArgs> {
   const moduleBuilder = await Test.createTestingModule({
     imports: [AppModules],
   })
 
-  await testDataSource.initialize()
-  moduleBuilder.overrideProvider(DATASOURCE_PROVIDER).useValue(testDataSource)
+  const dataSource = getAcceptanceTestsDataSource()
+  await dataSource.initialize()
+  moduleBuilder.overrideProvider(DATASOURCE_PROVIDER).useValue(dataSource)
 
   const testingModule: TestingModule = await moduleBuilder.compile()
 
@@ -54,7 +55,7 @@ async function createAppWithInMemoryPersistence(): Promise<ConnectionArgs> {
     apiUrl: `${await app.getUrl()}/api`,
     stop: async () => {
       await app.close()
-      await testDataSource.destroy()
+      await dataSource.destroy()
     },
   }
 }
@@ -62,7 +63,7 @@ async function createAppWithInMemoryPersistence(): Promise<ConnectionArgs> {
 export async function connectToRest(): Promise<RestAppConnection> {
   let API_URL: string = process.env.API_URL
   if (!API_URL) {
-    return new RestAppConnection(await createAppWithInMemoryPersistence())
+    return new RestAppConnection(await createAppForLocalTest())
   }
   return new RestAppConnection({
     apiUrl: API_URL,

@@ -46,7 +46,9 @@ export class ArticleFinder {
   }
 
   filterByAuthor(author: Author) {
-    this.qb.andWhere('authorId = :authorId', { authorId: author.id })
+    this.qb.andWhere(`${this.qb.alias}.authorId = :authorId`, {
+      authorId: author.id,
+    })
     return this
   }
 
@@ -62,7 +64,9 @@ export class ArticleFinder {
       new Brackets((qb) => {
         qb.where({ published: true })
         if (author) {
-          qb.orWhere('authorId = :authorId', { authorId: author.id })
+          qb.orWhere(`${this.qb.alias}.authorId = :authorId`, {
+            authorId: author.id,
+          })
         }
       }),
     )
@@ -75,10 +79,13 @@ export class ArticleFinder {
   }
 
   filterByFollowedBy(user: Author) {
-    const userFollows = UserFollows.createQueryBuilder('following')
-      .select('followsId')
-      .where('userId = :userId', { userId: user.id })
-    this.qb.andWhere(`authorId IN (${userFollows.getSql()})`)
+    const userFollows = UserFollows.createQueryBuilder('f')
+      .select('f.followsId')
+      .where('f.userId = :userId', { userId: user.id })
+    this.qb.andWhere(
+      `${this.qb.alias}.authorId IN (${userFollows.getQuery()})`,
+      userFollows.getParameters(),
+    )
     return this
   }
 
