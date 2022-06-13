@@ -126,6 +126,6 @@ describe('Article', () => {
       .getArticlesByFilters({ tags: ['programming'] })
 
     // Assert
-    expect(articles[0].tags).toEqual(['programming', 'physics'])
+    expect(articles[0].tags.sort()).toEqual(['programming', 'physics'].sort())
   })
 })

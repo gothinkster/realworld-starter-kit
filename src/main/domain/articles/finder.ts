@@ -28,15 +28,8 @@ export class ArticleFinder {
   private readonly qb: SelectQueryBuilder<ArticleEntity>
   slug: string
 
-  constructor(pagination?: Pagination) {
-    this.qb = ArticleEntity.createQueryBuilder('article')
-    this.qb
-      .where('true')
-      .take(pagination?.take || 20)
-      .skip(pagination?.skip || 0)
-      .orderBy(`${this.qb.alias}.createdAt`, 'DESC')
-      .leftJoinAndSelect(`${this.qb.alias}.tagList`, 'tags')
-      .leftJoinAndSelect(`${this.qb.alias}.author`, 'authors')
+  constructor(private pagination?: Pagination) {
+    this.qb = ArticleEntity.createQueryBuilder('article').where('true')
   }
 
   filterBySlug(slug: string) {
@@ -46,7 +39,7 @@ export class ArticleFinder {
   }
 
   filterByAuthor(author: Author) {
-    this.qb.andWhere(`${this.qb.alias}.authorId = :authorId`, {
+    this.qb.andWhere(`${this.qb.alias}.author_id = :authorId`, {
       authorId: author.id,
     })
     return this
@@ -54,7 +47,7 @@ export class ArticleFinder {
 
   filterByTags(tags: string[]) {
     if (tags && tags !== []) {
-      this.qb.andWhere('tags.name IN (:...tags)', { tags: tags })
+      this.qb.andWhere(`tags.name IN (:...tags)`, { tags: tags })
     }
     return this
   }
@@ -64,7 +57,7 @@ export class ArticleFinder {
       new Brackets((qb) => {
         qb.where({ published: true })
         if (author) {
-          qb.orWhere(`${this.qb.alias}.authorId = :authorId`, {
+          qb.orWhere(`${this.qb.alias}.author_id = :authorId`, {
             authorId: author.id,
           })
         }
@@ -79,18 +72,28 @@ export class ArticleFinder {
   }
 
   filterByFollowedBy(user: Author) {
-    const userFollows = UserFollows.createQueryBuilder('f')
-      .select('f.followsId')
-      .where('f.userId = :userId', { userId: user.id })
+    const userFollows = UserFollows.createQueryBuilder('uf')
+      .select('uf.follows_id')
+      .where('uf.user_id = :userId', { userId: user.id })
     this.qb.andWhere(
-      `${this.qb.alias}.authorId IN (${userFollows.getQuery()})`,
+      `${this.qb.alias}.author_id IN (${userFollows.getQuery()})`,
       userFollows.getParameters(),
     )
     return this
   }
 
+  private finalize(): this {
+    this.qb
+      .leftJoinAndSelect(`${this.qb.alias}.tagList`, 'tags')
+      .leftJoinAndSelect(`${this.qb.alias}.author`, 'authors')
+      .take(this.pagination?.take || 20)
+      .skip(this.pagination?.skip || 0)
+      .orderBy(`${this.qb.alias}.createdAt`, 'DESC')
+    return this
+  }
+
   async getOne(): Promise<ArticleEntity> {
-    const article = await this.qb.getOne()
+    const article = await this.finalize().qb.getOne()
     if (!article) {
       throw new ArticleNotFound(this.slug)
     }
@@ -98,6 +101,6 @@ export class ArticleFinder {
   }
 
   async getMany(): Promise<ArticleEntity[]> {
-    return await this.qb.getMany()
+    return await this.finalize().qb.getMany()
   }
 }

@@ -1,5 +1,6 @@
 import { join } from 'path'
 import { DataSource } from 'typeorm'
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 
 export const entities = [join(__dirname, '**', '*.entity.{ts,js}')]
 
@@ -9,6 +10,7 @@ function getLocalDataSource(): DataSource {
     database: 'local.sqlite3',
     entities: entities,
     synchronize: true,
+    namingStrategy: new SnakeNamingStrategy(),
   })
 }
 
@@ -17,6 +19,7 @@ export function getRemoteDataSource(dbUrl: string): DataSource {
     type: 'postgres',
     url: dbUrl,
     entities: entities,
+    namingStrategy: new SnakeNamingStrategy(),
   })
 }
 
