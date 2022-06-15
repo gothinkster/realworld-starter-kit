@@ -3,7 +3,9 @@ import { ArticleNotFound } from '../../main/domain/articles/exceptions'
 import { Article, Author } from '../../main/domain/articles/models'
 import { AuthorsService } from '../../main/domain/authors/service'
 import { exampleArticle } from '../examples'
-import { testDataSource } from '../utils'
+import { getTestDataSource } from '../utils'
+
+const testDataSource = getTestDataSource()
 
 beforeEach(() => {
   return testDataSource.initialize()

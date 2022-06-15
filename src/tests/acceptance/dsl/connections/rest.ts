@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { Axios } from 'axios'
 import { AppModules } from '../../../../main/nest/app.modules'
 import { DATASOURCE_PROVIDER } from '../../../../main/nest/db.providers'
-import { getAcceptanceTestsDataSource } from '../../../utils'
+import { getTestDataSource } from '../../../utils'
 import { UserDriver } from '../drivers/interface.driver'
 import { UserRestDriver } from '../drivers/rest.driver'
 import { AppConnection } from './interface'
@@ -41,7 +41,7 @@ async function createAppForLocalTest(): Promise<ConnectionArgs> {
     imports: [AppModules],
   })
 
-  const dataSource = getAcceptanceTestsDataSource()
+  const dataSource = getTestDataSource()
   await dataSource.initialize()
   moduleBuilder.overrideProvider(DATASOURCE_PROVIDER).useValue(dataSource)
 
