@@ -21,3 +21,9 @@ logging:
   level:
     org.springframework.security: trace
 
+jwt:
+  client-secret: my-real-world
+  header: Authorization
+  issuer: geuno
+  expiry-seconds: 300
+

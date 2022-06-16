@@ -5,8 +5,10 @@ import org.realworld.demo.controller.dto.UserDto.UserLoginRequest;
 import org.realworld.demo.controller.dto.UserDto.UserResponse;
 import org.realworld.demo.controller.dto.UserDto.UserUpdateRequest;
 import org.realworld.demo.domain.User;
+import org.realworld.demo.jwt.JwtAuthenticationToken;
 import org.realworld.demo.jwt.JwtUtil;
 import org.realworld.demo.service.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,14 +34,15 @@ public class UserRestController {
     @PostMapping("/users")
     public UserResponse registerUser(@RequestBody UserCreateRequest request){
         User user = userService.saveUser(request.request.toUser());
-//        SecurityContextHolder.getContext().getAuthentication();
+
         return UserResponse.from(user, "");
     }
 
     @GetMapping("/user")
-    public String getUser(){
-        // authentication required
-        return "Hello";
+    public UserResponse getUser(){
+        JwtAuthenticationToken authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+
+        return UserResponse.from((User) authentication.getPrincipal(), authentication.getToken());
     }
 
     @PutMapping("/user")

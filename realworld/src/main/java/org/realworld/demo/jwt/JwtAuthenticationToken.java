@@ -4,16 +4,16 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
-    private final String principal;
+    private final Object principal;
 
-    private final String detail;
+    private final String token;
 
 
-    public JwtAuthenticationToken(String username, String token) {
+    public JwtAuthenticationToken(Object principal, String token) {
         super(null);
         setAuthenticated(true);
-        principal = username;
-        detail = token;
+        this.principal = principal;
+        this.token = token;
     }
 
 
@@ -23,11 +23,11 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     }
 
     @Override
-    public String getPrincipal() {
+    public Object getPrincipal() {
         return principal;
     }
 
-    public String getTokenString(){
-        return detail;
+    public String getToken(){
+        return token;
     }
 }

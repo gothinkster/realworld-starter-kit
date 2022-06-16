@@ -1,5 +1,7 @@
 package org.realworld.demo.jwt;
 
+import org.realworld.demo.domain.User;
+import org.realworld.demo.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -17,9 +19,12 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
     private final JwtUtil jwtUtil;
 
-    public JwtAuthenticationFilter(String jwtHeaderName, JwtUtil jwtUtil){
+    private final UserRepository userRepository;
+
+    public JwtAuthenticationFilter(String jwtHeaderName, JwtUtil jwtUtil, UserRepository userRepository){
         this.jwtHeaderName = jwtHeaderName;
         this.jwtUtil = jwtUtil;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -29,8 +34,8 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
-        String email = jwtUtil.verifyToken(token);
-        SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(email, token));
+        User user = userRepository.findByEmail(jwtUtil.verifyToken(token)).orElseThrow();
+        SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(user, token));
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
