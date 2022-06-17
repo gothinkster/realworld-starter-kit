@@ -23,11 +23,9 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public User updateUser(String email, String username, String password, String image, String bio){
-        Optional<User> userOptional = userRepository.findByEmail(email);
-        User user = userOptional.orElseThrow();
-        user.update(password, username, bio, image);
-        return userRepository.save(user);
+    public User updateUser(User originUser, String email, String username, String password, String image, String bio){
+        User updatedUser = originUser.update(email, password, username, bio, image);
+        return userRepository.save(updatedUser);
     }
 
 

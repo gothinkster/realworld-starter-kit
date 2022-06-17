@@ -11,6 +11,26 @@ public class UserDto {
         @JsonProperty(value = "user")
         public UserUpdateRequest.Request request;
 
+        public String getEmail(){
+            return request.email;
+        }
+
+        public String getUsername(){
+            return request.username;
+        }
+
+        public String getPassword(){
+            return request.password;
+        }
+
+        public String getImage(){
+            return request.image;
+        }
+
+        public String getBio(){
+            return request.bio;
+        }
+
         public static class Request{
             public final String email;
 
@@ -37,6 +57,10 @@ public class UserDto {
 
         @JsonProperty(value = "user")
         public UserCreateRequest.Request request;
+
+        public User toUser(){
+            return request.toUser();
+        }
 
         public static class Request{
 

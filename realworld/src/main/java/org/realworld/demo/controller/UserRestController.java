@@ -33,7 +33,7 @@ public class UserRestController {
 
     @PostMapping("/users")
     public UserResponse registerUser(@RequestBody UserCreateRequest request){
-        User user = userService.saveUser(request.request.toUser());
+        User user = userService.saveUser(request.toUser());
 
         return UserResponse.from(user, "");
     }
@@ -47,16 +47,17 @@ public class UserRestController {
 
     @PutMapping("/user")
     public UserResponse updateUser(@RequestBody UserUpdateRequest request){
-        UserUpdateRequest.Request innerRequest = request.request;
+        JwtAuthenticationToken authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 
         User user = userService.updateUser(
-                innerRequest.email,
-                innerRequest.username,
-                innerRequest.password,
-                innerRequest.image,
-                innerRequest.bio
+                (User) authentication.getPrincipal(),
+                request.getEmail(),
+                request.getUsername(),
+                request.getPassword(),
+                request.getImage(),
+                request.getBio()
         );
 
-        return UserResponse.from(user, "");
+        return UserResponse.from(user, authentication.getToken());
     }
 }

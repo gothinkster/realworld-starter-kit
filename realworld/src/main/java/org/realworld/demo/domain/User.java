@@ -31,6 +31,20 @@ public class User extends BaseEntity implements UserDetails {
     /* for table row -> object mapping */
     protected User(){}
 
+    public User update(String email, String password, String username, String bio, String image){
+        if(hasText(email))
+            this.email = email;
+        if(hasText(password))
+            this.password = password;
+        if(hasText(username))
+            this.username = username;
+        if(hasText(bio))
+            this.bio = bio;
+        if(hasText(image))
+            this.image = image;
+        return this;
+    }
+
     public User(String email, String password, String username, String bio, String image){
         checkArgument(hasText(email));
         checkArgument(hasText(password));
@@ -41,18 +55,6 @@ public class User extends BaseEntity implements UserDetails {
         this.username = username;
         this.bio = bio;
         this.image = image;
-    }
-
-    public User update(String password, String username, String bio, String image){
-        if(hasText(password))
-            this.password = password;
-        if(hasText(username))
-            this.username = username;
-        if(hasText(bio))
-            this.bio = bio;
-        if(hasText(image))
-            this.image = image;
-        return this;
     }
 
     public String getEmail() {
