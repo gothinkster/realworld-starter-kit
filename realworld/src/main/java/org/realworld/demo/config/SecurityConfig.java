@@ -5,6 +5,7 @@ import org.realworld.demo.jwt.JwtConfiguration;
 import org.realworld.demo.jwt.JwtUtil;
 import org.realworld.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,7 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests(
                 request -> request
-                        .antMatchers("/api/users/login", "/api/users/**", "/login", "/api/profiles/*").permitAll()
+                        .antMatchers(HttpMethod.POST, "/api/users/**").permitAll()
+                        .antMatchers(HttpMethod.GET, "/api/profiles/*").permitAll()
                         .anyRequest().authenticated())
             .csrf().disable()
             .addFilterAfter(new JwtAuthenticationFilter(jwtConfiguration.getHeader(), jwtUtil, userRepository), SecurityContextPersistenceFilter.class);

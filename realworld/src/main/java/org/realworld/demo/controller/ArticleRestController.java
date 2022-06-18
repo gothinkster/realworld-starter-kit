@@ -27,15 +27,20 @@ public class ArticleRestController {
     @GetMapping("/{slug}")
     public ArticleResponse getArticle(@PathVariable String slug){
         Article article = articleService.getArticle(slug);
+
         boolean following = followStateService.getFollowing(null, article.getAuthor());
+
         return new ArticleResponse(article, following);
     }
 
     @PostMapping
     public ArticleResponse createArticle(@RequestBody ArticleCreateRequest request, @AuthenticationPrincipal Object principal){
         User loginUser = (User) principal;
+
         Article article = articleService.createArticle(loginUser, request.getTitle(), request.getDescription(), request.getBody(), request.getTags());
+
         boolean following = followStateService.getFollowing(loginUser, article.getAuthor());
+
         return new ArticleResponse(article, following);
     }
 
@@ -46,14 +51,18 @@ public class ArticleRestController {
             @AuthenticationPrincipal Object principal
     ){
         User loginUser = (User) principal;
+
         Article updatedArticle = articleService.updateArticle(slug, request.getTitle(), request.getDescription(), request.getBody());
+
         boolean following = followStateService.getFollowing(loginUser, updatedArticle.getAuthor());
+
         return new ArticleResponse(updatedArticle, following);
     }
 
     @DeleteMapping("/{slug}")
     public ResponseEntity<Object> deleteArticle(@PathVariable String slug){
         articleService.deleteArticle(slug);
+
         return ResponseEntity.noContent().build();
     }
 
