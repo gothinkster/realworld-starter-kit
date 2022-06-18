@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests(
                 request -> request
-                        .antMatchers("/api/users/login", "/api/users/**", "/login").permitAll()
+                        .antMatchers("/api/users/login", "/api/users/**", "/login", "/api/profiles/*").permitAll()
                         .anyRequest().authenticated())
             .csrf().disable()
             .addFilterAfter(new JwtAuthenticationFilter(jwtConfiguration.getHeader(), jwtUtil, userRepository), SecurityContextPersistenceFilter.class);

@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ProfileDto {
 
+    public ProfileDto(String username, String bio, String image, boolean following){
+        this.response = new Response(username, bio, image, following);
+    }
+
     @JsonProperty(value = "profile")
     public Response response;
 

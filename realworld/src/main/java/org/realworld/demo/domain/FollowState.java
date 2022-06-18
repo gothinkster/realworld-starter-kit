@@ -1,11 +1,9 @@
 package org.realworld.demo.domain;
 
-import com.google.common.base.Preconditions;
-
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
-import static com.google.common.base.Preconditions.*;
+import static com.google.common.base.Preconditions.checkArgument;
 
 @Entity
 public class FollowState extends BaseEntity{

@@ -11,6 +11,10 @@ public abstract class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public Long getId(){
+        return id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

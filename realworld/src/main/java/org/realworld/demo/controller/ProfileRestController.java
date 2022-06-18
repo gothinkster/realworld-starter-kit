@@ -1,16 +1,52 @@
 package org.realworld.demo.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.realworld.demo.controller.dto.ProfileDto;
+import org.realworld.demo.domain.FollowState;
+import org.realworld.demo.domain.User;
+import org.realworld.demo.service.FollowStateService;
+import org.realworld.demo.service.UserService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/profiles")
 public class ProfileRestController {
 
-    @GetMapping("/{username}")
-    public String getProfile(@PathVariable String username){
-        return null;
+    private final FollowStateService stateService;
+
+    private final UserService userService;
+
+    public ProfileRestController(FollowStateService stateService, UserService userService) {
+        this.stateService = stateService;
+        this.userService = userService;
     }
+
+    @GetMapping("/{username}")
+    public ProfileDto getProfile(@PathVariable String username, @AuthenticationPrincipal Object prinicipal){
+        User follower = (User) prinicipal;
+        User followee = userService.getUserByUsername(username);
+
+        boolean following = stateService.getFollowing(follower, followee);
+        return new ProfileDto(followee.getUsername(), followee.getBio(), followee.getImage(), following);
+    }
+
+    @PostMapping("/{username}/follow")
+    public ProfileDto followUser(@PathVariable String username, @AuthenticationPrincipal Object principal){
+        User follower = (User) principal;
+        User followee = userService.getUserByUsername(username);
+
+        stateService.followUser(follower, followee);
+
+        return new ProfileDto(followee.getUsername(), followee.getBio(), followee.getImage(), true);
+    }
+
+    @DeleteMapping("/{username}/follow")
+    public ProfileDto unfollowUser(@PathVariable String username, @AuthenticationPrincipal Object principal){
+        User follower = (User) principal;
+        User followee = userService.getUserByUsername(username);
+
+        stateService.unfollowUser(follower, followee);
+        return new ProfileDto(followee.getUsername(), followee.getBio(), followee.getImage(), false);
+    }
+
 }
