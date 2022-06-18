@@ -1,7 +1,6 @@
 package org.realworld.demo.controller;
 
 import org.realworld.demo.controller.dto.ProfileDto;
-import org.realworld.demo.domain.FollowState;
 import org.realworld.demo.domain.User;
 import org.realworld.demo.service.FollowStateService;
 import org.realworld.demo.service.UserService;
@@ -23,7 +22,7 @@ public class ProfileRestController {
 
     @GetMapping("/{username}")
     public ProfileDto getProfile(@PathVariable String username, @AuthenticationPrincipal Object prinicipal){
-        User follower = (User) prinicipal;
+        User follower = prinicipal instanceof String ? null : (User) prinicipal;
         User followee = userService.getUserByUsername(username);
 
         boolean following = stateService.getFollowing(follower, followee);
