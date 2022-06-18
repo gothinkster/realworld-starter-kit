@@ -19,11 +19,22 @@ public abstract class BaseTimeEntity {
 
     private LocalDateTime updatedAt;
 
+    public Long getId() {
+        return id;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BaseTimeEntity)) return false;
-        BaseTimeEntity that = (BaseTimeEntity) o;
+        if (!(o instanceof BaseTimeEntity that)) return false;
         return Objects.equal(id, that.id) && Objects.equal(createdAt, that.createdAt) && Objects.equal(updatedAt, that.updatedAt);
     }
 

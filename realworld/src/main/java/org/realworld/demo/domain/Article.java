@@ -1,23 +1,14 @@
 package org.realworld.demo.domain;
 
-import org.springframework.util.StringUtils;
-
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import java.text.Normalizer;
+import javax.persistence.*;
 import java.util.List;
-import java.util.Locale;
-import java.util.regex.Pattern;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static org.realworld.demo.utils.Utility.toSlug;
+import static org.springframework.util.StringUtils.hasText;
 
 @Entity
 public class Article extends BaseTimeEntity{
-
-    private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
-    private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
 
     @ManyToOne
     @JoinColumn(name="author_id")
@@ -29,6 +20,9 @@ public class Article extends BaseTimeEntity{
 
     private String title;
 
+    @Column(unique = true)
+    private String slug;
+
     private String description;
 
     private String body;
@@ -39,30 +33,61 @@ public class Article extends BaseTimeEntity{
     protected Article(){}
 
     public Article(Builder builder){
-        checkArgument(StringUtils.hasText(builder.title));
+        checkArgument(hasText(builder.title));
         checkArgument(builder.author != null);
-        checkArgument(StringUtils.hasText(builder.body));
+        checkArgument(hasText(builder.body));
 
         this.author = builder.author;
         this.favorited = false;
         this.favoriteCount = 0;
         this.title = builder.title;
+        this.slug = toSlug(this.title);
         this.description = builder.description;
         this.body = builder.body;
         this.tags = builder.tags;
     }
 
-    public String getSlug() {
-        String noWhiteSpace = WHITESPACE.matcher(this.title).replaceAll("-");
-        String normalized = Normalizer.normalize(noWhiteSpace, Normalizer.Form.NFD);
-        String slug = NONLATIN.matcher(normalized).replaceAll("");
-        return slug.toLowerCase(Locale.ENGLISH);
-    }
 
     public String getTitle(){
         return title;
     }
 
+    public String getDescription(){ return description;}
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public String getSlug(){ return slug; }
+
+    public boolean isFavorited() {
+        return favorited;
+    }
+
+    public int getFavoriteCount() {
+        return favoriteCount;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void update(String title, String description, String body){
+        if(hasText(title)){
+            this.title = title;
+            this.slug = toSlug(title);
+        }
+        if(hasText(description)){
+            this.description = description;
+        }
+        if(hasText(body)){
+            this.body = body;
+        }
+    }
 
     public static class Builder {
         private final User author;

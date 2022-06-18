@@ -25,7 +25,7 @@ public abstract class ControllerTest {
     @Autowired
     JwtUtil jwtUtil;
 
-    final String email = "jake@jake.jake";
+    final String email = "example@jake.jake";
 
     final String password = "jakejake";
 

@@ -1,6 +1,5 @@
 package org.realworld.demo.domain;
 
-import com.google.common.base.Preconditions;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.Entity;
@@ -20,6 +19,10 @@ public class Tag extends BaseEntity{
     }
 
     protected Tag(){}
+
+    public String getName(){
+        return name;
+    }
 
     public Tag(String name){
         checkArgument(StringUtils.hasText(name));
