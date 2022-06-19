@@ -1,4 +1,4 @@
-module ClientComponents.NonLoginLayout
+module Components.NonLoginLayout
 
 open Feliz
 open Feliz.Router

@@ -7,8 +7,8 @@
     <ItemGroup>
         <None Include="index.html" />
         <None Include="paket.references" />
-        <Compile Include="ClientComponents/NonLoginLayout.fs" />
-        <Compile Include="ClientComponents/LoginForm.fs" />
+        <Compile Include="Components/NonLoginLayout.fs" />
+        <Compile Include="Components/LoginForm.fs" />
         <Compile Include="Conduit.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>
@@ -16,7 +16,7 @@
         <ProjectReference Include="..\Shared\Shared.fsproj" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="ClientComponents" />
+      <Folder Include="Components" />
     </ItemGroup>
     <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

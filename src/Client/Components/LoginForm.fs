@@ -1,4 +1,4 @@
-module ClientComponents.LoginForm
+module Components.LoginForm
 
 open Feliz
 open Feliz.Router

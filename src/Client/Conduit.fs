@@ -1,7 +1,7 @@
 module Conduit
 
-open ClientComponents.NonLoginLayout
-open ClientComponents.LoginForm
+open Components.NonLoginLayout
+open Components.LoginForm
 open Elmish
 open Feliz
 open Feliz.Router
