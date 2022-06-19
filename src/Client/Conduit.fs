@@ -1,4 +1,4 @@
-module Index
+module Conduit
 
 open ClientComponents.NonLoginLayout
 open ClientComponents.LoginForm
