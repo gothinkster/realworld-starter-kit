@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.realworld.demo.domain.User;
 import org.springframework.http.MediaType;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -14,11 +13,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class UserRestControllerTest extends ControllerTest{
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+
 
     @BeforeEach
     void setup(){
-        userRepository.save(new User(email, password, username, "", ""));
+        userRepository.save(user);
     }
 
 
@@ -27,17 +26,17 @@ class UserRestControllerTest extends ControllerTest{
     void apitest1() throws Exception {
         //Given
         ObjectNode node = objectMapper.createObjectNode();
-        ObjectNode user = node.putObject("user");
-        user.put("email", email);
-        user.put("password", password);
+        ObjectNode userNode = node.putObject("user");
+        userNode.put("email", user.getEmail());
+        userNode.put("password", user.getPassword());
 
         // When
         // Then
         mvc.perform(post("/api/users/login")
                         .content(node.toString())
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.user.email").value(email))
-                .andExpect(jsonPath("$.user.username").value(username))
+                .andExpect(jsonPath("$.user.email").value(user.getEmail()))
+                .andExpect(jsonPath("$.user.username").value(user.getUsername()))
                 .andExpect(jsonPath("$.user.token").isNotEmpty())
                 .andDo(print());
     }
@@ -67,13 +66,13 @@ class UserRestControllerTest extends ControllerTest{
     @DisplayName("[GET] /api/user")
     void apitest3() throws Exception {
         //Given
-        String token = jwtUtil.createToken(email);
+        String token = jwtUtil.createToken(user.getEmail());
 
         // When
         // Then
         mvc.perform(get("/api/user").header("Authorization", "Bearer " + token))
-                .andExpect(jsonPath("$.user.email").value(email))
-                .andExpect(jsonPath("$.user.username").value(username))
+                .andExpect(jsonPath("$.user.email").value(user.getEmail()))
+                .andExpect(jsonPath("$.user.username").value(user.getUsername()))
                 .andExpect(jsonPath("$.user.token").isNotEmpty())
                 .andDo(print());
     }
@@ -82,18 +81,18 @@ class UserRestControllerTest extends ControllerTest{
     @DisplayName("[PUT] /api/user")
     void apitest4() throws Exception {
         //Given
-        String token = jwtUtil.createToken(email);
+        String token = jwtUtil.createToken(user.getEmail());
 
         ObjectNode node = objectMapper.createObjectNode();
-        ObjectNode user = node.putObject("user");
+        ObjectNode userNode = node.putObject("user");
 
         String updatedEmail = "update@yahoo.com";
         String updatedBio = "update~~";
         String updatedImage = "http://update-image";
 
-        user.put("email", updatedEmail);
-        user.put("bio", updatedBio);
-        user.put("image", updatedImage);
+        userNode.put("email", updatedEmail);
+        userNode.put("bio", updatedBio);
+        userNode.put("image", updatedImage);
 
         // When
         // Then
@@ -101,11 +100,9 @@ class UserRestControllerTest extends ControllerTest{
                         .content(node.toString())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.user.email").value(updatedEmail))
-                .andExpect(jsonPath("$.user.username").value(username))
+                .andExpect(jsonPath("$.user.username").value(user.getUsername()))
                 .andExpect(jsonPath("$.user.bio").value(updatedBio))
                 .andExpect(jsonPath("$.user.image").value(updatedImage))
                 .andDo(print());
     }
-
-
 }

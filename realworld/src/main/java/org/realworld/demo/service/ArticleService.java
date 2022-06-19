@@ -6,12 +6,12 @@ import org.realworld.demo.domain.User;
 import org.realworld.demo.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static org.realworld.demo.utils.Utility.toSlug;
-
 @Service
+@Transactional
 public class ArticleService {
 
     private final ArticleRepository repository;

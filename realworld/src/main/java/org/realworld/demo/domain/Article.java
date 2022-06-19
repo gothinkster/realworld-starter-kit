@@ -1,6 +1,8 @@
 package org.realworld.demo.domain;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -28,7 +30,7 @@ public class Article extends BaseTimeEntity{
     private String body;
 
     @OneToMany
-    private List<Tag> tags;
+    private final List<Tag> tags = new ArrayList<>();
 
     protected Article(){}
 
@@ -44,7 +46,7 @@ public class Article extends BaseTimeEntity{
         this.slug = toSlug(this.title);
         this.description = builder.description;
         this.body = builder.body;
-        this.tags = builder.tags;
+        this.tags.addAll(builder.tags);
     }
 
 
@@ -87,6 +89,7 @@ public class Article extends BaseTimeEntity{
         if(hasText(body)){
             this.body = body;
         }
+        this.updatedAt = LocalDateTime.now();
     }
 
     public static class Builder {

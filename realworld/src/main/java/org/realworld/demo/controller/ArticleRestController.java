@@ -63,7 +63,7 @@ public class ArticleRestController {
     public ResponseEntity<Object> deleteArticle(@PathVariable String slug){
         articleService.deleteArticle(slug);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
 }

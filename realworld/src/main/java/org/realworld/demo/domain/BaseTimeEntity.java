@@ -17,7 +17,7 @@ public abstract class BaseTimeEntity {
 
     private LocalDateTime createdAt;
 
-    private LocalDateTime updatedAt;
+    protected LocalDateTime updatedAt;
 
     public Long getId() {
         return id;
@@ -29,6 +29,11 @@ public abstract class BaseTimeEntity {
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+    }
+
+    protected BaseTimeEntity(){
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 
     @Override

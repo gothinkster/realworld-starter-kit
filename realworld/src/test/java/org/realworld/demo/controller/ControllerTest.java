@@ -1,5 +1,6 @@
 package org.realworld.demo.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.realworld.demo.domain.User;
 import org.realworld.demo.jwt.JwtUtil;
@@ -25,11 +26,7 @@ public abstract class ControllerTest {
     @Autowired
     JwtUtil jwtUtil;
 
-    final String email = "example@jake.jake";
+    final ObjectMapper objectMapper = new ObjectMapper();
 
-    final String password = "jakejake";
-
-    final String username = "Jacob";
-
-
+    final User user = new User("example@jake.jake", "jakejake", "Jacob", "", "");
 }

@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 request -> request
                         .antMatchers(HttpMethod.POST, "/api/users/**").permitAll()
                         .antMatchers(HttpMethod.GET, "/api/profiles/*").permitAll()
+                        .antMatchers(HttpMethod.GET, "/api/articles/*").permitAll()
                         .anyRequest().authenticated())
             .csrf().disable()
             .addFilterAfter(new JwtAuthenticationFilter(jwtConfiguration.getHeader(), jwtUtil, userRepository), SecurityContextPersistenceFilter.class);

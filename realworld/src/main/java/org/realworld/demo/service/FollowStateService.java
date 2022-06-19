@@ -5,9 +5,11 @@ import org.realworld.demo.domain.User;
 import org.realworld.demo.repository.FollowStateRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class FollowStateService {
 
     private final FollowStateRepository followStateRepository;

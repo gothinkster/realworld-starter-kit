@@ -28,7 +28,7 @@ class ProfileRestControllerTest extends ControllerTest{
 
     @BeforeEach
     void setup() {
-        userRepository.save(new User(email, password, username, "", ""));
+        userRepository.save(user);
         userRepository.save(followee);
     }
 
@@ -51,7 +51,7 @@ class ProfileRestControllerTest extends ControllerTest{
     @DisplayName("[GET] /api/profiles/{username} with login")
     void test2() throws Exception {
         //Given
-        String token = jwtUtil.createToken(email);
+        String token = jwtUtil.createToken(user.getEmail());
 
         // When
         // Then
@@ -69,7 +69,7 @@ class ProfileRestControllerTest extends ControllerTest{
     @DisplayName("[POST] /api/profiles/{username}/follow")
     void test3() throws Exception {
         //Given
-        String token = jwtUtil.createToken(email);
+        String token = jwtUtil.createToken(user.getEmail());
 
         // When
         // Then
