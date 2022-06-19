@@ -1,32 +1,47 @@
 package org.realworld.demo.domain;
 
-import com.google.common.base.Preconditions;
-import org.springframework.util.StringUtils;
-
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
-import static com.google.common.base.Preconditions.*;
+import static com.google.common.base.Preconditions.checkArgument;
+import static org.springframework.util.StringUtils.hasText;
 
 @Entity
 public class Comment extends BaseTimeEntity{
 
     @ManyToOne
-    @JoinColumn(name="author_id")
+    @JoinColumn(name="author_id", nullable = false)
     private User author;
 
+    @ManyToOne
+    @JoinColumn(name="article_id", nullable = false)
+    private Article article;
+
     private String body;
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public String getBody() {
+        return body;
+    }
 
     /* for table row -> object mapping */
     protected Comment(){}
 
-    public Comment(User author, String body){
+    public Comment(User author, Article article, String body){
         checkArgument(author != null);
-        checkArgument(StringUtils.hasText(body));
+        checkArgument(article != null);
+        checkArgument(hasText(body));
 
         this.author = author;
         this.body = body;
+        this.article = article;
     }
 }

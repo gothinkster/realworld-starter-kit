@@ -28,7 +28,7 @@ public class ArticleRestController {
     public ArticleResponse getArticle(@PathVariable String slug){
         Article article = articleService.getArticle(slug);
 
-        boolean following = followStateService.getFollowing(null, article.getAuthor());
+        boolean following = followStateService.checkFollowing(null, article.getAuthor());
 
         return new ArticleResponse(article, following);
     }
@@ -39,7 +39,7 @@ public class ArticleRestController {
 
         Article article = articleService.createArticle(loginUser, request.getTitle(), request.getDescription(), request.getBody(), request.getTags());
 
-        boolean following = followStateService.getFollowing(loginUser, article.getAuthor());
+        boolean following = followStateService.checkFollowing(loginUser, article.getAuthor());
 
         return new ArticleResponse(article, following);
     }
@@ -54,7 +54,7 @@ public class ArticleRestController {
 
         Article updatedArticle = articleService.updateArticle(slug, request.getTitle(), request.getDescription(), request.getBody());
 
-        boolean following = followStateService.getFollowing(loginUser, updatedArticle.getAuthor());
+        boolean following = followStateService.checkFollowing(loginUser, updatedArticle.getAuthor());
 
         return new ArticleResponse(updatedArticle, following);
     }

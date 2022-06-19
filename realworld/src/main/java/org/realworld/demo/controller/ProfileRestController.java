@@ -25,7 +25,7 @@ public class ProfileRestController {
         User follower = prinicipal instanceof String ? null : (User) prinicipal;
         User followee = userService.getUserByUsername(username);
 
-        boolean following = stateService.getFollowing(follower, followee);
+        boolean following = stateService.checkFollowing(follower, followee);
         return new ProfileResponse(followee.getUsername(), followee.getBio(), followee.getImage(), following);
     }
 

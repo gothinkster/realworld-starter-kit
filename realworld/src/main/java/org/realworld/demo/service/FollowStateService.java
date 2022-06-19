@@ -18,7 +18,7 @@ public class FollowStateService {
         this.followStateRepository = followStateRepository;
     }
 
-    public boolean getFollowing(User follower, User followee){
+    public boolean checkFollowing(User follower, User followee){
         if(follower == null)
             return false;
 

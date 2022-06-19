@@ -13,7 +13,7 @@ import static org.springframework.util.StringUtils.hasText;
 public class Article extends BaseTimeEntity{
 
     @ManyToOne
-    @JoinColumn(name="author_id")
+    @JoinColumn(name="author_id", nullable = false)
     private User author;
 
     private boolean favorited;
