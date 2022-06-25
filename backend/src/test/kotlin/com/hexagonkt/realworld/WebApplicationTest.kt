@@ -1,7 +1,7 @@
 package com.hexagonkt.realworld
 
-import com.hexagonkt.http.client.Client
-import com.hexagonkt.http.client.ahc.AhcAdapter
+import com.hexagonkt.http.client.HttpClient
+import com.hexagonkt.http.client.jetty.JettyClientAdapter
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.webapp.WebAppContext
 import org.junit.jupiter.api.AfterAll
@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import java.net.InetSocketAddress
+import java.net.URL
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class WebApplicationTest {
@@ -38,7 +39,7 @@ class WebApplicationTest {
     }
 
     @Test fun `Servlet server starts`() {
-        val response = Client(AhcAdapter(), "http://$hostname:$port/api").get("/articles")
-        assert(response.status == 200)
+        val response = HttpClient(JettyClientAdapter(), URL("http://$hostname:$port/api")).get("/articles")
+        assert(response.status.code == 200)
     }
 }

@@ -1,6 +1,6 @@
 package com.hexagonkt.realworld.routes
 
-import com.hexagonkt.core.helpers.CodedException
+import com.hexagonkt.core.CodedException
 import com.hexagonkt.realworld.createJwt
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.services.Article

@@ -1,17 +1,20 @@
 package com.hexagonkt.realworld.routes
 
 import com.auth0.jwt.interfaces.DecodedJWT
+import com.hexagonkt.core.media.ApplicationMedia
 import com.hexagonkt.core.require
+import com.hexagonkt.http.model.ContentType
+import com.hexagonkt.http.server.handlers.HttpServerContext
 import com.hexagonkt.http.server.handlers.path
 import com.hexagonkt.http.toHttpFormat
-import com.hexagonkt.realworld.createArticleStore
-import com.hexagonkt.realworld.createJwt
-import com.hexagonkt.realworld.createUserStore
+import com.hexagonkt.realworld.*
+import com.hexagonkt.realworld.articles
+import com.hexagonkt.realworld.jwt
 import com.hexagonkt.realworld.messages.*
 import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
-import com.hexagonkt.serialization.toFieldsMap
+import com.hexagonkt.rest.bodyMap
 import com.hexagonkt.store.Store
 import java.time.LocalDateTime
 
@@ -19,15 +22,11 @@ import kotlin.text.Charsets.UTF_8
 
 internal val articlesRouter by lazy {
     path {
-        val jwt: Jwt = createJwt()
-        val users: Store<User, String> = createUserStore()
-        val articles: Store<Article, String> = createArticleStore()
-
         get("/feed") { getFeed(jwt, users, articles) }
 
         path("/{slug}") {
             path("/favorite") {
-                authenticate(jwt)
+                use(authenticator)
                 post { favoriteArticle(users, articles, true) }
                 delete { favoriteArticle(users, articles, false) }
             }
@@ -44,12 +43,12 @@ internal val articlesRouter by lazy {
     }
 }
 
-internal fun Call.findArticles(
-    jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
+internal fun HttpServerContext.findArticles(
+    jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>): HttpServerContext {
 
     val principal = parsePrincipal(jwt)
     val subject = principal?.subject
-    val filter = queryParameters.mapKeys {
+    val filter = queryParameters.allValues.mapKeys {
         when (it.key) {
             "tag" -> Article::tagList.name
             "favorited" -> Article::favoritedBy.name
@@ -57,12 +56,12 @@ internal fun Call.findArticles(
         }
     }
 
-    ok(searchArticles(users, articles, subject, filter), charset = UTF_8)
+    return ok(searchArticles(users, articles, subject, filter), contentType = ContentType(ApplicationMedia.JSON, charset = UTF_8))
 }
 
-private fun Call.createArticle(jwt: Jwt, articles: Store<Article, String>) {
-    val principal = requirePrincipal(jwt)
-    val bodyArticle = request.body<ArticleRequestRoot>().article
+private fun HttpServerContext.createArticle(jwt: Jwt, articles: Store<Article, String>): HttpServerContext {
+    val principal = parsePrincipal(jwt) ?: return unauthorized()
+    val bodyArticle = ArticleRequest(request.bodyMap())
     val article = Article(
         slug = bodyArticle.title.toSlug(),
         author = principal.subject,
@@ -74,15 +73,15 @@ private fun Call.createArticle(jwt: Jwt, articles: Store<Article, String>) {
 
     articles.insertOne(article)
 
-    ok(ArticleCreationResponseRoot(article, principal.subject), charset = UTF_8)
+    return ok(ArticleCreationResponseRoot(article, principal.subject), contentType = ContentType(ApplicationMedia.JSON, charset = UTF_8))
 }
 
-internal fun Call.favoriteArticle(
-    users: Store<User, String>, articles: Store<Article, String>, favorite: Boolean) {
+internal fun HttpServerContext.favoriteArticle(
+    users: Store<User, String>, articles: Store<Article, String>, favorite: Boolean): HttpServerContext {
 
     val principal = attributes["principal"] as DecodedJWT
     val slug = pathParameters.require("slug")
-    val article = articles.findOne(slug) ?: halt(404)
+    val article = articles.findOne(slug) ?: return notFound()
     val author = checkNotNull(users.findOne(article.author))
     val user = checkNotNull(users.findOne(principal.subject)) // Both can be fetched with one 'find'
     val updatedAt = LocalDateTime.now()
@@ -93,32 +92,32 @@ internal fun Call.favoriteArticle(
     val updates = mapOf(Article::favoritedBy.name to favoritedBy)
 
     if (!articles.updateOne(slug, updates + pair))
-        halt(500)
+        return internalServerError()
 
     val favoritedArticle = article.copy(favoritedBy = favoritedBy)
 
-    ok(ArticleResponseRoot(favoritedArticle, author, user), charset = UTF_8)
+    return ok(ArticleResponseRoot(favoritedArticle, author, user), contentType = ContentType(ApplicationMedia.JSON, charset = UTF_8))
 }
 
-internal fun Call.getArticle(
-    jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
+internal fun HttpServerContext.getArticle(
+    jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>): HttpServerContext {
 
     val principal = parsePrincipal(jwt)
-    val article = articles.findOne(pathParameters.require("slug")) ?: halt(404)
+    val article = articles.findOne(pathParameters.require("slug")) ?: return notFound()
     val author = checkNotNull(users.findOne(article.author))
     val user = users.findOne(principal?.subject ?: "")
 
-    ok(ArticleResponseRoot(article, author, user), charset = UTF_8)
+    return ok(ArticleResponseRoot(article, author, user), contentType = ContentType(ApplicationMedia.JSON, charset = UTF_8))
 }
 
-internal fun Call.updateArticle(jwt: Jwt, articles: Store<Article, String>) {
-    val principal = requirePrincipal(jwt)
-    val body = request.body<PutArticleRequestRoot>().article
+internal fun HttpServerContext.updateArticle(jwt: Jwt, articles: Store<Article, String>): HttpServerContext {
+    val principal = parsePrincipal(jwt) ?: return unauthorized()
+    val body = PutArticleRequest(request.bodyMap())
     val slug = pathParameters.require("slug")
 
     val updatedAt = LocalDateTime.now()
     val updatedAtPair = Article::updatedAt.name to updatedAt
-    val requestUpdates = body.toFieldsMap().mapKeys { it.key.toString() } + updatedAtPair
+    val requestUpdates = body.toFieldsMap().mapKeys { it.key } + updatedAtPair
 
     val updates =
         if (body.title != null) requestUpdates + (Article::slug.name to body.title.toSlug())
@@ -126,28 +125,28 @@ internal fun Call.updateArticle(jwt: Jwt, articles: Store<Article, String>) {
 
     val updated = articles.updateOne(slug, updates)
 
-    if (updated) {
+    return if (updated) {
         val article = checkNotNull(articles.findOne(slug))
         val content = ArticleCreationResponseRoot(article, principal.subject)
-        ok(content, charset = UTF_8)
+        ok(content, contentType = ContentType(ApplicationMedia.JSON, charset = UTF_8))
     }
     else {
-        halt(500, "Article $slug not updated")
+        internalServerError("Article $slug not updated")
     }
 }
 
-internal fun Call.deleteArticle(jwt: Jwt, articles: Store<Article, String>) {
-    requirePrincipal(jwt)
+internal fun HttpServerContext.deleteArticle(jwt: Jwt, articles: Store<Article, String>): HttpServerContext {
+    parsePrincipal(jwt) ?: return unauthorized()
     val slug = pathParameters.require("slug")
-    if (!articles.deleteOne(slug))
-        halt(404, "Article $slug not found")
+    return if (!articles.deleteOne(slug))
+        notFound("Article $slug not found")
     else
-        ok(OkResponse("Article $slug deleted"), charset = UTF_8)
+        ok(OkResponse("Article $slug deleted"), contentType = ContentType(ApplicationMedia.JSON, charset = UTF_8))
 }
 
-internal fun Call.getFeed(jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>) {
-    val principal = requirePrincipal(jwt)
-    val user = users.findOne(principal.subject) ?: halt(404)
+internal fun HttpServerContext.getFeed(jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>): HttpServerContext {
+    val principal = parsePrincipal(jwt) ?: return unauthorized()
+    val user = users.findOne(principal.subject) ?: return notFound()
 
     val feedArticles = if(user.following.isEmpty()) {
         ArticlesResponseRoot(emptyList(), 0)
@@ -157,13 +156,13 @@ internal fun Call.getFeed(jwt: Jwt, users: Store<User, String>, articles: Store<
         searchArticles(users, articles, principal.subject, filter)
     }
 
-    ok(feedArticles, charset = UTF_8)
+    return ok(feedArticles, contentType = ContentType(ApplicationMedia.JSON, charset = UTF_8))
 }
 
 internal fun String.toSlug() =
     this.lowercase().replace(' ', '-')
 
-internal fun Call.searchArticles(
+internal fun HttpServerContext.searchArticles(
     users: Store<User, String>,
     articles: Store<Article, String>,
     subject: String?,
@@ -177,7 +176,7 @@ internal fun Call.searchArticles(
     val allArticles = articles.findMany(filter, limit, offset, sort)
     val userNames = allArticles.map { it.author } + subject
     val authors = users.findMany(mapOf(User::username.name to userNames))
-    val authorsMap = authors.map { it.username to it }.toMap()
+    val authorsMap = authors.associateBy { it.username }
     val user = authorsMap[subject]
     val responses = allArticles.map {
         val authorUsername = it.author

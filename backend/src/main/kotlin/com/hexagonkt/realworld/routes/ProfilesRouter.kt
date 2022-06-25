@@ -6,21 +6,16 @@ import com.hexagonkt.core.require
 import com.hexagonkt.http.model.ContentType
 import com.hexagonkt.http.server.handlers.HttpServerContext
 import com.hexagonkt.http.server.handlers.path
-import com.hexagonkt.realworld.createJwt
-import com.hexagonkt.realworld.createUserStore
 import com.hexagonkt.realworld.messages.ProfileResponse
 import com.hexagonkt.realworld.messages.ProfileResponseRoot
-import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.services.User
+import com.hexagonkt.realworld.users
 import com.hexagonkt.store.Store
 import kotlin.text.Charsets.UTF_8
 
 internal val profilesRouter by lazy {
     path {
-        val jwt: Jwt = createJwt()
-        val users: Store<User, String> = createUserStore()
-
-        authenticate(jwt)
+        use(authenticator)
         post("/follow") { followProfile(users, true) }
         delete("/follow") { followProfile(users, false) }
         get { getProfile(users) }

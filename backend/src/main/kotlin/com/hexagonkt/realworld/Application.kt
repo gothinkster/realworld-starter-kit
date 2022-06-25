@@ -21,7 +21,10 @@ import jakarta.servlet.annotation.WebListener
 @Suppress("unused")
 class WebApplication : ServletServer(router)
 
-internal val server: HttpServer = HttpServer(JettyServletAdapter(), router, HttpServerSettings())
+internal val server: HttpServer by lazy { HttpServer(JettyServletAdapter(), router) }
+internal val jwt: Jwt by lazy { createJwt() }
+internal val users: Store<User, String> by lazy { createUserStore() }
+internal val articles: Store<Article, String> by lazy { createArticleStore() }
 
 internal fun createJwt(): Jwt {
     val keyStoreResource = Jvm.systemSettingOrNull<String>("keyStoreResource") ?: error("resource")

@@ -4,30 +4,24 @@ import com.hexagonkt.core.media.ApplicationMedia.JSON
 import com.hexagonkt.core.require
 import com.hexagonkt.http.model.ContentType
 import com.hexagonkt.http.server.handlers.path
-import com.hexagonkt.realworld.createArticleStore
-import com.hexagonkt.realworld.createJwt
-import com.hexagonkt.realworld.createUserStore
+import com.hexagonkt.realworld.*
+import com.hexagonkt.realworld.articles
+import com.hexagonkt.realworld.jwt
 import com.hexagonkt.realworld.messages.*
-import com.hexagonkt.realworld.rest.Jwt
+import com.hexagonkt.rest.bodyMap
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.Comment
-import com.hexagonkt.realworld.services.User
-import com.hexagonkt.store.Store
 import kotlin.text.Charsets.UTF_8
 
 internal val commentsRouter = path {
-    val jwt: Jwt = createJwt()
-    val users: Store<User, String> = createUserStore()
-    val articles: Store<Article, String> = createArticleStore()
-
     post {
-        val principal = requirePrincipal(jwt)
+        val principal = parsePrincipal(jwt) ?: return@post unauthorized()
         val subject = principal.subject
         val slug = pathParameters.require(Article::slug.name)
         val article = articles.findOne(slug) ?: return@post notFound("$slug article not found")
         val author = users.findOne(article.author) ?: return@post notFound("${article.author} user not found")
         val user = users.findOne(subject) ?: return@post notFound("$subject user not found")
-        val commentRequest = request.body<CommentRequestRoot>().comment
+        val commentRequest = CommentRequest(request.bodyMap())
         val comment = Comment(
             id = (article.comments.maxOf { it.id }) + 1,
             author = subject,
@@ -39,7 +33,7 @@ internal val commentsRouter = path {
         if (!updated)
             return@post internalServerError("Not updated")
 
-        val content = CommentResponseRoot(CommentResponse(comment, author, user))
+        val content = mapOf("comment" to CommentResponse(comment, author, user))
 
         ok(content, contentType = ContentType(JSON, charset = UTF_8))
     }
@@ -56,11 +50,11 @@ internal val commentsRouter = path {
 
         val content = article.comments.map { CommentResponse(it, author, user) }
 
-        ok(CommentsResponseRoot(content), contentType = ContentType(JSON, charset = UTF_8))
+        ok(mapOf("comments" to content), contentType = ContentType(JSON, charset = UTF_8))
     }
 
     delete("/{id}") {
-        requirePrincipal(jwt)
+        parsePrincipal(jwt) ?: return@delete unauthorized()
         val slug = pathParameters.require(Article::slug.name)
         val article = articles.findOne(slug) ?: return@delete notFound("$slug article not found")
         val id = pathParameters.require(Comment::id.name).toInt()

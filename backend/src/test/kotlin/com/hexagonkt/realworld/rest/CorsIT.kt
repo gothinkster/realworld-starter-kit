@@ -1,16 +1,20 @@
 package com.hexagonkt.realworld.rest
 
-import com.hexagonkt.http.client.Client
-import com.hexagonkt.http.client.ClientSettings
-import com.hexagonkt.http.client.ahc.AhcAdapter
+import com.hexagonkt.core.media.ApplicationMedia.JSON
+import com.hexagonkt.http.client.HttpClient
+import com.hexagonkt.http.client.HttpClientSettings
+import com.hexagonkt.http.client.jetty.JettyClientAdapter
+import com.hexagonkt.http.model.ContentType
+import com.hexagonkt.http.model.Header
+import com.hexagonkt.http.model.HttpFields
 import com.hexagonkt.realworld.main
 import com.hexagonkt.realworld.server
-import com.hexagonkt.serialization.json.Json
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
+import java.net.URL
 
 @TestInstance(PER_CLASS)
 class CorsIT {
@@ -24,17 +28,18 @@ class CorsIT {
     }
 
     @Test fun `OPTIONS returns correct CORS headers`() {
-        val settings = ClientSettings(Json.contentType)
-        val client = Client(AhcAdapter(), "http://localhost:${server.runtimePort}/api", settings)
+        val settings = HttpClientSettings(contentType = ContentType(JSON))
+        val client = HttpClient(JettyClientAdapter(), URL("http://localhost:${server.runtimePort}/api"), settings)
         val corsHeaders = "Accept,User-Agent,Host,Content-Type"
-        val response = client.options("/tags", headers = mapOf(
-            "Origin" to listOf("localhost"),
-            "Access-Control-Request-Headers" to listOf(corsHeaders),
-            "Access-Control-Request-Method" to listOf("GET")
-        ))
+        val response = client.options("/tags", headers = HttpFields(
+            Header("Origin", "localhost"),
+            Header("Access-Control-Request-Headers", corsHeaders),
+            Header("Access-Control-Request-Method", "GET"),
+        )
+        )
 
-        assert(response.status == 204)
-        assert(response.headers["Access-Control-Allow-Origin"] == listOf("localhost"))
-        assert(response.headers["Access-Control-Allow-Headers"] == listOf(corsHeaders))
+        assert(response.status.code == 204)
+        assert(response.headers["Access-Control-Allow-Origin"] == "localhost")
+        assert(response.headers["Access-Control-Allow-Headers"] == corsHeaders)
     }
 }

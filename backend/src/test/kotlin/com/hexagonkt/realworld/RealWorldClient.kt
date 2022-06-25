@@ -1,68 +1,79 @@
 package com.hexagonkt.realworld
 
-import com.hexagonkt.http.client.Client
-import com.hexagonkt.http.client.ClientSettings
-import com.hexagonkt.http.client.Response
-import com.hexagonkt.http.client.ahc.AhcAdapter
+import com.hexagonkt.core.media.ApplicationMedia.JSON
+import com.hexagonkt.core.require
+import com.hexagonkt.core.requireKeys
+import com.hexagonkt.http.client.HttpClient
+import com.hexagonkt.http.client.HttpClientSettings
+import com.hexagonkt.http.client.model.HttpClientResponse
+import com.hexagonkt.http.client.jetty.JettyClientAdapter
+import com.hexagonkt.http.model.ContentType
+import com.hexagonkt.http.model.Header
+import com.hexagonkt.http.model.HttpFields
+import com.hexagonkt.http.model.HttpStatus
+import com.hexagonkt.http.model.SuccessStatus.OK
 import com.hexagonkt.realworld.messages.*
-import com.hexagonkt.serialization.json.Json
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
+import com.hexagonkt.rest.bodyMap
 import com.hexagonkt.serialization.parse
+import kotlin.text.Charsets.UTF_8
 
-internal class RealWorldClient(val client: Client) {
+internal class RealWorldClient(val client: HttpClient) {
 
-    private fun User.toRegistrationRequest(): RegistrationRequestRoot =
-        RegistrationRequestRoot(RegistrationRequest(email, username, password))
+    private val contentType = ContentType(JSON, charset = UTF_8)
 
-    private fun User.toLoginRequest(): LoginRequestRoot =
-        LoginRequestRoot(LoginRequest(email, password))
+    private fun User.toRegistrationRequest(): RegistrationRequest =
+        RegistrationRequest(email, username, password)
 
-    private fun Article.toCreationRequest(): ArticleRequestRoot =
-        ArticleRequestRoot(ArticleRequest(title, description, body, tagList))
+    private fun User.toLoginRequest(): LoginRequest =
+        LoginRequest(email, password)
+
+    private fun Article.toCreationRequest(): ArticleRequest =
+        ArticleRequest(title, description, body, tagList)
 
     fun deleteUser(user: User, allowedCodes: Set<Int> = setOf(200, 404)) {
         client.delete("/users/${user.username}").apply {
-            assert(status in allowedCodes)
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(status.code in allowedCodes)
+            assert(contentType == contentType)
         }
     }
 
     fun registerUser(user: User) {
         registerUser(user) {
-            assert(status == 201)
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(status == HttpStatus[201])
+            assert(contentType == contentType)
 
-            val b = body ?: error("")
-            val userResponse = b.parse<UserResponseRoot>()
-            assert(userResponse.user.username == user.username)
-            assert(userResponse.user.email == user.email)
-            assert(userResponse.user.token.isNotBlank())
+            val userResponse = UserResponse(bodyMap().requireKeys("user"))
+            assert(userResponse.username == user.username)
+            assert(userResponse.email == user.email)
+            assert(userResponse.token.isNotBlank())
         }
     }
 
-    fun registerUser(user: User, callback: Response<String>.() -> Unit) {
+    fun registerUser(user: User, callback: HttpClientResponse.() -> Unit) {
         client.post("/users", user.toRegistrationRequest()).apply(callback)
     }
 
-    private fun <T> T?.require(): T =
-        this ?: error("The receiver can not be 'null'")
-
     fun loginUser(user: User): RealWorldClient {
-        val headers = client.post("/users/login", user.toLoginRequest()).let {
-            assert(it.status == 200)
-            assert(it.contentType == "${Json.contentType};charset=utf-8")
+        val header = client.post("/users/login", user.toLoginRequest()).let {
+            assert(it.status == OK)
+            assert(it.contentType == contentType)
 
-            val userResponse = it.body.require().parse<UserResponseRoot>()
-            assert(userResponse.user.username == user.username)
-            assert(userResponse.user.email == user.email)
-            assert(userResponse.user.token.isNotBlank())
+            val userResponse = UserResponse(it.bodyMap().requireKeys("user"))
+            assert(userResponse.username == user.username)
+            assert(userResponse.email == user.email)
+            assert(userResponse.token.isNotBlank())
 
-            mapOf("Authorization" to listOf("Token ${userResponse.user.token}"))
+            Header("Authorization", listOf("Token ${userResponse.token}"))
         }
 
-        val settings = ClientSettings(client.settings.contentType, headers = headers)
-        val userClient = Client(AhcAdapter(), client.endpoint, settings)
+        val settings = HttpClientSettings(
+            client.settings.baseUrl,
+            client.settings.contentType,
+            headers = HttpFields(header)
+        )
+        val userClient = HttpClient(JettyClientAdapter(), client.settings.baseUrl, settings)
         return RealWorldClient(userClient)
     }
 
@@ -74,40 +85,40 @@ internal class RealWorldClient(val client: Client) {
 
     fun getUser(user: User) {
         getUser(user) {
-            assert(status == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(status == OK)
+            assert(contentType == contentType)
 
-            val userResponse = body.require().parse<UserResponseRoot>()
-            assert(userResponse.user.username == user.username)
-            assert(userResponse.user.email == user.email)
-            assert(userResponse.user.token.isNotBlank())
+            val userResponse = UserResponse(bodyMap())
+            assert(userResponse.username == user.username)
+            assert(userResponse.email == user.email)
+            assert(userResponse.token.isNotBlank())
         }
     }
 
-    fun getUser(user: User, callback: Response<String>.(User) -> Unit) {
+    fun getUser(user: User, callback: HttpClientResponse.(User) -> Unit) {
         client.get("/user").apply { callback(user) }
     }
 
     fun updateUser(user: User, updateRequest: PutUserRequest) {
         updateUser(user, updateRequest) {
-            assert(status == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(status == OK)
+            assert(contentType == contentType)
 
-            val userResponse = body.require().parse<UserResponseRoot>()
-            assert(userResponse.user.username == user.username)
-            assert(userResponse.user.email == updateRequest.email ?: user.email)
-            assert(userResponse.user.token.isNotBlank())
+            val userResponse = UserResponse(bodyMap())
+            assert(userResponse.username == user.username)
+            assert(userResponse.email == (updateRequest.email ?: user.email))
+            assert(userResponse.token.isNotBlank())
         }
     }
 
-    fun updateUser(user: User, updateRequest: PutUserRequest, callback: Response<String>.(User) -> Unit) {
-        client.put("/user", PutUserRequestRoot(updateRequest)).apply { callback(user) }
+    fun updateUser(user: User, updateRequest: PutUserRequest, callback: HttpClientResponse.(User) -> Unit) {
+        client.put("/user", mapOf("user" to updateRequest)).apply { callback(user) }
     }
 
     fun getProfile(user: User, following: Boolean) {
         client.get("/profiles/${user.username}").apply {
-            assert(status == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(status == OK)
+            assert(contentType == contentType)
 
             val profileResponse = body.require().parse<ProfileResponseRoot>()
             assert(profileResponse.profile.username == user.username)
@@ -120,8 +131,8 @@ internal class RealWorldClient(val client: Client) {
         val response = if (follow) client.post(url) else client.delete(url)
 
         response.apply {
-            assert(status == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(status == OK)
+            assert(contentType == contentType)
 
             val profileResponse = body.require().parse<ProfileResponseRoot>()
             assert(profileResponse.profile.username == user.username)
@@ -131,8 +142,8 @@ internal class RealWorldClient(val client: Client) {
 
     fun postArticle(article: Article) {
         client.post("/articles", article.toCreationRequest()).apply {
-            assert(status == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(status == OK)
+            assert(contentType == contentType)
 
             val postArticleResponse = body.require().parse<ArticleCreationResponseRoot>()
             assert(postArticleResponse.article.body == article.body)
@@ -145,8 +156,8 @@ internal class RealWorldClient(val client: Client) {
 
     fun getArticle(slug: String) {
         client.get("/articles/$slug").apply {
-            assert(status == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(status == OK)
+            assert(contentType == contentType)
 
             val getArticleResponse = body.require().parse<ArticleResponseRoot>()
             assert(getArticleResponse.article.slug == slug)
@@ -156,9 +167,9 @@ internal class RealWorldClient(val client: Client) {
     fun deleteArticle(slug: String) {
         client.delete("/articles/$slug").apply {
             assert(status in setOf(200, 404))
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(contentType == contentType)
 
-            if (status == 200)
+            if (status == OK)
                 assert(body.require().parse<OkResponse>().message == "Article $slug deleted")
             else
                 assert(body.require().parse<ErrorResponseRoot>().errors.body.first() == "Article $slug not found")
@@ -167,8 +178,8 @@ internal class RealWorldClient(val client: Client) {
 
     fun updateArticle(article: Article, updateRequest: PutArticleRequest) {
         client.put("/articles/${article.slug}", PutArticleRequestRoot(updateRequest)).apply {
-            assert(status == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(status == OK)
+            assert(contentType == contentType)
 
             val articleResponse = body.require().parse<ArticleCreationResponseRoot>()
             val responseArticle = articleResponse.article
@@ -181,8 +192,8 @@ internal class RealWorldClient(val client: Client) {
 
     fun getFeed(vararg articles: Article) {
         client.get("/articles/feed").apply {
-            assert(status == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(status == OK)
+            assert(contentType == contentType)
 
             val feedResponse = body.require().parse<ArticlesResponseRoot>()
             assert(feedResponse.articlesCount >= feedResponse.articles.size)
@@ -198,8 +209,8 @@ internal class RealWorldClient(val client: Client) {
         val response = if (favorite) client.post(url) else client.delete(url)
 
         response.apply {
-            assert(status == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(status == OK)
+            assert(contentType == contentType)
 
             val profileResponse = body.require().parse<ArticleResponseRoot>()
             assert(profileResponse.article.favorited == favorite)
@@ -223,9 +234,9 @@ internal class RealWorldClient(val client: Client) {
     fun createComment(article: String, comment: CommentRequest) {
         client.post("/articles/$article/comments", CommentRequestRoot(comment)).apply {
             assert(status in setOf(200, 404))
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(contentType == contentType)
 
-            if (status == 200) {
+            if (status == OK) {
                 val commentsResponse = body.require().parse(CommentResponseRoot::class)
                 assert(commentsResponse.comment.body == comment.body)
             }
@@ -238,16 +249,16 @@ internal class RealWorldClient(val client: Client) {
 
     fun deleteComment(article: String, id: Int) {
         client.delete("/articles/$article/comments/$id").apply {
-            assert(status == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(status == OK)
+            assert(contentType == contentType)
             assert(body.require().parse<OkResponse>().message == "$id deleted")
         }
     }
 
     fun getComments(article: String, vararg ids: Int) {
         client.get("/articles/$article/comments").apply {
-            assert(status == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(status == OK)
+            assert(contentType == contentType)
 
             val commentsResponse = body.require().parse(CommentsResponseRoot::class)
             assert(commentsResponse.comments.size == ids.size)
@@ -257,8 +268,8 @@ internal class RealWorldClient(val client: Client) {
 
     fun getTags(vararg expectedTags: String) {
         client.get("/tags").apply {
-            assert(status == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(status == OK)
+            assert(contentType == contentType)
 
             val tagsResponse = body.require().parse(TagsResponseRoot::class)
             assert(tagsResponse.tags.size == expectedTags.size)
@@ -277,8 +288,8 @@ internal class RealWorldClient(val client: Client) {
             .joinToString("&", "?")
 
         val response = client.get("/articles$queryString").apply {
-            assert(status == 200)
-            assert(contentType == "${Json.contentType};charset=utf-8")
+            assert(status == OK)
+            assert(contentType == contentType)
 
             val articles = body.require().parse<ArticlesResponseRoot>()
             assert(articles.articlesCount >= 0)

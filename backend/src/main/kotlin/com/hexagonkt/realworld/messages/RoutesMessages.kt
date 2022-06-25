@@ -1,7 +1,6 @@
 package com.hexagonkt.realworld.messages
 
-import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
+import com.hexagonkt.core.requireKeys
 import com.hexagonkt.realworld.services.User
 
 data class OkResponse(val message: String)
@@ -10,14 +9,21 @@ data class ErrorResponse(val body: List<String> = listOf("Unknown error"))
 
 data class ErrorResponseRoot(val errors: ErrorResponse)
 
-@JsonInclude(NON_NULL)
 data class UserResponse(
     val email: String,
     val username: String,
     val bio: String,
     val image: String,
     val token: String
-)
+) {
+    constructor(data: Map<*, *>) : this(
+        data.requireKeys<String>(UserResponse::email),
+        data.requireKeys<String>(UserResponse::username),
+        data.requireKeys<String>(UserResponse::bio),
+        data.requireKeys<String>(UserResponse::image),
+        data.requireKeys<String>(UserResponse::token),
+    )
+}
 
 data class UserResponseRoot(val user: UserResponse) {
     constructor(user: User, token: String) : this(

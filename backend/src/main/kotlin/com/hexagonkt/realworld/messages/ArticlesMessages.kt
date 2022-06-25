@@ -2,6 +2,9 @@ package com.hexagonkt.realworld.messages
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
+import com.hexagonkt.core.fieldsMapOf
+import com.hexagonkt.core.keys
+import com.hexagonkt.core.requireKeys
 import com.hexagonkt.http.toHttpFormat
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
@@ -11,9 +14,14 @@ data class ArticleRequest(
     val description: String,
     val body: String,
     val tagList: Set<String>
-)
-
-data class ArticleRequestRoot(val article: ArticleRequest)
+) {
+    constructor(data: Map<*, *>) : this(
+        data.requireKeys("article", ArticleRequest::title),
+        data.requireKeys("article", ArticleRequest::description),
+        data.requireKeys("article", ArticleRequest::body),
+        data.requireKeys("article", ArticleRequest::tagList),
+    )
+}
 
 @JsonInclude(NON_NULL)
 data class AuthorResponse(
@@ -58,9 +66,22 @@ data class PutArticleRequest(
     val description: String? = null,
     val body: String? = null,
     val tagList: Set<String> = emptySet()
-)
+) {
+    constructor(data: Map<*, *>) : this(
+        data.keys("article", PutArticleRequest::title),
+        data.keys("article", PutArticleRequest::description),
+        data.keys("article", PutArticleRequest::body),
+        data.keys("article", PutArticleRequest::tagList) ?: emptySet(),
+    )
 
-data class PutArticleRequestRoot(val article: PutArticleRequest)
+    fun toFieldsMap(): Map<String, *> =
+        fieldsMapOf(
+            PutArticleRequest::title to title,
+            PutArticleRequest::description to description,
+            PutArticleRequest::body to body,
+            PutArticleRequest::tagList to tagList,
+        )
+}
 
 data class ArticleResponse(
     val slug: String,

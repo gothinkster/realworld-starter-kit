@@ -1,14 +1,18 @@
 package com.hexagonkt.realworld.routes.it
 
-import com.hexagonkt.http.client.Client
-import com.hexagonkt.http.client.ClientSettings
-import com.hexagonkt.http.client.ahc.AhcAdapter
+import com.hexagonkt.core.media.ApplicationMedia
+import com.hexagonkt.http.client.HttpClient
+import com.hexagonkt.http.client.HttpClientSettings
+import com.hexagonkt.http.client.jetty.JettyClientAdapter
+import com.hexagonkt.http.model.ClientErrorStatus
+import com.hexagonkt.http.model.ClientErrorStatus.UNAUTHORIZED
+import com.hexagonkt.http.model.ContentType
 import com.hexagonkt.realworld.RealWorldClient
 import com.hexagonkt.realworld.main
 import com.hexagonkt.realworld.messages.ErrorResponseRoot
 import com.hexagonkt.realworld.messages.PutUserRequest
 import com.hexagonkt.realworld.server
-import com.hexagonkt.serialization.json.Json
+import com.hexagonkt.serialization.jackson.json.Json
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.parse
 import org.junit.jupiter.api.AfterAll
@@ -38,9 +42,9 @@ class UserRouterIT {
     }
 
     @Test fun `Get and update current user`() {
-        val endpoint = "http://localhost:${server.runtimePort}/api"
-        val settings = ClientSettings(Json.contentType)
-        val client = RealWorldClient(Client(AhcAdapter(), endpoint, settings))
+        val endpoint = URL("http://localhost:${server.runtimePort}/api")
+        val settings = HttpClientSettings(endpoint, ContentType(ApplicationMedia.JSON))
+        val client = RealWorldClient(HttpClient(JettyClientAdapter(), settings))
 
         val jakeClient = client.initializeUser(jake)
 
@@ -50,7 +54,7 @@ class UserRouterIT {
 
         client.getUser(jake) {
             val parsedBody = body?.parse<ErrorResponseRoot>()?: error("Body expected")
-            assert(status == 401)
+            assert(status == UNAUTHORIZED)
             assert(contentType == "${Json.contentType};charset=utf-8")
             assert(parsedBody.errors.body.isNotEmpty())
             assert(parsedBody.errors.body.first() == "Unauthorized")
@@ -58,7 +62,7 @@ class UserRouterIT {
 
         client.updateUser(jake, PutUserRequest(email = jake.email)) {
             val parsedBody = body?.parse<ErrorResponseRoot>()?: error("Body expected")
-            assert(status == 401)
+            assert(status == UNAUTHORIZED)
             assert(contentType == "${Json.contentType};charset=utf-8")
             assert(parsedBody.errors.body.isNotEmpty())
         }

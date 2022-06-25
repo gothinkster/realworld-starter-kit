@@ -1,13 +1,16 @@
 package com.hexagonkt.realworld.routes.it
 
-import com.hexagonkt.http.client.Client
-import com.hexagonkt.http.client.ClientSettings
-import com.hexagonkt.http.client.ahc.AhcAdapter
+import com.hexagonkt.core.media.ApplicationMedia
+import com.hexagonkt.http.client.HttpClient
+import com.hexagonkt.http.client.HttpClientSettings
+import com.hexagonkt.http.client.jetty.JettyClientAdapter
+import com.hexagonkt.http.model.ContentType
+import com.hexagonkt.http.model.ServerErrorStatus.INTERNAL_SERVER_ERROR
 import com.hexagonkt.realworld.RealWorldClient
 import com.hexagonkt.realworld.main
 import com.hexagonkt.realworld.messages.ErrorResponseRoot
 import com.hexagonkt.realworld.server
-import com.hexagonkt.serialization.json.Json
+import com.hexagonkt.serialization.jackson.json.Json
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.parse
 import org.junit.jupiter.api.AfterAll
@@ -42,15 +45,15 @@ class UsersRouterIT {
     }
 
     @Test fun `Delete, login and register users`() {
-        val endpoint = "http://localhost:${server.runtimePort}/api"
-        val settings = ClientSettings(Json.contentType)
-        val client = RealWorldClient(Client(AhcAdapter(), endpoint, settings))
+        val endpoint = URL("http://localhost:${server.runtimePort}/api")
+        val settings = HttpClientSettings(endpoint, ContentType(ApplicationMedia.JSON))
+        val client = RealWorldClient(HttpClient(JettyClientAdapter(), settings))
 
         client.deleteUser(jake)
         client.deleteUser(jake, setOf(404))
         client.registerUser(jake)
         client.registerUser(jake) {
-            assert(status == 500)
+            assert(status == INTERNAL_SERVER_ERROR)
             assert(contentType == "${Json.contentType};charset=utf-8")
 
             val errorResponse = body?.parse(ErrorResponseRoot::class) ?: error("Body expected")

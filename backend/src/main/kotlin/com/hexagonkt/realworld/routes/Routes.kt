@@ -3,17 +3,29 @@ package com.hexagonkt.realworld.routes
 import com.auth0.jwt.interfaces.DecodedJWT
 import com.hexagonkt.core.CodedException
 import com.hexagonkt.core.MultipleException
-import com.hexagonkt.http.model.ClientErrorStatus
+import com.hexagonkt.core.fail
+import com.hexagonkt.core.media.ApplicationMedia
+import com.hexagonkt.http.model.ClientErrorStatus.UNAUTHORIZED
+import com.hexagonkt.http.model.ContentType
+import com.hexagonkt.http.model.HttpStatus
+import com.hexagonkt.http.server.callbacks.CorsCallback
 import com.hexagonkt.http.server.handlers.HttpServerContext
+import com.hexagonkt.http.server.handlers.filter
 import com.hexagonkt.http.server.handlers.path
+import com.hexagonkt.realworld.jwt
 import com.hexagonkt.realworld.messages.ErrorResponse
 import com.hexagonkt.realworld.messages.ErrorResponseRoot
 import com.hexagonkt.realworld.rest.Jwt
 import kotlin.text.Charsets.UTF_8
 
+val contentType = ContentType(ApplicationMedia.JSON, charset = UTF_8)
+
 internal val router by lazy {
     path {
-        cors(CorsSettings(allowedHeaders = setOf("Accept", "User-Agent", "Host", "Content-Type")))
+        filter(
+            pattern = "*",
+            callback = CorsCallback(allowedHeaders = setOf("Accept", "User-Agent", "Host", "Content-Type"))
+        )
 
         path("/users", usersRouter)
         path("/user", userRouter)
@@ -21,12 +33,14 @@ internal val router by lazy {
         path("/articles", articlesRouter)
         path("/tags", tagsRouter)
 
-        setOf(401, 403, 404, 500).forEach { code ->
-            error(code) { statusCodeHandler(it) }
+        exception(CodedException::class) {
+            val codedException = exception as CodedException
+            if (codedException.code in setOf(401, 403, 404, 500)) statusCodeHandler(codedException)
+            else this
         }
 
-        error(MultipleException::class) { multipleExceptionHandler(it) }
-        error(Exception::class) { exceptionHandler(it) }
+        exception(MultipleException::class) { multipleExceptionHandler(exception ?: fail) }
+        exception(Exception::class) { exceptionHandler(exception ?: fail) }
     }
 }
 
@@ -39,29 +53,32 @@ internal fun HttpServerContext.statusCodeHandler(exception: CodedException): Htt
         else -> listOf(exception.message ?: exception::class.java.name)
     }
 
-    return send(exception.code, ErrorResponseRoot(ErrorResponse(messages)), Json, UTF_8)
+    val status = HttpStatus(exception.code)
+    return send(status, ErrorResponseRoot(ErrorResponse(messages)), contentType = contentType)
 }
 
 internal fun HttpServerContext.multipleExceptionHandler(error: Exception): HttpServerContext {
     return if (error is MultipleException) {
         val messages = error.causes.map { it.message ?: "<no message>" }
-        internalServerError(ErrorResponseRoot(ErrorResponse(messages)), Json, UTF_8)
+        internalServerError(ErrorResponseRoot(ErrorResponse(messages)), contentType = ContentType(ApplicationMedia.JSON, charset = UTF_8))
     }
     else this
 }
 
-internal fun HttpServerContext.exceptionHandler(error: Exception) {
+internal fun HttpServerContext.exceptionHandler(error: Exception): HttpServerContext {
     val errorMessage = error.javaClass.simpleName + ": " + (error.message ?: "<no message>")
-    send(500, ErrorResponseRoot(ErrorResponse(listOf(errorMessage))), Json, UTF_8)
+    return internalServerError(ErrorResponseRoot(ErrorResponse(listOf(errorMessage))), contentType = ContentType(ApplicationMedia.JSON, charset = UTF_8))
 }
 
-internal fun Router.authenticate(jwt: Jwt) {
-    before("/") { requirePrincipal(jwt) }
-    before("/*") { requirePrincipal(jwt) }
+val authenticator = filter("*") {
+    val principal = parsePrincipal(jwt)
+
+    if (principal == null) unauthorized("Unauthorized")
+    else next()
 }
 
-internal fun HttpServerContext.requirePrincipal(jwt: Jwt): DecodedJWT =
-    parsePrincipal(jwt) ?: clientError(ClientErrorStatus.UNAUTHORIZED, "Unauthorized")
+internal fun HttpServerContext.unauthorized(body: String = "Unauthorized"): HttpServerContext =
+    clientError(UNAUTHORIZED, body)
 
 internal fun HttpServerContext.parsePrincipal(jwt: Jwt): DecodedJWT? {
     val token = request.headers["Authorization"]
@@ -70,8 +87,6 @@ internal fun HttpServerContext.parsePrincipal(jwt: Jwt): DecodedJWT? {
         null
     }
     else {
-        val principal = jwt.verify(token.removePrefix("Token").trim())
-        attributes["principal"] = principal
-        principal
+        jwt.verify(token.removePrefix("Token").trim())
     }
 }
