@@ -6,7 +6,9 @@ open Elmish
 open Feliz
 open Feliz.Router
 
-type State = { CurrentUrl : string list }
+type State = {
+    CurrentUrl : string list
+}
 
 type Msg = UrlChanged of string list
 
