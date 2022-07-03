@@ -2,46 +2,26 @@ namespace Shared
 
 open System
 
-type Todo = { Id: Guid; Description: string }
-
-module Todo =
-    let isValid (description: string) =
-        String.IsNullOrWhiteSpace description |> not
-
-    let create (description: string) =
-        { Id = Guid.NewGuid()
-          Description = description }
-
 module Route =
     let builder typeName methodName =
         sprintf "/api/%s/%s" typeName methodName
 
-type ITodosApi =
-    { getTodos: unit -> Async<Todo list>
-      addTodo: Todo -> Async<Todo> }
-
-
-
-type Bio = Bio of string
-type Image = Image of string
-
-type User = {
-    Email:    string;
-    Password: string;
-    Bio:      Bio;
-    Image:    Image
+type UserLoginDto = {
+    email:    string
+    password: string
+}
+type LoginRequest = {
+    user: UserLoginDto
 }
 
-type Profile = {
-    Username:  string;
-    Bio:       Bio;
-    Image:     Image;
-    Following: Boolean;
+type UserAuthDto = {
+    email:    string
+    token:    string
+    username: string
+    bio:      string
+    image:    string
 }
 
-type Data = unit
-type Api = {
-    login:    Data -> User -> User
-    register: Data -> User -> User
+type users = {
+    login: LoginRequest -> Async<UserAuthDto>
 }
-
