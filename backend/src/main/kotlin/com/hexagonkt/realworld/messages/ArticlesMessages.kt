@@ -29,7 +29,14 @@ data class AuthorResponse(
     val bio: String,
     val image: String,
     val following: Boolean
-)
+) {
+    constructor(data: Map<*, *>) : this(
+        username = data.requireKeys(AuthorResponse::username),
+        bio = data.requireKeys(AuthorResponse::bio),
+        image = data.requireKeys(AuthorResponse::image),
+        following = data.requireKeys(AuthorResponse::following),
+    )
+}
 
 data class ArticleCreationResponse(
     val slug: String,
@@ -42,7 +49,20 @@ data class ArticleCreationResponse(
     val favorited: Boolean,
     val favoritesCount: Int,
     val author: String
-)
+) {
+    constructor(data: Map<*, *>) : this(
+        slug = data.requireKeys(ArticleCreationResponse::slug),
+        title = data.requireKeys(ArticleCreationResponse::title),
+        description = data.requireKeys(ArticleCreationResponse::description),
+        body = data.requireKeys(ArticleCreationResponse::body),
+        tagList = data.keys(ArticleCreationResponse::tagList) ?: emptySet(),
+        createdAt = data.requireKeys(ArticleCreationResponse::createdAt),
+        updatedAt = data.requireKeys(ArticleCreationResponse::updatedAt),
+        favorited = data.requireKeys(ArticleCreationResponse::favorited),
+        favoritesCount = data.requireKeys(ArticleCreationResponse::favoritesCount),
+        author = data.requireKeys(ArticleCreationResponse::author),
+    )
+}
 
 data class ArticleCreationResponseRoot(val article: ArticleCreationResponse) {
     constructor(article: Article, subject: String) : this(
@@ -68,10 +88,10 @@ data class PutArticleRequest(
     val tagList: Set<String> = emptySet()
 ) {
     constructor(data: Map<*, *>) : this(
-        data.keys("article", PutArticleRequest::title),
-        data.keys("article", PutArticleRequest::description),
-        data.keys("article", PutArticleRequest::body),
-        data.keys("article", PutArticleRequest::tagList) ?: emptySet(),
+        data.keys(PutArticleRequest::title),
+        data.keys(PutArticleRequest::description),
+        data.keys(PutArticleRequest::body),
+        data.keys(PutArticleRequest::tagList) ?: emptySet(),
     )
 
     fun toFieldsMap(): Map<String, *> =
@@ -94,7 +114,20 @@ data class ArticleResponse(
     val favorited: Boolean,
     val favoritesCount: Int,
     val author: AuthorResponse
-)
+) {
+    constructor(data: Map<*, *>) : this(
+        slug = data.requireKeys(ArticleCreationResponse::slug),
+        title = data.requireKeys(ArticleCreationResponse::title),
+        description = data.requireKeys(ArticleCreationResponse::description),
+        body = data.requireKeys(ArticleCreationResponse::body),
+        tagList = data.keys(ArticleCreationResponse::tagList) ?: emptySet(),
+        createdAt = data.requireKeys(ArticleCreationResponse::createdAt),
+        updatedAt = data.requireKeys(ArticleCreationResponse::updatedAt),
+        favorited = data.requireKeys(ArticleCreationResponse::favorited),
+        favoritesCount = data.requireKeys(ArticleCreationResponse::favoritesCount),
+        author = data.requireKeys(ArticleCreationResponse::author),
+    )
+}
 
 data class ArticleResponseRoot(val article: ArticleResponse) {
     constructor(article: Article, author: User, user: User?) : this(

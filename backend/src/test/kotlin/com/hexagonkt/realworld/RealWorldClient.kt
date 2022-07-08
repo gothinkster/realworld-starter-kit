@@ -1,22 +1,18 @@
 package com.hexagonkt.realworld
 
 import com.hexagonkt.core.media.ApplicationMedia.JSON
-import com.hexagonkt.core.require
 import com.hexagonkt.core.requireKeys
 import com.hexagonkt.http.client.HttpClient
 import com.hexagonkt.http.client.HttpClientSettings
 import com.hexagonkt.http.client.model.HttpClientResponse
 import com.hexagonkt.http.client.jetty.JettyClientAdapter
-import com.hexagonkt.http.model.ContentType
-import com.hexagonkt.http.model.Header
-import com.hexagonkt.http.model.HttpFields
-import com.hexagonkt.http.model.HttpStatus
+import com.hexagonkt.http.model.*
+import com.hexagonkt.http.model.ClientErrorStatus.NOT_FOUND
 import com.hexagonkt.http.model.SuccessStatus.OK
 import com.hexagonkt.realworld.messages.*
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.rest.bodyMap
-import com.hexagonkt.serialization.parse
 import kotlin.text.Charsets.UTF_8
 
 internal class RealWorldClient(val client: HttpClient) {
@@ -120,9 +116,9 @@ internal class RealWorldClient(val client: HttpClient) {
             assert(status == OK)
             assert(contentType == contentType)
 
-            val profileResponse = body.require().parse<ProfileResponseRoot>()
-            assert(profileResponse.profile.username == user.username)
-            assert(profileResponse.profile.following == following)
+            val profileResponse = ProfileResponse(bodyMap())
+            assert(profileResponse.username == user.username)
+            assert(profileResponse.following == following)
         }
     }
 
@@ -134,9 +130,9 @@ internal class RealWorldClient(val client: HttpClient) {
             assert(status == OK)
             assert(contentType == contentType)
 
-            val profileResponse = body.require().parse<ProfileResponseRoot>()
-            assert(profileResponse.profile.username == user.username)
-            assert(profileResponse.profile.following == follow)
+            val profileResponse = ProfileResponse(bodyMap())
+            assert(profileResponse.username == user.username)
+            assert(profileResponse.following == follow)
         }
     }
 
@@ -145,12 +141,12 @@ internal class RealWorldClient(val client: HttpClient) {
             assert(status == OK)
             assert(contentType == contentType)
 
-            val postArticleResponse = body.require().parse<ArticleCreationResponseRoot>()
-            assert(postArticleResponse.article.body == article.body)
-            assert(postArticleResponse.article.slug == article.slug)
-            assert(postArticleResponse.article.description == article.description)
-            assert(!postArticleResponse.article.favorited)
-            assert(postArticleResponse.article.favoritesCount == 0)
+            val postArticleResponse = ArticleCreationResponse(bodyMap().requireKeys("article"))
+            assert(postArticleResponse.body == article.body)
+            assert(postArticleResponse.slug == article.slug)
+            assert(postArticleResponse.description == article.description)
+            assert(!postArticleResponse.favorited)
+            assert(postArticleResponse.favoritesCount == 0)
         }
     }
 
@@ -159,34 +155,33 @@ internal class RealWorldClient(val client: HttpClient) {
             assert(status == OK)
             assert(contentType == contentType)
 
-            val getArticleResponse = body.require().parse<ArticleResponseRoot>()
-            assert(getArticleResponse.article.slug == slug)
+            val getArticleResponse = ArticleResponse(bodyMap().requireKeys("article"))
+            assert(getArticleResponse.slug == slug)
         }
     }
 
     fun deleteArticle(slug: String) {
         client.delete("/articles/$slug").apply {
-            assert(status in setOf(200, 404))
+            assert(status in setOf(OK, NOT_FOUND))
             assert(contentType == contentType)
 
             if (status == OK)
-                assert(body.require().parse<OkResponse>().message == "Article $slug deleted")
+                assert(OkResponse(bodyMap().requireKeys("message")).message == "Article $slug deleted")
             else
-                assert(body.require().parse<ErrorResponseRoot>().errors.body.first() == "Article $slug not found")
+                assert(ErrorResponse(bodyMap().requireKeys("errors", "body")).body.first() == "Article $slug not found")
         }
     }
 
     fun updateArticle(article: Article, updateRequest: PutArticleRequest) {
-        client.put("/articles/${article.slug}", PutArticleRequestRoot(updateRequest)).apply {
+        client.put("/articles/${article.slug}", mapOf("article" to updateRequest)).apply {
             assert(status == OK)
             assert(contentType == contentType)
 
-            val articleResponse = body.require().parse<ArticleCreationResponseRoot>()
-            val responseArticle = articleResponse.article
+            val responseArticle = ArticleCreationResponse(bodyMap().requireKeys("article"))
             assert(responseArticle.slug == article.slug)
-            assert(responseArticle.title == updateRequest.title ?: article.title)
-            assert(responseArticle.description == updateRequest.description ?: article.description)
-            assert(responseArticle.body == updateRequest.body ?: article.body)
+            assert(responseArticle.title == (updateRequest.title ?: article.title))
+            assert(responseArticle.description == (updateRequest.description ?: article.description))
+            assert(responseArticle.body == (updateRequest.body ?: article.body))
         }
     }
 
@@ -195,7 +190,8 @@ internal class RealWorldClient(val client: HttpClient) {
             assert(status == OK)
             assert(contentType == contentType)
 
-            val feedResponse = body.require().parse<ArticlesResponseRoot>()
+            val feedArticles = bodyMap().requireKeys<List<Map<*, *>>>("articles").map { ArticleResponse(it) }
+            val feedResponse = ArticlesResponseRoot(feedArticles, articles.size.toLong())
             assert(feedResponse.articlesCount >= feedResponse.articles.size)
             assert(feedResponse.articles.size == articles.size)
             assert(feedResponse.articles.all {
@@ -212,8 +208,8 @@ internal class RealWorldClient(val client: HttpClient) {
             assert(status == OK)
             assert(contentType == contentType)
 
-            val profileResponse = body.require().parse<ArticleResponseRoot>()
-            assert(profileResponse.article.favorited == favorite)
+            val profileResponse = ArticleResponse(bodyMap().requireKeys("article"))
+            assert(profileResponse.favorited == favorite)
         }
     }
 
@@ -232,17 +228,17 @@ internal class RealWorldClient(val client: HttpClient) {
     }
 
     fun createComment(article: String, comment: CommentRequest) {
-        client.post("/articles/$article/comments", CommentRequestRoot(comment)).apply {
-            assert(status in setOf(200, 404))
+        client.post("/articles/$article/comments", mapOf("comment" to comment)).apply {
+            assert(status in setOf(OK, NOT_FOUND))
             assert(contentType == contentType)
 
             if (status == OK) {
-                val commentsResponse = body.require().parse(CommentResponseRoot::class)
-                assert(commentsResponse.comment.body == comment.body)
+                val commentsResponse = CommentResponse(bodyMap().requireKeys("comment"))
+                assert(commentsResponse.body == comment.body)
             }
-            else if (status == 404) {
-                val commentsResponse = body.require().parse<ErrorResponseRoot>()
-                assert(commentsResponse.errors.body.first() == "$article article not found")
+            else if (status == NOT_FOUND) {
+                val commentsResponse = ErrorResponse(bodyMap().requireKeys("errors", "body"))
+                assert(commentsResponse.body.first() == "$article article not found")
             }
         }
     }
@@ -251,7 +247,7 @@ internal class RealWorldClient(val client: HttpClient) {
         client.delete("/articles/$article/comments/$id").apply {
             assert(status == OK)
             assert(contentType == contentType)
-            assert(body.require().parse<OkResponse>().message == "$id deleted")
+            assert(OkResponse(bodyMap().requireKeys("message")).message == "$id deleted")
         }
     }
 
@@ -260,9 +256,9 @@ internal class RealWorldClient(val client: HttpClient) {
             assert(status == OK)
             assert(contentType == contentType)
 
-            val commentsResponse = body.require().parse(CommentsResponseRoot::class)
-            assert(commentsResponse.comments.size == ids.size)
-            assert(commentsResponse.comments.map { it.id }.containsAll(ids.toSet()))
+            val commentsResponse = bodyMap().requireKeys<List<Map<*, *>>>("comments").map { CommentResponse(it) }
+            assert(commentsResponse.size == ids.size)
+            assert(commentsResponse.map { it.id }.containsAll(ids.toSet()))
         }
     }
 
@@ -271,9 +267,9 @@ internal class RealWorldClient(val client: HttpClient) {
             assert(status == OK)
             assert(contentType == contentType)
 
-            val tagsResponse = body.require().parse(TagsResponseRoot::class)
-            assert(tagsResponse.tags.size == expectedTags.size)
-            assert(tagsResponse.tags.containsAll(expectedTags.toSet()))
+            val tags = bodyMap().requireKeys<Collection<String>>("tags")
+            assert(tags.size == expectedTags.size)
+            assert(tags.containsAll(expectedTags.toSet()))
         }
     }
 
@@ -287,14 +283,14 @@ internal class RealWorldClient(val client: HttpClient) {
             .map { it.key + "=" + it.value }
             .joinToString("&", "?")
 
-        val response = client.get("/articles$queryString").apply {
+        client.get("/articles$queryString").apply {
             assert(status == OK)
             assert(contentType == contentType)
 
-            val articles = body.require().parse<ArticlesResponseRoot>()
-            assert(articles.articlesCount >= 0)
+            val articles = bodyMap().requireKeys<List<Map<*, *>>>("articles").map { ArticleResponse(it) }
+            val articlesRoot = ArticlesResponseRoot(articles, articles.size.toLong())
+            assert(articlesRoot.articlesCount >= 0)
+            return articles
         }
-
-        return response.body.require().parse<ArticlesResponseRoot>().articles
     }
 }
