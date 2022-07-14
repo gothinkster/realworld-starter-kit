@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-class ProfileRestControllerTest extends ControllerTest{
+class ProfileControllerTest extends ControllerTest{
 
     private final User followee = new User("followee@gmail.com", "1234", "followee", "I'm a followee", "https://aaabbb.jpg");
 

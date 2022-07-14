@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/articles")
-public class ArticleRestController {
+public class ArticleController {
 
     private final ArticleService articleService;
 
     private final FollowStateService followStateService;
 
-    public ArticleRestController(ArticleService articleService, FollowStateService followStateService) {
+    public ArticleController(ArticleService articleService, FollowStateService followStateService) {
         this.articleService = articleService;
         this.followStateService = followStateService;
     }

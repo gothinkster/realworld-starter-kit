@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-class ArticleRestControllerTest extends ControllerTest{
+class ArticleControllerTest extends ControllerTest{
 
     @Autowired
     private ArticleRepository articleRepository;
