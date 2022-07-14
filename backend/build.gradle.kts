@@ -25,14 +25,15 @@ tasks.named("assemble") {
 
 dependencies {
     val hexagonVersion = properties["hexagonVersion"]
+    val hexagonExtraVersion = properties["hexagonExtraVersion"]
     val javaJwtVersion = properties["javaJwtVersion"]
 
-    "implementation"("com.hexagonkt:rest:$hexagonVersion")
+    "implementation"("com.hexagonkt:rest:$hexagonExtraVersion")
     "implementation"("com.hexagonkt:serialization_jackson_yaml:$hexagonVersion")
     "implementation"("com.hexagonkt:http_server_jetty:$hexagonVersion")
     "implementation"("com.hexagonkt:logging_slf4j_jul:$hexagonVersion")
     "implementation"("com.hexagonkt:serialization_jackson_json:$hexagonVersion")
-    "implementation"("com.hexagonkt:store_mongodb:$hexagonVersion")
+    "implementation"("com.hexagonkt:store_mongodb:$hexagonExtraVersion")
     "implementation"("com.auth0:java-jwt:$javaJwtVersion")
 
     "testImplementation"("com.hexagonkt:http_client_jetty:$hexagonVersion")
