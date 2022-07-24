@@ -1,4 +1,4 @@
-package com.hexagonkt.realworld.rest
+package com.hexagonkt.realworld
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm

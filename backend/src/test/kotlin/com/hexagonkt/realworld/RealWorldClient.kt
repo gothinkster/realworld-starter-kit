@@ -13,11 +13,17 @@ import com.hexagonkt.realworld.messages.*
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.rest.bodyMap
+import com.hexagonkt.serialization.serialize
+import kotlin.test.assertEquals
 import kotlin.text.Charsets.UTF_8
 
 internal class RealWorldClient(val client: HttpClient) {
 
     private val contentType = ContentType(JSON, charset = UTF_8)
+
+    init {
+        client.start()
+    }
 
     private fun User.toRegistrationRequest(): RegistrationRequest =
         RegistrationRequest(email, username, password)
@@ -37,8 +43,7 @@ internal class RealWorldClient(val client: HttpClient) {
 
     fun registerUser(user: User) {
         registerUser(user) {
-            assert(status == HttpStatus[201])
-            assert(contentType == contentType)
+            assertEquals(HttpStatus[201], status)
 
             val userResponse = UserResponse(bodyMap().requireKeys("user"))
             assert(userResponse.username == user.username)
@@ -48,7 +53,8 @@ internal class RealWorldClient(val client: HttpClient) {
     }
 
     fun registerUser(user: User, callback: HttpClientResponse.() -> Unit) {
-        client.post("/users", user.toRegistrationRequest()).apply(callback)
+//        client.post("/users", user.toRegistrationRequest().toMap()).apply(callback)
+        client.post("/users", user.toRegistrationRequest().serialize(JSON)).apply(callback)
     }
 
     fun loginUser(user: User): RealWorldClient {

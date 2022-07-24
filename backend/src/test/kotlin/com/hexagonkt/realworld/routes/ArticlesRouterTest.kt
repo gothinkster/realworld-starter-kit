@@ -1,17 +1,11 @@
 package com.hexagonkt.realworld.routes
 
-import com.hexagonkt.core.CodedException
 import com.hexagonkt.realworld.createJwt
-import com.hexagonkt.realworld.rest.Jwt
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.store.Store
-import io.mockk.every
 import io.mockk.mockk
-import org.junit.jupiter.api.Test
-import java.lang.IllegalStateException
 import java.net.URL
-import kotlin.test.assertFailsWith
 
 class ArticlesRouterTest {
 

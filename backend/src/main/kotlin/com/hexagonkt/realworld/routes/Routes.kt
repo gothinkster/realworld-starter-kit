@@ -15,7 +15,7 @@ import com.hexagonkt.http.server.handlers.path
 import com.hexagonkt.realworld.jwt
 import com.hexagonkt.realworld.messages.ErrorResponse
 import com.hexagonkt.realworld.messages.ErrorResponseRoot
-import com.hexagonkt.realworld.rest.Jwt
+import com.hexagonkt.realworld.Jwt
 import kotlin.text.Charsets.UTF_8
 
 val contentType = ContentType(ApplicationMedia.JSON, charset = UTF_8)

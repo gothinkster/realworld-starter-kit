@@ -2,13 +2,14 @@ package com.hexagonkt.realworld.routes
 
 import com.hexagonkt.core.media.ApplicationMedia.JSON
 import com.hexagonkt.core.require
+import com.hexagonkt.core.requireKeys
 import com.hexagonkt.http.model.ClientErrorStatus.UNAUTHORIZED
 import com.hexagonkt.http.model.ContentType
 import com.hexagonkt.http.server.handlers.HttpServerContext
 import com.hexagonkt.http.server.handlers.path
 import com.hexagonkt.realworld.jwt
 import com.hexagonkt.realworld.messages.*
-import com.hexagonkt.realworld.rest.Jwt
+import com.hexagonkt.realworld.Jwt
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.realworld.users
 import com.hexagonkt.rest.bodyMap
@@ -25,7 +26,7 @@ internal val usersRouter by lazy {
 }
 
 private fun HttpServerContext.register(users: Store<User, String>, jwt: Jwt): HttpServerContext {
-    val user = RegistrationRequest(request.bodyMap())
+    val user = RegistrationRequest(request.bodyMap().requireKeys("user"))
 
     val key = users.insertOne(User(user.username, user.email, user.password))
     val content = UserResponseRoot(
@@ -42,7 +43,7 @@ private fun HttpServerContext.register(users: Store<User, String>, jwt: Jwt): Ht
 }
 
 private fun HttpServerContext.login(users: Store<User, String>, jwt: Jwt): HttpServerContext {
-    val bodyUser = LoginRequest(request.bodyMap())
+    val bodyUser = LoginRequest(request.bodyMap().requireKeys("user"))
     val filter = mapOf(User::email.name to bodyUser.email)
     val user = users.findOne(filter) ?: return notFound("Not Found")
     return if (user.password == bodyUser.password) {
@@ -56,7 +57,8 @@ private fun HttpServerContext.login(users: Store<User, String>, jwt: Jwt): HttpS
 // TODO Authenticate and require 'root' user or owner
 private fun HttpServerContext.deleteUser(users: Store<User, String>): HttpServerContext {
     val username = pathParameters.require("username")
-    return if (users.deleteOne(username))
+    val deleteOne = users.deleteOne(username)
+    return if (deleteOne)
         ok(OkResponse("$username deleted"), contentType = ContentType(JSON, charset = UTF_8))
     else
         notFound("$username not found")

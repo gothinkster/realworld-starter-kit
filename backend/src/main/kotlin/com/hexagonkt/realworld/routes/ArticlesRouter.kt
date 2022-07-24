@@ -11,7 +11,7 @@ import com.hexagonkt.realworld.*
 import com.hexagonkt.realworld.articles
 import com.hexagonkt.realworld.jwt
 import com.hexagonkt.realworld.messages.*
-import com.hexagonkt.realworld.rest.Jwt
+import com.hexagonkt.realworld.Jwt
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.rest.bodyMap

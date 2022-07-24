@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import java.net.InetSocketAddress
 import java.net.URL
+import kotlin.test.assertEquals
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class WebApplicationTest {
@@ -39,7 +40,10 @@ class WebApplicationTest {
     }
 
     @Test fun `Servlet server starts`() {
-        val response = HttpClient(JettyClientAdapter(), URL("http://$hostname:$port/api")).get("/articles")
-        assert(response.status.code == 200)
+        val response = HttpClient(JettyClientAdapter(), URL("http://$hostname:$port/api")).use {
+            it.start()
+            it.get("/articles")
+        }
+        assertEquals(200, response.status.code)
     }
 }

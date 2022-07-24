@@ -7,7 +7,7 @@ import com.hexagonkt.http.server.handlers.path
 import com.hexagonkt.realworld.jwt
 import com.hexagonkt.realworld.messages.PutUserRequest
 import com.hexagonkt.realworld.messages.UserResponseRoot
-import com.hexagonkt.realworld.rest.Jwt
+import com.hexagonkt.realworld.Jwt
 import com.hexagonkt.rest.bodyMap
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.realworld.users

@@ -1,5 +1,6 @@
 package com.hexagonkt.realworld.rest
 
+import com.hexagonkt.realworld.Jwt
 import org.junit.jupiter.api.Test
 import java.net.URL
 
