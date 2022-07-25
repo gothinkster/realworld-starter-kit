@@ -22,7 +22,9 @@ import jakarta.servlet.annotation.WebListener
 @Suppress("unused")
 class WebApplication : ServletServer(router)
 
-internal val server: HttpServer by lazy { HttpServer(JettyServletAdapter(), router, HttpServerSettings(contextPath = "/api")) }
+internal val serverSettings = HttpServerSettings(contextPath = "/api")
+internal val serverAdapter = JettyServletAdapter()
+internal val server: HttpServer by lazy { HttpServer(serverAdapter, router, serverSettings) }
 internal val jwt: Jwt by lazy { createJwt() }
 internal val users: Store<User, String> by lazy { createUserStore() }
 internal val articles: Store<Article, String> by lazy { createArticleStore() }

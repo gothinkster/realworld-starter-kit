@@ -81,7 +81,7 @@ internal fun HttpServerContext.unauthorized(body: String = "Unauthorized"): Http
     clientError(UNAUTHORIZED, body)
 
 internal fun HttpServerContext.parsePrincipal(jwt: Jwt): DecodedJWT? {
-    val token = request.headers["Authorization"]
+    val token = request.headers["authorization"]
 
     return if (token == null) {
         null
