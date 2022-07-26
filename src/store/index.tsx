@@ -26,6 +26,8 @@ type Actions = {
 	makeFavorite?: any
 	loadArticles?: any
 	setPage?: any
+	register?: any
+	login?: any	
 }
 
 const RouterContext = createContext<{

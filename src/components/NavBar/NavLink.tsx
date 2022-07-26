@@ -7,7 +7,8 @@ export default (props) => {
 		<a
 			class={props.class}
 			classList={{ active: props.active || params.routeName === props.route }}
-			href={`#/${props.href || props.route}`}
+			// href={`#/${props.href || props.route}`}
+			href={`${props.href || props.route}`}
 			onClick={() => window.scrollTo(0, 0)}
 		>
 			{props.children}

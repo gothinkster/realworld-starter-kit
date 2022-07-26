@@ -7,9 +7,9 @@ import { useLocation, useNavigate } from 'solid-app-router'
 export default function Home() {
 	const { hash } = useLocation()
 	const navigate = useNavigate()
-	if (!hash.startsWith('#/')) {
-		navigate('/#/')
-	}
+	// if (!hash.startsWith('#/')) {
+	// 	navigate('/#/')
+	// }
 	const [store, { loadArticles, setPage }] = useStore()
 	const { token, appName } = store
 	const [tab, setTab] = createSignal('all')
