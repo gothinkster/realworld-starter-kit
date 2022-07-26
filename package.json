@@ -1,0 +1,30 @@
+{
+  "name": "solidstart-realworld",
+  "scripts": {
+    "dev": "solid-start dev",
+    "build": "solid-start build",
+    "start": "solid-start start",
+    "postinstall": "node ./scripts/fix-jest-dom.mjs",
+    "test": "vitest run"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.2",
+    "@types/testing-library__jest-dom": "^5.14.3",
+    "jsdom": "^19.0.0",
+    "solid-app-router": "^0.4.1",
+    "solid-js": "^1.4.0",
+    "solid-meta": "^0.27.3",
+    "solid-start": "next",
+    "solid-start-node": "next",
+    "solid-testing-library": "^0.3.0",
+    "typescript": "^4.4.3",
+    "undici": "^4.12.2",
+    "vite": "^3.0.3",
+    "vite-plugin-inspect": "^0.3.13",
+    "vitest": "^0.6.1"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

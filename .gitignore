@@ -1,8 +1,14 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+#solid-start
+dist
+.solid
+.output
+.vercel
+.netlify
+netlify
 
 # dependencies
 /node_modules
-/dist
 
 # IDEs and editors
 /.idea
@@ -22,10 +28,9 @@
 .history/*
 
 
-#System Files
+# System Files
 .DS_Store
 Thumbs.db
-
 
 #log files
 npm-debug.log*
