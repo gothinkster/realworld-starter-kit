@@ -1,5 +1,5 @@
 import { createStore } from 'solid-js/store'
-import { Accessor, createContext, useContext } from 'solid-js'
+import { Accessor, createContext, JSX, useContext } from 'solid-js'
 
 import createAuth from './createAuth'
 import createAgent from './createAgent'
@@ -7,7 +7,6 @@ import createCommon from './createCommon'
 import createProfile from './createProfile'
 import createArticles from './createArticles'
 import createComments from './createComments'
-import createRouteHandler from './createRouteHandler'
 
 import type { Article, Comment, Profile, Tag, User } from '../types/index'
 
@@ -36,33 +35,34 @@ const RouterContext = createContext<{
 }>()
 const StoreContext = createContext<[State, Actions]>()
 
-export function Provider(props) {
+export function Provider(props: {
+	children: number | boolean | Node | JSX.ArrayElement | JSX.FunctionElement | JSX.Element
+}) {
 	let articles, comments, tags, profile, currentUser
-	const router = createRouteHandler(''),
-		[state, setState] = createStore({
-			get articles() {
-				return articles()
-			},
-			get comments() {
-				return comments()
-			},
-			get tags() {
-				return tags()
-			},
-			get profile() {
-				return profile()
-			},
-			get currentUser() {
-				return currentUser()
-			},
-			page: 0,
-			totalPagesCount: 0,
-			token: localStorage.getItem('jwt'),
-			appName: 'conduit'
-		}),
-		actions = {},
-		store: [State, Actions] = [state, actions],
-		agent = createAgent(store)
+	const [state, setState] = createStore({
+		get articles() {
+			return articles()
+		},
+		get comments() {
+			return comments()
+		},
+		get tags() {
+			return tags()
+		},
+		get profile() {
+			return profile()
+		},
+		get currentUser() {
+			return currentUser()
+		},
+		page: 0,
+		totalPagesCount: 0,
+		token: localStorage !== undefined ? localStorage.getItem('jwt') : undefined,
+		appName: 'conduit'
+	})
+	const actions = {}
+	const store: [State, Actions] = [state, actions]
+	const agent = createAgent(store)
 
 	articles = createArticles(agent, actions, state, setState)
 	comments = createComments(agent, actions, state, setState)
@@ -70,11 +70,7 @@ export function Provider(props) {
 	profile = createProfile(agent, actions, state, setState)
 	currentUser = createAuth(agent, actions, setState)
 
-	return (
-		<RouterContext.Provider value={router}>
-			<StoreContext.Provider value={store}>{props.children}</StoreContext.Provider>
-		</RouterContext.Provider>
-	)
+	return <StoreContext.Provider value={store}>{props.children}</StoreContext.Provider>
 }
 
 export function useStore() {

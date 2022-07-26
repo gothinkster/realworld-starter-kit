@@ -4,6 +4,7 @@ import { ErrorBoundary } from 'solid-start/error-boundary'
 import { Suspense } from 'solid-js'
 
 import { Provider } from './store'
+import DefaultLayout from './layout/DefaultLayout'
 
 export default function Root() {
 	return (
@@ -26,7 +27,7 @@ export default function Root() {
 				<link rel='preconnect' href='https://static.productionready.io' crossorigin='anonymous' />
 				<link rel='preconnect' href='https://api.realworld.io' crossorigin='anonymous' />
 				<link rel='preconnect' href='http://code.ionicframework.com' crossorigin='anonymous' />
-				<link rel='stylesheet' href='//demo.productionready.io/main.css' />
+				<link rel='stylesheet' href='/css/main.css' />
 				<link
 					rel='shortcut icon'
 					type='image/x-icon'
@@ -39,7 +40,9 @@ export default function Root() {
 				<ErrorBoundary>
 					<Suspense>
 						<Provider>
-							<Routes />
+							<DefaultLayout>
+								<Routes />
+							</DefaultLayout>
 						</Provider>
 					</Suspense>
 				</ErrorBoundary>
