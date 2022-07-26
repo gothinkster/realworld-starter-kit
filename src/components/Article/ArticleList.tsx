@@ -15,7 +15,7 @@ export default (props) => {
 		}
 	return (
 		<Suspense fallback={<div class='article-preview'>Loading articles...</div>}>
-			<div class='article-list'>
+			<section class='article-list'>
 				<For
 					each={props.articles}
 					fallback={<div class='article-preview'>No articles are here... yet.</div>}
@@ -41,7 +41,7 @@ export default (props) => {
 						</ul>
 					</nav>
 				</Show>
-			</div>
+			</section>
 		</Suspense>
 	)
 }

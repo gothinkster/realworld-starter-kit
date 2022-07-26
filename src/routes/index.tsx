@@ -4,7 +4,6 @@ import { useStore } from '~/store'
 import ArticleList from '~/components/Article/ArticleList'
 import { useLocation, useNavigate } from 'solid-app-router'
 
-
 export default function Home() {
 	const { hash } = useLocation()
 	const navigate = useNavigate()
