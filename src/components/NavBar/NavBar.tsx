@@ -1,5 +1,5 @@
 import { Show } from 'solid-js'
-import { useStore } from '../store'
+import { useStore } from '~/store'
 import NavLink from './NavLink'
 
 export default () => {

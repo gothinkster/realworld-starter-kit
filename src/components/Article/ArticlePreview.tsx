@@ -1,4 +1,4 @@
-import NavLink from '../NavLink'
+import NavLink from '../NavBar/NavLink'
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary'
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary'

@@ -1,6 +1,6 @@
 import type { JSX } from 'solid-js'
 
-import NavBar from '~/components/NavBar'
+import NavBar from '~/components/NavBar/NavBar'
 
 import './defaultLayout.css'
 
