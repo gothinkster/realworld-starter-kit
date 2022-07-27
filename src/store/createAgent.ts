@@ -1,4 +1,4 @@
-import { Article, User } from '../types/index'
+import { Article, Comment, Optional, User } from '~/types'
 
 const API_ROOT = 'https://api.realworld.io/api'
 
@@ -19,7 +19,7 @@ type CreateArticleRequest = {
 }
 
 type UpdateArticleRequest = {
-	article: Omit<Article, 'slug'>
+	article: Optional<Article, keyof Article>
 }
 
 type CreateCommentRequest = {
@@ -50,6 +50,10 @@ type ArticlesResponse = Response & {
 	articlesCount: number
 }
 
+type CommentResponse = Response & {
+	comment: Comment
+}
+
 export type Agent = {
 	Articles: {
 		all: (page: number, lim?: number, predicate?: any) => Promise<ArticlesResponse>
@@ -61,7 +65,7 @@ export type Agent = {
 		feed: (size?: number, offset?: number) => Promise<ArticlesResponse>
 		get: (slug: string) => Promise<ArticleResponse>
 		unfavorite: (slug: string) => Promise<ArticleResponse>
-		update: (article: Article) => Promise<ArticleResponse>
+		update: (article: Optional<Article, keyof Article>) => Promise<ArticleResponse>
 		create: (article: Article) => Promise<ArticleResponse>
 	}
 	Auth: {
@@ -71,9 +75,9 @@ export type Agent = {
 		save: (user: User) => Promise<UserResponse>
 	}
 	Comments: {
-		create: (slug: string, comment: Comment) => Promise<ArticlesResponse>
-		delete: (slug: string, commentId: number) => Promise<ArticlesResponse>
-		forArticle: (slug: string) => Promise<ArticlesResponse>
+		create: (slug: string, comment: Comment) => Promise<CommentResponse>
+		delete: (slug: string, commentId: number) => Promise<CommentResponse>
+		forArticle: (slug: string) => Promise<Comment[]>
 	}
 	Profile: {
 		follow: (username: string) => Promise<ArticlesResponse>
@@ -125,35 +129,42 @@ export default function createAgent([state, actions]): Agent {
 	}
 
 	const limit = (count: number, p: number) => `limit=${count}&offset=${p ? p * count : 0}`
-	const omitSlug = (article: Article): Omit<Article, 'slug'> =>
-		Object.assign({}, article, { slug: undefined })
+	const omitSlug = (
+		article: Article | Optional<Article, keyof Article>
+	): Optional<Article, keyof Article> => Object.assign({}, article, { slug: undefined })
 
 	const Articles = {
-		all: (page, lim = 10, _predicate?: any) => send('get', `/articles?${limit(lim, page)}`),
-		byAuthor: (author, page, size = 5) =>
+		all: (page: number, lim = 10, _predicate?: any) => send('get', `/articles?${limit(lim, page)}`),
+		byAuthor: (author: string, page: number, size = 5) =>
 			send('get', `/articles?author=${encode(author)}&${limit(size, page)}`),
-		byTag: (tag, page, lim = 10) => send('get', `/articles?tag=${encode(tag)}&${limit(lim, page)}`),
-		del: (slug) => send('delete', `/articles/${slug}`),
-		favorite: (slug) => send('post', `/articles/${slug}/favorite`),
-		favoritedBy: (author, page, size = 5) =>
+		byTag: (tag, page: number, lim = 10) =>
+			send('get', `/articles?tag=${encode(tag)}&${limit(lim, page)}`),
+		del: (slug: string) => send('delete', `/articles/${slug}`),
+		favorite: (slug: string) => send('post', `/articles/${slug}/favorite`),
+		favoritedBy: (author: string, page: number, size = 5) =>
 			send('get', `/articles?favorited=${encode(author)}&${limit(size, page)}`),
 		feed: (size = 10, offset = 0) => send('get', `/articles/feed?${limit(size, offset)}`),
-		get: (slug) => send('get', `/articles/${slug}`, undefined, 'article'),
-		unfavorite: (slug) => send('delete', `/articles/${slug}/favorite`),
-		update: (article) => send('put', `/articles/${article.slug}`, { article: omitSlug(article) }),
-		create: (article) => send('post', '/articles', { article })
+		get: (slug: string) => send('get', `/articles/${slug}`, undefined, 'article'),
+		unfavorite: (slug: string) => send('delete', `/articles/${slug}/favorite`),
+		update: (article: Optional<Article, keyof Article>) =>
+			send('put', `/articles/${article.slug}`, { article: omitSlug(article) }),
+		create: (article: Article) => send('post', '/articles', { article })
 	}
 
 	const Comments = {
-		create: (slug, comment) => send('post', `/articles/${slug}/comments`, { comment }),
-		delete: (slug, commentId) => send('delete', `/articles/${slug}/comments/${commentId}`),
-		forArticle: (slug) => send('get', `/articles/${slug}/comments`, undefined, 'comments')
+		create: (slug: string, comment) => send('post', `/articles/${slug}/comments`, { comment }),
+		delete: (slug: string, commentId: number) =>
+			send('delete', `/articles/${slug}/comments/${commentId}`),
+		forArticle: (slug: string) => {
+			if (!slug) return
+			return send('get', `/articles/${slug}/comments`, undefined, 'comments')
+		}
 	}
 
 	const Profile = {
-		follow: (username) => send('post', `/profiles/${username}/follow`),
-		get: (username) => send('get', `/profiles/${username}`, undefined, 'profile'),
-		unfollow: (username) => send('delete', `/profiles/${username}/follow`)
+		follow: (username: string) => send('post', `/profiles/${username}/follow`),
+		get: (username: string) => send('get', `/profiles/${username}`, undefined, 'profile'),
+		unfollow: (username: string) => send('delete', `/profiles/${username}/follow`)
 	}
 
 	return {

@@ -22,12 +22,12 @@ export default () => {
 						fallback={
 							<>
 								<li class='nav-item'>
-									<NavLink class='nav-link' route='login'>
+									<NavLink class='nav-link' route='/login'>
 										Sign in
 									</NavLink>
 								</li>
 								<li class='nav-item'>
-									<NavLink class='nav-link' route='register'>
+									<NavLink class='nav-link' route='/register'>
 										Sign up
 									</NavLink>
 								</li>
@@ -35,17 +35,17 @@ export default () => {
 						}
 					>
 						<li class='nav-item'>
-							<NavLink class='nav-link' route='editor'>
+							<NavLink class='nav-link' route='/editor'>
 								<i class='ion-compose' /> New Post
 							</NavLink>
 						</li>
 						<li class='nav-item'>
-							<NavLink class='nav-link' route='settings'>
+							<NavLink class='nav-link' route='/settings'>
 								<i class='ion-gear-a' /> Settings
 							</NavLink>
 						</li>
 						<li class='nav-item'>
-							<NavLink class='nav-link' route='profile' href={`@${store.currentUser.username}`}>
+							<NavLink class='nav-link' route='/profile' href={`@${store.currentUser.username}`}>
 								{store.currentUser.username}
 							</NavLink>
 						</li>

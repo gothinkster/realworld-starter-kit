@@ -1,5 +1,13 @@
-import { Setter } from 'solid-js'
+import { JSX, Setter } from 'solid-js'
 
+export type Children =
+	| number
+	| boolean
+	| Node
+	| JSX.Element
+	| JSX.ArrayElement
+	| JSX.FunctionElement
+	| (string & {})
 export interface User {
 	email: string
 	token: string
@@ -55,7 +63,9 @@ export type State = {
 	totalPagesCount: number
 	token: string
 	appName: string
+	articleSlug: string
 }
+
 export type Actions = {
 	loadArticle?: (slug: string) => Promise<void>
 	loadArticles?: (predicate: {
@@ -68,8 +78,12 @@ export type Actions = {
 	updateArticle?: (article: Optional<Article, keyof Article>) => Promise<Article>
 	deleteArticle?: (slug: string) => Promise<void>
 	setPage?: (page: number) => Promise<void>
+	setSlug?: (slug: string) => Promise<void>
 	unmakeFavorite?: (slug: string) => Promise<void>
 	makeFavorite?: (slug: string) => Promise<void>
+	createComment?: any
+	deleteComment?: any
+	loadComments?: any
 	register?: any
 	login?: any
 	logout?: any

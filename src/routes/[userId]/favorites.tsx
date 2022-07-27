@@ -1,4 +1,4 @@
-import { createComputed } from 'solid-js'
+import { onMount } from 'solid-js'
 import { useParams } from 'solid-app-router'
 
 import { useStore } from '~/store'
@@ -10,7 +10,7 @@ export default () => {
 
 	const [_, { loadArticles }] = useStore()
 
-	createComputed(() => loadArticles({ favoritedBy: userId.slice(1) }))
+	onMount(() => loadArticles({ favoritedBy: userId.slice(1) }))
 
 	return (
 		<div class='articles-toggle'>

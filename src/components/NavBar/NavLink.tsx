@@ -1,12 +1,13 @@
 import { useParams } from 'solid-app-router'
-import { JSX } from 'solid-js/jsx-runtime'
+
+import type { Children } from '~/types'
 
 export default (props: {
 	route?: string
 	class?: string
 	active?: boolean
 	href?: string
-	children: number | boolean | Node | JSX.ArrayElement | JSX.FunctionElement | (string & {})
+	children: Children
 }) => {
 	const { routeName } = useParams()
 

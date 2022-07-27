@@ -4,7 +4,14 @@ import { createResource, createSignal } from 'solid-js'
 
 import type { Agent } from './createAgent'
 
-import { Actions, Article, State, Tag } from '~/types'
+import type { Actions, Article, State, Tag } from '~/types'
+
+type ArticlePredicate = {
+	myFeed?: any
+	favoritedBy?: string
+	tag?: string
+	author?: string
+}
 
 const LIMIT = 10
 
@@ -14,10 +21,16 @@ export default function createArticles(
 	state: State,
 	setState: SetStoreFunction<State>
 ) {
-	const [articleSource, setArticleSource] = createSignal()
-	const [articles] = createResource(
+	const [articleSource, setArticleSource] = createSignal<
+		[type: 'articles', predicate: ArticlePredicate] | [type: 'article', slug: string]
+	>()
+	const [articles] = createResource<
+		{ [slug: string]: Article },
+		[type: 'articles', predicate: ArticlePredicate] | [type: 'article', slug: string]
+	>(
 		articleSource,
 		(args, { value }) => {
+			// if we ask for articles (plural)
 			if (args[0] === 'articles') {
 				return $req(args[1]).then(({ articles: receivedArticles, articlesCount }) => {
 					queueMicrotask(() => setState({ totalPagesCount: Math.ceil(articlesCount / LIMIT) }))
@@ -27,6 +40,7 @@ export default function createArticles(
 					}, {})
 				})
 			}
+			// if we ask for article (single)
 			const article = state.articles[args[1]]
 			if (article) return value
 			return agent.Articles.get(args[1]).then((singleArticle) => ({
@@ -37,7 +51,7 @@ export default function createArticles(
 		{ initialValue: {} }
 	)
 
-	function $req(predicate) {
+	function $req(predicate: ArticlePredicate) {
 		if (predicate.myFeed) return agent.Articles.feed(state.page, LIMIT)
 		if (predicate.favoritedBy)
 			return agent.Articles.favoritedBy(predicate.favoritedBy, state.page, LIMIT)
@@ -48,6 +62,9 @@ export default function createArticles(
 
 	Object.assign(actions, {
 		setPage: (page: number) => setState({ page }),
+		setSlug: (slug: string) => {
+			setState({ articleSlug: slug })
+		},
 		loadArticles(predicate: {
 			tag?: Tag
 			author?: string

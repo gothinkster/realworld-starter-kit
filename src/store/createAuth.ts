@@ -1,9 +1,14 @@
-import { Actions, User } from '~/types'
+import type { SetStoreFunction } from 'solid-js/store'
 import { createSignal, createResource, batch } from 'solid-js'
 
 import type { Agent } from './createAgent'
+import type { Actions, State, User } from '~/types'
 
-export default function createAuth(agent: Agent, actions: Actions, setState) {
+export default function createAuth(
+	agent: Agent,
+	actions: Actions,
+	setState: SetStoreFunction<State>
+) {
 	const [loggedIn, setLoggedIn] = createSignal(false),
 		[currentUser, { mutate }] = createResource(loggedIn, agent.Auth.current)
 	Object.assign(actions, {

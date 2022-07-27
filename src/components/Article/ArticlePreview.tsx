@@ -16,12 +16,12 @@ export default ({ article, token, onClickFavorite }) => {
 	return (
 		<div class='article-preview'>
 			<div class='article-meta'>
-				<NavLink href={`@${username}`} route='profile'>
+				<NavLink href={`@${username}`} route='/profile'>
 					<img src={image} alt='' />
 				</NavLink>
 
 				<div class='info'>
-					<NavLink class='author' href={`@${username}`} route='profile'>
+					<NavLink class='author' href={`@${username}`} route='/profile'>
 						{username}
 					</NavLink>
 					<span class='date' textContent={/*@once*/ new Date(createdAt).toDateString()} />
@@ -39,7 +39,7 @@ export default ({ article, token, onClickFavorite }) => {
 				)}
 			</div>
 
-			<NavLink href={`article/${slug}`} route='article' class='preview-link'>
+			<NavLink href={`article/${slug}`} route='/article' class='preview-link'>
 				<h1>{title}</h1>
 				<p>{description}</p>
 				<span>Read more...</span>

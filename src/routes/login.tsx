@@ -1,8 +1,8 @@
 import { createStore } from 'solid-js/store'
 
-import NavLink from '~/components/NavBar/NavLink'
-import { useStore } from '../store'
+import { useStore } from '~/store'
 import Form from '~/components/Form/Form'
+import NavLink from '~/components/NavBar/NavLink'
 import TextInput from '~/components/Form/TextInput'
 
 type AuthState = {
@@ -21,7 +21,7 @@ export default () => {
 					<div class='col-md-6 offset-md-3 col-xs-12'>
 						<h1 class='text-xs-center' textContent='Sign in' />
 						<p class='text-xs-center'>
-							<NavLink route='register'>Need an account?</NavLink>
+							<NavLink route='/register'>Need an account?</NavLink>
 						</p>
 						<Form buttonText='Sign In' submitFn={() => login(state.email, state.password)}>
 							<TextInput

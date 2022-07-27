@@ -51,7 +51,7 @@ export default () => {
 						<Form
 							buttonText='Update Settings'
 							submitFn={submitForm}
-							postSubmitFn={() => setState({ updatingUser: false })}
+							postSubmitFn={async () => setState({ updatingUser: false })}
 							redirect={`@${state.username}`}
 						>
 							<TextInput

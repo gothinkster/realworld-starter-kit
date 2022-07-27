@@ -1,12 +1,9 @@
-import type { JSX } from 'solid-js'
-
+import type { Children } from '~/types'
 import NavBar from '~/components/NavBar/NavBar'
 
 import './defaultLayout.css'
 
-export default function DefaultLayout(props: {
-	children: number | boolean | Node | JSX.ArrayElement | JSX.FunctionElement | JSX.Element
-}) {
+export default function DefaultLayout(props: { children: Children }) {
 	return (
 		<>
 			<header>

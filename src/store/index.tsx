@@ -1,5 +1,5 @@
 import { createStore } from 'solid-js/store'
-import { createContext, JSX, useContext } from 'solid-js'
+import { createContext, useContext } from 'solid-js'
 
 import createAuth from './createAuth'
 import createAgent from './createAgent'
@@ -8,13 +8,11 @@ import createProfile from './createProfile'
 import createArticles from './createArticles'
 import createComments from './createComments'
 
-import type { Actions, State } from '~/types'
+import type { Actions, Children, State } from '~/types'
 
 const StoreContext = createContext<[State, Actions]>()
 
-export function Provider(props: {
-	children: number | boolean | Node | JSX.ArrayElement | JSX.FunctionElement | JSX.Element
-}) {
+export function Provider(props: { children: Children }) {
 	let articles, comments, tags, profile, currentUser
 	const [state, setState] = createStore({
 		get articles() {
@@ -35,7 +33,8 @@ export function Provider(props: {
 		page: 0,
 		totalPagesCount: 0,
 		token: localStorage !== undefined ? localStorage.getItem('jwt') : undefined,
-		appName: 'conduit'
+		appName: 'conduit',
+		articleSlug: ''
 	})
 	const actions = {}
 	const store: [State, Actions] = [state, actions]

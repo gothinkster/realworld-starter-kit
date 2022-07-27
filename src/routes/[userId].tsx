@@ -1,9 +1,9 @@
+import { createComputed } from 'solid-js'
 import { Outlet, useParams } from 'solid-app-router'
 
 import { useStore } from '~/store'
 import NavLink from '~/components/NavBar/NavLink'
 import ArticleList from '~/components/Article/ArticleList'
-import { createComputed } from 'solid-js'
 
 export default (props: { username: string; routeName: string }) => {
 	const params = useParams()
@@ -37,7 +37,7 @@ export default (props: { username: string; routeName: string }) => {
 							{isUser() && (
 								<NavLink
 									active={false}
-									route='settings'
+									route='/settings'
 									class='btn btn-sm btn-outline-secondary action-btn'
 								>
 									<i class='ion-gear-a' /> Edit Profile Settings

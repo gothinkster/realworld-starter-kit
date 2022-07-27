@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@testing-library/jest-dom': ^5.16.2
+  '@types/marked': ^4.0.3
   '@types/testing-library__jest-dom': ^5.14.3
   '@typescript-eslint/eslint-plugin': ^5.31.0
   '@typescript-eslint/parser': ^5.31.0
@@ -10,6 +11,7 @@ specifiers:
   eslint-plugin-prettier: ^4.2.1
   eslint-plugin-solid: ^0.7.1
   jsdom: ^19.0.0
+  marked: ^4.0.18
   prettier: ^2.7.1
   solid-app-router: ^0.4.1
   solid-js: ^1.4.0
@@ -23,8 +25,12 @@ specifiers:
   vite-plugin-inspect: ^0.3.13
   vitest: ^0.6.1
 
+dependencies:
+  marked: 4.0.18
+
 devDependencies:
   '@testing-library/jest-dom': 5.16.4
+  '@types/marked': 4.0.3
   '@types/testing-library__jest-dom': 5.14.5
   '@typescript-eslint/eslint-plugin': 5.31.0_d5zwcxr4bwkhmuo464cb3a2puu
   '@typescript-eslint/parser': 5.31.0_he2ccbldppg44uulnyq4rwocfa
@@ -1510,6 +1516,10 @@ packages:
 
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
+    dev: true
+
+  /@types/marked/4.0.3:
+    resolution: {integrity: sha512-HnMWQkLJEf/PnxZIfbm0yGJRRZYYMhb++O9M36UCTA9z53uPvVoSlAwJr3XOpDEryb7Hwl1qAx/MV6YIW1RXxg==}
     dev: true
 
   /@types/node/18.6.1:
@@ -3338,6 +3348,12 @@ packages:
     dependencies:
       sourcemap-codec: 1.4.8
     dev: true
+
+  /marked/4.0.18:
+    resolution: {integrity: sha512-wbLDJ7Zh0sqA0Vdg6aqlbT+yPxqLblpAZh1mK2+AO2twQkPywvvqQNfEPVwSSRjZ7dZcdeVBIAgiO7MMp3Dszw==}
+    engines: {node: '>= 12'}
+    hasBin: true
+    dev: false
 
   /merge-anything/5.0.2:
     resolution: {integrity: sha512-POPQBWkBC0vxdgzRJ2Mkj4+2NTKbvkHo93ih+jGDhNMLzIw+rYKjO7949hOQM2X7DxMHH1uoUkwWFLIzImw7gA==}

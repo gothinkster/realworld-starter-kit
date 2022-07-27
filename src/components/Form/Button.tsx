@@ -1,7 +1,7 @@
 type ButtonProps = {
 	type: 'submit' | 'button'
-	disabled: boolean
-	textContent: string | number
+	disabled?: boolean
+	textContent?: string | number
 }
 
 export default ({ type = 'submit', disabled = false, textContent = 'Submit' }: ButtonProps) => {

@@ -12,13 +12,15 @@ type FormState = {
 
 export default (props: {
 	class?: string
+	avatarUrl: string
 	buttonText?: string
 	children?: number | boolean | Node | JSX.ArrayElement | JSX.FunctionElement | (string & {})
 	redirect?: string
-	submitFn: (event: Event) => Promise<void> | Promise<any>
+	submitFn?: (event: Event) => Promise<void>
 	postSubmitFn?: () => Promise<void> | void
 }) => {
-	const { buttonText, submitFn, children, postSubmitFn = () => {}, redirect = '/' } = props
+	const { avatarUrl, buttonText, children, submitFn, postSubmitFn } = props
+
 	const [state, setState] = createStore<FormState>({
 		inProgress: false
 	})
@@ -29,10 +31,7 @@ export default (props: {
 		event.preventDefault()
 		setState({ inProgress: true })
 		submitFn(event)
-			.then((resp) => {
-				const url = resp?.slug ? `${redirect}/${resp.slug}` : redirect
-				return navigate(url)
-			})
+			.then(() => navigate('/'))
 			.catch((errors: string[]) => setState({ errors }))
 			.finally(() => setState({ inProgress: false }))
 
@@ -42,11 +41,12 @@ export default (props: {
 	return (
 		<>
 			<ListErrors errors={state.errors} />
-			<form class={props.class} onSubmit={handleSubmit}>
-				<fieldset>
-					{children}
-					<Button disabled={state.inProgress} type='submit' textContent={buttonText} />
-				</fieldset>
+			<form class='card comment-form' onSubmit={handleSubmit}>
+				<div class='card-block'>{children}</div>
+				<div class='card-footer'>
+					<img src={avatarUrl} class='comment-author-img' alt='' />
+					<Button textContent={buttonText} type='submit' />
+				</div>
 			</form>
 		</>
 	)
