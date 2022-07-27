@@ -15,12 +15,12 @@ export default (props: {
 }) => {
 	return (
 		<div class='article-meta'>
-			<NavLink href={`@${props.article?.author.username}`} route='/profile'>
+			<NavLink href={`/@${props.article?.author.username}`} route='/profile'>
 				<img src={props.article?.author.image} alt='' />
 			</NavLink>
 
 			<div class='info'>
-				<NavLink href={`@${props.article?.author.username}`} route='/profile' class='author'>
+				<NavLink href={`/@${props.article?.author.username}`} route='/profile' class='author'>
 					{props.article?.author.username}
 				</NavLink>
 				<span class='date'>{new Date(props.article?.createdAt).toDateString()}</span>

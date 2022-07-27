@@ -16,11 +16,11 @@ export default ({ comment, currentUser, onDelete }) => {
 				<p class='card-text' textContent={body} />
 			</div>
 			<div class='card-footer'>
-				<NavLink href={`@${username}`} route='/profile' class='comment-author'>
+				<NavLink href={`/@${username}`} route='/profile' class='comment-author'>
 					<img src={image} class='comment-author-img' alt='' />
 				</NavLink>
 				&nbsp;
-				<NavLink href={`@${username}`} route='/profile' class='comment-author'>
+				<NavLink href={`/@${username}`} route='/profile' class='comment-author'>
 					{username}
 				</NavLink>
 				<span class='date-posted'>{new Date(createdAt).toDateString()}</span>
