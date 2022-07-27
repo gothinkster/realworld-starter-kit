@@ -1,28 +1,18 @@
 import { createStore } from 'solid-js/store'
 
 import NavLink from '~/components/NavBar/NavLink'
-import ListErrors from '~/components/Form/ListErrors'
 import { useStore } from '../store'
+import Form from '~/components/Form/Form'
+import TextInput from '~/components/Form/TextInput'
 
 type AuthState = {
 	email: string
 	password: string
-	inProgress: boolean
-	errors?: string[]
 }
 
 export default () => {
-	const [state, setState] = createStore<AuthState>({ email: '', password: '', inProgress: false }),
+	const [state, setState] = createStore<AuthState>({ email: '', password: '' }),
 		[, { login }] = useStore()
-
-	const handleSubmit = (e) => {
-		e.preventDefault()
-		setState({ inProgress: true })
-		login(state.email, state.password)
-			.then(() => (location.hash = '/'))
-			.catch((errors: string[]) => setState({ errors }))
-			.finally(() => setState({ inProgress: false }))
-	}
 
 	return (
 		<div class='auth-page'>
@@ -33,39 +23,23 @@ export default () => {
 						<p class='text-xs-center'>
 							<NavLink route='register'>Need an account?</NavLink>
 						</p>
-						<ListErrors errors={state.errors} />
-						<form onSubmit={handleSubmit}>
-							<fieldset class='form-group'>
-								<input
-									class='form-control form-control-lg'
-									type='text'
-									placeholder='Email'
-									value={state.email}
-									onChange={(e) => {
-										const t = e.target as HTMLInputElement
-										return setState({ email: t.value })
-									}}
-								/>
-							</fieldset>
-							<fieldset class='form-group'>
-								<input
-									class='form-control form-control-lg'
-									type='password'
-									placeholder='Password'
-									value={state.password}
-									onChange={(e) => {
-										const t = e.target as HTMLInputElement
-										return setState({ password: t.value })
-									}}
-								/>
-							</fieldset>
-							<button
-								class='btn btn-lg btn-primary pull-xs-right'
-								type='submit'
-								disabled={state.inProgress}
-								textContent='Sign in'
+						<Form buttonText='Sign In' submitFn={() => login(state.email, state.password)}>
+							<TextInput
+								placeholder='Email'
+								value={state.email}
+								onChange={(event: { target: HTMLInputElement }) =>
+									setState({ email: event.target.value })
+								}
 							/>
-						</form>
+							<TextInput
+								placeholder='Password'
+								type='password'
+								value={state.password}
+								onChange={(event: { target: HTMLInputElement }) =>
+									setState({ password: event.target.value })
+								}
+							/>
+						</Form>
 					</div>
 				</div>
 			</div>

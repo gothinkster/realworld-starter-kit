@@ -1,5 +1,5 @@
 import { createStore } from 'solid-js/store'
-import { Accessor, createContext, JSX, useContext } from 'solid-js'
+import { createContext, JSX, useContext } from 'solid-js'
 
 import createAuth from './createAuth'
 import createAgent from './createAgent'
@@ -8,33 +8,8 @@ import createProfile from './createProfile'
 import createArticles from './createArticles'
 import createComments from './createComments'
 
-import type { Article, Comment, Profile, Tag, User } from '../types/index'
+import type { Actions, State } from '~/types'
 
-type State = {
-	readonly articles: Article[] | null
-	readonly comments: Comment[] | null
-	readonly tags: Tag[] | null
-	readonly profile: Profile | null
-	readonly currentUser: User | null
-	page: number
-	totalPagesCount: number
-	token: string
-	appName: string
-}
-type Actions = {
-	unmakeFavorite?: any
-	makeFavorite?: any
-	loadArticles?: any
-	setPage?: any
-	register?: any
-	login?: any	
-}
-
-const RouterContext = createContext<{
-	location: Accessor<string>
-	match: (name: any, test: any) => boolean
-	getParams: () => any
-}>()
 const StoreContext = createContext<[State, Actions]>()
 
 export function Provider(props: {
@@ -77,8 +52,4 @@ export function Provider(props: {
 
 export function useStore() {
 	return useContext(StoreContext)
-}
-
-export function useRouter() {
-	return useContext(RouterContext)
 }

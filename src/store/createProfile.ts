@@ -1,9 +1,10 @@
 import { createSignal, createResource } from 'solid-js'
 
+import { Actions, State } from '~/types'
 import type { Agent } from './createAgent'
 
-export default function createProfile(agent: Agent, actions, state, setState) {
-	const [username, setUsername] = createSignal()
+export default function createProfile(agent: Agent, actions: Actions, state: State, setState) {
+	const [username, setUsername] = createSignal<string>()
 	const [profile] = createResource(username, agent.Profile.get)
 	Object.assign(actions, {
 		loadProfile: setUsername,

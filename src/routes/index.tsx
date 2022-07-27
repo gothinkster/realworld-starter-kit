@@ -2,17 +2,11 @@ import { createComputed, createSignal, For, Show, Suspense, useTransition } from
 
 import { useStore } from '~/store'
 import ArticleList from '~/components/Article/ArticleList'
-import { useLocation, useNavigate } from 'solid-app-router'
 
-export default function Home() {
-	const { hash } = useLocation()
-	const navigate = useNavigate()
-	// if (!hash.startsWith('#/')) {
-	// 	navigate('/#/')
-	// }
+export default () => {
 	const [store, { loadArticles, setPage }] = useStore()
 	const { token, appName } = store
-	const [tab, setTab] = createSignal('all')
+	const [tab, setTab] = createSignal(token ? 'feed' : 'all')
 
 	const [, start] = useTransition()
 
@@ -29,7 +23,7 @@ export default function Home() {
 		}
 	}
 
-	const handleSetPage = (page) => {
+	const handleSetPage = (page: number) => {
 		start(() => {
 			setPage(page)
 			loadArticles(getPredicate())

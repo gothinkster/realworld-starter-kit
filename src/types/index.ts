@@ -1,3 +1,5 @@
+import { Setter } from 'solid-js'
+
 export interface User {
 	email: string
 	token: string
@@ -41,6 +43,41 @@ export interface Comment {
 	updatedAt: string
 	body: string
 	author: Author
+}
+
+export type State = {
+	readonly articles: { [slug: string]: Article } | null
+	readonly comments: Comment[] | null
+	readonly tags: Tag[] | null
+	readonly profile: Profile | null
+	readonly currentUser: User | null
+	page: number
+	totalPagesCount: number
+	token: string
+	appName: string
+}
+export type Actions = {
+	loadArticle?: (slug: string) => Promise<void>
+	loadArticles?: (predicate: {
+		tag?: Tag
+		author?: string
+		myFeed?: boolean
+		favoritedBy?: string
+	}) => Promise<void>
+	createArticle?: (article: Article) => Promise<Article>
+	updateArticle?: (article: Optional<Article, keyof Article>) => Promise<Article>
+	deleteArticle?: (slug: string) => Promise<void>
+	setPage?: (page: number) => Promise<void>
+	unmakeFavorite?: (slug: string) => Promise<void>
+	makeFavorite?: (slug: string) => Promise<void>
+	register?: any
+	login?: any
+	logout?: any
+	setToken?: any
+	updateUser?: any
+	unfollow?: () => Promise<void>
+	follow?: () => Promise<void>
+	loadProfile?: Setter<string>
 }
 
 export type ResponseType<K extends string, V> = Promise<{ [P in K]: V }>

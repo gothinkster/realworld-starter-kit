@@ -8,12 +8,12 @@ export default () => {
 	return (
 		<nav class='navbar navbar-light'>
 			<div class='container'>
-				<NavLink class='navbar-brand' route=''>
+				<NavLink class='navbar-brand' route='/'>
 					{store.appName}
 				</NavLink>
 				<ul class='nav navbar-nav pull-xs-right'>
 					<li class='nav-item'>
-						<NavLink class='nav-link' route=''>
+						<NavLink class='nav-link' route='/'>
 							Home
 						</NavLink>
 					</li>

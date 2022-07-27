@@ -1,9 +1,9 @@
+import { Actions, User } from '~/types'
 import { createSignal, createResource, batch } from 'solid-js'
 
-import { User } from '../types/index'
 import type { Agent } from './createAgent'
 
-export default function createAuth(agent: Agent, actions, setState) {
+export default function createAuth(agent: Agent, actions: Actions, setState) {
 	const [loggedIn, setLoggedIn] = createSignal(false),
 		[currentUser, { mutate }] = createResource(loggedIn, agent.Auth.current)
 	Object.assign(actions, {
@@ -27,9 +27,9 @@ export default function createAuth(agent: Agent, actions, setState) {
 			})
 		},
 		async updateUser(newUser: User) {
-			const { user, errors } = await agent.Auth.save(newUser)
-			if (errors) throw errors
-			mutate(user)
+			const resp = await agent.Auth.save(newUser)
+			if (resp.errors) throw resp.errors
+			mutate(resp)
 		}
 	})
 	return currentUser

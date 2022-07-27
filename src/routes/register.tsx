@@ -1,8 +1,9 @@
 import { createStore } from 'solid-js/store'
 
+import { useStore } from '~/store'
+import Form from '~/components/Form/Form'
+import TextInput from '~/components/Form/TextInput'
 import NavLink from '~/components/NavBar/NavLink'
-import ListErrors from '~/components/Form/ListErrors'
-import { useStore } from '../store'
 
 type AuthState = {
 	username: string
@@ -20,14 +21,6 @@ export default () => {
 		password: '',
 		inProgress: false
 	})
-	const handleSubmit = (e) => {
-		e.preventDefault()
-		setState({ inProgress: true })
-		register(state.username, state.email, state.password)
-			.then(() => (location.hash = '/'))
-			.catch((errors: string[]) => setState({ errors }))
-			.finally(() => setState({ inProgress: false }))
-	}
 
 	return (
 		<div class='auth-page'>
@@ -38,51 +31,33 @@ export default () => {
 						<p class='text-xs-center'>
 							<NavLink route='login'>Have an account?</NavLink>
 						</p>
-						<ListErrors errors={state.errors} />
-						<form onSubmit={handleSubmit}>
-							<fieldset class='form-group'>
-								<input
-									class='form-control form-control-lg'
-									type='text'
-									placeholder='Username'
-									value={state.username}
-									onChange={(e) => {
-										const t = e.target as HTMLInputElement
-										return setState({ username: t.value })
-									}}
-								/>
-							</fieldset>
-							<fieldset class='form-group'>
-								<input
-									class='form-control form-control-lg'
-									type='text'
-									placeholder='Email'
-									value={state.email}
-									onChange={(e) => {
-										const t = e.target as HTMLInputElement
-										return setState({ email: t.value })
-									}}
-								/>
-							</fieldset>
-							<fieldset class='form-group'>
-								<input
-									class='form-control form-control-lg'
-									type='password'
-									placeholder='Password'
-									value={state.password}
-									onChange={(e) => {
-										const t = e.target as HTMLInputElement
-										return setState({ password: t.value })
-									}}
-								/>
-							</fieldset>
-							<button
-								class='btn btn-lg btn-primary pull-xs-right'
-								type='submit'
-								disabled={state.inProgress}
-								textContent='Sign up'
+						<Form
+							buttonText='Sign Up'
+							submitFn={() => register(state.username, state.email, state.password)}
+						>
+							<TextInput
+								placeholder='Username'
+								value={state.username}
+								onChange={(event: { target: HTMLInputElement }) =>
+									setState({ username: event.target.value })
+								}
 							/>
-						</form>
+							<TextInput
+								placeholder='Email'
+								value={state.email}
+								onChange={(event: { target: HTMLInputElement }) =>
+									setState({ email: event.target.value })
+								}
+							/>
+							<TextInput
+								placeholder='Password'
+								type='password'
+								value={state.password}
+								onChange={(event: { target: HTMLInputElement }) =>
+									setState({ password: event.target.value })
+								}
+							/>
+						</Form>
 					</div>
 				</div>
 			</div>

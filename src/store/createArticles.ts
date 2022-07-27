@@ -1,10 +1,19 @@
+import type { SetStoreFunction } from 'solid-js/store'
+
 import { createResource, createSignal } from 'solid-js'
 
 import type { Agent } from './createAgent'
 
+import { Actions, Article, State, Tag } from '~/types'
+
 const LIMIT = 10
 
-export default function createArticles(agent: Agent, actions, state, setState) {
+export default function createArticles(
+	agent: Agent,
+	actions: Actions,
+	state: State,
+	setState: SetStoreFunction<State>
+) {
 	const [articleSource, setArticleSource] = createSignal()
 	const [articles] = createResource(
 		articleSource,
@@ -39,14 +48,20 @@ export default function createArticles(agent: Agent, actions, state, setState) {
 
 	Object.assign(actions, {
 		setPage: (page: number) => setState({ page }),
-		loadArticles(predicate) {
+		loadArticles(predicate: {
+			tag?: Tag
+			author?: string
+			myFeed?: boolean
+			favoritedBy?: string
+		}) {
 			setArticleSource(['articles', predicate])
 		},
 		loadArticle(slug: string) {
 			setArticleSource(['article', slug])
 		},
 		async makeFavorite(slug: string) {
-			const article = state.articles[slug]
+			const article: Article | null = state.articles[slug]
+
 			if (article && !article.favorited) {
 				setState('articles', slug, (s) => ({
 					favorited: true,
@@ -81,7 +96,7 @@ export default function createArticles(agent: Agent, actions, state, setState) {
 				}
 			}
 		},
-		async createArticle(newArticle) {
+		async createArticle(newArticle: Article) {
 			const { article, errors } = await agent.Articles.create(newArticle)
 			if (errors) throw errors
 			setState('articles', { [article.slug]: article })
