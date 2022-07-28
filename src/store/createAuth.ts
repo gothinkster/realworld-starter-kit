@@ -29,6 +29,7 @@ export default function createAuth(
 			batch(() => {
 				setState({ token: undefined })
 				mutate(undefined)
+				setLoggedIn(false)
 			})
 		},
 		async updateUser(newUser: User) {

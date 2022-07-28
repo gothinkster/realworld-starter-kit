@@ -17,9 +17,7 @@ export function Provider(props: { children: Children }) {
 	let articles, comments, tags, profile, currentUser
 	const extractToken = () => {
 		if (isServer) return undefined
-		const token = localStorage.getItem('jwt') ?? undefined
-		if (token) return token
-		return token
+		return localStorage.getItem('jwt') ?? undefined
 	}
 	const [state, setState] = createStore({
 		get articles() {
@@ -52,6 +50,8 @@ export function Provider(props: { children: Children }) {
 	tags = createCommon(agent, actions, state, setState)
 	profile = createProfile(agent, actions, state, setState)
 	currentUser = createAuth(agent, actions, setState)
+
+	if (state.token) (actions as Actions).pullUser()
 
 	return <StoreContext.Provider value={store}>{props.children}</StoreContext.Provider>
 }

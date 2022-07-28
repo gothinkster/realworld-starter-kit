@@ -85,6 +85,7 @@ export type Actions = {
 	deleteComment?: any
 	loadComments?: any
 	register?: any
+	pullUser?: any
 	login?: any
 	logout?: any
 	setToken?: any
