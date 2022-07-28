@@ -7,10 +7,10 @@
 		"moduleResolution": "node",
 		"jsxImportSource": "solid-js",
 		"jsx": "preserve",
-		"types": ["vite/client"],
+		"types": ["vite/client", "vitest"],
 		"baseUrl": "./",
 		"paths": {
 			"~/*": ["./src/*"]
-		},
-	},
+		}
+	}
 }

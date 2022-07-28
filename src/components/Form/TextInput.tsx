@@ -1,7 +1,7 @@
 type TextInputAttributes = {
 	children?: any
 	value: string
-	disabled: boolean
+	disabled?: boolean
 	placeholder: string
 	onBlur?: (ev: any) => void
 	onKeyUp?: (ev: any) => void

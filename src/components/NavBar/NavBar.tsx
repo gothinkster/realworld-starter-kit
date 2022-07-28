@@ -8,6 +8,7 @@ export default () => {
 	return (
 		<nav class='navbar navbar-light'>
 			<div class='container'>
+				{/* <div style={"background-color: 'lightblue;height: 50vh'"}>{JSON.stringify(store)}</div> */}
 				<NavLink class='navbar-brand' route='/'>
 					{store.appName}
 				</NavLink>

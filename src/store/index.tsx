@@ -1,5 +1,6 @@
 import { createStore } from 'solid-js/store'
 import { createContext, useContext } from 'solid-js'
+import { isServer } from 'solid-js/web'
 
 import createAuth from './createAuth'
 import createAgent from './createAgent'
@@ -14,6 +15,12 @@ const StoreContext = createContext<[State, Actions]>()
 
 export function Provider(props: { children: Children }) {
 	let articles, comments, tags, profile, currentUser
+	const extractToken = () => {
+		if (isServer) return undefined
+		const token = localStorage.getItem('jwt') ?? undefined
+		if (token) return token
+		return token
+	}
 	const [state, setState] = createStore({
 		get articles() {
 			return articles()
@@ -32,7 +39,7 @@ export function Provider(props: { children: Children }) {
 		},
 		page: 0,
 		totalPagesCount: 0,
-		token: localStorage !== undefined ? localStorage.getItem('jwt') : undefined,
+		token: extractToken(),
 		appName: 'conduit',
 		articleSlug: ''
 	})
