@@ -1,4 +1,4 @@
-type TextInputAttributes = {
+type TextInputProps = {
   children?: any;
   value: string;
   disabled?: boolean;
@@ -9,8 +9,7 @@ type TextInputAttributes = {
   type?: "text" | "password";
 };
 
-export default (_props) => {
-  const props = mergeProps({ type: "text", disabled: false }, _props);
+export default (props: TextInputProps) => {
   return (
     <fieldset class="form-group">
       <input

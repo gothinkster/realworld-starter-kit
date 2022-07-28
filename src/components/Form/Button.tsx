@@ -4,11 +4,7 @@ type ButtonProps = {
   textContent?: string | number;
 };
 
-export default (_props) => {
-  const props = mergeProps(
-    { type: "submit", disabled: false, textContent: "Submit" },
-    _props
-  );
+export default (props: ButtonProps) => {
   return (
     <button
       class="btn btn-lg btn-primary pull-xs-right"

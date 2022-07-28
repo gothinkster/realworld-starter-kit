@@ -6,6 +6,7 @@
     "start": "solid-start start",
     "postinstall": "node ./scripts/fix-jest-dom.mjs",
     "typecheck": "tsc -b",
+    "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|gql|graphql|mdx|vue)\"",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext js,jsx,ts,tsx .",
     "lintfix": "eslint --ext js,jsx,ts,tsx . --fix",
     "test": "vitest run"

@@ -1,40 +1,40 @@
 :root {
-	--barHeight: 3.5rem;
-	--maxContentHeight: calc(100vh - 2 * var(--barHeight));
+  --barHeight: 3.5rem;
+  --maxContentHeight: calc(100vh - 2 * var(--barHeight));
 }
 body {
-	margin: 0;
-	height: 100%;
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: auto 1fr auto;
-	grid-template-areas:
-		'header'
-		'main'
-		'footer';
-	overflow: hidden;
+  margin: 0;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+  overflow: hidden;
 }
 
 header {
-	grid-area: header;
-	background-color: white;
-	height: var(--barHeight, 3.5rem);
+  grid-area: header;
+  background-color: white;
+  height: var(--barHeight, 3.5rem);
 }
 
 main {
-	grid-area: main;
-	overflow: auto;
-	max-height: var(--maxContentHeight);
+  grid-area: main;
+  overflow: auto;
+  max-height: var(--maxContentHeight);
 }
 
 footer {
-	grid-area: footer;
-	background-color: #373a3c;
-	height: var(--barHeight, 3.5rem);
+  grid-area: footer;
+  background-color: #373a3c;
+  height: var(--barHeight, 3.5rem);
 }
 
 .page {
-	max-width: 90vw;
-	padding-top: 1rem;
-	padding-bottom: 1rem;
+  max-width: 90vw;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }

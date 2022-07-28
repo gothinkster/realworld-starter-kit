@@ -1,5 +1,13 @@
-export default (_props) => {
-  const props = mergeProps({ disabled: false, rows: "8" }, _props);
+type TextAreaProps = {
+  children?: any;
+  value: string;
+  disabled?: boolean;
+  placeholder: string;
+  onChange?: (ev: any) => void;
+  type?: "text" | "password";
+};
+
+export default (props: TextAreaProps) => {
   return (
     <fieldset class="form-group">
       <textarea

@@ -1,10 +1,12 @@
 import { For } from "solid-js";
+
+import type { Article } from "~/types";
 import NavLink from "../NavBar/NavLink";
 
 const FAVORITED_CLASS = "btn btn-sm btn-primary";
 const NOT_FAVORITED_CLASS = "btn btn-sm btn-outline-primary";
 
-export default (props) => {
+export default (props: { article: Article }) => {
   const {
     title,
     description,

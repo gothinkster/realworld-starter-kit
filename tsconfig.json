@@ -1,16 +1,18 @@
 {
-	"compilerOptions": {
-		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true,
-		"target": "ESNext",
-		"module": "ESNext",
-		"moduleResolution": "node",
-		"jsxImportSource": "solid-js",
-		"jsx": "preserve",
-		"types": ["vite/client", "vitest"],
-		"baseUrl": "./",
-		"paths": {
-			"~/*": ["./src/*"]
-		}
-	}
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "jsxImportSource": "solid-js",
+    "jsx": "preserve",
+    "types": ["vite/client", "vitest"],
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
