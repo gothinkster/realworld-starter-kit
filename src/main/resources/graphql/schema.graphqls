@@ -1,5 +1,6 @@
 type Query {
     articleById(id: ID): Article
+    articlesByAuthor(id: ID): [Article]
 }
 
 type Article{
