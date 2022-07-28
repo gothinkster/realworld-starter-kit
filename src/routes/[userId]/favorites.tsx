@@ -1,32 +1,32 @@
-import { onMount } from 'solid-js'
-import { useParams } from 'solid-app-router'
+import { onMount } from "solid-js";
+import { useParams } from "solid-app-router";
 
-import { useStore } from '~/store'
+import { useStore } from "~/store";
 
-import NavLink from '~/components/NavBar/NavLink'
+import NavLink from "~/components/NavBar/NavLink";
 
 export default () => {
-	const { userId } = useParams()
+  const { userId } = useParams();
 
-	const [_, { loadArticles }] = useStore()
+  const [_, { loadArticles }] = useStore();
 
-	onMount(() => loadArticles({ favoritedBy: userId.slice(1) }))
+  onMount(() => loadArticles({ favoritedBy: userId.slice(1) }));
 
-	return (
-		<div class='articles-toggle'>
-			<ul class='nav nav-pills outline-active'>
-				<li class='nav-item'>
-					<NavLink class='nav-link' active={false} href={`/${userId}`}>
-						My Articles
-					</NavLink>
-				</li>
+  return (
+    <div class="articles-toggle">
+      <ul class="nav nav-pills outline-active">
+        <li class="nav-item">
+          <NavLink class="nav-link" active={false} href={`/${userId}`}>
+            My Articles
+          </NavLink>
+        </li>
 
-				<li class='nav-item'>
-					<NavLink class='nav-link' active={true} href={`/${userId}/favorites`}>
-						Favorited Articles
-					</NavLink>
-				</li>
-			</ul>
-		</div>
-	)
-}
+        <li class="nav-item">
+          <NavLink class="nav-link" active={true} href={`/${userId}/favorites`}>
+            Favorited Articles
+          </NavLink>
+        </li>
+      </ul>
+    </div>
+  );
+};

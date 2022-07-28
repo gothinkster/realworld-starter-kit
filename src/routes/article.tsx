@@ -1,11 +1,11 @@
-import { Outlet } from 'solid-app-router'
+import { Outlet } from "solid-app-router";
 
-import { useStore } from '~/store'
+import { useStore } from "~/store";
 
 export default () => {
-	const [_, { loadArticles }] = useStore()
+  const [_, { loadArticles }] = useStore();
 
-	loadArticles({})
+  loadArticles({});
 
-	return <Outlet />
-}
+  return <Outlet />;
+};

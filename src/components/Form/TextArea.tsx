@@ -1,14 +1,15 @@
-export default ({ onChange, placeholder, value, disabled = false, rows = '8' }) => {
-	return (
-		<fieldset class='form-group'>
-			<textarea
-				class='form-control form-control-lg'
-				rows={rows}
-				placeholder={placeholder}
-				value={value}
-				onChange={onChange}
-				disabled={disabled}
-			></textarea>
-		</fieldset>
-	)
-}
+export default (_props) => {
+  const props = mergeProps({ disabled: false, rows: "8" }, _props);
+  return (
+    <fieldset class="form-group">
+      <textarea
+        class="form-control form-control-lg"
+        rows={props.rows}
+        placeholder={props.placeholder}
+        value={props.value}
+        onChange={props.onChange}
+        disabled={props.disabled}
+      />
+    </fieldset>
+  );
+};

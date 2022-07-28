@@ -1,5 +1,5 @@
-import { Outlet } from 'solid-app-router'
+import { Outlet } from "solid-app-router";
 
 export default () => {
-	return <Outlet />
-}
+  return <Outlet />;
+};
