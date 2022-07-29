@@ -1,7 +1,16 @@
 package com.realworld.graphqlapi.model;
 
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
-public interface Article {
-    UUID getId();
+@Data
+@Builder
+@AllArgsConstructor
+public class Article {
+    private String id;
+    private String text;
+    private String description;
+    private Author author;
+    private String date;
 }

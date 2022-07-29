@@ -1,42 +1,21 @@
-type ArticlePage{
-    edje:Edje
-    pageInfo:PageInfo
+type Query {
+    articleById(id: ID): Article
+    findArticleByIds(ids: [ID]): [Article]
+    findArticleByIdWithAuthor(id: ID): Article
+    findArticleByIdsWithAuthor(ids: [ID]): [Article]
+    articlesByAuthor(id: ID): [Article]
 }
 
-interface Article{
-    id:ID
-}
-
-type NewsArticle implements Article{
-    id: ID
+type Article{
     text: String
+    id: ID
     description: String
     author: Author
     date: String
 }
 
-type StaticImageArticle implements Article{
-    id:ID
-    url:String
-}
-
-
 type Author {
     id: ID
     firstName: String
     lastName: String
-}
-
-type Edje{
-    node: Node
-}
-type Node{
-    article:Article
-}
-
-type PageInfo{
-    hasNextPage: Boolean
-    hasPreviousPage: Boolean
-    startCursor: Boolean
-    endCursor: Boolean
 }
