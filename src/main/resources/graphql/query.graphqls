@@ -1,5 +1,5 @@
 type Query {
     articleById(id: ID): Article
-    articlesByAuthor(id: ID): [Article]
-#    articles:[ArticlePage]
+#    articlesByAuthor(id: ID): [Article]
+    articles:[ArticlePage]
 }
