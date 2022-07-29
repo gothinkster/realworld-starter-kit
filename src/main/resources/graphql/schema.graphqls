@@ -6,16 +6,46 @@ type Query {
     articlesByAuthor(id: ID): [Article]
 }
 
-type Article{
-    text: String
+interface Article{
+    id:ID
+    author:Author
+}
+
+type NewsArticle implements Article{
     id: ID
-    description: String
     author: Author
+    text: String
+    description: String
     date: String
+}
+
+type StaticImageArticle implements Article{
+    id:ID
+    author:Author
+    url:String
+}
+
+type ArticlePage{
+edje:Edje
+pageInfo:PageInfo
 }
 
 type Author {
     id: ID
     firstName: String
     lastName: String
+}
+
+type Edje{
+    node: Node
+}
+type Node{
+    article:Article
+}
+
+type PageInfo{
+    hasNextPage: Boolean
+    hasPreviousPage: Boolean
+    startCursor: Boolean
+    endCursor: Boolean
 }
