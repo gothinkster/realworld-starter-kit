@@ -2,8 +2,10 @@ package com.realworld.graphqlapi.repository;
 
 import com.realworld.graphqlapi.model.Author;
 
+import java.util.UUID;
+
 public interface AuthorRepository {
     Iterable<Author> getAllAuthors();
 
-    Author getById(String id);
+    Author getById(UUID id);
 }
