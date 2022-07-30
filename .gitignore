@@ -1,33 +1,39 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+# Build
+build
+dist
+lib
+server
+functions/**/*.js
 
-# dependencies
-/node_modules
-/dist
+# Development
+node_modules
 
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+# Cache
+.cache
+.mf
+.vscode
+.rollup.cache
+tsconfig.tsbuildinfo
 
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
-
-
-#System Files
-.DS_Store
-Thumbs.db
-
-
-#log files
+# Logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Yarn
+.yarn/*
+!.yarn/releases
