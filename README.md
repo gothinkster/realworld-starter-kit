@@ -39,42 +39,34 @@ How to start the RealWorld application
     ```
     mvn clean install
     ```
-2. Start PostgreSQL database 
+2. Start PostgreSQL database
     ```
     docker-compose -f docker-compose up db
     ```
-3. Migrate application database schema to latest version 
+3. Migrate application database schema to latest version
     ```
     java -jar target/dropwizard-realworld-example-app-1.0-SNAPSHOT.jar db migrate config.yml
     ```
-4. Start the application 
+4. Start the application
     ```
     java -jar target/dropwizard-realworld-example-app-1.0-SNAPSHOT.jar server config.yml
     ```
-5. To verify that the application is running check the following URLs 
+5. To verify that the application is running check the following URLs
     ```
-    http://localhost:8080 
-    http://localhost:8081
+    http://localhost:8081 -> metrics/health checks
+    http://localhost:8080/api/ -> APIs
     ```
 
-or use docker 
+or use docker
 
 1. Build your application
     ```
     mvn clean install
     ```
-2. Start containers 
+2. Start containers
     ```
     docker-compose -f docker-compose.yml up
     ```
-
-Health Check
----
-
-To see your applications health enter url 
-```
-http://localhost:8081/healthcheck
-```
 
 How to run Sonar code quality check
 ---

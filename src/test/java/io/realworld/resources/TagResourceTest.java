@@ -32,13 +32,13 @@ public class TagResourceTest {
     }
 
     @Test
-    @DisplayName("Verifies if the tags REST service returns the tags in expected format")
+    @DisplayName("Verifies if the 'Tags' REST service returns the tags in expected format")
     public void allTagsAreReturned() throws Exception {
         //given
         given(repository.findAllTags()).willReturn(List.of("tag1", "tag2"));
 
         //when
-        final HttpResponse<String> response = get("/tags");
+        final var response = get("/tags");
 
         //then
         assertThat(response.statusCode()).isEqualTo(200);

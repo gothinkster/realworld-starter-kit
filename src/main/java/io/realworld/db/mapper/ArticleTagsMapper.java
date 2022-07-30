@@ -10,8 +10,8 @@ import java.sql.SQLException;
 public class ArticleTagsMapper implements RowMapper<ArticleTagsMapper.ArticleIdTag> {
 
     @Override
-    public ArticleTagsMapper.ArticleIdTag map(final ResultSet rs, final StatementContext ctx) throws SQLException {
-        final var tuple = new ArticleTagsMapper.ArticleIdTag();
+    public ArticleIdTag map(final ResultSet rs, final StatementContext ctx) throws SQLException {
+        final var tuple = new ArticleIdTag();
         tuple.setArticleId(rs.getLong("ARTICLE_ID"));
         tuple.setTag(rs.getString("NAME"));
         return tuple;

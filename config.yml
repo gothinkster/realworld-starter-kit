@@ -22,7 +22,7 @@ datasource:
     charSet: UTF-8
   # the maximum amount of time to wait on an empty pool before throwing an exception
   maxWaitForConnection: 1s
-  # the SQL query to run when validating a connection's liveness
+  # the SQL query to run when validating a connection's liveliness
   validationQuery: "SELECT 1"
   # the timeout before a connection validation queries fail
   validationQueryTimeout: 3s
@@ -30,9 +30,9 @@ datasource:
   minSize: 1
   # the maximum number of connections to keep open
   maxSize: 32
-  # whether or not idle connections should be validated
+  # whether idle connections should be validated
   checkConnectionWhileIdle: false
   # the amount of time to sleep between runs of the idle connection validation, abandoned cleaner and idle pool resizing
   evictionInterval: 10s
-  # the minimum amount of time an connection must sit idle in the pool before it is eligible for eviction
+  # the minimum amount of time a connection must sit idle in the pool before it is eligible for eviction
   minIdleTime: 1 minute
