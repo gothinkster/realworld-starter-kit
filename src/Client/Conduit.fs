@@ -1,7 +1,9 @@
 module Conduit
 
+open Components
 open Components.NonLoginLayout
 open Components.LoginForm
+open Components.RegisterForm
 open Elmish
 open Feliz
 open Feliz.Router
@@ -34,6 +36,16 @@ let render state dispatch =
                 prop.children [
                     NonLoginLayout "login"
                     LoginForm
+                ]
+            ]
+
+        // view register
+        | [ "register" ] ->
+            Html.div [
+                prop.className "container"
+                prop.children [
+                    NonLoginLayout "register"
+                    RegisterForm
                 ]
             ]
 

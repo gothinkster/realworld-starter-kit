@@ -10,14 +10,12 @@
         <Compile Include="Components/NonLoginLayout.fs" />
         <Compile Include="Components/LoginLayout.fs" />
         <Compile Include="Components/LoginForm.fs" />
+        <Compile Include="Components\RegisterForm.fs" />
         <Compile Include="Conduit.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Shared\Shared.fsproj" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Components" />
     </ItemGroup>
     <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
