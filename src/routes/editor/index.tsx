@@ -1,58 +1,52 @@
-import { component$ } from "@builder.io/qwik";
-import { DocumentHead } from "@builder.io/qwik-city";
+import { component$ } from "@builder.io/qwik"
+import { DocumentHead, EndpointHandler } from "@builder.io/qwik-city"
+import * as api from "~/libs/api"
+import { getSession } from "~/libs/getSession"
+import { Form, getFormData } from "./_form"
+
+export const onGet: EndpointHandler = async ({
+  request,
+  response,
+}) => {
+  const { user } = getSession(request.headers.get("cookie"))
+  if (!user) {
+    response.redirect('/login', 302);
+    return
+  }
+  return {}
+}
+
+export const onPost: EndpointHandler = async ({ request, response }) => {
+  const formData = await request.formData()
+  const { user } = getSession(request.headers.get('cookie'))
+  if (!user) {
+    response.redirect('/login', 302);
+    return
+  }
+  const result = await api.post("articles", {
+    article: getFormData(formData),
+  }, user.token)
+
+  // TODO: error not consumed yet
+  if (result.errors) {
+		return { errors: result.errors };
+	}
+  response.redirect(`article/${result.article.slug}`, 302)
+}
 
 export default component$(() => {
   return (
-    <div class="editor-page">
-      <div class="container page">
-        <div class="row">
-          <div class="col-md-10 offset-md-1 col-xs-12">
-            <form>
-              <fieldset>
-                <fieldset class="form-group">
-                  <input
-                    type="text"
-                    class="form-control form-control-lg"
-                    placeholder="Article Title"
-                  />
-                </fieldset>
-                <fieldset class="form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="What's this article about?"
-                  />
-                </fieldset>
-                <fieldset class="form-group">
-                  <textarea
-                    class="form-control"
-                    rows={8}
-                    placeholder="Write your article (in markdown)"
-                  ></textarea>
-                </fieldset>
-                <fieldset class="form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter tags"
-                  />
-                  <div class="tag-list"></div>
-                </fieldset>
-                <button
-                  class="btn btn-lg pull-xs-right btn-primary"
-                  type="button"
-                >
-                  Publish Article
-                </button>
-              </fieldset>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-});
+    <Form
+    method='post'
+    article={{
+      title: '',
+      description: '',
+      body: '',
+      tagList: []
+    }} />
+  )
+})
 
 export const head: DocumentHead = {
   title: "Editor -- Conduit",
-};
+}

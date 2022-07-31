@@ -1,7 +1,49 @@
-import { component$, Host } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
+import { component$, Host, Resource } from "@builder.io/qwik"
+import {
+  useEndpoint,
+  DocumentHead,
+  EndpointHandler,
+  useLocation,
+} from "@builder.io/qwik-city"
+import ArticleList from "~/components/article/list"
+import { Pagination } from "~/components/pagination"
+import Tabs, { TabsProps } from "~/components/tabs"
+import { components } from "~/libs/api-schema"
+import { getSession } from "~/libs/getSession"
+import { fetchArticles } from "./api/_fetchArticles"
+
+export interface EndpointData {
+  articles: components["schemas"]["Article"][]
+  pages: number
+  tags: string[]
+  user?: components["schemas"]["User"]
+}
+
+export const onGet: EndpointHandler<EndpointData> = async ({ request }) => {
+  const url = new URL(request.url)
+  const { user } = getSession(request.headers.get("cookie"))
+
+  const [{ articles, pages }, { tags }] = await Promise.all([
+    fetchArticles(url.search, user?.token),
+    fetch(`${url.origin}/api/tags.json`).then((r) => r.json()),
+  ])
+
+  return {
+    user,
+    articles,
+    pages,
+    tags,
+  }
+}
 
 export default component$(() => {
+  const resource = useEndpoint<typeof onGet>()
+  const location = useLocation()
+
+  const currentPage = +location.query.page || 1
+  const currentTag = location.query.tag
+  const currentTab = location.query.tab || "all"
+  const linkBase = currentTag ? `/?tag=${currentTag}` : "/?"
   return (
     <Host>
       <div class="home-page">
@@ -14,109 +56,74 @@ export default component$(() => {
 
         <div class="container page">
           <div class="row">
-            <div class="col-md-9">
-              <div class="feed-toggle">
-                <ul class="nav nav-pills outline-active">
-                  <li class="nav-item">
-                    <a class="nav-link disabled" href="">
-                      Your Feed
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" href="">
-                      Global Feed
-                    </a>
-                  </li>
-                </ul>
-              </div>
+            <Resource
+              resource={resource}
+              onResolved={(data) => {
+                const tabList: TabsProps['tabList'] = [
+                  !!data.user ? {
+                    title: 'Your Feed',
+                    href: '/?tab=feed',
+                    active: currentTab === 'feed'
+                  } : {
+                    title: 'Your Feed',
+                    href: '/login',
+                    active: false
+                  },
+                  {
+                    title: 'Global Feed',
+                    active: currentTab === 'all',
+                    href: '/?tab=all'
+                  },
+                ]
+                if (currentTag) {
+                  tabList.push({
+                    title: currentTag,
+                    href: `/?tag=${currentTag}`,
+                    active: true
+                  })
+                }
+                return (
+                  <>
+                    <div class="col-md-9">
+                      <Tabs
+                        tabList={tabList}
+                        class="feed-toggle"
+                      />
+                      <ArticleList articles={data.articles || []} />
+                      <Pagination
+                        pages={data.pages}
+                        currentPage={currentPage}
+                        base={linkBase}
+                      />
+                    </div>
 
-              <div class="article-preview">
-                <div class="article-meta">
-                  <a href="/profile/author">
-                    <img src="http://i.imgur.com/Qr71crq.jpg" />
-                  </a>
-                  <div class="info">
-                    <a href="/profile/author" class="author">
-                      Eric Simons
-                    </a>
-                    <span class="date">January 20th</span>
-                  </div>
-                  <button class="btn btn-outline-primary btn-sm pull-xs-right">
-                    <i class="ion-heart"></i> 29
-                  </button>
-                </div>
-                <a href="/article/how-to" class="preview-link">
-                  <h1>How to build webapps that scale</h1>
-                  <p>This is the description for the post.</p>
-                  <span>Read more...</span>
-                </a>
-              </div>
+                    <div class="col-md-3">
+                      <div class="sidebar">
+                        <p>Popular Tags</p>
 
-              <div class="article-preview">
-                <div class="article-meta">
-                  <a href="/profile/author">
-                    <img src="http://i.imgur.com/N4VcUeJ.jpg" />
-                  </a>
-                  <div class="info">
-                    <a href="/profile/author" class="author">
-                      Albert Pai
-                    </a>
-                    <span class="date">January 20th</span>
-                  </div>
-                  <button class="btn btn-outline-primary btn-sm pull-xs-right">
-                    <i class="ion-heart"></i> 32
-                  </button>
-                </div>
-                <a href="/article/the-song" class="preview-link">
-                  <h1>
-                    The song you won't ever stop singing. No matter how hard you
-                    try.
-                  </h1>
-                  <p>This is the description for the post.</p>
-                  <span>Read more...</span>
-                </a>
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <div class="sidebar">
-                <p>Popular Tags</p>
-
-                <div class="tag-list">
-                  <a href="" class="tag-pill tag-default">
-                    programming
-                  </a>
-                  <a href="" class="tag-pill tag-default">
-                    javascript
-                  </a>
-                  <a href="" class="tag-pill tag-default">
-                    emberjs
-                  </a>
-                  <a href="" class="tag-pill tag-default">
-                    angularjs
-                  </a>
-                  <a href="" class="tag-pill tag-default">
-                    react
-                  </a>
-                  <a href="" class="tag-pill tag-default">
-                    mean
-                  </a>
-                  <a href="" class="tag-pill tag-default">
-                    node
-                  </a>
-                  <a href="" class="tag-pill tag-default">
-                    rails
-                  </a>
-                </div>
-              </div>
-            </div>
+                        <div class="tag-list">
+                          {(data.tags || []).map((tag: string) => (
+                            <a
+                              href={`/?tag=${tag}`}
+                              class="tag-pill tag-default"
+                            >
+                              {tag}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )
+              }}
+            />
           </div>
         </div>
       </div>
     </Host>
-  );
-});
+  )
+})
 
 export const head: DocumentHead = {
   title: "Home -- Conduit",
-};
+}

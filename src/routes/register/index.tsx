@@ -1,5 +1,28 @@
 import { component$ } from "@builder.io/qwik";
-import { DocumentHead } from "@builder.io/qwik-city";
+import { DocumentHead, EndpointHandler } from "@builder.io/qwik-city";
+import * as api from '~/libs/api';
+import { getJwtString } from "~/libs/getJwt";
+
+export const onPost: EndpointHandler = async ({ request, response }) => {
+  const formData = await request.formData();
+  const result = await api.post('users', {
+		user: {
+			email: formData.get('email'),
+			username: formData.get('username'),
+			password: formData.get('password')
+		}
+  });
+
+  if (result.errors) {
+    response.status = 401
+		return { errors: result.errors };
+	}
+
+	const jwt = getJwtString(result.user)
+  response.headers.set('Set-Cookie', `jwt=${jwt}; Path=/; HttpOnly`);
+  response.redirect('/', 302);
+};
+
 
 export default component$(() => {
   return (
@@ -11,23 +34,25 @@ export default component$(() => {
             <p class="text-xs-center">
               <a href="">Have an account?</a>
             </p>
-
-            <ul class="error-messages">
+            {/* TODO: get onPost error data */}
+            {/* <ul class="error-messages">
               <li>That email is already taken</li>
-            </ul>
+            </ul> */}
 
-            <form>
+            <form method="post">
               <fieldset class="form-group">
                 <input
                   class="form-control form-control-lg"
                   type="text"
                   placeholder="Your Name"
+                  name="username"
                 />
               </fieldset>
               <fieldset class="form-group">
                 <input
                   class="form-control form-control-lg"
                   type="text"
+                  name="email"
                   placeholder="Email"
                 />
               </fieldset>
@@ -35,6 +60,7 @@ export default component$(() => {
                 <input
                   class="form-control form-control-lg"
                   type="password"
+                  name="password"
                   placeholder="Password"
                 />
               </fieldset>

@@ -19,8 +19,10 @@
   "devDependencies": {
     "@builder.io/qwik": "0.0.39",
     "@builder.io/qwik-city": "0.0.26",
+    "@types/cookie": "^0.5.1",
     "@types/eslint": "8.4.5",
     "@types/express": "4.17.13",
+    "@types/marked": "^4.0.3",
     "@types/node": "latest",
     "@typescript-eslint/eslint-plugin": "5.30.7",
     "@typescript-eslint/parser": "5.30.7",
@@ -39,5 +41,9 @@
   "homepage": "https://qwik.builder.io/",
   "license": "",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "cookie": "^0.5.0",
+    "marked": "^4.0.18"
+  }
 }
