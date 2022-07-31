@@ -38,10 +38,10 @@ export const toggleProfileFollow = $((
   token?: string
 ) => {
   if (profile.following) {
-    // profile.following = false
+    profile.following = false
     del(`profiles/${profile.username}/follow`, token)
   } else {
-    // profile.following = true
+    profile.following = true
     post(`profiles/${profile.username}/follow`, {}, token)
   }
 })
