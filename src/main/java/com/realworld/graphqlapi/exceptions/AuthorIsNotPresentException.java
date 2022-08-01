@@ -33,16 +33,6 @@ public class AuthorIsNotPresentException extends RuntimeException implements Gra
     }
 
     @Override
-    public List<Object> getPath() {
-        return null;
-    }
-
-    @Override
-    public Map<String, Object> toSpecification() {
-        return null;
-    }
-
-    @Override
     public Map<String, Object> getExtensions() {
         return parameters;
     }

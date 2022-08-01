@@ -1,14 +1,15 @@
 package com.realworld.graphqlapi.resolver;
 
 
+import com.realworld.graphqlapi.exceptions.AuthorIsNotPresentException;
 import com.realworld.graphqlapi.model.Article;
 import com.realworld.graphqlapi.repository.ArticleRepository;
 
+import graphql.execution.DataFetcherResult;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -28,8 +29,21 @@ public class ArticleResolver implements GraphQLQueryResolver {
         return articleRepository.findArticleByIdWithAuthor(id);
     }
 
-    public List<Article> findArticleByIdsWithAuthor(List<UUID> ids) {
-        return ids.stream().map(articleRepository::findArticleByIdWithAuthor).collect(Collectors.toList());
+    public DataFetcherResult<List<Article>> findArticleByIdsWithAuthor(List<UUID> ids) {
+        List<Article> responseData = new ArrayList<>();
+        Map<String, Object> failData = new HashMap<>();
+        for (UUID id : ids) {
+            try {
+                responseData.add(articleRepository.findArticleByIdWithAuthor(id));
+            } catch (AuthorIsNotPresentException e) {
+                failData.put("id", id);
+            }
+        }
+
+        return DataFetcherResult.<List<Article>>newResult()
+                .data(responseData)
+                .error(new AuthorIsNotPresentException("failed to get author for ids:", failData))
+                .build();
     }
 
     public Article articleById(UUID id) {
