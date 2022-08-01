@@ -8,4 +8,6 @@ public interface ArticleRepository {
     Iterable<Article> getAllArticles();
 
     Article getById(UUID id);
+
+    Article findArticleByIdWithAuthor(UUID id);
 }

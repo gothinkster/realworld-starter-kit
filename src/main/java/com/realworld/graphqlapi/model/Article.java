@@ -4,4 +4,6 @@ import java.util.UUID;
 
 public interface Article {
     UUID getId();
+    Author getAuthor();
+
 }

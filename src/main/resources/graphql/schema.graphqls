@@ -1,25 +1,35 @@
-type ArticlePage{
-    edje:Edje
-    pageInfo:PageInfo
+type Query {
+    articleById(id: ID): Article
+    findArticleByIds(ids: [ID]): [Article]
+    findArticleByIdWithAuthor(id: ID): Article
+    findArticleByIdsWithAuthor(ids: [ID]): [Article]
+    articlesByAuthor(id: ID): [Article]
+    articles: [Article]
 }
 
 interface Article{
     id:ID
+    author:Author
 }
 
 type NewsArticle implements Article{
     id: ID
+    author: Author
     text: String
     description: String
-    author: Author
     date: String
 }
 
 type StaticImageArticle implements Article{
     id:ID
+    author:Author
     url:String
 }
 
+type ArticlePage{
+edje:Edje
+pageInfo:PageInfo
+}
 
 type Author {
     id: ID
