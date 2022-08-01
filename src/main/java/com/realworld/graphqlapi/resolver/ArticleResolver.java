@@ -43,4 +43,8 @@ public class ArticleResolver implements GraphQLQueryResolver {
                 .collect(Collectors.toList());
     }
 
+    public Iterable<Article> articles(){
+        return articleRepository.getAllArticles();
+    }
+
 }

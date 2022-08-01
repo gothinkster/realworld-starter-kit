@@ -4,6 +4,7 @@ type Query {
     findArticleByIdWithAuthor(id: ID): Article
     findArticleByIdsWithAuthor(ids: [ID]): [Article]
     articlesByAuthor(id: ID): [Article]
+    articles: [Article]
 }
 
 interface Article{
