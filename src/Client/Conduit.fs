@@ -4,8 +4,10 @@ open Components
 open Components.NonLoginLayout
 open Components.LoginForm
 open Components.RegisterForm
+open Components.GuestHome
 open Elmish
 open Feliz
+open Feliz.Bulma.ElementBuilders
 open Feliz.Router
 
 type State = {
@@ -24,15 +26,16 @@ let render state dispatch =
         // view home
         | [ ] ->
             Html.div [
-                prop.className "container"
+                prop.className "home-page"
                 prop.children [
                     NonLoginLayout ""
+                    GuestHome
                 ]
             ]
         // view login
         | [ "login" ] ->
             Html.div [
-                prop.className "container"
+                prop.className "home-page"
                 prop.children [
                     NonLoginLayout "login"
                     LoginForm
@@ -42,7 +45,7 @@ let render state dispatch =
         // view register
         | [ "register" ] ->
             Html.div [
-                prop.className "container"
+                prop.className "home-page"
                 prop.children [
                     NonLoginLayout "register"
                     RegisterForm
