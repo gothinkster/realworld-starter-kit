@@ -1,10 +1,9 @@
-module Components.LoginForm
+module Components.PageRegister
 
 open Feliz
 open Feliz.Router
 
-[<ReactComponent>]
-let LoginForm : ReactElement =
+let registerForm =
     Html.div [
         prop.className "row"
         prop.children [
@@ -13,19 +12,29 @@ let LoginForm : ReactElement =
                 prop.children [
                     Html.h1 [
                         prop.className "text-xs-center"
-                        prop.text "Sign in"
+                        prop.text "Sign up"
                     ]
                     Html.p [
                         prop.className "text-xs-center"
                         prop.children [
                             Html.a [
-                                prop.href (Router.format("register"))
-                                prop.text "Need an account?"
+                                prop.href (Router.format("login"))
+                                prop.text "Have an account?"
                             ]
                         ]
                     ]
                     Html.form[
                         prop.children[
+                            Html.fieldSet [
+                                prop.className "form-group"
+                                prop.children [
+                                    Html.input [
+                                        prop.className "form-control form-control-lg"
+                                        prop.type' "text"
+                                        prop.placeholder "Username"
+                                    ]
+                                ]
+                            ]
                             Html.fieldSet [
                                 prop.className "form-group"
                                 prop.children [
@@ -54,5 +63,16 @@ let LoginForm : ReactElement =
                     ]
                 ]
             ]
+        ]
+    ]
+
+open Components.LayoutGuess
+[<ReactComponent>]
+let PageRegister : ReactElement =
+    Html.div [
+        prop.className "home-page"
+        prop.children [
+            LayoutGuess "register"
+            registerForm
         ]
     ]

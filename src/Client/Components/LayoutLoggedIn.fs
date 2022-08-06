@@ -1,10 +1,10 @@
-module Components.NonLoginLayout
+module Components.LayoutLoggedIn
 
 open Feliz
 open Feliz.Router
 
 [<ReactComponent>]
-let NonLoginLayout (url: string) : ReactElement =
+let LayoutLoggedIn (url: string) : ReactElement =
     Html.nav [
         prop.className "navbar navbar-light"
         prop.children [
@@ -35,9 +35,9 @@ let NonLoginLayout (url: string) : ReactElement =
                                     prop.className "nav-item"
                                     prop.children [
                                         Html.a [
-                                            if url = "login" then prop.className "nav-link active" else prop.className "nav-link"
-                                            prop.href (Router.format("login"))
-                                            prop.text "Sign In"
+                                            if url = "editor" then prop.className "nav-link active" else prop.className "nav-link"
+                                            prop.href (Router.format("editor"))
+                                            prop.text "New Article"
                                         ]
                                     ]
                                 ]
@@ -45,9 +45,19 @@ let NonLoginLayout (url: string) : ReactElement =
                                     prop.className "nav-item"
                                     prop.children [
                                         Html.a [
-                                            if url = "register" then prop.className "nav-link active" else prop.className "nav-link"
-                                            prop.href  (Router.format("register"))
-                                            prop.text "Sign Up"
+                                            if url = "settings" then prop.className "nav-link active" else prop.className "nav-link"
+                                            prop.href (Router.format("settings"))
+                                            prop.text "Settings"
+                                        ]
+                                    ]
+                                ]
+                                Html.li [
+                                    prop.className "nav-item"
+                                    prop.children [
+                                        Html.a [
+                                            if url = "@" then prop.className "nav-link active" else prop.className "nav-link"
+                                            prop.href  (Router.format("@"))
+                                            prop.text "@"
                                         ]
                                     ]
                                 ]
