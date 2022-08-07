@@ -23,9 +23,11 @@ type Message =
     | Login of PageLogin.Msg
 
 
-let init() = { CurrentUrl = Router.currentUrl(); UserState = UserState.Guess }, Cmd.none
+let init() = {
+      CurrentUrl = Router.currentUrl()
+      UserState = UserState.Guess }, Cmd.none
 
-let update msg state =
+let update (msg : Message) (state : State) =
     match msg with
     | UrlChanged segments -> { state with CurrentUrl = segments }, Cmd.none
     | Login msg -> { state with UserState = UserState.LoggedIn }, Cmd.none

@@ -7,6 +7,7 @@
     <ItemGroup>
         <None Include="index.html" />
         <None Include="paket.references" />
+        <Compile Include="Exension.fs" />
         <Compile Include="Components\LayoutGuess.fs" />
         <Compile Include="Components\LayoutLoggedIn.fs" />
         <Compile Include="Components\PageRegister.fs" />
