@@ -61,7 +61,7 @@ let update (msg: Msg) (state: State) =
     | LoginMsg loginMsg, Page.Login loginState ->
         match loginMsg with
         | PageLogin.UserLoggedIn user ->
-            { state with User = LoggedIn user }, Router.navigate("/")
+            { state with User = LoggedIn user }, Cmd.navigate("/")
 
         | loginMsg ->
             let loginState, loginCmd = PageLogin.update loginMsg loginState
