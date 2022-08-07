@@ -15,11 +15,11 @@ type LoginRequest = {
 }
 
 type UserAuthDto = {
-    email:    string
-    token:    string
-    username: string
-    bio:      string
-    image:    string
+    Email:    string
+    Token:    string
+    Username: string
+    Bio:      string
+    Image:    string
 }
 
 type users = {

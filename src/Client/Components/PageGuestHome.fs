@@ -4,7 +4,7 @@ open Feliz
 
 open Components.LayoutGuess
 [<ReactComponent>]
-let PageGuestHome : ReactElement =
+let PageGuestHome =
         Html.div [
             prop.className "home-page"
             prop.children [

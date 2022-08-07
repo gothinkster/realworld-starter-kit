@@ -2,46 +2,75 @@
 
 open Feliz
 open Feliz.Router
+open Elmish
 
 type State =
-    { Username: string
+    { Email: string
       Password: string
-      LoginAttempt: string }
+      LoginAttempt: Deferred<Api.LoginResult> }
 
 type Msg =
-    | UsernameChanged of string
+    | EmailChanged of string
     | PasswordChanged of string
-    | Login
+    | Login of AsyncOperationStatus<Api.LoginResult>
 
-open Elmish
+let (|UserLoggedIn|_|) = function
+    | Msg.Login (Finished (Api.LoginResult.LoggedIn user)) -> Some user
+    | _ -> None
+
 let init() =
-    { Username = ""
+    { Email = ""
       Password = ""
-      LoginAttempt = "" }, Cmd.none
+      LoginAttempt = HasNotStartedYet }, Cmd.none
 
 
 let update (msg: Msg) (state: State) =
     match msg with
-    | UsernameChanged username ->
-        { state with Username = username  }, Cmd.none
+    | EmailChanged email ->
+        { state with Email = email  }, Cmd.none
 
     | PasswordChanged password ->
         { state with Password = password }, Cmd.none
 
-    | Login ->
-        let nextState = { state with LoginAttempt = "success" }
+    | Login Started ->
+        let nextState = { state with LoginAttempt = InProgress }
         let login = async {
-            return "token-abc"
+            let! loginResult = Api.login state.Email state.Password
+            return Login (Finished loginResult)
         }
+
+        let nextCmd = Cmd.fromAsync login
+        nextState, nextCmd
+
+    | Login (Finished loginResult) ->
+        let nextState = { state with LoginAttempt = Resolved loginResult }
         nextState, Cmd.none
+
+let renderLoginOutcome (loginResult: Deferred<Api.LoginResult>)=
+    match loginResult with
+    | Resolved Api.LoginResult.UsernameOrPasswordIncorrect ->
+        Html.paragraph [
+            prop.style [ style.color.crimson; style.padding 10 ]
+            prop.text "Username or password is incorrect"
+        ]
+
+    | Resolved (Api.LoginResult.LoggedIn user) ->
+        Html.paragraph [
+            prop.style [ style.color.green; style.padding 10 ]
+            prop.text (sprintf "User '%s' has succesfully logged in" user.Email)
+        ]
+
+    | otherwise ->
+        Html.none
 
 open Components.LayoutGuess
 [<ReactComponent>]
-let PageLogin (dispatch: Msg -> Unit) : ReactElement =
+let render (state: State) (dispatch: Msg -> Unit) =
         Html.div [
             prop.className "home-page"
             prop.children [
                 LayoutGuess "login"
+
                 Html.div [
                     prop.className "home-page"
                     prop.children [
@@ -73,6 +102,8 @@ let PageLogin (dispatch: Msg -> Unit) : ReactElement =
                                                             prop.className "form-control form-control-lg"
                                                             prop.type' "email"
                                                             prop.placeholder "Email"
+                                                            prop.valueOrDefault state.Email
+                                                            prop.onChange (EmailChanged >> dispatch)
                                                         ]
                                                     ]
                                                 ]
@@ -83,12 +114,14 @@ let PageLogin (dispatch: Msg -> Unit) : ReactElement =
                                                             prop.className "form-control form-control-lg"
                                                             prop.type' "password"
                                                             prop.placeholder "Password"
+                                                            prop.valueOrDefault state.Password
+                                                            prop.onChange (PasswordChanged >> dispatch)
                                                         ]
                                                     ]
                                                 ]
                                                 Html.button [
                                                     prop.className "btn btn-lg btn-primary pull-xs-right"
-                                                    prop.onClick (fun _ -> dispatch Login)
+                                                    prop.onClick (fun _ -> dispatch (Login Started))
                                                     prop.text "Sign in"
                                                 ]
                                             ]
@@ -99,6 +132,8 @@ let PageLogin (dispatch: Msg -> Unit) : ReactElement =
                         ]
                     ]
                 ]
+
+                renderLoginOutcome state.LoginAttempt
             ]
         ]
 
