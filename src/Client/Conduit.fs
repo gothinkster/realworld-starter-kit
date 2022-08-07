@@ -89,6 +89,7 @@ let render (state :State) (dispatch: Msg -> Unit) =
         | Page.Home -> PageGuestHome
         | Page.NotFound -> Html.h1 "Not Found"
 
-    Router.router [
-
+    React.router [
+        router.onUrlChanged (parseUrl >> UrlChanged >> dispatch)
+        router.children activePage
     ]
