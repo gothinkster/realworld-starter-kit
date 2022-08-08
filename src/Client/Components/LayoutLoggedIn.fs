@@ -4,7 +4,7 @@ open Feliz
 open Feliz.Router
 
 [<ReactComponent>]
-let LayoutLoggedIn (url: string) : ReactElement =
+let LayoutLoggedIn (url: string, username: string) : ReactElement =
     Html.nav [
         prop.className "navbar navbar-light"
         prop.children [
@@ -57,7 +57,7 @@ let LayoutLoggedIn (url: string) : ReactElement =
                                         Html.a [
                                             if url = "@" then prop.className "nav-link active" else prop.className "nav-link"
                                             prop.href  (Router.format("@"))
-                                            prop.text "@"
+                                            prop.text (sprintf "@%s" username)
                                         ]
                                     ]
                                 ]

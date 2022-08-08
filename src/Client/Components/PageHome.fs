@@ -1,10 +1,10 @@
-﻿module Components.PageGuestHome
+﻿module Components.PageHome
 
 open Feliz
 
 open Components.LayoutGuess
 [<ReactComponent>]
-let PageGuestHome =
+let PageHome =
         Html.div [
             prop.className "home-page"
             prop.children [

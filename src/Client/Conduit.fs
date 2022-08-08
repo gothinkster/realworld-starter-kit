@@ -36,6 +36,12 @@ type Msg =
     | UrlChanged of Url
 
 
+
+let index (state: State) (dispatch: Msg -> unit) =
+    match state.User with
+    | Anonymous -> PageHome.PageHome
+    | LoggedIn user -> PageLoggedInHome.PageLoggedInHome user.Username
+
 let init() =
     let initialUrl = parseUrl (Router.currentUrl())
     let defaultState =
@@ -81,12 +87,11 @@ let update (msg: Msg) (state: State) =
     | _, _ ->
         state, Cmd.none
 
-open Components.PageGuestHome
 let render (state :State) (dispatch: Msg -> Unit) =
     let activePage =
         match state.CurrentPage with
         | Page.Login login -> PageLogin.render login (LoginMsg >> dispatch)
-        | Page.Home -> PageGuestHome
+        | Page.Home -> index state dispatch
         | Page.NotFound -> Html.h1 "Not Found"
 
     React.router [

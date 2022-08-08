@@ -4,11 +4,11 @@ open Feliz
 
 open Components.LayoutLoggedIn
 [<ReactComponent>]
-let PageLoggedInHome : ReactElement =
+let PageLoggedInHome (username: string): ReactElement =
         Html.div [
             prop.className "home-page"
             prop.children [
-                LayoutLoggedIn ""
+                LayoutLoggedIn("", username)
                 Html.div [
                     prop.children [
                         Html.div [

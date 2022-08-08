@@ -9,11 +9,11 @@ open Shared
 let api: users = {
     login = fun loginRequest -> async { //request example: [{"user":{"email":"some@domain.com","password":"pass"}}]
         let u = {
-            email = loginRequest.user.email
-            token = "token"
-            username = "username"
-            bio = "bio"
-            image = "image"
+            Email = loginRequest.user.email
+            Token = "token"
+            Username = "username"
+            Bio = "bio"
+            Image = "image"
         }
         return u
     }
