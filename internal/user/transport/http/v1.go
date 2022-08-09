@@ -24,12 +24,14 @@ func (a api) Authentication(w http.ResponseWriter, r *http.Request) {
 		Image    string `json:"image"`
 	}
 
-	responses.NewOkResp(w, &u{
-		Email:    "email",
-		Token:    "token",
-		Username: "username",
-		Bio:      "bio",
-		Image:    "image",
+	responses.NewOkResp(w, &user.SingleResponse{
+		User: user.AuthenticationResponse{
+			Email:    dest.Email,
+			Token:    "token",
+			Username: dest.Email,
+			Bio:      nil,
+			Image:    nil,
+		},
 	})
 }
 

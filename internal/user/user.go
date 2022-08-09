@@ -8,6 +8,17 @@ type User struct {
 	Password string
 }
 
+type SingleResponse struct {
+	User AuthenticationResponse `json:"user"`
+}
+type AuthenticationResponse struct {
+	Email    string  `json:"email"`
+	Token    string  `json:"token"`
+	Username string  `json:"username"`
+	Bio      *string `json:"bio,omitempty"`
+	Image    *string `json:"image,omitempty"`
+}
+
 type Token struct {
 	ID     int
 	UserID int
