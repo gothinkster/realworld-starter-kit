@@ -1,14 +1,15 @@
 ﻿module Components.PageLoggedInHome
 
 open Feliz
+open Shared
 
 open Components.LayoutLoggedIn
 [<ReactComponent>]
-let PageLoggedInHome (username: string): ReactElement =
+let PageLoggedInHome (user: User): ReactElement =
         Html.div [
             prop.className "home-page"
             prop.children [
-                LayoutLoggedIn("", username)
+                LayoutLoggedIn("", user.Username)
                 Html.div [
                     prop.children [
                         Html.div [

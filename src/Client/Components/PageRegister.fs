@@ -68,11 +68,20 @@ let registerForm =
 
 open Components.LayoutGuess
 [<ReactComponent>]
-let PageRegister : ReactElement =
+let render : ReactElement =
     Html.div [
-        prop.className "home-page"
         prop.children [
             LayoutGuess "register"
-            registerForm
+            Html.div [
+                prop.className "auth-page"
+                prop.children [
+                    Html.div [
+                        prop.className "container page"
+                        prop.children [
+                            registerForm
+                        ]
+                    ]
+                ]
+            ]
         ]
     ]

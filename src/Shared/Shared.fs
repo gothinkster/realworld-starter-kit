@@ -25,3 +25,14 @@ type UserAuthDto = {
 type users = {
     login: LoginRequest -> Async<UserAuthDto>
 }
+
+type AccessToken = AccessToken of string
+
+type User =
+    { Email : string
+      Username: string
+      AccessToken : AccessToken }
+
+type LoginResult =
+    | UsernameOrPasswordIncorrect
+    | LoggedIn of User

@@ -1,30 +1,31 @@
 [<RequireQualifiedAccess>]
 module Conduit
 
+open Shared
+type ApplicationUser =
+    | Anonymous
+    | LoggedIn of User
+
 open Components
-open Elmish
-open Feliz
-open Feliz.Router
 [<RequireQualifiedAccess>]
 type Page =
     | Home
     | Login of PageLogin.State
+    | Register
     | NotFound
 
 [<RequireQualifiedAccess>]
 type Url =
     | Home
     | Login
+    | Register
     | NotFound
 
 let parseUrl = function
     | [  ] -> Url.Home
     | [ "login" ] -> Url.Login
+    | [ "register" ] -> Url.Register
     | _ -> Url.NotFound
-
-type ApplicationUser =
-    | Anonymous
-    | LoggedIn of Api.User
 
 type State =
   { CurrentPage : Page
@@ -35,13 +36,13 @@ type Msg =
     | LoginMsg of PageLogin.Msg
     | UrlChanged of Url
 
-
-
 let index (state: State) (dispatch: Msg -> unit) =
     match state.User with
     | Anonymous -> PageHome.PageHome
-    | LoggedIn user -> PageLoggedInHome.PageLoggedInHome user.Username
+    | LoggedIn user -> PageLoggedInHome.PageLoggedInHome user
 
+open Elmish
+open Feliz.Router
 let init() =
     let initialUrl = parseUrl (Router.currentUrl())
     let defaultState =
@@ -57,6 +58,8 @@ let init() =
         let loginState, loginCmd = PageLogin.init()
         let nextPage = Page.Login loginState
         { defaultState with CurrentPage = nextPage }, Cmd.map LoginMsg loginCmd
+
+    | Url.Register -> { defaultState with CurrentPage = Page.Register }, Cmd.none
 
     | Url.NotFound ->
         { defaultState with CurrentPage = Page.NotFound }, Cmd.none
@@ -83,14 +86,17 @@ let update (msg: Msg) (state: State) =
         | Url.Login ->
             let login, loginCmd = PageLogin.init()
             show (Page.Login login), Cmd.map LoginMsg loginCmd
+        | Url.Register -> show (Page.Register), Cmd.none
 
     | _, _ ->
         state, Cmd.none
 
+open Feliz
 let render (state :State) (dispatch: Msg -> Unit) =
     let activePage =
         match state.CurrentPage with
         | Page.Login login -> PageLogin.render login (LoginMsg >> dispatch)
+        | Page.Register -> PageRegister.render
         | Page.Home -> index state dispatch
         | Page.NotFound -> Html.h1 "Not Found"
 

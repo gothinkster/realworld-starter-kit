@@ -1,15 +1,6 @@
 ﻿module Api
 
-type AccessToken = AccessToken of string
-
-type User =
-    { Email : string
-      Username: string
-      AccessToken : AccessToken }
-
-type LoginResult =
-    | UsernameOrPasswordIncorrect
-    | LoggedIn of User
+open Shared
 
 let login (email: string) (password: string) =
     async {
