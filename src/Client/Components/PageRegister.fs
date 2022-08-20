@@ -108,6 +108,8 @@ let render  (state: State) (dispatch: Msg -> Unit) =
                                                                 prop.className "form-control form-control-lg"
                                                                 prop.type' "text"
                                                                 prop.placeholder "Username"
+                                                                prop.valueOrDefault state.Username
+                                                                prop.onChange (UsernameChanged >> dispatch)
                                                             ]
                                                         ]
                                                     ]
@@ -118,6 +120,8 @@ let render  (state: State) (dispatch: Msg -> Unit) =
                                                                 prop.className "form-control form-control-lg"
                                                                 prop.type' "email"
                                                                 prop.placeholder "Email"
+                                                                prop.valueOrDefault state.Email
+                                                                prop.onChange (EmailChanged >> dispatch)
                                                             ]
                                                         ]
                                                     ]
@@ -128,6 +132,8 @@ let render  (state: State) (dispatch: Msg -> Unit) =
                                                                 prop.className "form-control form-control-lg"
                                                                 prop.type' "password"
                                                                 prop.placeholder "Password"
+                                                                prop.valueOrDefault state.Password
+                                                                prop.onChange (PasswordChanged >> dispatch)
                                                             ]
                                                         ]
                                                     ]

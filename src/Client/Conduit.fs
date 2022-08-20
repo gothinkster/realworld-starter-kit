@@ -88,7 +88,7 @@ let update (msg: Msg) (state: State) =
             { state with User = LoggedIn user }, Cmd.navigate("/")
 
         | registerMsg ->
-            let registerMsg, registerCmd = PageRegister.update registerMsg registerState
+            let registerState, registerCmd = PageRegister.update registerMsg registerState
             { state with CurrentPage = Page.Register registerState }, Cmd.map RegisterMsg registerCmd
 
     | UrlChanged nextUrl, _ ->
