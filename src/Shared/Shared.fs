@@ -36,3 +36,7 @@ type User =
 type LoginResult =
     | UsernameOrPasswordIncorrect
     | LoggedIn of User
+
+type RegisterResult =
+    | Registered of User
+    | Failed
