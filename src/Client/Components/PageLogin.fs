@@ -2,8 +2,9 @@
 
 open Feliz
 open Feliz.Router
-open Elmish
 open Shared
+open Elmish
+open Components.LayoutGuess
 
 type State =
     { Email: string
@@ -47,7 +48,7 @@ let update (msg: Msg) (state: State) =
         let nextState = { state with LoginAttempt = Resolved loginResult }
         nextState, Cmd.none
 
-let renderLoginOutcome (loginResult: Deferred<LoginResult>)=
+let renderLoginOutcome (loginResult: Deferred<LoginResult>) =
     match loginResult with
     | Resolved LoginResult.UsernameOrPasswordIncorrect ->
         Html.paragraph [
@@ -61,10 +62,9 @@ let renderLoginOutcome (loginResult: Deferred<LoginResult>)=
             prop.text (sprintf "User '%s' has succesfully logged in" user.Email)
         ]
 
-    | otherwise ->
+    | _ ->
         Html.none
 
-open Components.LayoutGuess
 [<ReactComponent>]
 let render (state: State) (dispatch: Msg -> Unit) =
         Html.div [
