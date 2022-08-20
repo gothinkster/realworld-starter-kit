@@ -2,16 +2,19 @@
 module Conduit
 
 open Shared
+open Elmish
+open Feliz.Router
+open Components
+
 type ApplicationUser =
     | Anonymous
     | LoggedIn of User
 
-open Components
 [<RequireQualifiedAccess>]
 type Page =
     | Home
     | Login of PageLogin.State
-    | Register
+    | Register of PageRegister.State
     | NotFound
 
 [<RequireQualifiedAccess>]
@@ -34,6 +37,7 @@ type State =
 
 type Msg =
     | LoginMsg of PageLogin.Msg
+    | RegisterMsg of PageRegister.Msg
     | UrlChanged of Url
 
 let index (state: State) (dispatch: Msg -> unit) =
@@ -41,8 +45,7 @@ let index (state: State) (dispatch: Msg -> unit) =
     | Anonymous -> PageHome.PageHome
     | LoggedIn user -> PageLoggedInHome.PageLoggedInHome user
 
-open Elmish
-open Feliz.Router
+
 let init() =
     let initialUrl = parseUrl (Router.currentUrl())
     let defaultState =
@@ -59,7 +62,10 @@ let init() =
         let nextPage = Page.Login loginState
         { defaultState with CurrentPage = nextPage }, Cmd.map LoginMsg loginCmd
 
-    | Url.Register -> { defaultState with CurrentPage = Page.Register }, Cmd.none
+    | Url.Register ->
+        let registerState, registerCmd = PageRegister.init()
+        let nextPage = Page.Register registerState
+        { defaultState with CurrentPage = nextPage }, Cmd.map RegisterMsg registerCmd
 
     | Url.NotFound ->
         { defaultState with CurrentPage = Page.NotFound }, Cmd.none
@@ -76,17 +82,26 @@ let update (msg: Msg) (state: State) =
             let loginState, loginCmd = PageLogin.update loginMsg loginState
             { state with CurrentPage = Page.Login loginState }, Cmd.map LoginMsg loginCmd
 
+    | RegisterMsg registerMsg, Page.Register registerState ->
+        match registerMsg with
+        | PageRegister.UserRegister user ->
+            { state with User = LoggedIn user }, Cmd.navigate("/")
+
+        | registerMsg ->
+            let registerState, registerCmd = PageRegister.update registerMsg registerState
+            { state with CurrentPage = Page.Register registerState }, Cmd.map RegisterMsg registerCmd
 
     | UrlChanged nextUrl, _ ->
         let show page = { state with CurrentPage = page; CurrentUrl = nextUrl }
-
         match nextUrl with
         | Url.Home -> show Page.Home, Cmd.none
         | Url.NotFound -> show Page.NotFound, Cmd.none
         | Url.Login ->
             let login, loginCmd = PageLogin.init()
             show (Page.Login login), Cmd.map LoginMsg loginCmd
-        | Url.Register -> show (Page.Register), Cmd.none
+        | Url.Register ->
+            let register, registerCmd = PageRegister.init()
+            show (Page.Register register), Cmd.map RegisterMsg registerCmd
 
     | _, _ ->
         state, Cmd.none
@@ -96,7 +111,7 @@ let render (state :State) (dispatch: Msg -> Unit) =
     let activePage =
         match state.CurrentPage with
         | Page.Login login -> PageLogin.render login (LoginMsg >> dispatch)
-        | Page.Register -> PageRegister.render
+        | Page.Register register -> PageRegister.render register (RegisterMsg >> dispatch)
         | Page.Home -> index state dispatch
         | Page.NotFound -> Html.h1 "Not Found"
 
