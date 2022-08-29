@@ -7,21 +7,15 @@ import (
 )
 
 type api struct {
+	userService user.Service
 }
 
 func (a api) Authentication(w http.ResponseWriter, r *http.Request) {
-	var dest authenticationReq
+	var dest AuthenticationRequest
 	err := readAndValidate(r, &dest)
 	if err != nil {
 		responses.NewErrorResp(w, http.StatusUnprocessableEntity, err)
 		return
-	}
-	type u struct {
-		Email    string `json:"email"`
-		Token    string `json:"token"`
-		Username string `json:"username"`
-		Bio      string `json:"bio"`
-		Image    string `json:"image"`
 	}
 
 	responses.NewOkResp(w, &user.SingleResponse{
@@ -65,6 +59,8 @@ func (a api) UnfollowUser(w http.ResponseWriter, r *http.Request) {
 	panic("implement me")
 }
 
-func NewUserApi() user.Transport {
-	return &api{}
+func NewUserApi(userService user.Service) user.Transport {
+	return &api{
+		userService: userService,
+	}
 }

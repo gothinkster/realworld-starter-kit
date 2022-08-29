@@ -1,11 +1,31 @@
+//go:generate mockgen  -destination=./mock/user.go -package=mock -mock_names=Service=MockService -source=./user.go
+
 package user
 
-import "net/http"
+import (
+	"github.com/pavelkozlov/realworld/pkg/validator"
+	"net/http"
+)
 
-type User struct {
-	ID       int
-	Email    string
-	Password string
+type AuthenticationRequest struct {
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password" validate:"required"`
+}
+
+type RegistrationRequest struct {
+	Username string `json:"username" validate:"required"`
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password" validate:"required"`
+}
+
+func (r AuthenticationRequest) validate() error {
+	v := validator.GetValidator()
+	return v.Struct(&r)
+}
+
+func (r RegistrationRequest) validate() error {
+	v := validator.GetValidator()
+	return v.Struct(&r)
 }
 
 type SingleResponse struct {
@@ -19,21 +39,6 @@ type AuthenticationResponse struct {
 	Image    *string `json:"image,omitempty"`
 }
 
-type Token struct {
-	ID     int
-	UserID int
-	Token  string
-}
-
-type Profile struct {
-	ID        int
-	UserID    int
-	Username  string
-	Bio       string
-	Image     string
-	Following bool
-}
-
 type Transport interface {
 	Authentication(w http.ResponseWriter, r *http.Request)
 	Registration(w http.ResponseWriter, r *http.Request)
@@ -42,4 +47,8 @@ type Transport interface {
 	GetProfile(w http.ResponseWriter, r *http.Request)
 	FollowUser(w http.ResponseWriter, r *http.Request)
 	UnfollowUser(w http.ResponseWriter, r *http.Request)
+}
+
+type Service interface {
+	Authentication(request AuthenticationRequest) (AuthenticationResponse, error)
 }

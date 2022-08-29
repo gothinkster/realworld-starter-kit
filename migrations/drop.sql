@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS comment;
+
+DROP TABLE IF EXISTS "articleTag";
+
+DROP TABLE IF EXISTS tag;
+
+DROP TABLE IF EXISTS followers;
+
+DROP TABLE IF EXISTS session;
+
+DROP TABLE IF EXISTS favorites;
+
+DROP TABLE IF EXISTS article;
+
+DROP TABLE IF EXISTS "user";
+

@@ -4,23 +4,23 @@ import (
 	"github.com/pavelkozlov/realworld/pkg/validator"
 )
 
-type authenticationReq struct {
+type AuthenticationRequest struct {
 	Email    string `json:"email" validate:"required,email"`
 	Password string `json:"password" validate:"required"`
 }
 
-type registrationReq struct {
+type RegistrationRequest struct {
 	Username string `json:"username" validate:"required"`
 	Email    string `json:"email" validate:"required,email"`
 	Password string `json:"password" validate:"required"`
 }
 
-func (r authenticationReq) validate() error {
+func (r AuthenticationRequest) validate() error {
 	v := validator.GetValidator()
 	return v.Struct(&r)
 }
 
-func (r registrationReq) validate() error {
+func (r RegistrationRequest) validate() error {
 	v := validator.GetValidator()
 	return v.Struct(&r)
 }
