@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/pavelkozlov/realworld/internal/user/entity"
+	"github.com/pavelkozlov/realworld/internal/entity"
 )
 
 type service struct {

@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"github.com/golang/mock/gomock"
 	jsoniter "github.com/json-iterator/go"
-	"github.com/pavelkozlov/realworld/internal/user/entity"
+	"github.com/pavelkozlov/realworld/internal/entity"
 	"github.com/pavelkozlov/realworld/internal/user/transport/http/mock"
 	"github.com/stretchr/testify/assert"
 	"io"

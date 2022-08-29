@@ -3,7 +3,7 @@
 package api
 
 import (
-	"github.com/pavelkozlov/realworld/internal/user/entity"
+	"github.com/pavelkozlov/realworld/internal/entity"
 )
 
 type userService interface {

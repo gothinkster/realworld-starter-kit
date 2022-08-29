@@ -5,10 +5,10 @@
 package mock
 
 import (
+	"github.com/pavelkozlov/realworld/internal/entity"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	entity "github.com/pavelkozlov/realworld/internal/user/entity"
 )
 
 // MockuserService is a mock of userService interface.
