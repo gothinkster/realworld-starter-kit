@@ -1,26 +1,24 @@
 package api
 
 import (
-	"github.com/pavelkozlov/realworld/pkg/validator"
+	"github.com/go-playground/validator/v10"
 )
 
-type AuthenticationRequest struct {
+type authenticationRequest struct {
 	Email    string `json:"email" validate:"required,email"`
 	Password string `json:"password" validate:"required"`
 }
 
-type RegistrationRequest struct {
+type registrationRequest struct {
 	Username string `json:"username" validate:"required"`
 	Email    string `json:"email" validate:"required,email"`
 	Password string `json:"password" validate:"required"`
 }
 
-func (r AuthenticationRequest) validate() error {
-	v := validator.GetValidator()
+func (r authenticationRequest) validate(v validator.Validate) error {
 	return v.Struct(&r)
 }
 
-func (r RegistrationRequest) validate() error {
-	v := validator.GetValidator()
+func (r registrationRequest) validate(v validator.Validate) error {
 	return v.Struct(&r)
 }

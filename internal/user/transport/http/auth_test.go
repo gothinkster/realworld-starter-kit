@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"github.com/golang/mock/gomock"
 	jsoniter "github.com/json-iterator/go"
-	"github.com/pavelkozlov/realworld/internal/user"
-	"github.com/pavelkozlov/realworld/internal/user/mock"
+	"github.com/pavelkozlov/realworld/internal/user/entity"
+	"github.com/pavelkozlov/realworld/internal/user/transport/http/mock"
 	"github.com/stretchr/testify/assert"
 	"io"
 	"net/http"
@@ -16,22 +16,22 @@ import (
 type testAuthenticationTestCase struct {
 	body         io.Reader
 	expectedCode int
-	before       func(service *mock.MockService)
+	before       func(service *mock.MockuserService)
 }
 
 var (
-	validAuthReq = AuthenticationRequest{
+	validAuthReq = authenticationRequest{
 		Email:    "test@test.ru",
 		Password: "123456",
 	}
-	invalidEmailAuthReq = AuthenticationRequest{
+	invalidEmailAuthReq = authenticationRequest{
 		Email:    "test",
 		Password: "test",
 	}
-	emptyEmailAuthReq = AuthenticationRequest{
+	emptyEmailAuthReq = authenticationRequest{
 		Password: "test",
 	}
-	emptyPasswordAuthReq = AuthenticationRequest{
+	emptyPasswordAuthReq = authenticationRequest{
 		Email: "test",
 	}
 	validAuthReqBytes, _         = jsoniter.Marshal(&validAuthReq)
@@ -49,8 +49,8 @@ var testAuthenticationTestCases = []testAuthenticationTestCase{
 	{
 		bytes.NewBuffer(validAuthReqBytes),
 		200,
-		func(service *mock.MockService) {
-			service.EXPECT().Authentication(gomock.Any()).Return(user.AuthenticationResponse{}, nil)
+		func(service *mock.MockuserService) {
+			service.EXPECT().Authenticate("test@test.ru", "123456").Return(entity.User{}, nil)
 		},
 	},
 	{
@@ -71,11 +71,12 @@ var testAuthenticationTestCases = []testAuthenticationTestCase{
 }
 
 func TestApi_Authentication(t *testing.T) {
-	apiStruct := api{}
+
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	service := mock.NewMockService(ctrl)
+	service := mock.NewMockuserService(ctrl)
+	apiStruct := NewUserApi(service)
 
 	for _, test := range testAuthenticationTestCases {
 

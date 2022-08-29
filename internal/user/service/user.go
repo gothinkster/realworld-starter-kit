@@ -1,21 +1,18 @@
 package service
 
-import "github.com/pavelkozlov/realworld/internal/user"
+import (
+	"github.com/pavelkozlov/realworld/internal/user/entity"
+)
 
 type service struct {
 }
 
-//type
-
-func (s service) Authentication(request user.AuthenticationRequest) (user.AuthenticationResponse, error) {
-	return user.AuthenticationResponse{
-		Email:    request.Email,
-		Token:    "token",
-		Username: "kekeke",
+func (s service) Authenticate(email, password string) (entity.User, error) {
+	return entity.User{
+		Email: email,
 	}, nil
 }
 
-// generate: mockgen -source=foo.go [other options]
-func NewUserService() user.Service {
+func NewUserService() *service {
 	return &service{}
 }

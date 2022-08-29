@@ -1,30 +1,37 @@
 package api
 
 import (
-	"github.com/pavelkozlov/realworld/internal/responses"
-	"github.com/pavelkozlov/realworld/internal/user"
+	"github.com/go-playground/validator/v10"
 	"net/http"
 )
 
 type api struct {
-	userService user.Service
+	userService userService
+	validator   *validator.Validate
 }
 
 func (a api) Authentication(w http.ResponseWriter, r *http.Request) {
-	var dest AuthenticationRequest
-	err := readAndValidate(r, &dest)
+
+	var dest authenticationRequest
+
+	err := readAndValidate(r, &dest, *a.validator)
 	if err != nil {
-		responses.NewErrorResp(w, http.StatusUnprocessableEntity, err)
+		newErrorResp(w, http.StatusUnprocessableEntity, err)
 		return
 	}
 
-	responses.NewOkResp(w, &user.SingleResponse{
-		User: user.AuthenticationResponse{
-			Email:    dest.Email,
-			Token:    "token",
-			Username: dest.Email,
-			Bio:      nil,
-			Image:    nil,
+	user, err := a.userService.Authenticate(dest.Email, dest.Password)
+	if err != nil {
+		newErrorResp(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	newOkResp(w, &singleResponse{
+		User: authenticationResponse{
+			Email:    user.Email,
+			Username: user.Username,
+			Bio:      user.Bio,
+			Image:    user.Image,
 		},
 	})
 }
@@ -59,8 +66,9 @@ func (a api) UnfollowUser(w http.ResponseWriter, r *http.Request) {
 	panic("implement me")
 }
 
-func NewUserApi(userService user.Service) user.Transport {
-	return &api{
+func NewUserApi(userService userService) api {
+	return api{
 		userService: userService,
+		validator:   validator.New(),
 	}
 }

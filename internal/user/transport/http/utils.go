@@ -1,15 +1,16 @@
 package api
 
 import (
+	"github.com/go-playground/validator/v10"
 	jsoniter "github.com/json-iterator/go"
 	"net/http"
 )
 
 type validate interface {
-	validate() error
+	validate(validator validator.Validate) error
 }
 
-func readAndValidate(r *http.Request, dest validate) error {
+func readAndValidate(r *http.Request, dest validate, validator validator.Validate) error {
 
 	decoder := jsoniter.NewDecoder(r.Body)
 	err := decoder.Decode(dest)
@@ -17,7 +18,7 @@ func readAndValidate(r *http.Request, dest validate) error {
 		return err
 	}
 
-	if err = dest.validate(); err != nil {
+	if err = dest.validate(validator); err != nil {
 		return err
 	}
 
