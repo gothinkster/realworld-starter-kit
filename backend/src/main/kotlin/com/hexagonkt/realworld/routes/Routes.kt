@@ -24,7 +24,7 @@ internal val router by lazy {
     path {
         filter(
             pattern = "*",
-            callback = CorsCallback(allowedHeaders = setOf("Accept", "User-Agent", "Host", "Content-Type"))
+            callback = CorsCallback(allowedHeaders = setOf("accept", "user-agent", "host", "content-type"))
         )
 
         path("/users", usersRouter)
@@ -45,10 +45,7 @@ internal val router by lazy {
 }
 
 internal fun HttpServerContext.statusCodeHandler(exception: CodedException): HttpServerContext {
-    @Suppress("MoveVariableDeclarationIntoWhen") // Required because response.body is an expression
-    val body = response.body
-
-    val messages = when (body) {
+    val messages = when (val body = response.body) {
         is List<*> -> body.mapNotNull { it?.toString() }
         else -> listOf(exception.message ?: exception::class.java.name)
     }

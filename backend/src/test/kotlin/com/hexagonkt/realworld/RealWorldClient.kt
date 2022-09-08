@@ -36,7 +36,7 @@ internal class RealWorldClient(val client: HttpClient) {
 
     fun deleteUser(user: User, allowedCodes: Set<Int> = setOf(200, 404)) {
         client.delete("/users/${user.username}").apply {
-            assert(status.code in allowedCodes)
+            assert(status.code in allowedCodes) { "${status.code} not in $allowedCodes" }
             assert(contentType == contentType)
         }
     }

@@ -37,7 +37,8 @@ class CorsIT {
     @Test
     fun `OPTIONS returns correct CORS headers`() {
         val settings = HttpClientSettings(contentType = ContentType(ApplicationMedia.JSON))
-        val client = HttpClient(JettyClientAdapter(), URL("http://localhost:${server.runtimePort}/api"), settings)
+        val baseUrl = URL("http://localhost:${server.runtimePort}/api")
+        val client = HttpClient(JettyClientAdapter(), baseUrl, settings)
         client.start()
         val corsHeaders = "Accept,User-Agent,Host,Content-Type"
         val response = client.options("/tags", headers = HttpFields(

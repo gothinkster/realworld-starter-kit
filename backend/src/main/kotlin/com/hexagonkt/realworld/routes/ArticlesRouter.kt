@@ -112,7 +112,7 @@ internal fun HttpServerContext.getArticle(
 
 internal fun HttpServerContext.updateArticle(jwt: Jwt, articles: Store<Article, String>): HttpServerContext {
     val principal = parsePrincipal(jwt) ?: return unauthorized()
-    val body = PutArticleRequest(request.bodyMap())
+    val body = request.bodyMap().let(::PutArticleRequest)
     val slug = pathParameters.require("slug")
 
     val updatedAt = LocalDateTime.now()
