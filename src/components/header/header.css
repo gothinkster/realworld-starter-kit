@@ -1,0 +1,38 @@
+:root {
+  --header-color: #5cb85c;
+  --row-paddding: 0.425rem;
+}
+
+.header-container {
+  display: block;
+}
+.application-name-header {
+  color: var(--header-color);
+  flex-grow: 1;
+  font-size: 1.5rem;
+  margin-left: 2rem;
+}
+
+.row {
+  padding-top: var(--row-paddding);
+  padding-bottom: var(--row-paddding);
+  width: 100%;
+  display: flex;
+}
+.banner {
+  width: 100%;
+  background-color: var(--header-color);
+  box-shadow: inset 0 8px 8px -8px rgba(0, 0, 0, 0.3),
+    inset 0 -8px 8px -8px rgba(0, 0, 0, 0.3);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  font-family: titillium web, sans-serif;
+}
+
+h1 {
+  text-shadow: 0 1px 3px rgb(0 0 0 / 30%);
+  font-weight: 700;
+  font-size: 3.5rem;
+  padding-bottom: 0.5rem;
+}

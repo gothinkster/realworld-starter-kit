@@ -1,0 +1,47 @@
+{
+  "name": "realworld-qwik-app",
+  "description": "Blank Qwik starter app. Vite.js tooling. Prettier code formatter.",
+  "scripts": {
+    "build": "npm run typecheck && npm run build.client && npm run build.ssr",
+    "build.client": "vite build",
+    "build.ssr": "vite build --ssr src/entry.express.tsx",
+    "dev": "npm run dev.ssr",
+    "dev.client": "vite",
+    "dev.debug": "node --inspect-brk node_modules/vite/bin/vite.js --force --mode ssr",
+    "dev.ssr": "node --inspect node_modules/vite/bin/vite.js --mode ssr",
+    "fmt": "prettier --write .",
+    "fmt.check": "prettier --check .",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "serve": "node server/entry.express",
+    "start": "npm run dev",
+    "typecheck": "tsc --incremental --noEmit",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@builder.io/qwik": "0.0.108",
+    "@types/eslint": "8.4.6",
+    "@types/express": "4.17.13",
+    "@types/node": "latest",
+    "@typescript-eslint/eslint-plugin": "5.34.0",
+    "@typescript-eslint/parser": "5.34.0",
+    "eslint": "8.22.0",
+    "eslint-plugin-qwik": "0.0.108",
+    "express": "4.17.3",
+    "husky": "^8.0.0",
+    "node-fetch": "3.2.10",
+    "prettier": "2.7.1",
+    "pretty-quick": "^3.1.3",
+    "typescript": "4.7.4",
+    "vite": "3.0.9"
+  },
+  "engines": {
+    "node": "^14.18.0 || >=16.0.0"
+  },
+  "homepage": "https://qwik.builder.io/",
+  "license": "",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+}
