@@ -1,5 +1,6 @@
 :root{
-    --header-color: #5cb85c
+    --header-color: #5cb85c;
+    --row-paddding: 0.425rem;
 }
 
 .header-container {
@@ -11,6 +12,8 @@
 }
 
 .row {
+    padding-top: var(--row-paddding);
+    padding-bottom: var(--row-paddding);
     width: 100%;
     display: flex;
 }
