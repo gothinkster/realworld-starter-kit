@@ -4,10 +4,17 @@ import './side-menu.css';
 export const SideMenu = component$(() => {
     return(
         <div className='menu'>
-            <a className='menu-item'>Home</a>
-            <a className='menu-item'>Sign up</a>
-            <a className='menu-item'>Log in</a>
-
+            
+            <div className='menu-item'>
+            <a>Home</a>
+            </div>
+            <div className='menu-item'>
+            <a>Sign up</a>
+            </div>
+            <div className='menu-item'>
+            <a >Log in</a>
+            </div>
+           
         </div>
     )
 })
