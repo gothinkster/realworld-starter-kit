@@ -1,0 +1,11 @@
+:root{
+    --item-color: rgba(0,0,0,.3)
+}
+
+.menu {
+    display: flex;
+    flex-shrink: 1;
+}
+.menu-item {
+    color: var(--item-color);
+}

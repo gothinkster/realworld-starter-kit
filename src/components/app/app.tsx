@@ -1,6 +1,6 @@
 import { useStore, component$, useWatch$, useClientEffect$ } from '@builder.io/qwik';
+import { Header } from '../header/header';
 import { Logo } from '../logo/logo';
-//import  fetch from 'node-fetch';
 
 export const buttonClicked =(...args: any[]) => {
   console.log('button clicked', ...args);
@@ -29,11 +29,11 @@ export const App = component$(() => {
   })  
   return (
     <div class="my-app p-20">
+      <Header></Header>
       {/* <Logo /> */}
       <ul>
         {state.tags.map(tag => <li>{tag}</li>)}
       </ul>
-      <h1 class="text-3xl mb-2">This is where realworld app goes</h1>
       <button onClick$={ (...args) => buttonClicked(args)}>Click</button>
     </div>
   );
