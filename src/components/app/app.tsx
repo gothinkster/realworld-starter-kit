@@ -8,10 +8,7 @@ import { Header } from "../header/header";
 import axios from "axios";
 import { Tags } from "../tags/tags";
 import "./app.css";
-
-export const buttonClicked = (...args: any[]) => {
-  console.log("button clicked", ...args);
-};
+import { FeedNavigation } from "../feed-navigation/feed-navigation";
 
 export const getTags = async () => {
   try {
@@ -39,12 +36,16 @@ export const App = component$(async () => {
       {/* <Logo /> */}
 
       <div className="content-container">
-        <div className="feed">This is where feed goes</div>
+        <div className="feed">
+          <FeedNavigation
+            tabs={[{ label: "Your Feed" }, { label: "Global Feed" }]}
+            navigationChange$={(tab) => console.log("tab", tab)}
+          ></FeedNavigation>
+        </div>
         <div className="side-bar">
           <Tags tags={state.tags}></Tags>
         </div>
       </div>
-      <button onClick$={(...args) => buttonClicked(args)}>Click</button>
     </div>
   );
 });

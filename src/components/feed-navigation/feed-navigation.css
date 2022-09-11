@@ -1,0 +1,26 @@
+.nav-list {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.nav-item {
+  float: left;
+}
+
+.nav-item a {
+  cursor: pointer;
+  border-radius: 0;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: 0 0;
+  color: #aaa;
+  padding: 0.5em 1em;
+}
+
+.active {
+  background: #fff !important;
+  border-bottom: 2px solid;
+  border-bottom-color: var(--header-color);
+  color: var(--header-color);
+}
