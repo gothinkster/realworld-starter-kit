@@ -8,6 +8,12 @@
   float: left;
 }
 
+.nav-item::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .nav-item a {
   cursor: pointer;
   border-radius: 0;
@@ -18,7 +24,7 @@
   padding: 0.5em 1em;
 }
 
-.active {
+.nav-item.active {
   background: #fff !important;
   border-bottom: 2px solid;
   border-bottom-color: var(--header-color);
