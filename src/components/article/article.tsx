@@ -12,6 +12,7 @@ export interface ArticleData {
   title: string;
   description: string;
   createdAt: string;
+  favoritesCount: number;
 }
 
 export const formatDate = (date: string) => {
@@ -28,18 +29,31 @@ export const Article = component$((props: { article: ArticleData }) => {
   return (
     <div class="article-container">
       <div className="article-meta">
-        <img src={article.author.imageUrl} alt={article.author.username}></img>
         <div className="article-info">
-          <a className="author" href="">
-            {" "}
-            {article.author.username}
-          </a>
-
-          <span className="date">{dateString}</span>
+          <img
+            src={article.author.imageUrl}
+            alt={article.author.username}
+          ></img>
+          <div>
+            <a className="author" href="">
+              {" "}
+              {article.author.username}
+            </a>
+            <span className="date">{dateString}</span>
+          </div>
         </div>
+        <button className="article-favorites">
+          <i class="ion-heart"></i> {article.favoritesCount}
+        </button>
       </div>
       <div className="article-title">{article.title}</div>
       <div className="description">{article.description}</div>
+      <div className="read-more">Read mode...</div>
+      <ul className="tags-list">
+        {article.tagList.map((tag) => (
+          <li className="tag-list-item">{tag}</li>
+        ))}
+      </ul>
     </div>
   );
 });

@@ -5,6 +5,7 @@
 .article-container {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding: 1.5rem 0;
+  margin-bottom: 2rem;
 }
 
 img {
@@ -18,7 +19,6 @@ img {
 .article-meta {
   position: relative;
   font-weight: 300;
-  display: flex;
   gap: 0.5rem;
 }
 
@@ -29,22 +29,70 @@ img {
 }
 
 .author {
-  color: #5cb85c;
+  color: var(--header-color);
   text-decoration: none;
   font-weight: 500;
 }
+
 .description {
   color: var(--meta-color);
   font-weight: 100;
 }
 
 .article-info {
-  display: inline-block;
+  display: flex;
   line-height: 1rem;
+  gap: 0.5rem;
+}
+
+.article-info div {
+  display: inline-block;
 }
 
 .article-title {
   font-weight: 600 !important;
   font-size: 1.5rem !important;
   margin-bottom: 3px;
+}
+
+.read-more {
+  color: var(--meta-color);
+  font-size: 0.8rem;
+}
+
+.tags-list {
+  float: right;
+  max-width: 50%;
+  vertical-align: top;
+  list-style: none;
+  margin-bottom: 3rem;
+}
+
+.tag-list-item {
+  font-weight: 300;
+  font-size: 0.8rem !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border: solid 1px var(--meta-color);
+  border-radius: 10px;
+  display: inline-block;
+  padding: 1rem;
+  margin-right: 0.5rem;
+  color: var(--meta-color);
+}
+
+.article-favorites {
+  float: right;
+  color: var(--header-color);
+  border: solid 1px var(--header-color);
+  font-size: 0.875rem;
+  border-radius: 0.2rem;
+  padding: 0.25rem 0.5rem;
+  background: transparent;
+}
+
+.article-favorites:hover {
+  background-color: var(--header-color);
+  color: white;
+  font-weight: 400;
 }
