@@ -1,5 +1,10 @@
+:root {
+  --meta-color: #bbb;
+}
+
 .article-container {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1.5rem 0;
 }
 
 img {
@@ -8,4 +13,38 @@ img {
   height: 32px;
   width: 32px;
   border-radius: 30px;
+}
+
+.article-meta {
+  position: relative;
+  font-weight: 300;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.date {
+  color: var(--meta-color);
+  font-size: 0.8rem;
+  display: block;
+}
+
+.author {
+  color: #5cb85c;
+  text-decoration: none;
+  font-weight: 500;
+}
+.description {
+  color: var(--meta-color);
+  font-weight: 100;
+}
+
+.article-info {
+  display: inline-block;
+  line-height: 1rem;
+}
+
+.article-title {
+  font-weight: 600 !important;
+  font-size: 1.5rem !important;
+  margin-bottom: 3px;
 }

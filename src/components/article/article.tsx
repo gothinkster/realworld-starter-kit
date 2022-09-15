@@ -11,17 +11,35 @@ export interface ArticleData {
   tagList: string[];
   title: string;
   description: string;
+  createdAt: string;
 }
+
+export const formatDate = (date: string) => {
+  return new Date(date).toLocaleDateString("default", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+};
 
 export const Article = component$((props: { article: ArticleData }) => {
   const { article } = props;
+  const dateString = formatDate(article.createdAt);
   return (
     <div class="article-container">
-      <div>
+      <div className="article-meta">
         <img src={article.author.imageUrl} alt={article.author.username}></img>
+        <div className="article-info">
+          <a className="author" href="">
+            {" "}
+            {article.author.username}
+          </a>
+
+          <span className="date">{dateString}</span>
+        </div>
       </div>
-      <h2>{article.title}</h2>
-      <div>{article.description}</div>
+      <div className="article-title">{article.title}</div>
+      <div className="description">{article.description}</div>
     </div>
   );
 });

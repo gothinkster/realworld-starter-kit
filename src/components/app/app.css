@@ -1,11 +1,18 @@
+:root {
+  --container-padding: 5rem;
+}
+
 .content-container {
   display: flex;
   padding-top: 1em;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
 }
 
 .feed {
   width: 75%;
   display: block;
+  flex: 0 0 75%;
 }
 
 .side-bar {
