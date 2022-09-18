@@ -1,6 +1,8 @@
-import { App } from "./components/app/app";
+import { QwikCity, RouterOutlet } from "@builder.io/qwik-city";
+import { Home } from "./routes/home/home";
 
 import "./global.css";
+import { Header } from "./components/header/header";
 
 export default () => {
   return (
@@ -21,9 +23,12 @@ export default () => {
         <link rel="stylesheet" href="//demo.productionready.io/main.css"></link>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body>
-        <App />
-      </body>
+      <QwikCity>
+        <body>
+          <Header></Header>
+          <RouterOutlet />
+        </body>
+      </QwikCity>
     </html>
   );
 };

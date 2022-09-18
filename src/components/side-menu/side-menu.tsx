@@ -5,10 +5,10 @@ export const SideMenu = component$(() => {
   return (
     <div className="menu">
       <div className="menu-item">
-        <a>Home</a>
+        <a href="./">Home</a>
       </div>
       <div className="menu-item">
-        <a>Sign up</a>
+        <a href="./register">Sign up</a>
       </div>
       <div className="menu-item">
         <a>Log in</a>

@@ -8,10 +8,6 @@ export const Header = component$(() => {
         <div className="application-name-header">Qwik</div>
         <SideMenu></SideMenu>
       </div>
-      <div className="banner">
-        <h1>Qwik</h1>
-        <p>A place to share your knowledge about Qwik</p>
-      </div>
     </div>
   );
 });

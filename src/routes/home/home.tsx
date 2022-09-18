@@ -4,13 +4,13 @@ import {
   useWatch$,
   useClientEffect$,
 } from "@builder.io/qwik";
-import { Header } from "../header/header";
+import { Header } from "../../components/header/header";
 import axios from "axios";
-import { Tags } from "../tags/tags";
-import "./app.css";
-import { FeedNavigation } from "../feed-navigation/feed-navigation";
-import { NavItem } from "../feed-navigation/nav-item";
-import { Article } from "../article/article";
+import { Tags } from "../../components/tags/tags";
+import "./home.css";
+import { FeedNavigation } from "../../components/feed-navigation/feed-navigation";
+import { NavItem } from "../../components/feed-navigation/nav-item";
+import { Article } from "../../components/article/article";
 
 export const getTags = async () => {
   try {
@@ -37,7 +37,7 @@ export const onFeedNavigationChange = async (feed: NavItem) => {
   console.log("articles", data);
 };
 
-export const App = component$(async () => {
+export const Home = component$(async () => {
   const state = useStore({ tags: ["tag"], articles: [] });
 
   useClientEffect$(async () => {
@@ -51,8 +51,10 @@ export const App = component$(async () => {
   state.articles = await getGeneralArticles();
   return (
     <div class="my-app p-20">
-      <Header></Header>
-      {/* <Logo /> */}
+      <div className="banner">
+        <h1>Qwik</h1>
+        <p>A place to share your knowledge about Qwik</p>
+      </div>
 
       <div className="content-container">
         <div className="feed">
