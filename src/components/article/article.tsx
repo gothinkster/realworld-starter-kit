@@ -28,30 +28,30 @@ export const Article = component$((props: { article: ArticleData }) => {
   const dateString = formatDate(article.createdAt);
   return (
     <div class="article-container">
-      <div className="article-meta">
-        <div className="article-info">
+      <div class="article-meta">
+        <div class="article-info">
           <img
             src={article.author.imageUrl}
             alt={article.author.username}
           ></img>
           <div>
-            <a className="author" href="">
+            <a class="author" href="">
               {" "}
               {article.author.username}
             </a>
-            <span className="date">{dateString}</span>
+            <span class="date">{dateString}</span>
           </div>
         </div>
-        <button className="article-favorites">
+        <button class="article-favorites">
           <i class="ion-heart"></i> {article.favoritesCount}
         </button>
       </div>
-      <div className="article-title">{article.title}</div>
-      <div className="description">{article.description}</div>
-      <div className="read-more">Read mode...</div>
-      <ul className="tags-list">
+      <div class="article-title">{article.title}</div>
+      <div class="description">{article.description}</div>
+      <div class="read-more">Read mode...</div>
+      <ul class="tags-list">
         {article.tagList.map((tag) => (
-          <li className="tag-list-item">{tag}</li>
+          <li class="tag-list-item">{tag}</li>
         ))}
       </ul>
     </div>

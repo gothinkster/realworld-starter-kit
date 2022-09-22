@@ -1,34 +1,35 @@
-import { QwikCity, RouterOutlet } from "@builder.io/qwik-city";
-import { Home } from "./routes/home/home";
+import {QwikCity, RouterOutlet, ServiceWorkerRegister} from '@builder.io/qwik-city'
 
 import "./global.css";
 import { Header } from "./components/header/header";
+import { RouterHead } from "./components/RouterHead/RouterHead";
 
 export default () => {
+  // return (<>
+  //     <QwikCity>
+  //     <head>
+  //       <meta charSet="utf-8" />
+  //       <RouterHead></RouterHead>
+  //     </head>
+  //     <body>
+  //       <Header></Header>
+  //       <RouterOutlet></RouterOutlet>
+  //       <ServiceWorkerRegister />
+
+  //      </body>
+  //     </QwikCity>
+  //   </>
+  // );
   return (
-    <html>
+    <QwikCity>
       <head>
         <meta charSet="utf-8" />
-        <title>Qwik Realworld App</title>
-        <link
-          href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
-          rel="stylesheet"
-          type="text/css"
-        ></link>
-        <link
-          href="//fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic"
-          rel="stylesheet"
-          type="text/css"
-        ></link>
-        <link rel="stylesheet" href="//demo.productionready.io/main.css"></link>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <RouterHead />
       </head>
-      <QwikCity>
-        <body>
-          <Header></Header>
-          <RouterOutlet />
-        </body>
-      </QwikCity>
-    </html>
+      <body lang="en">
+        <RouterOutlet />
+        <ServiceWorkerRegister />
+      </body>
+    </QwikCity>
   );
 };
