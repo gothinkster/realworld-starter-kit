@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
 import java.net.URL
+import kotlin.test.assertEquals
 
 @TestInstance(PER_CLASS)
 class UserRouterIT {
@@ -58,16 +59,16 @@ class UserRouterIT {
 
         client.getUser(jake) {
             val errors = ErrorResponse(bodyMap().requireKeys("errors", "body"))
-            assert(status == UNAUTHORIZED)
-            assert(contentType == ContentType(ApplicationMedia.JSON, charset = Charsets.UTF_8))
+            assertEquals(UNAUTHORIZED, status)
+            assertEquals(ContentType(ApplicationMedia.JSON, charset = Charsets.UTF_8), contentType)
             assert(errors.body.isNotEmpty())
-            assert(errors.body.first() == "Unauthorized")
+            assertEquals("Unauthorized", errors.body.first())
         }
 
         client.updateUser(jake, PutUserRequest(email = jake.email)) {
             val errors = ErrorResponse(bodyMap().requireKeys("errors", "body"))
-            assert(status == UNAUTHORIZED)
-            assert(contentType == ContentType(ApplicationMedia.JSON, charset = Charsets.UTF_8))
+            assertEquals(UNAUTHORIZED, status)
+            assertEquals(ContentType(ApplicationMedia.JSON, charset = Charsets.UTF_8), contentType)
             assert(errors.body.isNotEmpty())
         }
     }

@@ -1,6 +1,6 @@
 package com.hexagonkt.realworld.routes.it
 
-import com.hexagonkt.core.media.ApplicationMedia
+import com.hexagonkt.core.media.ApplicationMedia.JSON
 import com.hexagonkt.core.requireKeys
 import com.hexagonkt.http.client.HttpClient
 import com.hexagonkt.http.client.HttpClientSettings
@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
 import java.net.URL
+import kotlin.test.assertEquals
 import kotlin.text.Charsets.UTF_8
 
 /**
@@ -52,21 +53,21 @@ class UsersRouterIT {
 
     @Test fun `Delete, login and register users`() {
         val endpoint = URL("http://localhost:${server.runtimePort}/api")
-        val settings = HttpClientSettings(endpoint, ContentType(ApplicationMedia.JSON))
+        val settings = HttpClientSettings(endpoint, ContentType(JSON))
         val client = RealWorldClient(HttpClient(JettyClientAdapter(), settings))
 
         client.deleteUser(jake)
         client.deleteUser(jake, setOf(404))
         client.registerUser(jake)
         client.registerUser(jake) {
-            assert(status == INTERNAL_SERVER_ERROR)
-            assert(contentType == ContentType(ApplicationMedia.JSON, charset = UTF_8))
+            assertEquals(INTERNAL_SERVER_ERROR, status)
+            assertEquals(ContentType(JSON, charset = UTF_8), contentType)
 
             val errors = ErrorResponse(bodyMap().requireKeys("errors", "body"))
-            val exceptionName = "MongoWriteException"
-            val message = "E11000 duplicate key error collection: real_world.User index"
-            val key = """_id_ dup key: { _id: "${jake.username}" }"""
-            assert(errors.body.first() == "$exceptionName: $message: $key")
+            val exception = "MongoWriteException: Write operation error on server localhost:3010. Write error"
+            val message = "WriteError{code=11000, message='E11000 duplicate key error collection"
+            val key = """real_world.User index: _id_ dup key: { _id: "${jake.username}" }', details={}}."""
+            assertEquals("$exception: $message: $key", errors.body.first())
         }
 
         client.loginUser(jake)

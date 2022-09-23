@@ -11,6 +11,7 @@ import com.hexagonkt.realworld.Jwt
 import com.hexagonkt.rest.bodyMap
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.realworld.users
+import com.hexagonkt.serialization.serialize
 import com.hexagonkt.store.Store
 
 import kotlin.text.Charsets.UTF_8
@@ -42,5 +43,5 @@ internal fun HttpServerContext.getUser(users: Store<User, String>, jwt: Jwt): Ht
     val user = users.findOne(subject) ?: return notFound("User: $subject not found")
     val token = jwt.sign(user.username)
 
-    return ok(UserResponseRoot(user, token), contentType = ContentType(JSON, charset = UTF_8))
+    return ok(UserResponseRoot(user, token).serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
 }

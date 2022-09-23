@@ -13,6 +13,7 @@ import com.hexagonkt.realworld.Jwt
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.realworld.users
 import com.hexagonkt.rest.bodyMap
+import com.hexagonkt.serialization.serialize
 import com.hexagonkt.store.Store
 
 import kotlin.text.Charsets.UTF_8
@@ -37,7 +38,7 @@ private fun HttpServerContext.register(users: Store<User, String>, jwt: Jwt): Ht
             image = "",
             token = jwt.sign(key)
         )
-    )
+    ).serialize(JSON)
 
     return created(content, contentType = ContentType(JSON, charset = UTF_8))
 }
@@ -47,7 +48,7 @@ private fun HttpServerContext.login(users: Store<User, String>, jwt: Jwt): HttpS
     val filter = mapOf(User::email.name to bodyUser.email)
     val user = users.findOne(filter) ?: return notFound("Not Found")
     return if (user.password == bodyUser.password) {
-        val content = UserResponseRoot(user, jwt.sign(user.username))
+        val content = UserResponseRoot(user, jwt.sign(user.username)).serialize(JSON)
         ok(content, contentType = ContentType(JSON, charset = UTF_8))
     } else {
         clientError(UNAUTHORIZED, "Bad credentials")
@@ -59,7 +60,7 @@ private fun HttpServerContext.deleteUser(users: Store<User, String>): HttpServer
     val username = pathParameters.require("username")
     val deleteOne = users.deleteOne(username)
     return if (deleteOne)
-        ok(OkResponse("$username deleted"), contentType = ContentType(JSON, charset = UTF_8))
+        ok(OkResponse("$username deleted").serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
     else
         notFound("$username not found")
 }

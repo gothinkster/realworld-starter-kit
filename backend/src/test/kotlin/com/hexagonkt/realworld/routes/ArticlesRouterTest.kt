@@ -52,7 +52,7 @@ class ArticlesRouterTest {
 //            assert(false)
 //        }
 //        catch (e: CodedException) {
-//            assert(e.code == 404)
+//            assertEquals(404, e.code)
 //        }
 //    }
 //
@@ -98,7 +98,7 @@ class ArticlesRouterTest {
 //            assert(false)
 //        }
 //        catch (e: CodedException) {
-//            assert(e.code == 500)
+//            assertEquals(500, e.code)
 //        }
 //    }
 }

@@ -2,6 +2,7 @@ package com.hexagonkt.realworld
 
 import org.junit.jupiter.api.Test
 import java.net.URL
+import kotlin.test.assertEquals
 
 class JwtTest {
 
@@ -10,6 +11,6 @@ class JwtTest {
         val jwt = Jwt(URL("classpath:keystore.p12"), "storepass", "realWorld")
         val token = jwt.sign("subject")
 
-        assert(jwt.verify(token).subject == "subject")
+        assertEquals("subject", jwt.verify(token).subject)
     }
 }
