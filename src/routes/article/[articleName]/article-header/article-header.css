@@ -1,0 +1,19 @@
+:root {
+  --banner-color: black;
+}
+
+.banner {
+  background-color: var(--banner-color);
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: left;
+}
+
+.article-meta {
+  display: flex;
+}

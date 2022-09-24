@@ -1,59 +1,20 @@
 import { component$ } from "@builder.io/qwik";
+import { ArticleData } from "~/model/article-data";
+import { ArticleMeta } from "~/routes/article/[articleName]/article-meta/article-meta";
+import { ArticleTagsList } from "../article-tags-list/article-tags-list";
 import "./article.css";
-
-export interface AuthorData {
-  imageUrl: string;
-  username: string;
-}
-
-export interface ArticleData {
-  author: AuthorData;
-  tagList: string[];
-  title: string;
-  description: string;
-  createdAt: string;
-  favoritesCount: number;
-}
-
-export const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString("default", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
-};
 
 export const Article = component$((props: { article: ArticleData }) => {
   const { article } = props;
-  const dateString = formatDate(article.createdAt);
   return (
     <div class="article-container">
-      <div class="article-meta">
-        <div class="article-info">
-          <img
-            src={article.author.imageUrl}
-            alt={article.author.username}
-          ></img>
-          <div>
-            <a class="author" href="">
-              {" "}
-              {article.author.username}
-            </a>
-            <span class="date">{dateString}</span>
-          </div>
-        </div>
-        <button class="article-favorites">
-          <i class="ion-heart"></i> {article.favoritesCount}
-        </button>
+      <ArticleMeta article={article}></ArticleMeta>
+      <div class="article-title">
+        <a href={`/article/${article.slug}`}> {article.title}</a>
       </div>
-      <div class="article-title">{article.title}</div>
       <div class="description">{article.description}</div>
       <div class="read-more">Read mode...</div>
-      <ul class="tags-list">
-        {article.tagList.map((tag) => (
-          <li class="tag-list-item">{tag}</li>
-        ))}
-      </ul>
+      <ArticleTagsList tagsList={article.tagList}></ArticleTagsList>
     </div>
   );
 });

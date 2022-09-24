@@ -11,6 +11,7 @@ import { FeedNavigation } from "../../components/feed-navigation/feed-navigation
 import { NavItem } from "../../components/feed-navigation/nav-item";
 import ArticlesList from "../../components/articles-list/articles-list";
 
+import "../../global.css";
 import "./home.css";
 
 export const getTags: () => Promise<string[]> = async () => {

@@ -1,0 +1,20 @@
+.tags-list {
+  float: right;
+  max-width: 50%;
+  vertical-align: top;
+  list-style: none;
+  margin-bottom: 3rem;
+}
+
+.tag-list-item {
+  font-weight: 300;
+  font-size: 0.8rem;
+  padding: 1rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  border: solid 1px var(--meta-color);
+  border-radius: 10px;
+  display: inline-block;
+  margin-right: 0.5rem;
+  color: var(--meta-color);
+}

@@ -1,7 +1,3 @@
-:root {
-  --meta-color: #bbb;
-}
-
 .article-container {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding: 1.5rem 0;
@@ -20,12 +16,6 @@ img {
   position: relative;
   font-weight: 300;
   gap: 0.5rem;
-}
-
-.date {
-  color: var(--meta-color);
-  font-size: 0.8rem;
-  display: block;
 }
 
 .author {
@@ -50,35 +40,14 @@ img {
 }
 
 .article-title {
-  font-weight: 600 !important;
-  font-size: 1.5rem !important;
+  font-weight: 600;
+  font-size: 1.5rem;
   margin-bottom: 3px;
 }
 
 .read-more {
   color: var(--meta-color);
   font-size: 0.8rem;
-}
-
-.tags-list {
-  float: right;
-  max-width: 50%;
-  vertical-align: top;
-  list-style: none;
-  margin-bottom: 3rem;
-}
-
-.tag-list-item {
-  font-weight: 300;
-  font-size: 0.8rem !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  border: solid 1px var(--meta-color);
-  border-radius: 10px;
-  display: inline-block;
-  padding: 1rem;
-  margin-right: 0.5rem;
-  color: var(--meta-color);
 }
 
 .article-favorites {

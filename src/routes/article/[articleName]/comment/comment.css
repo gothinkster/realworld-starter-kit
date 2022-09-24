@@ -1,0 +1,16 @@
+:root {
+  --card-border-color: #e5e5e5;
+}
+
+.card {
+  border: 1px solid var(--card-border-color);
+  box-shadow: none;
+}
+
+.card-footer {
+  border-top: 1px solid var(--card-border-color);
+  box-shadow: none;
+  font-size: 0.8rem;
+  font-weight: 300;
+  display: flex;
+}
