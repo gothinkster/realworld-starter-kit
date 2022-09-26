@@ -1,133 +1,121 @@
-import { component$ } from '@builder.io/qwik';
-import type { DocumentHead } from '@builder.io/qwik-city';
-import { Link } from '@builder.io/qwik-city';
+import { component$ } from "@builder.io/qwik";
+import type { DocumentHead } from "@builder.io/qwik-city";
+import { Link } from "@builder.io/qwik-city";
 
 export default component$(() => {
   return (
-    <div>
-      <h1>
-        Welcome to Qwik <span class="lightning">⚡️</span>
-      </h1>
+    <div class="home-page">
+      <div class="banner">
+        <div class="container">
+          <h1 class="logo-font">conduit</h1>
+          <p>A place to share your knowledge.</p>
+        </div>
+      </div>
 
-      <ul>
-        <li>
-          Check out the <code>src/routes</code> directory to get started.
-        </li>
-        <li>
-          Add integrations with <code>npm run qwik add</code>.
-        </li>
-        <li>
-          More info about development in <code>README.md</code>
-        </li>
-      </ul>
+      <div class="container page">
+        <div class="row">
+          <div class="col-md-9">
+            <div class="feed-toggle">
+              <ul class="nav nav-pills outline-active">
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="">
+                    Your Feed
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="">
+                    Global Feed
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-      <h2>Commands</h2>
+            <div class="article-preview">
+              <div class="article-meta">
+                <a href="profile.html">
+                  <img src="http://i.imgur.com/Qr71crq.jpg" />
+                </a>
+                <div class="info">
+                  <a href="" class="author">
+                    Eric Simons
+                  </a>
+                  <span class="date">January 20th</span>
+                </div>
+                <button class="btn btn-outline-primary btn-sm pull-xs-right">
+                  <i class="ion-heart"></i> 29
+                </button>
+              </div>
+              <a href="" class="preview-link">
+                <h1>How to build webapps that scale</h1>
+                <p>This is the description for the post.</p>
+                <span>Read more...</span>
+              </a>
+            </div>
 
-      <table class="commands">
-        <tr>
-          <td>
-            <code>npm run dev</code>
-          </td>
-          <td>Start the dev server and watch for changes.</td>
-        </tr>
-        <tr>
-          <td>
-            <code>npm run preview</code>
-          </td>
-          <td>Production build and start preview server.</td>
-        </tr>
-        <tr>
-          <td>
-            <code>npm run build</code>
-          </td>
-          <td>Production build.</td>
-        </tr>
-        <tr>
-          <td>
-            <code>npm run qwik add</code>
-          </td>
-          <td>Select an integration to add.</td>
-        </tr>
-      </table>
+            <div class="article-preview">
+              <div class="article-meta">
+                <a href="profile.html">
+                  <img src="http://i.imgur.com/N4VcUeJ.jpg" />
+                </a>
+                <div class="info">
+                  <a href="" class="author">
+                    Albert Pai
+                  </a>
+                  <span class="date">January 20th</span>
+                </div>
+                <button class="btn btn-outline-primary btn-sm pull-xs-right">
+                  <i class="ion-heart"></i> 32
+                </button>
+              </div>
+              <a href="" class="preview-link">
+                <h1>
+                  The song you won't ever stop singing. No matter how hard you
+                  try.
+                </h1>
+                <p>This is the description for the post.</p>
+                <span>Read more...</span>
+              </a>
+            </div>
+          </div>
 
-      <h2>Add Integrations</h2>
+          <div class="col-md-3">
+            <div class="sidebar">
+              <p>Popular Tags</p>
 
-      <table class="commands">
-        <tr>
-          <td>
-            <code>npm run qwik add cloudflare-pages</code>
-          </td>
-          <td>
-            <a href="https://developers.cloudflare.com/pages" target="_blank">
-              Cloudflare Pages Server
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <code>npm run qwik add express</code>
-          </td>
-          <td>
-            <a href="https://expressjs.com/" target="_blank">
-              Nodejs Express Server
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <code>npm run qwik add netlify-edge</code>
-          </td>
-          <td>
-            <a href="https://docs.netlify.com/" target="_blank">
-              Netlify Edge Functions
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <code>npm run qwik add static-node</code>
-          </td>
-          <td>
-            <a
-              href="https://qwik.builder.io/qwikcity/static-site-generation/overview/"
-              target="_blank"
-            >
-              Static Site Generation (SSG)
-            </a>
-          </td>
-        </tr>
-      </table>
-
-      <h2>Community</h2>
-
-      <ul>
-        <li>
-          <span>Questions or just want to say hi? </span>
-          <a href="https://qwik.builder.io/chat" target="_blank">
-            Chat on discord!
-          </a>
-        </li>
-        <li>
-          <span>Follow </span>
-          <a href="https://twitter.com/QwikDev" target="_blank">
-            @QwikDev
-          </a>
-          <span> on Twitter</span>
-        </li>
-        <li>
-          <span>Open issues and contribute on </span>
-          <a href="https://github.com/BuilderIO/qwik" target="_blank">
-            Github
-          </a>
-        </li>
-      </ul>
-      <Link class="mindblow" href="/flower">
-        Blow my mind 🤯
-      </Link>
+              <div class="tag-list">
+                <a href="" class="tag-pill tag-default">
+                  programming
+                </a>
+                <a href="" class="tag-pill tag-default">
+                  javascript
+                </a>
+                <a href="" class="tag-pill tag-default">
+                  emberjs
+                </a>
+                <a href="" class="tag-pill tag-default">
+                  angularjs
+                </a>
+                <a href="" class="tag-pill tag-default">
+                  react
+                </a>
+                <a href="" class="tag-pill tag-default">
+                  mean
+                </a>
+                <a href="" class="tag-pill tag-default">
+                  node
+                </a>
+                <a href="" class="tag-pill tag-default">
+                  rails
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 });
 
 export const head: DocumentHead = {
-  title: 'Welcome to Qwik',
+  title: "Welcome to Qwik",
 };
