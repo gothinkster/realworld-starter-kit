@@ -1,0 +1,36 @@
+input {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: var(--input-color);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+  border-radius: 0.3rem;
+}
+
+.form-group input {
+  margin-bottom: 1rem;
+}
+
+button {
+  color: #fff;
+  float: right;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+  border-radius: 0.3rem;
+  background-color: var(--header-color);
+  border-color: var(--header-color);
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  touch-action: manipulation;
+}

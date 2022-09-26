@@ -7,6 +7,7 @@ import { ArticleHeader } from "./article-header/article-header";
 import "./index.css";
 import { ArticleTagsList } from "~/components/article-tags-list/article-tags-list";
 import { ArticleMeta } from "./article-meta/article-meta";
+import { BASE_URL } from "~/common/api";
 
 export default component$(() => {
   const location = useLocation();
@@ -18,12 +19,12 @@ export default component$(() => {
     cleanup(() => controller.abort());
 
     const articleResponse = await axios.get(
-      `https://api.realworld.io/api/articles/${state.name}`
+      `${BASE_URL}/articles/${state.name}`
     );
     const article = await articleResponse.data.article;
     article.author.imageUrl = article.author.image;
     const commentsResponse = await axios.get(
-      `https://api.realworld.io/api/articles/${state.name}/comments`
+      `${BASE_URL}/articles/${state.name}/comments`
     );
     article.comments = commentsResponse.data.comments.map((comment: any) => ({
       ...comment,

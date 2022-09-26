@@ -1,6 +1,7 @@
 export interface AuthorData {
   imageUrl: string;
   username: string;
+  following: boolean;
 }
 
 export interface ArticleData {

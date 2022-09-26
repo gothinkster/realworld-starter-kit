@@ -4,6 +4,7 @@ import {
   mutable,
   useResource$,
   Resource,
+  useClientEffect$,
 } from "@builder.io/qwik";
 import axios from "axios";
 import { Tags } from "../../components/tags/tags";
@@ -11,12 +12,15 @@ import { FeedNavigation } from "../../components/feed-navigation/feed-navigation
 import { NavItem } from "../../components/feed-navigation/nav-item";
 import ArticlesList from "../../components/articles-list/articles-list";
 
-import "../../global.css";
+import "~/global.css";
 import "./home.css";
+import { BASE_URL } from "~/common/api";
+import { getAuthToken } from "~/auth/auth";
+import { QRL } from "@builder.io/qwik";
 
 export const getTags: () => Promise<string[]> = async () => {
   try {
-    const response = await axios.get("https://api.realworld.io/api/tags");
+    const response = await axios.get(`${BASE_URL}/tags`);
     return response.data.tags;
   } catch (err) {
     console.error("error getting tags", err);
@@ -24,10 +28,30 @@ export const getTags: () => Promise<string[]> = async () => {
   }
 };
 
+export const getFeed = async () => {
+  const feedUrl = `${BASE_URL}articles/feed`;
+  try {
+    const response = await axios.get(feedUrl, {
+      headers: { authorization: getAuthToken() },
+    });
+    return response.data.articles.map((item: any) => ({
+      ...item,
+      author: { ...item.author, imageUrl: item.author.image },
+    }));
+  } catch {
+    return [];
+  }
+};
+
 export const getGeneralArticles = async (tagName: string = "") => {
-  const articleUrl = `https://api.realworld.io/api/articles?limit=10&offset=0`;
+  const articleUrl = `${BASE_URL}/articles?limit=10&offset=0`;
   const response = await axios.get<{ articles: any }>(
-    tagName ? `${articleUrl}&tag=${tagName}` : articleUrl
+    tagName ? `${articleUrl}&tag=${tagName}` : articleUrl,
+    {
+      headers: {
+        authorization: getAuthToken(),
+      },
+    }
   );
   return response.data.articles.map((item: any) => ({
     ...item,
@@ -35,7 +59,7 @@ export const getGeneralArticles = async (tagName: string = "") => {
   }));
 };
 
-export const onFeedNavigationChange = async (
+export const onFeedNavigationChange = (
   feed: string,
   state: {
     tabs: NavItem[];
@@ -70,10 +94,12 @@ export const Home = component$(() => {
     count: 0,
     tags: [],
     articles: [],
+    personalFeed: [],
     selectedTag: "",
     tabs,
     activeTab: undefined,
   });
+
   const tagsResource = useResource$<string[]>(({ track, cleanup }) => {
     track(state, "tags");
 
@@ -85,11 +111,14 @@ export const Home = component$(() => {
   const articlesResource = useResource$(({ track, cleanup }) => {
     const controller = new AbortController();
     track(state, "selectedTag");
+    // track(state, "activeTab");
     cleanup(() => controller.abort());
     return getGeneralArticles(state.selectedTag);
   });
 
-  // await getStateData(state);
+  useClientEffect$(async () => {
+    state.personalFeed = await getFeed();
+  });
 
   return (
     <div class="my-app p-20">
@@ -107,12 +136,16 @@ export const Home = component$(() => {
               activeTab={mutable(state.activeTab)}
             ></FeedNavigation>
           </div>
-          <Resource
-            value={articlesResource}
-            onResolved={(articles: any[]) => (
-              <ArticlesList articles={mutable(articles)}></ArticlesList>
-            )}
-          ></Resource>
+          {state.activeTab?.label !== "Your Feed" ? (
+            <Resource
+              value={articlesResource}
+              onResolved={(articles: any[]) => (
+                <ArticlesList articles={mutable(articles)}></ArticlesList>
+              )}
+            ></Resource>
+          ) : (
+            <ArticlesList articles={mutable(state.personalFeed)}></ArticlesList>
+          )}
         </div>
         <Resource
           value={tagsResource}
