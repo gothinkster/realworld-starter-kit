@@ -19,13 +19,14 @@ import { getAuthToken } from "~/auth/auth";
 import { QRL } from "@builder.io/qwik";
 
 export const getTags: () => Promise<string[]> = async () => {
-  try {
-    const response = await axios.get(`${BASE_URL}/tags`);
-    return response.data.tags;
-  } catch (err) {
-    console.error("error getting tags", err);
-    return [];
-  }
+  // try {
+  const response = await axios.get(`${BASE_URL}/tags`);
+  console.log("tags", response.data.tags);
+  return response.data.tags;
+  // } catch (err) {
+  //   console.error("error getting tags", err);
+  //   return [];
+  // }
 };
 
 export const getFeed = async () => {
@@ -78,10 +79,10 @@ export const onSelectedTagChange = async (tagName: string, state: any) => {
   state.activeTab = state.tabs[2];
 };
 
-export const getStateData = async (state: any) => {
-  const tags = await getTags();
-  state.tags = tags;
-};
+// export const getStateData = async (state: any) => {
+//   const tags = await getTags();
+//   state.tags = tags;
+// };
 
 export const Home = component$(() => {
   const tabs = [
@@ -102,7 +103,6 @@ export const Home = component$(() => {
 
   const tagsResource = useResource$<string[]>(({ track, cleanup }) => {
     track(state, "tags");
-
     const controller = new AbortController();
     cleanup(() => controller.abort());
     return getTags();
@@ -111,14 +111,13 @@ export const Home = component$(() => {
   const articlesResource = useResource$(({ track, cleanup }) => {
     const controller = new AbortController();
     track(state, "selectedTag");
-    // track(state, "activeTab");
     cleanup(() => controller.abort());
     return getGeneralArticles(state.selectedTag);
   });
 
-  useClientEffect$(async () => {
-    state.personalFeed = await getFeed();
-  });
+  // useClientEffect$(async () => {
+  //   state.personalFeed = await getFeed();
+  // });
 
   return (
     <div class="my-app p-20">
@@ -149,7 +148,6 @@ export const Home = component$(() => {
         </div>
         <Resource
           value={tagsResource}
-          onPending={() => <>Loading Tags</>}
           onRejected={(error) => <>Error: {error.message}</>}
           onResolved={(tags: string[]) => (
             <Tags

@@ -20,20 +20,19 @@ export const getUser: () => UserData | Promise<UserData> = async () => {
         authorization: getAuthToken(),
       },
     });
-    console.log("auth response", response.data);
     return response.data.user;
   } catch {
     return null;
   }
 };
 
-export const getCookies: (cookiesString: string) => {
+export const getCookies: (cookiesString?: string) => {
   [key: string]: string;
-} = (cookiesString = "") => {
-  if (!cookiesString) {
+} = (cookiesString) => {
+  if (cookiesString === undefined) {
     cookiesString = document.cookie;
   }
-  const cookeisArray = cookiesString.split(";");
+  const cookeisArray = cookiesString?.split(";") || [];
   const cookiesObj = cookeisArray.reduce((obj, item) => {
     const [key, value]: string[] = item.split("=");
     obj[key] = value;
@@ -60,15 +59,15 @@ export const setCookie = (key: string, value: string, responseObj?: any) => {
 export const getAuthToken = () => {
   try {
     const token = tempToken || localStorage.getItem("token");
-    return `Token ${token}`;
+    return token ? `Token ${token}` : null;
   } catch (err) {
     // console.error('args', args, global);
     // In case localStorage is not defiend, i.e server side {
     return null;
   }
 };
-
 export const saveTempCookie = (token: string) => {
   tempToken = token;
+  console.log("token", token);
   setCookie("token", token);
 };

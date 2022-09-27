@@ -5,7 +5,7 @@ import { Home } from "./home/home";
 
 export const onGet: RequestHandler = async (req: any) => {
   const cookiesObj = getCookies(req.request.headers.get("cookie"));
-  const token = cookiesObj[" token"];
+  const token = cookiesObj["token"];
   saveTempCookie(token);
 };
 
