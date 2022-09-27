@@ -1,11 +1,11 @@
-import { RequestHandler, useEndpoint } from "@builder.io/qwik-city";
+import { useEndpoint, RequestHandler } from "@builder.io/qwik-city";
 import { component$, Resource } from "@builder.io/qwik";
 
-type User = {
-  username: string;
+type AuthUser = {
+  token: string;
 };
 
-export const onPost: RequestHandler<User> = async ({
+export const onPost: RequestHandler<AuthUser> = async ({
   url,
   params,
   request,
@@ -15,13 +15,12 @@ export const onPost: RequestHandler<User> = async ({
 
   const body = JSON.stringify({
     user: {
-      username: formValues.get("username"),
       email: formValues.get("email"),
       password: formValues.get("password"),
     },
   });
 
-  const head = await fetch("https://api.realworld.io/api/users", {
+  const head = await fetch("https://api.realworld.io/api/users/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -34,6 +33,8 @@ export const onPost: RequestHandler<User> = async ({
   console.log({ head, resp });
   if (head.status === 200) {
     console.log("Usuário criado");
+    response.headers.append("Set-Cookie", `realworld-qwik=${resp.user.token}; path=/`)
+    throw response.redirect('/', 302)
   } else {
     console.log("Não foi possivel criar usuário", { head });
   }
@@ -42,14 +43,14 @@ export const onPost: RequestHandler<User> = async ({
 };
 
 export default component$(() => {
-  const data = useEndpoint<User>();
+  const data = useEndpoint<AuthUser>();
 
   return (
     <Resource
       value={data}
       onPending={() => <div>Loading...</div>}
       onRejected={() => <div>Error</div>}
-      onResolved={(user) => (
+      onResolved={(authUser) => (
         <div class="auth-page">
           <div class="container page">
             <div class="row">
@@ -59,20 +60,12 @@ export default component$(() => {
                   <a href="">Have an account?</a>
                 </p>
 
-                <pre>{JSON.stringify({ data, user }, null, 2)}</pre>
+                <pre>{JSON.stringify({ data, authUser }, null, 2)}</pre>
                 <ul class="error-messages">
                   <li>That email is already taken</li>
                 </ul>
 
                 <form method="POST">
-                  <fieldset class="form-group">
-                    <input
-                      name="username"
-                      class="form-control form-control-lg"
-                      type="text"
-                      placeholder="Your Name"
-                    />
-                  </fieldset>
                   <fieldset class="form-group">
                     <input
                       name="email"
