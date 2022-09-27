@@ -23,7 +23,7 @@ export const SideMenu = component$((props: { user: UserData }) => {
       ) : (
         <>
           <div class="menu-item">
-            <a href="/settings" class="authenticated">
+            <a href="/settings" class="settings">
               <i class="ion-gear-a"></i>
               Settings
             </a>
