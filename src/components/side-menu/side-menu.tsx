@@ -1,20 +1,44 @@
-import { component$, useClientEffect$, useStore } from "@builder.io/qwik";
-import { getUser, UserData } from "~/auth/auth";
+import { component$ } from "@builder.io/qwik";
+import { UserData } from "~/auth/auth";
 import "./side-menu.css";
 
 export const SideMenu = component$((props: { user: UserData }) => {
+  const { user } = props;
   return (
     <div className="menu">
       <div className="menu-item">
         <a href="/">Home</a>
       </div>
 
-      <div className="menu-item">
-        <a href="/register">{props.user?.username || "Sign up"}</a>
-      </div>
-      <div className="menu-item">
-        <a>Log in</a>
-      </div>
+      {!user?.username ? (
+        <>
+          {" "}
+          <div className="menu-item">
+            <a href="/register">Sign up</a>
+          </div>
+          <div className="menu-item">
+            <a>Log in</a>
+          </div>
+        </>
+      ) : (
+        <>
+          <div class="menu-item">
+            <a href="/settings" class="authenticated">
+              <i class="ion-gear-a"></i>
+              Settings
+            </a>
+          </div>
+          <div className="menu-item">
+            <a href="/editor" class="authenticated">
+              <i class="ion-compose"></i> New Article
+            </a>
+          </div>
+          <div class="menu-item">
+            <img src={user.image} />
+            {user?.username}
+          </div>
+        </>
+      )}
     </div>
   );
 });

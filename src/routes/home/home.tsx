@@ -16,17 +16,10 @@ import "~/global.css";
 import "./home.css";
 import { BASE_URL } from "~/common/api";
 import { getAuthToken } from "~/auth/auth";
-import { QRL } from "@builder.io/qwik";
 
 export const getTags: () => Promise<string[]> = async () => {
-  // try {
   const response = await axios.get(`${BASE_URL}/tags`);
-  console.log("tags", response.data.tags);
   return response.data.tags;
-  // } catch (err) {
-  //   console.error("error getting tags", err);
-  //   return [];
-  // }
 };
 
 export const getFeed = async () => {
