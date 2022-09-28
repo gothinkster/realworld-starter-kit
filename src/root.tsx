@@ -29,7 +29,7 @@ export default () => {
         <meta charSet="utf-8" />
         <RouterHead />
       </head>
-      <body lang="en">
+      <body>
         <RouterOutlet />
         <ServiceWorkerRegister />
       </body>

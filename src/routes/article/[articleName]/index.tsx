@@ -1,4 +1,10 @@
-import { component$, Resource, useResource$, useStore } from "@builder.io/qwik";
+import {
+  component$,
+  mutable,
+  Resource,
+  useResource$,
+  useStore,
+} from "@builder.io/qwik";
 import { useLocation } from "@builder.io/qwik-city";
 import axios from "axios";
 import { CommentData } from "~/model/article-data";
@@ -8,11 +14,12 @@ import "./index.css";
 import { ArticleTagsList } from "~/components/article-tags-list/article-tags-list";
 import { ArticleMeta } from "./article-meta/article-meta";
 import { BASE_URL } from "~/common/api";
+import { getAuthToken } from "~/auth/auth";
 
 export default component$(() => {
   const location = useLocation();
   const state = useStore({ name: location.params.articleName });
-
+  const authenticated = !!getAuthToken();
   const articleResource = useResource$(async ({ track, cleanup }) => {
     track(state, "name");
     const controller = new AbortController();
@@ -39,12 +46,18 @@ export default component$(() => {
         value={articleResource}
         onResolved={(article: any) => (
           <div>
-            <ArticleHeader {...article}></ArticleHeader>
+            <ArticleHeader
+              article={article}
+              authenticated={authenticated}
+            ></ArticleHeader>
 
             <div class="container">
               <ArticleTagsList tagsList={article.tagList}></ArticleTagsList>
               <div class="meta-container">
-                <ArticleMeta article={article}></ArticleMeta>
+                <ArticleMeta
+                  article={article}
+                  authenticated={authenticated}
+                ></ArticleMeta>
               </div>
               {article.comments.map((comment: CommentData) => {
                 return <Comment {...comment}></Comment>;

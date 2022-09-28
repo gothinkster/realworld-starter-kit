@@ -84,6 +84,7 @@ export const Home = component$(() => {
     { label: "" },
   ];
 
+  const authenticated = !!getAuthToken();
   const state = useStore({
     count: 0,
     tags: [],
@@ -132,7 +133,10 @@ export const Home = component$(() => {
             <Resource
               value={articlesResource}
               onResolved={(articles: any[]) => (
-                <ArticlesList articles={mutable(articles)}></ArticlesList>
+                <ArticlesList
+                  articles={mutable(articles)}
+                  authenticated={authenticated}
+                ></ArticlesList>
               )}
             ></Resource>
           ) : (
