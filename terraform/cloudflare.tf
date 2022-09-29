@@ -45,11 +45,13 @@ resource "cloudflare_pages_project" "gangoffront_realworld_qwik" {
   account_id        = var.account_id
   name              = var.project_name
   production_branch = "master"
+
   build_config {
     destination_dir = "dist"
     build_command   = "npm run build"
     root_dir        = "/"
   }
+
   source {
     type = "github"
     config {
