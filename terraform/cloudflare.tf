@@ -37,7 +37,7 @@ resource "cloudflare_record" "realworld_qwik" {
   proxied = true
   ttl     = 1
   type    = "CNAME"
-  value   = format("https://%s.pages.dev", var.project_name)
+  value   = format("%s.pages.dev", var.project_name)
   zone_id = var.zone_id
 }
 
