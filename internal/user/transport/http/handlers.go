@@ -20,7 +20,7 @@ func (a api) Authentication(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := a.userService.Authenticate(dest.Email, dest.Password)
+	user, err := a.userService.Authenticate(r.Context(), dest.Email, dest.Password)
 	if err != nil {
 		newErrorResp(w, http.StatusInternalServerError, err)
 		return

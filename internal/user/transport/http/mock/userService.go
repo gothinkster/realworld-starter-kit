@@ -5,10 +5,11 @@
 package mock
 
 import (
-	"github.com/pavelkozlov/realworld/internal/entity"
+	context "context"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
+	entity "github.com/pavelkozlov/realworld/internal/entity"
 )
 
 // MockuserService is a mock of userService interface.
@@ -35,16 +36,16 @@ func (m *MockuserService) EXPECT() *MockuserServiceMockRecorder {
 }
 
 // Authenticate mocks base method.
-func (m *MockuserService) Authenticate(email, password string) (entity.User, error) {
+func (m *MockuserService) Authenticate(ctx context.Context, email, password string) (entity.User, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Authenticate", email, password)
+	ret := m.ctrl.Call(m, "Authenticate", ctx, email, password)
 	ret0, _ := ret[0].(entity.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // Authenticate indicates an expected call of Authenticate.
-func (mr *MockuserServiceMockRecorder) Authenticate(email, password interface{}) *gomock.Call {
+func (mr *MockuserServiceMockRecorder) Authenticate(ctx, email, password interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Authenticate", reflect.TypeOf((*MockuserService)(nil).Authenticate), email, password)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Authenticate", reflect.TypeOf((*MockuserService)(nil).Authenticate), ctx, email, password)
 }

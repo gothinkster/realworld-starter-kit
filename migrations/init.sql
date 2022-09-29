@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS "user" (
                         "id" SERIAL PRIMARY KEY,
                         "email" varchar UNIQUE NOT NULL,
                         "salt" varchar UNIQUE NOT NULL,
+                        "password" varchar UNIQUE NOT NULL,
                         "username" varchar UNIQUE NOT NULL,
                         "bio" varchar,
                         "image" varchar,

@@ -2,6 +2,7 @@ package api
 
 import (
 	"bytes"
+	"context"
 	"github.com/golang/mock/gomock"
 	jsoniter "github.com/json-iterator/go"
 	"github.com/pavelkozlov/realworld/internal/entity"
@@ -50,7 +51,7 @@ var testAuthenticationTestCases = []testAuthenticationTestCase{
 		bytes.NewBuffer(validAuthReqBytes),
 		200,
 		func(service *mock.MockuserService) {
-			service.EXPECT().Authenticate("test@test.ru", "123456").Return(entity.User{}, nil)
+			service.EXPECT().Authenticate(context.Background(), "test@test.ru", "123456").Return(entity.User{}, nil)
 		},
 	},
 	{

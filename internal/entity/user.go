@@ -5,9 +5,10 @@ import (
 )
 
 type User struct {
-	ID        int32
+	ID        int
 	Email     string
 	Salt      string
+	Password  string
 	Username  string
 	Bio       *string
 	Image     *string

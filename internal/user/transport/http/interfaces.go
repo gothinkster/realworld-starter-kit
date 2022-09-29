@@ -3,9 +3,10 @@
 package api
 
 import (
+	"context"
 	"github.com/pavelkozlov/realworld/internal/entity"
 )
 
 type userService interface {
-	Authenticate(email, password string) (entity.User, error)
+	Authenticate(ctx context.Context, email, password string) (entity.User, error)
 }
