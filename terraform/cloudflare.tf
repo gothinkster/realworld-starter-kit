@@ -64,9 +64,3 @@ resource "cloudflare_pages_project" "gangoffront_realworld_qwik" {
     }
   }
 }
-
-resource "cloudflare_pages_domain" "realworld_qwik" {
-  account_id   = var.account_id
-  project_name = var.project_name
-  domain       = "realworld-qwik.gangoffront.com"
-}
