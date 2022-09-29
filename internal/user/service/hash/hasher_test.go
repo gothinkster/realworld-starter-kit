@@ -8,16 +8,16 @@ import (
 // TestCreateSaltUnique проверяет что соль всегдя уникальная
 func TestCreateSaltUnique(t *testing.T) {
 	h := NewHasher()
-	results := make(map[string]bool, 100)
-	for i := 0; i < 100; i++ {
-		b, err := h.createSalt(20)
+	results := make(map[string]bool, 10)
+	for i := 0; i < 10; i++ {
+		b, err := h.createSalt(10)
 		if err != nil {
 			t.Fatal(err)
 		}
-		if _, ok := results[string(b)]; ok {
+		if _, ok := results[b]; ok {
 			t.Fatal("salt already exists")
 		}
-		results[string(b)] = true
+		results[b] = true
 	}
 }
 
@@ -43,7 +43,7 @@ func TestHasher(t *testing.T) {
 		}
 
 		hashedPass2 := h.CreateHashFromPasswordAndSalt(pass, salt)
-		if string(hashedPass2) != string(hashedPass) {
+		if hashedPass2 != hashedPass {
 			t.Fatal(fmt.Errorf("hashedPass!= hashedPass2"))
 		}
 	}
@@ -70,11 +70,11 @@ func TestHasherUniqueResult(t *testing.T) {
 		t.Fatal(err3)
 	}
 
-	if string(hash1) == string(hash2) || string(hash1) == string(hash3) || string(hash2) == string(hash3) {
+	if hash1 == hash2 || hash1 == hash3 || hash2 == hash3 {
 		t.Fatal(fmt.Errorf("not unique hash"))
 	}
 
-	if string(salt1) == string(salt2) || string(salt1) == string(salt3) || string(salt2) == string(salt3) {
+	if salt1 == salt2 || salt1 == salt3 || salt2 == salt3 {
 		t.Fatal(fmt.Errorf("not unique salt"))
 	}
 }

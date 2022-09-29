@@ -10,6 +10,6 @@ type userRepo interface {
 }
 
 type hasher interface {
-	CreateHashFromPasswordAndSalt(password string, salt []byte) []byte
-	CreateHashFromPassword(password string) (hash []byte, salt []byte, err error)
+	CreateHashFromPasswordAndSalt(password string, salt string) string
+	CreateHashFromPassword(password string) (hash string, salt string, err error)
 }
