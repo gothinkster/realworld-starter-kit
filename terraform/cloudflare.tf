@@ -3,7 +3,7 @@ terraform {
     organization = "gangoffront"
 
     workspaces {
-      name = "gangoffront-realworld-qwik"
+      name = "realworld-qwik"
     }
   }
   required_providers {
@@ -29,7 +29,7 @@ variable "domain" {
 }
 
 variable "project_name" {
-  default = "gangoffront-com"
+  default = "gangoffront-realworld-qwik"
 }
 
 resource "cloudflare_record" "realworld_qwik" {
@@ -37,13 +37,13 @@ resource "cloudflare_record" "realworld_qwik" {
   proxied = true
   ttl     = 1
   type    = "CNAME"
-  value   = "gangoffront-realworld-qwik.pages.dev"
+  value   = format("%s.pages.dev", var.project_name)
   zone_id = var.zone_id
 }
 
 resource "cloudflare_pages_project" "gangoffront_realworld_qwik" {
   account_id        = var.account_id
-  name              = "gangoffront-realworld-qwik"
+  name              = var.project_name
   production_branch = "master"
   build_config {
     destination_dir = "dist"
@@ -63,4 +63,10 @@ resource "cloudflare_pages_project" "gangoffront_realworld_qwik" {
       preview_branch_excludes       = ["master"]
     }
   }
+}
+
+resource "cloudflare_pages_domain" "realworld_qwik" {
+  account_id   = var.account_id
+  project_name = var.project_name
+  domain       = "realworld-qwik.gangoffront.com"
 }
