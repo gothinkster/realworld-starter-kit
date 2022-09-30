@@ -56,15 +56,17 @@ export default component$(() => {
               value={data}
               onPending={() => <div>Loading...</div>}
               onRejected={() => <div>Error</div>}
-              onResolved={(data: any) => (
-                <ul class="error-messages">
-                  {Object.keys(data.errors).map((key) => (
-                    <li>
-                      That {key} {data.errors[key]}
-                    </li>
-                  ))}
-                </ul>
-              )}
+              onResolved={(data: any) =>
+                data && (
+                  <ul class="error-messages">
+                    {Object.keys(data.errors).map((key) => (
+                      <li>
+                        That {key} {data.errors[key]}
+                      </li>
+                    ))}
+                  </ul>
+                )
+              }
             />
             <form method="POST">
               <fieldset class="form-group">
