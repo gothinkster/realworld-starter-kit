@@ -1,0 +1,449 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>hash: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">github.com/pavelkozlov/realworld/internal/user/service/hash/hasher.go (81.8%)</option>
+				
+				<option value="file1">github.com/pavelkozlov/realworld/internal/user/service/jwt/jwt.go (78.9%)</option>
+				
+				<option value="file2">github.com/pavelkozlov/realworld/internal/user/transport/http/handlers.go (52.9%)</option>
+				
+				<option value="file3">github.com/pavelkozlov/realworld/internal/user/transport/http/requests.go (50.0%)</option>
+				
+				<option value="file4">github.com/pavelkozlov/realworld/internal/user/transport/http/responses.go (100.0%)</option>
+				
+				<option value="file5">github.com/pavelkozlov/realworld/internal/user/transport/http/validation.go (100.0%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">not covered</span>
+				<span class="cov8">covered</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package hash
+
+import (
+        "crypto/rand"
+        "encoding/base64"
+        "golang.org/x/crypto/argon2"
+)
+
+type params struct {
+        memory      uint32
+        iterations  uint32
+        parallelism uint8
+        saltLength  uint32
+        keyLength   uint32
+}
+
+type hasher struct {
+        params *params
+}
+
+func NewHasher() *hasher <span class="cov8" title="1">{
+        p := &amp;params{
+                memory:      64 * 1024,
+                iterations:  3,
+                parallelism: 2,
+                saltLength:  64,
+                keyLength:   32,
+        }
+        return &amp;hasher{p}
+}</span>
+
+func (h hasher) CreateHashFromPassword(password string) (hash string, salt string, err error) <span class="cov8" title="1">{
+
+        salt, err = h.createSalt(h.params.saltLength)
+        if err != nil </span><span class="cov0" title="0">{
+                return "", "", err
+        }</span>
+
+        <span class="cov8" title="1">saltBytes, err := base64.RawStdEncoding.DecodeString(salt)
+        if err != nil </span><span class="cov0" title="0">{
+                return "", "", err
+        }</span>
+
+        <span class="cov8" title="1">hashBytes := argon2.IDKey(
+                []byte(password),
+                saltBytes,
+                h.params.iterations,
+                h.params.memory,
+                h.params.parallelism,
+                h.params.keyLength,
+        )
+
+        hash = base64.RawStdEncoding.EncodeToString(hashBytes)
+
+        return hash, salt, nil</span>
+}
+
+func (h hasher) CreateHashFromPasswordAndSalt(password string, salt string) string <span class="cov8" title="1">{
+
+        saltBytes, err := base64.RawStdEncoding.DecodeString(salt)
+        if err != nil </span><span class="cov0" title="0">{
+                saltBytes = []byte(salt)
+        }</span>
+
+        <span class="cov8" title="1">hashBytes := argon2.IDKey(
+                []byte(password),
+                saltBytes,
+                h.params.iterations,
+                h.params.memory,
+                h.params.parallelism,
+                h.params.keyLength,
+        )
+
+        hash := base64.RawStdEncoding.EncodeToString(hashBytes)
+
+        return hash</span>
+}
+
+func (h hasher) createSalt(n uint32) (string, error) <span class="cov8" title="1">{
+        b := make([]byte, n)
+        _, err := rand.Read(b)
+        if err != nil </span><span class="cov0" title="0">{
+                return "", err
+        }</span>
+
+        <span class="cov8" title="1">return base64.RawStdEncoding.EncodeToString(b), nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package jwt
+
+import (
+        "fmt"
+        "github.com/golang-jwt/jwt/v4"
+        "time"
+)
+
+const (
+        mySigningKey = "secret-key"
+)
+
+type signer struct {
+}
+
+func NewSigner() *signer <span class="cov8" title="1">{
+        return &amp;signer{}
+}</span>
+
+type Claims struct {
+        Email string `json:"email"`
+        Id    int    `json:"id"`
+}
+
+type jwtClaims struct {
+        Claims
+        jwt.RegisteredClaims
+}
+
+func (s signer) CreateJWT(incomeClaims Claims) (string, error) <span class="cov8" title="1">{
+
+        claims := jwtClaims{
+                Claims{Email: incomeClaims.Email, Id: incomeClaims.Id},
+                jwt.RegisteredClaims{
+                        ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)),
+                        IssuedAt:  jwt.NewNumericDate(time.Now()),
+                },
+        }
+
+        token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+        signedString, err := token.SignedString([]byte(mySigningKey))
+        if err != nil </span><span class="cov0" title="0">{
+                return "", err
+        }</span>
+
+        <span class="cov8" title="1">return signedString, nil</span>
+}
+
+func (s signer) ParseJWT(tokenString string) (Claims, error) <span class="cov8" title="1">{
+        token, err := jwt.ParseWithClaims(tokenString, &amp;jwtClaims{}, func(token *jwt.Token) (interface{}, error) </span><span class="cov8" title="1">{
+
+                if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok </span><span class="cov0" title="0">{
+                        return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+                }</span>
+
+                <span class="cov8" title="1">return []byte(mySigningKey), nil</span>
+        })
+
+        <span class="cov8" title="1">if err != nil </span><span class="cov8" title="1">{
+                return Claims{}, err
+        }</span>
+
+        <span class="cov8" title="1">if !token.Valid </span><span class="cov0" title="0">{
+                return Claims{}, fmt.Errorf("invalid token")
+        }</span>
+
+        <span class="cov8" title="1">claims, ok := token.Claims.(*jwtClaims)
+        if !ok </span><span class="cov0" title="0">{
+                return Claims{}, fmt.Errorf("can not parse claims")
+        }</span>
+
+        <span class="cov8" title="1">return Claims{Email: claims.Email, Id: claims.Id}, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package api
+
+import (
+        "github.com/go-playground/validator/v10"
+        "net/http"
+)
+
+type api struct {
+        userService userService
+        validator   *validator.Validate
+}
+
+func (a api) Authentication(w http.ResponseWriter, r *http.Request) <span class="cov8" title="1">{
+
+        var dest authenticationRequest
+
+        err := readAndValidate(r, &amp;dest, *a.validator)
+        if err != nil </span><span class="cov8" title="1">{
+                newErrorResp(w, http.StatusUnprocessableEntity, err)
+                return
+        }</span>
+
+        <span class="cov8" title="1">user, err := a.userService.Authenticate(r.Context(), dest.Email, dest.Password)
+        if err != nil </span><span class="cov0" title="0">{
+                newErrorResp(w, http.StatusInternalServerError, err)
+                return
+        }</span>
+
+        <span class="cov8" title="1">newOkResp(w, &amp;singleResponse{
+                User: authenticationResponse{
+                        Email:    user.Email,
+                        Username: user.Username,
+                        Bio:      user.Bio,
+                        Image:    user.Image,
+                },
+        })</span>
+}
+
+func (a api) Registration(w http.ResponseWriter, r *http.Request) <span class="cov0" title="0">{
+        //TODO implement me
+        panic("implement me")</span>
+}
+
+func (a api) GetCurrentUser(w http.ResponseWriter, r *http.Request) <span class="cov0" title="0">{
+        //TODO implement me
+        panic("implement me")</span>
+}
+
+func (a api) UpdateUser(w http.ResponseWriter, r *http.Request) <span class="cov0" title="0">{
+        //TODO implement me
+        panic("implement me")</span>
+}
+
+func (a api) GetProfile(w http.ResponseWriter, r *http.Request) <span class="cov0" title="0">{
+        //TODO implement me
+        panic("implement me")</span>
+}
+
+func (a api) FollowUser(w http.ResponseWriter, r *http.Request) <span class="cov0" title="0">{
+        //TODO implement me
+        panic("implement me")</span>
+}
+
+func (a api) UnfollowUser(w http.ResponseWriter, r *http.Request) <span class="cov0" title="0">{
+        //TODO implement me
+        panic("implement me")</span>
+}
+
+func NewUserApi(userService userService) api <span class="cov8" title="1">{
+        return api{
+                userService: userService,
+                validator:   validator.New(),
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">package api
+
+import (
+        "github.com/go-playground/validator/v10"
+)
+
+type authenticationRequest struct {
+        Email    string `json:"email" validate:"required,email"`
+        Password string `json:"password" validate:"required"`
+}
+
+type registrationRequest struct {
+        Username string `json:"username" validate:"required"`
+        Email    string `json:"email" validate:"required,email"`
+        Password string `json:"password" validate:"required"`
+}
+
+func (r authenticationRequest) validate(v validator.Validate) error <span class="cov8" title="1">{
+        return v.Struct(&amp;r)
+}</span>
+
+func (r registrationRequest) validate(v validator.Validate) error <span class="cov0" title="0">{
+        return v.Struct(&amp;r)
+}</span>
+</pre>
+		
+		<pre class="file" id="file4" style="display: none">package api
+
+import (
+        "encoding/json"
+        jsoniter "github.com/json-iterator/go"
+        "net/http"
+)
+
+type singleResponse struct {
+        User authenticationResponse `json:"user"`
+}
+
+type authenticationResponse struct {
+        Email    string  `json:"email"`
+        Token    string  `json:"token"`
+        Username string  `json:"username"`
+        Bio      *string `json:"bio,omitempty"`
+        Image    *string `json:"image,omitempty"`
+}
+
+type errorWrapper struct {
+        Errors errors `json:"errors"`
+}
+
+type errors struct {
+        Body []string `json:"body"`
+}
+
+func newErrorResp(w http.ResponseWriter, code int, err error) <span class="cov8" title="1">{
+        w.WriteHeader(code)
+        encoder := jsoniter.NewEncoder(w)
+        _ = encoder.Encode(errorWrapper{
+                errors{Body: []string{err.Error()}},
+        })
+}</span>
+
+func newOkResp(w http.ResponseWriter, data any) <span class="cov8" title="1">{
+        w.WriteHeader(http.StatusOK)
+        encoder := json.NewEncoder(w)
+        _ = encoder.Encode(data)
+}</span>
+</pre>
+		
+		<pre class="file" id="file5" style="display: none">package api
+
+import (
+        "github.com/go-playground/validator/v10"
+        jsoniter "github.com/json-iterator/go"
+        "net/http"
+)
+
+type validate interface {
+        validate(validator validator.Validate) error
+}
+
+func readAndValidate(r *http.Request, dest validate, validator validator.Validate) error <span class="cov8" title="1">{
+
+        decoder := jsoniter.NewDecoder(r.Body)
+        err := decoder.Decode(dest)
+        if err != nil </span><span class="cov8" title="1">{
+                return err
+        }</span>
+
+        <span class="cov8" title="1">if err = dest.validate(validator); err != nil </span><span class="cov8" title="1">{
+                return err
+        }</span>
+
+        <span class="cov8" title="1">return nil</span>
+}
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>
