@@ -10,7 +10,7 @@ export default component$(
           : props.articles.map((article) => (
               <Article
                 article={mutable(article)}
-                authenticated={props.authenticated}
+                authenticated={mutable(props.authenticated)}
               ></Article>
             ))}
       </div>

@@ -3,9 +3,21 @@ import { RequestHandler } from "@builder.io/qwik-city";
 import { getCookies, saveTempCookie } from "~/auth/auth";
 import { Home } from "./home/home";
 
-export const onGet: RequestHandler = async (req: any) => {
-  const cookiesObj = getCookies(req.request.headers.get("cookie"));
-  const token = cookiesObj["token"];
+interface RequestHandlerObj {
+  request: {
+    headers: string[];
+  };
+  url: any;
+  params: any;
+  platform: any;
+  next: () => void;
+  abort: () => void;
+}
+
+export const onGet: RequestHandler = async (args) => {
+  const { request } = args;
+  const cookiesObj = getCookies(request.headers.get("cookie"));
+  const token = cookiesObj.token;
   saveTempCookie(token);
 };
 

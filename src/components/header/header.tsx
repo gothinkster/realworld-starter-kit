@@ -1,10 +1,10 @@
 import { component$ } from "@builder.io/qwik";
-import { getUser, UserData } from "~/auth/auth";
+import { UserData } from "~/auth/auth";
 import { SideMenu } from "../side-menu/side-menu";
 import "./header.css";
 
-export const Header = component$(async () => {
-  const user = await getUser();
+export const Header = component$((props: { user: UserData }) => {
+  const { user } = props;
   return (
     <div className="header-container">
       <div class="row">

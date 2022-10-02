@@ -1,11 +1,12 @@
 import { component$, Slot } from "@builder.io/qwik";
-import { UserData } from "~/auth/auth";
+import { getUser, UserData } from "~/auth/auth";
 import { Header } from "../components/header/header";
 
-export const Layout = component$((props: { user: UserData }) => {
+export const Layout = component$(async () => {
+  const user: UserData = await getUser();
   return (
     <>
-      <Header user={props.user} />
+      <Header user={user} />
       <main>
         <Slot />
       </main>

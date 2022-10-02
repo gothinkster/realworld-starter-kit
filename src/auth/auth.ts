@@ -9,11 +9,31 @@ export const storeToken = (token: string) => {
 };
 
 export interface UserData {
+  bio: string;
   username: string;
   image: string;
+  email: string;
 }
 
-export const getUser: () => UserData | Promise<UserData> = async () => {
+export const updateUser = (user: Partial<UserData>) => {
+  delete user.username;
+  return axios.put(
+    `${BASE_URL}user`,
+    { user },
+    {
+      headers: {
+        authorization: getAuthToken(),
+      },
+    }
+  );
+};
+
+export const logOut = () => {
+  saveTempCookie("");
+  localStorage.removeItem("token");
+};
+
+export const getUser: () => Promise<UserData> = async () => {
   try {
     const response = await axios.get(`${BASE_URL}user`, {
       headers: {
@@ -33,9 +53,9 @@ export const getCookies: (cookiesString?: string) => {
     cookiesString = document.cookie;
   }
   const cookeisArray = cookiesString?.split(";") || [];
-  const cookiesObj = cookeisArray.reduce((obj, item) => {
+  const cookiesObj = cookeisArray.reduce((obj: any, item) => {
     const [key, value]: string[] = item.split("=");
-    obj[key] = value;
+    obj[key.trim()] = value;
     return obj;
   }, {});
 
@@ -47,12 +67,12 @@ export const getCookie = (key: string) => {
   return cookies[key];
 };
 
-export const setCookie = (key: string, value: string, responseObj?: any) => {
+export const setCookie = (key: string, value: string) => {
   try {
     document.cookie = `${key}=${value}`;
   } catch {
     // in case you a re on server side - do noting
-    console.error("We are on server side", key, value);
+    // console.error("We are on server side", key, value);
   }
 };
 

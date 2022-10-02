@@ -4,7 +4,6 @@ import {
   mutable,
   useResource$,
   Resource,
-  useClientEffect$,
 } from "@builder.io/qwik";
 import axios from "axios";
 import { Tags } from "../../components/tags/tags";
@@ -16,6 +15,7 @@ import "~/global.css";
 import "./home.css";
 import { BASE_URL } from "~/common/api";
 import { getAuthToken } from "~/auth/auth";
+import { RequestHandler } from "@builder.io/qwik-city";
 
 export const getTags: () => Promise<string[]> = async () => {
   const response = await axios.get(`${BASE_URL}/tags`);
@@ -71,11 +71,6 @@ export const onSelectedTagChange = async (tagName: string, state: any) => {
   state.tabs[2].label = `#${tagName}`;
   state.activeTab = state.tabs[2];
 };
-
-// export const getStateData = async (state: any) => {
-//   const tags = await getTags();
-//   state.tags = tags;
-// };
 
 export const Home = component$(() => {
   const tabs = [
@@ -135,12 +130,15 @@ export const Home = component$(() => {
               onResolved={(articles: any[]) => (
                 <ArticlesList
                   articles={mutable(articles)}
-                  authenticated={authenticated}
+                  authenticated={mutable(authenticated)}
                 ></ArticlesList>
               )}
             ></Resource>
           ) : (
-            <ArticlesList articles={mutable(state.personalFeed)}></ArticlesList>
+            <ArticlesList
+              articles={mutable(state.personalFeed)}
+              authenticated={mutable(authenticated)}
+            ></ArticlesList>
           )}
         </div>
         <Resource

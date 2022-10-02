@@ -11,10 +11,10 @@ export const signUp = () => {
   const email = document.querySelector('input[name="email"]')?.value;
 
   const credentials = { username, email, password };
-  const signuppromise = axios.post(`${BASE_URL}/users`, {
+  const signupPromise = axios.post(`${BASE_URL}/users`, {
     user: credentials,
   });
-  signuppromise.then((res) => {
+  signupPromise.then((res) => {
     const token = res.data.user.token;
     storeToken(token);
     if (token) {

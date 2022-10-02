@@ -1,11 +1,5 @@
-import {
-  component$,
-  mutable,
-  Resource,
-  useResource$,
-  useStore,
-} from "@builder.io/qwik";
-import { useLocation } from "@builder.io/qwik-city";
+import { component$, Resource, useResource$, useStore } from "@builder.io/qwik";
+import { RequestHandler, useLocation } from "@builder.io/qwik-city";
 import axios from "axios";
 import { CommentData } from "~/model/article-data";
 import { Comment } from "./comment/comment";
