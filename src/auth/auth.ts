@@ -28,6 +28,18 @@ export const updateUser = (user: Partial<UserData>) => {
   );
 };
 
+export const login = async (loginData: { email: string; password: string }) => {
+  try {
+    const response = await axios.post(`${BASE_URL}users/login`, {
+      user: loginData,
+    });
+    const { token } = response.data.user;
+    storeToken(token);
+  } catch (err) {
+    console.error("error logging in", err);
+  }
+};
+
 export const logOut = () => {
   saveTempCookie("");
   localStorage.removeItem("token");

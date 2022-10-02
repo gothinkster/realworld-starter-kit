@@ -17,7 +17,7 @@ export const SideMenu = component$((props: { user: UserData }) => {
             <a href="/register">Sign up</a>
           </div>
           <div className="menu-item">
-            <a>Log in</a>
+            <a href="/signin">Sign in</a>
           </div>
         </>
       ) : (

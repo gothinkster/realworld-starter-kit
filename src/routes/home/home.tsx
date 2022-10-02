@@ -18,8 +18,13 @@ import { getAuthToken } from "~/auth/auth";
 import { RequestHandler } from "@builder.io/qwik-city";
 
 export const getTags: () => Promise<string[]> = async () => {
-  const response = await axios.get(`${BASE_URL}/tags`);
-  return response.data.tags;
+  try {
+    const response = await axios.get(`${BASE_URL}/tags`);
+    return response.data.tags;
+  } catch (err) {
+    console.error("Error getting tags");
+    return [];
+  }
 };
 
 export const getFeed = async () => {
