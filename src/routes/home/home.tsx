@@ -68,6 +68,7 @@ export const onFeedNavigationChange = (
 ) => {
   const tagCandidate = feed.startsWith("#") ? feed.substring(1) : "";
   state.activeTab = state.tabs.find((tab) => tab.label === feed);
+  getFeed().then((feed) => (state.personalFeed = feed));
   state.selectedTag = tagCandidate;
 };
 
@@ -108,10 +109,6 @@ export const Home = component$(() => {
     cleanup(() => controller.abort());
     return getGeneralArticles(state.selectedTag);
   });
-
-  // useClientEffect$(async () => {
-  //   state.personalFeed = await getFeed();
-  // });
 
   return (
     <div class="my-app p-20">
