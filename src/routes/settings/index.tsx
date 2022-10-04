@@ -16,7 +16,6 @@ export const doLogOut = () => {
 };
 
 export const submitUserData = async (evt: Event) => {
-  console.log("evt", evt);
   const form = evt.target as HTMLElement;
   const user: Partial<UserData> & { password: string } = {
     image: (form.querySelector('[name="image"]') as HTMLInputElement)!.value,
@@ -46,8 +45,6 @@ export default component$(async () => {
     $((evt: any) => {
       const form = document.querySelector("form");
       form.addEventListener("submit", submitUserData);
-      console.log(form, form!.onsubmit);
-      // submitUserData(evt))
     })
   );
 

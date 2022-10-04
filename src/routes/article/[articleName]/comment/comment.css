@@ -5,6 +5,8 @@
 .card {
   border: 1px solid var(--card-border-color);
   box-shadow: none;
+  background-color: transparent;
+  position: inherit;
 }
 
 .card-footer {
@@ -13,4 +15,8 @@
   font-size: 0.8rem;
   font-weight: 300;
   display: flex;
+}
+
+.card-footer div {
+  margin-left: 0.5rem;
 }
