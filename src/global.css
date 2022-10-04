@@ -4,6 +4,20 @@
 :root {
   --meta-color: #bbb;
   --input-color: #55595c;
+  --input-margin: 1rem;
+  --input-radius: 0.25rem;
+}
+
+input {
+  margin-top: var(--input-margin);
+  margin-bottom: var(--input-margin);
+  border-radius: var(--input-radius);
+}
+
+textarea {
+  margin-top: var(--input-margin);
+  margin-bottom: var(--input-margin);
+  border-radius: var(--input-radius);
 }
 
 body {
