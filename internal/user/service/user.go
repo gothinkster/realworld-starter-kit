@@ -39,6 +39,11 @@ func (s service) Authenticate(ctx context.Context, email, password string) (enti
 	return user, nil
 }
 
-func NewUserService() *service {
-	return &service{}
+func NewUserService(repo userRepo, hasher hasher, jwt jsonWebToken) *service {
+
+	return &service{
+		repo:   repo,
+		hasher: hasher,
+		jwt:    jwt,
+	}
 }

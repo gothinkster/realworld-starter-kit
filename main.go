@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	us := service.NewUserService()
+	us := service.NewUserService(nil, nil, nil)
 	a := api.NewUserApi(us)
 	r := chi.NewRouter()
 

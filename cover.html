@@ -59,13 +59,15 @@
 				
 				<option value="file1">github.com/pavelkozlov/realworld/internal/user/service/jwt/jwt.go (78.9%)</option>
 				
-				<option value="file2">github.com/pavelkozlov/realworld/internal/user/transport/http/handlers.go (52.9%)</option>
+				<option value="file2">github.com/pavelkozlov/realworld/internal/user/service/user.go (100.0%)</option>
 				
-				<option value="file3">github.com/pavelkozlov/realworld/internal/user/transport/http/requests.go (50.0%)</option>
+				<option value="file3">github.com/pavelkozlov/realworld/internal/user/transport/http/handlers.go (52.9%)</option>
 				
-				<option value="file4">github.com/pavelkozlov/realworld/internal/user/transport/http/responses.go (100.0%)</option>
+				<option value="file4">github.com/pavelkozlov/realworld/internal/user/transport/http/requests.go (50.0%)</option>
 				
-				<option value="file5">github.com/pavelkozlov/realworld/internal/user/transport/http/validation.go (100.0%)</option>
+				<option value="file5">github.com/pavelkozlov/realworld/internal/user/transport/http/responses.go (100.0%)</option>
+				
+				<option value="file6">github.com/pavelkozlov/realworld/internal/user/transport/http/validation.go (100.0%)</option>
 				
 				</select>
 			</div>
@@ -244,7 +246,58 @@ func (s signer) ParseJWT(tokenString string) (Claims, error) <span class="cov8" 
 }
 </pre>
 		
-		<pre class="file" id="file2" style="display: none">package api
+		<pre class="file" id="file2" style="display: none">package service
+
+import (
+        "context"
+        "github.com/pavelkozlov/realworld/internal/entity"
+        "github.com/pavelkozlov/realworld/internal/user/service/jwt"
+)
+
+type service struct {
+        repo   userRepo
+        hasher hasher
+        jwt    jsonWebToken
+}
+
+func (s service) Authenticate(ctx context.Context, email, password string) (entity.User, error) <span class="cov8" title="1">{
+        // find user by email
+        user, err := s.repo.FindUserByEmail(ctx, email)
+        if err != nil </span><span class="cov8" title="1">{
+                return entity.User{}, invalidCredentials
+        }</span>
+        // salt user password
+        <span class="cov8" title="1">incomeHash := s.hasher.CreateHashFromPasswordAndSalt(password, user.Salt)
+        //compare with password in db
+        if incomeHash != user.Password </span><span class="cov8" title="1">{
+                return entity.User{}, invalidCredentials
+        }</span>
+        <span class="cov8" title="1">user.Password = ""
+        //create access and refresh tokens
+        token, err := s.jwt.CreateJWT(jwt.Claims{
+                Email: user.Email,
+                Id:    user.ID,
+        })
+        if err != nil </span><span class="cov8" title="1">{
+                return entity.User{}, internalError
+        }</span>
+
+        <span class="cov8" title="1">user.Token = token
+
+        return user, nil</span>
+}
+
+func NewUserService(repo userRepo, hasher hasher, jwt jsonWebToken) *service <span class="cov8" title="1">{
+
+        return &amp;service{
+                repo:   repo,
+                hasher: hasher,
+                jwt:    jwt,
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">package api
 
 import (
         "github.com/go-playground/validator/v10"
@@ -275,6 +328,7 @@ func (a api) Authentication(w http.ResponseWriter, r *http.Request) <span class=
         <span class="cov8" title="1">newOkResp(w, &amp;singleResponse{
                 User: authenticationResponse{
                         Email:    user.Email,
+                        Token:    user.Token,
                         Username: user.Username,
                         Bio:      user.Bio,
                         Image:    user.Image,
@@ -320,7 +374,7 @@ func NewUserApi(userService userService) api <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file3" style="display: none">package api
+		<pre class="file" id="file4" style="display: none">package api
 
 import (
         "github.com/go-playground/validator/v10"
@@ -346,7 +400,7 @@ func (r registrationRequest) validate(v validator.Validate) error <span class="c
 }</span>
 </pre>
 		
-		<pre class="file" id="file4" style="display: none">package api
+		<pre class="file" id="file5" style="display: none">package api
 
 import (
         "encoding/json"
@@ -359,11 +413,11 @@ type singleResponse struct {
 }
 
 type authenticationResponse struct {
-        Email    string  `json:"email"`
-        Token    string  `json:"token"`
-        Username string  `json:"username"`
-        Bio      *string `json:"bio,omitempty"`
-        Image    *string `json:"image,omitempty"`
+        Email    string `json:"email"`
+        Token    string `json:"token"`
+        Username string `json:"username"`
+        Bio      string `json:"bio,omitempty"`
+        Image    string `json:"image,omitempty"`
 }
 
 type errorWrapper struct {
@@ -389,7 +443,7 @@ func newOkResp(w http.ResponseWriter, data any) <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file5" style="display: none">package api
+		<pre class="file" id="file6" style="display: none">package api
 
 import (
         "github.com/go-playground/validator/v10"
