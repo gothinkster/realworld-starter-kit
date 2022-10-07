@@ -11,11 +11,11 @@ type singleResponse struct {
 }
 
 type authenticationResponse struct {
-	Email    string  `json:"email"`
-	Token    string  `json:"token"`
-	Username string  `json:"username"`
-	Bio      *string `json:"bio,omitempty"`
-	Image    *string `json:"image,omitempty"`
+	Email    string `json:"email"`
+	Token    string `json:"token"`
+	Username string `json:"username"`
+	Bio      string `json:"bio,omitempty"`
+	Image    string `json:"image,omitempty"`
 }
 
 type errorWrapper struct {

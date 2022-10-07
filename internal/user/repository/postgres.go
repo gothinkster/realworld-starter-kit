@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	"github.com/Masterminds/squirrel"
 	"github.com/pavelkozlov/realworld/internal/entity"
@@ -29,21 +30,24 @@ func (r repo) FindUserByEmail(ctx context.Context, email string) (entity.User, e
 		"email": email,
 	}).Limit(1)
 
-	sql, args, err := query.ToSql()
+	q, args, err := query.ToSql()
 	if err != nil {
 		return entity.User{}, err
 	}
 
 	type user struct {
-		Id       int    `db:"id"`
-		Email    string `db:"email"`
-		Salt     string `db:"salt"`
-		Password string `db:"password"`
+		Id       int            `db:"id"`
+		Email    string         `db:"email"`
+		Salt     string         `db:"salt"`
+		Password string         `db:"password"`
+		Username string         `db:"username"`
+		Image    sql.NullString `db:"image"`
+		Bio      sql.NullString `db:"bio"`
 	}
 
 	userModel := new(user)
 
-	err = r.db.Get(userModel, sql, args...)
+	err = r.db.Get(userModel, q, args...)
 	if err != nil {
 		return entity.User{}, fmt.Errorf("GET: %+v", err)
 	}
@@ -53,5 +57,8 @@ func (r repo) FindUserByEmail(ctx context.Context, email string) (entity.User, e
 		Email:    userModel.Email,
 		Salt:     userModel.Salt,
 		Password: userModel.Password,
+		Username: userModel.Username,
+		Bio:      userModel.Bio.String,
+		Image:    userModel.Image.String,
 	}, nil
 }

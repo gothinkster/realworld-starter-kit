@@ -29,6 +29,7 @@ func (a api) Authentication(w http.ResponseWriter, r *http.Request) {
 	newOkResp(w, &singleResponse{
 		User: authenticationResponse{
 			Email:    user.Email,
+			Token:    user.Token,
 			Username: user.Username,
 			Bio:      user.Bio,
 			Image:    user.Image,
