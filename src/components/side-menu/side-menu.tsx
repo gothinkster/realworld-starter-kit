@@ -34,8 +34,10 @@ export const SideMenu = component$((props: { user: UserData }) => {
             </a>
           </div>
           <div class="menu-item">
-            <img src={user.image} />
-            {user?.username}
+            <a href={`/profile/${user.username}`}>
+              <img src={user.image} />
+              {user?.username}
+            </a>
           </div>
         </>
       )}

@@ -13,6 +13,8 @@ export const ArticleHeader = component$(
 
           <ArticleMeta
             article={props.article}
+            showFavoriteText={true}
+            showFollowUser={true}
             authenticated={props.authenticated}
           ></ArticleMeta>
         </div>

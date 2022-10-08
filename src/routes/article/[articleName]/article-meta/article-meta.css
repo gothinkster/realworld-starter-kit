@@ -3,3 +3,10 @@
   font-size: 0.8rem;
   display: block;
 }
+img {
+  display: inline-block;
+  vertical-align: middle;
+  height: var(--user-image-size);
+  width: var(--user-image-size);
+  border-radius: 30px;
+}

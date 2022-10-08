@@ -5,6 +5,7 @@ export interface AuthorData {
 }
 
 export interface ArticleData {
+  favorited: boolean;
   author: AuthorData;
   tagList: string[];
   title: string;

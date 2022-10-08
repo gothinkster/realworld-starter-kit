@@ -82,6 +82,7 @@ export default component$(async () => {
                 <div class="meta-container">
                   <ArticleMeta
                     article={article}
+                    showFavoriteText={true}
                     authenticated={authenticated}
                   ></ArticleMeta>
                 </div>

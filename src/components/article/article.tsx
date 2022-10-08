@@ -1,17 +1,21 @@
 import { component$, mutable } from "@builder.io/qwik";
-import { RequestHandler } from "@builder.io/qwik-city";
 import { ArticleData } from "~/model/article-data";
 import { ArticleMeta } from "~/routes/article/[articleName]/article-meta/article-meta";
 import { ArticleTagsList } from "../article-tags-list/article-tags-list";
 import "./article.css";
 
 export const Article = component$(
-  (props: { article: ArticleData; authenticated: boolean }) => {
-    const { article, authenticated } = props;
+  (props: {
+    article: ArticleData;
+    authenticated: boolean;
+    showFollowUser?: boolean;
+  }) => {
+    const { article, authenticated, showFollowUser } = props;
     return (
       <div>
         <div class="article-container">
           <ArticleMeta
+            showFollowUser={showFollowUser}
             article={mutable(article)}
             authenticated={mutable(authenticated)}
           ></ArticleMeta>

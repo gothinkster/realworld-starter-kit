@@ -93,7 +93,6 @@ export const getAuthToken = () => {
     const token = tempToken || localStorage.getItem("token");
     return token ? `Token ${token}` : null;
   } catch (err) {
-    // console.error('args', args, global);
     // In case localStorage is not defiend, i.e server side {
     return null;
   }
