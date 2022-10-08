@@ -1,4 +1,17 @@
+import { Link, RequestHandler } from "@builder.io/qwik-city";
 import { component$, Slot } from "@builder.io/qwik";
+import { getToken, setTempToken, isAuthenticated } from "~/auth/auth";
+
+type HasAuthenticated = {
+  token: string;
+  hasAuthenticated: boolean;
+};
+
+export const onGet: RequestHandler<HasAuthenticated> = async ({ request }) => {
+  const token = getToken(request.headers.get("cookie"));
+
+  setTempToken(token);
+};
 
 export default component$(() => {
   return (
@@ -6,35 +19,43 @@ export default component$(() => {
       <main>
         <nav class="navbar navbar-light">
           <div class="container">
-            <a class="navbar-brand" href="/">
+            <Link class="navbar-brand" href="/">
               conduit
-            </a>
+            </Link>
             <ul class="nav navbar-nav pull-xs-right">
               <li class="nav-item">
-                <a class="nav-link active" href="/">
+                <Link class="nav-link active" href="/">
                   Home
-                </a>
+                </Link>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/editor">
-                  <i class="ion-compose"></i>&nbsp;New Article
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/settings">
-                  <i class="ion-gear-a"></i>&nbsp;Settings
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/login">
-                  Sign in
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/register">
-                  Sign up
-                </a>
-              </li>
+              {isAuthenticated() && (
+                <>
+                  <li class="nav-item">
+                    <Link class="nav-link" href="/editor">
+                      <i class="ion-compose"></i>&nbsp;New Article
+                    </Link>
+                  </li>
+                  <li class="nav-item">
+                    <Link class="nav-link" href="/settings">
+                      <i class="ion-gear-a"></i>&nbsp;Settings
+                    </Link>
+                  </li>
+                </>
+              )}
+              {!isAuthenticated() && (
+                <>
+                  <li class="nav-item">
+                    <Link class="nav-link" href="/login">
+                      Sign in
+                    </Link>
+                  </li>
+                  <li class="nav-item">
+                    <Link class="nav-link" href="/register">
+                      Sign up
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </nav>

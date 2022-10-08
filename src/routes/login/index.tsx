@@ -1,5 +1,6 @@
 import { useEndpoint, RequestHandler } from "@builder.io/qwik-city";
 import { component$, Resource } from "@builder.io/qwik";
+import { createToken } from "~/auth/auth";
 
 type AuthUser = {
   token: string;
@@ -29,15 +30,14 @@ export const onPost: RequestHandler<AuthUser> = async ({
   const resp = await head.json();
 
   if (head.status === 200) {
-    response.headers.append(
-      "Set-Cookie",
-      `realworld-qwik=${resp.user.token}; path=/`
-    );
+    response.headers.append("Set-Cookie", createToken(resp.user.token));
     throw response.redirect("/", 302);
   }
 
   return resp;
 };
+
+export const onGet: RequestHandler = () => {};
 
 export default component$(() => {
   const data = useEndpoint<AuthUser>();
