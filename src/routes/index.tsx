@@ -1,8 +1,40 @@
-import { component$ } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
+import { component$, Resource } from "@builder.io/qwik";
+import {
+  DocumentHead,
+  RequestHandler,
+  useEndpoint,
+} from "@builder.io/qwik-city";
 import { Link } from "@builder.io/qwik-city";
+import { getToken } from "~/auth/auth";
+
+export const onGet: RequestHandler = async ({ request }) => {
+  const token = getToken(request.headers.get("cookie"));
+
+  const isAuthenticated = !!token;
+
+  const headerAuthorization = isAuthenticated && {
+    authorization: `Token ${token}`,
+  };
+
+  const head = await fetch(
+    "https://api.realworld.io/api/articles?limit=10&offset=0",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...headerAuthorization,
+      },
+    }
+  );
+
+  const body = await head.json();
+
+  return body;
+};
 
 export default component$(() => {
+  const data = useEndpoint();
+
   return (
     <div class="home-page">
       <div class="banner">
@@ -30,6 +62,14 @@ export default component$(() => {
               </ul>
             </div>
 
+            <Resource
+              value={data}
+              onPending={() => <div>Loading...</div>}
+              onRejected={() => <div>Error</div>}
+              onResolved={(data: any) =>
+                data && <pre>{JSON.stringify(data, null, 2)}</pre>
+              }
+            />
             <div class="article-preview">
               <div class="article-meta">
                 <Link href="profile.html">
