@@ -1,10 +1,4 @@
-export type UpdateUser = {
-  email?: string;
-  password?: string;
-  username?: string;
-  bio?: string;
-  image?: string;
-};
+import { UpdateUser } from "~/types";
 
 export const updateCurrentUser =
   (token: string) => async (user: UpdateUser) => {

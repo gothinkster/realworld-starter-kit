@@ -1,9 +1,9 @@
-import { User } from "~/types";
+import { MultipleArticles } from "~/types";
 
-export const currentUser = (token: string) => async (): Promise<User> => {
+export const feed = (token: string) => async (): Promise<MultipleArticles> => {
   const authHeader = !!token && { authorization: `Token ${token}` };
 
-  const head = await fetch("https://api.realworld.io/api/user", {
+  const head = await fetch(`https://api.realworld.io/api/articles/feed`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

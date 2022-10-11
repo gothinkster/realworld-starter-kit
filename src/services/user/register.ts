@@ -1,8 +1,4 @@
-export type RegisterUser = {
-  username: string;
-  email: string;
-  password: string;
-};
+import { RegisterUser } from "~/types";
 
 export const register = async (user: RegisterUser) => {
   const body = JSON.stringify({ user });
