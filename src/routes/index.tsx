@@ -5,31 +5,24 @@ import {
   useEndpoint,
 } from "@builder.io/qwik-city";
 import { Link } from "@builder.io/qwik-city";
-import { getToken } from "~/auth/auth";
+import { getToken, isAuthenticated } from "~/auth/auth";
+import { articles, feed, tags } from "~/services";
+import { Article } from "~/types";
 
 export const onGet: RequestHandler = async ({ request }) => {
   const token = getToken(request.headers.get("cookie"));
 
-  const isAuthenticated = !!token;
+  const [tagsData, articlesData, feedData] = await Promise.all([
+    tags(),
+    articles(token)(),
+    isAuthenticated() && feed(token)(),
+  ]);
 
-  const headerAuthorization = isAuthenticated && {
-    authorization: `Token ${token}`,
+  return {
+    ...tagsData,
+    ...articlesData,
+    feeds: feedData,
   };
-
-  const head = await fetch(
-    "https://api.realworld.io/api/articles?limit=10&offset=0",
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        ...headerAuthorization,
-      },
-    }
-  );
-
-  const body = await head.json();
-
-  return body;
 };
 
 export default component$(() => {
@@ -67,55 +60,35 @@ export default component$(() => {
               onPending={() => <div>Loading...</div>}
               onRejected={() => <div>Error</div>}
               onResolved={(data: any) =>
-                data && <pre>{JSON.stringify(data, null, 2)}</pre>
+                data && (
+                  <>
+                  {data.articles.map((article: Article)  => (
+                    <div class="article-preview">
+                    <div class="article-meta">
+                      <Link href="profile.html">
+                        <img src={article.author.image} />
+                      </Link>
+                      <div class="info">
+                        <Link href="" class="author">
+                          {article.author.username}
+                        </Link>
+                        <span class="date">{article.createdAt}</span>
+                      </div>
+                      <button class="btn btn-outline-primary btn-sm pull-xs-right">
+                        <i class="ion-heart"></i> {article.favoritesCount}
+                      </button>
+                    </div>
+                    <Link href={`/article/${article.slug}`} class="preview-link">
+                      <h1>{article.title}</h1>
+                      <p>{article.description}</p>
+                      <span>Read more...</span>
+                    </Link>
+                  </div>
+                  ))}
+                  </>
+                )
               }
             />
-            <div class="article-preview">
-              <div class="article-meta">
-                <Link href="profile.html">
-                  <img src="http://i.imgur.com/Qr71crq.jpg" />
-                </Link>
-                <div class="info">
-                  <Link href="" class="author">
-                    Eric Simons
-                  </Link>
-                  <span class="date">January 20th</span>
-                </div>
-                <button class="btn btn-outline-primary btn-sm pull-xs-right">
-                  <i class="ion-heart"></i> 29
-                </button>
-              </div>
-              <Link href="" class="preview-link">
-                <h1>How to build webapps that scale</h1>
-                <p>This is the description for the post.</p>
-                <span>Read more...</span>
-              </Link>
-            </div>
-
-            <div class="article-preview">
-              <div class="article-meta">
-                <Link href="profile.html">
-                  <img src="http://i.imgur.com/N4VcUeJ.jpg" />
-                </Link>
-                <div class="info">
-                  <Link href="" class="author">
-                    Albert Pai
-                  </Link>
-                  <span class="date">January 20th</span>
-                </div>
-                <button class="btn btn-outline-primary btn-sm pull-xs-right">
-                  <i class="ion-heart"></i> 32
-                </button>
-              </div>
-              <Link href="" class="preview-link">
-                <h1>
-                  The song you won't ever stop singing. No matter how hard you
-                  try.
-                </h1>
-                <p>This is the description for the post.</p>
-                <span>Read more...</span>
-              </Link>
-            </div>
           </div>
 
           <div class="col-md-3">
@@ -123,30 +96,22 @@ export default component$(() => {
               <p>Popular Tags</p>
 
               <div class="tag-list">
-                <Link href="" class="tag-pill tag-default">
-                  programming
-                </Link>
-                <Link href="" class="tag-pill tag-default">
-                  javascript
-                </Link>
-                <Link href="" class="tag-pill tag-default">
-                  emberjs
-                </Link>
-                <Link href="" class="tag-pill tag-default">
-                  angularjs
-                </Link>
-                <Link href="" class="tag-pill tag-default">
-                  react
-                </Link>
-                <Link href="" class="tag-pill tag-default">
-                  mean
-                </Link>
-                <Link href="" class="tag-pill tag-default">
-                  node
-                </Link>
-                <Link href="" class="tag-pill tag-default">
-                  rails
-                </Link>
+                <Resource
+                  value={data}
+                  onPending={() => <div>Loading...</div>}
+                  onRejected={() => <div>Error</div>}
+                  onResolved={(data: any) =>
+                    data && (
+                      <>
+                        {data.tags.map((tagName: string) => (
+                          <Link href="" class="tag-pill tag-default">
+                            {tagName}
+                          </Link>
+                        ))}
+                      </>
+                    )
+                  }
+                />
               </div>
             </div>
           </div>
