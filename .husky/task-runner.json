@@ -1,0 +1,16 @@
+{
+   "tasks": [
+     {
+       "name": "dotnet-format-check",
+       "command": "dotnet",
+       "args": ["dotnet format", "--check", "--include", "${staged}"],
+       "include": ["**/*.cs", "**/*.vb"]
+     },
+     {
+       "name": "jb-cleanupcode",
+       "command": "dotnet",
+       "args": ["jb", "cleanupcode", "--include", "${staged}"],
+       "include": ["**/*.cs", "**/*.vb"]
+     }
+   ]
+}
