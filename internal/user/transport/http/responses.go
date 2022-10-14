@@ -27,6 +27,7 @@ type errors struct {
 }
 
 func newErrorResp(w http.ResponseWriter, code int, err error) {
+	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(code)
 	encoder := jsoniter.NewEncoder(w)
 	_ = encoder.Encode(errorWrapper{
@@ -35,6 +36,7 @@ func newErrorResp(w http.ResponseWriter, code int, err error) {
 }
 
 func newOkResp(w http.ResponseWriter, data any) {
+	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	encoder := json.NewEncoder(w)
 	_ = encoder.Encode(data)

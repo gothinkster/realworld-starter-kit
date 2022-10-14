@@ -1,18 +1,31 @@
 package main
 
 import (
-	"context"
-	"fmt"
+	"net/http"
+
+	"github.com/go-chi/chi/v5"
 	"github.com/pavelkozlov/realworld/internal/user/repository"
+	"github.com/pavelkozlov/realworld/internal/user/service"
+	"github.com/pavelkozlov/realworld/internal/user/service/hash"
+	"github.com/pavelkozlov/realworld/internal/user/service/jwt"
+	userApi "github.com/pavelkozlov/realworld/internal/user/transport/http"
 	"github.com/pavelkozlov/realworld/pkg/db"
 )
 
 func main() {
-	ddd := db.Connect()
+	db := db.Connect()
 
-	repo := repository.NewUserRepo(ddd)
+	repo := repository.NewUserRepo(db)
 
-	user, err := repo.FindUserByEmail(context.Background(), "test@test.ru")
-	fmt.Printf("user: %+v \n", user)
-	fmt.Println("error:", err)
+	hasher := hash.NewHasher()
+	jwt := jwt.NewSigner()
+
+	userUsecase := service.NewUserService(repo, hasher, jwt)
+
+	handlers := userApi.NewUserApi(userUsecase)
+
+	mux := chi.NewMux()
+	mux.Post("/", handlers.Authentication)
+
+	http.ListenAndServe(":8080", mux)
 }
