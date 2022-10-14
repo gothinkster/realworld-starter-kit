@@ -3,7 +3,7 @@
      {
        "name": "dotnet-format-check",
        "command": "dotnet",
-       "args": ["dotnet format", "--check", "--include", "${staged}"],
+       "args": ["format", "--include", "${staged}"],
        "include": ["**/*.cs", "**/*.vb"]
      },
      {
