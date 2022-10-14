@@ -9,10 +9,10 @@ import (
 
 func main() {
 	ddd := db.Connect()
-	fmt.Println(ddd.Stats())
 
 	repo := repository.NewUserRepo(ddd)
 
-	_, err := repo.FindUserByEmail(context.Background(), "kek")
-	fmt.Println(err)
+	user, err := repo.FindUserByEmail(context.Background(), "test@test.ru")
+	fmt.Printf("user: %+v \n", user)
+	fmt.Println("error:", err)
 }

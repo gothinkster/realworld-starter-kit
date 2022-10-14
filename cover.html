@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>hash: Go Coverage Report</title>
+		<title>repository: Go Coverage Report</title>
 		<style>
 			body {
 				background: black;
@@ -55,19 +55,21 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">github.com/pavelkozlov/realworld/internal/user/service/hash/hasher.go (81.8%)</option>
+				<option value="file0">github.com/pavelkozlov/realworld/internal/user/repository/postgres.go (83.3%)</option>
 				
-				<option value="file1">github.com/pavelkozlov/realworld/internal/user/service/jwt/jwt.go (78.9%)</option>
+				<option value="file1">github.com/pavelkozlov/realworld/internal/user/service/hash/hasher.go (81.8%)</option>
 				
-				<option value="file2">github.com/pavelkozlov/realworld/internal/user/service/user.go (100.0%)</option>
+				<option value="file2">github.com/pavelkozlov/realworld/internal/user/service/jwt/jwt.go (78.9%)</option>
 				
-				<option value="file3">github.com/pavelkozlov/realworld/internal/user/transport/http/handlers.go (52.9%)</option>
+				<option value="file3">github.com/pavelkozlov/realworld/internal/user/service/user.go (100.0%)</option>
 				
-				<option value="file4">github.com/pavelkozlov/realworld/internal/user/transport/http/requests.go (50.0%)</option>
+				<option value="file4">github.com/pavelkozlov/realworld/internal/user/transport/http/handlers.go (52.9%)</option>
 				
-				<option value="file5">github.com/pavelkozlov/realworld/internal/user/transport/http/responses.go (100.0%)</option>
+				<option value="file5">github.com/pavelkozlov/realworld/internal/user/transport/http/requests.go (50.0%)</option>
 				
-				<option value="file6">github.com/pavelkozlov/realworld/internal/user/transport/http/validation.go (100.0%)</option>
+				<option value="file6">github.com/pavelkozlov/realworld/internal/user/transport/http/responses.go (100.0%)</option>
+				
+				<option value="file7">github.com/pavelkozlov/realworld/internal/user/transport/http/validation.go (100.0%)</option>
 				
 				</select>
 			</div>
@@ -81,7 +83,87 @@
 		</div>
 		<div id="content">
 		
-		<pre class="file" id="file0" style="display: none">package hash
+		<pre class="file" id="file0" style="display: none">package repository
+
+import (
+        "context"
+        "database/sql"
+        "fmt"
+
+        "github.com/Masterminds/squirrel"
+        "github.com/pavelkozlov/realworld/internal/entity"
+)
+
+const (
+        userDbName = "\"user\""
+)
+
+type repo struct {
+        database
+        builder squirrel.StatementBuilderType
+}
+
+type user struct {
+        Id       int            `db:"id"`
+        Email    string         `db:"email"`
+        Salt     string         `db:"salt"`
+        Password string         `db:"password"`
+        Username string         `db:"username"`
+        Image    sql.NullString `db:"image"`
+        Bio      sql.NullString `db:"bio"`
+}
+
+func NewUserRepo(db database) *repo <span class="cov8" title="1">{
+        return &amp;repo{
+                database: db,
+                builder:   squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar),
+        }
+}</span>
+
+func (r repo) FindUserByEmail(ctx context.Context, email string) (entity.User, error) <span class="cov8" title="1">{
+
+        query := r.builder.Select(
+                "id",
+                "email",
+                "salt",
+                "password",
+                "username",
+                "image",
+                "bio",
+        ).From(userDbName).Where(squirrel.Eq{
+                "email": email,
+        }).Limit(1)
+
+        q, args, err := query.ToSql()
+        if err != nil </span><span class="cov0" title="0">{
+                return entity.User{}, err
+        }</span>
+
+        <span class="cov8" title="1">dest := make([]user,0,1)
+
+        err = r.SelectContext(ctx, &amp;dest, q, args...)
+        if err != nil </span><span class="cov8" title="1">{
+                return entity.User{}, fmt.Errorf("db find by email err: %+v", err)
+        }</span>
+
+        <span class="cov8" title="1">if len(dest) &lt; 1 </span><span class="cov8" title="1">{
+                return entity.User{}, fmt.Errorf("db find by email: not found")
+        }</span>
+
+
+        <span class="cov0" title="0">return entity.User{
+                ID:       dest[0].Id,
+                Email:    dest[0].Email,
+                Salt:     dest[0].Salt,
+                Password: dest[0].Password,
+                Username: dest[0].Username,
+                Bio:      dest[0].Bio.String,
+                Image:    dest[0].Image.String,
+        }, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package hash
 
 import (
         "crypto/rand"
@@ -170,7 +252,7 @@ func (h hasher) createSalt(n uint32) (string, error) <span class="cov8" title="1
 }
 </pre>
 		
-		<pre class="file" id="file1" style="display: none">package jwt
+		<pre class="file" id="file2" style="display: none">package jwt
 
 import (
         "fmt"
@@ -246,7 +328,7 @@ func (s signer) ParseJWT(tokenString string) (Claims, error) <span class="cov8" 
 }
 </pre>
 		
-		<pre class="file" id="file2" style="display: none">package service
+		<pre class="file" id="file3" style="display: none">package service
 
 import (
         "context"
@@ -297,7 +379,7 @@ func NewUserService(repo userRepo, hasher hasher, jwt jsonWebToken) *service <sp
 }</span>
 </pre>
 		
-		<pre class="file" id="file3" style="display: none">package api
+		<pre class="file" id="file4" style="display: none">package api
 
 import (
         "github.com/go-playground/validator/v10"
@@ -374,7 +456,7 @@ func NewUserApi(userService userService) api <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file4" style="display: none">package api
+		<pre class="file" id="file5" style="display: none">package api
 
 import (
         "github.com/go-playground/validator/v10"
@@ -400,7 +482,7 @@ func (r registrationRequest) validate(v validator.Validate) error <span class="c
 }</span>
 </pre>
 		
-		<pre class="file" id="file5" style="display: none">package api
+		<pre class="file" id="file6" style="display: none">package api
 
 import (
         "encoding/json"
@@ -443,7 +525,7 @@ func newOkResp(w http.ResponseWriter, data any) <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file6" style="display: none">package api
+		<pre class="file" id="file7" style="display: none">package api
 
 import (
         "github.com/go-playground/validator/v10"
