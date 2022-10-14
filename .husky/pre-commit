@@ -11,8 +11,8 @@
 #husky run --group group-name
 
 ## run task with name: 'task-name'
-dotnet husky run --name dotnet-format-check
-dotnet husky run --name jb-cleanupcode
+# husky run --name dotnet-format-check
+# dotnet husky run --name jb-cleanupcode
 
 ## pass hook arguments to task
 #husky run --args "$1" "$2"
