@@ -14,7 +14,6 @@ type testCase struct {
 	before        func(hasher *mock.Mockdatabase)
 	dest          []user
 	expectedError error
-	exextedResult user
 }
 
 var testCases = []testCase{
@@ -24,7 +23,6 @@ var testCases = []testCase{
 		},
 		dest:          []user{},
 		expectedError: fmt.Errorf("db find by email: not found"),
-		exextedResult: user{},
 	},
 	{
 		before: func(db *mock.Mockdatabase) {
@@ -32,7 +30,6 @@ var testCases = []testCase{
 		},
 		dest:          []user{},
 		expectedError: fmt.Errorf("db find by email err: internalError"),
-		exextedResult: user{},
 	},
 }
 
