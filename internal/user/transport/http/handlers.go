@@ -10,6 +10,17 @@ type api struct {
 	validator   *validator.Validate
 }
 
+// ShowAccount godoc
+// @Summary      Authentication for user
+// @Description  Allow user to get access token
+// @Tags         user
+// @Accept       json
+// @Produce      json
+// @Param        authenticationRequest   body      authenticationRequest  true  "Account ID"
+// @Success      200  {object}  authenticationResponse
+// @Failure      422  {object}  errorWrapper
+// @Failure      500  {object}  errorWrapper
+// @Router       / [post]
 func (a api) Authentication(w http.ResponseWriter, r *http.Request) {
 
 	var dest authenticationRequest

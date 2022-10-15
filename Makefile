@@ -5,3 +5,6 @@ coverage:
 
 test:
 	go test ./... -v
+
+swag:
+	swag init

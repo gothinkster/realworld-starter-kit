@@ -1,0 +1,70 @@
+definitions:
+  api.authenticationRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  api.authenticationResponse:
+    properties:
+      bio:
+        type: string
+      email:
+        type: string
+      image:
+        type: string
+      token:
+        type: string
+      username:
+        type: string
+    type: object
+  api.errorWrapper:
+    properties:
+      errors:
+        $ref: '#/definitions/api.errors'
+    type: object
+  api.errors:
+    properties:
+      body:
+        items:
+          type: string
+        type: array
+    type: object
+info:
+  contact: {}
+paths:
+  /:
+    post:
+      consumes:
+      - application/json
+      description: Allow user to get access token
+      parameters:
+      - description: Account ID
+        in: body
+        name: authenticationRequest
+        required: true
+        schema:
+          $ref: '#/definitions/api.authenticationRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.authenticationResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/api.errorWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.errorWrapper'
+      summary: Authentication for user
+      tags:
+      - user
+swagger: "2.0"
