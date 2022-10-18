@@ -40,7 +40,7 @@ class CorsIT {
         val baseUrl = URL("http://localhost:${server.runtimePort}/api")
         val client = HttpClient(JettyClientAdapter(), baseUrl, settings)
         client.start()
-        val corsHeaders = "Accept,User-Agent,Host,Content-Type"
+        val corsHeaders = "accept,user-agent,host,content-type"
         val response = client.options("/tags", headers = HttpFields(
             Header("origin", "localhost"),
             Header("access-control-request-headers", corsHeaders),
