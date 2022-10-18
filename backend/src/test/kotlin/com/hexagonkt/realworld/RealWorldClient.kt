@@ -144,7 +144,7 @@ internal class RealWorldClient(val client: HttpClient) {
     }
 
     fun postArticle(article: Article) {
-        client.post("/articles", article.toCreationRequest().serialize(JSON)).apply {
+        client.post("/articles", mapOf("article" to article.toCreationRequest()).serialize(JSON)).apply {
             assertEquals(OK, status)
             assertEquals(contentType, contentType)
 

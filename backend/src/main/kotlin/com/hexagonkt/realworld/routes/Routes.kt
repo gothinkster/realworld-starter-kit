@@ -1,11 +1,9 @@
 package com.hexagonkt.realworld.routes
 
 import com.auth0.jwt.interfaces.DecodedJWT
-import com.hexagonkt.core.CodedException
 import com.hexagonkt.core.MultipleException
 import com.hexagonkt.core.fail
 import com.hexagonkt.core.media.ApplicationMedia.JSON
-import com.hexagonkt.http.model.ClientErrorStatus.UNAUTHORIZED
 import com.hexagonkt.http.model.ContentType
 import com.hexagonkt.http.model.HttpStatus
 import com.hexagonkt.http.server.callbacks.CorsCallback
@@ -28,31 +26,29 @@ internal val router by lazy {
             callback = CorsCallback(allowedHeaders = setOf("accept", "user-agent", "host", "content-type"))
         )
 
+        after("*") {
+            if (status.code in setOf(401, 403, 404)) statusCodeHandler(status, response.body)
+            else this
+        }
+
         path("/users", usersRouter)
         path("/user", userRouter)
         path("/profiles/{username}", profilesRouter)
         path("/articles", articlesRouter)
         path("/tags", tagsRouter)
 
-        exception(CodedException::class) {
-            val codedException = exception as CodedException
-            if (codedException.code in setOf(401, 403, 404, 500)) statusCodeHandler(codedException)
-            else this
-        }
-
         exception(MultipleException::class) { multipleExceptionHandler(exception ?: fail) }
         exception(Exception::class) { exceptionHandler(exception ?: fail) }
     }
 }
 
-internal fun HttpServerContext.statusCodeHandler(exception: CodedException): HttpServerContext {
-    val messages = when (val body = response.body) {
+internal fun HttpServerContext.statusCodeHandler(status: HttpStatus, body: Any): HttpServerContext {
+    val messages = when (body) {
         is List<*> -> body.mapNotNull { it?.toString() }
-        else -> listOf(exception.message ?: exception::class.java.name)
+        else -> listOf(body.toString())
     }
 
-    val status = HttpStatus(exception.code)
-    return send(status, ErrorResponseRoot(ErrorResponse(messages)), contentType = contentType)
+    return send(status, ErrorResponseRoot(ErrorResponse(messages)).serialize(JSON), contentType = contentType)
 }
 
 internal fun HttpServerContext.multipleExceptionHandler(error: Exception): HttpServerContext {
@@ -71,13 +67,9 @@ internal fun HttpServerContext.exceptionHandler(error: Exception): HttpServerCon
 val authenticator = filter("*") {
     val principal = parsePrincipal(jwt)
 
-    if (principal == null) unauthorized("Unauthorized")
-    else next()
-    next()
+    if (principal == null) next()
+    else copy(attributes = attributes + ("principal" to principal)).next()
 }
-
-internal fun HttpServerContext.unauthorized(body: String = "Unauthorized"): HttpServerContext =
-    clientError(UNAUTHORIZED, body)
 
 internal fun HttpServerContext.parsePrincipal(jwt: Jwt): DecodedJWT? {
     val token = request.authorization

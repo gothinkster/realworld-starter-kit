@@ -25,7 +25,7 @@ internal val userRouter by lazy {
 }
 
 internal fun HttpServerContext.putUser(users: Store<User, String>, jwt: Jwt): HttpServerContext {
-    val principal = parsePrincipal(jwt) ?: return unauthorized()
+    val principal = parsePrincipal(jwt) ?: return unauthorized("Unauthorized")
     val body = PutUserRequest(request.bodyMap())
     val updates = body.toFieldsMap()
 
@@ -38,7 +38,7 @@ internal fun HttpServerContext.putUser(users: Store<User, String>, jwt: Jwt): Ht
 }
 
 internal fun HttpServerContext.getUser(users: Store<User, String>, jwt: Jwt): HttpServerContext {
-    val principal = parsePrincipal(jwt) ?: return unauthorized()
+    val principal = parsePrincipal(jwt) ?: return unauthorized("Unauthorized")
     val subject = principal.subject
     val user = users.findOne(subject) ?: return notFound("User: $subject not found")
     val token = jwt.sign(user.username)

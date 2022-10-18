@@ -2,9 +2,7 @@ package com.hexagonkt.realworld.messages
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
-import com.hexagonkt.core.fieldsMapOf
-import com.hexagonkt.core.keys
-import com.hexagonkt.core.requireKeys
+import com.hexagonkt.core.*
 import com.hexagonkt.http.toHttpFormat
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
@@ -16,10 +14,10 @@ data class ArticleRequest(
     val tagList: Set<String>
 ) {
     constructor(data: Map<*, *>) : this(
-        data.requireKeys("article", ArticleRequest::title),
-        data.requireKeys("article", ArticleRequest::description),
-        data.requireKeys("article", ArticleRequest::body),
-        data.requireKeys("article", ArticleRequest::tagList),
+        data.requireString(ArticleRequest::title),
+        data.requireString(ArticleRequest::description),
+        data.requireString(ArticleRequest::body),
+        data.getStringsOrEmpty(ArticleRequest::tagList).toSet(),
     )
 }
 

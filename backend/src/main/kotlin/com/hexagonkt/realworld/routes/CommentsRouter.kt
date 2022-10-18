@@ -11,11 +11,12 @@ import com.hexagonkt.realworld.messages.*
 import com.hexagonkt.rest.bodyMap
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.Comment
+import com.hexagonkt.serialization.serialize
 import kotlin.text.Charsets.UTF_8
 
 internal val commentsRouter = path {
     post {
-        val principal = parsePrincipal(jwt) ?: return@post unauthorized()
+        val principal = parsePrincipal(jwt) ?: return@post unauthorized("Unauthorized")
         val subject = principal.subject
         val slug = pathParameters.require(Article::slug.name)
         val article = articles.findOne(slug) ?: return@post notFound("$slug article not found")
@@ -35,7 +36,7 @@ internal val commentsRouter = path {
 
         val content = mapOf("comment" to CommentResponse(comment, author, user))
 
-        ok(content, contentType = ContentType(JSON, charset = UTF_8))
+        ok(content.serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
     }
 
     get {
@@ -50,11 +51,11 @@ internal val commentsRouter = path {
 
         val content = article.comments.map { CommentResponse(it, author, user) }
 
-        ok(mapOf("comments" to content), contentType = ContentType(JSON, charset = UTF_8))
+        ok(mapOf("comments" to content).serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
     }
 
     delete("/{id}") {
-        parsePrincipal(jwt) ?: return@delete unauthorized()
+        parsePrincipal(jwt) ?: return@delete unauthorized("Unauthorized")
         val slug = pathParameters.require(Article::slug.name)
         val article = articles.findOne(slug) ?: return@delete notFound("$slug article not found")
         val id = pathParameters.require(Comment::id.name).toInt()
@@ -64,6 +65,6 @@ internal val commentsRouter = path {
         if (!updated)
             return@delete internalServerError("Not updated")
 
-        ok(OkResponse("$id deleted"), contentType = ContentType(JSON, charset = UTF_8))
+        ok(OkResponse("$id deleted").serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
     }
 }
