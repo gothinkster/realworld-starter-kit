@@ -59,7 +59,6 @@ internal class RealWorldClient(val client: HttpClient) {
 
     fun loginUser(user: User): RealWorldClient {
         val header = client.post("/users/login", mapOf("user" to user.toLoginRequest()).serialize(JSON)).let {
-            println(it.bodyString())
             assertEquals(OK, it.status)
             assertEquals(contentType, it.contentType)
 
