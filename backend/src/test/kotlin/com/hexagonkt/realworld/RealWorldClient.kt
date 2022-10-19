@@ -185,9 +185,9 @@ internal class RealWorldClient(val client: HttpClient) {
 
             val responseArticle = ArticleCreationResponse(bodyMap().requireKeys("article"))
             assertEquals(article.slug, responseArticle.slug)
-            assertEquals((updateRequest.title ?: article.title), responseArticle.title)
-            assertEquals((updateRequest.description ?: article.description), responseArticle.description)
-            assertEquals((updateRequest.body ?: article.body), responseArticle.body)
+            assertEquals(updateRequest.title ?: article.title, responseArticle.title)
+            assertEquals(updateRequest.description ?: article.description, responseArticle.description)
+            assertEquals(updateRequest.body ?: article.body, responseArticle.body)
         }
     }
 
