@@ -26,18 +26,21 @@ internal val articlesRouter by lazy {
     path {
         get("/feed") { getFeed(jwt, users, articles) }
 
-        path("/{slug}") {
-            path("/favorite") {
-                use(authenticator)
-                post { favoriteArticle(users, articles, true) }
-                delete { favoriteArticle(users, articles, false) }
-            }
+        path("/{slug}/favorite") {
+            use(authenticator)
+            post { favoriteArticle(users, articles, true) }
+            delete { favoriteArticle(users, articles, false) }
+        }
 
-            path("/comments", commentsRouter)
+        path("/{slug}/comments", commentsRouter)
 
+        path("""/(?<slug>[^/]+?)""") {
             delete { deleteArticle(jwt, articles) }
             put { updateArticle(jwt, articles) }
-            get { getArticle(jwt, users, articles) }
+            get {
+                if (path.endsWith("/feed")) this
+                else getArticle(jwt, users, articles)
+            }
         }
 
         post { createArticle(jwt, articles) }
@@ -58,7 +61,8 @@ internal fun HttpServerContext.findArticles(
         }
     }
 
-    return ok(searchArticles(users, articles, subject, filter).serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
+    val foundArticles = searchArticles(users, articles, subject, filter)
+    return ok(foundArticles.serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
 }
 
 private fun HttpServerContext.createArticle(jwt: Jwt, articles: Store<Article, String>): HttpServerContext {
@@ -75,7 +79,7 @@ private fun HttpServerContext.createArticle(jwt: Jwt, articles: Store<Article, S
 
     articles.insertOne(article)
 
-    return ok(ArticleCreationResponseRoot(article, principal.subject), contentType = ContentType(
+    return ok(ArticleCreationResponseRoot(article, principal.subject).serialize(JSON), contentType = ContentType(
         JSON, charset = UTF_8))
 }
 
@@ -99,7 +103,9 @@ internal fun HttpServerContext.favoriteArticle(
 
     val favoritedArticle = article.copy(favoritedBy = favoritedBy)
 
-    return ok(ArticleResponseRoot(favoritedArticle, author, user).serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
+    val articleResponseRoot = ArticleResponseRoot(favoritedArticle, author, user)
+    val body = articleResponseRoot.serialize(JSON)
+    return ok(body, contentType = ContentType(JSON, charset = UTF_8))
 }
 
 internal fun HttpServerContext.getArticle(
@@ -115,7 +121,7 @@ internal fun HttpServerContext.getArticle(
 
 internal fun HttpServerContext.updateArticle(jwt: Jwt, articles: Store<Article, String>): HttpServerContext {
     val principal = parsePrincipal(jwt) ?: return unauthorized("Unauthorized")
-    val body = request.bodyMap().let(::PutArticleRequest)
+    val body = request.bodyMap().requireKeys<Map<String,Any>>("article").let(::PutArticleRequest)
     val slug = pathParameters.require("slug")
 
     val updatedAt = LocalDateTime.now()
