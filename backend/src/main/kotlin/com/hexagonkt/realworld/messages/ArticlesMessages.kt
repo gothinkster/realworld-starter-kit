@@ -29,10 +29,10 @@ data class AuthorResponse(
     val following: Boolean
 ) {
     constructor(data: Map<*, *>) : this(
-        username = data.requireKeys(AuthorResponse::username),
-        bio = data.requireKeys(AuthorResponse::bio),
-        image = data.requireKeys(AuthorResponse::image),
-        following = data.requireKeys(AuthorResponse::following),
+        username = data.requireString(AuthorResponse::username),
+        bio = data.requireString(AuthorResponse::bio),
+        image = data.requireString(AuthorResponse::image),
+        following = data.requireBoolean(AuthorResponse::following),
     )
 }
 
@@ -49,16 +49,16 @@ data class ArticleCreationResponse(
     val author: String
 ) {
     constructor(data: Map<*, *>) : this(
-        slug = data.requireKeys(ArticleCreationResponse::slug),
-        title = data.requireKeys(ArticleCreationResponse::title),
-        description = data.requireKeys(ArticleCreationResponse::description),
-        body = data.requireKeys(ArticleCreationResponse::body),
-        tagList = data.keys(ArticleCreationResponse::tagList) ?: emptySet(),
-        createdAt = data.requireKeys(ArticleCreationResponse::createdAt),
-        updatedAt = data.requireKeys(ArticleCreationResponse::updatedAt),
-        favorited = data.requireKeys(ArticleCreationResponse::favorited),
-        favoritesCount = data.requireKeys(ArticleCreationResponse::favoritesCount),
-        author = data.requireKeys(ArticleCreationResponse::author),
+        slug = data.requireString(ArticleCreationResponse::slug),
+        title = data.requireString(ArticleCreationResponse::title),
+        description = data.requireString(ArticleCreationResponse::description),
+        body = data.requireString(ArticleCreationResponse::body),
+        tagList = data.getStringsOrEmpty(ArticleCreationResponse::tagList).toSet(),
+        createdAt = data.requireString(ArticleCreationResponse::createdAt),
+        updatedAt = data.requireString(ArticleCreationResponse::updatedAt),
+        favorited = data.requireBoolean(ArticleCreationResponse::favorited),
+        favoritesCount = data.requireInt(ArticleCreationResponse::favoritesCount),
+        author = data.requireString(ArticleCreationResponse::author),
     )
 }
 
@@ -86,10 +86,10 @@ data class PutArticleRequest(
     val tagList: Set<String> = emptySet()
 ) {
     constructor(data: Map<*, *>) : this(
-        data.keys(PutArticleRequest::title),
-        data.keys(PutArticleRequest::description),
-        data.keys(PutArticleRequest::body),
-        data.keys(PutArticleRequest::tagList) ?: emptySet(),
+        data.getString(PutArticleRequest::title),
+        data.getString(PutArticleRequest::description),
+        data.getString(PutArticleRequest::body),
+        data.getStringsOrEmpty(PutArticleRequest::tagList).toSet(),
     )
 
     fun toFieldsMap(): Map<String, *> =
@@ -114,16 +114,16 @@ data class ArticleResponse(
     val author: AuthorResponse
 ) {
     constructor(data: Map<*, *>) : this(
-        slug = data.requireKeys(ArticleCreationResponse::slug),
-        title = data.requireKeys(ArticleCreationResponse::title),
-        description = data.requireKeys(ArticleCreationResponse::description),
-        body = data.requireKeys(ArticleCreationResponse::body),
-        tagList = data.keys(ArticleCreationResponse::tagList) ?: emptySet(),
-        createdAt = data.requireKeys(ArticleCreationResponse::createdAt),
-        updatedAt = data.requireKeys(ArticleCreationResponse::updatedAt),
-        favorited = data.requireKeys(ArticleCreationResponse::favorited),
-        favoritesCount = data.requireKeys(ArticleCreationResponse::favoritesCount),
-        author = data.requireKeys(ArticleCreationResponse::author),
+        slug = data.requireString(ArticleCreationResponse::slug),
+        title = data.requireString(ArticleCreationResponse::title),
+        description = data.requireString(ArticleCreationResponse::description),
+        body = data.requireString(ArticleCreationResponse::body),
+        tagList = data.getStringsOrEmpty(ArticleCreationResponse::tagList).toSet(),
+        createdAt = data.requireString(ArticleCreationResponse::createdAt),
+        updatedAt = data.requireString(ArticleCreationResponse::updatedAt),
+        favorited = data.requireBoolean(ArticleCreationResponse::favorited),
+        favoritesCount = data.requireInt(ArticleCreationResponse::favoritesCount),
+        author = data.requireMap(ArticleCreationResponse::author).let(::AuthorResponse),
     )
 }
 
