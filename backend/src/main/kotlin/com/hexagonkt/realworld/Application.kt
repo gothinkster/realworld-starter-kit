@@ -1,18 +1,17 @@
 package com.hexagonkt.realworld
 
+import com.hexagonkt.core.*
 import com.hexagonkt.core.Jvm.systemSetting
 import com.hexagonkt.core.converters.ConvertersManager
-import com.hexagonkt.core.getString
-import com.hexagonkt.core.getStrings
-import com.hexagonkt.core.getStringsOrEmpty
+import com.hexagonkt.core.converters.convert
 import com.hexagonkt.core.logging.LoggingManager
-import com.hexagonkt.core.requireString
 import com.hexagonkt.http.server.*
 import com.hexagonkt.http.server.jetty.JettyServletAdapter
 import com.hexagonkt.http.server.servlet.ServletServer
 import com.hexagonkt.logging.logback.LogbackLoggingAdapter
 import com.hexagonkt.realworld.routes.*
 import com.hexagonkt.realworld.services.Article
+import com.hexagonkt.realworld.services.Comment
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.serialization.SerializationManager
 import com.hexagonkt.serialization.jackson.json.Json
@@ -29,7 +28,11 @@ import jakarta.servlet.annotation.WebListener
  */
 @WebListener
 @Suppress("unused")
-class WebApplication : ServletServer(router)
+class WebApplication : ServletServer(router) {
+    init {
+        setUp()
+    }
+}
 
 internal val serverSettings = HttpServerSettings(contextPath = "/api")
 internal val serverAdapter = JettyServletAdapter()
@@ -66,7 +69,7 @@ internal fun createArticleStore(): Store<Article, String> {
     return articleStore
 }
 
-internal fun main() {
+private fun setUp() {
     LoggingManager.adapter = LogbackLoggingAdapter()
     SerializationManager.defaultFormat = Json
     ConvertersManager.register(User::class to Map::class) { it.toMap() }
@@ -80,5 +83,34 @@ internal fun main() {
             following = it.getStringsOrEmpty(User::following).toSet(),
         )
     }
+    ConvertersManager.register(Comment::class to Map::class) { it.toMap() }
+    ConvertersManager.register(Map::class to Comment::class) {
+        Comment(
+            id = it.requireInt(Comment::id),
+            author = it.requireString(Comment::author),
+            body = it.requireString(Comment::body),
+            createdAt = it.requireKey(Comment::createdAt),
+            updatedAt = it.requireKey(Comment::updatedAt),
+        )
+    }
+    ConvertersManager.register(Article::class to Map::class) { it.toMap() }
+    ConvertersManager.register(Map::class to Article::class) {
+        Article(
+            slug = it.requireString(Article::slug),
+            author = it.requireString(Article::author),
+            title = it.requireString(Article::title),
+            description = it.requireString(Article::description),
+            body = it.requireString(Article::body),
+            tagList = it.getStringsOrEmpty(Article::tagList).toSet(),
+            createdAt = it.requireKey(Comment::createdAt),
+            updatedAt = it.requireKey(Comment::updatedAt),
+            favoritedBy = it.getStringsOrEmpty(Article::favoritedBy).toSet(),
+            comments = it.getMapsOrEmpty(Article::comments).map { m -> m.convert(Comment::class) },
+        )
+    }
+}
+
+internal fun main() {
+    setUp()
     server.start()
 }
