@@ -68,7 +68,7 @@ val authenticator = filter("*") {
     val principal = parsePrincipal(jwt)
 
     if (principal == null) next()
-    else copy(attributes = attributes + ("principal" to principal)).next()
+    else send(attributes = attributes + ("principal" to principal)).next()
 }
 
 internal fun HttpServerContext.parsePrincipal(jwt: Jwt): DecodedJWT? {

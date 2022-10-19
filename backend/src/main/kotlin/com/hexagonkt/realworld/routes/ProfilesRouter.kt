@@ -10,6 +10,7 @@ import com.hexagonkt.realworld.messages.ProfileResponse
 import com.hexagonkt.realworld.messages.ProfileResponseRoot
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.realworld.users
+import com.hexagonkt.serialization.serialize
 import com.hexagonkt.store.Store
 import kotlin.text.Charsets.UTF_8
 
@@ -35,7 +36,7 @@ private fun HttpServerContext.getProfile(users: Store<User, String>): HttpServer
         )
     )
 
-    return ok(content, contentType = ContentType(JSON, charset = UTF_8))
+    return ok(content.serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
 }
 
 private fun HttpServerContext.followProfile(
@@ -59,5 +60,5 @@ private fun HttpServerContext.followProfile(
         )
     )
 
-    return ok(content, contentType = ContentType(JSON, charset = UTF_8))
+    return ok(content.serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
 }
