@@ -8,21 +8,9 @@ version: '3.9'
 services:
 
   mongodb:
-    image: mongo:4.4-bionic
+    image: mongo:5.0-focal
     ports:
       - "3010:27017"
-
-  frontend:
-    image: nginx:1.15
-    labels:
-      app: realworld
-      type: frontend
-    depends_on:
-      - backend
-    volumes:
-      - ./frontend/build/web:/usr/share/nginx/html:ro
-    ports:
-      - "3080:80"
 
   backend:
     image: ${registry:-localhost:5000/}realworld:1.0
@@ -32,8 +20,9 @@ services:
     depends_on:
       - mongodb
     environment:
-      application_mongodbUrl: mongodb://mongodb/real_world
+      bindAddress: 0.0.0.0
+      mongodbUrl: mongodb://mongodb/real_world
     build:
       context: backend
     ports:
-      - "3090:9090"
+      - "3090:2010"
