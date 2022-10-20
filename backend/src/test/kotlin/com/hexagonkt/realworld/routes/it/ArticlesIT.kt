@@ -18,6 +18,7 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
 import java.net.URL
 
+// TODO Add test to check articles' tags order
 @TestInstance(PER_CLASS)
 class ArticlesIT {
 
@@ -42,7 +43,7 @@ class ArticlesIT {
         slug = "how-to-train-your-dragon",
         description = "Ever wonder how?",
         body = "Very carefully.",
-        tagList = setOf("dragons","training"),
+        tagList = linkedSetOf("dragons", "training"),
         author = jake.username
     )
 
@@ -51,15 +52,12 @@ class ArticlesIT {
         slug = "never-ending-story",
         description = "Fantasia is dying",
         body = "Fight for Fantasia!",
-        tagList = setOf("dragons", "books"),
+        tagList = linkedSetOf("dragons", "books"),
         author = jake.username
     )
 
     @BeforeAll fun startup() {
-        System.setProperty("keyStoreResource", "classpath:keystore.p12")
-        System.setProperty("keyStorePassword", "storepass")
-        System.setProperty("keyPairAlias", "realWorld")
-        System.setProperty("mongodbUrl", "mongodb://localhost:3010/real_world")
+        System.setProperty("mongodbUrl", mongodbUrl)
 
         main()
     }

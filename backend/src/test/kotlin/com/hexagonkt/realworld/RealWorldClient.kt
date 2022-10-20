@@ -11,16 +11,15 @@ import com.hexagonkt.http.model.ClientErrorStatus.NOT_FOUND
 import com.hexagonkt.http.model.SuccessStatus.CREATED
 import com.hexagonkt.http.model.SuccessStatus.OK
 import com.hexagonkt.realworld.messages.*
+import com.hexagonkt.realworld.routes.contentType
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
 import com.hexagonkt.rest.bodyMap
 import com.hexagonkt.serialization.serialize
+import java.time.ZonedDateTime
 import kotlin.test.assertEquals
-import kotlin.text.Charsets.UTF_8
 
 internal class RealWorldClient(val client: HttpClient) {
-
-    private val contentType = ContentType(JSON, charset = UTF_8)
 
     init {
         client.start()
@@ -148,6 +147,8 @@ internal class RealWorldClient(val client: HttpClient) {
             assertEquals(contentType, contentType)
 
             val postArticleResponse = ArticleCreationResponse(bodyMap().requireKeys("article"))
+            // TODO Check all timestamps' formats
+            ZonedDateTime.parse(postArticleResponse.createdAt)
             assertEquals(article.body, postArticleResponse.body)
             assertEquals(article.slug, postArticleResponse.slug)
             assertEquals(article.description, postArticleResponse.description)
@@ -275,7 +276,7 @@ internal class RealWorldClient(val client: HttpClient) {
 
             val tags = bodyMap().requireKeys<Collection<String>>("tags")
             assertEquals(expectedTags.size, tags.size)
-            assert(tags.containsAll(expectedTags.toSet()))
+            assert(tags.containsAll(expectedTags.toList().let(::LinkedHashSet)))
         }
     }
 

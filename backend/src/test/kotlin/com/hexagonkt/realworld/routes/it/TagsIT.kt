@@ -8,7 +8,6 @@ import com.hexagonkt.http.model.ContentType
 import com.hexagonkt.realworld.RealWorldClient
 import com.hexagonkt.realworld.main
 import com.hexagonkt.realworld.server
-import com.hexagonkt.serialization.jackson.json.Json
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
 import org.junit.jupiter.api.AfterAll
@@ -34,7 +33,7 @@ class TagsIT {
         slug = "never-ending-story",
         description = "Fantasia is dying",
         body = "Fight for Fantasia!",
-        tagList = setOf("dragons", "books"),
+        tagList = linkedSetOf("dragons", "books"),
         author = jake.username
     )
 
@@ -43,15 +42,12 @@ class TagsIT {
         slug = "how-to-train-your-dragon",
         description = "Ever wonder how?",
         body = "Very carefully.",
-        tagList = setOf("dragons", "training"),
+        tagList = linkedSetOf("dragons", "training"),
         author = jake.username
     )
 
     @BeforeAll fun startup() {
-        System.setProperty("keyStoreResource", "classpath:keystore.p12")
-        System.setProperty("keyStorePassword", "storepass")
-        System.setProperty("keyPairAlias", "realWorld")
-        System.setProperty("mongodbUrl", "mongodb://localhost:3010/real_world")
+        System.setProperty("mongodbUrl", mongodbUrl)
 
         main()
     }

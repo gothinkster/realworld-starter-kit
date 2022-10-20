@@ -34,15 +34,12 @@ class CommentsIT {
         slug = "how-to-train-your-dragon",
         description = "Ever wonder how?",
         body = "Very carefully.",
-        tagList = setOf("dragons","training"),
+        tagList = linkedSetOf("dragons", "training"),
         author = jake.username
     )
 
     @BeforeAll fun startup() {
-        System.setProperty("keyStoreResource", "classpath:keystore.p12")
-        System.setProperty("keyStorePassword", "storepass")
-        System.setProperty("keyPairAlias", "realWorld")
-        System.setProperty("mongodbUrl", "mongodb://localhost:3010/real_world")
+        System.setProperty("mongodbUrl", mongodbUrl)
 
         main()
     }

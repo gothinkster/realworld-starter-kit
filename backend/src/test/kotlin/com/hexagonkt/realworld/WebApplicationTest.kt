@@ -2,6 +2,7 @@ package com.hexagonkt.realworld
 
 import com.hexagonkt.http.client.HttpClient
 import com.hexagonkt.http.client.jetty.JettyClientAdapter
+import com.hexagonkt.realworld.routes.it.mongodbUrl
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.webapp.WebAppContext
 import org.junit.jupiter.api.AfterAll
@@ -25,10 +26,7 @@ class WebApplicationTest {
     }
 
     @BeforeAll fun startServer() {
-        System.setProperty("keyStoreResource", "classpath:keystore.p12")
-        System.setProperty("keyStorePassword", "storepass")
-        System.setProperty("keyPairAlias", "realWorld")
-        System.setProperty("mongodbUrl", "mongodb://localhost:3010/real_world")
+        System.setProperty("mongodbUrl", mongodbUrl)
 
         val context = WebAppContext()
         context.contextPath = "/api"

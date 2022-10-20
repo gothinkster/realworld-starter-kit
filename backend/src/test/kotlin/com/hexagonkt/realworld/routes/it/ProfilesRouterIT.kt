@@ -36,10 +36,7 @@ class ProfilesRouterIT {
     )
 
     @BeforeAll fun startup() {
-        System.setProperty("keyStoreResource", "classpath:keystore.p12")
-        System.setProperty("keyStorePassword", "storepass")
-        System.setProperty("keyPairAlias", "realWorld")
-        System.setProperty("mongodbUrl", "mongodb://localhost:3010/real_world")
+        System.setProperty("mongodbUrl", mongodbUrl)
 
         main()
     }

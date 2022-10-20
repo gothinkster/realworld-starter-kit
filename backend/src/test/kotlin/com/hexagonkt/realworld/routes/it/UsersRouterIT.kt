@@ -20,7 +20,6 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
 import java.net.URL
 import kotlin.test.assertEquals
-import kotlin.text.Charsets.UTF_8
 
 /**
  * TODO
@@ -39,10 +38,7 @@ class UsersRouterIT {
     )
 
     @BeforeAll fun startup() {
-        System.setProperty("keyStoreResource", "classpath:keystore.p12")
-        System.setProperty("keyStorePassword", "storepass")
-        System.setProperty("keyPairAlias", "realWorld")
-        System.setProperty("mongodbUrl", "mongodb://localhost:3010/real_world")
+        System.setProperty("mongodbUrl", mongodbUrl)
 
         main()
     }
@@ -61,13 +57,16 @@ class UsersRouterIT {
         client.registerUser(jake)
         client.registerUser(jake) {
             assertEquals(INTERNAL_SERVER_ERROR, status)
-            assertEquals(ContentType(JSON, charset = UTF_8), contentType)
+            assertEquals(contentType, contentType)
 
             val errors = ErrorResponse(bodyMap().requireKeys("errors", "body"))
-            val exception = "MongoWriteException: Write operation error on server localhost:3010. Write error"
+            val exception = "MongoWriteException: Write operation error on server localhost"
             val message = "WriteError{code=11000, message='E11000 duplicate key error collection"
             val key = """real_world.User index: _id_ dup key: { _id: "${jake.username}" }', details={}}."""
-            assertEquals("$exception: $message: $key", errors.body.first())
+            val errorMessage = errors.body.first()
+            assert(errorMessage.contains(exception))
+            assert(errorMessage.contains(message))
+            assert(errorMessage.contains(key))
         }
 
         client.loginUser(jake)

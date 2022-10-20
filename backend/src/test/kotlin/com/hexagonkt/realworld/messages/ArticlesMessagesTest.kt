@@ -20,7 +20,7 @@ class ArticlesMessagesTest {
             slug = "how-to-train-your-dragon",
             description = "Ever wonder how?",
             body = "Very carefully.",
-            tagList = setOf("dragons","training"),
+            tagList = linkedSetOf("dragons", "training"),
             author = jake.username
         )
 
