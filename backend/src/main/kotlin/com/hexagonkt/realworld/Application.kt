@@ -130,7 +130,7 @@ internal fun createArticleStore(): Store<Article, String> {
             title = it.requireString(Article::title),
             description = it.requireString(Article::description),
             body = it.requireString(Article::body),
-            tagList = it.getStringsOrEmpty(Article::tagList).toSet(),
+            tagList = it.getStringsOrEmpty(Article::tagList).let(::LinkedHashSet),
             createdAt = it.requireKey(Comment::createdAt),
             updatedAt = it.requireKey(Comment::updatedAt),
             favoritedBy = it.getStringsOrEmpty(Article::favoritedBy).toSet(),

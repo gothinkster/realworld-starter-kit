@@ -14,7 +14,7 @@ data class ArticleRequest(
         data.requireString(ArticleRequest::title),
         data.requireString(ArticleRequest::description),
         data.requireString(ArticleRequest::body),
-        data.getStringsOrEmpty(ArticleRequest::tagList).toSet(),
+        data.getStringsOrEmpty(ArticleRequest::tagList).toSortedSet(),
     )
 }
 
@@ -49,7 +49,7 @@ data class ArticleCreationResponse(
         title = data.requireString(ArticleCreationResponse::title),
         description = data.requireString(ArticleCreationResponse::description),
         body = data.requireString(ArticleCreationResponse::body),
-        tagList = data.getStringsOrEmpty(ArticleCreationResponse::tagList).toSet(),
+        tagList = data.getStringsOrEmpty(ArticleCreationResponse::tagList).toSortedSet(),
         createdAt = data.requireString(ArticleCreationResponse::createdAt),
         updatedAt = data.requireString(ArticleCreationResponse::updatedAt),
         favorited = data.requireBoolean(ArticleCreationResponse::favorited),
@@ -85,7 +85,7 @@ data class PutArticleRequest(
         data.getString(PutArticleRequest::title),
         data.getString(PutArticleRequest::description),
         data.getString(PutArticleRequest::body),
-        data.getStringsOrEmpty(PutArticleRequest::tagList).toSet(),
+        data.getStringsOrEmpty(PutArticleRequest::tagList).toSortedSet(),
     )
 
     fun toFieldsMap(): Map<String, *> =
@@ -114,7 +114,7 @@ data class ArticleResponse(
         title = data.requireString(ArticleCreationResponse::title),
         description = data.requireString(ArticleCreationResponse::description),
         body = data.requireString(ArticleCreationResponse::body),
-        tagList = data.getStringsOrEmpty(ArticleCreationResponse::tagList).toSet(),
+        tagList = data.getStringsOrEmpty(ArticleCreationResponse::tagList).toSortedSet(),
         createdAt = data.requireString(ArticleCreationResponse::createdAt),
         updatedAt = data.requireString(ArticleCreationResponse::updatedAt),
         favorited = data.requireBoolean(ArticleCreationResponse::favorited),
