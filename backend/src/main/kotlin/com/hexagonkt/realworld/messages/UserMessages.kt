@@ -1,7 +1,7 @@
 package com.hexagonkt.realworld.messages
 
 import com.hexagonkt.core.fieldsMapOf
-import com.hexagonkt.core.keys
+import com.hexagonkt.core.getString
 
 data class PutUserRequest(
     val email: String? = null,
@@ -10,10 +10,10 @@ data class PutUserRequest(
     val image: String? = null
 ) {
     constructor(data: Map<*, *>) : this(
-        data.keys("user", PutUserRequest::email),
-        data.keys("user", PutUserRequest::password),
-        data.keys("user", PutUserRequest::bio),
-        data.keys("user", PutUserRequest::image),
+        data.getString(PutUserRequest::email),
+        data.getString(PutUserRequest::password),
+        data.getString(PutUserRequest::bio),
+        data.getString(PutUserRequest::image),
     )
 
     fun toFieldsMap(): Map<String, *> =

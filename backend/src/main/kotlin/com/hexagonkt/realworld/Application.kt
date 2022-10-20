@@ -2,6 +2,7 @@ package com.hexagonkt.realworld
 
 import com.hexagonkt.core.*
 import com.hexagonkt.core.Jvm.systemSetting
+import com.hexagonkt.core.Jvm.systemSettingOrNull
 import com.hexagonkt.core.converters.ConvertersManager
 import com.hexagonkt.core.converters.convert
 import com.hexagonkt.core.logging.LoggingManager
@@ -21,6 +22,7 @@ import com.mongodb.client.model.IndexOptions
 import com.mongodb.client.model.Indexes
 import java.net.URL
 import jakarta.servlet.annotation.WebListener
+import java.net.InetAddress
 
 /**
  * This class is the application's Servlet shell. It allows this application to be bundled
@@ -34,7 +36,9 @@ class WebApplication : ServletServer(router) {
     }
 }
 
-internal val serverSettings = HttpServerSettings(contextPath = "/api")
+internal val bindAddress: InetAddress =
+    systemSettingOrNull<String>("bindAddress")?.let(InetAddress::getByName) ?: loopbackInterface
+internal val serverSettings = HttpServerSettings(contextPath = "/api", bindAddress = bindAddress)
 internal val serverAdapter = JettyServletAdapter()
 internal val server: HttpServer by lazy { HttpServer(serverAdapter, router, serverSettings) }
 internal val jwt: Jwt by lazy { createJwt() }
@@ -42,9 +46,9 @@ internal val users: Store<User, String> by lazy { createUserStore() }
 internal val articles: Store<Article, String> by lazy { createArticleStore() }
 
 internal fun createJwt(): Jwt {
-    val keyStoreResource = systemSetting<String>("keyStoreResource")
-    val keyStorePassword = systemSetting<String>("keyStorePassword")
-    val keyPairAlias = systemSetting<String>("keyPairAlias")
+    val keyStoreResource = systemSettingOrNull("keyStoreResource") ?: "classpath:keystore.p12"
+    val keyStorePassword = systemSettingOrNull("keyStorePassword") ?: "storepass"
+    val keyPairAlias = systemSettingOrNull("keyPairAlias") ?: "realWorld"
 
     return Jwt(URL(keyStoreResource), keyStorePassword, keyPairAlias)
 }
@@ -56,23 +60,16 @@ internal fun createUserStore(): Store<User, String> {
     val indexOptions = IndexOptions().unique(true).background(true).name(indexField)
     userStore.collection.createIndex(Indexes.ascending(indexField), indexOptions)
 
-    return userStore
-}
-
-internal fun createArticleStore(): Store<Article, String> {
-    val mongodbUrl = systemSetting<String>("mongodbUrl")
-    val articleStore = MongoDbStore(Article::class, Article::slug, mongodbUrl)
-    val indexField = Article::author.name
-    val indexOptions = IndexOptions().unique(false).background(true).name(indexField)
-    articleStore.collection.createIndex(Indexes.ascending(indexField), indexOptions)
-
-    return articleStore
-}
-
-private fun setUp() {
-    LoggingManager.adapter = LogbackLoggingAdapter()
-    SerializationManager.defaultFormat = Json
-    ConvertersManager.register(User::class to Map::class) { it.toMap() }
+    ConvertersManager.register(User::class to Map::class) {
+        fieldsMapOfNotNull(
+            User::username to it.username,
+            User::email to it.email,
+            User::password to it.password,
+            User::bio to it.bio,
+            User::image to it.image,
+            User::following to it.following,
+        )
+    }
     ConvertersManager.register(Map::class to User::class) {
         User(
             username = it.requireString(User::username),
@@ -83,7 +80,26 @@ private fun setUp() {
             following = it.getStringsOrEmpty(User::following).toSet(),
         )
     }
-    ConvertersManager.register(Comment::class to Map::class) { it.toMap() }
+
+    return userStore
+}
+
+internal fun createArticleStore(): Store<Article, String> {
+    val mongodbUrl = systemSetting<String>("mongodbUrl")
+    val articleStore = MongoDbStore(Article::class, Article::slug, mongodbUrl)
+    val indexField = Article::author.name
+    val indexOptions = IndexOptions().unique(false).background(true).name(indexField)
+    articleStore.collection.createIndex(Indexes.ascending(indexField), indexOptions)
+
+    ConvertersManager.register(Comment::class to Map::class) {
+        fieldsMapOfNotNull(
+            Comment::id to it.id,
+            Comment::author to it.author,
+            Comment::body to it.body,
+            Comment::createdAt to it.createdAt,
+            Comment::updatedAt to it.updatedAt,
+        )
+    }
     ConvertersManager.register(Map::class to Comment::class) {
         Comment(
             id = it.requireInt(Comment::id),
@@ -93,7 +109,20 @@ private fun setUp() {
             updatedAt = it.requireKey(Comment::updatedAt),
         )
     }
-    ConvertersManager.register(Article::class to Map::class) { it.toMap() }
+    ConvertersManager.register(Article::class to Map::class) {
+        fieldsMapOfNotNull(
+            Article::slug to it.slug,
+            Article::author to it.author,
+            Article::title to it.title,
+            Article::description to it.description,
+            Article::body to it.body,
+            Article::tagList to it.tagList,
+            Article::createdAt to it.createdAt,
+            Article::updatedAt to it.updatedAt,
+            Article::favoritedBy to it.favoritedBy,
+            Article::comments to it.comments.map { m -> m.convert(Map::class) },
+        )
+    }
     ConvertersManager.register(Map::class to Article::class) {
         Article(
             slug = it.requireString(Article::slug),
@@ -108,6 +137,13 @@ private fun setUp() {
             comments = it.getMapsOrEmpty(Article::comments).map { m -> m.convert(Comment::class) },
         )
     }
+
+    return articleStore
+}
+
+private fun setUp() {
+    LoggingManager.adapter = LogbackLoggingAdapter()
+    SerializationManager.defaultFormat = Json
 }
 
 internal fun main() {

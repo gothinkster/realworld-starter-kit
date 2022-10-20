@@ -4,7 +4,6 @@ import com.hexagonkt.core.media.ApplicationMedia.JSON
 import com.hexagonkt.core.require
 import com.hexagonkt.core.requireKeys
 import com.hexagonkt.http.model.ClientErrorStatus.UNAUTHORIZED
-import com.hexagonkt.http.model.ContentType
 import com.hexagonkt.http.server.handlers.HttpServerContext
 import com.hexagonkt.http.server.handlers.path
 import com.hexagonkt.realworld.jwt
@@ -15,8 +14,6 @@ import com.hexagonkt.realworld.users
 import com.hexagonkt.rest.bodyMap
 import com.hexagonkt.serialization.serialize
 import com.hexagonkt.store.Store
-
-import kotlin.text.Charsets.UTF_8
 
 internal val usersRouter by lazy {
     path {
@@ -40,7 +37,7 @@ private fun HttpServerContext.register(users: Store<User, String>, jwt: Jwt): Ht
         )
     ).serialize(JSON)
 
-    return created(content, contentType = ContentType(JSON, charset = UTF_8))
+    return created(content, contentType = contentType)
 }
 
 private fun HttpServerContext.login(users: Store<User, String>, jwt: Jwt): HttpServerContext {
@@ -49,7 +46,7 @@ private fun HttpServerContext.login(users: Store<User, String>, jwt: Jwt): HttpS
     val user = users.findOne(filter) ?: return notFound("Not Found")
     return if (user.password == bodyUser.password) {
         val content = UserResponseRoot(user, jwt.sign(user.username)).serialize(JSON)
-        ok(content, contentType = ContentType(JSON, charset = UTF_8))
+        ok(content, contentType = contentType)
     } else {
         clientError(UNAUTHORIZED, "Bad credentials")
     }
@@ -60,7 +57,7 @@ private fun HttpServerContext.deleteUser(users: Store<User, String>): HttpServer
     val username = pathParameters.require("username")
     val deleteOne = users.deleteOne(username)
     return if (deleteOne)
-        ok(OkResponse("$username deleted").serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
+        ok(OkResponse("$username deleted").serialize(JSON), contentType = contentType)
     else
         notFound("$username not found")
 }

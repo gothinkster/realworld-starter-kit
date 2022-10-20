@@ -1,24 +1,21 @@
 
-#
-# RUNTIME
-#
-FROM openjdk:11
+FROM eclipse-temurin:17-jre-alpine
 LABEL description="realworld API"
-USER root
 
-ENV TZ Europe/Madrid
+# Project setup
 ENV PROJECT backend
+ENV TZ UTC
+
+EXPOSE 2010
 
 # Machine setup
 VOLUME /tmp
-EXPOSE 9090
-
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Project install
-COPY build/install/$PROJECT /opt/$PROJECT
-RUN touch /opt/$PROJECT
+USER 1000
+ADD --chown=1000:1000 build/distributions/$PROJECT*.tar /opt
 
 # Process execution
-WORKDIR /opt/$PROJECT
-ENTRYPOINT /opt/$PROJECT/bin/$PROJECT
+WORKDIR /opt/$PROJECT*
+ENTRYPOINT /opt/$PROJECT*/bin/$PROJECT

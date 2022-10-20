@@ -3,7 +3,6 @@ package com.hexagonkt.realworld.routes
 import com.hexagonkt.core.media.ApplicationMedia.JSON
 import com.hexagonkt.core.require
 import com.hexagonkt.core.requireKeys
-import com.hexagonkt.http.model.ContentType
 import com.hexagonkt.http.server.handlers.path
 import com.hexagonkt.realworld.*
 import com.hexagonkt.realworld.articles
@@ -13,7 +12,6 @@ import com.hexagonkt.rest.bodyMap
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.Comment
 import com.hexagonkt.serialization.serialize
-import kotlin.text.Charsets.UTF_8
 
 internal val commentsRouter = path {
     post {
@@ -37,7 +35,7 @@ internal val commentsRouter = path {
 
         val content = mapOf("comment" to CommentResponse(comment, author, user))
 
-        ok(content.serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
+        ok(content.serialize(JSON), contentType = contentType)
     }
 
     get {
@@ -52,7 +50,7 @@ internal val commentsRouter = path {
 
         val content = article.comments.map { CommentResponse(it, author, user) }
 
-        ok(mapOf("comments" to content).serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
+        ok(mapOf("comments" to content).serialize(JSON), contentType = contentType)
     }
 
     delete("/{id}") {
@@ -66,6 +64,6 @@ internal val commentsRouter = path {
         if (!updated)
             return@delete internalServerError("Not updated")
 
-        ok(OkResponse("$id deleted").serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
+        ok(OkResponse("$id deleted").serialize(JSON), contentType = contentType)
     }
 }

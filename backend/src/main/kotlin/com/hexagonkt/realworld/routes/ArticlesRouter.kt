@@ -4,10 +4,9 @@ import com.auth0.jwt.interfaces.DecodedJWT
 import com.hexagonkt.core.media.ApplicationMedia.JSON
 import com.hexagonkt.core.require
 import com.hexagonkt.core.requireKeys
-import com.hexagonkt.http.model.ContentType
+import com.hexagonkt.core.withZone
 import com.hexagonkt.http.server.handlers.HttpServerContext
 import com.hexagonkt.http.server.handlers.path
-import com.hexagonkt.http.toHttpFormat
 import com.hexagonkt.realworld.*
 import com.hexagonkt.realworld.articles
 import com.hexagonkt.realworld.jwt
@@ -19,28 +18,26 @@ import com.hexagonkt.rest.bodyMap
 import com.hexagonkt.serialization.serialize
 import com.hexagonkt.store.Store
 import java.time.LocalDateTime
-
-import kotlin.text.Charsets.UTF_8
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME
 
 internal val articlesRouter by lazy {
     path {
         get("/feed") { getFeed(jwt, users, articles) }
 
-        path("/{slug}/favorite") {
-            use(authenticator)
-            post { favoriteArticle(users, articles, true) }
-            delete { favoriteArticle(users, articles, false) }
-        }
+        path("/(?!feed)(?<slug>[^/]+?)") {
 
-        path("/{slug}/comments", commentsRouter)
+            path("/favorite") {
+                use(authenticator)
+                post { favoriteArticle(users, articles, true) }
+                delete { favoriteArticle(users, articles, false) }
+            }
 
-        path("""/(?<slug>[^/]+?)""") {
+            path("/comments", commentsRouter)
+
             delete { deleteArticle(jwt, articles) }
             put { updateArticle(jwt, articles) }
-            get {
-                if (path.endsWith("/feed")) this
-                else getArticle(jwt, users, articles)
-            }
+            get { getArticle(jwt, users, articles) }
         }
 
         post { createArticle(jwt, articles) }
@@ -62,10 +59,12 @@ internal fun HttpServerContext.findArticles(
     }
 
     val foundArticles = searchArticles(users, articles, subject, filter)
-    return ok(foundArticles.serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
+    return ok(foundArticles.serialize(JSON), contentType = contentType)
 }
 
-private fun HttpServerContext.createArticle(jwt: Jwt, articles: Store<Article, String>): HttpServerContext {
+private fun HttpServerContext.createArticle(
+    jwt: Jwt, articles: Store<Article, String>
+): HttpServerContext {
     val principal = parsePrincipal(jwt) ?: return unauthorized("Unauthorized")
     val bodyArticle = ArticleRequest(request.bodyMap().requireKeys("article"))
     val article = Article(
@@ -79,12 +78,13 @@ private fun HttpServerContext.createArticle(jwt: Jwt, articles: Store<Article, S
 
     articles.insertOne(article)
 
-    return ok(ArticleCreationResponseRoot(article, principal.subject).serialize(JSON), contentType = ContentType(
-        JSON, charset = UTF_8))
+    val articleCreationResponseRoot = ArticleCreationResponseRoot(article, principal.subject)
+    return ok(articleCreationResponseRoot.serialize(JSON), contentType = contentType)
 }
 
 internal fun HttpServerContext.favoriteArticle(
-    users: Store<User, String>, articles: Store<Article, String>, favorite: Boolean): HttpServerContext {
+    users: Store<User, String>, articles: Store<Article, String>, favorite: Boolean
+): HttpServerContext {
 
     val principal = attributes["principal"] as DecodedJWT
     val slug = pathParameters.require("slug")
@@ -105,7 +105,7 @@ internal fun HttpServerContext.favoriteArticle(
 
     val articleResponseRoot = ArticleResponseRoot(favoritedArticle, author, user)
     val body = articleResponseRoot.serialize(JSON)
-    return ok(body, contentType = ContentType(JSON, charset = UTF_8))
+    return ok(body, contentType = contentType)
 }
 
 internal fun HttpServerContext.getArticle(
@@ -116,7 +116,7 @@ internal fun HttpServerContext.getArticle(
     val author = checkNotNull(users.findOne(article.author))
     val user = users.findOne(principal?.subject ?: "")
 
-    return ok(ArticleResponseRoot(article, author, user).serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
+    return ok(ArticleResponseRoot(article, author, user).serialize(JSON), contentType = contentType)
 }
 
 internal fun HttpServerContext.updateArticle(jwt: Jwt, articles: Store<Article, String>): HttpServerContext {
@@ -137,7 +137,7 @@ internal fun HttpServerContext.updateArticle(jwt: Jwt, articles: Store<Article, 
     return if (updated) {
         val article = checkNotNull(articles.findOne(slug))
         val content = ArticleCreationResponseRoot(article, principal.subject).serialize(JSON)
-        ok(content, contentType = ContentType(JSON, charset = UTF_8))
+        ok(content, contentType = contentType)
     }
     else {
         internalServerError("Article $slug not updated")
@@ -150,7 +150,7 @@ internal fun HttpServerContext.deleteArticle(jwt: Jwt, articles: Store<Article, 
     return if (!articles.deleteOne(slug))
         notFound("Article $slug not found")
     else
-        ok(OkResponse("Article $slug deleted").serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
+        ok(OkResponse("Article $slug deleted").serialize(JSON), contentType = contentType)
 }
 
 internal fun HttpServerContext.getFeed(jwt: Jwt, users: Store<User, String>, articles: Store<Article, String>): HttpServerContext {
@@ -165,7 +165,7 @@ internal fun HttpServerContext.getFeed(jwt: Jwt, users: Store<User, String>, art
         searchArticles(users, articles, principal.subject, filter)
     }
 
-    return ok(feedArticles.serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
+    return ok(feedArticles.serialize(JSON), contentType = contentType)
 }
 
 internal fun String.toSlug() =
@@ -196,8 +196,8 @@ internal fun HttpServerContext.searchArticles(
             description = it.description,
             body = it.body,
             tagList = it.tagList,
-            createdAt = it.createdAt.toHttpFormat(),
-            updatedAt = it.updatedAt.toHttpFormat(),
+            createdAt = it.createdAt.withZone(ZoneId.of("Z")).format(ISO_ZONED_DATE_TIME),
+            updatedAt = it.updatedAt.withZone(ZoneId.of("Z")).format(ISO_ZONED_DATE_TIME),
             favorited = it.favoritedBy.contains(subject),
             favoritesCount = it.favoritedBy.size,
             author = AuthorResponse(

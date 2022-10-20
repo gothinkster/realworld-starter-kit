@@ -1,9 +1,6 @@
 package com.hexagonkt.realworld.messages
 
-import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
 import com.hexagonkt.core.*
-import com.hexagonkt.http.toHttpFormat
 import com.hexagonkt.realworld.services.Article
 import com.hexagonkt.realworld.services.User
 
@@ -21,7 +18,6 @@ data class ArticleRequest(
     )
 }
 
-@JsonInclude(NON_NULL)
 data class AuthorResponse(
     val username: String,
     val bio: String,
@@ -70,8 +66,8 @@ data class ArticleCreationResponseRoot(val article: ArticleCreationResponse) {
             description = article.description,
             body = article.body,
             tagList = article.tagList,
-            createdAt = article.createdAt.toHttpFormat(),
-            updatedAt = article.updatedAt.toHttpFormat(),
+            createdAt = article.createdAt.toUtc(),
+            updatedAt = article.updatedAt.toUtc(),
             favorited = false,
             favoritesCount = 0,
             author = subject
@@ -135,8 +131,8 @@ data class ArticleResponseRoot(val article: ArticleResponse) {
             description = article.description,
             body = article.body,
             tagList = article.tagList,
-            createdAt = article.createdAt.toHttpFormat(),
-            updatedAt = article.updatedAt.toHttpFormat(),
+            createdAt = article.createdAt.toUtc(),
+            updatedAt = article.updatedAt.toUtc(),
             favorited = article.favoritedBy.contains(user?.username),
             favoritesCount = article.favoritedBy.size,
             author = AuthorResponse(
@@ -149,7 +145,6 @@ data class ArticleResponseRoot(val article: ArticleResponse) {
     )
 }
 
-@JsonInclude(NON_NULL)
 data class ArticlesResponseRoot(
     val articles: List<ArticleResponse>,
     val articlesCount: Long

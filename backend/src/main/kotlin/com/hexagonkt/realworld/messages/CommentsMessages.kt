@@ -1,7 +1,6 @@
 package com.hexagonkt.realworld.messages
 
 import com.hexagonkt.core.requireKeys
-import com.hexagonkt.http.toHttpFormat
 import com.hexagonkt.realworld.services.Comment
 import com.hexagonkt.realworld.services.User
 
@@ -29,8 +28,8 @@ data class CommentResponse(
 
     constructor(comment: Comment, author: User, user: User?): this(
         id = comment.id,
-        createdAt = comment.createdAt.toHttpFormat(),
-        updatedAt = comment.updatedAt.toHttpFormat(),
+        createdAt = comment.createdAt.toUtc(),
+        updatedAt = comment.updatedAt.toUtc(),
         body = comment.body,
         author = AuthorResponse(
             username = author.username,

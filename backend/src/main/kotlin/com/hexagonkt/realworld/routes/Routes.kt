@@ -54,14 +54,15 @@ internal fun HttpServerContext.statusCodeHandler(status: HttpStatus, body: Any):
 internal fun HttpServerContext.multipleExceptionHandler(error: Exception): HttpServerContext {
     return if (error is MultipleException) {
         val messages = error.causes.map { it.message ?: "<no message>" }
-        internalServerError(ErrorResponseRoot(ErrorResponse(messages)), contentType = ContentType(JSON, charset = UTF_8))
+        internalServerError(ErrorResponseRoot(ErrorResponse(messages)), contentType = contentType)
     }
     else this
 }
 
 internal fun HttpServerContext.exceptionHandler(error: Exception): HttpServerContext {
     val errorMessage = error.javaClass.simpleName + ": " + (error.message ?: "<no message>")
-    return internalServerError(ErrorResponseRoot(ErrorResponse(listOf(errorMessage))).serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
+    val errorResponseRoot = ErrorResponseRoot(ErrorResponse(listOf(errorMessage)))
+    return internalServerError(errorResponseRoot.serialize(JSON), contentType = contentType)
 }
 
 val authenticator = filter("*") {

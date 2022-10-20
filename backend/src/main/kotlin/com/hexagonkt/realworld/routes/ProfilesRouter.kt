@@ -3,7 +3,6 @@ package com.hexagonkt.realworld.routes
 import com.auth0.jwt.interfaces.DecodedJWT
 import com.hexagonkt.core.media.ApplicationMedia.JSON
 import com.hexagonkt.core.require
-import com.hexagonkt.http.model.ContentType
 import com.hexagonkt.http.server.handlers.HttpServerContext
 import com.hexagonkt.http.server.handlers.path
 import com.hexagonkt.realworld.messages.ProfileResponse
@@ -12,7 +11,6 @@ import com.hexagonkt.realworld.services.User
 import com.hexagonkt.realworld.users
 import com.hexagonkt.serialization.serialize
 import com.hexagonkt.store.Store
-import kotlin.text.Charsets.UTF_8
 
 internal val profilesRouter by lazy {
     path {
@@ -36,7 +34,7 @@ private fun HttpServerContext.getProfile(users: Store<User, String>): HttpServer
         )
     )
 
-    return ok(content.serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
+    return ok(content.serialize(JSON), contentType = contentType)
 }
 
 private fun HttpServerContext.followProfile(
@@ -60,5 +58,5 @@ private fun HttpServerContext.followProfile(
         )
     )
 
-    return ok(content.serialize(JSON), contentType = ContentType(JSON, charset = UTF_8))
+    return ok(content.serialize(JSON), contentType = contentType)
 }

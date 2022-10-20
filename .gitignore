@@ -22,7 +22,6 @@ kotlin-js-store/
 node_modules/
 .lazybones/
 .java-version
-package-lock.json
 
 # Runtime
 **/log/
@@ -34,3 +33,7 @@ hs_err_pid*
 # System Files
 .DS_Store
 Thumbs.db
+
+# Testing
+package.json
+package-lock.json

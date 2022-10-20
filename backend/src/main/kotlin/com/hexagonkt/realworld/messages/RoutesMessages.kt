@@ -1,20 +1,17 @@
 package com.hexagonkt.realworld.messages
 
-import com.hexagonkt.core.fieldsMapOfNotNull
-import com.hexagonkt.core.requireKeys
+import com.hexagonkt.core.requireString
+import com.hexagonkt.core.withZone
 import com.hexagonkt.realworld.services.User
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME
 
 data class OkResponse(val message: String)
 
-data class ErrorResponse(val body: List<String> = listOf("Unknown error")) {
-    fun toMap(): Map<String, *> =
-        fieldsMapOfNotNull(ErrorResponse::body to body)
-}
+data class ErrorResponse(val body: List<String> = listOf("Unknown error"))
 
-data class ErrorResponseRoot(val errors: ErrorResponse) {
-    fun toMap(): Map<String, *> =
-        fieldsMapOfNotNull(ErrorResponseRoot::errors to errors.toMap())
-}
+data class ErrorResponseRoot(val errors: ErrorResponse)
 
 data class UserResponse(
     val email: String,
@@ -24,11 +21,11 @@ data class UserResponse(
     val token: String
 ) {
     constructor(data: Map<*, *>) : this(
-        data.requireKeys<String>(UserResponse::email),
-        data.requireKeys<String>(UserResponse::username),
-        data.requireKeys<String>(UserResponse::bio),
-        data.requireKeys<String>(UserResponse::image),
-        data.requireKeys<String>(UserResponse::token),
+        data.requireString(UserResponse::email),
+        data.requireString(UserResponse::username),
+        data.requireString(UserResponse::bio),
+        data.requireString(UserResponse::image),
+        data.requireString(UserResponse::token),
     )
 }
 
@@ -43,3 +40,6 @@ data class UserResponseRoot(val user: UserResponse) {
         )
     )
 }
+
+fun LocalDateTime.toUtc(): String =
+    withZone(ZoneId.of("Z")).format(ISO_ZONED_DATE_TIME)
