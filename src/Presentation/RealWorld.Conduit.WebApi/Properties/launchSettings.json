@@ -4,17 +4,17 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:3061",
-      "sslPort": 44303
+      "applicationUrl": "http://localhost:60594",
+      "sslPort": 44327
     }
   },
   "profiles": {
-    "Conduit.API": {
+    "RealWorld.Conduit.WebApi": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7009;http://localhost:5009",
+      "applicationUrl": "https://localhost:7105;http://localhost:5244",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -4,16 +4,17 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>Conduit.Core.Application</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Conduit.Domain\Conduit.Domain.csproj" />
+    <ProjectReference Include="..\RealWorld.Conduit.Domain\RealWorld.Conduit.Domain.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EntityConfigurations\" />
-    <Folder Include="Services\" />
-    <Folder Include="Repositories\" />
+    <Folder Include="Interfaces"/>
+    <Folder Include="Mappings"/>
+    <Folder Include="Services"/>
   </ItemGroup>
 
 </Project>
