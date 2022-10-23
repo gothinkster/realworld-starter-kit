@@ -9,23 +9,92 @@
     }
   },
   "profiles": {
-    "RealWorld.Conduit.WebApi": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
+    "Docker": {
+      "commandName": "Docker",
       "launchBrowser": true,
-      "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7105;http://localhost:5244",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "environmentVariables": {
+        "Kestrel__Endpoints__Http__Url": "http:////*"
+      },
+      "publishAllPorts": true
+    },
+    "Kestrel - Development": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger/index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7152;http://localhost:5105",
+      "nativeDebugging": true,
+      "sqlDebugging": true
+    },
+    "Kestrel - Production": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7152;http://localhost:5105"
+    },
+    "Watch Kestrel (CTRL+F5)": {
+      "commandName": "Executable",
+      "executablePath": "dotnet",
+      "commandLineArgs": "watch",
+      "workingDirectory": "$(ProjectDir)",
+      "launchUrl": "swagger/index.html",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:7152;http://localhost:5105"
+    },
+    "Watch Kestrel Production (CTRL+F5)": {
+      "commandName": "Executable",
+      "executablePath": "dotnet",
+      "commandLineArgs": "watch",
+      "workingDirectory": "$(ProjectDir)",
+      "launchUrl": "swagger/index.html",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
       }
     },
-    "IIS Express": {
+    "IIS Express - Development": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchUrl": "swagger/index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "https://localhost:58182;http://localhost:58184",
+      "nativeDebugging": true,
+      "sqlDebugging": true
+    },
+    "IIS Express - Production": {
+      "commandName": "IISExpress",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
+      "applicationUrl": "https://localhost:58182;http://localhost:58184"
+    },
+    "WSL - Development": {
+      "commandName": "WSL",
+      "launchBrowser": true,
+      "launchUrl": "swagger/index.html",
+      "environmentVariables": {
+        "ASPNETCORE_URLS": "https://localhost:5001;http://localhost:5000",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "distributionName": ""
+    },
+    "WSL - Production": {
+      "commandName": "WSL",
+      "launchUrl": "https://localhost:5001",
+      "environmentVariables": {
+        "ASPNETCORE_URLS": "https://localhost:5001;http://localhost:5000",
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
+      "distributionName": ""
     }
   }
 }
