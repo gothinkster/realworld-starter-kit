@@ -12,9 +12,29 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces"/>
-    <Folder Include="Mappings"/>
-    <Folder Include="Services"/>
+    <Folder Include="Common\Interfaces"/>
+    <Folder Include="Common\Models"/>
+    <Folder Include="Common\Persistence"/>
+    <Folder Include="Common\Validation"/>
+    <Folder Include="Identity\Roles"/>
+    <Folder Include="Identity\Tokens"/>
+    <Folder Include="Identity\Users"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="6.0.10"/>
+    <PackageReference Include="Roslynator.Analyzers" Version="4.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.47.0.55603">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

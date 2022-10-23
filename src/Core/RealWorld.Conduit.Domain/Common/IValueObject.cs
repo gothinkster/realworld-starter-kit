@@ -1,4 +1,4 @@
-﻿namespace Conduit.Core.Interfaces.Models
+﻿namespace Conduit.Core.Common
 {
     public interface IValueObject
     {
