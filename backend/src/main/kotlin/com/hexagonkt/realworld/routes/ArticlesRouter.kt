@@ -50,13 +50,15 @@ internal fun HttpServerContext.findArticles(
 
     val principal = parsePrincipal(jwt)
     val subject = principal?.subject
-    val filter = queryParameters.allValues.mapKeys {
-        when (it.key) {
-            "tag" -> Article::tagList.name
-            "favorited" -> Article::favoritedBy.name
-            else -> it.key
+    val filter = queryParameters
+        .mapKeys {
+            when (it.key) {
+                "tag" -> Article::tagList.name
+                "favorited" -> Article::favoritedBy.name
+                else -> it.key
+            }
         }
-    }
+        .mapValues { it.value.value }
 
     val foundArticles = searchArticles(users, articles, subject, filter)
     return ok(foundArticles.serialize(JSON), contentType = contentType)
@@ -180,8 +182,8 @@ internal fun HttpServerContext.searchArticles(
 
     val sort = mapOf(Article::createdAt.name to false)
     val queryParameters = request.queryParameters
-    val limit = queryParameters["limit"]?.first()?.code ?: 20
-    val offset = queryParameters["offset"]?.first()?.code ?: 0
+    val limit = queryParameters["limit"]?.value?.toInt() ?: 20
+    val offset = queryParameters["offset"]?.value?.toInt() ?: 0
     val allArticles = articles.findMany(filter, limit, offset, sort)
     val userNames = allArticles.map { it.author } + subject
     val authors = users.findMany(mapOf(User::username.name to userNames))

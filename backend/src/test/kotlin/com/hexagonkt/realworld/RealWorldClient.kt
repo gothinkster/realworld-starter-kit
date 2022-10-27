@@ -72,7 +72,7 @@ internal class RealWorldClient(val client: HttpClient) {
         val settings = HttpClientSettings(
             client.settings.baseUrl,
             client.settings.contentType,
-            authorization = HttpAuthorization("token", header),
+            authorization = Authorization("token", header),
         )
         val userClient = HttpClient(JettyClientAdapter(), client.settings.baseUrl, settings)
         return RealWorldClient(userClient)
