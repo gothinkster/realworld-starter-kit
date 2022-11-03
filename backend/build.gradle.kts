@@ -10,6 +10,7 @@ plugins {
 
 apply(from = "${properties["gradleScripts"]}/kotlin.gradle")
 apply(from = "${properties["gradleScripts"]}/application.gradle")
+apply(from = "${properties["gradleScripts"]}/native.gradle")
 
 extensions.configure<JavaApplication> {
     mainClass.set("com.hexagonkt.realworld.ApplicationKt")
