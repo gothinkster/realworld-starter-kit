@@ -22,7 +22,6 @@ import com.mongodb.client.model.IndexOptions
 import com.mongodb.client.model.Indexes
 import java.net.URL
 import jakarta.servlet.annotation.WebListener
-import java.net.InetAddress
 
 /**
  * This class is the application's Servlet shell. It allows this application to be bundled
@@ -36,9 +35,9 @@ class WebApplication : ServletServer(router) {
     }
 }
 
-internal val bindAddress: InetAddress =
-    systemSettingOrNull<String>("bindAddress")?.let(InetAddress::getByName) ?: loopbackInterface
-internal val serverSettings = HttpServerSettings(contextPath = "/api", bindAddress = bindAddress)
+internal val bindAddress = systemSettingOrNull("bindAddress") ?: loopbackInterface
+internal val bindPort = systemSettingOrNull("bindPort") ?: 2010
+internal val serverSettings = HttpServerSettings(bindAddress, bindPort, "/api")
 internal val serverAdapter = JettyServletAdapter()
 internal val server: HttpServer by lazy { HttpServer(serverAdapter, router, serverSettings) }
 internal val jwt: Jwt by lazy { createJwt() }
