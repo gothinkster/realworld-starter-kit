@@ -7,6 +7,7 @@ import com.hexagonkt.core.media.ApplicationMedia.JSON
 import com.hexagonkt.http.model.ContentType
 import com.hexagonkt.http.model.HttpStatus
 import com.hexagonkt.http.server.callbacks.CorsCallback
+import com.hexagonkt.http.server.callbacks.LoggingCallback
 import com.hexagonkt.http.server.handlers.HttpServerContext
 import com.hexagonkt.http.server.handlers.filter
 import com.hexagonkt.http.server.handlers.path
@@ -17,14 +18,13 @@ import com.hexagonkt.realworld.Jwt
 import com.hexagonkt.serialization.serialize
 import kotlin.text.Charsets.UTF_8
 
-val contentType = ContentType(JSON, charset = UTF_8)
+val contentType: ContentType = ContentType(JSON, charset = UTF_8)
+val allowedHeaders: Set<String> = setOf("accept", "user-agent", "host", "content-type")
 
 internal val router by lazy {
     path {
-        filter(
-            pattern = "*",
-            callback = CorsCallback(allowedHeaders = setOf("accept", "user-agent", "host", "content-type"))
-        )
+        filter("*", callback = LoggingCallback(includeBody = false, includeHeaders = false))
+        filter("*", callback = CorsCallback(allowedHeaders = allowedHeaders))
 
         after("*") {
             if (status.code in setOf(401, 403, 404)) statusCodeHandler(status, response.body)
