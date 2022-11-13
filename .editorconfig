@@ -14,10 +14,48 @@ indent_size = 2
 trim_trailing_whitespace = true
 max_line_length = 100
 
-# Change charset for Java properties (required by Java)
-[*.properties]
-charset = latin1
+# IntelliJ specific rules for ANY source file
+ij_continuation_indent_size = 2
+ij_any_keep_blank_lines_in_code = 1
+ij_any_keep_line_breaks = true
+ij_any_catch_on_new_line = true
+ij_any_else_on_new_line = true
+ij_any_finally_on_new_line = true
+ij_any_while_on_new_line = true
+ij_any_class_annotation_wrap = off
+ij_any_field_annotation_wrap = off
+ij_any_method_annotation_wrap = off
+ij_any_parameter_annotation_wrap = off
+ij_any_variable_annotation_wrap = off
+
+# IntelliJ JSON specific rules
+[*.json]
+ij_json_space_after_colon = true
+ij_json_space_after_comma = true
+ij_json_space_before_colon = false
+ij_json_space_before_comma = false
+ij_json_spaces_within_braces = true
+ij_json_spaces_within_brackets = true
+ij_json_wrap_long_lines = true
+
+# IntelliJ HTML formatting
+[*.{html,htm}]
+ij_html_do_not_indent_children_of_tags = html
 
 # 4 space indentation
-[*.{java,js,kt,kts,gradle,groovy}]
+[*.{java,js,ts,kt,kts,gradle,groovy,py}]
 indent_size = 4
+ij_continuation_indent_size = 4
+
+# Go language uses tabs by default
+[*.go]
+indent_style = tab
+
+# IntelliJ Kotlin specific rules
+[*.{kt,kts}]
+ij_kotlin_code_style_defaults = KOTLIN_OFFICIAL
+ij_kotlin_import_nested_classes = true
+
+# Log files exception
+[*.log]
+max_line_length = 200

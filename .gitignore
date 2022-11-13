@@ -1,10 +1,22 @@
 
+# Private / Local
+private_*
+local_*
+
+# Maven
+target/
+pom.xml.*
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+*.versionsBackup
+
 # Gradle
 .gradle/
 build/
-local*
 
 # Eclipse
+bin/
 .settings/
 .project
 .classpath
@@ -17,18 +29,18 @@ out/
 # VS Code
 .vscode/
 
+# Runtime
+log/
+*.log
+*.hprof
+*.build_artifacts.txt
+.attach_pid*
+hs_err_pid*
+
 # Other Tools
 kotlin-js-store/
 node_modules/
-.lazybones/
-.java-version
-
-# Runtime
-**/log/
-*.log
-*.hprof
-.attach_pid*
-hs_err_pid*
+.env
 
 # System Files
 .DS_Store

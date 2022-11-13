@@ -14,10 +14,12 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Java
-        uses: actions/setup-java@v3
+        uses: graalvm/setup-graalvm@v1
         with:
+          version: latest
           java-version: 17
-          distribution: temurin
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          components: native-image,llvm
           cache: gradle
 
       - name: Install Node.js

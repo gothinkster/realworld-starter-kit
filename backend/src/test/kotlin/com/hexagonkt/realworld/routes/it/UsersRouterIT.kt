@@ -1,5 +1,6 @@
 package com.hexagonkt.realworld.routes.it
 
+import com.hexagonkt.core.Jvm
 import com.hexagonkt.core.media.ApplicationMedia.JSON
 import com.hexagonkt.core.requireKeys
 import com.hexagonkt.http.client.HttpClient
@@ -29,6 +30,8 @@ import kotlin.test.assertEquals
 @TestInstance(PER_CLASS)
 class UsersRouterIT {
 
+    private val port = Jvm.systemSettingOrNull<Int>("realWorldPort")
+
     private val jake = User(
         username = "jake",
         email = "jake@jake.jake",
@@ -38,8 +41,10 @@ class UsersRouterIT {
     )
 
     @BeforeAll fun startup() {
-        System.setProperty("mongodbUrl", mongodbUrl)
+        if (port != null)
+            return
 
+        System.setProperty("mongodbUrl", mongodbUrl)
         main()
     }
 
@@ -48,7 +53,7 @@ class UsersRouterIT {
     }
 
     @Test fun `Delete, login and register users`() {
-        val endpoint = URL("http://localhost:${server.runtimePort}/api")
+        val endpoint = URL("http://localhost:${port ?: server.runtimePort}/api")
         val settings = HttpClientSettings(endpoint, ContentType(JSON))
         val client = RealWorldClient(HttpClient(JettyClientAdapter(), settings))
 
