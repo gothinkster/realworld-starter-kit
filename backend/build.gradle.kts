@@ -1,3 +1,5 @@
+import org.graalvm.buildtools.gradle.dsl.GraalVMExtension
+
 /*
  * Check usage in the `README.md` file.
  * Dependencies' versions are defined in the `gradle.properties` file.
@@ -33,10 +35,29 @@ dependencies {
     "implementation"("com.hexagonkt:rest:$hexagonExtraVersion")
     "implementation"("com.hexagonkt:serialization_jackson_json:$hexagonVersion")
     "implementation"("com.hexagonkt:http_server_jetty:$hexagonVersion")
-    "implementation"("com.hexagonkt:logging_logback:$hexagonVersion")
+    "implementation"("com.hexagonkt:logging_slf4j_jul:$hexagonVersion")
     "implementation"("com.hexagonkt:store_mongodb:$hexagonExtraVersion")
     "implementation"("com.auth0:java-jwt:$javaJwtVersion")
 
     "testImplementation"("com.hexagonkt:http_client_jetty:$hexagonVersion")
     "testImplementation"("org.testcontainers:mongodb:$testcontainersVersion")
+}
+
+extensions.configure<GraalVMExtension> {
+    binaries {
+        named("main") {
+            configurationFileDirectories.from(file("build/native/agent-output/verify"))
+            listOf(
+                "--enable-http",
+                "--enable-https",
+                "--enable-url-protocols=classpath",
+                "--initialize-at-build-time=com.hexagonkt.core.ClasspathHandler",
+                "--report-unsupported-elements-at-runtime",
+                "-H:+StaticExecutableWithDynamicLibC",
+                "-H:IncludeResources=.*\\.p12",
+            )
+            .forEach(buildArgs::add)
+        }
+    }
+
 }
