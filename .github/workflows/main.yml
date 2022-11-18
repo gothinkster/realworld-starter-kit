@@ -9,10 +9,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # SET UP
       - name: Checkout
         uses: actions/checkout@v3
-
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
       - name: Install Java
         uses: graalvm/setup-graalvm@v1
         with:
@@ -22,11 +24,5 @@ jobs:
           components: native-image,llvm
           cache: gradle
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-
-      # BUILD
       - name: Build & Test
         run: .github/pre-push.sh
