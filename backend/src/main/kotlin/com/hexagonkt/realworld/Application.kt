@@ -8,7 +8,6 @@ import com.hexagonkt.core.converters.convert
 import com.hexagonkt.core.logging.LoggingManager
 import com.hexagonkt.http.server.*
 import com.hexagonkt.http.server.jetty.JettyServletAdapter
-import com.hexagonkt.http.server.servlet.ServletServer
 import com.hexagonkt.logging.slf4j.jul.Slf4jJulLoggingAdapter
 import com.hexagonkt.realworld.routes.*
 import com.hexagonkt.realworld.services.Article
@@ -21,19 +20,6 @@ import com.hexagonkt.store.mongodb.MongoDbStore
 import com.mongodb.client.model.IndexOptions
 import com.mongodb.client.model.Indexes
 import java.net.URL
-import jakarta.servlet.annotation.WebListener
-
-/**
- * This class is the application's Servlet shell. It allows this application to be bundled
- * in a WAR file and be deployed in any JEE server.
- */
-@WebListener
-@Suppress("unused")
-class WebApplication : ServletServer(router) {
-    init {
-        setUp()
-    }
-}
 
 internal val bindAddress = systemSettingOrNull("bindAddress") ?: loopbackInterface
 internal val bindPort = systemSettingOrNull("bindPort") ?: 2010

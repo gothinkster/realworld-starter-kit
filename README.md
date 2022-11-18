@@ -143,9 +143,6 @@ heroku war:deploy backend/build/libs/ROOT.war --app realworld
 * Deploy on GCP
 * Add requests' bodies validation returning as many errors as wrong fields
 * Code stress tests using Gatling.io against local, container, or deployed service
-* Generate a documentation site (use Orchid or JBake)
 * Create native executable using GraalVM
-* Document code (Dokka)
 * Publish front end in GitHub pages
 * Migrate readme.md API documentation to Swagger
-* Add unit tests to cover all code (using mocks), this may shape the future `hexagon_test` module

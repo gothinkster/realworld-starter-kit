@@ -7,7 +7,6 @@ services:
       - "3010:27017"
 
   backend:
-    image: ${registry:-localhost:5000/}realworld:1.0
     labels:
       app: realworld
       type: backend
