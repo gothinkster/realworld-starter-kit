@@ -17,5 +17,6 @@ export TEST_RES="backend/src/test/resources/postman"
 node_modules/.bin/newman run $TEST_RES/postman.json -e $TEST_RES/environment.json
 
 export REPO="https://raw.githubusercontent.com/gothinkster/realworld"
-curl $REPO/master/api/Conduit.postman_collection.json -o build/postman.json
+mkdir -p build
+curl $REPO/main/api/Conduit.postman_collection.json -o build/postman.json
 node_modules/.bin/newman run build/postman.json -e $TEST_RES/environment.json
