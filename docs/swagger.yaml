@@ -34,16 +34,59 @@ definitions:
           type: string
         type: array
     type: object
+  api.registrationRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - password
+    - username
+    type: object
 info:
   contact: {}
 paths:
-  /:
+  /api/users:
+    post:
+      consumes:
+      - application/json
+      description: Allow user create a new account
+      parameters:
+      - description: registrationRequest
+        in: body
+        name: registrationRequest
+        required: true
+        schema:
+          $ref: '#/definitions/api.registrationRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.authenticationResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/api.errorWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.errorWrapper'
+      summary: Registration for user
+      tags:
+      - user
+  /api/users/login:
     post:
       consumes:
       - application/json
       description: Allow user to get access token
       parameters:
-      - description: Account ID
+      - description: authenticationRequest
         in: body
         name: authenticationRequest
         required: true

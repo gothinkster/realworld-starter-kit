@@ -42,7 +42,7 @@ func main() {
 	handlers := userApi.NewUserApi(userUsecase)
 
 	mux := chi.NewMux()
-	mux.Post("/", handlers.Authentication)
+	mux.Post("/api/users/login", handlers.Authentication)
 
 	mux.Get("/swagger/*", httpSwagger.Handler(
 		httpSwagger.URL("http://localhost:8080/swagger/doc.json"), //The url pointing to API definition

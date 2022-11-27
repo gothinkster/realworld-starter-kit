@@ -12,6 +12,10 @@ type service struct {
 	jwt    jsonWebToken
 }
 
+func (s service)Register(ctx context.Context, email, password, username string) (entity.User, error){
+	panic("not implemented")
+}
+
 func (s service) Authenticate(ctx context.Context, email, password string) (entity.User, error) {
 	// find user by email
 	user, err := s.repo.FindUserByEmail(ctx, email)

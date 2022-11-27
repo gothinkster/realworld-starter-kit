@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"testing/quick"
 
 	"github.com/Masterminds/squirrel"
 	"github.com/pavelkozlov/realworld/internal/entity"
@@ -33,6 +34,24 @@ func NewUserRepo(db database) *repo {
 		database: db,
 		builder:  squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar),
 	}
+}
+
+func (r repo) CreateUser(ctx context.Context, user entity.User) (entity.User, error){
+	query := r.builder.Insert(userDbName).Columns(
+		"email",
+		"salt",
+		"password",
+		"username",
+	).Values(
+		user.Email,
+		user.Salt,
+		user.Password,
+		user.Username,
+	)
+
+	q, args := query.MustSql()
+
+	
 }
 
 func (r repo) FindUserByEmail(ctx context.Context, email string) (entity.User, error) {

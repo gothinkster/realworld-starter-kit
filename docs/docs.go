@@ -16,7 +16,53 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/": {
+        "/api/users": {
+            "post": {
+                "description": "Allow user create a new account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Registration for user",
+                "parameters": [
+                    {
+                        "description": "registrationRequest",
+                        "name": "registrationRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.registrationRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.authenticationResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/api.errorWrapper"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/api.errorWrapper"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/login": {
             "post": {
                 "description": "Allow user to get access token",
                 "consumes": [
@@ -31,7 +77,7 @@ const docTemplate = `{
                 "summary": "Authentication for user",
                 "parameters": [
                     {
-                        "description": "Account ID",
+                        "description": "authenticationRequest",
                         "name": "authenticationRequest",
                         "in": "body",
                         "required": true,
@@ -115,6 +161,25 @@ const docTemplate = `{
                     "items": {
                         "type": "string"
                     }
+                }
+            }
+        },
+        "api.registrationRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "password",
+                "username"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
                 }
             }
         }
