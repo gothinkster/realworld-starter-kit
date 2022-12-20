@@ -31,7 +31,7 @@ func NewHasher() *hasher {
 
 func (h hasher) CreateHashFromPassword(password string) (hash string, salt string, err error) {
 
-	salt, err = h.createSalt(h.params.saltLength)
+	salt, err = h.CreateSalt(h.params.saltLength)
 	if err != nil {
 		return "", "", err
 	}
@@ -76,7 +76,7 @@ func (h hasher) CreateHashFromPasswordAndSalt(password string, salt string) stri
 	return hash
 }
 
-func (h hasher) createSalt(n uint32) (string, error) {
+func (h hasher) CreateSalt(n uint32) (string, error) {
 	b := make([]byte, n)
 	_, err := rand.Read(b)
 	if err != nil {

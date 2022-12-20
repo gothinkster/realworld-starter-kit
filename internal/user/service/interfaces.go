@@ -10,11 +10,13 @@ import (
 
 type userRepo interface {
 	FindUserByEmail(ctx context.Context, email string) (entity.User, error)
+	CreateUser(ctx context.Context, user entity.User) (entity.User, error)
 }
 
 type hasher interface {
 	CreateHashFromPasswordAndSalt(password string, salt string) string
 	CreateHashFromPassword(password string) (hash string, salt string, err error)
+	CreateSalt(n uint32) (string, error)
 }
 
 type jsonWebToken interface {

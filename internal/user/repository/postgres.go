@@ -4,8 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"testing/quick"
-
 	"github.com/Masterminds/squirrel"
 	"github.com/pavelkozlov/realworld/internal/entity"
 )
@@ -50,8 +48,22 @@ func (r repo) CreateUser(ctx context.Context, user entity.User) (entity.User, er
 	)
 
 	q, args := query.MustSql()
+	q += " RETURNING id"
 
+	var id int
 	
+	row := r.database.QueryRow(q,args...)
+	if err:=row.Err();err != nil {
+		return entity.User{},err
+	}
+
+	if err := row.Scan(&id); err != nil {
+		return entity.User{},err
+	}
+
+	user.ID = id
+	
+	return user, nil
 }
 
 func (r repo) FindUserByEmail(ctx context.Context, email string) (entity.User, error) {

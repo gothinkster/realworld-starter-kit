@@ -16,9 +16,9 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/users": {
+        "/api/users/login": {
             "post": {
-                "description": "Allow user create a new account",
+                "description": "Allow user to get access token",
                 "consumes": [
                     "application/json"
                 ],
@@ -28,15 +28,15 @@ const docTemplate = `{
                 "tags": [
                     "user"
                 ],
-                "summary": "Registration for user",
+                "summary": "Authentication for user",
                 "parameters": [
                     {
-                        "description": "registrationRequest",
-                        "name": "registrationRequest",
+                        "description": "authenticationRequest",
+                        "name": "authenticationRequest",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/api.registrationRequest"
+                            "$ref": "#/definitions/api.authenticationRequest"
                         }
                     }
                 ],
@@ -62,9 +62,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/users/login": {
+        "/api/users/registration": {
             "post": {
-                "description": "Allow user to get access token",
+                "description": "Allow user create a new account",
                 "consumes": [
                     "application/json"
                 ],
@@ -74,15 +74,15 @@ const docTemplate = `{
                 "tags": [
                     "user"
                 ],
-                "summary": "Authentication for user",
+                "summary": "Registration for user",
                 "parameters": [
                     {
-                        "description": "authenticationRequest",
-                        "name": "authenticationRequest",
+                        "description": "registrationRequest",
+                        "name": "registrationRequest",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/api.authenticationRequest"
+                            "$ref": "#/definitions/api.registrationRequest"
                         }
                     }
                 ],

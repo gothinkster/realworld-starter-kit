@@ -50,36 +50,6 @@ definitions:
 info:
   contact: {}
 paths:
-  /api/users:
-    post:
-      consumes:
-      - application/json
-      description: Allow user create a new account
-      parameters:
-      - description: registrationRequest
-        in: body
-        name: registrationRequest
-        required: true
-        schema:
-          $ref: '#/definitions/api.registrationRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.authenticationResponse'
-        "422":
-          description: Unprocessable Entity
-          schema:
-            $ref: '#/definitions/api.errorWrapper'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/api.errorWrapper'
-      summary: Registration for user
-      tags:
-      - user
   /api/users/login:
     post:
       consumes:
@@ -108,6 +78,36 @@ paths:
           schema:
             $ref: '#/definitions/api.errorWrapper'
       summary: Authentication for user
+      tags:
+      - user
+  /api/users/registration:
+    post:
+      consumes:
+      - application/json
+      description: Allow user create a new account
+      parameters:
+      - description: registrationRequest
+        in: body
+        name: registrationRequest
+        required: true
+        schema:
+          $ref: '#/definitions/api.registrationRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.authenticationResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/api.errorWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.errorWrapper'
+      summary: Registration for user
       tags:
       - user
 swagger: "2.0"

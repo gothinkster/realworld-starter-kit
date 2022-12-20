@@ -58,7 +58,7 @@ func (a api) Authentication(w http.ResponseWriter, r *http.Request) {
 // @Success      200  {object}  authenticationResponse
 // @Failure      422  {object}  errorWrapper
 // @Failure      500  {object}  errorWrapper
-// @Router       /api/users [post]
+// @Router       /api/users/registration [post]
 func (a api) Registration(w http.ResponseWriter, r *http.Request) {
 	//TODO implement me
 	var dest registrationRequest

@@ -12,8 +12,20 @@ type service struct {
 	jwt    jsonWebToken
 }
 
+const (
+	saltLen = 128
+)
+
 func (s service)Register(ctx context.Context, email, password, username string) (entity.User, error){
-	panic("not implemented")
+	salt, err := s.hasher.CreateSalt(saltLen)
+	saltedPassword := s.hasher.CreateHashFromPasswordAndSalt(password, salt)
+
+	user := entity.User{Email: email, Password: saltedPassword, Username: username, Salt: salt}
+	if err != nil {
+		return user, nil
+	}
+
+	return s.repo.CreateUser(ctx, user)
 }
 
 func (s service) Authenticate(ctx context.Context, email, password string) (entity.User, error) {
