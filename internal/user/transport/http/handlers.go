@@ -27,17 +27,17 @@ func (a api) Authentication(w http.ResponseWriter, r *http.Request) {
 
 	err := readAndValidate(r, &dest, *a.validator)
 	if err != nil {
-		newErrorResp(w, http.StatusUnprocessableEntity, err)
+		errResp(w, http.StatusUnprocessableEntity, err)
 		return
 	}
 
 	user, err := a.userService.Authenticate(r.Context(), dest.Email, dest.Password)
 	if err != nil {
-		newErrorResp(w, http.StatusInternalServerError, err)
+		errResp(w, http.StatusInternalServerError, err)
 		return
 	}
 
-	newOkResp(w, &singleResponse{
+	resp(w, &singleResponse{
 		User: authenticationResponse{
 			Email:    user.Email,
 			Token:    user.Token,
@@ -65,17 +65,17 @@ func (a api) Registration(w http.ResponseWriter, r *http.Request) {
 
 	err := readAndValidate(r, &dest, *a.validator)
 	if err != nil {
-		newErrorResp(w, http.StatusUnprocessableEntity, err)
+		errResp(w, http.StatusUnprocessableEntity, err)
 		return
 	}
 
 	user, err := a.userService.Register(r.Context(), dest.Email, dest.Password, dest.Username)
 	if err != nil {
-		newErrorResp(w, http.StatusInternalServerError, err)
+		errResp(w, http.StatusInternalServerError, err)
 		return
 	}
 
-	newOkResp(w, &singleResponse{
+	resp(w, &singleResponse{
 		User: authenticationResponse{
 			Email:    user.Email,
 			Token:    user.Token,

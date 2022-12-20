@@ -32,13 +32,13 @@ func (s service) Authenticate(ctx context.Context, email, password string) (enti
 	// find user by email
 	user, err := s.repo.FindUserByEmail(ctx, email)
 	if err != nil {
-		return entity.User{}, invalidCredentials
+		return entity.User{}, err
 	}
 	// salt user password
 	incomeHash := s.hasher.CreateHashFromPasswordAndSalt(password, user.Salt)
 	//compare with password in db
 	if incomeHash != user.Password {
-		return entity.User{}, invalidCredentials
+		return entity.User{}, err
 	}
 	user.Password = ""
 	//create access and refresh tokens
@@ -47,7 +47,7 @@ func (s service) Authenticate(ctx context.Context, email, password string) (enti
 		Id:    user.ID,
 	})
 	if err != nil {
-		return entity.User{}, internalError
+		return entity.User{}, err
 	}
 
 	user.Token = token

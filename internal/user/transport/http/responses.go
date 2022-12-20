@@ -26,7 +26,7 @@ type errors struct {
 	Body []string `json:"body"`
 }
 
-func newErrorResp(w http.ResponseWriter, code int, err error) {
+func errResp(w http.ResponseWriter, code int, err error) {
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(code)
 	encoder := jsoniter.NewEncoder(w)
@@ -35,7 +35,7 @@ func newErrorResp(w http.ResponseWriter, code int, err error) {
 	})
 }
 
-func newOkResp(w http.ResponseWriter, data any) {
+func resp(w http.ResponseWriter, data any) {
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	encoder := json.NewEncoder(w)
