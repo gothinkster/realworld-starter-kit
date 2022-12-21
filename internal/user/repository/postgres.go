@@ -50,6 +50,8 @@ func (r repo) CreateUser(ctx context.Context, user entity.User) (entity.User, er
 	q, args := query.MustSql()
 	q += " RETURNING id"
 
+	fmt.Println(q)
+
 	var id int
 
 	row := r.database.QueryRow(q, args...)

@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+
 	"github.com/pavelkozlov/realworld/internal/entity"
 	"github.com/pavelkozlov/realworld/pkg/jwt"
 )
@@ -25,7 +26,22 @@ func (s service) Register(ctx context.Context, email, password, username string)
 		return user, nil
 	}
 
-	return s.repo.CreateUser(ctx, user)
+	insertedUser, err := s.repo.CreateUser(ctx, user)
+	if err != nil {
+		return insertedUser, err
+	}
+	user.ID = insertedUser.ID
+
+	token, err := s.jwt.CreateJWT(jwt.Claims{
+		Email: email,
+		Id:    user.ID,
+	})
+	if err != nil {
+		return user, nil
+	}
+	user.Token = token
+
+	return user, nil
 }
 
 func (s service) Authenticate(ctx context.Context, email, password string) (entity.User, error) {
