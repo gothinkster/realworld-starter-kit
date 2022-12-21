@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"github.com/pavelkozlov/realworld/internal/entity"
-	"github.com/pavelkozlov/realworld/internal/user/service/jwt"
+	"github.com/pavelkozlov/realworld/pkg/jwt"
 )
 
 type service struct {
@@ -16,7 +16,7 @@ const (
 	saltLen = 128
 )
 
-func (s service)Register(ctx context.Context, email, password, username string) (entity.User, error){
+func (s service) Register(ctx context.Context, email, password, username string) (entity.User, error) {
 	salt, err := s.hasher.CreateSalt(saltLen)
 	saltedPassword := s.hasher.CreateHashFromPasswordAndSalt(password, salt)
 

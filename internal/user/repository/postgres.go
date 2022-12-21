@@ -34,7 +34,7 @@ func NewUserRepo(db database) *repo {
 	}
 }
 
-func (r repo) CreateUser(ctx context.Context, user entity.User) (entity.User, error){
+func (r repo) CreateUser(ctx context.Context, user entity.User) (entity.User, error) {
 	query := r.builder.Insert(userDbName).Columns(
 		"email",
 		"salt",
@@ -51,18 +51,18 @@ func (r repo) CreateUser(ctx context.Context, user entity.User) (entity.User, er
 	q += " RETURNING id"
 
 	var id int
-	
-	row := r.database.QueryRow(q,args...)
-	if err:=row.Err();err != nil {
-		return entity.User{},err
+
+	row := r.database.QueryRow(q, args...)
+	if err := row.Err(); err != nil {
+		return entity.User{}, err
 	}
 
 	if err := row.Scan(&id); err != nil {
-		return entity.User{},err
+		return entity.User{}, err
 	}
 
 	user.ID = id
-	
+
 	return user, nil
 }
 

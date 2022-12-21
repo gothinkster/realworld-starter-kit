@@ -4,14 +4,14 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	_ "github.com/pavelkozlov/realworld/docs"
 	"github.com/pavelkozlov/realworld/internal/user/repository"
 	"github.com/pavelkozlov/realworld/internal/user/service"
-	"github.com/pavelkozlov/realworld/internal/user/service/hash"
-	"github.com/pavelkozlov/realworld/internal/user/service/jwt"
 	userApi "github.com/pavelkozlov/realworld/internal/user/transport/http"
 	"github.com/pavelkozlov/realworld/pkg/db"
+	"github.com/pavelkozlov/realworld/pkg/hash"
+	"github.com/pavelkozlov/realworld/pkg/jwt"
 	"github.com/swaggo/http-swagger"
-	_ "github.com/pavelkozlov/realworld/docs"
 )
 
 // @title           Real world API
