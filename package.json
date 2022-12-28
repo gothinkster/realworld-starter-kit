@@ -6,9 +6,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "dayjs": "^1.11.7",
     "next": "latest",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "swr": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "18.11.3",
