@@ -15,7 +15,7 @@ For more information on how to this works with other frontends/backends, head ov
 
 # How it works
 
-> Web blog application implement using NextJs and TailWindCSS
+> Web blog application implement using NextJs
 
 # Getting started
 1. Install dependencies

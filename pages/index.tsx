@@ -1,86 +1,145 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import Head from "next/head";
+import type { NextPage } from "next";
+import Header from "components/Header";
+
+const Banner = (): JSX.Element => (
+  <div className="banner">
+    <div className="container">
+      <h1 className="logo-font">conduit</h1>
+      <p>A place to share your knowledge.</p>
+    </div>
+  </div>
+);
 
 const Home: NextPage = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
-        <title>Create Next App</title>
+        <title>Conduit</title>
         <link rel="icon" href="/favicon.ico" />
+        <link
+          href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+          rel="stylesheet"
+          type="text/css"
+        />
+        <link
+          href="//fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic"
+          rel="stylesheet"
+          type="text/css"
+        />
+        {/* Import the custom Bootstrap 4 theme from our hosted CDN  */}
+        <link rel="stylesheet" href="//demo.productionready.io/main.css" />
       </Head>
 
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
+      <Header />
 
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
+      <main className="home-page">
+        <Banner />
 
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and its API.
-            </p>
-          </a>
+        <div className="container page border-solid border border-red-400">
+          <div className="row">
+            <div className="col-md-9">
+              <div className="feed-toggle">
+                <ul className="nav nav-pills outline-active">
+                  <li className="nav-item">
+                    <a className="nav-link disabled" href="">
+                      Your Feed
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link active" href="">
+                      Global Feed
+                    </a>
+                  </li>
+                </ul>
+              </div>
 
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
+              <div className="article-preview">
+                <div className="article-meta">
+                  <a href="profile.html">
+                    <img src="http://i.imgur.com/Qr71crq.jpg" />
+                  </a>
+                  <div className="info">
+                    <a href="" className="author">
+                      Eric Simons
+                    </a>
+                    <span className="date">January 20th</span>
+                  </div>
+                  <button className="btn btn-outline-primary btn-sm pull-xs-right">
+                    <i className="ion-heart"></i> 29
+                  </button>
+                </div>
+                <a href="" className="preview-link">
+                  <h1>How to build webapps that scale</h1>
+                  <p>This is the description for the post.</p>
+                  <span>Read more...</span>
+                </a>
+              </div>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
+              <div className="article-preview">
+                <div className="article-meta">
+                  <a href="profile.html">
+                    <img src="http://i.imgur.com/N4VcUeJ.jpg" />
+                  </a>
+                  <div className="info">
+                    <a href="" className="author">
+                      Albert Pai
+                    </a>
+                    <span className="date">January 20th</span>
+                  </div>
+                  <button className="btn btn-outline-primary btn-sm pull-xs-right">
+                    <i className="ion-heart"></i> 32
+                  </button>
+                </div>
+                <a href="" className="preview-link">
+                  <h1>
+                    The song you won't ever stop singing. No matter how hard you
+                    try.
+                  </h1>
+                  <p>This is the description for the post.</p>
+                  <span>Read more...</span>
+                </a>
+              </div>
+            </div>
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+            <div className="col-md-3">
+              <div className="sidebar">
+                <p>Popular Tags</p>
+
+                <div className="tag-list">
+                  <a href="" className="tag-pill tag-default">
+                    programming
+                  </a>
+                  <a href="" className="tag-pill tag-default">
+                    javascript
+                  </a>
+                  <a href="" className="tag-pill tag-default">
+                    emberjs
+                  </a>
+                  <a href="" className="tag-pill tag-default">
+                    angularjs
+                  </a>
+                  <a href="" className="tag-pill tag-default">
+                    react
+                  </a>
+                  <a href="" className="tag-pill tag-default">
+                    mean
+                  </a>
+                  <a href="" className="tag-pill tag-default">
+                    node
+                  </a>
+                  <a href="" className="tag-pill tag-default">
+                    rails
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
 
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
