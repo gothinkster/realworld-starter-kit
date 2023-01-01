@@ -11,7 +11,7 @@ type DB struct {
 }
 
 func Connect() *DB {
-	db, err := sqlx.Open("pgx", "postgres://admin:admin@localhost:5432/realworld")
+	db, err := sqlx.Open("pgx", "postgres://admin:admin@localhost:5432/conduit")
 	if err != nil {
 		log.Fatalln(err)
 	}

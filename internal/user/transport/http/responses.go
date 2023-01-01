@@ -14,8 +14,8 @@ type authenticationResponse struct {
 	Email    string `json:"email"`
 	Token    string `json:"token"`
 	Username string `json:"username"`
-	Bio      string `json:"bio,omitempty"`
-	Image    string `json:"image,omitempty"`
+	Bio      string `json:"bio"`
+	Image    string `json:"image"`
 }
 
 type errorWrapper struct {
