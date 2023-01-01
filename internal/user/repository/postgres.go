@@ -4,6 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"time"
+
 	"github.com/Masterminds/squirrel"
 	"github.com/pavelkozlov/realworld/internal/entity"
 )
@@ -18,13 +20,16 @@ type repo struct {
 }
 
 type user struct {
-	Id       int            `db:"id"`
-	Email    string         `db:"email"`
-	Salt     string         `db:"salt"`
-	Password string         `db:"password"`
-	Username string         `db:"username"`
-	Image    sql.NullString `db:"image"`
-	Bio      sql.NullString `db:"bio"`
+	Id        int            `db:"id"`
+	Email     string         `db:"email"`
+	Salt      string         `db:"salt"`
+	Password  string         `db:"password"`
+	Username  string         `db:"username"`
+	Image     sql.NullString `db:"image"`
+	Bio       sql.NullString `db:"bio"`
+	CreatedAt time.Time      `db:"created_at"`
+	UpdatedAt sql.NullTime   `db:"updated_at"`
+	DeletedAt sql.NullTime   `db:"deleted_at"`
 }
 
 func NewUserRepo(db database) *repo {
@@ -34,39 +39,37 @@ func NewUserRepo(db database) *repo {
 	}
 }
 
-func (r repo) CreateUser(ctx context.Context, user entity.User) (entity.User, error) {
-	query := r.builder.Insert(userDbName).Columns(
-		"email",
-		"salt",
-		"password",
-		"username",
-	).Values(
-		user.Email,
-		user.Salt,
-		user.Password,
-		user.Username,
+func (r repo) Save(ctx context.Context, clauses map[string]any) (int, error) {
+
+	var (
+		q    string
+		args []any
 	)
 
-	q, args := query.MustSql()
-	q += " RETURNING id"
-	
-	var id int
+	if id, ok := clauses["id"]; ok {
+		delete(clauses, "id")
+		query := r.builder.Update(userDbName).SetMap(clauses).Where(squirrel.Eq{"id": id})
+		q, args = query.MustSql()
+	} else {
+		query := r.builder.Insert(userDbName).SetMap(clauses)
+		q, args = query.MustSql()
+		q += " RETURNING id"
+	}
 
+	var id int
 	row := r.database.QueryRow(q, args...)
 	if err := row.Err(); err != nil {
-		return entity.User{}, err
+		return 0, err
 	}
 
 	if err := row.Scan(&id); err != nil {
-		return entity.User{}, err
+		return 0, err
 	}
 
-	user.ID = id
-
-	return user, nil
+	return id, nil
 }
 
-func (r repo) FindUserByEmail(ctx context.Context, email string) (entity.User, error) {
+func (r repo) Find(ctx context.Context, pred map[string]any) ([]entity.User, error) {
 
 	query := r.builder.Select(
 		"id",
@@ -76,33 +79,44 @@ func (r repo) FindUserByEmail(ctx context.Context, email string) (entity.User, e
 		"username",
 		"image",
 		"bio",
-	).From(userDbName).Where(squirrel.Eq{
-		"email": email,
-	}).Limit(1)
+		"created_at",
+		"updated_at",
+		"deleted_at",
+	).From(userDbName).Where(pred).OrderByClause("created_at DESC")
 
 	q, args, err := query.ToSql()
 	if err != nil {
-		return entity.User{}, err
+		return []entity.User{}, err
 	}
 
-	dest := make([]user, 0, 1)
-
+	dest := make([]user, 0)
 	err = r.SelectContext(ctx, &dest, q, args...)
 	if err != nil {
-		return entity.User{}, fmt.Errorf("db find by email err: %+v", err)
+		return []entity.User{}, fmt.Errorf("db find by email err: %+v", err)
 	}
 
-	if len(dest) < 1 {
-		return entity.User{}, fmt.Errorf("db find by email: not found")
+	users := make([]entity.User, 0, len(dest))
+	for _, val := range dest {
+		user := entity.User{
+			ID:        val.Id,
+			Email:     val.Email,
+			Salt:      val.Salt,
+			Password:  val.Password,
+			Username:  val.Username,
+			Bio:       val.Bio.String,
+			Image:     val.Image.String,
+			CreatedAt: val.CreatedAt,
+			UpdatedAt: nil,
+			DeletedAt: nil,
+		}
+		if val.UpdatedAt.Valid {
+			user.UpdatedAt = &val.UpdatedAt.Time
+		}
+		if val.DeletedAt.Valid {
+			user.DeletedAt = &val.DeletedAt.Time
+		}
+		users = append(users, user)
 	}
 
-	return entity.User{
-		ID:       dest[0].Id,
-		Email:    dest[0].Email,
-		Salt:     dest[0].Salt,
-		Password: dest[0].Password,
-		Username: dest[0].Username,
-		Bio:      dest[0].Bio.String,
-		Image:    dest[0].Image.String,
-	}, nil
+	return users, nil
 }

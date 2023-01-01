@@ -9,8 +9,8 @@ import (
 )
 
 type userRepo interface {
-	FindUserByEmail(ctx context.Context, email string) (entity.User, error)
-	CreateUser(ctx context.Context, user entity.User) (entity.User, error)
+	Find(ctx context.Context, pred map[string]any) ([]entity.User, error)
+	Save(ctx context.Context, clauses map[string]any) (int, error)
 }
 
 type hasher interface {

@@ -26,11 +26,16 @@ func (s service) Register(ctx context.Context, email, password, username string)
 		return user, nil
 	}
 
-	insertedUser, err := s.repo.CreateUser(ctx, user)
+	insertedUserId, err := s.repo.Save(ctx, map[string]any{
+		"email":    user.Email,
+		"password": user.Password,
+		"username": user.Username,
+		"salt":     user.Salt,
+	})
 	if err != nil {
-		return insertedUser, err
+		return user, err
 	}
-	user.ID = insertedUser.ID
+	user.ID = insertedUserId
 
 	token, err := s.jwt.CreateJWT(jwt.Claims{
 		Email: email,
@@ -46,10 +51,11 @@ func (s service) Register(ctx context.Context, email, password, username string)
 
 func (s service) Authenticate(ctx context.Context, email, password string) (entity.User, error) {
 	// find user by email
-	user, err := s.repo.FindUserByEmail(ctx, email)
+	users, err := s.repo.Find(ctx, map[string]any{"email": email})
 	if err != nil {
 		return entity.User{}, err
 	}
+	user := users[0]
 	// salt user password
 	incomeHash := s.hasher.CreateHashFromPasswordAndSalt(password, user.Salt)
 	//compare with password in db
