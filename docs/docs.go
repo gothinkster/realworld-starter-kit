@@ -10,12 +10,55 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "contact": {},
+        "contact": {
+            "name": "Developer",
+            "url": "https://github.com/pavelkozlov",
+            "email": "it.pavelkozlov@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/user": {
+            "get": {
+                "description": "Returns a User that's the current user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get Current User",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.profileResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/api.errorWrapper"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/api.errorWrapper"
+                        }
+                    }
+                }
+            }
+        },
         "/api/users/login": {
             "post": {
                 "description": "Allow user to get access token",
@@ -28,7 +71,7 @@ const docTemplate = `{
                 "tags": [
                     "user"
                 ],
-                "summary": "Authentication for user",
+                "summary": "Authentication",
                 "parameters": [
                     {
                         "description": "authenticationRequest",
@@ -44,7 +87,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.authenticationResponse"
+                            "$ref": "#/definitions/api.authResponse"
                         }
                     },
                     "422": {
@@ -74,7 +117,7 @@ const docTemplate = `{
                 "tags": [
                     "user"
                 ],
-                "summary": "Registration for user",
+                "summary": "Registration",
                 "parameters": [
                     {
                         "description": "registrationRequest",
@@ -90,7 +133,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.authenticationResponse"
+                            "$ref": "#/definitions/api.authResponse"
                         }
                     },
                     "422": {
@@ -110,6 +153,14 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "api.authResponse": {
+            "type": "object",
+            "properties": {
+                "user": {
+                    "$ref": "#/definitions/api.userResponse"
+                }
+            }
+        },
         "api.authenticationRequest": {
             "type": "object",
             "required": [
@@ -121,26 +172,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
-                    "type": "string"
-                }
-            }
-        },
-        "api.authenticationResponse": {
-            "type": "object",
-            "properties": {
-                "bio": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "image": {
-                    "type": "string"
-                },
-                "token": {
-                    "type": "string"
-                },
-                "username": {
                     "type": "string"
                 }
             }
@@ -164,6 +195,31 @@ const docTemplate = `{
                 }
             }
         },
+        "api.profile": {
+            "type": "object",
+            "properties": {
+                "bio": {
+                    "type": "string"
+                },
+                "following": {
+                    "type": "boolean"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.profileResponse": {
+            "type": "object",
+            "properties": {
+                "profile": {
+                    "$ref": "#/definitions/api.profile"
+                }
+            }
+        },
         "api.registrationRequest": {
             "type": "object",
             "required": [
@@ -182,18 +238,43 @@ const docTemplate = `{
                     "type": "string"
                 }
             }
+        },
+        "api.userResponse": {
+            "type": "object",
+            "properties": {
+                "bio": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "BasicAuth": {
+            "type": "basic"
         }
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
-	Host:             "",
-	BasePath:         "",
+	Version:          "1.0",
+	Host:             "localhost:8080",
+	BasePath:         "/api/v1",
 	Schemes:          []string{},
-	Title:            "",
-	Description:      "",
+	Title:            "Real world API",
+	Description:      "This is a sample server.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

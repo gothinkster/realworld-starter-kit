@@ -11,13 +11,13 @@ type api struct {
 }
 
 // Authentication godoc
-// @Summary      Authentication for user
+// @Summary      Authentication
 // @Description  Allow user to get access token
 // @Tags         user
 // @Accept       json
 // @Produce      json
 // @Param        authenticationRequest   body      authenticationRequest  true  "authenticationRequest"
-// @Success      200  {object}  authenticationResponse
+// @Success      200  {object}  authResponse
 // @Failure      422  {object}  errorWrapper
 // @Failure      500  {object}  errorWrapper
 // @Router       /api/users/login [post]
@@ -37,8 +37,8 @@ func (a api) Authentication(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp(w, &singleResponse{
-		User: authenticationResponse{
+	resp(w, &authResponse{
+		User: userResponse{
 			Email:    user.Email,
 			Token:    user.Token,
 			Username: user.Username,
@@ -49,13 +49,13 @@ func (a api) Authentication(w http.ResponseWriter, r *http.Request) {
 }
 
 // Registration godoc
-// @Summary      Registration for user
+// @Summary      Registration
 // @Description  Allow user create a new account
 // @Tags         user
 // @Accept       json
 // @Produce      json
 // @Param        registrationRequest   body      registrationRequest  true  "registrationRequest"
-// @Success      200  {object}  authenticationResponse
+// @Success      200  {object}  authResponse
 // @Failure      422  {object}  errorWrapper
 // @Failure      500  {object}  errorWrapper
 // @Router       /api/users/registration [post]
@@ -75,8 +75,8 @@ func (a api) Registration(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp(w, &singleResponse{
-		User: authenticationResponse{
+	resp(w, &authResponse{
+		User: userResponse{
 			Email:    user.Email,
 			Token:    user.Token,
 			Username: user.Username,
@@ -86,6 +86,16 @@ func (a api) Registration(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+// Registration godoc
+// @Summary      Get Current User
+// @Description  Returns a User that's the current user
+// @Tags         user
+// @Accept       json
+// @Produce      json
+// @Success      200  {object}  profileResponse
+// @Failure      401  {object}  errorWrapper
+// @Failure      500  {object}  errorWrapper
+// @Router       /api/user [get]
 func (a api) GetCurrentUser(w http.ResponseWriter, r *http.Request) {
 	//TODO implement me
 	panic("implement me")
