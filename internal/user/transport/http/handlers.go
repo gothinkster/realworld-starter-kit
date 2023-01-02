@@ -1,8 +1,10 @@
 package api
 
 import (
-	"github.com/go-playground/validator/v10"
 	"net/http"
+
+	"github.com/go-playground/validator/v10"
+	"github.com/pavelkozlov/realworld/pkg/utils"
 )
 
 type api struct {
@@ -27,17 +29,17 @@ func (a api) Authentication(w http.ResponseWriter, r *http.Request) {
 
 	err := readAndValidate(r, &dest, *a.validator)
 	if err != nil {
-		errResp(w, http.StatusUnprocessableEntity, err)
+		utils.ErrResp(w, http.StatusUnprocessableEntity, err)
 		return
 	}
 
 	user, err := a.userService.Authenticate(r.Context(), dest.Email, dest.Password)
 	if err != nil {
-		errResp(w, http.StatusInternalServerError, err)
+		utils.ErrResp(w, http.StatusInternalServerError, err)
 		return
 	}
 
-	resp(w, &authResponse{
+	utils.Resp(w, &authResponse{
 		User: userResponse{
 			Email:    user.Email,
 			Token:    user.Token,
@@ -65,17 +67,17 @@ func (a api) Registration(w http.ResponseWriter, r *http.Request) {
 
 	err := readAndValidate(r, &dest, *a.validator)
 	if err != nil {
-		errResp(w, http.StatusUnprocessableEntity, err)
+		utils.ErrResp(w, http.StatusUnprocessableEntity, err)
 		return
 	}
 
 	user, err := a.userService.Register(r.Context(), dest.Email, dest.Password, dest.Username)
 	if err != nil {
-		errResp(w, http.StatusInternalServerError, err)
+		utils.ErrResp(w, http.StatusInternalServerError, err)
 		return
 	}
 
-	resp(w, &authResponse{
+	utils.Resp(w, &authResponse{
 		User: userResponse{
 			Email:    user.Email,
 			Token:    user.Token,
@@ -86,19 +88,32 @@ func (a api) Registration(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// Registration godoc
+// GetCurrentUser godoc
 // @Summary      Get Current User
 // @Description  Returns a User that's the current user
 // @Tags         user
 // @Accept       json
 // @Produce      json
+// @Param Authorization header string true "With the bearer started"
 // @Success      200  {object}  profileResponse
 // @Failure      401  {object}  errorWrapper
 // @Failure      500  {object}  errorWrapper
 // @Router       /api/user [get]
 func (a api) GetCurrentUser(w http.ResponseWriter, r *http.Request) {
-	//TODO implement me
-	panic("implement me")
+	user, err := a.userService.GetCurrentUser(r.Context())
+	if err != nil {
+		utils.ErrResp(w, 500, err)
+		return
+	}
+	utils.Resp(w, &profileResponse{
+		Profile: profile{
+			Username:  user.Username,
+			Bio:       user.Bio,
+			Image:     user.Image,
+			Following: false,
+		},
+	})
+
 }
 
 func (a api) UpdateUser(w http.ResponseWriter, r *http.Request) {

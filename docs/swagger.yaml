@@ -1,4 +1,4 @@
-basePath: /api/v1
+basePath: /
 definitions:
   api.authResponse:
     properties:
@@ -87,6 +87,12 @@ paths:
       consumes:
       - application/json
       description: Returns a User that's the current user
+      parameters:
+      - description: With the bearer started
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:

@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/pavelkozlov/realworld/internal/entity"
 	"github.com/pavelkozlov/realworld/pkg/jwt"
@@ -16,6 +17,24 @@ type service struct {
 const (
 	saltLen = 128
 )
+
+func (s service) GetCurrentUser(ctx context.Context) (entity.User, error) {
+	claims, err := s.jwt.FromContext(ctx)
+	if err != nil {
+		return entity.User{}, err
+	}
+
+	foundUsers, err := s.repo.Find(ctx, map[string]any{"email": claims.Email, "id": claims.Id})
+	if err != nil {
+		return entity.User{}, nil
+	}
+
+	if len(foundUsers) == 0 {
+		return entity.User{}, fmt.Errorf("user %s not found in db", claims.Email)
+	}
+
+	return foundUsers[0], nil
+}
 
 func (s service) Register(ctx context.Context, email, password, username string) (entity.User, error) {
 	salt, err := s.hasher.CreateSalt(saltLen)

@@ -20,4 +20,5 @@ type hasher interface {
 type jsonWebToken interface {
 	ParseJWT(tokenString string) (jwt.Claims, error)
 	CreateJWT(incomeClaims jwt.Claims) (string, error)
+	FromContext(ctx context.Context) (jwt.Claims, error)
 }

@@ -1,9 +1,15 @@
 package jwt
 
 import (
+	"context"
+	"errors"
 	"fmt"
-	"github.com/golang-jwt/jwt/v4"
+	"net/http"
+	"strings"
 	"time"
+
+	"github.com/golang-jwt/jwt/v4"
+	"github.com/pavelkozlov/realworld/pkg/utils"
 )
 
 const (
@@ -25,6 +31,45 @@ type Claims struct {
 type jwtClaims struct {
 	Claims
 	jwt.RegisteredClaims
+}
+
+func (s signer) AuthMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		token := r.Header.Get("Authorization")
+		if token == "" {
+			utils.ErrResp(w, http.StatusUnauthorized, errors.New("invalid token"))
+			return
+		}
+
+		t := strings.Split(token, " ")
+		if len(t) != 2 || t[0] != "Bearer" {
+			utils.ErrResp(w, http.StatusUnauthorized, errors.New("invalid token"))
+			return
+		}
+
+		claims, err := s.ParseJWT(t[1])
+		if err != nil {
+			utils.ErrResp(w, http.StatusUnauthorized, err)
+			return
+		}
+
+		ctx := s.WithValue(r.Context(), claims)
+
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
+}
+
+func (s *signer) WithValue(ctx context.Context, claims Claims) context.Context {
+	return context.WithValue(ctx, s, claims)
+}
+
+func (s *signer) FromContext(ctx context.Context) (Claims, error) {
+	val := ctx.Value(s)
+	claims, ok := val.(Claims)
+	if !ok {
+		return claims, errors.New("can not find user in context")
+	}
+	return claims, nil
 }
 
 func (s signer) CreateJWT(incomeClaims Claims) (string, error) {

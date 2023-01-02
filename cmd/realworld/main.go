@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 	_ "github.com/pavelkozlov/realworld/docs"
 	"github.com/pavelkozlov/realworld/internal/user/repository"
 	"github.com/pavelkozlov/realworld/internal/user/service"
@@ -26,7 +27,7 @@ import (
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
 
 // @host      localhost:8080
-// @BasePath  /api/v1
+// @BasePath  /
 
 // @securityDefinitions.basic  BasicAuth
 func main() {
@@ -42,12 +43,26 @@ func main() {
 	handlers := userApi.NewUserApi(userUsecase)
 
 	mux := chi.NewMux()
-	mux.Post("/api/users/login", handlers.Authentication)
-	mux.Post("/api/users/registration", handlers.Registration)
+
+	mux.Use(middleware.Recoverer)
 
 	mux.Get("/swagger/*", httpSwagger.Handler(
 		httpSwagger.URL("http://localhost:8080/swagger/doc.json"), //The url pointing to API definition
 	))
+
+	mux.Route("/api", func(r chi.Router) {
+		// public
+		r.Route("/users", func(r chi.Router) {
+			r.Post("/login", handlers.Authentication)
+			r.Post("/registration", handlers.Registration)
+		})
+
+		// protected
+		r.Route("/user", func(r chi.Router) {
+			r.Use(jwt.AuthMiddleware)
+			r.Get("/", handlers.GetCurrentUser)
+		})
+	})
 
 	http.ListenAndServe(":8080", mux)
 }
