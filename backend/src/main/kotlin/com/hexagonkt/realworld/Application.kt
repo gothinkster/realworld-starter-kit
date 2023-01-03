@@ -3,8 +3,8 @@ package com.hexagonkt.realworld
 import com.hexagonkt.core.*
 import com.hexagonkt.core.Jvm.systemSetting
 import com.hexagonkt.core.Jvm.systemSettingOrNull
-import com.hexagonkt.core.converters.ConvertersManager
-import com.hexagonkt.core.converters.convert
+import com.hexagonkt.converters.ConvertersManager
+import com.hexagonkt.converters.convert
 import com.hexagonkt.core.logging.LoggingManager
 import com.hexagonkt.http.server.*
 import com.hexagonkt.http.server.jetty.JettyServletAdapter
