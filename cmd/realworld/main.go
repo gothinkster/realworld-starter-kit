@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -12,7 +13,7 @@ import (
 	"github.com/pavelkozlov/realworld/pkg/db"
 	"github.com/pavelkozlov/realworld/pkg/hash"
 	"github.com/pavelkozlov/realworld/pkg/jwt"
-	"github.com/swaggo/http-swagger"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 // @title           Real world API
@@ -61,8 +62,12 @@ func main() {
 		r.Route("/user", func(r chi.Router) {
 			r.Use(jwt.AuthMiddleware)
 			r.Get("/", handlers.GetCurrentUser)
+			r.Put("/", handlers.UpdateUser)
 		})
 	})
 
-	http.ListenAndServe(":8080", mux)
+	err := http.ListenAndServe(":8080", mux)
+	if err != nil {
+		log.Panicf(err.Error())
+	}
 }

@@ -50,23 +50,28 @@ func (r repo) Save(ctx context.Context, clauses map[string]any) (int, error) {
 		delete(clauses, "id")
 		query := r.builder.Update(userDbName).SetMap(clauses).Where(squirrel.Eq{"id": id})
 		q, args = query.MustSql()
+		result := r.database.MustExec(q, args...)
+		affected, err := result.RowsAffected()
+		if err != nil {
+			return 0, err
+		}
+		return int(affected), nil
 	} else {
 		query := r.builder.Insert(userDbName).SetMap(clauses)
 		q, args = query.MustSql()
 		q += " RETURNING id"
-	}
+		var id int
+		row := r.database.QueryRow(q, args...)
+		if err := row.Err(); err != nil {
+			return 0, err
+		}
 
-	var id int
-	row := r.database.QueryRow(q, args...)
-	if err := row.Err(); err != nil {
-		return 0, err
-	}
+		if err := row.Scan(&id); err != nil {
+			return 0, err
+		}
 
-	if err := row.Scan(&id); err != nil {
-		return 0, err
+		return id, nil
 	}
-
-	return id, nil
 }
 
 func (r repo) Find(ctx context.Context, pred map[string]any) ([]entity.User, error) {

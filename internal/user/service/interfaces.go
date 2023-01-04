@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+
 	"github.com/pavelkozlov/realworld/internal/entity"
 	"github.com/pavelkozlov/realworld/pkg/jwt"
 )

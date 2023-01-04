@@ -18,6 +18,30 @@ const (
 	saltLen = 128
 )
 
+func (s service) UpdateUser(ctx context.Context, forUpdate map[string]any) (entity.User, error) {
+	claims, err := s.jwt.FromContext(ctx)
+	if err != nil {
+		return entity.User{}, err
+	}
+	forUpdate["id"] = claims.Id
+
+	updatedCnt, err := s.repo.Save(ctx, forUpdate)
+	if err != nil {
+		return entity.User{}, err
+	}
+	if updatedCnt == 0 {
+		return entity.User{}, fmt.Errorf("user %s not found in db", claims.Email)
+	}
+	foundUsers, err := s.repo.Find(ctx, map[string]any{"email": claims.Email, "id": claims.Id})
+	if err != nil {
+		return entity.User{}, nil
+	}
+	if len(foundUsers) == 0 {
+		return entity.User{}, fmt.Errorf("user %s not found in db", claims.Email)
+	}
+	return foundUsers[0], nil
+}
+
 func (s service) GetCurrentUser(ctx context.Context) (entity.User, error) {
 	claims, err := s.jwt.FromContext(ctx)
 	if err != nil {

@@ -56,13 +56,64 @@ const docTemplate = `{
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/api.errorWrapper"
+                            "$ref": "#/definitions/utils.errorWrapper"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.errorWrapper"
+                            "$ref": "#/definitions/utils.errorWrapper"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Returns User that's the current user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Update Current User",
+                "parameters": [
+                    {
+                        "description": "updateUserRequest",
+                        "name": "updateUserRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.updateUserRequest"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "With the bearer started",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.profileResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/utils.errorWrapper"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.errorWrapper"
                         }
                     }
                 }
@@ -102,13 +153,13 @@ const docTemplate = `{
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/api.errorWrapper"
+                            "$ref": "#/definitions/utils.errorWrapper"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.errorWrapper"
+                            "$ref": "#/definitions/utils.errorWrapper"
                         }
                     }
                 }
@@ -148,13 +199,13 @@ const docTemplate = `{
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/api.errorWrapper"
+                            "$ref": "#/definitions/utils.errorWrapper"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/api.errorWrapper"
+                            "$ref": "#/definitions/utils.errorWrapper"
                         }
                     }
                 }
@@ -182,25 +233,6 @@ const docTemplate = `{
                 },
                 "password": {
                     "type": "string"
-                }
-            }
-        },
-        "api.errorWrapper": {
-            "type": "object",
-            "properties": {
-                "errors": {
-                    "$ref": "#/definitions/api.errors"
-                }
-            }
-        },
-        "api.errors": {
-            "type": "object",
-            "properties": {
-                "body": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
                 }
             }
         },
@@ -248,6 +280,26 @@ const docTemplate = `{
                 }
             }
         },
+        "api.updateUserRequest": {
+            "type": "object",
+            "properties": {
+                "bio": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
         "api.userResponse": {
             "type": "object",
             "properties": {
@@ -265,6 +317,25 @@ const docTemplate = `{
                 },
                 "username": {
                     "type": "string"
+                }
+            }
+        },
+        "utils.errorWrapper": {
+            "type": "object",
+            "properties": {
+                "errors": {
+                    "$ref": "#/definitions/utils.errors"
+                }
+            }
+        },
+        "utils.errors": {
+            "type": "object",
+            "properties": {
+                "body": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         }

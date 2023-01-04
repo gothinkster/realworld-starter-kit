@@ -15,18 +15,6 @@ definitions:
     - email
     - password
     type: object
-  api.errorWrapper:
-    properties:
-      errors:
-        $ref: '#/definitions/api.errors'
-    type: object
-  api.errors:
-    properties:
-      body:
-        items:
-          type: string
-        type: array
-    type: object
   api.profile:
     properties:
       bio:
@@ -56,6 +44,19 @@ definitions:
     - password
     - username
     type: object
+  api.updateUserRequest:
+    properties:
+      bio:
+        type: string
+      email:
+        type: string
+      image:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
   api.userResponse:
     properties:
       bio:
@@ -68,6 +69,18 @@ definitions:
         type: string
       username:
         type: string
+    type: object
+  utils.errorWrapper:
+    properties:
+      errors:
+        $ref: '#/definitions/utils.errors'
+    type: object
+  utils.errors:
+    properties:
+      body:
+        items:
+          type: string
+        type: array
     type: object
 host: localhost:8080
 info:
@@ -103,12 +116,46 @@ paths:
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/api.errorWrapper'
+            $ref: '#/definitions/utils.errorWrapper'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/api.errorWrapper'
+            $ref: '#/definitions/utils.errorWrapper'
       summary: Get Current User
+      tags:
+      - user
+    put:
+      consumes:
+      - application/json
+      description: Returns User that's the current user
+      parameters:
+      - description: updateUserRequest
+        in: body
+        name: updateUserRequest
+        required: true
+        schema:
+          $ref: '#/definitions/api.updateUserRequest'
+      - description: With the bearer started
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.profileResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.errorWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.errorWrapper'
+      summary: Update Current User
       tags:
       - user
   /api/users/login:
@@ -133,11 +180,11 @@ paths:
         "422":
           description: Unprocessable Entity
           schema:
-            $ref: '#/definitions/api.errorWrapper'
+            $ref: '#/definitions/utils.errorWrapper'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/api.errorWrapper'
+            $ref: '#/definitions/utils.errorWrapper'
       summary: Authentication
       tags:
       - user
@@ -163,11 +210,11 @@ paths:
         "422":
           description: Unprocessable Entity
           schema:
-            $ref: '#/definitions/api.errorWrapper'
+            $ref: '#/definitions/utils.errorWrapper'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/api.errorWrapper'
+            $ref: '#/definitions/utils.errorWrapper'
       summary: Registration
       tags:
       - user
