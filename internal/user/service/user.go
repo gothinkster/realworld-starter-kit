@@ -42,6 +42,19 @@ func (s service) UpdateUser(ctx context.Context, forUpdate map[string]any) (enti
 	return foundUsers[0], nil
 }
 
+func (s service) GetUser(ctx context.Context, username string) (entity.User, error) {
+	foundUsers, err := s.repo.Find(ctx, map[string]any{"username": username})
+	if err != nil {
+		return entity.User{}, nil
+	}
+
+	if len(foundUsers) == 0 {
+		return entity.User{}, fmt.Errorf("user %s not found in db", username)
+	}
+
+	return foundUsers[0], nil
+}
+
 func (s service) GetCurrentUser(ctx context.Context) (entity.User, error) {
 	claims, err := s.jwt.FromContext(ctx)
 	if err != nil {

@@ -24,6 +24,44 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/profiles/{username}": {
+            "get": {
+                "description": "Returns User",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get User Profile",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "username",
+                        "name": "username",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.profileResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.errorWrapper"
+                        }
+                    }
+                }
+            }
+        },
         "/api/user": {
             "get": {
                 "description": "Returns a User that's the current user",

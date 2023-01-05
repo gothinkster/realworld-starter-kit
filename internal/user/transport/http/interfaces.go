@@ -11,4 +11,5 @@ type userService interface {
 	Register(ctx context.Context, email, password, username string) (entity.User, error)
 	GetCurrentUser(ctx context.Context) (entity.User, error)
 	UpdateUser(ctx context.Context, forUpdate map[string]any) (entity.User, error)
+	GetUser(ctx context.Context, username string) (entity.User, error)
 }

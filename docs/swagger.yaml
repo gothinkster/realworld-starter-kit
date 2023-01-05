@@ -95,6 +95,31 @@ info:
   title: Real world API
   version: "1.0"
 paths:
+  /api/profiles/{username}:
+    get:
+      consumes:
+      - application/json
+      description: Returns User
+      parameters:
+      - description: username
+        in: path
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.profileResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.errorWrapper'
+      summary: Get User Profile
+      tags:
+      - user
   /api/user:
     get:
       consumes:

@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/pavelkozlov/realworld/pkg/utils"
@@ -169,9 +170,32 @@ func (a api) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+// GetProfile godoc
+// @Summary      Get User Profile
+// @Description  Returns User
+// @Tags         user
+// @Accept       json
+// @Produce      json
+// @Param username path string true "username"
+// @Success      200  {object}  profileResponse
+// @Failure      500  {object}  utils.errorWrapper
+// @Router       /api/profiles/{username} [get]
 func (a api) GetProfile(w http.ResponseWriter, r *http.Request) {
-	//TODO implement me
-	panic("implement me")
+	path := strings.Split(r.URL.Path, "/")
+	username := path[len(path)-1]
+	user, err := a.userService.GetUser(r.Context(), username)
+	if err != nil {
+		utils.ErrResp(w, http.StatusInternalServerError, err)
+		return
+	}
+	utils.Resp(w, profileResponse{
+		Profile: profile{
+			Username:  user.Username,
+			Bio:       user.Bio,
+			Image:     user.Image,
+			Following: false,
+		},
+	})
 }
 
 func (a api) FollowUser(w http.ResponseWriter, r *http.Request) {

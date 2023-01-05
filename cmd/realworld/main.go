@@ -64,6 +64,10 @@ func main() {
 			r.Get("/", handlers.GetCurrentUser)
 			r.Put("/", handlers.UpdateUser)
 		})
+
+		r.Route("/profiles", func(r chi.Router) {
+			r.Get("/{username}", handlers.GetProfile)
+		})
 	})
 
 	err := http.ListenAndServe(":8080", mux)
