@@ -1,11 +1,12 @@
 import Head from "next/head";
 import type { NextPage } from "next";
-import Header from "components/Header";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useSWR, { mutate } from "swr";
 import dayjs from "dayjs";
+
+import { Header, FeedToggle } from "components";
 
 const Banner = (): JSX.Element => (
   <div className="banner">
@@ -75,7 +76,7 @@ type ArticleResponse = {
 const fetcher = (url: string, method: string) =>
   fetch(url, { method }).then((res) => res.json());
 
-const URL_GET_ARTICLES = "/articles.json";
+const URL_GET_ARTICLES = "/articles.json?";
 
 type Pagination = {
   offset: number;
@@ -85,7 +86,7 @@ type Pagination = {
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const { global } = router.query;
+  const global = router.query?.global === "true";
   const [pagination, setPagination] = useState<Pagination>({
     offset: 0,
     currentPage: 1,
@@ -93,15 +94,13 @@ const Home: NextPage = () => {
   });
 
   const { data, error, isLoading } = useSWR<ArticleResponse>(
-    URL_GET_ARTICLES,
+    URL_GET_ARTICLES + (global ? "global=true" : ""),
     fetcher
   );
 
   useEffect(() => {
-    mutate(URL_GET_ARTICLES);
+    mutate(URL_GET_ARTICLES + (global ? "global=true" : ""));
   }, [global]);
-
-  console.log(data?.articlesCount);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
@@ -117,28 +116,7 @@ const Home: NextPage = () => {
         <div className="container page border-solid border border-red-400">
           <div className="row">
             <div className="col-md-9">
-              <div className="feed-toggle">
-                <ul className="nav nav-pills outline-active">
-                  <li className="nav-item">
-                    <Link
-                      className={`nav-link ${global ? "" : "active"}`}
-                      href=""
-                      shallow
-                    >
-                      Your Feed
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
-                      className={`nav-link ${!global ? "" : "active"}`}
-                      href="?global=true"
-                      shallow
-                    >
-                      Global Feed
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+              <FeedToggle globalFeed={global} />
 
               {isLoading && <div>Loading</div>}
               {data?.articles.map((article) => (
@@ -192,6 +170,7 @@ const Home: NextPage = () => {
                             className={`page-item ${
                               pagination.currentPage == n + 1 ? "active" : ""
                             }`}
+                            key={`page${n}`}
                           >
                             <Link
                               className={`page-link `}
