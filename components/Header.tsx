@@ -1,6 +1,6 @@
 import React from "react";
 
-const Header = (): JSX.Element => {
+export const Header = (): JSX.Element => {
   return (
     <nav className="navbar navbar-light">
       <div className="container">
@@ -40,5 +40,3 @@ const Header = (): JSX.Element => {
     </nav>
   );
 };
-
-export default Header;
