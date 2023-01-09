@@ -4,9 +4,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useSWR, { mutate } from "swr";
-import dayjs from "dayjs";
 
-import { Header, FeedToggle } from "components";
+import { Header, FeedToggle, ArticlePreview } from "components";
+import { Article } from "types";
 
 const Banner = (): JSX.Element => (
   <div className="banner">
@@ -48,25 +48,6 @@ const PopularTags = () => (
     </div>
   </>
 );
-type Author = {
-  username: string;
-  bio: string;
-  image: string;
-  following: boolean;
-};
-
-type Article = {
-  slug: string;
-  title: string;
-  description: string;
-  body: string;
-  tagList: string[];
-  createdAt: string;
-  updatedAt: string;
-  favorited: boolean;
-  favoritesCount: number;
-  author: Author;
-};
 
 type ArticleResponse = {
   articles: Article[];
@@ -120,39 +101,7 @@ const Home: NextPage = () => {
 
               {isLoading && <div>Loading</div>}
               {data?.articles.map((article) => (
-                <div className="article-preview" key={article.slug}>
-                  <div className="article-meta">
-                    <Link href={`/profile/${article.slug}`}>
-                      <img src={article.author?.image} />
-                    </Link>
-                    <div className="info">
-                      <Link href="" className="author">
-                        {article.author?.username}
-                      </Link>
-                      <span className="date">
-                        {dayjs(article.createdAt).format("MMMM D, YYYY")}
-                      </span>
-                    </div>
-                    <button className="btn btn-outline-primary btn-sm pull-xs-right">
-                      <i className="ion-heart"></i> {article.favoritesCount}
-                    </button>
-                  </div>
-                  <Link href="" className="preview-link">
-                    <h1>{article.title}</h1>
-                    <p>{article.description}</p>
-                    <span>Read more...</span>
-                    <ul className="tag-list">
-                      {article.tagList.map((tag) => (
-                        <li
-                          className="tag-default tag-pill tag-outline"
-                          key={tag}
-                        >
-                          {tag}
-                        </li>
-                      ))}
-                    </ul>
-                  </Link>
-                </div>
+                <ArticlePreview article={article} />
               ))}
 
               <div>
