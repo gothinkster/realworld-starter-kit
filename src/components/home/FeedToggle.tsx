@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { ReactElement } from "react";
+import React from "react";
 
 type Props = {
   globalFeed: boolean;

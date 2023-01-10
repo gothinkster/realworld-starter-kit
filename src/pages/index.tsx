@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useSWR, { mutate } from "swr";
 
-import { Header, FeedToggle, ArticlePreview } from "components";
+import { FeedToggle, ArticlePreview } from "components";
 import { Article } from "types";
 
 const Banner = (): JSX.Element => (
@@ -89,12 +89,10 @@ const Home: NextPage = () => {
         <title>Home - Conduit</title>
       </Head>
 
-      <Header />
-
       <main className="home-page">
         <Banner />
 
-        <div className="container page border-solid border border-red-400">
+        <div className="container page">
           <div className="row">
             <div className="col-md-9">
               <FeedToggle globalFeed={global} />
