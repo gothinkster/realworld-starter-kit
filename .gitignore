@@ -12,6 +12,7 @@
 *.launch
 .settings/
 *.sublime-workspace
+.metals/
 
 # IDE - VSCode
 .vscode/*
@@ -31,3 +32,9 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# build tool specific entries
+.bloop
+target
+metals.sbt
+project/project
