@@ -1,6 +1,6 @@
 package com.softwaremill.realworld.articles
 
-import zio.{UIO, ZIO, ZLayer}
+import zio.{IO, UIO, ZIO, ZLayer}
 
 import java.time.Instant
 
@@ -15,8 +15,8 @@ class ArticlesRepository:
       "Represents a dummy article.",
       "Dummy body",
       List("dummy", "article"),
-      Instant.now(),
-      Instant.now(),
+      Instant.parse("2016-02-18T03:22:56.637Z"),
+      Instant.parse("2016-02-18T03:22:56.637Z"),
       10
     ),
     StoredArticle(
@@ -26,13 +26,15 @@ class ArticlesRepository:
       "Represents a dummy article 2.",
       "Dummy body 2",
       List("dummy", "article", "2"),
-      Instant.now(),
-      Instant.now(),
+      Instant.parse("2018-02-18T03:22:56.637Z"),
+      Instant.parse("2018-02-18T03:22:56.637Z"),
       10
     )
   )
 
   def list(): UIO[List[StoredArticle]] = ZIO.succeed(articles)
+
+  def find(slug: String): IO[Option[Nothing], StoredArticle] = ZIO.fromOption(articles.find(sa => sa.slug == slug))
 
 object ArticlesRepository:
   val live: ZLayer[Any, Nothing, ArticlesRepository] = ZLayer.succeed(ArticlesRepository())

@@ -1,6 +1,6 @@
 package com.softwaremill.realworld.articles
 
-import com.softwaremill.realworld.profiles.ProfilesRepository
+import com.softwaremill.realworld.profiles.{ProfilesRepository, StoredProfile}
 import zio.{IO, ZIO, ZLayer}
 
 class ArticlesService(articlesRepository: ArticlesRepository, profilesRepository: ProfilesRepository):
@@ -9,6 +9,11 @@ class ArticlesService(articlesRepository: ArticlesRepository, profilesRepository
     .list()
     .flatMap(sas => ZIO.collectAll(sas.map(article)))
     .onError(err => ZIO.logError(err.prettyPrint))
+
+  def find(slug: String): IO[String, Article] = articlesRepository
+    .find(slug)
+    .mapError(_ => s"Not found.")
+    .flatMap(article)
 
   private def article(a: StoredArticle): IO[String, Article] = {
     profilesRepository
@@ -32,7 +37,5 @@ class ArticlesService(articlesRepository: ArticlesRepository, profilesRepository
       )
       .mapError(_ => s"Author (id: ${a.authorId} not found for article '${a.slug}'.")
   }
-
 object ArticlesService:
-
   val live: ZLayer[ArticlesRepository with ProfilesRepository, Nothing, ArticlesService] = ZLayer.fromFunction(ArticlesService(_, _))

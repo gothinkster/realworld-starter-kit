@@ -1,13 +1,13 @@
 package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.profiles.ProfilesRepository
-import sttp.tapir.*
+import sttp.tapir.PublicEndpoint
 import sttp.tapir.generic.auto.*
 import sttp.tapir.json.zio.jsonBody
 import sttp.tapir.server.ServerEndpoint.Full
-import sttp.tapir.ztapir.ZServerEndpoint
-import zio.{Cause, Exit, ZIO, ZLayer}
+import sttp.tapir.ztapir.*
 import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder}
+import zio.{Cause, Exit, ZIO, ZLayer}
 
 object ArticlesEndpoints:
 
@@ -15,6 +15,8 @@ object ArticlesEndpoints:
   given articleAuthorDecoder: zio.json.JsonDecoder[ArticleAuthor] = DeriveJsonDecoder.gen[ArticleAuthor]
   given articleEncoder: zio.json.JsonEncoder[Article] = DeriveJsonEncoder.gen[Article]
   given articleDecoder: zio.json.JsonDecoder[Article] = DeriveJsonDecoder.gen[Article]
+
+  private val deps = ZLayer.make[ArticlesService](ArticlesService.live, ArticlesRepository.live, ProfilesRepository.live)
 
   // TODO add filtering
   // TODO add pagination
@@ -28,7 +30,20 @@ object ArticlesEndpoints:
       .service[ArticlesService]
       .flatMap(as => as.list())
       .foldZIO(fail => ZIO.succeed(Left(fail)), success => ZIO.succeed(Right(success)))
-      .provideLayer(ZLayer.make[ArticlesService](ArticlesService.live, ArticlesRepository.live, ProfilesRepository.live))
+      .provideLayer(deps)
   }
 
-  val endpoints: List[ZServerEndpoint[Any, Any]] = List(listEndpoint)
+  private val get: PublicEndpoint[String, String, Article, Any] = endpoint.get
+    .in("api" / "articles" / path[String]("slug"))
+    .out(jsonBody[Article])
+    .errorOut(stringBody)
+
+  val getEndpoint: ZServerEndpoint[Any, Any] = get.serverLogic { slug =>
+    ZIO
+      .service[ArticlesService]
+      .flatMap(as => as.find(slug))
+      .foldZIO(fail => ZIO.succeed(Left(fail)), success => ZIO.succeed(Right(success)))
+      .provideLayer(deps)
+  }
+
+  val endpoints: List[ZServerEndpoint[Any, Any]] = List(listEndpoint, getEndpoint)
