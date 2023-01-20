@@ -1,5 +1,6 @@
 package com.softwaremill.realworld
 
+import com.softwaremill.realworld.articles.ArticlesEndpoints
 import org.slf4j.LoggerFactory
 import sttp.tapir.server.interceptor.log.DefaultServerLog
 import sttp.tapir.server.ziohttp.{ZioHttpInterpreter, ZioHttpServerOptions}
@@ -7,7 +8,7 @@ import zio.http.{HttpApp, Server, ServerConfig}
 import zio.{Console, ExitCode, Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault}
 
 object Main extends ZIOAppDefault:
-  val log = LoggerFactory.getLogger(ZioHttpInterpreter.getClass.getName)
+  private val log = LoggerFactory.getLogger(ZioHttpInterpreter.getClass.getName)
 
   override def run: ZIO[Any with ZIOAppArgs with Scope, Any, Any] =
     val serverOptions: ZioHttpServerOptions[Any] =
@@ -22,7 +23,7 @@ object Main extends ZIOAppDefault:
           )
         )
         .options
-    val app: HttpApp[Any, Throwable] = ZioHttpInterpreter(serverOptions).toHttp(Endpoints.all)
+    val app: HttpApp[Any, Throwable] = ZioHttpInterpreter(serverOptions).toHttp(ArticlesEndpoints.endpoints)
 
     val port = sys.env.get("HTTP_PORT").flatMap(_.toIntOption).getOrElse(8080)
 
