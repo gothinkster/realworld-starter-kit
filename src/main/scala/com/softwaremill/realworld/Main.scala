@@ -23,14 +23,14 @@ object Main extends ZIOAppDefault:
           )
         )
         .options
-    val app: HttpApp[Any, Throwable] = ZioHttpInterpreter(serverOptions).toHttp(ArticlesEndpoints.endpoints)
+    val app: HttpApp[Any, Throwable] = ZioHttpInterpreter(serverOptions).toHttp(endpoints)
 
     val port = sys.env.get("HTTP_PORT").flatMap(_.toIntOption).getOrElse(8080)
 
     (
       for
         actualPort <- Server.install(app)
-        _ <- Console.printLine(s"Server started at http://localhost:${actualPort}. Press ENTER key to exit.")
+        _ <- Console.printLine(s"Go to http://localhost:${actualPort}/docs to open SwaggerUI. Press ENTER key to exit.")
         _ <- Console.readLine
       yield ()
     ).provide(
