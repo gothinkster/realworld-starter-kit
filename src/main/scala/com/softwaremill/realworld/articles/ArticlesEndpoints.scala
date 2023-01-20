@@ -23,7 +23,9 @@ object ArticlesEndpoints {
     .out(jsonBody[List[Article]])
     .errorOut(stringBody)
 
-  val listEndpoint: ZServerEndpoint[Any, Any] = list.serverLogic { _ => ZIO.service[ArticlesService]
+  val listEndpoint: ZServerEndpoint[Any, Any] = list.serverLogic { _ =>
+    ZIO
+      .service[ArticlesService]
       .map(as => as.list())
       .provideLayer(ZLayer.make[ArticlesService](ArticlesService.live, ArticlesRepository.live, ProfilesRepository.live))
   }

@@ -11,6 +11,6 @@ class ProfilesRepository {
 }
 
 object ProfilesRepository {
-  
+
   def live: ZLayer[Any, Nothing, ProfilesRepository] = ZLayer.succeed(ProfilesRepository())
 }

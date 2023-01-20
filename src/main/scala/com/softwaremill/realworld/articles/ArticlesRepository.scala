@@ -4,7 +4,6 @@ import zio.ZLayer
 
 import java.time.ZonedDateTime
 
-
 class ArticlesRepository {
 
   // TODO user proper db or create in-memory thread-safe store
@@ -18,7 +17,8 @@ class ArticlesRepository {
       List("dummy", "article"),
       ZonedDateTime.parse("2016-02-18T03:22:56.637Z"),
       ZonedDateTime.now(),
-      10),
+      10
+    ),
     StoredArticle(
       2,
       "dummy-article-2",
@@ -28,7 +28,9 @@ class ArticlesRepository {
       List("dummy", "article", "2"),
       ZonedDateTime.now(),
       ZonedDateTime.now(),
-      10))
+      10
+    )
+  )
 
   def list(): List[StoredArticle] = articles
 }
