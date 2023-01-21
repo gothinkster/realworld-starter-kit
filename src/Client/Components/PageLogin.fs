@@ -21,6 +21,7 @@ let (|UserLoggedIn|_|) = function
     | Msg.Login (Finished (LoginResult.LoggedIn user)) -> Some user
     | _ -> None
 
+
 let init() =
     { Email = ""
       Password = ""
@@ -67,10 +68,10 @@ let renderLoginOutcome (loginResult: Deferred<LoginResult>) =
         Html.none
 
 [<ReactComponent>]
-let render (state: State) (dispatch: Msg -> Unit) =
+let RenderLoginPage (state: State) (dispatch: Msg -> Unit) =
         Html.div [
             prop.children [
-                render ("login", ApplicationUser.Anonymous)
+                RenderNavigation ("login", ApplicationUser.Anonymous)
                 Html.div [
                     prop.className "auth-page"
                     prop.children [

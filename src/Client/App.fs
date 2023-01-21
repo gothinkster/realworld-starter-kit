@@ -8,7 +8,7 @@ open Elmish.Debug
 open Elmish.HMR
 #endif
 
-Program.mkProgram Conduit.init Conduit.update Conduit.render
+Program.mkProgram Conduit.init Conduit.update Conduit.RenderConduit
 #if DEBUG
 |> Program.withConsoleTrace
 #endif

@@ -23,7 +23,7 @@ type UserAuthDto = {
 }
 
 type users = {
-    login: LoginRequest -> Async<UserAuthDto>
+    login: LoginRequest -> Async<UserAuthDto option>
 }
 
 type AccessToken = AccessToken of string

@@ -4,11 +4,11 @@ open Feliz
 open Models
 open Components.Navigation
 [<ReactComponent>]
-let render (user: ApplicationUser): ReactElement =
+let RenderHome (user: ApplicationUser): ReactElement =
         Html.div [
             prop.className "home-page"
             prop.children [
-                render("", user)
+                RenderNavigation("", user)
                 Html.div [
                     prop.children [
                         Html.div [

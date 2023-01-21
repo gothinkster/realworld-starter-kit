@@ -97,12 +97,12 @@ let update (msg: Msg) (state: State) =
         state, Cmd.none
 
 open Feliz
-let render (state :State) (dispatch: Msg -> Unit) =
+let RenderConduit (state :State) (dispatch: Msg -> Unit) =
     let activePage =
         match state.CurrentPage with
-        | Page.Login login -> PageLogin.render login (LoginMsg >> dispatch)
-        | Page.Register register -> PageRegister.render register (RegisterMsg >> dispatch)
-        | Page.Home -> PageHome.render state.User
+        | Page.Login login -> PageLogin.RenderLoginPage login (LoginMsg >> dispatch)
+        | Page.Register register -> PageRegister.RenderRegistrationPage register (RegisterMsg >> dispatch)
+        | Page.Home -> PageHome.RenderHome state.User
         | Page.NotFound -> Html.h1 "Not Found"
 
     React.router [

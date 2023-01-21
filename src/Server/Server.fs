@@ -6,8 +6,10 @@ open Saturn
 
 open Shared
 
+
+
 let api: users = {
-    login = fun loginRequest -> async { //request example: [{"user":{"email":"some@domain.com","password":"pass"}}]
+    login = fun loginRequest -> async { //request example, send POST with body: [{"user":{"email":"some@domain.com","password":"pass"}}]
         let u = {
             Email = loginRequest.user.email
             Token = "token"
@@ -15,7 +17,7 @@ let api: users = {
             Bio = "bio"
             Image = "image"
         }
-        return u
+        return Some u
     }
 }
 

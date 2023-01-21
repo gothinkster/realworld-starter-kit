@@ -54,7 +54,7 @@ let update (msg: Msg) (state: State) =
         nextState, Cmd.none
 
 
-let renderRegisterOutcome (registerResult: Deferred<RegisterResult>) =
+let RenderRegisterOutcome (registerResult: Deferred<RegisterResult>) =
     match registerResult with
     | Resolved RegisterResult.Failed ->
         Html.paragraph [
@@ -71,10 +71,10 @@ let renderRegisterOutcome (registerResult: Deferred<RegisterResult>) =
 
 open Navigation
 [<ReactComponent>]
-let render  (state: State) (dispatch: Msg -> Unit) =
+let RenderRegistrationPage  (state: State) (dispatch: Msg -> Unit) =
     Html.div [
         prop.children [
-            render ("register", ApplicationUser.Anonymous)
+            RenderNavigation ("register", ApplicationUser.Anonymous)
             Html.div [
                 prop.className "auth-page"
                 prop.children [
@@ -154,6 +154,6 @@ let render  (state: State) (dispatch: Msg -> Unit) =
                 ]
             ]
 
-            renderRegisterOutcome state.RegisterAttempt
+            RenderRegisterOutcome state.RegisterAttempt
         ]
     ]

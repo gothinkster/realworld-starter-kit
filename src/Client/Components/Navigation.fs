@@ -6,7 +6,7 @@ open Models
 
 
 [<ReactComponent>]
-let renderGuess (url: string) : ReactElement =
+let RenderGuess (url: string) : ReactElement =
     Html.nav [
         prop.className "navbar navbar-light"
         prop.children [
@@ -61,7 +61,7 @@ let renderGuess (url: string) : ReactElement =
     ]
 
 [<ReactComponent>]
-let renderLoggedUser (url: string, username: string) : ReactElement =
+let RenderLoggedUser (url: string, username: string) : ReactElement =
     Html.nav [
         prop.className "navbar navbar-light"
         prop.children [
@@ -128,7 +128,7 @@ let renderLoggedUser (url: string, username: string) : ReactElement =
 
 
 [<ReactComponent>]
-let render (url: string, user: ApplicationUser) : ReactElement =
+let RenderNavigation (url: string, user: ApplicationUser) : ReactElement =
     match user with
-    | Anonymous -> renderGuess url
-    | LoggedUser user -> renderLoggedUser (url, user.Username)
+    | Anonymous -> RenderGuess url
+    | LoggedUser user -> RenderLoggedUser (url, user.Username)
