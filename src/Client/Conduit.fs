@@ -1,14 +1,10 @@
 [<RequireQualifiedAccess>]
 module Conduit
 
-open Shared
 open Elmish
 open Feliz.Router
 open Components
-
-type ApplicationUser =
-    | Anonymous
-    | LoggedIn of User
+open Models
 
 [<RequireQualifiedAccess>]
 type Page =
@@ -40,12 +36,6 @@ type Msg =
     | RegisterMsg of PageRegister.Msg
     | UrlChanged of Url
 
-let index (state: State) (dispatch: Msg -> unit) =
-    match state.User with
-    | Anonymous -> PageHome.PageHome
-    | LoggedIn user -> PageLoggedInHome.PageLoggedInHome user
-
-
 let init() =
     let initialUrl = parseUrl (Router.currentUrl())
     let defaultState =
@@ -76,7 +66,7 @@ let update (msg: Msg) (state: State) =
     | LoginMsg loginMsg, Page.Login loginState ->
         match loginMsg with
         | PageLogin.UserLoggedIn user ->
-            { state with User = LoggedIn user }, Cmd.navigate("/")
+            { state with User = LoggedUser user }, Cmd.navigate("/")
 
         | loginMsg ->
             let loginState, loginCmd = PageLogin.update loginMsg loginState
@@ -85,7 +75,7 @@ let update (msg: Msg) (state: State) =
     | RegisterMsg registerMsg, Page.Register registerState ->
         match registerMsg with
         | PageRegister.UserRegister user ->
-            { state with User = LoggedIn user }, Cmd.navigate("/")
+            { state with User = LoggedUser user }, Cmd.navigate("/")
 
         | registerMsg ->
             let registerState, registerCmd = PageRegister.update registerMsg registerState
@@ -112,7 +102,7 @@ let render (state :State) (dispatch: Msg -> Unit) =
         match state.CurrentPage with
         | Page.Login login -> PageLogin.render login (LoginMsg >> dispatch)
         | Page.Register register -> PageRegister.render register (RegisterMsg >> dispatch)
-        | Page.Home -> index state dispatch
+        | Page.Home -> PageHome.render state.User
         | Page.NotFound -> Html.h1 "Not Found"
 
     React.router [

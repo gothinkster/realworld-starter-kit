@@ -2,9 +2,9 @@ module Components.PageRegister
 
 open Feliz
 open Feliz.Router
+open Models
 open Shared
 open Elmish
-open Components.LayoutGuess
 
 type State =
     { Username : string
@@ -69,11 +69,12 @@ let renderRegisterOutcome (registerResult: Deferred<RegisterResult>) =
     | _ ->
         Html.none
 
+open Navigation
 [<ReactComponent>]
 let render  (state: State) (dispatch: Msg -> Unit) =
     Html.div [
         prop.children [
-            LayoutGuess "register"
+            render ("register", ApplicationUser.Anonymous)
             Html.div [
                 prop.className "auth-page"
                 prop.children [

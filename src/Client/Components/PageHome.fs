@@ -1,14 +1,14 @@
 ﻿module Components.PageHome
 
 open Feliz
-
-open Components.LayoutGuess
+open Models
+open Components.Navigation
 [<ReactComponent>]
-let PageHome =
+let render (user: ApplicationUser): ReactElement =
         Html.div [
             prop.className "home-page"
             prop.children [
-                LayoutGuess ""
+                render("", user)
                 Html.div [
                     prop.children [
                         Html.div [

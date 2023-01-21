@@ -4,7 +4,8 @@ open Feliz
 open Feliz.Router
 open Shared
 open Elmish
-open Components.LayoutGuess
+open Components.Navigation
+open Models
 
 type State =
     { Email: string
@@ -69,7 +70,7 @@ let renderLoginOutcome (loginResult: Deferred<LoginResult>) =
 let render (state: State) (dispatch: Msg -> Unit) =
         Html.div [
             prop.children [
-                LayoutGuess "login"
+                render ("login", ApplicationUser.Anonymous)
                 Html.div [
                     prop.className "auth-page"
                     prop.children [
