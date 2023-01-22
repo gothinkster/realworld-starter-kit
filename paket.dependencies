@@ -2,9 +2,11 @@ source https://api.nuget.org/v3/index.json
 framework: net5.0
 storage: none
 
+nuget Dapper
 nuget Fable.Reactstrap
 nuget Fable.Remoting.Giraffe
 nuget Feliz.Router
+nuget Npgsql
 nuget Saturn
 nuget Expecto
 

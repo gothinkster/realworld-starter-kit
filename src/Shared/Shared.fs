@@ -6,6 +6,10 @@ module Route =
     let builder typeName methodName =
         sprintf "/api/%s/%s" typeName methodName
 
+
+type ConduitError (error : string[]) =
+    member this.body = error
+
 type UserLoginDto = {
     email:    string
     password: string
@@ -22,8 +26,12 @@ type UserAuthDto = {
     Image:    string
 }
 
+type LoginResponse =
+    | User of UserAuthDto
+    | Errors of ConduitError
+
 type users = {
-    login: LoginRequest -> Async<UserAuthDto option>
+    login: LoginRequest -> Async<LoginResponse>
 }
 
 type AccessToken = AccessToken of string
