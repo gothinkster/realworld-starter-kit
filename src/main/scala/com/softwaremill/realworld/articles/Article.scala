@@ -1,6 +1,6 @@
 package com.softwaremill.realworld.articles
 
-import java.time.ZonedDateTime
+import java.time.Instant
 
 case class Article(
     slug: String,
@@ -8,8 +8,8 @@ case class Article(
     description: String,
     body: String,
     tagList: List[String],
-    createdAt: ZonedDateTime,
-    updatedAt: ZonedDateTime,
+    createdAt: Instant,
+    updatedAt: Instant,
     favorited: Boolean,
     favoritesCount: Int,
     author: ArticleAuthor
@@ -22,8 +22,8 @@ case class StoredArticle(
     description: String,
     body: String,
     tagList: List[String],
-    createdAt: ZonedDateTime,
-    updatedAt: ZonedDateTime,
+    createdAt: Instant,
+    updatedAt: Instant,
     authorId: Int
 )
 

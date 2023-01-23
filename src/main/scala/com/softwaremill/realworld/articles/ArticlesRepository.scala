@@ -2,7 +2,7 @@ package com.softwaremill.realworld.articles
 
 import zio.{UIO, ZIO, ZLayer}
 
-import java.time.ZonedDateTime
+import java.time.Instant
 
 class ArticlesRepository:
 
@@ -15,8 +15,8 @@ class ArticlesRepository:
       "Represents a dummy article.",
       "Dummy body",
       List("dummy", "article"),
-      ZonedDateTime.parse("2016-02-18T03:22:56.637Z"),
-      ZonedDateTime.now(),
+      Instant.now(),
+      Instant.now(),
       10
     ),
     StoredArticle(
@@ -26,8 +26,8 @@ class ArticlesRepository:
       "Represents a dummy article 2.",
       "Dummy body 2",
       List("dummy", "article", "2"),
-      ZonedDateTime.now(),
-      ZonedDateTime.now(),
+      Instant.now(),
+      Instant.now(),
       10
     )
   )
