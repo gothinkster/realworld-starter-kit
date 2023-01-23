@@ -3,7 +3,7 @@ package com.softwaremill.realworld.articles
 import com.softwaremill.realworld.profiles.ProfilesRepository
 import zio.ZLayer
 
-class ArticlesService(articlesRepository: ArticlesRepository, profilesRepository: ProfilesRepository) {
+class ArticlesService(articlesRepository: ArticlesRepository, profilesRepository: ProfilesRepository):
 
   def list(): Either[String, List[Article]] = {
     val articles: Seq[Option[Article]] = articlesRepository
@@ -36,9 +36,7 @@ class ArticlesService(articlesRepository: ArticlesRepository, profilesRepository
 
     articles.foldRight(Right(List()): Either[String, List[Article]])(reducer)
   }
-}
 
-object ArticlesService {
+object ArticlesService:
 
   val live: ZLayer[ArticlesRepository with ProfilesRepository, Nothing, ArticlesService] = ZLayer.fromFunction(ArticlesService(_, _))
-}

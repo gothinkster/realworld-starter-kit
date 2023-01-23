@@ -20,4 +20,4 @@ jobs:
         run: sbt scalafmtCheckAll
       - name: Test
         id: test
-        run: sbt -v +test
+        run: sbt -v test

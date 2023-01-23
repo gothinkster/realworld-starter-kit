@@ -9,7 +9,7 @@ import sttp.tapir.ztapir.ZServerEndpoint
 import zio.{Exit, ZIO, ZLayer}
 import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder}
 
-object ArticlesEndpoints {
+object ArticlesEndpoints:
 
   given articleAuthorEncoder: zio.json.JsonEncoder[ArticleAuthor] = DeriveJsonEncoder.gen[ArticleAuthor]
   given articleAuthorDecoder: zio.json.JsonDecoder[ArticleAuthor] = DeriveJsonDecoder.gen[ArticleAuthor]
@@ -31,4 +31,3 @@ object ArticlesEndpoints {
   }
 
   val endpoints: List[ZServerEndpoint[Any, Any]] = List(listEndpoint)
-}

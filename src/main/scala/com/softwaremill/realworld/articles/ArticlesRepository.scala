@@ -4,7 +4,7 @@ import zio.ZLayer
 
 import java.time.ZonedDateTime
 
-class ArticlesRepository {
+class ArticlesRepository:
 
   // TODO user proper db or create in-memory thread-safe store
   private val articles: List[StoredArticle] = List(
@@ -33,8 +33,6 @@ class ArticlesRepository {
   )
 
   def list(): List[StoredArticle] = articles
-}
 
-object ArticlesRepository {
+object ArticlesRepository:
   val live: ZLayer[Any, Nothing, ArticlesRepository] = ZLayer.succeed(ArticlesRepository())
-}
