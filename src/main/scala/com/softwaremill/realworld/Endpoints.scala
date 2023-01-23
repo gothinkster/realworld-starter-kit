@@ -1,11 +1,11 @@
-package com.softwaremill
+package com.softwaremill.realworld
 
 import com.softwaremill.realworld.articles.ArticlesEndpoints
 import sttp.tapir.swagger.bundle.SwaggerInterpreter
 import sttp.tapir.ztapir.ZServerEndpoint
 import zio.Task
 
-package object realworld {
+object Endpoints {
 
   private val apiEndpoints: List[ZServerEndpoint[Any, Any]] = ArticlesEndpoints.endpoints
 
