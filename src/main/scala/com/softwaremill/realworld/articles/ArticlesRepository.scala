@@ -1,6 +1,6 @@
 package com.softwaremill.realworld.articles
 
-import zio.ZLayer
+import zio.{UIO, ZIO, ZLayer}
 
 import java.time.ZonedDateTime
 
@@ -32,7 +32,7 @@ class ArticlesRepository:
     )
   )
 
-  def list(): List[StoredArticle] = articles
+  def list(): UIO[List[StoredArticle]] = ZIO.succeed(articles)
 
 object ArticlesRepository:
   val live: ZLayer[Any, Nothing, ArticlesRepository] = ZLayer.succeed(ArticlesRepository())

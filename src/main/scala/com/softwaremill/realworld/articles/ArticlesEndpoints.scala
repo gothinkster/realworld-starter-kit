@@ -6,7 +6,7 @@ import sttp.tapir.generic.auto.*
 import sttp.tapir.json.zio.jsonBody
 import sttp.tapir.server.ServerEndpoint.Full
 import sttp.tapir.ztapir.ZServerEndpoint
-import zio.{Exit, ZIO, ZLayer}
+import zio.{Cause, Exit, ZIO, ZLayer}
 import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder}
 
 object ArticlesEndpoints:
@@ -26,7 +26,8 @@ object ArticlesEndpoints:
   val listEndpoint: ZServerEndpoint[Any, Any] = list.serverLogic { _ =>
     ZIO
       .service[ArticlesService]
-      .map(as => as.list())
+      .flatMap(as => as.list())
+      .foldZIO(fail => ZIO.succeed(Left(fail)), success => ZIO.succeed(Right(success)))
       .provideLayer(ZLayer.make[ArticlesService](ArticlesService.live, ArticlesRepository.live, ProfilesRepository.live))
   }
 
