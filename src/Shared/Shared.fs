@@ -30,6 +30,9 @@ type LoginResponse =
     | User of UserAuthDto
     | Errors of ConduitError
 
+// bawah ini tuh harusnya kyk
+// type ITodosApi =
+//  { getCustomer : int -> Async<Customer option> }
 type users = {
     login: LoginRequest -> Async<LoginResponse>
 }
