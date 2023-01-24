@@ -1,6 +1,7 @@
 package com.softwaremill.realworld
 
 import com.softwaremill.realworld.articles.ArticlesEndpoints
+import com.softwaremill.realworld.db.{DbConfig, DbConnectionPool, DbMigrator}
 import sttp.tapir.server.interceptor.log.DefaultServerLog
 import sttp.tapir.server.ziohttp.{ZioHttpInterpreter, ZioHttpServerOptions}
 import zio.Cause.Die
@@ -20,13 +21,18 @@ object Main extends ZIOAppDefault:
 
     val port = sys.env.get("HTTP_PORT").flatMap(_.toIntOption).getOrElse(8080)
 
-    (
-      for
-        actualPort <- Server.install(app)
-        _ <- Console.printLine(s"Go to http://localhost:${actualPort}/docs to open SwaggerUI. Press ENTER key to exit.")
-        _ <- Console.readLine
-      yield ()
-    ).provide(
-      ServerConfig.live(ServerConfig.default.port(port)),
-      Server.live
-    ).exitCode
+    (for
+      migrator <- ZIO.service[DbMigrator]
+      _ <- migrator.migrate()
+      actualPort <- Server.install(app)
+      _ <- Console.printLine(s"Go to http://localhost:${actualPort}/docs to open SwaggerUI. Press ENTER key to exit.")
+      _ <- Console.readLine
+    yield ())
+      .provide(
+        DbConfig.live,
+        DbConnectionPool.live,
+        DbMigrator.live,
+        ServerConfig.live(ServerConfig.default.port(port)),
+        Server.live
+      )
+      .exitCode
