@@ -1,9 +1,10 @@
 package com.softwaremill.realworld
 
 import com.softwaremill.realworld.articles.ArticlesEndpoints
+import com.softwaremill.realworld.db.{DbConfig, DbConnectionPool, DbContext}
 import sttp.tapir.swagger.bundle.SwaggerInterpreter
 import sttp.tapir.ztapir.ZServerEndpoint
-import zio.Task
+import zio.{Task, ZLayer}
 
 object Endpoints {
 

@@ -10,9 +10,12 @@ lazy val rootProject = (project in file(".")).settings(
       "com.softwaremill.sttp.tapir" %% "tapir-zio-http-server" % tapirVersion,
       "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % tapirVersion,
       "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-bundle" % tapirVersion,
+      // DB
       "org.xerial" % "sqlite-jdbc" % "3.40.0.0",
       "org.flywaydb" % "flyway-core" % "9.12.0",
       "com.zaxxer" % "HikariCP" % "5.0.1",
+      "io.getquill" %% "quill-jdbc-zio" % "4.6.0",
+      // Tests
       "com.softwaremill.sttp.tapir" %% "tapir-sttp-stub-server" % tapirVersion % Test,
       "dev.zio" %% "zio-logging" % "2.1.8",
       "dev.zio" %% "zio-logging-slf4j" % "2.1.8",

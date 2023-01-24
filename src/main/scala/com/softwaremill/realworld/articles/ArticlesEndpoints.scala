@@ -1,6 +1,8 @@
 package com.softwaremill.realworld.articles
 
+import com.softwaremill.realworld.db.DbContext
 import com.softwaremill.realworld.profiles.ProfilesRepository
+import io.getquill.SnakeCase
 import sttp.tapir.PublicEndpoint
 import sttp.tapir.generic.auto.*
 import sttp.tapir.json.zio.jsonBody
@@ -16,7 +18,8 @@ object ArticlesEndpoints:
   given articleEncoder: zio.json.JsonEncoder[Article] = DeriveJsonEncoder.gen[Article]
   given articleDecoder: zio.json.JsonDecoder[Article] = DeriveJsonDecoder.gen[Article]
 
-  private val deps = ZLayer.make[ArticlesService](ArticlesService.live, ArticlesRepository.live, ProfilesRepository.live)
+  val articlesLayer: ZLayer[Any, Nothing, ArticlesService] =
+    DbContext.live >>> (ArticlesRepository.live ++ ProfilesRepository.live) >>> ArticlesService.live
 
   // TODO add filtering
   // TODO add pagination
@@ -30,7 +33,7 @@ object ArticlesEndpoints:
       .service[ArticlesService]
       .flatMap(as => as.list())
       .foldZIO(fail => ZIO.succeed(Left(fail)), success => ZIO.succeed(Right(success)))
-      .provideLayer(deps)
+      .provide(articlesLayer)
   }
 
   private val get: PublicEndpoint[String, String, Article, Any] = endpoint.get
@@ -43,7 +46,7 @@ object ArticlesEndpoints:
       .service[ArticlesService]
       .flatMap(as => as.find(slug))
       .foldZIO(fail => ZIO.succeed(Left(fail)), success => ZIO.succeed(Right(success)))
-      .provideLayer(deps)
+      .provide(articlesLayer)
   }
 
   val endpoints: List[ZServerEndpoint[Any, Any]] = List(listEndpoint, getEndpoint)

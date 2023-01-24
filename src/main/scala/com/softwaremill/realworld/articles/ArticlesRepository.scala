@@ -1,10 +1,13 @@
 package com.softwaremill.realworld.articles
 
+import io.getquill.*
 import zio.{IO, UIO, ZIO, ZLayer}
 
+import java.sql.SQLException
 import java.time.Instant
+import javax.sql.DataSource
 
-class ArticlesRepository:
+class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase]):
 
   // TODO user proper db or create in-memory thread-safe store
   private val articles: List[StoredArticle] = List(
@@ -37,4 +40,4 @@ class ArticlesRepository:
   def find(slug: String): IO[Option[Nothing], StoredArticle] = ZIO.fromOption(articles.find(sa => sa.slug == slug))
 
 object ArticlesRepository:
-  val live: ZLayer[Any, Nothing, ArticlesRepository] = ZLayer.succeed(ArticlesRepository())
+  val live: ZLayer[SqliteZioJdbcContext[SnakeCase], Nothing, ArticlesRepository] = ZLayer.fromFunction(ArticlesRepository(_))

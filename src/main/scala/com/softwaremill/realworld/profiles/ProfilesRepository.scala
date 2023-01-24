@@ -1,8 +1,9 @@
 package com.softwaremill.realworld.profiles
 
+import io.getquill.{SnakeCase, SqliteZioJdbcContext}
 import zio.{IO, UIO, ZIO, ZLayer}
 
-class ProfilesRepository:
+class ProfilesRepository(quill: SqliteZioJdbcContext[SnakeCase]):
 
   // TODO user proper db or create in-memory thread-safe store
   val profiles: Map[Int, StoredProfile] = Map(10 -> StoredProfile(10, "Dummy", "Dummy author", ""))
@@ -11,4 +12,4 @@ class ProfilesRepository:
 
 object ProfilesRepository:
 
-  def live: ZLayer[Any, Nothing, ProfilesRepository] = ZLayer.succeed(ProfilesRepository())
+  def live: ZLayer[SqliteZioJdbcContext[SnakeCase], Nothing, ProfilesRepository] = ZLayer.fromFunction(ProfilesRepository(_))
