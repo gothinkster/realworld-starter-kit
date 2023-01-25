@@ -1,35 +1,29 @@
 package com.softwaremill.realworld
 
-import org.slf4j.LoggerFactory
+import com.softwaremill.realworld.articles.ArticlesEndpoints
 import sttp.tapir.server.interceptor.log.DefaultServerLog
 import sttp.tapir.server.ziohttp.{ZioHttpInterpreter, ZioHttpServerOptions}
+import zio.Cause.Die
+import zio.http.logging.Logger
+import zio.http.service.Logging
 import zio.http.{HttpApp, Server, ServerConfig}
-import zio.{Console, ExitCode, Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault}
+import zio.logging.LogFormat
+import zio.logging.backend.SLF4J
+import zio.{Cause, Console, ExitCode, LogLevel, Runtime, Scope, StackTrace, Task, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 
 object Main extends ZIOAppDefault:
-  val log = LoggerFactory.getLogger(ZioHttpInterpreter.getClass.getName)
+
+  override val bootstrap: ZLayer[ZIOAppArgs, Any, Any] = SLF4J.slf4j(LogFormat.colored)
 
   override def run: ZIO[Any with ZIOAppArgs with Scope, Any, Any] =
-    val serverOptions: ZioHttpServerOptions[Any] =
-      ZioHttpServerOptions.customiseInterceptors
-        .serverLog(
-          DefaultServerLog[Task](
-            doLogWhenReceived = msg => ZIO.succeed(log.debug(msg)),
-            doLogWhenHandled = (msg, error) => ZIO.succeed(error.fold(log.debug(msg))(err => log.debug(msg, err))),
-            doLogAllDecodeFailures = (msg, error) => ZIO.succeed(error.fold(log.debug(msg))(err => log.debug(msg, err))),
-            doLogExceptions = (msg: String, ex: Throwable) => ZIO.succeed(log.debug(msg, ex)),
-            noLog = ZIO.unit
-          )
-        )
-        .options
-    val app: HttpApp[Any, Throwable] = ZioHttpInterpreter(serverOptions).toHttp(Endpoints.all)
+    val app: HttpApp[Any, Throwable] = ZioHttpInterpreter().toHttp(Endpoints.endpoints)
 
     val port = sys.env.get("HTTP_PORT").flatMap(_.toIntOption).getOrElse(8080)
 
     (
       for
         actualPort <- Server.install(app)
-        _ <- Console.printLine(s"Server started at http://localhost:${actualPort}. Press ENTER key to exit.")
+        _ <- Console.printLine(s"Go to http://localhost:${actualPort}/docs to open SwaggerUI. Press ENTER key to exit.")
         _ <- Console.readLine
       yield ()
     ).provide(

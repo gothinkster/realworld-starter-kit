@@ -1,0 +1,23 @@
+name: CI
+on:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v3
+      - name: Setup JDK
+        id: setup-jdk
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: 'sbt'
+      - name: Check formatting
+        id: check-formatting
+        run: sbt scalafmtCheckAll
+      - name: Test
+        id: test
+        run: sbt -v test
