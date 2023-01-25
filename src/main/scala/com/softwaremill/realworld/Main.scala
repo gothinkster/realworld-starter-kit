@@ -4,24 +4,19 @@ import com.softwaremill.realworld.articles.ArticlesEndpoints
 import sttp.tapir.server.interceptor.log.DefaultServerLog
 import sttp.tapir.server.ziohttp.{ZioHttpInterpreter, ZioHttpServerOptions}
 import zio.Cause.Die
+import zio.http.logging.Logger
+import zio.http.service.Logging
 import zio.http.{HttpApp, Server, ServerConfig}
-import zio.{Cause, Console, ExitCode, Scope, StackTrace, Task, ZIO, ZIOAppArgs, ZIOAppDefault}
+import zio.logging.LogFormat
+import zio.logging.backend.SLF4J
+import zio.{Cause, Console, ExitCode, LogLevel, Runtime, Scope, StackTrace, Task, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 
 object Main extends ZIOAppDefault:
+
+  override val bootstrap: ZLayer[ZIOAppArgs, Any, Any] = SLF4J.slf4j(LogFormat.colored)
+
   override def run: ZIO[Any with ZIOAppArgs with Scope, Any, Any] =
-    val serverOptions: ZioHttpServerOptions[Any] =
-      ZioHttpServerOptions.customiseInterceptors
-        .serverLog(
-          DefaultServerLog[Task](
-            doLogWhenReceived = msg => ZIO.debug(msg),
-            doLogWhenHandled = (msg, error) => error.fold(ZIO.debug(msg))(err => ZIO.logErrorCause(msg, Die(err, StackTrace.none))),
-            doLogAllDecodeFailures = (msg, error) => error.fold(ZIO.debug(msg))(err => ZIO.logErrorCause(msg, Die(err, StackTrace.none))),
-            doLogExceptions = (msg: String, ex: Throwable) => ZIO.logErrorCause(msg, Die(ex, StackTrace.none)),
-            noLog = ZIO.unit
-          )
-        )
-        .options
-    val app: HttpApp[Any, Throwable] = ZioHttpInterpreter(serverOptions).toHttp(Endpoints.endpoints)
+    val app: HttpApp[Any, Throwable] = ZioHttpInterpreter().toHttp(Endpoints.endpoints)
 
     val port = sys.env.get("HTTP_PORT").flatMap(_.toIntOption).getOrElse(8080)
 
