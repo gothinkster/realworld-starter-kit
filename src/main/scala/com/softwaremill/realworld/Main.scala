@@ -1,7 +1,7 @@
 package com.softwaremill.realworld
 
 import com.softwaremill.realworld.articles.ArticlesEndpoints
-import com.softwaremill.realworld.db.{DbConfig, DbConnectionPool, DbContext, DbMigrator}
+import com.softwaremill.realworld.db.{DbConfig, DbDataSource, DbContext, DbMigrator}
 import sttp.tapir.server.interceptor.log.DefaultServerLog
 import sttp.tapir.server.ziohttp.{ZioHttpInterpreter, ZioHttpServerOptions}
 import zio.Cause.Die
@@ -17,7 +17,9 @@ object Main extends ZIOAppDefault:
   override val bootstrap: ZLayer[ZIOAppArgs, Any, Any] = SLF4J.slf4j(LogFormat.colored)
 
   override def run: ZIO[Any with ZIOAppArgs with Scope, Any, Any] =
-    val app: HttpApp[Any, Throwable] = ZioHttpInterpreter().toHttp(Endpoints.endpoints)
+    val app: HttpApp[Any, Throwable] = ZioHttpInterpreter()
+      .toHttp(Endpoints.endpoints)
+      .provideLayer(ArticlesEndpoints.articlesLayer)
 
     val port = sys.env.get("HTTP_PORT").flatMap(_.toIntOption).getOrElse(8080)
 

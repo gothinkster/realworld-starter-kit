@@ -3,11 +3,11 @@ package com.softwaremill.realworld.db
 import com.softwaremill.realworld.articles.ArticlesRepository
 import zio.ZLayer
 
-class DbConfig(val jdbcUrl: String) {}
+class DbConfig(val dbPath: String):
 
-object DbConfig {
+  val jdbcUrl = s"jdbc:sqlite:$dbPath"
+
+object DbConfig:
 
   val live: ZLayer[Any, Nothing, DbConfig] =
-    ZLayer.succeed(DbConfig(sys.env.getOrElse("JDBC_URL", "jdbc:sqlite:realworld-prod.sqlite")))
-
-}
+    ZLayer.succeed(DbConfig(sys.env.getOrElse("JDBC_URL", "realworld-prod.sqlite")))

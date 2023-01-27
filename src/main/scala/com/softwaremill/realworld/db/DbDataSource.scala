@@ -7,14 +7,12 @@ import java.sql.Connection
 import javax.sql.DataSource
 import scala.util.Try
 
-object DbConnectionPool {
+object DbDataSource:
 
-  private def create(dbConfig: DbConfig): HikariDataSource = {
+  private def create(dbConfig: DbConfig): DataSource = {
     val poolConfig = new HikariConfig()
     poolConfig.setJdbcUrl(dbConfig.jdbcUrl)
     new HikariDataSource(poolConfig)
   }
 
-  val live: ZLayer[DbConfig, Nothing, HikariDataSource] = ZLayer.fromFunction(create(_))
-
-}
+  val live: ZLayer[DbConfig, Nothing, DataSource] = ZLayer.fromFunction(create(_))

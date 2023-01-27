@@ -1,4 +1,6 @@
 val tapirVersion = "1.2.4"
+val zioLoggingVersion = "2.1.8"
+val zioTestVersion = "2.0.6"
 
 lazy val rootProject = (project in file(".")).settings(
   Seq(
@@ -17,11 +19,11 @@ lazy val rootProject = (project in file(".")).settings(
       "io.getquill" %% "quill-jdbc-zio" % "4.6.0",
       // Tests
       "com.softwaremill.sttp.tapir" %% "tapir-sttp-stub-server" % tapirVersion % Test,
-      "dev.zio" %% "zio-logging" % "2.1.8",
-      "dev.zio" %% "zio-logging-slf4j" % "2.1.8",
+      "dev.zio" %% "zio-logging" % zioLoggingVersion,
+      "dev.zio" %% "zio-logging-slf4j" % zioLoggingVersion,
       "ch.qos.logback" % "logback-classic" % "1.4.5",
-      "dev.zio" %% "zio-test" % "2.0.6" % Test,
-      "dev.zio" %% "zio-test-sbt" % "2.0.6" % Test,
+      "dev.zio" %% "zio-test" % zioTestVersion % Test,
+      "dev.zio" %% "zio-test-sbt" % zioTestVersion % Test,
       "com.softwaremill.sttp.client3" %% "zio-json" % "3.8.8" % Test
     ),
     testFrameworks := Seq(new TestFramework("zio.test.sbt.ZTestFramework"))

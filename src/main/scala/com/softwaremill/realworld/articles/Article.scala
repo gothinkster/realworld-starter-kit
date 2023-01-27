@@ -15,13 +15,11 @@ case class Article(
     author: ArticleAuthor
 )
 
-case class StoredArticle(
-    id: Int,
+case class ArticleRow(
     slug: String,
     title: String,
     description: String,
     body: String,
-    tagList: List[String],
     createdAt: Instant,
     updatedAt: Instant,
     authorId: Int
