@@ -11,6 +11,7 @@ type Page =
     | Home
     | Login of PageLogin.State
     | Register of PageRegister.State
+    | NewArticle of PageNewArticle.State
     | NotFound
 
 [<RequireQualifiedAccess>]
@@ -18,12 +19,14 @@ type Url =
     | Home
     | Login
     | Register
+    | NewArticle
     | NotFound
 
 let parseUrl = function
     | [  ] -> Url.Home
     | [ "login" ] -> Url.Login
-    | [ "register" ] -> Url.Register
+    | [ "register" ] -> Url.NewArticle
+    | [ "editor" ] -> Url.NewArticle
     | _ -> Url.NotFound
 
 type State =
@@ -34,7 +37,9 @@ type State =
 type Msg =
     | LoginMsg of PageLogin.Msg
     | RegisterMsg of PageRegister.Msg
+    | NewArticleMsg of PageNewArticle.Msg
     | UrlChanged of Url
+
 
 let init() =
     let initialUrl = parseUrl (Router.currentUrl())
@@ -56,6 +61,11 @@ let init() =
         let registerState, registerCmd = PageRegister.init()
         let nextPage = Page.Register registerState
         { defaultState with CurrentPage = nextPage }, Cmd.map RegisterMsg registerCmd
+
+    | Url.NewArticle ->
+        let newArticleState, newArticleCmd = PageNewArticle.init()
+        let nextPage = Page.NewArticle newArticleState
+        { defaultState with CurrentPage = nextPage }, Cmd.map NewArticleMsg newArticleCmd
 
     | Url.NotFound ->
         { defaultState with CurrentPage = Page.NotFound }, Cmd.none
@@ -81,6 +91,15 @@ let update (msg: Msg) (state: State) =
             let registerState, registerCmd = PageRegister.update registerMsg registerState
             { state with CurrentPage = Page.Register registerState }, Cmd.map RegisterMsg registerCmd
 
+    | NewArticleMsg newArticleMsg, Page.NewArticle newArticleState -> //TODO: this is just placeholder, need to implement submit new article
+        match newArticleMsg with
+        | PageNewArticle.UserLoggedIn user ->
+            { state with User = LoggedUser user }, Cmd.navigate("/")
+
+        | newArticleMsg ->
+            let newArticleState, newArticleCmd = PageNewArticle.update newArticleMsg newArticleState
+            { state with CurrentPage = Page.NewArticle newArticleState }, Cmd.map NewArticleMsg newArticleCmd
+
     | UrlChanged nextUrl, _ ->
         let show page = { state with CurrentPage = page; CurrentUrl = nextUrl }
         match nextUrl with
@@ -89,9 +108,14 @@ let update (msg: Msg) (state: State) =
         | Url.Login ->
             let login, loginCmd = PageLogin.init()
             show (Page.Login login), Cmd.map LoginMsg loginCmd
+
         | Url.Register ->
             let register, registerCmd = PageRegister.init()
             show (Page.Register register), Cmd.map RegisterMsg registerCmd
+
+        | Url.NewArticle ->
+            let newArticle, newArticleMsg = PageNewArticle.init()
+            show (Page.NewArticle newArticle), Cmd.map NewArticleMsg newArticleMsg
 
     | _, _ ->
         state, Cmd.none
@@ -103,6 +127,7 @@ let RenderConduit (state :State) (dispatch: Msg -> Unit) =
         | Page.Login login -> PageLogin.RenderLoginPage login (LoginMsg >> dispatch)
         | Page.Register register -> PageRegister.RenderRegistrationPage register (RegisterMsg >> dispatch)
         | Page.Home -> PageHome.RenderHome state.User
+        | Page.NewArticle newArticle -> PageNewArticle.RenderLoginPage (newArticle, state.User, (NewArticleMsg >> dispatch))
         | Page.NotFound -> Html.h1 "Not Found"
 
     React.router [
