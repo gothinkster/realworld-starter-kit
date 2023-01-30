@@ -1,7 +1,7 @@
 package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.articles.ArticlesEndpoints.{*, given}
-import com.softwaremill.realworld.db.{DbConfig, DbContext, DbDataSource, DbMigrator}
+import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import com.softwaremill.realworld.utils.DbUtils.*
 import sttp.client3.testing.SttpBackendStub
 import sttp.client3.ziojson.*
@@ -19,7 +19,7 @@ import javax.sql.DataSource
 object ArticlesEndpointsSpec extends ZIOSpecDefault:
 
   val articlesTestLayer: ZLayer[Any, Nothing, ArticlesService with TestDbLayer] =
-    (DbContext.live >>> ArticlesRepository.live >>> ArticlesService.live)
+    (Db.quillLive >>> ArticlesRepository.live >>> ArticlesService.live)
       ++ testDbConfigLayer
 
   def spec = suite("Check articles list and get")(

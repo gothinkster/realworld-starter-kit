@@ -1,7 +1,7 @@
 package com.softwaremill.realworld
 
 import com.softwaremill.realworld.articles.ArticlesEndpoints
-import com.softwaremill.realworld.db.{DbConfig, DbDataSource, DbContext, DbMigrator}
+import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import sttp.tapir.server.interceptor.log.DefaultServerLog
 import sttp.tapir.server.ziohttp.{ZioHttpInterpreter, ZioHttpServerOptions}
 import zio.Cause.Die
@@ -31,7 +31,7 @@ object Main extends ZIOAppDefault:
       _ <- Console.readLine
     yield ())
       .provide(
-        DbMigrator.migratorLayer,
+        (DbConfig.live >>> Db.dataSourceLive >>> DbMigrator.live),
         ServerConfig.live(ServerConfig.default.port(port)),
         Server.live
       )

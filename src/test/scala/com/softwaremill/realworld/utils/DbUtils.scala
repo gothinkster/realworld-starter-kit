@@ -1,6 +1,6 @@
 package com.softwaremill.realworld.utils
 
-import com.softwaremill.realworld.db.{DbConfig, DbDataSource, DbMigrator}
+import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import zio.test.TestRandom
 import zio.{RIO, Random, Task, UIO, ZIO, ZLayer}
 
@@ -56,6 +56,6 @@ object DbUtils:
   private val testDbConfigLive: ZLayer[Any, Nothing, DbConfig] = ZLayer.fromZIO(createTestDbConfig().provide(ZLayer.fromZIO(ZIO.random)))
 
   val testDbConfigLayer: ZLayer[Any, Nothing, TestDbLayer] =
-    (testDbConfigLive >>> DbDataSource.live >>> DbMigrator.live)
-      ++ (testDbConfigLive >>> DbDataSource.live)
+    (testDbConfigLive >>> Db.dataSourceLive >>> DbMigrator.live)
+      ++ (testDbConfigLive >>> Db.dataSourceLive)
       ++ testDbConfigLive

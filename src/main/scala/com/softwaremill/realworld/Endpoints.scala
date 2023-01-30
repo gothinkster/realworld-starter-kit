@@ -1,7 +1,7 @@
 package com.softwaremill.realworld
 
 import com.softwaremill.realworld.articles.ArticlesEndpoints
-import com.softwaremill.realworld.db.{DbConfig, DbDataSource, DbContext}
+import com.softwaremill.realworld.db.DbConfig
 import sttp.tapir.swagger.bundle.SwaggerInterpreter
 import sttp.tapir.ztapir.ZServerEndpoint
 import zio.{Task, ZLayer}

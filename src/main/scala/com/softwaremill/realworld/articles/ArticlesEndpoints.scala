@@ -1,6 +1,6 @@
 package com.softwaremill.realworld.articles
 
-import com.softwaremill.realworld.db.DbContext
+import com.softwaremill.realworld.db.{Db, DbConfig}
 import com.softwaremill.realworld.utils.Exceptions
 import io.getquill.SnakeCase
 import sttp.tapir.PublicEndpoint
@@ -21,7 +21,7 @@ object ArticlesEndpoints:
   given articleDecoder: zio.json.JsonDecoder[Article] = DeriveJsonDecoder.gen[Article]
 
   val articlesLayer: ZLayer[Any, Nothing, ArticlesService with DataSource] =
-    (DbContext.live >>> ArticlesRepository.live >>> ArticlesService.live) ++ DbContext.dbLayer
+    (Db.quillLive >>> ArticlesRepository.live >>> ArticlesService.live) ++ (DbConfig.live >>> Db.dataSourceLive)
 
   // TODO add filtering
   // TODO add pagination

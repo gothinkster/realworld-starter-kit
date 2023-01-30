@@ -10,4 +10,4 @@ class DbConfig(val dbPath: String):
 object DbConfig:
 
   val live: ZLayer[Any, Nothing, DbConfig] =
-    ZLayer.succeed(DbConfig(sys.env.getOrElse("JDBC_URL", "realworld-prod.sqlite")))
+    ZLayer.succeed(DbConfig(sys.env.getOrElse("DB_LOCATION", "realworld-prod.sqlite")))

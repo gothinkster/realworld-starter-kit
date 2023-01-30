@@ -1,6 +1,5 @@
 package com.softwaremill.realworld.db
 
-import com.softwaremill.realworld.utils.Exceptions.DbMigrationFailed
 import io.getquill.SnakeCase
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.api.output.{MigrateErrorResult, MigrateOutput, MigrateResult}
@@ -13,14 +12,12 @@ class DbMigrator(ds: DataSource):
 
   def migrate(): Task[Unit] = {
     ZIO
-      .fromTry(
-        Try(
-          Flyway
-            .configure()
-            .dataSource(ds)
-            .load()
-            .migrate()
-        )
+      .attempt(
+        Flyway
+          .configure()
+          .dataSource(ds)
+          .load()
+          .migrate()
       )
       .flatMap(mr =>
         mr match
@@ -30,7 +27,8 @@ class DbMigrator(ds: DataSource):
       .onError(cause => ZIO.logErrorCause("Database migration has failed", cause))
   }
 
+case class DbMigrationFailed(msg: String, stackTrace: String) extends RuntimeException(s"$msg\n$stackTrace")
+
 object DbMigrator:
 
-  val migratorLayer: ZLayer[Any, Nothing, DbMigrator] = ZLayer.make[DbMigrator](DbMigrator.live, DbDataSource.live, DbConfig.live)
   def live: ZLayer[DataSource, Nothing, DbMigrator] = ZLayer.fromFunction(DbMigrator(_))
