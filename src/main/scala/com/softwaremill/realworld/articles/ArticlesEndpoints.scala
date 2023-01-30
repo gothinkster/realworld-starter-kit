@@ -19,7 +19,7 @@ class ArticlesEndpoints(articlesService: ArticlesService):
 
   // TODO add filtering
   // TODO add pagination
-  val list: ZServerEndpoint[DataSource, Any] = endpoint.get
+  val list: ZServerEndpoint[Any, Any] = endpoint.get
     .in("api" / "articles")
     .out(jsonBody[List[Article]])
     // TODO return proper status codes
@@ -28,11 +28,10 @@ class ArticlesEndpoints(articlesService: ArticlesService):
     .zServerLogic { _ =>
       articlesService
         .list()
-        .logError
         .mapError(_ => "Internal error occurred.")
     }
 
-  val get: ZServerEndpoint[DataSource, Any] = endpoint.get
+  val get: ZServerEndpoint[Any, Any] = endpoint.get
     .in("api" / "articles" / path[String]("slug"))
     .out(jsonBody[Article])
     // TODO return proper status codes
@@ -41,7 +40,6 @@ class ArticlesEndpoints(articlesService: ArticlesService):
     .zServerLogic { slug =>
       articlesService
         .find(slug)
-        .logError
         .mapError {
           case Exceptions.NotFound(msg) => msg
           case _                        => "Internal error occurred."
@@ -49,7 +47,6 @@ class ArticlesEndpoints(articlesService: ArticlesService):
     }
 
   val endpoints: List[ZServerEndpoint[Any, Any]] = List(list, get)
-    .map(_.asInstanceOf[ZServerEndpoint[Any, Any]])
 
 object ArticlesEndpoints:
 

@@ -8,22 +8,26 @@ import java.sql.SQLException
 import java.time.Instant
 import javax.sql.DataSource
 
-class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase]):
+class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSource):
+
+  private val dsLayer: ZLayer[Any, Nothing, DataSource] = ZLayer.succeed(dataSource)
 
   import quill._
-  def list(): ZIO[DataSource, SQLException, List[Article]] = run(
+  def list(): ZIO[Any, SQLException, List[Article]] = run(
     for {
       ar <- querySchema[ArticleRow](entity = "articles")
       pr <- querySchema[ProfileRow](entity = "users") if pr.userId == ar.authorId
     } yield (ar, pr)
   )
     .map(_.map(article))
+    .provide(dsLayer)
 
-  def find(slug: String): ZIO[DataSource, SQLException, Option[Article]] = run(for {
+  def find(slug: String): ZIO[Any, SQLException, Option[Article]] = run(for {
     ar <- querySchema[ArticleRow](entity = "articles") if ar.slug == lift(slug)
     pr <- querySchema[ProfileRow](entity = "users") if pr.userId == ar.authorId
   } yield (ar, pr))
     .map(_.headOption.map(article))
+    .provide(dsLayer)
 
   private def article(tuple: (ArticleRow, ProfileRow)): Article = {
     val (ar, pr) = tuple
@@ -45,4 +49,7 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase]):
   }
 
 object ArticlesRepository:
-  val live: ZLayer[SqliteZioJdbcContext[SnakeCase], Nothing, ArticlesRepository] = ZLayer.fromFunction(ArticlesRepository(_))
+
+  private def create(dbContext: SqliteZioJdbcContext[SnakeCase], ds: DataSource): ArticlesRepository = new ArticlesRepository(dbContext, ds)
+
+  val live: ZLayer[SqliteZioJdbcContext[SnakeCase] with DataSource, Nothing, ArticlesRepository] = ZLayer.fromFunction(create)

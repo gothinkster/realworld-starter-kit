@@ -19,6 +19,4 @@ class Endpoints(articlesEndpoints: ArticlesEndpoints):
 
 object Endpoints:
 
-  private def create(articlesEndpoints: ArticlesEndpoints): Endpoints = new Endpoints(articlesEndpoints)
-
   val live: ZLayer[ArticlesEndpoints, Nothing, Endpoints] = ZLayer.fromFunction(new Endpoints(_))

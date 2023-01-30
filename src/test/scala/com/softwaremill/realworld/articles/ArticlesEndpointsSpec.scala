@@ -27,7 +27,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
             .map(_.list)
             .flatMap { endpoint =>
               val backendStub =
-                TapirStubInterpreter(SttpBackendStub(new RIOMonadError[DataSource]))
+                TapirStubInterpreter(SttpBackendStub(new RIOMonadError[Any]))
                   .whenServerEndpoint(endpoint)
                   .thenRunLogic()
                   .backend()
@@ -46,7 +46,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
             .map(_.get)
             .flatMap { endpoint =>
               val backendStub =
-                TapirStubInterpreter(SttpBackendStub(new RIOMonadError[DataSource]))
+                TapirStubInterpreter(SttpBackendStub(new RIOMonadError[Any]))
                   .whenServerEndpoint(endpoint)
                   .thenRunLogic()
                   .backend()
@@ -68,7 +68,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
             .map(_.list)
             .flatMap { endpoint =>
               val backendStub =
-                TapirStubInterpreter(SttpBackendStub(new RIOMonadError[DataSource]))
+                TapirStubInterpreter(SttpBackendStub(new RIOMonadError[Any]))
                   .whenServerEndpoint(endpoint)
                   .thenRunLogic()
                   .backend()
@@ -119,7 +119,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
             .map(_.get)
             .flatMap { endpoint =>
               val backendStub =
-                TapirStubInterpreter(SttpBackendStub(new RIOMonadError[DataSource]))
+                TapirStubInterpreter(SttpBackendStub(new RIOMonadError[Any]))
                   .whenServerEndpoint(endpoint)
                   .thenRunLogic()
                   .backend()

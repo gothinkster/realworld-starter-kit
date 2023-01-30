@@ -19,11 +19,10 @@ class DbMigrator(ds: DataSource):
           .load()
           .migrate()
       )
-      .flatMap(mr =>
-        mr match
-          case r: MigrateErrorResult => ZIO.fail(DbMigrationFailed(r.error.message, r.error.stackTrace))
-          case _                     => ZIO.succeed(())
-      )
+      .flatMap {
+        case r: MigrateErrorResult => ZIO.fail(DbMigrationFailed(r.error.message, r.error.stackTrace))
+        case _                     => ZIO.succeed(())
+      }
       .onError(cause => ZIO.logErrorCause("Database migration has failed", cause))
   }
 
