@@ -13,42 +13,34 @@ import zio.{Cause, Exit, ZIO, ZLayer}
 
 import javax.sql.DataSource
 
-object ArticlesEndpoints:
+class ArticlesEndpoints(articlesService: ArticlesService):
 
-  given articleAuthorEncoder: zio.json.JsonEncoder[ArticleAuthor] = DeriveJsonEncoder.gen[ArticleAuthor]
-  given articleAuthorDecoder: zio.json.JsonDecoder[ArticleAuthor] = DeriveJsonDecoder.gen[ArticleAuthor]
-  given articleEncoder: zio.json.JsonEncoder[Article] = DeriveJsonEncoder.gen[Article]
-  given articleDecoder: zio.json.JsonDecoder[Article] = DeriveJsonDecoder.gen[Article]
-
-  val articlesLayer: ZLayer[Any, Nothing, ArticlesService with DataSource] =
-    (Db.quillLive >>> ArticlesRepository.live >>> ArticlesService.live) ++ (DbConfig.live >>> Db.dataSourceLive)
+  import ArticlesEndpoints.given
 
   // TODO add filtering
   // TODO add pagination
-  val list: ZServerEndpoint[DataSource with ArticlesService, Any] = endpoint.get
+  val list: ZServerEndpoint[DataSource, Any] = endpoint.get
     .in("api" / "articles")
     .out(jsonBody[List[Article]])
     // TODO return proper status codes
     // TODO format errors as json
     .errorOut(stringBody)
     .zServerLogic { _ =>
-      ZIO
-        .service[ArticlesService]
-        .flatMap(_.list())
+      articlesService
+        .list()
         .logError
         .mapError(_ => "Internal error occurred.")
     }
 
-  val get: ZServerEndpoint[DataSource with ArticlesService, Any] = endpoint.get
+  val get: ZServerEndpoint[DataSource, Any] = endpoint.get
     .in("api" / "articles" / path[String]("slug"))
     .out(jsonBody[Article])
     // TODO return proper status codes
     // TODO format errors as json
     .errorOut(stringBody)
     .zServerLogic { slug =>
-      ZIO
-        .service[ArticlesService]
-        .flatMap(_.find(slug))
+      articlesService
+        .find(slug)
         .logError
         .mapError {
           case Exceptions.NotFound(msg) => msg
@@ -58,3 +50,15 @@ object ArticlesEndpoints:
 
   val endpoints: List[ZServerEndpoint[Any, Any]] = List(list, get)
     .map(_.asInstanceOf[ZServerEndpoint[Any, Any]])
+
+object ArticlesEndpoints:
+
+  given articleAuthorEncoder: zio.json.JsonEncoder[ArticleAuthor] = DeriveJsonEncoder.gen[ArticleAuthor]
+
+  given articleAuthorDecoder: zio.json.JsonDecoder[ArticleAuthor] = DeriveJsonDecoder.gen[ArticleAuthor]
+
+  given articleEncoder: zio.json.JsonEncoder[Article] = DeriveJsonEncoder.gen[Article]
+
+  given articleDecoder: zio.json.JsonDecoder[Article] = DeriveJsonDecoder.gen[Article]
+
+  val live: ZLayer[ArticlesService, Nothing, ArticlesEndpoints] = ZLayer.fromFunction(new ArticlesEndpoints(_))

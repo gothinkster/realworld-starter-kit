@@ -1,6 +1,7 @@
 package com.softwaremill.realworld.utils
 
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
+import io.getquill.{SnakeCase, SqliteZioJdbcContext}
 import zio.test.TestRandom
 import zio.{RIO, Random, Task, UIO, ZIO, ZLayer}
 
@@ -12,7 +13,7 @@ import javax.sql.DataSource
 
 object DbUtils:
 
-  type TestDbLayer = DbConfig with DataSource with DbMigrator
+  type TestDbLayer = DbConfig with DataSource with DbMigrator with SqliteZioJdbcContext[SnakeCase]
 
   def withEmptyDb(): RIO[TestDbLayer, Any] = for {
     migrator <- ZIO.service[DbMigrator]
@@ -56,6 +57,5 @@ object DbUtils:
   private val testDbConfigLive: ZLayer[Any, Nothing, DbConfig] = ZLayer.fromZIO(createTestDbConfig().provide(ZLayer.fromZIO(ZIO.random)))
 
   val testDbConfigLayer: ZLayer[Any, Nothing, TestDbLayer] =
-    (testDbConfigLive >>> Db.dataSourceLive >>> DbMigrator.live)
-      ++ (testDbConfigLive >>> Db.dataSourceLive)
-      ++ testDbConfigLive
+    (testDbConfigLive >+> Db.dataSourceLive >+> DbMigrator.live)
+      ++ Db.quillLive
