@@ -13,20 +13,22 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
   private val dsLayer: ZLayer[Any, Nothing, DataSource] = ZLayer.succeed(dataSource)
 
   import quill._
-  def list(): ZIO[Any, SQLException, List[Article]] = run(
+  def list(): ZIO[Any, Nothing, List[Article]] = run(
     for {
       ar <- querySchema[ArticleRow](entity = "articles")
       pr <- querySchema[ProfileRow](entity = "users") if pr.userId == ar.authorId
     } yield (ar, pr)
   )
     .map(_.map(article))
+    .orDie
     .provide(dsLayer)
 
-  def find(slug: String): ZIO[Any, SQLException, Option[Article]] = run(for {
+  def find(slug: String): ZIO[Any, Nothing, Option[Article]] = run(for {
     ar <- querySchema[ArticleRow](entity = "articles") if ar.slug == lift(slug)
     pr <- querySchema[ProfileRow](entity = "users") if pr.userId == ar.authorId
   } yield (ar, pr))
     .map(_.headOption.map(article))
+    .orDie
     .provide(dsLayer)
 
   private def article(tuple: (ArticleRow, ProfileRow)): Article = {

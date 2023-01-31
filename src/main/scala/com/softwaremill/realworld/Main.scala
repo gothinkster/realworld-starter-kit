@@ -2,7 +2,11 @@ package com.softwaremill.realworld
 
 import com.softwaremill.realworld.articles.{ArticlesEndpoints, ArticlesRepository, ArticlesService}
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
+import com.softwaremill.realworld.utils.Exceptions
+import sttp.model.StatusCode
+import sttp.tapir.server.interceptor.exception.ExceptionHandler
 import sttp.tapir.server.interceptor.log.DefaultServerLog
+import sttp.tapir.server.ziohttp
 import sttp.tapir.server.ziohttp.{ZioHttpInterpreter, ZioHttpServerOptions}
 import zio.Cause.Die
 import zio.http.Server.ErrorCallback
@@ -12,7 +16,7 @@ import zio.http.service.Logging
 import zio.http.{ClientConfig, ClientDriver, Driver, HttpApp, Server, ServerConfig}
 import zio.logging.LogFormat
 import zio.logging.backend.SLF4J
-import zio._
+import zio.*
 
 object Main extends ZIOAppDefault:
 
@@ -21,12 +25,15 @@ object Main extends ZIOAppDefault:
   override def run: ZIO[Any with ZIOAppArgs with Scope, Any, Any] =
 
     val port = sys.env.get("HTTP_PORT").flatMap(_.toIntOption).getOrElse(8080)
+    val options: ZioHttpServerOptions[Any] = ZioHttpServerOptions.customiseInterceptors
+      .exceptionHandler(new GlobalLoggingDefectHandler())
+      .options
 
     (for
       migrator <- ZIO.service[DbMigrator]
       _ <- migrator.migrate()
       endpoints <- ZIO.service[Endpoints]
-      actualPort <- Server.install(ZioHttpInterpreter().toApp(endpoints.endpoints))
+      actualPort <- Server.install(ZioHttpInterpreter(options).toApp(endpoints.endpoints))
       _ <- Console.printLine(s"Go to http://localhost:$actualPort/docs to open SwaggerUI. Press ENTER key to exit.")
       _ <- Console.readLine
     yield ())

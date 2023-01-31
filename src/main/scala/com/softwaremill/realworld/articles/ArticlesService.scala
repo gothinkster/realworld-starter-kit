@@ -9,19 +9,14 @@ import javax.sql.DataSource
 
 class ArticlesService(articlesRepository: ArticlesRepository):
 
-  def list(): ZIO[Any, Exception, List[Article]] = articlesRepository
+  def list(): ZIO[Any, Nothing, List[Article]] = articlesRepository
     .list()
-    .onError(err => ZIO.logError(err.prettyPrint))
 
-  def find(slug: String): ZIO[Any, Exception, Article] = articlesRepository
+  def find(slug: String): ZIO[Any, Nothing, Article] = articlesRepository
     .find(slug)
-    .foldZIO(
-      ex => ZIO.fail(ex),
-      {
-        case Some(value) => ZIO.succeed(value)
-        case None        => ZIO.fail(Exceptions.NotFound(s"Article with slug $slug doesn't exist."))
-      }
-    )
+    .some
+    .mapError(_ => Exceptions.NotFound(s"Article with slug $slug doesn't exist."))
+    .orDie
 
 object ArticlesService:
   val live: ZLayer[ArticlesRepository, Nothing, ArticlesService] = ZLayer.fromFunction(ArticlesService(_))

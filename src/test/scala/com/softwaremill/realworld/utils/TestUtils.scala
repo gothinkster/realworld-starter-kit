@@ -1,7 +1,12 @@
 package com.softwaremill.realworld.utils
 
+import com.softwaremill.realworld.GlobalLoggingDefectHandler
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import io.getquill.{SnakeCase, SqliteZioJdbcContext}
+import sttp.client3.testing.SttpBackendStub
+import sttp.tapir.server.stub.TapirStubInterpreter
+import sttp.tapir.server.ziohttp.ZioHttpServerOptions
+import sttp.tapir.ztapir.RIOMonadError
 import zio.test.TestRandom
 import zio.{RIO, Random, Task, UIO, ZIO, ZLayer}
 
@@ -11,7 +16,13 @@ import scala.io.Source
 import scala.util.{Try, Using}
 import javax.sql.DataSource
 
-object DbUtils:
+object TestUtils:
+
+  def zioTapirStubInterpreter[R] =
+    TapirStubInterpreter(
+      ZioHttpServerOptions.customiseInterceptors.exceptionHandler(new GlobalLoggingDefectHandler()),
+      SttpBackendStub(new RIOMonadError[R])
+    )
 
   type TestDbLayer = DbConfig with DataSource with DbMigrator with SqliteZioJdbcContext[SnakeCase]
 

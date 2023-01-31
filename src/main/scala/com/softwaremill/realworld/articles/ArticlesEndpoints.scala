@@ -22,29 +22,16 @@ class ArticlesEndpoints(articlesService: ArticlesService):
   val list: ZServerEndpoint[Any, Any] = endpoint.get
     .in("api" / "articles")
     .out(jsonBody[List[Article]])
-    // TODO return proper status codes
     // TODO format errors as json
     .errorOut(stringBody)
-    .zServerLogic { _ =>
-      articlesService
-        .list()
-        .mapError(_ => "Internal error occurred.")
-    }
+    .zServerLogic(_ => articlesService.list())
 
   val get: ZServerEndpoint[Any, Any] = endpoint.get
     .in("api" / "articles" / path[String]("slug"))
     .out(jsonBody[Article])
-    // TODO return proper status codes
     // TODO format errors as json
     .errorOut(stringBody)
-    .zServerLogic { slug =>
-      articlesService
-        .find(slug)
-        .mapError {
-          case Exceptions.NotFound(msg) => msg
-          case _                        => "Internal error occurred."
-        }
-    }
+    .zServerLogic(articlesService.find)
 
   val endpoints: List[ZServerEndpoint[Any, Any]] = List(list, get)
 
