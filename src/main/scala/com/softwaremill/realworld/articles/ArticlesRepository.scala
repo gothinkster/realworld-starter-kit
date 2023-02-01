@@ -1,38 +1,56 @@
 package com.softwaremill.realworld.articles
 
-import zio.{UIO, ZIO, ZLayer}
+import com.softwaremill.realworld.profiles.ProfileRow
+import io.getquill.*
+import zio.{IO, UIO, ZIO, ZLayer}
 
+import java.sql.SQLException
 import java.time.Instant
+import javax.sql.DataSource
 
-class ArticlesRepository:
+class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSource):
 
-  // TODO user proper db or create in-memory thread-safe store
-  private val articles: List[StoredArticle] = List(
-    StoredArticle(
-      1,
-      "dummy-article",
-      "Dummy Title",
-      "Represents a dummy article.",
-      "Dummy body",
-      List("dummy", "article"),
-      Instant.now(),
-      Instant.now(),
-      10
-    ),
-    StoredArticle(
-      2,
-      "dummy-article-2",
-      "Dummy Title 2",
-      "Represents a dummy article 2.",
-      "Dummy body 2",
-      List("dummy", "article", "2"),
-      Instant.now(),
-      Instant.now(),
-      10
-    )
+  private val dsLayer: ZLayer[Any, Nothing, DataSource] = ZLayer.succeed(dataSource)
+
+  import quill._
+  def list(): ZIO[Any, Nothing, List[Article]] = run(
+    for {
+      ar <- querySchema[ArticleRow](entity = "articles")
+      pr <- querySchema[ProfileRow](entity = "users") if pr.userId == ar.authorId
+    } yield (ar, pr)
   )
+    .map(_.map(article))
+    .orDie
+    .provide(dsLayer)
 
-  def list(): UIO[List[StoredArticle]] = ZIO.succeed(articles)
+  def find(slug: String): ZIO[Any, Nothing, Option[Article]] = run(for {
+    ar <- querySchema[ArticleRow](entity = "articles") if ar.slug == lift(slug)
+    pr <- querySchema[ProfileRow](entity = "users") if pr.userId == ar.authorId
+  } yield (ar, pr))
+    .map(_.headOption.map(article))
+    .orDie
+    .provide(dsLayer)
+
+  private def article(tuple: (ArticleRow, ProfileRow)): Article = {
+    val (ar, pr) = tuple
+    Article(
+      ar.slug,
+      ar.title,
+      ar.description,
+      ar.body,
+      // TODO implement tagList
+      tagList = List(),
+      ar.createdAt,
+      ar.updatedAt,
+      // TODO implement "favorited", "favoritesCount"
+      favorited = false,
+      favoritesCount = 0,
+      // TODO implement "following"
+      ArticleAuthor(pr.username, pr.bio, pr.image, following = false)
+    )
+  }
 
 object ArticlesRepository:
-  val live: ZLayer[Any, Nothing, ArticlesRepository] = ZLayer.succeed(ArticlesRepository())
+
+  val live: ZLayer[SqliteZioJdbcContext[SnakeCase] with DataSource, Nothing, ArticlesRepository] =
+    ZLayer.fromFunction(new ArticlesRepository(_, _))
