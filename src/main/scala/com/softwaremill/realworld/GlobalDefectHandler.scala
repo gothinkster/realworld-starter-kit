@@ -5,16 +5,17 @@ import sttp.model.StatusCode
 import sttp.monad.MonadError
 import sttp.tapir.server.interceptor.exception.{ExceptionContext, ExceptionHandler}
 import sttp.tapir.server.model.ValuedEndpointOutput
+import sttp.tapir.ztapir.RIOMonadError
 import sttp.tapir.{statusCode, stringBody}
-import zio.{Cause, ZIO}
+import zio.{Cause, RIO, Task, ZIO}
 
-class GlobalLoggingDefectHandler[F[_]] extends ExceptionHandler[F]:
-  override def apply(ctx: ExceptionContext)(implicit monad: MonadError[F]): F[Option[ValuedEndpointOutput[_]]] =
+class GlobalDefectHandler extends ExceptionHandler[Task]:
+
+  override def apply(ctx: ExceptionContext)(implicit monad: MonadError[Task]): Task[Option[ValuedEndpointOutput[_]]] =
     monad.unit({
-      ZIO.logErrorCause(Cause.fail(ctx.e))
       val response = ctx.e match {
-        case Exceptions.NotFound(msg) => (StatusCode.NotFound, msg)
-        case _                        => (StatusCode.InternalServerError, "Internal server error")
+        case Exceptions.NotFound(_) => (StatusCode.NotFound, "Not found")
+        case _                      => (StatusCode.InternalServerError, "Internal server error")
       }
       Some(ValuedEndpointOutput(statusCode.and(stringBody), response))
     })

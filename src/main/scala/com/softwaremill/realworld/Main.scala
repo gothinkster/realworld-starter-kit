@@ -26,7 +26,7 @@ object Main extends ZIOAppDefault:
 
     val port = sys.env.get("HTTP_PORT").flatMap(_.toIntOption).getOrElse(8080)
     val options: ZioHttpServerOptions[Any] = ZioHttpServerOptions.customiseInterceptors
-      .exceptionHandler(new GlobalLoggingDefectHandler())
+      .exceptionHandler(new GlobalDefectHandler())
       .options
 
     (for

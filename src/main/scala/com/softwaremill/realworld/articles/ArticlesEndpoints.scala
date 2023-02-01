@@ -31,7 +31,7 @@ class ArticlesEndpoints(articlesService: ArticlesService):
     .out(jsonBody[Article])
     // TODO format errors as json
     .errorOut(stringBody)
-    .zServerLogic(articlesService.find)
+    .zServerLogic(slug => articlesService.find(slug).orDie)
 
   val endpoints: List[ZServerEndpoint[Any, Any]] = List(list, get)
 

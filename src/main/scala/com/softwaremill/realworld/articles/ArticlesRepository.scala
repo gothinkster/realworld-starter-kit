@@ -52,6 +52,5 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
 
 object ArticlesRepository:
 
-  private def create(dbContext: SqliteZioJdbcContext[SnakeCase], ds: DataSource): ArticlesRepository = new ArticlesRepository(dbContext, ds)
-
-  val live: ZLayer[SqliteZioJdbcContext[SnakeCase] with DataSource, Nothing, ArticlesRepository] = ZLayer.fromFunction(create)
+  val live: ZLayer[SqliteZioJdbcContext[SnakeCase] with DataSource, Nothing, ArticlesRepository] =
+    ZLayer.fromFunction(new ArticlesRepository(_, _))

@@ -27,7 +27,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
             .map(_.list)
             .flatMap { endpoint =>
               val backendStub =
-                zioTapirStubInterpreter[Any]
+                zioTapirStubInterpreter
                   .whenServerEndpoint(endpoint)
                   .thenRunLogic()
                   .backend()
@@ -46,7 +46,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
             .map(_.get)
             .flatMap { endpoint =>
               val backendStub =
-                zioTapirStubInterpreter[Any]
+                zioTapirStubInterpreter
                   .whenServerEndpoint(endpoint)
                   .thenRunLogic()
                   .backend()
@@ -56,7 +56,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                 .send(backendStub)
                 .map(_.body)
             }
-        )(isLeft(equalTo(HttpError("Article with slug unknown-article doesn't exist.", sttp.model.StatusCode(404)))))
+        )(isLeft(equalTo(HttpError("Not found", sttp.model.StatusCode(404)))))
       }
     ) @@ TestAspect.before(withEmptyDb())
       @@ TestAspect.after(clearDb),
@@ -68,7 +68,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
             .map(_.list)
             .flatMap { endpoint =>
               val backendStub =
-                zioTapirStubInterpreter[Any]
+                zioTapirStubInterpreter
                   .whenServerEndpoint(endpoint)
                   .thenRunLogic()
                   .backend()
@@ -119,7 +119,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
             .map(_.get)
             .flatMap { endpoint =>
               val backendStub =
-                zioTapirStubInterpreter[Any]
+                zioTapirStubInterpreter
                   .whenServerEndpoint(endpoint)
                   .thenRunLogic()
                   .backend()

@@ -12,11 +12,12 @@ class ArticlesService(articlesRepository: ArticlesRepository):
   def list(): ZIO[Any, Nothing, List[Article]] = articlesRepository
     .list()
 
-  def find(slug: String): ZIO[Any, Nothing, Article] = articlesRepository
+  def find(slug: String): ZIO[Any, Exceptions.NotFound, Article] = articlesRepository
     .find(slug)
-    .some
-    .mapError(_ => Exceptions.NotFound(s"Article with slug $slug doesn't exist."))
-    .orDie
+    .flatMap {
+      case Some(a) => ZIO.succeed(a)
+      case None    => ZIO.fail(Exceptions.NotFound(s"Article with slug $slug doesn't exist."))
+    }
 
 object ArticlesService:
   val live: ZLayer[ArticlesRepository, Nothing, ArticlesService] = ZLayer.fromFunction(ArticlesService(_))
