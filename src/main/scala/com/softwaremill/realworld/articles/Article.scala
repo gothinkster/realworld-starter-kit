@@ -25,4 +25,6 @@ case class ArticleRow(
     authorId: Int
 )
 
+case class ArticleTagRow(tag: String, articleSlug: String)
+
 case class ArticleAuthor(username: String, bio: String, image: String, following: Boolean)
