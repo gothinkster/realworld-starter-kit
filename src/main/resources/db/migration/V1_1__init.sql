@@ -25,4 +25,13 @@ CREATE TABLE tags_articles
     article_slug TEXT NOT NULL,
     FOREIGN KEY (article_slug) REFERENCES articles (slug) ON UPDATE CASCADE,
     PRIMARY KEY (tag, article_slug)
+);
+
+CREATE TABLE favorites_articles
+(
+    profile_id INTEGER NOT NULL,
+    article_slug TEXT NOT NULL,
+    FOREIGN KEY (article_slug) REFERENCES articles (slug) ON UPDATE CASCADE,
+    FOREIGN KEY (profile_id) REFERENCES users (user_id),
+    PRIMARY KEY (profile_id, article_slug)
 )

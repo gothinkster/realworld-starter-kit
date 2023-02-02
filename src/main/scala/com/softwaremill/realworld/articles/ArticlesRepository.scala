@@ -20,8 +20,11 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
     tr <- querySchema[ArticleTagRow](entity = "tags_articles")
       .groupByMap(_.articleSlug)(atr => (atr.articleSlug, tagsConcat(atr.tag)))
       .leftJoin(a => a._1 == ar.slug)
+    fr <- querySchema[ArticleFavoriteRow](entity = "favorites_articles")
+      .groupByMap(_.articleSlug)(fr => (fr.articleSlug, count(fr.profileId)))
+      .leftJoin(f => f._1 == ar.slug)
     pr <- querySchema[ProfileRow](entity = "users") if ar.authorId == pr.userId
-  } yield (ar, pr, tr.map(_._2)))
+  } yield (ar, pr, tr.map(_._2), fr.map(_._2)))
     .map(_.map(article))
     .orDie
     .provide(dsLayer)
@@ -31,15 +34,18 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
     tr <- querySchema[ArticleTagRow](entity = "tags_articles")
       .groupByMap(_.articleSlug)(atr => (atr.articleSlug, tagsConcat(atr.tag)))
       .leftJoin(a => a._1 == ar.slug)
+    fr <- querySchema[ArticleFavoriteRow](entity = "favorites_articles")
+      .groupByMap(_.articleSlug)(fr => (fr.articleSlug, count(fr.profileId)))
+      .leftJoin(f => f._1 == ar.slug)
     pr <- querySchema[ProfileRow](entity = "users") if ar.authorId == pr.userId
-  } yield (ar, pr, tr.map(_._2)))
+  } yield (ar, pr, tr.map(_._2), fr.map(_._2)))
     .map(_.headOption)
     .map(_.map(article))
     .orDie
     .provide(dsLayer)
 
-  private def article(tuple: (ArticleRow, ProfileRow, Option[String])): Article = {
-    val (ar, pr, tags) = tuple
+  private def article(tuple: (ArticleRow, ProfileRow, Option[String], Option[Int])): Article = {
+    val (ar, pr, tags, favorites) = tuple
     Article(
       ar.slug,
       ar.title,
@@ -48,10 +54,10 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
       tags.map(explodeTags).getOrElse(List()),
       ar.createdAt,
       ar.updatedAt,
-      // TODO implement "favorited", "favoritesCount"
+      // TODO implement "favorited" (after authentication is ready)
       favorited = false,
-      favoritesCount = 0,
-      // TODO implement "following"
+      favorites.getOrElse(0),
+      // TODO implement "following" (after authentication is ready)
       ArticleAuthor(pr.username, pr.bio, pr.image, following = false)
     )
   }

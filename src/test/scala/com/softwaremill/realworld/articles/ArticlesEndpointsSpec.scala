@@ -91,7 +91,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   Instant.ofEpochMilli(1455765776637L),
                   Instant.ofEpochMilli(1455767315824L),
                   false,
-                  0,
+                  2,
                   ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
                 )
               )
@@ -105,7 +105,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   Instant.ofEpochMilli(1455765776637L),
                   Instant.ofEpochMilli(1455767315824L),
                   false,
-                  0,
+                  1,
                   ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
                 )
               )
@@ -155,14 +155,14 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                 Instant.ofEpochMilli(1455765776637L),
                 Instant.ofEpochMilli(1455767315824L),
                 false,
-                0,
+                1,
                 ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
               )
             )
           )
         )
       }
-    ) @@ TestAspect.before(withFixture("fixtures/articles/original-spec-data.sql"))
+    ) @@ TestAspect.before(withFixture("fixtures/articles/basic-data.sql"))
       @@ TestAspect.after(clearDb)
   ).provide(
     ArticlesRepository.live,
