@@ -2,6 +2,8 @@ package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.profiles.ProfileRow
 import Tags.{explodeTags, tagsConcat}
+import com.softwaremill.realworld.articles.ArticlesFilters.{Author, Favorited, Tag}
+import com.softwaremill.realworld.utils.Pagination
 import io.getquill.*
 import zio.{IO, UIO, ZIO, ZLayer}
 
@@ -15,8 +17,12 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
   private val dsLayer: ZLayer[Any, Nothing, DataSource] = ZLayer.succeed(dataSource)
 
   import quill._
-  def list(): ZIO[Any, Nothing, List[Article]] = run(for {
+  // TODO use filters in query
+  def list(filters: Map[ArticlesFilters.Filter, String], pagination: Pagination): ZIO[Any, Nothing, List[Article]] = run(for {
     ar <- querySchema[ArticleRow](entity = "articles")
+      .drop(lift(pagination.offset))
+      .take(lift(pagination.limit))
+      .sortBy(ar => ar.slug)
     tr <- querySchema[ArticleTagRow](entity = "tags_articles")
       .groupByMap(_.articleSlug)(atr => (atr.articleSlug, tagsConcat(atr.tag)))
       .leftJoin(a => a._1 == ar.slug)

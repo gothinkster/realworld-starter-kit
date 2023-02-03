@@ -61,6 +61,43 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
     ) @@ TestAspect.before(withEmptyDb())
       @@ TestAspect.after(clearDb),
     suite("with populated db")(
+      test("check pagination") {
+        assertZIO(
+          ZIO
+            .service[ArticlesEndpoints]
+            .map(_.list)
+            .flatMap { endpoint =>
+              val backendStub =
+                zioTapirStubInterpreter
+                  .whenServerEndpoint(endpoint)
+                  .thenRunLogic()
+                  .backend()
+              basicRequest
+                .get(uri"http://test.com/api/articles?limit=1&offset=1")
+                .response(asJson[List[Article]])
+                .send(backendStub)
+                .map(_.body)
+            }
+        )(
+          isRight(
+            hasSize(equalTo(1))
+              && contains(
+                Article(
+                  "how-to-train-your-dragon-2",
+                  "How to train your dragon 2",
+                  "So toothless",
+                  "Its a dragon",
+                  List("dragons", "training"),
+                  Instant.ofEpochMilli(1455765776637L),
+                  Instant.ofEpochMilli(1455767315824L),
+                  false,
+                  1,
+                  ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                )
+              )
+          )
+        )
+      },
       test("list available articles") {
         assertZIO(
           ZIO
