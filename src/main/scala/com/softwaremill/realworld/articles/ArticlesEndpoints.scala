@@ -17,8 +17,6 @@ class ArticlesEndpoints(articlesService: ArticlesService):
 
   import ArticlesEndpoints.given
 
-  private type OptionalFilter = Option[(ArticlesFilters.Filter, String)]
-
   val list: ZServerEndpoint[Any, Any] = endpoint.get
     .in("api" / "articles")
     .in(

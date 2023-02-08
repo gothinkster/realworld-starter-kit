@@ -1,8 +1,8 @@
 package com.softwaremill.realworld.articles
 
-import com.softwaremill.realworld.profiles.ProfileRow
-import Tags.{explodeTags, tagsConcat}
 import com.softwaremill.realworld.articles.ArticlesFilters.{Author, Favorited, Tag}
+import com.softwaremill.realworld.articles.Tags.{explodeTags, tagsConcat}
+import com.softwaremill.realworld.profiles.ProfileRow
 import com.softwaremill.realworld.utils.Pagination
 import io.getquill.*
 import zio.{IO, UIO, ZIO, ZLayer}
@@ -16,8 +16,8 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
 
   private val dsLayer: ZLayer[Any, Nothing, DataSource] = ZLayer.succeed(dataSource)
 
-  import quill._
-  def list(filters: Map[ArticlesFilters.Filter, String], pagination: Pagination): ZIO[Any, Nothing, List[Article]] = {
+  import quill.*
+  def list(filters: Map[ArticlesFilters, String], pagination: Pagination): ZIO[Any, Nothing, List[Article]] = {
     val tagFilter = filters.getOrElse(Tag, "")
     val favoritedFilter = filters.getOrElse(Favorited, "")
     val authorFilter = filters.getOrElse(Author, "")

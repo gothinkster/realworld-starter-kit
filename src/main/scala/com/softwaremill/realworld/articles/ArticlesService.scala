@@ -9,7 +9,7 @@ import javax.sql.DataSource
 
 class ArticlesService(articlesRepository: ArticlesRepository):
 
-  def list(filters: Map[ArticlesFilters.Filter, String], pagination: Pagination): ZIO[Any, Nothing, List[Article]] = articlesRepository
+  def list(filters: Map[ArticlesFilters, String], pagination: Pagination): ZIO[Any, Nothing, List[Article]] = articlesRepository
     .list(filters, pagination)
 
   def find(slug: String): ZIO[Any, Exceptions.NotFound, Article] = articlesRepository

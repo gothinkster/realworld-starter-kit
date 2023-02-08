@@ -1,7 +1,5 @@
 package com.softwaremill.realworld.articles
 
-object ArticlesFilters extends Enumeration:
+enum ArticlesFilters:
 
-  type Filter = Value
-
-  val Tag, Author, Favorited = Value
+  case Tag, Author, Favorited
