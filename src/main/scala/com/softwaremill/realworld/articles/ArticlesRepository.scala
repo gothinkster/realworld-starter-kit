@@ -17,23 +17,39 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
   private val dsLayer: ZLayer[Any, Nothing, DataSource] = ZLayer.succeed(dataSource)
 
   import quill._
-  // TODO use filters in query
-  def list(filters: Map[ArticlesFilters.Filter, String], pagination: Pagination): ZIO[Any, Nothing, List[Article]] = run(for {
-    ar <- querySchema[ArticleRow](entity = "articles")
-      .drop(lift(pagination.offset))
-      .take(lift(pagination.limit))
-      .sortBy(ar => ar.slug)
-    tr <- querySchema[ArticleTagRow](entity = "tags_articles")
-      .groupByMap(_.articleSlug)(atr => (atr.articleSlug, tagsConcat(atr.tag)))
-      .leftJoin(a => a._1 == ar.slug)
-    fr <- querySchema[ArticleFavoriteRow](entity = "favorites_articles")
-      .groupByMap(_.articleSlug)(fr => (fr.articleSlug, count(fr.profileId)))
-      .leftJoin(f => f._1 == ar.slug)
-    pr <- querySchema[ProfileRow](entity = "users") if ar.authorId == pr.userId
-  } yield (ar, pr, tr.map(_._2), fr.map(_._2)))
-    .map(_.map(article))
-    .orDie
-    .provide(dsLayer)
+  def list(filters: Map[ArticlesFilters.Filter, String], pagination: Pagination): ZIO[Any, Nothing, List[Article]] = {
+    val tagFilter = filters.getOrElse(Tag, "")
+    val favoritedFilter = filters.getOrElse(Favorited, "")
+    val authorFilter = filters.getOrElse(Author, "")
+    run(for {
+      ar <- sql"""
+                     SELECT a.slug, a.title, a.description, a.body, a.created_at, a.updated_at, a.author_id
+                     FROM articles a
+                     LEFT JOIN users authors ON authors.user_id = a.author_id
+                     LEFT JOIN favorites_articles fa ON fa.article_slug = a.slug
+                     LEFT JOIN users fu ON fu.user_id = fa.profile_id
+                     LEFT JOIN tags_articles ta ON a.slug = ta.article_slug
+                     WHERE (${lift(tagFilter)} = '' OR ${lift(tagFilter)} = ta.tag)
+                          AND (${lift(favoritedFilter)} = '' OR ${lift(favoritedFilter)} = fu.username)
+                          AND (${lift(authorFilter)} = '' OR ${lift(authorFilter)} = authors.username)
+                     GROUP BY a.slug, a.title, a.description, a.body, a.created_at, a.updated_at, a.author_id
+                   """
+        .as[Query[ArticleRow]]
+        .drop(lift(pagination.offset))
+        .take(lift(pagination.limit))
+        .sortBy(ar => ar.slug)
+      tr <- querySchema[ArticleTagRow](entity = "tags_articles")
+        .groupByMap(_.articleSlug)(atr => (atr.articleSlug, tagsConcat(atr.tag)))
+        .leftJoin(a => a._1 == ar.slug)
+      fr <- querySchema[ArticleFavoriteRow](entity = "favorites_articles")
+        .groupByMap(_.articleSlug)(fr => (fr.articleSlug, count(fr.profileId)))
+        .leftJoin(f => f._1 == ar.slug)
+      pr <- querySchema[ProfileRow](entity = "users") if ar.authorId == pr.userId
+    } yield (ar, pr, tr.map(_._2), fr.map(_._2)))
+      .map(_.map(article))
+      .orDie
+      .provide(dsLayer)
+  }
 
   def find(slug: String): ZIO[Any, Nothing, Option[Article]] = run(for {
     ar <- querySchema[ArticleRow](entity = "articles") if ar.slug == lift(slug)
