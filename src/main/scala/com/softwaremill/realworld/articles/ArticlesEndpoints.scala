@@ -1,5 +1,6 @@
 package com.softwaremill.realworld.articles
 
+import com.softwaremill.realworld.auth.{AuthService, UserSession}
 import com.softwaremill.realworld.db.{Db, DbConfig}
 import com.softwaremill.realworld.utils.{Exceptions, Pagination}
 import io.getquill.SnakeCase
@@ -13,11 +14,17 @@ import zio.{Cause, Exit, ZIO, ZLayer}
 
 import javax.sql.DataSource
 
-class ArticlesEndpoints(articlesService: ArticlesService):
+class ArticlesEndpoints(articlesService: ArticlesService, authService: AuthService):
 
   import ArticlesEndpoints.given
 
   val list: ZServerEndpoint[Any, Any] = endpoint.get
+    .errorOut(stringBody)
+    .securityIn(header[String]("Authorization"))
+    .zServerSecurityLogic[Any, UserSession](token =>
+      if (token.startsWith("Token ")) authService.getActiveUserSession(token.substring("Token ".length))
+      else ZIO.fail("Invalid token.")
+    )
     .in("api" / "articles")
     .in(
       filterParam("tag", ArticlesFilters.Tag)
@@ -37,16 +44,19 @@ class ArticlesEndpoints(articlesService: ArticlesService):
         .mapTo[Pagination]
     )
     .out(jsonBody[List[Article]])
-    // TODO format errors as json
-    .errorOut(stringBody)
-    .zServerLogic((filters, pagination) => articlesService.list(filters.flatten.toMap, pagination))
+    .serverLogic(session => (filters, pagination) => articlesService.list(filters.flatten.toMap, pagination))
 
   val get: ZServerEndpoint[Any, Any] = endpoint.get
-    .in("api" / "articles" / path[String]("slug"))
-    .out(jsonBody[Article])
     // TODO format errors as json
     .errorOut(stringBody)
-    .zServerLogic(slug => articlesService.find(slug).orDie)
+    .securityIn(header[String]("Authorization"))
+    .zServerSecurityLogic[Any, UserSession](token =>
+      if (token.startsWith("Token ")) authService.getActiveUserSession(token.substring("Token ".length))
+      else ZIO.fail("Invalid token.")
+    )
+    .in("api" / "articles" / path[String]("slug"))
+    .out(jsonBody[Article])
+    .serverLogic(session => slug => articlesService.find(slug).orDie)
 
   val endpoints: List[ZServerEndpoint[Any, Any]] = List(list, get)
 
@@ -68,4 +78,4 @@ object ArticlesEndpoints:
 
   given articleDecoder: zio.json.JsonDecoder[Article] = DeriveJsonDecoder.gen[Article]
 
-  val live: ZLayer[ArticlesService, Nothing, ArticlesEndpoints] = ZLayer.fromFunction(new ArticlesEndpoints(_))
+  val live: ZLayer[ArticlesService with AuthService, Nothing, ArticlesEndpoints] = ZLayer.fromFunction(new ArticlesEndpoints(_, _))

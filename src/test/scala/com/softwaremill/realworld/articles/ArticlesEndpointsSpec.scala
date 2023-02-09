@@ -1,6 +1,7 @@
 package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.articles.ArticlesEndpoints.{*, given}
+import com.softwaremill.realworld.auth.{AuthService, UserSessionRepository}
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import com.softwaremill.realworld.utils.TestUtils.*
 import sttp.client3.testing.SttpBackendStub
@@ -33,6 +34,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   .backend()
               basicRequest
                 .get(uri"http://test.com/api/articles")
+                .headers(Map("Authorization" -> "Token admin-user-token"))
                 .response(asJson[List[Article]])
                 .send(backendStub)
                 .map(_.body)
@@ -52,6 +54,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   .backend()
               basicRequest
                 .get(uri"http://test.com/api/articles/unknown-article")
+                .headers(Map("Authorization" -> "Token admin-user-token"))
                 .response(asJson[Article])
                 .send(backendStub)
                 .map(_.body)
@@ -74,6 +77,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   .backend()
               basicRequest
                 .get(uri"http://test.com/api/articles?limit=1&offset=1")
+                .headers(Map("Authorization" -> "Token admin-user-token"))
                 .response(asJson[List[Article]])
                 .send(backendStub)
                 .map(_.body)
@@ -111,6 +115,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   .backend()
               basicRequest
                 .get(uri"http://test.com/api/articles?author=jake&favorited=john&tag=goats")
+                .headers(Map("Authorization" -> "Token admin-user-token"))
                 .response(asJson[List[Article]])
                 .send(backendStub)
                 .map(_.body)
@@ -148,6 +153,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   .backend()
               basicRequest
                 .get(uri"http://test.com/api/articles")
+                .headers(Map("Authorization" -> "Token admin-user-token"))
                 .response(asJson[List[Article]])
                 .send(backendStub)
                 .map(_.body)
@@ -213,6 +219,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   .backend()
               basicRequest
                 .get(uri"http://test.com/api/articles/how-to-train-your-dragon-2")
+                .headers(Map("Authorization" -> "Token admin-user-token"))
                 .response(asJson[Article])
                 .send(backendStub)
                 .map(_.body)
@@ -242,5 +249,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
     ArticlesRepository.live,
     ArticlesService.live,
     ArticlesEndpoints.live,
+    AuthService.live,
+    UserSessionRepository.live,
     testDbConfigLayer
   )

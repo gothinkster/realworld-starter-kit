@@ -30,11 +30,13 @@ object TestUtils:
   def withEmptyDb(): RIO[TestDbLayer, Any] = for {
     migrator <- ZIO.service[DbMigrator]
     _ <- migrator.migrate()
+    _ <- loadFixture("fixtures/articles/admin.sql")
   } yield ()
 
   def withFixture(fixturePath: String): RIO[TestDbLayer, Any] = for {
     migrator <- ZIO.service[DbMigrator]
     _ <- migrator.migrate()
+    _ <- loadFixture("fixtures/articles/admin.sql")
     _ <- loadFixture(fixturePath)
   } yield ()
 

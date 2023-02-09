@@ -1,6 +1,7 @@
 package com.softwaremill.realworld
 
 import com.softwaremill.realworld.articles.{ArticlesEndpoints, ArticlesRepository, ArticlesService}
+import com.softwaremill.realworld.auth.{AuthService, UserSessionRepository}
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import com.softwaremill.realworld.utils.Exceptions
 import sttp.model.StatusCode
@@ -46,6 +47,8 @@ object Main extends ZIOAppDefault:
         ArticlesEndpoints.live,
         ArticlesService.live,
         ArticlesRepository.live,
+        AuthService.live,
+        UserSessionRepository.live,
         ServerConfig.live(ServerConfig.default.port(port)),
         Server.live
       )
