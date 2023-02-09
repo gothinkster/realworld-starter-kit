@@ -1,6 +1,6 @@
 package com.softwaremill.realworld.utils
 
-import com.softwaremill.realworld.GlobalDefectHandler
+import com.softwaremill.realworld.{CustomDecodeFailureHandler, GlobalDefectHandler}
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import io.getquill.{SnakeCase, SqliteZioJdbcContext}
 import sttp.client3.testing.SttpBackendStub
@@ -18,10 +18,11 @@ import javax.sql.DataSource
 
 object TestUtils:
 
-  val interceptors = ZioHttpServerOptions.customiseInterceptors.exceptionHandler(new GlobalDefectHandler())
   def zioTapirStubInterpreter =
     TapirStubInterpreter(
-      ZioHttpServerOptions.customiseInterceptors.exceptionHandler(new GlobalDefectHandler()),
+      ZioHttpServerOptions.customiseInterceptors
+        .exceptionHandler(new GlobalDefectHandler())
+        .decodeFailureHandler(CustomDecodeFailureHandler.create()),
       SttpBackendStub(new RIOMonadError[Any])
     )
 

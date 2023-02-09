@@ -2,13 +2,14 @@ package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.auth.{AuthService, UserSession}
 import com.softwaremill.realworld.db.{Db, DbConfig}
-import com.softwaremill.realworld.utils.{Exceptions, Pagination}
+import com.softwaremill.realworld.utils.*
 import io.getquill.SnakeCase
-import sttp.tapir.{EndpointInput, PublicEndpoint, Validator}
+import sttp.model.StatusCode
 import sttp.tapir.generic.auto.*
 import sttp.tapir.json.zio.jsonBody
 import sttp.tapir.server.ServerEndpoint.Full
 import sttp.tapir.ztapir.*
+import sttp.tapir.{EndpointInput, PublicEndpoint, Validator}
 import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder}
 import zio.{Cause, Exit, ZIO, ZLayer}
 
@@ -19,11 +20,16 @@ class ArticlesEndpoints(articlesService: ArticlesService, authService: AuthServi
   import ArticlesEndpoints.given
 
   val list: ZServerEndpoint[Any, Any] = endpoint.get
-    .errorOut(stringBody)
+    .errorOut(
+      oneOf[ErrorInfo](
+        oneOfVariant(statusCode(StatusCode.NotFound).and(jsonBody[NotFound])),
+        oneOfVariant(statusCode(StatusCode.Unauthorized).and(jsonBody[Unauthorized]))
+      )
+    )
     .securityIn(header[String]("Authorization"))
     .zServerSecurityLogic[Any, UserSession](token =>
-      if (token.startsWith("Token ")) authService.getActiveUserSession(token.substring("Token ".length))
-      else ZIO.fail("Invalid token.")
+      if (token.startsWith("Token ")) authService.getActiveUserSession(token.substring("Token ".length)).mapError(_ => Unauthorized())
+      else ZIO.fail(Unauthorized())
     )
     .in("api" / "articles")
     .in(
@@ -47,16 +53,20 @@ class ArticlesEndpoints(articlesService: ArticlesService, authService: AuthServi
     .serverLogic(session => (filters, pagination) => articlesService.list(filters.flatten.toMap, pagination))
 
   val get: ZServerEndpoint[Any, Any] = endpoint.get
-    // TODO format errors as json
-    .errorOut(stringBody)
+    .errorOut(
+      oneOf[ErrorInfo](
+        oneOfVariant(statusCode(StatusCode.NotFound).and(jsonBody[NotFound])),
+        oneOfVariant(statusCode(StatusCode.Unauthorized).and(jsonBody[Unauthorized]))
+      )
+    )
     .securityIn(header[String]("Authorization"))
     .zServerSecurityLogic[Any, UserSession](token =>
-      if (token.startsWith("Token ")) authService.getActiveUserSession(token.substring("Token ".length))
-      else ZIO.fail("Invalid token.")
+      if (token.startsWith("Token ")) authService.getActiveUserSession(token.substring("Token ".length)).mapError(_ => Unauthorized())
+      else ZIO.fail(Unauthorized())
     )
     .in("api" / "articles" / path[String]("slug"))
     .out(jsonBody[Article])
-    .serverLogic(session => slug => articlesService.find(slug).orDie)
+    .serverLogic(session => slug => articlesService.find(slug).mapError(_ => NotFound()))
 
   val endpoints: List[ZServerEndpoint[Any, Any]] = List(list, get)
 

@@ -5,6 +5,8 @@ import com.softwaremill.realworld.auth.{AuthService, UserSessionRepository}
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import com.softwaremill.realworld.utils.Exceptions
 import sttp.model.StatusCode
+import sttp.tapir.DecodeResult
+import sttp.tapir.server.interceptor.decodefailure.DefaultDecodeFailureHandler
 import sttp.tapir.server.interceptor.exception.ExceptionHandler
 import sttp.tapir.server.interceptor.log.DefaultServerLog
 import sttp.tapir.server.ziohttp
@@ -28,6 +30,7 @@ object Main extends ZIOAppDefault:
     val port = sys.env.get("HTTP_PORT").flatMap(_.toIntOption).getOrElse(8080)
     val options: ZioHttpServerOptions[Any] = ZioHttpServerOptions.customiseInterceptors
       .exceptionHandler(new GlobalDefectHandler())
+      .decodeFailureHandler(CustomDecodeFailureHandler.create())
       .options
 
     (for
