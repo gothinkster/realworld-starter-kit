@@ -3,7 +3,7 @@ package com.softwaremill.realworld.articles
 import com.softwaremill.realworld.db.{Db, DbConfig}
 import com.softwaremill.realworld.utils.{Exceptions, Pagination}
 import io.getquill.SnakeCase
-import sttp.tapir.{PublicEndpoint, Validator}
+import sttp.tapir.{EndpointInput, PublicEndpoint, Validator}
 import sttp.tapir.generic.auto.*
 import sttp.tapir.json.zio.jsonBody
 import sttp.tapir.server.ServerEndpoint.Full
@@ -20,25 +20,9 @@ class ArticlesEndpoints(articlesService: ArticlesService):
   val list: ZServerEndpoint[Any, Any] = endpoint.get
     .in("api" / "articles")
     .in(
-      query[Option[String]]("tag")
-        .validateOption(Validator.pattern("\\w+"))
-        .validateOption(Validator.nonEmptyString)
-        .validateOption(Validator.maxLength(100))
-        .map(_.map(v => (ArticlesFilters.Tag, v)))(_.map((_, v) => v))
-        .and(
-          query[Option[String]]("author")
-            .validateOption(Validator.pattern("\\w+"))
-            .validateOption(Validator.nonEmptyString)
-            .validateOption(Validator.maxLength(100))
-            .map(_.map(v => (ArticlesFilters.Author, v)))(_.map((_, v) => v))
-        )
-        .and(
-          query[Option[String]]("favorited")
-            .validateOption(Validator.pattern("\\w+"))
-            .validateOption(Validator.nonEmptyString)
-            .validateOption(Validator.maxLength(100))
-            .map(_.map(v => (ArticlesFilters.Favorited, v)))(_.map((_, v) => v))
-        )
+      filterParam("tag", ArticlesFilters.Tag)
+        .and(filterParam("author", ArticlesFilters.Author))
+        .and(filterParam("favorited", ArticlesFilters.Favorited))
         .map((tf, af, ff) => List(tf, af, ff))(m => (m(0), m(1), m(2)))
     )
     .in(
@@ -65,6 +49,14 @@ class ArticlesEndpoints(articlesService: ArticlesService):
     .zServerLogic(slug => articlesService.find(slug).orDie)
 
   val endpoints: List[ZServerEndpoint[Any, Any]] = List(list, get)
+
+  private def filterParam(name: String, key: ArticlesFilters): EndpointInput.Query[Option[(ArticlesFilters, String)]] = {
+    query[Option[String]](name)
+      .validateOption(Validator.pattern("\\w+"))
+      .validateOption(Validator.nonEmptyString)
+      .validateOption(Validator.maxLength(100))
+      .map(_.map(v => (key, v)))(_.map((_, v) => v))
+  }
 
 object ArticlesEndpoints:
 
