@@ -1,6 +1,6 @@
 package com.softwaremill.realworld.utils
 
-import com.softwaremill.realworld.GlobalDefectHandler
+import com.softwaremill.realworld.{CustomDecodeFailureHandler, DefectHandler}
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import io.getquill.{SnakeCase, SqliteZioJdbcContext}
 import sttp.client3.testing.SttpBackendStub
@@ -18,10 +18,11 @@ import javax.sql.DataSource
 
 object TestUtils:
 
-  val interceptors = ZioHttpServerOptions.customiseInterceptors.exceptionHandler(new GlobalDefectHandler())
   def zioTapirStubInterpreter =
     TapirStubInterpreter(
-      ZioHttpServerOptions.customiseInterceptors.exceptionHandler(new GlobalDefectHandler()),
+      ZioHttpServerOptions.customiseInterceptors
+        .exceptionHandler(new DefectHandler())
+        .decodeFailureHandler(CustomDecodeFailureHandler.create()),
       SttpBackendStub(new RIOMonadError[Any])
     )
 
@@ -30,11 +31,13 @@ object TestUtils:
   def withEmptyDb(): RIO[TestDbLayer, Any] = for {
     migrator <- ZIO.service[DbMigrator]
     _ <- migrator.migrate()
+    _ <- loadFixture("fixtures/articles/admin.sql")
   } yield ()
 
   def withFixture(fixturePath: String): RIO[TestDbLayer, Any] = for {
     migrator <- ZIO.service[DbMigrator]
     _ <- migrator.migrate()
+    _ <- loadFixture("fixtures/articles/admin.sql")
     _ <- loadFixture(fixturePath)
   } yield ()
 

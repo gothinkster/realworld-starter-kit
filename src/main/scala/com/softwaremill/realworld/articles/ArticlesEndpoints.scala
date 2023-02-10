@@ -1,23 +1,25 @@
 package com.softwaremill.realworld.articles
 
+import com.softwaremill.realworld.auth.{AuthService, UserSession}
 import com.softwaremill.realworld.db.{Db, DbConfig}
-import com.softwaremill.realworld.utils.{Exceptions, Pagination}
+import com.softwaremill.realworld.utils.*
 import io.getquill.SnakeCase
-import sttp.tapir.{EndpointInput, PublicEndpoint, Validator}
+import sttp.model.StatusCode
 import sttp.tapir.generic.auto.*
 import sttp.tapir.json.zio.jsonBody
 import sttp.tapir.server.ServerEndpoint.Full
 import sttp.tapir.ztapir.*
+import sttp.tapir.{EndpointInput, PublicEndpoint, Validator}
 import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder}
 import zio.{Cause, Exit, ZIO, ZLayer}
 
 import javax.sql.DataSource
 
-class ArticlesEndpoints(articlesService: ArticlesService):
+class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
 
   import ArticlesEndpoints.given
 
-  val list: ZServerEndpoint[Any, Any] = endpoint.get
+  val list: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
     .in("api" / "articles")
     .in(
       filterParam("tag", ArticlesFilters.Tag)
@@ -37,16 +39,20 @@ class ArticlesEndpoints(articlesService: ArticlesService):
         .mapTo[Pagination]
     )
     .out(jsonBody[List[Article]])
-    // TODO format errors as json
-    .errorOut(stringBody)
-    .zServerLogic((filters, pagination) => articlesService.list(filters.flatten.toMap, pagination))
+    .serverLogic(session =>
+      (filters, pagination) => articlesService.list(filters.flatten.toMap, pagination).logError.mapError(_ => InternalServerError())
+    )
 
-  val get: ZServerEndpoint[Any, Any] = endpoint.get
+  val get: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
     .in("api" / "articles" / path[String]("slug"))
     .out(jsonBody[Article])
-    // TODO format errors as json
-    .errorOut(stringBody)
-    .zServerLogic(slug => articlesService.find(slug).orDie)
+    .serverLogic(session =>
+      slug =>
+        articlesService.find(slug).logError.mapError {
+          case _: Exceptions.NotFound => NotFound()
+          case _                      => InternalServerError()
+        }
+    )
 
   val endpoints: List[ZServerEndpoint[Any, Any]] = List(list, get)
 
@@ -68,4 +74,4 @@ object ArticlesEndpoints:
 
   given articleDecoder: zio.json.JsonDecoder[Article] = DeriveJsonDecoder.gen[Article]
 
-  val live: ZLayer[ArticlesService, Nothing, ArticlesEndpoints] = ZLayer.fromFunction(new ArticlesEndpoints(_))
+  val live: ZLayer[ArticlesService with BaseEndpoints, Nothing, ArticlesEndpoints] = ZLayer.fromFunction(new ArticlesEndpoints(_, _))

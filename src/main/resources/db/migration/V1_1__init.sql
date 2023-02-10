@@ -34,4 +34,11 @@ CREATE TABLE favorites_articles
     FOREIGN KEY (article_slug) REFERENCES articles (slug) ON UPDATE CASCADE,
     FOREIGN KEY (profile_id) REFERENCES users (user_id),
     PRIMARY KEY (profile_id, article_slug)
-)
+);
+
+CREATE TABLE users_sessions
+(
+    user_id INTEGER NOT NULL,
+    token TEXT NOT NULL,
+    last_used INTEGER NOT NULL
+);

@@ -1,7 +1,9 @@
 package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.articles.ArticlesEndpoints.{*, given}
+import com.softwaremill.realworld.auth.{AuthService, UserSessionRepository}
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
+import com.softwaremill.realworld.utils.BaseEndpoints
 import com.softwaremill.realworld.utils.TestUtils.*
 import sttp.client3.testing.SttpBackendStub
 import sttp.client3.ziojson.*
@@ -33,6 +35,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   .backend()
               basicRequest
                 .get(uri"http://test.com/api/articles")
+                .headers(Map("Authorization" -> "Token admin-user-token"))
                 .response(asJson[List[Article]])
                 .send(backendStub)
                 .map(_.body)
@@ -52,15 +55,78 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   .backend()
               basicRequest
                 .get(uri"http://test.com/api/articles/unknown-article")
+                .headers(Map("Authorization" -> "Token admin-user-token"))
                 .response(asJson[Article])
                 .send(backendStub)
                 .map(_.body)
             }
-        )(isLeft(equalTo(HttpError("Not found", sttp.model.StatusCode(404)))))
+        )(isLeft(equalTo(HttpError("{\"error\":\"Not found.\"}", sttp.model.StatusCode(404)))))
       }
     ) @@ TestAspect.before(withEmptyDb())
       @@ TestAspect.after(clearDb),
     suite("with populated db")(
+      test("validation failed on filter") {
+        assertZIO(
+          ZIO
+            .service[ArticlesEndpoints]
+            .map(_.list)
+            .flatMap { endpoint =>
+              val backendStub =
+                zioTapirStubInterpreter
+                  .whenServerEndpoint(endpoint)
+                  .thenRunLogic()
+                  .backend()
+              basicRequest
+                .get(
+                  uri"http://test.com/api/articles?tag=invalid-tag"
+                )
+                .headers(Map("Authorization" -> "Token admin-user-token"))
+                .response(asJson[List[Article]])
+                .send(backendStub)
+                .map(_.body)
+            }
+        )(
+          isLeft(
+            equalTo(
+              HttpError(
+                """{"errors":{"tag":["Invalid value for: query parameter tag (expected value to match: \\w+, but got: \"invalid-tag\")"]}}""",
+                sttp.model.StatusCode.UnprocessableEntity
+              )
+            )
+          )
+        )
+      },
+      test("validation failed on pagination") {
+        assertZIO(
+          ZIO
+            .service[ArticlesEndpoints]
+            .map(_.list)
+            .flatMap { endpoint =>
+              val backendStub =
+                zioTapirStubInterpreter
+                  .whenServerEndpoint(endpoint)
+                  .thenRunLogic()
+                  .backend()
+              basicRequest
+                .get(
+                  uri"http://test.com/api/articles?limit=invalid-limit&offset=invalid-offset"
+                )
+                .headers(Map("Authorization" -> "Token admin-user-token"))
+                .response(asJson[List[Article]])
+                .send(backendStub)
+                .map(_.body)
+            }
+        )(
+          isLeft(
+            equalTo(
+              HttpError(
+                "{\"errors\":{\"limit\":[\"Invalid value for: query parameter limit\"]}}",
+                sttp.model.StatusCode.UnprocessableEntity
+              )
+            )
+          )
+        )
+      },
       test("check pagination") {
         assertZIO(
           ZIO
@@ -74,6 +140,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   .backend()
               basicRequest
                 .get(uri"http://test.com/api/articles?limit=1&offset=1")
+                .headers(Map("Authorization" -> "Token admin-user-token"))
                 .response(asJson[List[Article]])
                 .send(backendStub)
                 .map(_.body)
@@ -111,6 +178,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   .backend()
               basicRequest
                 .get(uri"http://test.com/api/articles?author=jake&favorited=john&tag=goats")
+                .headers(Map("Authorization" -> "Token admin-user-token"))
                 .response(asJson[List[Article]])
                 .send(backendStub)
                 .map(_.body)
@@ -148,6 +216,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   .backend()
               basicRequest
                 .get(uri"http://test.com/api/articles")
+                .headers(Map("Authorization" -> "Token admin-user-token"))
                 .response(asJson[List[Article]])
                 .send(backendStub)
                 .map(_.body)
@@ -213,6 +282,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   .backend()
               basicRequest
                 .get(uri"http://test.com/api/articles/how-to-train-your-dragon-2")
+                .headers(Map("Authorization" -> "Token admin-user-token"))
                 .response(asJson[Article])
                 .send(backendStub)
                 .map(_.body)
@@ -242,5 +312,8 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
     ArticlesRepository.live,
     ArticlesService.live,
     ArticlesEndpoints.live,
+    BaseEndpoints.live,
+    AuthService.live,
+    UserSessionRepository.live,
     testDbConfigLayer
   )

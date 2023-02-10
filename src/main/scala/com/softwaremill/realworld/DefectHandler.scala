@@ -9,13 +9,7 @@ import sttp.tapir.ztapir.RIOMonadError
 import sttp.tapir.{statusCode, stringBody}
 import zio.{Cause, RIO, Task, ZIO}
 
-class GlobalDefectHandler extends ExceptionHandler[Task]:
+class DefectHandler extends ExceptionHandler[Task]:
 
   override def apply(ctx: ExceptionContext)(implicit monad: MonadError[Task]): Task[Option[ValuedEndpointOutput[_]]] =
-    monad.unit({
-      val response = ctx.e match {
-        case Exceptions.NotFound(_) => (StatusCode.NotFound, "Not found")
-        case _                      => (StatusCode.InternalServerError, "Internal server error")
-      }
-      Some(ValuedEndpointOutput(statusCode.and(stringBody), response))
-    })
+    monad.unit(Some(ValuedEndpointOutput(statusCode.and(stringBody), (StatusCode.InternalServerError, "Internal server error"))))
