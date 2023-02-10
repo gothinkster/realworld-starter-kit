@@ -15,11 +15,11 @@ import zio.{Cause, Exit, ZIO, ZLayer}
 
 import javax.sql.DataSource
 
-class ArticlesEndpoints(articlesService: ArticlesService, authService: AuthService) extends AbstractEndpoints(authService):
+class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
 
   import ArticlesEndpoints.given
 
-  val list: ZServerEndpoint[Any, Any] = secureEndpoint
+  val list: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
     .in("api" / "articles")
     .in(
       filterParam("tag", ArticlesFilters.Tag)
@@ -43,7 +43,7 @@ class ArticlesEndpoints(articlesService: ArticlesService, authService: AuthServi
       (filters, pagination) => articlesService.list(filters.flatten.toMap, pagination).logError.mapError(_ => InternalServerError())
     )
 
-  val get: ZServerEndpoint[Any, Any] = secureEndpoint
+  val get: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
     .in("api" / "articles" / path[String]("slug"))
     .out(jsonBody[Article])
     .serverLogic(session =>
@@ -74,4 +74,4 @@ object ArticlesEndpoints:
 
   given articleDecoder: zio.json.JsonDecoder[Article] = DeriveJsonDecoder.gen[Article]
 
-  val live: ZLayer[ArticlesService with AuthService, Nothing, ArticlesEndpoints] = ZLayer.fromFunction(new ArticlesEndpoints(_, _))
+  val live: ZLayer[ArticlesService with BaseEndpoints, Nothing, ArticlesEndpoints] = ZLayer.fromFunction(new ArticlesEndpoints(_, _))

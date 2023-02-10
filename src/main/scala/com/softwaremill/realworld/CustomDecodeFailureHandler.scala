@@ -11,6 +11,9 @@ import sttp.tapir.server.model.ValuedEndpointOutput
 import sttp.tapir.{EndpointIO, EndpointInput, headers, statusCode, stringBody}
 import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder}
 
+// Spec requires using invalid field name as a key in object returned in response.
+// Tapir gives us only a message, thus custom handler.
+// Problem mentioned in https://github.com/softwaremill/tapir/issues/2729
 class CustomDecodeFailureHandler(
     defaultHandler: DecodeFailureHandler,
     failureMessage: DecodeFailureContext => String,
@@ -19,13 +22,14 @@ class CustomDecodeFailureHandler(
 
   override def apply(ctx: DecodeFailureContext): Option[ValuedEndpointOutput[_]] = {
     ctx.failingInput match
-      case EndpointInput.Query(name, _, _, _)    => getOutput(name, ctx)
-      case EndpointInput.PathCapture(name, _, _) => getOutput(name.getOrElse("?"), ctx)
-      case _: EndpointIO.Body[_, _]              => getOutput("body", ctx)
-      case _: EndpointIO.StreamBodyWrapper[_, _] => getOutput("body", ctx)
+      case EndpointInput.Query(name, _, _, _)    => getErrorResponseForField(name, ctx)
+      case EndpointInput.PathCapture(name, _, _) => getErrorResponseForField(name.getOrElse("?"), ctx)
+      case _: EndpointIO.Body[_, _]              => getErrorResponseForField("body", ctx)
+      case _: EndpointIO.StreamBodyWrapper[_, _] => getErrorResponseForField("body", ctx)
       case _                                     => defaultHandler(ctx)
   }
-  private def getOutput(name: String, ctx: DecodeFailureContext): Option[ValuedEndpointOutput[_]] = {
+
+  private def getErrorResponseForField(name: String, ctx: DecodeFailureContext): Option[ValuedEndpointOutput[_]] = {
     defaultRespond(ctx) match
       case Some((_, hs)) =>
         val failureMsg = failureMessage(ctx)
