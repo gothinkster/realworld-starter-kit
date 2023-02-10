@@ -61,6 +61,80 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
     ) @@ TestAspect.before(withEmptyDb())
       @@ TestAspect.after(clearDb),
     suite("with populated db")(
+      test("check pagination") {
+        assertZIO(
+          ZIO
+            .service[ArticlesEndpoints]
+            .map(_.list)
+            .flatMap { endpoint =>
+              val backendStub =
+                zioTapirStubInterpreter
+                  .whenServerEndpoint(endpoint)
+                  .thenRunLogic()
+                  .backend()
+              basicRequest
+                .get(uri"http://test.com/api/articles?limit=1&offset=1")
+                .response(asJson[List[Article]])
+                .send(backendStub)
+                .map(_.body)
+            }
+        )(
+          isRight(
+            hasSize(equalTo(1))
+              && contains(
+                Article(
+                  "how-to-train-your-dragon-2",
+                  "How to train your dragon 2",
+                  "So toothless",
+                  "Its a dragon",
+                  List("dragons", "goats", "training"),
+                  Instant.ofEpochMilli(1455765776637L),
+                  Instant.ofEpochMilli(1455767315824L),
+                  false,
+                  1,
+                  ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                )
+              )
+          )
+        )
+      },
+      test("check filters") {
+        assertZIO(
+          ZIO
+            .service[ArticlesEndpoints]
+            .map(_.list)
+            .flatMap { endpoint =>
+              val backendStub =
+                zioTapirStubInterpreter
+                  .whenServerEndpoint(endpoint)
+                  .thenRunLogic()
+                  .backend()
+              basicRequest
+                .get(uri"http://test.com/api/articles?author=jake&favorited=john&tag=goats")
+                .response(asJson[List[Article]])
+                .send(backendStub)
+                .map(_.body)
+            }
+        )(
+          isRight(
+            hasSize(equalTo(1))
+              && contains(
+                Article(
+                  "how-to-train-your-dragon-2",
+                  "How to train your dragon 2",
+                  "So toothless",
+                  "Its a dragon",
+                  List("dragons", "goats", "training"),
+                  Instant.ofEpochMilli(1455765776637L),
+                  Instant.ofEpochMilli(1455767315824L),
+                  false,
+                  1,
+                  ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                )
+              )
+          )
+        )
+      },
       test("list available articles") {
         assertZIO(
           ZIO
@@ -80,18 +154,18 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
             }
         )(
           isRight(
-            hasSize(equalTo(2))
+            hasSize(equalTo(3))
               && contains(
                 Article(
                   "how-to-train-your-dragon",
                   "How to train your dragon",
                   "Ever wonder how?",
                   "It takes a Jacobian",
-                  Nil,
+                  List("dragons", "training"),
                   Instant.ofEpochMilli(1455765776637L),
                   Instant.ofEpochMilli(1455767315824L),
                   false,
-                  0,
+                  2,
                   ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
                 )
               )
@@ -101,12 +175,26 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   "How to train your dragon 2",
                   "So toothless",
                   "Its a dragon",
-                  Nil,
+                  List("dragons", "goats", "training"),
+                  Instant.ofEpochMilli(1455765776637L),
+                  Instant.ofEpochMilli(1455767315824L),
+                  false,
+                  1,
+                  ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                )
+              )
+              && contains(
+                Article(
+                  "how-to-train-your-dragon-3",
+                  "How to train your dragon 3",
+                  "The tagless one",
+                  "Its not a dragon",
+                  List(),
                   Instant.ofEpochMilli(1455765776637L),
                   Instant.ofEpochMilli(1455767315824L),
                   false,
                   0,
-                  ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                  ArticleAuthor("john", "I no longer work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
                 )
               )
           )
@@ -137,18 +225,18 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                 "How to train your dragon 2",
                 "So toothless",
                 "Its a dragon",
-                Nil,
+                List("dragons", "goats", "training"),
                 Instant.ofEpochMilli(1455765776637L),
                 Instant.ofEpochMilli(1455767315824L),
                 false,
-                0,
+                1,
                 ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
               )
             )
           )
         )
       }
-    ) @@ TestAspect.before(withFixture("fixtures/articles/original-spec-data.sql"))
+    ) @@ TestAspect.before(withFixture("fixtures/articles/basic-data.sql"))
       @@ TestAspect.after(clearDb)
   ).provide(
     ArticlesRepository.live,
