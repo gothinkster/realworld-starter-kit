@@ -15,22 +15,11 @@ import zio.{Cause, Exit, ZIO, ZLayer}
 
 import javax.sql.DataSource
 
-class ArticlesEndpoints(articlesService: ArticlesService, authService: AuthService):
+class ArticlesEndpoints(articlesService: ArticlesService, authService: AuthService) extends AbstractEndpoints(authService):
 
   import ArticlesEndpoints.given
 
-  val list: ZServerEndpoint[Any, Any] = endpoint.get
-    .errorOut(
-      oneOf[ErrorInfo](
-        oneOfVariant(statusCode(StatusCode.NotFound).and(jsonBody[NotFound])),
-        oneOfVariant(statusCode(StatusCode.Unauthorized).and(jsonBody[Unauthorized]))
-      )
-    )
-    .securityIn(header[String]("Authorization"))
-    .zServerSecurityLogic[Any, UserSession](token =>
-      if (token.startsWith("Token ")) authService.getActiveUserSession(token.substring("Token ".length)).mapError(_ => Unauthorized())
-      else ZIO.fail(Unauthorized())
-    )
+  val list: ZServerEndpoint[Any, Any] = secureEndpoint
     .in("api" / "articles")
     .in(
       filterParam("tag", ArticlesFilters.Tag)
@@ -52,18 +41,7 @@ class ArticlesEndpoints(articlesService: ArticlesService, authService: AuthServi
     .out(jsonBody[List[Article]])
     .serverLogic(session => (filters, pagination) => articlesService.list(filters.flatten.toMap, pagination))
 
-  val get: ZServerEndpoint[Any, Any] = endpoint.get
-    .errorOut(
-      oneOf[ErrorInfo](
-        oneOfVariant(statusCode(StatusCode.NotFound).and(jsonBody[NotFound])),
-        oneOfVariant(statusCode(StatusCode.Unauthorized).and(jsonBody[Unauthorized]))
-      )
-    )
-    .securityIn(header[String]("Authorization"))
-    .zServerSecurityLogic[Any, UserSession](token =>
-      if (token.startsWith("Token ")) authService.getActiveUserSession(token.substring("Token ".length)).mapError(_ => Unauthorized())
-      else ZIO.fail(Unauthorized())
-    )
+  val get: ZServerEndpoint[Any, Any] = secureEndpoint
     .in("api" / "articles" / path[String]("slug"))
     .out(jsonBody[Article])
     .serverLogic(session => slug => articlesService.find(slug).mapError(_ => NotFound()))
