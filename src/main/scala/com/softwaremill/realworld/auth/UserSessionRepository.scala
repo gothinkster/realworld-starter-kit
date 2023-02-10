@@ -1,19 +1,19 @@
 package com.softwaremill.realworld.auth
 
-import io.getquill.{SnakeCase, SqliteZioJdbcContext}
-import zio.{RIO, UIO, ZLayer}
-
-import javax.sql.DataSource
 import io.getquill.*
+import zio.{IO, RIO, UIO, ZLayer}
+
+import java.sql.SQLException
+import javax.sql.DataSource
 
 class UserSessionRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSource):
 
   private val dsLayer: ZLayer[Any, Nothing, DataSource] = ZLayer.succeed(dataSource)
 
-  import quill._
-  def getUserSession(token: String): UIO[Option[UserSession]] = run(for {
+  import quill.*
+  def getUserSession(token: String): IO[SQLException, Option[UserSession]] = run(for {
     usr <- querySchema[UserSessionRow](entity = "users_sessions") if usr.token == lift(token)
-  } yield UserSession(usr.userId, usr.lastUsed)).orDie
+  } yield UserSession(usr.userId, usr.lastUsed))
     .map(_.headOption)
     .provide(dsLayer)
 

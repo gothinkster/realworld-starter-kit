@@ -17,7 +17,7 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
   private val dsLayer: ZLayer[Any, Nothing, DataSource] = ZLayer.succeed(dataSource)
 
   import quill.*
-  def list(filters: Map[ArticlesFilters, String], pagination: Pagination): ZIO[Any, Nothing, List[Article]] = {
+  def list(filters: Map[ArticlesFilters, String], pagination: Pagination): IO[SQLException, List[Article]] = {
     val tagFilter = filters.getOrElse(Tag, "")
     val favoritedFilter = filters.getOrElse(Favorited, "")
     val authorFilter = filters.getOrElse(Author, "")
@@ -47,11 +47,10 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
       pr <- querySchema[ProfileRow](entity = "users") if ar.authorId == pr.userId
     } yield (ar, pr, tr.map(_._2), fr.map(_._2)))
       .map(_.map(article))
-      .orDie
       .provide(dsLayer)
   }
 
-  def find(slug: String): ZIO[Any, Nothing, Option[Article]] = run(for {
+  def find(slug: String): IO[SQLException, Option[Article]] = run(for {
     ar <- querySchema[ArticleRow](entity = "articles") if ar.slug == lift(slug)
     tr <- querySchema[ArticleTagRow](entity = "tags_articles")
       .groupByMap(_.articleSlug)(atr => (atr.articleSlug, tagsConcat(atr.tag)))
@@ -63,7 +62,6 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
   } yield (ar, pr, tr.map(_._2), fr.map(_._2)))
     .map(_.headOption)
     .map(_.map(article))
-    .orDie
     .provide(dsLayer)
 
   private def article(tuple: (ArticleRow, ProfileRow, Option[String], Option[Int])): Article = {

@@ -8,13 +8,13 @@ import java.time.Duration
 
 class AuthService(repository: UserSessionRepository):
 
-  def getActiveUserSession(token: String): IO[String, UserSession] = (for {
+  def getActiveUserSession(token: String): IO[Exception, UserSession] = (for {
     now <- Clock.instant
     session <- repository.getUserSession(token)
   } yield session.filter(_.lastUsed.plus(maxSessionLifetime).isAfter(now)))
     .flatMap {
       case Some(us) => ZIO.succeed(us)
-      case None     => ZIO.fail("No active session.")
+      case None     => ZIO.fail(Exceptions.NotFound("No active session."))
     }
 
 object AuthService:

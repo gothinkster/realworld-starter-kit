@@ -26,6 +26,9 @@ abstract class AbstractEndpoints(authService: AuthService):
     )
     .securityIn(header[String]("Authorization"))
     .zServerSecurityLogic[Any, UserSession](token =>
-      if (token.startsWith("Token ")) authService.getActiveUserSession(token.substring("Token ".length)).mapError(_ => Unauthorized())
+      if (token.startsWith("Token ")) authService.getActiveUserSession(token.substring("Token ".length)).logError.mapError {
+        case _: Exceptions.NotFound => Unauthorized()
+        case _                      => InternalServerError()
+      }
       else ZIO.fail(Unauthorized())
     )

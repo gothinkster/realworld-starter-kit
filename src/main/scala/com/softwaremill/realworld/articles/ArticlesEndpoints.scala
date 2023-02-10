@@ -39,12 +39,20 @@ class ArticlesEndpoints(articlesService: ArticlesService, authService: AuthServi
         .mapTo[Pagination]
     )
     .out(jsonBody[List[Article]])
-    .serverLogic(session => (filters, pagination) => articlesService.list(filters.flatten.toMap, pagination))
+    .serverLogic(session =>
+      (filters, pagination) => articlesService.list(filters.flatten.toMap, pagination).logError.mapError(_ => InternalServerError())
+    )
 
   val get: ZServerEndpoint[Any, Any] = secureEndpoint
     .in("api" / "articles" / path[String]("slug"))
     .out(jsonBody[Article])
-    .serverLogic(session => slug => articlesService.find(slug).mapError(_ => NotFound()))
+    .serverLogic(session =>
+      slug =>
+        articlesService.find(slug).logError.mapError {
+          case _: Exceptions.NotFound => NotFound()
+          case _                      => InternalServerError()
+        }
+    )
 
   val endpoints: List[ZServerEndpoint[Any, Any]] = List(list, get)
 
