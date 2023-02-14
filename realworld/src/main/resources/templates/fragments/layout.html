@@ -20,24 +20,28 @@
 <body>
 <nav class="navbar navbar-light">
     <div class="container">
-        <a class="navbar-brand" href="index.html">conduit</a>
+        <a class="navbar-brand" href="../pages/index.html" th:href="@{/}">conduit</a>
         <ul class="nav navbar-nav pull-xs-right">
             <li class="nav-item">
                 <!-- Add "active" class when you're on that page" -->
-                <a class="nav-link active" href="../pages/home.html">Home</a>
+                <a class="nav-link active" href="../pages/index.html" th:href="@{/}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../pages/article/article.html"> <i class="ion-compose"></i>&nbsp;New Article
+                <a class="nav-link" href="../pages/article/article.html" th:href="@{/editor}"> <i
+                        class="ion-compose"></i>
+                    &nbsp;New Article
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../pages/user/profile.html"> <i class="ion-gear-a"></i>&nbsp;Settings </a>
+                <a class="nav-link" href="../pages/user/settings.html" th:href="@{/settings}"> <i
+                        class="ion-gear-a"></i>
+                    &nbsp;Settings </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../pages/auth/login.html">Sign in</a>
+                <a class="nav-link" href="../pages/auth/login.html" th:href="@{/login}">Sign in</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../pages/auth/register.html">Sign up</a>
+                <a class="nav-link" href="../pages/auth/register.html" th:href="@{/register}">Sign up</a>
             </li>
         </ul>
     </div>
@@ -47,7 +51,7 @@
 
 <footer>
     <div class="container">
-        <a class="logo-font" href="/static">conduit</a>
+        <a class="logo-font" href="../pages/index.html" th:href="@{/}">conduit</a>
         <span class="attribution">
       An interactive learning project from <a href="https://thinkster.io">Thinkster</a>. Code &amp;
       design licensed under MIT.
