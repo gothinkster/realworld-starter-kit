@@ -1,8 +1,9 @@
 package com.softwaremill.realworld.utils
 
 import com.softwaremill.realworld.articles.{ArticlesEndpoints, ArticlesService}
-import com.softwaremill.realworld.auth.{AuthService, UserSession}
+import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.db.{Db, DbConfig}
+import com.softwaremill.realworld.users.UserSession
 import com.softwaremill.realworld.utils.*
 import com.softwaremill.realworld.utils.BaseEndpoints.{authHeader, defaultErrorOutputs}
 import io.getquill.SnakeCase

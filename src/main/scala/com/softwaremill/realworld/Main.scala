@@ -1,8 +1,9 @@
 package com.softwaremill.realworld
 
 import com.softwaremill.realworld.articles.{ArticlesEndpoints, ArticlesRepository, ArticlesService}
-import com.softwaremill.realworld.auth.{AuthService, UserSessionRepository}
+import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
+import com.softwaremill.realworld.users.{UserSessionRepository, UsersEndpoints, UsersRepository, UsersService}
 import com.softwaremill.realworld.utils.{BaseEndpoints, Exceptions}
 import sttp.model.StatusCode
 import sttp.tapir.DecodeResult
@@ -11,15 +12,15 @@ import sttp.tapir.server.interceptor.exception.ExceptionHandler
 import sttp.tapir.server.interceptor.log.DefaultServerLog
 import sttp.tapir.server.ziohttp
 import sttp.tapir.server.ziohttp.{ZioHttpInterpreter, ZioHttpServerOptions}
+import zio.*
 import zio.Cause.Die
+import zio.http.*
 import zio.http.Server.ErrorCallback
 import zio.http.logging.Logger
 import zio.http.netty.server.NettyDriver
 import zio.http.service.Logging
-import zio.http.{ClientConfig, ClientDriver, Driver, HttpApp, Server, ServerConfig}
 import zio.logging.LogFormat
 import zio.logging.backend.SLF4J
-import zio.*
 
 object Main extends ZIOAppDefault:
 
@@ -50,6 +51,9 @@ object Main extends ZIOAppDefault:
         ArticlesEndpoints.live,
         ArticlesService.live,
         ArticlesRepository.live,
+        UsersEndpoints.live,
+        UsersService.live,
+        UsersRepository.live,
         AuthService.live,
         UserSessionRepository.live,
         BaseEndpoints.live,

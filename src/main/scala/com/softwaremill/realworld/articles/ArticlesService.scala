@@ -16,7 +16,7 @@ class ArticlesService(articlesRepository: ArticlesRepository):
     .find(slug)
     .flatMap {
       case Some(a) => ZIO.succeed(a)
-      case None    => ZIO.fail(Exceptions.NotFound(s"Article with slug $slug doesn't exist."))
+      case None    => ZIO.fail(Exceptions.NotFound(s"Article with provided slug doesn't exist."))
     }
 
 object ArticlesService:

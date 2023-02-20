@@ -28,10 +28,15 @@ object TestUtils:
 
   type TestDbLayer = DbConfig with DataSource with DbMigrator with SqliteZioJdbcContext[SnakeCase]
 
-  def withEmptyDb(): RIO[TestDbLayer, Any] = for {
+  def withAuthDataAndEmptyDb(): RIO[TestDbLayer, Any] = for {
     migrator <- ZIO.service[DbMigrator]
     _ <- migrator.migrate()
     _ <- loadFixture("fixtures/articles/admin.sql")
+  } yield ()
+
+  def withEmptyDb(): RIO[TestDbLayer, Any] = for {
+    migrator <- ZIO.service[DbMigrator]
+    _ <- migrator.migrate()
   } yield ()
 
   def withFixture(fixturePath: String): RIO[TestDbLayer, Any] = for {

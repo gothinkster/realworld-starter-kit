@@ -1,4 +1,4 @@
-package com.softwaremill.realworld.auth
+package com.softwaremill.realworld.users
 
 import io.getquill.*
 import zio.{IO, RIO, UIO, ZLayer}
