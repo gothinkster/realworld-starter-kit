@@ -79,7 +79,7 @@ object UsersEndpointsSpec extends ZIOSpecDefault:
         )
       }
     ) @@ TestAspect.before(withAuthData())
-      @@ TestAspect.after(clearDb),
+      @@ TestAspect.after(clearDb)
   ).provide(
     UsersRepository.live,
     UsersService.live,

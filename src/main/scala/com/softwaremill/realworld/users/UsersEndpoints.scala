@@ -27,7 +27,7 @@ class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
       Authorization =>
         usersService.find(Authorization).logError.mapError {
           case _: Exceptions.NotFound => NotFound()
-          case _ => InternalServerError()
+          case _                      => InternalServerError()
         }
     )
 
