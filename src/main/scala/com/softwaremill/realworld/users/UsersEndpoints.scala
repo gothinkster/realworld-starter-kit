@@ -1,6 +1,5 @@
 package com.softwaremill.realworld.users
 
-import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.db.{Db, DbConfig}
 import com.softwaremill.realworld.utils.*
 import io.getquill.SnakeCase
@@ -21,11 +20,10 @@ class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
 
   val get: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
     .in("api" / "user")
-    .in(header[String]("Authorization"))
     .out(jsonBody[User])
     .serverLogic(session =>
-      Authorization =>
-        usersService.find(Authorization).logError.mapError {
+      _ =>
+        usersService.findById(session.id).logError.mapError {
           case _: Exceptions.NotFound => NotFound()
           case _ => InternalServerError()
         }

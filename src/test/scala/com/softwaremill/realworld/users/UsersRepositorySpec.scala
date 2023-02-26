@@ -23,7 +23,7 @@ object UsersRepositorySpec extends ZIOSpecDefault:
       test("check user found") {
         for {
           repo <- ZIO.service[UsersRepository]
-          v <- repo.find("admin-user-token")
+          v <- repo.findById(1)
         } yield zio.test.assert(v)(
           Assertion.equalTo(
             Option(
@@ -44,7 +44,7 @@ object UsersRepositorySpec extends ZIOSpecDefault:
       test("check user not found") {
         for {
           repo <- ZIO.service[UsersRepository]
-          v <- repo.find("admin-user-token")
+          v <- repo.findById(1)
         } yield zio.test.assert(v)(
           Assertion.equalTo(
             Option.empty

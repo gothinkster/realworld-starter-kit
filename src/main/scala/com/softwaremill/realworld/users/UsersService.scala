@@ -9,8 +9,8 @@ import javax.sql.DataSource
 
 class UsersService(usersRepository: UsersRepository):
 
-  def find(token: String): IO[Exception, User] = usersRepository
-    .find(token.substring("Token ".length)) // TODO to be changed when JWT is implemented
+  def findById(id: Int): IO[Exception, User] = usersRepository
+    .findById(id) // TODO to be changed when JWT is implemented
     .flatMap {
       case Some(a) => ZIO.succeed(a)
       case None    => ZIO.fail(Exceptions.NotFound(s"User with provided token doesn't exist."))

@@ -13,9 +13,9 @@ class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSo
 
   import quill.*
 
-  def find(token: String): IO[Exception, Option[User]] = run(for {
-    usr <- querySchema[UserSessionRow](entity = "users_sessions") if usr.token == lift(token)
-    ur <- querySchema[UserRow](entity = "users") if ur.userId == usr.userId
+  def findById(id: Int): IO[Exception, Option[User]] = run(for {
+    usr <- querySchema[UserSessionRow](entity = "users_sessions") if usr.userId == lift(id)
+    ur <- querySchema[UserRow](entity = "users") if ur.userId == lift(id)
   } yield (ur, usr.token))
     .map(_.headOption)
     .map(_.map(user))
