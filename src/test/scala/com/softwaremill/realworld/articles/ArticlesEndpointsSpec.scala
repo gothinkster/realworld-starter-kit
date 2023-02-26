@@ -150,19 +150,19 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
           isRight(
             hasSize(equalTo(1))
               && contains(
-              Article(
-                "how-to-train-your-dragon-2",
-                "How to train your dragon 2",
-                "So toothless",
-                "Its a dragon",
-                List("dragons", "goats", "training"),
-                Instant.ofEpochMilli(1455765776637L),
-                Instant.ofEpochMilli(1455767315824L),
-                false,
-                1,
-                ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                Article(
+                  "how-to-train-your-dragon-2",
+                  "How to train your dragon 2",
+                  "So toothless",
+                  "Its a dragon",
+                  List("dragons", "goats", "training"),
+                  Instant.ofEpochMilli(1455765776637L),
+                  Instant.ofEpochMilli(1455767315824L),
+                  false,
+                  1,
+                  ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                )
               )
-            )
           )
         )
       },
@@ -188,19 +188,19 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
           isRight(
             hasSize(equalTo(1))
               && contains(
-              Article(
-                "how-to-train-your-dragon-2",
-                "How to train your dragon 2",
-                "So toothless",
-                "Its a dragon",
-                List("dragons", "goats", "training"),
-                Instant.ofEpochMilli(1455765776637L),
-                Instant.ofEpochMilli(1455767315824L),
-                false,
-                1,
-                ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                Article(
+                  "how-to-train-your-dragon-2",
+                  "How to train your dragon 2",
+                  "So toothless",
+                  "Its a dragon",
+                  List("dragons", "goats", "training"),
+                  Instant.ofEpochMilli(1455765776637L),
+                  Instant.ofEpochMilli(1455767315824L),
+                  false,
+                  1,
+                  ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                )
               )
-            )
           )
         )
       },
@@ -226,47 +226,47 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
           isRight(
             hasSize(equalTo(3))
               && contains(
-              Article(
-                "how-to-train-your-dragon",
-                "How to train your dragon",
-                "Ever wonder how?",
-                "It takes a Jacobian",
-                List("dragons", "training"),
-                Instant.ofEpochMilli(1455765776637L),
-                Instant.ofEpochMilli(1455767315824L),
-                false,
-                2,
-                ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                Article(
+                  "how-to-train-your-dragon",
+                  "How to train your dragon",
+                  "Ever wonder how?",
+                  "It takes a Jacobian",
+                  List("dragons", "training"),
+                  Instant.ofEpochMilli(1455765776637L),
+                  Instant.ofEpochMilli(1455767315824L),
+                  false,
+                  2,
+                  ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                )
               )
-            )
               && contains(
-              Article(
-                "how-to-train-your-dragon-2",
-                "How to train your dragon 2",
-                "So toothless",
-                "Its a dragon",
-                List("dragons", "goats", "training"),
-                Instant.ofEpochMilli(1455765776637L),
-                Instant.ofEpochMilli(1455767315824L),
-                false,
-                1,
-                ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                Article(
+                  "how-to-train-your-dragon-2",
+                  "How to train your dragon 2",
+                  "So toothless",
+                  "Its a dragon",
+                  List("dragons", "goats", "training"),
+                  Instant.ofEpochMilli(1455765776637L),
+                  Instant.ofEpochMilli(1455767315824L),
+                  false,
+                  1,
+                  ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                )
               )
-            )
               && contains(
-              Article(
-                "how-to-train-your-dragon-3",
-                "How to train your dragon 3",
-                "The tagless one",
-                "Its not a dragon",
-                List(),
-                Instant.ofEpochMilli(1455765776637L),
-                Instant.ofEpochMilli(1455767315824L),
-                false,
-                0,
-                ArticleAuthor("john", "I no longer work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                Article(
+                  "how-to-train-your-dragon-3",
+                  "How to train your dragon 3",
+                  "The tagless one",
+                  "Its not a dragon",
+                  List(),
+                  Instant.ofEpochMilli(1455765776637L),
+                  Instant.ofEpochMilli(1455767315824L),
+                  false,
+                  0,
+                  ArticleAuthor("john", "I no longer work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                )
               )
-            )
           )
         )
       },

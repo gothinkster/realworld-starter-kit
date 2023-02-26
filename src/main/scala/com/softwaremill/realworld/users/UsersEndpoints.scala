@@ -25,7 +25,7 @@ class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
       _ =>
         usersService.findById(session.id).logError.mapError {
           case _: Exceptions.NotFound => NotFound()
-          case _ => InternalServerError()
+          case _                      => InternalServerError()
         }
     )
 
