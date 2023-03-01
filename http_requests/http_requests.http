@@ -30,3 +30,16 @@ Accept: application/json
 Authorization: Token admin-user-token
 
 ###
+
+POST http://localhost:8080/api/users
+Accept: application/json
+
+{
+  "user":{
+    "username": "Test",
+    "email": "test@test.test",
+    "password": "tested"
+  }
+}
+
+###

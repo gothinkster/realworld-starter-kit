@@ -12,7 +12,7 @@ import sttp.tapir.generic.auto.*
 import sttp.tapir.json.zio.jsonBody
 import sttp.tapir.server.ServerEndpoint.Full
 import sttp.tapir.ztapir.*
-import sttp.tapir.{EndpointIO, EndpointInput, EndpointOutput, PublicEndpoint, Validator}
+import sttp.tapir.{Endpoint, EndpointIO, EndpointInput, EndpointOutput, PublicEndpoint, Validator}
 import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder}
 import zio.{Cause, Exit, IO, ZIO, ZLayer}
 
@@ -22,6 +22,9 @@ class BaseEndpoints(authService: AuthService):
     .errorOut(defaultErrorOutputs)
     .securityIn(authHeader)
     .zServerSecurityLogic[Any, UserSession](handleAuth)
+
+  val publicEndpoint: PublicEndpoint[Unit, ErrorInfo, Unit, Any] = endpoint
+    .errorOut(defaultErrorOutputs)
 
   private def handleAuth(token: String): IO[ErrorInfo, UserSession] = {
     if (token.startsWith("Token ")) authService.getActiveUserSession(token.substring("Token ".length)).logError.mapError {

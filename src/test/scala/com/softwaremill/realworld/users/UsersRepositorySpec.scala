@@ -17,7 +17,7 @@ import java.time.{Instant, ZonedDateTime}
 import javax.sql.DataSource
 
 object UsersRepositorySpec extends ZIOSpecDefault:
-
+  // TODO add user add tests
   def spec = suite("Check user repository features")(
     suite("with auth data only")(
       test("check user found") {
@@ -28,11 +28,13 @@ object UsersRepositorySpec extends ZIOSpecDefault:
           Assertion.equalTo(
             Option(
               User(
-                "admin@example.com",
-                "admin-user-token",
-                "admin",
-                "I dont work",
-                ""
+                UserData(
+                  "admin@example.com",
+                  "admin-user-token",
+                  "admin",
+                  "I dont work",
+                  ""
+                )
               )
             )
           )

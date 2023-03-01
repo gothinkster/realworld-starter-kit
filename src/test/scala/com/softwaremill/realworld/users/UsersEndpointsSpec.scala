@@ -20,7 +20,7 @@ import java.time.{Instant, ZonedDateTime}
 import javax.sql.DataSource
 
 object UsersEndpointsSpec extends ZIOSpecDefault:
-
+// TODO add user registration tests
   def spec = suite("Check users get")(
     suite("with empty db")(
       test("return unauthorized error") {
@@ -68,11 +68,13 @@ object UsersEndpointsSpec extends ZIOSpecDefault:
           isRight(
             equalTo(
               User(
-                "admin@example.com",
-                "admin-user-token",
-                "admin",
-                "I dont work",
-                ""
+                UserData(
+                  "admin@example.com",
+                  "admin-user-token",
+                  "admin",
+                  "I dont work",
+                  ""
+                )
               )
             )
           )
