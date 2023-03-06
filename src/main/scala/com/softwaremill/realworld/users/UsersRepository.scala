@@ -38,8 +38,7 @@ class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSo
           _.bio -> lift(user.password) // TODO it must be changed from bio which is just an example to the encoded password column later
         )
     )
-  )
-    .unit
+  ).unit
     .provide(dsLayer)
 
   private def user(tuple: (UserRow, String)): UserData = {
