@@ -19,7 +19,7 @@ class UsersService(usersRepository: UsersRepository):
     }
 
   def registerNewUser(user: UserRegisterData): IO[Exception, User] = {
-    val emailClean = user.email.trim()
+    val emailClean = user.email.toLowerCase.trim()
     val usernameClean = user.username.trim()
     val passwordClean = user.password.trim()
 

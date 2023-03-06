@@ -31,7 +31,7 @@ class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSo
 
   def add(user: UserRegisterData): IO[Exception, UserData] = run(
     quote(
-      query[UserRow]
+      querySchema[UserRow](entity = "users")
         .insertValue(
           lift(
             UserRow(
@@ -45,7 +45,8 @@ class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSo
         )
         .returningGenerated(_.userId)
     )
-  ).flatMap(findById)
+  )
+    .flatMap(findById)
     .flatMap {
       case Some(user) => ZIO.succeed(user)
       case _          => ZIO.fail(Exceptions.Conflict(s"Could not create user account."))

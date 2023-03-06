@@ -23,17 +23,21 @@ class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
     .out(jsonBody[User])
     .serverLogic(session =>
       _ =>
-        usersService.findById(session.id).logError.mapError {
-          case _: Exceptions.NotFound => NotFound()
-          case _                      => InternalServerError()
-        }.map(User.apply)
+        usersService
+          .findById(session.id)
+          .logError
+          .mapError {
+            case _: Exceptions.NotFound => NotFound()
+            case _                      => InternalServerError()
+          }
+          .map(User.apply)
     )
 
   val post: ZServerEndpoint[Any, Any] = base.publicEndpoint.post
     .in("api" / "users")
     .in(jsonBody[UserRegister])
     .out(jsonBody[User])
-    .serverLogic(data =>
+    .zServerLogic(data =>
       usersService
         .registerNewUser(data.user)
         .logError
@@ -41,7 +45,6 @@ class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
           case _: Exceptions.Conflict => Conflict()
           case _                      => InternalServerError()
         }
-        .either
     )
 
   val endpoints: List[ZServerEndpoint[Any, Any]] = List(get, post)
