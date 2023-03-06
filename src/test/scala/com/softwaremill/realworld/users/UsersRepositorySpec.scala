@@ -27,14 +27,12 @@ object UsersRepositorySpec extends ZIOSpecDefault:
         } yield zio.test.assert(v)(
           Assertion.equalTo(
             Option(
-              User(
-                UserData(
-                  "admin@example.com",
-                  "admin-user-token",
-                  "admin",
-                  Some("I dont work"),
-                  Some("")
-                )
+              UserData(
+                "admin@example.com",
+                "admin-user-token",
+                "admin",
+                Some("I dont work"),
+                Some("")
               )
             )
           )
