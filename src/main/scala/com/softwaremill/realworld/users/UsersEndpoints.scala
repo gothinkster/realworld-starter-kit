@@ -10,7 +10,7 @@ import sttp.tapir.server.ServerEndpoint.Full
 import sttp.tapir.ztapir.*
 import sttp.tapir.{EndpointInput, PublicEndpoint, Validator}
 import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder}
-import zio.{Cause, Exit, ZIO, ZLayer}
+import zio.{Cause, Console, Exit, ZIO, ZLayer}
 
 import javax.sql.DataSource
 

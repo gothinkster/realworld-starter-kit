@@ -14,8 +14,8 @@ case class UserData(
     email: String,
     token: String,
     username: String,
-    bio: String,
-    image: String
+    bio: Option[String],
+    image: Option[String]
 )
 
 case class UserRegisterData(

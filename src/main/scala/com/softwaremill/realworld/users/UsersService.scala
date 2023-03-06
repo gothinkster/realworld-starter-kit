@@ -38,19 +38,19 @@ class UsersService(usersRepository: UsersRepository):
         for {
           bcryptPassword <- encryptPassword(passwordClean)
           jwt <- generateJwt()
-          user <- usersRepository.add(UserRegisterData(emailClean, usernameClean, bcryptPassword))
-        } yield User(userWithToken(user, jwt))
+          _ <- usersRepository.add(UserRegisterData(emailClean, usernameClean, bcryptPassword))
+        } yield User(userWithToken(emailClean, usernameClean, jwt))
       }
     } yield user
   }
 
-  private def userWithToken(user: UserData, jwt: String): UserData = {
+  private def userWithToken(email: String, username: String, jwt: String): UserData = {
     UserData(
-      user.email,
+      email,
       jwt,
-      user.username,
-      user.bio,
-      user.image
+      username,
+      None,
+      None
     )
   }
 

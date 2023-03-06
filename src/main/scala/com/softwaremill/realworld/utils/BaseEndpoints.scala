@@ -11,7 +11,7 @@ import sttp.model.{HeaderNames, StatusCode}
 import sttp.tapir.generic.auto.*
 import sttp.tapir.json.zio.jsonBody
 import sttp.tapir.server.ServerEndpoint.Full
-import sttp.tapir.ztapir.*
+import sttp.tapir.ztapir.{oneOfVariant, *}
 import sttp.tapir.{Endpoint, EndpointIO, EndpointInput, EndpointOutput, PublicEndpoint, Validator}
 import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder}
 import zio.{Cause, Exit, IO, ZIO, ZLayer}
@@ -40,6 +40,7 @@ object BaseEndpoints:
 
   val defaultErrorOutputs: EndpointOutput.OneOf[ErrorInfo, ErrorInfo] = oneOf[ErrorInfo](
     oneOfVariant(statusCode(StatusCode.NotFound).and(jsonBody[NotFound])),
+    oneOfVariant(statusCode(StatusCode.Conflict).and(jsonBody[Conflict])),
     oneOfVariant(statusCode(StatusCode.Unauthorized).and(jsonBody[Unauthorized])),
     oneOfVariant(statusCode(StatusCode.UnprocessableEntity).and(jsonBody[ValidationFailed])),
     oneOfVariant(statusCode(StatusCode.InternalServerError).and(jsonBody[InternalServerError]))
