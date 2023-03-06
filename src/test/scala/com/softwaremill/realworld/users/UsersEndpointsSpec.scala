@@ -72,8 +72,8 @@ object UsersEndpointsSpec extends ZIOSpecDefault:
                   "admin@example.com",
                   "admin-user-token",
                   "admin",
-                  "I dont work",
-                  ""
+                  Some("I dont work"),
+                  Some("")
                 )
               )
             )
