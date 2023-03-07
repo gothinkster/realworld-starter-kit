@@ -39,6 +39,7 @@ object BaseEndpoints:
   val live: ZLayer[AuthService, Nothing, BaseEndpoints] = ZLayer.fromFunction(new BaseEndpoints(_))
 
   val defaultErrorOutputs: EndpointOutput.OneOf[ErrorInfo, ErrorInfo] = oneOf[ErrorInfo](
+    oneOfVariant(statusCode(StatusCode.Forbidden).and(jsonBody[InternalServerError])),
     oneOfVariant(statusCode(StatusCode.NotFound).and(jsonBody[NotFound])),
     oneOfVariant(statusCode(StatusCode.Conflict).and(jsonBody[Conflict])),
     oneOfVariant(statusCode(StatusCode.Unauthorized).and(jsonBody[Unauthorized])),

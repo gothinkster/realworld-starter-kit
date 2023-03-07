@@ -20,4 +20,5 @@ class ArticlesService(articlesRepository: ArticlesRepository):
     }
 
 object ArticlesService:
+
   val live: ZLayer[ArticlesRepository, Nothing, ArticlesService] = ZLayer.fromFunction(ArticlesService(_))

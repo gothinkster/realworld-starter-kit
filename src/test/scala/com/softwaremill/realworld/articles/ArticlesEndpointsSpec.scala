@@ -1,6 +1,6 @@
 package com.softwaremill.realworld.articles
 
-import com.softwaremill.realworld.articles.ArticlesEndpoints.{*, given}
+import com.softwaremill.realworld.articles.ArticlesSerialization.{*, given}
 import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import com.softwaremill.realworld.users.UserSessionRepository
@@ -27,7 +27,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.list)
+            .map(_.listArticles)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -47,7 +47,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.get)
+            .map(_.getArticle)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -70,7 +70,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.list)
+            .map(_.listArticles)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -101,7 +101,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.list)
+            .map(_.listArticles)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -132,7 +132,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.list)
+            .map(_.listArticles)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -170,7 +170,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.list)
+            .map(_.listArticles)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -208,7 +208,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.list)
+            .map(_.listArticles)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -274,7 +274,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.get)
+            .map(_.getArticle)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter

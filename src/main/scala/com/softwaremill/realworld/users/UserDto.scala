@@ -10,6 +10,15 @@ case class UserRegister(
     user: UserRegisterData
 )
 
+case class UserLogin(
+    user: UserLoginData
+)
+
+case class UserWithPassword(
+    user: UserData,
+    hashedPassword: String
+)
+
 case class UserData(
     email: String,
     token: String,
@@ -24,10 +33,16 @@ case class UserRegisterData(
     password: String
 )
 
+case class UserLoginData(
+    email: String,
+    password: String
+)
+
 case class UserRow(
     userId: Int,
     email: String,
     username: String,
+    password: String,
     bio: String,
     image: String
 )

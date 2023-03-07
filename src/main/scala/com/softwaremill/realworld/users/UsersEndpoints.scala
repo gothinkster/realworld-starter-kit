@@ -16,9 +16,9 @@ import javax.sql.DataSource
 
 class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
 
-  import UsersEndpoints.given
+  import UsersSerialization.given
 
-  val get: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
+  val getCurrentUser: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
     .in("api" / "user")
     .out(jsonBody[User])
     .serverLogic(session =>
@@ -33,7 +33,7 @@ class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
           .map(User.apply)
     )
 
-  val post: ZServerEndpoint[Any, Any] = base.publicEndpoint.post
+  val userRegister: ZServerEndpoint[Any, Any] = base.publicEndpoint.post
     .in("api" / "users")
     .in(jsonBody[UserRegister])
     .out(jsonBody[User])
@@ -42,29 +42,27 @@ class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
         .registerNewUser(data.user)
         .logError
         .mapError {
-          case _: Exceptions.Conflict => Conflict()
-          case _                      => InternalServerError()
+          case _: Exceptions.AlreadyInUse => Conflict()
+          case _                          => InternalServerError()
         }
     )
 
-  val endpoints: List[ZServerEndpoint[Any, Any]] = List(get, post)
+  val userLogin: ZServerEndpoint[Any, Any] = base.publicEndpoint.post
+    .in("api" / "users" / "login")
+    .in(jsonBody[UserLogin])
+    .out(jsonBody[User])
+    .zServerLogic(data =>
+      usersService
+        .userLogin(data.user)
+        .logError
+        .mapError {
+          case _: Exceptions.InvalidCredentials => Forbidden()
+          case _                                => InternalServerError()
+        }
+        .map(User.apply)
+    )
+
+  val endpoints: List[ZServerEndpoint[Any, Any]] = List(getCurrentUser, userRegister, userLogin)
 
 object UsersEndpoints:
-
-  given userEncoder: zio.json.JsonEncoder[User] = DeriveJsonEncoder.gen[User]
-
-  given userDecoder: zio.json.JsonDecoder[User] = DeriveJsonDecoder.gen[User]
-
-  given userDataEncoder: zio.json.JsonEncoder[UserData] = DeriveJsonEncoder.gen[UserData]
-
-  given userDataDecoder: zio.json.JsonDecoder[UserData] = DeriveJsonDecoder.gen[UserData]
-
-  given userRegisterRequestBodyEncoder: zio.json.JsonEncoder[UserRegister] = DeriveJsonEncoder.gen[UserRegister]
-
-  given userRegisterRequestBodyDecoder: zio.json.JsonDecoder[UserRegister] = DeriveJsonDecoder.gen[UserRegister]
-
-  given userRegisterDataEncoder: zio.json.JsonEncoder[UserRegisterData] = DeriveJsonEncoder.gen[UserRegisterData]
-
-  given userRegisterDataDecoder: zio.json.JsonDecoder[UserRegisterData] = DeriveJsonDecoder.gen[UserRegisterData]
-
   val live: ZLayer[UsersService with BaseEndpoints, Nothing, UsersEndpoints] = ZLayer.fromFunction(new UsersEndpoints(_, _))

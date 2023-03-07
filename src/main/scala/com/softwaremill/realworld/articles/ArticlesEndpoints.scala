@@ -11,16 +11,15 @@ import sttp.tapir.json.zio.jsonBody
 import sttp.tapir.server.ServerEndpoint.Full
 import sttp.tapir.ztapir.*
 import sttp.tapir.{EndpointInput, PublicEndpoint, Validator}
-import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder}
 import zio.{Cause, Exit, ZIO, ZLayer}
 
 import javax.sql.DataSource
 
 class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
 
-  import ArticlesEndpoints.given
+  import ArticlesSerialization.given
 
-  val list: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
+  val listArticles: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
     .in("api" / "articles")
     .in(
       filterParam("tag", ArticlesFilters.Tag)
@@ -41,10 +40,14 @@ class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
     )
     .out(jsonBody[List[Article]])
     .serverLogic(session =>
-      (filters, pagination) => articlesService.list(filters.flatten.toMap, pagination).logError.mapError(_ => InternalServerError())
+      (filters, pagination) =>
+        articlesService
+          .list(filters.flatten.toMap, pagination)
+          .logError
+          .mapError(_ => InternalServerError())
     )
 
-  val get: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
+  val getArticle: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
     .in("api" / "articles" / path[String]("slug"))
     .out(jsonBody[Article])
     .serverLogic(session =>
@@ -55,7 +58,7 @@ class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
         }
     )
 
-  val endpoints: List[ZServerEndpoint[Any, Any]] = List(list, get)
+  val endpoints: List[ZServerEndpoint[Any, Any]] = List(listArticles, getArticle)
 
   private def filterParam(name: String, key: ArticlesFilters): EndpointInput.Query[Option[(ArticlesFilters, String)]] = {
     query[Option[String]](name)
@@ -66,13 +69,5 @@ class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
   }
 
 object ArticlesEndpoints:
-
-  given articleAuthorEncoder: zio.json.JsonEncoder[ArticleAuthor] = DeriveJsonEncoder.gen[ArticleAuthor]
-
-  given articleAuthorDecoder: zio.json.JsonDecoder[ArticleAuthor] = DeriveJsonDecoder.gen[ArticleAuthor]
-
-  given articleEncoder: zio.json.JsonEncoder[Article] = DeriveJsonEncoder.gen[Article]
-
-  given articleDecoder: zio.json.JsonDecoder[Article] = DeriveJsonDecoder.gen[Article]
 
   val live: ZLayer[ArticlesService with BaseEndpoints, Nothing, ArticlesEndpoints] = ZLayer.fromFunction(new ArticlesEndpoints(_, _))

@@ -43,3 +43,16 @@ Accept: application/json
 }
 
 ###
+
+POST http://localhost:8080/api/users/login
+Accept: application/json
+
+{
+  "user":{
+    "email": "test@test.test",
+    "password": "tested"
+  }
+}
+
+###
+

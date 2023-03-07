@@ -3,7 +3,7 @@ package com.softwaremill.realworld.users
 import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import com.softwaremill.realworld.users.UserSessionRepository
-import com.softwaremill.realworld.users.UsersEndpoints.{*, given}
+import com.softwaremill.realworld.users.UsersSerialization.{*, given}
 import com.softwaremill.realworld.utils.BaseEndpoints
 import com.softwaremill.realworld.utils.TestUtils.*
 import sttp.client3.testing.SttpBackendStub
@@ -27,7 +27,7 @@ object UsersEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[UsersEndpoints]
-            .map(_.get)
+            .map(_.getCurrentUser)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -50,7 +50,7 @@ object UsersEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[UsersEndpoints]
-            .map(_.get)
+            .map(_.getCurrentUser)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter

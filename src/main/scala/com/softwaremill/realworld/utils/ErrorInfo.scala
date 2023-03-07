@@ -3,6 +3,7 @@ package com.softwaremill.realworld.utils
 import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder}
 
 sealed trait ErrorInfo
+case class Forbidden(error: String = "Forbidden.") extends ErrorInfo
 case class NotFound(error: String = "Not found.") extends ErrorInfo
 case class Conflict(error: String = "Conflict.") extends ErrorInfo
 case class Unauthorized(error: String = "Unauthorized.") extends ErrorInfo

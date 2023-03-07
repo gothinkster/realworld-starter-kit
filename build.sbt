@@ -9,9 +9,12 @@ lazy val rootProject = (project in file(".")).settings(
     organization := "com.softwaremill",
     scalaVersion := "3.2.1",
     libraryDependencies ++= Seq(
+      // API
       "com.softwaremill.sttp.tapir" %% "tapir-zio-http-server" % tapirVersion,
       "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % tapirVersion,
       "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-bundle" % tapirVersion,
+      // Security
+      "com.password4j" % "password4j" % "1.7.0",
       // DB
       "org.xerial" % "sqlite-jdbc" % "3.40.0.0",
       "org.flywaydb" % "flyway-core" % "9.12.0",
