@@ -1,7 +1,7 @@
 package com.softwaremill.realworld.utils
 
-import com.softwaremill.realworld.{CustomDecodeFailureHandler, DefectHandler}
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
+import com.softwaremill.realworld.{CustomDecodeFailureHandler, DefectHandler}
 import io.getquill.{SnakeCase, SqliteZioJdbcContext}
 import sttp.client3.testing.SttpBackendStub
 import sttp.tapir.server.stub.TapirStubInterpreter
@@ -12,9 +12,9 @@ import zio.{RIO, Random, Task, UIO, ZIO, ZLayer}
 
 import java.nio.file.{Files, Path, Paths}
 import java.sql.{Connection, Statement}
+import javax.sql.DataSource
 import scala.io.Source
 import scala.util.{Try, Using}
-import javax.sql.DataSource
 
 object TestUtils:
 
@@ -28,13 +28,18 @@ object TestUtils:
 
   type TestDbLayer = DbConfig with DataSource with DbMigrator with SqliteZioJdbcContext[SnakeCase]
 
-  def withEmptyDb(): RIO[TestDbLayer, Any] = for {
+  def withAuthData(): RIO[TestDbLayer, Any] = for {
     migrator <- ZIO.service[DbMigrator]
     _ <- migrator.migrate()
     _ <- loadFixture("fixtures/articles/admin.sql")
   } yield ()
 
-  def withFixture(fixturePath: String): RIO[TestDbLayer, Any] = for {
+  def withEmptyDb(): RIO[TestDbLayer, Any] = for {
+    migrator <- ZIO.service[DbMigrator]
+    _ <- migrator.migrate()
+  } yield ()
+
+  def withAuthDataAndFixture(fixturePath: String): RIO[TestDbLayer, Any] = for {
     migrator <- ZIO.service[DbMigrator]
     _ <- migrator.migrate()
     _ <- loadFixture("fixtures/articles/admin.sql")

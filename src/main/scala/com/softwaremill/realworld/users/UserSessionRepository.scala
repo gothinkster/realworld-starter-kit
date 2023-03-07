@@ -1,4 +1,4 @@
-package com.softwaremill.realworld.auth
+package com.softwaremill.realworld.users
 
 import io.getquill.*
 import zio.{IO, RIO, UIO, ZLayer}
@@ -11,6 +11,7 @@ class UserSessionRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: 
   private val dsLayer: ZLayer[Any, Nothing, DataSource] = ZLayer.succeed(dataSource)
 
   import quill.*
+
   def getUserSession(token: String): IO[SQLException, Option[UserSession]] = run(for {
     usr <- querySchema[UserSessionRow](entity = "users_sessions") if usr.token == lift(token)
   } yield UserSession(usr.userId, usr.lastUsed))

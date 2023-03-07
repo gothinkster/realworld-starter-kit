@@ -20,7 +20,7 @@ import javax.sql.DataSource
 object ArticlesRepositorySpec extends ZIOSpecDefault:
 
   def spec = suite("Check list features")(
-    suite("with empty db")(
+    suite("with auth data only")(
       test("no filters") {
         for {
           repo <- ZIO.service[ArticlesRepository]
@@ -36,7 +36,7 @@ object ArticlesRepositorySpec extends ZIOSpecDefault:
           )
         } yield zio.test.assert(v)(Assertion.isEmpty)
       }
-    ) @@ TestAspect.before(withEmptyDb())
+    ) @@ TestAspect.before(withAuthData())
       @@ TestAspect.after(clearDb),
     suite("with populated db")(
       test("with small offset and small limit") {
@@ -200,7 +200,7 @@ object ArticlesRepositorySpec extends ZIOSpecDefault:
             )
         )
       }
-    ) @@ TestAspect.before(withFixture("fixtures/articles/basic-data.sql"))
+    ) @@ TestAspect.before(withAuthDataAndFixture("fixtures/articles/basic-data.sql"))
       @@ TestAspect.after(clearDb)
   ).provide(
     ArticlesRepository.live,

@@ -1,6 +1,7 @@
 package com.softwaremill.realworld.auth
 
 import com.softwaremill.realworld.auth.AuthService.maxSessionLifetime
+import com.softwaremill.realworld.users.{UserSession, UserSessionRepository}
 import com.softwaremill.realworld.utils.Exceptions
 import zio.{Clock, IO, RIO, ZIO, ZLayer}
 

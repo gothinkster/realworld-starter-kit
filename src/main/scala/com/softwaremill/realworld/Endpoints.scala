@@ -2,14 +2,15 @@ package com.softwaremill.realworld
 
 import com.softwaremill.realworld.articles.ArticlesEndpoints
 import com.softwaremill.realworld.db.DbConfig
+import com.softwaremill.realworld.users.UsersEndpoints
 import sttp.tapir.swagger.bundle.SwaggerInterpreter
 import sttp.tapir.ztapir.ZServerEndpoint
 import zio.{Task, ZIO, ZLayer}
 
-class Endpoints(articlesEndpoints: ArticlesEndpoints):
+class Endpoints(articlesEndpoints: ArticlesEndpoints, usersEndpoints: UsersEndpoints):
 
   val endpoints: List[ZServerEndpoint[Any, Any]] = {
-    val api = articlesEndpoints.endpoints
+    val api = articlesEndpoints.endpoints ++ usersEndpoints.endpoints
     val docs = docsEndpoints(api)
     api ++ docs
   }
@@ -19,4 +20,4 @@ class Endpoints(articlesEndpoints: ArticlesEndpoints):
 
 object Endpoints:
 
-  val live: ZLayer[ArticlesEndpoints, Nothing, Endpoints] = ZLayer.fromFunction(new Endpoints(_))
+  val live: ZLayer[ArticlesEndpoints with UsersEndpoints, Nothing, Endpoints] = ZLayer.fromFunction(new Endpoints(_, _))

@@ -1,8 +1,9 @@
 package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.articles.ArticlesEndpoints.{*, given}
-import com.softwaremill.realworld.auth.{AuthService, UserSessionRepository}
+import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
+import com.softwaremill.realworld.users.UserSessionRepository
 import com.softwaremill.realworld.utils.BaseEndpoints
 import com.softwaremill.realworld.utils.TestUtils.*
 import sttp.client3.testing.SttpBackendStub
@@ -21,7 +22,7 @@ import javax.sql.DataSource
 object ArticlesEndpointsSpec extends ZIOSpecDefault:
 
   def spec = suite("Check articles list and get")(
-    suite("with empty db")(
+    suite("with auth data only")(
       test("return empty list") {
         assertZIO(
           ZIO
@@ -62,7 +63,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
             }
         )(isLeft(equalTo(HttpError("{\"error\":\"Not found.\"}", sttp.model.StatusCode(404)))))
       }
-    ) @@ TestAspect.before(withEmptyDb())
+    ) @@ TestAspect.before(withAuthData())
       @@ TestAspect.after(clearDb),
     suite("with populated db")(
       test("validation failed on filter") {
@@ -306,7 +307,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
           )
         )
       }
-    ) @@ TestAspect.before(withFixture("fixtures/articles/basic-data.sql"))
+    ) @@ TestAspect.before(withAuthDataAndFixture("fixtures/articles/basic-data.sql"))
       @@ TestAspect.after(clearDb)
   ).provide(
     ArticlesRepository.live,
