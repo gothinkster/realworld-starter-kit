@@ -1,7 +1,7 @@
 package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.articles.ArticlesFilters.{Author, Favorited, Tag}
-import com.softwaremill.realworld.articles.Tags.{explodeTags, tagsConcat}
+import com.softwaremill.realworld.articles.ArticlesTags.{explodeTags, tagsConcat}
 import com.softwaremill.realworld.profiles.ProfileRow
 import com.softwaremill.realworld.utils.Pagination
 import io.getquill.*
