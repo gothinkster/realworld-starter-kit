@@ -1,4 +1,4 @@
-package com.softwaremill.realworld.utils
+package com.softwaremill.realworld.common
 
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import com.softwaremill.realworld.{CustomDecodeFailureHandler, DefectHandler}

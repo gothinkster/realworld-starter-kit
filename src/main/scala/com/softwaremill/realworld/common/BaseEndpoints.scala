@@ -1,17 +1,17 @@
-package com.softwaremill.realworld.utils
+package com.softwaremill.realworld.common
 
 import com.softwaremill.realworld.articles.{ArticlesEndpoints, ArticlesService}
 import com.softwaremill.realworld.auth.AuthService
+import com.softwaremill.realworld.common.*
+import com.softwaremill.realworld.common.BaseEndpoints.{authHeader, defaultErrorOutputs}
 import com.softwaremill.realworld.db.{Db, DbConfig}
 import com.softwaremill.realworld.users.UserSession
-import com.softwaremill.realworld.utils.*
-import com.softwaremill.realworld.utils.BaseEndpoints.{authHeader, defaultErrorOutputs}
 import io.getquill.SnakeCase
 import sttp.model.{HeaderNames, StatusCode}
 import sttp.tapir.generic.auto.*
 import sttp.tapir.json.zio.jsonBody
 import sttp.tapir.server.ServerEndpoint.Full
-import sttp.tapir.ztapir.{oneOfVariant, *}
+import sttp.tapir.ztapir.*
 import sttp.tapir.{Endpoint, EndpointIO, EndpointInput, EndpointOutput, PublicEndpoint, Validator}
 import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder}
 import zio.{Cause, Exit, IO, ZIO, ZLayer}
@@ -39,6 +39,8 @@ object BaseEndpoints:
   val live: ZLayer[AuthService, Nothing, BaseEndpoints] = ZLayer.fromFunction(new BaseEndpoints(_))
 
   val defaultErrorOutputs: EndpointOutput.OneOf[ErrorInfo, ErrorInfo] = oneOf[ErrorInfo](
+    oneOfVariant(statusCode(StatusCode.BadRequest).and(jsonBody[BadRequest])),
+    oneOfVariant(statusCode(StatusCode.Forbidden).and(jsonBody[Forbidden])),
     oneOfVariant(statusCode(StatusCode.NotFound).and(jsonBody[NotFound])),
     oneOfVariant(statusCode(StatusCode.Conflict).and(jsonBody[Conflict])),
     oneOfVariant(statusCode(StatusCode.Unauthorized).and(jsonBody[Unauthorized])),

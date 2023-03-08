@@ -4,7 +4,7 @@ import com.softwaremill.realworld.articles.{ArticlesEndpoints, ArticlesRepositor
 import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import com.softwaremill.realworld.users.{UserSessionRepository, UsersEndpoints, UsersRepository, UsersService}
-import com.softwaremill.realworld.utils.{BaseEndpoints, Exceptions}
+import com.softwaremill.realworld.common.{BaseEndpoints, Exceptions}
 import sttp.model.StatusCode
 import sttp.tapir.DecodeResult
 import sttp.tapir.server.interceptor.decodefailure.DefaultDecodeFailureHandler

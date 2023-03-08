@@ -2,8 +2,8 @@ package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.articles.ArticlesEndpoints.{*, given}
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
-import com.softwaremill.realworld.utils.Pagination
-import com.softwaremill.realworld.utils.TestUtils.*
+import com.softwaremill.realworld.common.Pagination
+import com.softwaremill.realworld.common.TestUtils.*
 import sttp.client3.testing.SttpBackendStub
 import sttp.client3.ziojson.*
 import sttp.client3.{HttpError, Response, ResponseException, UriContext, basicRequest}

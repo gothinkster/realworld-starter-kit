@@ -1,3 +1,3 @@
-package com.softwaremill.realworld.utils
+package com.softwaremill.realworld.common
 
 case class Pagination(limit: Int, offset: Int)

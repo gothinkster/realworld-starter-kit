@@ -1,7 +1,7 @@
 package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.profiles.ProfileRow
-import com.softwaremill.realworld.utils.{Exceptions, Pagination}
+import com.softwaremill.realworld.common.{Exceptions, Pagination}
 import zio.{IO, ZIO, ZLayer}
 
 import java.sql.SQLException
@@ -20,4 +20,5 @@ class ArticlesService(articlesRepository: ArticlesRepository):
     }
 
 object ArticlesService:
+
   val live: ZLayer[ArticlesRepository, Nothing, ArticlesService] = ZLayer.fromFunction(ArticlesService(_))

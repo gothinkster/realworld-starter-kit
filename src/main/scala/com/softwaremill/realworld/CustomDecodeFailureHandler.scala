@@ -1,6 +1,6 @@
 package com.softwaremill.realworld
 
-import com.softwaremill.realworld.utils.ValidationFailed
+import com.softwaremill.realworld.common.ValidationFailed
 import sttp.model.{Header, StatusCode}
 import sttp.tapir.generic.auto.*
 import sttp.tapir.json.zio.jsonBody

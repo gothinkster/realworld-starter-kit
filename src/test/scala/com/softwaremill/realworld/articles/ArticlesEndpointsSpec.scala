@@ -1,11 +1,11 @@
 package com.softwaremill.realworld.articles
 
-import com.softwaremill.realworld.articles.ArticlesEndpoints.{*, given}
+import com.softwaremill.realworld.articles.ArticlesSerialization.{*, given}
 import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import com.softwaremill.realworld.users.UserSessionRepository
-import com.softwaremill.realworld.utils.BaseEndpoints
-import com.softwaremill.realworld.utils.TestUtils.*
+import com.softwaremill.realworld.common.BaseEndpoints
+import com.softwaremill.realworld.common.TestUtils.*
 import sttp.client3.testing.SttpBackendStub
 import sttp.client3.ziojson.*
 import sttp.client3.{HttpError, Response, ResponseException, UriContext, basicRequest}
@@ -27,7 +27,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.list)
+            .map(_.listArticles)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -47,7 +47,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.get)
+            .map(_.getArticle)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -61,7 +61,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                 .send(backendStub)
                 .map(_.body)
             }
-        )(isLeft(equalTo(HttpError("{\"error\":\"Not found.\"}", sttp.model.StatusCode(404)))))
+        )(isLeft(equalTo(HttpError("{\"error\":\"Article with slug unknown-article doesn't exist.\"}", sttp.model.StatusCode(404)))))
       }
     ) @@ TestAspect.before(withAuthData())
       @@ TestAspect.after(clearDb),
@@ -70,7 +70,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.list)
+            .map(_.listArticles)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -101,7 +101,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.list)
+            .map(_.listArticles)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -132,7 +132,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.list)
+            .map(_.listArticles)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -170,7 +170,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.list)
+            .map(_.listArticles)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -208,7 +208,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.list)
+            .map(_.listArticles)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -274,7 +274,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.get)
+            .map(_.getArticle)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter

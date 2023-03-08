@@ -1,6 +1,6 @@
 package com.softwaremill.realworld
 
-import utils.Exceptions
+import common.Exceptions
 import sttp.model.StatusCode
 import sttp.monad.MonadError
 import sttp.tapir.server.interceptor.exception.{ExceptionContext, ExceptionHandler}

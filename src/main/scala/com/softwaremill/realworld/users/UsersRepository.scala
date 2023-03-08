@@ -1,6 +1,6 @@
 package com.softwaremill.realworld.users
 
-import com.softwaremill.realworld.utils.Exceptions
+import com.softwaremill.realworld.common.Exceptions
 import io.getquill.*
 import zio.{Console, IO, UIO, ZIO, ZLayer}
 
@@ -29,13 +29,20 @@ class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSo
     .map(_.map(user))
     .provide(dsLayer)
 
-  def add(user: UserRegisterData): IO[Exception, Unit] = run(
+  def findUserWithPasswordByEmail(email: String): IO[Exception, Option[UserWithPassword]] = run(for {
+    ur <- querySchema[UserRow](entity = "users") if ur.email == lift(email)
+  } yield ur)
+    .map(_.headOption)
+    .map(_.map(userWithPassword))
+    .provide(dsLayer)
+
+  def addUser(user: UserRegisterData): IO[Exception, Unit] = run(
     quote(
       querySchema[UserRow](entity = "users")
         .insert(
           _.email -> lift(user.email),
           _.username -> lift(user.username),
-          _.bio -> lift(user.password) // TODO it must be changed from bio which is just an example to the encoded password column later
+          _.password -> lift(user.password)
         )
     )
   ).unit
@@ -49,6 +56,21 @@ class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSo
       ur.username,
       Some(ur.bio),
       Some(ur.image)
+    )
+  }
+
+  private def userWithPassword(userRow: UserRow): UserWithPassword = {
+    UserWithPassword(
+      UserData(
+        userRow.email,
+        "to be removed",
+        userRow.username,
+        None,
+        None // TODO Some(null) returned by repository and app crashes
+//        Some(userRow.bio),
+//        Some(userRow.image)
+      ),
+      userRow.password
     )
   }
 
