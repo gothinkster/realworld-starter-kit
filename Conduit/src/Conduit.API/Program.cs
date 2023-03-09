@@ -10,8 +10,15 @@ services.AddDbContext<AppDbContext>(
     opt => opt.UseSqlServer(
         configuration.GetConnectionString("ConnectionString")));
 
+services.AddControllers();
+
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.Run();
