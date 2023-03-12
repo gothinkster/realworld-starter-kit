@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: devdb
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpass
+    ports:
+      - 5432:5432
+    expose:
+      - 5432          
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
