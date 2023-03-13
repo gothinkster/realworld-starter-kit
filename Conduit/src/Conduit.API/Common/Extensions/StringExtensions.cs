@@ -1,11 +1,16 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Conduit.API.Common.Extensions;
+namespace System;
 
 internal static class StringExtensions
 {
     internal static string GenerateSlug(this string phrase)
     {
+        if (string.IsNullOrWhiteSpace(phrase))
+        {
+            return phrase;
+        }
+
         string str = phrase.ToLowerInvariant();
         // invalid chars           
         str = Regex.Replace(str, @"[^a-z0-9\s-]", "");

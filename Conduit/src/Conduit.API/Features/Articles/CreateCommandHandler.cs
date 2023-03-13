@@ -1,5 +1,4 @@
-﻿using Conduit.API.Common.Extensions;
-using Conduit.API.Infrastructure;
+﻿using Conduit.API.Infrastructure;
 using MediatR;
 
 namespace Conduit.API.Features.Articles;
