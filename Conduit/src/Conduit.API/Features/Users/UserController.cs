@@ -23,8 +23,8 @@ public class UserController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get(CancellationToken cancellationToken)
     {
-        var username = _currentUserAccessor.GetCurrentUsername() ?? "_guest" ;
-        var result = await _mediator.Send(new GetQuery(username), cancellationToken);
+        var userId = _currentUserAccessor.GetCurrentUserId();
+        var result = await _mediator.Send(new GetQuery(userId), cancellationToken);
 
         return Ok(result);
     }

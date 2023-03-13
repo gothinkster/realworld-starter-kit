@@ -11,8 +11,14 @@ public class CurrentUserAccessor : ICurrentUserAccessor
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public string? GetCurrentUsername()
+    public int GetCurrentUserId()
     {
-        return _httpContextAccessor.HttpContext?.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+        var claim = _httpContextAccessor.HttpContext?.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+        if (claim is not null && int.TryParse(claim.Value, out var userId))
+        {
+            return userId;
+        }
+
+        return 0;
     }
 }

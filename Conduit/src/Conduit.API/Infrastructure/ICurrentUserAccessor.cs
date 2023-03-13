@@ -2,5 +2,5 @@
 
 public interface ICurrentUserAccessor
 {
-    string? GetCurrentUsername();
+    int GetCurrentUserId();
 }

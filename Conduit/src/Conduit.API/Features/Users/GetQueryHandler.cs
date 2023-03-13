@@ -20,7 +20,7 @@ public class GetQueryHandler : IRequestHandler<GetQuery, UserDTO>
 
     public async Task<UserDTO> Handle(GetQuery request, CancellationToken cancellationToken)
     {
-        var user = await _dbContext.Users.AsNoTracking().Where(u => u.Username == request.Username).FirstOrDefaultAsync(cancellationToken);
+        var user = await _dbContext.Users.AsNoTracking().Where(u => u.Id == request.userId).FirstOrDefaultAsync(cancellationToken);
 
         if(user == null)
         {
