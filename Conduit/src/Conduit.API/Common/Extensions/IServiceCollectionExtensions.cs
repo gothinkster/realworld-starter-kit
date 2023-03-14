@@ -1,7 +1,8 @@
-﻿using Conduit.API.Infrastructure.Auth;
+﻿using Conduit.API.Common.Validators;
+using Conduit.API.Infrastructure.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
 using System.Text;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -80,5 +81,34 @@ public static class IServiceCollectionExtensions
                 };
 
             });
+    }
+
+    public static IServiceCollection AddEntityValidators(this IServiceCollection services, Assembly assembly)
+    {
+        var baseType = typeof(EntityValidatorBase<>);
+
+        var types = assembly.DefinedTypes.Where(
+            s => s.IsClass
+                        && !s.IsAbstract
+                        && s != baseType
+                        && (s.BaseType?.IsGenericType ?? false)
+                        && s.BaseType.GetGenericTypeDefinition() == baseType);
+
+        if(!types.Any())
+        {
+            return services;
+        }
+
+        foreach (var type in types)
+        {
+            if(type.BaseType is null)
+            {
+                continue;
+            }
+
+            services.AddTransient(type.BaseType, type);
+        }
+
+        return services;
     }
 }

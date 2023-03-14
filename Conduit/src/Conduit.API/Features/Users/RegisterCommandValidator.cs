@@ -1,32 +1,20 @@
-﻿using Conduit.API.Infrastructure;
-using FluentValidation;
-using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation;
 
 namespace Conduit.API.Features.Users;
 
 public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
 {
-    public RegisterCommandValidator(AppDbContext context)
+    public RegisterCommandValidator()
     {
         RuleFor(s => s.Payload.Username)
-            .NotEmpty()
-            .MustAsync(async (username, cancellationToken) =>
-            {
-                var existing = await context.Users.Where(u => u.Username == username).AnyAsync(cancellationToken);
-                return !existing;
-            })
-                .WithMessage("User name is already in use.");
+            .NotEmpty();
 
         RuleFor(s => s.Payload.Email)
+            .Cascade(CascadeMode.Stop)
             .NotEmpty()
-            .EmailAddress()
-            .MustAsync(async (email, cancellationToken) =>
-            {
-                var existing = await context.Users.Where(u => u.Email == email).AnyAsync(cancellationToken);
-                return !existing;
-            })
-                .WithMessage("Email is already in use.");
+            .EmailAddress();
 
-        RuleFor(s => s.Payload.Password).NotEmpty();
+        RuleFor(s => s.Payload.Password)
+            .NotEmpty();
     }
 }

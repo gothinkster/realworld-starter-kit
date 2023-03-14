@@ -1,25 +1,12 @@
-﻿using Conduit.API.Infrastructure;
-using FluentValidation;
-using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation;
 
 namespace Conduit.API.Features.Articles;
 
 public class CreateCommandValidator : AbstractValidator<CreateCommand>
 {
-    private readonly AppDbContext _context;
-
-    public CreateCommandValidator(AppDbContext context)
+    public CreateCommandValidator()
     {
-        _context = context;
-
         RuleFor(c => c.Payload.Title)
-            .NotEmpty()
-            .MustAsync(BeUnique).WithMessage("The specified title already exists.");
-    }
-    
-    private async Task<bool> BeUnique(string title, CancellationToken cancellationToken)
-    {
-        var existing = await _context.Articles.AnyAsync(a => a.Title == title, cancellationToken);
-        return !existing;
+            .OptionalArgument();
     }
 }
