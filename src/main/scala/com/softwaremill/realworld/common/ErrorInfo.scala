@@ -4,10 +4,10 @@ import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder}
 
 sealed trait ErrorInfo
 case class BadRequest(error: String = "Bad request.") extends ErrorInfo
+case class Unauthorized(error: String = "Unauthorized.") extends ErrorInfo
 case class Forbidden(error: String = "Forbidden.") extends ErrorInfo
 case class NotFound(error: String = "Not found.") extends ErrorInfo
 case class Conflict(error: String = "Conflict.") extends ErrorInfo
-case class Unauthorized(error: String = "Unauthorized.") extends ErrorInfo
 case class ValidationFailed(errors: Map[String, List[String]]) extends ErrorInfo
 case class InternalServerError(error: String = "Internal server error.") extends ErrorInfo
 

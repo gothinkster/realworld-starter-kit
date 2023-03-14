@@ -1,9 +1,7 @@
 package com.softwaremill.realworld.articles
 
-import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.common.*
 import com.softwaremill.realworld.db.{Db, DbConfig}
-import com.softwaremill.realworld.users.UserSession
 import io.getquill.SnakeCase
 import sttp.model.StatusCode
 import sttp.tapir.generic.auto.*
@@ -16,8 +14,6 @@ import zio.{Cause, Exit, ZIO, ZLayer}
 import javax.sql.DataSource
 
 class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
-
-  import ArticlesSerialization.given
 
   val listArticles: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
     .in("api" / "articles")

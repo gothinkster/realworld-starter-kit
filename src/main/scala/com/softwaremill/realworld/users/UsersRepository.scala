@@ -13,18 +13,9 @@ class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSo
 
   import quill.*
 
-  def findById(id: Int): IO[Exception, Option[UserData]] = run(for {
-    usr <- querySchema[UserSessionRow](entity = "users_sessions") if usr.userId == lift(id)
-    ur <- querySchema[UserRow](entity = "users") if ur.userId == lift(id)
-  } yield (ur, usr.token))
-    .map(_.headOption)
-    .map(_.map(user))
-    .provide(dsLayer)
-
   def findByEmail(email: String): IO[Exception, Option[UserData]] = run(for {
     ur <- querySchema[UserRow](entity = "users") if ur.email == lift(email)
-    usr <- querySchema[UserSessionRow](entity = "users_sessions").leftJoin(_.userId == ur.userId)
-  } yield (ur, usr.map(_.token).getOrElse(""))) // TODO token will be removed
+  } yield ur)
     .map(_.headOption)
     .map(_.map(user))
     .provide(dsLayer)
@@ -48,33 +39,24 @@ class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSo
   ).unit
     .provide(dsLayer)
 
-  private def user(tuple: (UserRow, String)): UserData = {
-    val (ur, token) = tuple
-    UserData(
-      ur.email,
-      token,
-      ur.username,
-      Some(ur.bio),
-      Some(ur.image)
+  private def userWithPassword(userRow: UserRow): UserWithPassword = {
+    UserWithPassword(
+      user(userRow),
+      userRow.password
     )
   }
 
-  private def userWithPassword(userRow: UserRow): UserWithPassword = {
-    UserWithPassword(
-      UserData(
-        userRow.email,
-        "to be removed",
-        userRow.username,
-        None,
-        None // TODO Some(null) returned by repository and app crashes
-//        Some(userRow.bio),
-//        Some(userRow.image)
-      ),
-      userRow.password
+  private def user(userRow: UserRow): UserData = {
+    UserData(
+      userRow.email,
+      None,
+      userRow.username,
+      Option(userRow.bio),
+      Option(userRow.image)
     )
   }
 
 object UsersRepository:
 
-  val live: ZLayer[SqliteZioJdbcContext[SnakeCase] with DataSource with UserSessionRepository, Nothing, UsersRepository] =
+  val live: ZLayer[SqliteZioJdbcContext[SnakeCase] with DataSource, Nothing, UsersRepository] =
     ZLayer.fromFunction(new UsersRepository(_, _))

@@ -1,24 +1,24 @@
 GET http://localhost:8080/api/articles
 Accept: application/json
-Authorization: Token admin-user-token
+Authorization: Bearer {{JWT}}
 
 ###
 
 GET http://localhost:8080/api/articles?limit=-1
 Accept: application/json
-Authorization: Token admin-user-token
+Authorization: Bearer {{JWT}}
 
 ###
 
 GET http://localhost:8080/api/articles/how-to-train-your-dragon
 Accept: application/json
-Authorization: Token admin-user-token
+Authorization: Bearer {{JWT}}
 
 ###
 
 POST http://localhost:8080/api/articles
 Accept: application/json
-Authorization: Token admin-user-token
+Authorization: Bearer {{JWT}}
 
 {
   "article": {
@@ -33,7 +33,7 @@ Authorization: Token admin-user-token
 
 GET http://localhost:8080/api/user
 Accept: application/json
-Authorization: Token admin-user-token
+Authorization: Bearer {{JWT}}
 
 ###
 

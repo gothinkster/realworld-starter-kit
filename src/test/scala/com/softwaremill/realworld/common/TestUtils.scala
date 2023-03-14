@@ -1,5 +1,9 @@
 package com.softwaremill.realworld.common
 
+import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
+import com.softwaremill.realworld.auth.AuthService
+import com.softwaremill.realworld.common.TestUtils.TestDbLayer
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import com.softwaremill.realworld.{CustomDecodeFailureHandler, DefectHandler}
 import io.getquill.{SnakeCase, SqliteZioJdbcContext}
@@ -12,6 +16,8 @@ import zio.{RIO, Random, Task, UIO, ZIO, ZLayer}
 
 import java.nio.file.{Files, Path, Paths}
 import java.sql.{Connection, Statement}
+import java.time.{Duration, Instant}
+import java.util.UUID
 import javax.sql.DataSource
 import scala.io.Source
 import scala.util.{Try, Using}
@@ -28,18 +34,32 @@ object TestUtils:
 
   type TestDbLayer = DbConfig with DataSource with DbMigrator with SqliteZioJdbcContext[SnakeCase]
 
-  def withAuthData(): RIO[TestDbLayer, Any] = for {
+  def validAuthorizationHeader(email: String = "admin@example.com"): Map[String, String] = {
+    // start TODO [This is workaround. Need to replace below with service's function call]
+    val now: Instant = Instant.now()
+    val Issuer = "SoftwareMill"
+    val ClaimName = "userEmail"
+    val YouShouldNotKeepSecretsHardcoded = "#>!IEd!G-L70@OTr$t8E[4.#[A;zo2@{"
+    val algorithm: Algorithm = Algorithm.HMAC256(YouShouldNotKeepSecretsHardcoded)
+    val jwt: String = JWT
+      .create()
+      .withIssuer(Issuer)
+      .withClaim(ClaimName, email)
+      .withIssuedAt(now)
+      .withExpiresAt(now.plus(Duration.ofHours(1)))
+      .withJWTId(UUID.randomUUID().toString)
+      .sign(algorithm)
+    // end TODO
+    Map("Authorization" -> ("Bearer " + jwt))
+  }
+
+  def withEmptyDb(): RIO[TestDbLayer, Any] = for {
     migrator <- ZIO.service[DbMigrator]
     _ <- migrator.migrate()
     _ <- loadFixture("fixtures/articles/admin.sql")
   } yield ()
 
-  def withEmptyDb(): RIO[TestDbLayer, Any] = for {
-    migrator <- ZIO.service[DbMigrator]
-    _ <- migrator.migrate()
-  } yield ()
-
-  def withAuthDataAndFixture(fixturePath: String): RIO[TestDbLayer, Any] = for {
+  def withFixture(fixturePath: String): RIO[TestDbLayer, Any] = for {
     migrator <- ZIO.service[DbMigrator]
     _ <- migrator.migrate()
     _ <- loadFixture("fixtures/articles/admin.sql")

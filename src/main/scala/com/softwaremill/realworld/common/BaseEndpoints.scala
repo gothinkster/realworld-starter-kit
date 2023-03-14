@@ -3,7 +3,7 @@ package com.softwaremill.realworld.common
 import com.softwaremill.realworld.articles.{ArticlesEndpoints, ArticlesService}
 import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.common.*
-import com.softwaremill.realworld.common.BaseEndpoints.{authHeader, defaultErrorOutputs}
+import com.softwaremill.realworld.common.BaseEndpoints.defaultErrorOutputs
 import com.softwaremill.realworld.db.{Db, DbConfig}
 import com.softwaremill.realworld.users.UserSession
 import io.getquill.SnakeCase
@@ -20,18 +20,19 @@ class BaseEndpoints(authService: AuthService):
 
   val secureEndpoint: ZPartialServerEndpoint[Any, String, UserSession, Unit, ErrorInfo, Unit, Any] = endpoint
     .errorOut(defaultErrorOutputs)
-    .securityIn(authHeader)
+    .securityIn(auth.bearer[String]())
     .zServerSecurityLogic[Any, UserSession](handleAuth)
 
   val publicEndpoint: PublicEndpoint[Unit, ErrorInfo, Unit, Any] = endpoint
     .errorOut(defaultErrorOutputs)
 
   private def handleAuth(token: String): IO[ErrorInfo, UserSession] = {
-    if (token.startsWith("Token ")) authService.getActiveUserSession(token.substring("Token ".length)).logError.mapError {
-      case _: Exceptions.NotFound => Unauthorized()
-      case _                      => InternalServerError()
+    (for {
+      email <- authService.verifyJwt(token)
+    } yield UserSession(email)).logError.mapError {
+      case e: Exceptions.Unauthorized => Unauthorized(e.message)
+      case _                          => InternalServerError()
     }
-    else ZIO.fail(Unauthorized())
   }
 
 object BaseEndpoints:
@@ -47,5 +48,3 @@ object BaseEndpoints:
     oneOfVariant(statusCode(StatusCode.UnprocessableEntity).and(jsonBody[ValidationFailed])),
     oneOfVariant(statusCode(StatusCode.InternalServerError).and(jsonBody[InternalServerError]))
   )
-
-  val authHeader: EndpointIO.Header[String] = header[String](HeaderNames.Authorization)

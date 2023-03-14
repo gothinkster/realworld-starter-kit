@@ -36,7 +36,7 @@ object ArticlesRepositorySpec extends ZIOSpecDefault:
           )
         } yield zio.test.assert(v)(Assertion.isEmpty)
       }
-    ) @@ TestAspect.before(withAuthData())
+    ) @@ TestAspect.before(withEmptyDb())
       @@ TestAspect.after(clearDb),
     suite("with populated db")(
       test("with small offset and small limit") {
@@ -200,7 +200,7 @@ object ArticlesRepositorySpec extends ZIOSpecDefault:
             )
         )
       }
-    ) @@ TestAspect.before(withAuthDataAndFixture("fixtures/articles/basic-data.sql"))
+    ) @@ TestAspect.before(withFixture("fixtures/articles/basic-data.sql"))
       @@ TestAspect.after(clearDb)
   ).provide(
     ArticlesRepository.live,

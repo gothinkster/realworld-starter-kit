@@ -16,15 +16,13 @@ import javax.sql.DataSource
 
 class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
 
-  import UsersSerialization.given
-
   val getCurrentUser: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
     .in("api" / "user")
     .out(jsonBody[User])
     .serverLogic(session =>
       _ =>
         usersService
-          .findById(session.id)
+          .findByEmail(session.email)
           .logError
           .mapError {
             case e: Exceptions.NotFound => NotFound(e.message)
@@ -43,7 +41,6 @@ class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
         .logError
         .mapError {
           case e: Exceptions.AlreadyInUse => Conflict(e.message)
-          case e: Exceptions.BadRequest   => BadRequest(e.message)
           case _                          => InternalServerError()
         }
     )
@@ -57,8 +54,8 @@ class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
         .userLogin(data.user)
         .logError
         .mapError {
-          case e: Exceptions.InvalidCredentials => Forbidden(e.message)
-          case _                                => InternalServerError()
+          case e: Exceptions.Unauthorized => Unauthorized(e.message)
+          case _                          => InternalServerError()
         }
         .map(User.apply)
     )
