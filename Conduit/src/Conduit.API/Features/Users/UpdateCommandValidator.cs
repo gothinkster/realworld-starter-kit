@@ -7,14 +7,17 @@ public class UpdateCommandValidator : AbstractValidator<UpdateCommand>
     public UpdateCommandValidator()
     {
         RuleFor(s => s.Payload.User.Username)
-            .OptionalArgument();
+            .OptionalArgument()
+            .OverridePropertyName("User.Username");
 
         RuleFor(s => s.Payload.User.Email)
             .Cascade(CascadeMode.Stop)
             .OptionalArgument()
-            .EmailAddress();
+            .EmailAddress()
+            .OverridePropertyName("User.Email");
 
         RuleFor(s => s.Payload.User.Password)
-            .OptionalArgument();
+            .OptionalArgument()
+            .OverridePropertyName("User.Password");
     }
 }

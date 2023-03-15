@@ -1,4 +1,5 @@
-﻿using Conduit.API.Infrastructure;
+﻿using Conduit.API.Common.Exceptions;
+using Conduit.API.Infrastructure;
 using Conduit.API.Infrastructure.Auth;
 using FluentValidation;
 using MediatR;
@@ -24,7 +25,7 @@ public class GetQueryHandler : IRequestHandler<GetQuery, UserResponse>
 
         if(user == null)
         {
-            throw new ArgumentException("User not found.");
+            throw new ResourceNotFoundException(nameof(User));
         }
 
         return new UserResponse(new UserDTO

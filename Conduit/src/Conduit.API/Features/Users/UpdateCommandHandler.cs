@@ -1,4 +1,5 @@
-﻿using Conduit.API.Infrastructure;
+﻿using Conduit.API.Common.Exceptions;
+using Conduit.API.Infrastructure;
 using Conduit.API.Infrastructure.Auth;
 using FluentValidation;
 using MediatR;
@@ -27,7 +28,7 @@ public class UpdateCommandHandler : IRequestHandler<UpdateCommand, UserResponse>
         var user = await _appDbContext.Users.Where(u => u.Id == request.UserId).FirstOrDefaultAsync(cancellationToken);
         if(user is null)
         {
-            throw new ArgumentException("User not found.");
+            throw new ResourceNotFoundException(nameof(User));
         }
 
         user.Username = request.Payload.User.Username ?? user.Username;

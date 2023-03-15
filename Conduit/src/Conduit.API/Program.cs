@@ -32,7 +32,9 @@ services.AddHttpContextAccessor();
 
 services.AddJwt(configuration);
 
-services.AddControllers();
+services.AddControllers((options) => {
+    options.Filters.Add<ApiExceptionFilterAttribute>();
+});
 
 var app = builder.Build();
 

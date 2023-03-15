@@ -7,14 +7,17 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
     public RegisterCommandValidator()
     {
         RuleFor(s => s.Payload.User.Username)
-            .NotEmpty();
+            .NotEmpty()
+            .OverridePropertyName("User.Username");
 
         RuleFor(s => s.Payload.User.Email)
             .Cascade(CascadeMode.Stop)
             .NotEmpty()
-            .EmailAddress();
+            .EmailAddress()
+            .OverridePropertyName("User.Email");
 
         RuleFor(s => s.Payload.User.Password)
-            .NotEmpty();
+            .NotEmpty()
+            .OverridePropertyName("User.Password");
     }
 }

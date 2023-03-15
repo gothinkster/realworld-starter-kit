@@ -7,7 +7,8 @@ public class UpdateCommandValidator : AbstractValidator<UpdateCommand>
     public UpdateCommandValidator()
 	{
         RuleFor(a => a.Payload.Article.Title)
-            .OptionalArgument();
+            .OptionalArgument()
+            .OverridePropertyName("Article.Title");
     }
 
 }

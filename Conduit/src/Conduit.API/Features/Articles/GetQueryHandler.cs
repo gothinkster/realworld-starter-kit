@@ -1,4 +1,5 @@
-﻿using Conduit.API.Infrastructure;
+﻿using Conduit.API.Common.Exceptions;
+using Conduit.API.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +22,7 @@ public class GetQueryHandler : IRequestHandler<GetQuery, ArticleResponse>
 
         if(article is null)
         {
-            throw new ArgumentException("Article not found.");
+            throw new ResourceNotFoundException(nameof(Article));
         }
 
         return new ArticleResponse(article);

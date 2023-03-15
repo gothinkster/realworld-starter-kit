@@ -1,4 +1,5 @@
-﻿using Conduit.API.Infrastructure;
+﻿using Conduit.API.Common.Exceptions;
+using Conduit.API.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,7 +21,7 @@ public class DeleteCommandHandler : IRequestHandler<DeleteCommand>
 
         if (article is null)
         {
-            throw new ArgumentException("Article not found.");
+            throw new ResourceNotFoundException(nameof(Article));
         }
 
         _appDbContext.Articles.Remove(article);

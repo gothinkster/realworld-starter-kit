@@ -6,8 +6,12 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
 {
     public LoginCommandValidator()
     {
-        RuleFor(p => p.Payload.User.Email).NotEmpty();
-        RuleFor(p => p.Payload.User.Password).NotEmpty();
+        RuleFor(p => p.Payload.User.Email)
+            .NotEmpty()
+            .OverridePropertyName("User.Email");
+        RuleFor(p => p.Payload.User.Password)
+            .NotEmpty()
+            .OverridePropertyName("User.Password");
     }
 }
 
