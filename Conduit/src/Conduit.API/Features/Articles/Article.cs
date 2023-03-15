@@ -1,4 +1,6 @@
-﻿namespace Conduit.API.Features.Articles;
+﻿using Conduit.API.Features.Users;
+
+namespace Conduit.API.Features.Articles;
 
 public class Article
 {
@@ -15,6 +17,9 @@ public class Article
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }
+
+    public int? AuthorId { get; set; }
+    public User? Author { get; set; } = new();
 }
 
 public record ArticleResponse(Article Article);

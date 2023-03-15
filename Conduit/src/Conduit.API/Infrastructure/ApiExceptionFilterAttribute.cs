@@ -14,7 +14,8 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
         _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
         {
             { typeof(ValidationException), HandleValidationException },
-            { typeof(ResourceNotFoundException), HandleResourceNotFoundException },
+            { typeof(ResourceNotFoundException), (context) => { context.Result = new NotFoundResult(); } },
+            { typeof(PermissionException), (context) => { context.Result = new ForbidResult(); } }
         };
     }
 
@@ -31,11 +32,6 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
         }
 
         base.OnException(context);
-    }
-
-    private void HandleResourceNotFoundException(ExceptionContext context)
-    {
-        context.Result = new NotFoundResult();
     }
 
     private void HandleValidationException(ExceptionContext context)

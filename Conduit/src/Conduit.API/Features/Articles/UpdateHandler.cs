@@ -8,21 +8,28 @@ namespace Conduit.API.Features.Articles;
 public class UpdateHandler : IRequestHandler<UpdateCommand, ArticleResponse>
 {
     private readonly AppDbContext _appDbContext;
+    private readonly ICurrentUserAccessor _currentUserAccessor;
 
-    public UpdateHandler(AppDbContext appDbContext)
+    public UpdateHandler(AppDbContext appDbContext,
+        ICurrentUserAccessor currentUserAccessor)
     {
         _appDbContext = appDbContext;
+        _currentUserAccessor = currentUserAccessor;
     }
 
     public async Task<ArticleResponse> Handle(UpdateCommand request, CancellationToken cancellationToken)
     {
-        var article = await _appDbContext
-            .Articles
+        var article = await _appDbContext.Articles
             .FirstOrDefaultAsync(a => a.Slug == request.Slug, cancellationToken);
 
         if(article is null)
         {
             throw new ResourceNotFoundException(nameof(Article));
+        }
+
+        if(article.AuthorId != _currentUserAccessor.GetCurrentUserId())
+        {
+            throw new PermissionException();
         }
 
         article.Title = request.Payload.Article.Title ?? article.Title;

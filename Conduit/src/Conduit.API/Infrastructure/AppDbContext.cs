@@ -10,14 +10,12 @@ namespace Conduit.API.Infrastructure;
 
 public class AppDbContext : DbContext
 {
-    private readonly IServiceProvider _serviceProvider;
     private readonly IServiceScopeFactory _serviceScopeFactory;
 
     public AppDbContext(DbContextOptions options, 
-        IServiceProvider serviceProvider,
-        IServiceScopeFactory serviceScopeFactory) : base(options)
+        IServiceScopeFactory serviceScopeFactory) 
+        : base(options)
     {
-        _serviceProvider = serviceProvider;
         _serviceScopeFactory = serviceScopeFactory;
     }
 
@@ -52,6 +50,10 @@ public class AppDbContext : DbContext
 
             b.Property(p => p.Id)
                 .ValueGeneratedOnAdd();
+
+            b.HasOne(p => p.Author)
+                .WithMany()
+                .HasForeignKey(p => p.AuthorId);
         });
 
         modelBuilder.Entity<User>(b =>

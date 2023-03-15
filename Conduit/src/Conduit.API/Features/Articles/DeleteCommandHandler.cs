@@ -8,10 +8,14 @@ namespace Conduit.API.Features.Articles;
 public class DeleteCommandHandler : IRequestHandler<DeleteCommand>
 {
     private readonly AppDbContext _appDbContext;
+    private readonly ICurrentUserAccessor _currentUserAccessor;
 
-    public DeleteCommandHandler(AppDbContext appDbContext)
+    public DeleteCommandHandler(
+        AppDbContext appDbContext,
+        ICurrentUserAccessor currentUserAccessor)
 	{
         _appDbContext = appDbContext;
+        _currentUserAccessor = currentUserAccessor;
     }
 
     public async Task Handle(DeleteCommand request, CancellationToken cancellationToken)
@@ -22,6 +26,11 @@ public class DeleteCommandHandler : IRequestHandler<DeleteCommand>
         if (article is null)
         {
             throw new ResourceNotFoundException(nameof(Article));
+        }
+
+        if (article.AuthorId != _currentUserAccessor.GetCurrentUserId())
+        {
+            throw new PermissionException();
         }
 
         _appDbContext.Articles.Remove(article);
