@@ -6,15 +6,15 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
 {
     public RegisterCommandValidator()
     {
-        RuleFor(s => s.Payload.Username)
+        RuleFor(s => s.Payload.User.Username)
             .NotEmpty();
 
-        RuleFor(s => s.Payload.Email)
+        RuleFor(s => s.Payload.User.Email)
             .Cascade(CascadeMode.Stop)
             .NotEmpty()
             .EmailAddress();
 
-        RuleFor(s => s.Payload.Password)
+        RuleFor(s => s.Payload.User.Password)
             .NotEmpty();
     }
 }

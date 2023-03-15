@@ -1,6 +1,6 @@
 ﻿namespace Conduit.API.Features.Users;
 
-public class UserDTO
+public record UserDTO
 {
     public string UserName { get; set; } = string.Empty;
     
@@ -12,3 +12,5 @@ public class UserDTO
 
     public string Token { get; set; } = string.Empty;
 }
+
+public record UserResponse(UserDTO User);

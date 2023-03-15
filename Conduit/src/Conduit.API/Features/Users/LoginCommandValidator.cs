@@ -6,8 +6,8 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
 {
     public LoginCommandValidator()
     {
-        RuleFor(p => p.Payload.Email).NotEmpty();
-        RuleFor(p => p.Payload.Password).NotEmpty();
+        RuleFor(p => p.Payload.User.Email).NotEmpty();
+        RuleFor(p => p.Payload.User.Password).NotEmpty();
     }
 }
 

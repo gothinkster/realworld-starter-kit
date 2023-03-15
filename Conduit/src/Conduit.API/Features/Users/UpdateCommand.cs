@@ -2,9 +2,11 @@
 
 namespace Conduit.API.Features.Users;
 
-public record UpdateCommand(int UserId, UpdatePayload Payload) : IRequest<UserDTO>;
+public record UpdateCommand(int UserId, UpdatePayload Payload) : IRequest<UserResponse>;
 
-public record UpdatePayload
+public record UpdatePayload(UpdateData User);
+
+public record UpdateData
 {
     public string? Username { get; set; }
 

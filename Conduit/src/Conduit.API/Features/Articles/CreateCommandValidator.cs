@@ -6,7 +6,7 @@ public class CreateCommandValidator : AbstractValidator<CreateCommand>
 {
     public CreateCommandValidator()
     {
-        RuleFor(c => c.Payload.Title)
-            .OptionalArgument();
+        RuleFor(c => c.Payload.Article.Title)
+            .NotEmpty();
     }
 }

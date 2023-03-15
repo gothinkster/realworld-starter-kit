@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Conduit.API.Features.Articles;
 
-public class UpdateHandler : IRequestHandler<UpdateCommand, Article>
+public class UpdateHandler : IRequestHandler<UpdateCommand, ArticleResponse>
 {
     private readonly AppDbContext _appDbContext;
 
@@ -13,7 +13,7 @@ public class UpdateHandler : IRequestHandler<UpdateCommand, Article>
         _appDbContext = appDbContext;
     }
 
-    public async Task<Article> Handle(UpdateCommand request, CancellationToken cancellationToken)
+    public async Task<ArticleResponse> Handle(UpdateCommand request, CancellationToken cancellationToken)
     {
         var article = await _appDbContext
             .Articles
@@ -24,15 +24,15 @@ public class UpdateHandler : IRequestHandler<UpdateCommand, Article>
             throw new ArgumentException("Article not found.");
         }
 
-        article.Title = request.Payload.Title ?? article.Title;
-        article.Description = request.Payload.Description ?? article.Description;
-        article.Body = request.Payload.Body ?? article.Body;
+        article.Title = request.Payload.Article.Title ?? article.Title;
+        article.Description = request.Payload.Article.Description ?? article.Description;
+        article.Body = request.Payload.Article.Body ?? article.Body;
         article.Slug = article.Title.GenerateSlug();
         article.UpdatedAt = DateTime.UtcNow;
 
         await _appDbContext.SaveChangesAsync(cancellationToken);
 
-        return article;
+        return new ArticleResponse(article);
     }
 }
 

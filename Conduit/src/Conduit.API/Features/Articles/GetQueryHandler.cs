@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Conduit.API.Features.Articles;
 
-public class GetQueryHandler : IRequestHandler<GetQuery, Article?>
+public class GetQueryHandler : IRequestHandler<GetQuery, ArticleResponse>
 {
     private readonly AppDbContext _appDbContext;
 
@@ -13,12 +13,17 @@ public class GetQueryHandler : IRequestHandler<GetQuery, Article?>
         _appDbContext = appDbContext;
     }
 
-    public async Task<Article?> Handle(GetQuery request, CancellationToken cancellationToken)
+    public async Task<ArticleResponse> Handle(GetQuery request, CancellationToken cancellationToken)
     {
        var article = await _appDbContext
             .Articles
             .FirstOrDefaultAsync(x => x.Slug == request.Slug, cancellationToken);
 
-        return article;
+        if(article is null)
+        {
+            throw new ArgumentException("Article not found.");
+        }
+
+        return new ArticleResponse(article);
     }
 }

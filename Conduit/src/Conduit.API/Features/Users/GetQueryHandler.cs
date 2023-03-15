@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Conduit.API.Features.Users;
 
-public class GetQueryHandler : IRequestHandler<GetQuery, UserDTO>
+public class GetQueryHandler : IRequestHandler<GetQuery, UserResponse>
 {
     private readonly AppDbContext _dbContext;
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
@@ -18,7 +18,7 @@ public class GetQueryHandler : IRequestHandler<GetQuery, UserDTO>
         _jwtTokenGenerator = jwtTokenGenerator;
     }
 
-    public async Task<UserDTO> Handle(GetQuery request, CancellationToken cancellationToken)
+    public async Task<UserResponse> Handle(GetQuery request, CancellationToken cancellationToken)
     {
         var user = await _dbContext.Users.AsNoTracking().Where(u => u.Id == request.userId).FirstOrDefaultAsync(cancellationToken);
 
@@ -27,13 +27,13 @@ public class GetQueryHandler : IRequestHandler<GetQuery, UserDTO>
             throw new ArgumentException("User not found.");
         }
 
-        return new UserDTO
+        return new UserResponse(new UserDTO
         {
             Bio = user.Bio,
             Email = user.Email,
             Image = user.Image,
             UserName = user.Username,
             Token = await _jwtTokenGenerator.CreateTokenAsync(user.Id, cancellationToken)
-        };
+        });
     }
 }

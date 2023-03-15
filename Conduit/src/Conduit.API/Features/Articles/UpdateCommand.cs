@@ -2,9 +2,11 @@
 
 namespace Conduit.API.Features.Articles;
 
-public record UpdateCommand(string Slug, UpdatePayload Payload) : IRequest<Article>;
+public record UpdateCommand(string Slug, UpdatePayload Payload) : IRequest<ArticleResponse>;
 
-public record UpdatePayload
+public record UpdatePayload(UpdateData Article);
+
+public record UpdateData
 {
     public string? Title { get; init; }
 

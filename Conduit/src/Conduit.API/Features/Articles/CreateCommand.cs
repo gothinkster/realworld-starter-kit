@@ -2,9 +2,11 @@
 
 namespace Conduit.API.Features.Articles;
 
-public record CreateCommand(CreatePayload Payload) : IRequest<Article>;
+public record CreateCommand(CreatePayload Payload) : IRequest<ArticleResponse>;
 
-public record CreatePayload
+public record CreatePayload(CreateData Article);
+
+public record CreateData
 {
     public string Title { get; init; } = string.Empty;
 

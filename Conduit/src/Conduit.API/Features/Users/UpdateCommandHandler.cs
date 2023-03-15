@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Conduit.API.Features.Users;
 
-public class UpdateCommandHandler : IRequestHandler<UpdateCommand, UserDTO>
+public class UpdateCommandHandler : IRequestHandler<UpdateCommand, UserResponse>
 {
     private readonly AppDbContext _appDbContext;
     private readonly IPasswordHasher _passwordHasher;
@@ -22,7 +22,7 @@ public class UpdateCommandHandler : IRequestHandler<UpdateCommand, UserDTO>
         _jwtTokenGenerator = jwtTokenGenerator;
     }
 
-    public async Task<UserDTO> Handle(UpdateCommand request, CancellationToken cancellationToken)
+    public async Task<UserResponse> Handle(UpdateCommand request, CancellationToken cancellationToken)
     {
         var user = await _appDbContext.Users.Where(u => u.Id == request.UserId).FirstOrDefaultAsync(cancellationToken);
         if(user is null)
@@ -30,26 +30,26 @@ public class UpdateCommandHandler : IRequestHandler<UpdateCommand, UserDTO>
             throw new ArgumentException("User not found.");
         }
 
-        user.Username = request.Payload.Username ?? user.Username;
-        user.Email = request.Payload.Email ?? user.Email;
-        user.Bio = request.Payload.Bio ?? user.Bio;
-        user.Image = request.Payload.Image ?? user.Image;
+        user.Username = request.Payload.User.Username ?? user.Username;
+        user.Email = request.Payload.User.Email ?? user.Email;
+        user.Bio = request.Payload.User.Bio ?? user.Bio;
+        user.Image = request.Payload.User.Image ?? user.Image;
 
-        if (!string.IsNullOrWhiteSpace(request.Payload.Password))
+        if (!string.IsNullOrWhiteSpace(request.Payload.User.Password))
         {
             var salt = Guid.NewGuid().ToByteArray();
-            user.Hash = await _passwordHasher.HashAsync(request.Payload.Password, salt, cancellationToken);
+            user.Hash = await _passwordHasher.HashAsync(request.Payload.User.Password, salt, cancellationToken);
             user.Salt = salt;
         }
 
         await _appDbContext.SaveChangesAsync(cancellationToken);
 
-        return new UserDTO
+        return new UserResponse(new UserDTO
         {
             UserName = user.Username,
             Email = user.Email,
             Bio = user.Bio,
             Image = user.Image,
-        };
+        });
     }
 }

@@ -32,7 +32,7 @@ public class ArticlesController : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreatePayload payload, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(new CreateCommand(payload), cancellationToken);
-        var routes = new { result.Slug };
+        var routes = new { result.Article.Slug };
         return CreatedAtAction(nameof(Get), routes, result);
     }
 

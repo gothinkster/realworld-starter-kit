@@ -16,3 +16,5 @@ public class Article
 
     public DateTime UpdatedAt { get; set; }
 }
+
+public record ArticleResponse(Article Article);

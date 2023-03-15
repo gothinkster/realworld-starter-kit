@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Conduit.API.Features.Articles;
 
-public class CreateCommandHandler : IRequestHandler<CreateCommand, Article>
+public class CreateCommandHandler : IRequestHandler<CreateCommand, ArticleResponse>
 {
     private readonly AppDbContext _appDbContext;
 
@@ -12,14 +12,14 @@ public class CreateCommandHandler : IRequestHandler<CreateCommand, Article>
         _appDbContext = appDbContext;
     }
 
-    public async Task<Article> Handle(CreateCommand request, CancellationToken cancellationToken)
+    public async Task<ArticleResponse> Handle(CreateCommand request, CancellationToken cancellationToken)
     {
         var article = new Article
         {
-            Title = request.Payload.Title,
-            Description = request.Payload.Description,
-            Body = request.Payload.Body,
-            Slug = request.Payload.Title.GenerateSlug(),
+            Title = request.Payload.Article.Title,
+            Description = request.Payload.Article.Description,
+            Body = request.Payload.Article.Body,
+            Slug = request.Payload.Article.Title.GenerateSlug(),
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow,
         };
@@ -27,6 +27,6 @@ public class CreateCommandHandler : IRequestHandler<CreateCommand, Article>
         await _appDbContext.Articles.AddAsync(article, cancellationToken);
         await _appDbContext.SaveChangesAsync(cancellationToken);
 
-        return article;
+        return new ArticleResponse(article);
     }
 }
