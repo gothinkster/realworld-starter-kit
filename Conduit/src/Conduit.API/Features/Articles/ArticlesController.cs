@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Conduit.API.Infrastructure.Auth;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Conduit.API.Features.Articles;
@@ -29,6 +31,7 @@ public class ArticlesController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(AuthenticationSchemes = JwtIssuerOptions.Schemes)]
     public async Task<IActionResult> Create([FromBody] CreatePayload payload, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(new CreateCommand(payload), cancellationToken);
@@ -37,6 +40,7 @@ public class ArticlesController : ControllerBase
     }
 
     [HttpPut("{slug}")]
+    [Authorize(AuthenticationSchemes = JwtIssuerOptions.Schemes)]
     public async Task<IActionResult> Update(string slug, [FromBody] UpdatePayload payload, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(new UpdateCommand(slug, payload), cancellationToken);
@@ -44,6 +48,7 @@ public class ArticlesController : ControllerBase
     }
 
     [HttpDelete("{slug}")]
+    [Authorize(AuthenticationSchemes = JwtIssuerOptions.Schemes)]
     public async Task<IActionResult> Delete(string slug, CancellationToken cancellationToken)
     {
         await _mediator.Send(new DeleteCommand(slug), cancellationToken);
