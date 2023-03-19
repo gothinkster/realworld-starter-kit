@@ -32,6 +32,7 @@ func NewServer(config config.Config, store db.Querier, log log.Logger) *Server {
 func (s *Server) MountHandlers() {
 	api := s.router.Group("/api")
 	api.POST("/users", s.RegisterUser)
+	api.POST("/users/login", s.LoginUser)
 }
 
 func (s *Server) Start(addr string) error {
