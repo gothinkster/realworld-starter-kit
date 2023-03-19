@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS favorites (
 );
 
 CREATE INDEX IF NOT EXISTS idx_users_username ON users (username);
-CREATE INDEX IF NOT EXISTS idx_users_email ON users (email);
+-- CREATE INDEX IF NOT EXISTS idx_users_email ON users (email);
 
 CREATE INDEX IF NOT EXISTS idx_articles_user_id ON articles (author_id);
 CREATE INDEX IF NOT EXISTS idx_articles_slug ON articles (slug);
