@@ -2,9 +2,9 @@ services:
   postgres:
     image: postgres
     environment:
-      POSTGRES_DB: devdb
-      POSTGRES_USER: devuser
-      POSTGRES_PASSWORD: devpass
+      POSTGRES_DB: conduitdb
+      POSTGRES_USER: demouser
+      POSTGRES_PASSWORD: demopassword
     ports:
       - 5432:5432
     expose:

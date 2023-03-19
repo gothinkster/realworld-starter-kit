@@ -1,30 +1,39 @@
 package api
 
 import (
-	db "github.com/aliml92/realworld-go-sqlc/db/sqlc"
-	"github.com/gorilla/mux"
+
+	"github.com/aliml92/realworld-gin-sqlc/config"
+	"github.com/aliml92/realworld-gin-sqlc/log"
+	db "github.com/aliml92/realworld-gin-sqlc/db/sqlc"
+	"github.com/gin-gonic/gin"
 )
 
 
 
 type Server struct {
-	router *mux.Router
+	config config.Config
+	router *gin.Engine
 	store db.Querier
+	log log.Logger
 }
 
 
-func NewServer(store db.Querier) *Server {
-	server := &Server{store: store}
-	router := mux.NewRouter()
-	server.router = router
+func NewServer(config config.Config, store db.Querier, log log.Logger) *Server {
+	server := &Server{
+		config: config,
+		router: gin.Default(),
+		store:  store,
+		log:    log,
+	}
 	return server
 }
 
 
 func (s *Server) MountHandlers() {
-	
+	api := s.router.Group("/api")
+	api.POST("/users", s.RegisterUser)
 }
 
 func (s *Server) Start(addr string) error {
-	return nil
+	return s.router.Run(addr)
 }
