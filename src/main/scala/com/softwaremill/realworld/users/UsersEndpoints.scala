@@ -22,7 +22,7 @@ class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
     .serverLogic(session =>
       _ =>
         usersService
-          .findByEmail(session.email)
+          .get(session.email)
           .logError
           .mapError {
             case e: Exceptions.NotFound => NotFound(e.message)
@@ -31,13 +31,13 @@ class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
           .map(User.apply)
     )
 
-  val userRegister: ZServerEndpoint[Any, Any] = base.publicEndpoint.post
+  val register: ZServerEndpoint[Any, Any] = base.publicEndpoint.post
     .in("api" / "users")
     .in(jsonBody[UserRegister])
     .out(jsonBody[User])
     .zServerLogic(data =>
       usersService
-        .registerNewUser(data.user)
+        .register(data.user)
         .logError
         .mapError {
           case e: Exceptions.AlreadyInUse => Conflict(e.message)
@@ -45,13 +45,30 @@ class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
         }
     )
 
-  val userLogin: ZServerEndpoint[Any, Any] = base.publicEndpoint.post
+  val update: ZServerEndpoint[Any, Any] = base.secureEndpoint.put
+    .in("api" / "user")
+    .in(jsonBody[UserUpdate])
+    .out(jsonBody[User])
+    .serverLogic(session =>
+      data =>
+        usersService
+          .update(data.user, session.email)
+          .logError
+          .mapError {
+            case e: Exceptions.AlreadyInUse => Conflict(e.message)
+            case e: Exceptions.NotFound     => NotFound(e.message)
+            case _                          => InternalServerError()
+          }
+          .map(User.apply)
+    )
+
+  val login: ZServerEndpoint[Any, Any] = base.publicEndpoint.post
     .in("api" / "users" / "login")
     .in(jsonBody[UserLogin])
     .out(jsonBody[User])
     .zServerLogic(data =>
       usersService
-        .userLogin(data.user)
+        .login(data.user)
         .logError
         .mapError {
           case e: Exceptions.Unauthorized => Unauthorized(e.message)
@@ -60,7 +77,7 @@ class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
         .map(User.apply)
     )
 
-  val endpoints: List[ZServerEndpoint[Any, Any]] = List(getCurrentUser, userRegister, userLogin)
+  val endpoints: List[ZServerEndpoint[Any, Any]] = List(getCurrentUser, register, update, login)
 
 object UsersEndpoints:
   val live: ZLayer[UsersService with BaseEndpoints, Nothing, UsersEndpoints] = ZLayer.fromFunction(new UsersEndpoints(_, _))

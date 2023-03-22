@@ -1,5 +1,6 @@
 package com.softwaremill.realworld.articles
 
+import com.softwaremill.realworld.articles.*
 import com.softwaremill.realworld.common.*
 import com.softwaremill.realworld.db.{Db, DbConfig}
 import io.getquill.SnakeCase
@@ -9,7 +10,8 @@ import sttp.tapir.json.zio.jsonBody
 import sttp.tapir.server.ServerEndpoint.Full
 import sttp.tapir.ztapir.*
 import sttp.tapir.{EndpointInput, PublicEndpoint, Validator}
-import zio.{Cause, Exit, ZIO, ZLayer}
+import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder}
+import zio.{Cause, Console, Exit, ZIO, ZLayer}
 
 import javax.sql.DataSource
 
@@ -34,7 +36,7 @@ class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
         )
         .mapTo[Pagination]
     )
-    .out(jsonBody[List[Article]])
+    .out(jsonBody[List[ArticleData]])
     .serverLogic(session =>
       (filters, pagination) =>
         articlesService
@@ -43,18 +45,56 @@ class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
           .mapError(_ => InternalServerError())
     )
 
-  val getArticle: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
-    .in("api" / "articles" / path[String]("slug"))
+  val get: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
+    .in("api" / "articles" / path[String]("slug")) // TODO Input Validation
     .out(jsonBody[Article])
     .serverLogic(session =>
       slug =>
-        articlesService.find(slug).logError.mapError {
-          case e: Exceptions.NotFound => NotFound(e.message)
-          case _                      => InternalServerError()
-        }
+        articlesService
+          .find(slug)
+          .logError
+          .mapError {
+            case e: Exceptions.NotFound => NotFound(e.message)
+            case _                      => InternalServerError()
+          }
+          .map(Article.apply)
     )
 
-  val endpoints: List[ZServerEndpoint[Any, Any]] = List(listArticles, getArticle)
+  val create: ZServerEndpoint[Any, Any] = base.secureEndpoint.post
+    .in("api" / "articles")
+    .in(jsonBody[ArticleCreate]) // TODO Input Validation
+    .out(jsonBody[Article])
+    .serverLogic(session =>
+      data =>
+        articlesService
+          .create(data.article, session.email)
+          .logError
+          .mapError {
+            case e: Exceptions.AlreadyInUse => Conflict(e.message)
+            case e: Exceptions.NotFound     => NotFound(e.message)
+            case _                          => InternalServerError()
+          }
+          .map(Article.apply)
+    )
+
+  val update: ZServerEndpoint[Any, Any] = base.secureEndpoint.put
+    .in("api" / "articles" / path[String]("slug"))
+    .in(jsonBody[ArticleUpdate]) // TODO Input Validation
+    .out(jsonBody[Article])
+    .serverLogic(session =>
+      data =>
+        articlesService
+          .update(articleUpdateData = data._2.article, slug = data._1, email = session.email)
+          .logError
+          .mapError {
+            case e: Exceptions.AlreadyInUse => Conflict(e.message)
+            case e: Exceptions.NotFound     => NotFound(e.message)
+            case _                          => InternalServerError()
+          }
+          .map(Article.apply)
+    )
+
+  val endpoints: List[ZServerEndpoint[Any, Any]] = List(listArticles, get, update, create)
 
   private def filterParam(name: String, key: ArticlesFilters): EndpointInput.Query[Option[(ArticlesFilters, String)]] = {
     query[Option[String]](name)
@@ -65,5 +105,4 @@ class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
   }
 
 object ArticlesEndpoints:
-
   val live: ZLayer[ArticlesService with BaseEndpoints, Nothing, ArticlesEndpoints] = ZLayer.fromFunction(new ArticlesEndpoints(_, _))

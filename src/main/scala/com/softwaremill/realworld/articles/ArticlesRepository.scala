@@ -2,10 +2,11 @@ package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.articles.ArticlesFilters.{Author, Favorited, Tag}
 import com.softwaremill.realworld.articles.ArticlesTags.{explodeTags, tagsConcat}
+import com.softwaremill.realworld.common.{Exceptions, Pagination}
 import com.softwaremill.realworld.profiles.ProfileRow
-import com.softwaremill.realworld.common.Pagination
+import com.softwaremill.realworld.users.UserRow
 import io.getquill.*
-import zio.{IO, UIO, ZIO, ZLayer}
+import zio.{Console, IO, UIO, ZIO, ZLayer}
 
 import java.sql.SQLException
 import java.time.Instant
@@ -17,7 +18,14 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
   private val dsLayer: ZLayer[Any, Nothing, DataSource] = ZLayer.succeed(dataSource)
 
   import quill.*
-  def list(filters: Map[ArticlesFilters, String], pagination: Pagination): IO[SQLException, List[Article]] = {
+
+  private val queryArticle = quote(querySchema[ArticleRow](entity = "articles"))
+  private val queryTagArticle = quote(querySchema[ArticleTagRow](entity = "tags_articles"))
+  private val queryFavoriteArticle = quote(querySchema[ArticleFavoriteRow](entity = "favorites_articles"))
+  private val queryProfile = quote(querySchema[ProfileRow](entity = "users"))
+  private val queryUser = quote(querySchema[UserRow](entity = "users"))
+
+  def list(filters: Map[ArticlesFilters, String], pagination: Pagination): IO[SQLException, List[ArticleData]] = {
     val tagFilter = filters.getOrElse(Tag, "")
     val favoritedFilter = filters.getOrElse(Favorited, "")
     val authorFilter = filters.getOrElse(Author, "")
@@ -38,35 +46,95 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
         .drop(lift(pagination.offset))
         .take(lift(pagination.limit))
         .sortBy(ar => ar.slug)
-      tr <- querySchema[ArticleTagRow](entity = "tags_articles")
+      tr <- queryTagArticle
         .groupByMap(_.articleSlug)(atr => (atr.articleSlug, tagsConcat(atr.tag)))
         .leftJoin(a => a._1 == ar.slug)
-      fr <- querySchema[ArticleFavoriteRow](entity = "favorites_articles")
+      fr <- queryFavoriteArticle
         .groupByMap(_.articleSlug)(fr => (fr.articleSlug, count(fr.profileId)))
         .leftJoin(f => f._1 == ar.slug)
-      pr <- querySchema[ProfileRow](entity = "users") if ar.authorId == pr.userId
+      pr <- queryProfile if ar.authorId == pr.userId
     } yield (ar, pr, tr.map(_._2), fr.map(_._2)))
       .map(_.map(article))
       .provide(dsLayer)
   }
 
-  def find(slug: String): IO[SQLException, Option[Article]] = run(for {
-    ar <- querySchema[ArticleRow](entity = "articles") if ar.slug == lift(slug)
-    tr <- querySchema[ArticleTagRow](entity = "tags_articles")
-      .groupByMap(_.articleSlug)(atr => (atr.articleSlug, tagsConcat(atr.tag)))
-      .leftJoin(a => a._1 == ar.slug)
-    fr <- querySchema[ArticleFavoriteRow](entity = "favorites_articles")
-      .groupByMap(_.articleSlug)(fr => (fr.articleSlug, count(fr.profileId)))
-      .leftJoin(f => f._1 == ar.slug)
-    pr <- querySchema[ProfileRow](entity = "users") if ar.authorId == pr.userId
-  } yield (ar, pr, tr.map(_._2), fr.map(_._2)))
-    .map(_.headOption)
-    .map(_.map(article))
+  def findBySlug(slug: String): IO[SQLException, Option[ArticleData]] =
+    run(for {
+      ar <- queryArticle if ar.slug == lift(slug)
+      tr <- queryTagArticle
+        .groupByMap(_.articleSlug)(atr => (atr.articleSlug, tagsConcat(atr.tag)))
+        .leftJoin(a => a._1 == ar.slug)
+      fr <- queryFavoriteArticle
+        .groupByMap(_.articleSlug)(fr => (fr.articleSlug, count(fr.profileId)))
+        .leftJoin(f => f._1 == ar.slug)
+      pr <- queryProfile if ar.authorId == pr.userId
+    } yield (ar, pr, tr.map(_._2), fr.map(_._2)))
+      .map(_.headOption)
+      .map(_.map(article))
+      .provide(dsLayer)
+
+  def findBySlugAndEmail(slug: String, userEmail: String): IO[SQLException, Option[ArticleData]] =
+    run(for { // TODO refactor findBySlug... methods when follows are implemented
+      user <- queryUser if user.email == lift(userEmail)
+      ar <- queryArticle if ar.slug == lift(slug) && ar.authorId == user.userId
+      tr <- queryTagArticle
+        .groupByMap(_.articleSlug)(atr => (atr.articleSlug, tagsConcat(atr.tag)))
+        .leftJoin(a => a._1 == ar.slug)
+      fr <- queryFavoriteArticle
+        .groupByMap(_.articleSlug)(fr => (fr.articleSlug, count(fr.profileId)))
+        .leftJoin(f => f._1 == ar.slug)
+      pr <- queryProfile if ar.authorId == pr.userId
+    } yield (ar, pr, tr.map(_._2), fr.map(_._2)))
+      .map(_.headOption)
+      .map(_.map(article))
+      .provide(dsLayer)
+
+  def addTag(tag: String, slug: String): IO[Exception, Unit] = run(
+    queryTagArticle
+      .insert(
+        _.tag -> lift(tag),
+        _.articleSlug -> lift(slug)
+      )
+  ).unit
     .provide(dsLayer)
 
-  private def article(tuple: (ArticleRow, ProfileRow, Option[String], Option[Int])): Article = {
+  def updateTagSlugs(updatedSlug: String, slug: String): IO[Exception, Unit] = run(
+    queryTagArticle
+      .filter(_.articleSlug == lift(slug))
+      .update(_.articleSlug -> lift(updatedSlug))
+  ).unit
+    .provide(dsLayer)
+
+  def add(article: ArticleData, userId: Int): IO[Exception, Unit] = run(
+    queryArticle
+      .insert(
+        _.slug -> lift(article.slug),
+        _.title -> lift(article.title),
+        _.description -> lift(article.description),
+        _.body -> lift(article.body),
+        _.createdAt -> lift(article.createdAt),
+        _.updatedAt -> lift(article.updatedAt),
+        _.authorId -> lift(userId)
+      )
+  ).unit
+    .provide(dsLayer)
+
+  def updateBySlug(updateData: ArticleData, slug: String): IO[Exception, Unit] = run(
+    queryArticle
+      .filter(_.slug == lift(slug.toLowerCase()))
+      .update(
+        record => record.slug -> lift(updateData.slug),
+        record => record.title -> lift(updateData.title),
+        record => record.description -> lift(updateData.description),
+        record => record.body -> lift(updateData.body)
+      )
+  ).unit
+    .mapError(_ => Exceptions.AlreadyInUse("Article name already exists"))
+    .provide(dsLayer)
+
+  private def article(tuple: (ArticleRow, ProfileRow, Option[String], Option[Int])): ArticleData = {
     val (ar, pr, tags, favorites) = tuple
-    Article(
+    ArticleData(
       ar.slug,
       ar.title,
       ar.description,
@@ -78,7 +146,7 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
       favorited = false,
       favorites.getOrElse(0),
       // TODO implement "following" (after authentication is ready)
-      ArticleAuthor(pr.username, pr.bio, pr.image, following = false)
+      ArticleAuthor(pr.username, Option(pr.bio), Option(pr.image), following = false)
     )
   }
 

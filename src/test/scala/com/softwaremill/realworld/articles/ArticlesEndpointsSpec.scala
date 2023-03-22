@@ -4,6 +4,7 @@ import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.common.TestUtils.*
 import com.softwaremill.realworld.common.{BaseEndpoints, Configuration}
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
+import com.softwaremill.realworld.users.UsersRepository
 import sttp.client3.testing.SttpBackendStub
 import sttp.client3.ziojson.*
 import sttp.client3.{HttpError, Response, ResponseException, UriContext, basicRequest}
@@ -35,7 +36,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
               basicRequest
                 .get(uri"http://test.com/api/articles")
                 .headers(validAuthorizationHeader())
-                .response(asJson[List[Article]])
+                .response(asJson[List[ArticleData]])
                 .send(backendStub)
                 .map(_.body)
             }
@@ -45,7 +46,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.getArticle)
+            .map(_.get)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -55,7 +56,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
               basicRequest
                 .get(uri"http://test.com/api/articles/unknown-article")
                 .headers(validAuthorizationHeader())
-                .response(asJson[Article])
+                .response(asJson[ArticleData])
                 .send(backendStub)
                 .map(_.body)
             }
@@ -80,7 +81,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   uri"http://test.com/api/articles?tag=invalid-tag"
                 )
                 .headers(validAuthorizationHeader())
-                .response(asJson[List[Article]])
+                .response(asJson[List[ArticleData]])
                 .send(backendStub)
                 .map(_.body)
             }
@@ -111,7 +112,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   uri"http://test.com/api/articles?limit=invalid-limit&offset=invalid-offset"
                 )
                 .headers(validAuthorizationHeader())
-                .response(asJson[List[Article]])
+                .response(asJson[List[ArticleData]])
                 .send(backendStub)
                 .map(_.body)
             }
@@ -140,7 +141,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
               basicRequest
                 .get(uri"http://test.com/api/articles?limit=1&offset=1")
                 .headers(validAuthorizationHeader())
-                .response(asJson[List[Article]])
+                .response(asJson[List[ArticleData]])
                 .send(backendStub)
                 .map(_.body)
             }
@@ -148,7 +149,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
           isRight(
             hasSize(equalTo(1))
               && contains(
-                Article(
+                ArticleData(
                   "how-to-train-your-dragon-2",
                   "How to train your dragon 2",
                   "So toothless",
@@ -158,7 +159,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   Instant.ofEpochMilli(1455767315824L),
                   false,
                   1,
-                  ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                  ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
                 )
               )
           )
@@ -178,7 +179,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
               basicRequest
                 .get(uri"http://test.com/api/articles?author=jake&favorited=john&tag=goats")
                 .headers(validAuthorizationHeader())
-                .response(asJson[List[Article]])
+                .response(asJson[List[ArticleData]])
                 .send(backendStub)
                 .map(_.body)
             }
@@ -186,7 +187,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
           isRight(
             hasSize(equalTo(1))
               && contains(
-                Article(
+                ArticleData(
                   "how-to-train-your-dragon-2",
                   "How to train your dragon 2",
                   "So toothless",
@@ -196,7 +197,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   Instant.ofEpochMilli(1455767315824L),
                   false,
                   1,
-                  ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                  ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
                 )
               )
           )
@@ -216,7 +217,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
               basicRequest
                 .get(uri"http://test.com/api/articles")
                 .headers(validAuthorizationHeader())
-                .response(asJson[List[Article]])
+                .response(asJson[List[ArticleData]])
                 .send(backendStub)
                 .map(_.body)
             }
@@ -224,7 +225,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
           isRight(
             hasSize(equalTo(3))
               && contains(
-                Article(
+                ArticleData(
                   "how-to-train-your-dragon",
                   "How to train your dragon",
                   "Ever wonder how?",
@@ -234,11 +235,11 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   Instant.ofEpochMilli(1455767315824L),
                   false,
                   2,
-                  ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                  ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
                 )
               )
               && contains(
-                Article(
+                ArticleData(
                   "how-to-train-your-dragon-2",
                   "How to train your dragon 2",
                   "So toothless",
@@ -248,11 +249,11 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   Instant.ofEpochMilli(1455767315824L),
                   false,
                   1,
-                  ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                  ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
                 )
               )
               && contains(
-                Article(
+                ArticleData(
                   "how-to-train-your-dragon-3",
                   "How to train your dragon 3",
                   "The tagless one",
@@ -262,7 +263,12 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                   Instant.ofEpochMilli(1455767315824L),
                   false,
                   0,
-                  ArticleAuthor("john", "I no longer work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                  ArticleAuthor(
+                    "john",
+                    Some("I no longer work at statefarm"),
+                    Some("https://i.stack.imgur.com/xHWG8.jpg"),
+                    following = false
+                  )
                 )
               )
           )
@@ -272,7 +278,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[ArticlesEndpoints]
-            .map(_.getArticle)
+            .map(_.get)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -290,16 +296,18 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
           isRight(
             equalTo(
               Article(
-                "how-to-train-your-dragon-2",
-                "How to train your dragon 2",
-                "So toothless",
-                "Its a dragon",
-                List("dragons", "goats", "training"),
-                Instant.ofEpochMilli(1455765776637L),
-                Instant.ofEpochMilli(1455767315824L),
-                false,
-                1,
-                ArticleAuthor("jake", "I work at statefarm", "https://i.stack.imgur.com/xHWG8.jpg", following = false)
+                ArticleData(
+                  "how-to-train-your-dragon-2",
+                  "How to train your dragon 2",
+                  "So toothless",
+                  "Its a dragon",
+                  List("dragons", "goats", "training"),
+                  Instant.ofEpochMilli(1455765776637L),
+                  Instant.ofEpochMilli(1455767315824L),
+                  false,
+                  1,
+                  ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
+                )
               )
             )
           )
@@ -310,6 +318,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
   ).provide(
     Configuration.live,
     AuthService.live,
+    UsersRepository.live,
     ArticlesRepository.live,
     ArticlesService.live,
     ArticlesEndpoints.live,

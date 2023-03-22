@@ -9,6 +9,9 @@ lazy val rootProject = (project in file(".")).settings(
     version := "0.1.0-SNAPSHOT",
     organization := "com.softwaremill",
     scalaVersion := "3.2.1",
+    scalacOptions ++= Seq(
+      "-Xmax-inlines", "64"
+    ),
     libraryDependencies ++= Seq(
       // API
       "com.softwaremill.sttp.tapir" %% "tapir-zio-http-server" % tapirVersion,

@@ -1,5 +1,6 @@
 package com.softwaremill.realworld.users
 
+import com.softwaremill.realworld.common.NoneAsNullOptionEncoder.*
 import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder}
 
 import java.time.Instant
@@ -15,15 +16,22 @@ case class UserRegister(
     user: UserRegisterData
 )
 object UserRegister:
-  given userRegisterRequestBodyEncoder: zio.json.JsonEncoder[UserRegister] = DeriveJsonEncoder.gen[UserRegister]
-  given userRegisterRequestBodyDecoder: zio.json.JsonDecoder[UserRegister] = DeriveJsonDecoder.gen[UserRegister]
+  given userRegisterEncoder: zio.json.JsonEncoder[UserRegister] = DeriveJsonEncoder.gen[UserRegister]
+  given userRegisterDecoder: zio.json.JsonDecoder[UserRegister] = DeriveJsonDecoder.gen[UserRegister]
+
+case class UserUpdate(
+    user: UserUpdateData
+)
+object UserUpdate:
+  given userUpdateEncoder: zio.json.JsonEncoder[UserUpdate] = DeriveJsonEncoder.gen[UserUpdate]
+  given userUpdateDecoder: zio.json.JsonDecoder[UserUpdate] = DeriveJsonDecoder.gen[UserUpdate]
 
 case class UserLogin(
     user: UserLoginData
 )
 object UserLogin:
-  given userLoginRequestBodyEncoder: zio.json.JsonEncoder[UserLogin] = DeriveJsonEncoder.gen[UserLogin]
-  given userLoginRequestBodyDecoder: zio.json.JsonDecoder[UserLogin] = DeriveJsonDecoder.gen[UserLogin]
+  given userLoginEncoder: zio.json.JsonEncoder[UserLogin] = DeriveJsonEncoder.gen[UserLogin]
+  given userLoginDecoder: zio.json.JsonDecoder[UserLogin] = DeriveJsonDecoder.gen[UserLogin]
 
 case class UserData(
     email: String,
@@ -44,6 +52,17 @@ case class UserRegisterData(
 object UserRegisterData:
   given userRegisterDataEncoder: zio.json.JsonEncoder[UserRegisterData] = DeriveJsonEncoder.gen[UserRegisterData]
   given userRegisterDataDecoder: zio.json.JsonDecoder[UserRegisterData] = DeriveJsonDecoder.gen[UserRegisterData]
+
+case class UserUpdateData(
+    email: Option[String],
+    username: Option[String],
+    password: Option[String],
+    bio: Option[String],
+    image: Option[String]
+)
+object UserUpdateData:
+  given userUpdateDataEncoder: zio.json.JsonEncoder[UserUpdateData] = DeriveJsonEncoder.gen[UserUpdateData]
+  given userUpdateDataDecoder: zio.json.JsonDecoder[UserUpdateData] = DeriveJsonDecoder.gen[UserUpdateData]
 
 case class UserLoginData(
     email: String,

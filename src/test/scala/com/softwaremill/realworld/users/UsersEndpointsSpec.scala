@@ -102,7 +102,7 @@ object UsersEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[UsersEndpoints]
-            .map(_.userRegister)
+            .map(_.register)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -122,7 +122,7 @@ object UsersEndpointsSpec extends ZIOSpecDefault:
         for {
           result <- ZIO
             .service[UsersEndpoints]
-            .map(_.userRegister)
+            .map(_.register)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -152,7 +152,7 @@ object UsersEndpointsSpec extends ZIOSpecDefault:
         assertZIO(
           ZIO
             .service[UsersEndpoints]
-            .map(_.userLogin)
+            .map(_.login)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter
@@ -172,7 +172,7 @@ object UsersEndpointsSpec extends ZIOSpecDefault:
         for {
           result <- ZIO
             .service[UsersEndpoints]
-            .map(_.userLogin)
+            .map(_.login)
             .flatMap { endpoint =>
               val backendStub =
                 zioTapirStubInterpreter

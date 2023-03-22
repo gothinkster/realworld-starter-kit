@@ -89,7 +89,7 @@ object UsersRepositorySpec extends ZIOSpecDefault:
       test("check user added") {
         for {
           repo <- ZIO.service[UsersRepository]
-          v <- repo.addUser(UserRegisterData(email = "test@test.com", username = "tested", password = "tested"))
+          v <- repo.add(UserRegisterData(email = "test@test.com", username = "tested", password = "tested"))
         } yield zio.test.assert(v)(isUnit) // TODO check DB?
       }
     ) @@ TestAspect.before(withEmptyDb())

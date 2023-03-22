@@ -1,9 +1,10 @@
 package com.softwaremill.realworld.users
 
 import com.softwaremill.realworld.auth.AuthService
-import com.softwaremill.realworld.common.Exceptions.Unauthorized
+import com.softwaremill.realworld.common.Exceptions.{NotFound, Unauthorized}
 import com.softwaremill.realworld.common.{Exceptions, Pagination}
 import com.softwaremill.realworld.profiles.ProfileRow
+import com.softwaremill.realworld.users.UserMapper.{toUserData, toUserUpdateDataWithFallback}
 import zio.{Console, IO, ZIO, ZLayer}
 
 import java.sql.SQLException
@@ -11,14 +12,14 @@ import javax.sql.DataSource
 
 class UsersService(authService: AuthService, usersRepository: UsersRepository):
 
-  def findByEmail(email: String): IO[Exception, UserData] = usersRepository
+  def get(email: String): IO[Exception, UserData] = usersRepository
     .findByEmail(email)
     .flatMap {
       case Some(a) => ZIO.succeed(a)
-      case None    => ZIO.fail(Exceptions.NotFound(s"User doesn't exist."))
+      case None    => ZIO.fail(Exceptions.NotFound("User doesn't exist."))
     }
 
-  def registerNewUser(user: UserRegisterData): IO[Throwable, User] = {
+  def register(user: UserRegisterData): IO[Throwable, User] = {
     val emailClean = user.email.toLowerCase.trim()
     val usernameClean = user.username.trim()
     val passwordClean = user.password.trim()
@@ -35,13 +36,13 @@ class UsersService(authService: AuthService, usersRepository: UsersRepository):
         for {
           hashedPassword <- authService.encryptPassword(passwordClean)
           jwt <- authService.generateJwt(emailClean)
-          _ <- usersRepository.addUser(UserRegisterData(emailClean, usernameClean, hashedPassword))
+          _ <- usersRepository.add(UserRegisterData(emailClean, usernameClean, hashedPassword))
         } yield User(userWithToken(emailClean, usernameClean, jwt))
       }
     } yield user
   }
 
-  def userLogin(user: UserLoginData): IO[Throwable, UserData] = {
+  def login(user: UserLoginData): IO[Throwable, UserData] = {
     val emailClean = user.email.toLowerCase.trim()
     val passwordClean = user.password.trim()
 
@@ -53,13 +54,26 @@ class UsersService(authService: AuthService, usersRepository: UsersRepository):
     } yield userWithPassword.user.copy(token = Some(jwt))
   }
 
+  def update(updateData: UserUpdateData, email: String): IO[Throwable, UserData] =
+    for {
+      maybeOldUser <- usersRepository.findUserWithPasswordByEmail(email)
+      oldUser <- ZIO.fromOption(maybeOldUser).mapError(_ => NotFound("User doesn't exist."))
+      password <- updateData.password
+        .map(newPassword => authService.encryptPassword(newPassword))
+        .getOrElse(ZIO.succeed(oldUser.hashedPassword))
+      updatedData <- usersRepository.updateByEmail(
+        toUserUpdateDataWithFallback(updateData, oldUser.copy(hashedPassword = password)),
+        email
+      )
+    } yield toUserData(updatedData)
+
   private def userWithToken(email: String, username: String, jwt: String): UserData = {
     UserData(
       email,
       Some(jwt),
       username,
-      None,
-      None
+      Option.empty[String],
+      Option.empty[String]
     )
   }
 
