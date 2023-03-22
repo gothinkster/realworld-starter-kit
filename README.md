@@ -1,23 +1,21 @@
-# ![RealWorld Example App](logo.png)
+### Features
 
-> ### [YOUR_FRAMEWORK] codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
+- Authenticate users via JWT (login/signup pages + logout button on settings page)
+- CRU- users (sign up & settings page - no deleting required)
+- CRUD Articles
+- CR-D Comments on articles (no updating required)
+- GET and display paginated lists of articles
+- Favorite articles
+- Follow other users
 
+### Expectations
 
-### [Demo](https://demo.realworld.io/)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
+- All the required features (see specs) should be implemented.
+- You should publish your implementation on a dedicated GitHub repository with the "Issues" section open.
+- You should provide a README that presents an overview of your implementation and explains how to run it locally.
+- The library/framework you are using should have at least 300 GitHub stars.
+- You should do your best to keep your implementation up to date.
 
+### Reference
 
-This codebase was created to demonstrate a fully fledged fullstack application built with **[YOUR_FRAMEWORK]** including CRUD operations, authentication, routing, pagination, and more.
-
-We've gone to great lengths to adhere to the **[YOUR_FRAMEWORK]** community styleguides & best practices.
-
-For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
-
-
-# How it works
-
-> Describe the general architecture of your app here
-
-# Getting started
-
-> npm install, npm start, etc.
-
+[https://realworld-docs.netlify.app/docs/intro](https://realworld-docs.netlify.app/docs/intro)
