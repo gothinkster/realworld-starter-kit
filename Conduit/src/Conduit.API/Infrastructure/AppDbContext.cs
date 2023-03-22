@@ -1,5 +1,6 @@
 ﻿using Conduit.API.Common.Validators;
 using Conduit.API.Features.Articles;
+using Conduit.API.Features.Comments;
 using Conduit.API.Features.Users;
 using FluentValidation;
 using FluentValidation.Results;
@@ -21,6 +22,8 @@ public class AppDbContext : DbContext
 
     public DbSet<Article> Articles => Set<Article>();
     public DbSet<User> Users => Set<User>();
+
+    public DbSet<Comment> Comments => Set<Comment>();
 
     public override int SaveChanges()
     {
@@ -54,6 +57,10 @@ public class AppDbContext : DbContext
             b.HasOne(p => p.Author)
                 .WithMany()
                 .HasForeignKey(p => p.AuthorId);
+
+            b.HasMany(a => a.Comments)
+                .WithOne()
+                .HasForeignKey(c => c.ArticleId);
         });
 
         modelBuilder.Entity<User>(b =>
@@ -69,6 +76,14 @@ public class AppDbContext : DbContext
             b.HasIndex(p => p.Email)
                 .IsUnique();
                 
+        });
+
+        modelBuilder.Entity<Comment>( b =>
+        {
+            b.HasKey(p => p.Id);
+
+            b.Property(p => p.Id)
+                .ValueGeneratedOnAdd();
         });
     }
 

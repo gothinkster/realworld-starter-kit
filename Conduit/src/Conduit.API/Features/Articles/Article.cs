@@ -1,4 +1,5 @@
-﻿using Conduit.API.Features.Users;
+﻿using Conduit.API.Features.Comments;
+using Conduit.API.Features.Users;
 
 namespace Conduit.API.Features.Articles;
 
@@ -20,6 +21,8 @@ public class Article
 
     public int? AuthorId { get; set; }
     public User? Author { get; set; } = new();
+
+    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }
 
 public record ArticleResponse(Article Article);
