@@ -3,7 +3,6 @@ package com.softwaremill.realworld.users
 import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.common.Exceptions.{NotFound, Unauthorized}
 import com.softwaremill.realworld.common.{Exceptions, Pagination}
-import com.softwaremill.realworld.profiles.ProfileRow
 import com.softwaremill.realworld.users.UserMapper.{toUserData, toUserUpdateDataWithFallback}
 import zio.{Console, IO, ZIO, ZLayer}
 

@@ -14,7 +14,7 @@ class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSo
 
   import quill.*
 
-  private val queryUser = quote(querySchema[UserRow](entity = "users"))
+  private inline def queryUser = quote(querySchema[UserRow](entity = "users"))
 
   def findByEmail(email: String): IO[Exception, Option[UserData]] = run(
     for {
@@ -33,6 +33,9 @@ class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSo
     )
       .map(_.headOption)
       .provide(dsLayer)
+
+  def findByUsername(username: String): IO[Exception, Option[UserRow]] =
+    run(queryUser.filter(u => u.username == lift(username)).value).provide(dsLayer)
 
   def findUserWithPasswordByEmail(email: String): IO[Exception, Option[UserWithPassword]] = run(
     for {
@@ -60,8 +63,8 @@ class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSo
         record => record.email -> lift(updateData.email.orNull),
         record => record.username -> lift(updateData.username.orNull),
         record => record.password -> lift(updateData.password.orNull),
-        record => record.bio -> lift(updateData.bio.orNull),
-        record => record.image -> lift(updateData.image.orNull)
+        record => record.bio -> lift(updateData.bio),
+        record => record.image -> lift(updateData.image)
       )
   ).map(_ => updateData)
     .mapError(_ => Exceptions.AlreadyInUse("E-mail already in use!"))

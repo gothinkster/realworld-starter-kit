@@ -4,6 +4,7 @@ import com.softwaremill.realworld.articles.{ArticlesEndpoints, ArticlesRepositor
 import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.common.{AppConfig, BaseEndpoints, Configuration, Exceptions}
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
+import com.softwaremill.realworld.profiles.{ProfilesEndpoints, ProfilesService, ProfilesRepository}
 import com.softwaremill.realworld.users.{UsersEndpoints, UsersRepository, UsersService}
 import sttp.model.StatusCode
 import sttp.tapir.DecodeResult
@@ -57,6 +58,9 @@ object Main extends ZIOAppDefault:
         ArticlesService.live,
         ArticlesRepository.live,
         BaseEndpoints.live,
+        ProfilesEndpoints.live,
+        ProfilesService.live,
+        ProfilesRepository.live,
         ServerConfig.live(ServerConfig.default.port(port)),
         Server.live
       )

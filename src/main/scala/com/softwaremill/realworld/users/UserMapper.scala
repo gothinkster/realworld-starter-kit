@@ -11,8 +11,8 @@ object UserMapper: // TODO probably this mapper can be replaced with something b
     userRow.email,
     Option.empty[String],
     userRow.username,
-    Option(userRow.bio),
-    Option(userRow.image)
+    userRow.bio,
+    userRow.image
   )
 
   def toUserData(userUpdateData: UserUpdateData): UserData = UserData(

@@ -82,8 +82,8 @@ case class UserRow(
     email: String,
     username: String,
     password: String,
-    bio: String,
-    image: String
+    bio: Option[String],
+    image: Option[String]
 )
 
 case class UserSession(email: String)
