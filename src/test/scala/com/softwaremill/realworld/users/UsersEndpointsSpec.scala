@@ -34,7 +34,7 @@ object UsersEndpointsSpec extends ZIOSpecDefault:
                   .backend()
               basicRequest
                 .get(uri"http://test.com/api/user")
-                .headers(Map("Authorization" -> "Bearer Invalid JWT"))
+                .headers(Map("Authorization" -> "Token Invalid JWT"))
                 .response(asJson[User])
                 .send(backendStub)
                 .map(_.body)
