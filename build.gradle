@@ -43,6 +43,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
+    // Jackson : Json Library
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
+
 }
 
 test {
