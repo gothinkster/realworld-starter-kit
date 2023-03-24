@@ -13,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -125,7 +127,6 @@ class UserControllerTest {
                     .andExpect(jsonPath("$.email").value("aaa@gmail.com"))
                     .andExpect(jsonPath("$.username").value("사용자a"))
                     .andExpect(jsonPath("$.token").isNotEmpty());
-            ;
         }
 
         @Test
@@ -144,8 +145,7 @@ class UserControllerTest {
                             .contentType(MediaType.APPLICATION_JSON)
                             .characterEncoding("utf-8")
                             .content(objectMapper.writeValueAsString(requestDto)))
-                    .andExpect(status().isUnauthorized())
-            ;
+                    .andExpect(status().isUnauthorized());
         }
 
         @Test
@@ -164,10 +164,39 @@ class UserControllerTest {
                             .contentType(MediaType.APPLICATION_JSON)
                             .characterEncoding("utf-8")
                             .content(objectMapper.writeValueAsString(requestDto)))
-                    .andExpect(status().isUnauthorized())
-            ;
+                    .andExpect(status().isUnauthorized());
         }
     }
 
+    @Nested
+    @DisplayName("회원 조회 테스트")
+    class findUser_test {
+
+        @Test
+        @DisplayName("회원 조회 성공 시 사용자 정보 반환")
+        @WithMockUser(username = "aaa@gmail.com")
+        void findUser_test01() throws Exception {
+            String email = "aaa@gmail.com";
+            String password = "aaa";
+            String username = "사용자a";
+            userService.registerUser(new UserRegisterRequestDto(email, password, username));
+
+            mockMvc.perform(get("/api/user"))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.email").value(email))
+                    .andExpect(jsonPath("$.username").value(username));
+        }
+
+        @Test
+        @DisplayName("회원 조회 실패 시 403(Forbidden) 에러 반환")
+        void findUser_test02() throws Exception {
+            String email = "aaa@gmail.com";
+            String username = "사용자a";
+            userService.registerUser(new UserRegisterRequestDto(email, "aaa", username));
+
+            mockMvc.perform(get("/api/user"))
+                    .andExpect(status().isForbidden());
+        }
+    }
 
 }
