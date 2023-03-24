@@ -1,7 +1,7 @@
 package com.realworld.realworld.domain.user.service;
 
 import com.realworld.realworld.domain.user.dto.UserRegisterRequestDto;
-import com.realworld.realworld.domain.user.dto.UserFindResponseDto;
+import com.realworld.realworld.domain.user.dto.UserResponseDto;
 import com.realworld.realworld.domain.user.entity.User;
 import com.realworld.realworld.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -78,7 +78,7 @@ class UserServiceTest {
         @DisplayName("유효한 email 입력 시 회원 조회 성공")
         void findUser_test01(){
             userService.registerUser(userA);
-            UserFindResponseDto responseDto = userService.findUserByEmail("aaa@gmail.com");
+            UserResponseDto responseDto = userService.findUserByEmail("aaa@gmail.com");
             assertThat(responseDto.getUsername()).isEqualTo(userA.getUsername());
         }
 

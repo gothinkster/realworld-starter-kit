@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 @JsonTypeName("user")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
-public class UserFindResponseDto {
+public class UserResponseDto {
 
     private final String email;
     private final String token;
@@ -18,11 +18,11 @@ public class UserFindResponseDto {
     private final String image;
 
     @Builder
-    public UserFindResponseDto(User entity) {
+    public UserResponseDto(User entity, String token) {
         this.email = entity.getEmail();
         this.username = entity.getUsername();
         this.bio = entity.getBio();
         this.image = entity.getImage();
-        this.token = "";
+        this.token = token;
     }
 }

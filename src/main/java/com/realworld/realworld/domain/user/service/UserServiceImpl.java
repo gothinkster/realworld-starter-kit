@@ -1,8 +1,7 @@
 package com.realworld.realworld.domain.user.service;
 
 import com.realworld.realworld.domain.user.dto.UserRegisterRequestDto;
-import com.realworld.realworld.domain.user.dto.UserRegisterResponseDto;
-import com.realworld.realworld.domain.user.dto.UserFindResponseDto;
+import com.realworld.realworld.domain.user.dto.UserResponseDto;
 import com.realworld.realworld.domain.user.entity.User;
 import com.realworld.realworld.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,17 +33,17 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(entity).getId();
     }
 
-    public UserRegisterResponseDto findUserById(final Long id) {
+    public UserResponseDto findUserById(final Long id) {
         User entity = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다."));
-        return new UserRegisterResponseDto(entity);
+        return UserResponseDto.builder().entity(entity).build();
     }
 
     @Override
-    public UserFindResponseDto findUserByEmail(final String email) {
+    public UserResponseDto findUserByEmail(final String email) {
         User entity = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다."));
-        return new UserFindResponseDto(entity);
+        return UserResponseDto.builder().entity(entity).build();
     }
 
     private String passwordEncode(String password){

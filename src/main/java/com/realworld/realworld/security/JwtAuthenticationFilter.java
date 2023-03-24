@@ -2,7 +2,7 @@ package com.realworld.realworld.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.realworld.realworld.domain.user.dto.UserLoginRequestDto;
-import com.realworld.realworld.domain.user.dto.UserLoginResponseDto;
+import com.realworld.realworld.domain.user.dto.UserResponseDto;
 import com.realworld.realworld.domain.user.entity.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
@@ -58,7 +58,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setContentType(String.valueOf(MediaType.APPLICATION_JSON));
         response.setCharacterEncoding("utf-8");
 
-        UserLoginResponseDto responseDto = UserLoginResponseDto.builder()
+        UserResponseDto responseDto = UserResponseDto.builder()
                         .entity(user)
                         .token(token)
                         .build();
