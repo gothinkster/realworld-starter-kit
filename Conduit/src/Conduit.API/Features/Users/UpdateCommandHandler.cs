@@ -12,15 +12,18 @@ public class UpdateCommandHandler : IRequestHandler<UpdateCommand, UserResponse>
     private readonly AppDbContext _appDbContext;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
+    private readonly UserResponseBuilder _responseBuilder;
 
     public UpdateCommandHandler(
         AppDbContext appDbContext,
         IPasswordHasher passwordHasher,
-        IJwtTokenGenerator jwtTokenGenerator)
+        IJwtTokenGenerator jwtTokenGenerator,
+        UserResponseBuilder responseBuilder)
     {
         _appDbContext = appDbContext;
         _passwordHasher = passwordHasher;
         _jwtTokenGenerator = jwtTokenGenerator;
+        _responseBuilder = responseBuilder;
     }
 
     public async Task<UserResponse> Handle(UpdateCommand request, CancellationToken cancellationToken)
@@ -45,12 +48,6 @@ public class UpdateCommandHandler : IRequestHandler<UpdateCommand, UserResponse>
 
         await _appDbContext.SaveChangesAsync(cancellationToken);
 
-        return new UserResponse(new UserDTO
-        {
-            UserName = user.Username,
-            Email = user.Email,
-            Bio = user.Bio,
-            Image = user.Image,
-        });
+        return await _responseBuilder.BuildAsync(user, cancellationToken);
     }
 }

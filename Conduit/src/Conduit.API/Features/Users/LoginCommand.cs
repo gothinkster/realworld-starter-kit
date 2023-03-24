@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using System;
 
 namespace Conduit.API.Features.Users;
 

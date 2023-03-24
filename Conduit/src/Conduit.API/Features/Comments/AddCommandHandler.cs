@@ -1,4 +1,5 @@
-﻿using Conduit.API.Common.Exceptions;
+﻿using AutoMapper;
+using Conduit.API.Common.Exceptions;
 using Conduit.API.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -9,13 +10,16 @@ public class AddCommandHandler : IRequestHandler<AddCommand, CommentResponse>
 {
     private readonly AppDbContext _appDbContext;
     private readonly ICurrentUserAccessor _currentUserAccessor;
+    private readonly CommentResponseBuilder _responseBuilder;
 
     public AddCommandHandler(
         AppDbContext appDbContext,
-        ICurrentUserAccessor currentUserAccessor)
+        ICurrentUserAccessor currentUserAccessor,
+        CommentResponseBuilder responseBuilder)
     {
         _appDbContext = appDbContext;
         _currentUserAccessor = currentUserAccessor;
+        _responseBuilder = responseBuilder;
     }
 
     public async Task<CommentResponse> Handle(AddCommand request, CancellationToken cancellationToken)
@@ -42,6 +46,6 @@ public class AddCommandHandler : IRequestHandler<AddCommand, CommentResponse>
 
         await _appDbContext.SaveChangesAsync(cancellationToken);
 
-        return new CommentResponse(comment);
+        return _responseBuilder.Build(comment);
     }
 }

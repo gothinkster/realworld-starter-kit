@@ -1,4 +1,5 @@
-﻿using Conduit.API.Common.Exceptions;
+﻿using AutoMapper;
+using Conduit.API.Common.Exceptions;
 using Conduit.API.Infrastructure;
 using Conduit.API.Infrastructure.Auth;
 using FluentValidation;
@@ -11,15 +12,15 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, UserResponse>
 {
     private readonly AppDbContext _dbContext;
     private readonly IPasswordHasher _passwordHasher;
-    private readonly IJwtTokenGenerator _jwtTokenGenerator;
+    private readonly UserResponseBuilder _responseBuilder;
 
     public LoginCommandHandler(AppDbContext dbContext,
         IPasswordHasher passwordHasher,
-        IJwtTokenGenerator jwtTokenGenerator)
+        UserResponseBuilder responseBuilder)
     {
         _dbContext = dbContext;
         _passwordHasher = passwordHasher;
-        _jwtTokenGenerator = jwtTokenGenerator;
+        _responseBuilder = responseBuilder;
     }
 
     public async Task<UserResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -36,14 +37,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, UserResponse>
             throw new UnauthorizedException("Email or password is invalid.");
         }
 
-        return new UserResponse(new UserDTO
-        {
-            Email = user.Email,
-            Bio = user.Bio,
-            Image = user.Image,
-            UserName = user.Username,
-            Token = await _jwtTokenGenerator.CreateTokenAsync(user.Id, cancellationToken)
-        });
+        return  await _responseBuilder.BuildAsync(user, cancellationToken);
     }
 }
 

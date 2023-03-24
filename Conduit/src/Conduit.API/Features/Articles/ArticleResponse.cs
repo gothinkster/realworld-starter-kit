@@ -1,9 +1,10 @@
-﻿using Conduit.API.Features.Comments;
-using Conduit.API.Features.Users;
+﻿using Conduit.API.Features.Users;
 
 namespace Conduit.API.Features.Articles;
 
-public class Article
+public record ArticleResponse(ArticleResponseData Article);
+
+public record ArticleResponseData
 {
     public int Id { get; set; }
 
@@ -19,8 +20,5 @@ public class Article
 
     public DateTime UpdatedAt { get; set; }
 
-    public int? AuthorId { get; set; }
-    public User? Author { get; set; } = new();
-
-    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+    public AuthorResponseData? Author { get; set; } = new();
 }

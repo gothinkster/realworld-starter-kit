@@ -1,4 +1,5 @@
-﻿using Conduit.API.Common.Exceptions;
+﻿using AutoMapper;
+using Conduit.API.Common.Exceptions;
 using Conduit.API.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -9,12 +10,15 @@ public class UpdateHandler : IRequestHandler<UpdateCommand, ArticleResponse>
 {
     private readonly AppDbContext _appDbContext;
     private readonly ICurrentUserAccessor _currentUserAccessor;
+    private readonly ArticleResponseBuilder _responseBuilder;
 
     public UpdateHandler(AppDbContext appDbContext,
-        ICurrentUserAccessor currentUserAccessor)
+        ICurrentUserAccessor currentUserAccessor,
+        ArticleResponseBuilder responseBuilder)
     {
         _appDbContext = appDbContext;
         _currentUserAccessor = currentUserAccessor;
+        _responseBuilder = responseBuilder;
     }
 
     public async Task<ArticleResponse> Handle(UpdateCommand request, CancellationToken cancellationToken)
@@ -40,7 +44,7 @@ public class UpdateHandler : IRequestHandler<UpdateCommand, ArticleResponse>
 
         await _appDbContext.SaveChangesAsync(cancellationToken);
 
-        return new ArticleResponse(article);
+        return _responseBuilder.Build(article);
     }
 }
 

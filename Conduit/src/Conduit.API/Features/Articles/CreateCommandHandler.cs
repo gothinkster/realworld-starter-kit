@@ -8,13 +8,16 @@ public class CreateCommandHandler : IRequestHandler<CreateCommand, ArticleRespon
 {
     private readonly AppDbContext _appDbContext;
     private readonly ICurrentUserAccessor _currentUserAccessor;
+    private readonly ArticleResponseBuilder _responseBuilder;
 
     public CreateCommandHandler(
         AppDbContext appDbContext,
-        ICurrentUserAccessor currentUserAccessor)
+        ICurrentUserAccessor currentUserAccessor,
+        ArticleResponseBuilder responseBuilder)
     {
         _appDbContext = appDbContext;
         _currentUserAccessor = currentUserAccessor;
+        _responseBuilder = responseBuilder;
     }
 
     public async Task<ArticleResponse> Handle(CreateCommand request, CancellationToken cancellationToken)
@@ -34,6 +37,6 @@ public class CreateCommandHandler : IRequestHandler<CreateCommand, ArticleRespon
         await _appDbContext.Articles.AddAsync(article, cancellationToken);
         await _appDbContext.SaveChangesAsync(cancellationToken);
 
-        return new ArticleResponse(article);
+        return _responseBuilder.Build(article);
     }
 }

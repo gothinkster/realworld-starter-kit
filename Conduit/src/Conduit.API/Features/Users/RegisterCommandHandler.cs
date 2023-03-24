@@ -1,4 +1,5 @@
-﻿using Conduit.API.Infrastructure;
+﻿using AutoMapper;
+using Conduit.API.Infrastructure;
 using Conduit.API.Infrastructure.Auth;
 using MediatR;
 
@@ -9,15 +10,21 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, UserRespo
     private readonly AppDbContext _appDbContext;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
+    private readonly IMapper _mapper;
+    private readonly UserResponseBuilder _responseBuilder;
 
     public RegisterCommandHandler(
         AppDbContext appDbContext,
         IPasswordHasher passwordHasher,
-        IJwtTokenGenerator jwtTokenGenerator)
+        IJwtTokenGenerator jwtTokenGenerator,
+        IMapper mapper,
+        UserResponseBuilder responseBuilder)
     {
         _appDbContext = appDbContext;
         _passwordHasher = passwordHasher;
         _jwtTokenGenerator = jwtTokenGenerator;
+        _mapper = mapper;
+        _responseBuilder = responseBuilder;
     }
 
     public async Task<UserResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -34,13 +41,6 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, UserRespo
         await _appDbContext.Users.AddAsync(user, cancellationToken);
         await _appDbContext.SaveChangesAsync(cancellationToken);
 
-        return new UserResponse(new UserDTO
-        {
-            UserName = user.Username,
-            Email = user.Email,
-            Bio = user.Bio,
-            Image = user.Image,
-            Token = await _jwtTokenGenerator.CreateTokenAsync(user.Id, cancellationToken)
-        });
+        return await _responseBuilder.BuildAsync(user, cancellationToken);
     }
 }

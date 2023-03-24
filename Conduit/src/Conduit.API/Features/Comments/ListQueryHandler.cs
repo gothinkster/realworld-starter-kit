@@ -1,4 +1,5 @@
-﻿using Conduit.API.Common.Exceptions;
+﻿using AutoMapper;
+using Conduit.API.Common.Exceptions;
 using Conduit.API.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +9,16 @@ namespace Conduit.API.Features.Comments;
 public class ListQueryHandler : IRequestHandler<ListQuery, CommentsResponse>
 {
     private readonly AppDbContext _appDbContext;
+    private readonly IMapper _mapper;
+    private readonly CommentResponseBuilder _responseBuilder;
 
-    public ListQueryHandler(AppDbContext appDbContext)
+    public ListQueryHandler(AppDbContext appDbContext,
+        IMapper mapper,
+        CommentResponseBuilder responseBuilder)
     {
         _appDbContext = appDbContext;
+        _mapper = mapper;
+        _responseBuilder = responseBuilder;
     }
 
     public async Task<CommentsResponse> Handle(ListQuery request, CancellationToken cancellationToken)
@@ -27,6 +34,6 @@ public class ListQueryHandler : IRequestHandler<ListQuery, CommentsResponse>
             throw new ResourceNotFoundException(nameof(article));
         }
 
-        return new CommentsResponse(article.Comments);
+        return _responseBuilder.Build(article.Comments);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Conduit.API.Common.Exceptions;
+﻿using AutoMapper;
+using Conduit.API.Common.Exceptions;
 using Conduit.API.Infrastructure;
 using Conduit.API.Infrastructure.Auth;
 using FluentValidation;
@@ -10,13 +11,13 @@ namespace Conduit.API.Features.Users;
 public class GetQueryHandler : IRequestHandler<GetQuery, UserResponse>
 {
     private readonly AppDbContext _dbContext;
-    private readonly IJwtTokenGenerator _jwtTokenGenerator;
+    private readonly UserResponseBuilder _responseBuilder;
 
-    public GetQueryHandler(AppDbContext dbContext, 
-        IJwtTokenGenerator jwtTokenGenerator)
-	{
+    public GetQueryHandler(AppDbContext dbContext,
+        UserResponseBuilder responseBuilder)
+    {
         _dbContext = dbContext;
-        _jwtTokenGenerator = jwtTokenGenerator;
+        _responseBuilder = responseBuilder;
     }
 
     public async Task<UserResponse> Handle(GetQuery request, CancellationToken cancellationToken)
@@ -28,13 +29,6 @@ public class GetQueryHandler : IRequestHandler<GetQuery, UserResponse>
             throw new ResourceNotFoundException(nameof(User));
         }
 
-        return new UserResponse(new UserDTO
-        {
-            Bio = user.Bio,
-            Email = user.Email,
-            Image = user.Image,
-            UserName = user.Username,
-            Token = await _jwtTokenGenerator.CreateTokenAsync(user.Id, cancellationToken)
-        });
+        return await _responseBuilder.BuildAsync(user, cancellationToken);
     }
 }
