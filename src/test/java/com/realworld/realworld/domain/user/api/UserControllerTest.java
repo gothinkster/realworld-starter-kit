@@ -52,7 +52,7 @@ class UserControllerTest {
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(requestDto)))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.username").value(username));
+                    .andExpect(jsonPath("$.user.username").value(username));
         }
 
         @ParameterizedTest
@@ -113,7 +113,8 @@ class UserControllerTest {
         void login_test01() throws Exception {
             String email = "aaa@gmail.com";
             String password = "aaa";
-            userService.registerUser(new UserRegisterRequestDto(email, password, "사용자a"));
+            String username = "사용자a";
+            userService.registerUser(new UserRegisterRequestDto(email, password, username));
             UserLoginRequestDto requestDto = UserLoginRequestDto.builder()
                     .email(email)
                     .password(password)
@@ -124,9 +125,9 @@ class UserControllerTest {
                             .characterEncoding("utf-8")
                             .content(objectMapper.writeValueAsString(requestDto)))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.email").value("aaa@gmail.com"))
-                    .andExpect(jsonPath("$.username").value("사용자a"))
-                    .andExpect(jsonPath("$.token").isNotEmpty());
+                    .andExpect(jsonPath("$.user.email").value(email))
+                    .andExpect(jsonPath("$.user.username").value(username))
+                    .andExpect(jsonPath("$.user.token").isNotEmpty());
         }
 
         @Test
@@ -183,8 +184,8 @@ class UserControllerTest {
 
             mockMvc.perform(get("/api/user"))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.email").value(email))
-                    .andExpect(jsonPath("$.username").value(username));
+                    .andExpect(jsonPath("$.user.email").value(email))
+                    .andExpect(jsonPath("$.user.username").value(username));
         }
 
         @Test
