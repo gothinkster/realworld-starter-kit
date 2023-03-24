@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(jwtAuthenticationFilter())
-                .addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .logout(Customizer.withDefaults())
         ;
         return http.build();
@@ -58,6 +58,10 @@ public class SecurityConfig {
     @Bean
     public JwtAuthenticationProvider jwtAuthenticationProvider(){
         return new JwtAuthenticationProvider(userDetailsService, bCryptPasswordEncoder());
+    }
+    @Bean
+    public JwtAuthorizationFilter jwtAuthorizationFilter(){
+        return new JwtAuthorizationFilter();
     }
 
     @Bean
