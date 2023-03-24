@@ -2,6 +2,7 @@ using Conduit.API.Common.Behaviours;
 using Conduit.API.Common.Validators;
 using Conduit.API.Features.Articles;
 using Conduit.API.Features.Comments;
+using Conduit.API.Features.Profiles;
 using Conduit.API.Features.Users;
 using Conduit.API.Infrastructure;
 using Conduit.API.Infrastructure.Auth;
@@ -31,9 +32,11 @@ services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
 services.AddScoped<IEntityValidationService, EntityValidationService>();
 services.AddEntityValidators(Assembly.GetAssembly(typeof(Program))!);
+
 services.AddScoped<ArticleResponseBuilder>();
 services.AddScoped<CommentResponseBuilder>();
 services.AddScoped<UserResponseBuilder>();
+services.AddScoped<ProfileResponseBuilder>();
 
 services.AddHttpContextAccessor();
 

@@ -1,6 +1,7 @@
 ﻿using Conduit.API.Common.Validators;
 using Conduit.API.Features.Articles;
 using Conduit.API.Features.Comments;
+using Conduit.API.Features.Profiles;
 using Conduit.API.Features.Users;
 using FluentValidation;
 using FluentValidation.Results;
@@ -75,6 +76,13 @@ public class AppDbContext : DbContext
 
             b.HasIndex(p => p.Email)
                 .IsUnique();
+
+            b.HasMany(e => e.Followings)
+                .WithMany(e => e.Followers)
+                .UsingEntity<Follow>(
+                    "Follows", 
+                    e => e.HasOne<User>().WithMany().HasForeignKey(f => f.FollowerId),
+                    e => e.HasOne<User>().WithMany().HasForeignKey(f => f.FollowingId));
                 
         });
 
@@ -85,6 +93,7 @@ public class AppDbContext : DbContext
             b.Property(p => p.Id)
                 .ValueGeneratedOnAdd();
         });
+
     }
 
     private async Task ValidateEntityAsync(EntityEntry entityEntry, CancellationToken cancellationToken)

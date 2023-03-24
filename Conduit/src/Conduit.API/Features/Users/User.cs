@@ -20,4 +20,8 @@ public class User
 
     [JsonIgnore]
     public byte[] Salt { get; set; } = Array.Empty<byte>();
+
+    public ICollection<User> Followings { get; set; } = new HashSet<User>();
+
+    public ICollection<User> Followers { get; set; } = new HashSet<User>();
 }
