@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         return new UserRegisterResponseDto(entity);
     }
 
-    public String passwordEncode(String password){
+    private String passwordEncode(String password){
         return passwordEncoder.encode(password);
     }
 

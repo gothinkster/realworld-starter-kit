@@ -8,3 +8,7 @@ spring:
 
 logging.level:
   org.hibernate.SQL: debug
+
+jwt:
+  secretKey: 2a10CCqG38gSkRi9T8bMjUeoGucSLdcSsK06THTOJUM69R31EaKkqYSGu
+  expiredTimeMs: 60000
