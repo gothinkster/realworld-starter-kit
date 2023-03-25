@@ -66,3 +66,24 @@ func AutoMigrate(config config.Config) {
 		log.Fatal(err)
 	}
 }
+
+func Drop(config config.Config) {
+	path := fmt.Sprintf("file://%s", config.MigrationPath)
+	dsn := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
+		config.DBUsername,
+		config.DBPassword,
+		config.DBHost,
+		config.DBPort,
+		config.DBName,
+	)
+
+	m, err := migrate.New(path, dsn)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := m.Down(); err != nil {
+		if err != migrate.ErrNoChange {
+			log.Fatal(err)
+		}
+	}
+}

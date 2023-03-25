@@ -12,7 +12,7 @@ import (
 var (
 	ErrUsernameAlreadyTaken = errors.New("username already taken")
 	ErrEmailAlreadyTaken    = errors.New("email already taken")
-	ErrNotFound			    = errors.New("not found")
+	ErrAccessForbidden      = errors.New("access forbidden")
 )
 
 type userRegisterReq struct {
@@ -106,11 +106,11 @@ func (s *Server) LoginUser(c *gin.Context) {
 		return
 	}
 	if u == nil {
-		c.JSON(http.StatusForbidden, NewError(errors.New("access forbidden")))
+		c.JSON(http.StatusForbidden, NewError(ErrAccessForbidden))
 		return
 	}
 	if err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(req.User.Password)); err != nil {
-		c.JSON(http.StatusForbidden, NewError(errors.New("access forbidden")))
+		c.JSON(http.StatusForbidden, NewError(ErrAccessForbidden))
 		return
 	}
 
