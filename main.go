@@ -36,6 +36,7 @@ func main() {
 	)
 
 	server.MountHandlers()
+	server.MountSwaggerHandlers()
 
 	addr := fmt.Sprintf(":%s", config.Port)
 	if err := server.Start(addr); err != nil {

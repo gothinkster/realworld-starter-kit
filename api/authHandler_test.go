@@ -16,10 +16,10 @@ import (
 )
 
 var (
-	conf  config.Config
+	conf   config.Config
 	dbConn *sql.DB
 	router *gin.Engine
-	server *Server	
+	server *Server
 )
 
 func TestMain(m *testing.M) {
@@ -42,7 +42,7 @@ func setup() {
 		config: conf,
 		store:  store,
 		router: router,
-		log: nil,
+		log:    nil,
 	}
 }
 
@@ -67,7 +67,7 @@ func TestRegister(t *testing.T) {
 	jsonRequest, err := json.Marshal(request)
 	assert.Nil(t, err)
 	server.router.POST("/api/users", server.RegisterUser)
-	req:= httptest.NewRequest(http.MethodPost, "/api/users", strings.NewReader(string(jsonRequest)))	
+	req := httptest.NewRequest(http.MethodPost, "/api/users", strings.NewReader(string(jsonRequest)))
 	w := httptest.NewRecorder()
 	router.ServeHTTP(w, req)
 
@@ -75,13 +75,12 @@ func TestRegister(t *testing.T) {
 	var response userResponse
 	err = json.Unmarshal(w.Body.Bytes(), &response)
 	assert.Nil(t, err)
-	assert.Equal(t, request.User.Username , response.User.Username)
+	assert.Equal(t, request.User.Username, response.User.Username)
 	assert.Equal(t, request.User.Email, response.User.Email)
 	assert.Nil(t, response.User.Bio)
 	assert.Nil(t, response.User.Image)
 	assert.NotEmpty(t, response.User.Token)
 }
-
 
 func TestLogin(t *testing.T) {
 	w := httptest.NewRecorder()
@@ -100,7 +99,7 @@ func TestLogin(t *testing.T) {
 
 	jsonRequest, err := json.Marshal(request)
 	assert.Nil(t, err)
-	
+
 	body := strings.NewReader(string(jsonRequest))
 	c.Request = httptest.NewRequest(http.MethodPost, "/api/users/login", body)
 	e.ServeHTTP(w, c.Request)
@@ -115,6 +114,5 @@ func TestLogin(t *testing.T) {
 	assert.Nil(t, response.User.Bio)
 	assert.Nil(t, response.User.Image)
 	assert.NotEmpty(t, response.User.Token)
-
 
 }

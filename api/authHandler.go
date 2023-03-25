@@ -65,10 +65,22 @@ func newUserResponse(user *db.User) *userResponse {
 	return resp
 }
 
-func (s *Server) RegisterUser(c *gin.Context){
+// RegisterUser godoc
+//
+//	@Summary		Register a new user
+//	@Description	Register a new user
+//	@Tags			auth
+//	@Accept			json
+//	@Produce		json
+//	@Param			user	body		userRegisterReq	true	"User"
+//	@Success		201		{object}	userResponse
+//	@Failure		422		{object}	Error
+//	@Failure		500		{object}	Error
+//	@Router			/users [post]
+func (s *Server) RegisterUser(c *gin.Context) {
 	var (
 		req userRegisterReq
-		p  db.CreateUserParams
+		p   db.CreateUserParams
 	)
 	if err := req.bind(c, &p); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, NewError(err))
@@ -83,7 +95,7 @@ func (s *Server) RegisterUser(c *gin.Context){
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	// return user and token	
+	// return user and token
 	c.JSON(http.StatusCreated, newUserResponse(user))
 }
 
@@ -94,6 +106,18 @@ type userLoginReq struct {
 	} `json:"user"`
 }
 
+// LoginUser godoc
+//
+//	@Summary		Login a user
+//	@Description	Login a user
+//	@Tags			auth
+//	@Accept			json
+//	@Produce		json
+//	@Param			user	body		userLoginReq	true	"User"
+//	@Success		200		{object}	userResponse
+//	@Failure		403		{object}	Error
+//	@Failure		500		{object}	Error
+//	@Router			/users/login [post]
 func (s *Server) LoginUser(c *gin.Context) {
 	var req userLoginReq
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -116,5 +140,3 @@ func (s *Server) LoginUser(c *gin.Context) {
 
 	c.JSON(http.StatusOK, newUserResponse(u))
 }
-
-

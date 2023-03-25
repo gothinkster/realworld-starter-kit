@@ -11,8 +11,6 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
-
-
 func Connect(config config.Config) *sql.DB {
 
 	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",

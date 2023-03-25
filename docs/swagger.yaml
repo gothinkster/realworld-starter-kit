@@ -1,0 +1,118 @@
+definitions:
+  api.Error:
+    properties:
+      errors:
+        additionalProperties: true
+        type: object
+    type: object
+  api.userLoginReq:
+    properties:
+      user:
+        properties:
+          email:
+            type: string
+          password:
+            type: string
+        required:
+        - email
+        - password
+        type: object
+    type: object
+  api.userRegisterReq:
+    properties:
+      user:
+        properties:
+          email:
+            type: string
+          password:
+            type: string
+          username:
+            type: string
+        required:
+        - email
+        - password
+        - username
+        type: object
+    required:
+    - user
+    type: object
+  api.userResponse:
+    properties:
+      user:
+        properties:
+          bio:
+            type: string
+          email:
+            type: string
+          image:
+            type: string
+          token:
+            type: string
+          username:
+            type: string
+        type: object
+    type: object
+info:
+  contact: {}
+paths:
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/api.userRegisterReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.userResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: Register a new user
+      tags:
+      - auth
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      description: Login a user
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/api.userLoginReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.userResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: Login a user
+      tags:
+      - auth
+swagger: "2.0"
