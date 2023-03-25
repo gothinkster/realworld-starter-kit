@@ -2,7 +2,6 @@ package com.realworld.realworld.domain.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.realworld.realworld.domain.user.entity.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
@@ -28,14 +27,6 @@ public class UserRegisterRequestDto {
         this.email = email;
         this.password = password;
         this.username = username;
-    }
-
-    public User toEntity(){
-        return User.builder()
-                .email(this.email)
-                .password(this.password)
-                .username(this.username)
-                .build();
     }
 
 }
