@@ -2,27 +2,40 @@ import { Article, Author, Sluged } from './models'
 import { AuthorsService } from '../authors/service'
 import { ArticleNotFound } from './exceptions'
 import { ArticlesService } from './articles.service'
+import { initializePostgresDataSource } from '../nest/app.modules'
+import { DataSource } from 'typeorm'
 
-const exampleArticle: Sluged<Article> = {
-  title: 'How to train your dragon?',
-  description: "You should train your dragon before it's too late",
-  body: 'Feed it with fish',
-  tags: ['dragons', 'friendship'],
-  slug: 'how-to-train-your-dragon',
-}
+let dataSource: DataSource
+beforeAll(async () => {
+  dataSource = await initializePostgresDataSource()
+})
+
+afterAll(async () => {
+  await dataSource.destroy()
+})
+
+let author: Author
+let service: ArticlesService
+let exampleArticle: Sluged<Article>
+let testRandomNumber: number
+
+beforeEach(async () => {
+  testRandomNumber = Date.now() % 10 ** 9
+  exampleArticle = {
+    title: `How to train your dragon? ${testRandomNumber}`,
+    description: "You should train your dragon before it's too late",
+    body: 'Feed it with fish',
+    tags: ['dragons', 'friendship'],
+    slug: `how-to-train-your-dragon-${testRandomNumber}`,
+  }
+  author = await new AuthorsService().createForAccount(
+    { id: testRandomNumber },
+    { username: `john-doe-${testRandomNumber}` },
+  )
+  service = new ArticlesService()
+})
 
 describe('Article', () => {
-  let author: Author
-  let service: ArticlesService
-
-  beforeEach(async () => {
-    author = await new AuthorsService().createForAccount(
-      { id: 1 },
-      { username: 'john-doe' },
-    )
-    service = new ArticlesService()
-  })
-
   it('should be accessible to other users after published', async () => {
     // Arrange
     const cms = service.getCMS(author)
@@ -91,13 +104,13 @@ describe('Article', () => {
     // Arrange
     const cms = service.getCMS(author)
     await cms.createArticle({
-      title: 'One article',
+      title: `One article ${testRandomNumber}`,
       description: 'One article',
       body: 'One article',
       tags: ['programming', 'physics'],
     })
     await cms.createArticle({
-      title: 'Other article',
+      title: `Other article ${testRandomNumber}`,
       description: 'Other article',
       body: 'Other article',
       tags: ['physics', 'food'],
@@ -106,7 +119,7 @@ describe('Article', () => {
     // Act
     const article: Article = await service
       .getView(author)
-      .getArticle('other-article')
+      .getArticle(`other-article-${testRandomNumber}`)
 
     // Assert
     expect(article.tags).toEqual(['food', 'physics'])

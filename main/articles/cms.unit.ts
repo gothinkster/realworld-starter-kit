@@ -2,27 +2,39 @@ import { Article, Author, Sluged } from './models'
 import { ContentManagementSystem } from './cms.service'
 import { AuthorsService } from '../authors/service'
 import { ArticleNotFound } from './exceptions'
+import { DataSource } from 'typeorm'
+import { initializePostgresDataSource } from '../nest/app.modules'
 
-const exampleArticle: Sluged<Article> = {
-  title: 'How to train your dragon?',
-  description: "You should train your dragon before it's too late",
-  body: 'Feed it with fish',
-  tags: ['dragons', 'friendship'],
-  slug: 'how-to-train-your-dragon',
-}
+let dataSource: DataSource
+beforeAll(async () => {
+  dataSource = await initializePostgresDataSource()
+})
+
+afterAll(async () => {
+  await dataSource.destroy()
+})
+
+let author: Author
+let cms: ContentManagementSystem
+let exampleArticle: Sluged<Article>
+
+beforeEach(async () => {
+  const randomNumber = Date.now() % 10 ** 9
+  exampleArticle = {
+    title: `How to train your dragon? ${randomNumber}`,
+    description: "You should train your dragon before it's too late",
+    body: 'Feed it with fish',
+    tags: ['dragons', 'friendship'],
+    slug: `how-to-train-your-dragon-${randomNumber}`,
+  }
+  author = await new AuthorsService().createForAccount(
+    { id: randomNumber },
+    { username: `john-doe-${randomNumber}` },
+  )
+  cms = new ContentManagementSystem(author)
+})
 
 describe('Content Management System', () => {
-  let cms: ContentManagementSystem
-  let author: Author
-
-  beforeEach(async () => {
-    author = await new AuthorsService().createForAccount(
-      { id: 1 },
-      { username: 'john-doe' },
-    )
-    cms = new ContentManagementSystem(author)
-  })
-
   it("should let author change it's own article", async () => {
     // Arange
     await cms.createArticle(exampleArticle)

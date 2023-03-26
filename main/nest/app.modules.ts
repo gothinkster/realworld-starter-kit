@@ -8,7 +8,6 @@ import { ArticlesController } from '../articles/articles.controller'
 import { ArticlesService } from '../articles/articles.service'
 import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
 import { DataSource } from 'typeorm'
-import { DB_URL } from '../constants'
 import { AccountEntity } from '../accounts/accounts.entity'
 import { ArticleEntity } from '../articles/article.entity'
 import { AuthorEntity, UserFollows } from '../articles/author.entity'
@@ -19,25 +18,30 @@ import { CommentsService } from '../comments/comments.service'
 import { CommentsController } from '../comments/comments.controller'
 import { CommentEntity } from '../comments/comment.entity'
 
+export function initializePostgresDataSource() {
+  return new DataSource({
+    type: 'postgres',
+    url:
+      process.env.DB_URL ||
+      'postgres://postgres:postgres@localhost:5432/postgres',
+    entities: [
+      AccountEntity,
+      ArticleEntity,
+      AuthorEntity,
+      UserFollows,
+      CommentEntity,
+      Tag,
+    ],
+    namingStrategy: new SnakeNamingStrategy(),
+    synchronize: true,
+  }).initialize()
+}
+
 export const DATASOURCE_PROVIDER = 'DATASOURCE_PROVIDER'
 export const databaseProviders: Provider[] = [
   {
     provide: DATASOURCE_PROVIDER,
-    useFactory: () =>
-      new DataSource({
-        type: 'postgres',
-        url: DB_URL,
-        entities: [
-          AccountEntity,
-          ArticleEntity,
-          AuthorEntity,
-          UserFollows,
-          CommentEntity,
-          Tag,
-        ],
-        namingStrategy: new SnakeNamingStrategy(),
-        synchronize: true,
-      }).initialize(),
+    useFactory: initializePostgresDataSource,
   },
 ]
 
