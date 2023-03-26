@@ -1,4 +1,4 @@
-import { UserDriver } from '../drivers/interface.driver'
+import {UserDriver} from "./UserDriver";
 
 export interface AppConnection {
   createUserDriver(): UserDriver

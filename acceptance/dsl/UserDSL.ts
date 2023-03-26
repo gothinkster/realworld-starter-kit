@@ -1,16 +1,13 @@
-import { ArticleFields } from '../../../main/domain/articles/models'
-import { ArticleSearch, UserDriver } from './drivers/interface.driver'
-import { makeRandomArticle } from './utils/articles.factory'
-
-export interface Context {
-  slug?: string
-}
+import {ArticleFields, ArticleSearch, makeRandomArticle, UserDriver} from "./UserDriver";
 
 export class UserDSL {
+
   constructor(
     public readonly username: string,
     private driver: UserDriver,
-    private context: Context,
+    private context: {
+      slug?: string
+    } = {},
   ) {}
 
   async login() {

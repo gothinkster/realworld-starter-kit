@@ -9,19 +9,14 @@ export type Sluged<T extends {}> = T & {
   slug: string
 }
 
-export interface ArticleFields {
-  title?: string
-  description?: string
-  body?: string
-  tags?: string[]
-}
-
 export interface Article {
   title: string
   description: string
   body: string
   tags: string[]
 }
+
+export type ArticleFields = Partial<Article>
 
 export type FullArticle = Authored<Dated<Sluged<Article>>>
 

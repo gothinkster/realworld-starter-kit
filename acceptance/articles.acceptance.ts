@@ -1,13 +1,13 @@
-import { connectToApp } from './dsl/connections/factories'
-import { AppConnection } from './dsl/connections/interface'
-import { UserDSL } from './dsl/user.dsl'
+import {AppConnection} from "./dsl/AppConnection";
+import {UserDSL} from "./dsl/UserDSL";
+import {RestAppConnection} from "./dsl/UserRestDriver";
 
 let connection: AppConnection
 let abbott: UserDSL
 let costello: UserDSL
 
 beforeAll(async () => {
-  connection = await connectToApp()
+  connection = new RestAppConnection()
 })
 
 afterAll(async () => {
@@ -18,7 +18,6 @@ beforeEach(async () => {
   const context = {}
   abbott = new UserDSL('Abbott', connection.createUserDriver(), context)
   costello = new UserDSL('Costello', connection.createUserDriver(), context)
-  await Promise.all([abbott, costello].map((user) => user.login()))
 })
 
 /**
@@ -29,48 +28,74 @@ beforeEach(async () => {
  **/
 describe('Article', () => {
   it('should be found by the author', async () => {
+    await abbott.login()
+
     await abbott.writeArticle()
     await abbott.shouldFindTheArticle()
   })
 
   it('should not be found after deletion', async () => {
+    await abbott.login()
+
     await abbott.writeArticle()
     await abbott.deleteTheArticle()
     await abbott.shouldNotFindTheArticle()
   })
 
   it('should not be found by others if not published', async () => {
+    await abbott.login()
+    await costello.login()
+
     await abbott.writeArticle()
+    await costello.login()
     await costello.shouldNotFindTheArticle()
   })
 
   it('should be found by other users after published', async () => {
+    await abbott.login()
+    await costello.login()
+
     await abbott.publishAnArticle()
     await costello.shouldFindTheArticle()
   })
 
   it('should be found by correct author', async () => {
+    await abbott.login()
+    await costello.login()
+
     await abbott.publishAnArticle()
     await costello.shouldFindArticleBy({ author: abbott.username })
   })
 
   it('should not be found by wrong author', async () => {
+    await abbott.login()
+    await costello.login()
+
     await abbott.publishAnArticle()
     await costello.shouldNotFindArticleBy({ author: costello.username })
     await costello.shouldNotFindArticleBy({ author: 'amy-adams' })
   })
 
   it('should be found by correct tag', async () => {
+    await abbott.login()
+    await costello.login()
+
     await abbott.publishAnArticle({ tags: ['physics', 'programming'] })
     await costello.shouldFindArticleBy({ tags: ['physics'] })
   })
 
   it('should not be found by wrong tag', async () => {
+    await abbott.login()
+    await costello.login()
+
     await abbott.publishAnArticle({ tags: ['physics', 'programming'] })
     await costello.shouldNotFindArticleBy({ tags: ['drinks'] })
   })
 
   it('should show other people comments', async () => {
+    await abbott.login()
+    await costello.login()
+
     await abbott.publishAnArticle()
     await costello.commentOnArticle()
     await abbott.shouldSeeCommentFrom(costello)
@@ -82,12 +107,18 @@ describe('Article', () => {
  **/
 describe('Feed', () => {
   it('should show articles from authors I follow', async () => {
+    await abbott.login()
+    await costello.login()
+
     await costello.follow(abbott)
     await abbott.publishAnArticle()
     await costello.shouldSeeTheArticleInTheFeed()
   })
 
   it('should not show articles from authors I am not following', async () => {
+    await abbott.login()
+    await costello.login()
+
     await costello.follow(abbott)
     await abbott.publishAnArticle()
     await costello.unfollow(abbott)
@@ -95,6 +126,9 @@ describe('Feed', () => {
   })
 
   it('should not show me unpublished articles', async () => {
+    await abbott.login()
+    await costello.login()
+
     await costello.follow(abbott)
     await abbott.publishAnArticle()
     await abbott.unpublishTheArticle()

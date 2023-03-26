@@ -1,11 +1,6 @@
 import { Axios } from 'axios'
-import {
-  Article,
-  ArticleFields,
-  Sluged,
-} from '../../../../main/domain/articles/models'
-import { createCredentials } from '../utils/credentials.factory'
-import { ArticleSearch, UserDriver } from './interface.driver'
+import {Article, ArticleFields, ArticleSearch, createCredentials, UserDriver} from "./UserDriver";
+import {AppConnection} from "./AppConnection";
 
 export class UserRestDriver implements UserDriver {
   private username: string
@@ -64,14 +59,13 @@ export class UserRestDriver implements UserDriver {
     expect(response.status).toBe(204)
   }
 
-  async writeArticle(article: Article): Promise<string> {
+  async writeArticle(article: Article) {
     const response = await this.axios.post('articles', {
       article: article,
     })
     expect(response.data).toMatchObject({
       article: { ...article, tags: article.tags.sort() },
     })
-
     return response.data.article.slug
   }
 
@@ -82,7 +76,7 @@ export class UserRestDriver implements UserDriver {
 
   private async findArticles(
     filters: ArticleSearch,
-  ): Promise<Sluged<Article>[]> {
+  ) {
     const response = await this.axios.get(`articles/`, {
       params: {
         author: filters.author,
@@ -103,7 +97,7 @@ export class UserRestDriver implements UserDriver {
     expect(articles.map((v) => v.slug)).not.toContainEqual(slug)
   }
 
-  async editArticle(slug: string, editions: ArticleFields): Promise<string> {
+  async editArticle(slug: string, editions: ArticleFields) {
     return undefined
   }
 
@@ -124,18 +118,18 @@ export class UserRestDriver implements UserDriver {
     expect(response.status).toBe(201)
   }
 
-  private async getFeed(): Promise<Sluged<Article>[]> {
+  private async getFeed() {
     const response = await this.axios.get(`articles/feed`)
     expect(response.status).toBe(200)
     return response.data.articles
   }
 
-  async shouldSeeTheArticleInTheFeed(slug: string): Promise<void> {
+  async shouldSeeTheArticleInTheFeed(slug: string) {
     const feed = await this.getFeed()
     expect(feed.map((v) => v.slug)).toContainEqual(slug)
   }
 
-  async shouldNotSeeTheArticleInTheFeed(slug: string): Promise<void> {
+  async shouldNotSeeTheArticleInTheFeed(slug: string) {
     const feed = await this.getFeed()
     expect(feed.map((v) => v.slug)).not.toContainEqual(slug)
   }
@@ -146,13 +140,13 @@ export class UserRestDriver implements UserDriver {
     return response
   }
 
-  async shouldFindTheArticle(slug: string): Promise<void> {
+  async shouldFindTheArticle(slug: string) {
     const response = await this.getArticle(slug)
     expect(response.status).toBe(200)
     expect(response.data.article).toBeTruthy()
   }
 
-  async shouldNotFindTheArticle(slug: string): Promise<void> {
+  async shouldNotFindTheArticle(slug: string) {
     const response = await this.getArticle(slug)
     expect(response.status).toBe(404)
     expect(response.data.article).toBeFalsy()
@@ -164,5 +158,36 @@ export class UserRestDriver implements UserDriver {
     expect(response.data.comments.map((v) => v.author.username)).toContainEqual(
       username,
     )
+  }
+}
+
+export class RestAppConnection implements AppConnection {
+  private readonly apiUrl: string
+
+  constructor() {
+    const API_URL = process.env.API_URL
+    if(!API_URL) {
+      throw new Error('API_URL is not defined')
+    }
+    this.apiUrl = API_URL
+  }
+
+  private createAxios(): Axios {
+    return new Axios({
+      baseURL: this.apiUrl,
+      responseType: 'json',
+      transformRequest: (data) => (data ? JSON.stringify(data) : data),
+      transformResponse: (data) => (data ? JSON.parse(data) : data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  }
+
+  createUserDriver() {
+    return new UserRestDriver(this.createAxios())
+  }
+
+  async stop() {
   }
 }
