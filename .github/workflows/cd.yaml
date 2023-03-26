@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     services:
@@ -41,6 +45,7 @@ jobs:
         run: |
           npm run build
           nohup npm run start:prod &
+          chmod +x ./scripts/wait_for_status.sh
           URL=http://localhost:3000/api/health ./scripts/wait_for_status.sh 200
 
       - name: Running acceptance tests on localhost server
@@ -58,6 +63,7 @@ jobs:
       - name: Starting docker server
         run: |
           nohup docker run --rm -d -p 3001:3000 --name app app &
+          chmod +x ./scripts/wait_for_status.sh
           URL=http://localhost:3001/api/health ./scripts/wait_for_status.sh 200
 
       - name: Running acceptance tests on docker server
