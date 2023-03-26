@@ -13,7 +13,7 @@ import { CommentEntity } from './comment.entity'
 
 export class CommentDTO {
   @ApiProperty({
-    description: "The comment body. Exemple: 'I liked that article'",
+    description: "The comment body. Example: 'I liked that article'",
     required: true,
     maxLength: 255,
   })
