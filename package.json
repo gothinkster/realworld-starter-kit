@@ -10,13 +10,13 @@
     "build": "nest build",
     "start:prod": "node dist/server",
     "start": "NODE_ENV=development nest start",
-    "start:dev": "NODE_ENV=development nest start --watch",
+    "start:dev": "NODE_ENV=development nest start",
     "start:debug": "NODE_ENV=development nest start --debug --watch",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "format": "prettier --write .",
     "test": "yarn test:all",
     "test:unit": "jest --testRegex .*\\.unit\\.ts$",
-    "test:acceptance": "jest --testRegex .*\\.spec\\.ts$",
+    "test:acceptance": "jest --testRegex .*\\.acceptance\\.ts$",
     "test:all": "jest",
     "typeorm": "typeorm-ts-node-commonjs"
   },
@@ -78,14 +78,14 @@
       "json",
       "ts"
     ],
-    "rootDir": "./src",
+    "rootDir": ".",
     "preset": "ts-jest",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "testRegex": ".*\\.(unit|spec)\\.ts$",
+    "testRegex": ".*\\.(unit|spec|acceptance)\\.ts$",
     "collectCoverageFrom": [
-      "src/main/*.(t|j)s"
+      "main/*.(t|j)s"
     ],
     "collectCoverage": true,
     "coverageDirectory": "./coverage"

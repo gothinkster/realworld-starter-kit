@@ -1,18 +1,30 @@
 import { Axios } from 'axios'
-import {Article, ArticleFields, ArticleSearch, createCredentials, UserDriver} from "./UserDriver";
-import {AppConnection} from "./AppConnection";
+import {
+  Article,
+  ArticleFields,
+  ArticleSearch,
+  createCredentials,
+  UserDriver,
+} from './UserDriver'
 
 export class UserRestDriver implements UserDriver {
-  private username: string
+  private axios = new Axios({
+    baseURL: process.env.API_URL || 'http://localhost:3000/api',
+    responseType: 'json',
+    transformRequest: (data) => (data ? JSON.stringify(data) : data),
+    transformResponse: (data) => (data ? JSON.parse(data) : data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
 
-  constructor(private axios: Axios) {}
-
-  private async createAccount() {
-    const credentials = createCredentials(this.username)
+  private async createAccount(username: string) {
+    const credentials = createCredentials(username)
 
     let sign = await this.axios.post('accounts/signup', {
       user: credentials,
     })
+    console.log({ sign, credentials })
 
     if (!sign.data.access_token) {
       expect(sign.status).toBe(409)
@@ -32,11 +44,11 @@ export class UserRestDriver implements UserDriver {
     }
   }
 
-  private async createProfile() {
+  private async createProfile(username: string) {
     const response = await this.axios.post('profiles', {
       profile: {
-        username: this.username,
-        bio: `Me chamo ${this.username}`,
+        username: username,
+        bio: `Me chamo ${username}`,
         image: 'afs3fas',
       },
     })
@@ -44,9 +56,8 @@ export class UserRestDriver implements UserDriver {
   }
 
   async login(username: string) {
-    this.username = username
-    await this.createAccount()
-    await this.createProfile()
+    await this.createAccount(username)
+    await this.createProfile(username)
   }
 
   async follow(username: string) {
@@ -74,9 +85,7 @@ export class UserRestDriver implements UserDriver {
     expect(response.status).toBe(204)
   }
 
-  private async findArticles(
-    filters: ArticleSearch,
-  ) {
+  private async findArticles(filters: ArticleSearch) {
     const response = await this.axios.get(`articles/`, {
       params: {
         author: filters.author,
@@ -158,36 +167,5 @@ export class UserRestDriver implements UserDriver {
     expect(response.data.comments.map((v) => v.author.username)).toContainEqual(
       username,
     )
-  }
-}
-
-export class RestAppConnection implements AppConnection {
-  private readonly apiUrl: string
-
-  constructor() {
-    const API_URL = process.env.API_URL
-    if(!API_URL) {
-      throw new Error('API_URL is not defined')
-    }
-    this.apiUrl = API_URL
-  }
-
-  private createAxios(): Axios {
-    return new Axios({
-      baseURL: this.apiUrl,
-      responseType: 'json',
-      transformRequest: (data) => (data ? JSON.stringify(data) : data),
-      transformResponse: (data) => (data ? JSON.parse(data) : data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-  }
-
-  createUserDriver() {
-    return new UserRestDriver(this.createAxios())
-  }
-
-  async stop() {
   }
 }

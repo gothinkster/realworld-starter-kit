@@ -1,7 +1,11 @@
-import {ArticleFields, ArticleSearch, makeRandomArticle, UserDriver} from "./UserDriver";
+import {
+  ArticleFields,
+  ArticleSearch,
+  makeRandomArticle,
+  UserDriver,
+} from './UserDriver'
 
 export class UserDSL {
-
   constructor(
     public readonly username: string,
     private driver: UserDriver,

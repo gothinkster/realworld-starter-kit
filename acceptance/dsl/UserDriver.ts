@@ -1,4 +1,4 @@
-import {LoremIpsum} from "lorem-ipsum";
+import { LoremIpsum } from 'lorem-ipsum'
 
 export interface Article {
   title: string
@@ -14,7 +14,9 @@ export interface ArticleResponse extends Article {
 
 export type ArticleFields = Partial<Article>
 
-export type ArticleSearch = Partial<Pick<Article, 'tags'> & Pick<ArticleResponse, 'author'>>
+export type ArticleSearch = Partial<
+  Pick<Article, 'tags'> & Pick<ArticleResponse, 'author'>
+>
 
 export interface UserDriver {
   login(username: string): Promise<void>
@@ -38,7 +40,7 @@ export interface UserDriver {
 const lorem = new LoremIpsum()
 
 export function makeRandomArticle(
-    article: ArticleFields = {},
+  article: ArticleFields = {},
 ): Readonly<Article> {
   return {
     title: article?.title || lorem.generateSentences(1),
@@ -46,7 +48,7 @@ export function makeRandomArticle(
     body: article?.body || lorem.generateParagraphs(1),
     tags: [
       ...new Set(
-          article?.tags || lorem.generateWords(4).toLowerCase().split(' '),
+        article?.tags || lorem.generateWords(4).toLowerCase().split(' '),
       ),
     ].sort(),
   }
@@ -55,9 +57,9 @@ export function makeRandomArticle(
 export function createCredentials(username: string) {
   return {
     email:
-        process.env[`EMAIL_${username.toUpperCase()}`] ||
-        `${username.toLowerCase()}@mail.com`,
+      process.env[`EMAIL_${username.toUpperCase()}`] ||
+      `${username.toLowerCase()}@mail.com`,
     password:
-        process.env[`PASSWORD_${username.toUpperCase()}`] || 'asdaWAdji!oi8809jk',
+      process.env[`PASSWORD_${username.toUpperCase()}`] || 'asdaWAdji!oi8809jk',
   }
 }

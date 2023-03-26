@@ -1,17 +1,16 @@
 import { ArticlesService } from '../../main/domain/articles/articles.service'
 import { ArticleNotFound } from '../../main/domain/articles/exceptions'
-import {Article, Author, Sluged} from '../../main/domain/articles/models'
+import { Article, Author, Sluged } from '../../main/domain/articles/models'
 import { AuthorsService } from '../../main/domain/authors/service'
 import { getTestDataSource } from '../utils'
 
- const exampleArticle: Sluged<Article> = {
+const exampleArticle: Sluged<Article> = {
   title: 'How to train your dragon?',
   description: "You should train your dragon before it's too late",
   body: 'Feed it with fish',
   tags: ['dragons', 'friendship'],
   slug: 'how-to-train-your-dragon',
 }
-
 
 const testDataSource = getTestDataSource()
 

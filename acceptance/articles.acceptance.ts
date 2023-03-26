@@ -1,23 +1,13 @@
-import {AppConnection} from "./dsl/AppConnection";
-import {UserDSL} from "./dsl/UserDSL";
-import {RestAppConnection} from "./dsl/UserRestDriver";
+import { UserDSL } from './dsl/UserDSL'
+import { UserRestDriver } from './dsl/UserRestDriver'
 
-let connection: AppConnection
 let abbott: UserDSL
 let costello: UserDSL
 
-beforeAll(async () => {
-  connection = new RestAppConnection()
-})
-
-afterAll(async () => {
-  await connection.stop()
-})
-
 beforeEach(async () => {
   const context = {}
-  abbott = new UserDSL('Abbott', connection.createUserDriver(), context)
-  costello = new UserDSL('Costello', connection.createUserDriver(), context)
+  abbott = new UserDSL('Abbott', new UserRestDriver(), context)
+  costello = new UserDSL('Costello', new UserRestDriver(), context)
 })
 
 /**

@@ -3,7 +3,7 @@ services:
     container_name: magazine-app
     build: .
     ports:
-      - '3000:3000'
+      - '3001:3000'
     environment:
       DB_URL: postgres://postgres:postgres@postgres:5432/magazine
 
@@ -13,6 +13,6 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: magazine
+      POSTGRES_DB: postgres
     ports:
       - '5432:5432'
