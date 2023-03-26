@@ -3,6 +3,7 @@ package com.realworld.realworld.domain.user.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.realworld.realworld.domain.user.dto.UserLoginRequestDto;
 import com.realworld.realworld.domain.user.dto.UserRegisterRequestDto;
+import com.realworld.realworld.domain.user.dto.UserUpdateRequestDto;
 import com.realworld.realworld.domain.user.repository.UserRepository;
 import com.realworld.realworld.domain.user.service.UserService;
 import org.junit.jupiter.api.DisplayName;
@@ -20,8 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -203,4 +203,34 @@ class UserControllerTest {
         }
     }
 
+    @Nested
+    @DisplayName("회원 수정 테스트")
+    class UpdateUser_test {
+
+        private final TestUserDetailService userDetailService = new TestUserDetailService(userRepository);
+        private UserDetails userDetails;
+
+        @Test
+        @DisplayName("회원 수정 성공 시 사용자 정보 반환")
+        void UpdateUser_test01() throws Exception {
+            Long userId = userService.registerUser(new UserRegisterRequestDto("aaa@gmail.com", "aaa", "사용자A"));
+            userDetails = userDetailService.loadUserByUsername(String.valueOf(userId));
+
+            UserUpdateRequestDto requestDto = UserUpdateRequestDto.builder()
+                    .username("사용자b")
+                    .bio("bbb bio")
+                    .image("bbb image")
+                    .build();
+
+            mockMvc.perform(put("/api/user").with(user(userDetails))
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .characterEncoding("utf-8")
+                            .content(objectMapper.writeValueAsString(requestDto)))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.user.username").value("사용자b"))
+                    .andExpect(jsonPath("$.user.bio").value("bbb bio"))
+                    .andExpect(jsonPath("$.user.image").value("bbb image"));
+        }
+
+    }
 }

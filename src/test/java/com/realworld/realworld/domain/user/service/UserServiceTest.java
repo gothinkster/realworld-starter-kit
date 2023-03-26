@@ -2,6 +2,7 @@ package com.realworld.realworld.domain.user.service;
 
 import com.realworld.realworld.domain.user.dto.UserRegisterRequestDto;
 import com.realworld.realworld.domain.user.dto.UserResponseDto;
+import com.realworld.realworld.domain.user.dto.UserUpdateRequestDto;
 import com.realworld.realworld.domain.user.entity.User;
 import com.realworld.realworld.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,11 +23,13 @@ class UserServiceTest {
     @Autowired UserRepository userRepository;
     private UserService userService;
     private UserRegisterRequestDto userA;
+    private UserRegisterRequestDto userB;
 
     @BeforeEach
     void setUp() {
         userService = new UserServiceImpl(userRepository, new PasswordEncoderTest());
         userA = new UserRegisterRequestDto("aaa@gmail.com", "aaa", "사용자a");
+        userB = new UserRegisterRequestDto("bbb@gmail.com", "bbb", "사용자b");
     }
 
     @Nested
@@ -88,6 +91,34 @@ class UserServiceTest {
             assertThatThrownBy(() -> userService.findUserByEmail("aaa@gmail.com"))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("해당 사용자가 없습니다.");
+        }
+    }
+
+    @Nested
+    @DisplayName("회원수정 테스트")
+    class UpdateUser_test {
+
+        @Test
+        @DisplayName("유효한 사용자 정보 입력 시 수정 성공")
+        void UpdateUser_test01(){
+            //given
+            Long userId = userService.registerUser(userA);
+            String username = "사용자b";
+            String bio = "bbb bio";
+            String image = "bbb image";
+            UserUpdateRequestDto requestDto = UserUpdateRequestDto.builder()
+                    .username(username)
+                    .bio(bio)
+                    .image(image)
+                    .build();
+            //when
+            userService.updateUser(userId, requestDto);
+
+            //then
+            User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다."));
+            assertThat(user.getUsername()).isEqualTo(username);
+            assertThat(user.getBio()).isEqualTo(bio);
+            assertThat(user.getImage()).isEqualTo(image);
         }
 
     }
