@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -19,6 +20,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     @Value("${jwt.secretKey}")
     private String secretKey;
+
+    private final UserDetailsService userDetailsService;
+
+    public JwtAuthorizationFilter(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -36,9 +43,11 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             return;
         }
 
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(JwtUtils.getEmail(jwtToken, secretKey), null, null);
-        token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(token);
+        CustomUserDetails userDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(JwtUtils.getEmail(jwtToken, secretKey));
+
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, null);
+        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         filterChain.doFilter(request, response);
     }
 }

@@ -3,6 +3,7 @@ package com.realworld.realworld.domain.user.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.realworld.realworld.domain.user.dto.UserLoginRequestDto;
 import com.realworld.realworld.domain.user.dto.UserRegisterRequestDto;
+import com.realworld.realworld.domain.user.repository.UserRepository;
 import com.realworld.realworld.domain.user.service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -13,10 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -32,11 +35,14 @@ class UserControllerTest {
     @Autowired
     private UserService userService;
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private ObjectMapper objectMapper;
 
     @Nested
     @DisplayName("회원가입 테스트")
     class Register_test {
+
         @Test
         @DisplayName("유효한 회원 정보 입력 시 200(ok) 반환")
         void register_test01() throws Exception {
@@ -173,28 +179,25 @@ class UserControllerTest {
     @DisplayName("회원 조회 테스트")
     class findUser_test {
 
+        private final TestUserDetailService userDetailService = new TestUserDetailService(userRepository);
+        private UserDetails userDetails;
+
         @Test
         @DisplayName("회원 조회 성공 시 사용자 정보 반환")
-        @WithMockUser(username = "aaa@gmail.com")
         void findUser_test01() throws Exception {
-            String email = "aaa@gmail.com";
-            String password = "aaa";
-            String username = "사용자a";
-            userService.registerUser(new UserRegisterRequestDto(email, password, username));
+            Long userId = userService.registerUser(new UserRegisterRequestDto("aaa@gmail.com", "aaa", "사용자A"));
+            userDetails = userDetailService.loadUserByUsername(String.valueOf(userId));
 
-            mockMvc.perform(get("/api/user"))
+            mockMvc.perform(get("/api/user").with(user(userDetails)))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.user.email").value(email))
-                    .andExpect(jsonPath("$.user.username").value(username));
+                    .andExpect(jsonPath("$.user.email").value("aaa@gmail.com"))
+                    .andExpect(jsonPath("$.user.username").value("사용자A"));
         }
 
         @Test
         @DisplayName("회원 조회 실패 시 403(Forbidden) 에러 반환")
-        void findUser_test02() throws Exception {
-            String email = "aaa@gmail.com";
-            String username = "사용자a";
-            userService.registerUser(new UserRegisterRequestDto(email, "aaa", username));
-
+        @WithAnonymousUser
+        void findUser_test03() throws Exception {
             mockMvc.perform(get("/api/user"))
                     .andExpect(status().isForbidden());
         }
