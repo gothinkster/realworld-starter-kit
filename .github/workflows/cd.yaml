@@ -22,20 +22,42 @@ jobs:
           --health-retries 5
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+
       - uses: actions/setup-node@v3
         with:
           cache: 'npm'
           cache-dependency-path: package-lock.json
 
-      - uses: actions/checkout@v3
-
       - run: npm install
-      - run: npm run test:unit
 
-      - run: docker-compose up api -d --build
+      - uses: docker/setup-buildx-action@v2
 
-      - run: API_URL=http://localhost:3000/api npx jest acceptance
+      - name: Running unit tests
+        run: npm run test:unit
+        shell: bash
 
-      - name: Stop containers
-        if: always()
-        run: docker-compose down
+      - name: Starting localhost server
+        run: |
+          nohup npm run start:dev &
+          until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)" = "200" ]; do sleep 1; done; echo "Local server is up and running"
+
+      - name: Running acceptance tests on localhost server
+        run: API_URL=http://localhost:3000 npm run test:acceptance
+
+      - id: build
+        uses: docker/build-push-action@v3
+        with:
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          load: true
+          push: false
+          tags: 'app'
+
+      - name: Starting docker server
+        run: |
+          nohup docker run --rm -d -p 3001:3000 --name app app &
+          until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3001)" = "200" ]; do sleep 1; done; echo "Docker server is up and running"
+
+      - name: Running acceptance tests on docker server
+        run: API_URL=http://localhost:3001/api npx jest acceptance

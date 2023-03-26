@@ -17,6 +17,7 @@ import { JWTAuthPassport } from './jwt.strategy'
 import { CommentsService } from '../comments/comments.service'
 import { CommentsController } from '../comments/comments.controller'
 import { CommentEntity } from '../comments/comment.entity'
+import { HealthModule } from '../health/health.module'
 
 export function initializePostgresDataSource() {
   return new DataSource({
@@ -86,6 +87,7 @@ class CommentsModule {}
     AuthorsModule,
     CommentsModule,
     AccountsModule,
+    HealthModule,
     GlobalModule,
   ],
   controllers: [],
