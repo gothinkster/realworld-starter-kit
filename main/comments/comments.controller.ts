@@ -19,21 +19,22 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger'
-import { Account } from '../../domain/authors/models'
-import { AuthorsService } from '../../domain/authors/service'
-import { CommentsService } from '../../domain/comments/comments.service'
-import { InjectAccount } from '../decorators/account.decorator'
-import { Slug } from '../parsing/articles.dto'
+
+import { PaginationDTO } from '../nest/parsing/pagination.dto'
+import { JWTAuthGuard } from '../nest/security/jwt.guard'
+import { validateModel } from '../nest/validation/validation.utils'
+import { CommentsService } from './comments.service'
+import { buildUrl } from '../nest/parsing/url'
+import { Account } from '../authors/models'
+import { AuthorsService } from '../authors/service'
+import { InjectAccount } from '../accounts/account.decorator'
+import { Slug } from '../articles/articles.dto'
 import {
   cloneCommentToOutput,
   CommentResponseBody,
   CommentsResponseBody,
   CreateCommentBody,
-} from '../parsing/comments.dto'
-import { PaginationDTO } from '../parsing/pagination.dto'
-import { buildUrl } from '../parsing/url'
-import { JWTAuthGuard } from '../security/jwt.guard'
-import { validateModel } from '../validation/validation.utils'
+} from './comments.dto'
 
 @ApiTags('comments')
 @Controller('articles/:slug/comments')

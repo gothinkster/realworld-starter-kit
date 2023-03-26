@@ -5,8 +5,11 @@ import {
 } from '@nestjs/swagger/dist/decorators/api-model-property.decorator'
 import { Type } from 'class-transformer'
 import { IsString, MaxLength, ValidateNested } from 'class-validator'
-import { CommentEntity } from '../../persistence/comment.entity'
-import { cloneProfileToOutput, ProfileResponseDTO } from './authors.dto'
+import {
+  cloneProfileToOutput,
+  ProfileResponseDTO,
+} from '../authors/authors.dto'
+import { CommentEntity } from './comment.entity'
 
 export class CommentDTO {
   @ApiProperty({

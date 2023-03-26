@@ -1,11 +1,11 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common'
 import { ApiBasicAuth, ApiCreatedResponse, ApiTags } from '@nestjs/swagger'
-import { Account } from '../domain/authors/models'
-import { InjectAccount } from '../nest/decorators/account.decorator'
 import { validateModel } from '../nest/validation/validation.utils'
 import { AccountResponseBody, CreateAccountBody } from './accounts.dto'
 import { AccountsService } from './accounts.service'
 import { BasicAuthGuard } from './basic.guard'
+import { Account } from '../authors/models'
+import { InjectAccount } from './account.decorator'
 
 @ApiTags('accounts')
 @Controller('accounts')

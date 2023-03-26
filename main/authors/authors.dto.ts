@@ -3,7 +3,7 @@ import { ApiParam, ApiProperty, ApiResponseProperty } from '@nestjs/swagger'
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator'
 import { Type } from 'class-transformer'
 import { IsNotEmpty, IsString, Matches, ValidateNested } from 'class-validator'
-import { Profile, ProfileFields } from '../../domain/authors/models'
+import { Profile, ProfileFields } from './models'
 
 const authorSwaggerOptions = {
   username: {

@@ -6,8 +6,13 @@ let costello: UserDSL
 
 beforeEach(async () => {
   const context = {}
-  abbott = new UserDSL('Abbott', new UserRestDriver(), context)
-  costello = new UserDSL('Costello', new UserRestDriver(), context)
+  const randomNumber = Date.now()
+  abbott = new UserDSL(`Abbott-${randomNumber}`, new UserRestDriver(), context)
+  costello = new UserDSL(
+    `Costello-${randomNumber}`,
+    new UserRestDriver(),
+    context,
+  )
 })
 
 /**

@@ -19,19 +19,19 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger'
-import { Account } from '../../domain/authors/models'
-import { AuthorsService } from '../../domain/authors/service'
-import { InjectAccount } from '../decorators/account.decorator'
+import { Account } from './models'
+import { AuthorsService } from './service'
 import {
   cloneProfileToOutput,
   CreateProfileBody,
   ProfileResponseBody,
   UpdateProfileBody,
   Username,
-} from '../parsing/authors.dto'
-import { buildUrl } from '../parsing/url'
-import { AuthIsOptional, JWTAuthGuard } from '../security/jwt.guard'
-import { validateModel } from '../validation/validation.utils'
+} from './authors.dto'
+import { InjectAccount } from '../accounts/account.decorator'
+import { buildUrl } from '../nest/parsing/url'
+import { AuthIsOptional, JWTAuthGuard } from '../nest/security/jwt.guard'
+import { validateModel } from '../nest/validation/validation.utils'
 
 @ApiTags('profiles')
 @UseGuards(JWTAuthGuard)

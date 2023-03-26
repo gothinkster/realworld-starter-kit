@@ -19,10 +19,8 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger'
-import { ArticlesService } from '../../domain/articles/articles.service'
-import { Account } from '../../domain/authors/models'
-import { AuthorsService } from '../../domain/authors/service'
-import { InjectAccount } from '../decorators/account.decorator'
+import { Account } from '../authors/models'
+import { AuthorsService } from '../authors/service'
 import {
   ArticleFiltersDTO,
   ArticleResponseBody,
@@ -32,11 +30,13 @@ import {
   createLinksForArticle,
   Slug,
   UpdateArticleBody,
-} from '../parsing/articles.dto'
-import { PaginationDTO } from '../parsing/pagination.dto'
-import { buildUrl } from '../parsing/url'
-import { AuthIsOptional, JWTAuthGuard } from '../security/jwt.guard'
-import { validateModel } from '../validation/validation.utils'
+} from './articles.dto'
+import { PaginationDTO } from '../nest/parsing/pagination.dto'
+import { AuthIsOptional, JWTAuthGuard } from '../nest/security/jwt.guard'
+import { validateModel } from '../nest/validation/validation.utils'
+import { InjectAccount } from '../accounts/account.decorator'
+import { buildUrl } from '../nest/parsing/url'
+import { ArticlesService } from './articles.service'
 
 @ApiTags('articles')
 @ApiBearerAuth()

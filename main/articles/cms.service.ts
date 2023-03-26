@@ -1,6 +1,6 @@
-import { ArticleEntity } from '../../persistence/article.entity'
 import { ArticleFinder } from './finder'
 import { Article, ArticleFields, Author, FullArticle } from './models'
+import { ArticleEntity } from './article.entity'
 
 /**
 The ContentManagementSystem is responsible for letting only the authors

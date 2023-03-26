@@ -1,9 +1,10 @@
 import { SelectQueryBuilder } from 'typeorm'
 import { Brackets } from 'typeorm/query-builder/Brackets'
-import { ArticleEntity } from '../../persistence/article.entity'
-import { UserFollows } from '../../persistence/author.entity'
+
 import { ArticleNotFound } from './exceptions'
 import { Author } from './models'
+import { UserFollows } from './author.entity'
+import { ArticleEntity } from './article.entity'
 
 export class Pagination {
   take: number

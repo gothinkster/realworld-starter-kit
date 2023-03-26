@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
-import { AuthorEntity } from '../../persistence/author.entity'
 import { AuthorAlreadyExists, AuthorNotFound } from './exceptions'
 import { Account, Profile, ProfileFields } from './models'
+import { AuthorEntity } from '../articles/author.entity'
 
 @Injectable()
 export class AuthorsService {

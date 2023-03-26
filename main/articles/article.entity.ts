@@ -12,11 +12,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { ArticleFields, FullArticle } from '../domain/articles/models'
-import { slugify } from '../domain/utils/slug.utils'
 import { AuthorEntity } from './author.entity'
-import { CommentEntity } from './comment.entity'
 import { Tag } from './tag.entity'
+import { ArticleFields, FullArticle } from './models'
+import { CommentEntity } from '../comments/comment.entity'
+import { slugify } from './slug.utils'
 
 @Entity({ name: 'articles' })
 export class ArticleEntity extends BaseEntity implements FullArticle {

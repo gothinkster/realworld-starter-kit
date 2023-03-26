@@ -13,9 +13,12 @@ import {
   Dated,
   FullArticle,
   Sluged,
-} from '../../domain/articles/models'
-import { cloneProfileToOutput, ProfileResponseDTO } from './authors.dto'
-import { buildUrl } from './url'
+} from './models'
+import {
+  cloneProfileToOutput,
+  ProfileResponseDTO,
+} from '../authors/authors.dto'
+import { buildUrl } from '../nest/parsing/url'
 
 export const articlesSwaggerOptions = {
   title: { example: 'How to train your dragon' },
@@ -56,6 +59,7 @@ export const articlesSwaggerOptions = {
     type: 'integer',
   },
 }
+
 export class CreateArticleDTO implements Article {
   @ApiProperty(articlesSwaggerOptions.title)
   @IsString()

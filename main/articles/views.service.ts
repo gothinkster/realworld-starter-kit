@@ -1,7 +1,7 @@
-import { AuthorNotFound } from '../authors/exceptions'
-import { AuthorsService } from '../authors/service'
 import { ArticleFinder, Pagination } from './finder'
 import { ArticleFilters, Author, FullArticle } from './models'
+import { AuthorNotFound } from '../authors/exceptions'
+import { AuthorsService } from '../authors/service'
 
 export class ArticleView {
   constructor(

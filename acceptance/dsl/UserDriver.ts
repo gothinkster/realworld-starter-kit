@@ -12,9 +12,9 @@ export interface ArticleResponse extends Article {
   author: string
 }
 
-export type ArticleFields = Partial<Article>
+export type PartialArticle = Partial<Article>
 
-export type ArticleSearch = Partial<
+export type ArticleSearchFields = Partial<
   Pick<Article, 'tags'> & Pick<ArticleResponse, 'author'>
 >
 
@@ -25,11 +25,14 @@ export interface UserDriver {
   publishArticle(slug: string): Promise<void>
   deleteArticle(slug: string): Promise<void>
   unpublishArticle(slug: string): Promise<void>
-  editArticle(slug: string, editions: ArticleFields): Promise<string>
+  editArticle(slug: string, editions: PartialArticle): Promise<string>
   writeArticle(article: Article): Promise<string>
   commentOnArticle(slug: string, comment: string): Promise<void>
-  shouldFindArticleBy(filters: ArticleSearch, slug: string): Promise<void>
-  shouldNotFindArticleBy(filters: ArticleSearch, slug: string): Promise<void>
+  shouldFindArticleBy(filters: ArticleSearchFields, slug: string): Promise<void>
+  shouldNotFindArticleBy(
+    filters: ArticleSearchFields,
+    slug: string,
+  ): Promise<void>
   shouldFindTheArticle(slug: string): Promise<void>
   shouldNotFindTheArticle(slug: string): Promise<void>
   shouldSeeTheArticleInTheFeed(slug: string): Promise<void>
@@ -40,7 +43,7 @@ export interface UserDriver {
 const lorem = new LoremIpsum()
 
 export function makeRandomArticle(
-  article: ArticleFields = {},
+  article: PartialArticle = {},
 ): Readonly<Article> {
   return {
     title: article?.title || lorem.generateSentences(1),
@@ -58,7 +61,7 @@ export function createCredentials(username: string) {
   return {
     email:
       process.env[`EMAIL_${username.toUpperCase()}`] ||
-      `${username.toLowerCase()}@mail.com`,
+      `${username.toLowerCase()}.testuser@mail.com`,
     password:
       process.env[`PASSWORD_${username.toUpperCase()}`] || 'asdaWAdji!oi8809jk',
   }

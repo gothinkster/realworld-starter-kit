@@ -2,14 +2,44 @@ import { Global, Module } from '@nestjs/common'
 import { AccountsController } from '../accounts/accounts.controller'
 import { AccountsService } from '../accounts/accounts.service'
 import { BasicAuthStrategy } from '../accounts/basic.auth'
-import { ArticlesService } from '../domain/articles/articles.service'
-import { AuthorsService } from '../domain/authors/service'
-import { CommentsService } from '../domain/comments/comments.service'
-import { ArticlesController } from './controllers/articles.controller'
-import { AuthorsController } from './controllers/authors.controller'
-import { CommentsController } from './controllers/comments.controller'
-import { databaseProviders } from './db.providers'
 import { JWTAuthPassport } from './security/jwt.strategy'
+import { CommentsService } from '../comments/comments.service'
+import { AuthorsService } from '../authors/service'
+import { CommentsController } from '../comments/comments.controller'
+import { AuthorsController } from '../authors/authors.controller'
+import { ArticlesController } from '../articles/articles.controller'
+import { ArticlesService } from '../articles/articles.service'
+import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
+import { DataSource } from 'typeorm'
+import { DB_URL } from '../constants'
+import { AccountEntity } from '../accounts/accounts.entity'
+import { ArticleEntity } from '../articles/article.entity'
+import { AuthorEntity, UserFollows } from '../articles/author.entity'
+import { CommentEntity } from '../comments/comment.entity'
+import { Tag } from '../articles/tag.entity'
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
+
+export const DATASOURCE_PROVIDER = 'DATASOURCE_PROVIDER'
+export const databaseProviders: Provider[] = [
+  {
+    provide: DATASOURCE_PROVIDER,
+    useFactory: () =>
+      new DataSource({
+        type: 'postgres',
+        url: DB_URL,
+        entities: [
+          AccountEntity,
+          ArticleEntity,
+          AuthorEntity,
+          UserFollows,
+          CommentEntity,
+          Tag,
+        ],
+        namingStrategy: new SnakeNamingStrategy(),
+        synchronize: true,
+      }).initialize(),
+  },
+]
 
 @Global()
 @Module({

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { CommentEntity } from '../../persistence/comment.entity'
 import { ArticlesService } from '../articles/articles.service'
 import { Pagination } from '../articles/finder'
 import { Author } from '../articles/models'
+import { CommentEntity } from './comment.entity'
 
 @Injectable()
 export class CommentsService {

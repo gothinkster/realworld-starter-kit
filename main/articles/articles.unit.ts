@@ -1,8 +1,7 @@
-import { ArticlesService } from '../../main/domain/articles/articles.service'
-import { ArticleNotFound } from '../../main/domain/articles/exceptions'
-import { Article, Author, Sluged } from '../../main/domain/articles/models'
-import { AuthorsService } from '../../main/domain/authors/service'
-import { getTestDataSource } from '../utils'
+import { Article, Author, Sluged } from './models'
+import { AuthorsService } from '../authors/service'
+import { ArticleNotFound } from './exceptions'
+import { ArticlesService } from './articles.service'
 
 const exampleArticle: Sluged<Article> = {
   title: 'How to train your dragon?',
@@ -11,16 +10,6 @@ const exampleArticle: Sluged<Article> = {
   tags: ['dragons', 'friendship'],
   slug: 'how-to-train-your-dragon',
 }
-
-const testDataSource = getTestDataSource()
-
-beforeEach(() => {
-  return testDataSource.initialize()
-})
-
-afterEach(() => {
-  return testDataSource.destroy()
-})
 
 describe('Article', () => {
   let author: Author

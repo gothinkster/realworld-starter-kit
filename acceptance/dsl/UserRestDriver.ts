@@ -1,8 +1,8 @@
 import { Axios } from 'axios'
 import {
   Article,
-  ArticleFields,
-  ArticleSearch,
+  PartialArticle,
+  ArticleSearchFields,
   createCredentials,
   UserDriver,
 } from './UserDriver'
@@ -24,7 +24,6 @@ export class UserRestDriver implements UserDriver {
     let sign = await this.axios.post('accounts/signup', {
       user: credentials,
     })
-    console.log({ sign, credentials })
 
     if (!sign.data.access_token) {
       expect(sign.status).toBe(409)
@@ -85,7 +84,7 @@ export class UserRestDriver implements UserDriver {
     expect(response.status).toBe(204)
   }
 
-  private async findArticles(filters: ArticleSearch) {
+  private async findArticles(filters: ArticleSearchFields) {
     const response = await this.axios.get(`articles/`, {
       params: {
         author: filters.author,
@@ -96,17 +95,17 @@ export class UserRestDriver implements UserDriver {
     return response.data.articles
   }
 
-  async shouldFindArticleBy(filters: ArticleSearch, slug: string) {
+  async shouldFindArticleBy(filters: ArticleSearchFields, slug: string) {
     const articles = await this.findArticles(filters)
     expect(articles.map((v) => v.slug)).toContainEqual(slug)
   }
 
-  async shouldNotFindArticleBy(filters: ArticleSearch, slug: string) {
+  async shouldNotFindArticleBy(filters: ArticleSearchFields, slug: string) {
     const articles = await this.findArticles(filters)
     expect(articles.map((v) => v.slug)).not.toContainEqual(slug)
   }
 
-  async editArticle(slug: string, editions: ArticleFields) {
+  async editArticle(slug: string, editions: PartialArticle) {
     return undefined
   }
 

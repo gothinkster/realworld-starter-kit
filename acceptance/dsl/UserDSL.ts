@@ -1,6 +1,6 @@
 import {
-  ArticleFields,
-  ArticleSearch,
+  PartialArticle,
+  ArticleSearchFields,
   makeRandomArticle,
   UserDriver,
 } from './UserDriver'
@@ -26,7 +26,7 @@ export class UserDSL {
     await this.driver.unfollow(user.username)
   }
 
-  async writeArticle(article: ArticleFields = {}) {
+  async writeArticle(article: PartialArticle = {}) {
     this.context.slug = await this.driver.writeArticle({
       ...makeRandomArticle(),
       ...article,
@@ -58,16 +58,16 @@ export class UserDSL {
     )
   }
 
-  async publishAnArticle(article: ArticleFields = {}) {
+  async publishAnArticle(article: PartialArticle = {}) {
     await this.writeArticle(article)
     await this.publishTheArticle()
   }
 
-  async shouldFindArticleBy(filters: ArticleSearch) {
+  async shouldFindArticleBy(filters: ArticleSearchFields) {
     await this.driver.shouldFindArticleBy(filters, this.context.slug)
   }
 
-  async shouldNotFindArticleBy(filters: ArticleSearch) {
+  async shouldNotFindArticleBy(filters: ArticleSearchFields) {
     await this.driver.shouldNotFindArticleBy(filters, this.context.slug)
   }
 
