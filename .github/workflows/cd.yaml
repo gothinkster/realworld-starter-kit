@@ -39,8 +39,9 @@ jobs:
 
       - name: Starting localhost server
         run: |
-          nohup npm run start:dev &
-          until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)" = "200" ]; do sleep 1; done; echo "Local server is up and running"
+          npm run build
+          nohup npm run start:prod &
+          URL=http://localhost:3000/api/health ./scripts/wait_for_status.sh 200
 
       - name: Running acceptance tests on localhost server
         run: API_URL=http://localhost:3000 npm run test:acceptance
@@ -57,7 +58,7 @@ jobs:
       - name: Starting docker server
         run: |
           nohup docker run --rm -d -p 3001:3000 --name app app &
-          until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3001)" = "200" ]; do sleep 1; done; echo "Docker server is up and running"
+          URL=http://localhost:3001/api/health ./scripts/wait_for_status.sh 200
 
       - name: Running acceptance tests on docker server
         run: API_URL=http://localhost:3001/api npx jest acceptance
