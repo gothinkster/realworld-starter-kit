@@ -16,6 +16,7 @@ export class UserRestDriver implements UserDriver {
     headers: {
       'Content-Type': 'application/json',
     },
+    validateStatus: (status) => status < 500,
   })
 
   private async createAccount(username: string) {
@@ -51,7 +52,7 @@ export class UserRestDriver implements UserDriver {
         image: 'afs3fas',
       },
     })
-    expect(response.status).not.toBe(500)
+    expect(response.status).toBe(201)
   }
 
   async login(username: string) {
@@ -144,24 +145,29 @@ export class UserRestDriver implements UserDriver {
 
   private async getArticle(slug: string) {
     const response = await this.axios.get(`articles/${slug}`)
+
     expect(response.status).not.toBe(500)
+
     return response
   }
 
   async shouldFindTheArticle(slug: string) {
     const response = await this.getArticle(slug)
+
     expect(response.status).toBe(200)
     expect(response.data.article).toBeTruthy()
   }
 
   async shouldNotFindTheArticle(slug: string) {
     const response = await this.getArticle(slug)
+
     expect(response.status).toBe(404)
     expect(response.data.article).toBeFalsy()
   }
 
   async shouldSeeCommentFrom(slug: string, username: string) {
     const response = await this.axios.get(`articles/${slug}/comments`)
+
     expect(response.status).toBe(200)
     expect(response.data.comments.map((v) => v.author.username)).toContainEqual(
       username,

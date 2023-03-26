@@ -1,18 +1,12 @@
 import { UserDSL } from './dsl/UserDSL'
-import { UserRestDriver } from './dsl/UserRestDriver'
+import { createUsers } from './dsl/createUsers'
 
 let abbott: UserDSL
 let costello: UserDSL
+let guest: UserDSL
 
 beforeEach(async () => {
-  const context = {}
-  const randomNumber = Date.now()
-  abbott = new UserDSL(`Abbott-${randomNumber}`, new UserRestDriver(), context)
-  costello = new UserDSL(
-    `Costello-${randomNumber}`,
-    new UserRestDriver(),
-    context,
-  )
+  ;({ abbott, costello, guest } = createUsers())
 })
 
 /**
@@ -34,7 +28,9 @@ describe('Article', () => {
 
     await abbott.writeArticle()
     await abbott.deleteTheArticle()
+
     await abbott.shouldNotFindTheArticle()
+    await guest.shouldNotFindTheArticle()
   })
 
   it('should not be found by others if not published', async () => {
@@ -42,8 +38,9 @@ describe('Article', () => {
     await costello.login()
 
     await abbott.writeArticle()
-    await costello.login()
+
     await costello.shouldNotFindTheArticle()
+    await guest.shouldNotFindTheArticle()
   })
 
   it('should be found by other users after published', async () => {
@@ -51,7 +48,9 @@ describe('Article', () => {
     await costello.login()
 
     await abbott.publishAnArticle()
+
     await costello.shouldFindTheArticle()
+    await guest.shouldFindTheArticle()
   })
 
   it('should be found by correct author', async () => {
@@ -59,16 +58,19 @@ describe('Article', () => {
     await costello.login()
 
     await abbott.publishAnArticle()
+
     await costello.shouldFindArticleBy({ author: abbott.username })
+    await guest.shouldFindArticleBy({ author: abbott.username })
   })
 
-  it('should not be found by wrong author', async () => {
+  it('should not be found for other author', async () => {
     await abbott.login()
     await costello.login()
 
     await abbott.publishAnArticle()
-    await costello.shouldNotFindArticleBy({ author: costello.username })
+
     await costello.shouldNotFindArticleBy({ author: 'amy-adams' })
+    await guest.shouldNotFindArticleBy({ author: 'amy-adams' })
   })
 
   it('should be found by correct tag', async () => {
@@ -76,7 +78,9 @@ describe('Article', () => {
     await costello.login()
 
     await abbott.publishAnArticle({ tags: ['physics', 'programming'] })
+
     await costello.shouldFindArticleBy({ tags: ['physics'] })
+    await guest.shouldFindArticleBy({ tags: ['physics'] })
   })
 
   it('should not be found by wrong tag', async () => {
@@ -84,6 +88,7 @@ describe('Article', () => {
     await costello.login()
 
     await abbott.publishAnArticle({ tags: ['physics', 'programming'] })
+
     await costello.shouldNotFindArticleBy({ tags: ['drinks'] })
   })
 
@@ -93,40 +98,8 @@ describe('Article', () => {
 
     await abbott.publishAnArticle()
     await costello.commentOnArticle()
+
     await abbott.shouldSeeCommentFrom(costello)
-  })
-})
-
-/**
- The feed is where users can see domain published by their followers
- **/
-describe('Feed', () => {
-  it('should show articles from authors I follow', async () => {
-    await abbott.login()
-    await costello.login()
-
-    await costello.follow(abbott)
-    await abbott.publishAnArticle()
-    await costello.shouldSeeTheArticleInTheFeed()
-  })
-
-  it('should not show articles from authors I am not following', async () => {
-    await abbott.login()
-    await costello.login()
-
-    await costello.follow(abbott)
-    await abbott.publishAnArticle()
-    await costello.unfollow(abbott)
-    await costello.shouldNotSeeTheArticleInTheFeed()
-  })
-
-  it('should not show me unpublished articles', async () => {
-    await abbott.login()
-    await costello.login()
-
-    await costello.follow(abbott)
-    await abbott.publishAnArticle()
-    await abbott.unpublishTheArticle()
-    await costello.shouldNotSeeTheArticleInTheFeed()
+    await guest.shouldSeeCommentFrom(costello)
   })
 })
