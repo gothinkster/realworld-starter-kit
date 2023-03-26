@@ -20,12 +20,12 @@ ENV NODE_ENV build
 USER node
 WORKDIR /home/node
 
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+COPY package.json package-lock.json ./
+RUN npm install
 
 
 COPY --chown=node:node . .
-RUN yarn prebuild && yarn build
+RUN npm run prebuild && npm run build
 
 
 FROM node:16
@@ -35,9 +35,9 @@ ENV NODE_ENV production
 USER node
 WORKDIR /home/node
 
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --prod=true
+COPY package.json package-lock.json ./
+RUN npm ci
 
 COPY --from=builder --chown=node:node /home/node/dist/ ./dist/
 
-CMD ["yarn", "start:prod"]
+CMD ["node", "dist/server"]

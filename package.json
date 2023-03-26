@@ -14,10 +14,8 @@
     "start:debug": "NODE_ENV=development nest start --debug --watch",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "format": "prettier --write .",
-    "test": "yarn test:all",
     "test:unit": "jest --testRegex .*\\.unit\\.ts$",
     "test:acceptance": "jest --testRegex .*\\.acceptance\\.ts$",
-    "test:all": "jest",
     "typeorm": "typeorm-ts-node-commonjs"
   },
   "dependencies": {

@@ -4,31 +4,37 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   test:
+    services:
+      postgres:
+        image: postgres:13.2
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     runs-on: ubuntu-latest
     steps:
-      - uses: docker/setup-buildx-action@v2
+      - uses: actions/setup-node@v3
         with:
-          install: true
-          buildkitd-flags: --debug
-      - run: docker-compose up -d --build
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
 
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
-        with:
-          cache: 'yarn'
-          cache-dependency-path: yarn.lock
+      - run: npm install
+      - run: npm run test:unit
 
-      - run: yarn install
-      - run: yarn test:unit
-      - run: yarn test:acceptance
+      - run: docker-compose up api -d --build
 
-      - run: DB_URL=postgres://postgres:postgres@localhost:5432/magazine yarn test:acceptance
-      - run: API_URL=http://localhost:3000/api yarn test:acceptance
+      - run: API_URL=http://localhost:3000/api npx jest acceptance
 
       - name: Stop containers
         if: always()
