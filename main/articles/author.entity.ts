@@ -7,8 +7,8 @@ import {
   Unique,
 } from 'typeorm'
 import { ArticleEntity } from './article.entity'
-import { CommentEntity } from '../comments/comment.entity'
 import { Account, Profile, ProfileFields } from '../authors/models'
+import { CommentEntity } from '../comments/comment.entity'
 
 @Entity({ name: 'authors' })
 export class AuthorEntity extends BaseEntity implements Profile {

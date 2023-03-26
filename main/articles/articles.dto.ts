@@ -18,7 +18,7 @@ import {
   cloneProfileToOutput,
   ProfileResponseDTO,
 } from '../authors/authors.dto'
-import { buildUrl } from '../nest/parsing/url'
+import { buildUrl } from '../nest/url'
 
 export const articlesSwaggerOptions = {
   title: { example: 'How to train your dragon' },

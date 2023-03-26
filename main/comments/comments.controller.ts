@@ -20,11 +20,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger'
 
-import { PaginationDTO } from '../nest/parsing/pagination.dto'
-import { JWTAuthGuard } from '../nest/security/jwt.guard'
-import { validateModel } from '../nest/validation/validation.utils'
-import { CommentsService } from './comments.service'
-import { buildUrl } from '../nest/parsing/url'
 import { Account } from '../authors/models'
 import { AuthorsService } from '../authors/service'
 import { InjectAccount } from '../accounts/account.decorator'
@@ -35,6 +30,11 @@ import {
   CommentsResponseBody,
   CreateCommentBody,
 } from './comments.dto'
+import { CommentsService } from './comments.service'
+import { buildUrl } from '../nest/url'
+import { PaginationDTO } from '../nest/pagination.dto'
+import { JWTAuthGuard } from '../nest/jwt.guard'
+import { validateModel } from '../nest/validation.utils'
 
 @ApiTags('comments')
 @Controller('articles/:slug/comments')

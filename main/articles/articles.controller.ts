@@ -31,12 +31,13 @@ import {
   Slug,
   UpdateArticleBody,
 } from './articles.dto'
-import { PaginationDTO } from '../nest/parsing/pagination.dto'
-import { AuthIsOptional, JWTAuthGuard } from '../nest/security/jwt.guard'
-import { validateModel } from '../nest/validation/validation.utils'
-import { InjectAccount } from '../accounts/account.decorator'
-import { buildUrl } from '../nest/parsing/url'
+
 import { ArticlesService } from './articles.service'
+import { InjectAccount } from '../accounts/account.decorator'
+import { PaginationDTO } from '../nest/pagination.dto'
+import { buildUrl } from '../nest/url'
+import { AuthIsOptional, JWTAuthGuard } from '../nest/jwt.guard'
+import { validateModel } from '../nest/validation.utils'
 
 @ApiTags('articles')
 @ApiBearerAuth()

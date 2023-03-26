@@ -1,4 +1,4 @@
-import { GLOBAL_PREFIX } from '../../constants'
+import { GLOBAL_PREFIX } from '../constants'
 
 export function buildUrl(
   req,

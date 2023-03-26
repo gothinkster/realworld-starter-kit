@@ -29,9 +29,9 @@ import {
   Username,
 } from './authors.dto'
 import { InjectAccount } from '../accounts/account.decorator'
-import { buildUrl } from '../nest/parsing/url'
-import { AuthIsOptional, JWTAuthGuard } from '../nest/security/jwt.guard'
-import { validateModel } from '../nest/validation/validation.utils'
+import { buildUrl } from '../nest/url'
+import { AuthIsOptional, JWTAuthGuard } from '../nest/jwt.guard'
+import { validateModel } from '../nest/validation.utils'
 
 @ApiTags('profiles')
 @UseGuards(JWTAuthGuard)
