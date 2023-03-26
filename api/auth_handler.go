@@ -60,7 +60,7 @@ func newUserResponse(user *db.User) *userResponse {
 		image = user.Image.String
 		resp.User.Image = &image
 	}
-	token, _ := GenerateJWT(user.ID.String())
+	token, _ := GenerateJWT(user.ID)
 	resp.User.Token = token
 	return resp
 }

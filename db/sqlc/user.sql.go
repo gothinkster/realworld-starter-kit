@@ -8,8 +8,6 @@ package db
 import (
 	"context"
 	"database/sql"
-
-	"github.com/google/uuid"
 )
 
 const createUser = `-- name: CreateUser :one
@@ -47,14 +45,34 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (*User, 
 	return &i, err
 }
 
-const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT id, username, email, password, bio, image, created_at, updated_at
-FROM users 
-WHERE email = $1
+const followUser = `-- name: FollowUser :exec
+INSERT INTO follows (
+    follower_id,
+    following_id
+) VALUES (
+    $1,
+    $2
+)
 `
 
-func (q *Queries) GetUserByEmail(ctx context.Context, email string) (*User, error) {
-	row := q.db.QueryRowContext(ctx, getUserByEmail, email)
+type FollowUserParams struct {
+	FollowerID  string `json:"follower_id"`
+	FollowingID string `json:"following_id"`
+}
+
+func (q *Queries) FollowUser(ctx context.Context, arg FollowUserParams) error {
+	_, err := q.db.ExecContext(ctx, followUser, arg.FollowerID, arg.FollowingID)
+	return err
+}
+
+const getUser = `-- name: GetUser :one
+SELECT id, username, email, password, bio, image, created_at, updated_at
+FROM users
+WHERE id = $1
+`
+
+func (q *Queries) GetUser(ctx context.Context, id string) (*User, error) {
+	row := q.db.QueryRowContext(ctx, getUser, id)
 	var i User
 	err := row.Scan(
 		&i.ID,
@@ -69,14 +87,14 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (*User, erro
 	return &i, err
 }
 
-const getUserByID = `-- name: GetUserByID :one
+const getUserByEmail = `-- name: GetUserByEmail :one
 SELECT id, username, email, password, bio, image, created_at, updated_at
-FROM users
-WHERE id = $1
+FROM users 
+WHERE email = $1
 `
 
-func (q *Queries) GetUserByID(ctx context.Context, id uuid.UUID) (*User, error) {
-	row := q.db.QueryRowContext(ctx, getUserByID, id)
+func (q *Queries) GetUserByEmail(ctx context.Context, email string) (*User, error) {
+	row := q.db.QueryRowContext(ctx, getUserByEmail, email)
 	var i User
 	err := row.Scan(
 		&i.ID,
@@ -113,6 +131,43 @@ func (q *Queries) GetUserByUsername(ctx context.Context, username string) (*User
 	return &i, err
 }
 
+const isFollowing = `-- name: IsFollowing :one
+SELECT EXISTS (
+    SELECT 1
+    FROM follows
+    WHERE follower_id = $1
+    AND following_id = $2
+)
+`
+
+type IsFollowingParams struct {
+	FollowerID  string `json:"follower_id"`
+	FollowingID string `json:"following_id"`
+}
+
+func (q *Queries) IsFollowing(ctx context.Context, arg IsFollowingParams) (bool, error) {
+	row := q.db.QueryRowContext(ctx, isFollowing, arg.FollowerID, arg.FollowingID)
+	var exists bool
+	err := row.Scan(&exists)
+	return exists, err
+}
+
+const unfollowUser = `-- name: UnfollowUser :exec
+DELETE FROM follows
+WHERE follower_id = $1
+AND following_id = $2
+`
+
+type UnfollowUserParams struct {
+	FollowerID  string `json:"follower_id"`
+	FollowingID string `json:"following_id"`
+}
+
+func (q *Queries) UnfollowUser(ctx context.Context, arg UnfollowUserParams) error {
+	_, err := q.db.ExecContext(ctx, unfollowUser, arg.FollowerID, arg.FollowingID)
+	return err
+}
+
 const updateUser = `-- name: UpdateUser :one
 UPDATE users
 SET username = coalesce($1, username),
@@ -131,7 +186,7 @@ type UpdateUserParams struct {
 	Password sql.NullString `json:"password"`
 	Bio      sql.NullString `json:"bio"`
 	Image    sql.NullString `json:"image"`
-	ID       uuid.UUID      `json:"id"`
+	ID       string         `json:"id"`
 }
 
 func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (*User, error) {

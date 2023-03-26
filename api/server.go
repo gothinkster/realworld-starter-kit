@@ -16,11 +16,11 @@ import (
 type Server struct {
 	config config.Config
 	router *gin.Engine
-	store  db.Querier
+	store  db.Store
 	log    log.Logger
 }
 
-func NewServer(config config.Config, store db.Querier, log log.Logger) *Server {
+func NewServer(config config.Config, store db.Store, log log.Logger) *Server {
 	server := &Server{
 		config: config,
 		router: gin.Default(),

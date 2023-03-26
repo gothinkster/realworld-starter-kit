@@ -36,7 +36,7 @@ func setup() {
 	dbConn = db.Connect(conf)
 	db.AutoMigrate(conf)
 
-	store := db.New(dbConn)
+	store := db.NewConduitStore(dbConn)
 	router = gin.Default()
 	server = &Server{
 		config: conf,

@@ -27,7 +27,7 @@ func main() {
 
 	db.AutoMigrate(config)
 
-	store := db.New(dbConn)
+	store := db.NewConduitStore(dbConn)
 
 	server := api.NewServer(
 		config,
