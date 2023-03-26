@@ -5,6 +5,8 @@ services:
       - '3001:3000'
     environment:
       DB_URL: postgres://postgres:postgres@postgres:5432/magazine
+    depends_on:
+      - postgres
 
   postgres:
     image: postgres

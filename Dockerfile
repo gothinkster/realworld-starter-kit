@@ -14,30 +14,21 @@
 # http://goldbergyoni.com/checklist-best-practice-of-node-js-in-production/
 
 FROM node:16 as builder
-
-ENV NODE_ENV build
-
-USER node
-WORKDIR /home/node
+WORKDIR /app
 
 COPY package.json package-lock.json ./
 RUN npm install
-
 
 COPY --chown=node:node . .
 RUN npm run prebuild && npm run build
 
 
 FROM node:16
-
-ENV NODE_ENV production
-
-USER node
-WORKDIR /home/node
+WORKDIR /app
 
 COPY package.json package-lock.json ./
 RUN npm ci
 
-COPY --from=builder --chown=node:node /home/node/dist/ ./dist/
+COPY --from=builder --chown=node:node /app/dist/ ./dist/
 
 CMD ["node", "dist/server"]

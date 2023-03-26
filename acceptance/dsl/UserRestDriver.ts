@@ -20,21 +20,9 @@ export class UserRestDriver implements UserDriver {
   })
 
   private async createAccount(username: string) {
-    const credentials = createCredentials(username)
-
-    let sign = await this.axios.post('accounts/signup', {
-      user: credentials,
+    const sign = await this.axios.post('accounts/signup', {
+      user: createCredentials(username),
     })
-
-    if (!sign.data.access_token) {
-      expect(sign.status).toBe(409)
-      sign = await this.axios.post('accounts/login', '', {
-        auth: {
-          username: credentials.email,
-          password: credentials.password,
-        },
-      })
-    }
 
     expect(sign.status).toBe(201)
     expect(sign.data.access_token).toBeDefined()
@@ -92,7 +80,7 @@ export class UserRestDriver implements UserDriver {
         tags: filters.tags?.join(','),
       },
     })
-    expect(response.status).toBe(200)
+    APISpec.validateArticlesResponse(response)
     return response.data.articles
   }
 
@@ -129,7 +117,7 @@ export class UserRestDriver implements UserDriver {
 
   private async getFeed() {
     const response = await this.axios.get(`articles/feed`)
-    expect(response.status).toBe(200)
+    APISpec.validateFeedResponse(response)
     return response.data.articles
   }
 
@@ -172,5 +160,51 @@ export class UserRestDriver implements UserDriver {
     expect(response.data.comments.map((v) => v.author.username)).toContainEqual(
       username,
     )
+  }
+}
+
+class APISpec {
+  static validateArticlesResponse(response) {
+    expect(response.status).toEqual(200)
+    if (response.data.articles.length > 0) {
+      expect(response.data).toEqual({
+        articles: expect.arrayContaining([
+          {
+            slug: expect.any(String),
+            title: expect.any(String),
+            description: expect.any(String),
+            body: expect.any(String),
+            tags: expect.arrayContaining([expect.any(String)]),
+            createdAt: expect.stringMatching(
+              /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/,
+            ),
+            updatedAt: expect.stringMatching(
+              /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/,
+            ),
+            author: {
+              username: expect.any(String),
+              bio: expect.any(String),
+              image: expect.any(String),
+            },
+            links: {
+              self: expect.any(String),
+              author: expect.any(String),
+              comments: expect.any(String),
+            },
+          },
+        ]),
+        links: {
+          next: expect.any(String),
+        },
+      })
+    } else {
+      expect(response.data).toEqual({
+        articles: [],
+      })
+    }
+  }
+
+  static validateFeedResponse(response) {
+    return this.validateArticlesResponse(response)
   }
 }
