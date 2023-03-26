@@ -46,10 +46,10 @@ jobs:
           npm run build
           nohup npm run start:prod &
           chmod +x ./scripts/wait_for_status.sh
-          URL=http://localhost:3000/api/health ./scripts/wait_for_status.sh 200
+          URL='http://localhost:3000/api/health' ./scripts/wait_for_status.sh 200
 
       - name: Running acceptance tests on localhost server
-        run: API_URL=http://localhost:3000 npm run test:acceptance
+        run: API_URL=http://localhost:3000/api npm run test:acceptance
 
       - id: build
         uses: docker/build-push-action@v3
@@ -64,7 +64,7 @@ jobs:
         run: |
           nohup docker run --rm -d -p 3001:3000 --name app app &
           chmod +x ./scripts/wait_for_status.sh
-          URL=http://localhost:3001/api/health ./scripts/wait_for_status.sh 200
+          URL='http://localhost:3001/api/health' ./scripts/wait_for_status.sh 200
 
       - name: Running acceptance tests on docker server
         run: API_URL=http://localhost:3001/api npx jest acceptance
