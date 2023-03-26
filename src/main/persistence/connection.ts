@@ -20,6 +20,7 @@ export function getRemoteDataSource(dbUrl: string): DataSource {
     url: dbUrl,
     entities: entities,
     namingStrategy: new SnakeNamingStrategy(),
+    synchronize: true,
   })
 }
 

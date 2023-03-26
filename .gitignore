@@ -7,3 +7,7 @@ local.sqlite3
 .coverage/
 coverage/
 test.sql
+*.zip
+**/*terraform.tfstate*
+.infra/.terraform/
+.DS_Store

@@ -1,0 +1,35 @@
+name: Continuous Delivery Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker/setup-buildx-action@v2
+        with:
+          install: true
+          buildkitd-flags: --debug
+      - run: docker-compose up -d --build
+
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+          cache-dependency-path: yarn.lock
+
+      - run: yarn install
+      - run: yarn test:unit
+      - run: yarn test:acceptance
+
+      - run: DB_URL=postgres://postgres:postgres@localhost:5432/magazine yarn test:acceptance
+      - run: API_URL=http://localhost:3000/api yarn test:acceptance
+
+      - name: Stop containers
+        if: always()
+        run: docker-compose down

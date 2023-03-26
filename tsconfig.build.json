@@ -1,4 +1,12 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["node_modules", "src/tests", "dist", "**/*unit.ts", "**/*spec.ts"]
+  "exclude": [
+    "node_modules",
+    "src/tests",
+    "dist",
+    "**/*unit.ts",
+    "**/*spec.ts",
+    "src/migrations"
+  ],
+  "baseUrl": "./src/main"
 }

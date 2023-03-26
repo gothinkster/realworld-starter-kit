@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { DataSourceOptions } from 'typeorm/data-source/DataSourceOptions'
-import { entities } from '../main/persistence/utils'
+import { entities } from '../main/persistence/connection'
 
 export function getTestDataSource(): DataSource {
   const localTestOptions: DataSourceOptions = {
