@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
+using Conduit.API.Features.Profiles;
 
 namespace Conduit.API.Features.Users;
 
@@ -12,6 +12,6 @@ public class MappingProfile : Profile
 
 		CreateMap<User, UserResponseData>();
 
-		CreateMap<User, AuthorResponseData>();
+		CreateMap<User, ProfileResponseData>();
 	}
 }

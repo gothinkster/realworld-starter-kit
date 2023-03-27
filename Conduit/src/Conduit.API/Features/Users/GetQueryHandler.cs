@@ -12,17 +12,25 @@ public class GetQueryHandler : IRequestHandler<GetQuery, UserResponse>
 {
     private readonly AppDbContext _dbContext;
     private readonly UserResponseBuilder _responseBuilder;
+    private readonly ICurrentUserAccessor _currentUserAccessor;
 
     public GetQueryHandler(AppDbContext dbContext,
-        UserResponseBuilder responseBuilder)
+        UserResponseBuilder responseBuilder,
+        ICurrentUserAccessor currentUserAccessor)
     {
         _dbContext = dbContext;
         _responseBuilder = responseBuilder;
+        _currentUserAccessor = currentUserAccessor;
     }
 
     public async Task<UserResponse> Handle(GetQuery request, CancellationToken cancellationToken)
     {
-        var user = await _dbContext.Users.AsNoTracking().Where(u => u.Id == request.userId).FirstOrDefaultAsync(cancellationToken);
+        if(_currentUserAccessor.UserId is null)
+        {
+            throw new ResourceNotFoundException(nameof(User));
+        }
+
+        var user = await _dbContext.Users.AsNoTracking().Where(u => u.Id == _currentUserAccessor.UserId).FirstOrDefaultAsync(cancellationToken);
 
         if(user == null)
         {

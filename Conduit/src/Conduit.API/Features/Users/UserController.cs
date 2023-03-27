@@ -12,19 +12,16 @@ namespace Conduit.API.Features.Users;
 public class UserController : ControllerBase
 {
     private readonly IMediator _mediator;
-    private readonly ICurrentUserAccessor _currentUserAccessor;
 
-    public UserController(IMediator mediator, ICurrentUserAccessor currentUserAccessor)
+    public UserController(IMediator mediator)
     {
         _mediator = mediator;
-        _currentUserAccessor = currentUserAccessor;
     }
 
     [HttpGet]
     public async Task<IActionResult> Get(CancellationToken cancellationToken)
     {
-        var userId = _currentUserAccessor.GetCurrentUserId();
-        var result = await _mediator.Send(new GetQuery(userId), cancellationToken);
+        var result = await _mediator.Send(new GetQuery(), cancellationToken);
 
         return Ok(result);
     }

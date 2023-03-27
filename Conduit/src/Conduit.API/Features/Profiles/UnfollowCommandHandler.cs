@@ -30,7 +30,7 @@ public class UnfollowCommandHandler : IRequestHandler<UnfollowCommand, ProfileRe
 
         var currentUser = await _appDbContext.Users
             .Include(u => u.Followings)
-            .FirstOrDefaultAsync(u => u.Id == _currentUserAccessor.GetCurrentUserId(), cancellationToken);
+            .FirstAsync(u => u.Id == _currentUserAccessor.UserId, cancellationToken);
 
         if(currentUser.Followings.Any(f => f.Id == following.Id))
         {

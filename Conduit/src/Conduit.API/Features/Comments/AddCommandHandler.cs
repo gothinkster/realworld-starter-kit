@@ -32,7 +32,7 @@ public class AddCommandHandler : IRequestHandler<AddCommand, CommentResponse>
             throw new ResourceNotFoundException(nameof(article));
         }
 
-        var author = await _appDbContext.Users.FirstAsync(p => p.Id == _currentUserAccessor.GetCurrentUserId(), cancellationToken);
+        var author = await _appDbContext.Users.FirstAsync(p => p.Id == _currentUserAccessor.UserId, cancellationToken);
 
         var comment = new Comment
         {

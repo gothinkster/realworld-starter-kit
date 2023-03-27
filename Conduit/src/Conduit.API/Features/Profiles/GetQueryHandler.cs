@@ -33,9 +33,9 @@ public class GetQueryHandler : IRequestHandler<GetQuery, ProfileResponse>
         var currentUser = await _appDbContext.Users
             .Include(u => u.Followings)
             .AsNoTracking()
-            .FirstOrDefaultAsync(u => u.Id == _currentUserAccessor.GetCurrentUserId(), cancellationToken);
+            .FirstAsync(u => u.Id == _currentUserAccessor.UserId, cancellationToken);
 
-        var isFollowing = currentUser?.Followings.Any(u => u.Id == user.Id) ?? false;
+        var isFollowing = currentUser.Followings.Any(u => u.Id == user.Id);
 
         return _responseBuilder.Build(user, isFollowing);
     }

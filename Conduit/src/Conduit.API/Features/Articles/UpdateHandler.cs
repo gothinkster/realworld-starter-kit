@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Conduit.API.Common.Exceptions;
+﻿using Conduit.API.Common.Exceptions;
 using Conduit.API.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +23,7 @@ public class UpdateHandler : IRequestHandler<UpdateCommand, ArticleResponse>
     public async Task<ArticleResponse> Handle(UpdateCommand request, CancellationToken cancellationToken)
     {
         var article = await _appDbContext.Articles
+            .Include(s => s.Author)
             .FirstOrDefaultAsync(a => a.Slug == request.Slug, cancellationToken);
 
         if(article is null)
@@ -31,7 +31,7 @@ public class UpdateHandler : IRequestHandler<UpdateCommand, ArticleResponse>
             throw new ResourceNotFoundException(nameof(Article));
         }
 
-        if(article.AuthorId != _currentUserAccessor.GetCurrentUserId())
+        if(_currentUserAccessor.UserId is null || article.AuthorId != _currentUserAccessor.UserId)
         {
             throw new PermissionException();
         }

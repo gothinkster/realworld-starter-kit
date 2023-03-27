@@ -1,4 +1,5 @@
-﻿using Conduit.API.Features.Users;
+﻿using Conduit.API.Features.Profiles;
+using Conduit.API.Features.Users;
 
 namespace Conduit.API.Features.Articles;
 
@@ -20,5 +21,5 @@ public record ArticleResponseData
 
     public DateTime UpdatedAt { get; set; }
 
-    public AuthorResponseData? Author { get; set; } = new();
+    public ProfileResponseData? Author { get; set; } = new();
 }

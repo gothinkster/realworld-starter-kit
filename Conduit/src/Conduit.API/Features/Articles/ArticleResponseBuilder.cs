@@ -14,7 +14,8 @@ public class ArticleResponseBuilder
 
 	public ArticleResponse Build(Article article)
 	{
-		return _mapper.Map<ArticleResponse>(article);
+        var response = _mapper.Map<ArticleResponse>(article);
+        return _mapper.Map<ArticleResponse>(article);
 	}
 
 	public PaginatedList<ArticleResponseData> Build(IEnumerable<Article> articles, int total)

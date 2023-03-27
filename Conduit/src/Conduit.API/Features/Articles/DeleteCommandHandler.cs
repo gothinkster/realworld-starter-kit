@@ -28,7 +28,7 @@ public class DeleteCommandHandler : IRequestHandler<DeleteCommand>
             throw new ResourceNotFoundException(nameof(Article));
         }
 
-        if (article.AuthorId != _currentUserAccessor.GetCurrentUserId())
+        if (_currentUserAccessor.UserId is null || article.AuthorId != _currentUserAccessor.UserId)
         {
             throw new PermissionException();
         }

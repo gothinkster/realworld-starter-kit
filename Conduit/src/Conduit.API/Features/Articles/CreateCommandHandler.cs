@@ -22,7 +22,7 @@ public class CreateCommandHandler : IRequestHandler<CreateCommand, ArticleRespon
 
     public async Task<ArticleResponse> Handle(CreateCommand request, CancellationToken cancellationToken)
     {
-        var author = await _appDbContext.Users.FirstOrDefaultAsync(x => x.Id == _currentUserAccessor.GetCurrentUserId(), cancellationToken);
+        var author = await _appDbContext.Users.FirstOrDefaultAsync(x => x.Id == _currentUserAccessor.UserId, cancellationToken);
         var article = new Article
         {
             Title = request.Payload.Article.Title,

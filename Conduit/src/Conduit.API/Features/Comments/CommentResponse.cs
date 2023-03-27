@@ -1,4 +1,4 @@
-﻿using Conduit.API.Features.Users;
+﻿using Conduit.API.Features.Profiles;
 
 namespace Conduit.API.Features.Comments;
 
@@ -12,7 +12,7 @@ public record CommentResponseData
 
     public string? Body { get; set; }
 
-    public AuthorResponseData? Author { get; set; }
+    public ProfileResponseData? Author { get; set; }
 
     public DateTime CreatedAt { get; set; }
 

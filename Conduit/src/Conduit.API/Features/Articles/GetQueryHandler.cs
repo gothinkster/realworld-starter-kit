@@ -21,6 +21,7 @@ public class GetQueryHandler : IRequestHandler<GetQuery, ArticleResponse>
     {
        var article = await _appDbContext
             .Articles
+            .Include(a => a.Author)
             .FirstOrDefaultAsync(x => x.Slug == request.Slug, cancellationToken);
 
         if(article is null)
