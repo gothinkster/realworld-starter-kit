@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Override
     @Transactional
     public Long registerUser(final UserRegisterRequestDto userDto) {
         if(isEmailDuplicated(userDto.getEmail()))
@@ -34,6 +35,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(entity).getId();
     }
 
+    @Override
     public UserResponseDto findUserById(final Long id) {
         User entity = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다."));
@@ -47,6 +49,7 @@ public class UserServiceImpl implements UserService {
         return UserResponseDto.builder().entity(entity).build();
     }
 
+    @Override
     @Transactional
     public void updateUser(final Long id, final UserUpdateRequestDto userDto) {
         User entity = userRepository.findById(id)
