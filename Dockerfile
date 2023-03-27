@@ -31,4 +31,4 @@ RUN npm ci
 
 COPY --from=builder --chown=node:node /app/dist/main/ ./dist/
 
-CMD ["node", "dist/server"]
+CMD ["node", "dist/index"]
