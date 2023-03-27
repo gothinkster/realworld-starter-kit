@@ -9,13 +9,6 @@ import { API_PORT, GLOBAL_PREFIX } from '../global/constants'
 export class ChecksController {
   private readonly axios = new Axios({
     baseURL: `http://localhost:${API_PORT}/${GLOBAL_PREFIX}`,
-    responseType: 'json',
-    transformRequest: (data) => (data ? JSON.stringify(data) : data),
-    transformResponse: (data) => (data ? JSON.parse(data) : data),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    validateStatus: (status) => status < 500,
   })
 
   @Get('readiness')
