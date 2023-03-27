@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core'
 import { SwaggerModule } from '@nestjs/swagger'
-import { GLOBAL_PREFIX } from './constants'
+import { API_PORT, GLOBAL_PREFIX } from './constants'
 import { AppModules } from './nest/app.modules'
 import { createOpenAPI } from './nest/openapi'
 
@@ -10,7 +10,7 @@ async function bootstrap(): Promise<void> {
   SwaggerModule.setup('docs', app, createOpenAPI(app), {
     useGlobalPrefix: true,
   })
-  await app.listen(process.env.API_PORT || 3000)
+  await app.listen(API_PORT)
 }
 
 bootstrap()
