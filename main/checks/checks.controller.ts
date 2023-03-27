@@ -14,8 +14,6 @@ export class ChecksController {
   @Get('readiness')
   async healthCheck(@Res() response: Response) {
     const articles = await this.axios.get('/articles')
-    response
-      .status(articles.status)
-      .send(200 <= articles.status && articles.status < 300)
+    response.status(articles.status).send(articles.status === 200)
   }
 }
