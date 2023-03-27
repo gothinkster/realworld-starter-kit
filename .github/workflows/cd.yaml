@@ -51,7 +51,7 @@ jobs:
 
       - uses: docker/setup-buildx-action@v2
 
-      - id: build
+      - name: Build docker image
         uses: docker/build-push-action@v3
         with:
           cache-from: type=gha
@@ -63,7 +63,7 @@ jobs:
       - name: Starting docker server
         shell: sh
         run: |
-          nohup docker run --rm -d --network=host --env API_PORT=3001 app &
+          nohup docker run --rm --network=host --env API_PORT=3001 app &
           chmod +x ./scripts/wait_for_status.sh
           ./scripts/wait_for_status.sh http://localhost:3001/api/health 200
 
