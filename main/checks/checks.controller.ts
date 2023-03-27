@@ -16,6 +16,6 @@ export class ChecksController {
     const articles = await this.axios.get('/articles')
     response
       .status(articles.status)
-      .send(200 < articles.status && articles.status < 300)
+      .send(200 <= articles.status && articles.status < 300)
   }
 }
