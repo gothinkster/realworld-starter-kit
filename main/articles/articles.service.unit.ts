@@ -1,7 +1,7 @@
 import { Article, Author, Sluged } from './models'
 import { AuthorsService } from '../authors/service'
 import { ArticleNotFound } from './exceptions'
-import { ArticlesService } from './articles.service'
+import { ArticlesService, ContentManagementSystem } from './articles.service'
 import { DataSource } from 'typeorm'
 import { initializePostgresDataSource } from '../global/global.module'
 
@@ -138,5 +138,40 @@ describe('Article', () => {
 
     // Assert
     expect(articles[0].tags.sort()).toEqual(['programming', 'physics'].sort())
+  })
+})
+
+describe('Content Management System', () => {
+  it("should let author change it's own article", async () => {
+    // Arange
+    const cms = service.getCMS(author)
+    await cms.createArticle(exampleArticle)
+
+    // Act
+    const article = await cms.updateArticle(exampleArticle.slug, {
+      body: 'Other body',
+    })
+
+    // Assert
+    expect(article).toMatchObject({
+      title: exampleArticle.title,
+      body: 'Other body',
+    })
+  })
+
+  it('should not let another author change the article', async () => {
+    // Arange
+    const cms = service.getCMS(author)
+    await cms.createArticle(exampleArticle)
+
+    // Arrange
+    const cmsForOtherAuthor = new ContentManagementSystem({ id: 2 })
+
+    // Act - Assert
+    await expect(() =>
+      cmsForOtherAuthor.updateArticle(exampleArticle.slug, {
+        title: 'Other title',
+      }),
+    ).rejects.toThrow(ArticleNotFound)
   })
 })
