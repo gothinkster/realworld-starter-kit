@@ -5,9 +5,9 @@ import { Context } from 'aws-lambda'
 import * as serverlessExpress from 'aws-serverless-express'
 import * as express from 'express'
 import { Server } from 'http'
-import { GLOBAL_PREFIX } from './constants'
 import { AppModules } from './nest/app.modules'
 import { createOpenAPI } from './nest/openapi'
+import { GLOBAL_PREFIX } from './global/constants'
 
 let lambdaProxy: Server
 

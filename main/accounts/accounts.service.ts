@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import * as jwt from 'jsonwebtoken'
-import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../constants'
 import { AccountDTO, AccountResponseBody } from './accounts.dto'
 import { InvalidCredentialsError } from './accounts.exceptions'
 import { AccountAlreadyExistsException } from './exeptions'
 import { Account } from '../authors/models'
 import { AccountEntity } from './accounts.entity'
+import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../global/constants'
 
 @Injectable()
 export class AccountsService {

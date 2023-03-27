@@ -1,6 +1,6 @@
 import { Controller, Get, Res } from '@nestjs/common'
 import { Axios } from 'axios'
-import { API_PORT, GLOBAL_PREFIX } from '../constants'
+import { API_PORT, GLOBAL_PREFIX } from '../global/constants'
 
 @Controller('health')
 export class HealthController {

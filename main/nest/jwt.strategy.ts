@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { PassportStrategy as NestGuardStrategyFor } from '@nestjs/passport'
 import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt'
 import { Account } from '../authors/models'
-import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../constants'
+import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../global/constants'
 
 @Injectable()
 export class JWTAuthPassport extends NestGuardStrategyFor(JWTStrategy) {
