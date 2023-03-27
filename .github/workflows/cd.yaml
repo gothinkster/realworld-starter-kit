@@ -63,11 +63,9 @@ jobs:
       - name: Starting docker server
         shell: sh
         run: |
-          nohup docker run --rm -d --name app app &
-          docker container ls
-          IP=$(docker container inspect app --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}')
+          nohup docker run --rm -d --network=host --env API_PORT=3001 app &
           chmod +x ./scripts/wait_for_status.sh
-          ./scripts/wait_for_status.sh http://"$IP":3000/api/health 200
+          ./scripts/wait_for_status.sh http://localhost:3001/api/health 200
 
       - name: Running acceptance tests on docker server
         run: API_URL=http://localhost:3001/api npx jest acceptance
