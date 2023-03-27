@@ -50,7 +50,7 @@ object TestUtils:
       .withJWTId(UUID.randomUUID().toString)
       .sign(algorithm)
     // end TODO
-    Map("Authorization" -> ("Bearer " + jwt))
+    Map("Authorization" -> ("Token " + jwt))
   }
 
   def withEmptyDb(): RIO[TestDbLayer, Any] = for {

@@ -7,6 +7,7 @@ import com.softwaremill.realworld.common.BaseEndpoints.defaultErrorOutputs
 import com.softwaremill.realworld.db.{Db, DbConfig}
 import com.softwaremill.realworld.users.UserSession
 import io.getquill.SnakeCase
+import sttp.model.headers.WWWAuthenticateChallenge
 import sttp.model.{HeaderNames, StatusCode}
 import sttp.tapir.generic.auto.*
 import sttp.tapir.json.zio.jsonBody
@@ -20,7 +21,7 @@ class BaseEndpoints(authService: AuthService):
 
   val secureEndpoint: ZPartialServerEndpoint[Any, String, UserSession, Unit, ErrorInfo, Unit, Any] = endpoint
     .errorOut(defaultErrorOutputs)
-    .securityIn(auth.bearer[String]())
+    .securityIn(auth.http[String]("Token", WWWAuthenticateChallenge("Token")))
     .zServerSecurityLogic[Any, UserSession](handleAuth)
 
   val publicEndpoint: PublicEndpoint[Unit, ErrorInfo, Unit, Any] = endpoint

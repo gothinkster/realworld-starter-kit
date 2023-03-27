@@ -1,25 +1,25 @@
 GET http://localhost:8080/api/articles
 Accept: application/json
-Authorization: Bearer {{JWT}}
+Authorization: Token {{JWT}}
 
 ###
 
 GET http://localhost:8080/api/articles?limit=-1
 Accept: application/json
-Authorization: Bearer {{JWT}}
+Authorization: Token {{JWT}}
 
 ###
 
 GET http://localhost:8080/api/articles/how-to-train-your-dragon-v
 Accept: application/json
-Authorization: Bearer {{JWT}}
+Authorization: Token {{JWT}}
 
 ###
 
 POST http://localhost:8080/api/articles
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer {{JWT}}
+Authorization: Token {{JWT}}
 
 {
   "article": {
@@ -35,7 +35,7 @@ Authorization: Bearer {{JWT}}
 POST http://localhost:8080/api/articles
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer {{JWT}}
+Authorization: Token {{JWT}}
 
 {
   "article": {
@@ -50,7 +50,7 @@ Authorization: Bearer {{JWT}}
 PUT http://localhost:8080/api/articles/how-to-train-your-dragon-v
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer {{JWT}}
+Authorization: Token {{JWT}}
 
 {
   "article": {
@@ -64,7 +64,7 @@ Authorization: Bearer {{JWT}}
 
 GET http://localhost:8080/api/user
 Accept: application/json
-Authorization: Bearer {{JWT}}
+Authorization: Token {{JWT}}
 
 ###
 
@@ -98,7 +98,7 @@ Content-Type: application/json
 PUT http://localhost:8080/api/user
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer {{JWT}}
+Authorization: Token {{JWT}}
 
 {
   "user":{
@@ -111,7 +111,7 @@ Authorization: Bearer {{JWT}}
 PUT http://localhost:8080/api/user
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer {{JWT}}
+Authorization: Token {{JWT}}
 
 {
   "user":{

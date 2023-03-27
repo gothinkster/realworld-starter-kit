@@ -19,11 +19,11 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
 
   import quill.*
 
-  private val queryArticle = quote(querySchema[ArticleRow](entity = "articles"))
-  private val queryTagArticle = quote(querySchema[ArticleTagRow](entity = "tags_articles"))
-  private val queryFavoriteArticle = quote(querySchema[ArticleFavoriteRow](entity = "favorites_articles"))
-  private val queryProfile = quote(querySchema[ProfileRow](entity = "users"))
-  private val queryUser = quote(querySchema[UserRow](entity = "users"))
+  private inline def queryArticle = quote(querySchema[ArticleRow](entity = "articles"))
+  private inline def queryTagArticle = quote(querySchema[ArticleTagRow](entity = "tags_articles"))
+  private inline def queryFavoriteArticle = quote(querySchema[ArticleFavoriteRow](entity = "favorites_articles"))
+  private inline def queryProfile = quote(querySchema[ProfileRow](entity = "users"))
+  private inline def queryUser = quote(querySchema[UserRow](entity = "users"))
 
   def list(filters: Map[ArticlesFilters, String], pagination: Pagination): IO[SQLException, List[ArticleData]] = {
     val tagFilter = filters.getOrElse(Tag, "")
