@@ -1,19 +1,19 @@
-import { Controller, Get, Res } from '@nestjs/common'
-import { Response } from 'express'
+import { Controller, Get, Req, Res } from '@nestjs/common'
+import { Request, Response } from 'express'
 import { ApiTags } from '@nestjs/swagger'
 import { Axios } from 'axios'
-import { API_PORT, GLOBAL_PREFIX } from '../global/constants'
+import { GLOBAL_PREFIX } from '../global/constants'
 
 @ApiTags('checks')
 @Controller('checks')
 export class ChecksController {
-  private readonly axios = new Axios({
-    baseURL: `http://localhost:${API_PORT}/${GLOBAL_PREFIX}`,
-  })
+  private readonly axios = new Axios({})
 
   @Get('readiness')
-  async healthCheck(@Res() response: Response) {
-    const articles = await this.axios.get('/articles')
-    response.status(articles.status).send(articles.status === 200)
+  async healthCheck(@Req() req: Request, @Res() res: Response) {
+    const articles = await this.axios.get(
+      `${req.protocol}://${req.headers.host}/${GLOBAL_PREFIX}/articles`,
+    )
+    res.status(articles.status).send(articles.status === 200)
   }
 }
