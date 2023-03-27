@@ -64,6 +64,7 @@ jobs:
         shell: sh
         run: |
           nohup docker run --rm -d --name app app &
+          docker container ls
           IP=$(docker container inspect app --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}')
           chmod +x ./scripts/wait_for_status.sh
           ./scripts/wait_for_status.sh http://"$IP":3000/api/health 200
