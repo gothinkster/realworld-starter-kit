@@ -44,10 +44,10 @@ jobs:
           npm run build
           nohup npm run start:prod &
           chmod +x ./scripts/wait_for_status.sh
-          ./scripts/wait_for_status.sh http://localhost:3000/api/health 200
+          ./scripts/wait_for_status.sh http://localhost:3000/api/checks/readiness 200
 
       - name: Running acceptance tests on localhost server
-        run: API_URL=http://localhost:3000/api npm run test:acceptance
+        run: API_URL=http://localhost:3000/api npx jest acceptance
 
       - uses: docker/setup-buildx-action@v2
 
@@ -65,7 +65,7 @@ jobs:
         run: |
           nohup docker run --rm --network=host --env API_PORT=3001 app &
           chmod +x ./scripts/wait_for_status.sh
-          ./scripts/wait_for_status.sh http://localhost:3001/api/health 200
+          ./scripts/wait_for_status.sh http://localhost:3001/api/checks/readiness 200
 
       - name: Running acceptance tests on docker server
         run: API_URL=http://localhost:3001/api npx jest acceptance
