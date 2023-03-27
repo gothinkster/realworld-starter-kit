@@ -3,7 +3,7 @@ import { ContentManagementSystem } from './cms.service'
 import { AuthorsService } from '../authors/service'
 import { ArticleNotFound } from './exceptions'
 import { DataSource } from 'typeorm'
-import { initializePostgresDataSource } from '../nest/app.modules'
+import { initializePostgresDataSource } from '../global/global.module'
 
 let dataSource: DataSource
 beforeAll(async () => {

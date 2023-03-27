@@ -2,8 +2,8 @@ import { Article, Author, Sluged } from './models'
 import { AuthorsService } from '../authors/service'
 import { ArticleNotFound } from './exceptions'
 import { ArticlesService } from './articles.service'
-import { initializePostgresDataSource } from '../nest/app.modules'
 import { DataSource } from 'typeorm'
+import { initializePostgresDataSource } from '../global/global.module'
 
 let dataSource: DataSource
 beforeAll(async () => {
