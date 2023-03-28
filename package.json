@@ -16,6 +16,7 @@
     "format": "prettier --write .",
     "test:unit": "jest --testRegex .*\\.unit\\.ts$",
     "test:acceptance": "jest --testRegex .*\\.acceptance\\.ts$",
+    "openapi": "ts-node main/nest/openapi",
     "typeorm": "typeorm-ts-node-commonjs"
   },
   "dependencies": {
