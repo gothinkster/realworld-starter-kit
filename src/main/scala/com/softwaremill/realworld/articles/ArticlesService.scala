@@ -1,11 +1,12 @@
 package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.common.Exceptions.NotFound
+import com.softwaremill.realworld.common.Exceptions.Unauthorized
 import com.softwaremill.realworld.common.{Exceptions, Pagination}
 import com.softwaremill.realworld.profiles.ProfileRow
 import com.softwaremill.realworld.users.UserMapper.toUserData
-import com.softwaremill.realworld.users.{UserData, UserMapper, UsersRepository}
-import zio.{Console, IO, ZIO, ZLayer}
+import com.softwaremill.realworld.users.{UserData, UserMapper, UserRow, UsersRepository}
+import zio.{Console, IO, Task, ZIO, ZLayer}
 
 import java.sql.SQLException
 import java.time.Instant
@@ -16,20 +17,19 @@ class ArticlesService(articlesRepository: ArticlesRepository, usersRepository: U
   def list(filters: Map[ArticlesFilters, String], pagination: Pagination): IO[SQLException, List[ArticleData]] = articlesRepository
     .list(filters, pagination)
 
-  def find(slug: String): IO[Exception, ArticleData] = articlesRepository
-    .findBySlug(slug)
+  def findBySlugAsSeenBy(slug: String, email: String): IO[Exception, ArticleData] = articlesRepository
+    .findBySlugAsSeenBy(slug, email)
     .flatMap {
       case Some(a) => ZIO.succeed(a)
       case None    => ZIO.fail(Exceptions.NotFound(s"Article with slug $slug doesn't exist."))
     }
 
-  def create(createData: ArticleCreateData, userEmail: String): IO[Exception, ArticleData] = {
+  def create(createData: ArticleCreateData, userEmail: String): Task[ArticleData] = {
     val title = createData.title.trim
     val slug = title.toLowerCase.replace(" ", "-")
 
     for {
-      maybeUser <- usersRepository.findUserRowByEmail(userEmail)
-      user <- ZIO.fromOption(maybeUser).mapError(_ => NotFound("User doesn't exist, re-login may be needed!"))
+      user <- userByEmail(userEmail)
       newArticle = createArticleData(createData, toUserData(user))
       maybeArticle <- articlesRepository.findBySlug(newArticle.slug)
       _ <- ZIO.fail(Exceptions.AlreadyInUse(s"Article with slug $slug already exists!")).when(maybeArticle.isDefined)
@@ -38,10 +38,14 @@ class ArticlesService(articlesRepository: ArticlesRepository, usersRepository: U
     } yield newArticle
   }
 
-  def update(articleUpdateData: ArticleUpdateData, slug: String, email: String): IO[Exception, ArticleData] =
+  def update(articleUpdateData: ArticleUpdateData, slug: String, email: String): Task[ArticleData] =
     for {
-      maybeOldArticle <- articlesRepository.findBySlugAndEmail(slug.trim.toLowerCase, email)
+      user <- userByEmail(email)
+      maybeOldArticle <- articlesRepository.findBySlugAsSeenBy(slug.trim.toLowerCase, email)
       oldArticle <- ZIO.fromOption(maybeOldArticle).mapError(_ => NotFound(s"Article with slug $slug doesn't exist."))
+      _ <- ZIO
+        .fail(Unauthorized(s"You're not an author of article that you're trying to update"))
+        .when(user.username != oldArticle.author.username)
       updatedArticle = updateArticleData(oldArticle, articleUpdateData)
       _ <- articlesRepository.updateBySlug(updatedArticle, oldArticle.slug)
       _ <- articlesRepository.updateTagSlugs(updatedArticle.slug, oldArticle.slug)
@@ -80,6 +84,21 @@ class ArticlesService(articlesRepository: ArticlesRepository, usersRepository: U
       ) // TODO update when follows are implemented
     )
   }
+
+  def makeFavorite(slug: String, email: String): Task[ArticleData] = for {
+    user <- userByEmail(email)
+    _ <- articlesRepository.makeFavorite(slug, user.userId)
+    articleData <- findBySlugAsSeenBy(slug, email)
+  } yield articleData
+
+  def removeFavorite(slug: String, email: String): Task[ArticleData] = for {
+    user <- userByEmail(email)
+    _ <- articlesRepository.removeFavorite(slug, user.userId)
+    articleData <- findBySlugAsSeenBy(slug, email)
+  } yield articleData
+
+  private def userByEmail(email: String): Task[UserRow] =
+    usersRepository.findUserRowByEmail(email).someOrElseZIO(ZIO.fail(NotFound("User doesn't exist, re-login may be needed!")))
 
 object ArticlesService:
   val live: ZLayer[ArticlesRepository with UsersRepository, Nothing, ArticlesService] = ZLayer.fromFunction(ArticlesService(_, _))

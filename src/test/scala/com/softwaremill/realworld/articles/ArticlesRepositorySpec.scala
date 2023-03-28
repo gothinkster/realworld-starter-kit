@@ -237,40 +237,59 @@ object ArticlesRepositorySpec extends ZIOSpecDefault:
             )
           )
         },
-        test("find article by slug and email") {
-          for {
-            repo <- ZIO.service[ArticlesRepository]
-            v <- repo.findBySlugAndEmail("how-to-train-your-dragon", "jake@example.com")
-          } yield zio.test.assert(v)(
-            Assertion.equalTo(
-              Option(
-                ArticleData(
-                  "how-to-train-your-dragon",
-                  "How to train your dragon",
-                  "Ever wonder how?",
-                  "It takes a Jacobian",
-                  List("dragons", "training"),
-                  Instant.ofEpochMilli(1455765776637L),
-                  Instant.ofEpochMilli(1455767315824L),
-                  false,
-                  2,
-                  ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
-                )
-              )
-            )
-          )
-        },
         test("find article - check article not found") {
           for {
             repo <- ZIO.service[ArticlesRepository]
             v <- repo.findBySlug("non-existing-article-slug")
           } yield zio.test.assert(v)(Assertion.isNone)
         },
-        test("find article by slug and email - check article not found") {
+        test("find article by slug as seen by user that marked it as favorite") {
           for {
             repo <- ZIO.service[ArticlesRepository]
-            v <- repo.findBySlugAndEmail("how-to-train-your-dragon", "someone_else@example.com")
-          } yield zio.test.assert(v)(Assertion.isNone)
+            v <- repo.findBySlugAsSeenBy("how-to-train-your-dragon-2", viewerEmail = "jake@example.com")
+          } yield zio.test.assert(v)(
+            Assertion.equalTo(
+              Option(
+                ArticleData(
+                  slug = "how-to-train-your-dragon-2",
+                  title = "How to train your dragon 2",
+                  description = "So toothless",
+                  body = "Its a dragon",
+                  tagList = List("dragons", "goats", "training"),
+                  createdAt = Instant.ofEpochMilli(1455765776637L),
+                  updatedAt = Instant.ofEpochMilli(1455767315824L),
+                  favorited = false,
+                  favoritesCount = 1,
+                  author =
+                    ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
+                )
+              )
+            )
+          )
+        },
+        test("find article by slug as seen by user that marked it as favorite") {
+          for {
+            repo <- ZIO.service[ArticlesRepository]
+            v <- repo.findBySlugAsSeenBy("how-to-train-your-dragon-2", viewerEmail = "john@example.com")
+          } yield zio.test.assert(v)(
+            Assertion.equalTo(
+              Option(
+                ArticleData(
+                  slug = "how-to-train-your-dragon-2",
+                  title = "How to train your dragon 2",
+                  description = "So toothless",
+                  body = "Its a dragon",
+                  tagList = List("dragons", "goats", "training"),
+                  createdAt = Instant.ofEpochMilli(1455765776637L),
+                  updatedAt = Instant.ofEpochMilli(1455767315824L),
+                  favorited = true,
+                  favoritesCount = 1,
+                  author =
+                    ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
+                )
+              )
+            )
+          )
         }
       ) @@ TestAspect.before(withFixture("fixtures/articles/basic-data.sql"))
         @@ TestAspect.after(clearDb),
