@@ -1,3 +1,9 @@
 package com.softwaremill.realworld.profiles
 
-case class ProfileRow(userId: Int, username: String, bio: String, image: String)
+import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder, JsonDecoder, JsonEncoder}
+
+object Profile:
+  given profileEncoder: JsonEncoder[Profile] = DeriveJsonEncoder.gen[Profile]
+  given profileDecoder: JsonDecoder[Profile] = DeriveJsonDecoder.gen[Profile]
+
+case class Profile(profile: ProfileData)
