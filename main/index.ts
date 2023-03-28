@@ -20,8 +20,8 @@ async function bootstrapServer(): Promise<void> {
 
 if (require.main === module) {
   bootstrapServer()
-    .then((r) => console.log('Nest application started.'))
-    .catch((r) => console.log('Gracefully shutting down application.'))
+    .then(() => console.log('Nest application started.'))
+    .catch(() => console.log('Gracefully shutting down application.'))
 }
 
 let lambdaProxyServer: Server
@@ -30,8 +30,8 @@ export async function lambdaHandler(event: any, context: Context) {
   if (!lambdaProxyServer) {
     const expressServer = express()
     const app = await NestFactory.create(
-        AppModule,
-        new ExpressAdapter(expressServer),
+      AppModule,
+      new ExpressAdapter(expressServer),
     )
     app.setGlobalPrefix(GLOBAL_PREFIX)
     SwaggerModule.setup('docs', app, createOpenAPI(app), {
