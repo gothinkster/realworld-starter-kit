@@ -6,6 +6,7 @@ import com.softwaremill.realworld.common.{Exceptions, Pagination}
 import com.softwaremill.realworld.profiles.ProfileRow
 import com.softwaremill.realworld.users.UserRow
 import io.getquill.*
+import org.sqlite.{SQLiteErrorCode, SQLiteException}
 import zio.{Console, IO, Task, UIO, ZIO, ZLayer}
 
 import java.sql.SQLException
@@ -102,13 +103,6 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
   ).unit
     .provide(dsLayer)
 
-  def updateTagSlugs(updatedSlug: String, slug: String): IO[Exception, Unit] = run(
-    queryTagArticle
-      .filter(_.articleSlug == lift(slug))
-      .update(_.articleSlug -> lift(updatedSlug))
-  ).unit
-    .provide(dsLayer)
-
   def add(article: ArticleData, userId: Int): IO[Exception, Unit] = run(
     queryArticle
       .insert(
@@ -121,6 +115,10 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
         _.authorId -> lift(userId)
       )
   ).unit
+    .mapError {
+      case e: SQLiteException if e.getResultCode == SQLiteErrorCode.SQLITE_CONSTRAINT_PRIMARYKEY =>
+        Exceptions.AlreadyInUse("Article name already exists")
+    }
     .provide(dsLayer)
 
   def updateBySlug(updateData: ArticleData, slug: String): IO[Exception, Unit] = run(
@@ -133,7 +131,10 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
         record => record.body -> lift(updateData.body)
       )
   ).unit
-    .mapError(_ => Exceptions.AlreadyInUse("Article name already exists"))
+    .mapError {
+      case e: SQLiteException if e.getResultCode == SQLiteErrorCode.SQLITE_CONSTRAINT_PRIMARYKEY =>
+        Exceptions.AlreadyInUse("Article name already exists")
+    }
     .provide(dsLayer)
 
   def makeFavorite(slug: String, userId: Int) = run(
