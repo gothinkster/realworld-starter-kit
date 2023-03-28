@@ -35,7 +35,7 @@ class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSo
       .provide(dsLayer)
 
   def findByUsername(username: String): IO[Exception, Option[UserRow]] =
-    run(queryUser.filter(u => u.username == lift(username)).value).provide(dsLayer)
+    run(queryUser.filter(u => u.username == lift(username))).map(_.headOption).provide(dsLayer)
 
   def findUserWithPasswordByEmail(email: String): IO[Exception, Option[UserWithPassword]] = run(
     for {

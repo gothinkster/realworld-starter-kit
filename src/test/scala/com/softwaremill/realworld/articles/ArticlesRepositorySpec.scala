@@ -16,8 +16,7 @@ import zio.test.*
 import zio.test.Assertion.*
 import zio.{Cause, RIO, Random, ZIO, ZLayer}
 
-import java.sql.SQLException
-import java.time.{Instant, ZonedDateTime}
+import java.time.Instant
 import javax.sql.DataSource
 
 object ArticlesRepositorySpec extends ZIOSpecDefault:
@@ -322,19 +321,15 @@ object ArticlesRepositorySpec extends ZIOSpecDefault:
             repo <- ZIO.service[ArticlesRepository]
             slug = "new-article-under-test"
             _ <- repo.add(
-              ArticleData(
-                slug,
-                "New-article-under-test",
-                "What a nice day!",
-                "Writing scala code is quite challenging pleasure",
-                Nil,
-                Instant.ofEpochMilli(1455765123456L),
-                Instant.ofEpochMilli(1455767123456L),
-                false,
-                0,
-                null // TODO I think more specialized class should be used for article creation
-              ),
-              10
+              ArticleRow(
+                slug = slug,
+                title = "New-article-under-test",
+                description = "What a nice day!",
+                body = "Writing scala code is quite challenging pleasure",
+                createdAt = Instant.ofEpochMilli(1455765123456L),
+                updatedAt = Instant.ofEpochMilli(1455767123456L),
+                authorId = 10
+              )
             )
             v <- repo.findBySlug(slug).map(_.get)
           } yield zio.test.assert(v)(
@@ -364,19 +359,15 @@ object ArticlesRepositorySpec extends ZIOSpecDefault:
             repo <- ZIO.service[ArticlesRepository]
             slug = "how-to-train-your-dragon"
             v <- repo.add(
-              ArticleData(
-                slug,
-                "How-to-train-your-dragon",
-                "What a nice day!",
-                "Writing scala code is quite challenging pleasure",
-                Nil,
-                Instant.ofEpochMilli(1455765123456L),
-                Instant.ofEpochMilli(1455767123456L),
-                false,
-                0,
-                null // TODO I think more specialized class should be used for article creation
-              ),
-              10
+              ArticleRow(
+                slug = slug,
+                title = "How-to-train-your-dragon",
+                description = "What a nice day!",
+                body = "Writing scala code is quite challenging pleasure",
+                createdAt = Instant.ofEpochMilli(1455765123456L),
+                updatedAt = Instant.ofEpochMilli(1455767123456L),
+                authorId = 10
+              )
             )
           } yield v).exit)(
             failsCause(
@@ -390,19 +381,15 @@ object ArticlesRepositorySpec extends ZIOSpecDefault:
             oldSlug = "new-article-under-test"
             updatedSlug = "updated-article-under-test"
             _ <- repo.add(
-              ArticleData(
-                oldSlug,
-                "New-article-under-test",
-                "What a nice day!",
-                "Writing scala code is quite challenging pleasure",
-                Nil,
-                Instant.ofEpochMilli(1455765123456L),
-                Instant.ofEpochMilli(1455767123456L),
-                false,
-                0,
-                null // TODO I think more specialized class should be used for article creation
-              ),
-              10
+              ArticleRow(
+                slug = oldSlug,
+                title = "New-article-under-test",
+                description = "What a nice day!",
+                body = "Writing scala code is quite challenging pleasure",
+                createdAt = Instant.ofEpochMilli(1455765123456L),
+                updatedAt = Instant.ofEpochMilli(1455767123456L),
+                authorId = 10
+              )
             )
             _ <- repo.updateBySlug(
               ArticleData(
@@ -448,34 +435,26 @@ object ArticlesRepositorySpec extends ZIOSpecDefault:
             oldSlug = "new-article-under-test"
             updatedSlug = "updated-article-under-test"
             _ <- repo.add(
-              ArticleData(
-                oldSlug,
-                "New-article-under-test",
-                "What a nice day!",
-                "Writing scala code is quite challenging pleasure",
-                Nil,
-                Instant.ofEpochMilli(1455765123456L),
-                Instant.ofEpochMilli(1455767123456L),
-                false,
-                0,
-                null // TODO I think more specialized class should be used for article creation
-              ),
-              10
+              ArticleRow(
+                slug = oldSlug,
+                title = "New-article-under-test",
+                description = "What a nice day!",
+                body = "Writing scala code is quite challenging pleasure",
+                createdAt = Instant.ofEpochMilli(1455765123456L),
+                updatedAt = Instant.ofEpochMilli(1455767123456L),
+                authorId = 10
+              )
             )
             _ <- repo.add(
-              ArticleData(
-                updatedSlug,
-                "Updated-slug-which-causes-conflict",
-                "It occupies article slug",
-                "Which will be used for updating another article during next step",
-                Nil,
-                Instant.ofEpochMilli(1455765123567L),
-                Instant.ofEpochMilli(1455767123567L),
-                false,
-                0,
-                null // TODO I think more specialized class should be used for article creation
-              ),
-              10
+              ArticleRow(
+                slug = updatedSlug,
+                title = "Updated-slug-which-causes-conflict",
+                description = "It occupies article slug",
+                body = "Which will be used for updating another article during next step",
+                createdAt = Instant.ofEpochMilli(1455765123567L),
+                updatedAt = Instant.ofEpochMilli(1455767123567L),
+                authorId = 10
+              )
             )
             _ <- repo.updateBySlug(
               ArticleData(

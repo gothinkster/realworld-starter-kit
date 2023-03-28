@@ -1,11 +1,11 @@
 package com.softwaremill.realworld.articles
 
-import com.softwaremill.realworld.common.Exceptions.NotFound
-import com.softwaremill.realworld.common.Exceptions.Unauthorized
+import com.softwaremill.realworld.common.Exceptions.{NotFound, Unauthorized}
 import com.softwaremill.realworld.common.{Exceptions, Pagination}
 import com.softwaremill.realworld.profiles.ProfileRow
 import com.softwaremill.realworld.users.UserMapper.toUserData
 import com.softwaremill.realworld.users.{UserData, UserMapper, UserRow, UsersRepository}
+import org.sqlite.SQLiteException
 import zio.{Console, IO, Task, ZIO, ZLayer}
 
 import java.sql.SQLException
@@ -24,18 +24,26 @@ class ArticlesService(articlesRepository: ArticlesRepository, usersRepository: U
       case None    => ZIO.fail(Exceptions.NotFound(s"Article with slug $slug doesn't exist."))
     }
 
-  def create(createData: ArticleCreateData, userEmail: String): Task[ArticleData] = {
-    val title = createData.title.trim
-    val slug = title.toLowerCase.replace(" ", "-")
-
+  def create(createData: ArticleCreateData, userEmail: String): Task[ArticleData] =
     for {
       user <- userByEmail(userEmail)
-      newArticle = createArticleData(createData, toUserData(user))
-      maybeArticle <- articlesRepository.findBySlug(newArticle.slug)
-      _ <- ZIO.fail(Exceptions.AlreadyInUse(s"Article with slug $slug already exists!")).when(maybeArticle.isDefined)
-      _ <- articlesRepository.add(newArticle, user.userId)
-      _ <- ZIO.foreach(createData.tagList)(tag => articlesRepository.addTag(tag, slug))
-    } yield newArticle
+      newArticle = createArticleRow(createData, user)
+      _ <- articlesRepository.add(newArticle)
+      _ <- ZIO.foreach(createData.tagList)(tag => articlesRepository.addTag(tag, newArticle.slug))
+      articleData <- findBySlugAsSeenBy(newArticle.slug, userEmail)
+    } yield articleData
+
+  private def createArticleRow(createData: ArticleCreateData, userRow: UserRow): ArticleRow = {
+    val now = Instant.now()
+    ArticleRow(
+      slug = createData.title.trim.toLowerCase.replace(" ", "-"),
+      title = createData.title.trim,
+      description = createData.description,
+      body = createData.body,
+      createdAt = now,
+      updatedAt = now,
+      authorId = userRow.userId
+    )
   }
 
   def update(articleUpdateData: ArticleUpdateData, slug: String, email: String): Task[ArticleData] =
@@ -60,27 +68,6 @@ class ArticlesService(articlesRepository: ArticlesRepository, usersRepository: U
       title = updatedData.title.map(_.trim).getOrElse(articleData.title),
       description = updatedData.description.getOrElse(articleData.description),
       body = updatedData.body.getOrElse(articleData.body)
-    )
-  }
-
-  private def createArticleData(createData: ArticleCreateData, userData: UserData): ArticleData = {
-    val now = Instant.now()
-    ArticleData(
-      slug = createData.title.trim.toLowerCase.replace(" ", "-"),
-      title = createData.title.trim,
-      description = createData.description,
-      body = createData.body,
-      tagList = createData.tagList,
-      createdAt = now,
-      updatedAt = now,
-      favorited = false,
-      favoritesCount = 0,
-      author = ArticleAuthor(
-        username = userData.username,
-        bio = userData.bio,
-        image = userData.image,
-        following = false
-      ) // TODO update when follows are implemented
     )
   }
 
