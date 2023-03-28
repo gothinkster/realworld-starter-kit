@@ -25,4 +25,6 @@ public class Article
     public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
 
     public ICollection<ArticleFavorite> ArticleFavorites { get; set; } = new HashSet<ArticleFavorite>();
+
+    public ICollection<ArticleTag> ArticleTags { get; set; } = new HashSet<ArticleTag>();
 }

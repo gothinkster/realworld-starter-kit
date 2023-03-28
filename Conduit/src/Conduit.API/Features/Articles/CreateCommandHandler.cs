@@ -1,4 +1,5 @@
-﻿using Conduit.API.Infrastructure;
+﻿using Conduit.API.Features.Tags;
+using Conduit.API.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,6 +35,19 @@ public class CreateCommandHandler : IRequestHandler<CreateCommand, ArticleRespon
             Author = author,
         };
 
+        var tagList = new HashSet<string>(request.Payload.Article.TagList ?? Enumerable.Empty<string>());
+        var existingTags = _appDbContext.Tags.Where(t => tagList.Contains(t.Id)).Select(t => t.Id).ToHashSet();
+        var tagsToAdd = tagList.Where(t => !existingTags.Contains(t)).ToHashSet();
+        foreach (var tag in tagsToAdd)
+        {
+            _appDbContext.Tags.Add(new Tag { Id = tag });
+        }
+        await _appDbContext.SaveChangesAsync(cancellationToken);
+
+        foreach (var tag in tagList)
+        {
+            article.ArticleTags.Add(new ArticleTag { TagId = tag });
+        }
         await _appDbContext.Articles.AddAsync(article, cancellationToken);
         await _appDbContext.SaveChangesAsync(cancellationToken);
 

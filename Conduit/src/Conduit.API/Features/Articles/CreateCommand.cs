@@ -13,4 +13,6 @@ public record CreateData
     public string? Description { get; init; }
 
     public string? Body { get; init; }
+
+    public IList<string>? TagList { get; init; }
 }

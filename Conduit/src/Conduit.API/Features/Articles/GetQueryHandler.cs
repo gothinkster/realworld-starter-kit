@@ -23,6 +23,7 @@ public class GetQueryHandler : IRequestHandler<GetQuery, ArticleResponse>
             .Articles
             .Include(a => a.Author)
             .Include(a => a.ArticleFavorites)
+            .Include(a => a.ArticleTags)
             .FirstOrDefaultAsync(x => x.Slug == request.Slug, cancellationToken);
 
         if(article is null)

@@ -25,4 +25,6 @@ public record ArticleResponseData
     public bool Favourited { get; set; }
 
     public int FavouritesCount { get; set; }
+    
+    public IEnumerable<string> TagList { get; set; } = Enumerable.Empty<string>();
 }

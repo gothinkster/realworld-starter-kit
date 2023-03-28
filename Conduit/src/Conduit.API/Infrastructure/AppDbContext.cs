@@ -2,11 +2,13 @@
 using Conduit.API.Features.Articles;
 using Conduit.API.Features.Comments;
 using Conduit.API.Features.Profiles;
+using Conduit.API.Features.Tags;
 using Conduit.API.Features.Users;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Dynamic;
 
 namespace Conduit.API.Infrastructure;
 
@@ -25,6 +27,7 @@ public class AppDbContext : DbContext
     public DbSet<User> Users => Set<User>();
     public DbSet<Comment> Comments => Set<Comment>();
     public DbSet<ArticleFavorite> ArticleFavorites => Set<ArticleFavorite>();
+    public DbSet<Tag> Tags => Set<Tag>();
 
     public override int SaveChanges()
     {
@@ -104,6 +107,24 @@ public class AppDbContext : DbContext
             b.HasOne(e => e.Article)
                 .WithMany(e => e.ArticleFavorites)
                 .HasForeignKey(f => f.ArticleId);
+        });
+
+        modelBuilder.Entity<Tag>(b =>
+        {
+            b.HasKey(e => e.Id);
+        });
+
+        modelBuilder.Entity<ArticleTag>(b =>
+        {
+            b.HasKey(e => new { e.ArticleId, e.TagId });
+
+            b.HasOne(e => e.Article)
+                .WithMany(e => e.ArticleTags)
+                .HasForeignKey(f => f.ArticleId);
+
+            b.HasOne(e => e.Tag)
+                .WithMany()
+                .HasForeignKey(f => f.TagId);
         });
 
     }
