@@ -4,7 +4,7 @@ import { InvalidCredentialsError } from './accounts.exceptions'
 import { AccountAlreadyExistsException } from './exeptions'
 import { AccountEntity } from './accounts.entity'
 import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../global/constants'
-import { User, UserDTO, UserResponseBody } from './accounts.controller'
+import { User, UserDTO } from './accounts.controller'
 
 @Injectable()
 export class UsersService {
@@ -28,7 +28,7 @@ export class UsersService {
     return account
   }
 
-  getJWTResponse(user: User): UserResponseBody {
+  getJWTResponse(user: User) {
     return {
       access_token: jwt.sign(
         { account_id: user.id, email: user.email },
@@ -40,6 +40,6 @@ export class UsersService {
           audience: AUDIENCE,
         },
       ),
-    }
+    } as const
   }
 }

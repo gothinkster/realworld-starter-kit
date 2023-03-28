@@ -25,7 +25,6 @@ import {
 } from '@nestjs/swagger'
 import { AuthorsService } from '../authors/service'
 import { ArticlesService } from './articles.service'
-import { InjectAccount } from '../accounts/account.decorator'
 import { PaginationDTO } from '../nest/pagination.dto'
 import { buildUrlToPath } from '../nest/url'
 import { AuthIsOptional, JWTAuthGuard } from '../nest/jwt.guard'
@@ -48,7 +47,6 @@ import {
   ApiResponseModelProperty,
 } from '@nestjs/swagger/dist/decorators/api-model-property.decorator'
 import { Transform, Type } from 'class-transformer'
-import { User } from '../accounts/accounts.controller'
 
 export const articlesSwaggerOptions = {
   title: { example: 'How to train your dragon' },
@@ -246,10 +244,9 @@ export class ArticlesController {
   @Get('feed')
   async getFeed(
     @Req() req,
-    @InjectAccount() account: User,
     @Query(validateModel()) pagination: PaginationDTO,
   ): Promise<ArticlesResponseBody> {
-    const me = await this.authorsService.getByAccount(account)
+    const me = await this.authorsService.getByAccount(req.user)
     const articles = await this.articlesService.getView(me).getFeed(pagination)
     return {
       articles: articles.map((article) =>
@@ -273,11 +270,12 @@ export class ArticlesController {
   @Get()
   async getManyArticles(
     @Req() req,
-    @InjectAccount() account: User,
     @Query(validateModel()) filters: ArticleFiltersDTO,
     @Query(validateModel()) pagination: PaginationDTO,
   ): Promise<ArticlesResponseBody> {
-    const me = await this.authorsService.getByAccount(account).catch(() => null)
+    const me = await this.authorsService
+      .getByAccount(req.user)
+      .catch(() => null)
     const articles = await this.articlesService
       .getView(me)
       .getArticlesByFilters(filters, pagination)
@@ -305,10 +303,11 @@ export class ArticlesController {
   @Get(':slug')
   async getArticle(
     @Req() req,
-    @InjectAccount() account: User,
     @Param('slug') slug: string,
   ): Promise<ArticleResponseBody> {
-    const me = await this.authorsService.getByAccount(account).catch(() => null)
+    const me = await this.authorsService
+      .getByAccount(req.user)
+      .catch(() => null)
     const article = await this.articlesService.getView(me).getArticle(slug)
     return {
       article: createArticleDTO(req, article),
@@ -342,11 +341,10 @@ export class ArticlesController {
   @Post()
   async createArticle(
     @Req() req,
-    @InjectAccount() account: User,
     @Body(validateModel())
     body: CreateArticleBody,
   ): Promise<ArticleResponseBody> {
-    const me = await this.authorsService.getByAccount(account)
+    const me = await this.authorsService.getByAccount(req.user)
     const article = await this.articlesService
       .getCMS(me)
       .createArticle(body.article)
@@ -361,12 +359,11 @@ export class ArticlesController {
   @Put(':slug')
   async updateArticle(
     @Req() req,
-    @InjectAccount() account: User,
     @Param('slug') slug: string,
     @Body(validateModel())
     body: UpdateArticleBody,
   ): Promise<ArticleResponseBody> {
-    const me = await this.authorsService.getByAccount(account)
+    const me = await this.authorsService.getByAccount(req.user)
     const article = await this.articlesService
       .getCMS(me)
       .updateArticle(slug, body.article)
@@ -380,11 +377,8 @@ export class ArticlesController {
   @Slug()
   @Delete(':slug')
   @HttpCode(HttpStatus.NO_CONTENT)
-  async deleteArticle(
-    @InjectAccount() account: User,
-    @Param('slug') slug: string,
-  ) {
-    const me = await this.authorsService.getByAccount(account)
+  async deleteArticle(@Req() req, @Param('slug') slug: string) {
+    const me = await this.authorsService.getByAccount(req.user)
     await this.articlesService.getCMS(me).deleteArticle(slug)
   }
 
@@ -394,10 +388,9 @@ export class ArticlesController {
   @Post(':slug/publication')
   async publishArticle(
     @Req() req,
-    @InjectAccount() account: User,
     @Param('slug') slug: string,
   ): Promise<ArticleResponseBody> {
-    const me = await this.authorsService.getByAccount(account)
+    const me = await this.authorsService.getByAccount(req.user)
     const article = await this.articlesService.getCMS(me).publishArticle(slug)
     return {
       article: createArticleDTO(req, article),
@@ -410,10 +403,9 @@ export class ArticlesController {
   @Delete(':slug/publication')
   async unpublishArticle(
     @Req() req,
-    @InjectAccount() account: User,
     @Param('slug') slug: string,
   ): Promise<ArticleResponseBody> {
-    const me = await this.authorsService.getByAccount(account)
+    const me = await this.authorsService.getByAccount(req.user)
     const article = await this.articlesService.getCMS(me).unpublishArticle(slug)
     return {
       article: createArticleDTO(req, article),

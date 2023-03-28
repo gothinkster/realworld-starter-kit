@@ -23,7 +23,6 @@ import {
 } from '@nestjs/swagger'
 
 import { AuthorsService } from '../authors/service'
-import { InjectAccount } from '../accounts/account.decorator'
 import { CommentsService } from './comments.service'
 import { buildUrlToPath } from '../nest/url'
 import { PaginationDTO } from '../nest/pagination.dto'
@@ -41,7 +40,6 @@ import {
 } from '@nestjs/swagger/dist/decorators/api-model-property.decorator'
 import { Type } from 'class-transformer'
 import { Slug } from '../articles/articles.controller'
-import { User } from '../accounts/accounts.controller'
 
 export class CommentDTO {
   @ApiProperty({
@@ -112,11 +110,10 @@ export class CommentsController {
   @Slug()
   async addCommentToAnArticle(
     @Req() req,
-    @InjectAccount() account: User,
     @Param('slug') slug: string,
     @Body(validateModel()) body: CreateCommentBody,
   ): Promise<CommentResponseBody> {
-    const me = await this.authorsService.getByAccount(account)
+    const me = await this.authorsService.getByAccount(req.user)
     const comment = await this.commentsService.commentArticle({
       me,
       slug,
@@ -163,11 +160,10 @@ export class CommentsController {
   @Slug()
   async deleteCommentFromArticle(
     @Req() req,
-    @InjectAccount() account: User,
     @Param('slug') slug: string,
     @Param(ParseIntPipe) id: number,
   ) {
-    const me = await this.authorsService.getByAccount(account)
+    const me = await this.authorsService.getByAccount(req.user)
     await this.commentsService.deleteCommentFromArticle(id, slug, me)
     return {
       links: { article: buildUrlToPath(req, `/articles/${slug}`) },

@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common'
+import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common'
 import {
   ApiBasicAuth,
   ApiCreatedResponse,
@@ -8,7 +8,6 @@ import {
 } from '@nestjs/swagger'
 import { UsersService } from './accounts.service'
 import { BasicAuthGuard } from './basic.guard'
-import { InjectAccount } from './account.decorator'
 import { validateModel } from '../nest/validation.utils'
 import {
   IsEmail,
@@ -72,8 +71,8 @@ export class AccountsController {
     @Body(validateModel())
     body: CreateUserBody,
   ): Promise<UserResponseBody> {
-    const account = await this.service.createAccount(body.user)
-    return this.service.getJWTResponse(account)
+    const user = await this.service.createAccount(body.user)
+    return this.service.getJWTResponse(user)
   }
 
   @ApiCreatedResponse({
@@ -83,7 +82,7 @@ export class AccountsController {
   @UseGuards(BasicAuthGuard)
   @ApiBasicAuth()
   @Post('login')
-  login(@InjectAccount() account: User): UserResponseBody {
-    return this.service.getJWTResponse(account)
+  login(@Req() req) {
+    return this.service.getJWTResponse(req.user)
   }
 }
