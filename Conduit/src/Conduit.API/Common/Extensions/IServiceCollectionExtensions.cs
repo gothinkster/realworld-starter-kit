@@ -2,6 +2,7 @@
 using Conduit.API.Infrastructure.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using NSwag.Generation.Processors.Security;
 using System.Reflection;
 using System.Text;
 
@@ -81,6 +82,32 @@ public static class IServiceCollectionExtensions
                 };
 
             });
+    }
+
+    public static void AddSwagger(this IServiceCollection services)
+    {
+        services.AddSwaggerDocument(config =>
+        {
+            config.PostProcess = doc =>
+            {
+                doc.Info.Version = "v0.1";
+                doc.Info.Title = "Conduit";
+            };
+
+            config.AddSecurity(JwtIssuerOptions.Schemes, new NSwag.OpenApiSecurityScheme
+            {
+                In = NSwag.OpenApiSecurityApiKeyLocation.Header,
+                Type = NSwag.OpenApiSecuritySchemeType.ApiKey,
+                Scheme = JwtBearerDefaults.AuthenticationScheme,
+                BearerFormat = "JWT",
+                Name = "Authorization",
+                Description = "Value field format: Bearer {token}"
+            });
+
+            config.DefaultReferenceTypeNullHandling = NJsonSchema.Generation.ReferenceTypeNullHandling.NotNull;
+
+            config.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor(JwtIssuerOptions.Schemes));
+        });
     }
 
     public static IServiceCollection AddEntityValidators(this IServiceCollection services, Assembly assembly)

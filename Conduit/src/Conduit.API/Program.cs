@@ -46,11 +46,16 @@ services.AddControllers((options) => {
     options.Filters.Add<ApiExceptionFilterAttribute>();
 });
 
+services.AddSwagger();
+
 var app = builder.Build();
 
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseOpenApi();
+app.UseSwaggerUi3();
 
 app.UseEndpoints(endpoints =>
 {
