@@ -6,9 +6,7 @@ public class MappingProfile : Profile
 {
 	public MappingProfile()
 	{
-		CreateMap<Article, ArticleResponse>()
-			.ForCtorParam(nameof(ArticleResponse.Article), o => o.MapFrom(a => a));
-
-		CreateMap<Article, ArticleResponseData>();	
+		CreateMap<Article, ArticleResponseData>()
+			.ForMember(a => a.FavouritesCount, o => o.MapFrom(a => a.ArticleFavorites.Count));	
 	}
 }

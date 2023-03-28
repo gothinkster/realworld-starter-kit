@@ -19,9 +19,10 @@ public class GetQueryHandler : IRequestHandler<GetQuery, ArticleResponse>
 
     public async Task<ArticleResponse> Handle(GetQuery request, CancellationToken cancellationToken)
     {
-       var article = await _appDbContext
+        var article = await _appDbContext
             .Articles
             .Include(a => a.Author)
+            .Include(a => a.ArticleFavorites)
             .FirstOrDefaultAsync(x => x.Slug == request.Slug, cancellationToken);
 
         if(article is null)

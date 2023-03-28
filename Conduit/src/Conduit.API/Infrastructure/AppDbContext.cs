@@ -23,8 +23,8 @@ public class AppDbContext : DbContext
 
     public DbSet<Article> Articles => Set<Article>();
     public DbSet<User> Users => Set<User>();
-
     public DbSet<Comment> Comments => Set<Comment>();
+    public DbSet<ArticleFavorite> ArticleFavorites => Set<ArticleFavorite>();
 
     public override int SaveChanges()
     {
@@ -83,7 +83,6 @@ public class AppDbContext : DbContext
                     "Follows", 
                     e => e.HasOne<User>().WithMany().HasForeignKey(f => f.FollowerId),
                     e => e.HasOne<User>().WithMany().HasForeignKey(f => f.FollowingId));
-                
         });
 
         modelBuilder.Entity<Comment>( b =>
@@ -92,6 +91,19 @@ public class AppDbContext : DbContext
 
             b.Property(p => p.Id)
                 .ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<ArticleFavorite>(b =>
+        {
+            b.HasKey(e => new { e.ArticleId, e.UserId });
+
+            b.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(f => f.UserId);
+
+            b.HasOne(e => e.Article)
+                .WithMany(e => e.ArticleFavorites)
+                .HasForeignKey(f => f.ArticleId);
         });
 
     }

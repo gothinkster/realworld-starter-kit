@@ -22,5 +22,7 @@ public class Article
     public int? AuthorId { get; set; }
     public User? Author { get; set; } = new();
 
-    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+    public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
+
+    public ICollection<ArticleFavorite> ArticleFavorites { get; set; } = new HashSet<ArticleFavorite>();
 }

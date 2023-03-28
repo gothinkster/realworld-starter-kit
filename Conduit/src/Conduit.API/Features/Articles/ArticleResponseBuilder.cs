@@ -6,22 +6,31 @@ namespace Conduit.API.Features.Articles;
 public class ArticleResponseBuilder
 {
     private readonly IMapper _mapper;
+    private readonly ICurrentUserAccessor _currentUserAccessor;
 
-    public ArticleResponseBuilder(IMapper mapper)
+    public ArticleResponseBuilder(IMapper mapper, ICurrentUserAccessor currentUserAccessor)
 	{
         _mapper = mapper;
+        _currentUserAccessor = currentUserAccessor;
     }
 
 	public ArticleResponse Build(Article article)
 	{
-        var response = _mapper.Map<ArticleResponse>(article);
-        return _mapper.Map<ArticleResponse>(article);
-	}
+        return new ArticleResponse(BuildData(article));
+    }
 
 	public PaginatedList<ArticleResponseData> Build(IEnumerable<Article> articles, int total)
 	{
-        var data = _mapper.Map<List<ArticleResponseData>>(articles);
+        var data = articles.Select(BuildData).ToList();
 
         return new PaginatedList<ArticleResponseData>(data, total);
+    }
+
+    private ArticleResponseData BuildData(Article article)
+    {
+        var result = _mapper.Map<Article, ArticleResponseData>(article);
+        result.Favourited = article.ArticleFavorites.Any(f => f.UserId == _currentUserAccessor.UserId);
+
+        return result;
     }
 }

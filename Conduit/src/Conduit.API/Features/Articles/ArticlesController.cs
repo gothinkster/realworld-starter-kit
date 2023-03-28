@@ -54,4 +54,20 @@ public class ArticlesController : ControllerBase
         await _mediator.Send(new DeleteCommand(slug), cancellationToken);
         return NoContent();
     }
+
+    [HttpPost("{slug}/favorite")]
+    [Authorize(AuthenticationSchemes = JwtIssuerOptions.Schemes)]
+    public async Task<IActionResult> Favorite(string slug, CancellationToken cancellationToken)
+    {
+        var result =  await _mediator.Send(new FavoriteArticleCommand(slug), cancellationToken);
+        return Ok(result);
+    }
+
+    [HttpDelete("{slug}/favorite")]
+    [Authorize(AuthenticationSchemes = JwtIssuerOptions.Schemes)]
+    public async Task<IActionResult> Unfavorite(string slug, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(new UnfavoriteArticleCommand(slug), cancellationToken);
+        return Ok(result);
+    }
 }
