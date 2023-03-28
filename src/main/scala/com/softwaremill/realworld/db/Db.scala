@@ -11,6 +11,7 @@ object Db:
   private def create(dbConfig: DbConfig): DataSource = {
     val poolConfig = new HikariConfig()
     poolConfig.setJdbcUrl(dbConfig.jdbcUrl)
+    poolConfig.setConnectionInitSql(dbConfig.connectionInitSql)
     new HikariDataSource(poolConfig)
   }
 

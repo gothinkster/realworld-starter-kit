@@ -6,6 +6,7 @@ import zio.ZLayer
 class DbConfig(val dbPath: String):
 
   val jdbcUrl = s"jdbc:sqlite:$dbPath"
+  val connectionInitSql = "PRAGMA foreign_keys = ON"
 
 object DbConfig:
 
