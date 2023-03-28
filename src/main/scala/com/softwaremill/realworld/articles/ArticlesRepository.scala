@@ -118,6 +118,7 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
     .mapError {
       case e: SQLiteException if e.getResultCode == SQLiteErrorCode.SQLITE_CONSTRAINT_PRIMARYKEY =>
         Exceptions.AlreadyInUse("Article name already exists")
+      case e => e
     }
     .provide(dsLayer)
 
@@ -134,6 +135,7 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
     .mapError {
       case e: SQLiteException if e.getResultCode == SQLiteErrorCode.SQLITE_CONSTRAINT_PRIMARYKEY =>
         Exceptions.AlreadyInUse("Article name already exists")
+      case e => e
     }
     .provide(dsLayer)
 
