@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common'
 import * as jwt from 'jsonwebtoken'
-import { AccountDTO, AccountResponseBody } from './accounts.dto'
 import { InvalidCredentialsError } from './accounts.exceptions'
 import { AccountAlreadyExistsException } from './exeptions'
-import { Account } from '../authors/models'
 import { AccountEntity } from './accounts.entity'
 import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../global/constants'
+import { User, UserDTO, UserResponseBody } from './accounts.controller'
 
 @Injectable()
-export class AccountsService {
-  async createAccount(user: AccountDTO): Promise<AccountEntity> {
+export class UsersService {
+  async createAccount(user: UserDTO): Promise<AccountEntity> {
     return await new AccountEntity()
       .changeEmail(user.email)
       .changePassword(user.password)
@@ -19,7 +18,7 @@ export class AccountsService {
       })
   }
 
-  async getAccount(user: AccountDTO): Promise<AccountEntity> {
+  async getAccount(user: UserDTO): Promise<AccountEntity> {
     const account = await AccountEntity.findOne({
       where: { email: user.email },
     })
@@ -29,15 +28,15 @@ export class AccountsService {
     return account
   }
 
-  getJWTResponse(account: Account): AccountResponseBody {
+  getJWTResponse(user: User): UserResponseBody {
     return {
       access_token: jwt.sign(
-        { account_id: account.id, email: account.email },
+        { account_id: user.id, email: user.email },
         TOKEN_PRIVATE_KEY,
         {
           expiresIn: '24h',
-          subject: account.id.toString(),
-          issuer: account.id.toString(),
+          subject: user.id.toString(),
+          issuer: user.id.toString(),
           audience: AUDIENCE,
         },
       ),

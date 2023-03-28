@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import { Account } from '../authors/models'
 import { AuthorsService } from '../authors/service'
 import {
   Article,
@@ -11,16 +10,17 @@ import {
 import { ArticleEntity } from './article.entity'
 import { ArticleFinder, Pagination } from './finder'
 import { AuthorNotFound } from '../authors/exceptions'
+import { User } from '../accounts/accounts.controller'
 
 @Injectable()
 export class ArticlesService {
   constructor(private authorsService?: AuthorsService) {}
 
-  getCMS(author: Account): ContentManagementSystem {
+  getCMS(author: User): ContentManagementSystem {
     return new ContentManagementSystem(author)
   }
 
-  getView(author?: Account): ArticleView {
+  getView(author?: User): ArticleView {
     return new ArticleView(author, this.authorsService)
   }
 }

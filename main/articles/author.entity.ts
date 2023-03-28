@@ -7,8 +7,9 @@ import {
   Unique,
 } from 'typeorm'
 import { ArticleEntity } from './article.entity'
-import { Account, Profile, ProfileFields } from '../authors/models'
+import { Profile, ProfileFields } from '../authors/models'
 import { CommentEntity } from '../comments/comment.entity'
+import { User } from '../accounts/accounts.controller'
 
 @Entity({ name: 'authors' })
 export class AuthorEntity extends BaseEntity implements Profile {
@@ -33,11 +34,11 @@ export class AuthorEntity extends BaseEntity implements Profile {
   @OneToMany(() => ArticleEntity, (article) => article.author)
   articles: ArticleEntity[]
 
-  get account(): Account {
+  get account(): User {
     return { id: this.accountId }
   }
 
-  set account(account: Account) {
+  set account(account: User) {
     this.accountId = account.id
   }
 

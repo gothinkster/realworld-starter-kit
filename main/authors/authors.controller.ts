@@ -23,7 +23,7 @@ import {
   ApiResponseProperty,
   ApiTags,
 } from '@nestjs/swagger'
-import { Account, Profile, ProfileFields } from './models'
+import { Profile, ProfileFields } from './models'
 import { AuthorsService } from './service'
 import { InjectAccount } from '../accounts/account.decorator'
 import { buildUrlToPath } from '../nest/url'
@@ -32,6 +32,7 @@ import { validateModel } from '../nest/validation.utils'
 import { IsNotEmpty, IsString, Matches, ValidateNested } from 'class-validator'
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator'
 import { Type } from 'class-transformer'
+import { User } from '../accounts/accounts.controller'
 
 const authorSwaggerOptions = {
   username: {
@@ -137,7 +138,7 @@ export class AuthorsController {
   @Get('me')
   async getCurrent(
     @Req() req,
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.getByAccount(account)
     return createAuthorProfileBody(req, me)
@@ -148,7 +149,7 @@ export class AuthorsController {
   @Post()
   async create(
     @Req() req,
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
     @Body(validateModel()) body: CreateProfileBody,
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.createForAccount(account, body.profile)
@@ -160,7 +161,7 @@ export class AuthorsController {
   @Put()
   async update(
     @Req() req,
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
     @Body(validateModel()) body: CreateProfileBody,
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.updateByAccount(account, body.profile)
@@ -172,7 +173,7 @@ export class AuthorsController {
   @Patch()
   async partialUpdate(
     @Req() req,
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
     @Body(validateModel()) body: UpdateProfileBody,
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.updateByAccount(account, body.profile)
@@ -185,7 +186,7 @@ export class AuthorsController {
   @Post(':username/follow')
   async followProfile(
     @Req() req,
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
     @Param('username') username: string,
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.getByAccount(account)
@@ -200,7 +201,7 @@ export class AuthorsController {
   @Delete(':username/follow')
   async unfollowProfile(
     @Req() req,
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
     @Param('username') username: string,
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.getByAccount(account)
@@ -216,7 +217,7 @@ export class AuthorsController {
   @Get(':username')
   async getProfile(
     @Req() req,
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
     @Param('username') username: string,
   ): Promise<ProfileResponseBody> {
     const author = await this.authorsService.getByUsername(username)

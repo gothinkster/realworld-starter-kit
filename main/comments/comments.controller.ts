@@ -22,7 +22,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger'
 
-import { Account } from '../authors/models'
 import { AuthorsService } from '../authors/service'
 import { InjectAccount } from '../accounts/account.decorator'
 import { CommentsService } from './comments.service'
@@ -42,6 +41,7 @@ import {
 } from '@nestjs/swagger/dist/decorators/api-model-property.decorator'
 import { Type } from 'class-transformer'
 import { Slug } from '../articles/articles.controller'
+import { User } from '../accounts/accounts.controller'
 
 export class CommentDTO {
   @ApiProperty({
@@ -112,7 +112,7 @@ export class CommentsController {
   @Slug()
   async addCommentToAnArticle(
     @Req() req,
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
     @Param('slug') slug: string,
     @Body(validateModel()) body: CreateCommentBody,
   ): Promise<CommentResponseBody> {
@@ -163,7 +163,7 @@ export class CommentsController {
   @Slug()
   async deleteCommentFromArticle(
     @Req() req,
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
     @Param('slug') slug: string,
     @Param(ParseIntPipe) id: number,
   ) {

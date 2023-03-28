@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { AuthorAlreadyExists, AuthorNotFound } from './exceptions'
-import { Account, Profile, ProfileFields } from './models'
+import { Profile, ProfileFields } from './models'
 import { AuthorEntity } from '../articles/author.entity'
+import { User } from '../accounts/accounts.controller'
 
 @Injectable()
 export class AuthorsService {
   async createForAccount(
-    account: Account,
+    account: User,
     fields: ProfileFields,
   ): Promise<Profile> {
     return await AuthorEntity.create({
@@ -31,7 +32,7 @@ export class AuthorsService {
     return profile
   }
 
-  async getByAccount(account: Account): Promise<AuthorEntity> {
+  async getByAccount(account: User): Promise<AuthorEntity> {
     const profile = await AuthorEntity.createQueryBuilder('profile')
       .select()
       .where({ accountId: account.id })
@@ -45,7 +46,7 @@ export class AuthorsService {
   }
 
   async updateByAccount(
-    account: Account,
+    account: User,
     fields: ProfileFields,
   ): Promise<AuthorEntity> {
     const profile = await this.getByAccount(account)

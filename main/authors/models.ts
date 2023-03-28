@@ -1,4 +1,5 @@
 import { Author } from '../articles/models'
+import { User } from '../accounts/accounts.controller'
 
 export interface ProfileFields {
   username?: string
@@ -6,16 +7,11 @@ export interface ProfileFields {
   image?: string
 }
 
-export interface Account {
-  id: number
-  email?: string
-}
-
 export interface Profile extends Author {
   username: string
   bio: string
   image: string
-  account: Account
+  account: User
   follow(profile: this): Promise<void>
   unfollow(profile: this): Promise<void>
   isFollowing(profile: this): Promise<boolean>

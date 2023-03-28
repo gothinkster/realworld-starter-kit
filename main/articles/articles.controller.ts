@@ -23,7 +23,6 @@ import {
   ApiResponseProperty,
   ApiTags,
 } from '@nestjs/swagger'
-import { Account } from '../authors/models'
 import { AuthorsService } from '../authors/service'
 import { ArticlesService } from './articles.service'
 import { InjectAccount } from '../accounts/account.decorator'
@@ -49,6 +48,7 @@ import {
   ApiResponseModelProperty,
 } from '@nestjs/swagger/dist/decorators/api-model-property.decorator'
 import { Transform, Type } from 'class-transformer'
+import { User } from '../accounts/accounts.controller'
 
 export const articlesSwaggerOptions = {
   title: { example: 'How to train your dragon' },
@@ -246,7 +246,7 @@ export class ArticlesController {
   @Get('feed')
   async getFeed(
     @Req() req,
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
     @Query(validateModel()) pagination: PaginationDTO,
   ): Promise<ArticlesResponseBody> {
     const me = await this.authorsService.getByAccount(account)
@@ -273,7 +273,7 @@ export class ArticlesController {
   @Get()
   async getManyArticles(
     @Req() req,
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
     @Query(validateModel()) filters: ArticleFiltersDTO,
     @Query(validateModel()) pagination: PaginationDTO,
   ): Promise<ArticlesResponseBody> {
@@ -305,7 +305,7 @@ export class ArticlesController {
   @Get(':slug')
   async getArticle(
     @Req() req,
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
     @Param('slug') slug: string,
   ): Promise<ArticleResponseBody> {
     const me = await this.authorsService.getByAccount(account).catch(() => null)
@@ -342,7 +342,7 @@ export class ArticlesController {
   @Post()
   async createArticle(
     @Req() req,
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
     @Body(validateModel())
     body: CreateArticleBody,
   ): Promise<ArticleResponseBody> {
@@ -361,7 +361,7 @@ export class ArticlesController {
   @Put(':slug')
   async updateArticle(
     @Req() req,
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
     @Param('slug') slug: string,
     @Body(validateModel())
     body: UpdateArticleBody,
@@ -381,7 +381,7 @@ export class ArticlesController {
   @Delete(':slug')
   @HttpCode(HttpStatus.NO_CONTENT)
   async deleteArticle(
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
     @Param('slug') slug: string,
   ) {
     const me = await this.authorsService.getByAccount(account)
@@ -394,7 +394,7 @@ export class ArticlesController {
   @Post(':slug/publication')
   async publishArticle(
     @Req() req,
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
     @Param('slug') slug: string,
   ): Promise<ArticleResponseBody> {
     const me = await this.authorsService.getByAccount(account)
@@ -410,7 +410,7 @@ export class ArticlesController {
   @Delete(':slug/publication')
   async unpublishArticle(
     @Req() req,
-    @InjectAccount() account: Account,
+    @InjectAccount() account: User,
     @Param('slug') slug: string,
   ): Promise<ArticleResponseBody> {
     const me = await this.authorsService.getByAccount(account)
