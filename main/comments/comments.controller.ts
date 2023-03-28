@@ -26,13 +26,13 @@ import { Account } from '../authors/models'
 import { AuthorsService } from '../authors/service'
 import { InjectAccount } from '../accounts/account.decorator'
 import { CommentsService } from './comments.service'
-import { buildUrl } from '../nest/url'
+import { buildUrlToPath } from '../nest/url'
 import { PaginationDTO } from '../nest/pagination.dto'
 import { JWTAuthGuard } from '../nest/jwt.guard'
 import { validateModel } from '../nest/validation.utils'
 import { CommentEntity } from './comment.entity'
 import {
-  cloneProfileToOutput,
+  createAuthorDTO,
   ProfileResponseDTO,
 } from '../authors/authors.controller'
 import { IsString, MaxLength, ValidateNested } from 'class-validator'
@@ -123,11 +123,8 @@ export class CommentsController {
       body: body.comment.body,
     })
     return {
-      comment: cloneCommentToOutput(req, comment, {
-        article: buildUrl(req, `/articles/${slug}`),
-        author: buildUrl(req, `/profiles/${me.username}`),
-      }),
-    }
+      comment: createCommentDTO(req, comment, slug),
+    } as const
   }
 
   @ApiOkResponse({ type: CommentsResponseBody })
@@ -143,24 +140,19 @@ export class CommentsController {
       slug,
       pagination,
     )
-    const response: CommentsResponseBody = {
-      comments: comments.map((comment) =>
-        cloneCommentToOutput(req, comment, {
-          article: buildUrl(req, `/articles/${slug}`),
-          author: buildUrl(req, `/profiles/${comment.author.username}`),
-        }),
-      ),
-    }
-    if (comments.length > 0) {
-      response.links = {
-        next: buildUrl(
-          req,
-          `articles/${slug}/comments`,
-          pagination.getNextPage().toParams(),
-        ),
-      }
-    }
-    return response
+    return {
+      comments: comments.map((comment) => createCommentDTO(req, comment, slug)),
+      links:
+        comments.length > 0
+          ? {
+              next: buildUrlToPath(
+                req,
+                `articles/${slug}/comments`,
+                pagination.getNextPage().toParams(),
+              ),
+            }
+          : {},
+    } as const
   }
 
   @ApiNoContentResponse({ type: CommentsResponseBody })
@@ -178,25 +170,25 @@ export class CommentsController {
     const me = await this.authorsService.getByAccount(account)
     await this.commentsService.deleteCommentFromArticle(id, slug, me)
     return {
-      links: { article: buildUrl(req, `/articles/${slug}`) },
+      links: { article: buildUrlToPath(req, `/articles/${slug}`) },
     }
   }
 }
 
-export function cloneCommentToOutput(
+function createCommentDTO(
   req,
   comment: CommentEntity,
-  links?: { [key: string]: string },
+  articleSlug: string,
 ): CommentResponseDTO {
-  const output: CommentResponseDTO = {
+  return {
     id: comment.id,
     body: comment.body,
     createdAt: comment.createdAt,
     updatedAt: comment.updatedAt,
-    author: cloneProfileToOutput(req, comment.author),
-  }
-  if (links) {
-    output.links = links
-  }
-  return output
+    author: createAuthorDTO(req, comment.author),
+    links: {
+      article: buildUrlToPath(req, `/articles/${articleSlug}`),
+      author: buildUrlToPath(req, `/profiles/${comment.author.username}`),
+    },
+  } as const
 }

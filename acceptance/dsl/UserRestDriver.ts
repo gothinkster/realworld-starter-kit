@@ -166,6 +166,7 @@ export class UserRestDriver implements UserDriver {
 class APISpec {
   static validateArticlesResponse(response) {
     expect(response.status).toEqual(200)
+
     if (response.data.articles.length > 0) {
       expect(response.data).toEqual({
         articles: expect.arrayContaining([
@@ -200,6 +201,7 @@ class APISpec {
     } else {
       expect(response.data).toEqual({
         articles: [],
+        links: {},
       })
     }
   }

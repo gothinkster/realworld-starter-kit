@@ -26,7 +26,7 @@ import {
 import { Account, Profile, ProfileFields } from './models'
 import { AuthorsService } from './service'
 import { InjectAccount } from '../accounts/account.decorator'
-import { buildUrl } from '../nest/url'
+import { buildUrlToPath } from '../nest/url'
 import { AuthIsOptional, JWTAuthGuard } from '../nest/jwt.guard'
 import { validateModel } from '../nest/validation.utils'
 import { IsNotEmpty, IsString, Matches, ValidateNested } from 'class-validator'
@@ -140,13 +140,7 @@ export class AuthorsController {
     @InjectAccount() account: Account,
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.getByAccount(account)
-    return {
-      profile: cloneProfileToOutput(req, me, undefined, {
-        articles: buildUrl(req, 'articles', {
-          author: me.username,
-        }),
-      }),
-    }
+    return createAuthorProfileBody(req, me)
   }
 
   @ApiCreatedResponse({ type: ProfileResponseBody })
@@ -158,13 +152,7 @@ export class AuthorsController {
     @Body(validateModel()) body: CreateProfileBody,
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.createForAccount(account, body.profile)
-    return {
-      profile: cloneProfileToOutput(req, me, undefined, {
-        articles: buildUrl(req, 'articles', {
-          author: me.username,
-        }),
-      }),
-    }
+    return createAuthorProfileBody(req, me)
   }
 
   @ApiOkResponse({ type: ProfileResponseBody })
@@ -176,13 +164,7 @@ export class AuthorsController {
     @Body(validateModel()) body: CreateProfileBody,
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.updateByAccount(account, body.profile)
-    return {
-      profile: cloneProfileToOutput(req, me, undefined, {
-        articles: buildUrl(req, 'articles', {
-          author: me.username,
-        }),
-      }),
-    }
+    return createAuthorProfileBody(req, me)
   }
 
   @ApiOkResponse({ type: ProfileResponseBody })
@@ -194,13 +176,7 @@ export class AuthorsController {
     @Body(validateModel()) body: UpdateProfileBody,
   ): Promise<ProfileResponseBody> {
     const me = await this.authorsService.updateByAccount(account, body.profile)
-    return {
-      profile: cloneProfileToOutput(req, me, undefined, {
-        articles: buildUrl(req, 'articles', {
-          author: me.username,
-        }),
-      }),
-    }
+    return createAuthorProfileBody(req, me)
   }
 
   @ApiCreatedResponse({ type: ProfileResponseBody })
@@ -215,13 +191,7 @@ export class AuthorsController {
     const me = await this.authorsService.getByAccount(account)
     const profile = await this.authorsService.getByUsername(username)
     await me.follow(profile)
-    return {
-      profile: cloneProfileToOutput(req, profile, true, {
-        articles: buildUrl(req, 'articles', {
-          author: me.username,
-        }),
-      }),
-    }
+    return createAuthorProfileBody(req, profile, true)
   }
 
   @ApiNoContentResponse({ type: ProfileResponseBody })
@@ -236,13 +206,7 @@ export class AuthorsController {
     const me = await this.authorsService.getByAccount(account)
     const profile = await this.authorsService.getByUsername(username)
     await me.unfollow(profile)
-    return {
-      profile: cloneProfileToOutput(req, profile, false, {
-        articles: buildUrl(req, 'articles', {
-          author: me.username,
-        }),
-      }),
-    }
+    return createAuthorProfileBody(req, profile, false)
   }
 
   @ApiOkResponse({ type: ProfileResponseBody })
@@ -255,40 +219,40 @@ export class AuthorsController {
     @InjectAccount() account: Account,
     @Param('username') username: string,
   ): Promise<ProfileResponseBody> {
-    const profile = await this.authorsService.getByUsername(username)
+    const author = await this.authorsService.getByUsername(username)
     let following: boolean
     if (account) {
       const me = await this.authorsService.getByAccount(account)
-      following = await me.isFollowing(profile)
+      following = await me.isFollowing(author)
     }
-    return {
-      profile: cloneProfileToOutput(req, profile, following, {
-        articles: buildUrl(req, 'articles', {
-          author: profile.username,
-        }),
-      }),
-    }
+    return createAuthorProfileBody(req, author, following)
   }
 }
 
-export function cloneProfileToOutput(
-  req,
-  profile: Profile,
+function createAuthorProfileBody(
+  req: Request,
+  author?: Profile,
   following?: boolean,
-  links?: { [key: string]: string },
-): ProfileResponseDTO {
-  const output: ProfileResponseDTO = {
-    username: profile.username,
-    bio: profile.bio,
-    image: profile.image,
-  }
-  if (links) {
-    output.links = links
-  }
-  if (typeof following === 'boolean') {
-    output.following = following
-  }
-  return output
+): ProfileResponseBody {
+  return {
+    profile: {
+      ...createAuthorDTO(req, author, following),
+      links: {
+        articles: buildUrlToPath(req, 'articles', {
+          author: author.username,
+        }),
+      },
+    },
+  } as const
+}
+
+export function createAuthorDTO(req, author: Profile, following?: boolean) {
+  return {
+    username: author.username,
+    bio: author.bio,
+    image: author.image,
+    ...(following !== undefined ? { following } : {}),
+  } as const
 }
 
 export function Username() {

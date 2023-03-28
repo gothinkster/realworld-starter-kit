@@ -28,7 +28,7 @@ import { AuthorsService } from '../authors/service'
 import { ArticlesService } from './articles.service'
 import { InjectAccount } from '../accounts/account.decorator'
 import { PaginationDTO } from '../nest/pagination.dto'
-import { buildUrl } from '../nest/url'
+import { buildUrlToPath } from '../nest/url'
 import { AuthIsOptional, JWTAuthGuard } from '../nest/jwt.guard'
 import { validateModel } from '../nest/validation.utils'
 import {
@@ -40,7 +40,7 @@ import {
   Sluged,
 } from './models'
 import {
-  cloneProfileToOutput,
+  createAuthorDTO,
   ProfileResponseDTO,
 } from '../authors/authors.controller'
 import { IsOptional, IsString, ValidateNested } from 'class-validator'
@@ -251,27 +251,21 @@ export class ArticlesController {
   ): Promise<ArticlesResponseBody> {
     const me = await this.authorsService.getByAccount(account)
     const articles = await this.articlesService.getView(me).getFeed(pagination)
-
-    const response: ArticlesResponseBody = {
-      articles: articles.map((article) => {
-        return cloneArticleToOutput(
-          req,
-          article,
-          undefined,
-          createLinksForArticle(req, article),
-        )
-      }),
+    return {
+      articles: articles.map((article) =>
+        createArticleDTO(req, article, undefined),
+      ),
+      links:
+        articles.length > 0
+          ? {
+              next: buildUrlToPath(
+                req,
+                'articles/feed',
+                pagination.getNextPage().toParams(),
+              ),
+            }
+          : {},
     }
-    if (articles.length > 0) {
-      response.links = {
-        next: buildUrl(
-          req,
-          'articles/feed',
-          pagination.getNextPage().toParams(),
-        ),
-      }
-    }
-    return response
   }
 
   @ApiOkResponse({ type: ArticlesResponseBody })
@@ -287,28 +281,22 @@ export class ArticlesController {
     const articles = await this.articlesService
       .getView(me)
       .getArticlesByFilters(filters, pagination)
-
-    const response: ArticlesResponseBody = {
-      articles: articles.map((article) => {
-        return cloneArticleToOutput(
-          req,
-          article,
-          undefined,
-          createLinksForArticle(req, article),
-        )
-      }),
+    return {
+      articles: articles.map((article) =>
+        createArticleDTO(req, article, undefined),
+      ),
+      links:
+        articles.length > 0
+          ? {
+              next: buildUrlToPath(
+                req,
+                'articles',
+                filters.toParams(),
+                pagination.getNextPage().toParams(),
+              ),
+            }
+          : {},
     }
-    if (articles.length > 0) {
-      response.links = {
-        next: buildUrl(
-          req,
-          'articles',
-          filters.toParams(),
-          pagination.getNextPage().toParams(),
-        ),
-      }
-    }
-    return response
   }
 
   @ApiOkResponse({ type: ArticleResponseBody })
@@ -323,12 +311,7 @@ export class ArticlesController {
     const me = await this.authorsService.getByAccount(account).catch(() => null)
     const article = await this.articlesService.getView(me).getArticle(slug)
     return {
-      article: cloneArticleToOutput(
-        req,
-        article,
-        undefined,
-        createLinksForArticle(req, article),
-      ),
+      article: createArticleDTO(req, article),
     }
   }
 
@@ -368,12 +351,7 @@ export class ArticlesController {
       .getCMS(me)
       .createArticle(body.article)
     return {
-      article: cloneArticleToOutput(
-        req,
-        article,
-        undefined,
-        createLinksForArticle(req, article),
-      ),
+      article: createArticleDTO(req, article),
     }
   }
 
@@ -393,12 +371,7 @@ export class ArticlesController {
       .getCMS(me)
       .updateArticle(slug, body.article)
     return {
-      article: cloneArticleToOutput(
-        req,
-        article,
-        undefined,
-        createLinksForArticle(req, article),
-      ),
+      article: createArticleDTO(req, article),
     }
   }
 
@@ -427,12 +400,7 @@ export class ArticlesController {
     const me = await this.authorsService.getByAccount(account)
     const article = await this.articlesService.getCMS(me).publishArticle(slug)
     return {
-      article: cloneArticleToOutput(
-        req,
-        article,
-        undefined,
-        createLinksForArticle(req, article),
-      ),
+      article: createArticleDTO(req, article),
     }
   }
 
@@ -448,52 +416,30 @@ export class ArticlesController {
     const me = await this.authorsService.getByAccount(account)
     const article = await this.articlesService.getCMS(me).unpublishArticle(slug)
     return {
-      article: cloneArticleToOutput(
-        req,
-        article,
-        undefined,
-        createLinksForArticle(req, article),
-      ),
+      article: createArticleDTO(req, article),
     }
   }
 }
 
-export function cloneArticleToOutput(
-  req,
-  article: FullArticle,
-  favorited?: boolean,
-  links?: { [key: string]: string },
-): ArticleResponseDTO {
-  const output: ArticleResponseDTO = {
+function createArticleDTO(req, article: FullArticle, favorited?: boolean) {
+  return {
     slug: article.slug,
     title: article.title,
     description: article.description,
     body: article.body,
+    ...(favorited !== undefined ? { favorited } : {}),
     tags: article.tags,
     createdAt: article.createdAt,
     updatedAt: article.updatedAt,
-    author: cloneProfileToOutput(req, article.author),
-  }
-  if (links) {
-    output.links = links
-  }
-  if (typeof favorited === 'boolean') {
-    output.favorited = favorited
-  }
-  return output
+    author: createAuthorDTO(req, article.author),
+    links: {
+      self: buildUrlToPath(req, `articles/${article.slug}`),
+      author: buildUrlToPath(req, `profiles/${article.author.username}`),
+      comments: buildUrlToPath(req, `articles/${article.slug}/comments`),
+    },
+  } as const
 }
 
 export function Slug() {
   return applyDecorators(ApiParam(articlesSwaggerOptions.slug))
-}
-
-export function createLinksForArticle(
-  req,
-  article: FullArticle,
-): { [key: string]: string } {
-  return {
-    self: buildUrl(req, `articles/${article.slug}`),
-    author: buildUrl(req, `profiles/${article.author.username}`),
-    comments: buildUrl(req, `articles/${article.slug}/comments`),
-  }
 }
