@@ -2,6 +2,7 @@ package com.softwaremill.realworld.users
 
 import com.softwaremill.realworld.common.*
 import com.softwaremill.realworld.db.{Db, DbConfig}
+import com.softwaremill.realworld.http.ErrorMapper.defaultErrorsMappings
 import io.getquill.SnakeCase
 import sttp.model.StatusCode
 import sttp.tapir.generic.auto.*
@@ -13,6 +14,7 @@ import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder}
 import zio.{Cause, Console, Exit, ZIO, ZLayer}
 
 import javax.sql.DataSource
+import scala.util.chaining.*
 
 class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
 
@@ -39,10 +41,7 @@ class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
       usersService
         .register(data.user)
         .logError
-        .mapError {
-          case e: Exceptions.AlreadyInUse => Conflict(e.message)
-          case _                          => InternalServerError()
-        }
+        .pipe(defaultErrorsMappings)
     )
 
   val update: ZServerEndpoint[Any, Any] = base.secureEndpoint.put
@@ -54,11 +53,7 @@ class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
         usersService
           .update(data.user, session.email)
           .logError
-          .mapError {
-            case e: Exceptions.AlreadyInUse => Conflict(e.message)
-            case e: Exceptions.NotFound     => NotFound(e.message)
-            case _                          => InternalServerError()
-          }
+          .pipe(defaultErrorsMappings)
           .map(User.apply)
     )
 
@@ -70,10 +65,7 @@ class UsersEndpoints(usersService: UsersService, base: BaseEndpoints):
       usersService
         .login(data.user)
         .logError
-        .mapError {
-          case e: Exceptions.Unauthorized => Unauthorized(e.message)
-          case _                          => InternalServerError()
-        }
+        .pipe(defaultErrorsMappings)
         .map(User.apply)
     )
 

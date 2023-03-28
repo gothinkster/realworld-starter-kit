@@ -1,6 +1,7 @@
 package com.softwaremill.realworld.profiles
 
 import com.softwaremill.realworld.common.*
+import com.softwaremill.realworld.http.ErrorMapper.defaultErrorsMappings
 import sttp.tapir.generic.auto.*
 import sttp.tapir.json.zio.jsonBody
 import sttp.tapir.server.ServerEndpoint.Full
@@ -15,25 +16,31 @@ class ProfilesEndpoints(base: BaseEndpoints, profilesService: ProfilesService) {
   private val getProfile: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
     .in("api" / "profiles" / path[String]("username"))
     .out(jsonBody[Profile])
-    .serverLogic(session => username => profilesService.getProfile(username, session.email) pipe defaultErrorMappings)
+    .serverLogic { session => username =>
+      profilesService
+        .getProfile(username, session.email)
+        .pipe(defaultErrorsMappings)
+    }
 
   private val followUser: ZServerEndpoint[Any, Any] = base.secureEndpoint.post
     .in("api" / "profiles" / path[String]("username") / "follow")
     .out(jsonBody[Profile])
-    .serverLogic(session => username => profilesService.follow(username, session.email) pipe defaultErrorMappings)
+    .serverLogic { session => username =>
+      profilesService
+        .follow(username, session.email)
+        .pipe(defaultErrorsMappings)
+    }
 
   private val unfollowUser: ZServerEndpoint[Any, Any] = base.secureEndpoint.delete
     .in("api" / "profiles" / path[String]("username") / "follow")
     .out(jsonBody[Profile])
-    .serverLogic(session => username => profilesService.unfollow(username, session.email) pipe defaultErrorMappings)
+    .serverLogic { session => username =>
+      profilesService
+        .unfollow(username, session.email)
+        .pipe(defaultErrorsMappings)
+    }
 
   val endpoints: List[ZServerEndpoint[Any, Any]] = List(getProfile, followUser, unfollowUser)
-
-  private def defaultErrorMappings[E <: Throwable, A](io: IO[E, A]): IO[ErrorInfo, A] = io.mapError {
-    case e: Exceptions.NotFound   => NotFound(e.message)
-    case e: Exceptions.BadRequest => BadRequest(e.message)
-    case e: Exception             => InternalServerError(e.getMessage)
-  }
 
 }
 

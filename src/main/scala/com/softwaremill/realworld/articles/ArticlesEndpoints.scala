@@ -3,6 +3,7 @@ package com.softwaremill.realworld.articles
 import com.softwaremill.realworld.articles.*
 import com.softwaremill.realworld.common.*
 import com.softwaremill.realworld.db.{Db, DbConfig}
+import com.softwaremill.realworld.http.ErrorMapper.defaultErrorsMappings
 import io.getquill.SnakeCase
 import sttp.model.StatusCode
 import sttp.tapir.generic.auto.*
@@ -43,7 +44,7 @@ class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
         articlesService
           .list(filters.flatten.toMap, pagination)
           .logError
-          .pipe(defaultErrorMappings)
+          .pipe(defaultErrorsMappings)
     )
 
   val get: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
@@ -54,7 +55,7 @@ class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
         articlesService
           .findBySlugAsSeenBy(slug, session.email)
           .logError
-          .pipe(defaultErrorMappings)
+          .pipe(defaultErrorsMappings)
           .map(Article.apply)
     )
 
@@ -67,7 +68,7 @@ class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
         articlesService
           .create(data.article, session.email)
           .logError
-          .pipe(defaultErrorMappings)
+          .pipe(defaultErrorsMappings)
           .map(Article.apply)
     )
 
@@ -80,7 +81,7 @@ class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
         articlesService
           .update(articleUpdateData = data._2.article, slug = data._1, email = session.email)
           .logError
-          .pipe(defaultErrorMappings)
+          .pipe(defaultErrorsMappings)
           .map(Article.apply)
     )
 
@@ -91,7 +92,7 @@ class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
       slug =>
         articlesService
           .makeFavorite(slug, session.email)
-          .pipe(defaultErrorMappings)
+          .pipe(defaultErrorsMappings)
           .map(Article.apply)
     )
 
@@ -102,7 +103,7 @@ class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
       slug =>
         articlesService
           .removeFavorite(slug, session.email)
-          .pipe(defaultErrorMappings)
+          .pipe(defaultErrorsMappings)
           .map(Article.apply)
     )
 
@@ -114,12 +115,6 @@ class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
       .validateOption(Validator.nonEmptyString)
       .validateOption(Validator.maxLength(100))
       .map(_.map(v => (key, v)))(_.map((_, v) => v))
-  }
-
-  private def defaultErrorMappings[E <: Throwable, A](io: IO[E, A]): IO[ErrorInfo, A] = io.mapError {
-    case e: Exceptions.AlreadyInUse => Conflict(e.message)
-    case e: Exceptions.NotFound     => NotFound(e.message)
-    case _                          => InternalServerError()
   }
 
 object ArticlesEndpoints:
