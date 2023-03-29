@@ -10,7 +10,14 @@ lazy val rootProject = (project in file(".")).settings(
     organization := "com.softwaremill",
     scalaVersion := "3.2.1",
     scalacOptions ++= Seq(
-      "-Xmax-inlines", "64"
+      "-deprecation",
+      "-feature",
+      "-unchecked",
+      "-explain",
+      "-Wunused:all",
+      "-Xmax-inlines", "64",
+      "-Xfatal-warnings",
+      "-Ycheck-all-patmat"
     ),
     libraryDependencies ++= Seq(
       // API
