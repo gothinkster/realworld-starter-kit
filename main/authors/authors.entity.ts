@@ -6,10 +6,10 @@ import {
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm'
-import { ArticleEntity } from './article.entity'
-import { Profile, ProfileFields } from '../authors/models'
-import { CommentEntity } from '../comments/comment.entity'
 import { User } from '../accounts/accounts.controller'
+import { ArticleEntity } from '../articles/articles.entity'
+import { CommentEntity } from '../comments/comments.entity'
+import { Profile, ProfileFields } from './authors.service'
 
 @Entity({ name: 'authors' })
 export class AuthorEntity extends BaseEntity implements Profile {

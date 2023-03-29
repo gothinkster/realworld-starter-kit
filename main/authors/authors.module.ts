@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
-import { AuthorsService } from './service'
 import { AuthorsController } from './authors.controller'
+import { AuthorsService } from './authors.service'
 
 @Module({
   providers: [AuthorsService],

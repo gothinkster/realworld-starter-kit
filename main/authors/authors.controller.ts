@@ -23,14 +23,13 @@ import {
   ApiResponseProperty,
   ApiTags,
 } from '@nestjs/swagger'
-import { Profile, ProfileFields } from './models'
-import { AuthorsService } from './service'
 import { buildUrlToPath } from '../nest/url'
 import { AuthIsOptional, JWTAuthGuard } from '../nest/jwt.guard'
 import { validateModel } from '../nest/validation.utils'
 import { IsNotEmpty, IsString, Matches, ValidateNested } from 'class-validator'
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator'
 import { Type } from 'class-transformer'
+import { AuthorsService, Profile, ProfileFields } from './authors.service'
 
 const authorSwaggerOptions = {
   username: {

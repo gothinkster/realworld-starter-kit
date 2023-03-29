@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { ArticlesService } from '../articles/articles.service'
-import { Pagination } from '../articles/finder'
-import { Author } from '../articles/models'
-import { CommentEntity } from './comment.entity'
+import { ArticlesService, Author } from '../articles/articles.service'
+import { CommentEntity } from './comments.entity'
 
 @Injectable()
 export class CommentsService {
@@ -25,7 +23,10 @@ export class CommentsService {
 
   async getCommentsFromArticle(
     slug: string,
-    pagination: Pagination,
+    pagination: {
+      take: number
+      skip: number
+    },
   ): Promise<CommentEntity[]> {
     const article = await this.articlesService.getView().getArticle(slug)
     return await CommentEntity.createQueryBuilder('comment')

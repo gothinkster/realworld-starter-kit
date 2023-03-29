@@ -1,9 +1,14 @@
-import { Article, Author, Sluged } from './models'
-import { AuthorsService } from '../authors/service'
-import { ArticleNotFound } from './exceptions'
-import { ArticlesService, ContentManagementSystem } from './articles.service'
+import {
+  Article,
+  ArticleNotFound,
+  ArticlesService,
+  Author,
+  ContentManagementSystem,
+  Sluged,
+} from './articles.service'
 import { DataSource } from 'typeorm'
 import { initializePostgresDataSource } from '../global/global.module'
+import { AuthorsService } from '../authors/authors.service'
 
 let dataSource: DataSource
 beforeAll(async () => {

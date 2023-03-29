@@ -23,20 +23,18 @@ import {
   ApiResponseProperty,
   ApiTags,
 } from '@nestjs/swagger'
-import { AuthorsService } from '../authors/service'
-import { ArticlesService } from './articles.service'
-import { PaginationDTO } from '../nest/pagination.dto'
-import { buildUrlToPath } from '../nest/url'
-import { AuthIsOptional, JWTAuthGuard } from '../nest/jwt.guard'
-import { validateModel } from '../nest/validation.utils'
 import {
   Article,
   ArticleFields,
   ArticleFilters,
+  ArticlesService,
   Dated,
   FullArticle,
   Sluged,
-} from './models'
+} from './articles.service'
+import { buildUrlToPath } from '../nest/url'
+import { AuthIsOptional, JWTAuthGuard } from '../nest/jwt.guard'
+import { validateModel } from '../nest/validation.utils'
 import {
   createAuthorDTO,
   ProfileResponseDTO,
@@ -47,6 +45,8 @@ import {
   ApiResponseModelProperty,
 } from '@nestjs/swagger/dist/decorators/api-model-property.decorator'
 import { Transform, Type } from 'class-transformer'
+import { Pagination } from '../nest/pagination'
+import { AuthorsService } from '../authors/authors.service'
 
 export const articlesSwaggerOptions = {
   title: { example: 'How to train your dragon' },
@@ -244,7 +244,7 @@ export class ArticlesController {
   @Get('feed')
   async getFeed(
     @Req() req,
-    @Query(validateModel()) pagination: PaginationDTO,
+    @Query(validateModel()) pagination: Pagination,
   ): Promise<ArticlesResponseBody> {
     const me = await this.authorsService.getByAccount(req.user)
     const articles = await this.articlesService.getView(me).getFeed(pagination)
@@ -271,7 +271,7 @@ export class ArticlesController {
   async getManyArticles(
     @Req() req,
     @Query(validateModel()) filters: ArticleFiltersDTO,
-    @Query(validateModel()) pagination: PaginationDTO,
+    @Query(validateModel()) pagination: Pagination,
   ): Promise<ArticlesResponseBody> {
     const me = await this.authorsService
       .getByAccount(req.user)

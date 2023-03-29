@@ -7,8 +7,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { ArticleEntity } from '../articles/article.entity'
-import { AuthorEntity } from '../articles/author.entity'
+import { ArticleEntity } from '../articles/articles.entity'
+import { AuthorEntity } from '../authors/authors.entity'
 
 @Entity({ name: 'comments' })
 export class CommentEntity extends BaseEntity {

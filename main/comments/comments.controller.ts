@@ -22,13 +22,11 @@ import {
   ApiTags,
 } from '@nestjs/swagger'
 
-import { AuthorsService } from '../authors/service'
 import { CommentsService } from './comments.service'
 import { buildUrlToPath } from '../nest/url'
-import { PaginationDTO } from '../nest/pagination.dto'
 import { JWTAuthGuard } from '../nest/jwt.guard'
 import { validateModel } from '../nest/validation.utils'
-import { CommentEntity } from './comment.entity'
+import { CommentEntity } from './comments.entity'
 import {
   createAuthorDTO,
   ProfileResponseDTO,
@@ -40,6 +38,8 @@ import {
 } from '@nestjs/swagger/dist/decorators/api-model-property.decorator'
 import { Type } from 'class-transformer'
 import { Slug } from '../articles/articles.controller'
+import { Pagination } from '../nest/pagination'
+import { AuthorsService } from '../authors/authors.service'
 
 export class CommentDTO {
   @ApiProperty({
@@ -131,7 +131,7 @@ export class CommentsController {
   async getCommentsFromAnArticle(
     @Req() req,
     @Param('slug') slug: string,
-    @Query(validateModel()) pagination: PaginationDTO,
+    @Query(validateModel()) pagination: Pagination,
   ): Promise<CommentsResponseBody> {
     const comments = await this.commentsService.getCommentsFromArticle(
       slug,

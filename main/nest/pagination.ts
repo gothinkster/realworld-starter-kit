@@ -1,8 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsInt } from 'class-validator'
-import { Pagination } from '../articles/finder'
 
-export class PaginationDTO extends Pagination {
+export class Pagination {
   @ApiProperty({
     required: false,
     description: 'Number of articles to skip (defaults to 0)',
@@ -16,4 +15,18 @@ export class PaginationDTO extends Pagination {
   })
   @IsInt()
   take: number = 20
+
+  getNextPage(): Pagination {
+    const newPage = new Pagination()
+    newPage.take = this.take
+    newPage.skip = this.skip + this.take
+    return newPage
+  }
+
+  toParams() {
+    return {
+      take: this.take.toString(),
+      skip: this.skip.toString(),
+    } as const
+  }
 }

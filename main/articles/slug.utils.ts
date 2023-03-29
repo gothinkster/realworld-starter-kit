@@ -15,7 +15,3 @@ export function slugify(title: string): string {
     .replace(/[^\w-]+/g, '') // Remove all non-word chars
     .replace(/--+/g, '-') // Replace multiple - with single -
 }
-
-export function isSlug(slug: string): boolean {
-  return slugify(slug) === slug
-}

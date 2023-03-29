@@ -1,28 +1,55 @@
-import { Injectable } from '@nestjs/common'
-import { AuthorsService } from '../authors/service'
+import { Injectable, NotFoundException } from '@nestjs/common'
+import { ArticleEntity, ArticleFinder } from './articles.entity'
 import {
-  Article,
-  ArticleFields,
-  ArticleFilters,
-  Author,
-  FullArticle,
-} from './models'
-import { ArticleEntity } from './article.entity'
-import { ArticleFinder, Pagination } from './finder'
-import { AuthorNotFound } from '../authors/exceptions'
-import { User } from '../accounts/accounts.controller'
+  Authored,
+  AuthorNotFound,
+  AuthorsService,
+} from '../authors/authors.service'
+
+type Pagination = {
+  skip: number
+  take: number
+}
+
+export interface Author {
+  id: number
+}
 
 @Injectable()
 export class ArticlesService {
   constructor(private authorsService?: AuthorsService) {}
 
-  getCMS(author: User): ContentManagementSystem {
+  getCMS(author: Author): ContentManagementSystem {
     return new ContentManagementSystem(author)
   }
 
-  getView(author?: User): ArticleView {
+  getView(author?: Author): ArticleView {
     return new ArticleView(author, this.authorsService)
   }
+}
+
+export type Dated<T extends {}> = T & {
+  readonly createdAt: Date
+  readonly updatedAt: Date
+}
+export type Sluged<T extends {}> = T & {
+  slug: string
+}
+
+export interface Article {
+  title: string
+  description: string
+  body: string
+  tags: string[]
+}
+
+export type ArticleFields = Partial<Article>
+export type FullArticle = Authored<Dated<Sluged<Article>>>
+
+export interface ArticleFilters {
+  tags?: string[]
+  author?: string
+  favorited?: boolean
 }
 
 export class ArticleView {
@@ -114,5 +141,12 @@ export class ContentManagementSystem {
   async unpublishArticle(slug: string): Promise<FullArticle> {
     const article = await this.getArticleForModification(slug)
     return await article.unpublish().save()
+  }
+}
+
+export class ArticleNotFound extends NotFoundException {
+  constructor(slug?: string) {
+    super(`Article ${slug} not found`)
+    this.name = 'ArticleNotFound'
   }
 }

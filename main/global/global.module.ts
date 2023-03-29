@@ -1,13 +1,12 @@
 import { Global, Module } from '@nestjs/common'
-import { JWTAuthPassport } from '../nest/jwt.strategy'
 import { DataSource } from 'typeorm'
 import { AccountEntity } from '../accounts/accounts.entity'
-import { ArticleEntity } from '../articles/article.entity'
-import { AuthorEntity, UserFollows } from '../articles/author.entity'
-import { CommentEntity } from '../comments/comment.entity'
-import { Tag } from '../articles/tag.entity'
+import { ArticleEntity, Tag } from '../articles/articles.entity'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
+import { AuthorEntity, UserFollows } from '../authors/authors.entity'
+import { CommentEntity } from '../comments/comments.entity'
+import { JWTAuthPassport } from '../nest/jwt.guard'
 
 export function initializePostgresDataSource() {
   return new DataSource({
