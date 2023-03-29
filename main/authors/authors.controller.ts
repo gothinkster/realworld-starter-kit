@@ -134,7 +134,7 @@ export class AuthorsController {
   @HttpCode(HttpStatus.OK)
   @Get('me')
   async getCurrent(@Req() req): Promise<ProfileResponseBody> {
-    const me = await this.authorsService.getByAccount(req.user)
+    const me = await this.authorsService.getUserAuthorProfile(req.user)
     return createAuthorProfileBody(req, me)
   }
 
@@ -145,7 +145,7 @@ export class AuthorsController {
     @Req() req,
     @Body(validateModel()) body: CreateProfileBody,
   ): Promise<ProfileResponseBody> {
-    const me = await this.authorsService.createForAccount(
+    const me = await this.authorsService.createUserAuthorProfile(
       req.user,
       body.profile,
     )
@@ -159,7 +159,10 @@ export class AuthorsController {
     @Req() req,
     @Body(validateModel()) body: CreateProfileBody,
   ): Promise<ProfileResponseBody> {
-    const me = await this.authorsService.updateByAccount(req.user, body.profile)
+    const me = await this.authorsService.updateUserAuthorProfile(
+      req.user,
+      body.profile,
+    )
     return createAuthorProfileBody(req, me)
   }
 
@@ -170,7 +173,10 @@ export class AuthorsController {
     @Req() req,
     @Body(validateModel()) body: UpdateProfileBody,
   ): Promise<ProfileResponseBody> {
-    const me = await this.authorsService.updateByAccount(req.user, body.profile)
+    const me = await this.authorsService.updateUserAuthorProfile(
+      req.user,
+      body.profile,
+    )
     return createAuthorProfileBody(req, me)
   }
 
@@ -182,8 +188,8 @@ export class AuthorsController {
     @Req() req,
     @Param('username') username: string,
   ): Promise<ProfileResponseBody> {
-    const me = await this.authorsService.getByAccount(req.user)
-    const profile = await this.authorsService.getByUsername(username)
+    const me = await this.authorsService.getUserAuthorProfile(req.user)
+    const profile = await this.authorsService.getAuthorByUsername(username)
     await me.follow(profile)
     return createAuthorProfileBody(req, profile, true)
   }
@@ -196,8 +202,8 @@ export class AuthorsController {
     @Req() req,
     @Param('username') username: string,
   ): Promise<ProfileResponseBody> {
-    const me = await this.authorsService.getByAccount(req.user)
-    const profile = await this.authorsService.getByUsername(username)
+    const me = await this.authorsService.getUserAuthorProfile(req.user)
+    const profile = await this.authorsService.getAuthorByUsername(username)
     await me.unfollow(profile)
     return createAuthorProfileBody(req, profile, false)
   }
@@ -211,10 +217,10 @@ export class AuthorsController {
     @Req() req,
     @Param('username') username: string,
   ): Promise<ProfileResponseBody> {
-    const author = await this.authorsService.getByUsername(username)
+    const author = await this.authorsService.getAuthorByUsername(username)
     let following: boolean
     if (req.user) {
-      const me = await this.authorsService.getByAccount(req.user)
+      const me = await this.authorsService.getUserAuthorProfile(req.user)
       following = await me.isFollowing(author)
     }
     return createAuthorProfileBody(req, author, following)

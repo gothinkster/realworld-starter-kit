@@ -246,7 +246,7 @@ export class ArticlesController {
     @Req() req,
     @Query(validateModel()) pagination: Pagination,
   ): Promise<ArticlesResponseBody> {
-    const me = await this.authorsService.getByAccount(req.user)
+    const me = await this.authorsService.getUserAuthorProfile(req.user)
     const articles = await this.articlesService.getView(me).getFeed(pagination)
     return {
       articles: articles.map((article) =>
@@ -274,7 +274,7 @@ export class ArticlesController {
     @Query(validateModel()) pagination: Pagination,
   ): Promise<ArticlesResponseBody> {
     const me = await this.authorsService
-      .getByAccount(req.user)
+      .getUserAuthorProfile(req.user)
       .catch(() => null)
     const articles = await this.articlesService
       .getView(me)
@@ -306,7 +306,7 @@ export class ArticlesController {
     @Param('slug') slug: string,
   ): Promise<ArticleResponseBody> {
     const me = await this.authorsService
-      .getByAccount(req.user)
+      .getUserAuthorProfile(req.user)
       .catch(() => null)
     const article = await this.articlesService.getView(me).getArticle(slug)
     return {
@@ -344,7 +344,7 @@ export class ArticlesController {
     @Body(validateModel())
     body: CreateArticleBody,
   ): Promise<ArticleResponseBody> {
-    const me = await this.authorsService.getByAccount(req.user)
+    const me = await this.authorsService.getUserAuthorProfile(req.user)
     const article = await this.articlesService
       .getCMS(me)
       .createArticle(body.article)
@@ -363,7 +363,7 @@ export class ArticlesController {
     @Body(validateModel())
     body: UpdateArticleBody,
   ): Promise<ArticleResponseBody> {
-    const me = await this.authorsService.getByAccount(req.user)
+    const me = await this.authorsService.getUserAuthorProfile(req.user)
     const article = await this.articlesService
       .getCMS(me)
       .updateArticle(slug, body.article)
@@ -378,7 +378,7 @@ export class ArticlesController {
   @Delete(':slug')
   @HttpCode(HttpStatus.NO_CONTENT)
   async deleteArticle(@Req() req, @Param('slug') slug: string) {
-    const me = await this.authorsService.getByAccount(req.user)
+    const me = await this.authorsService.getUserAuthorProfile(req.user)
     await this.articlesService.getCMS(me).deleteArticle(slug)
   }
 
@@ -390,7 +390,7 @@ export class ArticlesController {
     @Req() req,
     @Param('slug') slug: string,
   ): Promise<ArticleResponseBody> {
-    const me = await this.authorsService.getByAccount(req.user)
+    const me = await this.authorsService.getUserAuthorProfile(req.user)
     const article = await this.articlesService.getCMS(me).publishArticle(slug)
     return {
       article: createArticleDTO(req, article),
@@ -405,7 +405,7 @@ export class ArticlesController {
     @Req() req,
     @Param('slug') slug: string,
   ): Promise<ArticleResponseBody> {
-    const me = await this.authorsService.getByAccount(req.user)
+    const me = await this.authorsService.getUserAuthorProfile(req.user)
     const article = await this.articlesService.getCMS(me).unpublishArticle(slug)
     return {
       article: createArticleDTO(req, article),

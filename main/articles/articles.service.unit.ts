@@ -33,7 +33,7 @@ beforeEach(async () => {
     tags: ['dragons', 'friendship'],
     slug: `how-to-train-your-dragon-${testRandomNumber}`,
   }
-  author = await new AuthorsService().createForAccount(
+  author = await new AuthorsService().createUserAuthorProfile(
     { id: testRandomNumber },
     { username: `john-doe-${testRandomNumber}` },
   )

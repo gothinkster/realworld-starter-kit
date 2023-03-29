@@ -209,11 +209,12 @@ export class ArticleEntity extends BaseEntity implements FullArticle {
   }
 
   loadData(data: ArticleFields): this {
-    for (let key of ['title', 'description', 'body', 'tags']) {
+    for (const key of ['title', 'description', 'body'] as const) {
       if (data[key]) {
         this[key] = data[key]
       }
     }
+    this.tags = data.tags ?? this.tags
     return this
   }
 }

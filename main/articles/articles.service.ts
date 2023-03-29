@@ -82,7 +82,9 @@ export class ArticleView {
 
     if (filters.author) {
       try {
-        const author = await this.authorsService.getByUsername(filters.author)
+        const author = await this.authorsService.getAuthorByUsername(
+          filters.author,
+        )
         finder.filterByAuthor(author)
       } catch (error) {
         if (error instanceof AuthorNotFound) {
@@ -108,6 +110,7 @@ export class ContentManagementSystem {
     const article = ArticleEntity.create({
       author: this.author,
     })
+
     return await article.loadData(snapshot).save()
   }
 

@@ -113,7 +113,7 @@ export class CommentsController {
     @Param('slug') slug: string,
     @Body(validateModel()) body: CreateCommentBody,
   ): Promise<CommentResponseBody> {
-    const me = await this.authorsService.getByAccount(req.user)
+    const me = await this.authorsService.getUserAuthorProfile(req.user)
     const comment = await this.commentsService.commentArticle({
       me,
       slug,
@@ -163,7 +163,7 @@ export class CommentsController {
     @Param('slug') slug: string,
     @Param(ParseIntPipe) id: number,
   ) {
-    const me = await this.authorsService.getByAccount(req.user)
+    const me = await this.authorsService.getUserAuthorProfile(req.user)
     await this.commentsService.deleteCommentFromArticle(id, slug, me)
     return {
       links: { article: buildUrlToPath(req, `/articles/${slug}`) },
