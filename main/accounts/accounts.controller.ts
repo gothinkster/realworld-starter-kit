@@ -71,7 +71,7 @@ export class AccountsController {
     @Body(validateModel())
     body: CreateUserBody,
   ): Promise<UserResponseBody> {
-    const user = await this.service.createAccount(body.user)
+    const user = await this.service.createUserAccount(body.user)
     return this.service.getJWTResponse(user)
   }
 

@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { HttpException, HttpStatus } from '@nestjs/common'
 import { User } from '../accounts/accounts.controller'
 import { AuthorEntity } from './authors.entity'
 import { Author } from '../articles/articles.service'
@@ -26,7 +26,6 @@ export type Authored<T extends {}> = T & {
   author: Profile
 }
 
-@Injectable()
 export class AuthorsService {
   async createForAccount(
     account: User,

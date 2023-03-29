@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common'
 import * as jwt from 'jsonwebtoken'
 import { InvalidCredentialsError } from './accounts.exceptions'
 import { AccountAlreadyExistsException } from './exeptions'
@@ -6,9 +5,8 @@ import { AccountEntity } from './accounts.entity'
 import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../global/constants'
 import { User, UserDTO } from './accounts.controller'
 
-@Injectable()
 export class UsersService {
-  async createAccount(user: UserDTO): Promise<AccountEntity> {
+  async createUserAccount(user: UserDTO): Promise<AccountEntity> {
     return await new AccountEntity()
       .changeEmail(user.email)
       .changePassword(user.password)
@@ -18,7 +16,7 @@ export class UsersService {
       })
   }
 
-  async getAccount(user: UserDTO): Promise<AccountEntity> {
+  async getUserAccount(user: UserDTO): Promise<AccountEntity> {
     const account = await AccountEntity.findOne({
       where: { email: user.email },
     })
