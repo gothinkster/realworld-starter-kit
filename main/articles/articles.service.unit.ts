@@ -155,12 +155,14 @@ describe('Content Management System', () => {
     // Act
     const article = await cms.updateArticle(exampleArticle.slug, {
       body: 'Other body',
+      tags: ['physics', 'programming'],
     })
 
     // Assert
     expect(article).toMatchObject({
       title: exampleArticle.title,
       body: 'Other body',
+      tags: ['physics', 'programming'],
     })
   })
 

@@ -11,11 +11,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { slugify } from './slug.utils'
 import { Brackets } from 'typeorm/query-builder/Brackets'
 import { AuthorEntity, UserFollows } from '../authors/authors.entity'
 import { CommentEntity } from '../comments/comments.entity'
-import { ArticleFields, ArticleNotFound, Author } from './articles.service'
+import { ArticleNotFound, Author } from './articles.service'
 
 export class ArticleFinder {
   private readonly qb =
@@ -128,7 +127,7 @@ export class Tag extends BaseEntity {
 }
 
 const ARTICLES_TABLE = 'articles'
-const ARTICLES_HAVE_TAGS_JOIN_TABLE = 'articles_have_tags'
+export const ARTICLES_HAVE_TAGS_JOIN_TABLE = 'articles_have_tags'
 @Entity({ name: ARTICLES_TABLE })
 export class ArticleEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -169,48 +168,7 @@ export class ArticleEntity extends BaseEntity {
   @OneToMany(() => CommentEntity, (comment) => comment.article)
   comments: CommentEntity[]
 
-  private tagStrings: string[]
-
   get tags(): string[] {
     return this.tagList ? this.tagList.map((value) => value.name).sort() : []
-  }
-
-  private async persistTags() {
-    if (this.tagStrings) {
-      this.tagList = await Tag.getOrCreateFromNames(this.tagStrings)
-    }
-  }
-  publish(): this {
-    this.published = true
-    return this
-  }
-
-  unpublish(): this {
-    this.published = false
-    return this
-  }
-  async save() {
-    await this.persistTags()
-    await super.save()
-    return this
-  }
-
-  async delete() {
-    await this.remove()
-  }
-
-  loadData(data: ArticleFields) {
-    for (const key of ['title', 'description', 'body'] as const) {
-      if (data[key]) {
-        this[key] = data[key]
-      }
-    }
-    if (data.title) {
-      this.slug = slugify(data.title)
-    }
-    if (data.tags) {
-      this.tagStrings = [...new Set(data.tags)]
-    }
-    return this
   }
 }
