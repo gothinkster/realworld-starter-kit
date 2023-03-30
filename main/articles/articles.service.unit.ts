@@ -7,12 +7,12 @@ import {
   Sluged,
 } from './articles.service'
 import { DataSource } from 'typeorm'
-import { initializePostgresDataSource } from '../global/global.module'
+import { getPostgresDataSource } from '../global/global.module'
 import { AuthorsService } from '../authors/authors.service'
 
 let dataSource: DataSource
 beforeAll(async () => {
-  dataSource = await initializePostgresDataSource()
+  dataSource = await getPostgresDataSource().initialize()
 })
 
 afterAll(async () => {

@@ -8,30 +8,34 @@ import { AuthorEntity, UserFollows } from '../authors/authors.entity'
 import { CommentEntity } from '../comments/comments.entity'
 import { JWTAuthPassport } from '../nest/jwt.guard'
 
-export function initializePostgresDataSource() {
-  return new DataSource({
-    type: 'postgres',
-    url:
-      process.env.DB_URL ||
-      'postgres://postgres:postgres@localhost:5432/postgres',
-    entities: [
-      AccountEntity,
-      ArticleEntity,
-      AuthorEntity,
-      UserFollows,
-      CommentEntity,
-      Tag,
-    ],
-    namingStrategy: new SnakeNamingStrategy(),
-    synchronize: true,
-  }).initialize()
+let dataSource: DataSource
+export function getPostgresDataSource() {
+  if (!dataSource) {
+    dataSource = new DataSource({
+      type: 'postgres',
+      url:
+        process.env.DB_URL ||
+        'postgres://postgres:postgres@localhost:5432/postgres',
+      entities: [
+        AccountEntity,
+        ArticleEntity,
+        AuthorEntity,
+        UserFollows,
+        CommentEntity,
+        Tag,
+      ],
+      namingStrategy: new SnakeNamingStrategy(),
+      synchronize: true,
+    })
+  }
+  return dataSource
 }
 
 export const DATASOURCE_PROVIDER = 'DATASOURCE_PROVIDER'
 export const databaseProviders: Provider[] = [
   {
     provide: DATASOURCE_PROVIDER,
-    useFactory: initializePostgresDataSource,
+    useFactory: () => getPostgresDataSource().initialize(),
   },
 ]
 

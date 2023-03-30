@@ -1,7 +1,5 @@
 import {
   BaseEntity,
-  BeforeInsert,
-  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
@@ -17,12 +15,7 @@ import { slugify } from './slug.utils'
 import { Brackets } from 'typeorm/query-builder/Brackets'
 import { AuthorEntity, UserFollows } from '../authors/authors.entity'
 import { CommentEntity } from '../comments/comments.entity'
-import {
-  ArticleFields,
-  ArticleNotFound,
-  Author,
-  FullArticle,
-} from './articles.service'
+import { ArticleFields, ArticleNotFound, Author } from './articles.service'
 
 export class ArticleFinder {
   private readonly qb =
@@ -104,7 +97,8 @@ export class ArticleFinder {
   }
 }
 
-@Entity({ name: 'tags' })
+const TAGS_TABLE = 'tags'
+@Entity({ name: TAGS_TABLE })
 export class Tag extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
@@ -127,8 +121,10 @@ export class Tag extends BaseEntity {
   }
 }
 
-@Entity({ name: 'articles' })
-export class ArticleEntity extends BaseEntity implements FullArticle {
+const ARTICLES_TABLE = 'articles'
+const ARTICLES_HAVE_TAGS_JOIN_TABLE = 'articles_have_tags'
+@Entity({ name: ARTICLES_TABLE })
+export class ArticleEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -148,7 +144,7 @@ export class ArticleEntity extends BaseEntity implements FullArticle {
     cascade: ['insert'],
     eager: true,
   })
-  @JoinTable({ name: 'articles_have_tags' })
+  @JoinTable({ name: ARTICLES_HAVE_TAGS_JOIN_TABLE })
   tagList: Tag[]
 
   @CreateDateColumn()
@@ -161,25 +157,16 @@ export class ArticleEntity extends BaseEntity implements FullArticle {
   published: boolean = false
 
   @ManyToOne(() => AuthorEntity, (profile) => profile.articles)
+  @JoinTable({ name: 'author_id' })
   author: AuthorEntity
 
   @OneToMany(() => CommentEntity, (comment) => comment.article)
   comments: CommentEntity[]
 
-  @BeforeInsert()
-  @BeforeUpdate()
-  private slugify() {
-    this.slug = slugify(this.title)
-  }
-
   private tagStrings: string[]
 
   get tags(): string[] {
     return this.tagList ? this.tagList.map((value) => value.name).sort() : []
-  }
-
-  set tags(tags: string[]) {
-    this.tagStrings = [...new Set(tags)]
   }
 
   private async persistTags() {
@@ -206,14 +193,17 @@ export class ArticleEntity extends BaseEntity implements FullArticle {
     await this.remove()
   }
 
-  loadData(data: ArticleFields): this {
+  loadData(data: ArticleFields) {
     for (const key of ['title', 'description', 'body'] as const) {
       if (data[key]) {
         this[key] = data[key]
       }
     }
+    if (data.title) {
+      this.slug = slugify(data.title)
+    }
     if (data.tags) {
-      this.tags = data.tags
+      this.tagStrings = [...new Set(data.tags)]
     }
     return this
   }
