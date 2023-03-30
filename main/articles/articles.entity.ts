@@ -11,7 +11,6 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-  SelectQueryBuilder,
   UpdateDateColumn,
 } from 'typeorm'
 import { slugify } from './slug.utils'
@@ -26,12 +25,11 @@ import {
 } from './articles.service'
 
 export class ArticleFinder {
-  private readonly qb: SelectQueryBuilder<ArticleEntity>
-  slug: string
+  private readonly qb =
+    ArticleEntity.createQueryBuilder('article').where('true')
+  private slug: string
 
-  constructor(private page = { take: 20, skip: 0 }) {
-    this.qb = ArticleEntity.createQueryBuilder('article').where('true')
-  }
+  constructor(private page = { take: 20, skip: 0 }) {}
 
   filterBySlug(slug: string) {
     this.qb.andWhere({ slug: slug })
@@ -83,18 +81,18 @@ export class ArticleFinder {
     return this
   }
 
-  private finalize(): this {
+  private finalizeSelectQuery() {
     this.qb
       .leftJoinAndSelect(`${this.qb.alias}.tagList`, 'tags')
       .leftJoinAndSelect(`${this.qb.alias}.author`, 'authors')
       .take(this.page?.take || 20)
       .skip(this.page?.skip || 0)
       .orderBy(`${this.qb.alias}.createdAt`, 'DESC')
-    return this
+    return this.qb
   }
 
   async getOne(): Promise<ArticleEntity> {
-    const article = await this.finalize().qb.getOne()
+    const article = await this.finalizeSelectQuery().getOne()
     if (!article) {
       throw new ArticleNotFound(this.slug)
     }
@@ -102,7 +100,7 @@ export class ArticleFinder {
   }
 
   async getMany(): Promise<ArticleEntity[]> {
-    return await this.finalize().qb.getMany()
+    return await this.finalizeSelectQuery().getMany()
   }
 }
 
@@ -214,7 +212,9 @@ export class ArticleEntity extends BaseEntity implements FullArticle {
         this[key] = data[key]
       }
     }
-    this.tags = data.tags ?? this.tags
+    if (data.tags) {
+      this.tags = data.tags
+    }
     return this
   }
 }
