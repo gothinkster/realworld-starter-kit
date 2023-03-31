@@ -129,42 +129,55 @@ export class ContentManagementSystem {
       .andWhere('articles.author_id = :authorId', { authorId: this.author.id })
   }
 
-  private async _updateArticleTagsReturning(
+  private async updateArticleTagsReturning(
     articleId: number,
-    tags?: string[],
+    inputTags?: string[],
   ) {
-    if (!tags) {
-      return await Tag.createQueryBuilder('tags')
-        .select('tags.name')
-        .leftJoin(ARTICLES_HAVE_TAGS_JOIN_TABLE, 'aht', 'aht.tags_id = tags.id')
-        .where('aht.articles_id = :articleId', { articleId })
-        .getMany()
-        .then((r) => r.map((t) => t.name))
+    const currentTagEntities = await Tag.createQueryBuilder('tags')
+      .select('tags.name')
+      .leftJoin(ARTICLES_HAVE_TAGS_JOIN_TABLE, 'aht', 'aht.tags_id = tags.id')
+      .where('aht.articles_id = :articleId', { articleId })
+      .getMany()
+    const currentTagStrings = currentTagEntities.map((t) => t.name)
+
+    if (!inputTags) {
+      return currentTagStrings
     }
 
-    const tagEntities = await Tag.getOrCreateFromNames(tags)
+    const toDelete = currentTagEntities.filter(
+      (t) => !inputTags.includes(t.name),
+    )
+    if (toDelete.length > 0) {
+      await Tag.createQueryBuilder('aht')
+        .delete()
+        .from(ARTICLES_HAVE_TAGS_JOIN_TABLE)
+        .where('articles_id = :articleId AND tags_id IN (:...tagIds)', {
+          articleId,
+          tagIds: toDelete.map((t) => t.id),
+        })
+        .execute()
+    }
 
-    await Tag.createQueryBuilder('aht')
-      .delete()
-      .from(ARTICLES_HAVE_TAGS_JOIN_TABLE)
-      .where('articles_id = :articleId', { articleId })
-      .execute()
+    const toInsert = await Tag.getOrCreateFromNames(
+      inputTags.filter((t) => !currentTagStrings.includes(t)),
+    )
+    if (toInsert.length > 0) {
+      await Tag.createQueryBuilder('aht')
+        .insert()
+        .into(ARTICLES_HAVE_TAGS_JOIN_TABLE)
+        .values(
+          toInsert.map((tag) => ({
+            articles_id: articleId,
+            tags_id: tag.id,
+          })),
+        )
+        .execute()
+    }
 
-    await Tag.createQueryBuilder('aht')
-      .insert()
-      .into(ARTICLES_HAVE_TAGS_JOIN_TABLE)
-      .values(
-        tagEntities.map((tag) => ({
-          articles_id: articleId,
-          tags_id: tag.id,
-        })),
-      )
-      .execute()
-
-    return tags
+    return inputTags
   }
 
-  private async _updateArticle(
+  private async updateArticleFields(
     slug: string,
     snapshot: ArticleFields & {
       published?: boolean
@@ -193,7 +206,7 @@ export class ContentManagementSystem {
     return {
       ...article,
       author: this.author,
-      tags: await this._updateArticleTagsReturning(article.id, snapshot.tags),
+      tags: await this.updateArticleTagsReturning(article.id, snapshot.tags),
     }
   }
 
@@ -201,7 +214,7 @@ export class ContentManagementSystem {
     slug: string,
     snapshot: ArticleFields,
   ): Promise<FullArticle> {
-    return await this._updateArticle(slug, snapshot)
+    return await this.updateArticleFields(slug, snapshot)
   }
 
   async deleteArticle(slug: string): Promise<void> {
@@ -214,11 +227,11 @@ export class ContentManagementSystem {
   }
 
   async publishArticle(slug: string): Promise<FullArticle> {
-    return await this._updateArticle(slug, { published: true })
+    return await this.updateArticleFields(slug, { published: true })
   }
 
   async unpublishArticle(slug: string): Promise<FullArticle> {
-    return await this._updateArticle(slug, { published: false })
+    return await this.updateArticleFields(slug, { published: false })
   }
 }
 

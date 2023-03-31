@@ -130,7 +130,7 @@ describe('Article', () => {
     expect(article.tags).toEqual(['food', 'physics'])
   })
 
-  it.skip('should return article by tag', async () => {
+  it('should return article by tag', async () => {
     // Arrange
     const example = { ...exampleArticle, tags: ['programming', 'physics'] }
     const cms = service.getCMS(author)
