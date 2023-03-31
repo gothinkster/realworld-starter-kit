@@ -1,4 +1,4 @@
-package com.softwaremill.realworld.articles
+package com.softwaremill.realworld.articles.model
 
 import java.time.Instant
 

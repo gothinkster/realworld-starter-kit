@@ -1,6 +1,7 @@
 package com.softwaremill.realworld.common
 import com.softwaremill.realworld.articles.ArticlesEndpointsSpec.{suite, test}
-import com.softwaremill.realworld.articles.{Article, ArticleAuthor, ArticleData}
+import com.softwaremill.realworld.articles.model.{Article, ArticleAuthor, ArticleData}
+import com.softwaremill.realworld.articles.model
 import com.softwaremill.realworld.users.{User, UserData}
 import zio.json.*
 import zio.test.*

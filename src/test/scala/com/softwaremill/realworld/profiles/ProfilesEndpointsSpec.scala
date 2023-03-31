@@ -2,15 +2,8 @@ package com.softwaremill.realworld.profiles
 
 import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.common.{BaseEndpoints, Configuration}
-import com.softwaremill.realworld.common.TestUtils.{
-  clearDb,
-  testDbConfigLayer,
-  validAuthorizationHeader,
-  withEmptyDb,
-  withFixture,
-  zioTapirStubInterpreter
-}
 import com.softwaremill.realworld.users.UsersRepository
+import com.softwaremill.realworld.utils.TestUtils.*
 import sttp.client3.*
 import sttp.client3.ziojson.*
 import sttp.model.StatusCode
@@ -28,13 +21,10 @@ object ProfilesEndpointsSpec extends ZIOSpecDefault:
             .service[ProfilesEndpoints]
             .map(_.getProfile)
             .flatMap { endpoint =>
-              val backendStub = zioTapirStubInterpreter
-                .whenServerEndpointRunLogic(endpoint)
-                .backend()
               basicRequest
                 .get(uri"http://test.com/api/profiles/jake")
                 .response(asJson[Profile])
-                .send(backendStub)
+                .send(backendStub(endpoint))
                 .map(_.body)
             }
         )(isLeft(isSubtype[HttpError[_]](hasField("statusCode", _.statusCode, equalTo(StatusCode.Unauthorized)))))
@@ -45,13 +35,10 @@ object ProfilesEndpointsSpec extends ZIOSpecDefault:
             .service[ProfilesEndpoints]
             .map(_.followUser)
             .flatMap { endpoint =>
-              val backendStub = zioTapirStubInterpreter
-                .whenServerEndpointRunLogic(endpoint)
-                .backend()
               basicRequest
                 .post(uri"http://test.com/api/profiles/jake/follow")
                 .response(asJson[Profile])
-                .send(backendStub)
+                .send(backendStub(endpoint))
                 .map(_.body)
             }
         )(isLeft(isSubtype[HttpError[_]](hasField("statusCode", _.statusCode, equalTo(StatusCode.Unauthorized)))))
@@ -62,13 +49,10 @@ object ProfilesEndpointsSpec extends ZIOSpecDefault:
             .service[ProfilesEndpoints]
             .map(_.unfollowUser)
             .flatMap { endpoint =>
-              val backendStub = zioTapirStubInterpreter
-                .whenServerEndpointRunLogic(endpoint)
-                .backend()
               basicRequest
                 .delete(uri"http://test.com/api/profiles/john/follow")
                 .response(asJson[Profile])
-                .send(backendStub)
+                .send(backendStub(endpoint))
                 .map(_.body)
             }
         )(isLeft(isSubtype[HttpError[_]](hasField("statusCode", _.statusCode, equalTo(StatusCode.Unauthorized)))))
@@ -81,14 +65,11 @@ object ProfilesEndpointsSpec extends ZIOSpecDefault:
             .service[ProfilesEndpoints]
             .map(_.getProfile)
             .flatMap { endpoint =>
-              val backendStub = zioTapirStubInterpreter
-                .whenServerEndpointRunLogic(endpoint)
-                .backend()
               basicRequest
                 .get(uri"http://test.com/api/profiles/jake")
                 .headers(validAuthorizationHeader("john@example.com"))
                 .response(asJson[Profile])
-                .send(backendStub)
+                .send(backendStub(endpoint))
                 .map(_.body)
             }
         )(
@@ -110,14 +91,11 @@ object ProfilesEndpointsSpec extends ZIOSpecDefault:
             .service[ProfilesEndpoints]
             .map(_.followUser)
             .flatMap { endpoint =>
-              val backendStub = zioTapirStubInterpreter
-                .whenServerEndpointRunLogic(endpoint)
-                .backend()
               basicRequest
                 .post(uri"http://test.com/api/profiles/john/follow")
                 .response(asJson[Profile])
                 .headers(validAuthorizationHeader())
-                .send(backendStub)
+                .send(backendStub(endpoint))
                 .map(_.body)
             }
         )(
@@ -139,14 +117,11 @@ object ProfilesEndpointsSpec extends ZIOSpecDefault:
             .service[ProfilesEndpoints]
             .map(_.unfollowUser)
             .flatMap { endpoint =>
-              val backendStub = zioTapirStubInterpreter
-                .whenServerEndpointRunLogic(endpoint)
-                .backend()
               basicRequest
                 .delete(uri"http://test.com/api/profiles/john/follow")
                 .response(asJson[Profile])
                 .headers(validAuthorizationHeader("john@example.com"))
-                .send(backendStub)
+                .send(backendStub(endpoint))
                 .map(_.body)
             }
         )(

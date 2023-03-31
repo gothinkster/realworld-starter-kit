@@ -1,9 +1,10 @@
 package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.articles.ArticlesEndpoints.{*, given}
+import com.softwaremill.realworld.articles.model.{ArticleAuthor, ArticleData, ArticleRow}
 import com.softwaremill.realworld.common.Exceptions.AlreadyInUse
 import com.softwaremill.realworld.common.Pagination
-import com.softwaremill.realworld.common.TestUtils.*
+import com.softwaremill.realworld.utils.TestUtils.*
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import org.sqlite.{SQLiteErrorCode, SQLiteException}
 import sttp.client3.testing.SttpBackendStub

@@ -1,6 +1,7 @@
 package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.articles.*
+import com.softwaremill.realworld.articles.model.{Article, ArticleCreate, ArticleData, ArticleUpdate}
 import com.softwaremill.realworld.common.*
 import com.softwaremill.realworld.db.{Db, DbConfig}
 import com.softwaremill.realworld.http.ErrorMapper.defaultErrorsMappings

@@ -1,16 +1,17 @@
-package com.softwaremill.realworld.common
+package com.softwaremill.realworld.utils
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.softwaremill.realworld.auth.AuthService
-import com.softwaremill.realworld.common.TestUtils.TestDbLayer
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
+import com.softwaremill.realworld.utils.TestUtils.TestDbLayer
 import com.softwaremill.realworld.{CustomDecodeFailureHandler, DefectHandler}
 import io.getquill.{SnakeCase, SqliteZioJdbcContext}
+import sttp.client3.SttpBackend
 import sttp.client3.testing.SttpBackendStub
 import sttp.tapir.server.stub.TapirStubInterpreter
 import sttp.tapir.server.ziohttp.ZioHttpServerOptions
-import sttp.tapir.ztapir.RIOMonadError
+import sttp.tapir.ztapir.{RIOMonadError, ZServerEndpoint}
 import zio.test.TestRandom
 import zio.{RIO, Random, Task, UIO, ZIO, ZLayer}
 
@@ -31,6 +32,12 @@ object TestUtils:
         .decodeFailureHandler(CustomDecodeFailureHandler.create()),
       SttpBackendStub(new RIOMonadError[Any])
     )
+
+  def backendStub(endpoint: ZServerEndpoint[Any, Any]) =
+    zioTapirStubInterpreter
+      .whenServerEndpoint(endpoint)
+      .thenRunLogic()
+      .backend()
 
   type TestDbLayer = DbConfig with DataSource with DbMigrator with SqliteZioJdbcContext[SnakeCase]
 

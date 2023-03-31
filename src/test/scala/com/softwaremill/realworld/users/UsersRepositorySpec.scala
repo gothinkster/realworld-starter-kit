@@ -2,7 +2,7 @@ package com.softwaremill.realworld.users
 
 import com.softwaremill.diffx.{Diff, compare}
 import com.softwaremill.realworld.common.Pagination
-import com.softwaremill.realworld.common.TestUtils.*
+import com.softwaremill.realworld.utils.TestUtils.*
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
 import sttp.client3.testing.SttpBackendStub
 import sttp.client3.ziojson.*
@@ -57,7 +57,7 @@ object UsersRepositorySpec extends ZIOSpecDefault:
           result <- repo.findUserWithPasswordByEmail("admin@example.com")
         } yield assertTrue {
           // TODO there must be better way to implement this...
-          import com.softwaremill.realworld.common.UserWithPasswordDiff.{*, given}
+          import com.softwaremill.realworld.common.model.UserWithPasswordDiff.{*, given}
           compare(
             result.get,
             UserWithPassword(

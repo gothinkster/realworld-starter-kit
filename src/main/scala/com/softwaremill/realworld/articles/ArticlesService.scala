@@ -1,5 +1,6 @@
 package com.softwaremill.realworld.articles
 
+import com.softwaremill.realworld.articles.model.{ArticleCreateData, ArticleData, ArticleRow, ArticleUpdateData}
 import com.softwaremill.realworld.common.Exceptions.{NotFound, Unauthorized}
 import com.softwaremill.realworld.common.{Exceptions, Pagination}
 import com.softwaremill.realworld.profiles.ProfileRow
