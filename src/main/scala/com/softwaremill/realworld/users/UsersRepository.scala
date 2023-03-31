@@ -3,10 +3,13 @@ package com.softwaremill.realworld.users
 import com.softwaremill.realworld.common.Exceptions
 import com.softwaremill.realworld.users.UserMapper.{toUserData, toUserDataWithPassword}
 import io.getquill.*
-import zio.{Console, IO, UIO, ZIO, ZLayer}
+import org.sqlite.SQLiteErrorCode.SQLITE_CONSTRAINT_UNIQUE
+import org.sqlite.SQLiteException
+import zio.{Console, IO, RIO, Task, UIO, ZIO, ZLayer}
 
 import java.sql.SQLException
 import javax.sql.DataSource
+import scala.util.chaining.*
 
 class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSource):
 
@@ -46,7 +49,7 @@ class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSo
     .map(_.map(toUserDataWithPassword))
     .provide(dsLayer)
 
-  def add(user: UserRegisterData): IO[Exception, Unit] = run(
+  def add(user: UserRegisterData): Task[Unit] = run(
     queryUser
       .insert(
         _.email -> lift(user.email),
@@ -54,9 +57,10 @@ class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSo
         _.password -> lift(user.password)
       )
   ).unit
+    .pipe(mapUniqueConstraintViolationError)
     .provide(dsLayer)
 
-  def updateByEmail(updateData: UserUpdateData, email: String): IO[Exception, UserUpdateData] = run(
+  def updateByEmail(updateData: UserUpdateData, email: String): Task[UserUpdateData] = run(
     queryUser
       .filter(_.email == lift(email))
       .update(
@@ -67,8 +71,14 @@ class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSo
         record => record.image -> lift(updateData.image)
       )
   ).map(_ => updateData)
-    .mapError(_ => Exceptions.AlreadyInUse("E-mail already in use!"))
+    .pipe(mapUniqueConstraintViolationError)
     .provide(dsLayer)
+
+  private def mapUniqueConstraintViolationError[R, A](task: RIO[R, A]): RIO[R, A] = task.mapError {
+    case e: SQLiteException if e.getResultCode == SQLITE_CONSTRAINT_UNIQUE =>
+      Exceptions.AlreadyInUse("Given user data is already in use")
+    case e => e
+  }
 
 object UsersRepository:
 

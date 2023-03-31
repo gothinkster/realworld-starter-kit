@@ -2,6 +2,8 @@ INSERT INTO users
 VALUES (10, 'jake@example.com', 'jake', 'secret password', 'I work at statefarm', 'https://i.stack.imgur.com/xHWG8.jpg'),
        (20, 'john@example.com', 'john', 'secret password', 'I no longer work at statefarm', 'https://i.stack.imgur.com/xHWG8.jpg');
 
+INSERT INTO followers (user_id, follower_id) VALUES (10, 20); 
+
 INSERT INTO articles
 VALUES ('how-to-train-your-dragon', 'How to train your dragon', 'Ever wonder how?', 'It takes a Jacobian',
         1455765776637, 1455767315824, 10),

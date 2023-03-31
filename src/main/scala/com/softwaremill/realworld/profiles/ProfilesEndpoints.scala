@@ -13,7 +13,7 @@ import scala.util.chaining.*
 
 class ProfilesEndpoints(base: BaseEndpoints, profilesService: ProfilesService) {
 
-  private val getProfile: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
+  private[profiles] val getProfile: ZServerEndpoint[Any, Any] = base.secureEndpoint.get
     .in("api" / "profiles" / path[String]("username"))
     .out(jsonBody[Profile])
     .serverLogic { session => username =>
@@ -22,7 +22,7 @@ class ProfilesEndpoints(base: BaseEndpoints, profilesService: ProfilesService) {
         .pipe(defaultErrorsMappings)
     }
 
-  private val followUser: ZServerEndpoint[Any, Any] = base.secureEndpoint.post
+  private[profiles] val followUser: ZServerEndpoint[Any, Any] = base.secureEndpoint.post
     .in("api" / "profiles" / path[String]("username") / "follow")
     .out(jsonBody[Profile])
     .serverLogic { session => username =>
@@ -31,7 +31,7 @@ class ProfilesEndpoints(base: BaseEndpoints, profilesService: ProfilesService) {
         .pipe(defaultErrorsMappings)
     }
 
-  private val unfollowUser: ZServerEndpoint[Any, Any] = base.secureEndpoint.delete
+  private[profiles] val unfollowUser: ZServerEndpoint[Any, Any] = base.secureEndpoint.delete
     .in("api" / "profiles" / path[String]("username") / "follow")
     .out(jsonBody[Profile])
     .serverLogic { session => username =>
