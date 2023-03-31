@@ -40,9 +40,11 @@ export class ArticleFinder {
     if (tags && tags !== []) {
       this.qb.andWhere(
         `${this.qb.alias}.id IN (
-      SELECT aht.${ARTICLES_TABLE}_id FROM ${ARTICLES_HAVE_TAGS_JOIN_TABLE} AS aht WHERE aht.${TAGS_TABLE}_id IN (
-      SELECT t.id FROM ${TAGS_TABLE} AS t WHERE t.name IN (:...tags)
-      ))`,
+SELECT aht.${ARTICLES_TABLE}_id
+FROM ${ARTICLES_HAVE_TAGS_JOIN_TABLE} AS aht
+WHERE aht.${TAGS_TABLE}_id IN (
+  SELECT t.id FROM ${TAGS_TABLE} AS t WHERE t.name IN (:...tags)
+))`,
         { tags: tags },
       )
     }
