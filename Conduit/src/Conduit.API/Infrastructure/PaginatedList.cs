@@ -11,4 +11,13 @@ public class PaginatedList<T>
         TotalCount = count;
         Items = items;
     }
+
+    public static PaginatedList<T> Empty => EmptyPaginatedList<T>.Instance;   
+}
+
+internal sealed class EmptyPaginatedList<T>
+{
+    private EmptyPaginatedList() { }
+
+    public static readonly PaginatedList<T> Instance = new(new List<T>(), 0);
 }

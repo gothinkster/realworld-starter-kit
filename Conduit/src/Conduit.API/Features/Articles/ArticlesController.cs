@@ -17,9 +17,28 @@ public class ArticlesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get([FromQuery] int? limit, [FromQuery] int? offset, CancellationToken cancellationToken)
+    public async Task<IActionResult> Get(
+        [FromQuery] string tag, 
+        [FromQuery] string author, 
+        [FromQuery] string favorited, 
+        [FromQuery] int? limit, 
+        [FromQuery] int? offset, 
+        CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new ListQuery(limit, offset), cancellationToken);
+        var result = await _mediator.Send(new ListQuery(tag, author, favorited, limit, offset), cancellationToken);
+        return Ok(result);
+    }
+
+    [HttpGet("feed")]
+    public async Task<IActionResult> Feed(
+        [FromQuery] string tag,
+        [FromQuery] string author,
+        [FromQuery] string favorited,
+        [FromQuery] int? limit,
+        [FromQuery] int? offset,
+        CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(new ListQuery(tag, author, favorited, limit, offset) { IsFeed = true}, cancellationToken);
         return Ok(result);
     }
 
