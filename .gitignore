@@ -33,6 +33,7 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/sbt_run.log
 
 # build tool specific entries
 .bloop
@@ -43,3 +44,4 @@ project/project
 
 *.sqlite
 /http_requests/http-client.private.env.json
+/postman_collections/Conduit.postman_collection.json

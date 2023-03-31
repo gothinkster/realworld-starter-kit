@@ -21,3 +21,7 @@ jobs:
       - name: Test
         id: test
         run: sbt -v test
+      - name: Postman tests
+        id: postman-tests
+        run: ./run-postman-tests.sh
+        shell: bash

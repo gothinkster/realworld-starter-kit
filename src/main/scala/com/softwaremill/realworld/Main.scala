@@ -40,8 +40,9 @@ object Main extends ZIOAppDefault:
       _ <- migrator.migrate()
       endpoints <- ZIO.service[Endpoints]
       actualPort <- Server.install(ZioHttpInterpreter(options).toApp(endpoints.endpoints))
-      _ <- Console.printLine(s"Go to http://localhost:$actualPort/docs to open SwaggerUI. Press ENTER key to exit.")
-      _ <- Console.readLine
+      _ <- Console.printLine(s"Application realworld-tapir-zio started")
+      _ <- Console.printLine(s"Go to http://localhost:$actualPort/docs to open SwaggerUI")
+      _ <- ZIO.never
     yield ())
       .provide(
         Configuration.live,
