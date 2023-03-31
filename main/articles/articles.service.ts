@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import {
   ArticleEntity,
   ArticleFinder,
@@ -23,7 +23,13 @@ export interface Author {
 
 @Injectable()
 export class ArticlesService {
-  constructor(private readonly authorsService?: AuthorsService) {}
+  constructor(
+    @Inject(AuthorsService)
+    private readonly authorsService: Pick<
+      AuthorsService,
+      'getAuthorByUsername'
+    >,
+  ) {}
 
   getCMS(author: Author): ContentManagementSystem {
     return new ContentManagementSystem(author)
@@ -60,7 +66,7 @@ export interface ArticleFilters {
 
 export class ArticleView {
   constructor(
-    private authorsService?: AuthorsService,
+    private authorsService: Pick<AuthorsService, 'getAuthorByUsername'>,
     private author?: Author,
   ) {}
 
@@ -88,7 +94,7 @@ export class ArticleView {
 
     if (filters.author) {
       try {
-        const author = await this.authorsService?.getAuthorByUsername(
+        const author = await this.authorsService.getAuthorByUsername(
           filters.author,
         )
         finder.filterByAuthor(author)

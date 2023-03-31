@@ -8,7 +8,8 @@ import {
 } from './articles.service'
 import { DataSource } from 'typeorm'
 import { getPostgresDataSource } from '../global/global.module'
-import { AuthorsService } from '../authors/authors.service'
+import { AuthorNotFound, AuthorsService } from '../authors/authors.service'
+import { AuthorEntity } from '../authors/authors.entity'
 
 let dataSource: DataSource
 beforeAll(async () => {
@@ -33,11 +34,20 @@ beforeEach(async () => {
     tags: ['dragons', 'friendship'],
     slug: `how-to-train-your-dragon-${testRandomNumber}`,
   }
+
   author = await new AuthorsService().createUserAuthorProfile(
     { id: testRandomNumber },
     { username: `john-doe-${testRandomNumber}` },
   )
-  service = new ArticlesService()
+
+  service = new ArticlesService({
+    getAuthorByUsername: async (username) => {
+      if (username !== `john-doe-${testRandomNumber}`) {
+        throw new AuthorNotFound(username)
+      }
+      return author as unknown as AuthorEntity
+    },
+  })
 })
 
 describe('Article', () => {
@@ -142,7 +152,17 @@ describe('Article', () => {
       .getArticlesByFilters({ tags: ['programming'] })
 
     // Assert
-    expect(articles[0].tags.sort()).toEqual(['programming', 'physics'].sort())
+    expect(articles).toContainEqual(
+      expect.objectContaining({
+        ...example,
+        tags: ['physics', 'programming'],
+        createdAt: expect.any(Date),
+        updatedAt: expect.any(Date),
+        author: expect.objectContaining({
+          username: `john-doe-${testRandomNumber}`,
+        }),
+      }),
+    )
   })
 })
 
