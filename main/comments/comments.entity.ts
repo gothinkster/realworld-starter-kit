@@ -18,10 +18,14 @@ export class CommentEntity extends BaseEntity {
   @Column({ type: 'text', nullable: false })
   body: string
 
-  @ManyToOne(() => AuthorEntity, (profile) => profile.comments)
+  @ManyToOne(() => AuthorEntity, (profile) => profile.comments, {
+    nullable: false,
+  })
   author: AuthorEntity
 
-  @ManyToOne(() => ArticleEntity, (article) => article.comments)
+  @ManyToOne(() => ArticleEntity, (article) => article.comments, {
+    nullable: false,
+  })
   article: ArticleEntity
 
   @CreateDateColumn()

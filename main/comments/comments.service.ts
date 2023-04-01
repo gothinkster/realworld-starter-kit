@@ -1,24 +1,25 @@
-import { Injectable } from '@nestjs/common'
 import { ArticlesService, Author } from '../articles/articles.service'
 import { CommentEntity } from './comments.entity'
+import { Injectable } from '@nestjs/common'
+
+export type Comment = {
+  id: number
+  body: string
+  createdAt: Date
+  updatedAt: Date
+}
 
 @Injectable()
 export class CommentsService {
   constructor(private articlesService: ArticlesService) {}
 
-  async commentArticle(parameters: {
-    me: Author
-    body: string
-    slug: string
-  }): Promise<CommentEntity> {
-    const article = await this.articlesService
-      .getView(parameters.me)
-      .getArticle(parameters.slug)
-    return await CommentEntity.create({
-      body: parameters.body,
-      author: parameters.me,
+  async commentArticle(me: Author, slug: string, body: string) {
+    const article = await this.articlesService.getView(me).getArticle(slug)
+    return (await CommentEntity.create({
+      body,
+      author: me,
       article: article,
-    }).save()
+    }).save()) as Comment
   }
 
   async getCommentsFromArticle(
@@ -27,26 +28,36 @@ export class CommentsService {
       take: number
       skip: number
     },
-  ): Promise<CommentEntity[]> {
-    const article = await this.articlesService.getView().getArticle(slug)
+  ) {
     return await CommentEntity.createQueryBuilder('comment')
       .take(pagination.take)
       .skip(pagination.skip)
       .orderBy('comment.createdAt', 'DESC')
-      .where({ article: article })
+      .where(
+        `comment.article_id IN (SELECT articles.id FROM articles WHERE articles.slug = :slug)`,
+        { slug },
+      )
       .leftJoinAndSelect('comment.author', 'author')
       .getMany()
   }
 
-  async deleteCommentFromArticle(
-    id: number,
-    slug: string,
-    me: Author,
-  ): Promise<void> {
-    const article = await this.articlesService.getView(me).getArticle(slug)
-    await CommentEntity.createQueryBuilder('comment')
+  async deleteCommentFromArticle(id: number, slug: string, me: Author) {
+    const result = await CommentEntity.createQueryBuilder('comment')
       .delete()
-      .where({ article: article, author: me, id: id })
+      .where({ id, author: { id: me.id } })
+      .andWhere(
+        `comment.article_id IN (SELECT articles.id FROM articles WHERE articles.slug = :slug)`,
+        { slug },
+      )
       .execute()
+    if (result.affected === 0) {
+      throw new CommentNotFoundException(id, slug)
+    }
+  }
+}
+
+export class CommentNotFoundException extends Error {
+  constructor(id: number, slug: string) {
+    super(`Comment with id ${id} not found in article with slug ${slug}`)
   }
 }

@@ -62,14 +62,13 @@ export class UserRestDriver implements UserDriver {
     const response = await this.axios.post('articles', {
       article: article,
     })
-    expect(response.data).toMatchObject({
-      article: { ...article, tags: article.tags.sort() },
-    })
+    APISpecValidations.validateCreateArticleResponse(response)
     return response.data.article.slug
   }
 
   async deleteArticle(slug: string) {
     const response = await this.axios.delete(`articles/${slug}`)
+    APISpecValidations.validateDeleteArticleResponse(response)
     expect(response.status).toBe(204)
   }
 
@@ -80,7 +79,7 @@ export class UserRestDriver implements UserDriver {
         tags: filters.tags?.join(','),
       },
     })
-    APISpec.validateArticlesResponse(response)
+    APISpecValidations.validateGetArticlesResponse(response)
     return response.data.articles
   }
 
@@ -112,12 +111,13 @@ export class UserRestDriver implements UserDriver {
     const response = await this.axios.post(`articles/${slug}/comments`, {
       comment: { body: comment },
     })
+    APISpecValidations.validateCreateCommentResponse(response)
     expect(response.status).toBe(201)
   }
 
   private async getFeed() {
     const response = await this.axios.get(`articles/feed`)
-    APISpec.validateFeedResponse(response)
+    APISpecValidations.validateGetArticlesResponse(response)
     return response.data.articles
   }
 
@@ -133,71 +133,85 @@ export class UserRestDriver implements UserDriver {
 
   private async getArticle(slug: string) {
     const response = await this.axios.get(`articles/${slug}`)
-
-    expect(response.status).not.toBe(500)
-
+    APISpecValidations.validateGetArticleResponse(response)
     return response
   }
 
   async shouldFindTheArticle(slug: string) {
     const response = await this.getArticle(slug)
-
-    expect(response.status).toBe(200)
-    expect(response.data.article).toBeTruthy()
+    expect(response.data.article.slug).toEqual(slug)
   }
 
   async shouldNotFindTheArticle(slug: string) {
     const response = await this.getArticle(slug)
-
-    expect(response.status).toBe(404)
-    expect(response.data.article).toBeFalsy()
+    expect(response.data.article).toBeUndefined()
   }
 
   async shouldSeeCommentFrom(slug: string, username: string) {
     const response = await this.axios.get(`articles/${slug}/comments`)
-
-    expect(response.status).toBe(200)
+    APISpecValidations.validateGetCommentsResponse(response)
     expect(response.data.comments.map((v) => v.author.username)).toContainEqual(
       username,
     )
   }
 }
 
-class APISpec {
-  static validateArticlesResponse(response) {
+class APISpecValidations {
+  private static readonly validAuthor = {
+    username: expect.any(String),
+    bio: expect.any(String),
+    image: expect.any(String),
+  }
+
+  private static readonly validArticle = {
+    slug: expect.any(String),
+    title: expect.any(String),
+    description: expect.any(String),
+    body: expect.any(String),
+    tags: expect.arrayContaining([expect.any(String)]),
+    createdAt: expect.stringMatching(
+      /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/,
+    ),
+    updatedAt: expect.stringMatching(
+      /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/,
+    ),
+    author: APISpecValidations.validAuthor,
+    links: {
+      self: expect.any(String),
+      author: expect.any(String),
+      comments: expect.any(String),
+    },
+  }
+
+  private static readonly validComment = {
+    id: expect.any(Number),
+    createdAt: expect.stringMatching(
+      /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/,
+    ),
+    updatedAt: expect.stringMatching(
+      /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/,
+    ),
+    body: expect.any(String),
+    author: APISpecValidations.validAuthor,
+    links: {
+      article: expect.any(String),
+      author: expect.any(String),
+    },
+  }
+
+  static validateGetArticlesResponse(response) {
     expect(response.status).toEqual(200)
 
     if (response.data.articles.length > 0) {
       expect(response.data).toEqual({
-        articles: expect.arrayContaining([
-          {
-            slug: expect.any(String),
-            title: expect.any(String),
-            description: expect.any(String),
-            body: expect.any(String),
-            tags: expect.arrayContaining([expect.any(String)]),
-            createdAt: expect.stringMatching(
-              /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/,
-            ),
-            updatedAt: expect.stringMatching(
-              /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/,
-            ),
-            author: {
-              username: expect.any(String),
-              bio: expect.any(String),
-              image: expect.any(String),
-            },
-            links: {
-              self: expect.any(String),
-              author: expect.any(String),
-              comments: expect.any(String),
-            },
-          },
-        ]),
+        articles: expect.any(Array),
         links: {
           next: expect.any(String),
         },
       })
+      for (const article of response.data.articles) {
+        expect(article).toEqual(this.validArticle)
+      }
     } else {
       expect(response.data).toEqual({
         articles: [],
@@ -206,7 +220,48 @@ class APISpec {
     }
   }
 
-  static validateFeedResponse(response) {
-    return this.validateArticlesResponse(response)
+  static validateGetArticleResponse(response) {
+    expect([200, 404]).toContain(response.status)
+    if (response.status === 404) {
+      expect(response.data.article).toBeUndefined()
+    }
+    if (response.status === 200) {
+      expect(response.data.article).toEqual(this.validArticle)
+    }
+  }
+
+  static validateCreateArticleResponse(response) {
+    expect(response.status).toEqual(201)
+    expect(response.data.article).toEqual(this.validArticle)
+  }
+
+  static validateDeleteArticleResponse(response) {
+    expect(response.status).toEqual(204)
+    expect(response.data.article).toBeUndefined()
+  }
+
+  static validateGetCommentsResponse(response) {
+    expect(response.status).toEqual(200)
+    if (response.data.comments.length > 0) {
+      expect(response.data).toEqual({
+        comments: expect.any(Array),
+        links: {
+          next: expect.any(String),
+        },
+      })
+      for (const comment of response.data.comments) {
+        expect(comment).toEqual(this.validComment)
+      }
+    } else {
+      expect(response.data).toEqual({
+        comments: [],
+        links: {},
+      })
+    }
+  }
+
+  static validateCreateCommentResponse(response) {
+    expect(response.status).toEqual(201)
+    expect(response.data.comment).toEqual(this.validComment)
   }
 }

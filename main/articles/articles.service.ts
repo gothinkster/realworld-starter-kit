@@ -211,6 +211,8 @@ export class ContentManagementSystem {
 
     return {
       ...article,
+      createdAt: article.created_at,
+      updatedAt: article.updated_at,
       author: this.author,
       tags: await this.updateArticleTagsReturning(article.id, snapshot.tags),
     }

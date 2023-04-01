@@ -22,11 +22,10 @@ import {
   ApiTags,
 } from '@nestjs/swagger'
 
-import { CommentsService } from './comments.service'
+import { Comment, CommentsService } from './comments.service'
 import { buildUrlToPath } from '../nest/url'
 import { JWTAuthGuard } from '../nest/jwt.guard'
 import { validateModel } from '../nest/validation.utils'
-import { CommentEntity } from './comments.entity'
 import {
   createAuthorDTO,
   ProfileResponseDTO,
@@ -39,7 +38,7 @@ import {
 import { Type } from 'class-transformer'
 import { Slug } from '../articles/articles.controller'
 import { Pagination } from '../nest/pagination'
-import { AuthorsService } from '../authors/authors.service'
+import { AuthorsService, Profile } from '../authors/authors.service'
 
 export class CommentDTO {
   @ApiProperty({
@@ -114,13 +113,13 @@ export class CommentsController {
     @Body(validateModel()) body: CreateCommentBody,
   ): Promise<CommentResponseBody> {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
-    const comment = await this.commentsService.commentArticle({
+    const comment = await this.commentsService.commentArticle(
       me,
       slug,
-      body: body.comment.body,
-    })
+      body.comment.body,
+    )
     return {
-      comment: createCommentDTO(req, comment, slug),
+      comment: createCommentDTO(req, slug, comment, me),
     } as const
   }
 
@@ -138,7 +137,9 @@ export class CommentsController {
       pagination,
     )
     return {
-      comments: comments.map((comment) => createCommentDTO(req, comment, slug)),
+      comments: comments.map((comment) =>
+        createCommentDTO(req, slug, comment, comment.author),
+      ),
       links:
         comments.length > 0
           ? {
@@ -173,18 +174,19 @@ export class CommentsController {
 
 function createCommentDTO(
   req,
-  comment: CommentEntity,
   articleSlug: string,
+  comment: Comment,
+  author: Profile,
 ): CommentResponseDTO {
   return {
     id: comment.id,
     body: comment.body,
     createdAt: comment.createdAt,
     updatedAt: comment.updatedAt,
-    author: createAuthorDTO(req, comment.author),
+    author: createAuthorDTO(req, author),
     links: {
       article: buildUrlToPath(req, `/articles/${articleSlug}`),
-      author: buildUrlToPath(req, `/profiles/${comment.author.username}`),
+      author: buildUrlToPath(req, `/profiles/${author.username}`),
     },
   } as const
 }
