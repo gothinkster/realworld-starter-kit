@@ -17,10 +17,7 @@ export interface Author {
 export class ArticlesService {
   constructor(
     @Inject(AuthorsService)
-    private readonly authorsService: Pick<
-      AuthorsService,
-      'getAuthorByUsername'
-    >,
+    private readonly authorsService: AuthorsService,
   ) {}
 
   getCMS(author: Author): ContentManagementSystem {
@@ -28,7 +25,11 @@ export class ArticlesService {
   }
 
   getView(author?: Author): ArticleView {
-    return new ArticleView(this.authorsService, author)
+    return new ArticleView(
+      this.authorsService,
+      (pagination) => new ArticleFinder(pagination),
+      author,
+    )
   }
 }
 
@@ -36,6 +37,7 @@ export type Dated<T extends {}> = T & {
   readonly createdAt: Date
   readonly updatedAt: Date
 }
+
 export type Sluged<T extends {}> = T & {
   slug: string
 }
@@ -58,35 +60,41 @@ export interface ArticleFilters {
 
 export class ArticleView {
   constructor(
-    private authorsService: Pick<AuthorsService, 'getAuthorByUsername'>,
+    private authorsService: AuthorsService,
+    private readonly createArticleFinder: (
+      pagination?: Pagination,
+    ) => ArticleFinder,
     private author?: Author,
   ) {}
 
   async getArticle(slug: string) {
-    return await new ArticleFinder()
+    return await this.createArticleFinder()
       .filterBySlug(slug)
       .filterByPublishedOrOwnedBy(this.author)
       .getOne()
   }
 
   async getFeed(pagination?: Pagination) {
-    return await new ArticleFinder(pagination)
+    return await this.createArticleFinder(pagination)
       .filterByPublished()
       .filterByFollowedBy(this.author)
       .getMany()
   }
 
   async getArticlesByFilters(filters: ArticleFilters, pagination?: Pagination) {
-    const finder = new ArticleFinder(pagination)
-      .filterByPublishedOrOwnedBy(this.author)
-      .filterByTags(filters.tags)
+    const finder = this.createArticleFinder(
+      pagination,
+    ).filterByPublishedOrOwnedBy(this.author)
 
+    if (filters.tags) {
+      finder.filterByTags(filters.tags)
+    }
     if (filters.author) {
       try {
         const author = await this.authorsService.getAuthorByUsername(
           filters.author,
         )
-        finder.filterByAuthor(author)
+        finder.filterByAuthors([author])
       } catch (error) {
         if (error instanceof AuthorNotFound) {
           return []
@@ -105,7 +113,15 @@ export class ArticleView {
  change the content.
  **/
 export class ContentManagementSystem {
-  private readonly tagsService = new TagsService(this.datasource)
+  private readonly tagsRepository = new TagsRepository(this.datasource)
+  private readonly articlesRepository: Exclude<
+    ArticlesRepository,
+    'publishArticle' | 'unpublishArticle'
+  > = new ArticlesRepository(this.datasource)
+  private readonly articlesJournal: Pick<
+    ArticlesRepository,
+    'publishArticle' | 'unpublishArticle'
+  > = new ArticlesRepository(this.datasource)
 
   constructor(
     private author: Author,
@@ -114,27 +130,76 @@ export class ContentManagementSystem {
 
   async createArticle(data: Article): Promise<FullArticle> {
     const slug = slugify(data.title)
-
-    const raw = await this.datasource.query(
-      `
-INSERT INTO articles (slug, title, description, body, published, author_id, created_at, updated_at)
-VALUES ($1, $2, $3, $4, $5, $6, current_date, current_date)
-RETURNING *`,
-      [slug, data.title, data.description, data.body, false, this.author.id],
+    const article = await this.articlesRepository.createArticle(
+      { ...data, slug },
+      this.author,
     )
-
-    const article = this.extractOneArticleFromQueryResult(slug, {
-      raw,
-      affected: 1,
-    })
-    article.tags = await this.tagsService.setArticleTags(data.tags, article)
-    return article
+    const tags = await this.tagsRepository.setArticleTags(data.tags, article)
+    return { ...article, tags }
   }
 
   async updateArticle(
     slug: string,
     snapshot: ArticleFields,
   ): Promise<FullArticle> {
+    const article = await this.articlesRepository.updateArticle(
+      slug,
+      this.author,
+      snapshot,
+    )
+    const tags = snapshot.tags
+      ? await this.tagsRepository.setArticleTags(snapshot.tags, article)
+      : await this.tagsRepository.getArticleTags(article)
+    return { ...article, tags }
+  }
+
+  async deleteArticle(slug: string): Promise<void> {
+    await this.articlesRepository.deleteArticle(slug, this.author)
+  }
+
+  async publishArticle(slug: string): Promise<FullArticle> {
+    const article = await this.articlesJournal.publishArticle(slug, this.author)
+    const tags = await this.tagsRepository.getArticleTags(article)
+    return { ...article, tags }
+  }
+
+  async unpublishArticle(slug: string): Promise<FullArticle> {
+    const article = await this.articlesJournal.unpublishArticle(
+      slug,
+      this.author,
+    )
+    const tags = await this.tagsRepository.getArticleTags(article)
+    return { ...article, tags }
+  }
+}
+
+export class ArticlesRepository {
+  constructor(
+    private readonly datasource: Pick<DataSource, 'query'> = ArticleEntity,
+  ) {}
+
+  async createArticle(
+    data: Sluged<Article>,
+    author: { id: number },
+  ): Promise<FullArticle & { id: number }> {
+    const raw = await this.datasource.query(
+      `
+INSERT INTO articles (slug, title, description, body, published, author_id, created_at, updated_at)
+VALUES ($1, $2, $3, $4, $5, $6, current_date, current_date)
+RETURNING *`,
+      [data.slug, data.title, data.description, data.body, false, author.id],
+    )
+    return this.extractOneArticleFromQueryResult(data.slug, {
+      raw,
+      affected: 1,
+    })
+  }
+
+  async updateArticle(
+    slug: string,
+    author: { id: number },
+    snapshot: ArticleFields,
+  ) {
     const [raw, affected] = await this.datasource.query(
       `
 UPDATE articles SET 
@@ -147,7 +212,7 @@ WHERE slug = $1 AND author_id = $2
 RETURNING *;`,
       [
         slug,
-        this.author.id,
+        author.id,
         snapshot.title ? slugify(snapshot.title) : undefined,
         snapshot.title,
         snapshot.description,
@@ -155,73 +220,50 @@ RETURNING *;`,
       ],
     )
 
-    const article = this.extractOneArticleFromQueryResult(slug, {
+    return this.extractOneArticleFromQueryResult(slug, {
       raw,
       affected,
     })
-
-    if (snapshot.tags) {
-      article.tags = await this.tagsService.setArticleTags(
-        snapshot.tags,
-        article,
-      )
-    } else {
-      article.tags = await this.tagsService.getArticleTags(article)
-    }
-
-    return article
   }
 
-  async deleteArticle(slug: string): Promise<void> {
+  async deleteArticle(slug: string, author: { id: number }) {
     const [_, affected] = await this.datasource.query(
       `DELETE FROM articles WHERE slug = $1 AND author_id = $2`,
-      [slug, this.author.id],
+      [slug, author.id],
     )
     if (affected === 0) {
       throw new ArticleNotFound(slug)
     }
   }
 
-  async publishArticle(slug: string): Promise<FullArticle> {
+  async publishArticle(slug: string, author: Author) {
     const [raw, affected] = await this.datasource.query(
       `
 UPDATE articles
 SET published = true
 WHERE slug = $1 AND author_id = $2
 RETURNING *;`,
-      [slug, this.author.id],
+      [slug, author.id],
     )
-
-    const article = this.extractOneArticleFromQueryResult(slug, {
-      raw,
-      affected,
-    })
-    article.tags = await this.tagsService.getArticleTags(article)
-    return article
+    return this.extractOneArticleFromQueryResult(slug, { raw, affected })
   }
 
-  async unpublishArticle(slug: string): Promise<FullArticle> {
+  async unpublishArticle(slug: string, author: Author) {
     const [raw, affected] = await this.datasource.query(
       `
 UPDATE articles
 SET published = false
 WHERE slug = $1 AND author_id = $2
 RETURNING *;`,
-      [slug, this.author.id],
+      [slug, author.id],
     )
-
-    const article = this.extractOneArticleFromQueryResult(slug, {
-      raw,
-      affected,
-    })
-    article.tags = await this.tagsService.getArticleTags(article)
-    return article
+    return this.extractOneArticleFromQueryResult(slug, { raw, affected })
   }
 
   private extractOneArticleFromQueryResult(
     slug: string,
     rawQueryResult: { affected: number; raw: any },
-  ) {
+  ): FullArticle & { id: number } {
     if (rawQueryResult.affected === 0) {
       throw new ArticleNotFound(slug)
     }
@@ -236,26 +278,26 @@ RETURNING *;`,
     delete article.created_at
     delete article.updated_at
 
-    return {
-      ...article,
-      author: this.author,
-    }
+    return article
   }
 }
 
-export class TagsService {
+export class TagsRepository {
   constructor(
     private readonly datasource: Pick<DataSource, 'query'> = ArticleEntity,
   ) {}
 
-  async setArticleTags(tags: string[], article: ArticleEntity) {
+  async setArticleTags(
+    tags: string[],
+    article: { id: number },
+  ): Promise<string[]> {
     await this.createTags(tags)
     await this.insertMissingTags(tags, article)
     await this.unsetOtherTags(tags, article)
     return await this.getArticleTags(article)
   }
 
-  async getArticleTags(article: ArticleEntity) {
+  async getArticleTags(article: { id: number }): Promise<string[]> {
     const raw = await this.datasource.query(
       `
 SELECT tags.name FROM tags
@@ -278,7 +320,7 @@ ON CONFLICT (name) DO NOTHING;
     )
   }
 
-  private async insertMissingTags(tags: string[], article: ArticleEntity) {
+  private async insertMissingTags(tags: string[], article: { id: number }) {
     await this.datasource.query(
       `
 INSERT INTO articles_have_tags (tags_id, articles_id)
@@ -290,7 +332,7 @@ ON CONFLICT (tags_id, articles_id) DO NOTHING;
     )
   }
 
-  private async unsetOtherTags(tags: string[], article: ArticleEntity) {
+  private async unsetOtherTags(tags: string[], article: { id: number }) {
     await this.datasource.query(
       `
 DELETE FROM articles_have_tags
@@ -301,6 +343,7 @@ SELECT id FROM tags WHERE tags.name IN (SELECT * FROM unnest($1::text[]))
     )
   }
 }
+
 export class ArticleNotFound extends NotFoundException {
   constructor(slug?: string) {
     super(`Article ${slug} not found`)

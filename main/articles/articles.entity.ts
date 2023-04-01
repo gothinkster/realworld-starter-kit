@@ -14,7 +14,7 @@ import {
 import { Brackets } from 'typeorm/query-builder/Brackets'
 import { AuthorEntity, UserFollows } from '../authors/authors.entity'
 import { CommentEntity } from '../comments/comments.entity'
-import { ArticleNotFound, Author } from './articles.service'
+import { ArticleNotFound } from './articles.service'
 
 export class ArticleFinder {
   private readonly qb =
@@ -29,29 +29,27 @@ export class ArticleFinder {
     return this
   }
 
-  filterByAuthor(author: Author) {
-    this.qb.andWhere(`${this.qb.alias}.author_id = :authorId`, {
-      authorId: author.id,
+  filterByAuthors(authors: { id: number }[]) {
+    this.qb.andWhere(`${this.qb.alias}.author_id IN (:...authorIds)`, {
+      authorIds: authors.map((author) => author.id),
     })
     return this
   }
 
   filterByTags(tags: string[]) {
-    if (tags && tags !== []) {
-      this.qb.andWhere(
-        `${this.qb.alias}.id IN (
+    this.qb.andWhere(
+      `${this.qb.alias}.id IN (
 SELECT aht.${ARTICLES_TABLE}_id
 FROM ${ARTICLES_HAVE_TAGS_JOIN_TABLE} AS aht
 WHERE aht.${TAGS_TABLE}_id IN (
   SELECT t.id FROM ${TAGS_TABLE} AS t WHERE t.name IN (:...tags)
 ))`,
-        { tags: tags },
-      )
-    }
+      { tags: tags },
+    )
     return this
   }
 
-  filterByPublishedOrOwnedBy(author?: Author) {
+  filterByPublishedOrOwnedBy(author?: { id: number }) {
     this.qb.andWhere(
       new Brackets((qb) => {
         qb.where({ published: true })
@@ -70,7 +68,7 @@ WHERE aht.${TAGS_TABLE}_id IN (
     return this
   }
 
-  filterByFollowedBy(user: Author) {
+  filterByFollowedBy(user: { id: number }) {
     const userFollows = UserFollows.createQueryBuilder('uf')
       .select('uf.follows_id')
       .where('uf.user_id = :userId', { userId: user.id })

@@ -47,7 +47,7 @@ beforeEach(async () => {
       }
       return author as unknown as AuthorEntity
     },
-  })
+  } as any)
 })
 
 describe('Article', () => {
