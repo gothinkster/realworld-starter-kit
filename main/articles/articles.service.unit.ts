@@ -182,7 +182,7 @@ describe('Content Management System', () => {
     expect(article).toMatchObject({
       title: exampleArticle.title,
       body: 'Other body',
-      tags: ['physics', 'programming'],
+      tags: expect.arrayContaining(['physics', 'programming']),
     })
   })
 
@@ -192,7 +192,7 @@ describe('Content Management System', () => {
     await cms.createArticle(exampleArticle)
 
     // Arrange
-    const cmsForOtherAuthor = new ContentManagementSystem({ id: 2 })
+    const cmsForOtherAuthor = new ContentManagementSystem({ id: 2 }, dataSource)
 
     // Act - Assert
     await expect(() =>

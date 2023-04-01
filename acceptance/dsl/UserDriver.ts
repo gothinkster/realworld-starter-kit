@@ -53,7 +53,7 @@ export function makeRandomArticle(
       ...new Set(
         article?.tags || lorem.generateWords(4).toLowerCase().split(' '),
       ),
-    ].sort(),
+    ],
   }
 }
 

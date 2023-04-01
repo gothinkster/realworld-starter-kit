@@ -22,10 +22,6 @@ export interface Profile extends Author {
   isFollowing(profile: this): Promise<boolean>
 }
 
-export type Authored<T extends {}> = T & {
-  author: Profile
-}
-
 @Injectable()
 export class AuthorsService {
   async createUserAuthorProfile(

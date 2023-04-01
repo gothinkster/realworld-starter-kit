@@ -46,7 +46,7 @@ import {
 } from '@nestjs/swagger/dist/decorators/api-model-property.decorator'
 import { Transform, Type } from 'class-transformer'
 import { Pagination } from '../nest/pagination'
-import { AuthorsService } from '../authors/authors.service'
+import { AuthorsService, Profile } from '../authors/authors.service'
 
 export const articlesSwaggerOptions = {
   title: { example: 'How to train your dragon' },
@@ -250,7 +250,7 @@ export class ArticlesController {
     const articles = await this.articlesService.getView(me).getFeed(pagination)
     return {
       articles: articles.map((article) =>
-        createArticleDTO(req, article, undefined),
+        createArticleDTO(req, article, article.author, undefined),
       ),
       links:
         articles.length > 0
@@ -281,7 +281,7 @@ export class ArticlesController {
       .getArticlesByFilters(filters, pagination)
     return {
       articles: articles.map((article) =>
-        createArticleDTO(req, article, undefined),
+        createArticleDTO(req, article, article.author, undefined),
       ),
       links:
         articles.length > 0
@@ -310,7 +310,7 @@ export class ArticlesController {
       .catch(() => null)
     const article = await this.articlesService.getView(me).getArticle(slug)
     return {
-      article: createArticleDTO(req, article),
+      article: createArticleDTO(req, article, article.author),
     }
   }
 
@@ -349,7 +349,7 @@ export class ArticlesController {
       .getCMS(me)
       .createArticle(body.article)
     return {
-      article: createArticleDTO(req, article),
+      article: createArticleDTO(req, article, me),
     }
   }
 
@@ -368,7 +368,7 @@ export class ArticlesController {
       .getCMS(me)
       .updateArticle(slug, body.article)
     return {
-      article: createArticleDTO(req, article),
+      article: createArticleDTO(req, article, me),
     }
   }
 
@@ -393,7 +393,7 @@ export class ArticlesController {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
     const article = await this.articlesService.getCMS(me).publishArticle(slug)
     return {
-      article: createArticleDTO(req, article),
+      article: createArticleDTO(req, article, me),
     }
   }
 
@@ -408,12 +408,17 @@ export class ArticlesController {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
     const article = await this.articlesService.getCMS(me).unpublishArticle(slug)
     return {
-      article: createArticleDTO(req, article),
+      article: createArticleDTO(req, article, me),
     }
   }
 }
 
-function createArticleDTO(req, article: FullArticle, favorited?: boolean) {
+function createArticleDTO(
+  req,
+  article: FullArticle,
+  author: Profile,
+  favorited?: boolean,
+) {
   return {
     slug: article.slug,
     title: article.title,
@@ -423,10 +428,10 @@ function createArticleDTO(req, article: FullArticle, favorited?: boolean) {
     tags: article.tags,
     createdAt: article.createdAt,
     updatedAt: article.updatedAt,
-    author: createAuthorDTO(req, article.author),
+    author: createAuthorDTO(req, author),
     links: {
       self: buildUrlToPath(req, `articles/${article.slug}`),
-      author: buildUrlToPath(req, `profiles/${article.author.username}`),
+      author: buildUrlToPath(req, `profiles/${author.username}`),
       comments: buildUrlToPath(req, `articles/${article.slug}/comments`),
     },
   } as const
