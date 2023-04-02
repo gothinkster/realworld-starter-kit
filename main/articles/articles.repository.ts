@@ -5,98 +5,66 @@ import {
   ArticleNotFound,
   Authored,
   Dated,
-  FullArticle,
   Sluged,
   Tagged,
 } from './articles.service'
-import { Brackets } from 'typeorm/query-builder/Brackets'
 import { ArticleEntity } from './articles.entity'
 
-export class ArticleFinder {
-  private readonly qb =
-    ArticleEntity.createQueryBuilder('article').where('true')
-  private slug: string
+export class ArticlesRepository {
+  constructor(private readonly datasource: Pick<DataSource, 'query'>) {}
 
-  constructor(private page = { take: 20, skip: 0 }) {}
+  async getArticles(
+    options: {
+      filterBySlug?: string
+      filterByAuthors?: { id: number }[]
+      filterByTags?: string[]
+      owner?: { id: number }
+    },
+    pagination?: { take: number; skip: number },
+  ): Promise<(Article & { id: number } & Authored & Sluged & Dated)[]> {
+    const qb = ArticleEntity.createQueryBuilder('article').where('true')
 
-  filterBySlug(slug: string) {
-    this.qb.andWhere({ slug: slug })
-    this.slug = slug
-    return this
-  }
+    if (options.filterBySlug) {
+      qb.andWhere({ slug: options.filterBySlug })
+    }
 
-  filterByAuthors(authors: { id: number }[]) {
-    this.qb.andWhere(`${this.qb.alias}.author_id IN (:...authorIds)`, {
-      authorIds: authors.map((author) => author.id),
-    })
-    return this
-  }
+    if (options.filterByAuthors) {
+      qb.andWhere(`${qb.alias}.author_id IN (:...authorIds)`, {
+        authorIds: options.filterByAuthors.map((author) => author.id),
+      })
+    }
 
-  filterByTags(tags: string[]) {
-    this.qb.andWhere(
-      `${this.qb.alias}.id IN (
+    if (options.filterByTags) {
+      qb.andWhere(
+        `${qb.alias}.id IN (
 SELECT aht.articles_id
 FROM articles_have_tags AS aht
 WHERE aht.tags_id IN (
   SELECT t.id FROM tags AS t WHERE t.name IN (:...tags)
 ))`,
-      { tags: tags },
-    )
-    return this
-  }
-
-  filterByPublishedOrOwnedBy(author?: { id: number }) {
-    this.qb.andWhere(
-      new Brackets((qb) => {
-        qb.where({ published: true })
-        if (author) {
-          qb.orWhere(`${this.qb.alias}.author_id = :authorId`, {
-            authorId: author.id,
-          })
-        }
-      }),
-    )
-    return this
-  }
-
-  filterByPublished() {
-    this.qb.andWhere({ published: true })
-    return this
-  }
-
-  private finalizeSelectQuery() {
-    this.qb
-      .leftJoinAndSelect(`${this.qb.alias}.author`, 'author')
-      .take(this.page?.take || 20)
-      .skip(this.page?.skip || 0)
-      .orderBy(`${this.qb.alias}.createdAt`, 'DESC')
-    return this.qb
-  }
-
-  async getOne(): Promise<
-    Article & { id: number } & Authored & Sluged & Dated
-  > {
-    const article = await this.finalizeSelectQuery().getOne()
-    if (!article) {
-      throw new ArticleNotFound(this.slug)
+        { tags: options.filterByTags },
+      )
     }
-    return article
+
+    if (options.owner) {
+      qb.andWhere(`published = true OR ${qb.alias}.author_id = :authorId`, {
+        authorId: options.owner.id,
+      })
+    } else {
+      qb.andWhere({ published: true })
+    }
+
+    qb.take(pagination?.take || 20)
+      .skip(pagination?.skip || 0)
+      .leftJoinAndSelect(`${qb.alias}.author`, 'author')
+      .orderBy(`${qb.alias}.createdAt`, 'DESC')
+
+    const queryResult = await qb.getMany()
+
+    return queryResult.map((article) => this.createArticleResponse(article))
   }
 
-  async getMany(): Promise<
-    (Article & { id: number } & Authored & Sluged & Dated)[]
-  > {
-    return await this.finalizeSelectQuery().getMany()
-  }
-}
-
-export class ArticlesRepository {
-  constructor(private readonly datasource: Pick<DataSource, 'query'>) {}
-
-  async createArticle(
-    articleData: Article & Sluged,
-    owner: { id: number },
-  ): Promise<FullArticle & { id: number }> {
+  async createArticle(articleData: Article & Sluged, owner: { id: number }) {
     const raw = await this.datasource.query(
       `
 INSERT INTO articles (slug, title, description, body, published, author_id, created_at, updated_at)
@@ -185,7 +153,7 @@ RETURNING *;`,
   private extractOneArticleFromQueryResult(
     slug: string,
     rawQueryResult: { count: number; raw: any[] },
-  ): FullArticle & { id: number } {
+  ) {
     if (rawQueryResult.count === 0) {
       throw new ArticleNotFound(slug)
     }
@@ -195,9 +163,15 @@ RETURNING *;`,
 
     const article = rawQueryResult.raw[0]
 
-    article.createdAt = article.created_at
-    article.updatedAt = article.updated_at
-    article.author = {
+    return this.createArticleResponse(article)
+  }
+
+  private createArticleResponse(
+    article: ArticleEntity & any,
+  ): Article & { id: number } & Authored & Sluged & Dated {
+    article.createdAt = article.createdAt ?? article.created_at
+    article.updatedAt = article.updatedAt ?? article.updated_at
+    article.author = article.author ?? {
       id: article.author_id,
     }
 

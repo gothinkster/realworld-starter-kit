@@ -141,7 +141,7 @@ describe('Content Management System', () => {
     await cms.createArticle(exampleArticle)
 
     // Arrange
-    const cmsForOtherAuthor = new ContentManagementSystem({ id: 2 }, dataSource)
+    const cmsForOtherAuthor = new ContentManagementSystem({ id: 2 })
 
     // Act - Assert
     await expect(() =>
