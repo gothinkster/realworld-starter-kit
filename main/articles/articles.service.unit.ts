@@ -2,7 +2,6 @@ import {
   Article,
   ArticleNotFound,
   ArticlesService,
-  ContentManagementSystem,
   Sluged,
   Tagged,
 } from './articles.service'
@@ -10,11 +9,14 @@ import { DataSource } from 'typeorm'
 import { getPostgresDataSource } from '../global/global.module'
 import { AuthorsService } from '../authors/authors.service'
 import { LoremIpsum } from 'lorem-ipsum'
-import { PartialArticle } from '../../acceptance/dsl/UserDriver'
+import {
+  TypeORMArticlesRepository,
+  TypeORMTagsRepository,
+} from './articles.repository.typeorm'
 
 const lorem = new LoremIpsum()
 
-function makeRandomArticle(article: PartialArticle = {}) {
+function makeRandomArticle(article: Partial<Article & Tagged> = {}) {
   return {
     title: article?.title || lorem.generateSentences(1),
     description: article?.description || lorem.generateSentences(2),
@@ -56,7 +58,11 @@ beforeEach(async () => {
     { username: `john-doe-${testRandomNumber}`, bio: 'I am a bio', image: '' },
   )
 
-  service = new ArticlesService(authorsService)
+  service = new ArticlesService(
+    authorsService,
+    new TypeORMTagsRepository(),
+    new TypeORMArticlesRepository(),
+  )
 })
 
 describe('Article', () => {
@@ -186,7 +192,7 @@ describe('Content Management System', () => {
     await cms.createArticle(exampleArticle)
 
     // Arrange
-    const cmsForOtherAuthor = new ContentManagementSystem({ id: 2 })
+    const cmsForOtherAuthor = service.getCMS({ id: 2 })
 
     // Act - Assert
     await expect(() =>

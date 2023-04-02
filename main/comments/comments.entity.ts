@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { ArticleEntity } from '../articles/articles.entity'
+import { ArticleEntity } from '../articles/articles.repository.typeorm'
 import { AuthorEntity } from '../authors/authors.entity'
 
 @Entity({ name: 'comments' })

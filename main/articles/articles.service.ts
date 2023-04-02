@@ -1,27 +1,34 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common'
-import { ArticleEntity } from './articles.entity'
+import { NotFoundException } from '@nestjs/common'
 import { AuthorNotFound, AuthorsService } from '../authors/authors.service'
 import { slugify } from './slug.utils'
-import { ArticlesRepository, TagsRepository } from './articles.repository'
 
 type Pagination = {
   skip: number
   take: number
 }
 
-@Injectable()
 export class ArticlesService {
   constructor(
-    @Inject(AuthorsService)
     private readonly authorsService: AuthorsService,
+    private readonly tagsRepository: TagsRepository,
+    private readonly articlesRepository: ArticlesRepository,
   ) {}
 
   getCMS(author: { id: number }) {
-    return new ContentManagementSystem(author)
+    return new ContentManagementSystem(
+      this.tagsRepository,
+      this.articlesRepository,
+      author,
+    )
   }
 
   getView(author?: { id: number }) {
-    return new ArticleView(this.authorsService, author)
+    return new ArticleView(
+      this.tagsRepository,
+      this.articlesRepository,
+      this.authorsService,
+      author,
+    )
   }
 }
 
@@ -62,14 +69,56 @@ export interface ArticleFilters {
   favorited?: boolean
 }
 
-export class ArticleView {
-  private readonly tagsRepository = new TagsRepository(ArticleEntity)
-  private readonly articlesRepository: Exclude<
-    ArticlesRepository,
-    'publishArticle' | 'unpublishArticle'
-  > = new ArticlesRepository(ArticleEntity)
+export interface TagsRepository {
+  getArticleTags(article: { id: number }): Promise<string[]>
+  setArticleTags(article: { id: number }, tags: string[]): Promise<string[]>
+}
 
+export interface ArticlesRepository {
+  getArticles(
+    options: {
+      filterBySlug?: string
+      filterByAuthors?: { id: number }[]
+      filterByTags?: string[]
+      owner?: { id: number }
+    },
+    pagination?: { take: number; skip: number },
+  ): Promise<(Article & Authored & Sluged & Dated & { id: number })[]>
+
+  createArticle(
+    param: {
+      description: string
+      title: string
+      body: string
+      slug: string
+      tags: string[]
+    },
+    owner: { id: number },
+  ): Promise<Article & Authored & Sluged & Dated & { id: number }>
+
+  updateArticle(
+    slug: string,
+    owner: { id: number },
+    snapshot: Partial<Article & Tagged>,
+  ): Promise<Article & Authored & Sluged & Dated & { id: number }>
+
+  deleteArticle(slug: string, owner: { id: number }): Promise<void>
+
+  publishArticle(
+    slug: string,
+    owner: { id: number },
+  ): Promise<Article & Authored & Sluged & Dated & { id: number }>
+
+  unpublishArticle(
+    slug: string,
+    owner: { id: number },
+  ): Promise<Article & Authored & Sluged & Dated & { id: number }>
+}
+
+export class ArticleView {
   constructor(
+    private readonly tagsRepository: TagsRepository,
+    private readonly articlesRepository: ArticlesRepository,
     private authorsService: AuthorsService,
     private owner?: { id: number },
   ) {}
@@ -153,17 +202,11 @@ export class ArticleView {
  change the content.
  **/
 export class ContentManagementSystem {
-  private readonly tagsRepository = new TagsRepository(ArticleEntity)
-  private readonly articlesRepository: Exclude<
-    ArticlesRepository,
-    'publishArticle' | 'unpublishArticle'
-  > = new ArticlesRepository(ArticleEntity)
-  private readonly articlesJournal: Pick<
-    ArticlesRepository,
-    'publishArticle' | 'unpublishArticle'
-  > = new ArticlesRepository(ArticleEntity)
-
-  constructor(private owner: { id: number }) {}
+  constructor(
+    private readonly tagsRepository: TagsRepository,
+    private readonly articlesRepository: ArticlesRepository,
+    private owner: { id: number },
+  ) {}
 
   async createArticle(data: Article & Tagged) {
     const slug = slugify(data.title)
@@ -171,7 +214,7 @@ export class ContentManagementSystem {
       { ...data, slug },
       this.owner,
     )
-    const tags = await this.tagsRepository.setArticleTags(data.tags, article)
+    const tags = await this.tagsRepository.setArticleTags(article, data.tags)
     return { ...article, tags, author: this.owner }
   }
 
@@ -182,7 +225,7 @@ export class ContentManagementSystem {
       snapshot,
     )
     const tags = snapshot.tags
-      ? await this.tagsRepository.setArticleTags(snapshot.tags, article)
+      ? await this.tagsRepository.setArticleTags(article, snapshot.tags)
       : await this.tagsRepository.getArticleTags(article)
     return { ...article, tags, author: this.owner }
   }
@@ -192,13 +235,16 @@ export class ContentManagementSystem {
   }
 
   async publishArticle(slug: string) {
-    const article = await this.articlesJournal.publishArticle(slug, this.owner)
+    const article = await this.articlesRepository.publishArticle(
+      slug,
+      this.owner,
+    )
     const tags = await this.tagsRepository.getArticleTags(article)
     return { ...article, tags, author: this.owner }
   }
 
   async unpublishArticle(slug: string) {
-    const article = await this.articlesJournal.unpublishArticle(
+    const article = await this.articlesRepository.unpublishArticle(
       slug,
       this.owner,
     )

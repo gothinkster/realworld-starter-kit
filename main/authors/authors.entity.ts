@@ -7,7 +7,7 @@ import {
   Unique,
 } from 'typeorm'
 import { User } from '../accounts/accounts.controller'
-import { ArticleEntity } from '../articles/articles.entity'
+import { ArticleEntity } from '../articles/articles.repository.typeorm'
 import { CommentEntity } from '../comments/comments.entity'
 import { Profile, ProfileFields } from './authors.service'
 

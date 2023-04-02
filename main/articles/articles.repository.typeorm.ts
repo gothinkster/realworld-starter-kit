@@ -1,18 +1,30 @@
-import { DataSource } from 'typeorm'
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm'
 import { slugify } from './slug.utils'
 import {
   Article,
   ArticleNotFound,
+  ArticlesRepository,
   Authored,
   Dated,
   Sluged,
   Tagged,
+  TagsRepository,
 } from './articles.service'
-import { ArticleEntity } from './articles.entity'
+import { AuthorEntity } from '../authors/authors.entity'
+import { CommentEntity } from '../comments/comments.entity'
 
-export class ArticlesRepository {
-  constructor(private readonly datasource: Pick<DataSource, 'query'>) {}
-
+export class TypeORMArticlesRepository implements ArticlesRepository {
   async getArticles(
     options: {
       filterBySlug?: string
@@ -21,7 +33,7 @@ export class ArticlesRepository {
       owner?: { id: number }
     },
     pagination?: { take: number; skip: number },
-  ): Promise<(Article & { id: number } & Authored & Sluged & Dated)[]> {
+  ) {
     const qb = ArticleEntity.createQueryBuilder('article').where('true')
 
     if (options.filterBySlug) {
@@ -65,7 +77,7 @@ WHERE aht.tags_id IN (
   }
 
   async createArticle(articleData: Article & Sluged, owner: { id: number }) {
-    const raw = await this.datasource.query(
+    const raw = await ArticleEntity.query(
       `
 INSERT INTO articles (slug, title, description, body, published, author_id, created_at, updated_at)
 VALUES ($1, $2, $3, $4, $5, $6, current_timestamp, current_timestamp)
@@ -90,7 +102,7 @@ RETURNING *`,
     owner: { id: number },
     snapshot: Partial<Article & Tagged>,
   ) {
-    const [raw, affected] = await this.datasource.query(
+    const [raw, affected] = await ArticleEntity.query(
       `
 UPDATE articles SET 
     slug = COALESCE($3, slug),
@@ -117,7 +129,7 @@ RETURNING *;`,
   }
 
   async deleteArticle(slug: string, owner: { id: number }) {
-    const [_, affected] = await this.datasource.query(
+    const [_, affected] = await ArticleEntity.query(
       `DELETE FROM articles WHERE slug = $1 AND author_id = $2`,
       [slug, owner.id],
     )
@@ -127,7 +139,7 @@ RETURNING *;`,
   }
 
   async publishArticle(slug: string, owner: { id: number }) {
-    const [raw, affected] = await this.datasource.query(
+    const [raw, affected] = await ArticleEntity.query(
       `
 UPDATE articles
 SET published = true
@@ -139,7 +151,7 @@ RETURNING *;`,
   }
 
   async unpublishArticle(slug: string, owner: { id: number }) {
-    const [raw, affected] = await this.datasource.query(
+    const [raw, affected] = await ArticleEntity.query(
       `
 UPDATE articles
 SET published = false
@@ -183,12 +195,10 @@ RETURNING *;`,
   }
 }
 
-export class TagsRepository {
-  constructor(private readonly datasource: Pick<DataSource, 'query'>) {}
-
+export class TypeORMTagsRepository implements TagsRepository {
   async setArticleTags(
-    tags: string[],
     article: { id: number },
+    tags: string[],
   ): Promise<string[]> {
     await this.createTags(tags)
     await this.insertMissingTags(tags, article)
@@ -197,7 +207,7 @@ export class TagsRepository {
   }
 
   async getArticleTags(article: { id: number }): Promise<string[]> {
-    const raw = await this.datasource.query(
+    const raw = await TagEntity.query(
       `
 SELECT tags.name FROM tags
 INNER JOIN articles_have_tags ON tags.id = articles_have_tags.tags_id
@@ -209,7 +219,7 @@ WHERE articles_have_tags.articles_id = $1;
   }
 
   private async createTags(tags: string[]) {
-    await this.datasource.query(
+    await TagEntity.query(
       `
 INSERT INTO tags (name)
 SELECT * FROM unnest($1::text[]) AS tag
@@ -220,7 +230,7 @@ ON CONFLICT (name) DO NOTHING;
   }
 
   private async insertMissingTags(tags: string[], article: { id: number }) {
-    await this.datasource.query(
+    await TagEntity.query(
       `
 INSERT INTO articles_have_tags (tags_id, articles_id)
 SELECT id, $2 FROM tags
@@ -232,7 +242,7 @@ ON CONFLICT (tags_id, articles_id) DO NOTHING;
   }
 
   private async unsetOtherTags(tags: string[], article: { id: number }) {
-    await this.datasource.query(
+    await TagEntity.query(
       `
 DELETE FROM articles_have_tags
 WHERE articles_id = $2 AND tags_id NOT IN (
@@ -241,4 +251,62 @@ SELECT id FROM tags WHERE tags.name IN (SELECT * FROM unnest($1::text[]))
       [tags, article.id],
     )
   }
+}
+
+@Entity({ name: 'tags' })
+export class TagEntity extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id!: number
+
+  @Column({ unique: true, update: false, nullable: false })
+  name!: string
+
+  @ManyToMany(() => ArticleEntity, (article) => article.tagList, {
+    // onDelete: 'CASCADE',
+    // nullable: false,
+  })
+  articles?: ArticleEntity[]
+}
+
+@Entity({ name: 'articles' })
+export class ArticleEntity extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id!: number
+
+  @Column({ unique: true })
+  slug!: string
+
+  @Column({ unique: true, type: 'text' })
+  title!: string
+
+  @Column({ type: 'text', nullable: true })
+  description!: string
+
+  @Column({ type: 'text', nullable: true })
+  body!: string
+
+  @ManyToMany(() => TagEntity, (tag) => tag.articles, {
+    cascade: ['insert'],
+    eager: true,
+  })
+  @JoinTable({ name: 'articles_have_tags' })
+  tagList!: TagEntity[]
+
+  @CreateDateColumn()
+  createdAt!: Date
+
+  @UpdateDateColumn()
+  updatedAt!: Date
+
+  @Column()
+  published: boolean = false
+
+  @ManyToOne(() => AuthorEntity, (profile) => profile.articles, {
+    onDelete: 'CASCADE',
+  })
+  @JoinTable({ name: 'author_id' })
+  author!: AuthorEntity
+
+  @OneToMany(() => CommentEntity, (comment) => comment.article)
+  comments?: CommentEntity[]
 }

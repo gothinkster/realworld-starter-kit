@@ -1,7 +1,10 @@
 import { Global, Module } from '@nestjs/common'
 import { DataSource } from 'typeorm'
 import { AccountEntity } from '../accounts/accounts.entity'
-import { ArticleEntity, Tag } from '../articles/articles.entity'
+import {
+  ArticleEntity,
+  TagEntity,
+} from '../articles/articles.repository.typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { Provider } from '@nestjs/common/interfaces/modules/provider.interface'
 import { AuthorEntity, UserFollows } from '../authors/authors.entity'
@@ -22,7 +25,7 @@ export function getPostgresDataSource() {
         AuthorEntity,
         UserFollows,
         CommentEntity,
-        Tag,
+        TagEntity,
       ],
       namingStrategy: new SnakeNamingStrategy(),
       synchronize: true,
