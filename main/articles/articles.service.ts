@@ -98,10 +98,15 @@ export class ArticleView {
   }
 
   async getFeed(pagination?: Pagination) {
+    if (!this.owner) {
+      return await this.getGlobalFeed(pagination)
+    }
+
     const following = await this.authorsService.getFollowingIds(this.owner)
     if (following.length === 0) {
       return []
     }
+
     const articles = await this.articlesRepository.getArticles(
       {
         filterByAuthors: following,
@@ -112,6 +117,10 @@ export class ArticleView {
     return Promise.all(
       articles.map((article) => this.addTagsAndAuthorToArticle(article)),
     )
+  }
+
+  private async getGlobalFeed(pagination?: Pagination) {
+    return await this.getArticlesByFilters({}, pagination)
   }
 
   async getArticlesByFilters(filters: ArticleFilters, pagination?: Pagination) {
@@ -154,47 +163,47 @@ export class ContentManagementSystem {
     'publishArticle' | 'unpublishArticle'
   > = new ArticlesRepository(ArticleEntity)
 
-  constructor(private author: { id: number }) {}
+  constructor(private owner: { id: number }) {}
 
   async createArticle(data: Article & Tagged) {
     const slug = slugify(data.title)
     const article = await this.articlesRepository.createArticle(
       { ...data, slug },
-      this.author,
+      this.owner,
     )
     const tags = await this.tagsRepository.setArticleTags(data.tags, article)
-    return { ...article, tags, author: this.author }
+    return { ...article, tags, author: this.owner }
   }
 
   async updateArticle(slug: string, snapshot: Partial<Article & Tagged>) {
     const article = await this.articlesRepository.updateArticle(
       slug,
-      this.author,
+      this.owner,
       snapshot,
     )
     const tags = snapshot.tags
       ? await this.tagsRepository.setArticleTags(snapshot.tags, article)
       : await this.tagsRepository.getArticleTags(article)
-    return { ...article, tags, author: this.author }
+    return { ...article, tags, author: this.owner }
   }
 
   async deleteArticle(slug: string): Promise<void> {
-    await this.articlesRepository.deleteArticle(slug, this.author)
+    await this.articlesRepository.deleteArticle(slug, this.owner)
   }
 
   async publishArticle(slug: string) {
-    const article = await this.articlesJournal.publishArticle(slug, this.author)
+    const article = await this.articlesJournal.publishArticle(slug, this.owner)
     const tags = await this.tagsRepository.getArticleTags(article)
-    return { ...article, tags, author: this.author }
+    return { ...article, tags, author: this.owner }
   }
 
   async unpublishArticle(slug: string) {
     const article = await this.articlesJournal.unpublishArticle(
       slug,
-      this.author,
+      this.owner,
     )
     const tags = await this.tagsRepository.getArticleTags(article)
-    return { ...article, tags, author: this.author }
+    return { ...article, tags, author: this.owner }
   }
 }
 

@@ -241,13 +241,18 @@ export class ArticlesController {
   ) {}
 
   @ApiOkResponse({ type: ArticlesResponseBody })
+  @AuthIsOptional()
   @Get('feed')
   async getFeed(
     @Req() req,
     @Query(validateModel()) pagination: Pagination,
   ): Promise<ArticlesResponseBody> {
-    const me = await this.authorsService.getUserAuthorProfile(req.user)
-    const articles = await this.articlesService.getView(me).getFeed(pagination)
+    const view = this.articlesService.getView(
+      req.user
+        ? await this.authorsService.getUserAuthorProfile(req.user)
+        : null,
+    )
+    const articles = await view.getFeed(pagination)
     return {
       articles: articles.map((article) =>
         createArticleDTO(req, article, article.author, undefined),
@@ -273,12 +278,12 @@ export class ArticlesController {
     @Query(validateModel()) filters: ArticleFiltersDTO,
     @Query(validateModel()) pagination: Pagination,
   ): Promise<ArticlesResponseBody> {
-    const me = await this.authorsService
-      .getUserAuthorProfile(req.user)
-      .catch(() => null)
-    const articles = await this.articlesService
-      .getView(me)
-      .getArticlesByFilters(filters, pagination)
+    const view = this.articlesService.getView(
+      req.user
+        ? await this.authorsService.getUserAuthorProfile(req.user)
+        : null,
+    )
+    const articles = await view.getArticlesByFilters(filters, pagination)
     return {
       articles: articles.map((article) =>
         createArticleDTO(req, article, article.author, undefined),
@@ -305,10 +310,12 @@ export class ArticlesController {
     @Req() req,
     @Param('slug') slug: string,
   ): Promise<ArticleResponseBody> {
-    const me = await this.authorsService
-      .getUserAuthorProfile(req.user)
-      .catch(() => null)
-    const article = await this.articlesService.getView(me).getArticle(slug)
+    const view = this.articlesService.getView(
+      req.user
+        ? await this.authorsService.getUserAuthorProfile(req.user)
+        : null,
+    )
+    const article = await view.getArticle(slug)
     return {
       article: createArticleDTO(req, article, article.author),
     }
@@ -345,9 +352,8 @@ export class ArticlesController {
     body: CreateArticleBody,
   ): Promise<ArticleResponseBody> {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
-    const article = await this.articlesService
-      .getCMS(me)
-      .createArticle(body.article)
+    const cms = this.articlesService.getCMS(me)
+    const article = await cms.createArticle(body.article)
     return {
       article: createArticleDTO(req, article, me),
     }
@@ -364,9 +370,8 @@ export class ArticlesController {
     body: UpdateArticleBody,
   ): Promise<ArticleResponseBody> {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
-    const article = await this.articlesService
-      .getCMS(me)
-      .updateArticle(slug, body.article)
+    const cms = this.articlesService.getCMS(me)
+    const article = await cms.updateArticle(slug, body.article)
     return {
       article: createArticleDTO(req, article, me),
     }
@@ -379,7 +384,8 @@ export class ArticlesController {
   @HttpCode(HttpStatus.NO_CONTENT)
   async deleteArticle(@Req() req, @Param('slug') slug: string) {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
-    await this.articlesService.getCMS(me).deleteArticle(slug)
+    const cms = this.articlesService.getCMS(me)
+    await cms.deleteArticle(slug)
   }
 
   @ApiCreatedResponse({ type: ArticleResponseBody })
@@ -391,7 +397,8 @@ export class ArticlesController {
     @Param('slug') slug: string,
   ): Promise<ArticleResponseBody> {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
-    const article = await this.articlesService.getCMS(me).publishArticle(slug)
+    const cms = this.articlesService.getCMS(me)
+    const article = await cms.publishArticle(slug)
     return {
       article: createArticleDTO(req, article, me),
     }
@@ -406,7 +413,8 @@ export class ArticlesController {
     @Param('slug') slug: string,
   ): Promise<ArticleResponseBody> {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
-    const article = await this.articlesService.getCMS(me).unpublishArticle(slug)
+    const cms = this.articlesService.getCMS(me)
+    const article = await cms.unpublishArticle(slug)
     return {
       article: createArticleDTO(req, article, me),
     }
