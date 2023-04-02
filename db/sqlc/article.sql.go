@@ -9,8 +9,6 @@ import (
 	"context"
 	"database/sql"
 	"time"
-
-	"github.com/lib/pq"
 )
 
 const createArticle = `-- name: CreateArticle :one
@@ -109,18 +107,28 @@ SELECT a.id,
        a.title,
        a.description,
        a.body,
-       array_agg(t.name)::varchar[] as tag_list,
+       COALESCE(array_agg(t.name)::varchar[], '{}') AS tag_list,
        a.created_at,
        a.updated_at, 
-       count(f.article_id) as favorites_count,
+       COALESCE(f.favorites_count, 0) AS favorites_count,
        u.username,
        u.bio,
        u.image
-FROM articles a, tags t
+FROM (
+  SELECT id, author_id, slug, title, description, body, created_at, updated_at
+  FROM articles
+  WHERE slug = $1
+  LIMIT 1
+) a
+LEFT JOIN (
+  SELECT article_id, COUNT(*) AS favorites_count
+  FROM favorites
+  GROUP BY article_id
+) f ON a.id = f.article_id
 LEFT JOIN users u ON a.author_id = u.id
-LEFT JOIN favorites f ON a.id = f.article_id
-LEFT JOIN article_tags a_t ON a.id = a_t.article_id
-WHERE slug = $1
+LEFT JOIN article_tags art ON a.id = art.article_id
+LEFT JOIN tags t ON art.tag_id = t.id
+GROUP BY a.id, a.slug, a.title, a.description, a.body, a.created_at, a.updated_at, u.id, f.favorites_count
 `
 
 type GetArticleBySlugRow struct {
@@ -147,13 +155,69 @@ func (q *Queries) GetArticleBySlug(ctx context.Context, slug string) (*GetArticl
 		&i.Title,
 		&i.Description,
 		&i.Body,
-		pq.Array(&i.TagList),
+		&i.TagList,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 		&i.FavoritesCount,
 		&i.Username,
 		&i.Bio,
 		&i.Image,
+	)
+	return &i, err
+}
+
+const getArticleIDBySlug = `-- name: GetArticleIDBySlug :one
+SELECT id
+FROM articles
+WHERE slug = $1
+`
+
+func (q *Queries) GetArticleIDBySlug(ctx context.Context, slug string) (string, error) {
+	row := q.db.QueryRowContext(ctx, getArticleIDBySlug, slug)
+	var id string
+	err := row.Scan(&id)
+	return id, err
+}
+
+const updateArticle = `-- name: UpdateArticle :one
+UPDATE articles
+SET slug = coalesce($1, slug),
+    title = coalesce($2, title),
+    description = coalesce($3, description),
+    body = coalesce($4, body),
+    updated_at = now()
+WHERE id = $5 and author_id = $6
+RETURNING id, author_id, slug, title, description, body, created_at, updated_at
+`
+
+type UpdateArticleParams struct {
+	Slug        sql.NullString `json:"slug"`
+	Title       sql.NullString `json:"title"`
+	Description sql.NullString `json:"description"`
+	Body        sql.NullString `json:"body"`
+	ID          string         `json:"id"`
+	AuthorID    string         `json:"author_id"`
+}
+
+func (q *Queries) UpdateArticle(ctx context.Context, arg UpdateArticleParams) (*Article, error) {
+	row := q.db.QueryRowContext(ctx, updateArticle,
+		arg.Slug,
+		arg.Title,
+		arg.Description,
+		arg.Body,
+		arg.ID,
+		arg.AuthorID,
+	)
+	var i Article
+	err := row.Scan(
+		&i.ID,
+		&i.AuthorID,
+		&i.Slug,
+		&i.Title,
+		&i.Description,
+		&i.Body,
+		&i.CreatedAt,
+		&i.UpdatedAt,
 	)
 	return &i, err
 }

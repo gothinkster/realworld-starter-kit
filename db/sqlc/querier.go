@@ -15,11 +15,13 @@ type Querier interface {
 	CreateUser(ctx context.Context, arg CreateUserParams) (*User, error)
 	FollowUser(ctx context.Context, arg FollowUserParams) error
 	GetArticleBySlug(ctx context.Context, slug string) (*GetArticleBySlugRow, error)
+	GetArticleIDBySlug(ctx context.Context, slug string) (string, error)
 	GetUser(ctx context.Context, id string) (*User, error)
 	GetUserByEmail(ctx context.Context, email string) (*User, error)
 	GetUserByUsername(ctx context.Context, username string) (*User, error)
 	IsFollowing(ctx context.Context, arg IsFollowingParams) (bool, error)
 	UnfollowUser(ctx context.Context, arg UnfollowUserParams) error
+	UpdateArticle(ctx context.Context, arg UpdateArticleParams) (*Article, error)
 	UpdateUser(ctx context.Context, arg UpdateUserParams) (*User, error)
 }
 

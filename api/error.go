@@ -42,3 +42,15 @@ func Nullable[T any](row *T, err error) (*T, error) {
 
 	return nil, err
 }
+
+func NullableID(row string, err error) (*string, error) {
+	if err == nil {
+		return &row, nil
+	}
+
+	if err == sql.ErrNoRows {
+		return nil, nil
+	}
+
+	return nil, err
+}

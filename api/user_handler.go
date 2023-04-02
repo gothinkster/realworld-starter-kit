@@ -77,6 +77,7 @@ func (req *updateUserReq) bind(c *gin.Context, p *db.UpdateUserParams) error {
 // @Produce json
 // @Param user body updateUserReq true "User"
 // @Success 200 {object} userResponse
+// @Failure 401 {object} Error
 // @Failure 404 {object} Error
 // @Failure 500 {object} Error
 // @Security Bearer
@@ -96,7 +97,7 @@ func (s *Server) UpdateUser(c *gin.Context) {
 	u, err := Nullable(s.store.UpdateUser(c.Request.Context(), p))
 	if err != nil {
 		if constraintErr(err) != nil {
-			c.JSON(http.StatusUnprocessableEntity, constraintErr(err))
+			c.JSON(http.StatusUnprocessableEntity, NewError(err))
 		}
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 	}

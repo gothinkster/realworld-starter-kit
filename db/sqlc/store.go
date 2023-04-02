@@ -36,7 +36,7 @@ type CreateArticleTxResult struct {
 func (store *ConduitStore) CreateArticleTx(
 	ctx context.Context,
 	arg CreateArticleTxParams,
-) (*CreateArticleTxResult, error) {
+	) (*CreateArticleTxResult, error) {
 
 	tx, err := store.db.Begin()
 	if err != nil {

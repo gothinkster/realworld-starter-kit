@@ -78,6 +78,20 @@ definitions:
             type: string
         type: object
     type: object
+  api.updateArticleReq:
+    properties:
+      article:
+        properties:
+          body:
+            type: string
+          description:
+            type: string
+          title:
+            type: string
+        type: object
+    required:
+    - article
+    type: object
   api.updateUserReq:
     properties:
       user:
@@ -165,6 +179,10 @@ paths:
           description: Created
           schema:
             $ref: '#/definitions/api.articleResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.Error'
         "422":
           description: Unprocessable Entity
           schema:
@@ -205,6 +223,46 @@ paths:
           schema:
             $ref: '#/definitions/api.Error'
       summary: Get an article
+      tags:
+      - articles
+    put:
+      consumes:
+      - application/json
+      description: Update Article
+      parameters:
+      - description: Article slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      - description: Article
+        in: body
+        name: article
+        required: true
+        schema:
+          $ref: '#/definitions/api.updateArticleReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.articleResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.Error'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      security:
+      - Bearer: []
+      summary: Update article
       tags:
       - articles
   /profiles/{username}:
@@ -342,6 +400,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/api.userResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.Error'
         "404":
           description: Not Found
           schema:
@@ -404,6 +466,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/api.userResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.Error'
         "403":
           description: Forbidden
           schema:

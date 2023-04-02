@@ -4,18 +4,26 @@ SELECT a.id,
        a.title,
        a.description,
        a.body,
-       array_agg(t.name)::varchar[] as tag_list,
        a.created_at,
        a.updated_at, 
-       count(f.article_id) as favorites_count,
        u.username,
        u.bio,
        u.image
-FROM articles a, tags t
+FROM (
+  SELECT *
+  FROM articles
+  WHERE slug = $1
+  LIMIT 1
+) a
+LEFT JOIN (
+  SELECT article_id, COUNT(*) AS favorites_count
+  FROM favorites
+  GROUP BY article_id
+) f ON a.id = f.article_id
 LEFT JOIN users u ON a.author_id = u.id
-LEFT JOIN favorites f ON a.id = f.article_id
-LEFT JOIN article_tags a_t ON a.id = a_t.article_id
-WHERE slug = $1;
+LEFT JOIN article_tags art ON a.id = art.article_id
+LEFT JOIN tags t ON art.tag_id = t.id
+GROUP BY a.id, a.slug, a.title, a.description, a.body, a.created_at, a.updated_at, u.id, f.favorites_count;
 
 -- name: CreateArticle :one
 INSERT INTO articles (
@@ -54,3 +62,18 @@ INSERT INTO article_tags (
     $2
 )
 RETURNING *;
+
+-- name: UpdateArticle :one
+UPDATE articles
+SET slug = coalesce(sqlc.narg('slug'), slug),
+    title = coalesce(sqlc.narg('title'), title),
+    description = coalesce(sqlc.narg('description'), description),
+    body = coalesce(sqlc.narg('body'), body),
+    updated_at = now()
+WHERE id = sqlc.arg('id') and author_id = sqlc.arg('author_id')
+RETURNING *;
+
+-- name: GetArticleIDBySlug :one
+SELECT id
+FROM articles
+WHERE slug = $1; 

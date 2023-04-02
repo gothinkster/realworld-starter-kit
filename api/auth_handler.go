@@ -107,7 +107,6 @@ type userLoginReq struct {
 }
 
 // LoginUser godoc
-//
 //	@Summary		Login a user
 //	@Description	Login a user
 //	@Tags			auth
@@ -115,6 +114,7 @@ type userLoginReq struct {
 //	@Produce		json
 //	@Param			user	body		userLoginReq	true	"User"
 //	@Success		200		{object}	userResponse
+//  @Failure		401     {object}	Error
 //	@Failure		403		{object}	Error
 //	@Failure		500		{object}	Error
 //	@Router			/users/login [post]
