@@ -30,8 +30,17 @@ function makeRandomArticle(article: Partial<Article & Tagged> = {}) {
 }
 
 let dataSource: DataSource
+let service: ArticlesService
+let authorsService: AuthorsService
+
 beforeAll(async () => {
   dataSource = await getPostgresDataSource().initialize()
+  authorsService = new AuthorsService()
+  service = new ArticlesService(
+    authorsService,
+    new TypeORMTagsRepository(),
+    new TypeORMArticlesRepository(),
+  )
 })
 
 afterAll(async () => {
@@ -39,9 +48,8 @@ afterAll(async () => {
 })
 
 let author: { id: number; username: string }
-let service: ArticlesService
-let exampleArticle: Sluged & Article & Tagged
 let testRandomNumber: number
+let exampleArticle: Sluged & Article & Tagged
 
 beforeEach(async () => {
   testRandomNumber = Date.now() % 10 ** 9
@@ -51,17 +59,9 @@ beforeEach(async () => {
       title: `How to train your dragon? ${testRandomNumber}`,
     }),
   }
-
-  const authorsService = new AuthorsService()
   author = await authorsService.createUserAuthorProfile(
     { id: testRandomNumber },
     { username: `john-doe-${testRandomNumber}`, bio: 'I am a bio', image: '' },
-  )
-
-  service = new ArticlesService(
-    authorsService,
-    new TypeORMTagsRepository(),
-    new TypeORMArticlesRepository(),
   )
 })
 

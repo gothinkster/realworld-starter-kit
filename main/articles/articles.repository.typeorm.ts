@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  In,
   JoinTable,
   ManyToMany,
   ManyToOne,
@@ -41,8 +42,8 @@ export class TypeORMArticlesRepository implements ArticlesRepository {
     }
 
     if (options.filterByAuthors) {
-      qb.andWhere(`${qb.alias}.author_id IN (:...authorIds)`, {
-        authorIds: options.filterByAuthors.map((author) => author.id),
+      qb.andWhere({
+        author: In(options.filterByAuthors.map((author) => author.id)),
       })
     }
 
