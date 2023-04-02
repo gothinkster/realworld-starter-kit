@@ -23,15 +23,7 @@ import {
   ApiResponseProperty,
   ApiTags,
 } from '@nestjs/swagger'
-import {
-  Article,
-  ArticleFilters,
-  ArticlesService,
-  Dated,
-  FullArticle,
-  Sluged,
-  Tagged,
-} from './articles.service'
+import { ArticlesService } from './articles.service'
 import { buildUrlToPath } from '../nest/url'
 import { AuthIsOptional, JWTAuthGuard } from '../nest/jwt.guard'
 import { validateModel } from '../nest/validation.utils'
@@ -47,6 +39,8 @@ import {
 import { Transform, Type } from 'class-transformer'
 import { Pagination } from '../nest/pagination'
 import { AuthorsService, Profile } from '../authors/authors.service'
+import { ArticleFilters } from './articles.repository'
+import { Article, Dated, Sluged, Tagged } from './articles.models'
 
 export const articlesSwaggerOptions = {
   title: { example: 'How to train your dragon' },
@@ -411,7 +405,7 @@ export class ArticlesController {
 
 function createArticleDTO(
   req,
-  article: FullArticle,
+  article: Article & Dated & Sluged & Tagged,
   author: Profile,
   favorited?: boolean,
 ) {

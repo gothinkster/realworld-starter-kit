@@ -12,18 +12,11 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 import { slugify } from './slugify'
-import {
-  Article,
-  ArticleNotFound,
-  ArticlesRepository,
-  Authored,
-  Dated,
-  Sluged,
-  Tagged,
-  TagsRepository,
-} from './articles.service'
+import { ArticleNotFound } from './articles.service'
 import { AuthorEntity } from '../authors/authors.entity'
 import { CommentEntity } from '../comments/comments.entity'
+import { ArticlesRepository, TagsRepository } from './articles.repository'
+import { Article, Authored, Dated, Sluged, Tagged } from './articles.models'
 
 export class TypeORMArticlesRepository implements ArticlesRepository {
   async getArticles(

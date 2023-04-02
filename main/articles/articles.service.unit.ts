@@ -1,10 +1,4 @@
-import {
-  Article,
-  ArticleNotFound,
-  ArticlesService,
-  Sluged,
-  Tagged,
-} from './articles.service'
+import { ArticleNotFound, ArticlesService } from './articles.service'
 import { DataSource } from 'typeorm'
 import { getPostgresDataSource } from '../global/global.module'
 import { AuthorsService } from '../authors/authors.service'
@@ -13,6 +7,7 @@ import {
   TypeORMArticlesRepository,
   TypeORMTagsRepository,
 } from './articles.repository.typeorm'
+import { Article, Sluged, Tagged } from './articles.models'
 
 const lorem = new LoremIpsum()
 

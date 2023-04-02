@@ -1,11 +1,13 @@
 import { NotFoundException } from '@nestjs/common'
 import { AuthorNotFound, AuthorsService } from '../authors/authors.service'
 import { slugify } from './slugify'
-
-type Pagination = {
-  skip: number
-  take: number
-}
+import {
+  ArticleFilters,
+  ArticlesRepository,
+  Pagination,
+  TagsRepository,
+} from './articles.repository'
+import { Article, Tagged } from './articles.models'
 
 export class ArticlesService {
   constructor(
@@ -30,89 +32,6 @@ export class ArticlesService {
       author,
     )
   }
-}
-
-export type Dated = {
-  readonly createdAt: Date
-  readonly updatedAt: Date
-}
-
-export type Sluged = {
-  slug: string
-}
-
-export interface Article {
-  title: string
-  description: string
-  body: string
-}
-
-export type Tagged = {
-  tags: string[]
-}
-
-export type Authored = {
-  author: {
-    id: number
-  }
-}
-
-export type FullArticle = Article &
-  Dated &
-  Sluged &
-  Tagged &
-  Authored & { id: number }
-
-export interface ArticleFilters {
-  tags?: string[]
-  author?: string
-  favorited?: boolean
-}
-
-export interface TagsRepository {
-  getArticleTags(article: { id: number }): Promise<string[]>
-  setArticleTags(article: { id: number }, tags: string[]): Promise<string[]>
-}
-
-export interface ArticlesRepository {
-  getArticles(
-    options: {
-      filterBySlug?: string
-      filterByAuthors?: { id: number }[]
-      filterByTags?: string[]
-      owner?: { id: number }
-    },
-    pagination?: { take: number; skip: number },
-  ): Promise<(Article & Authored & Sluged & Dated & { id: number })[]>
-
-  createArticle(
-    param: {
-      description: string
-      title: string
-      body: string
-      slug: string
-      tags: string[]
-    },
-    owner: { id: number },
-  ): Promise<Article & Authored & Sluged & Dated & { id: number }>
-
-  updateArticle(
-    slug: string,
-    owner: { id: number },
-    snapshot: Partial<Article & Tagged>,
-  ): Promise<Article & Authored & Sluged & Dated & { id: number }>
-
-  deleteArticle(slug: string, owner: { id: number }): Promise<void>
-
-  publishArticle(
-    slug: string,
-    owner: { id: number },
-  ): Promise<Article & Authored & Sluged & Dated & { id: number }>
-
-  unpublishArticle(
-    slug: string,
-    owner: { id: number },
-  ): Promise<Article & Authored & Sluged & Dated & { id: number }>
 }
 
 export class ArticleView {
