@@ -17,10 +17,9 @@ import (
 // @Failure 404 {object} Error
 // @Failure 500 {object} Error
 // @Security Bearer
-// @Router /user [post]
+// @Router /user [get]
 func (s *Server) GetCurrentUser(c *gin.Context) {
-	// id := getFromJWT(c)
-	id := "some_uuid"
+	id := GetIDFromHeader(c)
 	user, err := Nullable(s.store.GetUser(c.Request.Context(), id))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -70,13 +69,13 @@ func (req *updateUserReq) bind(c *gin.Context, p *db.UpdateUserParams) error {
 	return nil
 }
 
-
 // UpdateUser godoc
 // @Summary Update user
 // @Description Update user
 // @Tags user
-// @Accept  json
-// @Produce  json
+// @Accept json
+// @Produce json
+// @Param user body updateUserReq true "User"
 // @Success 200 {object} userResponse
 // @Failure 404 {object} Error
 // @Failure 500 {object} Error
@@ -84,7 +83,7 @@ func (req *updateUserReq) bind(c *gin.Context, p *db.UpdateUserParams) error {
 // @Router /user [put]
 func (s *Server) UpdateUser(c *gin.Context) {
 	// id := getFromJWT(c)
-	id := "some_uuid"
+	id := GetIDFromHeader(c)
 	var (
 		req updateUserReq
 		p   db.UpdateUserParams
@@ -138,12 +137,14 @@ func newProfileResponse(u *db.User, isFollowing bool) *profileResponse {
 // @Tags user
 // @Accept  json
 // @Produce  json
+// @Param username path string true "Username"
 // @Success 200 {object} profileResponse
 // @Failure 404 {object} Error
 // @Failure 500 {object} Error
 // @Security Bearer
 // @Router /profiles/{username} [get]
-func (s *Server) GetProfile(c *gin.Context) { 
+func (s *Server) GetProfile(c *gin.Context) {
+	followerID := GetIDFromHeader(c)
 	username := c.Param("username")
 	user, err := Nullable(s.store.GetUserByUsername(c.Request.Context(), username))
 	if err != nil {
@@ -155,7 +156,7 @@ func (s *Server) GetProfile(c *gin.Context) {
 		return
 	}
 	p := db.IsFollowingParams{
-		FollowerID: "some_uuid",
+		FollowerID:  followerID,
 		FollowingID: user.ID,
 	}
 	isFollowing, err := s.store.IsFollowing(c.Request.Context(), p)
@@ -166,21 +167,20 @@ func (s *Server) GetProfile(c *gin.Context) {
 	c.JSON(http.StatusOK, newProfileResponse(user, isFollowing))
 }
 
-
-
 // FollowUser godoc
 // @Summary Follow user by username
 // @Description Follow user
 // @Tags user
 // @Accept  json
 // @Produce  json
+// @Param username path string true "Username"
 // @Success 200 {object} profileResponse
 // @Failure 404 {object} Error
 // @Failure 500 {object} Error
 // @Security Bearer
 // @Router /profiles/{username}/follow [post]
 func (s *Server) FollowUser(c *gin.Context) {
-	followerID := "some_uuid"
+	followerID := GetIDFromHeader(c)
 	username := c.Param("username")
 	user, err := Nullable(s.store.GetUserByUsername(c.Request.Context(), username))
 	if err != nil {
@@ -192,7 +192,7 @@ func (s *Server) FollowUser(c *gin.Context) {
 		return
 	}
 	p := db.FollowUserParams{
-		FollowerID: followerID,
+		FollowerID:  followerID,
 		FollowingID: user.ID,
 	}
 	if err := s.store.FollowUser(c.Request.Context(), p); err != nil {
@@ -202,20 +202,20 @@ func (s *Server) FollowUser(c *gin.Context) {
 	c.JSON(http.StatusOK, newProfileResponse(user, true))
 }
 
-
 // UnfollowUser godoc
 // @Summary Unfollow user by username
 // @Description Unfollow user
 // @Tags user
 // @Accept  json
 // @Produce  json
+// @Param username path string true "Username"
 // @Success 200 {object} profileResponse
 // @Failure 404 {object} Error
 // @Failure 500 {object} Error
 // @Security Bearer
 // @Router /profiles/{username}/follow [delete]
 func (s *Server) UnfollowUser(c *gin.Context) {
-	followerID := "some_uuid"
+	followerID := GetIDFromHeader(c)
 	username := c.Param("username")
 	user, err := Nullable(s.store.GetUserByUsername(c.Request.Context(), username))
 	if err != nil {
@@ -227,7 +227,7 @@ func (s *Server) UnfollowUser(c *gin.Context) {
 		return
 	}
 	p := db.UnfollowUserParams{
-		FollowerID: followerID,
+		FollowerID:  followerID,
 		FollowingID: user.ID,
 	}
 	if err := s.store.UnfollowUser(c.Request.Context(), p); err != nil {

@@ -5,20 +5,19 @@ import (
 	"database/sql"
 )
 
-
 type Store interface {
-	Querier              // Querier gives access sqlc-generated methods
-	CreateArticleTx(ctx context.Context, arg CreateArticleTxParams) (*CreateArticleTxResult, error) 
+	Querier // Querier gives access sqlc-generated methods
+	CreateArticleTx(ctx context.Context, arg CreateArticleTxParams) (*CreateArticleTxResult, error)
 }
 
-type ConduitStore struct { 
-	*Queries             // implements Querier
-	db *sql.DB           
+type ConduitStore struct {
+	*Queries // implements Querier
+	db       *sql.DB
 }
 
 func NewConduitStore(db *sql.DB) Store {
 	return &ConduitStore{
-		db:		 db,
+		db:      db,
 		Queries: New(db),
 	}
 }
@@ -35,10 +34,10 @@ type CreateArticleTxResult struct {
 }
 
 func (store *ConduitStore) CreateArticleTx(
-		ctx context.Context, 
-		arg CreateArticleTxParams,
-	) (*CreateArticleTxResult, error) {
-	
+	ctx context.Context,
+	arg CreateArticleTxParams,
+) (*CreateArticleTxResult, error) {
+
 	tx, err := store.db.Begin()
 	if err != nil {
 		return nil, err
@@ -75,6 +74,4 @@ func (store *ConduitStore) CreateArticleTx(
 		Tags:    tags,
 		User:    user,
 	}, nil
-}	
-
-
+}

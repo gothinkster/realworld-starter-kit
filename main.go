@@ -10,6 +10,12 @@ import (
 	"go.uber.org/zap"
 )
 
+// @produce	application/json
+// @consumes application/json
+
+// @securityDefinitions.apiKey  Bearer
+// @in header
+// @name Authorization
 func main() {
 	env := os.Getenv("ENVIRONMENT")
 	if env == "" {

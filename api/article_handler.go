@@ -10,20 +10,20 @@ import (
 
 type articleResponse struct {
 	Article struct {
-		Slug           string     `json:"slug"`
-		Title          string     `json:"title"`
-		Description    string     `json:"description"`
-		Body           string     `json:"body"`
-		TagList        []string   `json:"tagList"`
-		CreatedAt      time.Time  `json:"createdAt"`
-		UpdatedAt      time.Time  `json:"updatedAt"`
-		Favorited      bool       `json:"favorited"`
-		FavoritesCount int64      `json:"favoritesCount"`
+		Slug           string    `json:"slug"`
+		Title          string    `json:"title"`
+		Description    string    `json:"description"`
+		Body           string    `json:"body"`
+		TagList        []string  `json:"tagList"`
+		CreatedAt      time.Time `json:"createdAt"`
+		UpdatedAt      time.Time `json:"updatedAt"`
+		Favorited      bool      `json:"favorited"`
+		FavoritesCount int64     `json:"favoritesCount"`
 		Author         struct {
-			Username  string 		`json:"username"`
-			Bio       *string 		`json:"bio"`
-			Image     *string 		`json:"image"`
-			Following bool   		`json:"following"`	
+			Username  string  `json:"username"`
+			Bio       *string `json:"bio"`
+			Image     *string `json:"image"`
+			Following bool    `json:"following"`
 		} `json:"author"`
 	} `json:"article"`
 }
@@ -48,7 +48,6 @@ func newArticleResponse(article *db.GetArticleBySlugRow) *articleResponse {
 	}
 	return resp
 }
-
 
 // GetArticle godoc
 // @Summary Get an article
@@ -75,13 +74,12 @@ func (s *Server) GetArticle(c *gin.Context) {
 	c.JSON(http.StatusOK, newArticleResponse(article))
 }
 
-
 type createArticleReq struct {
 	Article struct {
-		Title string `json:"title" binding:"required"`
-		Description string `json:"description" binding:"required"`
-		Body string `json:"body" binding:"required"`
-		TagList []string `json:"tagList" binding:"omitempty"`
+		Title       string   `json:"title" binding:"required"`
+		Description string   `json:"description" binding:"required"`
+		Body        string   `json:"body" binding:"required"`
+		TagList     []string `json:"tagList" binding:"omitempty"`
 	} `json:"article" binding:"required"`
 }
 
@@ -106,16 +104,17 @@ func (req *createArticleReq) bind(c *gin.Context, p *db.CreateArticleTxParams) e
 // @Tags articles
 // @Accept json
 // @Produce json
+// @Param article body createArticleReq true "Article"
 // @Success 201 {object} articleResponse
 // @Failure 422 {object} Error
 // @Failure 500 {object} Error
-// @Security Bearer 
-// @Router /articles [post]  
+// @Security Bearer
+// @Router /articles [post]
 func (s *Server) CreateArticle(c *gin.Context) {
 	id := "some_id"
 	var (
 		req createArticleReq
-		p db.CreateArticleTxParams
+		p   db.CreateArticleTxParams
 	)
 	if err := req.bind(c, &p); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, NewError(err))
@@ -140,7 +139,7 @@ func newArticleTxResponse(articleTx *db.CreateArticleTxResult) *articleResponse 
 	resp.Article.UpdatedAt = articleTx.Article.UpdatedAt
 	resp.Article.Favorited = false
 	resp.Article.FavoritesCount = 0
-	resp.Article.Author.Username = articleTx.User.Username 
+	resp.Article.Author.Username = articleTx.User.Username
 	if articleTx.User.Bio.Valid {
 		resp.Article.Author.Bio = &articleTx.User.Bio.String
 	}
@@ -149,4 +148,3 @@ func newArticleTxResponse(articleTx *db.CreateArticleTxResult) *articleResponse 
 	}
 	return resp
 }
-

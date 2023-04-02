@@ -34,6 +34,15 @@ func (s *Server) MountHandlers() {
 	api := s.router.Group("/api")
 	api.POST("/users", s.RegisterUser)
 	api.POST("/users/login", s.LoginUser)
+	user := api.Group("/user")
+	user.Use(AuthMiddleware())
+	user.GET("", s.GetCurrentUser)
+	user.PUT("", s.UpdateUser)
+	profiles := api.Group("/profiles")
+	profiles.Use(AuthMiddleware())
+	profiles.GET("/:username", s.GetProfile)
+	profiles.POST("/:username/follow", s.FollowUser)
+	profiles.DELETE("/:username/follow", s.UnfollowUser)
 }
 
 func (s *Server) MountSwaggerHandlers() {

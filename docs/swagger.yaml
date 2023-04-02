@@ -5,6 +5,97 @@ definitions:
         additionalProperties: true
         type: object
     type: object
+  api.articleResponse:
+    properties:
+      article:
+        properties:
+          author:
+            properties:
+              bio:
+                type: string
+              following:
+                type: boolean
+              image:
+                type: string
+              username:
+                type: string
+            type: object
+          body:
+            type: string
+          createdAt:
+            type: string
+          description:
+            type: string
+          favorited:
+            type: boolean
+          favoritesCount:
+            type: integer
+          slug:
+            type: string
+          tagList:
+            items:
+              type: string
+            type: array
+          title:
+            type: string
+          updatedAt:
+            type: string
+        type: object
+    type: object
+  api.createArticleReq:
+    properties:
+      article:
+        properties:
+          body:
+            type: string
+          description:
+            type: string
+          tagList:
+            items:
+              type: string
+            type: array
+          title:
+            type: string
+        required:
+        - body
+        - description
+        - title
+        type: object
+    required:
+    - article
+    type: object
+  api.profileResponse:
+    properties:
+      profile:
+        properties:
+          bio:
+            type: string
+          following:
+            type: boolean
+          image:
+            type: string
+          username:
+            type: string
+        type: object
+    type: object
+  api.updateUserReq:
+    properties:
+      user:
+        properties:
+          bio:
+            type: string
+          email:
+            type: string
+          image:
+            type: string
+          password:
+            type: string
+          username:
+            type: string
+        type: object
+    required:
+    - user
+    type: object
   api.userLoginReq:
     properties:
       user:
@@ -55,6 +146,215 @@ definitions:
 info:
   contact: {}
 paths:
+  /articles:
+    post:
+      consumes:
+      - application/json
+      description: Create Article
+      parameters:
+      - description: Article
+        in: body
+        name: article
+        required: true
+        schema:
+          $ref: '#/definitions/api.createArticleReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.articleResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      security:
+      - Bearer: []
+      summary: Create article
+      tags:
+      - articles
+  /articles/{slug}:
+    get:
+      consumes:
+      - application/json
+      description: Get an article by slug
+      parameters:
+      - description: Article slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.articleResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: Get an article
+      tags:
+      - articles
+  /profiles/{username}:
+    get:
+      consumes:
+      - application/json
+      description: Get profile of any user by username. Authentification optional
+      parameters:
+      - description: Username
+        in: path
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.profileResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      security:
+      - Bearer: []
+      summary: Get profile
+      tags:
+      - user
+  /profiles/{username}/follow:
+    delete:
+      consumes:
+      - application/json
+      description: Unfollow user
+      parameters:
+      - description: Username
+        in: path
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.profileResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      security:
+      - Bearer: []
+      summary: Unfollow user by username
+      tags:
+      - user
+    post:
+      consumes:
+      - application/json
+      description: Follow user
+      parameters:
+      - description: Username
+        in: path
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.profileResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      security:
+      - Bearer: []
+      summary: Follow user by username
+      tags:
+      - user
+  /user:
+    get:
+      consumes:
+      - application/json
+      description: Get current user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.userResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      security:
+      - Bearer: []
+      summary: Get current user
+      tags:
+      - user
+    put:
+      consumes:
+      - application/json
+      description: Update user
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/api.updateUserReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.userResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      security:
+      - Bearer: []
+      summary: Update user
+      tags:
+      - user
   /users:
     post:
       consumes:
@@ -115,4 +415,11 @@ paths:
       summary: Login a user
       tags:
       - auth
+produces:
+- application/json
+securityDefinitions:
+  Bearer:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"
