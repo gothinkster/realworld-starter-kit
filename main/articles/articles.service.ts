@@ -1,6 +1,6 @@
 import { NotFoundException } from '@nestjs/common'
 import { AuthorNotFound, AuthorsService } from '../authors/authors.service'
-import { slugify } from './slug.utils'
+import { slugify } from './slugify'
 
 type Pagination = {
   skip: number

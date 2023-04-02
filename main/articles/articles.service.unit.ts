@@ -112,7 +112,7 @@ describe('Article', () => {
     ).rejects.toThrow(ArticleNotFound)
 
     await expect(
-      service.getView({ id: 10 }).getArticle(exampleArticle.slug),
+      service.getView({ id: author.id + 1 }).getArticle(exampleArticle.slug),
     ).rejects.toThrow(ArticleNotFound)
   })
 

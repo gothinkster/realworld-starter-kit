@@ -10,7 +10,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { slugify } from './slug.utils'
+import { slugify } from './slugify'
 import {
   Article,
   ArticleNotFound,
