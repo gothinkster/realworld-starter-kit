@@ -79,15 +79,15 @@ WHERE aht.tags_id IN (
   async createArticle(articleData: Article & Sluged, owner: { id: number }) {
     const raw = await ArticleEntity.query(
       `
-INSERT INTO articles (slug, title, description, body, published, author_id, created_at, updated_at)
-VALUES ($1, $2, $3, $4, $5, $6, current_timestamp, current_timestamp)
-RETURNING *`,
+INSERT INTO articles 
+(slug, title, description, body, author_id, created_at, updated_at, published) 
+VALUES ($1, $2, $3, $4, $5, now(), now(), false) RETURNING *;
+`,
       [
         articleData.slug,
         articleData.title,
         articleData.description,
         articleData.body,
-        false,
         owner.id,
       ],
     )
@@ -104,14 +104,14 @@ RETURNING *`,
   ) {
     const [raw, affected] = await ArticleEntity.query(
       `
-UPDATE articles SET 
+UPDATE articles SET
     slug = COALESCE($3, slug),
     title = COALESCE($4, title),
     description = COALESCE($5, description),
     body = COALESCE($6, body),
-    updated_at = current_timestamp
-WHERE slug = $1 AND author_id = $2
-RETURNING *;`,
+    updated_at = now()
+WHERE slug = $1 AND author_id = $2 RETURNING *;
+`,
       [
         slug,
         owner.id,
@@ -140,11 +140,7 @@ RETURNING *;`,
 
   async publishArticle(slug: string, owner: { id: number }) {
     const [raw, affected] = await ArticleEntity.query(
-      `
-UPDATE articles
-SET published = true
-WHERE slug = $1 AND author_id = $2
-RETURNING *;`,
+      `UPDATE articles SET published = true WHERE slug = $1 AND author_id = $2 RETURNING *;`,
       [slug, owner.id],
     )
     return this.extractOneArticleFromQueryResult(slug, { raw, count: affected })
@@ -152,11 +148,7 @@ RETURNING *;`,
 
   async unpublishArticle(slug: string, owner: { id: number }) {
     const [raw, affected] = await ArticleEntity.query(
-      `
-UPDATE articles
-SET published = false
-WHERE slug = $1 AND author_id = $2
-RETURNING *;`,
+      `UPDATE articles SET published = false WHERE slug = $1 AND author_id = $2 RETURNING *;`,
       [slug, owner.id],
     )
     return this.extractOneArticleFromQueryResult(slug, { raw, count: affected })
@@ -224,7 +216,7 @@ WHERE articles_have_tags.articles_id = $1;
 INSERT INTO tags (name)
 SELECT * FROM unnest($1::text[]) AS tag
 ON CONFLICT (name) DO NOTHING;
-    `,
+`,
       [tags],
     )
   }
@@ -247,7 +239,8 @@ ON CONFLICT (tags_id, articles_id) DO NOTHING;
 DELETE FROM articles_have_tags
 WHERE articles_id = $2 AND tags_id NOT IN (
 SELECT id FROM tags WHERE tags.name IN (SELECT * FROM unnest($1::text[]))
-);`,
+);
+`,
       [tags, article.id],
     )
   }
