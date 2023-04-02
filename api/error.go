@@ -7,8 +7,6 @@ import (
 	"github.com/lib/pq"
 )
 
-
-
 type Error struct {
 	Errors map[string]interface{} `json:"errors"`
 }
@@ -32,8 +30,6 @@ func constraintErr(err error) *Error {
 	}
 	return nil
 }
-
-
 
 func Nullable[T any](row *T, err error) (*T, error) {
 	if err == nil {

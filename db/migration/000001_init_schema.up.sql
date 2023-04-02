@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS articles (
   author_id uuid NOT NULL,
   slug VARCHAR NOT NULL UNIQUE,
   title VARCHAR NOT NULL,
-  description VARCHAR,
-  body VARCHAR,
+  description VARCHAR NOT NULL,
+  body VARCHAR NOT NULL,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),
   

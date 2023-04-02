@@ -10,6 +10,12 @@ import (
 	"go.uber.org/zap"
 )
 
+// @produce	application/json
+// @consumes application/json
+
+// @securityDefinitions.apiKey  Bearer
+// @in header
+// @name Authorization
 func main() {
 	env := os.Getenv("ENVIRONMENT")
 	if env == "" {
@@ -27,7 +33,7 @@ func main() {
 
 	db.AutoMigrate(config)
 
-	store := db.New(dbConn)
+	store := db.NewConduitStore(dbConn)
 
 	server := api.NewServer(
 		config,
@@ -36,6 +42,7 @@ func main() {
 	)
 
 	server.MountHandlers()
+	server.MountSwaggerHandlers()
 
 	addr := fmt.Sprintf(":%s", config.Port)
 	if err := server.Start(addr); err != nil {

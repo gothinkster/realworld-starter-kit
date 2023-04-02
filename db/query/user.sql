@@ -16,7 +16,7 @@ SELECT *
 FROM users 
 WHERE email = $1;
 
--- name: GetUserByID :one
+-- name: GetUser :one
 SELECT *
 FROM users
 WHERE id = $1;
@@ -36,3 +36,25 @@ SET username = coalesce(sqlc.narg('username'), username),
     updated_at = now()
 WHERE id = sqlc.arg('id')
 RETURNING *;
+
+-- name: FollowUser :exec
+INSERT INTO follows (
+    follower_id,
+    following_id
+) VALUES (
+    $1,
+    $2
+);
+
+-- name: IsFollowing :one
+SELECT EXISTS (
+    SELECT 1
+    FROM follows
+    WHERE follower_id = $1
+    AND following_id = $2
+);
+
+-- name: UnfollowUser :exec
+DELETE FROM follows
+WHERE follower_id = $1
+AND following_id = $2;

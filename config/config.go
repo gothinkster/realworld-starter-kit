@@ -21,8 +21,8 @@ type Config struct {
 	MigrationPath string `mapstructure:"MIGRATION_PATH"`
 	DBRecreate    bool   `mapstructure:"DB_RECREATE"`
 
-	ApiSecret            string        `mapstructure:"API_SECRET"`
-	AccessTokenDuration  time.Duration `mapstructure:"TOKEN_HOUR_LIFESPAN"`
+	ApiSecret           string        `mapstructure:"API_SECRET"`
+	AccessTokenDuration time.Duration `mapstructure:"TOKEN_HOUR_LIFESPAN"`
 	// RefreshTokenDuration time.Duration `mapstructure:"REFRESH_TOKEN_DURATION"`
 }
 
