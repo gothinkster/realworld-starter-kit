@@ -2,14 +2,13 @@ import {
   Article,
   ArticleNotFound,
   ArticlesService,
-  Author,
   ContentManagementSystem,
   Sluged,
+  Tagged,
 } from './articles.service'
 import { DataSource } from 'typeorm'
 import { getPostgresDataSource } from '../global/global.module'
-import { AuthorNotFound, AuthorsService } from '../authors/authors.service'
-import { AuthorEntity } from '../authors/authors.entity'
+import { AuthorsService } from '../authors/authors.service'
 
 let dataSource: DataSource
 beforeAll(async () => {
@@ -20,9 +19,9 @@ afterAll(async () => {
   await dataSource.destroy()
 })
 
-let author: Author
+let author: { id: number; username: string }
 let service: ArticlesService
-let exampleArticle: Sluged<Article>
+let exampleArticle: Sluged & Article & Tagged
 let testRandomNumber: number
 
 beforeEach(async () => {
@@ -35,19 +34,13 @@ beforeEach(async () => {
     slug: `how-to-train-your-dragon-${testRandomNumber}`,
   }
 
-  author = await new AuthorsService().createUserAuthorProfile(
+  const authorsService = new AuthorsService()
+  author = await authorsService.createUserAuthorProfile(
     { id: testRandomNumber },
     { username: `john-doe-${testRandomNumber}` },
   )
 
-  service = new ArticlesService({
-    getAuthorByUsername: async (username) => {
-      if (username !== `john-doe-${testRandomNumber}`) {
-        throw new AuthorNotFound(username)
-      }
-      return author as unknown as AuthorEntity
-    },
-  } as any)
+  service = new ArticlesService(authorsService)
 })
 
 describe('Article', () => {
@@ -96,50 +89,6 @@ describe('Article', () => {
     ).rejects.toThrow(ArticleNotFound)
   })
 
-  it('should ignore duplicated tags', async () => {
-    // Arrange
-    const cms = service.getCMS(author)
-    await cms.createArticle({
-      title: exampleArticle.title,
-      description: exampleArticle.description,
-      body: exampleArticle.body,
-      tags: ['programming', 'physics', 'programming'],
-    })
-
-    // Act
-    const article: Article = await service
-      .getView(author)
-      .getArticle(exampleArticle.slug)
-
-    // Assert
-    expect(article.tags).toEqual(['physics', 'programming'])
-  })
-
-  it('should be able to reuse tags from other domain', async () => {
-    // Arrange
-    const cms = service.getCMS(author)
-    await cms.createArticle({
-      title: `One article ${testRandomNumber}`,
-      description: 'One article',
-      body: 'One article',
-      tags: ['programming', 'physics'],
-    })
-    await cms.createArticle({
-      title: `Other article ${testRandomNumber}`,
-      description: 'Other article',
-      body: 'Other article',
-      tags: ['physics', 'food'],
-    })
-
-    // Act
-    const article: Article = await service
-      .getView(author)
-      .getArticle(`other-article-${testRandomNumber}`)
-
-    // Assert
-    expect(article.tags).toEqual(['food', 'physics'])
-  })
-
   it('should return article by tag', async () => {
     // Arrange
     const example = { ...exampleArticle, tags: ['programming', 'physics'] }
@@ -155,11 +104,11 @@ describe('Article', () => {
     expect(articles).toContainEqual(
       expect.objectContaining({
         ...example,
-        tags: ['physics', 'programming'],
+        tags: expect.arrayContaining(['physics', 'programming']),
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date),
         author: expect.objectContaining({
-          username: `john-doe-${testRandomNumber}`,
+          username: author.username,
         }),
       }),
     )

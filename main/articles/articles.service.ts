@@ -1,16 +1,17 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
-import { ArticleEntity, ArticleFinder } from './articles.entity'
+import { ArticleEntity } from './articles.entity'
 import { AuthorNotFound, AuthorsService } from '../authors/authors.service'
 import { slugify } from './slug.utils'
 import { DataSource } from 'typeorm'
+import {
+  ArticleFinder,
+  ArticlesRepository,
+  TagsRepository,
+} from './articles.repository'
 
 type Pagination = {
   skip: number
   take: number
-}
-
-export interface Author {
-  id: number
 }
 
 @Injectable()
@@ -20,25 +21,26 @@ export class ArticlesService {
     private readonly authorsService: AuthorsService,
   ) {}
 
-  getCMS(author: Author): ContentManagementSystem {
-    return new ContentManagementSystem(author, undefined)
+  getCMS(author: { id: number }) {
+    return new ContentManagementSystem(author, ArticleEntity)
   }
 
-  getView(author?: Author): ArticleView {
+  getView(author?: { id: number }) {
     return new ArticleView(
       this.authorsService,
+      ArticleEntity,
       (pagination) => new ArticleFinder(pagination),
       author,
     )
   }
 }
 
-export type Dated<T extends {}> = T & {
+export type Dated = {
   readonly createdAt: Date
   readonly updatedAt: Date
 }
 
-export type Sluged<T extends {}> = T & {
+export type Sluged = {
   slug: string
 }
 
@@ -46,11 +48,23 @@ export interface Article {
   title: string
   description: string
   body: string
+}
+
+export type Tagged = {
   tags: string[]
 }
 
-export type ArticleFields = Partial<Article>
-export type FullArticle = Dated<Sluged<Article>>
+export type Authored = {
+  author: {
+    id: number
+  }
+}
+
+export type FullArticle = Article &
+  Dated &
+  Sluged &
+  Tagged &
+  Authored & { id: number }
 
 export interface ArticleFilters {
   tags?: string[]
@@ -59,32 +73,57 @@ export interface ArticleFilters {
 }
 
 export class ArticleView {
+  private readonly tagsRepository = new TagsRepository(this.datasource)
+  private readonly articlesRepository: Exclude<
+    ArticlesRepository,
+    'publishArticle' | 'unpublishArticle'
+  > = new ArticlesRepository(this.datasource)
+
   constructor(
     private authorsService: AuthorsService,
+    private readonly datasource: Pick<DataSource, 'query'>,
     private readonly createArticleFinder: (
       pagination?: Pagination,
     ) => ArticleFinder,
-    private author?: Author,
+    private owner?: { id: number },
   ) {}
 
   async getArticle(slug: string) {
-    return await this.createArticleFinder()
+    const article = await this.createArticleFinder()
       .filterBySlug(slug)
-      .filterByPublishedOrOwnedBy(this.author)
+      .filterByPublishedOrOwnedBy(this.owner)
       .getOne()
+    return await this.addTagsAndAuthorToArticle(article)
+  }
+
+  private async addTagsAndAuthorToArticle<
+    A extends { id: number; author: { id: number } },
+  >(article: A) {
+    const tags = await this.tagsRepository.getArticleTags(article)
+    const author = await this.authorsService.getAuthorById(article.author.id)
+    return { ...article, tags, author }
   }
 
   async getFeed(pagination?: Pagination) {
-    return await this.createArticleFinder(pagination)
-      .filterByPublished()
-      .filterByFollowedBy(this.author)
-      .getMany()
+    const following = await this.authorsService.getFollowingIds(this.owner)
+    if (following.length === 0) {
+      return []
+    }
+    return await Promise.all(
+      await this.createArticleFinder(pagination)
+        .filterByPublished()
+        .filterByAuthors(following)
+        .getMany()
+        .then((articles) =>
+          articles.map((article) => this.addTagsAndAuthorToArticle(article)),
+        ),
+    )
   }
 
   async getArticlesByFilters(filters: ArticleFilters, pagination?: Pagination) {
     const finder = this.createArticleFinder(
       pagination,
-    ).filterByPublishedOrOwnedBy(this.author)
+    ).filterByPublishedOrOwnedBy(this.owner)
 
     if (filters.tags) {
       finder.filterByTags(filters.tags)
@@ -104,7 +143,13 @@ export class ArticleView {
       }
     }
 
-    return await finder.getMany()
+    return await Promise.all(
+      await finder
+        .getMany()
+        .then((articles) =>
+          articles.map((article) => this.addTagsAndAuthorToArticle(article)),
+        ),
+    )
   }
 }
 
@@ -124,24 +169,21 @@ export class ContentManagementSystem {
   > = new ArticlesRepository(this.datasource)
 
   constructor(
-    private author: Author,
-    private readonly datasource: Pick<DataSource, 'query'> = ArticleEntity,
+    private author: { id: number },
+    private readonly datasource: Pick<DataSource, 'query'>,
   ) {}
 
-  async createArticle(data: Article): Promise<FullArticle> {
+  async createArticle(data: Article & Tagged) {
     const slug = slugify(data.title)
     const article = await this.articlesRepository.createArticle(
       { ...data, slug },
       this.author,
     )
     const tags = await this.tagsRepository.setArticleTags(data.tags, article)
-    return { ...article, tags }
+    return { ...article, tags, author: this.author }
   }
 
-  async updateArticle(
-    slug: string,
-    snapshot: ArticleFields,
-  ): Promise<FullArticle> {
+  async updateArticle(slug: string, snapshot: Partial<Article & Tagged>) {
     const article = await this.articlesRepository.updateArticle(
       slug,
       this.author,
@@ -150,197 +192,26 @@ export class ContentManagementSystem {
     const tags = snapshot.tags
       ? await this.tagsRepository.setArticleTags(snapshot.tags, article)
       : await this.tagsRepository.getArticleTags(article)
-    return { ...article, tags }
+    return { ...article, tags, author: this.author }
   }
 
   async deleteArticle(slug: string): Promise<void> {
     await this.articlesRepository.deleteArticle(slug, this.author)
   }
 
-  async publishArticle(slug: string): Promise<FullArticle> {
+  async publishArticle(slug: string) {
     const article = await this.articlesJournal.publishArticle(slug, this.author)
     const tags = await this.tagsRepository.getArticleTags(article)
-    return { ...article, tags }
+    return { ...article, tags, author: this.author }
   }
 
-  async unpublishArticle(slug: string): Promise<FullArticle> {
+  async unpublishArticle(slug: string) {
     const article = await this.articlesJournal.unpublishArticle(
       slug,
       this.author,
     )
     const tags = await this.tagsRepository.getArticleTags(article)
-    return { ...article, tags }
-  }
-}
-
-export class ArticlesRepository {
-  constructor(
-    private readonly datasource: Pick<DataSource, 'query'> = ArticleEntity,
-  ) {}
-
-  async createArticle(
-    data: Sluged<Article>,
-    author: { id: number },
-  ): Promise<FullArticle & { id: number }> {
-    const raw = await this.datasource.query(
-      `
-INSERT INTO articles (slug, title, description, body, published, author_id, created_at, updated_at)
-VALUES ($1, $2, $3, $4, $5, $6, current_date, current_date)
-RETURNING *`,
-      [data.slug, data.title, data.description, data.body, false, author.id],
-    )
-    return this.extractOneArticleFromQueryResult(data.slug, {
-      raw,
-      affected: 1,
-    })
-  }
-
-  async updateArticle(
-    slug: string,
-    author: { id: number },
-    snapshot: ArticleFields,
-  ) {
-    const [raw, affected] = await this.datasource.query(
-      `
-UPDATE articles SET 
-    slug = COALESCE($3, slug),
-    title = COALESCE($4, title),
-    description = COALESCE($5, description),
-    body = COALESCE($6, body),
-    updated_at = current_date
-WHERE slug = $1 AND author_id = $2
-RETURNING *;`,
-      [
-        slug,
-        author.id,
-        snapshot.title ? slugify(snapshot.title) : undefined,
-        snapshot.title,
-        snapshot.description,
-        snapshot.body,
-      ],
-    )
-
-    return this.extractOneArticleFromQueryResult(slug, {
-      raw,
-      affected,
-    })
-  }
-
-  async deleteArticle(slug: string, author: { id: number }) {
-    const [_, affected] = await this.datasource.query(
-      `DELETE FROM articles WHERE slug = $1 AND author_id = $2`,
-      [slug, author.id],
-    )
-    if (affected === 0) {
-      throw new ArticleNotFound(slug)
-    }
-  }
-
-  async publishArticle(slug: string, author: Author) {
-    const [raw, affected] = await this.datasource.query(
-      `
-UPDATE articles
-SET published = true
-WHERE slug = $1 AND author_id = $2
-RETURNING *;`,
-      [slug, author.id],
-    )
-    return this.extractOneArticleFromQueryResult(slug, { raw, affected })
-  }
-
-  async unpublishArticle(slug: string, author: Author) {
-    const [raw, affected] = await this.datasource.query(
-      `
-UPDATE articles
-SET published = false
-WHERE slug = $1 AND author_id = $2
-RETURNING *;`,
-      [slug, author.id],
-    )
-    return this.extractOneArticleFromQueryResult(slug, { raw, affected })
-  }
-
-  private extractOneArticleFromQueryResult(
-    slug: string,
-    rawQueryResult: { affected: number; raw: any },
-  ): FullArticle & { id: number } {
-    if (rawQueryResult.affected === 0) {
-      throw new ArticleNotFound(slug)
-    }
-    if (rawQueryResult.affected > 1) {
-      throw new Error('Multiple articles returned unexpectedly')
-    }
-
-    const article = rawQueryResult.raw[0]
-
-    article.createdAt = article.created_at
-    article.updatedAt = article.updated_at
-    delete article.created_at
-    delete article.updated_at
-
-    return article
-  }
-}
-
-export class TagsRepository {
-  constructor(
-    private readonly datasource: Pick<DataSource, 'query'> = ArticleEntity,
-  ) {}
-
-  async setArticleTags(
-    tags: string[],
-    article: { id: number },
-  ): Promise<string[]> {
-    await this.createTags(tags)
-    await this.insertMissingTags(tags, article)
-    await this.unsetOtherTags(tags, article)
-    return await this.getArticleTags(article)
-  }
-
-  async getArticleTags(article: { id: number }): Promise<string[]> {
-    const raw = await this.datasource.query(
-      `
-SELECT tags.name FROM tags
-INNER JOIN articles_have_tags ON tags.id = articles_have_tags.tags_id
-WHERE articles_have_tags.articles_id = $1;
-`,
-      [article.id],
-    )
-    return raw.map(({ name }) => name)
-  }
-
-  private async createTags(tags: string[]) {
-    await this.datasource.query(
-      `
-INSERT INTO tags (name)
-SELECT * FROM unnest($1::text[]) AS tag
-ON CONFLICT (name) DO NOTHING;
-    `,
-      [tags],
-    )
-  }
-
-  private async insertMissingTags(tags: string[], article: { id: number }) {
-    await this.datasource.query(
-      `
-INSERT INTO articles_have_tags (tags_id, articles_id)
-SELECT id, $2 FROM tags
-WHERE tags.name IN (SELECT * FROM unnest($1::text[]))
-ON CONFLICT (tags_id, articles_id) DO NOTHING;
-`,
-      [tags, article.id],
-    )
-  }
-
-  private async unsetOtherTags(tags: string[], article: { id: number }) {
-    await this.datasource.query(
-      `
-DELETE FROM articles_have_tags
-WHERE articles_id = $2 AND tags_id NOT IN (
-SELECT id FROM tags WHERE tags.name IN (SELECT * FROM unnest($1::text[]))
-);`,
-      [tags, article.id],
-    )
+    return { ...article, tags, author: this.author }
   }
 }
 

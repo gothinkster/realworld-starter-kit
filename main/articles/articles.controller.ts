@@ -25,12 +25,12 @@ import {
 } from '@nestjs/swagger'
 import {
   Article,
-  ArticleFields,
   ArticleFilters,
   ArticlesService,
   Dated,
   FullArticle,
   Sluged,
+  Tagged,
 } from './articles.service'
 import { buildUrlToPath } from '../nest/url'
 import { AuthIsOptional, JWTAuthGuard } from '../nest/jwt.guard'
@@ -88,7 +88,7 @@ export const articlesSwaggerOptions = {
   },
 }
 
-export class CreateArticleDTO implements Article {
+export class CreateArticleDTO implements Article, Tagged {
   @ApiProperty(articlesSwaggerOptions.title)
   @IsString()
   title: string
@@ -113,7 +113,7 @@ export class CreateArticleBody {
   article: CreateArticleDTO
 }
 
-export class UpdateArticleDTO implements ArticleFields {
+export class UpdateArticleDTO implements Partial<Article>, Partial<Tagged> {
   @ApiProperty({ ...articlesSwaggerOptions.title, required: false })
   @IsString()
   title: string
@@ -178,7 +178,7 @@ export class ArticleFiltersDTO implements ArticleFilters {
   }
 }
 
-export class ArticleResponseDTO implements Dated<Sluged<Article>> {
+export class ArticleResponseDTO implements Article, Dated, Sluged {
   @ApiResponseProperty({ ...articlesSwaggerOptions.slug })
   slug: string
 

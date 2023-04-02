@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { User } from '../accounts/accounts.controller'
 import { AuthorEntity } from './authors.entity'
-import { Author } from '../articles/articles.service'
 
 export interface ProfileFields {
   username?: string
@@ -9,7 +8,8 @@ export interface ProfileFields {
   image?: string
 }
 
-export interface Profile extends Author {
+export interface Profile {
+  id: number
   username: string
   bio: string
   image: string
@@ -24,6 +24,29 @@ export interface Profile extends Author {
 
 @Injectable()
 export class AuthorsService {
+  async getFollowingIds(profile: { id: number }) {
+    const following = await AuthorEntity.query(
+      `
+SELECT authors.id
+FROM user_follows
+LEFT JOIN authors ON authors.id = user_follows.follows_id
+WHERE user_follows.user_id = $1;
+`,
+      [profile.id],
+    )
+    return following as { id: number }[]
+  }
+
+  async getAuthorById(id: number): Promise<AuthorEntity> {
+    const profile = await AuthorEntity.findOne({
+      where: { id: id },
+    })
+    if (!profile) {
+      throw new AuthorNotFound(`I can't find a profile with id ${id}`)
+    }
+    return profile
+  }
+
   async createUserAuthorProfile(
     user: User,
     fields: ProfileFields,

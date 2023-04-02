@@ -20,11 +20,13 @@ export class CommentEntity extends BaseEntity {
 
   @ManyToOne(() => AuthorEntity, (profile) => profile.comments, {
     nullable: false,
+    onDelete: 'CASCADE',
   })
   author: AuthorEntity
 
   @ManyToOne(() => ArticleEntity, (article) => article.comments, {
     nullable: false,
+    onDelete: 'CASCADE',
   })
   article: ArticleEntity
 

@@ -1,4 +1,4 @@
-import { ArticlesService, Author } from '../articles/articles.service'
+import { ArticlesService } from '../articles/articles.service'
 import { CommentEntity } from './comments.entity'
 import { Injectable } from '@nestjs/common'
 
@@ -13,7 +13,7 @@ export type Comment = {
 export class CommentsService {
   constructor(private articlesService: ArticlesService) {}
 
-  async commentArticle(me: Author, slug: string, body: string) {
+  async commentArticle(me: { id: number }, slug: string, body: string) {
     const article = await this.articlesService.getView(me).getArticle(slug)
     return (await CommentEntity.create({
       body,
@@ -41,7 +41,7 @@ export class CommentsService {
       .getMany()
   }
 
-  async deleteCommentFromArticle(id: number, slug: string, me: Author) {
+  async deleteCommentFromArticle(id: number, slug: string, me: { id: number }) {
     const result = await CommentEntity.createQueryBuilder('comment')
       .delete()
       .where({ id, author: { id: me.id } })
