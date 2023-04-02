@@ -3,16 +3,13 @@ import { User } from '../accounts/accounts.controller'
 import { AuthorEntity } from './authors.entity'
 
 export interface ProfileFields {
-  username?: string
-  bio?: string
-  image?: string
-}
-
-export interface Profile {
-  id: number
   username: string
   bio: string
   image: string
+}
+
+export interface Profile extends ProfileFields {
+  id: number
   account: User
 
   follow(profile: this): Promise<void>
@@ -88,7 +85,7 @@ WHERE user_follows.user_id = $1;
 
   async updateUserAuthorProfile(
     user: User,
-    fields: ProfileFields,
+    fields: Partial<ProfileFields>,
   ): Promise<AuthorEntity> {
     const profile = await this.getUserAuthorProfile(user)
     return await profile.loadData(fields).save()

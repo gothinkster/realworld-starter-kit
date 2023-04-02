@@ -9,6 +9,23 @@ import {
 import { DataSource } from 'typeorm'
 import { getPostgresDataSource } from '../global/global.module'
 import { AuthorsService } from '../authors/authors.service'
+import { LoremIpsum } from 'lorem-ipsum'
+import { PartialArticle } from '../../acceptance/dsl/UserDriver'
+
+const lorem = new LoremIpsum()
+
+function makeRandomArticle(article: PartialArticle = {}) {
+  return {
+    title: article?.title || lorem.generateSentences(1),
+    description: article?.description || lorem.generateSentences(2),
+    body: article?.body || lorem.generateParagraphs(1),
+    tags: [
+      ...new Set(
+        article?.tags || lorem.generateWords(4).toLowerCase().split(' '),
+      ),
+    ],
+  }
+}
 
 let dataSource: DataSource
 beforeAll(async () => {
@@ -27,17 +44,16 @@ let testRandomNumber: number
 beforeEach(async () => {
   testRandomNumber = Date.now() % 10 ** 9
   exampleArticle = {
-    title: `How to train your dragon? ${testRandomNumber}`,
-    description: "You should train your dragon before it's too late",
-    body: 'Feed it with fish',
-    tags: ['dragons', 'friendship'],
     slug: `how-to-train-your-dragon-${testRandomNumber}`,
+    ...makeRandomArticle({
+      title: `How to train your dragon? ${testRandomNumber}`,
+    }),
   }
 
   const authorsService = new AuthorsService()
   author = await authorsService.createUserAuthorProfile(
     { id: testRandomNumber },
-    { username: `john-doe-${testRandomNumber}` },
+    { username: `john-doe-${testRandomNumber}`, bio: 'I am a bio', image: '' },
   )
 
   service = new ArticlesService(authorsService)
@@ -51,10 +67,15 @@ describe('Article', () => {
     await cms.publishArticle(exampleArticle.slug)
 
     // Act
-    const article = await service.getView(null).getArticle(exampleArticle.slug)
+    const article = await service
+      .getView(undefined)
+      .getArticle(exampleArticle.slug)
 
     // Assert
-    expect(article).toMatchObject(exampleArticle)
+    expect(article).toMatchObject({
+      ...exampleArticle,
+      tags: expect.arrayContaining(exampleArticle.tags),
+    })
   })
 
   it('should always be accessible to the author', async () => {
@@ -112,6 +133,30 @@ describe('Article', () => {
         }),
       }),
     )
+    articles.forEach((article) =>
+      expect(article.tags).toContainEqual('programming'),
+    )
+  })
+
+  it('should return articles sorted by creation date', async () => {
+    // Arrange
+    const cms = service.getCMS(author)
+    const createdArticles = await Promise.all([
+      cms.createArticle(makeRandomArticle()),
+      cms.createArticle(makeRandomArticle()),
+      cms.createArticle(makeRandomArticle()),
+    ])
+    await Promise.all(
+      createdArticles.map((article) => cms.publishArticle(article.slug)),
+    )
+
+    // Act
+    const articles = await service.getView(undefined).getFeed()
+
+    // Assert
+    const dates = articles.map((a) => a.createdAt)
+    expect(dates).toEqual(dates.sort((a, b) => b.getTime() - a.getTime()))
+    expect(dates.length).toBeGreaterThanOrEqual(createdArticles.length)
   })
 })
 

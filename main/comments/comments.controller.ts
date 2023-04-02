@@ -48,31 +48,31 @@ export class CommentDTO {
   })
   @IsString()
   @MaxLength(255)
-  body: string
+  body!: string
 }
 
 export class CreateCommentBody {
   @ApiModelProperty({ type: CommentDTO, required: true })
   @ValidateNested()
   @Type(() => CommentDTO)
-  comment: CommentDTO
+  comment!: CommentDTO
 }
 
 export class CommentResponseDTO extends CommentDTO {
   @ApiResponseProperty()
-  body: string
+  body!: string
 
   @ApiResponseProperty()
-  id: number
+  id!: number
 
   @ApiResponseProperty()
-  updatedAt: Date
+  updatedAt!: Date
 
   @ApiResponseProperty()
-  createdAt: Date
+  createdAt!: Date
 
   @ApiResponseModelProperty({ type: ProfileResponseDTO })
-  author: ProfileResponseDTO
+  author!: ProfileResponseDTO
 
   @ApiResponseProperty()
   links?: {
@@ -82,12 +82,12 @@ export class CommentResponseDTO extends CommentDTO {
 
 export class CommentResponseBody {
   @ApiResponseProperty({ type: CommentResponseDTO })
-  comment: CommentResponseDTO
+  comment?: CommentResponseDTO
 }
 
 export class CommentsResponseBody {
   @ApiResponseProperty({ type: [CommentResponseDTO] })
-  comments: CommentResponseDTO[]
+  comments?: CommentResponseDTO[]
 
   @ApiResponseProperty()
   links?: { [key: string]: string }

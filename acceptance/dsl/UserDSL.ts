@@ -14,6 +14,13 @@ export class UserDSL {
     } = {},
   ) {}
 
+  private get slug() {
+    if (!this.context.slug) {
+      throw new Error('No article slug in context')
+    }
+    return this.context.slug
+  }
+
   async login() {
     await this.driver.login(this.username)
   }
@@ -34,26 +41,26 @@ export class UserDSL {
   }
 
   async publishTheArticle(slug?: string) {
-    await this.driver.publishArticle(slug || this.context.slug)
+    await this.driver.publishArticle(slug || this.slug)
   }
 
   async unpublishTheArticle(slug?: string) {
-    await this.driver.unpublishArticle(slug || this.context.slug)
+    await this.driver.unpublishArticle(slug || this.slug)
   }
 
   async deleteTheArticle(slug?: string) {
-    await this.driver.deleteArticle(slug || this.context.slug)
+    await this.driver.deleteArticle(slug || this.slug)
   }
 
   async editTheArticle(slug?: string) {
-    await this.driver.editArticle(slug || this.context.slug, {
+    await this.driver.editArticle(slug || this.slug, {
       body: makeRandomArticle().body,
     })
   }
 
   async commentOnArticle(slug?: string, comment?: string) {
     await this.driver.commentOnArticle(
-      slug || this.context.slug,
+      slug || this.slug,
       comment || 'I liked that article!',
     )
   }
@@ -64,33 +71,30 @@ export class UserDSL {
   }
 
   async shouldFindArticleBy(filters: ArticleSearchFields) {
-    await this.driver.shouldFindArticleBy(filters, this.context.slug)
+    await this.driver.shouldFindArticleBy(filters, this.slug)
   }
 
   async shouldNotFindArticleBy(filters: ArticleSearchFields) {
-    await this.driver.shouldNotFindArticleBy(filters, this.context.slug)
+    await this.driver.shouldNotFindArticleBy(filters, this.slug)
   }
 
   async shouldFindTheArticle(slug?: string) {
-    await this.driver.shouldFindTheArticle(slug || this.context.slug)
+    await this.driver.shouldFindTheArticle(slug || this.slug)
   }
 
   async shouldNotFindTheArticle(slug?: string) {
-    await this.driver.shouldNotFindTheArticle(slug || this.context.slug)
+    await this.driver.shouldNotFindTheArticle(slug || this.slug)
   }
 
   async shouldSeeCommentFrom(author: UserDSL, slug?: string) {
-    await this.driver.shouldSeeCommentFrom(
-      slug || this.context.slug,
-      author.username,
-    )
+    await this.driver.shouldSeeCommentFrom(slug || this.slug, author.username)
   }
 
   async shouldSeeTheArticleInTheFeed(slug?: string) {
-    await this.driver.shouldSeeTheArticleInTheFeed(slug || this.context.slug)
+    await this.driver.shouldSeeTheArticleInTheFeed(slug || this.slug)
   }
 
   async shouldNotSeeTheArticleInTheFeed(slug?: string) {
-    await this.driver.shouldNotSeeTheArticleInTheFeed(slug || this.context.slug)
+    await this.driver.shouldNotSeeTheArticleInTheFeed(slug || this.slug)
   }
 }

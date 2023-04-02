@@ -91,15 +91,15 @@ export const articlesSwaggerOptions = {
 export class CreateArticleDTO implements Article, Tagged {
   @ApiProperty(articlesSwaggerOptions.title)
   @IsString()
-  title: string
+  title!: string
 
   @ApiProperty(articlesSwaggerOptions.description)
   @IsString()
-  description: string
+  description!: string
 
   @ApiProperty(articlesSwaggerOptions.body)
   @IsString()
-  body: string
+  body!: string
 
   @ApiProperty(articlesSwaggerOptions.tags)
   @IsString({ each: true })
@@ -110,32 +110,32 @@ export class CreateArticleBody {
   @ApiModelProperty({ type: CreateArticleDTO, required: true })
   @ValidateNested()
   @Type(() => CreateArticleDTO)
-  article: CreateArticleDTO
+  article!: CreateArticleDTO
 }
 
 export class UpdateArticleDTO implements Partial<Article>, Partial<Tagged> {
   @ApiProperty({ ...articlesSwaggerOptions.title, required: false })
   @IsString()
-  title: string
+  title?: string
 
   @ApiProperty({ ...articlesSwaggerOptions.description, required: false })
   @IsString()
-  description: string
+  description?: string
 
   @ApiProperty({ ...articlesSwaggerOptions.body, required: false })
   @IsString()
-  body: string
+  body?: string
 
   @ApiProperty({ ...articlesSwaggerOptions.tags, required: false })
   @IsString({ each: true })
-  tags: string[]
+  tags?: string[]
 }
 
 export class UpdateArticleBody {
   @ApiModelProperty({ type: UpdateArticleDTO })
   @ValidateNested()
   @Type(() => UpdateArticleDTO)
-  article: UpdateArticleDTO
+  article!: UpdateArticleDTO
 }
 
 export class ArticleFiltersDTO implements ArticleFilters {
@@ -180,25 +180,25 @@ export class ArticleFiltersDTO implements ArticleFilters {
 
 export class ArticleResponseDTO implements Article, Dated, Sluged {
   @ApiResponseProperty({ ...articlesSwaggerOptions.slug })
-  slug: string
+  slug!: string
 
   @ApiResponseProperty({ ...articlesSwaggerOptions.title })
-  title: string
+  title!: string
 
   @ApiResponseProperty({ ...articlesSwaggerOptions.description })
-  description: string
+  description!: string
 
   @ApiResponseProperty({ ...articlesSwaggerOptions.body })
-  body: string
+  body!: string
 
   @ApiResponseProperty({ ...articlesSwaggerOptions.tags })
-  tags: string[]
+  tags!: string[]
 
   @ApiResponseProperty({ ...articlesSwaggerOptions.createdAt })
-  createdAt: Date
+  createdAt!: Date
 
   @ApiResponseProperty({ ...articlesSwaggerOptions.updatedAt })
-  updatedAt: Date
+  updatedAt!: Date
 
   @ApiResponseProperty({ ...articlesSwaggerOptions.favorited })
   favorited?: boolean
@@ -207,7 +207,7 @@ export class ArticleResponseDTO implements Article, Dated, Sluged {
   favoritesCount?: number
 
   @ApiResponseModelProperty({ type: ProfileResponseDTO })
-  author: ProfileResponseDTO
+  author!: ProfileResponseDTO
 
   @ApiResponseProperty()
   links?: {
@@ -217,12 +217,12 @@ export class ArticleResponseDTO implements Article, Dated, Sluged {
 
 export class ArticleResponseBody {
   @ApiResponseModelProperty({ type: ArticleResponseDTO })
-  article: ArticleResponseDTO
+  article?: ArticleResponseDTO
 }
 
 export class ArticlesResponseBody {
   @ApiResponseModelProperty({ type: [ArticleResponseDTO] })
-  articles: ArticleResponseDTO[]
+  articles?: ArticleResponseDTO[]
 
   @ApiResponseProperty()
   links?: {
@@ -250,7 +250,7 @@ export class ArticlesController {
     const view = this.articlesService.getView(
       req.user
         ? await this.authorsService.getUserAuthorProfile(req.user)
-        : null,
+        : undefined,
     )
     const articles = await view.getFeed(pagination)
     return {
@@ -281,7 +281,7 @@ export class ArticlesController {
     const view = this.articlesService.getView(
       req.user
         ? await this.authorsService.getUserAuthorProfile(req.user)
-        : null,
+        : undefined,
     )
     const articles = await view.getArticlesByFilters(filters, pagination)
     return {
@@ -313,7 +313,7 @@ export class ArticlesController {
     const view = this.articlesService.getView(
       req.user
         ? await this.authorsService.getUserAuthorProfile(req.user)
-        : null,
+        : undefined,
     )
     const article = await view.getArticle(slug)
     return {
@@ -325,10 +325,7 @@ export class ArticlesController {
   @HttpCode(HttpStatus.CREATED)
   @Slug()
   @Post(':slug/favorite')
-  favoriteArticle(
-    @Req() req,
-    @Param() slug: string,
-  ): Promise<ArticleResponseBody> {
+  favoriteArticle(@Req() req, @Param() slug: string) {
     return undefined
   }
 
@@ -336,10 +333,7 @@ export class ArticlesController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Slug()
   @Delete(':slug/favorite')
-  unfavoriteArticle(
-    @Req() req,
-    @Param() slug: string,
-  ): Promise<ArticleResponseBody> {
+  unfavoriteArticle(@Req() req, @Param() slug: string) {
     return undefined
   }
 
@@ -350,7 +344,7 @@ export class ArticlesController {
     @Req() req,
     @Body(validateModel())
     body: CreateArticleBody,
-  ): Promise<ArticleResponseBody> {
+  ) {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
     const cms = this.articlesService.getCMS(me)
     const article = await cms.createArticle(body.article)
@@ -368,7 +362,7 @@ export class ArticlesController {
     @Param('slug') slug: string,
     @Body(validateModel())
     body: UpdateArticleBody,
-  ): Promise<ArticleResponseBody> {
+  ) {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
     const cms = this.articlesService.getCMS(me)
     const article = await cms.updateArticle(slug, body.article)
@@ -392,10 +386,7 @@ export class ArticlesController {
   @HttpCode(HttpStatus.CREATED)
   @Slug()
   @Post(':slug/publication')
-  async publishArticle(
-    @Req() req,
-    @Param('slug') slug: string,
-  ): Promise<ArticleResponseBody> {
+  async publishArticle(@Req() req, @Param('slug') slug: string) {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
     const cms = this.articlesService.getCMS(me)
     const article = await cms.publishArticle(slug)
@@ -408,10 +399,7 @@ export class ArticlesController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Slug()
   @Delete(':slug/publication')
-  async unpublishArticle(
-    @Req() req,
-    @Param('slug') slug: string,
-  ): Promise<ArticleResponseBody> {
+  async unpublishArticle(@Req() req, @Param('slug') slug: string) {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
     const cms = this.articlesService.getCMS(me)
     const article = await cms.unpublishArticle(slug)

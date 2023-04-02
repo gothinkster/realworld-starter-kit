@@ -94,7 +94,7 @@ export class UserRestDriver implements UserDriver {
   }
 
   async editArticle(slug: string, editions: PartialArticle) {
-    return undefined
+    return slug
   }
 
   async publishArticle(slug: string) {

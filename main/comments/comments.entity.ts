@@ -13,26 +13,26 @@ import { AuthorEntity } from '../authors/authors.entity'
 @Entity({ name: 'comments' })
 export class CommentEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number
+  id!: number
 
   @Column({ type: 'text', nullable: false })
-  body: string
+  body!: string
 
   @ManyToOne(() => AuthorEntity, (profile) => profile.comments, {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  author: AuthorEntity
+  author!: AuthorEntity
 
   @ManyToOne(() => ArticleEntity, (article) => article.comments, {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  article: ArticleEntity
+  article!: ArticleEntity
 
   @CreateDateColumn()
-  createdAt: Date
+  createdAt!: Date
 
   @UpdateDateColumn()
-  updatedAt: Date
+  updatedAt!: Date
 }

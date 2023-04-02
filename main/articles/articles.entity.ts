@@ -16,47 +16,47 @@ import { CommentEntity } from '../comments/comments.entity'
 @Entity({ name: 'tags' })
 export class Tag extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number
+  id!: number
 
   @Column({ unique: true, update: false, nullable: false })
-  name: string
+  name!: string
 
   @ManyToMany(() => ArticleEntity, (article) => article.tagList, {
     // onDelete: 'CASCADE',
     // nullable: false,
   })
-  articles: ArticleEntity[]
+  articles?: ArticleEntity[]
 }
 
 @Entity({ name: 'articles' })
 export class ArticleEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number
+  id!: number
 
   @Column({ unique: true })
-  slug: string
+  slug!: string
 
   @Column({ unique: true, type: 'text' })
-  title: string
+  title!: string
 
   @Column({ type: 'text', nullable: true })
-  description: string
+  description!: string
 
   @Column({ type: 'text', nullable: true })
-  body: string
+  body!: string
 
   @ManyToMany(() => Tag, (tag) => tag.articles, {
     cascade: ['insert'],
     eager: true,
   })
   @JoinTable({ name: 'articles_have_tags' })
-  tagList: Tag[]
+  tagList!: Tag[]
 
   @CreateDateColumn()
-  createdAt: Date
+  createdAt!: Date
 
   @UpdateDateColumn()
-  updatedAt: Date
+  updatedAt!: Date
 
   @Column()
   published: boolean = false
@@ -65,8 +65,8 @@ export class ArticleEntity extends BaseEntity {
     onDelete: 'CASCADE',
   })
   @JoinTable({ name: 'author_id' })
-  author: AuthorEntity
+  author!: AuthorEntity
 
   @OneToMany(() => CommentEntity, (comment) => comment.article)
-  comments: CommentEntity[]
+  comments?: CommentEntity[]
 }

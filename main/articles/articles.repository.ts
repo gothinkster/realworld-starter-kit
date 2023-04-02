@@ -68,7 +68,7 @@ WHERE aht.tags_id IN (
     const raw = await this.datasource.query(
       `
 INSERT INTO articles (slug, title, description, body, published, author_id, created_at, updated_at)
-VALUES ($1, $2, $3, $4, $5, $6, current_date, current_date)
+VALUES ($1, $2, $3, $4, $5, $6, current_timestamp, current_timestamp)
 RETURNING *`,
       [
         articleData.slug,
@@ -97,7 +97,7 @@ UPDATE articles SET
     title = COALESCE($4, title),
     description = COALESCE($5, description),
     body = COALESCE($6, body),
-    updated_at = current_date
+    updated_at = current_timestamp
 WHERE slug = $1 AND author_id = $2
 RETURNING *;`,
       [

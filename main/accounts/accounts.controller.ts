@@ -29,7 +29,7 @@ export class UserDTO {
   @ApiProperty({ example: 'me@mail.com' })
   @IsEmail()
   @IsNotEmpty()
-  email: string
+  email!: string
 
   @ApiProperty({ example: 'askljh3#892d1!' })
   @MinLength(8, { message: 'requires at least 8 characters' })
@@ -42,19 +42,19 @@ export class UserDTO {
   })
   @IsString()
   @IsNotEmpty()
-  password: string
+  password!: string
 }
 
 export class UserResponseBody {
   @ApiResponseProperty()
-  access_token: string
+  access_token!: string
 }
 
 export class CreateUserBody {
   @ApiProperty({ type: UserDTO })
   @ValidateNested()
   @Type(() => UserDTO)
-  user: UserDTO
+  user!: UserDTO
 }
 
 @ApiTags('accounts')

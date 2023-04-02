@@ -4,13 +4,13 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 @Entity({ name: 'accounts' })
 export class AccountEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number
+  id!: number
 
   @Column({ unique: true })
-  email: string
+  email!: string
 
   @Column()
-  private hashedPassword: string
+  private hashedPassword!: string
 
   changeEmail(email: string): this {
     this.email = email ?? this.email

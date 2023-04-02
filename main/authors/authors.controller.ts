@@ -53,26 +53,26 @@ export class CreateProfileDTO implements ProfileFields {
     message:
       'The username should contain only letters, numbers, traces and underscores.',
   })
-  username: string
+  username!: string
 
   @ApiProperty({ ...authorSwaggerOptions.bio, required: true })
   @IsString()
-  bio: string
+  bio!: string
 
   @ApiProperty({ ...authorSwaggerOptions.image, required: true })
   @IsString()
   @IsNotEmpty()
-  image: string
+  image!: string
 }
 
 export class CreateProfileBody {
   @ApiModelProperty({ type: CreateProfileDTO, required: true })
   @ValidateNested()
   @Type(() => CreateProfileDTO)
-  profile: CreateProfileDTO
+  profile!: CreateProfileDTO
 }
 
-export class UpdateProfileDTO implements ProfileFields {
+export class UpdateProfileDTO implements Partial<ProfileFields> {
   @ApiProperty({ ...authorSwaggerOptions.username })
   @IsString()
   @IsNotEmpty()
@@ -80,34 +80,34 @@ export class UpdateProfileDTO implements ProfileFields {
     message:
       'The username should contain only letters, numbers, traces and underscores.',
   })
-  username: string
+  username?: string
 
   @ApiProperty({ ...authorSwaggerOptions.bio })
   @IsString()
-  bio: string
+  bio?: string
 
   @ApiProperty({ ...authorSwaggerOptions.image })
   @IsString()
   @IsNotEmpty()
-  image: string
+  image?: string
 }
 
 export class UpdateProfileBody {
   @ApiModelProperty({ type: UpdateProfileDTO, required: true })
   @ValidateNested()
   @Type(() => UpdateProfileDTO)
-  profile: UpdateProfileDTO
+  profile!: UpdateProfileDTO
 }
 
 export class ProfileResponseDTO implements ProfileFields {
   @ApiResponseProperty()
-  username: string
+  username!: string
 
   @ApiResponseProperty()
-  bio: string
+  bio!: string
 
   @ApiResponseProperty()
-  image: string
+  image!: string
 
   @ApiResponseProperty()
   following?: boolean
@@ -120,7 +120,7 @@ export class ProfileResponseDTO implements ProfileFields {
 
 export class ProfileResponseBody {
   @ApiModelProperty()
-  profile: ProfileResponseDTO
+  profile!: ProfileResponseDTO
 }
 
 @ApiTags('profiles')
@@ -133,7 +133,7 @@ export class AuthorsController {
   @ApiOkResponse({ type: ProfileResponseBody })
   @HttpCode(HttpStatus.OK)
   @Get('me')
-  async getCurrent(@Req() req): Promise<ProfileResponseBody> {
+  async getCurrent(@Req() req) {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
     return createAuthorProfileBody(req, me)
   }
@@ -141,10 +141,7 @@ export class AuthorsController {
   @ApiCreatedResponse({ type: ProfileResponseBody })
   @HttpCode(HttpStatus.CREATED)
   @Post()
-  async create(
-    @Req() req,
-    @Body(validateModel()) body: CreateProfileBody,
-  ): Promise<ProfileResponseBody> {
+  async create(@Req() req, @Body(validateModel()) body: CreateProfileBody) {
     const me = await this.authorsService.createUserAuthorProfile(
       req.user,
       body.profile,
@@ -155,10 +152,7 @@ export class AuthorsController {
   @ApiOkResponse({ type: ProfileResponseBody })
   @HttpCode(HttpStatus.OK)
   @Put()
-  async update(
-    @Req() req,
-    @Body(validateModel()) body: CreateProfileBody,
-  ): Promise<ProfileResponseBody> {
+  async update(@Req() req, @Body(validateModel()) body: CreateProfileBody) {
     const me = await this.authorsService.updateUserAuthorProfile(
       req.user,
       body.profile,
@@ -172,7 +166,7 @@ export class AuthorsController {
   async partialUpdate(
     @Req() req,
     @Body(validateModel()) body: UpdateProfileBody,
-  ): Promise<ProfileResponseBody> {
+  ) {
     const me = await this.authorsService.updateUserAuthorProfile(
       req.user,
       body.profile,
@@ -184,10 +178,7 @@ export class AuthorsController {
   @HttpCode(HttpStatus.CREATED)
   @Username()
   @Post(':username/follow')
-  async followProfile(
-    @Req() req,
-    @Param('username') username: string,
-  ): Promise<ProfileResponseBody> {
+  async followProfile(@Req() req, @Param('username') username: string) {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
     const profile = await this.authorsService.getAuthorByUsername(username)
     await me.follow(profile)
@@ -198,10 +189,7 @@ export class AuthorsController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Username()
   @Delete(':username/follow')
-  async unfollowProfile(
-    @Req() req,
-    @Param('username') username: string,
-  ): Promise<ProfileResponseBody> {
+  async unfollowProfile(@Req() req, @Param('username') username: string) {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
     const profile = await this.authorsService.getAuthorByUsername(username)
     await me.unfollow(profile)
@@ -213,12 +201,9 @@ export class AuthorsController {
   @AuthIsOptional()
   @Username()
   @Get(':username')
-  async getProfile(
-    @Req() req,
-    @Param('username') username: string,
-  ): Promise<ProfileResponseBody> {
+  async getProfile(@Req() req, @Param('username') username: string) {
     const author = await this.authorsService.getAuthorByUsername(username)
-    let following: boolean
+    let following: boolean | undefined = undefined
     if (req.user) {
       const me = await this.authorsService.getUserAuthorProfile(req.user)
       following = await me.isFollowing(author)
@@ -229,7 +214,7 @@ export class AuthorsController {
 
 function createAuthorProfileBody(
   req: Request,
-  author?: Profile,
+  author: Profile,
   following?: boolean,
 ): ProfileResponseBody {
   return {
