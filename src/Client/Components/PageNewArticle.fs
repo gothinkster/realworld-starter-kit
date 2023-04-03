@@ -68,7 +68,7 @@ let renderLoginOutcome (loginResult: Deferred<LoginResult>) =
         Html.none
 
 [<ReactComponent>]
-let RenderLoginPage (state: State, user: ApplicationUser, dispatch: Msg -> Unit) =
+let RenderNewArticlePage (state: State) (user: ApplicationUser) (dispatch: Msg -> Unit) =
         Html.div [
             prop.children [
                 RenderNavigation ("New Article", user)
@@ -118,7 +118,7 @@ let RenderLoginPage (state: State, user: ApplicationUser, dispatch: Msg -> Unit)
                                                             Html.button [
                                                                 prop.className "btn btn-lg btn-primary pull-xs-right"
                                                                 prop.onClick (fun _ -> dispatch (Login Started))
-                                                                prop.text "Submit Article"
+                                                                prop.text "Submit Article yoy"
                                                             ]
                                                         ]
                                                     ]

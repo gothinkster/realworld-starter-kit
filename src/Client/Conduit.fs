@@ -25,7 +25,7 @@ type Url =
 let parseUrl = function
     | [  ] -> Url.Home
     | [ "login" ] -> Url.Login
-    | [ "register" ] -> Url.NewArticle
+    | [ "register" ] -> Url.Register
     | [ "editor" ] -> Url.NewArticle
     | _ -> Url.NotFound
 
@@ -127,7 +127,7 @@ let RenderConduit (state :State) (dispatch: Msg -> Unit) =
         | Page.Login login -> PageLogin.RenderLoginPage login (LoginMsg >> dispatch)
         | Page.Register register -> PageRegister.RenderRegistrationPage register (RegisterMsg >> dispatch)
         | Page.Home -> PageHome.RenderHome state.User
-        | Page.NewArticle newArticle -> PageNewArticle.RenderLoginPage (newArticle, state.User, (NewArticleMsg >> dispatch))
+        | Page.NewArticle newArticle -> PageNewArticle.RenderNewArticlePage newArticle state.User (NewArticleMsg >> dispatch)
         | Page.NotFound -> Html.h1 "Not Found"
 
     React.router [
