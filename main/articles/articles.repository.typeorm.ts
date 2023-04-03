@@ -72,11 +72,7 @@ WHERE aht.tags_id IN (
 
   async createArticle(articleData: Article & Sluged, owner: { id: number }) {
     const raw = await ArticleEntity.query(
-      `
-INSERT INTO articles 
-(slug, title, description, body, author_id, created_at, updated_at, published) 
-VALUES ($1, $2, $3, $4, $5, now(), now(), false) RETURNING *;
-`,
+      'INSERT INTO articles (slug, title, description, body, author_id, created_at, updated_at, published) VALUES ($1, $2, $3, $4, $5, now(), now(), false) RETURNING *;',
       [
         articleData.slug,
         articleData.title,
@@ -97,15 +93,7 @@ VALUES ($1, $2, $3, $4, $5, now(), now(), false) RETURNING *;
     snapshot: Partial<Article & Tagged>,
   ) {
     const [raw, affected] = await ArticleEntity.query(
-      `
-UPDATE articles SET
-    slug = COALESCE($3, slug),
-    title = COALESCE($4, title),
-    description = COALESCE($5, description),
-    body = COALESCE($6, body),
-    updated_at = now()
-WHERE slug = $1 AND author_id = $2 RETURNING *;
-`,
+      'UPDATE articles SET slug = COALESCE($3, slug), title = COALESCE($4, title), description = COALESCE($5, description), body = COALESCE($6, body), updated_at = now() WHERE slug = $1 AND author_id = $2 RETURNING *;',
       [
         slug,
         owner.id,
@@ -124,7 +112,7 @@ WHERE slug = $1 AND author_id = $2 RETURNING *;
 
   async deleteArticle(slug: string, owner: { id: number }) {
     const [_, affected] = await ArticleEntity.query(
-      `DELETE FROM articles WHERE slug = $1 AND author_id = $2`,
+      'DELETE FROM articles WHERE slug = $1 AND author_id = $2',
       [slug, owner.id],
     )
     if (affected === 0) {
@@ -134,7 +122,7 @@ WHERE slug = $1 AND author_id = $2 RETURNING *;
 
   async publishArticle(slug: string, owner: { id: number }) {
     const [raw, affected] = await ArticleEntity.query(
-      `UPDATE articles SET published = true WHERE slug = $1 AND author_id = $2 RETURNING *;`,
+      'UPDATE articles SET published = true WHERE slug = $1 AND author_id = $2 RETURNING *;',
       [slug, owner.id],
     )
     return this.extractOneArticleFromQueryResult(slug, { raw, count: affected })
@@ -142,7 +130,7 @@ WHERE slug = $1 AND author_id = $2 RETURNING *;
 
   async unpublishArticle(slug: string, owner: { id: number }) {
     const [raw, affected] = await ArticleEntity.query(
-      `UPDATE articles SET published = false WHERE slug = $1 AND author_id = $2 RETURNING *;`,
+      'UPDATE articles SET published = false WHERE slug = $1 AND author_id = $2 RETURNING *;',
       [slug, owner.id],
     )
     return this.extractOneArticleFromQueryResult(slug, { raw, count: affected })
@@ -194,11 +182,7 @@ export class TypeORMTagsRepository implements TagsRepository {
 
   async getArticleTags(article: { id: number }): Promise<string[]> {
     const raw = await TagEntity.query(
-      `
-SELECT tags.name FROM tags
-INNER JOIN articles_have_tags ON tags.id = articles_have_tags.tags_id
-WHERE articles_have_tags.articles_id = $1;
-`,
+      'SELECT tags.name FROM tags INNER JOIN articles_have_tags ON tags.id = articles_have_tags.tags_id WHERE articles_have_tags.articles_id = $1;',
       [article.id],
     )
     return raw.map(({ name }) => name)
@@ -206,35 +190,21 @@ WHERE articles_have_tags.articles_id = $1;
 
   private async createTags(tags: string[]) {
     await TagEntity.query(
-      `
-INSERT INTO tags (name)
-SELECT * FROM unnest($1::text[]) AS tag
-ON CONFLICT (name) DO NOTHING;
-`,
+      'INSERT INTO tags (name) SELECT * FROM unnest($1::text[]) AS tag ON CONFLICT (name) DO NOTHING;',
       [tags],
     )
   }
 
   private async insertMissingTags(tags: string[], article: { id: number }) {
     await TagEntity.query(
-      `
-INSERT INTO articles_have_tags (tags_id, articles_id)
-SELECT id, $2 FROM tags
-WHERE tags.name IN (SELECT * FROM unnest($1::text[]))
-ON CONFLICT (tags_id, articles_id) DO NOTHING;
-`,
+      'INSERT INTO articles_have_tags (tags_id, articles_id) SELECT id, $2 FROM tags WHERE tags.name IN (SELECT * FROM unnest($1::text[])) ON CONFLICT (tags_id, articles_id) DO NOTHING;',
       [tags, article.id],
     )
   }
 
   private async unsetOtherTags(tags: string[], article: { id: number }) {
     await TagEntity.query(
-      `
-DELETE FROM articles_have_tags
-WHERE articles_id = $2 AND tags_id NOT IN (
-SELECT id FROM tags WHERE tags.name IN (SELECT * FROM unnest($1::text[]))
-);
-`,
+      'DELETE FROM articles_have_tags WHERE articles_id = $2 AND tags_id NOT IN (SELECT id FROM tags WHERE tags.name IN (SELECT * FROM unnest($1::text[])));',
       [tags, article.id],
     )
   }
@@ -249,8 +219,8 @@ export class TagEntity extends BaseEntity {
   name!: string
 
   @ManyToMany(() => ArticleEntity, (article) => article.tagList, {
-    // onDelete: 'CASCADE',
-    // nullable: false,
+    onDelete: 'CASCADE',
+    nullable: false,
   })
   articles?: ArticleEntity[]
 }
