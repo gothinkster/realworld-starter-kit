@@ -3,6 +3,7 @@ import { DataSource } from 'typeorm'
 import { AccountEntity } from '../accounts/accounts.entity'
 import {
   ArticleEntity,
+  ArticlesHaveTagsEntity,
   TagEntity,
 } from '../articles/articles.repository.typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
@@ -17,8 +18,8 @@ export function getPostgresDataSource() {
     dataSource = new DataSource({
       type: 'postgres',
       url:
-        process.env.DB_URL ||
-        'postgres://postgres:postgres@localhost:5432/postgres',
+        process.env.DATABASE_URL ||
+        'postgres://realworld:realworld@localhost:5432/realworld',
       entities: [
         AccountEntity,
         ArticleEntity,
@@ -26,6 +27,7 @@ export function getPostgresDataSource() {
         UserFollows,
         CommentEntity,
         TagEntity,
+        ArticlesHaveTagsEntity,
       ],
       namingStrategy: new SnakeNamingStrategy(),
       synchronize: true,

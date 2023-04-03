@@ -137,8 +137,13 @@ export class CommentsController {
       pagination,
     )
     return {
-      comments: comments.map((comment) =>
-        createCommentDTO(req, slug, comment, comment.author),
+      comments: await Promise.all(
+        comments.map(async (comment) => {
+          const author = await this.authorsService.getAuthorById(
+            comment.authorId,
+          )
+          return createCommentDTO(req, slug, comment, author)
+        }),
       ),
       links:
         comments.length > 0

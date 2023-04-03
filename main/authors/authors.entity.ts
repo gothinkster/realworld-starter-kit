@@ -2,13 +2,10 @@ import {
   BaseEntity,
   Column,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm'
 import { User } from '../accounts/accounts.controller'
-import { ArticleEntity } from '../articles/articles.repository.typeorm'
-import { CommentEntity } from '../comments/comments.entity'
 import { Profile, ProfileFields } from './authors.service'
 
 @Entity({ name: 'authors' })
@@ -25,14 +22,8 @@ export class AuthorEntity extends BaseEntity implements Profile {
   @Column({ type: 'text', nullable: true })
   image!: string
 
-  @Column({ nullable: false })
-  accountId!: number
-
-  @OneToMany(() => CommentEntity, (comment) => comment.author)
-  comments?: CommentEntity[]
-
-  @OneToMany(() => ArticleEntity, (article) => article.author)
-  articles?: ArticleEntity[]
+  @Column({ nullable: false, type: 'integer' })
+  public accountId!: number
 
   get account(): User {
     return { id: this.accountId }
@@ -67,9 +58,11 @@ export class AuthorEntity extends BaseEntity implements Profile {
 export class UserFollows extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number
-  @Column({ nullable: false, type: 'bigint' })
+
+  @Column({ nullable: false, type: 'integer' })
   public userId!: number
-  @Column({ nullable: false, type: 'bigint' })
+
+  @Column({ nullable: false, type: 'integer' })
   public followsId!: number
 
   public static async exists(

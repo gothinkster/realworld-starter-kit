@@ -3,12 +3,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { ArticleEntity } from '../articles/articles.repository.typeorm'
-import { AuthorEntity } from '../authors/authors.entity'
 
 @Entity({ name: 'comments' })
 export class CommentEntity extends BaseEntity {
@@ -18,17 +15,11 @@ export class CommentEntity extends BaseEntity {
   @Column({ type: 'text', nullable: false })
   body!: string
 
-  @ManyToOne(() => AuthorEntity, (profile) => profile.comments, {
-    nullable: false,
-    onDelete: 'CASCADE',
-  })
-  author!: AuthorEntity
+  @Column({ type: 'integer', nullable: false })
+  authorId!: number
 
-  @ManyToOne(() => ArticleEntity, (article) => article.comments, {
-    nullable: false,
-    onDelete: 'CASCADE',
-  })
-  article!: ArticleEntity
+  @Column({ type: 'integer', nullable: false })
+  articleId!: number
 
   @CreateDateColumn()
   createdAt!: Date

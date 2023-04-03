@@ -23,12 +23,7 @@ export interface Profile extends ProfileFields {
 export class AuthorsService {
   async getFollowingIds(profile: { id: number }) {
     const following = await AuthorEntity.query(
-      `
-SELECT authors.id
-FROM user_follows
-LEFT JOIN authors ON authors.id = user_follows.follows_id
-WHERE user_follows.user_id = $1;
-`,
+      'SELECT user_follows.follows_id as id FROM user_follows WHERE user_follows.user_id = $1;',
       [profile.id],
     )
     return following as { id: number }[]

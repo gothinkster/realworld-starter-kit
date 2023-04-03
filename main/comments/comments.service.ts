@@ -17,8 +17,8 @@ export class CommentsService {
     const article = await this.articlesService.getView(me).getArticle(slug)
     return (await CommentEntity.create({
       body,
-      author: me,
-      article: article,
+      authorId: me.id,
+      articleId: article.id,
     }).save()) as Comment
   }
 
@@ -37,7 +37,6 @@ export class CommentsService {
         `comment.article_id IN (SELECT articles.id FROM articles WHERE articles.slug = :slug)`,
         { slug },
       )
-      .leftJoinAndSelect('comment.author', 'author')
       .getMany()
   }
 
