@@ -36,15 +36,22 @@ export class TypeORMArticlesRepository implements ArticlesRepository {
     }
 
     if (options.filterByTags) {
-      qb.andWhere(
-        `${qb.alias}.id IN (
-SELECT aht.article_id
-FROM articles_have_tags AS aht
-WHERE aht.tag_id IN (
-  SELECT t.id FROM tags AS t WHERE t.name IN (:...tags)
-))`,
-        { tags: options.filterByTags },
-      )
+      qb.andWhere((qb) => {
+        return `${qb.alias}.id IN ${qb
+          .subQuery()
+          .select('aht.article_id')
+          .from(ArticlesHaveTagsEntity, 'aht')
+          .where((qb) => {
+            return `aht.tag_id IN ${qb
+              .subQuery()
+              .select('t.id')
+              .from(TagEntity, 't')
+              .where('t.name IN (:...tags)')
+              .getQuery()}`
+          })
+          .getQuery()}`
+      })
+      qb.setParameters({ tags: options.filterByTags })
     }
 
     if (options.owner) {
