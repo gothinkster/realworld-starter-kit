@@ -65,85 +65,61 @@ WHERE aht.tag_id IN (
   }
 
   async createArticle(articleData: Article & Sluged, owner: { id: number }) {
-    const raw = await ArticleEntity.query(
-      'INSERT INTO articles (slug, title, description, body, author_id, created_at, updated_at, published) VALUES ($1, $2, $3, $4, $5, now(), now(), false) RETURNING *;',
-      [
-        articleData.slug,
-        articleData.title,
-        articleData.description,
-        articleData.body,
-        owner.id,
-      ],
-    )
-    return this.extractOneArticleFromQueryResult(articleData.slug, {
-      raw,
-      count: 1,
-    })
+    const article = await ArticleEntity.create({
+      slug: articleData.slug,
+      title: articleData.title,
+      description: articleData.description,
+      body: articleData.body,
+      authorId: owner.id,
+    }).save()
+    return this.createArticleResponse(article)
   }
 
   async updateArticle(
     slug: string,
     owner: { id: number },
-    snapshot: Partial<Article & Tagged>,
+    snapshot: Partial<Article & Tagged & { published: boolean }>,
   ) {
-    const [raw, affected] = await ArticleEntity.query(
-      'UPDATE articles SET slug = COALESCE($3, slug), title = COALESCE($4, title), description = COALESCE($5, description), body = COALESCE($6, body), updated_at = now() WHERE slug = $1 AND author_id = $2 RETURNING *;',
-      [
-        slug,
-        owner.id,
-        snapshot.title ? slugify(snapshot.title) : undefined,
-        snapshot.title,
-        snapshot.description,
-        snapshot.body,
-      ],
-    )
+    const newSlug = snapshot.title ? slugify(snapshot.title) : undefined
+    const result = await ArticleEntity.createQueryBuilder()
+      .update()
+      .where({ slug, authorId: owner.id })
+      .set(
+        removeUndefinedValues({
+          slug: newSlug,
+          title: snapshot.title,
+          description: snapshot.description,
+          body: snapshot.body,
+          published: snapshot.published,
+        }),
+      )
+      .returning('*')
+      .execute()
 
-    return this.extractOneArticleFromQueryResult(slug, {
-      raw,
-      count: affected,
-    })
+    if (!result.affected || result.affected === 0) {
+      throw new ArticleNotFound(slug)
+    }
+
+    if (result.affected > 1) {
+      throw new Error('Multiple articles returned unexpectedly')
+    }
+
+    return this.createArticleResponse(result.raw[0])
   }
 
   async deleteArticle(slug: string, owner: { id: number }) {
-    const [_, affected] = await ArticleEntity.query(
-      'DELETE FROM articles WHERE slug = $1 AND author_id = $2',
-      [slug, owner.id],
-    )
-    if (affected === 0) {
+    const result = await ArticleEntity.delete({ slug, authorId: owner.id })
+    if (result.affected === 0) {
       throw new ArticleNotFound(slug)
     }
   }
 
   async publishArticle(slug: string, owner: { id: number }) {
-    const [raw, affected] = await ArticleEntity.query(
-      'UPDATE articles SET published = true WHERE slug = $1 AND author_id = $2 RETURNING *;',
-      [slug, owner.id],
-    )
-    return this.extractOneArticleFromQueryResult(slug, { raw, count: affected })
+    return await this.updateArticle(slug, owner, { published: true })
   }
 
   async unpublishArticle(slug: string, owner: { id: number }) {
-    const [raw, affected] = await ArticleEntity.query(
-      'UPDATE articles SET published = false WHERE slug = $1 AND author_id = $2 RETURNING *;',
-      [slug, owner.id],
-    )
-    return this.extractOneArticleFromQueryResult(slug, { raw, count: affected })
-  }
-
-  private extractOneArticleFromQueryResult(
-    slug: string,
-    rawQueryResult: { count: number; raw: any[] },
-  ) {
-    if (rawQueryResult.count === 0) {
-      throw new ArticleNotFound(slug)
-    }
-    if (rawQueryResult.count > 1) {
-      throw new Error('Multiple articles returned unexpectedly')
-    }
-
-    const article = rawQueryResult.raw[0]
-
-    return this.createArticleResponse(article)
+    return await this.updateArticle(slug, owner, { published: false })
   }
 
   private createArticleResponse(
@@ -158,6 +134,7 @@ WHERE aht.tag_id IN (
     delete article.created_at
     delete article.updated_at
     delete article.author_id
+    delete article.authorId
 
     return article
   }
@@ -176,7 +153,7 @@ export class TypeORMTagsRepository implements TagsRepository {
 
   async getArticleTags(article: { id: number }): Promise<string[]> {
     const raw = await TagEntity.query(
-      'SELECT tags.name FROM tags INNER JOIN articles_have_tags ON tags.id = articles_have_tags.tag_id WHERE articles_have_tags.article_id = $1;',
+      'SELECT t.name FROM tags t WHERE t.id IN (SELECT aht.tag_id FROM articles_have_tags aht WHERE aht.article_id = $1);',
       [article.id],
     )
     return raw.map(({ name }) => name)
@@ -190,14 +167,14 @@ export class TypeORMTagsRepository implements TagsRepository {
   }
 
   private async insertMissingTags(tags: string[], article: { id: number }) {
-    await TagEntity.query(
+    await ArticlesHaveTagsEntity.query(
       'INSERT INTO articles_have_tags (tag_id, article_id) SELECT id, $2 FROM tags WHERE tags.name IN (SELECT * FROM unnest($1::text[])) ON CONFLICT (tag_id, article_id) DO NOTHING;',
       [tags, article.id],
     )
   }
 
   private async unsetOtherTags(tags: string[], article: { id: number }) {
-    await TagEntity.query(
+    await ArticlesHaveTagsEntity.query(
       'DELETE FROM articles_have_tags WHERE article_id = $2 AND tag_id NOT IN (SELECT id FROM tags WHERE tags.name IN (SELECT * FROM unnest($1::text[])));',
       [tags, article.id],
     )
@@ -211,7 +188,7 @@ export class ArticleEntity extends BaseEntity {
   @Column({ unique: true })
   slug!: string
 
-  @Column({ unique: true, type: 'text' })
+  @Column({ type: 'text' })
   title!: string
 
   @Column({ type: 'text', nullable: true })
@@ -253,4 +230,13 @@ export class ArticlesHaveTagsEntity extends BaseEntity {
 
   @Column({ type: 'integer', nullable: false })
   articleId!: number
+}
+
+function removeUndefinedValues<T extends Object>(obj: T): T {
+  Object.keys(obj).forEach((key) => {
+    if (obj[key] === undefined) {
+      delete obj[key]
+    }
+  })
+  return obj
 }

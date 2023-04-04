@@ -1,5 +1,3 @@
-import { LoremIpsum } from 'lorem-ipsum'
-
 export interface Article {
   title: string
   description: string
@@ -38,23 +36,6 @@ export interface UserDriver {
   shouldSeeTheArticleInTheFeed(slug: string): Promise<void>
   shouldNotSeeTheArticleInTheFeed(slug: string): Promise<void>
   shouldSeeCommentFrom(slug: string, username: string): Promise<void>
-}
-
-const lorem = new LoremIpsum()
-
-export function makeRandomArticle(
-  article: PartialArticle = {},
-): Readonly<Article> {
-  return {
-    title: article?.title || lorem.generateSentences(1),
-    description: article?.description || lorem.generateSentences(2),
-    body: article?.body || lorem.generateParagraphs(1),
-    tags: [
-      ...new Set(
-        article?.tags || lorem.generateWords(4).toLowerCase().split(' '),
-      ),
-    ],
-  }
 }
 
 export function createCredentials(username: string) {

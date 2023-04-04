@@ -36,7 +36,6 @@ export interface ArticlesRepository {
       title: string
       body: string
       slug: string
-      tags: string[]
     },
     owner: { id: number },
   ): Promise<FullArticle>

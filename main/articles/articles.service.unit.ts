@@ -2,27 +2,12 @@ import { ArticleNotFound, ArticlesService } from './articles.service'
 import { DataSource } from 'typeorm'
 import { getPostgresDataSource } from '../global/global.module'
 import { AuthorsService } from '../authors/authors.service'
-import { LoremIpsum } from 'lorem-ipsum'
 import {
   TypeORMArticlesRepository,
   TypeORMTagsRepository,
 } from './articles.repository.typeorm'
 import { Article, Sluged, Tagged } from './articles.models'
-
-const lorem = new LoremIpsum()
-
-function makeRandomArticle(article: Partial<Article & Tagged> = {}) {
-  return {
-    title: article?.title || lorem.generateSentences(1),
-    description: article?.description || lorem.generateSentences(2),
-    body: article?.body || lorem.generateParagraphs(1),
-    tags: [
-      ...new Set(
-        article?.tags || lorem.generateWords(4).toLowerCase().split(' '),
-      ),
-    ],
-  }
-}
+import { makeRandomArticle } from '../__mocks__/articles'
 
 let dataSource: DataSource
 let service: ArticlesService
@@ -48,19 +33,16 @@ let exampleArticle: Sluged & Article & Tagged
 
 beforeEach(async () => {
   testRandomNumber = Date.now() % 10 ** 9
-  exampleArticle = {
-    slug: `how-to-train-your-dragon-${testRandomNumber}`,
-    ...makeRandomArticle({
-      title: `How to train your dragon? ${testRandomNumber}`,
-    }),
-  }
+  exampleArticle = makeRandomArticle({
+    title: `How to train your dragon? ${testRandomNumber}`,
+  })
   author = await authorsService.createUserAuthorProfile(
     { id: testRandomNumber },
     { username: `john-doe-${testRandomNumber}`, bio: 'I am a bio', image: '' },
   )
 })
 
-describe('Article', () => {
+describe('ArticlesView', () => {
   it('should be accessible to other users after published', async () => {
     // Arrange
     const cms = service.getCMS(author)
@@ -161,7 +143,7 @@ describe('Article', () => {
   })
 })
 
-describe('Content Management System', () => {
+describe('ContentManagementSystem', () => {
   it("should let author change it's own article", async () => {
     // Arange
     const cms = service.getCMS(author)
