@@ -1,6 +1,7 @@
 package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.articles.*
+import com.softwaremill.realworld.articles.comments.*
 import com.softwaremill.realworld.articles.model.{Article, ArticleCreate, ArticleData, ArticleUpdate}
 import com.softwaremill.realworld.common.*
 import com.softwaremill.realworld.db.{Db, DbConfig}
@@ -108,7 +109,26 @@ class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
           .map(Article.apply)
     )
 
-  val endpoints: List[ZServerEndpoint[Any, Any]] = List(listArticles, get, update, create, makeFavorite, removeFavorite)
+  val addComment: ZServerEndpoint[Any, Any] = base.secureEndpoint.post
+    .in("api" / "articles" / path[String]("slug") / "comments")
+    .in(jsonBody[CommentCreate])
+    .out(jsonBody[Comment])
+    .serverLogic(session =>
+      case (slug, CommentCreate(comment)) =>
+        articlesService
+          .addComment(slug, session.email, comment.body)
+          .pipe(defaultErrorsMappings)
+          .map(Comment.apply)
+    )
+
+  val deleteComment: ZServerEndpoint[Any, Any] = base.secureEndpoint.delete
+    .in("api" / "articles" / path[String]("slug") / "comments" / path[Int]("id"))
+    .serverLogic(session =>
+      case (slug, commentId) => articlesService.deleteComment(slug, session.email, commentId).pipe(defaultErrorsMappings)
+    )
+
+  val endpoints: List[ZServerEndpoint[Any, Any]] =
+    List(listArticles, get, update, create, makeFavorite, removeFavorite, addComment, deleteComment)
 
   private def filterParam(name: String, key: ArticlesFilters): EndpointInput.Query[Option[(ArticlesFilters, String)]] = {
     query[Option[String]](name)

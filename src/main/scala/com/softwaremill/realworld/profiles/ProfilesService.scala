@@ -33,9 +33,15 @@ class ProfilesService(profilesRepository: ProfilesRepository, usersRepository: U
   } yield user
 
   private def getFollowerByEmail(email: String): Task[UserRow] = for {
-    userOpt <- usersRepository.findUserRowByEmail(email)
+    userOpt <- usersRepository.findByEmail(email)
     user <- ZIO.fromOption(userOpt).mapError(_ => NotFound("Couldn't find user for logged in session"))
   } yield user
+
+  def getProfileData(profileId: Int, asSeenByUserWithId: Int): Task[ProfileData] =
+    usersRepository
+      .findById(profileId)
+      .someOrFail(NotFound(s"Couldn't find a profile for user with id=$profileId"))
+      .flatMap(getProfileData(_, asSeenByUserWithId))
 
   private def getProfileData(user: UserRow, asSeenByUserWithId: Int): Task[ProfileData] =
     profilesRepository.isFollowing(user.userId, asSeenByUserWithId).map(ProfileData(user.username, user.bio, user.image, _))

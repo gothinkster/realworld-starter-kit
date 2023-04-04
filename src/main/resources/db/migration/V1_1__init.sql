@@ -10,8 +10,8 @@ CREATE TABLE users
 
 CREATE TABLE followers
 (
-    user_id INTEGER NOT NULL REFERENCES users(user_id),
-    follower_id INTEGER NOT NULL REFERENCES users(user_id),
+    user_id     INTEGER NOT NULL REFERENCES users (user_id),
+    follower_id INTEGER NOT NULL REFERENCES users (user_id),
     PRIMARY KEY (user_id, follower_id)
 );
 
@@ -37,9 +37,19 @@ CREATE TABLE tags_articles
 
 CREATE TABLE favorites_articles
 (
-    profile_id INTEGER NOT NULL,
-    article_slug TEXT NOT NULL,
+    profile_id   INTEGER NOT NULL,
+    article_slug TEXT    NOT NULL,
     FOREIGN KEY (article_slug) REFERENCES articles (slug) ON UPDATE CASCADE,
     FOREIGN KEY (profile_id) REFERENCES users (user_id),
     PRIMARY KEY (profile_id, article_slug)
 );
+
+CREATE TABLE comments_articles
+(
+    comment_id   INTEGER PRIMARY KEY,
+    article_slug TEXT    NOT NULL REFERENCES articles (slug) ON UPDATE CASCADE,
+    created_at   INTEGER NOT NULL,
+    updated_at   INTEGER NOT NULL,
+    author_id    INTEGER NOT NULL REFERENCES users (user_id),
+    body         TEXT    NOT NULL
+)

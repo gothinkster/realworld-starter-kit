@@ -1,9 +1,10 @@
 package com.softwaremill.realworld.articles
 
-import com.softwaremill.realworld.articles.model.{ArticleCreateData, ArticleData, ArticleRow, ArticleUpdateData}
-import com.softwaremill.realworld.common.Exceptions.{NotFound, Unauthorized}
+import com.softwaremill.realworld.articles.comments.CommentData
+import com.softwaremill.realworld.articles.model.*
+import com.softwaremill.realworld.common.Exceptions.{BadRequest, NotFound, Unauthorized}
 import com.softwaremill.realworld.common.{Exceptions, Pagination}
-import com.softwaremill.realworld.profiles.ProfileRow
+import com.softwaremill.realworld.profiles.{ProfileRow, ProfilesService}
 import com.softwaremill.realworld.users.UserMapper.toUserData
 import com.softwaremill.realworld.users.{UserData, UserMapper, UserRow, UsersRepository}
 import zio.{Console, IO, Task, ZIO, ZLayer}
@@ -12,7 +13,7 @@ import java.sql.SQLException
 import java.time.Instant
 import javax.sql.DataSource
 
-class ArticlesService(articlesRepository: ArticlesRepository, usersRepository: UsersRepository):
+class ArticlesService(articlesRepository: ArticlesRepository, usersRepository: UsersRepository, profilesService: ProfilesService):
 
   def list(filters: Map[ArticlesFilters, String], pagination: Pagination): IO[SQLException, List[ArticleData]] = articlesRepository
     .list(filters, pagination)
@@ -84,7 +85,23 @@ class ArticlesService(articlesRepository: ArticlesRepository, usersRepository: U
   } yield articleData
 
   private def userByEmail(email: String): Task[UserRow] =
-    usersRepository.findUserRowByEmail(email).someOrElseZIO(ZIO.fail(NotFound("User doesn't exist, re-login may be needed!")))
+    usersRepository.findByEmail(email).someOrFail(NotFound("User doesn't exist, re-login may be needed!"))
+
+  def addComment(slug: String, email: String, comment: String): Task[CommentData] = for {
+    user <- userByEmail(email)
+    id <- articlesRepository.addComment(slug, user.userId, comment)
+    row <- articlesRepository.findComment(id)
+    profile <- profilesService.getProfileData(row.authorId, user.userId)
+  } yield CommentData(row.commentId, row.createdAt, row.updatedAt, row.body, profile)
+
+  def deleteComment(slug: String, email: String, commentId: Int): Task[Unit] = for {
+    user <- userByEmail(email)
+    comment <- articlesRepository.findComment(commentId)
+    _ <- ZIO.fail(BadRequest(s"Comment with ID=$commentId is not linked to slug $slug")).when(comment.articleSlug != slug)
+    _ <- ZIO.fail(Unauthorized("Can't remove the comment you're not an author of")).when(user.userId != comment.authorId)
+    _ <- articlesRepository.deleteComment(commentId)
+  } yield ()
 
 object ArticlesService:
-  val live: ZLayer[ArticlesRepository with UsersRepository, Nothing, ArticlesService] = ZLayer.fromFunction(ArticlesService(_, _))
+  val live: ZLayer[ArticlesRepository with UsersRepository with ProfilesService, Nothing, ArticlesService] =
+    ZLayer.fromFunction(ArticlesService(_, _, _))

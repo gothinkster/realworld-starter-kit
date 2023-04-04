@@ -6,6 +6,7 @@ import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.common.model.auth.*
 import com.softwaremill.realworld.common.{BaseEndpoints, Configuration}
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
+import com.softwaremill.realworld.profiles.{ProfilesRepository, ProfilesService}
 import com.softwaremill.realworld.users.UsersEndpointsSpec.test
 import com.softwaremill.realworld.users.{User, UsersEndpoints, UsersRepository, UsersService}
 import com.softwaremill.realworld.utils.TestUtils.*
@@ -157,5 +158,7 @@ object AuthorizationSpec extends ZIOSpecDefault:
     ArticlesService.live,
     ArticlesEndpoints.live,
     BaseEndpoints.live,
+    ProfilesRepository.live,
+    ProfilesService.live,
     testDbConfigLayer
   )

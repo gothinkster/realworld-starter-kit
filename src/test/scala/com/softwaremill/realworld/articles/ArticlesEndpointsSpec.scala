@@ -6,6 +6,7 @@ import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.common.Exceptions.AlreadyInUse
 import com.softwaremill.realworld.common.{BaseEndpoints, Configuration}
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
+import com.softwaremill.realworld.profiles.{ProfilesRepository, ProfilesService}
 import com.softwaremill.realworld.users.UsersRepository
 import com.softwaremill.realworld.utils.TestUtils.*
 import sttp.client3.testing.SttpBackendStub
@@ -499,5 +500,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
     ArticlesService.live,
     ArticlesEndpoints.live,
     BaseEndpoints.live,
+    ProfilesRepository.live,
+    ProfilesService.live,
     testDbConfigLayer
   )
