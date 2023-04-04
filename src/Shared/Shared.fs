@@ -51,3 +51,8 @@ type LoginResult =
 type RegisterResult =
     | Registered of User
     | Failed
+
+
+type SubmitArticleResult =
+    | SuccessSubmitArticle
+    | FailedSubmitArticle of string

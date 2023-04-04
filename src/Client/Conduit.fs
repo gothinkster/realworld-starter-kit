@@ -93,9 +93,6 @@ let update (msg: Msg) (state: State) =
 
     | NewArticleMsg newArticleMsg, Page.NewArticle newArticleState -> //TODO: this is just placeholder, need to implement submit new article
         match newArticleMsg with
-        | PageNewArticle.UserLoggedIn user ->
-            { state with User = LoggedUser user }, Cmd.navigate("/")
-
         | newArticleMsg ->
             let newArticleState, newArticleCmd = PageNewArticle.update newArticleMsg newArticleState
             { state with CurrentPage = Page.NewArticle newArticleState }, Cmd.map NewArticleMsg newArticleCmd

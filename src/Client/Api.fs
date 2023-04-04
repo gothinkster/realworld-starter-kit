@@ -35,3 +35,5 @@ let register (username: string) (email: string) (password: string) =
         else
             return Failed
     }
+
+let submitArticle (title: string) (content: string) (tags: string) = SuccessSubmitArticle
