@@ -167,10 +167,11 @@ export class TypeORMTagsRepository implements TagsRepository {
   }
 
   private async createTags(tags: string[]) {
-    await TagEntity.query(
-      'INSERT INTO tags (name) SELECT * FROM unnest($1::text[]) AS tag ON CONFLICT (name) DO NOTHING;',
-      [tags],
-    )
+    await TagEntity.createQueryBuilder('tag')
+      .insert()
+      .values(tags.map((tag) => ({ name: tag })))
+      .orIgnore()
+      .execute()
   }
 
   private async insertMissingTags(tags: string[], article: { id: number }) {
@@ -187,6 +188,7 @@ export class TypeORMTagsRepository implements TagsRepository {
     )
   }
 }
+
 @Entity({ name: 'articles' })
 export class ArticleEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
