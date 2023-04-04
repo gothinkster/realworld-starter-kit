@@ -27,9 +27,18 @@ func main() {
 	log := logger.Sugar()
 
 	config := config.LoadConfig(env, ".")
+	config.DBUrl = fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
+		config.DBUsername,
+		config.DBPassword,
+		config.DBHost,
+		config.DBPort,
+		config.DBName,
+	)
 
-	dbConn := db.Connect(config)
-	defer db.Close(dbConn)
+	// dbConn := db.Connect(config)
+	dbConn := db.ConnectTemp(config)
+	// defer db.Close(dbConn)
+	defer db.CloseTemp(dbConn)
 
 	db.AutoMigrate(config)
 

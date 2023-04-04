@@ -1,8 +1,8 @@
 package api
 
 import (
-	"database/sql"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -12,12 +12,13 @@ import (
 	"github.com/aliml92/realworld-gin-sqlc/config"
 	db "github.com/aliml92/realworld-gin-sqlc/db/sqlc"
 	"github.com/gin-gonic/gin"
+	"github.com/jackc/pgx/v4"
 	"github.com/stretchr/testify/assert"
 )
 
 var (
 	conf   config.Config
-	dbConn *sql.DB
+	dbConn *pgx.Conn
 	router *gin.Engine
 	server *Server
 )
@@ -33,7 +34,14 @@ func TestMain(m *testing.M) {
 func setup() {
 
 	conf = config.LoadConfig("test", ".")
-	dbConn = db.Connect(conf)
+	conf.DBUrl = fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
+		conf.DBUsername,
+		conf.DBPassword,
+		conf.DBHost,
+		conf.DBPort,
+		conf.DBNameTest,
+	)
+	dbConn = db.ConnectTemp(conf)
 	db.AutoMigrate(conf)
 
 	store := db.NewConduitStore(dbConn)
@@ -47,7 +55,7 @@ func setup() {
 }
 
 func teardown() {
-	defer db.Close(dbConn)
+	defer db.CloseTemp(dbConn)
 	db.Drop(conf)
 }
 

@@ -48,18 +48,11 @@ type userResponse struct {
 }
 
 func newUserResponse(user *db.User) *userResponse {
-	var bio, image string
 	resp := new(userResponse)
 	resp.User.Username = user.Username
 	resp.User.Email = user.Email
-	if user.Bio.Valid {
-		bio = user.Bio.String
-		resp.User.Bio = &bio
-	}
-	if user.Image.Valid {
-		image = user.Image.String
-		resp.User.Image = &image
-	}
+	resp.User.Bio = user.Bio
+	resp.User.Image = user.Image
 	token, _ := GenerateJWT(user.ID)
 	resp.User.Token = token
 	return resp

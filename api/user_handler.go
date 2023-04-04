@@ -34,11 +34,11 @@ func (s *Server) GetCurrentUser(c *gin.Context) {
 
 type updateUserReq struct {
 	User struct {
-		Email    string `json:"email" binding:"omitempty,email"`
-		Username string `json:"username" binding:"omitempty"`
-		Password string `json:"password" binding:"omitempty"`
-		Image    string `json:"image" binding:"omitempty,url"`
-		Bio      string `json:"bio" binding:"omitempty"`
+		Email    *string `json:"email" binding:"omitempty,email"`
+		Username *string `json:"username" binding:"omitempty"`
+		Password *string `json:"password" binding:"omitempty"`
+		Image    *string `json:"image" binding:"omitempty,url"`
+		Bio      *string `json:"bio" binding:"omitempty"`
 	} `json:"user" binding:"required"`
 }
 
@@ -46,26 +46,11 @@ func (req *updateUserReq) bind(c *gin.Context, p *db.UpdateUserParams) error {
 	if err := c.ShouldBindJSON(req); err != nil {
 		return err
 	}
-	if req.User.Email != "" {
-		p.Email.String = req.User.Email
-		p.Email.Valid = true
-	}
-	if req.User.Username != "" {
-		p.Username.String = req.User.Username
-		p.Username.Valid = true
-	}
-	if req.User.Password != "" {
-		p.Password.String = req.User.Password
-		p.Password.Valid = true
-	}
-	if req.User.Image != "" {
-		p.Image.String = req.User.Image
-		p.Image.Valid = true
-	}
-	if req.User.Bio != "" {
-		p.Bio.String = req.User.Bio
-		p.Bio.Valid = true
-	}
+	p.Email = req.User.Email 
+	p.Username = req.User.Username
+	p.Password = req.User.Password
+	p.Image = req.User.Image
+	p.Bio = req.User.Bio
 	return nil
 }
 
@@ -117,17 +102,10 @@ type profileResponse struct {
 }
 
 func newProfileResponse(u *db.User, isFollowing bool) *profileResponse {
-	var bio, image string
 	resp := new(profileResponse)
 	resp.Profile.Username = u.Username
-	if u.Bio.Valid {
-		bio = u.Bio.String
-		resp.Profile.Bio = &bio
-	}
-	if u.Image.Valid {
-		image = u.Image.String
-		resp.Profile.Image = &image
-	}
+	resp.Profile.Bio = u.Bio
+	resp.Profile.Image = u.Image
 	resp.Profile.Following = isFollowing
 	return resp
 }

@@ -2,7 +2,8 @@ package db
 
 import (
 	"context"
-	"database/sql"
+
+	"github.com/jackc/pgx/v4"
 )
 
 type Store interface {
@@ -12,10 +13,10 @@ type Store interface {
 
 type ConduitStore struct {
 	*Queries // implements Querier
-	db       *sql.DB
+	db       *pgx.Conn
 }
 
-func NewConduitStore(db *sql.DB) Store {
+func NewConduitStore(db *pgx.Conn) Store {
 	return &ConduitStore{
 		db:      db,
 		Queries: New(db),
@@ -38,11 +39,11 @@ func (store *ConduitStore) CreateArticleTx(
 	arg CreateArticleTxParams,
 	) (*CreateArticleTxResult, error) {
 
-	tx, err := store.db.Begin()
+	tx, err := store.db.Begin(context.Background())
 	if err != nil {
 		return nil, err
 	}
-	defer tx.Rollback()
+	defer tx.Rollback(context.Background())
 	qtx := store.Queries.WithTx(tx)
 	article, err := qtx.CreateArticle(ctx, arg.CreateArticleParams)
 	if err != nil {
@@ -66,7 +67,7 @@ func (store *ConduitStore) CreateArticleTx(
 	if err != nil {
 		return nil, err
 	}
-	if err = tx.Commit(); err != nil {
+	if err = tx.Commit(context.Background()); err != nil {
 		return nil, err
 	}
 	return &CreateArticleTxResult{

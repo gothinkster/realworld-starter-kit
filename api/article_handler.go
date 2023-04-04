@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -20,7 +21,7 @@ type articleResponse struct {
 		Favorited      bool      `json:"favorited"`
 		FavoritesCount int64     `json:"favoritesCount"`
 		Author         struct {
-			Username  string  `json:"username"`
+			Username  *string  `json:"username"`
 			Bio       *string `json:"bio"`
 			Image     *string `json:"image"`
 			Following bool    `json:"following"`
@@ -34,18 +35,21 @@ func newArticleResponse(article *db.GetArticleBySlugRow) *articleResponse {
 	resp.Article.Title = article.Title
 	resp.Article.Description = article.Description
 	resp.Article.Body = article.Body
-	resp.Article.TagList = article.TagList
+	switch article.TagList.(type) {
+	case []string:
+		resp.Article.TagList = article.TagList.([]string)
+	case []interface{}:
+		for _, tag := range article.TagList.([]interface{}) {
+			resp.Article.TagList = append(resp.Article.TagList, tag.(string))
+		}
+	}	
 	resp.Article.CreatedAt = article.CreatedAt
 	resp.Article.UpdatedAt = article.UpdatedAt
-	resp.Article.Favorited = article.FavoritesCount > 0
+	resp.Article.Favorited = false
 	resp.Article.FavoritesCount = article.FavoritesCount
-	resp.Article.Author.Username = article.Username.String
-	if article.Bio.Valid {
-		resp.Article.Author.Bio = &article.Bio.String
-	}
-	if article.Image.Valid {
-		resp.Article.Author.Image = &article.Image.String
-	}
+	resp.Article.Author.Username = article.Username
+	resp.Article.Author.Bio = article.Bio
+	resp.Article.Author.Image = article.Image
 	return resp
 }
 
@@ -64,6 +68,7 @@ func (s *Server) GetArticle(c *gin.Context) {
 	slug := c.Param("slug")
 	article, err := Nullable(s.store.GetArticleBySlug(c, slug))
 	if err != nil {
+		fmt.Println(err)
 		c.JSON(http.StatusInternalServerError, err)
 		return
 	}
@@ -121,6 +126,12 @@ func (s *Server) CreateArticle(c *gin.Context) {
 		c.JSON(http.StatusUnprocessableEntity, NewError(err))
 	}
 	p.AuthorID = id
+	unuqueSlug, err := s.findUniqueSlug(c, p.Title)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, NewError(err))
+		return
+	}
+	p.Slug = unuqueSlug
 	articleTx, err := s.store.CreateArticleTx(c, p)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, NewError(err))
@@ -140,21 +151,17 @@ func newArticleTxResponse(articleTx *db.CreateArticleTxResult) *articleResponse 
 	resp.Article.UpdatedAt = articleTx.Article.UpdatedAt
 	resp.Article.Favorited = false
 	resp.Article.FavoritesCount = 0
-	resp.Article.Author.Username = articleTx.User.Username
-	if articleTx.User.Bio.Valid {
-		resp.Article.Author.Bio = &articleTx.User.Bio.String
-	}
-	if articleTx.User.Image.Valid {
-		resp.Article.Author.Image = &articleTx.User.Image.String
-	}
+	resp.Article.Author.Username = &articleTx.User.Username
+	resp.Article.Author.Bio = articleTx.User.Bio
+	resp.Article.Author.Image = articleTx.User.Image
 	return resp
 }
 
 type updateArticleReq struct {
 	Article struct {
-		Title       string  `json:"title" binding:"omitempty"`
-		Description string  `json:"description" binding:"omitempty"`
-		Body        string  `json:"body" binding:"omitempty"`
+		Title       *string  `json:"title" binding:"omitempty"`
+		Description *string  `json:"description" binding:"omitempty"`
+		Body        *string  `json:"body" binding:"omitempty"`
 	} `json:"article" binding:"required"`
 }
 
@@ -162,18 +169,9 @@ func (req *updateArticleReq) bind(c *gin.Context, p *db.UpdateArticleParams) err
 	if err := c.ShouldBindJSON(req); err != nil {
 		return err
 	}
-	if req.Article.Title != "" {
-		p.Title.String = req.Article.Title
-		p.Title.Valid = true
-	}
-	if req.Article.Description != "" {
-		p.Description.String = req.Article.Description
-		p.Description.Valid = true
-	}
-	if req.Article.Body != "" {
-		p.Body.String = req.Article.Body
-		p.Body.Valid = true
-	}
+	p.Title = req.Article.Title
+	p.Description = req.Article.Description
+	p.Body = req.Article.Body
 	return nil
 }
 
@@ -207,18 +205,18 @@ func (s *Server) UpdateArticle(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, NewError(err))
 		return
 	}
-	if articleID == nil {
+	if articleID == "" {
 		c.JSON(http.StatusNotFound, gin.H{"error": "article not found"})
 		return
 	}
-	p.ID = *articleID
-	if p.Slug.Valid {
-		uniqueSlug, err := s.findUniqueSlug(c, p.Slug.String)
+	p.ID = articleID
+	if p.Slug != nil {
+		uniqueSlug, err := s.findUniqueSlug(c, *p.Slug)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, NewError(err))
 			return
 		}
-		p.Slug.String = uniqueSlug
+		p.Slug = &uniqueSlug
 	}
 	updatedArticle, err := s.store.UpdateArticle(c, p)
 	if err != nil {
@@ -233,18 +231,18 @@ func (s *Server) UpdateArticle(c *gin.Context) {
 	c.JSON(http.StatusOK, newArticleResponse(article))
 }
 
-func (s *Server) findUniqueSlug(c *gin.Context, slug string) (string, error) {
+func (s *Server) findUniqueSlug(c *gin.Context, title string) (string, error) {
 	var (
 		found bool
 		uniqueSlug string
 	)
 	for !found {
-		uniqueSlug = createUniqueSlug(slug)
+		uniqueSlug = createUniqueSlug(title)
 		articleID, err := NullableID(s.store.GetArticleIDBySlug(c, uniqueSlug))
 		if err != nil {
 			return "", err
 		}
-		if articleID == nil {
+		if articleID == "" {
 			found = true
 		}	
 	}
