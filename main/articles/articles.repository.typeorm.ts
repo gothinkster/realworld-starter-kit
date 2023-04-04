@@ -182,10 +182,21 @@ export class TypeORMTagsRepository implements TagsRepository {
   }
 
   private async unsetOtherTags(tags: string[], article: { id: number }) {
-    await ArticlesHaveTagsEntity.query(
-      'DELETE FROM articles_have_tags WHERE article_id = $2 AND tag_id NOT IN (SELECT id FROM tags WHERE tags.name IN (SELECT * FROM unnest($1::text[])));',
-      [tags, article.id],
-    )
+    const subQuery = TagEntity.createQueryBuilder()
+      .select('tags.id')
+      .from(TagEntity, 'tags')
+      .where('tags.name IN (:...tags)')
+      .getQuery()
+
+    const queryBuilder = ArticlesHaveTagsEntity.createQueryBuilder()
+      .delete()
+      .from(ArticlesHaveTagsEntity, 'articles_have_tags')
+      .where('articles_have_tags.article_id = :articleId', {
+        articleId: article.id,
+      })
+      .andWhere(`articles_have_tags.tag_id NOT IN (${subQuery})`)
+
+    await queryBuilder.setParameter('tags', tags).execute()
   }
 }
 
