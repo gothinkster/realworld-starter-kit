@@ -197,7 +197,7 @@ export class TypeORMTagsRepository implements TagsRepository {
 
     const queryBuilder = ArticlesHaveTagsEntity.createQueryBuilder()
       .delete()
-      .from(ArticlesHaveTagsEntity, 'articles_have_tags')
+      .from(ArticlesHaveTagsEntity)
       .where('articles_have_tags.article_id = :articleId', {
         articleId: article.id,
       })
