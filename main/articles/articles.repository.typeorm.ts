@@ -190,10 +190,9 @@ export class TypeORMTagsRepository implements TagsRepository {
   }
 
   private async unsetOtherTags(tags: string[], article: { id: number }) {
-    const subQuery = TagEntity.createQueryBuilder()
-      .select('tags.id')
-      .from(TagEntity, 'tags')
-      .where('tags.name IN (:...tags)')
+    const subQuery = TagEntity.createQueryBuilder('t')
+      .select('t.id')
+      .where('t.name IN (:...tags)')
       .getQuery()
 
     const queryBuilder = ArticlesHaveTagsEntity.createQueryBuilder()
