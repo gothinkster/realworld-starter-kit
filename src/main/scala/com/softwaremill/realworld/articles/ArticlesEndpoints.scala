@@ -1,7 +1,7 @@
 package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.articles.*
-import com.softwaremill.realworld.articles.model.{Article, ArticleCreate, ArticleData, ArticleUpdate}
+import com.softwaremill.realworld.articles.model.{Article, ArticleCreate, ArticleData, ArticleUpdate, ArticlesList}
 import com.softwaremill.realworld.common.*
 import com.softwaremill.realworld.db.{Db, DbConfig}
 import com.softwaremill.realworld.http.ErrorMapper.defaultErrorsMappings
@@ -39,11 +39,12 @@ class ArticlesEndpoints(articlesService: ArticlesService, base: BaseEndpoints):
         )
         .mapTo[Pagination]
     )
-    .out(jsonBody[List[ArticleData]])
+    .out(jsonBody[ArticlesList])
     .serverLogic(session =>
       (filters, pagination) =>
         articlesService
           .list(filters.flatten.toMap, pagination)
+          .map(articles => ArticlesList(articles = articles, articlesCount = articles.size))
           .logError
           .pipe(defaultErrorsMappings)
     )
