@@ -58,15 +58,15 @@ let update (msg: Msg) (state: State) =
         let nextState = { state with SubmitAttempt = Resolved submitResult }
         nextState, Cmd.none
 
-let renderLoginOutcome (loginResult: Deferred<LoginResult>) =
+let renderLoginOutcome (loginResult: Deferred<LoginResponse>) =
     match loginResult with
-    | Resolved LoginResult.UsernameOrPasswordIncorrect ->
+    | Resolved (LoginResponse.ErrorLogin _) ->
         Html.paragraph [
             prop.style [ style.color.crimson; style.padding 10 ]
             prop.text "Username or password is incorrect"
         ]
 
-    | Resolved (LoginResult.LoggedIn user) ->
+    | Resolved (LoginResponse.LoggedIn user) ->
         Html.paragraph [
             prop.style [ style.color.green; style.padding 10 ]
             prop.text (sprintf "User '%s' has succesfully logged in" user.Email)

@@ -4,20 +4,15 @@ open System
 
 module Route =
     let builder typeName methodName =
-        sprintf "/api/%s/%s" typeName methodName
-
-
+        match methodName with
+        | "login" -> "/api/users/login"
+        | "register" -> "/api/users"
+        | "createArticle" -> "/api/articles"
+        | _ -> sprintf "/api/%s/%s" typeName methodName
+//----------------------------------------
 type ConduitError (error : string[]) =
     member this.body = error
-
-type UserLoginDto = {
-    email:    string
-    password: string
-}
-type LoginRequest = {
-    user: UserLoginDto
-}
-
+//----------------------------------------
 type UserAuthDto = {
     Email:    string
     Token:    string
@@ -25,33 +20,33 @@ type UserAuthDto = {
     Bio:      string
     Image:    string
 }
-
+//----------------------------------------
+type UserLoginDto = {
+    email:    string
+    password: string
+}
+type LoginRequest = {
+    user: UserLoginDto
+}
 type LoginResponse =
-    | User of UserAuthDto
-    | Errors of ConduitError
-
-// bawah ini tuh harusnya kyk
-// type ITodosApi =
-//  { getCustomer : int -> Async<Customer option> }
-type users = {
+    | LoggedIn of UserAuthDto
+    | ErrorLogin of ConduitError
+//----------------------------------------
+type RegisterRequest = {
+    username: string
+    email: string
+    password: string
+}
+type RegisterResponse =
+    | Registered of UserAuthDto
+    | ErrorRegister of ConduitError
+//----------------------------------------
+type IApi = {
     login: LoginRequest -> Async<LoginResponse>
+    register: RegisterRequest -> Async<RegisterResponse>
 }
 
 type AccessToken = AccessToken of string
-
-type User =
-    { Email : string
-      Username: string
-      AccessToken : AccessToken }
-
-type LoginResult =
-    | UsernameOrPasswordIncorrect
-    | LoggedIn of User
-
-type RegisterResult =
-    | Registered of User
-    | Failed
-
 
 type SubmitArticleResult =
     | SuccessSubmitArticle

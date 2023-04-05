@@ -1,5 +1,6 @@
 ﻿module Users
 
+open System
 open Shared
 open Npgsql
 open Dapper
@@ -31,3 +32,23 @@ let LoginRequestHandler(conn: string, user: UserLoginDto) : Async<UserAuthDto>  
     do! conn.CloseAsync() |> Async.AwaitTask
     return result
 }
+
+let RegisterRequestHandler(conn: string, req: RegisterRequest) : Async<UserAuthDto>  = async {
+    use conn = new NpgsqlConnection(conn)
+    let salt = Guid.NewGuid().ToString()
+    do! conn.OpenAsync() |> Async.AwaitTask
+    let! result = conn.QuerySingleOrDefaultAsync<UserAuthDto>(
+        """
+            INSERT INTO public.users (username, email, password, token, utc_token_expire_at, bio, image, salt)
+            VALUES (@Username, @Email,  hashtextextended(@Password || @Salt  , 0)::text, uuid_generate_v4(), now() at time zone ('utc') + interval '1 hour', 'bio', 'image', @Salt::uuid)
+            RETURNING email as Email,
+                   token::text as Token,
+                   username as Username,
+                   bio as Bio,
+                   image as Image
+        """
+        , {| Username = req.username; Email = req.email; Password = req.password; Salt = salt |}) |> Async.AwaitTask
+    do! conn.CloseAsync() |> Async.AwaitTask
+    return result
+}
+

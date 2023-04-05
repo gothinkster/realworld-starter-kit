@@ -10,15 +10,15 @@ open Models
 type State =
     { Email: string
       Password: string
-      LoginAttempt: Deferred<LoginResult> }
+      LoginAttempt: Deferred<LoginResponse> }
 
 type Msg =
     | EmailChanged of string
     | PasswordChanged of string
-    | Login of AsyncOperationStatus<LoginResult>
+    | Login of AsyncOperationStatus<LoginResponse>
 
 let (|UserLoggedIn|_|) = function
-    | Msg.Login (Finished (LoginResult.LoggedIn user)) -> Some user
+    | Msg.Login (Finished (LoginResponse.LoggedIn user)) -> Some user
     | _ -> None
 
 
@@ -50,15 +50,15 @@ let update (msg: Msg) (state: State) =
         let nextState = { state with LoginAttempt = Resolved loginResult }
         nextState, Cmd.none
 
-let renderLoginOutcome (loginResult: Deferred<LoginResult>) =
+let renderLoginOutcome (loginResult: Deferred<LoginResponse>) =
     match loginResult with
-    | Resolved LoginResult.UsernameOrPasswordIncorrect ->
+    | Resolved (LoginResponse.ErrorLogin err) ->
         Html.paragraph [
             prop.style [ style.color.crimson; style.padding 10 ]
-            prop.text "Username or password is incorrect"
+            prop.text (sprintf "login failed: %s" (String.concat ", " err.body))
         ]
 
-    | Resolved (LoginResult.LoggedIn user) ->
+    | Resolved (LoginResponse.LoggedIn user) ->
         Html.paragraph [
             prop.style [ style.color.green; style.padding 10 ]
             prop.text (sprintf "User '%s' has succesfully logged in" user.Email)

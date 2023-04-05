@@ -10,16 +10,16 @@ type State =
     { Username : string
       Email: string
       Password: string
-      RegisterAttempt: Deferred<RegisterResult> }
+      RegisterAttempt: Deferred<RegisterResponse> }
 
 type Msg =
     | UsernameChanged of string
     | EmailChanged of string
     | PasswordChanged of string
-    | Register of AsyncOperationStatus<RegisterResult>
+    | Register of AsyncOperationStatus<RegisterResponse>
 
 let (|UserRegister|_|) = function
-    | Msg.Register (Finished (RegisterResult.Registered user)) -> Some user
+    | Msg.Register (Finished (RegisterResponse.Registered user)) -> Some user
     | _ -> None
 
 let init() =
@@ -54,14 +54,14 @@ let update (msg: Msg) (state: State) =
         nextState, Cmd.none
 
 
-let RenderRegisterOutcome (registerResult: Deferred<RegisterResult>) =
+let RenderRegisterOutcome (registerResult: Deferred<RegisterResponse>) =
     match registerResult with
-    | Resolved RegisterResult.Failed ->
+    | Resolved (RegisterResponse.ErrorRegister _)->
         Html.paragraph [
             prop.style [ style.color.crimson; style.padding 10 ]
             prop.text "register fail"
         ]
-    | Resolved (RegisterResult.Registered user) ->
+    | Resolved (RegisterResponse.Registered user) ->
         Html.paragraph [
             prop.style [ style.color.green; style.padding 10 ]
             prop.text (sprintf "User '%s' has succesfully registered " user.Email)

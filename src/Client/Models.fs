@@ -4,4 +4,4 @@ open Shared
 
 type ApplicationUser =
     | Anonymous
-    | LoggedUser of User
+    | LoggedUser of UserAuthDto
