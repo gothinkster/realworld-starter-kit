@@ -36,11 +36,20 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                 basicRequest
                   .get(uri"http://test.com/api/articles")
                   .headers(validAuthorizationHeader())
-                  .response(asJson[List[ArticleData]])
+                  .response(asJson[ArticlesList])
                   .send(backendStub(endpoint))
                   .map(_.body)
               }
-          )(isRight(isEmpty))
+          )(
+            isRight(
+              equalTo(
+                ArticlesList(
+                  articles = List.empty[ArticleData],
+                  articlesCount = 0
+                )
+              )
+            )
+          )
         },
         test("return error on get") {
           assertZIO(
@@ -71,7 +80,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                     uri"http://test.com/api/articles?tag=invalid-tag"
                   )
                   .headers(validAuthorizationHeader())
-                  .response(asJson[List[ArticleData]])
+                  .response(asJson[ArticlesList])
                   .send(backendStub(endpoint))
                   .map(_.body)
               }
@@ -97,7 +106,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                     uri"http://test.com/api/articles?limit=invalid-limit&offset=invalid-offset"
                   )
                   .headers(validAuthorizationHeader())
-                  .response(asJson[List[ArticleData]])
+                  .response(asJson[ArticlesList])
                   .send(backendStub(endpoint))
                   .map(_.body)
               }
@@ -113,136 +122,145 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
           )
         },
         test("check pagination") {
-          assertZIO(
-            ZIO
+          for {
+            result <- ZIO
               .service[ArticlesEndpoints]
               .map(_.listArticles)
               .flatMap { endpoint =>
                 basicRequest
                   .get(uri"http://test.com/api/articles?limit=1&offset=1")
                   .headers(validAuthorizationHeader())
-                  .response(asJson[List[ArticleData]])
+                  .response(asJson[ArticlesList])
                   .send(backendStub(endpoint))
                   .map(_.body)
               }
-          )(
-            isRight(
-              hasSize(equalTo(1))
-                && contains(
-                  ArticleData(
-                    "how-to-train-your-dragon-2",
-                    "How to train your dragon 2",
-                    "So toothless",
-                    "Its a dragon",
-                    List("dragons", "goats", "training"),
-                    Instant.ofEpochMilli(1455765776637L),
-                    Instant.ofEpochMilli(1455767315824L),
-                    false,
-                    1,
-                    ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
-                  )
-                )
+          } yield assertTrue {
+            // TODO there must be better way to implement this...
+            import com.softwaremill.realworld.common.model.UserDiff.{*, given}
+
+            val articlesList = result.toOption.get
+
+            articlesList.articlesCount == 1 &&
+            articlesList.articles.contains(
+              ArticleData(
+                "how-to-train-your-dragon-2",
+                "How to train your dragon 2",
+                "So toothless",
+                "Its a dragon",
+                List("dragons", "goats", "training"),
+                Instant.ofEpochMilli(1455765776637L),
+                Instant.ofEpochMilli(1455767315824L),
+                false,
+                1,
+                ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
+              )
             )
-          )
+          }
         },
         test("check filters") {
-          assertZIO(
-            ZIO
+          for {
+            result <- ZIO
               .service[ArticlesEndpoints]
               .map(_.listArticles)
               .flatMap { endpoint =>
                 basicRequest
                   .get(uri"http://test.com/api/articles?author=jake&favorited=john&tag=goats")
                   .headers(validAuthorizationHeader())
-                  .response(asJson[List[ArticleData]])
+                  .response(asJson[ArticlesList])
                   .send(backendStub(endpoint))
                   .map(_.body)
               }
-          )(
-            isRight(
-              hasSize(equalTo(1))
-                && contains(
-                  ArticleData(
-                    "how-to-train-your-dragon-2",
-                    "How to train your dragon 2",
-                    "So toothless",
-                    "Its a dragon",
-                    List("dragons", "goats", "training"),
-                    Instant.ofEpochMilli(1455765776637L),
-                    Instant.ofEpochMilli(1455767315824L),
-                    false,
-                    1,
-                    ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
-                  )
-                )
+          } yield assertTrue {
+            // TODO there must be better way to implement this...
+            import com.softwaremill.realworld.common.model.UserDiff.{*, given}
+
+            val articlesList = result.toOption.get
+
+            articlesList.articlesCount == 1 &&
+            articlesList.articles.contains(
+              ArticleData(
+                "how-to-train-your-dragon-2",
+                "How to train your dragon 2",
+                "So toothless",
+                "Its a dragon",
+                List("dragons", "goats", "training"),
+                Instant.ofEpochMilli(1455765776637L),
+                Instant.ofEpochMilli(1455767315824L),
+                false,
+                1,
+                ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
+              )
             )
-          )
+          }
         },
         test("list available articles") {
-          assertZIO(
-            ZIO
+          for {
+            result <- ZIO
               .service[ArticlesEndpoints]
               .map(_.listArticles)
               .flatMap { endpoint =>
                 basicRequest
                   .get(uri"http://test.com/api/articles")
                   .headers(validAuthorizationHeader())
-                  .response(asJson[List[ArticleData]])
+                  .response(asJson[ArticlesList])
                   .send(backendStub(endpoint))
                   .map(_.body)
               }
-          )(
-            isRight(
-              hasSize(equalTo(3))
-                && contains(
-                  ArticleData(
-                    "how-to-train-your-dragon",
-                    "How to train your dragon",
-                    "Ever wonder how?",
-                    "It takes a Jacobian",
-                    List("dragons", "training"),
-                    Instant.ofEpochMilli(1455765776637L),
-                    Instant.ofEpochMilli(1455767315824L),
-                    false,
-                    2,
-                    ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
-                  )
+          } yield assertTrue {
+            // TODO there must be better way to implement this...
+            import com.softwaremill.realworld.common.model.UserDiff.{*, given}
+
+            val articlesList = result.toOption.get
+
+            articlesList.articlesCount == 3 &&
+            articlesList.articles.contains(
+              ArticleData(
+                "how-to-train-your-dragon",
+                "How to train your dragon",
+                "Ever wonder how?",
+                "It takes a Jacobian",
+                List("dragons", "training"),
+                Instant.ofEpochMilli(1455765776637L),
+                Instant.ofEpochMilli(1455767315824L),
+                false,
+                2,
+                ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
+              )
+            ) &&
+            articlesList.articles.contains(
+              ArticleData(
+                "how-to-train-your-dragon-2",
+                "How to train your dragon 2",
+                "So toothless",
+                "Its a dragon",
+                List("dragons", "goats", "training"),
+                Instant.ofEpochMilli(1455765776637L),
+                Instant.ofEpochMilli(1455767315824L),
+                false,
+                1,
+                ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
+              )
+            ) &&
+            articlesList.articles.contains(
+              ArticleData(
+                "how-to-train-your-dragon-3",
+                "How to train your dragon 3",
+                "The tagless one",
+                "Its not a dragon",
+                List(),
+                Instant.ofEpochMilli(1455765776637L),
+                Instant.ofEpochMilli(1455767315824L),
+                false,
+                0,
+                ArticleAuthor(
+                  "john",
+                  Some("I no longer work at statefarm"),
+                  Some("https://i.stack.imgur.com/xHWG8.jpg"),
+                  following = false
                 )
-                && contains(
-                  ArticleData(
-                    "how-to-train-your-dragon-2",
-                    "How to train your dragon 2",
-                    "So toothless",
-                    "Its a dragon",
-                    List("dragons", "goats", "training"),
-                    Instant.ofEpochMilli(1455765776637L),
-                    Instant.ofEpochMilli(1455767315824L),
-                    false,
-                    1,
-                    ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
-                  )
-                )
-                && contains(
-                  ArticleData(
-                    "how-to-train-your-dragon-3",
-                    "How to train your dragon 3",
-                    "The tagless one",
-                    "Its not a dragon",
-                    List(),
-                    Instant.ofEpochMilli(1455765776637L),
-                    Instant.ofEpochMilli(1455767315824L),
-                    false,
-                    0,
-                    ArticleAuthor(
-                      "john",
-                      Some("I no longer work at statefarm"),
-                      Some("https://i.stack.imgur.com/xHWG8.jpg"),
-                      following = false
-                    )
-                  )
-                )
+              )
             )
-          )
+          }
         },
         test("get existing article") {
           assertZIO(
