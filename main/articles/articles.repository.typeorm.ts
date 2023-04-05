@@ -159,10 +159,18 @@ export class TypeORMTagsRepository implements TagsRepository {
   }
 
   async getArticleTags(article: { id: number }): Promise<string[]> {
-    const raw = await TagEntity.query(
-      'SELECT t.name FROM tags t WHERE t.id IN (SELECT aht.tag_id FROM articles_have_tags aht WHERE aht.article_id = $1);',
-      [article.id],
-    )
+    const tagIdsQuery = ArticlesHaveTagsEntity.createQueryBuilder('aht')
+      .select('aht.tag_id')
+      .where('aht.article_id = :articleId', {
+        articleId: article.id,
+      })
+
+    const tagNamesQuery = TagEntity.createQueryBuilder('t')
+      .select('t.name as name')
+      .where(`t.id IN (${tagIdsQuery.getQuery()})`)
+      .setParameters(tagIdsQuery.getParameters())
+
+    const raw = await tagNamesQuery.getRawMany()
     return raw.map(({ name }) => name)
   }
 
