@@ -184,8 +184,10 @@ export class TypeORMTagsRepository implements TagsRepository {
 
   private async insertMissingTags(tags: string[], article: { id: number }) {
     await ArticlesHaveTagsEntity.query(
-      'INSERT INTO articles_have_tags (tag_id, article_id) SELECT id, $2 FROM tags WHERE tags.name IN (SELECT * FROM unnest($1::text[])) ON CONFLICT (tag_id, article_id) DO NOTHING;',
-      [tags, article.id],
+      `INSERT INTO articles_have_tags (tag_id, article_id) SELECT id, $1 FROM tags WHERE name IN (${tags
+        .map((_, index) => `$${index + 2}`)
+        .join(', ')}) ON CONFLICT (tag_id, article_id) DO NOTHING;`,
+      [article.id, ...tags],
     )
   }
 
