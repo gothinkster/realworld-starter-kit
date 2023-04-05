@@ -2,6 +2,7 @@ package com.softwaremill.realworld.articles
 
 import com.softwaremill.realworld.articles.ArticlesFilters.{Author, Favorited, Tag}
 import com.softwaremill.realworld.articles.ArticlesTags.{explodeTags, tagsConcat}
+import com.softwaremill.realworld.articles.comments.CommentRow
 import com.softwaremill.realworld.articles.model.*
 import com.softwaremill.realworld.common.{Exceptions, Pagination}
 import com.softwaremill.realworld.profiles.ProfileRow
@@ -26,6 +27,7 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
   private inline def queryFavoriteArticle = quote(querySchema[ArticleFavoriteRow](entity = "favorites_articles"))
   private inline def queryProfile = quote(querySchema[ProfileRow](entity = "users"))
   private inline def queryUser = quote(querySchema[UserRow](entity = "users"))
+  private inline def queryCommentArticle = quote(querySchema[CommentRow](entity = "comments_articles"))
 
   def list(filters: Map[ArticlesFilters, String], pagination: Pagination): IO[SQLException, List[ArticleData]] = {
     val tagFilter = filters.getOrElse(Tag, "")
@@ -137,6 +139,28 @@ class ArticlesRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: Dat
   def removeFavorite(slug: String, userId: Int) = run(
     queryFavoriteArticle.filter(a => (a.profileId == lift(userId)) && (a.articleSlug == lift(slug))).delete
   ).provide(dsLayer)
+
+  def addComment(slug: String, authorId: Int, comment: String) = {
+    val now = Instant.now()
+    run {
+      queryCommentArticle
+        .insert(
+          _.articleSlug -> lift(slug),
+          _.createdAt -> lift(now),
+          _.updatedAt -> lift(now),
+          _.authorId -> lift(authorId),
+          _.body -> lift(comment)
+        )
+        .returningGenerated(_.commentId)
+    }.provide(dsLayer)
+  }
+
+  def findComment(commentId: Int) = run(queryCommentArticle.filter(_.commentId == lift(commentId)))
+    .map(_.headOption)
+    .provide(dsLayer)
+    .someOrFail(Exceptions.NotFound(s"Comment with ID=$commentId doesn't exist"))
+
+  def deleteComment(commentId: Int) = run(queryCommentArticle.filter(_.commentId == lift(commentId)).delete).provide(dsLayer)
 
   private def article(tuple: (ArticleRow, ProfileRow, Option[String], Option[Int])): ArticleData = {
     val (ar, pr, tags, favorites) = tuple

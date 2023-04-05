@@ -19,16 +19,10 @@ class UsersRepository(quill: SqliteZioJdbcContext[SnakeCase], dataSource: DataSo
 
   private inline def queryUser = quote(querySchema[UserRow](entity = "users"))
 
-  def findByEmail(email: String): IO[Exception, Option[UserData]] = run(
-    for {
-      ur <- queryUser if ur.email == lift(email)
-    } yield ur
-  )
-    .map(_.headOption)
-    .map(_.map(toUserData))
-    .provide(dsLayer)
+  def findById(id: Int): Task[Option[UserRow]] =
+    run(queryUser.filter(_.userId == lift(id))).map(_.headOption).provide(dsLayer)
 
-  def findUserRowByEmail(email: String): IO[Exception, Option[UserRow]] =
+  def findByEmail(email: String): IO[Exception, Option[UserRow]] =
     run( // TODO hm should I add additional DTO or returning row from repo in this case is OK?
       for {
         ur <- queryUser if ur.email == lift(email)

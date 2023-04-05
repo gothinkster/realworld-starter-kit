@@ -14,7 +14,7 @@ class UsersService(authService: AuthService, usersRepository: UsersRepository):
   def get(email: String): IO[Exception, UserData] = usersRepository
     .findByEmail(email)
     .flatMap {
-      case Some(a) => ZIO.succeed(a)
+      case Some(a) => ZIO.succeed(toUserData(a))
       case None    => ZIO.fail(Exceptions.NotFound("User doesn't exist."))
     }
 
