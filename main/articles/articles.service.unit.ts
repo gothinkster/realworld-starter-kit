@@ -45,6 +45,10 @@ beforeEach(async () => {
 describe('ArticlesView', () => {
   it('should be accessible to other users after published', async () => {
     // Arrange
+    const exampleArticle = makeRandomArticle({
+      title: `How to train your dragon? ${testRandomNumber}`,
+      tags: ['dragons', 'friendship'],
+    })
     const cms = service.getCMS(author)
     await cms.createArticle(exampleArticle)
     await cms.publishArticle(exampleArticle.slug)

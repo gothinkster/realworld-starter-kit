@@ -27,7 +27,7 @@ beforeEach(async () => {
   testRandomNumber = Date.now() % 10 ** 9
 })
 
-describe('TypeORMArticlesRepository', () => {
+describe('ArticlesRepository', () => {
   it('should create article', async () => {
     // Arrange
     const { title, slug, body, description } = makeRandomArticle({
@@ -97,5 +97,18 @@ describe('TypeORMArticlesRepository', () => {
     }
     expect(updatedArticle).toMatchObject(matchObject)
     expect(queriedArticle).toEqual([{ ...matchObject, published: false }])
+  })
+})
+
+describe('TagsRepository', () => {
+  it('should set article tags', async () => {
+    const tags = await tagsRepository.setArticleTags({ id: testRandomNumber }, [
+      'dragons',
+      'friendship',
+    ])
+    expect(tags).toEqual(['dragons', 'friendship'])
+    expect(
+      await tagsRepository.getArticleTags({ id: testRandomNumber }),
+    ).toEqual(['dragons', 'friendship'])
   })
 })

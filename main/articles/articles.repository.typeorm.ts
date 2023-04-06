@@ -194,7 +194,9 @@ export class TypeORMTagsRepository implements TagsRepository {
       this.queries = {
         createTags: (tags: string[]) =>
           this.entityManager.query(
-            'INSERT IGNORE INTO tags (name) VALUES (?);',
+            `INSERT IGNORE INTO tags (name) VALUES ${tags
+              .map((_) => '(?)')
+              .join(', ')};`,
             tags,
           ),
         insertMissingTags: (tags: string[], article: { id: number }) =>

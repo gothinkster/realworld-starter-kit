@@ -27,7 +27,7 @@ export interface ArticlesRepository {
       filterByTags?: string[]
       owner?: { id: number }
     },
-    pagination?: { take: number; skip: number },
+    pagination?: Pagination,
   ): Promise<FullArticle[]>
 
   createArticle(
