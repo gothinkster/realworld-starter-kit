@@ -12,86 +12,29 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common'
-import {
-  ApiBearerAuth,
-  ApiCreatedResponse,
-  ApiNoContentResponse,
-  ApiOkResponse,
-  ApiProperty,
-  ApiResponseProperty,
-  ApiTags,
-} from '@nestjs/swagger'
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 
 import { Comment, CommentsService } from './comments.service'
 import { buildUrlToPath } from '../nest/url'
 import { JWTAuthGuard } from '../nest/jwt.guard'
-import { validateModel } from '../nest/validation.utils'
-import {
-  createAuthorDTO,
-  ProfileResponseDTO,
-} from '../authors/authors.controller'
-import { IsString, MaxLength, ValidateNested } from 'class-validator'
-import {
-  ApiModelProperty,
-  ApiResponseModelProperty,
-} from '@nestjs/swagger/dist/decorators/api-model-property.decorator'
-import { Type } from 'class-transformer'
-import { Slug } from '../articles/articles.controller'
-import { Pagination } from '../nest/pagination'
+import { createAuthorDTO } from '../authors/authors.controller'
+import { Pagination, ZodPagination } from '../nest/pagination'
 import { AuthorsService, Profile } from '../authors/authors.service'
+import { z } from 'zod'
+import { createZodTransformer } from '../nest/validation.utils'
 
-export class CommentDTO {
-  @ApiProperty({
-    description: "The comment body. Example: 'I liked that article'",
-    required: true,
-    maxLength: 255,
-  })
-  @IsString()
-  @MaxLength(255)
-  body!: string
-}
+const CommentDTO = z.object({
+  body: z
+    .string()
+    .max(255)
+    .describe("The comment body. Example: 'I liked that article'"),
+})
 
-export class CreateCommentBody {
-  @ApiModelProperty({ type: CommentDTO, required: true })
-  @ValidateNested()
-  @Type(() => CommentDTO)
-  comment!: CommentDTO
-}
+const CreateCommentBody = z.object({
+  comment: CommentDTO,
+})
 
-export class CommentResponseDTO extends CommentDTO {
-  @ApiResponseProperty()
-  body!: string
-
-  @ApiResponseProperty()
-  id!: number
-
-  @ApiResponseProperty()
-  updatedAt!: Date
-
-  @ApiResponseProperty()
-  createdAt!: Date
-
-  @ApiResponseModelProperty({ type: ProfileResponseDTO })
-  author!: ProfileResponseDTO
-
-  @ApiResponseProperty()
-  links?: {
-    [key: string]: string
-  }
-}
-
-export class CommentResponseBody {
-  @ApiResponseProperty({ type: CommentResponseDTO })
-  comment?: CommentResponseDTO
-}
-
-export class CommentsResponseBody {
-  @ApiResponseProperty({ type: [CommentResponseDTO] })
-  comments?: CommentResponseDTO[]
-
-  @ApiResponseProperty()
-  links?: { [key: string]: string }
-}
+type CreateCommentBody = z.infer<typeof CreateCommentBody>
 
 @ApiTags('comments')
 @Controller('articles/:slug/comments')
@@ -101,17 +44,15 @@ export class CommentsController {
     private authorsService: AuthorsService,
   ) {}
 
-  @ApiCreatedResponse({ type: CommentResponseBody })
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(JWTAuthGuard)
   @ApiBearerAuth()
   @Post()
-  @Slug()
   async addCommentToAnArticle(
     @Req() req,
     @Param('slug') slug: string,
-    @Body(validateModel()) body: CreateCommentBody,
-  ): Promise<CommentResponseBody> {
+    @Body(createZodTransformer(CreateCommentBody)) body: CreateCommentBody,
+  ) {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
     const comment = await this.commentsService.commentArticle(
       me,
@@ -123,15 +64,13 @@ export class CommentsController {
     } as const
   }
 
-  @ApiOkResponse({ type: CommentsResponseBody })
   @HttpCode(HttpStatus.OK)
   @Get()
-  @Slug()
   async getCommentsFromAnArticle(
     @Req() req,
     @Param('slug') slug: string,
-    @Query(validateModel()) pagination: Pagination,
-  ): Promise<CommentsResponseBody> {
+    @Query(createZodTransformer(ZodPagination)) pagination: Pagination,
+  ) {
     const comments = await this.commentsService.getCommentsFromArticle(
       slug,
       pagination,
@@ -158,12 +97,10 @@ export class CommentsController {
     } as const
   }
 
-  @ApiNoContentResponse({ type: CommentsResponseBody })
   @HttpCode(HttpStatus.NO_CONTENT)
   @UseGuards(JWTAuthGuard)
   @ApiBearerAuth()
   @Delete(':id')
-  @Slug()
   async deleteCommentFromArticle(
     @Req() req,
     @Param('slug') slug: string,
@@ -182,7 +119,7 @@ function createCommentDTO(
   articleSlug: string,
   comment: Comment,
   author: Profile,
-): CommentResponseDTO {
+) {
   return {
     id: comment.id,
     body: comment.body,

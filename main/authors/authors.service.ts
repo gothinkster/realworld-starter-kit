@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
-import { User } from '../accounts/accounts.controller'
+import { User } from '../nest/jwt.guard'
 import { AuthorEntity, UserFollows } from './authors.entity'
 
 export interface ProfileFields {

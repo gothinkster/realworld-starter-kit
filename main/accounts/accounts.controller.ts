@@ -1,84 +1,54 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common'
 import {
-  ApiBasicAuth,
-  ApiCreatedResponse,
-  ApiProperty,
-  ApiResponseProperty,
-  ApiTags,
-} from '@nestjs/swagger'
+  Body,
+  Controller,
+  Injectable,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common'
+import { ApiBasicAuth, ApiTags } from '@nestjs/swagger'
 import { UsersService } from './accounts.service'
-import { BasicAuthGuard } from './basic.guard'
-import { validateModel } from '../nest/validation.utils'
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsString,
-  Matches,
-  MaxLength,
-  MinLength,
-  ValidateNested,
-} from 'class-validator'
-import { Type } from 'class-transformer'
+import { z } from 'zod'
+import { createZodTransformer } from '../nest/validation.utils'
+import { AuthGuard } from '@nestjs/passport'
 
-export interface User {
-  id: number
-  email?: string
-}
+const CreateUserDTO = z.object({
+  email: z.string().email(),
+  password: z
+    .string()
+    .min(8)
+    .max(32)
+    .regex(/[A-Z]/)
+    .regex(/[a-z]/)
+    .regex(/\d/)
+    .regex(/\W/),
+})
 
-export class UserDTO {
-  @ApiProperty({ example: 'me@mail.com' })
-  @IsEmail()
-  @IsNotEmpty()
-  email!: string
+export type CreateUserDTO = z.infer<typeof CreateUserDTO>
 
-  @ApiProperty({ example: 'askljh3#892d1!' })
-  @MinLength(8, { message: 'requires at least 8 characters' })
-  @MaxLength(32, { message: 'requires at most 32 characters' })
-  @Matches(String.raw`[A-Z]`, '', { message: 'requires upper-case characters' })
-  @Matches(String.raw`[a-z]`, '', { message: 'requires lower-case characters' })
-  @Matches(String.raw`\d`, '', { message: 'requires numbers' })
-  @Matches(String.raw`\W`, '', {
-    message: 'requires non alpha numeric characters',
-  })
-  @IsString()
-  @IsNotEmpty()
-  password!: string
-}
+const CreateUserBody = z.object({
+  user: CreateUserDTO,
+})
 
-export class UserResponseBody {
-  @ApiResponseProperty()
-  access_token!: string
-}
+type CreateUserBody = z.infer<typeof CreateUserBody>
 
-export class CreateUserBody {
-  @ApiProperty({ type: UserDTO })
-  @ValidateNested()
-  @Type(() => UserDTO)
-  user!: UserDTO
-}
+@Injectable()
+export class BasicAuthGuard extends AuthGuard('basic') {}
 
 @ApiTags('accounts')
 @Controller('accounts')
 export class AccountsController {
   constructor(private service: UsersService) {}
 
-  @ApiCreatedResponse({
-    description: 'When you signup sucesfully',
-    type: UserResponseBody,
-  })
   @Post('signup')
   async signup(
-    @Body(validateModel())
+    @Body(createZodTransformer(CreateUserBody))
     body: CreateUserBody,
-  ): Promise<UserResponseBody> {
+  ) {
     const user = await this.service.createUserAccount(body.user)
     return this.service.getJWTResponse(user)
   }
 
-  @ApiCreatedResponse({
-    description: 'When you login sucesfully',
-    type: UserResponseBody,
-  })
   @UseGuards(BasicAuthGuard)
   @ApiBasicAuth()
   @Post('login')

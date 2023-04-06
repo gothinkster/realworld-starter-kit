@@ -3,10 +3,11 @@ import { InvalidCredentialsError } from './accounts.exceptions'
 import { AccountAlreadyExistsException } from './exeptions'
 import { AccountEntity } from './accounts.entity'
 import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../global/constants'
-import { User, UserDTO } from './accounts.controller'
+import { CreateUserDTO } from './accounts.controller'
+import { User } from '../nest/jwt.guard'
 
 export class UsersService {
-  async createUserAccount(user: UserDTO): Promise<AccountEntity> {
+  async createUserAccount(user: CreateUserDTO): Promise<AccountEntity> {
     return await new AccountEntity()
       .changeEmail(user.email)
       .changePassword(user.password)
@@ -16,7 +17,7 @@ export class UsersService {
       })
   }
 
-  async getUserAccount(user: UserDTO): Promise<AccountEntity> {
+  async getUserAccount(user: CreateUserDTO): Promise<AccountEntity> {
     const account = await AccountEntity.findOne({
       where: { email: user.email },
     })

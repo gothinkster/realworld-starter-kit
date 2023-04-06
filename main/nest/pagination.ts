@@ -1,32 +1,20 @@
-import { ApiProperty } from '@nestjs/swagger'
-import { IsInt } from 'class-validator'
+import { z } from 'zod'
 
 export class Pagination {
-  @ApiProperty({
-    required: false,
-    description: 'Number of articles to skip (defaults to 0)',
-  })
-  @IsInt()
-  skip: number = 0
+  constructor(public skip: number, public take: number) {}
 
-  @ApiProperty({
-    required: false,
-    description: 'Number of articles to return (defaults to 20)',
-  })
-  @IsInt()
-  take: number = 20
-
-  getNextPage(): Pagination {
-    const newPage = new Pagination()
-    newPage.take = this.take
-    newPage.skip = this.skip + this.take
-    return newPage
+  getNextPage() {
+    return new Pagination(this.skip + this.take, this.take)
   }
 
   toParams() {
-    return {
-      take: this.take.toString(),
-      skip: this.skip.toString(),
-    } as const
+    return { skip: this.skip, take: this.take }
   }
 }
+
+export const ZodPagination = z
+  .object({
+    skip: z.coerce.number().min(0).default(0),
+    take: z.coerce.number().min(0).max(200).default(20),
+  })
+  .transform(({ skip, take }) => new Pagination(skip, take))

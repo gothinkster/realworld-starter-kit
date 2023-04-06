@@ -15,7 +15,7 @@ beforeEach(async () => {
  authors and who favorited them. However, unpublished domain should be
  accessible only to the owner.
  **/
-describe('Article', () => {
+describe('Articles', () => {
   it('should be found by the author', async () => {
     await abbott.login()
 

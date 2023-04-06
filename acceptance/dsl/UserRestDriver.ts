@@ -37,7 +37,7 @@ export class UserRestDriver implements UserDriver {
       profile: {
         username: username,
         bio: `Me chamo ${username}`,
-        image: 'afs3fas',
+        image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
       },
     })
     expect(response.status).toBe(201)

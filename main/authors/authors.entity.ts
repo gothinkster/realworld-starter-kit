@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm'
-import { User } from '../accounts/accounts.controller'
+import { User } from '../nest/jwt.guard'
 import { Profile, ProfileFields } from './authors.service'
 
 @Entity({ name: 'authors' })
