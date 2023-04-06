@@ -123,7 +123,7 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
                 basicRequest
                   .get(uri"http://test.com/api/articles/unknown-article")
                   .headers(validAuthorizationHeader())
-                  .response(asJson[ArticleData])
+                  .response(asJson[ArticlesList])
                   .send(backendStub(endpoint))
                   .map(_.body)
               }
