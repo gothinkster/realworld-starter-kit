@@ -18,8 +18,8 @@ beforeAll(async () => {
   authorsService = new AuthorsService()
   service = new ArticlesService(
     authorsService,
-    new TypeORMTagsRepository(),
-    new TypeORMArticlesRepository(),
+    new TypeORMTagsRepository(dataSource.manager),
+    new TypeORMArticlesRepository(dataSource.manager),
   )
 })
 

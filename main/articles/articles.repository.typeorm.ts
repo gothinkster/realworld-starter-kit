@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  EntityManager,
   In,
   PrimaryGeneratedColumn,
   Unique,
@@ -14,6 +15,8 @@ import { ArticlesRepository, TagsRepository } from './articles.repository'
 import { Article, Authored, Dated, Sluged, Tagged } from './articles.models'
 
 export class TypeORMArticlesRepository implements ArticlesRepository {
+  constructor(private readonly entityManager: EntityManager) {}
+
   async getArticles(
     options: {
       filterBySlug?: string
@@ -23,7 +26,9 @@ export class TypeORMArticlesRepository implements ArticlesRepository {
     },
     pagination?: { take: number; skip: number },
   ) {
-    const qb = ArticleEntity.createQueryBuilder('article').where('true')
+    const qb = this.entityManager
+      .createQueryBuilder(ArticleEntity, 'article')
+      .where('true')
 
     if (options.filterBySlug) {
       qb.andWhere({ slug: options.filterBySlug })
@@ -72,13 +77,15 @@ export class TypeORMArticlesRepository implements ArticlesRepository {
   }
 
   async createArticle(articleData: Article & Sluged, owner: { id: number }) {
-    const article = await ArticleEntity.create({
-      slug: articleData.slug,
-      title: articleData.title,
-      description: articleData.description,
-      body: articleData.body,
-      authorId: owner.id,
-    }).save()
+    const article = await this.entityManager
+      .create(ArticleEntity, {
+        slug: articleData.slug,
+        title: articleData.title,
+        description: articleData.description,
+        body: articleData.body,
+        authorId: owner.id,
+      })
+      .save()
     return this.createArticleResponse(article)
   }
 
@@ -88,7 +95,8 @@ export class TypeORMArticlesRepository implements ArticlesRepository {
     snapshot: Partial<Article & Tagged & { published: boolean }>,
   ) {
     const newSlug = snapshot.title ? slugify(snapshot.title) : undefined
-    const result = await ArticleEntity.createQueryBuilder()
+    const result = await this.entityManager
+      .createQueryBuilder(ArticleEntity, 'article')
       .update()
       .where({ slug, authorId: owner.id })
       .set(
@@ -100,7 +108,6 @@ export class TypeORMArticlesRepository implements ArticlesRepository {
           published: snapshot.published,
         }),
       )
-      .returning('*')
       .execute()
 
     if (!result.affected || result.affected === 0) {
@@ -111,11 +118,18 @@ export class TypeORMArticlesRepository implements ArticlesRepository {
       throw new Error('Multiple articles returned unexpectedly')
     }
 
-    return this.createArticleResponse(result.raw[0])
+    return this.getArticles(
+      { filterBySlug: newSlug ?? slug, owner },
+      { take: 1, skip: 0 },
+    ).then((articles) => articles[0])
   }
 
   async deleteArticle(slug: string, owner: { id: number }) {
-    const result = await ArticleEntity.delete({ slug, authorId: owner.id })
+    const result = await this.entityManager
+      .createQueryBuilder(ArticleEntity, 'article')
+      .delete()
+      .where({ slug, authorId: owner.id })
+      .execute()
     if (result.affected === 0) {
       throw new ArticleNotFound(slug)
     }
@@ -148,6 +162,8 @@ export class TypeORMArticlesRepository implements ArticlesRepository {
 }
 
 export class TypeORMTagsRepository implements TagsRepository {
+  constructor(private readonly entityManager: EntityManager) {}
+
   async setArticleTags(
     article: { id: number },
     tags: string[],
@@ -159,7 +175,8 @@ export class TypeORMTagsRepository implements TagsRepository {
   }
 
   async getArticleTags(article: { id: number }): Promise<string[]> {
-    const tagIdsQuery = ArticlesHaveTagsEntity.createQueryBuilder('aht')
+    const tagIdsQuery = this.entityManager
+      .createQueryBuilder(ArticlesHaveTagsEntity, 'aht')
       .select('aht.tag_id')
       .where('aht.article_id = :articleId', {
         articleId: article.id,
@@ -175,20 +192,35 @@ export class TypeORMTagsRepository implements TagsRepository {
   }
 
   private async createTags(tags: string[]) {
-    await TagEntity.createQueryBuilder('tag')
+    await this.entityManager
+      .createQueryBuilder(TagEntity, 'tag')
       .insert()
       .values(tags.map((tag) => ({ name: tag })))
       .orIgnore()
       .execute()
   }
 
-  private async insertMissingTags(tags: string[], article: { id: number }) {
-    await ArticlesHaveTagsEntity.query(
+  private static insertMissingTagsQueryParameters = {
+    postgres: (tags: string[], article: { id: number }) => [
       `INSERT INTO articles_have_tags (tag_id, article_id) SELECT id, $1 FROM tags WHERE name IN (${tags
         .map((_, index) => `$${index + 2}`)
         .join(', ')}) ON CONFLICT (tag_id, article_id) DO NOTHING;`,
       [article.id, ...tags],
-    )
+    ],
+    mysql: (tags: string[], article: { id: number }) => [
+      `INSERT IGNORE INTO articles_have_tags (tag_id, article_id) SELECT id, ? FROM tags WHERE name IN (${tags
+        .map(() => `?`)
+        .join(', ')});`,
+      [article.id, ...tags],
+    ],
+  } as const
+
+  private async insertMissingTags(tags: string[], article: { id: number }) {
+    const [query, parameters] =
+      TypeORMTagsRepository.insertMissingTagsQueryParameters[
+        this.entityManager.connection.driver.options.type
+      ](tags, article)
+    await this.entityManager.query(query, parameters)
   }
 
   private async unsetOtherTags(tags: string[], article: { id: number }) {

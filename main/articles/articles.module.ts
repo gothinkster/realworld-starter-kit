@@ -7,6 +7,7 @@ import {
   TypeORMTagsRepository,
 } from './articles.repository.typeorm'
 import { AuthorsService } from '../authors/authors.service'
+import { EntityManager } from 'typeorm'
 
 @Module({
   imports: [AuthorsModule],
@@ -14,14 +15,17 @@ import { AuthorsService } from '../authors/authors.service'
   providers: [
     {
       provide: ArticlesService,
-      useFactory: (authorsService: AuthorsService) => {
+      useFactory: (
+        authorsService: AuthorsService,
+        entityManager: EntityManager,
+      ) => {
         return new ArticlesService(
           authorsService,
-          new TypeORMTagsRepository(),
-          new TypeORMArticlesRepository(),
+          new TypeORMTagsRepository(entityManager),
+          new TypeORMArticlesRepository(entityManager),
         )
       },
-      inject: [AuthorsService],
+      inject: [AuthorsService, EntityManager],
     },
   ],
   exports: [ArticlesService],

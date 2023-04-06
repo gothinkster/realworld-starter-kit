@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { User } from '../accounts/accounts.controller'
-import { AuthorEntity } from './authors.entity'
+import { AuthorEntity, UserFollows } from './authors.entity'
 
 export interface ProfileFields {
   username: string
@@ -22,11 +22,13 @@ export interface Profile extends ProfileFields {
 @Injectable()
 export class AuthorsService {
   async getFollowingIds(profile: { id: number }) {
-    const following = await AuthorEntity.query(
-      'SELECT user_follows.follows_id as id FROM user_follows WHERE user_follows.user_id = $1;',
-      [profile.id],
-    )
-    return following as { id: number }[]
+    const following = await UserFollows.createQueryBuilder('uf')
+      .select()
+      .where({ userId: profile.id })
+      .getMany()
+    return following.map((uf) => ({
+      id: uf.followsId,
+    }))
   }
 
   async getAuthorById(id: number): Promise<AuthorEntity> {

@@ -12,9 +12,9 @@ let tagsRepository: TagsRepository
 let articlesRepository: ArticlesRepository
 
 beforeAll(async () => {
-  tagsRepository = new TypeORMTagsRepository()
-  articlesRepository = new TypeORMArticlesRepository()
   dataSource = await getPostgresDataSource().initialize()
+  tagsRepository = new TypeORMTagsRepository(dataSource.manager)
+  articlesRepository = new TypeORMArticlesRepository(dataSource.manager)
 })
 
 afterAll(async () => {
