@@ -192,53 +192,60 @@ export class TypeORMTagsRepository implements TagsRepository {
   }
 
   private async createTags(tags: string[]) {
-    await this.entityManager
-      .createQueryBuilder(TagEntity, 'tag')
-      .insert()
-      .values(tags.map((tag) => ({ name: tag })))
-      .orIgnore()
-      .execute()
+    const [query, parameters] =
+      TypeORMTagsRepository.queriesByEngine[
+        this.entityManager.connection.options.type
+      ].createTags(tags)
+    await this.entityManager.query(query, parameters)
   }
 
-  private static insertMissingTagsQueryParameters = {
-    postgres: (tags: string[], article: { id: number }) => [
-      `INSERT INTO articles_have_tags (tag_id, article_id) SELECT id, $1 FROM tags WHERE name IN (${tags
-        .map((_, index) => `$${index + 2}`)
-        .join(', ')}) ON CONFLICT (tag_id, article_id) DO NOTHING;`,
-      [article.id, ...tags],
-    ],
-    mysql: (tags: string[], article: { id: number }) => [
-      `INSERT IGNORE INTO articles_have_tags (tag_id, article_id) SELECT id, ? FROM tags WHERE name IN (${tags
-        .map(() => `?`)
-        .join(', ')});`,
-      [article.id, ...tags],
-    ],
-  } as const
-
   private async insertMissingTags(tags: string[], article: { id: number }) {
-    const [query, parameters] =
-      TypeORMTagsRepository.insertMissingTagsQueryParameters[
-        this.entityManager.connection.driver.options.type
-      ](tags, article)
+    const [query, parameters] = TypeORMTagsRepository.queriesByEngine[
+      this.entityManager.connection.options.type
+    ].insertMissingTags(tags, article)
     await this.entityManager.query(query, parameters)
   }
 
   private async unsetOtherTags(tags: string[], article: { id: number }) {
-    const subQuery = TagEntity.createQueryBuilder('t')
-      .select('t.id')
-      .where('t.name IN (:...tags)')
-      .getQuery()
-
-    const queryBuilder = ArticlesHaveTagsEntity.createQueryBuilder()
-      .delete()
-      .from(ArticlesHaveTagsEntity)
-      .where('articles_have_tags.article_id = :articleId', {
-        articleId: article.id,
-      })
-      .andWhere(`articles_have_tags.tag_id NOT IN (${subQuery})`)
-
-    await queryBuilder.setParameter('tags', tags).execute()
+    const [query, parameters] = TypeORMTagsRepository.queriesByEngine[
+      this.entityManager.connection.options.type
+    ].unsetOtherTags(tags, article)
+    await this.entityManager.query(query, parameters)
   }
+
+  private static queriesByEngine = {
+    postgres: {
+      createTags: (tags: string[]) =>
+        [
+          'INSERT INTO tags (name) SELECT * FROM unnest($1::text[]) AS tag ON CONFLICT (name) DO NOTHING;',
+          [tags],
+        ] as const,
+      insertMissingTags: (tags: string[], article: { id: number }) =>
+        [
+          'INSERT INTO articles_have_tags (tag_id, article_id) SELECT id, $1 FROM tags WHERE name IN (SELECT * FROM unnest($2::text[])) ON CONFLICT (tag_id, article_id) DO NOTHING;',
+          [article.id, tags],
+        ] as const,
+      unsetOtherTags: (tags: string[], article: { id: number }) =>
+        [
+          'DELETE FROM articles_have_tags WHERE article_id = $1 AND tag_id NOT IN (SELECT id FROM tags WHERE tags.name IN (SELECT * FROM unnest($2::text[])));',
+          [article.id, tags],
+        ] as const,
+    } as const,
+    mysql: {
+      createTags: (tags: string[]) =>
+        ['INSERT IGNORE INTO tags (name) VALUES (?);', tags] as const,
+      insertMissingTags: (tags: string[], article: { id: number }) =>
+        [
+          'INSERT IGNORE INTO articles_have_tags (tag_id, article_id) SELECT id, ? FROM tags WHERE name IN (?);',
+          [article.id, tags],
+        ] as const,
+      unsetOtherTags: (tags: string[], article: { id: number }) =>
+        [
+          'DELETE FROM articles_have_tags WHERE article_id = ? AND tag_id NOT IN (SELECT id FROM tags WHERE tags.name IN (?));',
+          [article.id, tags],
+        ] as const,
+    } as const,
+  } as const
 }
 
 @Entity({ name: 'articles' })
