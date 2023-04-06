@@ -137,8 +137,7 @@ object ProfilesEndpointsSpec extends ZIOSpecDefault:
           )
         )
       }
-    ) @@ TestAspect.before(withFixture("fixtures/articles/basic-data.sql"))
-      @@ TestAspect.after(clearDb)
+    )
   ).provide(
     AuthService.live,
     BaseEndpoints.live,
@@ -147,5 +146,5 @@ object ProfilesEndpointsSpec extends ZIOSpecDefault:
     ProfilesRepository.live,
     ProfilesService.live,
     UsersRepository.live,
-    testDbConfigLayer
+    testDbLayerWithFixture("fixtures/articles/basic-data.sql")
   )

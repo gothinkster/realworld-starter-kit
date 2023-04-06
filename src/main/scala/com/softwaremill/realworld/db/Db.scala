@@ -18,14 +18,19 @@ object Db:
 
   // Used for migration and executing queries.
   val dataSourceLive: ZLayer[DbConfig, Nothing, DataSource] =
-    ZLayer
-      .service[DbConfig]
-      .flatMap { env =>
-        val dbConfig = env.get
-        ZLayer.scoped {
-          ZIO.fromAutoCloseable(ZIO.succeed(create(dbConfig)))
-        }
+    ZLayer.scoped {
+      ZIO.fromAutoCloseable {
+        for {
+          dbConfig <- ZIO.service[DbConfig]
+          dataSource <- ZIO.succeed(create(dbConfig))
+        } yield dataSource
       }
+    }
 
   // Quill framework object used for specifying sql queries.
-  def quillLive: ZLayer[Any, Nothing, SqliteZioJdbcContext[SnakeCase]] = ZLayer.succeed(new SqliteZioJdbcContext[SnakeCase](SnakeCase))
+  val quillLive: ZLayer[Any, Nothing, SqliteZioJdbcContext[SnakeCase]] =
+    ZLayer.scoped {
+      ZIO.fromAutoCloseable {
+        ZIO.succeed(new SqliteZioJdbcContext(SnakeCase))
+      }
+    }

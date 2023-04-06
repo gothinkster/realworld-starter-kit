@@ -45,8 +45,7 @@ object UsersRepositorySpec extends ZIOSpecDefault:
           )
         )
       }
-    ) @@ TestAspect.before(withEmptyDb())
-      @@ TestAspect.after(clearDb),
+    ),
     suite("find user with password by email")(
       test("check user with password found") {
         for {
@@ -80,8 +79,7 @@ object UsersRepositorySpec extends ZIOSpecDefault:
           )
         )
       }
-    ) @@ TestAspect.before(withEmptyDb())
-      @@ TestAspect.after(clearDb),
+    ),
     suite("add user")(
       test("check user added") {
         for {
@@ -89,9 +87,8 @@ object UsersRepositorySpec extends ZIOSpecDefault:
           v <- repo.add(UserRegisterData(email = "test@test.com", username = "tested", password = "tested"))
         } yield zio.test.assert(v)(isUnit) // TODO check DB?
       }
-    ) @@ TestAspect.before(withEmptyDb())
-      @@ TestAspect.after(clearDb)
+    )
   ).provide(
     UsersRepository.live,
-    testDbConfigLayer
+    testDbLayerWithEmptyDb
   )

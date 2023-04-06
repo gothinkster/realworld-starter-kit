@@ -40,8 +40,10 @@ object ArticlesRepositorySpec extends ZIOSpecDefault:
             )
           } yield zio.test.assert(v)(Assertion.isEmpty)
         }
-      ) @@ TestAspect.before(withEmptyDb())
-        @@ TestAspect.after(clearDb),
+      ).provide(
+        ArticlesRepository.live,
+        testDbLayerWithEmptyDb
+      ),
       suite("with populated db")(
         test("with small offset and small limit") {
           for {
@@ -214,8 +216,10 @@ object ArticlesRepositorySpec extends ZIOSpecDefault:
               )
           )
         }
-      ) @@ TestAspect.before(withFixture("fixtures/articles/basic-data.sql"))
-        @@ TestAspect.after(clearDb),
+      ).provide(
+        ArticlesRepository.live,
+        testDbLayerWithFixture("fixtures/articles/basic-data.sql")
+      ),
       suite("find article")(
         test("find by slug") {
           for {
@@ -294,8 +298,10 @@ object ArticlesRepositorySpec extends ZIOSpecDefault:
             )
           )
         }
-      ) @@ TestAspect.before(withFixture("fixtures/articles/basic-data.sql"))
-        @@ TestAspect.after(clearDb),
+      ).provide(
+        ArticlesRepository.live,
+        testDbLayerWithFixture("fixtures/articles/basic-data.sql")
+      ),
       suite("add & update tags")(
         test("add tag") {
           for {
@@ -314,8 +320,10 @@ object ArticlesRepositorySpec extends ZIOSpecDefault:
             v <- repo.findBySlug("how-to-train-your-dragon-2").map(_.get.tagList)
           } yield zio.test.assert(v)(Assertion.hasNoneOf(newTag))
         }
-      ) @@ TestAspect.before(withFixture("fixtures/articles/basic-data.sql"))
-        @@ TestAspect.after(clearDb),
+      ).provide(
+        ArticlesRepository.live,
+        testDbLayerWithFixture("fixtures/articles/basic-data.sql")
+      ),
       suite("create and update article")(
         test("create article") {
           for {
@@ -479,10 +487,9 @@ object ArticlesRepositorySpec extends ZIOSpecDefault:
             )
           )
         }
-      ) @@ TestAspect.before(withFixture("fixtures/articles/basic-data.sql"))
-        @@ TestAspect.after(clearDb)
+      ).provide(
+        ArticlesRepository.live,
+        testDbLayerWithFixture("fixtures/articles/basic-data.sql")
+      )
     )
-  ).provide(
-    ArticlesRepository.live,
-    testDbConfigLayer
   )
