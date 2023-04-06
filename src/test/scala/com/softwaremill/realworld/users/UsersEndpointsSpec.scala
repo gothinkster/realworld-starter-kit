@@ -2,9 +2,9 @@ package com.softwaremill.realworld.users
 
 import com.softwaremill.diffx.{Diff, compare}
 import com.softwaremill.realworld.auth.AuthService
-import com.softwaremill.realworld.utils.TestUtils.*
 import com.softwaremill.realworld.common.{BaseEndpoints, Configuration}
 import com.softwaremill.realworld.db.{Db, DbConfig, DbMigrator}
+import com.softwaremill.realworld.utils.TestUtils.*
 import sttp.client3.testing.SttpBackendStub
 import sttp.client3.ziojson.*
 import sttp.client3.{HttpError, Response, ResponseException, UriContext, basicRequest}
@@ -65,8 +65,7 @@ object UsersEndpointsSpec extends ZIOSpecDefault:
           )
         )
       }
-    ) @@ TestAspect.before(withEmptyDb())
-      @@ TestAspect.after(clearDb),
+    ),
     suite("User register")(
       test("return already in use error") {
         assertZIO(
@@ -105,8 +104,7 @@ object UsersEndpointsSpec extends ZIOSpecDefault:
           ).isIdentical
         }
       }
-    ) @@ TestAspect.before(withEmptyDb())
-      @@ TestAspect.after(clearDb),
+    ),
     suite("User login")(
       test("return invalid credentials error") {
         assertZIO(
@@ -145,8 +143,7 @@ object UsersEndpointsSpec extends ZIOSpecDefault:
           ).isIdentical
         }
       }
-    ) @@ TestAspect.before(withEmptyDb())
-      @@ TestAspect.after(clearDb)
+    )
   ).provide(
     Configuration.live,
     AuthService.live,
@@ -154,5 +151,5 @@ object UsersEndpointsSpec extends ZIOSpecDefault:
     UsersService.live,
     UsersEndpoints.live,
     BaseEndpoints.live,
-    testDbConfigLayer
+    testDbLayerWithEmptyDb
   )

@@ -155,5 +155,5 @@ object AuthorizationSpec extends ZIOSpecDefault:
     BaseEndpoints.live,
     ProfilesRepository.live,
     ProfilesService.live,
-    testDbConfigLayer
+    testDbLayer
   )

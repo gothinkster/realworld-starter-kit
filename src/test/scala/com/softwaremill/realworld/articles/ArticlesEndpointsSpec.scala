@@ -129,8 +129,18 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
               }
           )(isLeft(equalTo(HttpError("{\"error\":\"Article with slug unknown-article doesn't exist.\"}", sttp.model.StatusCode(404)))))
         }
-      ) @@ TestAspect.before(withEmptyDb())
-        @@ TestAspect.after(clearDb),
+      ).provide(
+        Configuration.live,
+        AuthService.live,
+        UsersRepository.live,
+        ArticlesRepository.live,
+        ArticlesService.live,
+        ArticlesEndpoints.live,
+        BaseEndpoints.live,
+        ProfilesRepository.live,
+        ProfilesService.live,
+        testDbLayerWithEmptyDb
+      ),
       suite("with populated db")(
         test("get existing article") {
           assertZIO(
@@ -166,8 +176,18 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
             )
           )
         }
-      ) @@ TestAspect.before(withFixture("fixtures/articles/basic-data.sql"))
-        @@ TestAspect.after(clearDb)
+      ).provide(
+        Configuration.live,
+        AuthService.live,
+        UsersRepository.live,
+        ArticlesRepository.live,
+        ArticlesService.live,
+        ArticlesEndpoints.live,
+        BaseEndpoints.live,
+        ProfilesRepository.live,
+        ProfilesService.live,
+        testDbLayerWithFixture("fixtures/articles/basic-data.sql")
+      )
     ),
     suite("create article")(
       test("positive article creation") {
@@ -261,8 +281,18 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
           )
         )
       }
-    ) @@ TestAspect.before(withEmptyDb())
-      @@ TestAspect.after(clearDb),
+    ).provide(
+      Configuration.live,
+      AuthService.live,
+      UsersRepository.live,
+      ArticlesRepository.live,
+      ArticlesService.live,
+      ArticlesEndpoints.live,
+      BaseEndpoints.live,
+      ProfilesRepository.live,
+      ProfilesService.live,
+      testDbLayerWithEmptyDb
+    ),
     suite("update article")(
       test("positive article update") {
         for {
@@ -378,17 +408,16 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
           )
         )
       }
-    ) @@ TestAspect.before(withEmptyDb())
-      @@ TestAspect.after(clearDb)
-  ).provide(
-    Configuration.live,
-    AuthService.live,
-    UsersRepository.live,
-    ArticlesRepository.live,
-    ArticlesService.live,
-    ArticlesEndpoints.live,
-    BaseEndpoints.live,
-    ProfilesRepository.live,
-    ProfilesService.live,
-    testDbConfigLayer
+    ).provide(
+      Configuration.live,
+      AuthService.live,
+      UsersRepository.live,
+      ArticlesRepository.live,
+      ArticlesService.live,
+      ArticlesEndpoints.live,
+      BaseEndpoints.live,
+      ProfilesRepository.live,
+      ProfilesService.live,
+      testDbLayerWithEmptyDb
+    )
   )
