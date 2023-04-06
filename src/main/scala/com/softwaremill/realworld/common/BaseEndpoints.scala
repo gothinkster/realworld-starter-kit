@@ -24,6 +24,11 @@ class BaseEndpoints(authService: AuthService):
     .securityIn(auth.http[String]("Token", WWWAuthenticateChallenge("Token")))
     .zServerSecurityLogic[Any, UserSession](handleAuth)
 
+  val secureOptionEndpoint: ZPartialServerEndpoint[Any, Option[String], Option[UserSession], Unit, ErrorInfo, Unit, Any] = endpoint
+    .errorOut(defaultErrorOutputs)
+    .securityIn(auth.http[Option[String]]("Token", WWWAuthenticateChallenge("Token")))
+    .zServerSecurityLogic[Any, Option[UserSession]](handleAuthOpt)
+
   val publicEndpoint: PublicEndpoint[Unit, ErrorInfo, Unit, Any] = endpoint
     .errorOut(defaultErrorOutputs)
 
@@ -34,6 +39,12 @@ class BaseEndpoints(authService: AuthService):
       case e: Exceptions.Unauthorized => Unauthorized(e.message)
       case _                          => InternalServerError()
     }
+  }
+
+  private def handleAuthOpt(tokenOpt: Option[String]): IO[ErrorInfo, Option[UserSession]] = {
+    tokenOpt match
+      case Some(token) => handleAuth(token).map(userSession => Option(userSession))
+      case None        => ZIO.none
   }
 
 object BaseEndpoints:

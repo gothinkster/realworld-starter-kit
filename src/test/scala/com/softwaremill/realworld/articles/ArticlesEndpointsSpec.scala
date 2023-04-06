@@ -1,6 +1,7 @@
 package com.softwaremill.realworld.articles
 
 import com.softwaremill.diffx.{Diff, compare}
+import com.softwaremill.realworld.articles.ArticlesSpecData._
 import com.softwaremill.realworld.articles.model.*
 import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.common.Exceptions.AlreadyInUse
@@ -12,45 +13,107 @@ import com.softwaremill.realworld.utils.TestUtils.*
 import sttp.client3.testing.SttpBackendStub
 import sttp.client3.ziojson.*
 import sttp.client3.{HttpError, Response, ResponseException, UriContext, basicRequest}
+import sttp.model.Uri
 import sttp.tapir.EndpointOutput.StatusCode
 import sttp.tapir.server.stub.TapirStubInterpreter
 import sttp.tapir.ztapir.{RIOMonadError, ZServerEndpoint}
 import zio.test.Assertion.*
-import zio.test.{TestAspect, TestRandom, ZIOSpecDefault, assertTrue, assertZIO}
+import zio.test.{Assertion, TestAspect, TestRandom, TestResult, ZIOSpecDefault, assertTrue, assertZIO}
 import zio.{Cause, RIO, Random, ZIO, ZLayer}
 
 import java.time.{Instant, ZonedDateTime}
 import javax.sql.DataSource
+import scala.language.postfixOps
 
 object ArticlesEndpointsSpec extends ZIOSpecDefault:
 
   def spec = suite("check articles endpoints")(
-    suite("check articles list and get")(
-      suite("with auth data only")(
-        test("return empty list") {
-          assertZIO(
-            ZIO
-              .service[ArticlesEndpoints]
-              .map(_.listArticles)
-              .flatMap { endpoint =>
-                basicRequest
-                  .get(uri"http://test.com/api/articles")
-                  .headers(validAuthorizationHeader())
-                  .response(asJson[ArticlesList])
-                  .send(backendStub(endpoint))
-                  .map(_.body)
-              }
-          )(
-            isRight(
-              equalTo(
-                ArticlesList(
-                  articles = List.empty[ArticleData],
-                  articlesCount = 0
-                )
-              )
+    suite("check articles list")(
+      suite("with auth header")(
+        suite("with auth data only")(
+          test("return empty list") {
+            checkIfArticleListIsEmpty(authorizationHeaderOpt = Some(validAuthorizationHeader()), uri = uri"http://test.com/api/articles")
+          }
+        ) @@ TestAspect.before(withEmptyDb())
+          @@ TestAspect.after(clearDb),
+        suite("with populated db")(
+          test("validation failed on filter") {
+            checkIfFilterErrorOccur(
+              authorizationHeaderOpt = Some(validAuthorizationHeader()),
+              uri = uri"http://test.com/api/articles?tag=invalid-tag"
             )
+          },
+          test("validation failed on pagination") {
+            checkIfPaginationErrorOccur(
+              authorizationHeaderOpt = Some(validAuthorizationHeader()),
+              uri = uri"http://test.com/api/articles?limit=invalid-limit&offset=invalid-offset"
+            )
+          },
+          test("check pagination") {
+            checkPagination(
+              authorizationHeaderOpt = Some(validAuthorizationHeader()),
+              uri = uri"http://test.com/api/articles?limit=1&offset=1"
+            )
+          },
+          test("check filters") {
+            checkFilters(
+              authorizationHeaderOpt = Some(validAuthorizationHeader()),
+              uri = uri"http://test.com/api/articles?author=jake&favorited=john&tag=goats"
+            )
+          },
+          test("list available articles") {
+            listAvailableArticles(
+              authorizationHeaderOpt = Some(validAuthorizationHeader()),
+              uri = uri"http://test.com/api/articles"
+            )
+          }
+        )
+          @@ TestAspect.before(withFixture("fixtures/articles/basic-data.sql"))
+          @@ TestAspect.after(clearDb)
+      ),
+      suite("with no header")(
+        test("return empty list") {
+          checkIfArticleListIsEmpty(authorizationHeaderOpt = None, uri = uri"http://test.com/api/articles")
+        }
+      )
+        @@ TestAspect.before(withEmptyDb())
+        @@ TestAspect.after(clearDb),
+      suite("with populated db")(
+        test("validation failed on filter") {
+          checkIfFilterErrorOccur(
+            authorizationHeaderOpt = None,
+            uri = uri"http://test.com/api/articles?tag=invalid-tag"
           )
         },
+        test("validation failed on pagination") {
+          checkIfPaginationErrorOccur(
+            authorizationHeaderOpt = None,
+            uri = uri"http://test.com/api/articles?limit=invalid-limit&offset=invalid-offset"
+          )
+        },
+        test("check pagination") {
+          checkPagination(
+            authorizationHeaderOpt = None,
+            uri = uri"http://test.com/api/articles?limit=1&offset=1"
+          )
+        },
+        test("check filters") {
+          checkFilters(
+            authorizationHeaderOpt = None,
+            uri = uri"http://test.com/api/articles?author=jake&favorited=john&tag=goats"
+          )
+        },
+        test("list available articles") {
+          listAvailableArticles(
+            authorizationHeaderOpt = None,
+            uri = uri"http://test.com/api/articles"
+          )
+        }
+      ) @@ TestAspect.before(withFixture("fixtures/articles/basic-data.sql"))
+        @@ TestAspect.after(clearDb)
+    ),
+    suite("check articles get")(
+      suite("with auth data only")(
         test("return error on get") {
           assertZIO(
             ZIO
@@ -69,199 +132,6 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
       ) @@ TestAspect.before(withEmptyDb())
         @@ TestAspect.after(clearDb),
       suite("with populated db")(
-        test("validation failed on filter") {
-          assertZIO(
-            ZIO
-              .service[ArticlesEndpoints]
-              .map(_.listArticles)
-              .flatMap { endpoint =>
-                basicRequest
-                  .get(
-                    uri"http://test.com/api/articles?tag=invalid-tag"
-                  )
-                  .headers(validAuthorizationHeader())
-                  .response(asJson[ArticlesList])
-                  .send(backendStub(endpoint))
-                  .map(_.body)
-              }
-          )(
-            isLeft(
-              equalTo(
-                HttpError(
-                  """{"errors":{"tag":["Invalid value for: query parameter tag (expected value to match: \\w+, but got: \"invalid-tag\")"]}}""",
-                  sttp.model.StatusCode.UnprocessableEntity
-                )
-              )
-            )
-          )
-        },
-        test("validation failed on pagination") {
-          assertZIO(
-            ZIO
-              .service[ArticlesEndpoints]
-              .map(_.listArticles)
-              .flatMap { endpoint =>
-                basicRequest
-                  .get(
-                    uri"http://test.com/api/articles?limit=invalid-limit&offset=invalid-offset"
-                  )
-                  .headers(validAuthorizationHeader())
-                  .response(asJson[ArticlesList])
-                  .send(backendStub(endpoint))
-                  .map(_.body)
-              }
-          )(
-            isLeft(
-              equalTo(
-                HttpError(
-                  "{\"errors\":{\"limit\":[\"Invalid value for: query parameter limit\"]}}",
-                  sttp.model.StatusCode.UnprocessableEntity
-                )
-              )
-            )
-          )
-        },
-        test("check pagination") {
-          for {
-            result <- ZIO
-              .service[ArticlesEndpoints]
-              .map(_.listArticles)
-              .flatMap { endpoint =>
-                basicRequest
-                  .get(uri"http://test.com/api/articles?limit=1&offset=1")
-                  .headers(validAuthorizationHeader())
-                  .response(asJson[ArticlesList])
-                  .send(backendStub(endpoint))
-                  .map(_.body)
-              }
-          } yield assertTrue {
-            // TODO there must be better way to implement this...
-            import com.softwaremill.realworld.common.model.UserDiff.{*, given}
-
-            val articlesList = result.toOption.get
-
-            articlesList.articlesCount == 1 &&
-            articlesList.articles.contains(
-              ArticleData(
-                "how-to-train-your-dragon-2",
-                "How to train your dragon 2",
-                "So toothless",
-                "Its a dragon",
-                List("dragons", "goats", "training"),
-                Instant.ofEpochMilli(1455765776637L),
-                Instant.ofEpochMilli(1455767315824L),
-                false,
-                1,
-                ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
-              )
-            )
-          }
-        },
-        test("check filters") {
-          for {
-            result <- ZIO
-              .service[ArticlesEndpoints]
-              .map(_.listArticles)
-              .flatMap { endpoint =>
-                basicRequest
-                  .get(uri"http://test.com/api/articles?author=jake&favorited=john&tag=goats")
-                  .headers(validAuthorizationHeader())
-                  .response(asJson[ArticlesList])
-                  .send(backendStub(endpoint))
-                  .map(_.body)
-              }
-          } yield assertTrue {
-            // TODO there must be better way to implement this...
-            import com.softwaremill.realworld.common.model.UserDiff.{*, given}
-
-            val articlesList = result.toOption.get
-
-            articlesList.articlesCount == 1 &&
-            articlesList.articles.contains(
-              ArticleData(
-                "how-to-train-your-dragon-2",
-                "How to train your dragon 2",
-                "So toothless",
-                "Its a dragon",
-                List("dragons", "goats", "training"),
-                Instant.ofEpochMilli(1455765776637L),
-                Instant.ofEpochMilli(1455767315824L),
-                false,
-                1,
-                ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
-              )
-            )
-          }
-        },
-        test("list available articles") {
-          for {
-            result <- ZIO
-              .service[ArticlesEndpoints]
-              .map(_.listArticles)
-              .flatMap { endpoint =>
-                basicRequest
-                  .get(uri"http://test.com/api/articles")
-                  .headers(validAuthorizationHeader())
-                  .response(asJson[ArticlesList])
-                  .send(backendStub(endpoint))
-                  .map(_.body)
-              }
-          } yield assertTrue {
-            // TODO there must be better way to implement this...
-            import com.softwaremill.realworld.common.model.UserDiff.{*, given}
-
-            val articlesList = result.toOption.get
-
-            articlesList.articlesCount == 3 &&
-            articlesList.articles.contains(
-              ArticleData(
-                "how-to-train-your-dragon",
-                "How to train your dragon",
-                "Ever wonder how?",
-                "It takes a Jacobian",
-                List("dragons", "training"),
-                Instant.ofEpochMilli(1455765776637L),
-                Instant.ofEpochMilli(1455767315824L),
-                false,
-                2,
-                ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
-              )
-            ) &&
-            articlesList.articles.contains(
-              ArticleData(
-                "how-to-train-your-dragon-2",
-                "How to train your dragon 2",
-                "So toothless",
-                "Its a dragon",
-                List("dragons", "goats", "training"),
-                Instant.ofEpochMilli(1455765776637L),
-                Instant.ofEpochMilli(1455767315824L),
-                false,
-                1,
-                ArticleAuthor("jake", Some("I work at statefarm"), Some("https://i.stack.imgur.com/xHWG8.jpg"), following = false)
-              )
-            ) &&
-            articlesList.articles.contains(
-              ArticleData(
-                "how-to-train-your-dragon-3",
-                "How to train your dragon 3",
-                "The tagless one",
-                "Its not a dragon",
-                List(),
-                Instant.ofEpochMilli(1455765776637L),
-                Instant.ofEpochMilli(1455767315824L),
-                false,
-                0,
-                ArticleAuthor(
-                  "john",
-                  Some("I no longer work at statefarm"),
-                  Some("https://i.stack.imgur.com/xHWG8.jpg"),
-                  following = false
-                )
-              )
-            )
-          }
-        },
         test("get existing article") {
           assertZIO(
             ZIO

@@ -1,6 +1,6 @@
 package com.softwaremill.realworld.common
 
-import com.softwaremill.realworld.articles.model.{Article, ArticleAuthor, ArticleData}
+import com.softwaremill.realworld.articles.model.{Article, ArticleAuthor, ArticleData, ArticlesList}
 import com.softwaremill.realworld.articles.{ArticlesEndpoints, ArticlesRepository, ArticlesService}
 import com.softwaremill.realworld.auth.AuthService
 import com.softwaremill.realworld.common.model.auth.*
@@ -53,11 +53,6 @@ object AuthorizationSpec extends ZIOSpecDefault:
       endpointParam = ArticleAuthEndpointParameters.listArticles,
       headers = Map("Authorization" -> "Token Invalid JWT"),
       expectedError = "{\"error\":\"Invalid token!\"}"
-    ),
-    ArticleAuthTestParameters(
-      endpointParam = ArticleAuthEndpointParameters.listArticles,
-      headers = Map(),
-      expectedError = "Invalid value for: header Authorization (missing)"
     ),
     ArticleAuthTestParameters(
       endpointParam = ArticleAuthEndpointParameters.get("slug"),
