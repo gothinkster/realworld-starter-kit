@@ -34,8 +34,18 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
           test("return empty list") {
             checkIfArticleListIsEmpty(authorizationHeaderOpt = Some(validAuthorizationHeader()), uri = uri"http://test.com/api/articles")
           }
-        ) @@ TestAspect.before(withEmptyDb())
-          @@ TestAspect.after(clearDb),
+        ).provide(
+          Configuration.live,
+          AuthService.live,
+          UsersRepository.live,
+          ArticlesRepository.live,
+          ArticlesService.live,
+          ArticlesEndpoints.live,
+          BaseEndpoints.live,
+          ProfilesRepository.live,
+          ProfilesService.live,
+          testDbLayerWithEmptyDb
+        ),
         suite("with populated db")(
           test("validation failed on filter") {
             checkIfFilterErrorOccur(
@@ -67,17 +77,35 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
               uri = uri"http://test.com/api/articles"
             )
           }
+        ).provide(
+          Configuration.live,
+          AuthService.live,
+          UsersRepository.live,
+          ArticlesRepository.live,
+          ArticlesService.live,
+          ArticlesEndpoints.live,
+          BaseEndpoints.live,
+          ProfilesRepository.live,
+          ProfilesService.live,
+          testDbLayerWithFixture("fixtures/articles/basic-data.sql")
         )
-          @@ TestAspect.before(withFixture("fixtures/articles/basic-data.sql"))
-          @@ TestAspect.after(clearDb)
       ),
       suite("with no header")(
         test("return empty list") {
           checkIfArticleListIsEmpty(authorizationHeaderOpt = None, uri = uri"http://test.com/api/articles")
         }
-      )
-        @@ TestAspect.before(withEmptyDb())
-        @@ TestAspect.after(clearDb),
+      ).provide(
+        Configuration.live,
+        AuthService.live,
+        UsersRepository.live,
+        ArticlesRepository.live,
+        ArticlesService.live,
+        ArticlesEndpoints.live,
+        BaseEndpoints.live,
+        ProfilesRepository.live,
+        ProfilesService.live,
+        testDbLayerWithEmptyDb
+      ),
       suite("with populated db")(
         test("validation failed on filter") {
           checkIfFilterErrorOccur(
@@ -109,8 +137,18 @@ object ArticlesEndpointsSpec extends ZIOSpecDefault:
             uri = uri"http://test.com/api/articles"
           )
         }
-      ) @@ TestAspect.before(withFixture("fixtures/articles/basic-data.sql"))
-        @@ TestAspect.after(clearDb)
+      ).provide(
+        Configuration.live,
+        AuthService.live,
+        UsersRepository.live,
+        ArticlesRepository.live,
+        ArticlesService.live,
+        ArticlesEndpoints.live,
+        BaseEndpoints.live,
+        ProfilesRepository.live,
+        ProfilesService.live,
+        testDbLayerWithFixture("fixtures/articles/basic-data.sql")
+      )
     ),
     suite("check articles get")(
       suite("with auth data only")(
