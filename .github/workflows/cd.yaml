@@ -10,7 +10,53 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - run: npm install
+
+      - name: Prettier
+        run: prettier --check .
+
+      - name: Typescript
+        run: tsc --noEmit
+
+  unit-tests:
+    services:
+      mysql:
+        image: mysql:5.6
+        env:
+          MYSQL_ROOT_PASSWORD: realworld
+          MYSQL_DATABASE: realworld
+          MYSQL_USER: realworld
+          MYSQL_PASSWORD: realworld
+        ports:
+          - '3306:3306'
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - run: npm install
+
+      - name: Running unit tests
+        run: npm run test:unit
+        shell: bash
+
+  server-tests:
+    needs: [unit-tests, lint]
     services:
       mysql:
         image: mysql:5.6
@@ -48,6 +94,23 @@ jobs:
       - name: Running acceptance tests on localhost server
         run: API_URL=http://localhost:3000/api npx jest acceptance
 
+  docker-tests:
+    needs: [unit-tests, lint]
+    services:
+      mysql:
+        image: mysql:5.6
+        env:
+          MYSQL_ROOT_PASSWORD: realworld
+          MYSQL_DATABASE: realworld
+          MYSQL_USER: realworld
+          MYSQL_PASSWORD: realworld
+        ports:
+          - '3306:3306'
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
       - uses: docker/setup-buildx-action@v2
 
       - name: Build docker image
@@ -66,11 +129,18 @@ jobs:
           chmod +x ./scripts/wait_for_status.sh
           ./scripts/wait_for_status.sh http://localhost:3001/api/checks/readiness 200
 
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - run: npm install
+
       - name: Running acceptance tests on docker server
         run: API_URL=http://localhost:3001/api npx jest acceptance
 
   deploy:
-    needs: test
+    needs: [docker-tests, server-tests]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
