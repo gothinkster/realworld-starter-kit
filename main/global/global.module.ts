@@ -15,11 +15,14 @@ let dataSource: DataSource
 export function getPostgresDataSource() {
   if (!dataSource) {
     dataSource = new DataSource({
-      type: 'mysql',
-      url:
-        process.env.DATABASE_URL ||
-        'mysql://realworld:realworld@localhost:3306/realworld',
-      database: 'realworld',
+      ...JSON.parse(
+        process.env.DATABASE_OPTIONS ||
+          JSON.stringify({
+            type: 'mysql',
+            url: 'mysql://realworld:realworld@localhost:3306/realworld',
+            database: 'realworld',
+          }),
+      ),
       entities: [
         AccountEntity,
         ArticleEntity,
