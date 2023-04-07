@@ -195,12 +195,15 @@ jobs:
           cache-dependency-path: package-lock.json
       - uses: ./.github/actions/npminstall
 
-      - name: Build
-        run: ./scripts/ziplambda.sh
+      - uses: actions/download-artifact@v3
+        with:
+          name: build
 
       - working-directory: ./terraform/lambda
         id: terraform
         run: |
+          mv ./dist.zip ./terraform/lambda/dist.zip
+
           terraform apply --auto-approve
           echo "API_URL=$(terraform output API_URL)" >> $GITHUB_OUTPUT
 
