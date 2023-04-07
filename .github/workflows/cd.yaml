@@ -85,9 +85,16 @@ jobs:
 
       - run: npm install
 
-      - run:
-          chmod +x ./scripts/ziplambda.sh
+      - run: chmod +x ./scripts/ziplambda.sh
           ./scripts/ziplambda.sh
 
       - working-directory: ./terraform/lambda
-        run: terraform apply --auto-aprove
+        id: terraform
+        run: |
+          terraform apply --auto-aprove
+          echo "API_URL=$(terraform output API_URL)" >> $GITHUB_OUTPUT
+
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            core.notice('Check URL ${{ steps.terraform.outputs.API_URL }}')
