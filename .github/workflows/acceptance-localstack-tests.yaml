@@ -44,7 +44,7 @@ jobs:
       - working-directory: ./terraform/lambda
         id: terraform
         run: |
-          pipx install tflocal
+          pipx install terraform-local
           ./localstack.sh
           echo "API_URL=$(terraform output -raw API_URL)" >> $GITHUB_OUTPUT
 
