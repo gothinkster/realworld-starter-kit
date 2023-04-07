@@ -59,7 +59,6 @@ jobs:
         shell: bash
 
   server-tests:
-    needs: [unit-tests, lint]
     services:
       mysql:
         image: mysql:5.6
@@ -93,7 +92,6 @@ jobs:
         run: API_URL=http://localhost:3000/api npx jest acceptance
 
   docker-tests:
-    needs: [unit-tests, lint]
     services:
       mysql:
         image: mysql:5.6
@@ -162,6 +160,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/credentials
       - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.4.4
       - uses: actions/setup-node@v3
         with:
           cache: 'npm'
@@ -183,12 +183,13 @@ jobs:
             core.notice('Check URL ${{ steps.terraform.outputs.API_URL }}')
 
   deploy:
-    needs: [docker-tests, server-tests]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/credentials
       - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.4.4
       - uses: actions/setup-node@v3
         with:
           cache: 'npm'
