@@ -20,7 +20,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package-lock.json
 
-      - run: npm install
+      - uses: ./.github/actions/npminstall
 
       - name: Prettier
         run: npx prettier --check .
@@ -49,10 +49,9 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package-lock.json
 
-      - run: npm install
+      - uses: ./.github/actions/npminstall
 
-      - name: Running unit tests
-        run: npm run test:unit
+      - run: npm run test:unit
         shell: bash
 
   server-tests:
@@ -77,14 +76,13 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package-lock.json
 
-      - run: npm install
+      - uses: ./.github/actions/npminstall
 
       - name: Starting localhost server
         shell: sh
         run: |
           ./scripts/package.sh
           nohup node dist/server &
-          chmod +x ./scripts/wait_for_status.sh
           ./scripts/wait_for_status.sh http://localhost:3000/api/checks/readiness 200
 
       - name: Running acceptance tests on localhost server
@@ -122,7 +120,6 @@ jobs:
         shell: sh
         run: |
           nohup docker run --rm --network=host --env API_PORT=3001 app &
-          chmod +x ./scripts/wait_for_status.sh
           ./scripts/wait_for_status.sh http://localhost:3001/api/checks/readiness 200
 
       - uses: actions/setup-node@v3
@@ -130,7 +127,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package-lock.json
 
-      - run: npm install
+      - uses: ./.github/actions/npminstall
 
       - name: Running acceptance tests on docker server
         run: API_URL=http://localhost:3001/api npx jest acceptance
@@ -147,10 +144,9 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package-lock.json
 
-      - run: npm install
+      - uses: ./.github/actions/npminstall
 
-      - run: chmod +x ./scripts/ziplambda.sh
-          ./scripts/ziplambda.sh
+      - run: ./scripts/ziplambda.sh
 
       - working-directory: ./terraform/lambda
         id: terraform
