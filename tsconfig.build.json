@@ -6,7 +6,8 @@
     "dist",
     "**/*unit.ts",
     "**/*spec.ts",
-    "src/migrations"
+    "src/migrations",
+    "**/__mocks/**/*"
   ],
   "baseUrl": "./src/main"
 }

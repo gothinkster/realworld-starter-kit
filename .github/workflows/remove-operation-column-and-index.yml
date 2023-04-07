@@ -1,17 +1,15 @@
 name: 04 - Del Operation Column & Index
 
-on:
-  workflow_dispatch
+on: workflow_dispatch
 
 env:
   pscale_base_directory: .pscale
 
 jobs:
-
   remove-operation-column-and-index:
-    name: "Remove operation - click here"
+    name: 'Remove operation - click here'
     runs-on: ubuntu-latest
-        
+
     steps:
       - name: checkout
         uses: actions/checkout@v2

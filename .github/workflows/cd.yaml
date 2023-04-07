@@ -34,6 +34,7 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - run: npm install
+
       - name: Running unit tests
         run: npm run test:unit
         shell: bash
@@ -69,3 +70,24 @@ jobs:
 
       - name: Running acceptance tests on docker server
         run: API_URL=http://localhost:3001/api npx jest acceptance
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/credentials
+      - uses: hashicorp/setup-terraform@v1
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - run: npm install
+
+      - run:
+          chmod +x ./scripts/ziplambda.sh
+          ./scripts/ziplambda.sh
+
+      - working-directory: ./terraform/lambda
+        run: terraform apply --auto-aprove

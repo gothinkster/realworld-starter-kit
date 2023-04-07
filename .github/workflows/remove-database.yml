@@ -1,17 +1,15 @@
 name: XX - Remove Database
 
-on:
-  workflow_dispatch
+on: workflow_dispatch
 
 env:
   pscale_base_directory: .pscale
 
 jobs:
-
   remove-database:
-    name: "Remove database - click here"
+    name: 'Remove database - click here'
     runs-on: ubuntu-latest
-        
+
     steps:
       - name: checkout
         uses: actions/checkout@v2

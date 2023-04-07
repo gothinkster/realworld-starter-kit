@@ -1,17 +1,15 @@
 name: 03 - Merge latest Deploy Request
 
-on:
-  workflow_dispatch
+on: workflow_dispatch
 
 env:
   pscale_base_directory: .pscale
-    
-jobs:
 
+jobs:
   merge-latest-open-deploy-request:
-    name: "Merge - click here"
+    name: 'Merge - click here'
     runs-on: ubuntu-latest
-        
+
     steps:
       - name: checkout
         uses: actions/checkout@v2

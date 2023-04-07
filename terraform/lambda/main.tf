@@ -1,7 +1,50 @@
-provider "aws" {
-  region = var.REGION
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+
+  backend "s3" {
+    bucket         = "santunioni-iac-state"
+    region         = "us-east-1"
+    dynamodb_table = "santunioni-iac-state-lock"
+    key            = "realworld-app/lambda.tfstate"
+  }
 }
 
+variable "AWS_ENDPOINT_URL" {
+  description = "The AWS endpoint url"
+  type        = string
+  default     = "https://lambda.us-east-1.amazonaws.com"
+}
+
+variable "ENVIRONMENT" {
+  description = "The environment to deploy into"
+  type        = string
+  default     = "production"
+}
+
+variable "DATABASE_URL" {
+  description = "The database url"
+  type        = string
+}
+
+locals {
+  COMMON_TAGS = {
+    Environment = var.ENVIRONMENT
+    RepoLink    = "https://github.com/santunioni/realworld-app"
+  }
+  REGION = "us-east-1"
+}
+
+provider "aws" {
+  region = local.REGION
+  endpoints {
+    lambda = var.AWS_ENDPOINT_URL
+  }
+}
 
 resource "aws_iam_role" "realworld_api_function_role" {
   name               = "realworld-api-function-${var.ENVIRONMENT}"
@@ -23,23 +66,23 @@ EOF
   managed_policy_arns = [
     "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   ]
-  tags     = local.common_tags
+  tags     = local.COMMON_TAGS
   provider = aws
 }
 
 resource "aws_lambda_function" "realworld_api_function" {
   function_name = "realworld-api-function-${var.ENVIRONMENT}"
   role          = aws_iam_role.realworld_api_function_role.arn
-  tags          = local.common_tags
+  tags          = local.COMMON_TAGS
   provider      = aws
   environment {
     variables = {
-      DATABASE_URL = "mysql://${local.database.username}:${local.database.password}@${local.database.host}/${local.database.database}}"
+      DATABASE_URL = var.DATABASE_URL
     }
   }
-  filename = "${path.module}/realworld-api.zip"
-  handler  = "index"
-  runtime  = "nodejs18.x"
+  filename = "${path.module}/dist.zip"
+  handler  = "dist/lambda.handler"
+  runtime  = "nodejs16.x"
 }
 
 resource "aws_lambda_function_url" "realworld_api_function_url" {
