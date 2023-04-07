@@ -33,10 +33,12 @@ export function getPostgresDataSource() {
       ],
       namingStrategy: new SnakeNamingStrategy(),
       synchronize: true,
-      ssl: {
-        requestCert: useSsl,
-        rejectUnauthorized: useSsl,
-      },
+      ssl: useSsl
+        ? {
+            requestCert: true,
+            rejectUnauthorized: true,
+          }
+        : undefined,
     })
   }
   return dataSource
