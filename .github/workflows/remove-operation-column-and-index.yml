@@ -1,0 +1,32 @@
+name: 04 - Del Operation Column & Index
+
+on:
+  workflow_dispatch
+
+env:
+  pscale_base_directory: .pscale
+
+jobs:
+
+  remove-operation-column-and-index:
+    name: "Remove operation - click here"
+    runs-on: ubuntu-latest
+        
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Remove operation - if asked, please click on displayed link to authenticate
+        timeout-minutes: 3
+        env:
+          PLANETSCALE_SERVICE_TOKEN_ID: ${{secrets.PLANETSCALE_SERVICE_TOKEN_ID}}
+          PLANETSCALE_SERVICE_TOKEN: ${{secrets.PLANETSCALE_SERVICE_TOKEN}}
+          ORG_NAME: ${{secrets.ORG_NAME}}
+          DB_NAME: ${{secrets.DB_NAME}}
+          GITHUB_USER: ${{github.actor}}
+        working-directory: ${{env.pscale_base_directory}}/cli-helper-scripts/
+        run: ./remove-operation-column-and-index.sh
+      - name: Please check out deployment request and branch connection string from step above
+        run: |
+          echo "Please check out deployment request and branch connection string from step above."
+          sleep 10

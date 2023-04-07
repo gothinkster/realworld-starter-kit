@@ -1,0 +1,32 @@
+name: 03 - Merge latest Deploy Request
+
+on:
+  workflow_dispatch
+
+env:
+  pscale_base_directory: .pscale
+    
+jobs:
+
+  merge-latest-open-deploy-request:
+    name: "Merge - click here"
+    runs-on: ubuntu-latest
+        
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Merge request - if asked, please click on displayed link to authenticate
+        timeout-minutes: 10
+        env:
+          PLANETSCALE_SERVICE_TOKEN_ID: ${{secrets.PLANETSCALE_SERVICE_TOKEN_ID}}
+          PLANETSCALE_SERVICE_TOKEN: ${{secrets.PLANETSCALE_SERVICE_TOKEN}}
+          ORG_NAME: ${{secrets.ORG_NAME}}
+          DB_NAME: ${{secrets.DB_NAME}}
+          GITHUB_USER: ${{github.actor}}
+        working-directory: ${{env.pscale_base_directory}}/cli-helper-scripts/
+        run: ./merge-latest-open-deploy-request.sh
+      - name: Please check out the result of your merge request from step above
+        run: |
+          echo "Please check out the result of your merge request from step above"
+          sleep 10

@@ -1,0 +1,16 @@
+name: Credentials
+description: Configure AWS and PlanetScale Credentials
+
+runs:
+  using: composite
+  steps:
+    - uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: arn:aws:iam::814320462898:role/iac
+        aws-region: us-east-1
+
+    - shell: bash
+      run: |
+        AWS_REGION=sa-east-1
+        echo "PLANETSCALE_SERVICE_TOKEN_ID=$(aws ssm get-parameter --name=/planetscale/id --query Parameter.Value)" >> $GITHUB_ENV
+        echo "PLANETSCALE_SERVICE_TOKEN=$(aws ssm get-parameter --name=/planetscale/token --query Parameter.Value)" >> $GITHUB_ENV

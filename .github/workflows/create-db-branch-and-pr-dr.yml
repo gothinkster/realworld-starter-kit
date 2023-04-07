@@ -1,0 +1,149 @@
+name: Create branch/PR for schema change
+
+env:
+  pscale_base_directory: .pscale
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: DB and PR branch name
+        required: true
+        default: "add-operation-column-and-index"
+      ddl_statements:
+        description: 'DDL statements to run in new branch'
+        required: true
+        default: 'alter table pixel_matrix add column operation varchar(10) default NULL; create index environment_operation on pixel_matrix(environment, operation);'
+
+jobs:
+  create_branch_dr_and_pr:
+    name: Create branch/PR/DR - click here
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Validate parameters
+        id: validate_params
+        uses: actions/github-script@v3
+        env:
+          BRANCH_NAME: ${{ github.event.inputs.branch }}
+          DDL_STATEMENTS: ${{ github.event.inputs.ddl_statements }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const branch_name = process.env.BRANCH_NAME;
+            const ddl_statements = process.env.DDL_STATEMENTS;
+
+            if (! /^[a-zA-Z0-9_-]+$/.test(branch_name)) {
+              const error = `The branch name contains illegal characters: ${branch_name}`;
+              core.error(error);
+              core.setFailed(error);
+            }
+
+            if (! /^.*;$/.test(ddl_statements)) {
+              const error = `The ddl statements do not end with an ;: ${ddl_statements}`;
+              core.error(error);
+              core.setFailed(error);
+            }
+
+            core.setOutput('branch_name', branch_name);
+            core.setOutput('ddl_statements', ddl_statements);
+      
+      - name: Checkout
+        uses: actions/checkout@v2    
+
+      - name: Create DB branch and deploy request- if asked, please click on displayed link to authenticate
+        id: create-db-branch-and-dr
+        timeout-minutes: 3
+        env:
+          PLANETSCALE_SERVICE_TOKEN_ID: ${{secrets.PLANETSCALE_SERVICE_TOKEN_ID}}
+          PLANETSCALE_SERVICE_TOKEN: ${{secrets.PLANETSCALE_SERVICE_TOKEN}}
+          ORG_NAME: ${{secrets.ORG_NAME}}
+          DB_NAME: ${{secrets.DB_NAME}}
+          GITHUB_USER: ${{github.actor}}
+          DDL_STATEMENTS: ${{ steps.validate_params.outputs.ddl_statements }}
+          BRANCH_NAME: ${{ steps.validate_params.outputs.branch_name }}
+        working-directory: ${{env.pscale_base_directory}}/cli-helper-scripts/
+        run: | 
+          ./create-db-branch-dr-and-connection.sh "$BRANCH_NAME" "$DDL_STATEMENTS"
+
+      - name: Write information about associated PS database entities
+        env:
+          BRANCH_NAME: ${{ steps.create-db-branch-and-dr.outputs.BRANCH_NAME }} 
+          DB_NAME: ${{ steps.create-db-branch-and-dr.outputs.DB_NAME }}
+          ORG_NAME: ${{ steps.create-db-branch-and-dr.outputs.ORG_NAME }}
+          DEPLOY_REQUEST_NUMBER: ${{ steps.create-db-branch-and-dr.outputs.DEPLOY_REQUEST_NUMBER }}
+          DEPLOY_REQUEST_URL: ${{ steps.create-db-branch-and-dr.outputs.DEPLOY_REQUEST_URL }}
+          BRANCH_URL: ${{ steps.create-db-branch-and-dr.outputs.BRANCH_URL }}
+        working-directory: ${{env.pscale_base_directory}}/cli-helper-scripts/
+        run: |
+          mkdir -p ../env/
+          envsubst < ps-env-template.sh > ../env/ps-env-${BRANCH_NAME}.sh
+          chmod a+x ../env/ps-env-${BRANCH_NAME}.sh
+          rm -f typescript 
+
+      - name: Create corresponding Git branch and Pull Request
+        id: create_pr
+        uses: peter-evans/create-pull-request@v3.7.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            branch: ${{ steps.validate_params.outputs.branch_name }}
+            title: ${{ steps.validate_params.outputs.branch_name }}
+            delete-branch: true
+            commit-message: "DDL statements for DB branch ${{ steps.validate_params.outputs.branch_name }}"
+            body: >
+              This PR contains the code changes needed to go along with the following database changes:
+
+              * :seedling: __DB-Branch__: [${{ steps.create-db-branch-and-dr.outputs.branch_name }}](${{ steps.create-db-branch-and-dr.outputs.BRANCH_URL }})
+
+              * :train2: __Deploy-Request URL__: ${{ steps.create-db-branch-and-dr.outputs.DEPLOY_REQUEST_URL }}
+
+              * :lock: __Branch connection info__: [One-time link](${{ steps.create-db-branch-and-dr.outputs.CONNECTION_STRING_LINK }})
+
+              <details>
+              <summary>:computer: pscale CLI commands for local access</summary>
+
+
+              ```
+
+              pscale shell "${{ steps.create-db-branch-and-dr.outputs.DB_NAME }}" "${{ steps.create-db-branch-and-dr.outputs.BRANCH_NAME }}" --org "${{ steps.create-db-branch-and-dr.outputs.ORG_NAME }}"
+
+              pscale connect "${{ steps.create-db-branch-and-dr.outputs.DB_NAME }}" "${{ steps.create-db-branch-and-dr.outputs.BRANCH_NAME }}" --org "${{ steps.create-db-branch-and-dr.outputs.ORG_NAME }}"   
+              
+              ```
+
+              </details>
+
+              <details>
+              <summary>:scroll: Proposed DDL-Statements:</summary>
+
+              
+              ```
+
+              ${{ steps.validate_params.outputs.ddl_statements }}
+              
+              ```
+
+              </details>
+
+              
+              <details>
+              <summary>📖 Calculated schema changes:</summary>
+
+
+              ```
+
+              ${{ steps.create-db-branch-and-dr.outputs.BRANCH_DIFF }}
+              ```
+              
+              </details>
+              
+              
+              If you are ok with the schema changes and have carefully reviewed them, you can merge them with a `/ps-merge` comment
+
+      - name: Please check out branch and deployment request / PR created
+        run: |
+          echo "::notice ::Please check out deployment request and branch in created PR: ${{ steps.create_pr.outputs.pull-request-url }}"
+          sleep 10
