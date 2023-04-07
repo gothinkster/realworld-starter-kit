@@ -15,18 +15,13 @@ export AWS_ACCESS_KEY_ID=foo
 export AWS_SECRET_ACCESS_KEY=bar
 
 export TF_VAR_DATABASE_URL=mysql://realworld:realworld@localhost:3306/realworld
-export TF_VAR_AWS_ENDPOINT_URL=http://localhost:4566
-export TF_VAR_ENVIRONMENT=local
+export TF_VAR_ENVIRONMENT=localstack
 
-terraform fmt
-terraform init \
+tflocal fmt
+tflocal init \
    -upgrade \
    -reconfigure \
-   -backend-config="endpoint=http://localhost:4566" \
-   -backend-config="iam_endpoint=http://localhost:4566" \
-   -backend-config="sts_endpoint=http://localhost:4566" \
-   -backend-config="dynamodb_endpoint=http://localhost:4566" \
    -backend-config="force_path_style=true" \
    -backend-config="key=realworld-app/ephemeral/lambda.tfstate"
 
-terraform apply -auto-approve
+tflocal apply -auto-approve

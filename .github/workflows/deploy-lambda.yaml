@@ -23,9 +23,7 @@ jobs:
         id: terraform
         run: |
           terraform init \
-            -upgrade \
-            -reconfigure \
-            -backend-config="key=realworld-app/production/lambda.tfstate"
+            -upgrade
 
           terraform apply --auto-approve
           echo "API_URL=$(terraform output -raw API_URL)" >> $GITHUB_OUTPUT

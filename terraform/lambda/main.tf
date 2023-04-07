@@ -10,13 +10,8 @@ terraform {
     bucket         = "santunioni-iac-state"
     region         = "us-east-1"
     dynamodb_table = "santunioni-iac-state-lock"
+    key            = "realworld-app/production/lambda.tfstate"
   }
-}
-
-variable "AWS_ENDPOINT_URL" {
-  description = "The AWS endpoint url"
-  type        = string
-  default     = "https://lambda.us-east-1.amazonaws.com"
 }
 
 variable "ENVIRONMENT" {
@@ -40,14 +35,6 @@ locals {
 
 provider "aws" {
   region = local.REGION
-  endpoints {
-    lambda = var.AWS_ENDPOINT_URL
-    sts    = var.AWS_ENDPOINT_URL
-    s3     = var.AWS_ENDPOINT_URL
-    s3api  = var.AWS_ENDPOINT_URL
-    iam    = var.AWS_ENDPOINT_URL
-
-  }
 }
 
 resource "aws_iam_role" "realworld_api_function_role" {
