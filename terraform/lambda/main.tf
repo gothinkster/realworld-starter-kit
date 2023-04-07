@@ -84,7 +84,7 @@ resource "aws_lambda_function" "realworld_api_function" {
       DATABASE_URL = var.DATABASE_URL
     }
   }
-  filename = "${path.module}/dist.zip"
+  filename = "${path.module}/build.zip"
   handler  = "dist/lambda.handler"
   runtime  = "nodejs16.x"
 }

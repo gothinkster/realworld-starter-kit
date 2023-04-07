@@ -27,14 +27,14 @@ jobs:
 
       - run: |
           ./scripts/package.sh
-          zip -r dist.zip dist
+          zip -r build.zip build
         shell: bash
 
       - uses: actions/upload-artifact@v2
         with:
           name: build
           path: |
-            dist.zip
+            build.zip
 
   lint:
     runs-on: ubuntu-latest
@@ -109,8 +109,8 @@ jobs:
       - name: Starting localhost server
         shell: sh
         run: |
-          unzip dist.zip
-          nohup node dist/server &
+          unzip build.zip
+          nohup node build/server &
           ./scripts/wait_for_status.sh http://localhost:3000/api/checks/readiness 200
 
       - uses: ./.github/actions/npminstall
@@ -162,6 +162,7 @@ jobs:
         run: API_URL=http://localhost:3001/api npx jest acceptance
 
   localstack-tests:
+    needs: [build]
     runs-on: ubuntu-latest
     services:
       localstack:
@@ -202,7 +203,7 @@ jobs:
       - working-directory: ./terraform/lambda
         id: terraform
         run: |
-          mv ./dist.zip ./terraform/lambda/dist.zip
+          mv ./build.zip ./terraform/lambda/build.zip
 
           terraform apply --auto-approve
           echo "API_URL=$(terraform output API_URL)" >> $GITHUB_OUTPUT
@@ -231,7 +232,7 @@ jobs:
       - working-directory: ./terraform/lambda
         id: terraform
         run: |
-          mv ./dist.zip ./terraform/lambda/dist.zip
+          mv ./build.zip ./terraform/lambda/build.zip
 
           terraform init \
             -upgrade \
