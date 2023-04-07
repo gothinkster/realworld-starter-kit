@@ -14,6 +14,26 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - uses: ./.github/actions/npminstall
+
+      - run: ./scripts/ziplambda.sh
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: |
+            dist
+            terraform/lambda/dist.zip
+
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -59,6 +79,7 @@ jobs:
         shell: bash
 
   server-tests:
+    needs: [build]
     services:
       mysql:
         image: mysql:5.6
@@ -79,12 +100,15 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package-lock.json
 
+      - uses: actions/download-artifact@v3
+        with:
+          name: build
+
       - uses: ./.github/actions/npminstall
 
       - name: Starting localhost server
         shell: sh
         run: |
-          ./scripts/package.sh
           nohup node dist/server &
           ./scripts/wait_for_status.sh http://localhost:3000/api/checks/readiness 200
 
@@ -183,21 +207,20 @@ jobs:
             core.notice('Check URL ${{ steps.terraform.outputs.API_URL }}')
 
   deploy:
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - uses: ./.github/actions/credentials
+
       - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.4.4
-      - uses: actions/setup-node@v3
+
+      - uses: actions/download-artifact@v3
         with:
-          cache: 'npm'
-          cache-dependency-path: package-lock.json
-
-      - uses: ./.github/actions/npminstall
-
-      - run: ./scripts/ziplambda.sh
+          name: build
 
       - working-directory: ./terraform/lambda
         id: terraform
