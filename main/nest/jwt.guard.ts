@@ -5,14 +5,14 @@ import {
   SetMetadata,
   UnauthorizedException,
 } from '@nestjs/common'
+import { Reflector } from '@nestjs/core'
 import {
   AuthGuard,
   PassportStrategy as NestGuardStrategyFor,
 } from '@nestjs/passport'
-import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../global/constants'
 import * as jwt from 'jsonwebtoken'
-import { Reflector } from '@nestjs/core'
 import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt'
+import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../global/constants'
 
 @Injectable()
 export class JWTAuthGuard extends AuthGuard('jwt') {

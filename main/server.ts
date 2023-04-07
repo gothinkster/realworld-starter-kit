@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core'
+import { SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from './app.module'
 import { API_PORT, GLOBAL_PREFIX } from './global/constants'
-import { SwaggerModule } from '@nestjs/swagger'
 import { createOpenAPI } from './nest/openapi'
 
 async function bootstrapServer(): Promise<void> {

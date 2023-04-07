@@ -1,10 +1,10 @@
 import * as jwt from 'jsonwebtoken'
+import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../global/constants'
+import { User } from '../nest/jwt.guard'
+import { CreateUserDTO } from './accounts.controller'
+import { AccountEntity } from './accounts.entity'
 import { InvalidCredentialsError } from './accounts.exceptions'
 import { AccountAlreadyExistsException } from './exeptions'
-import { AccountEntity } from './accounts.entity'
-import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../global/constants'
-import { CreateUserDTO } from './accounts.controller'
-import { User } from '../nest/jwt.guard'
 
 export class UsersService {
   async createUserAccount(user: CreateUserDTO): Promise<AccountEntity> {

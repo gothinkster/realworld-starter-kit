@@ -1,11 +1,11 @@
 import { DataSource } from 'typeorm'
+import { makeRandomArticle } from '../__mocks__/articles'
 import { getPostgresDataSource } from '../global/global.module'
+import { ArticlesRepository, TagsRepository } from './articles.repository'
 import {
   TypeORMArticlesRepository,
   TypeORMTagsRepository,
 } from './articles.repository.typeorm'
-import { makeRandomArticle } from '../__mocks__/articles'
-import { ArticlesRepository, TagsRepository } from './articles.repository'
 
 let dataSource: DataSource
 let tagsRepository: TagsRepository

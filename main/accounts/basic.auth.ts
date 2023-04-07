@@ -1,9 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { PassportStrategy as NestGuardStrategyFor } from '@nestjs/passport'
 import { BasicStrategy } from 'passport-http'
+import { AccountEntity } from './accounts.entity'
 import { InvalidCredentialsError } from './accounts.exceptions'
 import { UsersService } from './accounts.service'
-import { AccountEntity } from './accounts.entity'
 
 @Injectable()
 export class BasicAuthStrategy extends NestGuardStrategyFor(BasicStrategy) {

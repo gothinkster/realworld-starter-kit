@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, ValidationPipe } from '@nestjs/common'
-import { ZodError, ZodType } from 'zod'
 import { PipeTransform } from '@nestjs/common/interfaces/features/pipe-transform.interface'
+import { ZodError, ZodType } from 'zod'
 
 export function validateModel(
   status: HttpStatus = HttpStatus.NOT_ACCEPTABLE,

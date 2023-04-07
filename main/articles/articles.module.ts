@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common'
-import { ArticlesController } from './articles.controller'
-import { ArticlesService } from './articles.service'
+import { EntityManager } from 'typeorm'
 import { AuthorsModule } from '../authors/authors.module'
+import { AuthorsService } from '../authors/authors.service'
+import { ArticlesController } from './articles.controller'
 import {
   TypeORMArticlesRepository,
   TypeORMTagsRepository,
 } from './articles.repository.typeorm'
-import { AuthorsService } from '../authors/authors.service'
-import { EntityManager } from 'typeorm'
+import { ArticlesService } from './articles.service'
 
 @Module({
   imports: [AuthorsModule],

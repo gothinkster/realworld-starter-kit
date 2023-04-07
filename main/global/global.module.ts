@@ -1,12 +1,12 @@
 import { Global, Module } from '@nestjs/common'
 import { DataSource, EntityManager } from 'typeorm'
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { AccountEntity } from '../accounts/accounts.entity'
 import {
   ArticleEntity,
   ArticlesHaveTagsEntity,
   TagEntity,
 } from '../articles/articles.repository.typeorm'
-import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { AuthorEntity, UserFollows } from '../authors/authors.entity'
 import { CommentEntity } from '../comments/comments.entity'
 import { JWTAuthPassport } from '../nest/jwt.guard'

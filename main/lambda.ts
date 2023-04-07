@@ -1,13 +1,13 @@
-import { Server } from 'http'
-import { Context } from 'aws-lambda'
-import * as express from 'express'
 import { NestFactory } from '@nestjs/core'
-import { AppModule } from './app.module'
 import { ExpressAdapter } from '@nestjs/platform-express'
-import { GLOBAL_PREFIX } from './global/constants'
 import { SwaggerModule } from '@nestjs/swagger'
-import { createOpenAPI } from './nest/openapi'
+import { Context } from 'aws-lambda'
 import * as serverlessExpress from 'aws-serverless-express'
+import * as express from 'express'
+import { Server } from 'http'
+import { AppModule } from './app.module'
+import { GLOBAL_PREFIX } from './global/constants'
+import { createOpenAPI } from './nest/openapi'
 
 let lambdaProxyServer: Server
 

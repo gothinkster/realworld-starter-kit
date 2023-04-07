@@ -13,11 +13,11 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
-import { buildUrlToPath } from '../nest/url'
-import { AuthIsOptional, JWTAuthGuard } from '../nest/jwt.guard'
-import { AuthorsService, Profile } from './authors.service'
 import { z } from 'zod'
+import { AuthIsOptional, JWTAuthGuard } from '../nest/jwt.guard'
+import { buildUrlToPath } from '../nest/url'
 import { createZodTransformer } from '../nest/validation.utils'
+import { AuthorsService, Profile } from './authors.service'
 
 const username = z
   .string()

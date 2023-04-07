@@ -6,11 +6,11 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common'
+import { AuthGuard } from '@nestjs/passport'
 import { ApiBasicAuth, ApiTags } from '@nestjs/swagger'
-import { UsersService } from './accounts.service'
 import { z } from 'zod'
 import { createZodTransformer } from '../nest/validation.utils'
-import { AuthGuard } from '@nestjs/passport'
+import { UsersService } from './accounts.service'
 
 const CreateUserDTO = z.object({
   email: z.string().email(),

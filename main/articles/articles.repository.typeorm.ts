@@ -9,10 +9,10 @@ import {
   Unique,
   UpdateDateColumn,
 } from 'typeorm'
-import { slugify } from './slugify'
-import { ArticleNotFound } from './articles.service'
-import { ArticlesRepository, TagsRepository } from './articles.repository'
 import { Article, Authored, Dated, Sluged, Tagged } from './articles.models'
+import { ArticlesRepository, TagsRepository } from './articles.repository'
+import { ArticleNotFound } from './articles.service'
+import { slugify } from './slugify'
 
 export class TypeORMArticlesRepository implements ArticlesRepository {
   constructor(private readonly entityManager: EntityManager) {}

@@ -1,7 +1,7 @@
 import { Controller, Get, Req, Res } from '@nestjs/common'
-import { Request, Response } from 'express'
 import { ApiTags } from '@nestjs/swagger'
 import axios from 'axios'
+import { Request, Response } from 'express'
 import { buildUrlToPath } from './url'
 
 @ApiTags('checks')

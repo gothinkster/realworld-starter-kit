@@ -1,10 +1,10 @@
 import { INestApplication } from '@nestjs/common'
+import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { OpenAPIObject } from '@nestjs/swagger/dist/interfaces'
-import { NestFactory } from '@nestjs/core'
+import * as fs from 'fs'
 import { AppModule } from '../app.module'
 import { GLOBAL_PREFIX } from '../global/constants'
-import * as fs from 'fs'
 
 export function createOpenAPI(app: INestApplication): OpenAPIObject {
   const swaggerConfig = new DocumentBuilder()

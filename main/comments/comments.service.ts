@@ -1,6 +1,6 @@
+import { Injectable } from '@nestjs/common'
 import { ArticlesService } from '../articles/articles.service'
 import { CommentEntity } from './comments.entity'
-import { Injectable } from '@nestjs/common'
 
 export type Comment = {
   id: number

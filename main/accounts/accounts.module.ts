@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
+import { AccountsController } from './accounts.controller'
 import { UsersService } from './accounts.service'
 import { BasicAuthStrategy } from './basic.auth'
-import { AccountsController } from './accounts.controller'
 
 @Module({
   providers: [UsersService, BasicAuthStrategy],

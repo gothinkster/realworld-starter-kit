@@ -1,10 +1,10 @@
 import { Axios } from 'axios'
 import {
   Article,
-  PartialArticle,
   ArticleSearchFields,
-  createCredentials,
+  PartialArticle,
   UserDriver,
+  createCredentials,
 } from './UserDriver'
 
 export class UserRestDriver implements UserDriver {

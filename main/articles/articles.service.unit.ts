@@ -1,13 +1,13 @@
-import { ArticleNotFound, ArticlesService } from './articles.service'
 import { DataSource } from 'typeorm'
-import { getPostgresDataSource } from '../global/global.module'
+import { makeRandomArticle } from '../__mocks__/articles'
 import { AuthorsService } from '../authors/authors.service'
+import { getPostgresDataSource } from '../global/global.module'
+import { Article, Sluged, Tagged } from './articles.models'
 import {
   TypeORMArticlesRepository,
   TypeORMTagsRepository,
 } from './articles.repository.typeorm'
-import { Article, Sluged, Tagged } from './articles.models'
-import { makeRandomArticle } from '../__mocks__/articles'
+import { ArticleNotFound, ArticlesService } from './articles.service'
 
 let dataSource: DataSource
 let service: ArticlesService

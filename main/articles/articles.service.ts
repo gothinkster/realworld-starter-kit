@@ -1,13 +1,13 @@
 import { NotFoundException } from '@nestjs/common'
 import { AuthorNotFound, AuthorsService } from '../authors/authors.service'
-import { slugify } from './slugify'
+import { Article, Tagged } from './articles.models'
 import {
   ArticleFilters,
   ArticlesRepository,
   Pagination,
   TagsRepository,
 } from './articles.repository'
-import { Article, Tagged } from './articles.models'
+import { slugify } from './slugify'
 
 export class ArticlesService {
   constructor(
