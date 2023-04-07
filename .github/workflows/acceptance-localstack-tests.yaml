@@ -36,7 +36,6 @@ jobs:
         with:
           cache: 'npm'
           cache-dependency-path: package-lock.json
-      - uses: ./.github/actions/npminstall
 
       - uses: actions/download-artifact@v3
         with:
