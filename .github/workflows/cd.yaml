@@ -23,10 +23,10 @@ jobs:
       - run: npm install
 
       - name: Prettier
-        run: prettier --check .
+        run: npx prettier --check .
 
       - name: Typescript
-        run: tsc --noEmit
+        run: npx tsc --noEmit
 
   unit-tests:
     services:
