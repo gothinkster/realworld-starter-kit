@@ -14,15 +14,12 @@ import { JWTAuthPassport } from '../nest/jwt.guard'
 let dataSource: DataSource
 export function getPostgresDataSource() {
   if (!dataSource) {
+    const url =
+      process.env.DATABASE_URL ||
+      'mysql://realworld:realworld@localhost:3306/realworld'
     dataSource = new DataSource({
-      ...JSON.parse(
-        process.env.DATABASE_OPTIONS ||
-          JSON.stringify({
-            type: 'mysql',
-            url: 'mysql://realworld:realworld@localhost:3306/realworld',
-            database: 'realworld',
-          }),
-      ),
+      type: 'mysql',
+      url,
       entities: [
         AccountEntity,
         ArticleEntity,
@@ -34,6 +31,9 @@ export function getPostgresDataSource() {
       ],
       namingStrategy: new SnakeNamingStrategy(),
       synchronize: true,
+      ssl: {
+        rejectUnauthorized: !url.includes('localhost'),
+      },
     })
   }
   return dataSource
