@@ -25,10 +25,5 @@ RUN ./scripts/package.sh
 
 FROM node:16
 WORKDIR /app
-
-COPY package.json package-lock.json ./
-RUN npm ci
-
-COPY --from=builder --chown=node:node /app/dist/ ./dist/
-
-CMD ["node", "dist/server"]
+COPY --from=builder --chown=node:node /app/build/ ./
+CMD ["node", "server"]

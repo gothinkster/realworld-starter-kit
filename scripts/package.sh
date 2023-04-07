@@ -8,4 +8,3 @@ npm ci --omit dev
 mv dist/main build
 rm -rf dist
 cp -r node_modules build/node_modules
-zip -r build.zip build
