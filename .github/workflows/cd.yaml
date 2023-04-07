@@ -25,14 +25,16 @@ jobs:
 
       - uses: ./.github/actions/npminstall
 
-      - run: ./scripts/ziplambda.sh
+      - run: |
+          ./scripts/package.sh
+          zip -r dist.zip dist
+        shell: bash
 
       - uses: actions/upload-artifact@v2
         with:
           name: build
           path: |
-            dist
-            terraform/lambda/dist.zip
+            dist.zip
 
   lint:
     runs-on: ubuntu-latest
@@ -109,6 +111,7 @@ jobs:
       - name: Starting localhost server
         shell: sh
         run: |
+          unzip dist.zip
           nohup node dist/server &
           ./scripts/wait_for_status.sh http://localhost:3000/api/checks/readiness 200
 
@@ -225,6 +228,8 @@ jobs:
       - working-directory: ./terraform/lambda
         id: terraform
         run: |
+          mv dist.zip terraform/lambda/dist.zip
+
           terraform init \
             -upgrade \
             -reconfigure \
