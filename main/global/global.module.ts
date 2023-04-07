@@ -17,6 +17,8 @@ export function getPostgresDataSource() {
     const url =
       process.env.DATABASE_URL ||
       'mysql://realworld:realworld@localhost:3306/realworld'
+    const useSsl = !url.includes('localhost')
+
     dataSource = new DataSource({
       type: 'mysql',
       url,
@@ -32,7 +34,8 @@ export function getPostgresDataSource() {
       namingStrategy: new SnakeNamingStrategy(),
       synchronize: true,
       ssl: {
-        rejectUnauthorized: !url.includes('localhost'),
+        requestCert: useSsl,
+        rejectUnauthorized: useSsl,
       },
     })
   }
