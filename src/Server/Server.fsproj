@@ -6,7 +6,9 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="paket.references" />
-    <Compile Include="Helper.fs" /> 
+    <Compile Include="Helper.fs" />
+    <Compile Include="Db.fs" />
+    <Compile Include="DbMigrator.fs" />
     <Compile Include="Users.fs" />
     <Compile Include="Server.fs" />
   </ItemGroup>
