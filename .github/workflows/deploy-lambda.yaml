@@ -28,7 +28,10 @@ jobs:
             -backend-config="key=realworld-app/production/lambda.tfstate"
 
           terraform apply --auto-approve
-          echo "API_URL=$(terraform output API_URL)" >> $GITHUB_OUTPUT
+          echo "API_URL=$(terraform output -raw API_URL)" >> $GITHUB_OUTPUT
+        env:
+          TF_VAR_DATABASE_URL: mysql://realworld:realworld@mysql:3306/realworld
+          TF_VAR_ENVIRONMENT: production
 
       - uses: actions/github-script@v6
         with:

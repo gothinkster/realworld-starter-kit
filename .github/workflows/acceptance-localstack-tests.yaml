@@ -46,7 +46,7 @@ jobs:
         id: terraform
         run: |
           ./localstack.sh
-          echo "API_URL=$(terraform output API_URL)" >> $GITHUB_OUTPUT
+          echo "API_URL=$(terraform output -raw API_URL)" >> $GITHUB_OUTPUT
 
       - uses: actions/github-script@v6
         with:
