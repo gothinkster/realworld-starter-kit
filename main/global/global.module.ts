@@ -17,7 +17,7 @@ export function getPostgresDataSource() {
     const url =
       process.env.DATABASE_URL ||
       'mysql://realworld:realworld@localhost:3306/realworld'
-    const useSsl = !url.includes('localhost')
+    const useSsl = url.includes('pscale')
 
     dataSource = new DataSource({
       type: 'mysql',
