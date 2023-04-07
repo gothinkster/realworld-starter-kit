@@ -1,0 +1,27 @@
+name: Build
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - uses: ./.github/actions/npminstall
+
+      - run: |
+          ./scripts/package.sh
+          zip -r build.zip build
+        shell: bash
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: |
+            build.zip

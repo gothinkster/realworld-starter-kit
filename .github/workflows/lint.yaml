@@ -1,0 +1,23 @@
+name: Lint
+
+on:
+  workflow_call:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - uses: ./.github/actions/npminstall
+
+      - name: Prettier
+        run: npx prettier --check .
+
+      - name: Typescript
+        run: npx tsc --noEmit

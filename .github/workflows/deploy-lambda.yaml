@@ -1,0 +1,36 @@
+name: Deploy
+
+on:
+  workflow_call:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ./.github/actions/credentials
+
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.4.4
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: build
+
+      - working-directory: ./terraform/lambda
+        id: terraform
+        run: |
+          terraform init \
+            -upgrade \
+            -reconfigure \
+            -backend-config="key=realworld-app/production/lambda.tfstate"
+
+          terraform apply --auto-approve
+          echo "API_URL=$(terraform output API_URL)" >> $GITHUB_OUTPUT
+
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            core.notice('Check URL ${{ steps.terraform.outputs.API_URL }}')
