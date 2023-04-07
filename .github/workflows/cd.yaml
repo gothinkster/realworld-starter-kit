@@ -136,13 +136,59 @@ jobs:
       - name: Running acceptance tests on docker server
         run: API_URL=http://localhost:3001/api npx jest acceptance
 
+  localstack-tests:
+    runs-on: ubuntu-latest
+    services:
+      localstack:
+        env:
+          DEBUG: 1
+          DOCKER_HOST: unix:///var/run/docker.sock
+        image: localstack/localstack:1.4
+        ports:
+          - '4566:4566'
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+      mysql:
+        image: mysql:5.6
+        env:
+          MYSQL_ROOT_PASSWORD: realworld
+          MYSQL_DATABASE: realworld
+          MYSQL_USER: realworld
+          MYSQL_PASSWORD: realworld
+        ports:
+          - '3306:3306'
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/credentials
+      - uses: hashicorp/setup-terraform@v2
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+      - uses: ./.github/actions/npminstall
+
+      - name: Build
+        run: ./scripts/ziplambda.sh
+
+      - working-directory: ./terraform/lambda
+        id: terraform
+        run: |
+          terraform apply --auto-aprove
+          echo "API_URL=$(terraform output API_URL)" >> $GITHUB_OUTPUT
+
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            core.notice('Check URL ${{ steps.terraform.outputs.API_URL }}')
+
   deploy:
     needs: [docker-tests, server-tests]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/credentials
-      - uses: hashicorp/setup-terraform@v1
+      - uses: hashicorp/setup-terraform@v2
       - uses: actions/setup-node@v3
         with:
           cache: 'npm'
@@ -155,6 +201,11 @@ jobs:
       - working-directory: ./terraform/lambda
         id: terraform
         run: |
+          terraform init \
+            -upgrade \
+            -reconfigure \
+            -backend-config="key=realworld-app/production/lambda.tfstate"
+
           terraform apply --auto-aprove
           echo "API_URL=$(terraform output API_URL)" >> $GITHUB_OUTPUT
 

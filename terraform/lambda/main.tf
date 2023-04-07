@@ -10,7 +10,6 @@ terraform {
     bucket         = "santunioni-iac-state"
     region         = "us-east-1"
     dynamodb_table = "santunioni-iac-state-lock"
-    key            = "realworld-app/lambda.tfstate"
   }
 }
 
@@ -43,6 +42,11 @@ provider "aws" {
   region = local.REGION
   endpoints {
     lambda = var.AWS_ENDPOINT_URL
+    sts    = var.AWS_ENDPOINT_URL
+    s3     = var.AWS_ENDPOINT_URL
+    s3api  = var.AWS_ENDPOINT_URL
+    iam    = var.AWS_ENDPOINT_URL
+
   }
 }
 
@@ -90,8 +94,19 @@ resource "aws_lambda_function_url" "realworld_api_function_url" {
   depends_on         = [aws_lambda_function.realworld_api_function]
   authorization_type = "NONE"
   provider           = aws
+  cors {
+    allow_origins = [
+      "*"
+    ]
+    allow_methods     = ["*"]
+    allow_credentials = true
+  }
 }
 
 output "API_URL" {
   value = aws_lambda_function_url.realworld_api_function_url.function_url
+}
+
+output "FUNCTION_NAME" {
+  value = aws_lambda_function.realworld_api_function.function_name
 }
