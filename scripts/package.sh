@@ -7,6 +7,3 @@ npm run build
 npm ci --omit dev
 rm -rf dist/acceptance && mv dist/main/* dist/ && rm -rf dist/main
 cp -r node_modules dist/node_modules
-
-# Restore DEV dependencies
-npm install
