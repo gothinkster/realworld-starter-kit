@@ -228,7 +228,7 @@ jobs:
       - working-directory: ./terraform/lambda
         id: terraform
         run: |
-          mv dist.zip terraform/lambda/dist.zip
+          mv ./dist.zip ./terraform/lambda/dist.zip
 
           terraform init \
             -upgrade \
