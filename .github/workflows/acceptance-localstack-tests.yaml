@@ -53,5 +53,5 @@ jobs:
           script: |
             core.notice('Check URL ${{ steps.terraform.outputs.API_URL }}')
 
-      - run: |          
+      - run: |
           ./scripts/wait_for_status.sh ${{ steps.terraform.outputs.API_URL }}/api/checks/readiness 200
