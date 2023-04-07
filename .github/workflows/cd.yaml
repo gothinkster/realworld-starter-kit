@@ -203,8 +203,6 @@ jobs:
       - working-directory: ./terraform/lambda
         id: terraform
         run: |
-          mv ./build.zip ./terraform/lambda/build.zip
-
           terraform apply --auto-approve
           echo "API_URL=$(terraform output API_URL)" >> $GITHUB_OUTPUT
 
@@ -232,8 +230,6 @@ jobs:
       - working-directory: ./terraform/lambda
         id: terraform
         run: |
-          mv ./build.zip ./terraform/lambda/build.zip
-
           terraform init \
             -upgrade \
             -reconfigure \
