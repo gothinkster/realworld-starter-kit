@@ -1,5 +1,4 @@
 #! /bin/sh
-
 aws s3api create-bucket \
    --bucket "santunioni-iac-state" \
    --endpoint-url http://localhost:4566 \
@@ -11,8 +10,6 @@ aws dynamodb create-table \
    --key-schema AttributeName=LockID,KeyType=HASH \
    --endpoint-url http://localhost:4566 \
    --billing-mode PAY_PER_REQUEST
-
-cd terraform/lambda || exit 1
 
 export AWS_ACCESS_KEY_ID=foo
 export AWS_SECRET_ACCESS_KEY=bar
