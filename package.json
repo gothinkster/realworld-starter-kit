@@ -8,7 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "start:prod": "node dist/main/index",
+    "start:prod": "node dist/main/server",
     "start": "NODE_ENV=development nest start",
     "start:dev": "NODE_ENV=development nest start",
     "start:debug": "NODE_ENV=development nest start --debug --watch",

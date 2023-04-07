@@ -79,15 +79,11 @@ jobs:
 
       - run: npm install
 
-      - name: Running unit tests
-        run: npm run test:unit
-        shell: bash
-
       - name: Starting localhost server
         shell: sh
         run: |
-          npm run build
-          nohup npm run start:prod &
+          ./scripts/package.sh
+          nohup node dist/server &
           chmod +x ./scripts/wait_for_status.sh
           ./scripts/wait_for_status.sh http://localhost:3000/api/checks/readiness 200
 

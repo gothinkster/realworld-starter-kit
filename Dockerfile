@@ -20,7 +20,7 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 COPY --chown=node:node . .
-RUN npm run prebuild && npm run build
+RUN ./scripts/package.sh
 
 
 FROM node:16
@@ -29,6 +29,6 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
-COPY --from=builder --chown=node:node /app/dist/main/ ./dist/
+COPY --from=builder --chown=node:node /app/dist/ ./dist/
 
-CMD ["node", "dist/index"]
+CMD ["node", "dist/server"]
