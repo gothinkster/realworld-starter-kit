@@ -38,7 +38,7 @@ ci: typecheck format
 localstack/terraform: export AWS_ACCESS_KEY_ID = foo
 localstack/terraform: export AWS_SECRET_ACCESS_KEY = bar
 localstack/terraform: export TF_VAR_DATABASE_URL = mysql://realworld:realworld@mysql:3306/realworld
-localstack/terraform: export TF_VAR_ENVIRONMENT = localstack
+localstack/terraform: export TF_VAR_ENVIRONMENT = production
 localstack/terraform:
 	cd terraform/lambda \
 	&& tflocal init -upgrade -reconfigure \

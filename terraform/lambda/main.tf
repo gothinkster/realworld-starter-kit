@@ -77,12 +77,24 @@ resource "aws_lambda_function" "realworld_api_function" {
   timeout          = 60 * 5
 }
 
+# Function URL
+resource "aws_lambda_function_url" "realworld_api_function_url" {
+  function_name      = aws_lambda_function.realworld_api_function.arn
+  authorization_type = "NONE"
+  provider           = aws
+}
+
+output "FUNCTION_URL" {
+  value = aws_lambda_function_url.realworld_api_function_url.function_url
+}
+
 # API Gateway
 resource "aws_api_gateway_rest_api" "api" {
   name                     = local.name
   description              = "API for ${local.name}"
   binary_media_types       = ["*/*"]
   minimum_compression_size = 0
+  tags                     = local.COMMON_TAGS
 }
 
 resource "aws_api_gateway_resource" "proxy" {
@@ -193,14 +205,11 @@ resource "aws_lambda_permission" "allow_api_gateway" {
   ]
 }
 
-output "http_method" {
-  value = aws_api_gateway_method.request_method.http_method
-}
 
-output "url" {
+output "API_GATEWAY_URL" {
   value = aws_api_gateway_deployment.deployment.invoke_url
 }
 
-output "rest_api_id" {
+output "API_GATEWAY_ID" {
   value = aws_api_gateway_rest_api.api.id
 }
