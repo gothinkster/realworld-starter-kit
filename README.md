@@ -1,26 +1,3 @@
-# ![SAFE Stack RealWorld Example App](logo.png)
-
-> ### [SAFE-stack](https://safe-stack.github.io) codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
-
-
-### [Demo](https://demo.realworld.io/)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
-
-
-This codebase was created to demonstrate a fully fledged fullstack application built with [SAFE-stack](https://safe-stack.github.io) including CRUD operations, authentication, routing, pagination, and more.
-
-We've gone to great lengths to adhere to the [SAFE-stack](https://safe-stack.github.io)  community styleguides & best practices.
-
-For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
-
-
-# How it works
-
-> Describe the general architecture of your app here
-
-# Getting started
-
-> npm install, npm start, etc.
-
 # SAFE Template
 
 This template can be used to generate a full-stack web application using the [SAFE Stack](https://safe-stack.github.io/). It was created using the dotnet [SAFE Template](https://safe-stack.github.io/docs/template-overview/). If you want to learn more about the template why not start with the [quick start](https://safe-stack.github.io/docs/quickstart/) guide?
@@ -29,8 +6,8 @@ This template can be used to generate a full-stack web application using the [SA
 
 You'll need to install the following pre-requisites in order to build SAFE applications
 
-* [.NET Core SDK](https://www.microsoft.com/net/download) 5.0 or higher
-* [Node LTS](https://nodejs.org/en/download/)
+* [.NET Core SDK](https://www.microsoft.com/net/download) 6.0 or higher
+* [Node 16](https://nodejs.org/en/download/)
 
 ## Starting the application
 
