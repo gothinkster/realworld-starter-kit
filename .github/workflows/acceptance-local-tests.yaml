@@ -32,7 +32,7 @@ jobs:
       - name: Starting localhost server
         shell: sh
         run: |
-          unzip build.zip
+          unzip build.zip -d build
           make nohup/local
 
       - run: npm install
