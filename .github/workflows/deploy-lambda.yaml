@@ -19,8 +19,7 @@ jobs:
         with:
           name: build
 
-      - working-directory: ./terraform/lambda
-        id: terraform
+      - id: terraform
         run: make aws/terraform
         env:
           TF_VAR_DATABASE_URL: ${{ secrets.DATABASE_URL }}
