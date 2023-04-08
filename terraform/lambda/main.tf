@@ -75,6 +75,7 @@ resource "aws_lambda_function" "realworld_api_function" {
   handler          = "lambda.handler"
   runtime          = "nodejs16.x"
   timeout          = 60 * 5
+  memory_size      = 516
 }
 
 # Function URL
