@@ -1,13 +1,13 @@
 import { DataSource } from 'typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
-import { AccountEntity } from './accounts/accounts.entity.js'
+import { AccountEntity } from './accounts/accounts.entity'
 import {
   ArticleEntity,
   ArticlesHaveTagsEntity,
   TagEntity,
-} from './articles/articles.repository.typeorm.js'
-import { AuthorEntity, UserFollows } from './authors/authors.entity.js'
-import { CommentEntity } from './comments/comments.entity.js'
+} from './articles/articles.repository.typeorm'
+import { AuthorEntity, UserFollows } from './authors/authors.entity'
+import { CommentEntity } from './comments/comments.entity'
 
 let dataSource
 
@@ -16,7 +16,7 @@ export default function getDataSourceInstance() {
     const url =
       process.env.DATABASE_URL ||
       'mysql://realworld:realworld@localhost:3306/realworld'
-    const useSsl = url.includes('pscale')
+    const production = url.includes('pscale')
 
     dataSource = new DataSource({
       type: 'mysql',
@@ -30,8 +30,9 @@ export default function getDataSourceInstance() {
         TagEntity,
         ArticlesHaveTagsEntity,
       ],
+      synchronize: !production,
       namingStrategy: new SnakeNamingStrategy(),
-      ssl: useSsl
+      ssl: production
         ? {
             requestCert: true,
             rejectUnauthorized: true,

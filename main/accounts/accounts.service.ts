@@ -13,6 +13,7 @@ export class UsersService {
       .changePassword(user.password)
       .save()
       .catch((err) => {
+        console.error(err)
         throw new AccountAlreadyExistsException(user.email)
       })
   }

@@ -45,13 +45,4 @@ jobs:
         id: terraform
         run: |
           pipx install terraform-local
-          ./localstack.sh
-          echo "API_URL=$(terraform output -raw API_URL)" >> $GITHUB_OUTPUT
-
-      - uses: actions/github-script@v6
-        with:
-          script: |
-            core.notice('Check URL ${{ steps.terraform.outputs.API_URL }}')
-
-      - run: |
-          ./scripts/wait_for_status.sh ${{ steps.terraform.outputs.API_URL }}/api/checks/readiness 200
+          make localstack/terraform
