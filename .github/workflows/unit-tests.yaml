@@ -19,13 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - uses: actions/setup-node@v3
         with:
           cache: 'npm'
           cache-dependency-path: package-lock.json
-
       - run: npm install
-
-      - run: npm run test:unit
-        shell: bash
+      - run: npx jest main
