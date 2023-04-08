@@ -25,7 +25,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package-lock.json
 
-      - uses: ./.github/actions/npminstall
+      - run: npm install
 
       - run: npm run test:unit
         shell: bash

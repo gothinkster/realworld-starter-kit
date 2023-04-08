@@ -1,22 +1,4 @@
 services:
-  api:
-    build: .
-    ports:
-      - '3001:3000'
-    environment:
-      DB_URL: mysql://realworld:realworld@mysql:3306
-    depends_on:
-      - postgres
-
-  postgres:
-    image: postgres
-    environment:
-      POSTGRES_USER: realworld
-      POSTGRES_PASSWORD: realworld
-      POSTGRES_DB: realworld
-    ports:
-      - '5432:5432'
-
   mysql:
     image: 'mysql:5.6'
     platform: linux/amd64

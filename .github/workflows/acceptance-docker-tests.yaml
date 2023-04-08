@@ -42,7 +42,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package-lock.json
 
-      - uses: ./.github/actions/npminstall
+      - run: npm install
 
       - name: Running acceptance tests on docker server
         run: API_URL=http://localhost:3001/api npx jest acceptance

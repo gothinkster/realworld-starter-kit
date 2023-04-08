@@ -72,28 +72,17 @@ resource "aws_lambda_function" "realworld_api_function" {
     }
   }
   filename = "${path.module}/../../build.zip"
-  handler  = "build/lambda.handler"
+  source_code_hash = filebase64sha256("${path.module}/../../build.zip")
+  handler  = "lambda.handler"
   runtime  = "nodejs16.x"
 }
 
 resource "aws_lambda_function_url" "realworld_api_function_url" {
-  function_name      = aws_lambda_function.realworld_api_function.function_name
-  depends_on         = [aws_lambda_function.realworld_api_function]
+  function_name      = aws_lambda_function.realworld_api_function.arn
   authorization_type = "NONE"
   provider           = aws
-  cors {
-    allow_origins = [
-      "*"
-    ]
-    allow_methods     = ["*"]
-    allow_credentials = true
-  }
 }
 
 output "API_URL" {
   value = aws_lambda_function_url.realworld_api_function_url.function_url
-}
-
-output "FUNCTION_NAME" {
-  value = aws_lambda_function.realworld_api_function.function_name
 }

@@ -36,7 +36,7 @@ jobs:
           nohup node build/server &
           ./scripts/wait_for_status.sh http://localhost:3000/api/checks/readiness 200
 
-      - uses: ./.github/actions/npminstall
+      - run: npm install
 
       - name: Running acceptance tests on localhost server
         run: API_URL=http://localhost:3000/api npx jest acceptance

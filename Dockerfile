@@ -20,10 +20,10 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 COPY --chown=node:node . .
-RUN ./scripts/package.sh
+RUN make build
 
 
 FROM node:16
 WORKDIR /app
-COPY --from=builder --chown=node:node /app/build/ ./
+COPY --from=builder --chown=node:node /app/ ./
 CMD ["node", "server"]

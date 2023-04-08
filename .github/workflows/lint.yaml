@@ -14,7 +14,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package-lock.json
 
-      - uses: ./.github/actions/npminstall
+      - run: npm install
 
       - name: Prettier
         run: npx prettier --check .

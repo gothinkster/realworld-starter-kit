@@ -8,14 +8,10 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "start:prod": "node dist/main/server",
     "start": "NODE_ENV=development nest start",
     "start:dev": "NODE_ENV=development nest start",
     "start:debug": "NODE_ENV=development nest start --debug --watch",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "format": "prettier --write .",
-    "test:unit": "jest --testRegex .*\\.unit\\.ts$",
-    "test:acceptance": "jest --testRegex .*\\.acceptance\\.ts$",
     "openapi": "ts-node main/nest/openapi",
     "typeorm": "typeorm-ts-node-commonjs"
   },
