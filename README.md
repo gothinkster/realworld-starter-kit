@@ -1,23 +1,57 @@
-# ![RealWorld Example App](logo.png)
+# SAFE Template
 
-> ### [YOUR_FRAMEWORK] codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
+This template can be used to generate a full-stack web application using the [SAFE Stack](https://safe-stack.github.io/). It was created using the dotnet [SAFE Template](https://safe-stack.github.io/docs/template-overview/). If you want to learn more about the template why not start with the [quick start](https://safe-stack.github.io/docs/quickstart/) guide?
 
+## Install pre-requisites
 
-### [Demo](https://demo.realworld.io/)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
+You'll need to install the following pre-requisites in order to build SAFE applications
 
+* [.NET Core SDK](https://www.microsoft.com/net/download) 6.0 or higher
+* [Node 16](https://nodejs.org/en/download/)
 
-This codebase was created to demonstrate a fully fledged fullstack application built with **[YOUR_FRAMEWORK]** including CRUD operations, authentication, routing, pagination, and more.
+## Starting the application
 
-We've gone to great lengths to adhere to the **[YOUR_FRAMEWORK]** community styleguides & best practices.
+Before you run the project **for the first time only** you must install dotnet "local tools" with this command:
 
-For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
+```bash
+dotnet tool restore
+```
 
+To concurrently run the server and the client components in watch mode use the following command:
 
-# How it works
+```bash
+dotnet run
+```
 
-> Describe the general architecture of your app here
+Then open `http://localhost:8080` in your browser.
 
-# Getting started
+The build project in root directory contains a couple of different build targets. You can specify them after `--` (target name is case-insensitive).
 
-> npm install, npm start, etc.
+To run concurrently server and client tests in watch mode (you can run this command in parallel to the previous one in new terminal):
 
+```bash
+dotnet run -- RunTests
+```
+
+Client tests are available under `http://localhost:8081` in your browser and server tests are running in watch mode in console.
+
+Finally, there are `Bundle` and `Azure` targets that you can use to package your app and deploy to Azure, respectively:
+
+```bash
+dotnet run -- Bundle
+dotnet run -- Azure
+```
+
+## SAFE Stack Documentation
+
+If you want to know more about the full Azure Stack and all of it's components (including Azure) visit the official [SAFE documentation](https://safe-stack.github.io/docs/).
+
+You will find more documentation about the used F# components at the following places:
+
+* [Saturn](https://saturnframework.org/)
+* [Fable](https://fable.io/docs/)
+* [Elmish](https://elmish.github.io/elmish/)
+
+# MISC
+
+install Feliz.Router, see https://www.compositional-it.com/news-blog/elmish-navigation-with-feliz-router/
