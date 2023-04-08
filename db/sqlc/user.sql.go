@@ -7,30 +7,37 @@ package db
 
 import (
 	"context"
-	"database/sql"
 )
 
 const createUser = `-- name: CreateUser :one
 INSERT INTO users (
+    id,
     username,
     email,
     password 
 ) VALUES (
     $1,
     $2,
-    $3
+    $3,
+    $4
 ) 
 RETURNING id, username, email, password, bio, image, created_at, updated_at
 `
 
 type CreateUserParams struct {
+	ID       string `json:"id"`
 	Username string `json:"username"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (*User, error) {
-	row := q.db.QueryRowContext(ctx, createUser, arg.Username, arg.Email, arg.Password)
+	row := q.db.QueryRow(ctx, createUser,
+		arg.ID,
+		arg.Username,
+		arg.Email,
+		arg.Password,
+	)
 	var i User
 	err := row.Scan(
 		&i.ID,
@@ -61,7 +68,7 @@ type FollowUserParams struct {
 }
 
 func (q *Queries) FollowUser(ctx context.Context, arg FollowUserParams) error {
-	_, err := q.db.ExecContext(ctx, followUser, arg.FollowerID, arg.FollowingID)
+	_, err := q.db.Exec(ctx, followUser, arg.FollowerID, arg.FollowingID)
 	return err
 }
 
@@ -72,7 +79,7 @@ WHERE id = $1
 `
 
 func (q *Queries) GetUser(ctx context.Context, id string) (*User, error) {
-	row := q.db.QueryRowContext(ctx, getUser, id)
+	row := q.db.QueryRow(ctx, getUser, id)
 	var i User
 	err := row.Scan(
 		&i.ID,
@@ -94,7 +101,7 @@ WHERE email = $1
 `
 
 func (q *Queries) GetUserByEmail(ctx context.Context, email string) (*User, error) {
-	row := q.db.QueryRowContext(ctx, getUserByEmail, email)
+	row := q.db.QueryRow(ctx, getUserByEmail, email)
 	var i User
 	err := row.Scan(
 		&i.ID,
@@ -116,7 +123,7 @@ WHERE username = $1
 `
 
 func (q *Queries) GetUserByUsername(ctx context.Context, username string) (*User, error) {
-	row := q.db.QueryRowContext(ctx, getUserByUsername, username)
+	row := q.db.QueryRow(ctx, getUserByUsername, username)
 	var i User
 	err := row.Scan(
 		&i.ID,
@@ -146,7 +153,7 @@ type IsFollowingParams struct {
 }
 
 func (q *Queries) IsFollowing(ctx context.Context, arg IsFollowingParams) (bool, error) {
-	row := q.db.QueryRowContext(ctx, isFollowing, arg.FollowerID, arg.FollowingID)
+	row := q.db.QueryRow(ctx, isFollowing, arg.FollowerID, arg.FollowingID)
 	var exists bool
 	err := row.Scan(&exists)
 	return exists, err
@@ -164,7 +171,7 @@ type UnfollowUserParams struct {
 }
 
 func (q *Queries) UnfollowUser(ctx context.Context, arg UnfollowUserParams) error {
-	_, err := q.db.ExecContext(ctx, unfollowUser, arg.FollowerID, arg.FollowingID)
+	_, err := q.db.Exec(ctx, unfollowUser, arg.FollowerID, arg.FollowingID)
 	return err
 }
 
@@ -181,16 +188,16 @@ RETURNING id, username, email, password, bio, image, created_at, updated_at
 `
 
 type UpdateUserParams struct {
-	Username sql.NullString `json:"username"`
-	Email    sql.NullString `json:"email"`
-	Password sql.NullString `json:"password"`
-	Bio      sql.NullString `json:"bio"`
-	Image    sql.NullString `json:"image"`
-	ID       string         `json:"id"`
+	Username *string `json:"username"`
+	Email    *string `json:"email"`
+	Password *string `json:"password"`
+	Bio      *string `json:"bio"`
+	Image    *string `json:"image"`
+	ID       string  `json:"id"`
 }
 
 func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (*User, error) {
-	row := q.db.QueryRowContext(ctx, updateUser,
+	row := q.db.QueryRow(ctx, updateUser,
 		arg.Username,
 		arg.Email,
 		arg.Password,

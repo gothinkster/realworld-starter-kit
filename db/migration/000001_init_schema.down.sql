@@ -10,5 +10,3 @@ DROP INDEX IF EXISTS idx_users_username;
 DROP INDEX IF EXISTS idx_users_email;
 DROP INDEX IF EXISTS idx_articles_user_id;
 DROP INDEX IF EXISTS idx_articles_slug;
-
-DROP extension IF EXISTS "uuid-ossp";

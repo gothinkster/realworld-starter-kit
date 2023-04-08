@@ -1,15 +1,36 @@
 package db
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/aliml92/realworld-gin-sqlc/config"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
+
+	"github.com/jackc/pgx/v4"
 )
+
+func ConnectTemp(config config.Config) *pgx.Conn {
+	conn, err := pgx.Connect(context.Background(), config.DBUrl)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
+		os.Exit(1)
+	}
+	return conn
+}
+
+func CloseTemp(conn *pgx.Conn) {
+	err := conn.Close(context.Background())
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to close connection: %v\n", err)
+		os.Exit(1)
+	}
+}
 
 func Connect(config config.Config) *sql.DB {
 
@@ -21,7 +42,7 @@ func Connect(config config.Config) *sql.DB {
 		config.DBName,
 	)
 
-	db, err := sql.Open("postgres", dsn)
+	db, err := sql.Open("pgx", dsn)
 	if err != nil {
 		log.Fatalln(err)
 	}

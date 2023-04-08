@@ -1,21 +1,19 @@
-CREATE extension IF NOT EXISTS "uuid-ossp";
-
 CREATE TABLE IF NOT EXISTS users(
-  id uuid DEFAULT uuid_generate_v4(),
-  username VARCHAR NOT NULL UNIQUE,
-  email VARCHAR NOT NULL UNIQUE,
-  password VARCHAR NOT NULL,
-  bio VARCHAR,
-  image VARCHAR,
-  created_at timestamptz NOT NULL DEFAULT now(),
-  updated_at timestamptz NOT NULL DEFAULT now(),
+  id text not null,
+  username text not null unique,
+  email text not null unique,
+  password text not null,
+  bio text,
+  image text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
 
   PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS follows (
-  follower_id uuid NOT NULL,
-  following_id uuid NOT NULL,
+  follower_id text not null,
+  following_id text not null,
   
   FOREIGN KEY (follower_id) REFERENCES users(id),
   FOREIGN KEY (following_id) REFERENCES users(id)
@@ -23,26 +21,26 @@ CREATE TABLE IF NOT EXISTS follows (
 
 
 CREATE TABLE IF NOT EXISTS articles (
-  id uuid DEFAULT uuid_generate_v4(),
-  author_id uuid NOT NULL,
-  slug VARCHAR NOT NULL UNIQUE,
-  title VARCHAR NOT NULL,
-  description VARCHAR NOT NULL,
-  body VARCHAR NOT NULL,
-  created_at timestamptz NOT NULL DEFAULT now(),
-  updated_at timestamptz NOT NULL DEFAULT now(),
+  id text not null,
+  author_id text not null,
+  slug text not null unique,
+  title text not null,
+  description text not null,
+  body text not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
   
   PRIMARY KEY (id),
   FOREIGN KEY (author_id) REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS comments (
-  id uuid DEFAULT uuid_generate_v4(),
-  author_id uuid NOT NULL,
-  article_id uuid NOT NULL,
-  body VARCHAR NOT NULL,
-  created_at timestamptz NOT NULL DEFAULT now(),
-  updated_at timestamptz NOT NULL DEFAULT now(),
+  id text not null,
+  author_id text not null,
+  article_id text not null,
+  body text not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
   
   PRIMARY KEY (id),
   FOREIGN KEY (author_id) REFERENCES users(id),
@@ -51,16 +49,16 @@ CREATE TABLE IF NOT EXISTS comments (
 
 
 CREATE TABLE IF NOT EXISTS tags (
-  id uuid DEFAULT uuid_generate_v4(),
-  name VARCHAR NOT NULL UNIQUE,
+  id text not null,
+  name text not null unique,
   
   PRIMARY KEY (id)
 );
 
 
 CREATE TABLE IF NOT EXISTS article_tags (
-  article_id uuid NOT NULL,
-  tag_id uuid NOT NULL,
+  article_id text not null,
+  tag_id text not null,
   
   PRIMARY KEY (article_id, tag_id),
   FOREIGN KEY (article_id) REFERENCES articles(id),
@@ -69,8 +67,8 @@ CREATE TABLE IF NOT EXISTS article_tags (
 
 
 CREATE TABLE IF NOT EXISTS favorites (
-  article_id uuid NOT NULL,
-  user_id uuid NOT NULL,
+  article_id text not null,
+  user_id text not null,
   
   PRIMARY KEY (article_id, user_id),
   FOREIGN KEY (article_id) REFERENCES articles(id),
