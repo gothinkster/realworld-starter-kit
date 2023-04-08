@@ -32,7 +32,6 @@ export function getDataSourceInstance() {
         ArticlesHaveTagsEntity,
       ],
       namingStrategy: new SnakeNamingStrategy(),
-      synchronize: true,
       ssl: useSsl
         ? {
             requestCert: true,
