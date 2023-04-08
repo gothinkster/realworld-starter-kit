@@ -2,8 +2,12 @@ source https://api.nuget.org/v3/index.json
 framework: net6.0
 storage: none
 
+nuget Dapper
+nuget Fable.Reactstrap
+nuget Feliz.Router
 nuget Fsharp.Core ~> 6
 nuget Fable.Remoting.Giraffe
+nuget Npgsql
 nuget Saturn
 nuget Expecto
 

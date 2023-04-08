@@ -51,3 +51,7 @@ You will find more documentation about the used F# components at the following p
 * [Saturn](https://saturnframework.org/)
 * [Fable](https://fable.io/docs/)
 * [Elmish](https://elmish.github.io/elmish/)
+
+# MISC
+
+install Feliz.Router, see https://www.compositional-it.com/news-blog/elmish-navigation-with-feliz-router/
