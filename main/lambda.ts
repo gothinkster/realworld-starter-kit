@@ -25,5 +25,6 @@ export async function handler(event: any, context: Context) {
     await app.init()
     lambdaProxyServer = serverlessExpress.createServer(expressServer)
   }
+  console.log({ event, context })
   serverlessExpress.proxy(lambdaProxyServer, event, context)
 }
