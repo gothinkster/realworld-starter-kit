@@ -25,5 +25,5 @@ RUN make build
 
 FROM node:16
 WORKDIR /app
-COPY --from=builder --chown=node:node /app/ ./
+COPY --from=builder --chown=node:node /app/build/ ./
 CMD ["node", "server"]

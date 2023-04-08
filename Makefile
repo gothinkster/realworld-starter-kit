@@ -1,12 +1,15 @@
 .PHONY: build
 
 build:
+	npm install
 	rm -rf dist build build.zip
 	npm run build
-	npm ci --omit dev
 	mv dist/main build
-	rm -rf dist
+	rm -rf dist node_modules
+
+	npm ci --omit dev
 	cp -r node_modules build/node_modules
+
 	npm install
 
 zip:
