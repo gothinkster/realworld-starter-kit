@@ -21,17 +21,7 @@ jobs:
 
       - working-directory: ./terraform/lambda
         id: terraform
-        run: |
-          terraform init \
-            -upgrade
-
-          terraform apply --auto-approve
-          echo "API_URL=$(terraform output -raw API_URL)" >> $GITHUB_OUTPUT
+        run: make aws/terraform
         env:
           TF_VAR_DATABASE_URL: ${{ secrets.DATABASE_URL }}
           TF_VAR_ENVIRONMENT: production
-
-      - uses: actions/github-script@v6
-        with:
-          script: |
-            core.notice('Check URL ${{ steps.terraform.outputs.API_URL }}')

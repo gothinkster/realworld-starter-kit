@@ -33,8 +33,7 @@ jobs:
         shell: sh
         run: |
           unzip build.zip
-          nohup node build/server &
-          ./scripts/wait_for_status.sh http://localhost:3000/api/checks/readiness 200
+          make nohup/local
 
       - run: npm install
 

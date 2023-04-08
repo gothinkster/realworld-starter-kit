@@ -33,9 +33,7 @@ jobs:
 
       - name: Starting docker server
         shell: sh
-        run: |
-          nohup docker run --rm --network=host --env API_PORT=3001 app &
-          ./scripts/wait_for_status.sh http://localhost:3001/api/checks/readiness 200
+        run: make nohup/docker
 
       - uses: actions/setup-node@v3
         with:

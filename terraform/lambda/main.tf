@@ -17,7 +17,6 @@ terraform {
 variable "ENVIRONMENT" {
   description = "The environment to deploy into"
   type        = string
-  default     = "production"
 }
 
 variable "DATABASE_URL" {
@@ -30,11 +29,10 @@ locals {
     Environment = var.ENVIRONMENT
     RepoLink    = "https://github.com/santunioni/realworld-app"
   }
-  REGION = "us-east-1"
 }
 
+
 provider "aws" {
-  region = local.REGION
 }
 
 resource "aws_iam_role" "realworld_api_function_role" {
