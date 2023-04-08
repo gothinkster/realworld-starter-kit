@@ -70,11 +70,11 @@ resource "aws_lambda_function" "realworld_api_function" {
       DATABASE_URL = var.DATABASE_URL
     }
   }
-  filename = "${path.module}/../../build.zip"
+  filename         = "${path.module}/../../build.zip"
   source_code_hash = filebase64sha256("${path.module}/../../build.zip")
-  handler  = "lambda.handler"
-  runtime  = "nodejs16.x"
-  timeout = 60 * 5
+  handler          = "lambda.handler"
+  runtime          = "nodejs16.x"
+  timeout          = 60 * 5
 }
 
 # API Gateway

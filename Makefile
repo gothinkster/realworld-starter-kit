@@ -28,6 +28,7 @@ infra/up:
 
 format:
 	npx prettier --write .
+	cd terraform/lambda && terraform fmt
 
 typecheck:
 	npx tsc --noEmit
