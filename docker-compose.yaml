@@ -21,3 +21,4 @@ services:
       - '4566:4566'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./scripts/aws-local:/docker-entrypoint-initaws.d
