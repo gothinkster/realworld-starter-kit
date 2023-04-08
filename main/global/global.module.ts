@@ -12,7 +12,7 @@ import { CommentEntity } from '../comments/comments.entity'
 import { JWTAuthPassport } from '../nest/jwt.guard'
 
 let dataSource: DataSource
-export function getPostgresDataSource() {
+export function getDataSourceInstance() {
   if (!dataSource) {
     const url =
       process.env.DATABASE_URL ||
@@ -49,7 +49,7 @@ export function getPostgresDataSource() {
   providers: [
     {
       provide: DataSource,
-      useFactory: () => getPostgresDataSource().initialize(),
+      useFactory: () => getDataSourceInstance().initialize(),
     },
     {
       provide: EntityManager,
