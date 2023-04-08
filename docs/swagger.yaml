@@ -5,6 +5,18 @@ definitions:
         additionalProperties: true
         type: object
     type: object
+  api.addCommentReq:
+    properties:
+      comment:
+        properties:
+          body:
+            type: string
+        required:
+        - body
+        type: object
+    required:
+    - comment
+    type: object
   api.articleResponse:
     properties:
       article:
@@ -42,6 +54,58 @@ definitions:
             type: string
         type: object
     type: object
+  api.commentResponse:
+    properties:
+      comment:
+        properties:
+          author:
+            properties:
+              bio:
+                type: string
+              following:
+                type: boolean
+              image:
+                type: string
+              username:
+                type: string
+            type: object
+          body:
+            type: string
+          createdAt:
+            type: string
+          id:
+            type: string
+          updatedAt:
+            type: string
+        type: object
+    type: object
+  api.commentsResponse:
+    properties:
+      comments:
+        items:
+          properties:
+            author:
+              properties:
+                bio:
+                  type: string
+                following:
+                  type: boolean
+                image:
+                  type: string
+                username:
+                  type: string
+              type: object
+            body:
+              type: string
+            createdAt:
+              type: string
+            id:
+              type: string
+            updatedAt:
+              type: string
+          type: object
+        type: array
+    type: object
   api.createArticleReq:
     properties:
       article:
@@ -78,6 +142,13 @@ definitions:
             type: string
         type: object
     type: object
+  api.tagsResponse:
+    properties:
+      tags:
+        items:
+          type: string
+        type: array
+    type: object
   api.updateArticleReq:
     properties:
       article:
@@ -107,8 +178,6 @@ definitions:
           username:
             type: string
         type: object
-    required:
-    - user
     type: object
   api.userLoginReq:
     properties:
@@ -138,8 +207,6 @@ definitions:
         - password
         - username
         type: object
-    required:
-    - user
     type: object
   api.userResponse:
     properties:
@@ -161,6 +228,46 @@ info:
   contact: {}
 paths:
   /articles:
+    get:
+      consumes:
+      - application/json
+      description: List articles
+      parameters:
+      - description: Tag
+        in: query
+        name: tag
+        type: string
+      - description: Author
+        in: query
+        name: author
+        type: string
+      - description: Favorited
+        in: query
+        name: favorited
+        type: string
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: List articles
+      tags:
+      - articles
     post:
       consumes:
       - application/json
@@ -197,6 +304,38 @@ paths:
       tags:
       - articles
   /articles/{slug}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Article by slug
+      parameters:
+      - description: Article slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      security:
+      - Bearer: []
+      summary: Delete article
+      tags:
+      - articles
     get:
       consumes:
       - application/json
@@ -265,6 +404,221 @@ paths:
       summary: Update article
       tags:
       - articles
+  /articles/{slug}/comments:
+    get:
+      consumes:
+      - application/json
+      description: Get comments by article slug
+      parameters:
+      - description: Article slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.commentsResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      security:
+      - Bearer: []
+      summary: Get comments
+      tags:
+      - articles
+    post:
+      consumes:
+      - application/json
+      description: Add comment to article
+      parameters:
+      - description: Article slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      - description: Comment
+        in: body
+        name: comment
+        required: true
+        schema:
+          $ref: '#/definitions/api.addCommentReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.commentResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.Error'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      security:
+      - Bearer: []
+      summary: Add comment
+      tags:
+      - articles
+  /articles/{slug}/comments/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete comment by id
+      parameters:
+      - description: Article slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      - description: Comment id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.commentResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      security:
+      - Bearer: []
+      summary: Delete comment
+      tags:
+      - articles
+  /articles/{slug}/favorite:
+    delete:
+      consumes:
+      - application/json
+      description: Unfavorite article by slug
+      parameters:
+      - description: Article slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.articleResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      security:
+      - Bearer: []
+      summary: Unfavorite article
+      tags:
+      - articles
+    post:
+      consumes:
+      - application/json
+      description: Favorite article by slug
+      parameters:
+      - description: Article slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.articleResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      security:
+      - Bearer: []
+      summary: Favorite article
+      tags:
+      - articles
+  /articles/feed:
+    get:
+      consumes:
+      - application/json
+      description: Feed articles
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      security:
+      - Bearer: []
+      summary: Feed articles
+      tags:
+      - articles
   /profiles/{username}:
     get:
       consumes:
@@ -292,7 +646,8 @@ paths:
           schema:
             $ref: '#/definitions/api.Error'
       security:
-      - Bearer: []
+      - '{}': []
+        Bearer: []
       summary: Get profile
       tags:
       - user
@@ -357,6 +712,25 @@ paths:
       summary: Follow user by username
       tags:
       - user
+  /tags:
+    get:
+      consumes:
+      - application/json
+      description: Get tags
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.tagsResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: Get tags
+      tags:
+      - articles
   /user:
     get:
       consumes:
@@ -369,6 +743,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/api.userResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.Error'
         "404":
           description: Not Found
           schema:
@@ -406,6 +784,10 @@ paths:
             $ref: '#/definitions/api.Error'
         "404":
           description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "422":
+          description: Unprocessable Entity
           schema:
             $ref: '#/definitions/api.Error'
         "500":
@@ -466,12 +848,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/api.userResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/api.Error'
         "403":
           description: Forbidden
+          schema:
+            $ref: '#/definitions/api.Error'
+        "422":
+          description: Unprocessable Entity
           schema:
             $ref: '#/definitions/api.Error'
         "500":

@@ -1,11 +1,12 @@
 package api
 
-
 import (
 	"math/rand"
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/rs/xid"
 )
 
 func createUniqueSlug(title string) string {
@@ -38,4 +39,8 @@ func generateRandomString(length int) string {
 		result[i] = chars[rng.Intn(len(chars))]
 	}
 	return string(result)
+}
+
+func generateID() string {
+	return xid.New().String()
 }

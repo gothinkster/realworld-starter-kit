@@ -8,17 +8,18 @@ import (
 )
 
 // GetCurrentUser godoc
-// @Summary Get current user
+// @Summary     Get current user
 // @Description Get current user
-// @Tags user
-// @Accept  json
-// @Produce  json
-// @Success 200 {object} userResponse
-// @Failure 404 {object} Error
-// @Failure 500 {object} Error
-// @Security Bearer
+// @Tags 		user
+// @Accept  	json
+// @Produce  	json
+// @Success 	200 	{object} 	userResponse
+// @Failure 	401 	{object} 	Error
+// @Failure 	404		{object} 	Error
+// @Failure 	500 	{object} 	Error
+// @Security 	Bearer
 // @Router /user [get]
-func (s *Server) GetCurrentUser(c *gin.Context) {
+func (s *Server) GetCurrentUser(c *gin.Context) { // TODO:✅ GET /user - GetCurrentUser
 	id := GetIDFromHeader(c)
 	user, err := Nullable(s.store.GetUser(c.Request.Context(), id))
 	if err != nil {
@@ -29,7 +30,7 @@ func (s *Server) GetCurrentUser(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"error": "user not found"})
 		return
 	}
-	c.JSON(http.StatusOK, newUserResponse(user)) // check
+	c.JSON(http.StatusOK, newUserResponse(user))
 }
 
 type updateUserReq struct {
@@ -39,14 +40,14 @@ type updateUserReq struct {
 		Password *string `json:"password" binding:"omitempty"`
 		Image    *string `json:"image" binding:"omitempty,url"`
 		Bio      *string `json:"bio" binding:"omitempty"`
-	} `json:"user" binding:"required"`
+	} `json:"user"`
 }
 
 func (req *updateUserReq) bind(c *gin.Context, p *db.UpdateUserParams) error {
 	if err := c.ShouldBindJSON(req); err != nil {
 		return err
 	}
-	p.Email = req.User.Email 
+	p.Email = req.User.Email
 	p.Username = req.User.Username
 	p.Password = req.User.Password
 	p.Image = req.User.Image
@@ -55,34 +56,34 @@ func (req *updateUserReq) bind(c *gin.Context, p *db.UpdateUserParams) error {
 }
 
 // UpdateUser godoc
-// @Summary Update user
+// @Summary 	Update user
 // @Description Update user
-// @Tags user
-// @Accept json
-// @Produce json
-// @Param user body updateUserReq true "User"
-// @Success 200 {object} userResponse
-// @Failure 401 {object} Error
-// @Failure 404 {object} Error
-// @Failure 500 {object} Error
-// @Security Bearer
+// @Tags 		user
+// @Accept 		json
+// @Produce 	json
+// @Param 		user 	body 		updateUserReq 	true 	"User"
+// @Success 	200 	{object} 	userResponse
+// @Failure 	401 	{object} 	Error
+// @Failure 	404 	{object} 	Error
+// @Failure 	422 	{object} 	Error
+// @Failure 	500 	{object} 	Error
+// @Security 	Bearer
 // @Router /user [put]
-func (s *Server) UpdateUser(c *gin.Context) {
-	// id := getFromJWT(c)
+func (s *Server) UpdateUser(c *gin.Context) { // TODO:✅ PUT /user - UpdateUser
 	id := GetIDFromHeader(c)
 	var (
 		req updateUserReq
 		p   db.UpdateUserParams
 	)
 	if err := req.bind(c, &p); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, NewError(err))
+		c.JSON(http.StatusUnprocessableEntity, NewValidationError(err))
 		return
 	}
 	p.ID = id
 	u, err := Nullable(s.store.UpdateUser(c.Request.Context(), p))
 	if err != nil {
-		if constraintErr(err) != nil {
-			c.JSON(http.StatusUnprocessableEntity, NewError(err))
+		if apiErr := convertToApiErr(err); apiErr != nil {
+			c.JSON(http.StatusUnprocessableEntity, NewValidationError(apiErr))
 		}
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 	}
@@ -111,19 +112,26 @@ func newProfileResponse(u *db.User, isFollowing bool) *profileResponse {
 }
 
 // GetProfile godoc
-// @Summary Get profile
+// @Summary 	Get profile
 // @Description Get profile of any user by username. Authentification optional
-// @Tags user
-// @Accept  json
-// @Produce  json
-// @Param username path string true "Username"
-// @Success 200 {object} profileResponse
-// @Failure 404 {object} Error
-// @Failure 500 {object} Error
-// @Security Bearer
+// @Tags 		user
+// @Accept  	json
+// @Produce  	json
+// @Param 		username path 		string 		true 	"Username"
+// @Success 	200 	{object} 	profileResponse
+// @Failure 	404 	{object} 	Error
+// @Failure 	500 	{object} 	Error
+// @Security 	Bearer || {}
 // @Router /profiles/{username} [get]
-func (s *Server) GetProfile(c *gin.Context) {
-	followerID := GetIDFromHeader(c)
+func (s *Server) GetProfile(c *gin.Context) { // TODO:✅ GET /profiles/:username - GetProfile
+	var (
+		followerID  string
+		isFollowing bool
+	)
+	token := GetJWTFromHeader(c)
+	if token != "" {
+		followerID = GetIDFromToken(token)
+	}
 	username := c.Param("username")
 	user, err := Nullable(s.store.GetUserByUsername(c.Request.Context(), username))
 	if err != nil {
@@ -134,31 +142,34 @@ func (s *Server) GetProfile(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"error": "user not found"})
 		return
 	}
-	p := db.IsFollowingParams{
-		FollowerID:  followerID,
-		FollowingID: user.ID,
+	if followerID != "" {
+		p := db.IsFollowingParams{
+			FollowerID:  followerID,
+			FollowingID: user.ID,
+		}
+		isFollowing, err = s.store.IsFollowing(c.Request.Context(), p)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
 	}
-	isFollowing, err := s.store.IsFollowing(c.Request.Context(), p)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
+
 	c.JSON(http.StatusOK, newProfileResponse(user, isFollowing))
 }
 
 // FollowUser godoc
-// @Summary Follow user by username
+// @Summary 	Follow user by username
 // @Description Follow user
-// @Tags user
-// @Accept  json
-// @Produce  json
-// @Param username path string true "Username"
-// @Success 200 {object} profileResponse
-// @Failure 404 {object} Error
-// @Failure 500 {object} Error
+// @Tags 		user
+// @Accept  	json
+// @Produce  	json
+// @Param 		username path 		string 		true 	"Username"
+// @Success 	200 	{object} 	profileResponse
+// @Failure 	404 	{object} 	Error
+// @Failure 	500 	{object} 	Error
 // @Security Bearer
 // @Router /profiles/{username}/follow [post]
-func (s *Server) FollowUser(c *gin.Context) {
+func (s *Server) FollowUser(c *gin.Context) { // TODO:✅ POST /profiles/:username/follow - FollowUser
 	followerID := GetIDFromHeader(c)
 	username := c.Param("username")
 	user, err := Nullable(s.store.GetUserByUsername(c.Request.Context(), username))
@@ -182,18 +193,18 @@ func (s *Server) FollowUser(c *gin.Context) {
 }
 
 // UnfollowUser godoc
-// @Summary Unfollow user by username
+// @Summary 	Unfollow user by username
 // @Description Unfollow user
-// @Tags user
-// @Accept  json
-// @Produce  json
-// @Param username path string true "Username"
-// @Success 200 {object} profileResponse
-// @Failure 404 {object} Error
-// @Failure 500 {object} Error
-// @Security Bearer
+// @Tags 		user
+// @Accept  	json
+// @Produce  	json
+// @Param 		username path		string		true 	"Username"
+// @Success 	200		{object}	profileResponse
+// @Failure 	404 	{object}	Error
+// @Failure 	500 	{object}	Error
+// @Security 	Bearer
 // @Router /profiles/{username}/follow [delete]
-func (s *Server) UnfollowUser(c *gin.Context) {
+func (s *Server) UnfollowUser(c *gin.Context) { // TODO:✅ DELETE /profiles/:username/follow - UnfollowUser
 	followerID := GetIDFromHeader(c)
 	username := c.Param("username")
 	user, err := Nullable(s.store.GetUserByUsername(c.Request.Context(), username))

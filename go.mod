@@ -7,8 +7,9 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.0.0-rc.1
 	github.com/golang-migrate/migrate/v4 v4.15.2
 	github.com/jackc/pgconn v1.8.0
+	github.com/jackc/pgtype v1.6.2
 	github.com/jackc/pgx/v4 v4.10.1
-	github.com/lib/pq v1.10.2
+	github.com/rs/xid v1.2.1
 	github.com/spf13/viper v1.7.0
 	github.com/stretchr/testify v1.8.1
 	github.com/swaggo/files v1.0.1
@@ -43,12 +44,11 @@ require (
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgproto3/v2 v2.0.7 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20200714003250-2b9c44734f2b // indirect
-	github.com/jackc/pgtype v1.6.2 // indirect
-	github.com/jackc/puddle v1.1.3 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
+	github.com/lib/pq v1.10.2 // indirect
 	github.com/magiconair/properties v1.8.1 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
 	github.com/mattn/go-isatty v0.0.17 // indirect

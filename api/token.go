@@ -48,6 +48,11 @@ func GetIDFromJWT(tokenString string) (string, error) {
 	return claims.Subject, nil
 }
 
+func GetIDFromToken(token string) string {
+	id, _ := GetIDFromJWT(token)
+	return id
+}
+
 func GetIDFromHeader(c *gin.Context) string {
 	tokenString := GetJWTFromHeader(c)
 	id, _ := GetIDFromJWT(tokenString)

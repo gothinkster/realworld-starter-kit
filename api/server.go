@@ -47,9 +47,20 @@ func (s *Server) MountHandlers() {
 	profiles.DELETE("/:username/follow", s.UnfollowUser)
 
 	articles := api.Group("/articles")
+	articles.GET("", s.ListArticles)
 	articles.GET("/:slug", s.GetArticle)
+	articles.GET("/:slug/comments", s.GetComments)
 	articles.Use(AuthMiddleware())
 	articles.POST("", s.CreateArticle)
+	articles.PUT("/:slug", s.UpdateArticle)
+	articles.DELETE("/:slug", s.DeleteArticle)
+	articles.POST("/:slug/comments", s.AddComment)
+	articles.DELETE("/:slug/comments/:id", s.DeleteComment)
+	articles.POST("/:slug/favorite", s.FavoriteArticle)
+	articles.DELETE("/:slug/favorite", s.UnfavoriteArticle)
+	
+	tags := api.Group("/tags")
+	tags.GET("", s.GetTags)
 }
 
 func (s *Server) MountSwaggerHandlers() {
@@ -64,4 +75,22 @@ func (s *Server) MountSwaggerHandlers() {
 
 func (s *Server) Start(addr string) error {
 	return s.router.Run(addr)
+}
+
+func (s *Server) findUniqueSlug(c *gin.Context, title string) (string, error) {
+	var (
+		found bool
+		uniqueSlug string
+	)
+	for !found {
+		uniqueSlug = createUniqueSlug(title)
+		articleID, err := NullableID(s.store.GetArticleIDBySlug(c, uniqueSlug))
+		if err != nil {
+			return "", err
+		}
+		if articleID == "" {
+			found = true
+		}	
+	}
+	return uniqueSlug, nil
 }
