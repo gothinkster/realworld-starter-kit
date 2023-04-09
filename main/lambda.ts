@@ -36,7 +36,7 @@ export async function handler(event: any, context: Context) {
     event,
     context,
     'PROMISE',
-  )
+  ).promise
   console.log({ event, result })
   return result
 }
