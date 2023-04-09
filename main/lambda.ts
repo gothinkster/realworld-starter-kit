@@ -21,6 +21,7 @@ export async function handler(event: any, context: Context) {
       app.getHttpAdapter().getInstance(),
     )
   }
-  console.log({ event, context })
-  serverlessExpress.proxy(lambdaProxyServer, event, context)
+  const result = serverlessExpress.proxy(lambdaProxyServer, event, context)
+  console.log({ event, context, result })
+  return result
 }
