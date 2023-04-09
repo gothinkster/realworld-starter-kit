@@ -28,7 +28,6 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/credentials
       - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.4.4
@@ -41,7 +40,9 @@ jobs:
         with:
           name: build
 
-      - id: terraform
-        run: |
+      - run: |
+          pipx install awscli-local
           pipx install terraform-local
-          make localstack/terraform
+          ./scripts/aws-local/init.sh
+
+      - run: make localstack/terraform
