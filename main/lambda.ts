@@ -19,9 +19,24 @@ export async function handler(event: any, context: Context) {
     await app.init()
     lambdaProxyServer = serverlessExpress.createServer(
       app.getHttpAdapter().getInstance(),
+      undefined,
+      [
+        'application/octet-stream',
+        'font/eot',
+        'font/opentype',
+        'font/otf',
+        'image/jpeg',
+        'image/png',
+        'image/svg+xml',
+      ],
     )
   }
-  const result = serverlessExpress.proxy(lambdaProxyServer, event, context)
-  console.log({ event, context, result })
+  const result = serverlessExpress.proxy(
+    lambdaProxyServer,
+    event,
+    context,
+    'PROMISE',
+  )
+  console.log({ event, result })
   return result
 }
