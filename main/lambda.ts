@@ -31,7 +31,7 @@ export async function handler(event: any, context: Context) {
       ],
     )
   }
-  const result = serverlessExpress.proxy(
+  const result = await serverlessExpress.proxy(
     lambdaProxyServer,
     event,
     context,
