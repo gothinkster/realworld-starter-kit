@@ -1,6 +1,7 @@
 package api
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"time"
@@ -334,7 +335,7 @@ type updateArticleReq struct {
 	} `json:"article" binding:"required"`
 }
 
-func (req *updateArticleReq) bind(c *gin.Context, p *db.UpdateArticleParams) error {
+func (req *updateArticleReq) bind(c *gin.Context, p *db.UpdateArticleTxParams) error {
 	if err := c.ShouldBindJSON(req); err != nil {
 		return err
 	}
@@ -363,41 +364,27 @@ func (s *Server) UpdateArticle(c *gin.Context) { // TODO:✅ PUT /articles/:slug
 	slug := c.Param("slug")
 	var (
 		req updateArticleReq
-		p   db.UpdateArticleParams
+		p   db.UpdateArticleTxParams
 	)
 	if err := req.bind(c, &p); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, NewValidationError(err))
 	}
 	p.AuthorID = authorID
-	articleID, err := NullableID(s.store.GetArticleIDBySlug(c, slug))
+	p.Slug = &slug
+	articleTx, err := s.store.UpdateArticleTx(c, p)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, NewValidationError(err))
-		return
-	}
-	if articleID == "" {
-		c.JSON(http.StatusNotFound, gin.H{"error": "article not found"})
-		return
-	}
-	p.ID = articleID
-	if p.Slug != nil {
-		uniqueSlug, err := s.findUniqueSlug(c, *p.Slug)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, NewValidationError(err))
+		if errors.Is(err, db.ErrNotFound) {
+			c.JSON(http.StatusNotFound, NewError(err))
 			return
 		}
-		p.Slug = &uniqueSlug
-	}
-	updatedArticle, err := s.store.UpdateArticle(c, p)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, NewValidationError(err))
+		if errors.Is(err, db.ErrForbidden) {
+			c.JSON(http.StatusForbidden, NewError(err))
+			return
+		}
+		c.JSON(http.StatusInternalServerError, NewError(err))
 		return
 	}
-	article, err := s.store.GetArticleBySlug(c, updatedArticle.Slug)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, NewValidationError(err))
-		return
-	}
-	c.JSON(http.StatusOK, newArticleResponse(article, false, false))
+	c.JSON(http.StatusOK, newArticleResponse(articleTx.Article, articleTx.Favorited, articleTx.Following))
 }
 
 // DeleteArticle godoc
@@ -546,7 +533,23 @@ func (s *Server) GetComments(c *gin.Context) { // TODO:✅ GET /articles/:slug/c
 		c.JSON(http.StatusInternalServerError, NewError(err))
 		return
 	}
-	c.JSON(http.StatusOK, newCommentsResponse(s, c, followerID, comments))   // UGLY HACK:
+	var isFollowingList []bool
+	if len(comments) != 0 && followerID != ""{
+		var authorIDs []string
+		for _, comment := range comments {
+			authorIDs = append(authorIDs, *comment.AuthorID)
+		}
+		p := db.IsFollowingListParams{
+			FollowerID: followerID,
+			FollowingID: authorIDs, 
+		}
+		isFollowingList, err = s.store.IsFollowingList(c, p)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, NewError(err))
+			return
+		}
+	}
+	c.JSON(http.StatusOK, newCommentsResponse(comments, isFollowingList))   // UGLY HACK:
 }
 
 type commentsResponse struct {
@@ -565,10 +568,8 @@ type commentsResponse struct {
 }
 
 func newCommentsResponse(
-	s *Server,
-	c *gin.Context, 
-	followerID string,
 	comments []*db.GetCommentsBySlugRow,
+	isFollowingList []bool,
 	) *commentsResponse {
 	res := &commentsResponse{
 		Comments: make([]struct {
@@ -592,16 +593,9 @@ func newCommentsResponse(
 		res.Comments[i].Author.Username = comment.Username
 		res.Comments[i].Author.Bio = comment.Bio
 		res.Comments[i].Author.Image = comment.Image
-		p := db.IsFollowingParams{
-			FollowerID: followerID,
-			FollowingID: *comment.AuthorID,			
+		if len(isFollowingList) != 0 {
+			res.Comments[i].Author.Following = isFollowingList[i] // TODO:✅ GET /articles/:slug/comments - GetComments, add following
 		}
-		isFollowing, err := s.store.IsFollowing(c, p)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, NewError(err))
-			return nil
-		}
-		res.Comments[i].Author.Following = isFollowing // TODO:✅ GET /articles/:slug/comments - GetComments, add following
 	}
 
 	return res
@@ -622,14 +616,25 @@ func newCommentsResponse(
 // @Security Bearer
 // @Router /articles/{slug}/comments/{id} [delete]
 func (s *Server) DeleteComment(c *gin.Context) { // TODO:✅ DELETE /articles/:slug/comments/:id - DeleteComment
+	userID := GetIDFromHeader(c)
 	// slug := c.Param("slug")
 	id := c.Param("id")
-	err := s.store.DeleteComment(c, id)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, NewValidationError(err))
-		return
+	p := db.DeleteCommentTxParams{
+		CommentID: id,
+		UserID: userID,
 	}
-	c.JSON(http.StatusOK, gin.H{"message": "comment deleted"})
+	err := s.store.DeleteCommentTx(c, p)
+	if err != nil {
+		if errors.Is(err, db.ErrForbidden) {
+			c.JSON(http.StatusForbidden, NewError(err))
+			return
+		}
+		if errors.Is(err, db.ErrNotFound) {
+			c.JSON(http.StatusOK, gin.H{})
+			return
+		}
+	}
+	c.JSON(http.StatusOK, gin.H{})
 }
 
 // FavoriteArticle godoc
@@ -654,7 +659,7 @@ func (s *Server) FavoriteArticle(c *gin.Context) { // TODO:✅ POST /articles/:s
 	}
 	a, err := s.store.FavoriteArticleTx(c, p)
 	if err != nil {
-		if err == db.ErrArticleNotFound {
+		if err == db.ErrNotFound {
 			c.JSON(http.StatusNotFound, NewError(err))
 			return
 		}
@@ -686,7 +691,7 @@ func (s *Server) UnfavoriteArticle(c *gin.Context) { // TODO:✅ DELETE /article
 	}
 	a, err := s.store.UnfavoriteArticleTx(c, p)
 	if err != nil {
-		if err == db.ErrArticleNotFound {
+		if err == db.ErrNotFound {
 			c.JSON(http.StatusNotFound, NewError(err))
 			return
 		}

@@ -283,6 +283,24 @@ func (q *Queries) FavoriteArticle(ctx context.Context, arg FavoriteArticleParams
 	return err
 }
 
+const getArticleAuthorIDBySlug = `-- name: GetArticleAuthorIDBySlug :one
+SELECT id, author_id
+FROM articles
+WHERE slug = $1
+`
+
+type GetArticleAuthorIDBySlugRow struct {
+	ID       string `json:"id"`
+	AuthorID string `json:"author_id"`
+}
+
+func (q *Queries) GetArticleAuthorIDBySlug(ctx context.Context, slug string) (*GetArticleAuthorIDBySlugRow, error) {
+	row := q.db.QueryRow(ctx, getArticleAuthorIDBySlug, slug)
+	var i GetArticleAuthorIDBySlugRow
+	err := row.Scan(&i.ID, &i.AuthorID)
+	return &i, err
+}
+
 const getArticleBySlug = `-- name: GetArticleBySlug :one
 SELECT a.id,
        a.slug,
@@ -355,6 +373,20 @@ func (q *Queries) GetArticleIDBySlug(ctx context.Context, slug string) (string, 
 	var id string
 	err := row.Scan(&id)
 	return id, err
+}
+
+const getCommentAuthorID = `-- name: GetCommentAuthorID :one
+SELECT c.author_id
+FROM comments c
+WHERE c.id = $1
+LIMIT 1
+`
+
+func (q *Queries) GetCommentAuthorID(ctx context.Context, id string) (string, error) {
+	row := q.db.QueryRow(ctx, getCommentAuthorID, id)
+	var author_id string
+	err := row.Scan(&author_id)
+	return author_id, err
 }
 
 const getCommentsBySlug = `-- name: GetCommentsBySlug :many
@@ -439,6 +471,28 @@ func (q *Queries) GetTags(ctx context.Context) ([]string, error) {
 		return nil, err
 	}
 	return items, nil
+}
+
+const isFollowingList = `-- name: IsFollowingList :one
+SELECT ARRAY(
+  SELECT EXISTS (
+    SELECT 1 FROM follows
+    WHERE follower_id = $1 AND following_id = id
+  )
+  FROM unnest($2::text[]) AS id
+)::bool[]
+`
+
+type IsFollowingListParams struct {
+	FollowerID  string   `json:"follower_id"`
+	FollowingID []string `json:"following_id"`
+}
+
+func (q *Queries) IsFollowingList(ctx context.Context, arg IsFollowingListParams) ([]bool, error) {
+	row := q.db.QueryRow(ctx, isFollowingList, arg.FollowerID, arg.FollowingID)
+	var column_1 []bool
+	err := row.Scan(&column_1)
+	return column_1, err
 }
 
 const listArticles = `-- name: ListArticles :many

@@ -77,6 +77,12 @@ SELECT id
 FROM articles
 WHERE slug = $1;
 
+-- name: GetArticleAuthorIDBySlug :one
+SELECT id, author_id
+FROM articles
+WHERE slug = $1;
+
+
 -- name: DeleteArticle :exec
 DELETE FROM articles
 WHERE slug = $1 and author_id = $2;
@@ -292,6 +298,12 @@ LEFT JOIN users u2 ON f2.follower_id = u2.id
 WHERE u2.username = $1;
 
 
+-- name: GetCommentAuthorID :one
+SELECT c.author_id
+FROM comments c
+WHERE c.id = $1
+LIMIT 1;        
+
 -- name: DeleteComment :exec
 DELETE FROM comments
 WHERE id = $1;
@@ -314,3 +326,12 @@ WHERE user_id = $1 AND article_id = $2;
 -- name: GetTags :many
 SELECT name
 FROM tags;
+
+-- name: IsFollowingList :one
+SELECT ARRAY(
+  SELECT EXISTS (
+    SELECT 1 FROM follows
+    WHERE follower_id = $1 AND following_id = id
+  )
+  FROM unnest(@following_id::text[]) AS id
+)::bool[];

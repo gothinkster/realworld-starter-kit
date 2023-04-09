@@ -24,14 +24,17 @@ type Querier interface {
 	DoesFavoriteExist(ctx context.Context, arg DoesFavoriteExistParams) (bool, error)
 	FavoriteArticle(ctx context.Context, arg FavoriteArticleParams) error
 	FollowUser(ctx context.Context, arg FollowUserParams) error
+	GetArticleAuthorIDBySlug(ctx context.Context, slug string) (*GetArticleAuthorIDBySlugRow, error)
 	GetArticleBySlug(ctx context.Context, slug string) (*GetArticleBySlugRow, error)
 	GetArticleIDBySlug(ctx context.Context, slug string) (string, error)
+	GetCommentAuthorID(ctx context.Context, id string) (string, error)
 	GetCommentsBySlug(ctx context.Context, slug string) ([]*GetCommentsBySlugRow, error)
 	GetTags(ctx context.Context) ([]string, error)
 	GetUser(ctx context.Context, id string) (*User, error)
 	GetUserByEmail(ctx context.Context, email string) (*User, error)
 	GetUserByUsername(ctx context.Context, username string) (*User, error)
 	IsFollowing(ctx context.Context, arg IsFollowingParams) (bool, error)
+	IsFollowingList(ctx context.Context, arg IsFollowingListParams) ([]bool, error)
 	ListArticles(ctx context.Context, arg ListArticlesParams) ([]*ListArticlesRow, error)
 	ListArticlesByAuthor(ctx context.Context, arg ListArticlesByAuthorParams) ([]*ListArticlesByAuthorRow, error)
 	ListArticlesByFavorited(ctx context.Context, arg ListArticlesByFavoritedParams) ([]*ListArticlesByFavoritedRow, error)
