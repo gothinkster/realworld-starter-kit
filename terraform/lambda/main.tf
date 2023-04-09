@@ -78,6 +78,10 @@ resource "aws_lambda_function" "realworld_api_function" {
   memory_size      = 516
 }
 
+output "FUNCTION_NAME" {
+  value = aws_lambda_function.realworld_api_function.function_name
+}
+
 # Function URL
 resource "aws_lambda_function_url" "realworld_api_function_url" {
   function_name      = aws_lambda_function.realworld_api_function.arn
