@@ -41,8 +41,7 @@ jobs:
         with:
           name: build
 
-      - working-directory: ./terraform/lambda
-        id: terraform
+      - id: terraform
         run: |
           pipx install terraform-local
           make localstack/terraform
