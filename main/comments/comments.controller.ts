@@ -88,7 +88,6 @@ export class CommentsController {
         comments.length > 0
           ? {
               next: buildUrlToPath(
-                req,
                 `articles/${slug}/comments`,
                 pagination.getNextPage().toParams(),
               ),
@@ -109,7 +108,7 @@ export class CommentsController {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
     await this.commentsService.deleteCommentFromArticle(id, slug, me)
     return {
-      links: { article: buildUrlToPath(req, `/articles/${slug}`) },
+      links: { article: buildUrlToPath(`/articles/${slug}`) },
     }
   }
 }
@@ -125,10 +124,10 @@ function createCommentDTO(
     body: comment.body,
     createdAt: comment.createdAt,
     updatedAt: comment.updatedAt,
-    author: createAuthorDTO(req, author),
+    author: createAuthorDTO(author),
     links: {
-      article: buildUrlToPath(req, `/articles/${articleSlug}`),
-      author: buildUrlToPath(req, `/profiles/${author.username}`),
+      article: buildUrlToPath(`/articles/${articleSlug}`),
+      author: buildUrlToPath(`/profiles/${author.username}`),
     },
   } as const
 }

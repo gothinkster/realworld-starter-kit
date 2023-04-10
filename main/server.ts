@@ -1,15 +1,24 @@
 import { NestFactory } from '@nestjs/core'
 import { SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from './app.module'
-import { API_PORT, GLOBAL_PREFIX } from './global/constants'
-import { createOpenAPI } from './nest/openapi'
+import { getEnvs } from './environment'
+import { createPreConfiguredOpenAPIDocumentBuilder } from './nest/openapi'
 
 async function bootstrapServer(): Promise<void> {
+  const { API_PORT, API_PREFIX, BASE_URL } = getEnvs()
   const app = await NestFactory.create(AppModule)
-  app.setGlobalPrefix(GLOBAL_PREFIX)
-  SwaggerModule.setup('docs', app, createOpenAPI(app), {
-    useGlobalPrefix: true,
-  })
+  app.setGlobalPrefix(API_PREFIX)
+  SwaggerModule.setup(
+    'docs',
+    app,
+    SwaggerModule.createDocument(
+      app,
+      createPreConfiguredOpenAPIDocumentBuilder().addServer(BASE_URL).build(),
+    ),
+    {
+      useGlobalPrefix: true,
+    },
+  )
   await app.listen(API_PORT)
 }
 

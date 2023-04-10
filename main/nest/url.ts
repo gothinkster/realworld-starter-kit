@@ -1,24 +1,19 @@
-import { GLOBAL_PREFIX } from '../global/constants'
+import { getEnvs } from '../environment'
 
 export function buildUrlToPath(
-  req,
   path: string,
   ...paramsArray: Record<string, string | number>[]
 ): string {
-  path = path.replace(/^\//, '').replace(/\/$/, '')
-  let url = `${req.protocol}://${req.get('host')}` + `/${GLOBAL_PREFIX}/${path}`
+  const { BASE_API_URL } = getEnvs()
 
-  const query = new URLSearchParams()
+  path = path.replace(/^\//, '').replace(/\/$/, '')
+  const url = new URL(`${BASE_API_URL}/${path}`)
+
   paramsArray.forEach((params) => {
     for (const [key, value] of Object.entries(params)) {
-      query.set(key, String(value))
+      url.searchParams.set(key, String(value))
     }
   })
-  const queryString = query.toString()
 
-  if (queryString) {
-    url += `?${queryString}`
-  }
-
-  return url
+  return url.toString()
 }

@@ -117,13 +117,12 @@ export class ArticlesController {
     const articles = await view.getFeed(pagination)
     return {
       articles: articles.map((article) =>
-        createArticleDTO(req, article, article.author, undefined),
+        createArticleDTO(article, article.author, undefined),
       ),
       links:
         articles.length > 0
           ? {
               next: buildUrlToPath(
-                req,
                 'articles/feed',
                 pagination.getNextPage().toParams(),
               ),
@@ -148,13 +147,12 @@ export class ArticlesController {
     const articles = await view.getArticlesByFilters(filters, pagination)
     return {
       articles: articles.map((article) =>
-        createArticleDTO(req, article, article.author, undefined),
+        createArticleDTO(article, article.author, undefined),
       ),
       links:
         articles.length > 0
           ? {
               next: buildUrlToPath(
-                req,
                 'articles',
                 filters.toParams(),
                 pagination.getNextPage().toParams(),
@@ -174,7 +172,7 @@ export class ArticlesController {
     )
     const article = await view.getArticle(slug)
     return {
-      article: createArticleDTO(req, article, article.author),
+      article: createArticleDTO(article, article.author),
     }
   }
 
@@ -201,7 +199,7 @@ export class ArticlesController {
     const cms = this.articlesService.getCMS(me)
     const article = await cms.createArticle(body.article)
     return {
-      article: createArticleDTO(req, article, me),
+      article: createArticleDTO(article, me),
     }
   }
 
@@ -217,7 +215,7 @@ export class ArticlesController {
     const cms = this.articlesService.getCMS(me)
     const article = await cms.updateArticle(slug, body.article)
     return {
-      article: createArticleDTO(req, article, me),
+      article: createArticleDTO(article, me),
     }
   }
 
@@ -236,7 +234,7 @@ export class ArticlesController {
     const cms = this.articlesService.getCMS(me)
     const article = await cms.publishArticle(slug)
     return {
-      article: createArticleDTO(req, article, me),
+      article: createArticleDTO(article, me),
     }
   }
 
@@ -247,13 +245,12 @@ export class ArticlesController {
     const cms = this.articlesService.getCMS(me)
     const article = await cms.unpublishArticle(slug)
     return {
-      article: createArticleDTO(req, article, me),
+      article: createArticleDTO(article, me),
     }
   }
 }
 
 function createArticleDTO(
-  req,
   article: Article & Dated & Sluged & Tagged,
   author: Profile,
   favorited?: boolean,
@@ -267,11 +264,11 @@ function createArticleDTO(
     tags: article.tags,
     createdAt: article.createdAt,
     updatedAt: article.updatedAt,
-    author: createAuthorDTO(req, author),
+    author: createAuthorDTO(author),
     links: {
-      self: buildUrlToPath(req, `articles/${article.slug}`),
-      author: buildUrlToPath(req, `profiles/${author.username}`),
-      comments: buildUrlToPath(req, `articles/${article.slug}/comments`),
+      self: buildUrlToPath(`articles/${article.slug}`),
+      author: buildUrlToPath(`profiles/${author.username}`),
+      comments: buildUrlToPath(`articles/${article.slug}/comments`),
     },
   } as const
 }

@@ -12,7 +12,8 @@ import {
 } from '@nestjs/passport'
 import * as jwt from 'jsonwebtoken'
 import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt'
-import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../global/constants'
+import { Observable } from 'rxjs'
+import { getEnvs } from '../environment'
 
 @Injectable()
 export class JWTAuthGuard extends AuthGuard('jwt') {
@@ -20,7 +21,9 @@ export class JWTAuthGuard extends AuthGuard('jwt') {
     super()
   }
 
-  canActivate(context: ExecutionContext) {
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise<boolean> | Observable<boolean> {
     // Add your custom authentication logic here
     // for example, call super.logIn(request) to establish a session.
     return super.canActivate(context)
@@ -46,6 +49,7 @@ export const AuthIsOptional = () => SetMetadata(authIsOptionalString, true)
 @Injectable()
 export class JWTAuthPassport extends NestGuardStrategyFor(JWTStrategy) {
   constructor() {
+    const { AUDIENCE, TOKEN_PRIVATE_KEY } = getEnvs()
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
@@ -68,6 +72,7 @@ export function getUserFromHeaders(
   headers: Record<string, string>,
   required: boolean = true,
 ): User | null {
+  const { AUDIENCE, TOKEN_PRIVATE_KEY } = getEnvs()
   const authorization: string = headers.authorization
 
   if (!authorization) {

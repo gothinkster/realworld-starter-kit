@@ -68,6 +68,8 @@ resource "aws_lambda_function" "realworld_api_function" {
   environment {
     variables = {
       DATABASE_URL = var.DATABASE_URL
+      BASE_URL     = aws_api_gateway_deployment.deployment.invoke_url
+      API_PREFIX = ''
     }
   }
   filename         = "${path.module}/../../build.zip"
@@ -151,8 +153,6 @@ resource "aws_api_gateway_method_response" "options_200" {
     "method.response.header.Access-Control-Allow-Methods"     = true
     "method.response.header.Access-Control-Allow-Credentials" = true
   }
-
-  depends_on = [aws_api_gateway_method.options_method]
 }
 
 resource "aws_api_gateway_integration" "options_integration" {
@@ -162,8 +162,6 @@ resource "aws_api_gateway_integration" "options_integration" {
 
   type             = "MOCK"
   content_handling = "CONVERT_TO_TEXT"
-
-  depends_on = [aws_api_gateway_method.options_method]
 }
 
 resource "aws_api_gateway_integration_response" "options_integration_response" {
@@ -177,11 +175,6 @@ resource "aws_api_gateway_integration_response" "options_integration_response" {
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
     "method.response.header.Access-Control-Allow-Methods" = "'OPTIONS,DELETE,GET,HEAD,PATCH,POST,PUT'"
   }
-
-  depends_on = [
-    aws_api_gateway_method_response.options_200,
-    aws_api_gateway_integration.options_integration,
-  ]
 }
 
 # Deployment
@@ -191,7 +184,6 @@ resource "aws_api_gateway_deployment" "deployment" {
 
   depends_on = [
     aws_api_gateway_integration.options_integration,
-    aws_api_gateway_integration.request_integration,
   ]
 }
 
@@ -201,13 +193,7 @@ resource "aws_lambda_permission" "allow_api_gateway" {
   statement_id  = "AllowExecutionFromApiGateway"
   action        = "lambda:InvokeFunction"
   principal     = "apigateway.amazonaws.com"
-
-  source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
-
-  depends_on = [
-    aws_api_gateway_rest_api.api,
-    aws_api_gateway_resource.proxy,
-  ]
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
 }
 
 

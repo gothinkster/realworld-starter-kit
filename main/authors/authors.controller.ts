@@ -61,7 +61,7 @@ export class AuthorsController {
   @Get('me')
   async getCurrent(@Req() req) {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
-    return createAuthorProfileBody(req, me)
+    return createAuthorProfileBody(me)
   }
 
   @HttpCode(HttpStatus.CREATED)
@@ -74,7 +74,7 @@ export class AuthorsController {
       req.user,
       body.profile,
     )
-    return createAuthorProfileBody(req, me)
+    return createAuthorProfileBody(me)
   }
 
   @HttpCode(HttpStatus.OK)
@@ -87,7 +87,7 @@ export class AuthorsController {
       req.user,
       body.profile,
     )
-    return createAuthorProfileBody(req, me)
+    return createAuthorProfileBody(me)
   }
 
   @HttpCode(HttpStatus.OK)
@@ -100,7 +100,7 @@ export class AuthorsController {
       req.user,
       body.profile,
     )
-    return createAuthorProfileBody(req, me)
+    return createAuthorProfileBody(me)
   }
 
   @HttpCode(HttpStatus.CREATED)
@@ -109,7 +109,7 @@ export class AuthorsController {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
     const profile = await this.authorsService.getAuthorByUsername(username)
     await me.follow(profile)
-    return createAuthorProfileBody(req, profile, true)
+    return createAuthorProfileBody(profile, true)
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
@@ -118,7 +118,7 @@ export class AuthorsController {
     const me = await this.authorsService.getUserAuthorProfile(req.user)
     const profile = await this.authorsService.getAuthorByUsername(username)
     await me.unfollow(profile)
-    return createAuthorProfileBody(req, profile, false)
+    return createAuthorProfileBody(profile, false)
   }
 
   @HttpCode(HttpStatus.OK)
@@ -131,20 +131,16 @@ export class AuthorsController {
       const me = await this.authorsService.getUserAuthorProfile(req.user)
       following = await me.isFollowing(author)
     }
-    return createAuthorProfileBody(req, author, following)
+    return createAuthorProfileBody(author, following)
   }
 }
 
-function createAuthorProfileBody(
-  req: Request,
-  author: Profile,
-  following?: boolean,
-) {
+function createAuthorProfileBody(author: Profile, following?: boolean) {
   return {
     profile: {
-      ...createAuthorDTO(req, author, following),
+      ...createAuthorDTO(author, following),
       links: {
-        articles: buildUrlToPath(req, 'articles', {
+        articles: buildUrlToPath('articles', {
           author: author.username,
         }),
       },
@@ -152,7 +148,7 @@ function createAuthorProfileBody(
   } as const
 }
 
-export function createAuthorDTO(req, author: Profile, following?: boolean) {
+export function createAuthorDTO(author: Profile, following?: boolean) {
   return {
     username: author.username,
     bio: author.bio,

@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken'
-import { AUDIENCE, TOKEN_PRIVATE_KEY } from '../global/constants'
+import { getEnvs } from '../environment'
 import { User } from '../nest/jwt.guard'
 import { CreateUserDTO } from './accounts.controller'
 import { AccountEntity } from './accounts.entity'
@@ -29,6 +29,7 @@ export class UsersService {
   }
 
   getJWTResponse(user: User) {
+    const { AUDIENCE, TOKEN_PRIVATE_KEY } = getEnvs()
     return {
       access_token: jwt.sign(
         { account_id: user.id, email: user.email },
