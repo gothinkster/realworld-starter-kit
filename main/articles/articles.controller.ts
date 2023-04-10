@@ -9,8 +9,9 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common'
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger'
 import { z } from 'zod'
+import { zodToJsonSchema } from 'zod-to-json-schema'
 import { createAuthorDTO } from '../authors/authors.controller'
 import { AuthorsService, Profile } from '../authors/authors.service'
 import {
@@ -46,24 +47,16 @@ const tags = z
   .array(z.string())
   .describe('The article tags. Example: ["dragons", "training"]')
 
+const article = z.object({ title, description, body, tags })
+
 export const CreateArticleDTO = z.object({
-  article: z.object({
-    title,
-    description,
-    body,
-    tags,
-  }),
+  article,
 })
 
 type CreateArticleBody = z.infer<typeof CreateArticleDTO>
 
 export const UpdateArticleDTO = z.object({
-  article: z.object({
-    title: title.optional(),
-    description: description.optional(),
-    body: body.optional(),
-    tags: tags.optional(),
-  }),
+  article: article.partial(),
 })
 
 type UpdateArticleBody = z.infer<typeof UpdateArticleDTO>
@@ -175,17 +168,20 @@ export class ArticlesController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post(':slug/favorite')
-  favoriteArticle(@RequireUser() user: User, @Param() slug: string) {
+  favoriteArticle(@RequireUser() user: User, @Param('slug') slug: string) {
     return undefined
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':slug/favorite')
-  unfavoriteArticle(@RequireUser() user: User, @Param() slug: string) {
+  unfavoriteArticle(@RequireUser() user: User, @Param('slug') slug: string) {
     return undefined
   }
 
   @HttpCode(HttpStatus.CREATED)
+  @ApiBody({
+    schema: zodToJsonSchema(CreateArticleDTO) as any,
+  })
   @Post()
   async createArticle(
     @RequireUser() user: User,
@@ -201,6 +197,9 @@ export class ArticlesController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @ApiBody({
+    schema: zodToJsonSchema(UpdateArticleDTO) as any,
+  })
   @Put(':slug')
   async updateArticle(
     @RequireUser() user: User,

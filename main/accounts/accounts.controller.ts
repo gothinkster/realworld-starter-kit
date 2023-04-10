@@ -1,7 +1,8 @@
 import { Controller, Injectable, Post, Req, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
-import { ApiBasicAuth, ApiTags } from '@nestjs/swagger'
+import { ApiBasicAuth, ApiBody, ApiTags } from '@nestjs/swagger'
 import { z } from 'zod'
+import { zodToJsonSchema } from 'zod-to-json-schema'
 import { ZodBody } from '../nest/validation.utils'
 import { UsersService } from './accounts.service'
 
@@ -33,6 +34,9 @@ export class BasicAuthGuard extends AuthGuard('basic') {}
 export class AccountsController {
   constructor(private service: UsersService) {}
 
+  @ApiBody({
+    schema: zodToJsonSchema(CreateUserBody) as any,
+  })
   @Post('signup')
   async signup(
     @ZodBody(CreateUserBody)

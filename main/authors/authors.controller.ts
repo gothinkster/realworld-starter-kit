@@ -10,8 +10,9 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common'
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger'
 import { z } from 'zod'
+import { zodToJsonSchema } from 'zod-to-json-schema'
 import {
   AuthIsOptional,
   GetUser,
@@ -42,14 +43,8 @@ const CreateProfileBody = z.object({
 
 type CreateProfileBody = z.infer<typeof CreateProfileBody>
 
-const UpdateProfileDTO = z.object({
-  username: username.optional(),
-  bio: bio.optional(),
-  image: image.optional(),
-})
-
 const UpdateProfileBody = z.object({
-  profile: UpdateProfileDTO,
+  profile: CreateProfileDTO.partial(),
 })
 
 type UpdateProfileBody = z.infer<typeof UpdateProfileBody>
@@ -68,6 +63,9 @@ export class AuthorsController {
     return createAuthorProfileBody(me)
   }
 
+  @ApiBody({
+    schema: zodToJsonSchema(CreateProfileBody) as any,
+  })
   @HttpCode(HttpStatus.CREATED)
   @Post()
   async create(
@@ -81,6 +79,9 @@ export class AuthorsController {
     return createAuthorProfileBody(me)
   }
 
+  @ApiBody({
+    schema: zodToJsonSchema(CreateProfileBody) as any,
+  })
   @HttpCode(HttpStatus.OK)
   @Put()
   async update(
@@ -94,6 +95,9 @@ export class AuthorsController {
     return createAuthorProfileBody(me)
   }
 
+  @ApiBody({
+    schema: zodToJsonSchema(UpdateProfileBody) as any,
+  })
   @HttpCode(HttpStatus.OK)
   @Patch()
   async partialUpdate(
