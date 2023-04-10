@@ -69,7 +69,7 @@ resource "aws_lambda_function" "realworld_api_function" {
     variables = {
       DATABASE_URL = var.DATABASE_URL
       BASE_URL     = aws_api_gateway_deployment.deployment.invoke_url
-      API_PREFIX = ''
+      API_PREFIX   = ""
     }
   }
   filename         = "${path.module}/../../build.zip"
