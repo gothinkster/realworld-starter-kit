@@ -1,4 +1,10 @@
-import { HttpException, HttpStatus, ValidationPipe } from '@nestjs/common'
+import {
+  Body,
+  HttpException,
+  HttpStatus,
+  Query,
+  ValidationPipe,
+} from '@nestjs/common'
 import { PipeTransform } from '@nestjs/common/interfaces/features/pipe-transform.interface'
 import { ZodError, ZodType } from 'zod'
 
@@ -28,4 +34,12 @@ export function createZodTransformer<ZT extends ZodType>(
       }
     },
   }
+}
+
+export function ZodBody<ZT extends ZodType>(schema: ZT) {
+  return Body(createZodTransformer(schema))
+}
+
+export function ZodQuery<ZT extends ZodType>(schema: ZT) {
+  return Query(createZodTransformer(schema))
 }

@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Delete,
   Get,
@@ -8,8 +7,6 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  Query,
-  Req,
   UseGuards,
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
@@ -17,10 +14,10 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { z } from 'zod'
 import { createAuthorDTO } from '../authors/authors.controller'
 import { AuthorsService, Profile } from '../authors/authors.service'
-import { JWTAuthGuard } from '../nest/jwt.guard'
+import { JWTAuthGuard, RequireUser, User } from '../nest/jwt.guard'
 import { Pagination, ZodPagination } from '../nest/pagination'
 import { buildUrlToPath } from '../nest/url'
-import { createZodTransformer } from '../nest/validation.utils'
+import { ZodBody, ZodQuery } from '../nest/validation.utils'
 import { Comment, CommentsService } from './comments.service'
 
 const CommentDTO = z.object({
@@ -49,27 +46,26 @@ export class CommentsController {
   @ApiBearerAuth()
   @Post()
   async addCommentToAnArticle(
-    @Req() req,
+    @RequireUser() user: User,
     @Param('slug') slug: string,
-    @Body(createZodTransformer(CreateCommentBody)) body: CreateCommentBody,
+    @ZodBody(CreateCommentBody) body: CreateCommentBody,
   ) {
-    const me = await this.authorsService.getUserAuthorProfile(req.user)
+    const me = await this.authorsService.getUserAuthorProfile(user)
     const comment = await this.commentsService.commentArticle(
       me,
       slug,
       body.comment.body,
     )
     return {
-      comment: createCommentDTO(req, slug, comment, me),
+      comment: createCommentDTO(slug, comment, me),
     } as const
   }
 
   @HttpCode(HttpStatus.OK)
   @Get()
   async getCommentsFromAnArticle(
-    @Req() req,
     @Param('slug') slug: string,
-    @Query(createZodTransformer(ZodPagination)) pagination: Pagination,
+    @ZodQuery(ZodPagination) pagination: Pagination,
   ) {
     const comments = await this.commentsService.getCommentsFromArticle(
       slug,
@@ -81,7 +77,7 @@ export class CommentsController {
           const author = await this.authorsService.getAuthorById(
             comment.authorId,
           )
-          return createCommentDTO(req, slug, comment, author)
+          return createCommentDTO(slug, comment, author)
         }),
       ),
       links:
@@ -101,11 +97,11 @@ export class CommentsController {
   @ApiBearerAuth()
   @Delete(':id')
   async deleteCommentFromArticle(
-    @Req() req,
+    @RequireUser() user: User,
     @Param('slug') slug: string,
     @Param(ParseIntPipe) id: number,
   ) {
-    const me = await this.authorsService.getUserAuthorProfile(req.user)
+    const me = await this.authorsService.getUserAuthorProfile(user)
     await this.commentsService.deleteCommentFromArticle(id, slug, me)
     return {
       links: { article: buildUrlToPath(`/articles/${slug}`) },
@@ -114,7 +110,6 @@ export class CommentsController {
 }
 
 function createCommentDTO(
-  req,
   articleSlug: string,
   comment: Comment,
   author: Profile,

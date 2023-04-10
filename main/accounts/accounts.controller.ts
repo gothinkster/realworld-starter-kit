@@ -1,15 +1,8 @@
-import {
-  Body,
-  Controller,
-  Injectable,
-  Post,
-  Req,
-  UseGuards,
-} from '@nestjs/common'
+import { Controller, Injectable, Post, Req, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiBasicAuth, ApiTags } from '@nestjs/swagger'
 import { z } from 'zod'
-import { createZodTransformer } from '../nest/validation.utils'
+import { ZodBody } from '../nest/validation.utils'
 import { UsersService } from './accounts.service'
 
 const CreateUserDTO = z.object({
@@ -42,7 +35,7 @@ export class AccountsController {
 
   @Post('signup')
   async signup(
-    @Body(createZodTransformer(CreateUserBody))
+    @ZodBody(CreateUserBody)
     body: CreateUserBody,
   ) {
     const user = await this.service.createUserAccount(body.user)

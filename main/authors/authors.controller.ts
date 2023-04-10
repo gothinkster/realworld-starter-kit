@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Delete,
   Get,
@@ -9,14 +8,19 @@ import {
   Patch,
   Post,
   Put,
-  Req,
   UseGuards,
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { z } from 'zod'
-import { AuthIsOptional, JWTAuthGuard } from '../nest/jwt.guard'
+import {
+  AuthIsOptional,
+  GetUser,
+  JWTAuthGuard,
+  RequireUser,
+  User,
+} from '../nest/jwt.guard'
 import { buildUrlToPath } from '../nest/url'
-import { createZodTransformer } from '../nest/validation.utils'
+import { ZodBody } from '../nest/validation.utils'
 import { AuthorsService, Profile } from './authors.service'
 
 const username = z
@@ -59,19 +63,19 @@ export class AuthorsController {
 
   @HttpCode(HttpStatus.OK)
   @Get('me')
-  async getCurrent(@Req() req) {
-    const me = await this.authorsService.getUserAuthorProfile(req.user)
+  async getCurrent(@RequireUser() user: User) {
+    const me = await this.authorsService.getUserAuthorProfile(user)
     return createAuthorProfileBody(me)
   }
 
   @HttpCode(HttpStatus.CREATED)
   @Post()
   async create(
-    @Req() req,
-    @Body(createZodTransformer(CreateProfileBody)) body: CreateProfileBody,
+    @RequireUser() user: User,
+    @ZodBody(CreateProfileBody) body: CreateProfileBody,
   ) {
     const me = await this.authorsService.createUserAuthorProfile(
-      req.user,
+      user,
       body.profile,
     )
     return createAuthorProfileBody(me)
@@ -80,11 +84,11 @@ export class AuthorsController {
   @HttpCode(HttpStatus.OK)
   @Put()
   async update(
-    @Req() req,
-    @Body(createZodTransformer(CreateProfileBody)) body: CreateProfileBody,
+    @RequireUser() user: User,
+    @ZodBody(CreateProfileBody) body: CreateProfileBody,
   ) {
     const me = await this.authorsService.updateUserAuthorProfile(
-      req.user,
+      user,
       body.profile,
     )
     return createAuthorProfileBody(me)
@@ -93,11 +97,11 @@ export class AuthorsController {
   @HttpCode(HttpStatus.OK)
   @Patch()
   async partialUpdate(
-    @Req() req,
-    @Body(createZodTransformer(UpdateProfileBody)) body: UpdateProfileBody,
+    @RequireUser() user: User,
+    @ZodBody(UpdateProfileBody) body: UpdateProfileBody,
   ) {
     const me = await this.authorsService.updateUserAuthorProfile(
-      req.user,
+      user,
       body.profile,
     )
     return createAuthorProfileBody(me)
@@ -105,8 +109,11 @@ export class AuthorsController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post(':username/follow')
-  async followProfile(@Req() req, @Param('username') username: string) {
-    const me = await this.authorsService.getUserAuthorProfile(req.user)
+  async followProfile(
+    @RequireUser() user: User,
+    @Param('username') username: string,
+  ) {
+    const me = await this.authorsService.getUserAuthorProfile(user)
     const profile = await this.authorsService.getAuthorByUsername(username)
     await me.follow(profile)
     return createAuthorProfileBody(profile, true)
@@ -114,8 +121,11 @@ export class AuthorsController {
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':username/follow')
-  async unfollowProfile(@Req() req, @Param('username') username: string) {
-    const me = await this.authorsService.getUserAuthorProfile(req.user)
+  async unfollowProfile(
+    @RequireUser() user: User,
+    @Param('username') username: string,
+  ) {
+    const me = await this.authorsService.getUserAuthorProfile(user)
     const profile = await this.authorsService.getAuthorByUsername(username)
     await me.unfollow(profile)
     return createAuthorProfileBody(profile, false)
@@ -124,11 +134,14 @@ export class AuthorsController {
   @HttpCode(HttpStatus.OK)
   @AuthIsOptional()
   @Get(':username')
-  async getProfile(@Req() req, @Param('username') username: string) {
+  async getProfile(
+    @GetUser() user: User | null,
+    @Param('username') username: string,
+  ) {
     const author = await this.authorsService.getAuthorByUsername(username)
     let following: boolean | undefined = undefined
-    if (req.user) {
-      const me = await this.authorsService.getUserAuthorProfile(req.user)
+    if (user) {
+      const me = await this.authorsService.getUserAuthorProfile(user)
       following = await me.isFollowing(author)
     }
     return createAuthorProfileBody(author, following)

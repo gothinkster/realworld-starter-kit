@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Delete,
   Get,
@@ -8,18 +7,22 @@ import {
   Param,
   Post,
   Put,
-  Query,
-  Req,
   UseGuards,
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { z } from 'zod'
 import { createAuthorDTO } from '../authors/authors.controller'
 import { AuthorsService, Profile } from '../authors/authors.service'
-import { AuthIsOptional, JWTAuthGuard } from '../nest/jwt.guard'
+import {
+  AuthIsOptional,
+  GetUser,
+  JWTAuthGuard,
+  RequireUser,
+  User,
+} from '../nest/jwt.guard'
 import { Pagination, ZodPagination } from '../nest/pagination'
 import { buildUrlToPath } from '../nest/url'
-import { createZodTransformer } from '../nest/validation.utils'
+import { ZodBody, ZodQuery } from '../nest/validation.utils'
 import { Article, Dated, Sluged, Tagged } from './articles.models'
 import { ArticlesService } from './articles.service'
 
@@ -43,7 +46,7 @@ const tags = z
   .array(z.string())
   .describe('The article tags. Example: ["dragons", "training"]')
 
-export const CreateArticleBody = z.object({
+export const CreateArticleDTO = z.object({
   article: z.object({
     title,
     description,
@@ -52,9 +55,9 @@ export const CreateArticleBody = z.object({
   }),
 })
 
-type CreateArticleBody = z.infer<typeof CreateArticleBody>
+type CreateArticleBody = z.infer<typeof CreateArticleDTO>
 
-export const UpdateArticleBody = z.object({
+export const UpdateArticleDTO = z.object({
   article: z.object({
     title: title.optional(),
     description: description.optional(),
@@ -63,7 +66,7 @@ export const UpdateArticleBody = z.object({
   }),
 })
 
-type UpdateArticleBody = z.infer<typeof UpdateArticleBody>
+type UpdateArticleBody = z.infer<typeof UpdateArticleDTO>
 
 export const ArticleFiltersDTO = z
   .object({
@@ -106,13 +109,11 @@ export class ArticlesController {
   @AuthIsOptional()
   @Get('feed')
   async getFeed(
-    @Req() req,
-    @Query(createZodTransformer(ZodPagination)) pagination: Pagination,
+    @GetUser() user: User | null,
+    @ZodQuery(ZodPagination) pagination: Pagination,
   ) {
     const view = this.articlesService.getView(
-      req.user
-        ? await this.authorsService.getUserAuthorProfile(req.user)
-        : undefined,
+      user ? await this.authorsService.getUserAuthorProfile(user) : undefined,
     )
     const articles = await view.getFeed(pagination)
     return {
@@ -134,15 +135,13 @@ export class ArticlesController {
   @AuthIsOptional()
   @Get()
   async getManyArticles(
-    @Req() req,
-    @Query(createZodTransformer(ArticleFiltersDTO))
+    @GetUser() user: User | null,
+    @ZodQuery(ArticleFiltersDTO)
     filters: ArticleFiltersDTO,
-    @Query(createZodTransformer(ZodPagination)) pagination: Pagination,
+    @ZodQuery(ZodPagination) pagination: Pagination,
   ) {
     const view = this.articlesService.getView(
-      req.user
-        ? await this.authorsService.getUserAuthorProfile(req.user)
-        : undefined,
+      user ? await this.authorsService.getUserAuthorProfile(user) : undefined,
     )
     const articles = await view.getArticlesByFilters(filters, pagination)
     return {
@@ -164,11 +163,9 @@ export class ArticlesController {
 
   @AuthIsOptional()
   @Get(':slug')
-  async getArticle(@Req() req, @Param('slug') slug: string) {
+  async getArticle(@GetUser() user: User | null, @Param('slug') slug: string) {
     const view = this.articlesService.getView(
-      req.user
-        ? await this.authorsService.getUserAuthorProfile(req.user)
-        : undefined,
+      user ? await this.authorsService.getUserAuthorProfile(user) : undefined,
     )
     const article = await view.getArticle(slug)
     return {
@@ -178,24 +175,24 @@ export class ArticlesController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post(':slug/favorite')
-  favoriteArticle(@Req() req, @Param() slug: string) {
+  favoriteArticle(@RequireUser() user: User, @Param() slug: string) {
     return undefined
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':slug/favorite')
-  unfavoriteArticle(@Req() req, @Param() slug: string) {
+  unfavoriteArticle(@RequireUser() user: User, @Param() slug: string) {
     return undefined
   }
 
   @HttpCode(HttpStatus.CREATED)
   @Post()
   async createArticle(
-    @Req() req,
-    @Body(createZodTransformer(CreateArticleBody))
+    @RequireUser() user: User,
+    @ZodBody(CreateArticleDTO)
     body: CreateArticleBody,
   ) {
-    const me = await this.authorsService.getUserAuthorProfile(req.user)
+    const me = await this.authorsService.getUserAuthorProfile(user)
     const cms = this.articlesService.getCMS(me)
     const article = await cms.createArticle(body.article)
     return {
@@ -206,12 +203,12 @@ export class ArticlesController {
   @HttpCode(HttpStatus.OK)
   @Put(':slug')
   async updateArticle(
-    @Req() req,
+    @RequireUser() user: User,
     @Param('slug') slug: string,
-    @Body(createZodTransformer(UpdateArticleBody))
+    @ZodBody(UpdateArticleDTO)
     body: UpdateArticleBody,
   ) {
-    const me = await this.authorsService.getUserAuthorProfile(req.user)
+    const me = await this.authorsService.getUserAuthorProfile(user)
     const cms = this.articlesService.getCMS(me)
     const article = await cms.updateArticle(slug, body.article)
     return {
@@ -221,16 +218,16 @@ export class ArticlesController {
 
   @Delete(':slug')
   @HttpCode(HttpStatus.NO_CONTENT)
-  async deleteArticle(@Req() req, @Param('slug') slug: string) {
-    const me = await this.authorsService.getUserAuthorProfile(req.user)
+  async deleteArticle(@RequireUser() user: User, @Param('slug') slug: string) {
+    const me = await this.authorsService.getUserAuthorProfile(user)
     const cms = this.articlesService.getCMS(me)
     await cms.deleteArticle(slug)
   }
 
   @HttpCode(HttpStatus.CREATED)
   @Post(':slug/publication')
-  async publishArticle(@Req() req, @Param('slug') slug: string) {
-    const me = await this.authorsService.getUserAuthorProfile(req.user)
+  async publishArticle(@RequireUser() user: User, @Param('slug') slug: string) {
+    const me = await this.authorsService.getUserAuthorProfile(user)
     const cms = this.articlesService.getCMS(me)
     const article = await cms.publishArticle(slug)
     return {
@@ -240,8 +237,11 @@ export class ArticlesController {
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':slug/publication')
-  async unpublishArticle(@Req() req, @Param('slug') slug: string) {
-    const me = await this.authorsService.getUserAuthorProfile(req.user)
+  async unpublishArticle(
+    @RequireUser() user: User,
+    @Param('slug') slug: string,
+  ) {
+    const me = await this.authorsService.getUserAuthorProfile(user)
     const cms = this.articlesService.getCMS(me)
     const article = await cms.unpublishArticle(slug)
     return {

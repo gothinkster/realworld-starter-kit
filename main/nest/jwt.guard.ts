@@ -10,6 +10,7 @@ import {
   AuthGuard,
   PassportStrategy as NestGuardStrategyFor,
 } from '@nestjs/passport'
+import { IncomingHttpHeaders } from 'http'
 import * as jwt from 'jsonwebtoken'
 import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt'
 import { Observable } from 'rxjs'
@@ -68,19 +69,12 @@ export interface User {
   email?: string
 }
 
-export function getUserFromHeaders(
-  headers: Record<string, string>,
-  required: boolean = true,
-): User | null {
+export function getUserFromHeaders(headers: IncomingHttpHeaders): User | null {
   const { AUDIENCE, TOKEN_PRIVATE_KEY } = getEnvs()
-  const authorization: string = headers.authorization
+  const authorization = headers.authorization
 
   if (!authorization) {
-    if (required) {
-      throw new UnauthorizedException()
-    } else {
-      return null
-    }
+    return null
   }
 
   const token = authorization.split(' ')[1]
@@ -95,8 +89,22 @@ export function getUserFromHeaders(
   } as User
 }
 
-export function GetUser(opts = { required: true }) {
+export function requireUserFromHeaders(headers: IncomingHttpHeaders): User {
+  const user = getUserFromHeaders(headers)
+  if (user === null) {
+    throw new UnauthorizedException()
+  }
+  return user
+}
+
+export function GetUser() {
   return createParamDecorator((data: unknown, ctx: ExecutionContext) =>
-    getUserFromHeaders(ctx.switchToHttp().getRequest().headers, opts.required),
+    getUserFromHeaders(ctx.switchToHttp().getRequest().headers),
+  )()
+}
+
+export function RequireUser() {
+  return createParamDecorator((data: unknown, ctx: ExecutionContext) =>
+    requireUserFromHeaders(ctx.switchToHttp().getRequest().headers),
   )()
 }
