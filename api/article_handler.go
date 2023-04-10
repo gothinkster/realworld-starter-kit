@@ -236,19 +236,45 @@ func newArticleResponse(article *db.GetArticleBySlugRow, favorited, following bo
 // @Failure 500 {object} Error
 // @Router /articles/{slug} [get]
 func (s *Server) GetArticle(c *gin.Context) { // TODO:✅ GET /articles/:slug - GetArticle
-	// get token from header if exists        // TODO: GET /articles/:slug - GetArticle - Following
+	var (
+		followerID string
+		favorited bool
+		following bool
+	)
+	token := GetJWTFromHeader(c)
+	if token != "" {
+		followerID = GetIDFromToken(token)
+	}
 	slug := c.Param("slug")
 	article, err := Nullable(s.store.GetArticleBySlug(c, slug))
 	if err != nil {
 		fmt.Println(err)
-		c.JSON(http.StatusInternalServerError, err)
+		c.JSON(http.StatusInternalServerError, NewError(err))
 		return
 	}
 	if article == nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "article not found"})
+		c.JSON(http.StatusNotFound, NewError(errors.New("article not found")))
 		return
 	}
-	c.JSON(http.StatusOK, newArticleResponse(article, false, false))
+	if followerID != "" {
+		favorited, err = s.store.DoesFavoriteExist(c, db.DoesFavoriteExistParams{
+			UserID:   followerID,
+			ArticleID: article.ID,
+		})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, NewError(err))
+			return
+		}
+		following, err = s.store.IsFollowing(c, db.IsFollowingParams{
+			FollowerID: followerID,
+			FollowingID: *article.AuthorID,
+		})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, NewError(err))
+			return
+		}
+	}
+	c.JSON(http.StatusOK, newArticleResponse(article, favorited, following))
 }
 
 type createArticleReq struct {
@@ -295,12 +321,6 @@ func (s *Server) CreateArticle(c *gin.Context) { // TODO:✅ POST /articles - Cr
 		c.JSON(http.StatusUnprocessableEntity, NewValidationError(err))
 	}
 	p.AuthorID = id
-	uniqueSlug, err := s.findUniqueSlug(c, p.Title)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, NewError(err))
-		return
-	}
-	p.Slug = uniqueSlug
 	articleTx, err := s.store.CreateArticleTx(c, p)
 	if err != nil {
 		s.log.Error(err)

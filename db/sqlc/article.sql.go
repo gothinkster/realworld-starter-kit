@@ -207,7 +207,7 @@ INSERT INTO tags (
 )
 ON CONFLICT 
     ON CONSTRAINT tags_name_key
-DO NOTHING
+DO UPDATE SET name = $2
 RETURNING id
 `
 

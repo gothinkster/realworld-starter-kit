@@ -61,8 +61,31 @@ func (store *ConduitStore) CreateArticleTx(
 	}
 	defer tx.Rollback(context.Background())
 	qtx := store.Queries.WithTx(tx)
+	var (
+		found bool
+		attempt int
+	)
+	
+	for !found {
+		if attempt > 3 {
+			found = true
+		}
+		attempt++
+		uniqueSlug := createUniqueSlug(arg.Title)
+		articleID, err := NullableID(qtx.GetArticleIDBySlug(ctx, uniqueSlug))
+		if err != nil {
+			fmt.Printf("4: error: %v", err)
+			return nil, err
+		}
+		if articleID == "" {
+			found = true
+			arg.Slug = uniqueSlug
+		}
+	}
+	fmt.Printf("arg: %+v\n", arg)
 	article, err := qtx.CreateArticle(ctx, arg.CreateArticleParams)
 	if err != nil {
+		fmt.Printf("5: error: %v\n", err)
 		return nil, err
 	}
 	tags := arg.Tags
@@ -73,6 +96,7 @@ func (store *ConduitStore) CreateArticleTx(
 		}
 		id, err := qtx.CreateTag(ctx, p)
 		if err != nil {
+			fmt.Printf("6: error: %v\n", err)
 			return nil, err
 		}
 		_, err = qtx.CreateArticleTag(ctx, CreateArticleTagParams{
@@ -80,11 +104,13 @@ func (store *ConduitStore) CreateArticleTx(
 			TagID:     id,
 		})
 		if err != nil {
+			fmt.Printf("7: error: %v\n", err)
 			return nil, err
 		}
 	}
 	user, err := qtx.GetUser(ctx, article.AuthorID)
 	if err != nil {
+		fmt.Printf("8: error: %v\n", err)
 		return nil, err
 	}
 	if err = tx.Commit(context.Background()); err != nil {
