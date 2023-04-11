@@ -24,6 +24,16 @@ variable "DATABASE_URL" {
   type        = string
 }
 
+data "external" "git" {
+  program = [
+    "git",
+    "log",
+    "--pretty=format:{ \"sha\": \"%H\" }",
+    "-1",
+    "HEAD"
+  ]
+}
+
 locals {
   COMMON_TAGS = {
     Environment = var.ENVIRONMENT
@@ -70,6 +80,7 @@ resource "aws_lambda_function" "realworld_api_function" {
       DATABASE_URL = var.DATABASE_URL
       BASE_URL     = aws_api_gateway_deployment.deployment.invoke_url
       API_PREFIX   = ""
+      VERSION      = data.external.git.result.sha
     }
   }
   filename         = "${path.module}/../../build.zip"

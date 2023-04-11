@@ -7,6 +7,7 @@ function readEnvs() {
   const API_PORT = Number(process.env.API_PORT ?? '3000')
   const BASE_URL = process.env.BASE_URL ?? 'http://localhost:3000'
   const BASE_API_URL = path.join(BASE_URL, API_PREFIX)
+  const VERSION = process.env.VERSION ?? '0.0.0'
   return {
     TOKEN_PRIVATE_KEY,
     AUDIENCE,
@@ -14,6 +15,7 @@ function readEnvs() {
     API_PORT,
     BASE_URL,
     BASE_API_URL,
+    VERSION,
   }
 }
 
