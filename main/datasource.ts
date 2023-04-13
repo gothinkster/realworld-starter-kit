@@ -7,7 +7,7 @@ import {
   TagEntity,
 } from './articles/articles.repository.typeorm'
 import { AuthorEntity, UserFollows } from './authors/authors.entity'
-import { CommentEntity } from './comments/comments.entity'
+import { CommentEntity } from './comments/comments.repository'
 
 let dataSource
 

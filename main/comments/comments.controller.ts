@@ -13,13 +13,14 @@ import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger'
 
 import { z } from 'zod'
 import { zodToJsonSchema } from 'zod-to-json-schema'
+import { ArticlesService } from '../articles/articles.service'
 import { createAuthorDTO } from '../authors/authors.controller'
 import { AuthorsService, Profile } from '../authors/authors.service'
-import { JWTAuthGuard, RequireUser, User } from '../nest/jwt.guard'
+import { GetUser, JWTAuthGuard, RequireUser, User } from '../nest/jwt.guard'
 import { Pagination, ZodPagination } from '../nest/pagination'
 import { buildUrlToPath } from '../nest/url'
 import { ZodBody, ZodQuery } from '../nest/validation.utils'
-import { Comment, CommentsService } from './comments.service'
+import { Comment, CommentsRepository } from './comments.repository'
 
 const CommentDTO = z.object({
   body: z
@@ -38,8 +39,9 @@ type CreateCommentBody = z.infer<typeof CreateCommentBody>
 @Controller('articles/:slug/comments')
 export class CommentsController {
   constructor(
-    private commentsService: CommentsService,
+    private commentsRepository: CommentsRepository,
     private authorsService: AuthorsService,
+    private articlesService: ArticlesService,
   ) {}
 
   @ApiBody({
@@ -55,9 +57,10 @@ export class CommentsController {
     @ZodBody(CreateCommentBody) body: CreateCommentBody,
   ) {
     const me = await this.authorsService.getUserAuthorProfile(user)
-    const comment = await this.commentsService.commentArticle(
+    const article = await this.articlesService.getView(me).getArticle(slug)
+    const comment = await this.commentsRepository.commentArticle(
       me,
-      slug,
+      article,
       body.comment.body,
     )
     return {
@@ -68,11 +71,16 @@ export class CommentsController {
   @HttpCode(HttpStatus.OK)
   @Get()
   async getCommentsFromAnArticle(
+    @GetUser() user: User | null,
     @Param('slug') slug: string,
     @ZodQuery(ZodPagination) pagination: Pagination,
   ) {
-    const comments = await this.commentsService.getCommentsFromArticle(
-      slug,
+    const me = user
+      ? await this.authorsService.getUserAuthorProfile(user)
+      : undefined
+    const article = await this.articlesService.getView(me).getArticle(slug)
+    const comments = await this.commentsRepository.getCommentsFromArticle(
+      article,
       pagination,
     )
     return {
@@ -106,7 +114,8 @@ export class CommentsController {
     @Param(ParseIntPipe) id: number,
   ) {
     const me = await this.authorsService.getUserAuthorProfile(user)
-    await this.commentsService.deleteCommentFromArticle(id, slug, me)
+    const article = await this.articlesService.getView(me).getArticle(slug)
+    await this.commentsRepository.deleteCommentFromArticle(id, article, me)
     return {
       links: { article: buildUrlToPath(`/articles/${slug}`) },
     }
