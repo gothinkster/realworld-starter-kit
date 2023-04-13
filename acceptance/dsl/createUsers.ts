@@ -1,24 +1,24 @@
 import { UserDSL } from './UserDSL'
-import { UserRestDriver } from './UserRestDriver'
+import { UserDriver } from './UserDriver'
+import { UserTrpcDriver } from './UserTrpcDriver'
+
+function createDriver(): UserDriver {
+  if (process.env.DRIVER === 'trpc') {
+    return new UserTrpcDriver()
+  }
+  return new UserTrpcDriver()
+}
 
 export function createUsers() {
   const context = {}
   const randomNumber = Date.now()
-  const abbott = new UserDSL(
-    `Abbott-${randomNumber}`,
-    new UserRestDriver(),
-    context,
-  )
+  const abbott = new UserDSL(`Abbott-${randomNumber}`, createDriver(), context)
   const costello = new UserDSL(
     `Costello-${randomNumber}`,
-    new UserRestDriver(),
+    createDriver(),
     context,
   )
-  const guest = new UserDSL(
-    `Guest-${randomNumber}`,
-    new UserRestDriver(),
-    context,
-  )
+  const guest = new UserDSL(`Guest-${randomNumber}`, createDriver(), context)
   return {
     abbott,
     costello,

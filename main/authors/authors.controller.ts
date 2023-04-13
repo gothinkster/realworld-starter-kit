@@ -22,6 +22,7 @@ import {
 } from '../nest/jwt.guard'
 import { buildUrlToPath } from '../nest/url'
 import { ZodBody } from '../nest/validation.utils'
+import { TRPC } from '../trpc/app'
 import { AuthorsService, Profile } from './authors.service'
 
 const username = z
@@ -43,8 +44,10 @@ const CreateProfileBody = z.object({
 
 type CreateProfileBody = z.infer<typeof CreateProfileBody>
 
+const UpdateProfileDTO = CreateProfileDTO.partial()
+
 const UpdateProfileBody = z.object({
-  profile: CreateProfileDTO.partial(),
+  profile: UpdateProfileDTO,
 })
 
 type UpdateProfileBody = z.infer<typeof UpdateProfileBody>
@@ -172,4 +175,40 @@ export function createAuthorDTO(author: Profile, following?: boolean) {
     image: author.image,
     ...(following !== undefined ? { following } : {}),
   } as const
+}
+
+export function createAuthorsTrpcRouter(
+  controller: AuthorsController,
+  trpc: TRPC,
+) {
+  return trpc.router({
+    profiles: trpc.router({
+      getCurrent: trpc.protectedProcedure.query(({ ctx }) =>
+        controller.getCurrent(ctx.user),
+      ),
+      create: trpc.protectedProcedure
+        .input(CreateProfileBody)
+        .mutation(({ ctx, input }) => controller.create(ctx.user, input)),
+      get: trpc.protectedProcedure
+        .input(z.object({ username }))
+        .query(({ ctx, input }) =>
+          controller.getProfile(ctx.user, input.username),
+        ),
+      update: trpc.protectedProcedure
+        .input(UpdateProfileBody)
+        .mutation(({ ctx, input }) =>
+          controller.partialUpdate(ctx.user, input),
+        ),
+      follow: trpc.protectedProcedure
+        .input(z.object({ username }))
+        .mutation(({ ctx, input }) =>
+          controller.followProfile(ctx.user, input.username),
+        ),
+      unfollow: trpc.protectedProcedure
+        .input(z.object({ username }))
+        .mutation(({ ctx, input }) =>
+          controller.unfollowProfile(ctx.user, input.username),
+        ),
+    }),
+  })
 }

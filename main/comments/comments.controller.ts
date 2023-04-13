@@ -13,6 +13,7 @@ import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger'
 
 import { z } from 'zod'
 import { zodToJsonSchema } from 'zod-to-json-schema'
+import { slug } from '../articles/articles.controller'
 import { ArticlesService } from '../articles/articles.service'
 import { createAuthorDTO } from '../authors/authors.controller'
 import { AuthorsService, Profile } from '../authors/authors.service'
@@ -20,13 +21,16 @@ import { GetUser, JWTAuthGuard, RequireUser, User } from '../nest/jwt.guard'
 import { Pagination, ZodPagination } from '../nest/pagination'
 import { buildUrlToPath } from '../nest/url'
 import { ZodBody, ZodQuery } from '../nest/validation.utils'
+import { TRPC } from '../trpc/app'
 import { Comment, CommentsRepository } from './comments.repository'
 
+const body = z
+  .string()
+  .max(255)
+  .describe("The comment body. Example: 'I liked that article'")
+
 const CommentDTO = z.object({
-  body: z
-    .string()
-    .max(255)
-    .describe("The comment body. Example: 'I liked that article'"),
+  body,
 })
 
 const CreateCommentBody = z.object({
@@ -138,4 +142,50 @@ function createCommentDTO(
       author: buildUrlToPath(`/profiles/${author.username}`),
     },
   } as const
+}
+
+export function createCommentsTrpcRouter(
+  controller: CommentsController,
+  trpc: TRPC,
+) {
+  return trpc.router({
+    comments: trpc.router({
+      add: trpc.protectedProcedure
+        .input(
+          z.object({
+            slug,
+            comment: CommentDTO,
+          }),
+        )
+        .mutation(({ input, ctx }) =>
+          controller.addCommentToAnArticle(ctx.user, input.slug, {
+            comment: input.comment,
+          }),
+        ),
+      getMany: trpc.publicProcedure
+        .input(
+          z.object({
+            slug,
+            pagination: ZodPagination,
+          }),
+        )
+        .query(({ input, ctx }) =>
+          controller.getCommentsFromAnArticle(
+            ctx.user,
+            input.slug,
+            input.pagination,
+          ),
+        ),
+      delete: trpc.protectedProcedure
+        .input(
+          z.object({
+            slug,
+            id: z.number(),
+          }),
+        )
+        .query(({ input, ctx }) =>
+          controller.deleteCommentFromArticle(ctx.user, input.slug, input.id),
+        ),
+    }),
+  })
 }

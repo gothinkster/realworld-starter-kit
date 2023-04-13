@@ -24,8 +24,15 @@ import {
 import { Pagination, ZodPagination } from '../nest/pagination'
 import { buildUrlToPath } from '../nest/url'
 import { ZodBody, ZodQuery } from '../nest/validation.utils'
+
+import { TRPC } from '../trpc/app'
 import { Article, Dated, Sluged, Tagged } from './articles.models'
 import { ArticlesService } from './articles.service'
+
+export const slug = z
+  .string()
+  .regex(/^[a-z0-9-]+$/)
+  .describe('The slugified article title')
 
 const title = z
   .string()
@@ -270,4 +277,100 @@ function createArticleDTO(
       comments: buildUrlToPath(`articles/${article.slug}/comments`),
     },
   } as const
+}
+
+export function createArticlesTrpcRouter(
+  controller: ArticlesController,
+  trpc: TRPC,
+) {
+  return trpc.router({
+    articles: trpc.router({
+      getFeed: trpc.publicProcedure
+        .input(
+          z.object({
+            pagination: ZodPagination,
+          }),
+        )
+        .query(({ input, ctx }) =>
+          controller.getFeed(ctx.user, input.pagination),
+        ),
+      getMany: trpc.publicProcedure
+        .input(
+          z.object({
+            pagination: ZodPagination,
+            filters: ArticleFiltersDTO,
+          }),
+        )
+        .query(({ input, ctx }) =>
+          controller.getManyArticles(ctx.user, input.filters, input.pagination),
+        ),
+      getOne: trpc.publicProcedure
+        .input(
+          z.object({
+            slug,
+          }),
+        )
+        .query(({ input, ctx }) => controller.getArticle(ctx.user, input.slug)),
+      favorite: trpc.protectedProcedure
+        .input(
+          z.object({
+            slug,
+          }),
+        )
+        .mutation(({ input, ctx }) =>
+          controller.favoriteArticle(ctx.user, input.slug),
+        ),
+      unfavorite: trpc.protectedProcedure
+        .input(
+          z.object({
+            slug,
+          }),
+        )
+        .mutation(({ input, ctx }) =>
+          controller.unfavoriteArticle(ctx.user, input.slug),
+        ),
+      create: trpc.protectedProcedure
+        .input(CreateArticleDTO)
+        .mutation(({ input, ctx }) =>
+          controller.createArticle(ctx.user, input),
+        ),
+      update: trpc.protectedProcedure
+        .input(
+          z.object({
+            slug,
+            article: UpdateArticleDTO,
+          }),
+        )
+        .mutation(({ input, ctx }) =>
+          controller.updateArticle(ctx.user, input.slug, input.article),
+        ),
+      delete: trpc.protectedProcedure
+        .input(
+          z.object({
+            slug,
+          }),
+        )
+        .mutation(({ input, ctx }) =>
+          controller.deleteArticle(ctx.user, input.slug),
+        ),
+      publish: trpc.protectedProcedure
+        .input(
+          z.object({
+            slug,
+          }),
+        )
+        .mutation(({ input, ctx }) =>
+          controller.publishArticle(ctx.user, input.slug),
+        ),
+      unpublish: trpc.protectedProcedure
+        .input(
+          z.object({
+            slug,
+          }),
+        )
+        .mutation(({ input, ctx }) =>
+          controller.unpublishArticle(ctx.user, input.slug),
+        ),
+    }),
+  })
 }

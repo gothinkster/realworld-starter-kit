@@ -19,7 +19,7 @@ export class UserRestDriver implements UserDriver {
     validateStatus: (status) => status < 500,
   })
 
-  private async createAccount(username: string) {
+  async createAccount(username: string) {
     const sign = await this.axios.post('accounts/signup', {
       user: createCredentials(username),
     })
@@ -27,9 +27,7 @@ export class UserRestDriver implements UserDriver {
     expect(sign.status).toBe(201)
     expect(sign.data.access_token).toBeDefined()
 
-    this.axios.defaults.headers.common = {
-      Authorization: `Bearer ${sign.data.access_token}`,
-    }
+    return sign.data.access_token
   }
 
   private async createProfile(username: string) {
@@ -44,7 +42,10 @@ export class UserRestDriver implements UserDriver {
   }
 
   async login(username: string) {
-    await this.createAccount(username)
+    const token = await this.createAccount(username)
+    this.axios.defaults.headers.common = {
+      Authorization: `Bearer ${token}`,
+    }
     await this.createProfile(username)
   }
 

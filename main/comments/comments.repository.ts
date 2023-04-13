@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common'
 import {
   BaseEntity,
   Column,
@@ -7,7 +8,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { Injectable } from '@nestjs/common'
 
 export type Comment = {
   id: number
