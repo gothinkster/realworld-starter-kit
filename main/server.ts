@@ -11,17 +11,14 @@ import { createPreConfiguredOpenAPIDocumentBuilder } from './nest/openapi'
 import { createContext } from './trpc/app'
 import { createMergedTRPCApp } from './trpc/merged'
 
-export async function createNestApplication() {
-  const { BASE_API_URL } = getEnvs()
+export async function createNestApplication(baseApiUrl: string) {
   const nest = await NestFactory.create(AppModule)
   SwaggerModule.setup(
     'docs',
     nest,
     SwaggerModule.createDocument(
       nest,
-      createPreConfiguredOpenAPIDocumentBuilder()
-        .addServer(BASE_API_URL)
-        .build(),
+      createPreConfiguredOpenAPIDocumentBuilder().addServer(baseApiUrl).build(),
     ),
     {
       useGlobalPrefix: true,
@@ -34,9 +31,9 @@ export async function createNestApplication() {
 export async function createExpressApp() {
   const app = express()
 
-  const { API_PREFIX } = getEnvs()
-
-  const nest = await createNestApplication()
+  const { BASE_URL } = getEnvs()
+  const nest = await createNestApplication(`${BASE_URL}/api`)
+  app.use('/api', nest.getHttpAdapter().getInstance())
 
   app.use(
     '/trpc',
@@ -47,11 +44,9 @@ export async function createExpressApp() {
         nest.get(ArticlesController),
         nest.get(AuthorsController),
       ),
-      onError: (err) => delete err.error.stack, // Don't expose failures to the World
+      onError: (err) => delete err.error.stack, // Don't expose internal failures to the World
     }),
   )
-
-  app.use(`/${API_PREFIX}`, nest.getHttpAdapter().getInstance())
 
   return app
 }
