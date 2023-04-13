@@ -1,12 +1,16 @@
 import { UserDSL } from './UserDSL'
 import { UserDriver } from './UserDriver'
+import { UserRestDriver } from './UserRestDriver'
 import { UserTrpcDriver } from './UserTrpcDriver'
 
 function createDriver(): UserDriver {
   if (process.env.DRIVER === 'trpc') {
     return new UserTrpcDriver()
   }
-  return new UserTrpcDriver()
+  if (process.env.DRIVER === 'rest') {
+    return new UserRestDriver()
+  }
+  throw new Error(`Unknown driver: ${process.env.DRIVER}`)
 }
 
 export function createUsers() {

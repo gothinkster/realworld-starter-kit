@@ -42,5 +42,7 @@ jobs:
 
       - run: npm install
 
-      - name: Running acceptance tests on docker server
-        run: API_URL=http://localhost:3001/api npx jest acceptance
+      - name: Running acceptance tests on localhost server
+        run: |
+          DRIVER=rest API_URL=http://localhost:3001/api npx jest acceptance
+          DRIVER=trpc API_URL=http://localhost:3001/trpc npx jest acceptance

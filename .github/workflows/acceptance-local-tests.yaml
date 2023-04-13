@@ -38,4 +38,6 @@ jobs:
       - run: npm install
 
       - name: Running acceptance tests on localhost server
-        run: API_URL=http://localhost:3000/api npx jest acceptance
+        run: |
+          DRIVER=rest API_URL=http://localhost:3000/api npx jest acceptance
+          DRIVER=trpc API_URL=http://localhost:3000/trpc npx jest acceptance
