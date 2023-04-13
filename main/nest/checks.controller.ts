@@ -11,12 +11,13 @@ export class ChecksController {
   @Get('readiness')
   @HttpCode(HttpStatus.OK)
   async getReadiness() {
-    const { VERSION } = getEnvs()
-    const res = await this.entityManager.query('SELECT 1')
-    const ready = res.length === 1 && res[0]['1'] === '1'
-    return {
-      version: VERSION,
-      ready,
-    }
+    await this.entityManager.query('SELECT 1')
+    return true
+  }
+
+  @Get('version')
+  @HttpCode(HttpStatus.OK)
+  async getVersion() {
+    return getEnvs().VERSION
   }
 }
