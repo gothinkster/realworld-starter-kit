@@ -37,8 +37,9 @@ function convertAxiosHeadersToTrpcHeaders(
 function convertAxiosResponseToTrpcResposne(
   response: AxiosResponse,
 ): ResponseEsque {
+  const ok = response.status < 500
   return {
-    ok: response.status < 500,
+    ok,
     status: response.status,
     statusText: response.statusText,
     headers: convertAxiosHeadersToTrpcHeaders(response.headers),
@@ -46,7 +47,7 @@ function convertAxiosResponseToTrpcResposne(
     clone: () => convertAxiosResponseToTrpcResposne(response),
     url: response.config.url ?? '',
     redirected: false,
-    type: 'basic',
+    type: ok ? 'basic' : 'error',
   }
 }
 
