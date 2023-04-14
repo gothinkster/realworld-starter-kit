@@ -17,4 +17,8 @@ export const ZodPagination = z
     skip: z.coerce.number().min(0).default(0),
     take: z.coerce.number().min(0).max(200).default(20),
   })
+  .default({
+    skip: 0,
+    take: 20,
+  })
   .transform(({ skip, take }) => new Pagination(skip, take))

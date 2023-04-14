@@ -51,7 +51,10 @@ const body = z
   )
 
 const tags = z
-  .array(z.string())
+  .union([
+    z.array(z.string()),
+    z.string().transform((tags) => tags?.split(',')),
+  ])
   .describe('The article tags. Example: ["dragons", "training"]')
 
 const article = z.object({ title, description, body, tags })
@@ -70,13 +73,7 @@ type UpdateArticleBody = z.infer<typeof UpdateArticleDTO>
 
 export const ArticleFiltersDTO = z
   .object({
-    tags: z
-      .string()
-      .describe(
-        'Comma separated tags to query articles. Example: dragons,training',
-      )
-      .optional()
-      .transform((tags) => tags?.split(',')),
+    tags: tags.optional(),
     author: z.string().optional().describe('The article author username'),
     favorited: z.coerce
       .boolean()
@@ -338,11 +335,13 @@ export function createArticlesTrpcRouter(
         .input(
           z.object({
             slug,
-            article: UpdateArticleDTO,
+            changes: article.partial(),
           }),
         )
         .mutation(({ input, ctx }) =>
-          controller.updateArticle(ctx.user, input.slug, input.article),
+          controller.updateArticle(ctx.user, input.slug, {
+            article: input.changes,
+          }),
         ),
       delete: trpc.protectedProcedure
         .input(
