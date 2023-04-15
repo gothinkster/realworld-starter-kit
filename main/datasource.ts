@@ -1,4 +1,4 @@
-import { DataSource } from 'typeorm'
+import { DataSource, DataSourceOptions } from 'typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { AccountEntity } from './accounts/accounts.entity'
 import {
@@ -8,37 +8,48 @@ import {
 } from './articles/articles.repository.typeorm'
 import { AuthorEntity, UserFollows } from './authors/authors.entity'
 import { CommentEntity } from './comments/comments.repository'
+import { getEnvs } from './environment'
 
-let dataSource
+export function getDataSourceInstance(opts?: Partial<DataSourceOptions>) {
+  const { DATABASE_URL } = getEnvs()
 
-export default function getDataSourceInstance() {
-  if (!dataSource) {
-    const url =
-      process.env.DATABASE_URL ||
-      'mysql://realworld:realworld@localhost:3306/realworld'
-    const production = url.includes('pscale')
+  const url =
+    DATABASE_URL ?? 'mysql://realworld:realworld@localhost:3306/realworld'
 
-    dataSource = new DataSource({
-      type: 'mysql',
-      url,
-      entities: [
-        AccountEntity,
-        ArticleEntity,
-        AuthorEntity,
-        UserFollows,
-        CommentEntity,
-        TagEntity,
-        ArticlesHaveTagsEntity,
-      ],
-      synchronize: !production,
-      namingStrategy: new SnakeNamingStrategy(),
-      ssl: production
-        ? {
-            requestCert: true,
-            rejectUnauthorized: true,
-          }
-        : undefined,
-    })
+  const pscaleDatabase = url.includes('pscale')
+
+  let config: DataSourceOptions = {
+    type: 'mysql',
+    url,
+    entities: [
+      AccountEntity,
+      ArticleEntity,
+      AuthorEntity,
+      UserFollows,
+      CommentEntity,
+      TagEntity,
+      ArticlesHaveTagsEntity,
+    ],
+    synchronize: false,
+    namingStrategy: new SnakeNamingStrategy(),
+    ssl: pscaleDatabase
+      ? {
+          requestCert: true,
+          rejectUnauthorized: true,
+        }
+      : undefined,
   }
-  return dataSource
+  if (opts) {
+    config = Object.assign(config, opts)
+  }
+
+  return new DataSource(config)
+}
+
+export function getUnitTestDataSource() {
+  return getDataSourceInstance({
+    url: 'mysql://realworld:realworld@localhost:3306/realworld',
+    synchronize: true,
+    logging: Boolean(process.env.DEBUG),
+  })
 }

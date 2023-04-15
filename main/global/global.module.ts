@@ -1,9 +1,7 @@
 import { Global, Module } from '@nestjs/common'
 import { DataSource, EntityManager } from 'typeorm'
-import getDataSourceInstance from '../datasource'
+import { getDataSourceInstance } from '../datasource'
 import { JWTAuthPassport } from '../nest/jwt.guard'
-
-export { getDataSourceInstance }
 
 @Global()
 @Module({

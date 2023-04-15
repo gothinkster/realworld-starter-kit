@@ -13,7 +13,11 @@
     "start:debug": "NODE_ENV=development nest start --debug --watch",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "openapi": "ts-node main/nest/openapi",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "typeorm": "ts-node --transpile-only ./node_modules/.bin/typeorm --dataSource ./migrations/ormconfig.ts",
+    "migration:run": "npm run typeorm migration:run",
+    "migration:generate": "npm run typeorm migration:generate",
+    "migration:revert": "npm run typeorm migration:revert",
+    "migration:show": "npm run typeorm migration:show"
   },
   "dependencies": {
     "@nestjs/common": "^9.3.12",
