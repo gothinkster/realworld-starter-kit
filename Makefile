@@ -1,7 +1,9 @@
 .PHONY: build
 
-build:
+setup:
 	npm install
+
+build:
 	rm -rf dist build build.zip
 	npm run build
 	mv dist/main build
@@ -9,8 +11,6 @@ build:
 
 	npm ci --omit dev
 	cp -r node_modules build/node_modules
-
-	npm install
 
 zip:
 	cd build &&	zip -r ../build.zip *
@@ -34,6 +34,7 @@ typecheck:
 	npx tsc --noEmit
 
 ci: typecheck format
+	npm run migration:check
 
 localstack/terraform: export AWS_ACCESS_KEY_ID = foo
 localstack/terraform: export AWS_SECRET_ACCESS_KEY = bar

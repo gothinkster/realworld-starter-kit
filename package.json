@@ -18,7 +18,9 @@
     "migration:generate": "npm run typeorm migration:generate",
     "migration:revert": "npm run typeorm migration:revert",
     "migration:show": "npm run typeorm migration:show",
-    "migration:check": "npm run typeorm migration:generate migrations -- --check"
+    "migration:check": "npm run typeorm migration:generate migrations -- --check",
+    "test:unit": "jest --testRegex .*.unit.ts",
+    "test:acceptance": "jest --testRegex .*.acceptance.ts"
   },
   "dependencies": {
     "@nestjs/common": "^9.3.12",

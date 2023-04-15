@@ -1,0 +1,75 @@
+name: Continuous Integration
+
+on:
+  workflow_call:
+
+jobs:
+  CI:
+    services:
+      mysql:
+        image: mysql:5.6
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: app
+          MYSQL_USER: app
+          MYSQL_PASSWORD: app
+        ports:
+          - '3306:3306'
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: mysql://app:app@localhost:3306/app
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - run: npm install
+        shell: bash
+        name: Dependencies
+
+      - name: Prettier
+        run: npx prettier --check .
+
+      - name: Typescript
+        run: npx tsc --noEmit
+
+      - run: |
+          npm run migration:run
+          npm run migration:check
+        shell: bash
+        name: Migrations
+
+      - run: npm run test:unit
+        shell: bash
+        name: Unit Tests
+
+      - name: Starting localhost server
+        shell: bash
+        run: |
+          make build zip nohup/local
+
+      - run: npm run test:acceptance
+        shell: bash
+        name: Acceptance TRPC Tests
+        env:
+          DRIVER: trpc
+          API_URL: http://localhost:3000/api
+          TRPC_URL: http://localhost:3000/trpc
+
+      - run: npm run test:acceptance
+        shell: bash
+        name: Acceptance REST Tests
+        env:
+          DRIVER: REST
+          API_URL: http://localhost:3000/api
+          TRPC_URL: http://localhost:3000/trpc
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: |
+            build.zip

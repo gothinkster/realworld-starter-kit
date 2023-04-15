@@ -30,6 +30,8 @@ export function createDataSourceInstance(opts?: Partial<DataSourceOptions>) {
       TagEntity,
       ArticlesHaveTagsEntity,
     ],
+    migrations: ['migrations/*.ts'],
+    migrationsTransactionMode: 'each',
     synchronize: false,
     namingStrategy: new SnakeNamingStrategy(),
     ssl: pscaleDatabase
@@ -49,7 +51,6 @@ export function createDataSourceInstance(opts?: Partial<DataSourceOptions>) {
 export function createUnitTestDataSource() {
   return createDataSourceInstance({
     url: 'mysql://realworld:realworld@localhost:3306/realworld',
-    synchronize: true,
     logging: Boolean(process.env.DEBUG),
   })
 }

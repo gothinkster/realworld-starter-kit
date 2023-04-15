@@ -1,0 +1,24 @@
+name: Continuous Delivery Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  ci:
+    name: Build
+    uses: ./.github/workflows/ci.yaml
+
+  cd:
+    needs: [ci]
+    uses: ./.github/workflows/deploy-lambda.yaml
+    secrets: inherit
