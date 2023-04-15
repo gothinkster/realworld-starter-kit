@@ -17,7 +17,8 @@
     "migration:run": "npm run typeorm migration:run",
     "migration:generate": "npm run typeorm migration:generate",
     "migration:revert": "npm run typeorm migration:revert",
-    "migration:show": "npm run typeorm migration:show"
+    "migration:show": "npm run typeorm migration:show",
+    "migration:check": "npm run typeorm migration:generate migrations -- --check"
   },
   "dependencies": {
     "@nestjs/common": "^9.3.12",
