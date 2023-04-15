@@ -20,5 +20,5 @@ jobs:
 
   cd:
     needs: [ci]
-    uses: ./.github/workflows/deploy-lambda.yaml
+    uses: ./.github/workflows/cd.yaml
     secrets: inherit
