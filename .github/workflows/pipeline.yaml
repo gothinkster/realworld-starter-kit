@@ -15,7 +15,6 @@ concurrency:
 
 jobs:
   ci:
-    name: Build
     uses: ./.github/workflows/ci.yaml
 
   cd:
