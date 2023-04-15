@@ -49,8 +49,13 @@ export function createDataSourceInstance(opts?: Partial<DataSourceOptions>) {
 }
 
 export function createUnitTestDataSource() {
-  return createDataSourceInstance({
-    url: 'mysql://realworld:realworld@localhost:3306/realworld',
+  const datasource = createDataSourceInstance({
     logging: Boolean(process.env.DEBUG),
   })
+  require('assert')(
+    datasource.options.type === 'mysql' &&
+      datasource.options.url?.includes('localhost'),
+    'Unit test datasource must be a local mysql database',
+  )
+  return datasource
 }
