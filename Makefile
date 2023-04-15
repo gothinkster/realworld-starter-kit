@@ -54,3 +54,7 @@ aws/terraform:
 	cd terraform/lambda \
 	&& terraform init -upgrade -reconfigure -backend-config="key=realworld-app/$(TF_VAR_ENVIRONMENT)/lambda.tfstate" \
 	&& terraform apply -auto-approve
+
+planetscale/migrations:
+	npm run typeorm schema:drop
+	npm run typeorm migration:run

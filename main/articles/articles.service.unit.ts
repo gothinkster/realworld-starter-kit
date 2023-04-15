@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm'
 import { makeRandomArticle } from '../__mocks__/articles'
 import { AuthorsService } from '../authors/authors.service'
-import { getUnitTestDataSource } from '../datasource'
+import { createUnitTestDataSource } from '../datasource'
 import { Article, Sluged, Tagged } from './articles.models'
 import {
   TypeORMArticlesRepository,
@@ -14,7 +14,7 @@ let service: ArticlesService
 let authorsService: AuthorsService
 
 beforeAll(async () => {
-  dataSource = await getUnitTestDataSource().initialize()
+  dataSource = await createUnitTestDataSource().initialize()
   authorsService = new AuthorsService()
   service = new ArticlesService(
     authorsService,

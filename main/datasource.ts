@@ -10,7 +10,7 @@ import { AuthorEntity, UserFollows } from './authors/authors.entity'
 import { CommentEntity } from './comments/comments.repository'
 import { getEnvs } from './environment'
 
-export function getDataSourceInstance(opts?: Partial<DataSourceOptions>) {
+export function createDataSourceInstance(opts?: Partial<DataSourceOptions>) {
   const { DATABASE_URL } = getEnvs()
 
   const url =
@@ -46,8 +46,8 @@ export function getDataSourceInstance(opts?: Partial<DataSourceOptions>) {
   return new DataSource(config)
 }
 
-export function getUnitTestDataSource() {
-  return getDataSourceInstance({
+export function createUnitTestDataSource() {
+  return createDataSourceInstance({
     url: 'mysql://realworld:realworld@localhost:3306/realworld',
     synchronize: true,
     logging: Boolean(process.env.DEBUG),

@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm'
 import { makeRandomArticle } from '../__mocks__/articles'
-import { getUnitTestDataSource } from '../datasource'
+import { createUnitTestDataSource } from '../datasource'
 import { ArticlesRepository, TagsRepository } from './articles.repository'
 import {
   TypeORMArticlesRepository,
@@ -12,7 +12,7 @@ let tagsRepository: TagsRepository
 let articlesRepository: ArticlesRepository
 
 beforeAll(async () => {
-  dataSource = await getUnitTestDataSource().initialize()
+  dataSource = await createUnitTestDataSource().initialize()
   tagsRepository = new TypeORMTagsRepository(dataSource.manager)
   articlesRepository = new TypeORMArticlesRepository(dataSource.manager)
 })
