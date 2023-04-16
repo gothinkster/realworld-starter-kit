@@ -30,7 +30,7 @@ resource "aws_lambda_function" "realworld_api_function" {
   environment {
     variables = {
       DATABASE_URL = var.DATABASE_URL
-      BASE_URL     = aws_api_gateway_deployment.deployment.invoke_url
+      BASE_URL     = aws_api_gateway_deployment.stage_v1.invoke_url
       API_PREFIX   = ""
       VERSION      = data.external.git.result.sha
     }
