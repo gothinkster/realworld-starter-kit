@@ -4,6 +4,7 @@ setup:
 	npm install
 
 build:
+	rm -rf build dist
 	npm run prebuild
 	npm run build
 	mv dist build
@@ -24,15 +25,27 @@ nohup/docker:
 infra/up:
 	docker-compose up localstack mysql
 
-format:
+ci:
+	docker-compose rm -f localstack mysql
+	docker-compose up -d localstack mysql
+
+	npm install
+
 	npx prettier --write .
 	cd terraform/lambda && terraform fmt
-
-typecheck:
 	npx tsc --noEmit
 
-ci: typecheck format
+	npm run migration:run
 	npm run migration:check
+
+	npm run test:unit
+
+	make build
+	npm install
+
+	make nohup/local
+	DRIVER=trpc API_URL=http://localhost:3000/api TRPC_URL=http://localhost:3000/trpc npm run test:acceptance
+	DRIVER=rest API_URL=http://localhost:3000/api TRPC_URL=http://localhost:3000/trpc npm run test:acceptance
 
 localstack/terraform: export AWS_ACCESS_KEY_ID = foo
 localstack/terraform: export AWS_SECRET_ACCESS_KEY = bar
