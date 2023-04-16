@@ -3,14 +3,18 @@ import { UserDriver } from './UserDriver'
 import { UserRestDriver } from './UserRestDriver'
 import { UserTrpcDriver } from './UserTrpcDriver'
 
+const driverClasses = {
+  trpc: UserTrpcDriver,
+  rest: UserRestDriver,
+} as const
+
 function createDriver(): UserDriver {
-  if (process.env.DRIVER === 'trpc') {
-    return new UserTrpcDriver()
+  const DRIVER = process.env.DRIVER?.toLowerCase()
+  const DriverClass = driverClasses[DRIVER as keyof typeof driverClasses]
+  if (!DriverClass) {
+    throw new Error(`Unknown driver: ${DRIVER}`)
   }
-  if (process.env.DRIVER === 'rest') {
-    return new UserRestDriver()
-  }
-  throw new Error(`Unknown driver: ${process.env.DRIVER}`)
+  return new DriverClass()
 }
 
 export function createUsers() {

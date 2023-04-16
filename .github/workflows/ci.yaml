@@ -69,7 +69,7 @@ jobs:
         shell: bash
         name: Acceptance REST Tests
         env:
-          DRIVER: REST
+          DRIVER: rest
           API_URL: http://localhost:3000/api
           TRPC_URL: http://localhost:3000/trpc
 
