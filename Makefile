@@ -32,7 +32,7 @@ ci:
 	npm install
 
 	npx prettier --write .
-	cd terraform/lambda && terraform fmt
+	cd terraform && terraform fmt
 	npx tsc --noEmit
 
 	npm run migration:run
@@ -54,7 +54,7 @@ localstack/terraform: export TF_VAR_ENVIRONMENT = production
 localstack/terraform:
 	docker-compose up -d localstack mysql
 
-	cd terraform/lambda \
+	cd terraform \
 	&& tflocal init -upgrade -reconfigure \
 		-backend-config="force_path_style=true" \
 		-backend-config="endpoint=http://localhost:4566" \
@@ -65,7 +65,7 @@ localstack/terraform:
 	&& tflocal apply -auto-approve
 
 aws/terraform:
-	cd terraform/lambda \
+	cd terraform \
 	&& terraform init -upgrade -reconfigure -backend-config="key=realworld-app/$(TF_VAR_ENVIRONMENT)/lambda.tfstate" \
 	&& terraform apply -auto-approve
 
