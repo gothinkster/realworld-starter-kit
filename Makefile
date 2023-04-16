@@ -1,14 +1,12 @@
-.PHONY: build
+.PHONY: build setup
 
 setup:
 	npm install
 
 build:
-	rm -rf dist build build.zip
+	npm run prebuild
 	npm run build
-	mv dist/main build
-	rm -rf dist node_modules
-
+	mv dist build
 	npm ci --omit dev
 	cp -r node_modules build/node_modules
 
@@ -16,7 +14,7 @@ zip:
 	cd build &&	zip -r ../build.zip *
 
 nohup/local:
-	nohup node build/server &
+	nohup sh -c 'cd build && node server' &
 	./scripts/wait_for_status.sh http://localhost:3000/api/checks/readiness 200
 
 nohup/docker:

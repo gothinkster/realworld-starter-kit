@@ -1,13 +1,12 @@
 {
   "extends": "./tsconfig.json",
+  "include": ["main"],
   "exclude": [
     "node_modules",
-    "src/tests",
     "dist",
     "**/*unit.ts",
     "**/*spec.ts",
-    "src/migrations",
-    "**/__mocks/**/*"
+    "__mocks__"
   ],
-  "baseUrl": "./src/main"
+  "baseUrl": "."
 }
