@@ -52,6 +52,8 @@ localstack/terraform: export AWS_SECRET_ACCESS_KEY = bar
 localstack/terraform: export TF_VAR_DATABASE_URL = mysql://realworld:realworld@mysql:3306/realworld
 localstack/terraform: export TF_VAR_ENVIRONMENT = production
 localstack/terraform:
+	docker-compose up -d localstack mysql
+
 	cd terraform/lambda \
 	&& tflocal init -upgrade -reconfigure \
 		-backend-config="force_path_style=true" \

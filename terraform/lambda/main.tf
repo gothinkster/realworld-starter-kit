@@ -95,17 +95,6 @@ output "FUNCTION_NAME" {
   value = aws_lambda_function.realworld_api_function.function_name
 }
 
-# Function URL
-resource "aws_lambda_function_url" "realworld_api_function_url" {
-  function_name      = aws_lambda_function.realworld_api_function.arn
-  authorization_type = "NONE"
-  provider           = aws
-}
-
-output "FUNCTION_URL" {
-  value = aws_lambda_function_url.realworld_api_function_url.function_url
-}
-
 # API Gateway
 resource "aws_api_gateway_rest_api" "api" {
   name                     = local.name
