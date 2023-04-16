@@ -1,0 +1,15 @@
+name: Pull Request
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yaml
+
+  sandbox:
+    uses: ./.github/workflows/sandbox.yaml
+    if: github.event.pull_request.draft == false
+    needs: ci

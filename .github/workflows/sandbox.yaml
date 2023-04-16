@@ -1,0 +1,71 @@
+name: Deploy Sandbox
+
+env:
+  pscale_base_directory: .pscale
+
+on:
+  workflow_call:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  sandbox:
+    runs-on: ubuntu-latest
+    steps:
+      - id: environment
+        env:
+          BRANCH_NAME: ${{ github.event.inputs.branch_name }}
+        run: |
+          NAME=$(echo $BRANCH_NAME | tr -d '[:punct:]' | tr '[:upper:]' '[:lower:]')
+          echo "name=$NAME" >> $GITHUB_OUTPUT
+
+      - uses: ./.github/actions/credentials
+
+      - name: Create DB branch and deploy request- if asked, please click on displayed link to authenticate
+        id: database
+        timeout-minutes: 3
+        env:
+          ORG_NAME: santunioni
+          DB_NAME: realworld-app
+          GITHUB_USER: ${{ github.actor }}
+        working-directory: ${{ env.pscale_base_directory }}/cli-helper-scripts/
+        run: |
+          ./create-db-branch.sh "${{ steps.environment.outputs.name }}"
+          ./create-branch-connection-string.sh "${{ steps.environment.outputs.name }}"
+          echo "DATABASE_URL=$MY_DB_URL" >> $GITHUB_OUTPUT
+
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.4.4
+
+      - run: npm install
+        shell: bash
+        name: Dependencies
+
+      - run: |
+          npm run migration:run
+          npm run migration:check
+        shell: bash
+        name: Migrations
+        env:
+          DATABASE_URL: ${{ steps.database.outputs.DATABASE_URL }}
+
+      - name: Downloading Build
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+
+      - id: terraform
+        run: make aws/terraform
+        env:
+          TF_VAR_DATABASE_URL: ${{ steps.database.outputs.DATABASE_URL }}
+          TF_VAR_ENVIRONMENT: ${{ steps.environment.outputs.name }}
