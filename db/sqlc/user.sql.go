@@ -52,6 +52,21 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (*User, 
 	return &i, err
 }
 
+const doesUserExist = `-- name: DoesUserExist :one
+SELECT EXISTS (
+    SELECT 1
+    FROM users
+    WHERE id = $1
+)
+`
+
+func (q *Queries) DoesUserExist(ctx context.Context, id string) (bool, error) {
+	row := q.db.QueryRow(ctx, doesUserExist, id)
+	var exists bool
+	err := row.Scan(&exists)
+	return exists, err
+}
+
 const followUser = `-- name: FollowUser :exec
 INSERT INTO follows (
     follower_id,
@@ -70,6 +85,32 @@ type FollowUserParams struct {
 func (q *Queries) FollowUser(ctx context.Context, arg FollowUserParams) error {
 	_, err := q.db.Exec(ctx, followUser, arg.FollowerID, arg.FollowingID)
 	return err
+}
+
+const getFollowees = `-- name: GetFollowees :many
+SELECT follower_id, following_id
+FROM follows
+WHERE follower_id = $1
+`
+
+func (q *Queries) GetFollowees(ctx context.Context, followerID string) ([]*Follow, error) {
+	rows, err := q.db.Query(ctx, getFollowees, followerID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []*Follow
+	for rows.Next() {
+		var i Follow
+		if err := rows.Scan(&i.FollowerID, &i.FollowingID); err != nil {
+			return nil, err
+		}
+		items = append(items, &i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
 const getUser = `-- name: GetUser :one

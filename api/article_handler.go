@@ -1,6 +1,7 @@
 package api
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"time"
@@ -36,6 +37,7 @@ func (s *Server) ListArticles(c *gin.Context) { // TODO:✅ GET /articles - List
 	var (
 		query listQuery
 		count int64
+		followerID string
 	)
 	if err := c.ShouldBindQuery(&query); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -44,19 +46,24 @@ func (s *Server) ListArticles(c *gin.Context) { // TODO:✅ GET /articles - List
 	if query.Limit == 0 {
 		query.Limit = 20
 	}
+	token := GetJWTFromHeader(c)
+	if token != "" {
+		followerID = GetIDFromToken(token)
+	}
 	if query.Tag != "" {
-		p := db.ListArticlesByTagParams{
-			Name:   query.Tag,
+		p := db.GetArticlesByTagParams{
+			Name: query.Tag,
 			Limit:  int32(query.Limit),
 			Offset: int32(query.Offset),
+			Column4: followerID,
 		}
-		articles, err := NullableList(s.store.ListArticlesByTag(c, p))
+		articles, err := NullableList(s.store.GetArticlesByTag(c, p))
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 		if articles == nil {
-			c.JSON(http.StatusOK, gin.H{"articles": []string{}, "articlesCount": 0})
+			c.JSON(http.StatusOK, newArticlesByTagResponse(nil, 0))
 			return
 		}
 		count, err = s.store.CountArticlesByTag(c, query.Tag)
@@ -64,21 +71,22 @@ func (s *Server) ListArticles(c *gin.Context) { // TODO:✅ GET /articles - List
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusOK, gin.H{"articles": articles, "articlesCount": count})
+		c.JSON(http.StatusOK, newArticlesByTagResponse(articles, count))
 		return
 	} else if query.Author != "" {
-		p := db.ListArticlesByAuthorParams{
+		p := db.GetArticlesByAuthorParams{
 			Username: query.Author,
 			Limit:    int32(query.Limit),
 			Offset:   int32(query.Offset),
+			Column4:  followerID,
 		}
-		articles, err := NullableList(s.store.ListArticlesByAuthor(c, p))
+		articles, err := NullableList(s.store.GetArticlesByAuthor(c, p))
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 		if articles == nil {
-			c.JSON(http.StatusOK, gin.H{"articles": []string{}, "articlesCount": 0})
+			c.JSON(http.StatusOK, newArticlesByAuthorResponse(nil, 0))
 			return
 		}
 		count, err = s.store.CountArticlesByAuthor(c, query.Author)
@@ -86,21 +94,22 @@ func (s *Server) ListArticles(c *gin.Context) { // TODO:✅ GET /articles - List
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusOK, gin.H{"articles": articles, "articlesCount": count})
+		c.JSON(http.StatusOK, newArticlesByAuthorResponse(articles, count))
 		return
 	} else if query.Favorited != "" {
-		p := db.ListArticlesByFavoritedParams{
+		p := db.GetArticlesByFavoritedParams{
 			Username: query.Favorited,
 			Limit:    int32(query.Limit),
 			Offset:   int32(query.Offset),
+			Column4:  followerID,
 		}
-		articles, err := NullableList(s.store.ListArticlesByFavorited(c, p))
+		articles, err := NullableList(s.store.GetArticlesByFavorited(c, p))
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 		if articles == nil {
-			c.JSON(http.StatusOK, gin.H{"articles": []string{}, "articlesCount": 0})
+			c.JSON(http.StatusOK, newArticlesByFavoritedResponse(nil, 0))
 			return
 		}
 		count, err = s.store.CountArticlesByFavorited(c, query.Favorited)
@@ -108,20 +117,21 @@ func (s *Server) ListArticles(c *gin.Context) { // TODO:✅ GET /articles - List
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusOK, gin.H{"articles": articles, "articlesCount": count})
+		c.JSON(http.StatusOK, newArticlesByFavoritedResponse(articles, count))
 		return
 	}
-	p := db.ListArticlesParams{
+	p := db.GetArticlesParams{
 		Limit:  int32(query.Limit),
 		Offset: int32(query.Offset),
+		Column3: followerID,
 	}
-	articles, err := NullableList(s.store.ListArticles(c, p))
+	articles, err := NullableList(s.store.GetArticles(c, p))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 	if articles == nil {
-		c.JSON(http.StatusOK, gin.H{"articles": []string{}, "articlesCount": 0})
+		c.JSON(http.StatusOK, newArticlesResponse(nil, 0))
 		return
 	}
 	count, err = s.store.CountArticles(c)
@@ -129,8 +139,219 @@ func (s *Server) ListArticles(c *gin.Context) { // TODO:✅ GET /articles - List
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"articles": articles, "articlesCount": count})
+	c.JSON(http.StatusOK, newArticlesResponse(articles, count))
 }
+
+func newArticlesByTagResponse(articles []*db.GetArticlesByTagRow, count int64) *articlesResponse {
+	resp := new(articlesResponse)
+	resp.Articles = make([]struct{
+		Slug           string    `json:"slug"`
+		Title          string    `json:"title"`
+		Description    string    `json:"description"`
+		Body           string    `json:"body"`
+		TagList        []string  `json:"tagList"`
+		CreatedAt      time.Time `json:"createdAt"`
+		UpdatedAt      time.Time `json:"updatedAt"`
+		Favorited      bool      `json:"favorited"`
+		FavoritesCount int64     `json:"favoritesCount"`
+		Author         struct {
+			Username  *string `json:"username"`
+			Bio       *string `json:"bio"`
+			Image     *string `json:"image"`
+			Following bool    `json:"following"`
+		} `json:"author"`
+	}, len(articles))
+	for i, article := range articles {
+		resp.Articles[i].Slug = article.Slug
+		resp.Articles[i].Title = article.Title
+		resp.Articles[i].Description = article.Description
+		resp.Articles[i].Body = article.Body
+		var tags []string
+		if article.TagList != nil {
+			a, _ := article.TagList.(pgtype.TextArray)
+			a.AssignTo(&tags)
+			if tags[0] != "" {
+				resp.Articles[i].TagList = tags
+			}		
+		} else {
+			resp.Articles[i].TagList = []string{}
+		}
+		resp.Articles[i].CreatedAt = article.CreatedAt
+		resp.Articles[i].UpdatedAt = article.UpdatedAt
+		resp.Articles[i].Favorited = article.Favorited
+		if article.FavoritesCount != nil {
+			resp.Articles[i].FavoritesCount = *article.FavoritesCount
+		} else {
+			resp.Articles[i].FavoritesCount = 0
+		}
+		resp.Articles[i].Author.Username = article.Username
+		resp.Articles[i].Author.Bio = article.Bio
+		resp.Articles[i].Author.Image = article.Image
+		resp.Articles[i].Author.Following = article.Following
+	}
+	resp.ArticlesCount = count
+	return resp
+}
+
+
+func newArticlesByAuthorResponse(articles []*db.GetArticlesByAuthorRow, count int64) *articlesResponse {
+	resp := new(articlesResponse)
+	resp.Articles = make([]struct{
+		Slug           string    `json:"slug"`
+		Title          string    `json:"title"`
+		Description    string    `json:"description"`
+		Body           string    `json:"body"`
+		TagList        []string  `json:"tagList"`
+		CreatedAt      time.Time `json:"createdAt"`
+		UpdatedAt      time.Time `json:"updatedAt"`
+		Favorited      bool      `json:"favorited"`
+		FavoritesCount int64     `json:"favoritesCount"`
+		Author         struct {
+			Username  *string `json:"username"`
+			Bio       *string `json:"bio"`
+			Image     *string `json:"image"`
+			Following bool    `json:"following"`
+		} `json:"author"`
+	}, len(articles))
+	for i, article := range articles {
+		resp.Articles[i].Slug = article.Slug
+		resp.Articles[i].Title = article.Title
+		resp.Articles[i].Description = article.Description
+		resp.Articles[i].Body = article.Body
+		var tags []string
+		if article.TagList != nil {
+			a, _ := article.TagList.(pgtype.TextArray)
+			a.AssignTo(&tags)
+			if tags[0] != "" {
+				resp.Articles[i].TagList = tags
+			}		
+		} else {
+			resp.Articles[i].TagList = []string{}
+		}
+		resp.Articles[i].CreatedAt = article.CreatedAt
+		resp.Articles[i].UpdatedAt = article.UpdatedAt
+		resp.Articles[i].Favorited = article.Favorited
+		if article.FavoritesCount != nil {
+			resp.Articles[i].FavoritesCount = *article.FavoritesCount
+		} else {
+			resp.Articles[i].FavoritesCount = 0
+		}
+		resp.Articles[i].Author.Username = article.Username
+		resp.Articles[i].Author.Bio = article.Bio
+		resp.Articles[i].Author.Image = article.Image
+		resp.Articles[i].Author.Following = article.Following
+	}
+	resp.ArticlesCount = count
+	return resp
+}
+
+func newArticlesByFavoritedResponse(articles []*db.GetArticlesByFavoritedRow, count int64) *articlesResponse {
+	resp := new(articlesResponse)
+	resp.Articles = make([]struct{
+		Slug           string    `json:"slug"`
+		Title          string    `json:"title"`
+		Description    string    `json:"description"`
+		Body           string    `json:"body"`
+		TagList        []string  `json:"tagList"`
+		CreatedAt      time.Time `json:"createdAt"`
+		UpdatedAt      time.Time `json:"updatedAt"`
+		Favorited      bool      `json:"favorited"`
+		FavoritesCount int64     `json:"favoritesCount"`
+		Author         struct {
+			Username  *string `json:"username"`
+			Bio       *string `json:"bio"`
+			Image     *string `json:"image"`
+			Following bool    `json:"following"`
+		} `json:"author"`
+	}, len(articles))
+	for i, article := range articles {
+		resp.Articles[i].Slug = article.Slug
+		resp.Articles[i].Title = article.Title
+		resp.Articles[i].Description = article.Description
+		resp.Articles[i].Body = article.Body
+		var tags []string
+		if article.TagList != nil {
+			a, _ := article.TagList.(pgtype.TextArray)
+			a.AssignTo(&tags)
+			if tags[0] != "" {
+				resp.Articles[i].TagList = tags
+			}		
+		} else {
+			resp.Articles[i].TagList = []string{}
+		}
+		resp.Articles[i].CreatedAt = article.CreatedAt
+		resp.Articles[i].UpdatedAt = article.UpdatedAt
+		resp.Articles[i].Favorited = article.Favorited
+		if article.FavoritesCount != nil {
+			resp.Articles[i].FavoritesCount = *article.FavoritesCount
+		} else {
+			resp.Articles[i].FavoritesCount = 0
+		}
+		resp.Articles[i].Author.Username = article.Username
+		resp.Articles[i].Author.Bio = article.Bio
+		resp.Articles[i].Author.Image = article.Image
+		resp.Articles[i].Author.Following = article.Following
+	}
+	resp.ArticlesCount = count
+	return resp
+}
+
+func newArticlesResponse(articles []*db.GetArticlesRow, count int64) *articlesResponse {
+	resp := new(articlesResponse)
+	resp.Articles = make([]struct{
+		Slug           string    `json:"slug"`
+		Title          string    `json:"title"`
+		Description    string    `json:"description"`
+		Body           string    `json:"body"`
+		TagList        []string  `json:"tagList"`
+		CreatedAt      time.Time `json:"createdAt"`
+		UpdatedAt      time.Time `json:"updatedAt"`
+		Favorited      bool      `json:"favorited"`
+		FavoritesCount int64     `json:"favoritesCount"`
+		Author         struct {
+			Username  *string `json:"username"`
+			Bio       *string `json:"bio"`
+			Image     *string `json:"image"`
+			Following bool    `json:"following"`
+		} `json:"author"`
+	}, len(articles))
+	for i, article := range articles {
+		resp.Articles[i].Slug = article.Slug
+		resp.Articles[i].Title = article.Title
+		resp.Articles[i].Description = article.Description
+		resp.Articles[i].Body = article.Body
+		var tags []string
+		if article.TagList != nil {
+			a, _ := article.TagList.(pgtype.TextArray)
+			a.AssignTo(&tags)
+			if tags[0] != "" {
+				resp.Articles[i].TagList = tags
+			}		
+		} else {
+			resp.Articles[i].TagList = []string{}
+		}
+		resp.Articles[i].CreatedAt = article.CreatedAt
+		resp.Articles[i].UpdatedAt = article.UpdatedAt
+		resp.Articles[i].Favorited = article.Favorited
+		if article.FavoritesCount != nil {
+			resp.Articles[i].FavoritesCount = *article.FavoritesCount
+		} else {
+			resp.Articles[i].FavoritesCount = 0
+		}
+		resp.Articles[i].Author.Username = article.Username
+		resp.Articles[i].Author.Bio = article.Bio
+		resp.Articles[i].Author.Image = article.Image
+		resp.Articles[i].Author.Following = article.Following
+	}
+	resp.ArticlesCount = count
+	return resp
+}
+
+type feedQuery struct {
+	Offset    int    `form:"offset" binding:"omitempty"`
+	Limit     int    `form:"limit" binding:"omitempty"`
+}
+
 
 // FeedArticles godoc
 // @Summary Feed articles
@@ -140,13 +361,14 @@ func (s *Server) ListArticles(c *gin.Context) { // TODO:✅ GET /articles - List
 // @Produce  json
 // @Param limit query int false "Limit"
 // @Param offset query int false "Offset"
-// @Success 200 {object} map[string]interface{}
+// @Success 200 {object} articlesResponse
 // @Failure 500 {object} Error
 // @Security Bearer
 // @Router /articles/feed [get]
 func (s *Server) FeedArticles(c *gin.Context) { // TODO:✅ GET /articles/feed - FeedArticles
+	id := GetIDFromHeader(c)
 	var (
-		query listQuery
+		query feedQuery
 		count int64
 	)
 	if err := c.ShouldBindQuery(&query); err != nil {
@@ -156,27 +378,108 @@ func (s *Server) FeedArticles(c *gin.Context) { // TODO:✅ GET /articles/feed -
 	if query.Limit == 0 {
 		query.Limit = 20
 	}
-	p := db.ListArticlesByFollowingParams{
-		Username: c.GetString("username"),
-		Limit:    int32(query.Limit),
-		Offset:   int32(query.Offset),
-	}
-	articles, err := NullableList(s.store.ListArticlesByFollowing(c, p))
+	ok, err := s.store.DoesUserExist(c, id)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, NewError(err))
+		return
+	}
+	if !ok {
+		c.JSON(http.StatusUnauthorized, NewError(errors.New("unauthorized")))
+		return
+	}
+	articles, err := NullableList(s.store.GetArticlesFeed(c, db.GetArticlesFeedParams{
+		UserID: id,
+		Limit:  int32(query.Limit),
+		Offset: int32(query.Offset),
+	}))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, NewError(err))
 		return
 	}
 	if articles == nil {
-		c.JSON(http.StatusOK, gin.H{"articles": []string{}, "articlesCount": 0})
+		c.JSON(http.StatusOK, newArticleFeedResponse(nil, 0))
 		return
 	}
-	count, err = s.store.CountArticlesByFollowing(c, c.GetString("username"))
+	count, err = s.store.CountArticlesFeed(c, id)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, NewError(err))
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"articles": articles, "articlesCount": count})
+	c.JSON(http.StatusOK, newArticleFeedResponse(articles, count))
 }
+
+type articlesResponse struct {
+	Articles      []struct{
+		Slug           string    `json:"slug"`
+		Title          string    `json:"title"`
+		Description    string    `json:"description"`
+		Body           string    `json:"body"`
+		TagList        []string  `json:"tagList"`
+		CreatedAt      time.Time `json:"createdAt"`
+		UpdatedAt      time.Time `json:"updatedAt"`
+		Favorited      bool      `json:"favorited"`
+		FavoritesCount int64     `json:"favoritesCount"`
+		Author         struct {
+			Username  *string `json:"username"`
+			Bio       *string `json:"bio"`
+			Image     *string `json:"image"`
+			Following bool    `json:"following"`
+		} `json:"author"`
+	} `json:"articles"`
+	ArticlesCount int64              `json:"articlesCount"`
+}
+
+func newArticleFeedResponse(articles []*db.GetArticlesFeedRow, count int64) *articlesResponse {
+	resp := new(articlesResponse)
+	resp.Articles = make([]struct{
+		Slug           string    `json:"slug"`
+		Title          string    `json:"title"`
+		Description    string    `json:"description"`
+		Body           string    `json:"body"`
+		TagList        []string  `json:"tagList"`
+		CreatedAt      time.Time `json:"createdAt"`
+		UpdatedAt      time.Time `json:"updatedAt"`
+		Favorited      bool      `json:"favorited"`
+		FavoritesCount int64     `json:"favoritesCount"`
+		Author         struct {
+			Username  *string `json:"username"`
+			Bio       *string `json:"bio"`
+			Image     *string `json:"image"`
+			Following bool    `json:"following"`
+		} `json:"author"`
+	}, len(articles))
+	for i, article := range articles {
+		resp.Articles[i].Slug = article.Slug
+		resp.Articles[i].Title = article.Title
+		resp.Articles[i].Description = article.Description
+		resp.Articles[i].Body = article.Body
+		var tags []string
+		if article.TagList != nil {
+			a, _ := article.TagList.(pgtype.TextArray)
+			a.AssignTo(&tags)
+			if tags[0] != "" {
+				resp.Articles[i].TagList = tags
+			}		
+		} else {
+			resp.Articles[i].TagList = []string{}
+		}
+		resp.Articles[i].CreatedAt = article.CreatedAt
+		resp.Articles[i].UpdatedAt = article.UpdatedAt
+		resp.Articles[i].Favorited = article.Favorited
+		if article.FavoritesCount != nil {
+			resp.Articles[i].FavoritesCount = *article.FavoritesCount
+		} else {
+			resp.Articles[i].FavoritesCount = 0
+		}
+		resp.Articles[i].Author.Username = article.Username
+		resp.Articles[i].Author.Bio = article.Bio
+		resp.Articles[i].Author.Image = article.Image
+		resp.Articles[i].Author.Following = true
+	}
+	resp.ArticlesCount = count
+	return resp
+}
+
 
 type articleResponse struct {
 	Article struct {
@@ -211,12 +514,14 @@ func newArticleResponse(article *db.GetArticleBySlugRow, favorited, following bo
 		if tags[0] != "" {
 			resp.Article.TagList = tags
 		}		
+	} else {
+		resp.Article.TagList = []string{}
 	}
 	resp.Article.CreatedAt = article.CreatedAt
 	resp.Article.UpdatedAt = article.UpdatedAt
 	resp.Article.Favorited = favorited
 	resp.Article.FavoritesCount = article.FavoritesCount
-	resp.Article.Author.Username = article.Username
+	resp.Article.Author.Username = &article.Username
 	resp.Article.Author.Bio = article.Bio
 	resp.Article.Author.Image = article.Image
 	resp.Article.Author.Following = following
@@ -235,19 +540,45 @@ func newArticleResponse(article *db.GetArticleBySlugRow, favorited, following bo
 // @Failure 500 {object} Error
 // @Router /articles/{slug} [get]
 func (s *Server) GetArticle(c *gin.Context) { // TODO:✅ GET /articles/:slug - GetArticle
-	// get token from header if exists        // TODO: GET /articles/:slug - GetArticle - Following
+	var (
+		followerID string
+		favorited bool
+		following bool
+	)
+	token := GetJWTFromHeader(c)
+	if token != "" {
+		followerID = GetIDFromToken(token)
+	}
 	slug := c.Param("slug")
 	article, err := Nullable(s.store.GetArticleBySlug(c, slug))
 	if err != nil {
 		fmt.Println(err)
-		c.JSON(http.StatusInternalServerError, err)
+		c.JSON(http.StatusInternalServerError, NewError(err))
 		return
 	}
 	if article == nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "article not found"})
+		c.JSON(http.StatusNotFound, NewError(errors.New("article not found")))
 		return
 	}
-	c.JSON(http.StatusOK, newArticleResponse(article, false, false))
+	if followerID != "" {
+		favorited, err = s.store.DoesFavoriteExist(c, db.DoesFavoriteExistParams{
+			UserID:   followerID,
+			ArticleID: article.ID,
+		})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, NewError(err))
+			return
+		}
+		following, err = s.store.IsFollowing(c, db.IsFollowingParams{
+			FollowerID: followerID,
+			FollowingID: article.AuthorID,
+		})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, NewError(err))
+			return
+		}
+	}
+	c.JSON(http.StatusOK, newArticleResponse(article, favorited, following))
 }
 
 type createArticleReq struct {
@@ -267,7 +598,11 @@ func (req *createArticleReq) bind(c *gin.Context, p *db.CreateArticleTxParams) e
 	p.CreateArticleParams.Title = req.Article.Title
 	p.CreateArticleParams.Description = req.Article.Description
 	p.CreateArticleParams.Body = req.Article.Body
-	p.Tags = req.Article.TagList
+	if len(req.Article.TagList) > 0 {
+	    p.Tags = req.Article.TagList
+	} else {
+	    p.Tags = []string{}
+	}
 	return nil
 }
 
@@ -294,12 +629,6 @@ func (s *Server) CreateArticle(c *gin.Context) { // TODO:✅ POST /articles - Cr
 		c.JSON(http.StatusUnprocessableEntity, NewValidationError(err))
 	}
 	p.AuthorID = id
-	uniqueSlug, err := s.findUniqueSlug(c, p.Title)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, NewError(err))
-		return
-	}
-	p.Slug = uniqueSlug
 	articleTx, err := s.store.CreateArticleTx(c, p)
 	if err != nil {
 		s.log.Error(err)
@@ -334,7 +663,7 @@ type updateArticleReq struct {
 	} `json:"article" binding:"required"`
 }
 
-func (req *updateArticleReq) bind(c *gin.Context, p *db.UpdateArticleParams) error {
+func (req *updateArticleReq) bind(c *gin.Context, p *db.UpdateArticleTxParams) error {
 	if err := c.ShouldBindJSON(req); err != nil {
 		return err
 	}
@@ -363,41 +692,27 @@ func (s *Server) UpdateArticle(c *gin.Context) { // TODO:✅ PUT /articles/:slug
 	slug := c.Param("slug")
 	var (
 		req updateArticleReq
-		p   db.UpdateArticleParams
+		p   db.UpdateArticleTxParams
 	)
 	if err := req.bind(c, &p); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, NewValidationError(err))
 	}
 	p.AuthorID = authorID
-	articleID, err := NullableID(s.store.GetArticleIDBySlug(c, slug))
+	p.Slug = &slug
+	articleTx, err := s.store.UpdateArticleTx(c, p)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, NewValidationError(err))
-		return
-	}
-	if articleID == "" {
-		c.JSON(http.StatusNotFound, gin.H{"error": "article not found"})
-		return
-	}
-	p.ID = articleID
-	if p.Slug != nil {
-		uniqueSlug, err := s.findUniqueSlug(c, *p.Slug)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, NewValidationError(err))
+		if errors.Is(err, db.ErrNotFound) {
+			c.JSON(http.StatusNotFound, NewError(err))
 			return
 		}
-		p.Slug = &uniqueSlug
-	}
-	updatedArticle, err := s.store.UpdateArticle(c, p)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, NewValidationError(err))
+		if errors.Is(err, db.ErrForbidden) {
+			c.JSON(http.StatusForbidden, NewError(err))
+			return
+		}
+		c.JSON(http.StatusInternalServerError, NewError(err))
 		return
 	}
-	article, err := s.store.GetArticleBySlug(c, updatedArticle.Slug)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, NewValidationError(err))
-		return
-	}
-	c.JSON(http.StatusOK, newArticleResponse(article, false, false))
+	c.JSON(http.StatusOK, newArticleResponse(articleTx.Article, articleTx.Favorited, articleTx.Following))
 }
 
 // DeleteArticle godoc
@@ -416,12 +731,20 @@ func (s *Server) UpdateArticle(c *gin.Context) { // TODO:✅ PUT /articles/:slug
 func (s *Server) DeleteArticle(c *gin.Context) { // TODO:✅ DELETE /articles/:slug - DeleteArticle
 	authorID := GetIDFromHeader(c)
 	slug := c.Param("slug")
-	p := db.DeleteArticleParams{
+	p := db.DeleteArticleTxParams{
 		Slug:     slug,
-		AuthorID: authorID,
+		UserID:  authorID,
 	}
-	if err := s.store.DeleteArticle(c, p); err != nil {
-		c.JSON(http.StatusInternalServerError, NewValidationError(err))
+	if err := s.store.DeleteArticleTx(c, p); err != nil {
+		if errors.Is(err, db.ErrForbidden) {
+			c.JSON(http.StatusForbidden, NewError(err))
+			return
+		}
+		if errors.Is(err, db.ErrNotFound) {
+			c.JSON(http.StatusNoContent, nil)
+			return
+		}
+		c.JSON(http.StatusInternalServerError, NewError(err))
 		return
 	}
 	c.JSON(http.StatusNoContent, nil)
@@ -546,7 +869,23 @@ func (s *Server) GetComments(c *gin.Context) { // TODO:✅ GET /articles/:slug/c
 		c.JSON(http.StatusInternalServerError, NewError(err))
 		return
 	}
-	c.JSON(http.StatusOK, newCommentsResponse(s, c, followerID, comments))   // UGLY HACK:
+	var isFollowingList []bool
+	if len(comments) != 0 && followerID != ""{
+		var authorIDs []string
+		for _, comment := range comments {
+			authorIDs = append(authorIDs, *comment.AuthorID)
+		}
+		p := db.IsFollowingListParams{
+			FollowerID: followerID,
+			FollowingID: authorIDs, 
+		}
+		isFollowingList, err = s.store.IsFollowingList(c, p)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, NewError(err))
+			return
+		}
+	}
+	c.JSON(http.StatusOK, newCommentsResponse(comments, isFollowingList))   // UGLY HACK:
 }
 
 type commentsResponse struct {
@@ -565,10 +904,8 @@ type commentsResponse struct {
 }
 
 func newCommentsResponse(
-	s *Server,
-	c *gin.Context, 
-	followerID string,
 	comments []*db.GetCommentsBySlugRow,
+	isFollowingList []bool,
 	) *commentsResponse {
 	res := &commentsResponse{
 		Comments: make([]struct {
@@ -592,16 +929,9 @@ func newCommentsResponse(
 		res.Comments[i].Author.Username = comment.Username
 		res.Comments[i].Author.Bio = comment.Bio
 		res.Comments[i].Author.Image = comment.Image
-		p := db.IsFollowingParams{
-			FollowerID: followerID,
-			FollowingID: *comment.AuthorID,			
+		if len(isFollowingList) != 0 {
+			res.Comments[i].Author.Following = isFollowingList[i] // TODO:✅ GET /articles/:slug/comments - GetComments, add following
 		}
-		isFollowing, err := s.store.IsFollowing(c, p)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, NewError(err))
-			return nil
-		}
-		res.Comments[i].Author.Following = isFollowing // TODO:✅ GET /articles/:slug/comments - GetComments, add following
 	}
 
 	return res
@@ -622,14 +952,25 @@ func newCommentsResponse(
 // @Security Bearer
 // @Router /articles/{slug}/comments/{id} [delete]
 func (s *Server) DeleteComment(c *gin.Context) { // TODO:✅ DELETE /articles/:slug/comments/:id - DeleteComment
+	userID := GetIDFromHeader(c)
 	// slug := c.Param("slug")
 	id := c.Param("id")
-	err := s.store.DeleteComment(c, id)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, NewValidationError(err))
-		return
+	p := db.DeleteCommentTxParams{
+		CommentID: id,
+		UserID: userID,
 	}
-	c.JSON(http.StatusOK, gin.H{"message": "comment deleted"})
+	err := s.store.DeleteCommentTx(c, p)
+	if err != nil {
+		if errors.Is(err, db.ErrForbidden) {
+			c.JSON(http.StatusForbidden, NewError(err))
+			return
+		}
+		if errors.Is(err, db.ErrNotFound) {
+			c.JSON(http.StatusNoContent, nil)
+			return
+		}
+	}
+	c.JSON(http.StatusNoContent, nil)
 }
 
 // FavoriteArticle godoc
@@ -654,7 +995,7 @@ func (s *Server) FavoriteArticle(c *gin.Context) { // TODO:✅ POST /articles/:s
 	}
 	a, err := s.store.FavoriteArticleTx(c, p)
 	if err != nil {
-		if err == db.ErrArticleNotFound {
+		if errors.Is(err, db.ErrNotFound) {
 			c.JSON(http.StatusNotFound, NewError(err))
 			return
 		}
@@ -686,7 +1027,7 @@ func (s *Server) UnfavoriteArticle(c *gin.Context) { // TODO:✅ DELETE /article
 	}
 	a, err := s.store.UnfavoriteArticleTx(c, p)
 	if err != nil {
-		if err == db.ErrArticleNotFound {
+		if errors.Is(err, db.ErrNotFound){
 			c.JSON(http.StatusNotFound, NewError(err))
 			return
 		}

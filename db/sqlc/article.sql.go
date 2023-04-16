@@ -52,7 +52,7 @@ func (q *Queries) AddComment(ctx context.Context, arg AddCommentParams) (*Commen
 }
 
 const countArticles = `-- name: CountArticles :one
-SELECT count(*)
+SELECT COUNT(*)
 FROM articles
 `
 
@@ -64,7 +64,7 @@ func (q *Queries) CountArticles(ctx context.Context) (int64, error) {
 }
 
 const countArticlesByAuthor = `-- name: CountArticlesByAuthor :one
-SELECT count(*)
+SELECT COUNT(*)
 FROM articles a
 LEFT JOIN users u ON a.author_id = u.id
 WHERE u.username = $1
@@ -78,11 +78,11 @@ func (q *Queries) CountArticlesByAuthor(ctx context.Context, username string) (i
 }
 
 const countArticlesByFavorited = `-- name: CountArticlesByFavorited :one
-SELECT count(*)
+SELECT COUNT(*)
 FROM articles a
-LEFT JOIN favorites fav ON a.id = fav.article_id
-LEFT JOIN users u2 ON fav.user_id = u2.id
-WHERE u2.username = $1
+LEFT JOIN favorites f ON a.id = f.article_id
+LEFT JOIN users u ON f.user_id = u.id
+WHERE u.username = $1
 `
 
 func (q *Queries) CountArticlesByFavorited(ctx context.Context, username string) (int64, error) {
@@ -92,24 +92,8 @@ func (q *Queries) CountArticlesByFavorited(ctx context.Context, username string)
 	return count, err
 }
 
-const countArticlesByFollowing = `-- name: CountArticlesByFollowing :one
-SELECT count(*)
-FROM articles a
-LEFT JOIN users u ON a.author_id = u.id
-LEFT JOIN follows f2 ON u.id = f2.followee_id
-LEFT JOIN users u2 ON f2.follower_id = u2.id
-WHERE u2.username = $1
-`
-
-func (q *Queries) CountArticlesByFollowing(ctx context.Context, username string) (int64, error) {
-	row := q.db.QueryRow(ctx, countArticlesByFollowing, username)
-	var count int64
-	err := row.Scan(&count)
-	return count, err
-}
-
 const countArticlesByTag = `-- name: CountArticlesByTag :one
-SELECT count(*)
+SELECT COUNT(*)
 FROM articles a
 LEFT JOIN article_tags art ON a.id = art.article_id
 LEFT JOIN tags t ON art.tag_id = t.id
@@ -118,6 +102,24 @@ WHERE t.name = $1
 
 func (q *Queries) CountArticlesByTag(ctx context.Context, name string) (int64, error) {
 	row := q.db.QueryRow(ctx, countArticlesByTag, name)
+	var count int64
+	err := row.Scan(&count)
+	return count, err
+}
+
+const countArticlesFeed = `-- name: CountArticlesFeed :one
+WITH follows_cte AS (
+	SELECT following_id
+	FROM follows
+	WHERE follower_id = $1
+)
+SELECT COUNT(*)
+FROM articles a
+WHERE a.author_id = ANY(SELECT following_id FROM follows_cte)
+`
+
+func (q *Queries) CountArticlesFeed(ctx context.Context, followerID string) (int64, error) {
+	row := q.db.QueryRow(ctx, countArticlesFeed, followerID)
 	var count int64
 	err := row.Scan(&count)
 	return count, err
@@ -207,7 +209,7 @@ INSERT INTO tags (
 )
 ON CONFLICT 
     ON CONSTRAINT tags_name_key
-DO NOTHING
+DO UPDATE SET name = $2
 RETURNING id
 `
 
@@ -225,16 +227,11 @@ func (q *Queries) CreateTag(ctx context.Context, arg CreateTagParams) (string, e
 
 const deleteArticle = `-- name: DeleteArticle :exec
 DELETE FROM articles
-WHERE slug = $1 and author_id = $2
+WHERE slug = $1
 `
 
-type DeleteArticleParams struct {
-	Slug     string `json:"slug"`
-	AuthorID string `json:"author_id"`
-}
-
-func (q *Queries) DeleteArticle(ctx context.Context, arg DeleteArticleParams) error {
-	_, err := q.db.Exec(ctx, deleteArticle, arg.Slug, arg.AuthorID)
+func (q *Queries) DeleteArticle(ctx context.Context, slug string) error {
+	_, err := q.db.Exec(ctx, deleteArticle, slug)
 	return err
 }
 
@@ -283,28 +280,73 @@ func (q *Queries) FavoriteArticle(ctx context.Context, arg FavoriteArticleParams
 	return err
 }
 
+const getArticleAuthorID = `-- name: GetArticleAuthorID :one
+SELECT author_id
+FROM articles
+WHERE slug = $1
+`
+
+func (q *Queries) GetArticleAuthorID(ctx context.Context, slug string) (string, error) {
+	row := q.db.QueryRow(ctx, getArticleAuthorID, slug)
+	var author_id string
+	err := row.Scan(&author_id)
+	return author_id, err
+}
+
+const getArticleAuthorIDBySlug = `-- name: GetArticleAuthorIDBySlug :one
+SELECT id, author_id
+FROM articles
+WHERE slug = $1
+`
+
+type GetArticleAuthorIDBySlugRow struct {
+	ID       string `json:"id"`
+	AuthorID string `json:"author_id"`
+}
+
+func (q *Queries) GetArticleAuthorIDBySlug(ctx context.Context, slug string) (*GetArticleAuthorIDBySlugRow, error) {
+	row := q.db.QueryRow(ctx, getArticleAuthorIDBySlug, slug)
+	var i GetArticleAuthorIDBySlugRow
+	err := row.Scan(&i.ID, &i.AuthorID)
+	return &i, err
+}
+
 const getArticleBySlug = `-- name: GetArticleBySlug :one
-SELECT a.id,
-       a.slug,
-       a.title,
-       a.description,
-       a.body,
-       array_agg(t.name) filter (where t.name is not null) AS tag_list,
-       a.created_at,
-       a.updated_at,
-       count(distinct f.user_id) as favorites_count,
-       u.id as author_id,
-       u.username,
-       u.bio,
-       u.image
-FROM articles a
-LEFT  JOIN article_tags art ON a.id = art.article_id
-LEFT JOIN tags t ON art.tag_id = t.id
-LEFT  JOIN favorites f ON a.id = f.article_id
-LEFT  JOIN users u ON a.author_id = u.id
-WHERE a.slug = $1
-GROUP BY  a.id, a.slug, a.title, a.description, a.body, 
-          a.created_at, a.updated_at, u.id
+WITH article_cte AS (
+	SELECT id, author_id, slug, title, description, body, created_at, updated_at 
+	FROM articles 
+	WHERE slug = $1
+), 
+favorites AS (
+	SELECT COUNT(*) AS count
+	FROM favorites
+	WHERE article_id = (SELECT id FROM article_cte LIMIT 1)
+), 
+tags AS (
+	SELECT array_agg(t.name) FILTER (WHERE t.name IS NOT NULL) AS list
+	FROM tags t
+	LEFT JOIN article_tags at ON t.id = at.tag_id
+	WHERE at.article_id = (SELECT id FROM article_cte LIMIT 1)
+), 
+author AS (
+	SELECT id, username, email, password, bio, image, created_at, updated_at 
+  FROM users 
+  WHERE id = (SELECT author_id FROM article_cte LIMIT 1)
+)
+SELECT  article_cte.id,
+        article_cte.slug,
+        article_cte.title,
+        article_cte.description,
+        article_cte.body,
+        article_cte.created_at,
+        article_cte.updated_at,
+        favorites.count AS favorites_count, 
+	      tags.list AS tag_list,
+        author.id AS author_id,
+	      author.username,
+        author.bio,
+        author.image
+FROM article_cte, favorites, tags, author
 `
 
 type GetArticleBySlugRow struct {
@@ -313,12 +355,12 @@ type GetArticleBySlugRow struct {
 	Title          string      `json:"title"`
 	Description    string      `json:"description"`
 	Body           string      `json:"body"`
-	TagList        interface{} `json:"tag_list"`
 	CreatedAt      time.Time   `json:"created_at"`
 	UpdatedAt      time.Time   `json:"updated_at"`
 	FavoritesCount int64       `json:"favorites_count"`
-	AuthorID       *string     `json:"author_id"`
-	Username       *string     `json:"username"`
+	TagList        interface{} `json:"tag_list"`
+	AuthorID       string      `json:"author_id"`
+	Username       string      `json:"username"`
 	Bio            *string     `json:"bio"`
 	Image          *string     `json:"image"`
 }
@@ -332,10 +374,10 @@ func (q *Queries) GetArticleBySlug(ctx context.Context, slug string) (*GetArticl
 		&i.Title,
 		&i.Description,
 		&i.Body,
-		&i.TagList,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 		&i.FavoritesCount,
+		&i.TagList,
 		&i.AuthorID,
 		&i.Username,
 		&i.Bio,
@@ -357,13 +399,692 @@ func (q *Queries) GetArticleIDBySlug(ctx context.Context, slug string) (string, 
 	return id, err
 }
 
+const getArticles = `-- name: GetArticles :many
+WITH articles_cte as (
+	SELECT id, author_id, slug, title, description, body, created_at, updated_at
+	FROM articles a
+	LIMIT $1 OFFSET $2
+),
+	users_cte AS (
+	SELECT id, username, email, password, bio, image, created_at, updated_at 
+	FROM users 
+	WHERE id = ANY(SELECT author_id FROM articles_cte)
+), 
+	tags_cte AS (
+	SELECT array_agg(t.name) list,
+		   at.article_id		
+	FROM article_tags at
+	LEFT JOIN tags t ON at.tag_id = t.id
+	WHERE at.article_id = ANY(SELECT id FROM articles_cte)
+	GROUP BY at.article_id
+), 
+ 	favorites_cte AS (
+	SELECT COUNT(*) COUNT,
+	       article_id
+	FROM favorites 
+	WHERE article_id = ANY(SELECT id FROM articles_cte)
+	GROUP BY article_id
+)	
+SELECT a.id,
+      a.slug,
+      a.title,
+      a.description,
+      a.body,
+      a.created_at,
+      a.updated_at, 
+      f.count AS favorites_count,
+	    CASE WHEN '' <> $3::text AND EXISTS (
+            SELECT 1 FROM favorites f 
+            WHERE f.article_id = a.id 
+            AND f.user_id = $3::text
+      ) THEN true 
+        ELSE false 
+      END AS favorited,
+	    CASE WHEN '' <> $3::text AND EXISTS (
+            SELECT 1 FROM follows f 
+            WHERE f.following_id = a.author_id 
+            AND f.follower_id = $3::text
+      ) THEN true 
+        ELSE false 
+      END AS following, 
+      t.list AS tag_list,  
+      u.username,
+      u.bio,
+      u.image
+FROM articles_cte a
+LEFT JOIN users_cte u ON a.author_id = u.id
+LEFT JOIN tags_cte t ON a.id = t.article_id
+LEFT JOIN favorites_cte f ON a.id = f.article_id
+ORDER BY a.created_at DESC
+`
+
+type GetArticlesParams struct {
+	Limit   int32  `json:"limit"`
+	Offset  int32  `json:"offset"`
+	Column3 string `json:"column_3"`
+}
+
+type GetArticlesRow struct {
+	ID             string      `json:"id"`
+	Slug           string      `json:"slug"`
+	Title          string      `json:"title"`
+	Description    string      `json:"description"`
+	Body           string      `json:"body"`
+	CreatedAt      time.Time   `json:"created_at"`
+	UpdatedAt      time.Time   `json:"updated_at"`
+	FavoritesCount *int64      `json:"favorites_count"`
+	Favorited      bool        `json:"favorited"`
+	Following      bool        `json:"following"`
+	TagList        interface{} `json:"tag_list"`
+	Username       *string     `json:"username"`
+	Bio            *string     `json:"bio"`
+	Image          *string     `json:"image"`
+}
+
+func (q *Queries) GetArticles(ctx context.Context, arg GetArticlesParams) ([]*GetArticlesRow, error) {
+	rows, err := q.db.Query(ctx, getArticles, arg.Limit, arg.Offset, arg.Column3)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []*GetArticlesRow
+	for rows.Next() {
+		var i GetArticlesRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Slug,
+			&i.Title,
+			&i.Description,
+			&i.Body,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.FavoritesCount,
+			&i.Favorited,
+			&i.Following,
+			&i.TagList,
+			&i.Username,
+			&i.Bio,
+			&i.Image,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, &i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getArticlesByAuthor = `-- name: GetArticlesByAuthor :many
+WITH author_cte AS (
+	SELECT id
+	FROM users u
+	WHERE u.username = $1
+),  
+  articles_cte AS (
+	SELECT id, author_id, slug, title, description, body, created_at, updated_at
+	FROM articles 
+	WHERE author_id = ANY(SELECT id FROM author_cte)
+  LIMIT $2 OFFSET $3
+),
+	users_cte AS (
+	SELECT id, username, email, password, bio, image, created_at, updated_at 
+	FROM users 
+	WHERE id = ANY(SELECT author_id FROM articles_cte)
+), 
+	tags_cte AS (
+	SELECT array_agg(t.name) list,
+		   at.article_id		
+	FROM article_tags at
+	LEFT JOIN tags t ON at.tag_id = t.id
+	WHERE at.article_id = ANY(SELECT id FROM articles_cte)
+	GROUP BY at.article_id
+), 
+ 	favorites_cte AS (
+	SELECT COUNT(*) COUNT,
+	       article_id
+	FROM favorites 
+	WHERE article_id = ANY(SELECT id FROM articles_cte)
+	GROUP BY article_id
+)	
+SELECT a.id,
+      a.slug,
+      a.title,
+      a.description,
+      a.body,
+      a.created_at,
+      a.updated_at, 
+      f.count AS favorites_count,
+	    CASE WHEN '' <> $4::text AND EXISTS (
+            SELECT 1 FROM favorites f 
+            WHERE f.article_id = a.id 
+            AND f.user_id = $4::text
+      ) THEN true 
+        ELSE false 
+      END AS favorited,
+      CASE WHEN '' <> $4::text AND EXISTS (
+            SELECT 1 FROM follows f 
+            WHERE f.following_id = a.author_id 
+            AND f.follower_id = $4::text
+      ) THEN true 
+        ELSE false 
+      END AS following,  
+      t.list AS tag_list,  
+      u.username,
+      u.bio,
+      u.image
+FROM articles_cte a
+LEFT JOIN users_cte u ON a.author_id = u.id
+LEFT JOIN tags_cte t ON a.id = t.article_id
+LEFT JOIN favorites_cte f ON a.id = f.article_id
+ORDER BY a.updated_at DESC
+`
+
+type GetArticlesByAuthorParams struct {
+	Username string `json:"username"`
+	Limit    int32  `json:"limit"`
+	Offset   int32  `json:"offset"`
+	Column4  string `json:"column_4"`
+}
+
+type GetArticlesByAuthorRow struct {
+	ID             string      `json:"id"`
+	Slug           string      `json:"slug"`
+	Title          string      `json:"title"`
+	Description    string      `json:"description"`
+	Body           string      `json:"body"`
+	CreatedAt      time.Time   `json:"created_at"`
+	UpdatedAt      time.Time   `json:"updated_at"`
+	FavoritesCount *int64      `json:"favorites_count"`
+	Favorited      bool        `json:"favorited"`
+	Following      bool        `json:"following"`
+	TagList        interface{} `json:"tag_list"`
+	Username       *string     `json:"username"`
+	Bio            *string     `json:"bio"`
+	Image          *string     `json:"image"`
+}
+
+func (q *Queries) GetArticlesByAuthor(ctx context.Context, arg GetArticlesByAuthorParams) ([]*GetArticlesByAuthorRow, error) {
+	rows, err := q.db.Query(ctx, getArticlesByAuthor,
+		arg.Username,
+		arg.Limit,
+		arg.Offset,
+		arg.Column4,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []*GetArticlesByAuthorRow
+	for rows.Next() {
+		var i GetArticlesByAuthorRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Slug,
+			&i.Title,
+			&i.Description,
+			&i.Body,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.FavoritesCount,
+			&i.Favorited,
+			&i.Following,
+			&i.TagList,
+			&i.Username,
+			&i.Bio,
+			&i.Image,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, &i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getArticlesByFavorited = `-- name: GetArticlesByFavorited :many
+WITH user_cte AS (
+	SELECT id, username, email, password, bio, image, created_at, updated_at 
+	FROM users 
+	WHERE username = $1
+), 
+  favorited_cte AS (
+	SELECT article_id
+	FROM favorites 
+	WHERE user_id = any(SELECT id FROM user_cte)
+  LIMIT $2 OFFSET $3
+),  
+  articles_cte AS (
+	SELECT id, author_id, slug, title, description, body, created_at, updated_at
+	FROM articles
+	WHERE id = any(SELECT article_id FROM favorited_cte)
+),
+	tags_cte AS (
+	SELECT array_agg(t.name) list,
+		   at.article_id		
+	FROM article_tags at
+	LEFT JOIN tags t ON at.tag_id = t.id
+	WHERE at.article_id = ANY(SELECT id FROM articles_cte)
+	GROUP BY at.article_id
+), 
+ 	favorites_cte AS (
+	SELECT COUNT(*) COUNT,
+	       f.article_id
+	FROM favorites f
+	WHERE f.article_id = ANY(SELECT id FROM articles_cte)
+	GROUP BY f.article_id
+)	
+SELECT a.id,
+      a.slug,
+      a.title,
+      a.description,
+      a.body,
+      a.created_at,
+      a.updated_at, 
+      f.count AS favorites_count,
+	    CASE WHEN '' <> $4::text AND EXISTS (
+            SELECT 1 FROM favorites f 
+            WHERE f.article_id = a.id 
+            AND f.user_id = $4::text
+      ) THEN true 
+        ELSE false 
+      END AS favorited,
+	    CASE WHEN '' <> $4::text AND EXISTS (
+            SELECT 1 FROM follows f 
+            WHERE f.following_id = a.author_id 
+            AND f.follower_id = $4::text
+      ) THEN true 
+        ELSE false 
+      END AS following, 	  
+      t.list AS tag_list,  
+      u.username,
+      u.bio,
+      u.image
+FROM articles_cte a
+LEFT JOIN user_cte u ON a.author_id = u.id
+LEFT JOIN tags_cte t ON a.id = t.article_id
+LEFT JOIN favorites_cte f ON a.id = f.article_id
+ORDER BY a.updated_at DESC
+`
+
+type GetArticlesByFavoritedParams struct {
+	Username string `json:"username"`
+	Limit    int32  `json:"limit"`
+	Offset   int32  `json:"offset"`
+	Column4  string `json:"column_4"`
+}
+
+type GetArticlesByFavoritedRow struct {
+	ID             string      `json:"id"`
+	Slug           string      `json:"slug"`
+	Title          string      `json:"title"`
+	Description    string      `json:"description"`
+	Body           string      `json:"body"`
+	CreatedAt      time.Time   `json:"created_at"`
+	UpdatedAt      time.Time   `json:"updated_at"`
+	FavoritesCount *int64      `json:"favorites_count"`
+	Favorited      bool        `json:"favorited"`
+	Following      bool        `json:"following"`
+	TagList        interface{} `json:"tag_list"`
+	Username       *string     `json:"username"`
+	Bio            *string     `json:"bio"`
+	Image          *string     `json:"image"`
+}
+
+func (q *Queries) GetArticlesByFavorited(ctx context.Context, arg GetArticlesByFavoritedParams) ([]*GetArticlesByFavoritedRow, error) {
+	rows, err := q.db.Query(ctx, getArticlesByFavorited,
+		arg.Username,
+		arg.Limit,
+		arg.Offset,
+		arg.Column4,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []*GetArticlesByFavoritedRow
+	for rows.Next() {
+		var i GetArticlesByFavoritedRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Slug,
+			&i.Title,
+			&i.Description,
+			&i.Body,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.FavoritesCount,
+			&i.Favorited,
+			&i.Following,
+			&i.TagList,
+			&i.Username,
+			&i.Bio,
+			&i.Image,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, &i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getArticlesByTag = `-- name: GetArticlesByTag :many
+WITH article_tags_cte AS (
+	SELECT article_id, tag_id, id, name
+	FROM article_tags at
+	LEFT JOIN tags t ON at.tag_id = t.id
+	WHERE t.name = $1
+  LIMIT $2 OFFSET $3
+),  
+  articles_cte AS (
+	SELECT id, author_id, slug, title, description, body, created_at, updated_at
+	FROM articles 
+	WHERE id = ANY(SELECT article_id FROM article_tags_cte)
+),
+	users_cte AS (
+	SELECT id, username, email, password, bio, image, created_at, updated_at 
+	FROM users 
+	WHERE id = ANY(SELECT author_id FROM articles_cte)
+), 
+	tags_cte AS (
+	SELECT array_agg(t.name) list,
+		   at.article_id		
+	FROM article_tags at
+	LEFT JOIN tags t ON at.tag_id = t.id
+	WHERE at.article_id = ANY(SELECT id FROM articles_cte)
+	GROUP BY at.article_id
+), 
+ 	favorites_cte AS (
+	SELECT COUNT(*) COUNT,
+	       article_id
+	FROM favorites 
+	WHERE article_id = ANY(SELECT id FROM articles_cte)
+	GROUP BY article_id
+)	
+SELECT a.id,
+      a.slug,
+      a.title,
+      a.description,
+      a.body,
+      a.created_at,
+      a.updated_at, 
+      f.count AS favorites_count,
+	    CASE WHEN '' <> $4::text AND EXISTS (
+            SELECT 1 FROM favorites f 
+            WHERE f.article_id = a.id 
+            AND f.user_id = $4::text
+      ) THEN true 
+        ELSE false 
+      END AS favorited,
+      CASE WHEN '' <> $4::text AND EXISTS (
+            SELECT 1 FROM follows f 
+            WHERE f.following_id = a.author_id 
+            AND f.follower_id = $4::text
+      ) THEN true 
+        ELSE false 
+      END AS following,  
+      t.list AS tag_list,  
+      u.username,
+      u.bio,
+      u.image
+FROM articles_cte a
+LEFT JOIN users_cte u ON a.author_id = u.id
+LEFT JOIN tags_cte t ON a.id = t.article_id
+LEFT JOIN favorites_cte f ON a.id = f.article_id
+ORDER BY a.updated_at DESC
+`
+
+type GetArticlesByTagParams struct {
+	Name    string `json:"name"`
+	Limit   int32  `json:"limit"`
+	Offset  int32  `json:"offset"`
+	Column4 string `json:"column_4"`
+}
+
+type GetArticlesByTagRow struct {
+	ID             string      `json:"id"`
+	Slug           string      `json:"slug"`
+	Title          string      `json:"title"`
+	Description    string      `json:"description"`
+	Body           string      `json:"body"`
+	CreatedAt      time.Time   `json:"created_at"`
+	UpdatedAt      time.Time   `json:"updated_at"`
+	FavoritesCount *int64      `json:"favorites_count"`
+	Favorited      bool        `json:"favorited"`
+	Following      bool        `json:"following"`
+	TagList        interface{} `json:"tag_list"`
+	Username       *string     `json:"username"`
+	Bio            *string     `json:"bio"`
+	Image          *string     `json:"image"`
+}
+
+func (q *Queries) GetArticlesByTag(ctx context.Context, arg GetArticlesByTagParams) ([]*GetArticlesByTagRow, error) {
+	rows, err := q.db.Query(ctx, getArticlesByTag,
+		arg.Name,
+		arg.Limit,
+		arg.Offset,
+		arg.Column4,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []*GetArticlesByTagRow
+	for rows.Next() {
+		var i GetArticlesByTagRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Slug,
+			&i.Title,
+			&i.Description,
+			&i.Body,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.FavoritesCount,
+			&i.Favorited,
+			&i.Following,
+			&i.TagList,
+			&i.Username,
+			&i.Bio,
+			&i.Image,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, &i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getArticlesFeed = `-- name: GetArticlesFeed :many
+WITH follows_cte AS (
+	SELECT following_id
+	FROM follows
+	WHERE follower_id = $1
+), 
+  articles_cte AS (
+	SELECT id, author_id, slug, title, description, body, created_at, updated_at
+	FROM articles
+	WHERE author_id = ANY(SELECT following_id FROM follows_cte)
+  LIMIT $2 OFFSET $3
+), 
+  users_cte AS (
+  SELECT id, username, email, password, bio, image, created_at, updated_at 
+  FROM users 
+  WHERE id = ANY(SELECT following_id FROM follows_cte)
+  
+), 
+  article_tags_cte AS (
+	SELECT array_agg(t.name) list,
+		   at.article_id		
+	FROM article_tags at
+	LEFT JOIN tags t ON at.tag_id = t.id
+	WHERE at.article_id = ANY(SELECT id FROM articles_cte)
+	GROUP BY at.article_id
+), 
+  favorites_cte AS (
+	SELECT COUNT(*) COUNT,
+	       article_id
+	FROM favorites 
+	WHERE article_id = ANY(SELECT id FROM articles_cte)
+	GROUP BY article_id
+)	
+SELECT a.id,
+      a.slug,
+      a.title,
+      a.description,
+      a.body,
+      a.created_at,
+      a.updated_at, 
+      fc.count AS favorites_count,
+      CASE WHEN EXISTS (
+            SELECT 1 FROM favorites f 
+            WHERE f.article_id = a.id 
+            AND f.user_id = $1
+      ) THEN true 
+        ELSE false 
+      END AS favorited, 
+      atc.list AS tag_list,  
+      u.username,
+      u.bio,
+      u.image
+FROM articles_cte AS a
+LEFT JOIN users_cte u ON a.author_id = u.id
+LEFT JOIN article_tags_cte atc ON a.id = atc.article_id
+LEFT JOIN favorites_cte fc ON a.id = fc.article_id
+ORDER BY a.updated_at DESC
+`
+
+type GetArticlesFeedParams struct {
+	UserID string `json:"user_id"`
+	Limit  int32  `json:"limit"`
+	Offset int32  `json:"offset"`
+}
+
+type GetArticlesFeedRow struct {
+	ID             string      `json:"id"`
+	Slug           string      `json:"slug"`
+	Title          string      `json:"title"`
+	Description    string      `json:"description"`
+	Body           string      `json:"body"`
+	CreatedAt      time.Time   `json:"created_at"`
+	UpdatedAt      time.Time   `json:"updated_at"`
+	FavoritesCount *int64      `json:"favorites_count"`
+	Favorited      bool        `json:"favorited"`
+	TagList        interface{} `json:"tag_list"`
+	Username       *string     `json:"username"`
+	Bio            *string     `json:"bio"`
+	Image          *string     `json:"image"`
+}
+
+func (q *Queries) GetArticlesFeed(ctx context.Context, arg GetArticlesFeedParams) ([]*GetArticlesFeedRow, error) {
+	rows, err := q.db.Query(ctx, getArticlesFeed, arg.UserID, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []*GetArticlesFeedRow
+	for rows.Next() {
+		var i GetArticlesFeedRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Slug,
+			&i.Title,
+			&i.Description,
+			&i.Body,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.FavoritesCount,
+			&i.Favorited,
+			&i.TagList,
+			&i.Username,
+			&i.Bio,
+			&i.Image,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, &i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getCommentAuthorID = `-- name: GetCommentAuthorID :one
+
+
+
+SELECT c.author_id
+FROM comments c
+WHERE c.id = $1
+LIMIT 1
+`
+
+// -- name: ListArticlesByFollowing :many
+// SELECT a.id,
+//
+//	a.slug,
+//	a.title,
+//	a.description,
+//	a.body,
+//	array_agg(t.name) AS tag_list,
+//	a.created_at,
+//	a.updated_at,
+//	coalesce(COUNT(f.article_id), 0)::INT AS favorites_count,
+//	u.username,
+//	u.bio,
+//	u.image
+//
+// FROM articles a
+// LEFT JOIN article_tags art ON a.id = art.article_id
+// LEFT JOIN tags t ON art.tag_id = t.id
+// LEFT JOIN (
+//
+//	SELECT   article_id
+//	FROM     favorites
+//	GROUP BY article_id
+//
+// ) f ON a.id = f.article_id
+// LEFT JOIN users u ON a.author_id = u.id
+// LEFT JOIN follows f2 ON u.id = f2.followee_id
+// LEFT JOIN users u2 ON f2.follower_id = u2.id
+// WHERE u2.username = $1
+// GROUP BY  a.id, a.slug, a.title, a.description, a.body,
+//
+//	a.created_at, a.updated_at, u.id
+//
+// ORDER BY a.created_at DESC
+// LIMIT $2 OFFSET $3;
+// -- name: CountArticlesByFollowing :one
+// SELECT COUNT(*)
+// FROM articles a
+// LEFT JOIN users u ON a.author_id = u.id
+// LEFT JOIN follows f2 ON u.id = f2.followee_id
+// LEFT JOIN users u2 ON f2.follower_id = u2.id
+// WHERE u2.username = $1;
+func (q *Queries) GetCommentAuthorID(ctx context.Context, id string) (string, error) {
+	row := q.db.QueryRow(ctx, getCommentAuthorID, id)
+	var author_id string
+	err := row.Scan(&author_id)
+	return author_id, err
+}
+
 const getCommentsBySlug = `-- name: GetCommentsBySlug :many
 SELECT 
     c.id,
     c.body,
     c.created_at,
     c.updated_at,
-    u.id as author_id,
+    u.id AS author_id,
     u.username,
     u.bio,
     u.image     
@@ -441,421 +1162,26 @@ func (q *Queries) GetTags(ctx context.Context) ([]string, error) {
 	return items, nil
 }
 
-const listArticles = `-- name: ListArticles :many
-SELECT a.id,
-       a.slug,
-       a.title,
-       a.description,
-       a.body,
-       array_agg(t.name) AS tag_list,
-       a.created_at,
-       a.updated_at,
-       coalesce(count(f.article_id), 0)::int as favorites_count, 
-       u.username,
-       u.bio,
-       u.image
-FROM articles a
-LEFT JOIN article_tags art ON a.id = art.article_id
-LEFT JOIN tags t ON art.tag_id = t.id
-LEFT JOIN (
-  SELECT   article_id
-  FROM     favorites
-  GROUP BY article_id
-) f ON a.id = f.article_id
-LEFT JOIN users u ON a.author_id = u.id
-GROUP BY  a.id, a.slug, a.title, a.description, a.body, 
-          a.created_at, a.updated_at, u.id
-ORDER BY a.created_at DESC
-LIMIT $1 OFFSET $2
+const isFollowingList = `-- name: IsFollowingList :one
+SELECT ARRAY(
+  SELECT EXISTS (
+    SELECT 1 FROM follows
+    WHERE follower_id = $1 AND following_id = id
+  )
+  FROM unnest($2::text[]) AS id
+)::bool[]
 `
 
-type ListArticlesParams struct {
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
+type IsFollowingListParams struct {
+	FollowerID  string   `json:"follower_id"`
+	FollowingID []string `json:"following_id"`
 }
 
-type ListArticlesRow struct {
-	ID             string      `json:"id"`
-	Slug           string      `json:"slug"`
-	Title          string      `json:"title"`
-	Description    string      `json:"description"`
-	Body           string      `json:"body"`
-	TagList        interface{} `json:"tag_list"`
-	CreatedAt      time.Time   `json:"created_at"`
-	UpdatedAt      time.Time   `json:"updated_at"`
-	FavoritesCount int32       `json:"favorites_count"`
-	Username       *string     `json:"username"`
-	Bio            *string     `json:"bio"`
-	Image          *string     `json:"image"`
-}
-
-func (q *Queries) ListArticles(ctx context.Context, arg ListArticlesParams) ([]*ListArticlesRow, error) {
-	rows, err := q.db.Query(ctx, listArticles, arg.Limit, arg.Offset)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []*ListArticlesRow
-	for rows.Next() {
-		var i ListArticlesRow
-		if err := rows.Scan(
-			&i.ID,
-			&i.Slug,
-			&i.Title,
-			&i.Description,
-			&i.Body,
-			&i.TagList,
-			&i.CreatedAt,
-			&i.UpdatedAt,
-			&i.FavoritesCount,
-			&i.Username,
-			&i.Bio,
-			&i.Image,
-		); err != nil {
-			return nil, err
-		}
-		items = append(items, &i)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
-}
-
-const listArticlesByAuthor = `-- name: ListArticlesByAuthor :many
-SELECT a.id,
-       a.slug,
-       a.title,
-       a.description,
-       a.body,
-       array_agg(t.name) AS tag_list,
-       a.created_at,
-       a.updated_at,
-       coalesce(count(f.article_id), 0)::int as favorites_count, 
-       u.username,
-       u.bio,
-       u.image
-FROM articles a
-LEFT JOIN article_tags art ON a.id = art.article_id
-LEFT JOIN tags t ON art.tag_id = t.id
-LEFT JOIN (
-  SELECT   article_id
-  FROM     favorites
-  GROUP BY article_id
-) f ON a.id = f.article_id
-LEFT JOIN users u ON a.author_id = u.id
-WHERE u.username = $1
-GROUP BY  a.id, a.slug, a.title, a.description, a.body, 
-          a.created_at, a.updated_at, u.id
-ORDER BY a.created_at DESC
-LIMIT $2 OFFSET $3
-`
-
-type ListArticlesByAuthorParams struct {
-	Username string `json:"username"`
-	Limit    int32  `json:"limit"`
-	Offset   int32  `json:"offset"`
-}
-
-type ListArticlesByAuthorRow struct {
-	ID             string      `json:"id"`
-	Slug           string      `json:"slug"`
-	Title          string      `json:"title"`
-	Description    string      `json:"description"`
-	Body           string      `json:"body"`
-	TagList        interface{} `json:"tag_list"`
-	CreatedAt      time.Time   `json:"created_at"`
-	UpdatedAt      time.Time   `json:"updated_at"`
-	FavoritesCount int32       `json:"favorites_count"`
-	Username       *string     `json:"username"`
-	Bio            *string     `json:"bio"`
-	Image          *string     `json:"image"`
-}
-
-func (q *Queries) ListArticlesByAuthor(ctx context.Context, arg ListArticlesByAuthorParams) ([]*ListArticlesByAuthorRow, error) {
-	rows, err := q.db.Query(ctx, listArticlesByAuthor, arg.Username, arg.Limit, arg.Offset)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []*ListArticlesByAuthorRow
-	for rows.Next() {
-		var i ListArticlesByAuthorRow
-		if err := rows.Scan(
-			&i.ID,
-			&i.Slug,
-			&i.Title,
-			&i.Description,
-			&i.Body,
-			&i.TagList,
-			&i.CreatedAt,
-			&i.UpdatedAt,
-			&i.FavoritesCount,
-			&i.Username,
-			&i.Bio,
-			&i.Image,
-		); err != nil {
-			return nil, err
-		}
-		items = append(items, &i)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
-}
-
-const listArticlesByFavorited = `-- name: ListArticlesByFavorited :many
-SELECT a.id,
-       a.slug,
-       a.title,
-       a.description,
-       a.body,
-       array_agg(t.name) AS tag_list,
-       a.created_at,
-       a.updated_at,
-       coalesce(count(f.article_id), 0)::int as favorites_count, 
-       u.username,
-       u.bio,
-       u.image
-FROM articles a
-LEFT JOIN article_tags art ON a.id = art.article_id
-LEFT JOIN tags t ON art.tag_id = t.id
-LEFT JOIN (
-  SELECT   article_id
-  FROM     favorites
-  GROUP BY article_id
-) f ON a.id = f.article_id
-LEFT JOIN users u ON a.author_id = u.id
-LEFT JOIN favorites fav ON a.id = fav.article_id
-LEFT JOIN users u2 ON fav.user_id = u2.id
-WHERE u2.username = $1
-GROUP BY  a.id, a.slug, a.title, a.description, a.body, 
-          a.created_at, a.updated_at, u.id
-ORDER BY a.created_at DESC
-LIMIT $2 OFFSET $3
-`
-
-type ListArticlesByFavoritedParams struct {
-	Username string `json:"username"`
-	Limit    int32  `json:"limit"`
-	Offset   int32  `json:"offset"`
-}
-
-type ListArticlesByFavoritedRow struct {
-	ID             string      `json:"id"`
-	Slug           string      `json:"slug"`
-	Title          string      `json:"title"`
-	Description    string      `json:"description"`
-	Body           string      `json:"body"`
-	TagList        interface{} `json:"tag_list"`
-	CreatedAt      time.Time   `json:"created_at"`
-	UpdatedAt      time.Time   `json:"updated_at"`
-	FavoritesCount int32       `json:"favorites_count"`
-	Username       *string     `json:"username"`
-	Bio            *string     `json:"bio"`
-	Image          *string     `json:"image"`
-}
-
-func (q *Queries) ListArticlesByFavorited(ctx context.Context, arg ListArticlesByFavoritedParams) ([]*ListArticlesByFavoritedRow, error) {
-	rows, err := q.db.Query(ctx, listArticlesByFavorited, arg.Username, arg.Limit, arg.Offset)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []*ListArticlesByFavoritedRow
-	for rows.Next() {
-		var i ListArticlesByFavoritedRow
-		if err := rows.Scan(
-			&i.ID,
-			&i.Slug,
-			&i.Title,
-			&i.Description,
-			&i.Body,
-			&i.TagList,
-			&i.CreatedAt,
-			&i.UpdatedAt,
-			&i.FavoritesCount,
-			&i.Username,
-			&i.Bio,
-			&i.Image,
-		); err != nil {
-			return nil, err
-		}
-		items = append(items, &i)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
-}
-
-const listArticlesByFollowing = `-- name: ListArticlesByFollowing :many
-SELECT a.id,
-       a.slug,
-       a.title,
-       a.description,
-       a.body,
-       array_agg(t.name) AS tag_list,
-       a.created_at,
-       a.updated_at,
-       coalesce(count(f.article_id), 0)::int as favorites_count, 
-       u.username,
-       u.bio,
-       u.image
-FROM articles a
-LEFT JOIN article_tags art ON a.id = art.article_id
-LEFT JOIN tags t ON art.tag_id = t.id
-LEFT JOIN (
-  SELECT   article_id
-  FROM     favorites
-  GROUP BY article_id
-) f ON a.id = f.article_id
-LEFT JOIN users u ON a.author_id = u.id
-LEFT JOIN follows f2 ON u.id = f2.followee_id
-LEFT JOIN users u2 ON f2.follower_id = u2.id
-WHERE u2.username = $1
-GROUP BY  a.id, a.slug, a.title, a.description, a.body, 
-          a.created_at, a.updated_at, u.id
-ORDER BY a.created_at DESC
-LIMIT $2 OFFSET $3
-`
-
-type ListArticlesByFollowingParams struct {
-	Username string `json:"username"`
-	Limit    int32  `json:"limit"`
-	Offset   int32  `json:"offset"`
-}
-
-type ListArticlesByFollowingRow struct {
-	ID             string      `json:"id"`
-	Slug           string      `json:"slug"`
-	Title          string      `json:"title"`
-	Description    string      `json:"description"`
-	Body           string      `json:"body"`
-	TagList        interface{} `json:"tag_list"`
-	CreatedAt      time.Time   `json:"created_at"`
-	UpdatedAt      time.Time   `json:"updated_at"`
-	FavoritesCount int32       `json:"favorites_count"`
-	Username       *string     `json:"username"`
-	Bio            *string     `json:"bio"`
-	Image          *string     `json:"image"`
-}
-
-func (q *Queries) ListArticlesByFollowing(ctx context.Context, arg ListArticlesByFollowingParams) ([]*ListArticlesByFollowingRow, error) {
-	rows, err := q.db.Query(ctx, listArticlesByFollowing, arg.Username, arg.Limit, arg.Offset)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []*ListArticlesByFollowingRow
-	for rows.Next() {
-		var i ListArticlesByFollowingRow
-		if err := rows.Scan(
-			&i.ID,
-			&i.Slug,
-			&i.Title,
-			&i.Description,
-			&i.Body,
-			&i.TagList,
-			&i.CreatedAt,
-			&i.UpdatedAt,
-			&i.FavoritesCount,
-			&i.Username,
-			&i.Bio,
-			&i.Image,
-		); err != nil {
-			return nil, err
-		}
-		items = append(items, &i)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
-}
-
-const listArticlesByTag = `-- name: ListArticlesByTag :many
-SELECT a.id,
-       a.slug,
-       a.title,
-       a.description,
-       a.body,
-       array_agg(t.name) AS tag_list,
-       a.created_at,
-       a.updated_at,
-       coalesce(count(f.article_id), 0)::int as favorites_count, 
-       u.username,
-       u.bio,
-       u.image
-FROM articles a
-LEFT JOIN article_tags art ON a.id = art.article_id
-LEFT JOIN tags t ON art.tag_id = t.id
-LEFT JOIN (
-  SELECT   article_id
-  FROM     favorites
-  GROUP BY article_id
-) f ON a.id = f.article_id
-LEFT JOIN users u ON a.author_id = u.id
-WHERE t.name = $1
-GROUP BY  a.id, a.slug, a.title, a.description, a.body, 
-          a.created_at, a.updated_at, u.id
-ORDER BY a.created_at DESC
-LIMIT $2 OFFSET $3
-`
-
-type ListArticlesByTagParams struct {
-	Name   string `json:"name"`
-	Limit  int32  `json:"limit"`
-	Offset int32  `json:"offset"`
-}
-
-type ListArticlesByTagRow struct {
-	ID             string      `json:"id"`
-	Slug           string      `json:"slug"`
-	Title          string      `json:"title"`
-	Description    string      `json:"description"`
-	Body           string      `json:"body"`
-	TagList        interface{} `json:"tag_list"`
-	CreatedAt      time.Time   `json:"created_at"`
-	UpdatedAt      time.Time   `json:"updated_at"`
-	FavoritesCount int32       `json:"favorites_count"`
-	Username       *string     `json:"username"`
-	Bio            *string     `json:"bio"`
-	Image          *string     `json:"image"`
-}
-
-func (q *Queries) ListArticlesByTag(ctx context.Context, arg ListArticlesByTagParams) ([]*ListArticlesByTagRow, error) {
-	rows, err := q.db.Query(ctx, listArticlesByTag, arg.Name, arg.Limit, arg.Offset)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []*ListArticlesByTagRow
-	for rows.Next() {
-		var i ListArticlesByTagRow
-		if err := rows.Scan(
-			&i.ID,
-			&i.Slug,
-			&i.Title,
-			&i.Description,
-			&i.Body,
-			&i.TagList,
-			&i.CreatedAt,
-			&i.UpdatedAt,
-			&i.FavoritesCount,
-			&i.Username,
-			&i.Bio,
-			&i.Image,
-		); err != nil {
-			return nil, err
-		}
-		items = append(items, &i)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
+func (q *Queries) IsFollowingList(ctx context.Context, arg IsFollowingListParams) ([]bool, error) {
+	row := q.db.QueryRow(ctx, isFollowingList, arg.FollowerID, arg.FollowingID)
+	var column_1 []bool
+	err := row.Scan(&column_1)
+	return column_1, err
 }
 
 const unfavoriteArticle = `-- name: UnfavoriteArticle :exec
@@ -880,7 +1206,7 @@ SET slug = coalesce($1, slug),
     description = coalesce($3, description),
     body = coalesce($4, body),
     updated_at = now()
-WHERE id = $5 and author_id = $6
+WHERE id = $5 AND author_id = $6
 RETURNING id, author_id, slug, title, description, body, created_at, updated_at
 `
 

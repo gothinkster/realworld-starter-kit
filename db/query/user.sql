@@ -23,6 +23,13 @@ SELECT *
 FROM users
 WHERE id = $1;
 
+-- name: DoesUserExist :one
+SELECT EXISTS (
+    SELECT 1
+    FROM users
+    WHERE id = $1
+);
+
 -- name: GetUserByUsername :one
 SELECT *
 FROM users
@@ -60,3 +67,8 @@ SELECT EXISTS (
 DELETE FROM follows
 WHERE follower_id = $1
 AND following_id = $2;
+
+-- name: GetFollowees :many
+SELECT *
+FROM follows
+WHERE follower_id = $1;
