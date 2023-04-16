@@ -54,6 +54,47 @@ definitions:
             type: string
         type: object
     type: object
+  api.articlesResponse:
+    properties:
+      articles:
+        items:
+          properties:
+            author:
+              properties:
+                bio:
+                  type: string
+                following:
+                  type: boolean
+                image:
+                  type: string
+                username:
+                  type: string
+              type: object
+            body:
+              type: string
+            createdAt:
+              type: string
+            description:
+              type: string
+            favorited:
+              type: boolean
+            favoritesCount:
+              type: integer
+            slug:
+              type: string
+            tagList:
+              items:
+                type: string
+              type: array
+            title:
+              type: string
+            updatedAt:
+              type: string
+          type: object
+        type: array
+      articlesCount:
+        type: integer
+    type: object
   api.commentResponse:
     properties:
       comment:
@@ -608,8 +649,7 @@ paths:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/api.articlesResponse'
         "500":
           description: Internal Server Error
           schema:

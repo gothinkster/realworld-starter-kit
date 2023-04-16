@@ -24,6 +24,7 @@ type Store interface {
 	UpdateArticleTx(ctx context.Context, arg UpdateArticleTxParams) (*UpdateArticleTxResult, error)
 	FavoriteArticleTx(ctx context.Context, arg FavoriteArticleTxParams) (*FavoriteArticleTxResult, error)
 	UnfavoriteArticleTx(ctx context.Context, arg UnfavoriteArticleTxParams) (*UnfavoriteArticleTxResult, error)
+	DeleteArticleTx(ctx context.Context, arg DeleteArticleTxParams) (error)
 	DeleteCommentTx(ctx context.Context, arg DeleteCommentTxParams) (error)
 }
 
@@ -193,7 +194,7 @@ func (store *ConduitStore) UpdateArticleTx(
 	}
 	favorited, err := qtx.DoesFavoriteExist(ctx, DoesFavoriteExistParams{
 		ArticleID: article.ID,
-		UserID:    *article.AuthorID,
+		UserID:    article.AuthorID,
 	})
 	if err != nil {
 		fmt.Printf("7: error: %v", err)
@@ -265,7 +266,7 @@ func (store *ConduitStore) FavoriteArticleTx(
 		}
 		p2 := IsFollowingParams{
 			FollowerID: arg.UserID,
-			FollowingID: *article.AuthorID,
+			FollowingID: article.AuthorID,
 		}
 		isFollowing, err := store.IsFollowing(ctx, p2)
 		if err != nil {
@@ -335,7 +336,7 @@ func (store *ConduitStore) UnfavoriteArticleTx(
 		}
 		p2 := IsFollowingParams{
 			FollowerID: arg.UserID,
-			FollowingID: *article.AuthorID,
+			FollowingID: article.AuthorID,
 		}
 		isFollowing, err := store.IsFollowing(ctx, p2)
 		if err != nil {
@@ -350,6 +351,43 @@ func (store *ConduitStore) UnfavoriteArticleTx(
 			Following: isFollowing,
 		}, nil
 }
+
+type DeleteArticleTxParams struct {
+	UserID string
+	Slug   string
+}
+
+func (store *ConduitStore) DeleteArticleTx(
+	ctx context.Context, 
+	arg DeleteArticleTxParams,
+	) (error){
+
+		tx, err := store.db.Begin(context.Background())
+		if err != nil {
+			return err
+		}
+		defer tx.Rollback(context.Background())
+		qtx := store.Queries.WithTx(tx)
+		articleAuthorID, err := NullableID(qtx.GetArticleAuthorID(ctx, arg.Slug))
+		if err != nil {
+			return err
+		}
+		if articleAuthorID == "" {
+			return ErrNotFound
+		}
+		if articleAuthorID != arg.UserID {
+			return ErrForbidden
+		}
+		err = qtx.DeleteArticle(ctx, arg.Slug)
+		if err != nil {
+			return err
+		}
+		if err = tx.Commit(context.Background()); err != nil {
+			return err
+		}
+		return nil
+}
+
 
 type DeleteCommentTxParams struct {
 	CommentID string

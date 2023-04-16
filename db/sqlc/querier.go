@@ -13,33 +13,72 @@ type Querier interface {
 	CountArticles(ctx context.Context) (int64, error)
 	CountArticlesByAuthor(ctx context.Context, username string) (int64, error)
 	CountArticlesByFavorited(ctx context.Context, username string) (int64, error)
-	CountArticlesByFollowing(ctx context.Context, username string) (int64, error)
 	CountArticlesByTag(ctx context.Context, name string) (int64, error)
+	CountArticlesFeed(ctx context.Context, followerID string) (int64, error)
 	CreateArticle(ctx context.Context, arg CreateArticleParams) (*Article, error)
 	CreateArticleTag(ctx context.Context, arg CreateArticleTagParams) (*ArticleTag, error)
 	CreateTag(ctx context.Context, arg CreateTagParams) (string, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (*User, error)
-	DeleteArticle(ctx context.Context, arg DeleteArticleParams) error
+	DeleteArticle(ctx context.Context, slug string) error
 	DeleteComment(ctx context.Context, id string) error
 	DoesFavoriteExist(ctx context.Context, arg DoesFavoriteExistParams) (bool, error)
+	DoesUserExist(ctx context.Context, id string) (bool, error)
 	FavoriteArticle(ctx context.Context, arg FavoriteArticleParams) error
 	FollowUser(ctx context.Context, arg FollowUserParams) error
+	GetArticleAuthorID(ctx context.Context, slug string) (string, error)
 	GetArticleAuthorIDBySlug(ctx context.Context, slug string) (*GetArticleAuthorIDBySlugRow, error)
 	GetArticleBySlug(ctx context.Context, slug string) (*GetArticleBySlugRow, error)
 	GetArticleIDBySlug(ctx context.Context, slug string) (string, error)
+	GetArticles(ctx context.Context, arg GetArticlesParams) ([]*GetArticlesRow, error)
+	GetArticlesByAuthor(ctx context.Context, arg GetArticlesByAuthorParams) ([]*GetArticlesByAuthorRow, error)
+	GetArticlesByFavorited(ctx context.Context, arg GetArticlesByFavoritedParams) ([]*GetArticlesByFavoritedRow, error)
+	GetArticlesByTag(ctx context.Context, arg GetArticlesByTagParams) ([]*GetArticlesByTagRow, error)
+	GetArticlesFeed(ctx context.Context, arg GetArticlesFeedParams) ([]*GetArticlesFeedRow, error)
+	// -- name: ListArticlesByFollowing :many
+	// SELECT a.id,
+	//        a.slug,
+	//        a.title,
+	//        a.description,
+	//        a.body,
+	//        array_agg(t.name) AS tag_list,
+	//        a.created_at,
+	//        a.updated_at,
+	//        coalesce(COUNT(f.article_id), 0)::INT AS favorites_count,
+	//        u.username,
+	//        u.bio,
+	//        u.image
+	// FROM articles a
+	// LEFT JOIN article_tags art ON a.id = art.article_id
+	// LEFT JOIN tags t ON art.tag_id = t.id
+	// LEFT JOIN (
+	//   SELECT   article_id
+	//   FROM     favorites
+	//   GROUP BY article_id
+	// ) f ON a.id = f.article_id
+	// LEFT JOIN users u ON a.author_id = u.id
+	// LEFT JOIN follows f2 ON u.id = f2.followee_id
+	// LEFT JOIN users u2 ON f2.follower_id = u2.id
+	// WHERE u2.username = $1
+	// GROUP BY  a.id, a.slug, a.title, a.description, a.body,
+	//           a.created_at, a.updated_at, u.id
+	// ORDER BY a.created_at DESC
+	// LIMIT $2 OFFSET $3;
+	// -- name: CountArticlesByFollowing :one
+	// SELECT COUNT(*)
+	// FROM articles a
+	// LEFT JOIN users u ON a.author_id = u.id
+	// LEFT JOIN follows f2 ON u.id = f2.followee_id
+	// LEFT JOIN users u2 ON f2.follower_id = u2.id
+	// WHERE u2.username = $1;
 	GetCommentAuthorID(ctx context.Context, id string) (string, error)
 	GetCommentsBySlug(ctx context.Context, slug string) ([]*GetCommentsBySlugRow, error)
+	GetFollowees(ctx context.Context, followerID string) ([]*Follow, error)
 	GetTags(ctx context.Context) ([]string, error)
 	GetUser(ctx context.Context, id string) (*User, error)
 	GetUserByEmail(ctx context.Context, email string) (*User, error)
 	GetUserByUsername(ctx context.Context, username string) (*User, error)
 	IsFollowing(ctx context.Context, arg IsFollowingParams) (bool, error)
 	IsFollowingList(ctx context.Context, arg IsFollowingListParams) ([]bool, error)
-	ListArticles(ctx context.Context, arg ListArticlesParams) ([]*ListArticlesRow, error)
-	ListArticlesByAuthor(ctx context.Context, arg ListArticlesByAuthorParams) ([]*ListArticlesByAuthorRow, error)
-	ListArticlesByFavorited(ctx context.Context, arg ListArticlesByFavoritedParams) ([]*ListArticlesByFavoritedRow, error)
-	ListArticlesByFollowing(ctx context.Context, arg ListArticlesByFollowingParams) ([]*ListArticlesByFollowingRow, error)
-	ListArticlesByTag(ctx context.Context, arg ListArticlesByTagParams) ([]*ListArticlesByTagRow, error)
 	UnfavoriteArticle(ctx context.Context, arg UnfavoriteArticleParams) error
 	UnfollowUser(ctx context.Context, arg UnfollowUserParams) error
 	UpdateArticle(ctx context.Context, arg UpdateArticleParams) (*Article, error)

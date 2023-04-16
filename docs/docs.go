@@ -172,8 +172,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/api.articlesResponse"
                         }
                     },
                     "500": {
@@ -1092,6 +1091,69 @@ const docTemplate = `{
                             "type": "string"
                         }
                     }
+                }
+            }
+        },
+        "api.articlesResponse": {
+            "type": "object",
+            "properties": {
+                "articles": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "author": {
+                                "type": "object",
+                                "properties": {
+                                    "bio": {
+                                        "type": "string"
+                                    },
+                                    "following": {
+                                        "type": "boolean"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "username": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "body": {
+                                "type": "string"
+                            },
+                            "createdAt": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "favorited": {
+                                "type": "boolean"
+                            },
+                            "favoritesCount": {
+                                "type": "integer"
+                            },
+                            "slug": {
+                                "type": "string"
+                            },
+                            "tagList": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "title": {
+                                "type": "string"
+                            },
+                            "updatedAt": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "articlesCount": {
+                    "type": "integer"
                 }
             }
         },

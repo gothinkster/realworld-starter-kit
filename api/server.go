@@ -52,6 +52,7 @@ func (s *Server) MountHandlers() {
 	articles.GET("/:slug/comments", s.GetComments)
 	articles.Use(AuthMiddleware())
 	articles.POST("", s.CreateArticle)
+	articles.GET("/feed", s.FeedArticles)
 	articles.PUT("/:slug", s.UpdateArticle)
 	articles.DELETE("/:slug", s.DeleteArticle)
 	articles.POST("/:slug/comments", s.AddComment)
