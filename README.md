@@ -22,7 +22,21 @@ This codebase was created to demonstrate a fully fledged fullstack application b
     * [rs/xid](https://github.com/rs/xid) for generating UUIDs
     * [stretchr/testify](https://github.com/stretchr/testify) for testing
     * [swaggo/swag](https://github.com/swaggo/swag) for API documentation
-# Getting started
+* Also uses:
+    * *PostgreSQL* for the database
+    * *Elasticsearch* for the search engine (optional, to be implemented)
+# Getting started 
+Temporary instructions for running the project locally:
 
-> npm install, npm start, etc.
+> docker-compose up -d 
+> go run main.go
+Project starts on port 8085 by default and swagger documentation is available at [http://localhost:8085/swagger/index.html](http://localhost:8085/swagger/index.html). 
 
+# e2e testing
+> make e2e-test
+
+# TODO
+* Add unit tests for handlers (golang/mock is used for mocking dependencies)
+* Improve error handling and logging
+* Improve deployment and testing configuration (Makefile, docker-compose, etc.)
+* Add search feature (`/search`, ...)
