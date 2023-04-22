@@ -28,13 +28,16 @@ This codebase was created to demonstrate a fully fledged fullstack application b
 # Getting started 
 Temporary instructions for running the project locally:
 
-> docker-compose up -d 
-> go run main.go
+```
+docker-compose up -d 
+go run main.go
+```
 Project starts on port 8085 by default and swagger documentation is available at [http://localhost:8085/swagger/index.html](http://localhost:8085/swagger/index.html). 
 
 # e2e testing
-> make e2e-test
-
+```
+make e2e-test
+```
 # TODO
 * Add unit tests for handlers (golang/mock is used for mocking dependencies)
 * Improve error handling and logging
