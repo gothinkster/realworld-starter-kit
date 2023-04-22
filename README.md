@@ -11,8 +11,17 @@ This codebase was created to demonstrate a fully fledged fullstack application b
 
 # How it works
 ![Diagram](diagram.png) 
-> Describe the general architecture of your app here
-
+* The project uses:
+    * [gin-gonic/gin](https://github.com/gin-gonic/gin) as the web framework
+    * [jackc/pgx](https://github.com/jackc/pgx) as the database driver
+    * [kyleconroy/sqlc](https://github.com/kyleconroy/sqlc) to generate Go code from SQL queries
+    * [golang-migrate/migrate](https://github.com/golang-migrate/migrate) to manage database migrations
+    * [golang-jwt/jwt](https://github.com/golang-jwt/jwt) for authentication
+    * [zap](https://github.com/uber-go/zap) for logging
+    * [spf13/viper](https://github.com/spf13/viper) for configuration
+    * [rs/xid](https://github.com/rs/xid) for generating UUIDs
+    * [stretchr/testify](https://github.com/stretchr/testify) for testing
+    * [swaggo/swag](https://github.com/swaggo/swag) for API documentation
 # Getting started
 
 > npm install, npm start, etc.
