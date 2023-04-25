@@ -416,45 +416,6 @@ ORDER BY a.created_at DESC;
 SELECT COUNT(*)
 FROM articles;
 
--- -- name: ListArticlesByFollowing :many
--- SELECT a.id,
---        a.slug,
---        a.title,
---        a.description,
---        a.body,
---        array_agg(t.name) AS tag_list,
---        a.created_at,
---        a.updated_at,
---        coalesce(COUNT(f.article_id), 0)::INT AS favorites_count, 
---        u.username,
---        u.bio,
---        u.image
--- FROM articles a
--- LEFT JOIN article_tags art ON a.id = art.article_id
--- LEFT JOIN tags t ON art.tag_id = t.id
--- LEFT JOIN (
---   SELECT   article_id
---   FROM     favorites
---   GROUP BY article_id
--- ) f ON a.id = f.article_id
--- LEFT JOIN users u ON a.author_id = u.id
--- LEFT JOIN follows f2 ON u.id = f2.followee_id
--- LEFT JOIN users u2 ON f2.follower_id = u2.id
--- WHERE u2.username = $1
--- GROUP BY  a.id, a.slug, a.title, a.description, a.body, 
---           a.created_at, a.updated_at, u.id
--- ORDER BY a.created_at DESC
--- LIMIT $2 OFFSET $3;
-
--- -- name: CountArticlesByFollowing :one
--- SELECT COUNT(*)
--- FROM articles a
--- LEFT JOIN users u ON a.author_id = u.id
--- LEFT JOIN follows f2 ON u.id = f2.followee_id
--- LEFT JOIN users u2 ON f2.follower_id = u2.id
--- WHERE u2.username = $1;
-
-
 -- name: GetCommentAuthorID :one
 SELECT c.author_id
 FROM comments c

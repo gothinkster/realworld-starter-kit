@@ -21,9 +21,15 @@ type Server struct {
 }
 
 func NewServer(config config.Config, store db.Store, log log.Logger) *Server {
+	var engine *gin.Engine 
+	if config.Environment == "test" {
+		engine = gin.New()
+	} else {
+		engine = gin.Default()
+	}
 	server := &Server{
 		config: config,
-		router: gin.Default(),
+		router: engine,
 		store:  store,
 		log:    log,
 	}

@@ -7,7 +7,12 @@ import (
 	"github.com/jackc/pgx/v4"
 )
 
-
+var (
+	ErrUsernameAlreadyTaken = errors.New("username already taken")
+	ErrEmailAlreadyTaken    = errors.New("email already taken")
+	ErrAccessForbidden      = errors.New("access forbidden")
+	ErrUserNotFound		 	= errors.New("user not found")
+)
 
 type Error struct {
 	Errors map[string]interface{} `json:"errors"`
@@ -42,13 +47,7 @@ func convertToApiErr(err error) error {
 	return nil
 }
 
-func resourseAlreadyExists(err error) bool {
-	var pgErr *pgconn.PgError
-	if errors.As(err, &pgErr) && pgErr.ConstraintName == "favorites_pkey"{
-			return true	
-	}
-	return false
-}
+
 
 func Nullable[T any](row *T, err error) (*T, error) {
 	if err == nil {

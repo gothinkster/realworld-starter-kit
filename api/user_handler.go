@@ -5,7 +5,132 @@ import (
 
 	db "github.com/aliml92/realworld-gin-sqlc/db/sqlc"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
+
+
+type userResponse struct {
+	User struct {
+		Username string  `json:"username"`
+		Email    string  `json:"email"`
+		Bio      *string `json:"bio"`
+		Image    *string `json:"image"`
+		Token    string  `json:"token"`
+	} `json:"user"`
+}
+
+func newUserResponse(user *db.User) *userResponse {
+	resp := new(userResponse)
+	resp.User.Username = user.Username
+	resp.User.Email = user.Email
+	resp.User.Bio = user.Bio
+	resp.User.Image = user.Image
+	token, _ := GenerateJWT(user.ID)
+	resp.User.Token = token
+	return resp
+}
+
+
+type userRegisterReq struct {
+	User struct {
+		Username string `json:"username" binding:"required"`
+		Email    string `json:"email" binding:"required,email"`
+		Password string `json:"password" binding:"required"`
+	} `json:"user"`
+}
+
+func (r *userRegisterReq) bind(c *gin.Context, p *db.CreateUserParams) error {
+	if err := c.ShouldBindJSON(r); err != nil {
+		return err
+	}
+	hashed, err := bcrypt.GenerateFromPassword([]byte(r.User.Password), bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+	p.ID = generateID()
+	p.Username = r.User.Username
+	p.Email = r.User.Email
+	p.Password = string(hashed)
+	return nil
+}
+
+// RegisterUser godoc
+// @Summary		Register a new user
+// @Description	Register a new user
+// @Tags		auth
+// @Accept		json
+// @Produce		json
+// @Param		user	body		userRegisterReq	true	"User"
+// @Success		201		{object}	userResponse
+// @Failure		422		{object}	Error
+// @Failure		500		{object}	Error
+//
+// @Router	/users  [post]
+func (s *Server) RegisterUser(c *gin.Context) { // TODO:✅ POST /users - RegisterUser
+	var (
+		req userRegisterReq
+		p   db.CreateUserParams
+	)
+	if err := req.bind(c, &p); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, NewValidationError(err))
+		return
+	}
+	user, err := s.store.CreateUser(c, p)
+	if err != nil {
+		if apiErr := convertToApiErr(err); apiErr != nil {
+			c.JSON(http.StatusUnprocessableEntity, NewValidationError(apiErr))
+			return
+		}
+		c.JSON(http.StatusInternalServerError, NewError(err))
+		return
+	}
+	// return user and token
+	c.JSON(http.StatusCreated, newUserResponse(user))
+}
+
+type userLoginReq struct {
+	User struct {
+		Email    string `json:"email" binding:"required,email"`
+		Password string `json:"password" binding:"required"`
+	} `json:"user"`
+}
+
+// LoginUser godoc
+// @Summary		Login a user
+// @Description	Login a user
+// @Tags		auth
+// @Accept		json
+// @Produce		json
+// @Param		user	body		userLoginReq	true	"User"
+// @Success		200		{object}	userResponse
+// @Failure		403		{object}	Error
+// @Failure		422		{object}	Error
+// @Failure		500		{object}	Error
+//
+// @Router	/users/login [post]
+func (s *Server) LoginUser(c *gin.Context) { // TODO:✅  POST /users/login - LoginUser
+	var req userLoginReq
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, NewValidationError(err))
+		return
+	}
+	u, err := Nullable(s.store.GetUserByEmail(c.Request.Context(), req.User.Email))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, NewValidationError(err))
+		return
+	}
+	if u == nil {
+		c.JSON(http.StatusForbidden, NewValidationError(ErrAccessForbidden))
+		return
+	}
+	if err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(req.User.Password)); err != nil {
+		c.JSON(http.StatusForbidden, NewValidationError(ErrAccessForbidden))
+		return
+	}
+
+	c.JSON(http.StatusOK, newUserResponse(u))
+}
+
 
 // GetCurrentUser godoc
 // @Summary     Get current user
@@ -23,11 +148,11 @@ func (s *Server) GetCurrentUser(c *gin.Context) { // TODO:✅ GET /user - GetCur
 	id := GetIDFromHeader(c)
 	user, err := Nullable(s.store.GetUser(c.Request.Context(), id))
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, NewError(err))
 		return
 	}
 	if user == nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "user not found"})
+		c.JSON(http.StatusNotFound, NewError(ErrUserNotFound))
 		return
 	}
 	c.JSON(http.StatusOK, newUserResponse(user))
@@ -49,7 +174,14 @@ func (req *updateUserReq) bind(c *gin.Context, p *db.UpdateUserParams) error {
 	}
 	p.Email = req.User.Email
 	p.Username = req.User.Username
-	p.Password = req.User.Password
+	if req.User.Password != nil {
+		hashed, err := bcrypt.GenerateFromPassword([]byte(*req.User.Password), bcrypt.DefaultCost)
+		if err != nil {
+			return err
+		}
+		stringHashed :=  string(hashed)
+		p.Password = &stringHashed
+	}
 	p.Image = req.User.Image
 	p.Bio = req.User.Bio
 	return nil
@@ -85,10 +217,10 @@ func (s *Server) UpdateUser(c *gin.Context) { // TODO:✅ PUT /user - UpdateUser
 		if apiErr := convertToApiErr(err); apiErr != nil {
 			c.JSON(http.StatusUnprocessableEntity, NewValidationError(apiErr))
 		}
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, NewError(err))
 	}
 	if u == nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "user not found"})
+		c.JSON(http.StatusNotFound, NewError(ErrUserNotFound))
 	}
 	c.JSON(http.StatusOK, newUserResponse(u))
 }
