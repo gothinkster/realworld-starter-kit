@@ -10,17 +10,17 @@ import (
 	"github.com/aliml92/realworld-gin-sqlc/config"
 	db "github.com/aliml92/realworld-gin-sqlc/db/sqlc"
 	"github.com/aliml92/realworld-gin-sqlc/docs"
-	"github.com/aliml92/realworld-gin-sqlc/log"
+	"github.com/aliml92/realworld-gin-sqlc/logger"
 )
 
 type Server struct {
 	config config.Config
 	router *gin.Engine
 	store  db.Store
-	log    log.Logger
+	log    logger.Logger
 }
 
-func NewServer(config config.Config, store db.Store, log log.Logger) *Server {
+func NewServer(config config.Config, store db.Store, log logger.Logger) *Server {
 	var engine *gin.Engine 
 	if config.Environment == "test" {
 		engine = gin.New()

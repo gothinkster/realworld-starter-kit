@@ -27,17 +27,21 @@ This codebase was created to demonstrate a fully fledged fullstack application b
     * *PostgreSQL* for the database
     * *Elasticsearch* for the search engine (optional, to be implemented)
 # Getting started 
-Temporary instructions for running the project locally:
+Running the project locally:
 
 ```
-
-    docker-compose up -d 
+    docker-compose up -d // starts postgres container
     go run main.go
 ```
 
 Project starts on port 8085 by default and swagger documentation is available at [http://localhost:8085/swagger/index.html](http://localhost:8085/swagger/index.html). 
 
 # e2e testing
+First, run:
+```
+   make test-run 
+```
+This will start postgres container and the project itself. Then, run the tests with:
 ```
     make e2e-test
 ```
@@ -48,7 +52,7 @@ Project starts on port 8085 by default and swagger documentation is available at
 ```
 
 # TODO
-* [x] Add unit tests for handlers ( in progress )
+* [x] Add unit tests for handlers (... in progress)
 * [ ] Improve error handling and logging
-* [ ] Improve deployment and testing configuration (Makefile, docker-compose, etc.)
+* [x] Improve deployment and testing configuration (Makefile, docker-compose, etc.) ( ... in progress)
 * [ ] Add search feature (`/search`, ...)
