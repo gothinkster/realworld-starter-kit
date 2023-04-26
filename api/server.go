@@ -23,6 +23,8 @@ type Server struct {
 func NewServer(config config.Config, store db.Store, log logger.Logger) *Server {
 	var engine *gin.Engine
 	if config.Environment == "test" {
+		gin.SetMode(gin.ReleaseMode)
+		fmt.Println("test environment detected")
 		engine = gin.New()
 	} else {
 		engine = gin.Default()
@@ -82,6 +84,10 @@ func (s *Server) MountSwaggerHandlers() {
 
 func (s *Server) Start(addr string) error {
 	return s.router.Run(addr)
+}
+
+func (s *Server) Router() *gin.Engine {
+	return s.router
 }
 
 func (s *Server) findUniqueSlug(c *gin.Context, title string) (string, error) {
