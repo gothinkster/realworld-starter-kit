@@ -6,14 +6,14 @@ import (
 	"log"
 	"strings"
 
-	"github.com/aliml92/realworld-gin-sqlc/config"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
-
 	"github.com/jackc/pgx/v4"
 	"github.com/ory/dockertest/v3"
 	"github.com/ory/dockertest/v3/docker"
+
+	"github.com/aliml92/realworld-gin-sqlc/config"
 )
 
 func InitTestDB(config *config.Config) {
@@ -38,7 +38,7 @@ func InitTestDB(config *config.Config) {
 	}, func(c *docker.HostConfig) {
 		c.AutoRemove = true
 		c.RestartPolicy = docker.RestartPolicy{Name: "no"}
-	}) 
+	})
 	if err != nil {
 		log.Fatalf("could not start resource: %s", err)
 	}
@@ -64,7 +64,6 @@ func Close(conn *pgx.Conn) {
 		log.Fatalf("Unable to close connection: %v\n", err)
 	}
 }
-
 
 func AutoMigrate(config config.Config) {
 

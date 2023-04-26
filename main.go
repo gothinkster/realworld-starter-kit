@@ -5,12 +5,13 @@ import (
 	"os"
 	"time"
 
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
+
 	"github.com/aliml92/realworld-gin-sqlc/api"
 	conf "github.com/aliml92/realworld-gin-sqlc/config"
 	db "github.com/aliml92/realworld-gin-sqlc/db/sqlc"
 	"github.com/aliml92/realworld-gin-sqlc/logger"
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
 )
 
 // @produce	application/json
@@ -21,16 +22,16 @@ import (
 // @name Authorization
 func main() {
 	var (
-		log logger.Logger
+		log    logger.Logger
 		config conf.Config
 	)
 	env := os.Getenv("ENVIRONMENT")
 	if env == "" || env == "dev" {
-		
+
 		// set up logger for dev
 		env = "dev"
 		logger, _ := zap.NewDevelopment()
-		defer logger.Sync() 
+		defer logger.Sync()
 		log = logger.Sugar()
 		config = conf.LoadConfig(env, "./env")
 
@@ -43,11 +44,11 @@ func main() {
 		zapConfig.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
 		zapConfig.Level = atom
 		logger, _ := zapConfig.Build()
-		defer logger.Sync() 
+		defer logger.Sync()
 		log = logger.Sugar()
 
 		config = conf.LoadConfig(env, "./env")
-		
+
 		// set up test db
 		db.InitTestDB(&config)
 		// wait for db container to be ready
@@ -57,7 +58,7 @@ func main() {
 
 		// set up logger for prod, yet to be refined
 		logger, _ := zap.NewProduction()
-		defer logger.Sync() 
+		defer logger.Sync()
 		log = logger.Sugar()
 		config = conf.LoadConfig(env, "./env")
 	}
@@ -72,7 +73,7 @@ func main() {
 	dbConn := db.Connect(config)
 	defer db.Close(dbConn)
 
-	fmt.Printf("config: %v\n", config) 
+	fmt.Printf("config: %v\n", config)
 	db.AutoMigrate(config)
 
 	store := db.NewConduitStore(dbConn)
@@ -88,6 +89,6 @@ func main() {
 
 	addr := fmt.Sprintf(":%s", config.Port)
 	if err := server.Start(addr); err != nil {
-		log.Fatalf("failed to start server: %v", err)		
+		log.Fatalf("failed to start server: %v", err)
 	}
 }

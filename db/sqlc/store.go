@@ -24,8 +24,8 @@ type Store interface {
 	UpdateArticleTx(ctx context.Context, arg UpdateArticleTxParams) (*UpdateArticleTxResult, error)
 	FavoriteArticleTx(ctx context.Context, arg FavoriteArticleTxParams) (*FavoriteArticleTxResult, error)
 	UnfavoriteArticleTx(ctx context.Context, arg UnfavoriteArticleTxParams) (*UnfavoriteArticleTxResult, error)
-	DeleteArticleTx(ctx context.Context, arg DeleteArticleTxParams) (error)
-	DeleteCommentTx(ctx context.Context, arg DeleteCommentTxParams) (error)
+	DeleteArticleTx(ctx context.Context, arg DeleteArticleTxParams) error
+	DeleteCommentTx(ctx context.Context, arg DeleteCommentTxParams) error
 }
 
 type ConduitStore struct {
@@ -54,7 +54,7 @@ type CreateArticleTxResult struct {
 func (store *ConduitStore) CreateArticleTx(
 	ctx context.Context,
 	arg CreateArticleTxParams,
-	) (*CreateArticleTxResult, error) {
+) (*CreateArticleTxResult, error) {
 
 	tx, err := store.db.Begin(context.Background())
 	if err != nil {
@@ -63,10 +63,10 @@ func (store *ConduitStore) CreateArticleTx(
 	defer tx.Rollback(context.Background())
 	qtx := store.Queries.WithTx(tx)
 	var (
-		found bool
+		found   bool
 		attempt int
 	)
-	
+
 	for !found {
 		if attempt > 3 {
 			found = true
@@ -92,7 +92,7 @@ func (store *ConduitStore) CreateArticleTx(
 	tags := arg.Tags
 	for _, tag := range tags {
 		p := CreateTagParams{
-			ID: xid.New().String(),
+			ID:   xid.New().String(),
 			Name: tag,
 		}
 		id, err := qtx.CreateTag(ctx, p)
@@ -123,21 +123,21 @@ func (store *ConduitStore) CreateArticleTx(
 		User:    user,
 	}, nil
 }
+
 type UpdateArticleTxParams struct {
 	UpdateArticleParams
 }
 
 type UpdateArticleTxResult struct {
-	Article *GetArticleBySlugRow
+	Article   *GetArticleBySlugRow
 	Favorited bool
 	Following bool
 }
 
-
 func (store *ConduitStore) UpdateArticleTx(
-	ctx context.Context, 
+	ctx context.Context,
 	arg UpdateArticleTxParams,
-	) (*UpdateArticleTxResult, error){
+) (*UpdateArticleTxResult, error) {
 
 	tx, err := store.db.Begin(context.Background())
 	if err != nil {
@@ -161,7 +161,7 @@ func (store *ConduitStore) UpdateArticleTx(
 	arg.ID = a.ID
 	if arg.Title != nil {
 		var (
-			found bool
+			found   bool
 			attempt int
 		)
 		for !found {
@@ -201,7 +201,7 @@ func (store *ConduitStore) UpdateArticleTx(
 		return nil, err
 	}
 	if err = tx.Commit(context.Background()); err != nil {
-	 	fmt.Printf("8: error: %v", err)	
+		fmt.Printf("8: error: %v", err)
 		return nil, err
 	}
 	return &UpdateArticleTxResult{
@@ -210,146 +210,145 @@ func (store *ConduitStore) UpdateArticleTx(
 		false,
 	}, nil
 
-
 }
 
 type FavoriteArticleTxParams struct {
-	UserID  string
-	Slug 	string
+	UserID string
+	Slug   string
 }
 
 type FavoriteArticleTxResult struct {
-	Article *GetArticleBySlugRow
+	Article   *GetArticleBySlugRow
 	Favorited bool
 	Following bool
 }
 
 func (store *ConduitStore) FavoriteArticleTx(
-	ctx context.Context, 
+	ctx context.Context,
 	arg FavoriteArticleTxParams,
-	)(*FavoriteArticleTxResult, error) {
-		
-		tx, err := store.db.Begin(context.Background())	
-		if err != nil {
-			return nil, err
+) (*FavoriteArticleTxResult, error) {
+
+	tx, err := store.db.Begin(context.Background())
+	if err != nil {
+		return nil, err
+	}
+	defer tx.Rollback(context.Background())
+	qtx := store.Queries.WithTx(tx)
+	arcticleID, err := qtx.GetArticleIDBySlug(ctx, arg.Slug)
+	if err != nil {
+		if err == pgx.ErrNoRows {
+			return nil, ErrNotFound
 		}
-		defer tx.Rollback(context.Background())
-		qtx := store.Queries.WithTx(tx)
-		arcticleID, err := qtx.GetArticleIDBySlug(ctx, arg.Slug)
-		if err != nil {
-			if err == pgx.ErrNoRows {
-				return nil, ErrNotFound
-			}
-			return nil, err
-		}
-		p := DoesFavoriteExistParams{
+		return nil, err
+	}
+	p := DoesFavoriteExistParams{
+		ArticleID: arcticleID,
+		UserID:    arg.UserID,
+	}
+	ok, err := qtx.DoesFavoriteExist(ctx, p) // unnecessary query
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		p1 := FavoriteArticleParams{
 			ArticleID: arcticleID,
 			UserID:    arg.UserID,
 		}
-		ok, err := qtx.DoesFavoriteExist(ctx, p)  // unnecessary query 
-		if err != nil {
+		err = qtx.FavoriteArticle(ctx, p1) // cannot ignored error 25P02
+		if err != nil {                    // in transaction
 			return nil, err
 		}
-		if !ok {
-			p1 := FavoriteArticleParams{
-				ArticleID: arcticleID,
-				UserID:    arg.UserID,
-			}
-			err = qtx.FavoriteArticle(ctx, p1)   // cannot ignored error 25P02
-			if err != nil {                      // in transaction
-				return nil, err
-			}			
-		}
-		article, err := qtx.GetArticleBySlug(ctx, arg.Slug)
-		if err != nil {
-			return nil, err
-		}
-		p2 := IsFollowingParams{
-			FollowerID: arg.UserID,
-			FollowingID: article.AuthorID,
-		}
-		isFollowing, err := store.IsFollowing(ctx, p2)
-		if err != nil {
-			return nil, err
-		}
-		if err = tx.Commit(context.Background()); err != nil {
-			return nil, err
-		}
-		return &FavoriteArticleTxResult{
-			Article: article,
-			Favorited: true,
-			Following: isFollowing,
-		}, nil
+	}
+	article, err := qtx.GetArticleBySlug(ctx, arg.Slug)
+	if err != nil {
+		return nil, err
+	}
+	p2 := IsFollowingParams{
+		FollowerID:  arg.UserID,
+		FollowingID: article.AuthorID,
+	}
+	isFollowing, err := store.IsFollowing(ctx, p2)
+	if err != nil {
+		return nil, err
+	}
+	if err = tx.Commit(context.Background()); err != nil {
+		return nil, err
+	}
+	return &FavoriteArticleTxResult{
+		Article:   article,
+		Favorited: true,
+		Following: isFollowing,
+	}, nil
 
 }
 
 type UnfavoriteArticleTxParams struct {
-	UserID  string
-	Slug 	string
+	UserID string
+	Slug   string
 }
 
 type UnfavoriteArticleTxResult struct {
-	Article *GetArticleBySlugRow
+	Article   *GetArticleBySlugRow
 	Favorited bool
 	Following bool
 }
 
 func (store *ConduitStore) UnfavoriteArticleTx(
-	ctx context.Context, 
+	ctx context.Context,
 	arg UnfavoriteArticleTxParams,
-	) (*UnfavoriteArticleTxResult, error) {
-		
-		tx, err := store.db.Begin(context.Background())	
-		if err != nil {
-			return nil, err
+) (*UnfavoriteArticleTxResult, error) {
+
+	tx, err := store.db.Begin(context.Background())
+	if err != nil {
+		return nil, err
+	}
+	defer tx.Rollback(context.Background())
+	qtx := store.Queries.WithTx(tx)
+	arcticleID, err := qtx.GetArticleIDBySlug(ctx, arg.Slug)
+	if err != nil {
+		if err == pgx.ErrNoRows {
+			return nil, ErrNotFound
 		}
-		defer tx.Rollback(context.Background())
-		qtx := store.Queries.WithTx(tx)
-		arcticleID, err := qtx.GetArticleIDBySlug(ctx, arg.Slug)
-		if err != nil {
-			if err == pgx.ErrNoRows {
-				return nil, ErrNotFound
-			}
-			return nil, err
-		}
-		p := DoesFavoriteExistParams{
+		return nil, err
+	}
+	p := DoesFavoriteExistParams{
+		ArticleID: arcticleID,
+		UserID:    arg.UserID,
+	}
+	ok, err := qtx.DoesFavoriteExist(ctx, p) // unnecessary query
+	if err != nil {
+		return nil, err
+	}
+	if ok {
+		p1 := UnfavoriteArticleParams{
 			ArticleID: arcticleID,
 			UserID:    arg.UserID,
 		}
-		ok, err := qtx.DoesFavoriteExist(ctx, p)  // unnecessary query 
-		if err != nil {
+		err = qtx.UnfavoriteArticle(ctx, p1) // cannot ignored error 25P02
+		if err != nil {                      // in transaction
 			return nil, err
 		}
-		if ok {
-			p1 := UnfavoriteArticleParams{
-				ArticleID: arcticleID,
-				UserID:    arg.UserID,
-			}
-			err = qtx.UnfavoriteArticle(ctx, p1)   // cannot ignored error 25P02
-			if err != nil {                      // in transaction
-				return nil, err
-			}			
-		}
-		article, err := qtx.GetArticleBySlug(ctx, arg.Slug)
-		if err != nil {
-			return nil, err
-		}
-		p2 := IsFollowingParams{
-			FollowerID: arg.UserID,
-			FollowingID: article.AuthorID,
-		}
-		isFollowing, err := store.IsFollowing(ctx, p2)
-		if err != nil {
-			return nil, err
-		}
-		if err = tx.Commit(context.Background()); err != nil {
-			return nil, err
-		}
-		return &UnfavoriteArticleTxResult{
-			Article: article,
-			Favorited: false,
-			Following: isFollowing,
-		}, nil
+	}
+	article, err := qtx.GetArticleBySlug(ctx, arg.Slug)
+	if err != nil {
+		return nil, err
+	}
+	p2 := IsFollowingParams{
+		FollowerID:  arg.UserID,
+		FollowingID: article.AuthorID,
+	}
+	isFollowing, err := store.IsFollowing(ctx, p2)
+	if err != nil {
+		return nil, err
+	}
+	if err = tx.Commit(context.Background()); err != nil {
+		return nil, err
+	}
+	return &UnfavoriteArticleTxResult{
+		Article:   article,
+		Favorited: false,
+		Following: isFollowing,
+	}, nil
 }
 
 type DeleteArticleTxParams struct {
@@ -358,72 +357,70 @@ type DeleteArticleTxParams struct {
 }
 
 func (store *ConduitStore) DeleteArticleTx(
-	ctx context.Context, 
+	ctx context.Context,
 	arg DeleteArticleTxParams,
-	) (error){
+) error {
 
-		tx, err := store.db.Begin(context.Background())
-		if err != nil {
-			return err
-		}
-		defer tx.Rollback(context.Background())
-		qtx := store.Queries.WithTx(tx)
-		articleAuthorID, err := NullableID(qtx.GetArticleAuthorID(ctx, arg.Slug))
-		if err != nil {
-			return err
-		}
-		if articleAuthorID == "" {
-			return ErrNotFound
-		}
-		if articleAuthorID != arg.UserID {
-			return ErrForbidden
-		}
-		err = qtx.DeleteArticle(ctx, arg.Slug)
-		if err != nil {
-			return err
-		}
-		if err = tx.Commit(context.Background()); err != nil {
-			return err
-		}
-		return nil
+	tx, err := store.db.Begin(context.Background())
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback(context.Background())
+	qtx := store.Queries.WithTx(tx)
+	articleAuthorID, err := NullableID(qtx.GetArticleAuthorID(ctx, arg.Slug))
+	if err != nil {
+		return err
+	}
+	if articleAuthorID == "" {
+		return ErrNotFound
+	}
+	if articleAuthorID != arg.UserID {
+		return ErrForbidden
+	}
+	err = qtx.DeleteArticle(ctx, arg.Slug)
+	if err != nil {
+		return err
+	}
+	if err = tx.Commit(context.Background()); err != nil {
+		return err
+	}
+	return nil
 }
-
 
 type DeleteCommentTxParams struct {
 	CommentID string
 	UserID    string
 }
 
-
 func (store *ConduitStore) DeleteCommentTx(
-	ctx context.Context, 
+	ctx context.Context,
 	arg DeleteCommentTxParams,
-	) (error){
+) error {
 
-		tx, err := store.db.Begin(context.Background())
-		if err != nil {
-			return err
-		}
-		defer tx.Rollback(context.Background())
-		qtx := store.Queries.WithTx(tx)
-		commentAuthorID, err := NullableID(qtx.GetCommentAuthorID(ctx, arg.CommentID))
-		if err != nil {
-			return err
-		}
-		if commentAuthorID == "" {
-			return ErrNotFound
-		}
-		if commentAuthorID != arg.UserID {
-			return ErrForbidden
-		}
-		err = qtx.DeleteComment(ctx, arg.CommentID)
-		if err != nil {
-			return err
-		}
-		if err = tx.Commit(context.Background()); err != nil {
-			return err
-		}
-		return nil
+	tx, err := store.db.Begin(context.Background())
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback(context.Background())
+	qtx := store.Queries.WithTx(tx)
+	commentAuthorID, err := NullableID(qtx.GetCommentAuthorID(ctx, arg.CommentID))
+	if err != nil {
+		return err
+	}
+	if commentAuthorID == "" {
+		return ErrNotFound
+	}
+	if commentAuthorID != arg.UserID {
+		return ErrForbidden
+	}
+	err = qtx.DeleteComment(ctx, arg.CommentID)
+	if err != nil {
+		return err
+	}
+	if err = tx.Commit(context.Background()); err != nil {
+		return err
+	}
+	return nil
 
 }
 
@@ -450,9 +447,6 @@ func NullableID(row string, err error) (string, error) {
 
 	return "", err
 }
-
-
-
 
 func createUniqueSlug(title string) string {
 	slug := createSlug(title)

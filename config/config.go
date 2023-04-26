@@ -20,7 +20,7 @@ type Config struct {
 	DBNameTest    string `mapstructure:"DB_DBNAME_TEST"`
 	MigrationPath string `mapstructure:"MIGRATION_PATH"`
 	DBRecreate    bool   `mapstructure:"DB_RECREATE"`
-	DBUrl         string 
+	DBUrl         string
 
 	ApiSecret           string        `mapstructure:"API_SECRET"`
 	AccessTokenDuration time.Duration `mapstructure:"TOKEN_HOUR_LIFESPAN"`

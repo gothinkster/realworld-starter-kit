@@ -6,9 +6,10 @@ import (
 	"net/http"
 	"time"
 
-	db "github.com/aliml92/realworld-gin-sqlc/db/sqlc"
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgtype"
+
+	db "github.com/aliml92/realworld-gin-sqlc/db/sqlc"
 )
 
 type listQuery struct {
@@ -35,8 +36,8 @@ type listQuery struct {
 // @Router /articles [get]
 func (s *Server) ListArticles(c *gin.Context) { // TODO:✅ GET /articles - ListArticles
 	var (
-		query listQuery
-		count int64
+		query      listQuery
+		count      int64
 		followerID string
 	)
 	if err := c.ShouldBindQuery(&query); err != nil {
@@ -52,9 +53,9 @@ func (s *Server) ListArticles(c *gin.Context) { // TODO:✅ GET /articles - List
 	}
 	if query.Tag != "" {
 		p := db.GetArticlesByTagParams{
-			Name: query.Tag,
-			Limit:  int32(query.Limit),
-			Offset: int32(query.Offset),
+			Name:    query.Tag,
+			Limit:   int32(query.Limit),
+			Offset:  int32(query.Offset),
 			Column4: followerID,
 		}
 		articles, err := NullableList(s.store.GetArticlesByTag(c, p))
@@ -121,8 +122,8 @@ func (s *Server) ListArticles(c *gin.Context) { // TODO:✅ GET /articles - List
 		return
 	}
 	p := db.GetArticlesParams{
-		Limit:  int32(query.Limit),
-		Offset: int32(query.Offset),
+		Limit:   int32(query.Limit),
+		Offset:  int32(query.Offset),
 		Column3: followerID,
 	}
 	articles, err := NullableList(s.store.GetArticles(c, p))
@@ -144,7 +145,7 @@ func (s *Server) ListArticles(c *gin.Context) { // TODO:✅ GET /articles - List
 
 func newArticlesByTagResponse(articles []*db.GetArticlesByTagRow, count int64) *articlesResponse {
 	resp := new(articlesResponse)
-	resp.Articles = make([]struct{
+	resp.Articles = make([]struct {
 		Slug           string    `json:"slug"`
 		Title          string    `json:"title"`
 		Description    string    `json:"description"`
@@ -172,7 +173,7 @@ func newArticlesByTagResponse(articles []*db.GetArticlesByTagRow, count int64) *
 			a.AssignTo(&tags)
 			if tags[0] != "" {
 				resp.Articles[i].TagList = tags
-			}		
+			}
 		} else {
 			resp.Articles[i].TagList = []string{}
 		}
@@ -193,10 +194,9 @@ func newArticlesByTagResponse(articles []*db.GetArticlesByTagRow, count int64) *
 	return resp
 }
 
-
 func newArticlesByAuthorResponse(articles []*db.GetArticlesByAuthorRow, count int64) *articlesResponse {
 	resp := new(articlesResponse)
-	resp.Articles = make([]struct{
+	resp.Articles = make([]struct {
 		Slug           string    `json:"slug"`
 		Title          string    `json:"title"`
 		Description    string    `json:"description"`
@@ -224,7 +224,7 @@ func newArticlesByAuthorResponse(articles []*db.GetArticlesByAuthorRow, count in
 			a.AssignTo(&tags)
 			if tags[0] != "" {
 				resp.Articles[i].TagList = tags
-			}		
+			}
 		} else {
 			resp.Articles[i].TagList = []string{}
 		}
@@ -247,7 +247,7 @@ func newArticlesByAuthorResponse(articles []*db.GetArticlesByAuthorRow, count in
 
 func newArticlesByFavoritedResponse(articles []*db.GetArticlesByFavoritedRow, count int64) *articlesResponse {
 	resp := new(articlesResponse)
-	resp.Articles = make([]struct{
+	resp.Articles = make([]struct {
 		Slug           string    `json:"slug"`
 		Title          string    `json:"title"`
 		Description    string    `json:"description"`
@@ -275,7 +275,7 @@ func newArticlesByFavoritedResponse(articles []*db.GetArticlesByFavoritedRow, co
 			a.AssignTo(&tags)
 			if tags[0] != "" {
 				resp.Articles[i].TagList = tags
-			}		
+			}
 		} else {
 			resp.Articles[i].TagList = []string{}
 		}
@@ -298,7 +298,7 @@ func newArticlesByFavoritedResponse(articles []*db.GetArticlesByFavoritedRow, co
 
 func newArticlesResponse(articles []*db.GetArticlesRow, count int64) *articlesResponse {
 	resp := new(articlesResponse)
-	resp.Articles = make([]struct{
+	resp.Articles = make([]struct {
 		Slug           string    `json:"slug"`
 		Title          string    `json:"title"`
 		Description    string    `json:"description"`
@@ -326,7 +326,7 @@ func newArticlesResponse(articles []*db.GetArticlesRow, count int64) *articlesRe
 			a.AssignTo(&tags)
 			if tags[0] != "" {
 				resp.Articles[i].TagList = tags
-			}		
+			}
 		} else {
 			resp.Articles[i].TagList = []string{}
 		}
@@ -348,10 +348,9 @@ func newArticlesResponse(articles []*db.GetArticlesRow, count int64) *articlesRe
 }
 
 type feedQuery struct {
-	Offset    int    `form:"offset" binding:"omitempty"`
-	Limit     int    `form:"limit" binding:"omitempty"`
+	Offset int `form:"offset" binding:"omitempty"`
+	Limit  int `form:"limit" binding:"omitempty"`
 }
-
 
 // FeedArticles godoc
 // @Summary Feed articles
@@ -409,7 +408,7 @@ func (s *Server) FeedArticles(c *gin.Context) { // TODO:✅ GET /articles/feed -
 }
 
 type articlesResponse struct {
-	Articles      []struct{
+	Articles []struct {
 		Slug           string    `json:"slug"`
 		Title          string    `json:"title"`
 		Description    string    `json:"description"`
@@ -426,12 +425,12 @@ type articlesResponse struct {
 			Following bool    `json:"following"`
 		} `json:"author"`
 	} `json:"articles"`
-	ArticlesCount int64              `json:"articlesCount"`
+	ArticlesCount int64 `json:"articlesCount"`
 }
 
 func newArticleFeedResponse(articles []*db.GetArticlesFeedRow, count int64) *articlesResponse {
 	resp := new(articlesResponse)
-	resp.Articles = make([]struct{
+	resp.Articles = make([]struct {
 		Slug           string    `json:"slug"`
 		Title          string    `json:"title"`
 		Description    string    `json:"description"`
@@ -459,7 +458,7 @@ func newArticleFeedResponse(articles []*db.GetArticlesFeedRow, count int64) *art
 			a.AssignTo(&tags)
 			if tags[0] != "" {
 				resp.Articles[i].TagList = tags
-			}		
+			}
 		} else {
 			resp.Articles[i].TagList = []string{}
 		}
@@ -479,7 +478,6 @@ func newArticleFeedResponse(articles []*db.GetArticlesFeedRow, count int64) *art
 	resp.ArticlesCount = count
 	return resp
 }
-
 
 type articleResponse struct {
 	Article struct {
@@ -513,7 +511,7 @@ func newArticleResponse(article *db.GetArticleBySlugRow, favorited, following bo
 		a.AssignTo(&tags)
 		if tags[0] != "" {
 			resp.Article.TagList = tags
-		}		
+		}
 	} else {
 		resp.Article.TagList = []string{}
 	}
@@ -542,8 +540,8 @@ func newArticleResponse(article *db.GetArticleBySlugRow, favorited, following bo
 func (s *Server) GetArticle(c *gin.Context) { // TODO:✅ GET /articles/:slug - GetArticle
 	var (
 		followerID string
-		favorited bool
-		following bool
+		favorited  bool
+		following  bool
 	)
 	token := GetJWTFromHeader(c)
 	if token != "" {
@@ -562,7 +560,7 @@ func (s *Server) GetArticle(c *gin.Context) { // TODO:✅ GET /articles/:slug - 
 	}
 	if followerID != "" {
 		favorited, err = s.store.DoesFavoriteExist(c, db.DoesFavoriteExistParams{
-			UserID:   followerID,
+			UserID:    followerID,
 			ArticleID: article.ID,
 		})
 		if err != nil {
@@ -570,7 +568,7 @@ func (s *Server) GetArticle(c *gin.Context) { // TODO:✅ GET /articles/:slug - 
 			return
 		}
 		following, err = s.store.IsFollowing(c, db.IsFollowingParams{
-			FollowerID: followerID,
+			FollowerID:  followerID,
 			FollowingID: article.AuthorID,
 		})
 		if err != nil {
@@ -599,9 +597,9 @@ func (req *createArticleReq) bind(c *gin.Context, p *db.CreateArticleTxParams) e
 	p.CreateArticleParams.Description = req.Article.Description
 	p.CreateArticleParams.Body = req.Article.Body
 	if len(req.Article.TagList) > 0 {
-	    p.Tags = req.Article.TagList
+		p.Tags = req.Article.TagList
 	} else {
-	    p.Tags = []string{}
+		p.Tags = []string{}
 	}
 	return nil
 }
@@ -732,8 +730,8 @@ func (s *Server) DeleteArticle(c *gin.Context) { // TODO:✅ DELETE /articles/:s
 	authorID := GetIDFromHeader(c)
 	slug := c.Param("slug")
 	p := db.DeleteArticleTxParams{
-		Slug:     slug,
-		UserID:  authorID,
+		Slug:   slug,
+		UserID: authorID,
 	}
 	if err := s.store.DeleteArticleTx(c, p); err != nil {
 		if errors.Is(err, db.ErrForbidden) {
@@ -870,14 +868,14 @@ func (s *Server) GetComments(c *gin.Context) { // TODO:✅ GET /articles/:slug/c
 		return
 	}
 	var isFollowingList []bool
-	if len(comments) != 0 && followerID != ""{
+	if len(comments) != 0 && followerID != "" {
 		var authorIDs []string
 		for _, comment := range comments {
 			authorIDs = append(authorIDs, *comment.AuthorID)
 		}
 		p := db.IsFollowingListParams{
-			FollowerID: followerID,
-			FollowingID: authorIDs, 
+			FollowerID:  followerID,
+			FollowingID: authorIDs,
 		}
 		isFollowingList, err = s.store.IsFollowingList(c, p)
 		if err != nil {
@@ -885,7 +883,7 @@ func (s *Server) GetComments(c *gin.Context) { // TODO:✅ GET /articles/:slug/c
 			return
 		}
 	}
-	c.JSON(http.StatusOK, newCommentsResponse(comments, isFollowingList))   // UGLY HACK:
+	c.JSON(http.StatusOK, newCommentsResponse(comments, isFollowingList)) // UGLY HACK:
 }
 
 type commentsResponse struct {
@@ -906,7 +904,7 @@ type commentsResponse struct {
 func newCommentsResponse(
 	comments []*db.GetCommentsBySlugRow,
 	isFollowingList []bool,
-	) *commentsResponse {
+) *commentsResponse {
 	res := &commentsResponse{
 		Comments: make([]struct {
 			ID        *string    `json:"id"`
@@ -957,7 +955,7 @@ func (s *Server) DeleteComment(c *gin.Context) { // TODO:✅ DELETE /articles/:s
 	id := c.Param("id")
 	p := db.DeleteCommentTxParams{
 		CommentID: id,
-		UserID: userID,
+		UserID:    userID,
 	}
 	err := s.store.DeleteCommentTx(c, p)
 	if err != nil {
@@ -1027,7 +1025,7 @@ func (s *Server) UnfavoriteArticle(c *gin.Context) { // TODO:✅ DELETE /article
 	}
 	a, err := s.store.UnfavoriteArticleTx(c, p)
 	if err != nil {
-		if errors.Is(err, db.ErrNotFound){
+		if errors.Is(err, db.ErrNotFound) {
 			c.JSON(http.StatusNotFound, NewError(err))
 			return
 		}

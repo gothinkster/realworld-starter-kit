@@ -3,11 +3,11 @@ package api
 import (
 	"net/http"
 
-	db "github.com/aliml92/realworld-gin-sqlc/db/sqlc"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
-)
 
+	db "github.com/aliml92/realworld-gin-sqlc/db/sqlc"
+)
 
 type userResponse struct {
 	User struct {
@@ -29,7 +29,6 @@ func newUserResponse(user *db.User) *userResponse {
 	resp.User.Token = token
 	return resp
 }
-
 
 type userRegisterReq struct {
 	User struct {
@@ -131,7 +130,6 @@ func (s *Server) LoginUser(c *gin.Context) { // TODO:✅  POST /users/login - Lo
 	c.JSON(http.StatusOK, newUserResponse(u))
 }
 
-
 // GetCurrentUser godoc
 // @Summary     Get current user
 // @Description Get current user
@@ -179,7 +177,7 @@ func (req *updateUserReq) bind(c *gin.Context, p *db.UpdateUserParams) error {
 		if err != nil {
 			return err
 		}
-		stringHashed :=  string(hashed)
+		stringHashed := string(hashed)
 		p.Password = &stringHashed
 	}
 	p.Image = req.User.Image

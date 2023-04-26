@@ -11,7 +11,7 @@ var (
 	ErrUsernameAlreadyTaken = errors.New("username already taken")
 	ErrEmailAlreadyTaken    = errors.New("email already taken")
 	ErrAccessForbidden      = errors.New("access forbidden")
-	ErrUserNotFound		 	= errors.New("user not found")
+	ErrUserNotFound         = errors.New("user not found")
 )
 
 type Error struct {
@@ -32,8 +32,6 @@ func NewError(err error) *Error {
 	return &e
 }
 
-
-
 func convertToApiErr(err error) error {
 	var pgErr *pgconn.PgError
 	if errors.As(err, &pgErr) {
@@ -46,8 +44,6 @@ func convertToApiErr(err error) error {
 	}
 	return nil
 }
-
-
 
 func Nullable[T any](row *T, err error) (*T, error) {
 	if err == nil {

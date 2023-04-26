@@ -21,7 +21,7 @@ type Server struct {
 }
 
 func NewServer(config config.Config, store db.Store, log logger.Logger) *Server {
-	var engine *gin.Engine 
+	var engine *gin.Engine
 	if config.Environment == "test" {
 		engine = gin.New()
 	} else {
@@ -40,12 +40,12 @@ func (s *Server) MountHandlers() {
 	api := s.router.Group("/api")
 	api.POST("/users", s.RegisterUser)
 	api.POST("/users/login", s.LoginUser)
-	
+
 	user := api.Group("/user")
 	user.Use(AuthMiddleware())
 	user.GET("", s.GetCurrentUser)
 	user.PUT("", s.UpdateUser)
-	
+
 	profiles := api.Group("/profiles")
 	profiles.Use(AuthMiddleware())
 	profiles.GET("/:username", s.GetProfile)
@@ -65,7 +65,7 @@ func (s *Server) MountHandlers() {
 	articles.DELETE("/:slug/comments/:id", s.DeleteComment)
 	articles.POST("/:slug/favorite", s.FavoriteArticle)
 	articles.DELETE("/:slug/favorite", s.UnfavoriteArticle)
-	
+
 	tags := api.Group("/tags")
 	tags.GET("", s.GetTags)
 }
@@ -86,7 +86,7 @@ func (s *Server) Start(addr string) error {
 
 func (s *Server) findUniqueSlug(c *gin.Context, title string) (string, error) {
 	var (
-		found bool
+		found      bool
 		uniqueSlug string
 	)
 	for !found {
@@ -97,7 +97,7 @@ func (s *Server) findUniqueSlug(c *gin.Context, title string) (string, error) {
 		}
 		if articleID == "" {
 			found = true
-		}	
+		}
 	}
 	return uniqueSlug, nil
 }

@@ -4,9 +4,10 @@ import (
 	"os"
 	"testing"
 
+	"github.com/gin-gonic/gin"
+
 	"github.com/aliml92/realworld-gin-sqlc/config"
 	db "github.com/aliml92/realworld-gin-sqlc/db/sqlc"
-	"github.com/gin-gonic/gin"
 )
 
 func newTestServer(t *testing.T, store db.Store) *Server {
