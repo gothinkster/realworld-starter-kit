@@ -1,6 +1,6 @@
 # ![RealWorld Example App](logo.jpg)
 ---
-[![Test Status](https://github.com/aliml92/realworld-gin-sqlc/workflows/test/badge.svg)](https://github.com/aliml92/realworld-gin-sqlc/actions?query=workflow%3Atest)
+[![test](https://github.com/aliml92/realworld-gin-sqlc/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/aliml92/realworld-gin-sqlc/actions/workflows/test.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/aliml92/realworld-gin-sqlc/blob/master/LICENSE)
 > ### Golang/Gin codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
 
