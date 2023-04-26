@@ -30,6 +30,7 @@ This codebase was created to demonstrate a fully fledged fullstack application b
 Temporary instructions for running the project locally:
 
 ```
+
     docker-compose up -d 
     go run main.go
 ```
