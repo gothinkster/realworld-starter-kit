@@ -1,5 +1,7 @@
 # ![RealWorld Example App](logo.jpg)
-
+---
+[![Test Status](https://github.com/aliml92/realworld-gin-sqlc/workflows/test/badge.svg)](https://github.com/aliml92/realworld-gin-sqlc/actions?query=workflow%3Atest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/aliml92/realworld-gin-sqlc/blob/master/LICENSE)
 > ### Golang/Gin codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
 
 
@@ -36,7 +38,7 @@ Running the project locally:
 
 Project starts on port 8085 by default and swagger documentation is available at [http://localhost:8085/swagger/index.html](http://localhost:8085/swagger/index.html). 
 
-# e2e testing
+# E2E testing
 First, run:
 ```
    make test-run 
@@ -46,7 +48,7 @@ This will start postgres container and the project itself. Then, run the tests w
     make e2e-test
 ```
 
-# unit testing
+# Unit testing
 ```
     make unit-test
 ```
