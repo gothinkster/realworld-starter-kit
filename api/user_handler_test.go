@@ -462,6 +462,27 @@ func TestUpdateUser(t *testing.T){
 				require.Equal(t, http.StatusUnprocessableEntity, recorder.Code)
 			},
 		},
+		{
+			"InternalError",
+			gin.H{
+				"user": gin.H{
+					"username": user.Username,
+					"email": user.Email,
+					"password": password,
+					"bio": user.Bio,
+					"image": user.Image,
+				},
+			},
+			func(store *mockdb.MockStore) {
+				store.EXPECT().
+					UpdateUser(gomock.Any(), gomock.Any()).
+					Times(1).
+					Return(nil, fmt.Errorf("internal error"))
+			},
+			func(recorder *httptest.ResponseRecorder) {
+				require.Equal(t, http.StatusInternalServerError, recorder.Code)
+			},
+		},
 	}
 
 	for _, testCase := range testCases {
@@ -489,6 +510,184 @@ func TestUpdateUser(t *testing.T){
 		})
 	}
 }
+
+func TestGetProfile(t *testing.T){
+	followeeProfile, _ := randomProfile(t)
+	followerID := "loggedinuserid"
+	isFollowing := true  // logged in user is following the profile user
+	followerToken, _ := GenerateJWT(followerID)
+
+	testCases := []struct {
+		name string
+		buildStubs  	func(store *mockdb.MockStore)
+		checkResponse   func(recorder *httptest.ResponseRecorder)
+	} {
+		{
+			name: "OK",
+			buildStubs: func(store *mockdb.MockStore) {
+				arg := db.IsFollowingParams{
+					FollowerID: followerID,
+					FollowingID: followeeProfile.ID,
+				}
+				gomock.InOrder(
+					store.EXPECT().
+						GetUserByUsername(gomock.Any(), followeeProfile.Username).
+						Times(1).
+						Return(followeeProfile, nil),
+					store.EXPECT().
+						IsFollowing(gomock.Any(), arg).
+						Times(1).
+						Return(isFollowing, nil),													
+				)
+			},
+			checkResponse: func(recorder *httptest.ResponseRecorder) {
+				require.Equal(t, http.StatusOK, recorder.Code)
+				requireBodyMatchProfile(t, followeeProfile, isFollowing, recorder.Body)
+			},
+		},
+	}
+
+	for _, testCase := range testCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			ctrl := gomock.NewController(t)
+			defer ctrl.Finish()
+
+			store := mockdb.NewMockStore(ctrl)
+			testCase.buildStubs(store)
+
+			server := newTestServer(t, store)
+			recorder := httptest.NewRecorder()
+			
+			url := "/api/profiles/" + followeeProfile.Username
+			request, err := http.NewRequest(http.MethodGet, url, nil)
+			require.NoError(t, err)
+			request.Header.Set("Authorization", fmt.Sprintf("Bearer %s", followerToken))
+
+			server.router.ServeHTTP(recorder, request)
+			testCase.checkResponse(recorder)
+			
+		})
+	}
+}
+
+func TestFollowUser(t *testing.T){
+	user, _ := randomProfile(t)
+	loggedUserID := "loggedinuserid"
+	loggedUserToken, _ := GenerateJWT(loggedUserID)
+
+	testCases := []struct {
+		name string
+		buildStubs  	func(store *mockdb.MockStore)
+		checkResponse   func(recorder *httptest.ResponseRecorder)
+	} {
+		{
+			name: "OK",
+			buildStubs: func(store *mockdb.MockStore) {
+				arg := db.FollowUserParams{
+					FollowerID:  loggedUserID,
+					FollowingID: user.ID,
+				}
+				gomock.InOrder(
+					store.EXPECT().
+						GetUserByUsername(gomock.Any(), user.Username).
+						Times(1).
+						Return(user, nil),
+					store.EXPECT().
+						FollowUser(gomock.Any(), arg).
+						Times(1).
+						Return(nil),											
+				)
+			},
+			checkResponse: func(recorder *httptest.ResponseRecorder) {
+				require.Equal(t, http.StatusOK, recorder.Code)
+				requireBodyMatchProfile(t, user, true, recorder.Body)
+			},
+		},
+	}
+
+	for _, testCase := range testCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			ctrl := gomock.NewController(t)
+			defer ctrl.Finish()
+
+			store := mockdb.NewMockStore(ctrl)
+			testCase.buildStubs(store)
+
+			server := newTestServer(t, store)
+			recorder := httptest.NewRecorder()
+
+			
+			url := "/api/profiles/" + user.Username + "/follow"
+			request, err := http.NewRequest(http.MethodPost, url, nil)
+			require.NoError(t, err)
+			request.Header.Set("Authorization", fmt.Sprintf("Bearer %s", loggedUserToken))
+			
+			server.router.ServeHTTP(recorder, request)
+			testCase.checkResponse(recorder)
+			
+		})
+	}
+}
+
+func TestUnfollowUser(t *testing.T){
+	user, _ := randomProfile(t)
+	loggedUserID := "loggedinuserid"
+	loggedUserToken, _ := GenerateJWT(loggedUserID)
+
+	testCases := []struct {
+		name string
+		buildStubs  	func(store *mockdb.MockStore)
+		checkResponse   func(recorder *httptest.ResponseRecorder)
+	} {
+		{
+			name: "OK",
+			buildStubs: func(store *mockdb.MockStore) {
+				arg := db.UnfollowUserParams{
+					FollowerID:  loggedUserID,
+					FollowingID: user.ID,
+				}
+				gomock.InOrder(
+					store.EXPECT().
+						GetUserByUsername(gomock.Any(), user.Username).
+						Times(1).
+						Return(user, nil),
+					store.EXPECT().
+						UnfollowUser(gomock.Any(), arg).
+						Times(1).
+						Return(nil),											
+				)
+			},
+			checkResponse: func(recorder *httptest.ResponseRecorder) {
+				require.Equal(t, http.StatusOK, recorder.Code)
+				requireBodyMatchProfile(t, user, false, recorder.Body)
+			},
+		},
+	}
+
+	for _, testCase := range testCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			ctrl := gomock.NewController(t)
+			defer ctrl.Finish()
+
+			store := mockdb.NewMockStore(ctrl)
+			testCase.buildStubs(store)
+
+			server := newTestServer(t, store)
+			recorder := httptest.NewRecorder()
+
+			
+			url := "/api/profiles/" + user.Username + "/follow"
+			request, err := http.NewRequest(http.MethodDelete, url, nil)
+			require.NoError(t, err)
+			request.Header.Set("Authorization", fmt.Sprintf("Bearer %s", loggedUserToken))
+			
+			server.router.ServeHTTP(recorder, request)
+			testCase.checkResponse(recorder)
+			
+		})
+	}
+}
+
 
 func TestSample(t *testing.T){
 	user, password := randomUser(t)
@@ -590,6 +789,20 @@ func requireBodyMatchUser(t *testing.T, user *db.User, body *bytes.Buffer) {
 	require.Equal(t, user.Username, gotUser.User.Username)
 	require.Equal(t, user.Email, gotUser.User.Email)
 	require.NotEmpty(t, gotUser.User.Token)
+}
+
+func requireBodyMatchProfile(t *testing.T, user *db.User, isFollowing bool, body *bytes.Buffer) {
+	data, err := io.ReadAll(body)
+	require.NoError(t, err)
+
+	var gotUser profileResponse
+	err = json.Unmarshal(data, &gotUser)
+
+	require.NoError(t, err)
+	require.Equal(t, user.Username, gotUser.Profile.Username)
+	require.Equal(t, user.Bio, gotUser.Profile.Bio)
+	require.Equal(t, user.Image, gotUser.Profile.Image)
+	require.Equal(t, isFollowing, gotUser.Profile.Following)
 }
 
 

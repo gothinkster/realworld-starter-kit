@@ -218,9 +218,11 @@ func (s *Server) UpdateUser(c *gin.Context) { // TODO:✅ PUT /user - UpdateUser
 			c.JSON(http.StatusUnprocessableEntity, NewValidationError(apiErr))
 		}
 		c.JSON(http.StatusInternalServerError, NewError(err))
+		return
 	}
 	if u == nil {
 		c.JSON(http.StatusNotFound, NewError(ErrUserNotFound))
+		return
 	}
 	c.JSON(http.StatusOK, newUserResponse(u))
 }
@@ -267,11 +269,11 @@ func (s *Server) GetProfile(c *gin.Context) { // TODO:✅ GET /profiles/:usernam
 	username := c.Param("username")
 	user, err := Nullable(s.store.GetUserByUsername(c.Request.Context(), username))
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, NewError(err))
 		return
 	}
 	if user == nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "user not found"})
+		c.JSON(http.StatusNotFound, NewError(ErrUserNotFound))
 		return
 	}
 	if followerID != "" {
@@ -281,7 +283,7 @@ func (s *Server) GetProfile(c *gin.Context) { // TODO:✅ GET /profiles/:usernam
 		}
 		isFollowing, err = s.store.IsFollowing(c.Request.Context(), p)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			c.JSON(http.StatusInternalServerError, NewError(err))
 			return
 		}
 	}
@@ -306,11 +308,11 @@ func (s *Server) FollowUser(c *gin.Context) { // TODO:✅ POST /profiles/:userna
 	username := c.Param("username")
 	user, err := Nullable(s.store.GetUserByUsername(c.Request.Context(), username))
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, NewError(err))
 		return
 	}
 	if user == nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "user not found"})
+		c.JSON(http.StatusNotFound, NewError(ErrUserNotFound))
 		return
 	}
 	p := db.FollowUserParams{
@@ -318,7 +320,7 @@ func (s *Server) FollowUser(c *gin.Context) { // TODO:✅ POST /profiles/:userna
 		FollowingID: user.ID,
 	}
 	if err := s.store.FollowUser(c.Request.Context(), p); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, NewError(err))
 		return
 	}
 	c.JSON(http.StatusOK, newProfileResponse(user, true))
@@ -341,11 +343,11 @@ func (s *Server) UnfollowUser(c *gin.Context) { // TODO:✅ DELETE /profiles/:us
 	username := c.Param("username")
 	user, err := Nullable(s.store.GetUserByUsername(c.Request.Context(), username))
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, NewError(err))
 		return
 	}
 	if user == nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "user not found"})
+		c.JSON(http.StatusNotFound, NewError(ErrUserNotFound))
 		return
 	}
 	p := db.UnfollowUserParams{
@@ -353,7 +355,7 @@ func (s *Server) UnfollowUser(c *gin.Context) { // TODO:✅ DELETE /profiles/:us
 		FollowingID: user.ID,
 	}
 	if err := s.store.UnfollowUser(c.Request.Context(), p); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, NewError(err))
 		return
 	}
 	c.JSON(http.StatusOK, newProfileResponse(user, false))
