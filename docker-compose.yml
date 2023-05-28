@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  database:
+    image: postgres
+    container_name: realword-app
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=realword-app
+    volumes:
+      - pgdata:/data/postgres
+
+volumes:
+  pgdata:
+   driver: local
