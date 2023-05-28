@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "dev": "prisma migrate dev && ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts"
+    "dev": "prisma migrate dev && ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+    "start": "prisma migrate dev && tsx watch src/server.ts",
+    "build": "tsup src"
   },
   "keywords": [],
   "author": "",
