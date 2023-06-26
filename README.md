@@ -1,6 +1,6 @@
 # ![RealWorld Example App](logo.png)
 
-[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+[![RealWorld Frontend](https://img.shields.io/badge/realworld-frontend-%23783578.svg?style=flat-square)](http://realworld.io) [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 ## Background
 
