@@ -16,10 +16,26 @@ export default defineConfig({
     Layouts(),
     AutoImport({
       dts: true,
-      imports: ['vue', VueRouterAutoImports]
+      imports: [
+        'vue',
+        VueRouterAutoImports,
+        {
+          axios: [['default', 'axios']]
+        }
+      ]
     })
   ],
-  server: { host: true, open: true },
+  server: {
+    host: true,
+    open: true,
+    proxy: {
+      '/api': {
+        changeOrigin: true,
+        target: 'https://api.realworld.io/api',
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
