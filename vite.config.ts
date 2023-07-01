@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
+import Layouts from 'vite-plugin-vue-layouts'
 import VueRouter from 'unplugin-vue-router/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
@@ -12,6 +13,7 @@ export default defineConfig({
       routesFolder: 'src/views'
     }),
     Vue(),
+    Layouts(),
     AutoImport({
       dts: true,
       imports: ['vue', VueRouterAutoImports]
