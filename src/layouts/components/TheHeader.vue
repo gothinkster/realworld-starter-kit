@@ -23,14 +23,15 @@ const navList = reactive<NavList[]>([
 <template>
   <nav class="navbar navbar-light">
     <div class="container">
-      <a class="navbar-brand" @click="$router.push('/')">conduit</a>
+      <router-link class="navbar-brand" to="/">conduit</router-link>
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item" :key="index" v-for="({ label, path }, index) in navList">
-          <a
+          <router-link
+            :to="path"
             :class="['nav-link', { active: $router.currentRoute.value.fullPath === path }]"
-            @click="$router.push(path)">
+          >
             {{ label }}
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>
