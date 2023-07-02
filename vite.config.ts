@@ -13,9 +13,12 @@ export default defineConfig({
       routesFolder: 'src/views'
     }),
     Vue(),
-    Layouts(),
+    Layouts({
+      defaultLayout: 'index'
+    }),
     AutoImport({
       dts: true,
+      vueTemplate: true,
       imports: [
         'vue',
         VueRouterAutoImports,
