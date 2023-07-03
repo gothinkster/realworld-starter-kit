@@ -21,6 +21,7 @@ export default defineConfig({
       vueTemplate: true,
       imports: [
         'vue',
+        'pinia',
         VueRouterAutoImports,
         {
           axios: [['default', 'axios']]
