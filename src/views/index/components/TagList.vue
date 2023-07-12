@@ -1,15 +1,7 @@
 <script lang="ts" setup>
-import { GetTags } from '@/api'
+import api from '@/api'
 
-const tags = ref<string[]>([])
-const getTags = async (): Promise<void> => {
-  const res = await GetTags()
-  tags.value = res.tags
-}
-
-onMounted(() => {
-  getTags()
-})
+const { tags } = await api.getTags()
 </script>
 
 <template>
