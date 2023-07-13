@@ -19,9 +19,12 @@ const handleCurrentChang = (value: number) => {
   execute()
 }
 
-watch(props.remoteParams, (value) => {
-  execute(0, value)
-})
+watch(
+  () => props.remoteParams,
+  (value) => {
+    execute(0, value)
+  }
+)
 </script>
 
 <template>
