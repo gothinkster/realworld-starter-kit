@@ -4,15 +4,15 @@ import { useUserStore } from '@/stores/useUserStore'
 import { useCookies } from '@vueuse/integrations/useCookies'
 
 router.beforeEach(async (to) => {
+  const store = useUserStore()
   const { get, remove } = useCookies()
-  const { isLoggedIn, getUserInfo } = useUserStore()
 
-  if (isLoggedIn) {
+  if (store.isLoggedIn) {
     return true
   } else {
     if (get('jwt-token')) {
       try {
-        await getUserInfo()
+        await store.getUserInfo()
         return true
       } catch (error) {
         remove('jwt-token')
