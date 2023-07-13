@@ -19,7 +19,7 @@ For more information on how to this works with other frontends/backends, head ov
 ## Install
 
 ```sh
-git clone git@github.com:karlwesten/vue3-realworld-app.git
+git clone git@github.com:niyaco/vue3-realworld-app.git
 
 cd vue3-realworld-app
 
@@ -50,8 +50,8 @@ pnpm build
 
 ## Maintainers
 
-[@karlwesten](https://github.com/karlwesten).
+[@Niyaco](https://github.com/niyaco).
 
 ## License
 
-[MIT](https://github.com/karlwesten/vue3-realworld-app/blob/master/LICENSE) © karlwesten
+[MIT](https://github.com/niyaco/vue3-realworld-app/blob/master/LICENSE) © Niyaco
