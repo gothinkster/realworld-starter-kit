@@ -1,29 +1,29 @@
 <script lang="ts" setup>
 import api from '@/api'
 import type { Article } from '@/types'
+import { useAsyncState } from '@vueuse/core'
 import { useUserStore } from '@/stores/useUserStore'
 
 defineProps({ article: { type: Object as PropType<Article>, required: true } })
 
 const router = useRouter()
-const isLoading = ref(false)
 const store = useUserStore()
-const onFavorites = async (item: Article) => {
-  if (store.isLoggedIn) {
-    try {
-      isLoading.value = true
-      const { slug, favorited } = item
+const { isLoading, execute } = useAsyncState(
+  async (args: Article) => {
+    if (store.isLoggedIn) {
+      const { slug, favorited } = args
       const method = favorited ? 'delete' : 'post'
-      const { article } = await api.favorites({ method, slug })
-      item.favorited = article.favorited
-      item.favoritesCount = article.favoritesCount
-    } finally {
-      isLoading.value = false
+      return await api.favorites({ method, slug }).then((res) => {
+        args.favorited = res.article.favorited
+        args.favoritesCount = res.article.favoritesCount
+      })
+    } else {
+      router.push('/register')
     }
-  } else {
-    router.push('/register')
-  }
-}
+  },
+  null,
+  { immediate: false }
+)
 </script>
 
 <template>
@@ -40,7 +40,7 @@ const onFavorites = async (item: Article) => {
       </div>
       <button
         :disabled="isLoading"
-        @click="onFavorites(article)"
+        @click="execute(0, article)"
         class="btn btn-sm pull-xs-right"
         :class="[article.favorited ? 'btn-primary' : 'btn-outline-primary']"
       >
