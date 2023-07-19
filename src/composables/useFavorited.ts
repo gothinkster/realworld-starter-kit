@@ -9,11 +9,11 @@ export function useFavorited(article: Article) {
   const isFavorited = ref(article.favorited)
   const favoritesCount = ref(article.favoritesCount)
   const { isLoading, execute: onFavorited } = useAsyncState(
-    (slug: string) => {
+    async (slug: string) => {
       if (store.isLoggedIn) {
         const method = isFavorited.value ? 'delete' : 'post'
 
-        return api.favorites({ method, slug }).then(({ article }) => {
+        return await api.favorites({ method, slug }).then(({ article }) => {
           favoritesCount.value = article.favoritesCount
           isFavorited.value = article.favorited
         })
@@ -25,5 +25,5 @@ export function useFavorited(article: Article) {
     { immediate: false }
   )
 
-  return { isLoading, favoritesCount, onFavorited }
+  return { isLoading, isFavorited, favoritesCount, onFavorited }
 }
