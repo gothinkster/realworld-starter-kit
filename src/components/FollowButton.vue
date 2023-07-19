@@ -2,18 +2,24 @@
 import type { Article } from '@/types'
 import { useFollow } from '@/composables/useFollow'
 
+const emit = defineEmits(['change'])
+const { isLoading, handleFollow } = useFollow()
 const props = defineProps<{ article: Article }>()
-const { isLoading, isFollow, onFollow } = useFollow(props.article)
+const onFollow = async () => {
+  const res = await handleFollow(0, props.article)
+
+  emit('change', res?.profile.following)
+}
 </script>
 
 <template>
   <button
+    @click="onFollow"
     class="btn btn-sm"
     :disabled="isLoading"
-    @click="() => onFollow()"
-    :class="[isFollow ? 'btn-secondary' : 'btn-outline-secondary']"
+    :class="[article.author.following ? 'btn-secondary' : 'btn-outline-secondary']"
   >
     <i class="ion-plus-round"></i>
-    &nbsp; {{ isFollow ? 'Unfollow' : 'Follow' }} {{ article.author.username }}
+    &nbsp; {{ article.author.following ? 'Unfollow' : 'Follow' }} {{ article.author.username }}
   </button>
 </template>

@@ -1,21 +1,17 @@
 import api from '@/api'
-import type { Article } from '@/types'
 import { useAsyncState } from '@vueuse/core'
 import { useUserStore } from '@/stores/useUserStore'
 
-export function useFollow(article: Article) {
+export function useFollow() {
   const router = useRouter()
   const store = useUserStore()
-  const { username } = article.author
-  const isFollow = ref(article.author.following)
-  const { isLoading, execute: onFollow } = useAsyncState(
-    async () => {
+  const { isLoading, execute: handleFollow } = useAsyncState(
+    async (article) => {
+      const { username, following } = article.author
+      const method = following ? 'delete' : 'post'
+
       if (store.isLoggedIn) {
-        return await api
-          .follow({ method: isFollow.value ? 'delete' : 'post', username })
-          .then(({ profile }) => {
-            isFollow.value = profile.following
-          })
+        return await api.follow({ method, username })
       } else {
         router.push('/register')
       }
@@ -24,5 +20,5 @@ export function useFollow(article: Article) {
     { immediate: false }
   )
 
-  return { isFollow, isLoading, onFollow }
+  return { isLoading, handleFollow }
 }
