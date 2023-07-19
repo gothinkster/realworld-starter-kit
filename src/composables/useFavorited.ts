@@ -3,20 +3,16 @@ import type { Article } from '@/types'
 import { useAsyncState } from '@vueuse/core'
 import { useUserStore } from '@/stores/useUserStore'
 
-export function useFavorited(article: Article) {
+export function useFavorited() {
   const router = useRouter()
   const store = useUserStore()
-  const isFavorited = ref(article.favorited)
-  const favoritesCount = ref(article.favoritesCount)
-  const { isLoading, execute: onFavorited } = useAsyncState(
-    async (slug: string) => {
-      if (store.isLoggedIn) {
-        const method = isFavorited.value ? 'delete' : 'post'
+  const { isLoading, execute: handleFavorited } = useAsyncState(
+    async (article: Article) => {
+      const { favorited, slug } = article
+      const method = favorited ? 'delete' : 'post'
 
-        return await api.favorites({ method, slug }).then(({ article }) => {
-          favoritesCount.value = article.favoritesCount
-          isFavorited.value = article.favorited
-        })
+      if (store.isLoggedIn) {
+        return await api.favorites({ method, slug })
       } else {
         router.push('/register')
       }
@@ -25,5 +21,5 @@ export function useFavorited(article: Article) {
     { immediate: false }
   )
 
-  return { isLoading, isFavorited, favoritesCount, onFavorited }
+  return { isLoading, handleFavorited }
 }
