@@ -21,10 +21,15 @@ const getComments = async () => {
 }
 const { isLoading, execute: onSubmit } = useAsyncState(
   async () => {
-    return await api.createComment({
-      slug: props.article.slug,
-      comment: { body: comment.value }
-    })
+    return await api
+      .createComment({
+        slug: props.article.slug,
+        comment: { body: comment.value }
+      })
+      .then(() => {
+        comment.value = ''
+        getComments()
+      })
   },
   null,
   { immediate: false }
