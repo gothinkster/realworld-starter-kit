@@ -17,6 +17,7 @@ const { isLoading, execute: onSubmit } = useAsyncState(
   async () => {
     return await api.updateUser({ user: fromStore.value }).then(({ user }) => {
       store.userInfo = user
+      router.push(`/profile/${user.username}`)
     })
   },
   null,
