@@ -1,21 +1,20 @@
 import router from './index'
 import { WHITE_LIST } from '@/constants'
 import { useUserStore } from '@/stores/useUserStore'
-import { useCookies } from '@vueuse/integrations/useCookies'
 
 router.beforeEach(async (to) => {
   const store = useUserStore()
-  const { get, remove } = useCookies()
+  const token = localStorage.getItem('jwt-token')
 
   if (store.isLoggedIn) {
     return true
   } else {
-    if (get('jwt-token')) {
+    if (token) {
       try {
         await store.getUserInfo()
         return true
-      } catch (error) {
-        remove('jwt-token')
+      } catch {
+        localStorage.removeItem('jwt-token')
         return '/'
       }
     } else {
