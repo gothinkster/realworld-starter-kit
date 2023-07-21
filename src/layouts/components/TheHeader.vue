@@ -33,7 +33,7 @@ const navList = computed(() => [
   },
   {
     label: userInfo.value?.username,
-    path: '/profile',
+    path: `/profile/${store.userInfo?.username}`,
     auth: isLoggedIn.value,
     pic: userInfo.value?.image
   }

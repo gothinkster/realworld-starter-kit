@@ -1,14 +1,33 @@
+<script lang="ts">
+interface IInstance extends ComponentPublicInstance {
+  setPathFrom(from: string): void
+}
+
+export default defineComponent({
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      const instance = vm as IInstance
+
+      instance.setPathFrom(from.name as string)
+    })
+  }
+})
+</script>
+
 <script lang="ts" setup>
-import TagList from './components/TagList.vue'
 import { useUserStore } from '@/stores/useUserStore'
-import FeedToggle from './components/FeedToggle.vue'
-import ArticleList from './components/ArticleList.vue'
-import type { FeedToggleOptions, ArticleListProps } from '@/types'
+import type { ArticleToggleOptions, ArticleListProps } from '@/types'
 
 const store = useUserStore()
 const activeName = ref('Global Feed')
 const articleListProps = ref<ArticleListProps>({})
-const feedToggleOptions = ref<FeedToggleOptions[]>([
+const setPathFrom = (name: string) => {
+  if (['Login', 'Register'].includes(name)) {
+    activeName.value = 'Your Feed'
+    articleListProps.value = { author: store.userInfo?.username }
+  }
+}
+const articleToggleOptions = ref<ArticleToggleOptions[]>([
   {
     label: 'Global Feed',
     show: true
@@ -20,8 +39,8 @@ const feedToggleOptions = ref<FeedToggleOptions[]>([
 ])
 const handleTabClick = () => {
   if (['Your Feed', 'Global Feed'].includes(activeName.value)) {
-    if (feedToggleOptions.value.length === 3) {
-      feedToggleOptions.value.pop()
+    if (articleToggleOptions.value.length === 3) {
+      articleToggleOptions.value.pop()
     }
     if (activeName.value === 'Global Feed') {
       articleListProps.value = {}
@@ -33,16 +52,18 @@ const handleTabClick = () => {
 const handleTagClick = (tag: string) => {
   activeName.value = tag
   articleListProps.value = { tag }
-  if (feedToggleOptions.value.length === 2) {
-    feedToggleOptions.value.push({
+  if (articleToggleOptions.value.length === 2) {
+    articleToggleOptions.value.push({
       label: tag,
       show: true,
       icon: true
     })
   } else {
-    feedToggleOptions.value[2].label = tag
+    articleToggleOptions.value[2].label = tag
   }
 }
+
+defineExpose({ setPathFrom })
 </script>
 
 <template>
@@ -57,7 +78,11 @@ const handleTagClick = (tag: string) => {
     <div class="container page">
       <div class="row">
         <div class="col-md-9">
-          <feed-toggle v-model="activeName" @change="handleTabClick" :options="feedToggleOptions" />
+          <article-toggle
+            v-model="activeName"
+            @change="handleTabClick"
+            :options="articleToggleOptions"
+          />
           <article-list :remote-params="articleListProps" />
         </div>
 

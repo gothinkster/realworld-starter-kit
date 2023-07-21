@@ -8,6 +8,9 @@ import type { RouteLocationNormalizedLoaded } from 'vue-router'
 
 const route = useRoute() as RouteLocationNormalizedLoaded
 const store = useUserStore()
+const isAuthor = computed(() => {
+  return store.userInfo?.username === article.value.author.username
+})
 const article = ref<Article>({
   title: '',
   author: {
@@ -55,9 +58,21 @@ onMounted(() => {
             <router-link to="" class="author">{{ article.author.username }}</router-link>
             <span class="date">{{ formattedDate(article.createdAt) }}</span>
           </div>
-          <follow-button :article="article" v-if="article.title" @change="changeFollow" />
-          &nbsp;&nbsp;
-          <favorite-button :article="article" v-if="article.title" @change="changeFacorited" />
+          <template v-if="isAuthor">
+            <edit-article-button :to="`/article/editor/${article.slug}`" />
+            &nbsp;&nbsp;
+            <delete-article-button :slug="article.slug" />
+          </template>
+          <template v-else>
+            <follow-button
+              v-if="article.title"
+              @change="changeFollow"
+              :following="article.author.following"
+              :username="article.author.username"
+            />
+            &nbsp;&nbsp;
+            <favorite-button :article="article" v-if="article.title" @change="changeFacorited" />
+          </template>
         </div>
       </div>
     </div>
@@ -83,9 +98,21 @@ onMounted(() => {
             <span class="date">{{ formattedDate(article.createdAt) }}</span>
           </div>
 
-          <follow-button :article="article" v-if="article.title" @change="changeFollow" />
-          &nbsp;
-          <favorite-button :article="article" v-if="article.title" @change="changeFacorited" />
+          <template v-if="isAuthor">
+            <edit-article-button :to="`/article/editor/${article.slug}`" />
+            &nbsp;&nbsp;
+            <delete-article-button :slug="article.slug" />
+          </template>
+          <template v-else>
+            <follow-button
+              v-if="article.title"
+              @change="changeFollow"
+              :following="article.author.following"
+              :username="article.author.username"
+            />
+            &nbsp;&nbsp;
+            <favorite-button :article="article" v-if="article.title" @change="changeFacorited" />
+          </template>
         </div>
       </div>
 
@@ -100,7 +127,7 @@ onMounted(() => {
         </div>
       </div>
 
-      <comment-list v-else :article="article" /> 
+      <comment-list v-else :article="article" />
     </div>
   </div>
 </template>
