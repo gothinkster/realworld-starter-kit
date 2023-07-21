@@ -2,27 +2,31 @@
 import api from '@/api'
 import { useAsyncState } from '@vueuse/core'
 import type { ArticleListProps } from '@/types'
-import ArticlePreview from './ArticlePreview.vue'
-import ArticlePagination from './ArticlePagination.vue'
 
 const articlesCurrent = ref(1)
 const props = defineProps<{ remoteParams: ArticleListProps }>()
-const { state, isLoading, error, execute } = useAsyncState(
-  async (args?: ArticleListProps) => {
-    const params = { ...args, limit: 10, offset: (articlesCurrent.value - 1) * 10 }
+const {
+  state,
+  error,
+  isLoading,
+  execute: getArticles
+} = useAsyncState(
+  async () => {
+    const params = { ...props.remoteParams, limit: 10, offset: (articlesCurrent.value - 1) * 10 }
+
     return await api.getArticles(params)
   },
   { articles: [], articlesCount: 0 }
 )
 const handleCurrentChang = (value: number) => {
   articlesCurrent.value = value
-  execute()
+  getArticles()
 }
 
 watch(
   () => props.remoteParams,
-  (value) => {
-    execute(0, value)
+  () => {
+    getArticles()
   }
 )
 </script>

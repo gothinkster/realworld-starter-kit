@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import type { FeedToggleOptions } from '@/types'
+import type { ArticleToggleOptions } from '@/types'
+
 const emit = defineEmits(['update:modelValue', 'change'])
 defineProps({
   modelValue: String,
   options: {
     required: true,
-    type: Array as PropType<FeedToggleOptions[]>
+    type: Array as PropType<ArticleToggleOptions[]>
   }
 })
 const handleClick = (label: string) => {
@@ -15,7 +16,7 @@ const handleClick = (label: string) => {
 </script>
 
 <template>
-  <div class="feed-toggle">
+  <div class="articles-toggle">
     <ul class="nav nav-pills outline-active">
       <template :key="label" v-for="{ label, show, icon } in options">
         <li class="nav-item" v-if="show">

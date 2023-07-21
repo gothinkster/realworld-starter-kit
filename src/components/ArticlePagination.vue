@@ -7,7 +7,7 @@ const pageCount = computed(() => Math.ceil(props.count / 10))
 </script>
 
 <template>
-  <ul class="pagination">
+  <ul class="pagination" v-if="pageCount > 1">
     <li
       :key="item"
       v-for="item in pageCount"
