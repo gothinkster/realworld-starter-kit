@@ -1,12 +1,11 @@
 <script lang="ts" setup>
-import type { Article } from '@/types'
 import { useFollow } from '@/composables/useFollow'
 
 const emit = defineEmits(['change'])
 const { isLoading, handleFollow } = useFollow()
-const props = defineProps<{ article: Article }>()
+const props = defineProps<{ following: boolean; username: string }>()
 const onFollow = async () => {
-  const res = await handleFollow(0, props.article)
+  const res = await handleFollow(0, { following: props.following, username: props.username })
 
   emit('change', res?.profile.following)
 }
@@ -17,9 +16,9 @@ const onFollow = async () => {
     @click="onFollow"
     class="btn btn-sm"
     :disabled="isLoading"
-    :class="[article.author.following ? 'btn-secondary' : 'btn-outline-secondary']"
+    :class="[following ? 'btn-secondary' : 'btn-outline-secondary']"
   >
     <i class="ion-plus-round"></i>
-    &nbsp; {{ article.author.following ? 'Unfollow' : 'Follow' }} {{ article.author.username }}
+    &nbsp; {{ following ? 'Unfollow' : 'Follow' }} {{ username }}
   </button>
 </template>
