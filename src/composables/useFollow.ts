@@ -6,8 +6,7 @@ export function useFollow() {
   const router = useRouter()
   const store = useUserStore()
   const { isLoading, execute: handleFollow } = useAsyncState(
-    async (article) => {
-      const { username, following } = article.author
+    async ({ following, username }) => {
       const method = following ? 'delete' : 'post'
 
       if (store.isLoggedIn) {
