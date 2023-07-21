@@ -39,13 +39,19 @@ import type {
 
 declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
-    '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
-    '/article': RouteRecordInfo<'/article', '/article', Record<never, never>, Record<never, never>>,
-    '/articleForm': RouteRecordInfo<'/articleForm', '/articleForm', Record<never, never>, Record<never, never>>,
-    '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
-    '/profile': RouteRecordInfo<'/profile', '/profile', Record<never, never>, Record<never, never>>,
-    '/register': RouteRecordInfo<'/register', '/register', Record<never, never>, Record<never, never>>,
-    '/settings': RouteRecordInfo<'/settings', '/settings', Record<never, never>, Record<never, never>>,
+  export interface RouteNamedMap {
+    'Root': RouteRecordInfo<'Root', '/', Record<never, never>, Record<never, never>>,
+  }  '$All': RouteRecordInfo<'$All', '/:all(.*)', { all: ParamValue<true> }, { all: ParamValue<false> }>,
+    'ArticleId?': RouteRecordInfo<'ArticleId?', '/article/:id?', { id?: ParamValueZeroOrOne<true> }, { id?: ParamValueZeroOrOne<false> }>,
+    'ArticleComponentsArticleForm': RouteRecordInfo<'ArticleComponentsArticleForm', '/article/components/ArticleForm', Record<never, never>, Record<never, never>>,
+    'ArticleComponentsCommentList': RouteRecordInfo<'ArticleComponentsCommentList', '/article/components/CommentList', Record<never, never>, Record<never, never>>,
+    'ArticleCreate': RouteRecordInfo<'ArticleCreate', '/article/create', Record<never, never>, Record<never, never>>,
+    'ArticleEditorId?': RouteRecordInfo<'ArticleEditorId?', '/article/editor/:id?', { id?: ParamValueZeroOrOne<true> }, { id?: ParamValueZeroOrOne<false> }>,
+    'Login': RouteRecordInfo<'Login', '/login', Record<never, never>, Record<never, never>>,
+    'ProfileId?': RouteRecordInfo<'ProfileId?', '/profile/:id?', { id?: ParamValueZeroOrOne<true> }, { id?: ParamValueZeroOrOne<false> }>,
+    'ProfileFavorites': RouteRecordInfo<'ProfileFavorites', '/profile/favorites', Record<never, never>, Record<never, never>>,
+    'Register': RouteRecordInfo<'Register', '/register', Record<never, never>, Record<never, never>>,
+    'Settings': RouteRecordInfo<'Settings', '/settings', Record<never, never>, Record<never, never>>,
   }
 }
 
