@@ -18,7 +18,7 @@ const handleClick = (label: string) => {
 <template>
   <div class="articles-toggle">
     <ul class="nav nav-pills outline-active">
-      <template :key="label" v-for="{ label, show, icon } in options">
+      <template :key="label" v-for="{ label, show = true, icon } in options">
         <li class="nav-item" v-if="show">
           <router-link
             to=""

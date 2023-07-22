@@ -56,7 +56,7 @@ export interface UpdateArticle {
 
 export interface ArticleToggleOptions {
   label: string
-  show: boolean
+  show?: boolean
   icon?: boolean
 }
 

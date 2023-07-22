@@ -16,14 +16,8 @@ const route = useRoute() as RouteLocationNormalizedLoaded
 const isSelf = computed(() => store.userInfo?.username === userIfo.value.username)
 const articleListProps = ref<ArticleListProps>({ author: route.params.id as string })
 const articleToggleOptions = ref<ArticleToggleOptions[]>([
-  {
-    label: 'My Articles',
-    show: true
-  },
-  {
-    label: 'Favorite Articles',
-    show: true
-  }
+  { label: 'My Articles' },
+  { label: 'Favorite Articles' }
 ])
 const getUserInfo = async () => {
   const { profile } = await api.getPofile(route.params.id as string)
