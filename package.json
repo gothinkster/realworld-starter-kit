@@ -4,15 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check build-only",
+    "test": "vitest",
+    "lint": "eslint .",
+    "build": "vite build",
     "preview": "vite preview",
-    "test:unit": "vitest",
-    "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
-    "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "lint:fix": "eslint . --fix",
+    "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@vueuse/core": "^10.2.1",
@@ -22,45 +19,27 @@
     "vue-router": "^4.2.4"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.7",
-    "@commitlint/config-conventional": "^17.6.7",
-    "@rushstack/eslint-patch": "^1.3.2",
-    "@tsconfig/node18": "^2.0.1",
-    "@types/jsdom": "^21.1.1",
-    "@types/node": "^18.16.19",
+    "@antfu/eslint-config": "^0.39.8",
+    "@types/node": "^18.17.1",
     "@vitejs/plugin-vue": "^4.2.3",
-    "@vitejs/plugin-vue-jsx": "^3.0.1",
-    "@vue/eslint-config-prettier": "^7.1.0",
-    "@vue/eslint-config-typescript": "^11.0.3",
     "@vue/test-utils": "^2.4.1",
-    "@vue/tsconfig": "^0.4.0",
-    "cypress": "^12.17.2",
     "eslint": "^8.45.0",
-    "eslint-plugin-cypress": "^2.13.3",
-    "eslint-plugin-vue": "^9.15.1",
     "jsdom": "^22.1.0",
     "lint-staged": "^13.2.3",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.8.8",
-    "simple-git-hooks": "^2.8.1",
-    "start-server-and-test": "^2.0.0",
+    "simple-git-hooks": "^2.9.0",
     "typescript": "~5.0.4",
     "unplugin-auto-import": "^0.16.6",
     "unplugin-vue-components": "^0.25.1",
     "unplugin-vue-router": "^0.6.4",
-    "vite": "^4.4.5",
+    "vite": "^4.4.7",
     "vite-plugin-vue-layouts": "^0.8.0",
     "vitest": "^0.32.4",
-    "vue-tsc": "^1.8.5"
+    "vue-tsc": "^1.8.6"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx lint-staged, npx --no -- commitlint --edit ${1}"
+    "pre-commit": "pnpm lint-staged"
   },
   "lint-staged": {
-    "src/**/*.{ts,vue}": [
-      "prettier --write src/",
-      "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-      "git add"
-    ]
+    "*": "eslint --fix"
   }
 }
