@@ -1,10 +1,4 @@
-interface Errors {
-  email: string[]
-  username: string[]
-  password: string[]
-}
-
-export function formatError(errors: Errors): string[] {
+export function formatError(errors: Record<string, string[]>): string[] {
   const result: string[] = []
 
   for (const key in errors) {
@@ -16,10 +10,10 @@ export function formatError(errors: Errors): string[] {
   return result
 }
 
-export function formattedDate(date: string): string {
+export function formatDate(date: string): string {
   return new Date(date).toLocaleDateString('en-US', {
     month: 'long',
     day: 'numeric',
-    year: 'numeric'
+    year: 'numeric',
   })
 }
