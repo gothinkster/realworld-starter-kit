@@ -1,6 +1,6 @@
 # ![RealWorld Example App](logo.png)
 
-[![RealWorld Frontend](https://img.shields.io/badge/realworld-frontend-%23783578.svg?style=flat-square)](http://realworld.io) [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme) [![code style](https://antfu.me/badge-code-style.svg)](https://github.com/antfu/eslint-config)
+[![RealWorld Frontend](https://img.shields.io/badge/realworld-frontend-%23783578.svg)](http://realworld.io) [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme) [![code style](https://antfu.me/badge-code-style.svg)](https://github.com/antfu/eslint-config)
 
 ## Background
 
@@ -23,36 +23,36 @@ git clone git@github.com:niyaco/vue3-realworld-app.git
 
 cd vue3-realworld-app
 
-pnpm i
+pnpm install
 
 pnpm dev
 
-npx vitest --ui
+pnpm test
 
 pnpm build
 ```
 
 ## Features
 
-* ⚡️ [Vue 3](https://vuejs.org), [Vite](https://vitejs.dev), [pnpm](https://pnpm.io/), [esbuild](https://esbuild.github.io) - born with fastness
-* 🗂 [File based routing](https://github.com/posva/unplugin-vue-router)
-* 📦 [Components auto importing](https://github.com/antfu/unplugin-vue-components)
-* 🍍 [State Management via Pinia](https://pinia.vuejs.org)
-* 🔥 Use the [new `<script setup>` syntax](https://vuejs.org/api/sfc-script-setup.html#script-setup)
-* 📥 [APIs auto importing](https://github.com/antfu/unplugin-auto-import) - use Composition API and others directly
-* 🦾 TypeScript, of course
-* ⚙️ Unit Testing with [Vitest](https://vitest.dev)
+* 🍍 [Pinia](https://pinia.vuejs.org) - The intuitive store for Vue.js
+* ⚙️ [Vitest](https://vitest.dev) - Blazing Fast Unit Test Framework
+* 🔍 [eslint-config](https://github.com/antfu/eslint-config) - Anthony's ESLint config presets
 * 🔨 [VueUse](https://vueuse.org) - Collection of Vue Composition Utilities
+* 📑 [vite-plugin-vue-layouts](https://github.com/JohnCampionJr/vite-plugin-vue-layouts) - Vue layout plugin for Vite
+* 📡 [Axios](https://axios-http.com/) - Promise based HTTP client for the browser and node.js
+* 🗂 [unplugin-vue-router](https://github.com/posva/unplugin-vue-router) - Next-gen file based typed routing for vue router
+* 📲 [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components) - On-demand components auto importing for Vue
+* 📥 [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) - Auto import APIs on-demand for Vite, Webpack and Rollup
 
 ## Related Efforts
 
 * [vue3-realworld-example-app](https://github.com/mutoe/vue3-realworld-example-app) - Explore the charm of Vue composition API! Vite?
-* [vue-realworld-example-app](https://github.com/khaledosman/vue-realworld-example-app) - An exemplary real-world application built with Vue.js, Vuex, axios and different other technologies. This is a good example to discover Vue for beginners.
 * [vue-ts-realworld-app](https://github.com/AlexBrohshtut/vue-ts-realworld-app) - 🏆Full fledged implementation of Real World App written in Vue + TypeScript.
+* [vue-realworld-example-app](https://github.com/khaledosman/vue-realworld-example-app) - An exemplary real-world application built with Vue.js, Vuex, axios and different other technologies. This is a good example to discover Vue for beginners.
 
 ## Maintainers
 
-[@Niyaco](https://github.com/niyaco).
+[@Niyaco](https://github.com/niyaco)
 
 ## License
 
