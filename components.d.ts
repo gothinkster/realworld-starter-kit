@@ -15,6 +15,7 @@ declare module 'vue' {
     DeleteArticleButton: typeof import('./src/components/DeleteArticleButton.vue')['default']
     EditActicleButton: typeof import('./src/components/EditActicleButton.vue')['default']
     EditArticleButton: typeof import('./src/components/EditArticleButton.vue')['default']
+    ErrorMessages: typeof import('./src/components/ErrorMessages.vue')['default']
     FavoriteButton: typeof import('./src/components/FavoriteButton.vue')['default']
     FeedToggle: typeof import('./src/components/FeedToggle.vue')['default']
     FollowButton: typeof import('./src/components/FollowButton.vue')['default']
