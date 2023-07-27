@@ -1,15 +1,16 @@
 <script lang="ts" setup>
 import type { ArticleToggleOptions } from '@/types'
 
-const emit = defineEmits(['update:modelValue', 'change'])
 defineProps({
   modelValue: String,
   options: {
     required: true,
-    type: Array as PropType<ArticleToggleOptions[]>
-  }
+    type: Array as PropType<ArticleToggleOptions[]>,
+  },
 })
-const handleClick = (label: string) => {
+
+const emit = defineEmits(['update:modelValue', 'change'])
+function handleClick(label: string) {
   emit('update:modelValue', label)
   emit('change')
 }
@@ -18,14 +19,14 @@ const handleClick = (label: string) => {
 <template>
   <div class="articles-toggle">
     <ul class="nav nav-pills outline-active">
-      <template :key="label" v-for="{ label, show = true, icon } in options">
-        <li class="nav-item" v-if="show">
+      <template v-for="{ label, show = true, icon } in options" :key="label">
+        <li v-if="show" class="nav-item">
           <router-link
             to=""
+            class="nav-link" :class="[{ active: label === modelValue }]"
             @click="handleClick(label)"
-            :class="['nav-link', { active: label === modelValue }]"
           >
-            <i class="ion-pound" v-if="icon" />
+            <i v-if="icon" class="ion-pound" />
             {{ label }}
           </router-link>
         </li>

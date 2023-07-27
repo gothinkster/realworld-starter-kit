@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import api from '@/api'
 import { useAsyncState } from '@vueuse/core'
+import api from '@/api'
 
-const router = useRouter()
 const props = defineProps<{ slug: string }>()
+const router = useRouter()
 const { isLoading, execute: onDeleteArticle } = useAsyncState(
   async () => {
     await api.deleteArticle(props.slug)
@@ -11,16 +11,16 @@ const { isLoading, execute: onDeleteArticle } = useAsyncState(
   },
   null,
   {
-    immediate: false
-  }
+    immediate: false,
+  },
 )
 </script>
 
 <template>
   <button
     :disabled="isLoading"
-    @click="() => onDeleteArticle()"
     class="btn btn-outline-danger btn-sm"
+    @click="() => onDeleteArticle()"
   >
     <i class="ion-trash-a" /> Delete Article
   </button>

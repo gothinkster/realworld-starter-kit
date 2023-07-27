@@ -1,39 +1,47 @@
 import request from '@/utils/request'
 import type {
-  GetArticles,
-  Author,
   Article,
-  UserInfo,
-  User,
+  Articles,
+  Author,
+  Comment,
   CreateArticle,
   UpdateArticle,
-  Comment
+  User,
+  UserInfo,
 } from '@/types'
 
-function getArticles(params: GetArticles): Promise<{ articles: Article[]; articlesCount: number }> {
+function login(params: { user: User }): Promise<{ user: UserInfo }> {
+  return request({
+    url: '/api/users/login',
+    method: 'post',
+    data: params,
+  })
+}
+
+function register(params: { user: User }): Promise<{ user: UserInfo }> {
+  return request({
+    url: '/api/users',
+    method: 'post',
+    data: params,
+  })
+}
+
+function getArticles(params: Articles): Promise<{ articles: Article[]; articlesCount: number }> {
   return request({
     url: '/api/articles',
-    params
+    params,
   })
 }
 
 function getTags(): Promise<{ tags: string[] }> {
   return request({
-    url: '/api/tags'
-  })
-}
-
-function createUser(params: { user: User }): Promise<{ user: UserInfo }> {
-  return request({
-    url: '/api/users',
-    method: 'post',
-    data: params
+    url: '/api/tags',
   })
 }
 
 function getUserInfo(): Promise<{ user: UserInfo }> {
   return request({
-    url: '/api/user'
+    url: '/api/user',
   })
 }
 
@@ -41,28 +49,20 @@ function updateUser(params: { user: UserInfo }): Promise<{ user: UserInfo }> {
   return request({
     url: '/api/user',
     method: 'put',
-    data: params
-  })
-}
-
-function login(params: { user: User }): Promise<{ user: UserInfo }> {
-  return request({
-    url: '/api/users/login',
-    method: 'post',
-    data: params
+    data: params,
   })
 }
 
 function favorites({
   method,
-  slug
+  slug,
 }: {
   method: string
   slug: string
 }): Promise<{ article: Article }> {
   return request({
     url: `/api/articles/${slug}/favorite`,
-    method
+    method,
   })
 }
 
@@ -70,7 +70,7 @@ function createArticle(params: { article: CreateArticle }): Promise<{ article: A
   return request({
     url: '/api/articles',
     method: 'post',
-    data: params
+    data: params,
   })
 }
 
@@ -81,13 +81,13 @@ function updateArticle(params: {
   return request({
     url: `/api/articles/${params.slug}`,
     method: 'put',
-    data: { article: params.article }
+    data: { article: params.article },
   })
 }
 
 function getArticle(slug: string): Promise<{ article: Article }> {
   return request({
-    url: `/api/articles/${slug}`
+    url: `/api/articles/${slug}`,
   })
 }
 
@@ -98,52 +98,53 @@ function createComment(params: {
   return request({
     url: `/api/articles/${params.slug}/comments`,
     method: 'post',
-    data: { comment: params.comment }
+    data: { comment: params.comment },
   })
 }
 
 function getComments(slug: string): Promise<{ comments: Comment[] }> {
   return request({
-    url: `/api/articles/${slug}/comments`
+    url: `/api/articles/${slug}/comments`,
   })
 }
 
 function deleteComment(slug: string, id: number): Promise<{ comments: Comment[] }> {
   return request({
     url: `/api/articles/${slug}/comments/${id}`,
-    method: 'delete'
+    method: 'delete',
   })
 }
 
 function follow({
   method,
-  username
+  username,
 }: {
   method: string
   username: string
 }): Promise<{ profile: Author }> {
   return request({
     url: `/api/profiles/${username}/follow`,
-    method
+    method,
   })
 }
 
 function deleteArticle(slug: string): Promise<void> {
   return request({
     url: `/api/articles/${slug}`,
-    method: 'delete'
+    method: 'delete',
   })
 }
 
 function getPofile(username: string): Promise<{ profile: Author }> {
   return request({
-    url: `/api/profiles/${username}`
+    url: `/api/profiles/${username}`,
   })
 }
+
 export default {
   getArticles,
   getTags,
-  createUser,
+  register,
   getUserInfo,
   login,
   favorites,
@@ -156,5 +157,5 @@ export default {
   follow,
   deleteArticle,
   updateUser,
-  getPofile
+  getPofile,
 }

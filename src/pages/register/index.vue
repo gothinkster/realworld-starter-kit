@@ -1,0 +1,3 @@
+<template>
+  <auth-page />
+</template>

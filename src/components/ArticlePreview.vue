@@ -1,8 +1,8 @@
 <script lang="ts" setup>
+import { useAsyncState } from '@vueuse/core'
 import api from '@/api'
 import type { Article } from '@/types'
-import { formattedDate } from '@/utils'
-import { useAsyncState } from '@vueuse/core'
+import { formatDate } from '@/utils'
 import { useUserStore } from '@/stores/useUserStore'
 
 defineProps({ article: { type: Object as PropType<Article>, required: true } })
@@ -18,12 +18,11 @@ const { isLoading, execute: onFavorited } = useAsyncState(
         args.favorited = res.article.favorited
         args.favoritesCount = res.article.favoritesCount
       })
-    } else {
-      router.push('/register')
     }
+    else { router.push('/register') }
   },
   null,
-  { immediate: false }
+  { immediate: false },
 )
 </script>
 
@@ -31,21 +30,21 @@ const { isLoading, execute: onFavorited } = useAsyncState(
   <div class="article-preview">
     <div class="article-meta">
       <router-link :to="`/profile/${article.author.username}`">
-        <img :src="article.author.image" />
+        <img :src="article.author.image">
       </router-link>
       <div class="info">
         <router-link class="author" :to="`/profile/${article.author.username}`">
           {{ article.author.username }}
         </router-link>
-        <span class="date">{{ formattedDate(article.createdAt) }}</span>
+        <span class="date">{{ formatDate(article.createdAt) }}</span>
       </div>
       <button
         :disabled="isLoading"
-        @click="onFavorited(0, article)"
         class="btn btn-sm pull-xs-right"
         :class="[article.favorited ? 'btn-primary' : 'btn-outline-primary']"
+        @click="onFavorited(0, article)"
       >
-        <i class="ion-heart"></i>
+        <i class="ion-heart" />
         {{ article.favoritesCount }}
       </button>
     </div>
