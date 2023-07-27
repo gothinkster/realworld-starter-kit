@@ -1,4 +1,4 @@
-import { fileURLToPath, URL } from 'node:url'
+import { URL, fileURLToPath } from 'node:url'
 
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
@@ -10,29 +10,15 @@ import { VueRouterAutoImports, getPascalCaseRouteName } from 'unplugin-vue-route
 
 export default defineConfig({
   plugins: [
-    VueRouter({
-      routesFolder: 'src/views',
-      getRouteName: getPascalCaseRouteName
-    }),
+    VueRouter({ getRouteName: getPascalCaseRouteName }),
     Vue(),
-    Layouts({
-      defaultLayout: 'index'
-    }),
-    Components({
-      dts: true
-    }),
+    Layouts(),
+    Components({ dts: true }),
     AutoImport({
       dts: true,
       vueTemplate: true,
-      imports: [
-        'vue',
-        'pinia',
-        VueRouterAutoImports,
-        {
-          axios: [['default', 'axios']]
-        }
-      ]
-    })
+      imports: ['vue', 'pinia', VueRouterAutoImports],
+    }),
   ],
   server: {
     host: true,
@@ -41,13 +27,13 @@ export default defineConfig({
       '/api': {
         changeOrigin: true,
         target: 'https://api.realworld.io/api',
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    }
+        rewrite: path => path.replace(/^\/api/, ''),
+      },
+    },
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
 })
