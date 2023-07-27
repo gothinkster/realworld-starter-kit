@@ -1,19 +1,23 @@
 import api from '@/api'
-import type { UserInfo, User } from '@/types'
+import type { User, UserInfo } from '@/types'
 
 export const useUserStore = defineStore('user', () => {
   const userInfo = ref<UserInfo | null>(null)
   const isLoggedIn = computed(() => userInfo.value !== null)
-  const auth = async (type: string, formStore: { user: User }) => {
-    const { user } = type === 'register' ? await api.createUser(formStore) : await api.login(formStore)
+  const updateUserInfo = (user: UserInfo) => {
     userInfo.value = user
-    localStorage.setItem('jwt-token', user.token as string)
+    localStorage.setItem('jwt-token', user.token!)
+  }
+  const handleAuthAction = async (type: string, formStore: { user: User }) => {
+    const { user } = type === 'register' ? await api.register(formStore) : await api.login(formStore)
+
+    updateUserInfo(user)
   }
   const getUserInfo = async () => {
     const { user } = await api.getUserInfo()
-    userInfo.value = user
-    localStorage.setItem('jwt-token', user.token as string)
+
+    updateUserInfo(user)
   }
 
-  return { userInfo, isLoggedIn, auth, getUserInfo }
+  return { userInfo, isLoggedIn, handleAuthAction, getUserInfo }
 })

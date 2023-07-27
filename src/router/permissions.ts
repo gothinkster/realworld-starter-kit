@@ -1,10 +1,10 @@
 import router from './index'
-import { WHITE_LIST } from '@/constants'
 import { useUserStore } from '@/stores/useUserStore'
 
 router.beforeEach(async (to) => {
   const store = useUserStore()
   const token = localStorage.getItem('jwt-token')
+  const WHITE_LIST = ['Root', 'Login', 'Register', 'ArticleId?']
 
   if (store.isLoggedIn) {
     return true
