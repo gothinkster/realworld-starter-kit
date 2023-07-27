@@ -16,7 +16,19 @@ We've gone to great lengths to adhere to the **Vue3** community styleguides & be
 
 For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
 
-## Install
+## Features
+
+* 🍍 [Pinia](https://pinia.vuejs.org) - The intuitive store for Vue.js
+* ⚙️ [Vitest](https://vitest.dev) - Blazing Fast Unit Test Framework
+* 🔍 [eslint-config](https://github.com/antfu/eslint-config) - Anthony's ESLint config presets
+* 🔨 [VueUse](https://vueuse.org) - Collection of Vue Composition Utilities
+* 📑 [vite-plugin-vue-layouts](https://github.com/JohnCampionJr/vite-plugin-vue-layouts) - Vue layout plugin for Vite
+* 📡 [Axios](https://axios-http.com/) - Promise based HTTP client for the browser and node.js
+* 🗂 [unplugin-vue-router](https://github.com/posva/unplugin-vue-router) - Next-gen file based typed routing for vue router
+* 📲 [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components) - On-demand components auto importing for Vue
+* 📥 [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) - Auto import APIs on-demand for Vite, Webpack and Rollup
+
+## Usage
 
 ```sh
 git clone git@github.com:niyaco/vue3-realworld-app.git
@@ -31,18 +43,6 @@ pnpm test
 
 pnpm build
 ```
-
-## Features
-
-* 🍍 [Pinia](https://pinia.vuejs.org) - The intuitive store for Vue.js
-* ⚙️ [Vitest](https://vitest.dev) - Blazing Fast Unit Test Framework
-* 🔍 [eslint-config](https://github.com/antfu/eslint-config) - Anthony's ESLint config presets
-* 🔨 [VueUse](https://vueuse.org) - Collection of Vue Composition Utilities
-* 📑 [vite-plugin-vue-layouts](https://github.com/JohnCampionJr/vite-plugin-vue-layouts) - Vue layout plugin for Vite
-* 📡 [Axios](https://axios-http.com/) - Promise based HTTP client for the browser and node.js
-* 🗂 [unplugin-vue-router](https://github.com/posva/unplugin-vue-router) - Next-gen file based typed routing for vue router
-* 📲 [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components) - On-demand components auto importing for Vue
-* 📥 [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) - Auto import APIs on-demand for Vite, Webpack and Rollup
 
 ## Related Efforts
 
