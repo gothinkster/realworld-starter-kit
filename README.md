@@ -27,6 +27,8 @@ pnpm i
 
 pnpm dev
 
+npx vitest --ui
+
 pnpm build
 ```
 
@@ -39,7 +41,7 @@ pnpm build
 * 🔥 Use the [new `<script setup>` syntax](https://vuejs.org/api/sfc-script-setup.html#script-setup)
 * 📥 [APIs auto importing](https://github.com/antfu/unplugin-auto-import) - use Composition API and others directly
 * 🦾 TypeScript, of course
-* ⚙️ Unit Testing with [Vitest](https://vitest.dev), E2E Testing with [Cypress](https://cypress.io) on [GitHub Actions](https://github.com/features/actions)
+* ⚙️ Unit Testing with [Vitest](https://vitest.dev)
 * 🔨 [VueUse](https://vueuse.org) - Collection of Vue Composition Utilities
 
 ## Related Efforts
