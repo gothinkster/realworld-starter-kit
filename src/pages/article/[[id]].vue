@@ -1,11 +1,12 @@
 <script lang="ts" setup>
+import type { RouteLocationNormalizedLoaded } from 'vue-router'
 import commentList from './components/CommentList.vue'
 import api from '@/api'
 import { formatDate } from '@/utils'
 import type { Article } from '@/types'
 import { useUserStore } from '@/stores/useUserStore'
 
-const route = useRoute()
+const route = useRoute() as RouteLocationNormalizedLoaded
 const store = useUserStore()
 const article = ref<Article>({
   title: '',
@@ -28,7 +29,7 @@ const isAuthor = computed(() => {
   return store.userInfo?.username === article.value.author.username
 })
 async function getActive() {
-  const res = await api.getArticle(route.params.id)
+  const res = await api.getArticle(route.params.id as string)
 
   article.value = res.article
 }
