@@ -2,10 +2,9 @@
 import { useAsyncState } from '@vueuse/core'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 import api from '@/api'
-import { formatError } from '@/utils'
 
+const errors = ref({})
 const router = useRouter()
-const errors = ref<string[]>([])
 const tagList = ref<string[]>([])
 const route = useRoute() as RouteLocationNormalizedLoaded
 const isArticleCreate = route.name === 'ArticleCreate'
@@ -48,8 +47,7 @@ const { isLoading, execute: onSubmit } = useAsyncState(
         router.push(`/article/${article.slug}`)
       })
       .catch((error) => {
-        if (error)
-          errors.value = formatError(error)
+        errors.value = error.errors || {}
       })
   },
   null,
@@ -74,42 +72,26 @@ onMounted(() => {
             <fieldset>
               <fieldset class="form-group">
                 <input
-                  v-model="formStore.title"
-                  required
-                  type="text"
-                  name="title"
-                  placeholder="Article Title"
+                  v-model="formStore.title" required type="text" name="title" placeholder="Article Title"
                   class="form-control form-control-lg"
                 >
               </fieldset>
               <fieldset class="form-group">
                 <input
-                  v-model="formStore.description"
-                  required
-                  type="text"
-                  name="description"
-                  class="form-control"
+                  v-model="formStore.description" required type="text" name="description" class="form-control"
                   placeholder="What's this article about?"
                 >
               </fieldset>
               <fieldset class="form-group">
                 <textarea
-                  v-model="formStore.body"
-                  rows="8"
-                  required
-                  name="body"
-                  class="form-control"
+                  v-model="formStore.body" rows="8" required name="body" class="form-control"
                   placeholder="Write your article (in markdown)"
                 />
               </fieldset>
               <fieldset class="form-group">
                 <input
-                  v-model="formStore.tagList"
-                  type="text"
-                  name="tagList"
-                  class="form-control"
-                  placeholder="Enter tags"
-                  @keydown.enter.prevent="onEnter"
+                  v-model="formStore.tagList" type="text" name="tagList" class="form-control"
+                  placeholder="Enter tags" @keydown.enter.prevent="onEnter"
                 >
                 <div class="tag-list">
                   <span v-for="(tag, index) in tagList" :key="tag" class="tag-default tag-pill">
@@ -118,11 +100,7 @@ onMounted(() => {
                   </span>
                 </div>
               </fieldset>
-              <button
-                type="submit"
-                :disabled="isLoading"
-                class="btn btn-lg pull-xs-right btn-primary"
-              >
+              <button type="submit" :disabled="isLoading" class="btn btn-lg pull-xs-right btn-primary">
                 Publish Article
               </button>
             </fieldset>
