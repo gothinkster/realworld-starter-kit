@@ -1,0 +1,16 @@
+server:
+  servlet:
+    context-path: /api
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/realworld?characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 1324
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
