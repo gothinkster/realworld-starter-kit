@@ -2,16 +2,26 @@ package wattt3.realworld.domain.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class UserServiceTest {
+
+    private UserService userService;
+
+    @BeforeEach
+    void setUp() {
+        userService = new UserService();
+    }
 
     @Test
     @DisplayName("유저 등록(회원가입)")
     void registerUser() {
         UserRegisterRequest request = new UserRegisterRequest("email@email.com", "username",
             "password");
+
+        userService.register(request);
     }
 
     public record UserRegisterRequest(
@@ -23,4 +33,11 @@ public class UserServiceTest {
         String password) {
 
     }
+
+    public class UserService {
+
+        public void register(UserRegisterRequest request) {
+        }
+    }
+
 }
