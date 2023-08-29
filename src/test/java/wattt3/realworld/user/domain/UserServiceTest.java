@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import wattt3.realworld.user.application.request.UserRegisterRequest;
+import wattt3.realworld.user.application.request.RegisterUserRequest;
 import wattt3.realworld.user.application.service.UserService;
 import wattt3.realworld.user.infra.UserRepository;
 
@@ -23,10 +23,11 @@ public class UserServiceTest {
     @Test
     @DisplayName("유저 등록(회원가입)")
     void registerUser() {
-        UserRegisterRequest request = new UserRegisterRequest("email@email.com", "username",
+        RegisterUserRequest request = new RegisterUserRequest("email@email.com", "username",
             "password");
 
         userService.register(request);
+
         assertThat(userRepository.findAll().size()).isEqualTo(1);
     }
 
