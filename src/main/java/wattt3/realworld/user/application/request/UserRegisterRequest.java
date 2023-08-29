@@ -1,7 +1,8 @@
-package wattt3.realworld.domain.user;
+package wattt3.realworld.user.application.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import wattt3.realworld.user.domain.User;
 
 public record UserRegisterRequest(
     @Email(message = "이메일 형식이 올바르지 않습니다.")

@@ -1,4 +1,4 @@
-package wattt3.realworld.domain.user;
+package wattt3.realworld.user.domain;
 
 import org.springframework.util.Assert;
 

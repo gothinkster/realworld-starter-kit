@@ -1,4 +1,8 @@
-package wattt3.realworld.domain.user;
+package wattt3.realworld.user.application.service;
+
+import wattt3.realworld.user.application.request.UserRegisterRequest;
+import wattt3.realworld.user.domain.User;
+import wattt3.realworld.user.infra.UserRepository;
 
 public class UserService {
 
