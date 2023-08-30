@@ -2,16 +2,13 @@ package wattt3.realworld.user.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.http.HttpStatus;
-import wattt3.realworld.user.ApiTest;
-import wattt3.realworld.user.application.request.RegisterUserRequest;
+import wattt3.realworld.common.ApiTest;
+import wattt3.realworld.common.Scenario;
 import wattt3.realworld.user.infra.UserRepository;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -23,16 +20,7 @@ public class UserApiTest extends ApiTest {
     @Test
     @DisplayName("유저 등록(회원가입)")
     void registerUser() {
-        RegisterUserRequest request = new RegisterUserRequest("email@email.com", "username",
-            "password");
-
-        RestAssured.given().log().all()
-            .contentType(ContentType.JSON)
-            .body(request)
-            .when()
-            .post("/users")
-            .then().log().all()
-            .statusCode(HttpStatus.CREATED.value());
+        Scenario.userApi().registerUserApi();
 
         assertThat(userRepository.findAll()).hasSize(1);
     }

@@ -1,4 +1,4 @@
-package wattt3.realworld.user;
+package wattt3.realworld.common;
 
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
