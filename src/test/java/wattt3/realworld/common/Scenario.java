@@ -1,6 +1,6 @@
 package wattt3.realworld.common;
 
-import wattt3.realworld.user.domain.UserApi;
+import wattt3.realworld.user.api.UserApi;
 
 public class Scenario {
 

@@ -1,4 +1,4 @@
-package wattt3.realworld.user.domain;
+package wattt3.realworld.user.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,6 +23,13 @@ public class UserApiTest extends ApiTest {
         Scenario.userApi().registerUserApi();
 
         assertThat(userRepository.findAll()).hasSize(1);
+    }
+
+    @Test
+    @DisplayName("유저 등록 중복 예외")
+    void registerDuplicateUser() {
+        Scenario.userApi().registerUserApi()
+            .userApi().registerDuplicateUserApi();
     }
 
 }
