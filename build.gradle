@@ -36,6 +36,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'com.h2database:h2'
+    testImplementation 'p6spy:p6spy:3.9.1'
 }
 
 tasks.named('test') {
