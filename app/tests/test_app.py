@@ -1,8 +1,3 @@
-# from fastapi.testclient import TestClient
-
-# from app.app import app
-
-
 def test_root_must_ruturn_200_and_hello(client):
     response = client.get('/')
 
