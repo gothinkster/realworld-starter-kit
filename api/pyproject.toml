@@ -1,28 +1,23 @@
 [tool.poetry]
-name = "app"
+name = "api"
 version = "0.1.0"
 description = ""
 authors = ["Jonatas E S Silva <jonatassilvaemanuel@gmail.com>"]
 readme = "README.md"
-packages = [{include = "app", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "3.11.*"
 fastapi = "^0.103.1"
 uvicorn = "^0.23.2"
-sqlalchemy = "^2.0.20"
-pydantic-settings = "^2.0.3"
-pydantic = {extras = ["email"], version = "^2.3.0"}
-alembic = "^1.12.0"
 
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^7.4.1"
+pytest = "^7.4.2"
 pytest-cov = "^4.1.0"
 taskipy = "^1.12.0"
 blue = "^0.9.1"
-ruff = "^0.0.287"
-httpx = "^0.24.1"
+ruff = "^0.0.290"
+httpx = "^0.25.0"
 isort = "^5.12.0"
 
 [build-system]
@@ -35,7 +30,8 @@ exclude = ['.venv', 'migrations']
 
 [tool.isort]
 profile = "black"
-line_length = 79
+line_length  = 79
+extend_skip = ['migrations']
 
 [tool.pytest.ini_options]
 pythonpath = "."
@@ -46,7 +42,7 @@ extend-exclude = '(migrations/)'
 [tool.taskipy.tasks]
 lint = 'ruff . && blue --check . --diff'
 format = 'blue . && isort .'
-run = 'uvicorn app.app:app --reload'
+run = 'uvicorn api.app:app --reload'
 pre_test = 'task lint'
-test = 'pytest -s -x --cov=app -vv'
+test = 'pytest -s -x --cov=api -vv'
 post_test = 'coverage html'
