@@ -52,8 +52,8 @@ pnpm build
 
 ## Maintainers
 
-[@Niyaco](https://github.com/niyaco)
+[@Takuya](https://github.com/niyaco)
 
 ## License
 
-[MIT](https://github.com/niyaco/vue3-realworld-app/blob/master/LICENSE) © Niyaco
+[MIT](https://github.com/niyaco/vue3-realworld-app/blob/master/LICENSE) © Takuya
