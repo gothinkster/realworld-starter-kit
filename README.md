@@ -1,23 +1,24 @@
-# ![RealWorld Example App](logo.png)
+# README
 
-> ### [YOUR_FRAMEWORK] codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
+Things you may want to cover:
 
-### [Demo](https://demo.realworld.io/)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
+* Ruby version
 
+* System dependencies
 
-This codebase was created to demonstrate a fully fledged fullstack application built with **[YOUR_FRAMEWORK]** including CRUD operations, authentication, routing, pagination, and more.
+* Configuration
 
-We've gone to great lengths to adhere to the **[YOUR_FRAMEWORK]** community styleguides & best practices.
+* Database creation
 
-For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
+* Database initialization
 
+* How to run the test suite
 
-# How it works
+* Services (job queues, cache servers, search engines, etc.)
 
-> Describe the general architecture of your app here
+* Deployment instructions
 
-# Getting started
-
-> npm install, npm start, etc.
-
+* ...
