@@ -26,7 +26,6 @@
     </ul>
   </div>
 </nav>
-<!-- メイン -->
 <div class="home-page">
   <div class="banner">
     <div class="container">
@@ -34,7 +33,7 @@
       <p>A place to share your knowledge.</p>
     </div>
   </div>
-
+  <!-- メイン -->
   <div class="container page">
     <div class="row">
       <div class="col-md-9">
@@ -48,7 +47,7 @@
             </li>
           </ul>
         </div>
-
+        <!-- 記事一覧 -->
         <div class="article-preview">
           <div class="article-meta">
             <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
@@ -70,8 +69,7 @@
             </ul>
           </a>
         </div>
-
-        <div class="article-preview">
+        <!-- <div class="article-preview">
           <div class="article-meta">
             <a href="/profile/albert-pai"><img src="http://i.imgur.com/N4VcUeJ.jpg" /></a>
             <div class="info">
@@ -91,16 +89,46 @@
               <li class="tag-default tag-pill tag-outline">implementations</li>
             </ul>
           </a>
-        </div>
-
-        <ul class="pagination">
-          <li class="page-item active">
-            <a class="page-link" href="">1</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="">2</a>
-          </li>
-        </ul>
+        </div> -->
+        <% @articles.each do |article| %>
+          <div class="article-preview">
+            <div class="article-meta">
+              <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+              <div class="info">
+                <a href="/profile/eric-simons" class="author">Eric Simons</a>
+                <span class="date">
+                  <%= article.created_at.strftime("%B %e, %Y") %>
+                </span>
+              </div>
+              <!-- いいねの数など -->
+              <button class="btn btn-outline-primary btn-sm pull-xs-right">
+                <i class="ion-heart"></i> 29 <!-- 仮の数字 -->
+              </button>
+            </div>
+            <!-- 各記事のタイトルと説明をDBから取得したデータで表示 -->
+            <a href="/articles/<%= article.id %>" class="preview-link">
+              <h1>
+                <%= article.title %>
+              </h1>
+              <p>
+                <%= article.description %>
+              </p>
+              <span>Read more...</span>
+              <ul class="tag-list">
+                <li class="tag-default tag-pill tag-outline">realworld</li>
+                <li class="tag-default tag-pill tag-outline">implementations</li>
+              </ul>
+            </a>
+          </div>
+          <% end %>
+            <ul class="pagination">
+              <li class="page-item active">
+                <a class="page-link" href="">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="">2</a>
+              </li>
+            </ul>
       </div>
 
       <div class="col-md-3">
