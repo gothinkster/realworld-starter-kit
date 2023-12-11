@@ -106,19 +106,21 @@
               </button>
             </div>
             <!-- 各記事のタイトルと説明をDBから取得したデータで表示 -->
-            <a href="/articles/<%= article.id %>" class="preview-link">
+            <%= link_to show_article_path(article), class: 'preview-link' do %>
               <h1>
                 <%= article.title %>
               </h1>
               <p>
                 <%= article.description %>
               </p>
-              <span>Read more...</span>
-              <ul class="tag-list">
-                <li class="tag-default tag-pill tag-outline">realworld</li>
-                <li class="tag-default tag-pill tag-outline">implementations</li>
-              </ul>
-            </a>
+              <% end %>
+
+                <span>Read more...</span>
+                <ul class="tag-list">
+                  <li class="tag-default tag-pill tag-outline">realworld</li>
+                  <li class="tag-default tag-pill tag-outline">implementations</li>
+                </ul>
+                </a>
           </div>
           <% end %>
             <ul class="pagination">
