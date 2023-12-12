@@ -17,16 +17,14 @@ class ArticlesController < ApplicationController
   def edit
   end
 
-def update
-  @article.update(article_params)
-
-  if @article.update(article_params)
-    redirect_to root_path
-  else
-    render :edit
+  def update
+    if @article.update(article_params)
+      redirect_to root_path
+    else
+      render :edit
+    end
   end
-
-end
+  
 
   def show
   end
@@ -44,6 +42,7 @@ end
   end
 
   def set_article 
-    @article = @article = Article.find(params[:id])
+    @article = Article.find(params[:id])
   end
+  
 end
