@@ -97,9 +97,9 @@ GEM
     connection_pool (2.4.1)
     crass (1.0.6)
     date (3.3.4)
-    debug (1.8.0)
-      irb (>= 1.5.0)
-      reline (>= 0.3.1)
+    debug (1.9.0)
+      irb (~> 1.10)
+      reline (>= 0.3.8)
     diff-lcs (1.5.0)
     drb (2.2.0)
       ruby2_keywords
@@ -136,7 +136,7 @@ GEM
     msgpack (1.7.2)
     mutex_m (0.2.0)
     mysql2 (0.5.5)
-    net-imap (0.4.7)
+    net-imap (0.4.8)
       date
       net-protocol
     net-pop (0.1.2)
@@ -148,8 +148,6 @@ GEM
     nio4r (2.7.0)
     nokogiri (1.15.5)
       mini_portile2 (~> 2.8.2)
-      racc (~> 1.4)
-    nokogiri (1.15.5-x86_64-linux)
       racc (~> 1.4)
     pry (0.14.2)
       coderay (~> 1.1)
@@ -265,7 +263,6 @@ GEM
 
 PLATFORMS
   ruby
-  x86_64-linux
 
 DEPENDENCIES
   bootsnap
@@ -287,7 +284,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 2.7.4p191
+   ruby 3.0.6p216
 
 BUNDLED WITH
-   2.1.4
+   2.4.22
