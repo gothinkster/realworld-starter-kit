@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   skip_before_action :verify_authenticity_token
-
+  before_action :set_article, except:[:new, :create]
   def new
     @article = Article.new
   end
@@ -15,11 +15,9 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
   end
 
 def update
-  @article = Article.find(params[:id])
   @article.update(article_params)
 
   if @article.update(article_params)
@@ -31,11 +29,10 @@ def update
 end
 
   def show
-    @article = Article.find(params[:id])
   end
 
   def destroy
-    @article = Article.find(params[:id])
+    
     @article.destroy
     redirect_to root_path
   end
@@ -44,5 +41,9 @@ end
 
   def article_params
     params.require(:article).permit(:title, :description, :body)
+  end
+
+  def set_article 
+    @article = @article = Article.find(params[:id])
   end
 end
