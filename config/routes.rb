@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :articles, except: [:show] 
   get '/article/:id', to: 'articles#show', as: 'show_article'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
