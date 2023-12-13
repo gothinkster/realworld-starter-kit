@@ -6,23 +6,21 @@
         <p class="text-xs-center">
           <a href="/login">Have an account?</a>
         </p>
-
         <ul class="error-messages">
           <li>That email is already taken</li>
         </ul>
-
-        <form>
+        <%= form_with scope: :user, url: user_registration_path, local: true do |form| %>
           <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Username" />
+            <%= form.text_field :username, class: 'form-control form-control-lg' , placeholder: 'Username' %>
           </fieldset>
           <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Email" />
+            <%= form.email_field :email, class: 'form-control form-control-lg' , placeholder: 'Email' %>
           </fieldset>
           <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="password" placeholder="Password" />
+            <%= form.password_field :password, class: 'form-control form-control-lg' , placeholder: 'Password' %>
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right">Sign up</button>
-        </form>
+          <%= form.submit 'Sign up' , class: 'btn btn-lg btn-primary pull-xs-right' %>
+            <% end %>
       </div>
     </div>
   </div>
