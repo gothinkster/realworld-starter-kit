@@ -1,0 +1,47 @@
+<% if user_signed_in? %>
+<!-- ログインしている場合 -->
+<nav class="navbar navbar-light">
+  <div class="container">
+    <a class="navbar-brand" href="/">conduit</a>
+    <ul class="nav navbar-nav pull-xs-right">
+      <li class="nav-item">
+        <!-- Add "active" class when you're on that page" -->
+        <a class="nav-link active" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <%= link_to new_article_path, class: 'nav-link' do %>
+          <i class="ion-compose"></i> New Article
+          <% end %>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/settings"> <i class="ion-gear-a"></i>&nbsp;Settings </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/profile/eric-simons">
+          <img src="" class="user-pic" />
+          Eric Simons
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+  <!-- ユーザーがログインしていない場合 -->
+  <% else %>
+<nav class="navbar navbar-light">
+  <div class="container">
+    
+    <a class="navbar-brand" href="/">conduit</a>
+    <ul class="nav navbar-nav pull-xs-right">
+      <li class="nav-item">
+        <a class="nav-link active" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Sign in', new_user_session_path, class: 'nav-link'%>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %>
+      </li>
+    </ul>
+  </div>
+</nav>
+<% end %>
