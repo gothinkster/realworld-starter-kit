@@ -26,15 +26,9 @@
           <i class="ion-heart"></i>
           &nbsp; Favorite Post <span class="counter">(29)</span>
         </button>
-        <!-- 記事の編集ボタン -->
-        <%= link_to edit_article_path(@article), class: "btn btn-sm btn-outline-secondary" do %>
-        <i class="ion-edit"></i> Edit Article
+        <% if user_signed_in? %>
+          <%= render 'shared/edit-delete-button' %>
         <% end %>
-        <!-- 記事の削除ボタン -->
-        <%= link_to article_path(@article), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
-          class: 'btn btn-sm btn-outline-danger' do %>
-          <i class="ion-trash-a"></i> Delete Article
-          <% end %>
       </div>
     </div>
   </div>
@@ -67,12 +61,9 @@
           <i class="ion-heart"></i>
           &nbsp; Favorite Article <span class="counter">(29)</span>
         </button>
-        <button class="btn btn-sm btn-outline-secondary">
-          <i class="ion-edit"></i> Edit Article
-        </button>
-        <button class="btn btn-sm btn-outline-danger">
-          <i class="ion-trash-a"></i> Delete Article
-        </button>
+        <% if user_signed_in? %>
+          <%= render 'shared/edit-delete-button' %>
+        <% end %>
       </div>
     </div>
 
