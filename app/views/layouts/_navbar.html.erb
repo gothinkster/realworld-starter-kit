@@ -13,17 +13,19 @@
           <% end %>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/settings"> <i class="ion-gear-a"></i>&nbsp;Settings </a>
+          <%= link_to settings_path, class: 'nav-link' do %>
+            <i class="ion-gear-a"></i> Settings
+          <% end %>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/profile/eric-simons">
-            <img src="" class="user-pic" />
-            Eric Simons
-          </a>
+          <%= link_to current_user.username, user_path(current_user.username), class: 'nav-link' %>
         </li>
+        
         <!-- ログアウトボタンを追加 -->
         <li class="nav-item">
-          <%= button_to 'Logout', destroy_user_session_path, method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'nav-link' %>
+          <%= button_to destroy_user_session_path, method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'btn btn-link nav-link', form_class: 'form-inline' do %>
+          Logout
+          <% end %>
         </li>
       </ul>
     </div>
