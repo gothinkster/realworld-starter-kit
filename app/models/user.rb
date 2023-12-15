@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   validates :username, presence: true, length: { in: 3..15, message: 'must be between 3 and 15 characters' }
   validates :email, presence: true, uniqueness: true
+
+  has_many :articles
 end
