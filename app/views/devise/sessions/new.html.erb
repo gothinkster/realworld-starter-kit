@@ -4,22 +4,24 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">Sign in</h1>
         <p class="text-xs-center">
-          <a href="/register">Need an account?</a>
+          <%= link_to 'Need an account?', new_user_registration_path %>
         </p>
 
-        <ul class="error-messages">
-          <li>That email is already taken</li>
-        </ul>
+        <% if flash[:alert] %>
+          <ul class="error-messages">
+            <li><%= flash[:alert] %></li>
+          </ul>
+        <% end %>
 
-        <form>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Email" />
+            <%= f.email_field :email, autofocus: true, class: 'form-control form-control-lg', placeholder: 'Email' %>
           </fieldset>
           <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="password" placeholder="Password" />
+            <%= f.password_field :password, autocomplete: 'current-password', class: 'form-control form-control-lg', placeholder: 'Password' %>
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right">Sign in</button>
-        </form>
+          <%= f.submit 'Sign in', class: 'btn btn-lg btn-primary pull-xs-right' %>
+        <% end %>
       </div>
     </div>
   </div>

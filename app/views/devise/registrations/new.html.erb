@@ -4,11 +4,17 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">Sign up</h1>
         <p class="text-xs-center">
-          <a href="/login">Have an account?</a>
+        <%= link_to 'Have an account?' , new_user_session_path %>
         </p>
-        <ul class="error-messages">
-          <li>That email is already taken</li>
+        <% if @user.errors.any? %>
+          <ul class="error-messages">
+            <% @user.errors.full_messages.each do |message| %>
+            <li>
+              <%= message %>
+            </li>
+        <% end %>
         </ul>
+      <% end %>
         <%= form_with scope: :user, url: user_registration_path, local: true do |form| %>
           <fieldset class="form-group">
             <%= form.text_field :username, class: 'form-control form-control-lg' , placeholder: 'Username' %>
@@ -20,7 +26,7 @@
             <%= form.password_field :password, class: 'form-control form-control-lg' , placeholder: 'Password' %>
           </fieldset>
           <%= form.submit 'Sign up' , class: 'btn btn-lg btn-primary pull-xs-right' %>
-            <% end %>
+        <% end %>
       </div>
     </div>
   </div>
