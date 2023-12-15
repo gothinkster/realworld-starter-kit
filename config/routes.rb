@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   get '/article/:id', to: 'articles#show', as: 'show_article'
   resources :users, only: :show
   get "up" => "rails/health#show", as: :rails_health_check
+  get 'settings', to: 'users#settings'
+
 end
