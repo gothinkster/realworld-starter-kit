@@ -1,0 +1,10 @@
+
+<!-- 記事の編集ボタン -->
+<%= link_to edit_article_path(@article), class: "btn btn-sm btn-outline-secondary" do %>
+  <i class="ion-edit"></i> Edit Article
+<% end %>
+<!-- 記事の削除ボタン -->
+<%= link_to article_path(@article), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
+  class: 'btn btn-sm btn-outline-danger' do %>
+  <i class="ion-trash-a"></i> Delete Article
+<% end %>
