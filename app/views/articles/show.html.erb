@@ -9,7 +9,7 @@
         <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
         <div class="info">
           <!-- 著者名 -->
-          <a href="/profile/eric-simons" class="author">Eric Simons</a>
+          <%= link_to @article.user.username, user_path(@article.user.username), class: 'author' %>
           <!-- 記事の公開日 -->
           <span class="date">
             <%= @article.created_at.strftime("%B %e, %Y") %>
@@ -26,7 +26,7 @@
           <i class="ion-heart"></i>
           &nbsp; Favorite Post <span class="counter">(29)</span>
         </button>
-        <% if user_signed_in? %>
+        <% if user_signed_in? && current_user.id == @article.user_id%>
           <%= render 'shared/edit-delete-button' %>
         <% end %>
       </div>
@@ -61,7 +61,7 @@
           <i class="ion-heart"></i>
           &nbsp; Favorite Article <span class="counter">(29)</span>
         </button>
-        <% if user_signed_in? %>
+        <% if user_signed_in? && current_user.id == @article.user_id%>
           <%= render 'shared/edit-delete-button' %>
         <% end %>
       </div>
