@@ -1,19 +1,19 @@
 package io.realworld.resources;
 
 import com.codahale.metrics.annotation.Timed;
-import io.realworld.api.request.Login;
-import io.realworld.api.request.NewUser;
-import io.realworld.api.response.User;
+import io.realworld.api.request.LoginDto;
+import io.realworld.api.request.NewUserDto;
+import io.realworld.api.response.UserDto;
 import io.realworld.core.UserService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.Map;
 
 @Timed
@@ -30,16 +30,16 @@ public class UsersResource {
     @Path("login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(@Valid @NotNull final Login login) {
-        final User user = userService.login(login);
+    public Response login(@Valid @NotNull final LoginDto login) {
+        final UserDto user = userService.login(login);
         return Response.ok(Map.of("user", user)).build();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response register(@Valid @NotNull final NewUser newUser) {
-        final User user = userService.saveUser(newUser);
+    public Response register(@Valid @NotNull final NewUserDto newUser) {
+        final UserDto user = userService.saveUser(newUser);
 
         return Response.status(Response.Status.CREATED)
                 .entity(Map.of("user", user))

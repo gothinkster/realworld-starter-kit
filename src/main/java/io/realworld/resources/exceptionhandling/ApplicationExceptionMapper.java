@@ -1,14 +1,14 @@
 package io.realworld.resources.exceptionhandling;
 
-import io.realworld.api.response.Errors;
+import io.realworld.api.response.ErrorsDto;
 import io.realworld.exceptions.ApplicationException;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.ext.Provider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
 import java.util.List;
 import java.util.Map;
 
@@ -20,37 +20,25 @@ public class ApplicationExceptionMapper implements ExceptionMapper<ApplicationEx
     @Override
     public Response toResponse(final ApplicationException e) {
         LOG.error("Exception:", e);
-        final Errors error = mapToErrorMessage(e);
 
         return Response.status(mapToHttpStatus(e))
                 .type(MediaType.APPLICATION_JSON)
-                .entity(error)
+                .entity(toErrorMessage(e))
                 .build();
     }
 
-    private Errors mapToErrorMessage(final ApplicationException exception) {
-        final Errors error = new Errors();
-        error.setErrors(Map.of("general", List.of(exception.getMessage())));
-        return error;
+    private ErrorsDto toErrorMessage(final ApplicationException exception) {
+        return new ErrorsDto(Map.of("general", List.of(exception.getMessage())));
     }
 
     private int mapToHttpStatus(final ApplicationException exception) {
-        switch (exception.getErrorCode()) {
-            case DUPLICATE_USERNAME:
-            case DUPLICATE_EMAIL:
-            case USER_ALREADY_FOLLOWED:
-                return 422;
-            case INVALID_CREDENTIALS:
-            case UNAUTHORIZED:
-                return 401;
-            case FORBIDDEN:
-                return 403;
-            case NOT_FOUND:
-                return 404;
-            case INTERNAL_ERROR:
-                return 500;
-        }
+        return switch (exception.getErrorCode()) {
+            case DUPLICATE_USERNAME, DUPLICATE_EMAIL, USER_ALREADY_FOLLOWED -> 422;
+            case INVALID_CREDENTIALS, UNAUTHORIZED -> 401;
+            case FORBIDDEN -> 403;
+            case NOT_FOUND -> 404;
+            case INTERNAL_ERROR -> 500;
+        };
 
-        return 500;
     }
 }

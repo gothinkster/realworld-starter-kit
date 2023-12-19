@@ -13,7 +13,7 @@ services:
       - db
 
   db:
-    image: postgres:14.4
+    image: postgres:16.1
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root

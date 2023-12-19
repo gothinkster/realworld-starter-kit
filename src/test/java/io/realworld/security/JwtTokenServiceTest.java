@@ -36,7 +36,7 @@ public class JwtTokenServiceTest {
 
         //then
         assertThat(principal.isPresent()).isTrue();
-        assertThat(principal.get().getUsername()).isEqualTo("user");
+        assertThat(principal.get().username()).isEqualTo("user");
     }
 
     @Test

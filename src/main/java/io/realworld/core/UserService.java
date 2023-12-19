@@ -1,9 +1,10 @@
 package io.realworld.core;
 
-import io.realworld.api.request.Login;
-import io.realworld.api.request.NewUser;
-import io.realworld.api.request.UpdatedUser;
-import io.realworld.api.response.User;
+import io.realworld.api.request.LoginDto;
+import io.realworld.api.request.NewUserDto;
+import io.realworld.api.request.UpdatedUserDto;
+import io.realworld.api.response.UserDto;
+import io.realworld.core.model.User;
 import io.realworld.db.UserRepository;
 import io.realworld.exceptions.ApplicationException;
 import io.realworld.exceptions.ErrorCode;
@@ -28,61 +29,57 @@ public class UserService {
         this.jwtTokenService = jwtTokenService;
     }
 
-    public User login(final Login login) {
-        final User user = userRepository.findUserByEmail(login.getEmail());
-        if (user == null || !passwordEncoder.matches(login.getPassword(), user.getPassword())) {
+    public UserDto login(final LoginDto login) {
+        final var user = userRepository.findUserByEmail(login.email());
+        if (user == null || !passwordEncoder.matches(login.password(), user.password())) {
             throw new ApplicationException(INVALID_CREDENTIALS);
         }
-        user.setToken(jwtTokenService.generateJwt(user.getUsername()).getToken());
-        return user;
+        return toDto(user);
     }
 
-
-    public User findByUsername(final String username) {
-        final User user = findUser(username);
-        user.setToken(jwtTokenService.generateJwt(user.getUsername()).getToken());
-        return user;
+    public UserDto findByUsername(final String username) {
+        final var user = findUser(username);
+        return toDto(user);
     }
 
-    public User saveUser(final NewUser user) {
-        checkIfUsernameIsUnique(user.getUsername());
-        checkIfEmailIsUnique(user.getEmail());
+    public UserDto saveUser(final NewUserDto user) {
+        checkIfUsernameIsUnique(user.username());
+        checkIfEmailIsUnique(user.email());
 
-        final long id = userRepository.save(user.getUsername(),
-                user.getEmail(),
-                passwordEncoder.encode(user.getPassword()));
+        final long id = userRepository.save(user.username(), user.email(), passwordEncoder.encode(user.password()));
 
-        final User createdUser = userRepository.findUserById(id);
-        createdUser.setToken(jwtTokenService.generateJwt(user.getUsername()).getToken());
-        return createdUser;
+        final var createdUser = userRepository.findUserById(id);
+
+        return toDto(createdUser);
     }
 
-    public User updateUser(final String username, final UpdatedUser updatedUser) {
-        final User existingUser = findUser(username);
+    public UserDto updateUser(final String username, final UpdatedUserDto updatedUser) {
+        final var existingUser = findUser(username);
 
-        if (updatedUser.getUsername() != null && !Objects.equals(existingUser.getUsername(), updatedUser.getUsername())) {
-            checkIfUsernameIsUnique(updatedUser.getUsername());
+        if (updatedUser.username() != null && !Objects.equals(existingUser.username(), updatedUser.username())) {
+            checkIfUsernameIsUnique(updatedUser.username());
         }
-        if (updatedUser.getEmail() != null && !Objects.equals(existingUser.getEmail(), updatedUser.getEmail())) {
-            checkIfEmailIsUnique(updatedUser.getEmail());
+        if (updatedUser.email() != null && !Objects.equals(existingUser.email(), updatedUser.email())) {
+            checkIfEmailIsUnique(updatedUser.email());
         }
 
         userRepository.updateUser(
-                existingUser.getId(),
-                coalesce(updatedUser.getUsername(), existingUser.getUsername()),
-                coalesce(updatedUser.getEmail(), existingUser.getEmail()),
+                existingUser.id(),
+                coalesce(updatedUser.username(), existingUser.username()),
+                coalesce(updatedUser.email(), existingUser.email()),
                 //should password be updated without asking for the old password first???
-                coalesce(encode(updatedUser.getPassword()), existingUser.getPassword()),
-                coalesce(updatedUser.getImage(), existingUser.getImage()),
-                coalesce(updatedUser.getBio(), existingUser.getBio())
+                coalesce(encode(updatedUser.password()), existingUser.password()),
+                coalesce(updatedUser.image(), existingUser.image()),
+                coalesce(updatedUser.bio(), existingUser.bio())
         );
 
 
-        return userRepository.findUserById(existingUser.getId());
+        var user = userRepository.findUserById(existingUser.id());
+        return toDto(user);
     }
 
     private User findUser(final String username) {
-        final User user = userRepository.findUserByUsername(username);
+        final var user = userRepository.findUserByUsername(username);
         if (user == null) {
             throw new ApplicationException(NOT_FOUND, "User [" + username + "] not found");
         }
@@ -110,4 +107,13 @@ public class UserService {
     private String encode(final String password) {
         return password != null ? passwordEncoder.encode(password) : null;
     }
+
+    private UserDto toDto(User user) {
+        return new UserDto(user.email(),
+                user.username(),
+                user.bio(),
+                user.image(),
+                jwtTokenService.generateJwt(user.username()).token());
+    }
+
 }

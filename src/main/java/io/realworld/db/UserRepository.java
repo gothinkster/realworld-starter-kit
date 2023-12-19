@@ -1,7 +1,7 @@
 package io.realworld.db;
 
-import io.realworld.api.response.Profile;
-import io.realworld.api.response.User;
+import io.realworld.core.model.Profile;
+import io.realworld.core.model.User;
 import io.realworld.db.mapper.ProfileMapper;
 import io.realworld.db.mapper.UserMapper;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;

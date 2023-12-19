@@ -1,5 +1,6 @@
 package io.realworld.db;
 
+import io.realworld.core.model.ArticleIdTag;
 import io.realworld.db.mapper.ArticleTagsMapper;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
@@ -37,6 +38,6 @@ public interface TagRepository {
             "INNER JOIN tags t ON at.TAG_ID = t.ID " +
             "WHERE at.ARTICLE_ID in (<articleIds>)")
     @RegisterRowMapper(ArticleTagsMapper.class)
-    List<ArticleTagsMapper.ArticleIdTag> findArticlesTags(@BindList("articleIds") Collection<Long> articleIds);
+    List<ArticleIdTag> findArticlesTags(@BindList("articleIds") Collection<Long> articleIds);
 
 }

@@ -2,16 +2,16 @@ package io.realworld.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.auth.Auth;
-import io.realworld.api.request.NewComment;
-import io.realworld.api.response.Comment;
+import io.realworld.api.request.NewCommentDto;
+import io.realworld.api.response.CommentDto;
 import io.realworld.core.CommentService;
 import io.realworld.security.UserPrincipal;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +28,7 @@ public class CommentResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findArticleComments(@PathParam("slug") final String slug) {
-        final List<Comment> comments = commentService.findArticleComments(slug);
+        final List<CommentDto> comments = commentService.findArticleComments(slug);
 
         return Response.ok(Map.of("comments", comments)).build();
     }
@@ -38,8 +38,8 @@ public class CommentResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response saveComment(@Auth final UserPrincipal principal,
                                 @PathParam("slug") final String slug,
-                                @NotNull @Valid final NewComment newComment) {
-        final Comment comment = commentService.saveComment(principal.getUsername(), slug, newComment);
+                                @NotNull @Valid final NewCommentDto newComment) {
+        final CommentDto comment = commentService.saveComment(principal.username(), slug, newComment);
 
         return Response.ok(Map.of("comment", comment)).build();
     }
@@ -49,7 +49,7 @@ public class CommentResource {
     public Response deleteComment(@Auth final UserPrincipal principal,
                                   @PathParam("slug") final String slug,
                                   @PathParam("commentId") final long commentId) {
-        commentService.deleteComment(principal.getUsername(), slug, commentId);
+        commentService.deleteComment(principal.username(), slug, commentId);
 
         return Response.noContent().build();
     }

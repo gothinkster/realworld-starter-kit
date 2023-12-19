@@ -1,10 +1,12 @@
 package io.realworld.security;
 
 import io.dropwizard.auth.Authenticator;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 
-import javax.crypto.spec.SecretKeySpec;
-import java.security.Key;
 import java.util.Date;
 import java.util.Optional;
 
@@ -19,27 +21,25 @@ public class JwtTokenService implements Authenticator<JwtToken, UserPrincipal> {
     @Override
     public Optional<UserPrincipal> authenticate(final JwtToken credentials) {
         try {
-            final Jws<Claims> claims = Jwts.parserBuilder()
-                    .setSigningKey(jwtConfig.getSecret())
+            final Jws<Claims> claims = Jwts.parser()
+                    .verifyWith(Keys.hmacShaKeyFor(jwtConfig.getSecret()))
                     .build()
-                    .parseClaimsJws(credentials.getToken());
+                    .parseSignedClaims(credentials.token());
 
-            return Optional.of(new UserPrincipal(claims.getBody().getSubject()));
+            return Optional.of(new UserPrincipal(claims.getPayload().getSubject()));
         } catch (final JwtException e) {
             return Optional.empty();
         }
     }
 
     public JwtToken generateJwt(final String username) {
-        final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-        final Key signingKey = new SecretKeySpec(jwtConfig.getSecret(), signatureAlgorithm.getJcaName());
         final Date issuedAt = new Date();
-        final String token = Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(issuedAt)
-                .setExpiration(new Date(issuedAt.getTime() + jwtConfig.getTokenExpiration().toMillis()))
-                .signWith(signingKey, signatureAlgorithm)
-                .compact();
-        return new JwtToken(token);
+        final Date expiresAt = new Date(new Date().getTime() + jwtConfig.getTokenExpiration().toMillis());
+        return new JwtToken(Jwts.builder()
+                .subject(username)
+                .issuedAt(issuedAt)
+                .expiration(expiresAt)
+                .signWith(Keys.hmacShaKeyFor(jwtConfig.getSecret()), Jwts.SIG.HS256)
+                .compact());
     }
 }

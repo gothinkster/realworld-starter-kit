@@ -14,7 +14,7 @@ And the code organize as this:
 
 1. `api` contains the data transfer objects used in the REST services API
 2. `resources` contains the REST resource classes
-3. `core` contains the business logic implemented as service classes
+3. `core` contains the business logic implemented as service classes and domain model classes
 4. `db` contains the persistence layer (data access objects)
 5. `security` contains all the security related functionality (JWT)
 
@@ -30,7 +30,7 @@ The application uses PostgreSQL database.
 
 # Getting started
 
-You need Java 11 or greater installed.
+You need Java 21 or greater installed.
 
 How to start the RealWorld application
 ---
@@ -80,5 +80,5 @@ docker-compose -f sonar.yml up -d
 Wait for Sonar to start (check http://localhost:9001), then run a Sonar analysis:
 
 ```
- mvn clean install sonar:sonar -Dsonar.host.url=http://localhost:9001
+ mvn clean install sonar:sonar -Dsonar.password=admin -Dsonar.login=admin -Dsonar.host.url=http://localhost:9001 
 ```

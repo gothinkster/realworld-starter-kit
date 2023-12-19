@@ -1,6 +1,7 @@
 package io.realworld.core;
 
-import io.realworld.api.response.Profile;
+import io.realworld.api.response.ProfileDto;
+import io.realworld.core.model.Profile;
 import io.realworld.db.UserRepository;
 import io.realworld.exceptions.ApplicationException;
 import io.realworld.exceptions.ErrorCode;
@@ -15,29 +16,27 @@ public class ProfileService {
         this.userRepository = userRepository;
     }
 
-    public Profile findProfileByUsername(final String username, final String followedBy) {
-        final Profile profile = findProfile(username);
-        profile.setFollowing(userRepository.isFollowing(profile.getId(), followedBy));
-        return profile;
+    public ProfileDto findProfileByUsername(final String username, final String followedBy) {
+        final var profile = findProfile(username);
+        final var following = userRepository.isFollowing(profile.id(), followedBy);
+        return toDto(profile, following);
     }
 
-    public Profile followProfile(final String username, final String authenticatedUsername) {
-        final Profile profileToFollow = findProfile(username);
+    public ProfileDto followProfile(final String username, final String authenticatedUsername) {
+        final var profileToFollow = findProfile(username);
         final Long authenticatedUserId = findUserId(authenticatedUsername);
-        if (userRepository.isFollowing(profileToFollow.getId(), authenticatedUserId)) {
+        if (userRepository.isFollowing(profileToFollow.id(), authenticatedUserId)) {
             throw new ApplicationException(ErrorCode.USER_ALREADY_FOLLOWED, "User [" + username + "] is already followed");
         }
-        userRepository.followProfile(profileToFollow.getId(), authenticatedUserId);
-        profileToFollow.setFollowing(true);
-        return profileToFollow;
+        userRepository.followProfile(profileToFollow.id(), authenticatedUserId);
+        return toDto(profileToFollow, true);
     }
 
-    public Profile unfollowProfile(final String username, final String authenticatedUsername) {
-        final Profile profileToUnfollow = findProfile(username);
+    public ProfileDto unfollowProfile(final String username, final String authenticatedUsername) {
+        final var profileToUnfollow = findProfile(username);
         final Long authenticatedUserId = findUserId(authenticatedUsername);
-        userRepository.unfollowProfile(profileToUnfollow.getId(), authenticatedUserId);
-        profileToUnfollow.setFollowing(false);
-        return profileToUnfollow;
+        userRepository.unfollowProfile(profileToUnfollow.id(), authenticatedUserId);
+        return toDto(profileToUnfollow, false);
     }
 
     private Long findUserId(final String username) {
@@ -49,10 +48,17 @@ public class ProfileService {
     }
 
     private Profile findProfile(String username) {
-        final Profile profile = userRepository.findProfileByUsername(username);
+        final var profile = userRepository.findProfileByUsername(username);
         if (profile == null) {
             throw new ApplicationException(NOT_FOUND, "User [" + username + "] does not exists");
         }
         return profile;
+    }
+
+    private ProfileDto toDto(Profile profile, Boolean following) {
+        return new ProfileDto(profile.username(),
+                profile.bio(),
+                profile.image(),
+                following);
     }
 }

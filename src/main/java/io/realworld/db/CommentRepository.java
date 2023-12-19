@@ -1,6 +1,6 @@
 package io.realworld.db;
 
-import io.realworld.api.response.Comment;
+import io.realworld.core.model.Comment;
 import io.realworld.db.mapper.CommentMapper;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;

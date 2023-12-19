@@ -1,8 +1,11 @@
 package io.realworld.core;
 
-import io.realworld.api.request.NewComment;
-import io.realworld.api.response.Article;
-import io.realworld.api.response.Comment;
+import io.realworld.api.request.NewCommentDto;
+import io.realworld.api.response.CommentDto;
+import io.realworld.api.response.ProfileDto;
+import io.realworld.core.model.Article;
+import io.realworld.core.model.Comment;
+import io.realworld.core.model.Profile;
 import io.realworld.db.ArticleRepository;
 import io.realworld.db.CommentRepository;
 import io.realworld.db.UserRepository;
@@ -27,23 +30,24 @@ public class CommentService {
         this.userRepository = userRepository;
     }
 
-    public Comment saveComment(final String username, final String slug, final NewComment newComment) {
+    public CommentDto saveComment(final String username, final String slug, final NewCommentDto newComment) {
         final Long articleId = articleRepository.findArticleIdBySlug(slug);
         if (articleId == null) {
             throw new ApplicationException(NOT_FOUND, "Could not find article [" + slug + "]");
         }
         final Long userId = userRepository.findUserIdByUsername(username);
-        final long newCommentId = commentRepository.saveComment(userId, articleId, newComment.getBody());
+        final long newCommentId = commentRepository.saveComment(userId, articleId, newComment.body());
 
-        return commentRepository.findCommentById(newCommentId);
+        Comment commentById = commentRepository.findCommentById(newCommentId);
+        return toDto(commentById);
     }
 
     public void deleteComment(final String username, final String slug, final long commentId) {
-        final Comment comment = findComment(commentId);
+        final CommentDto comment = findComment(commentId);
         final Article article = articleRepository.findArticle(slug);
 
-        final boolean isCommentAuthor = Objects.equals(comment.getAuthor().getUsername(), username);
-        final boolean isArticleAuthor = article != null && Objects.equals(article.getAuthor().getUsername(), username);
+        final boolean isCommentAuthor = Objects.equals(comment.author().username(), username);
+        final boolean isArticleAuthor = article != null && Objects.equals(article.author().username(), username);
         final boolean isAuthorizedToDeleteComment = isCommentAuthor || isArticleAuthor;
         if (!isAuthorizedToDeleteComment) {
             throw new ApplicationException(ErrorCode.FORBIDDEN, "Not allowed to delete comment with id [" + commentId + "]");
@@ -51,16 +55,34 @@ public class CommentService {
         commentRepository.deleteComment(slug, commentId);
     }
 
-    public List<Comment> findArticleComments(final String slug) {
-        return commentRepository.findArticleComments(slug);
+    public List<CommentDto> findArticleComments(final String slug) {
+        return commentRepository.findArticleComments(slug)
+                .stream()
+                .map(this::toDto)
+                .toList();
     }
 
-    private Comment findComment(final long commentId) {
-        final Comment comment = commentRepository.findCommentById(commentId);
+    private CommentDto findComment(final long commentId) {
+        final var comment = commentRepository.findCommentById(commentId);
 
         if (comment == null) {
             throw new ApplicationException(NOT_FOUND, "Comment with id [" + commentId + "] not found");
         }
-        return comment;
+        return toDto(comment);
+    }
+
+    private CommentDto toDto(Comment comment) {
+        return new CommentDto(comment.id(),
+                comment.body(),
+                comment.createdAt(),
+                comment.updatedAt(),
+                toDto(comment.author()));
+    }
+
+    private ProfileDto toDto(Profile profile) {
+        return new ProfileDto(profile.username(),
+                profile.bio(),
+                profile.image(),
+                null);
     }
 }

@@ -1,7 +1,7 @@
 package io.realworld.db.mapper;
 
-import io.realworld.api.response.Comment;
-import io.realworld.api.response.Profile;
+import io.realworld.core.model.Comment;
+import io.realworld.core.model.Profile;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
@@ -14,22 +14,18 @@ import java.time.ZoneOffset;
 public class CommentMapper implements RowMapper<Comment> {
     @Override
     public Comment map(final ResultSet rs, final StatementContext ctx) throws SQLException {
-        final Profile author = author(rs);
-        final Comment comment = new Comment();
-        comment.setId(rs.getLong("ID"));
-        comment.setAuthor(author);
-        comment.setBody(rs.getString("BODY"));
-        comment.setCreatedAt(toInstant(rs, "CREATED_AT"));
-        comment.setUpdatedAt(toInstant(rs, "UPDATED_AT"));
-        return comment;
+        return new Comment(rs.getLong("ID"),
+                rs.getString("BODY"),
+                toInstant(rs, "CREATED_AT"),
+                toInstant(rs, "UPDATED_AT"),
+                toAuthor(rs));
     }
 
-    private Profile author(final ResultSet rs) throws SQLException {
-        final Profile profile = new Profile();
-        profile.setUsername(rs.getString("USERNAME"));
-        profile.setBio(rs.getString("BIO"));
-        profile.setImage(rs.getString("IMAGE"));
-        return profile;
+    private Profile toAuthor(final ResultSet rs) throws SQLException {
+        return new Profile(rs.getLong("ID"),
+                rs.getString("USERNAME"),
+                rs.getString("BIO"),
+                rs.getString("IMAGE"));
     }
 
     private Instant toInstant(final ResultSet rs, final String dateColumn) throws SQLException {

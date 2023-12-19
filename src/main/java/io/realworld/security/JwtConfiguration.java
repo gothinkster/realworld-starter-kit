@@ -1,8 +1,8 @@
 package io.realworld.security;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
 
-import javax.validation.constraints.NotNull;
 import java.time.Duration;
 import java.util.Base64;
 import java.util.Objects;

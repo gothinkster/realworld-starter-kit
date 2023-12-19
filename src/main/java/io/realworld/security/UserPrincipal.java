@@ -2,19 +2,10 @@ package io.realworld.security;
 
 import java.security.Principal;
 
-public class UserPrincipal implements Principal {
-    private final String username;
-
-    public UserPrincipal(final String username) {
-        this.username = username;
-    }
-
-    public String getUsername() {
-        return username;
-    }
+public record UserPrincipal(String username) implements Principal {
 
     @Override
     public String getName() {
-        return getUsername();
+        return username();
     }
 }

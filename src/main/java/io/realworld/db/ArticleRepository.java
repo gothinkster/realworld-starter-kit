@@ -1,7 +1,7 @@
 package io.realworld.db;
 
 import com.codahale.metrics.annotation.Timed;
-import io.realworld.api.response.Article;
+import io.realworld.core.model.Article;
 import io.realworld.db.mapper.ArticleMapper;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
