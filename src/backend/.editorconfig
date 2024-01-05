@@ -2,16 +2,18 @@ root = true
 
 # All files
 [*]
+charset=utf-8
 indent_style = space
-
-# Xml files
-[*.xml]
 indent_size = 2
 
-# C# files
-[*.cs]
+# Shell scripts
+[*.sh]
+end_of_line = lf
 
-#### Core EditorConfig Options ####
+#### .NET Coding Conventions ####
+[*.{cs,vb}]
+trim_trailing_whitespace = true
+max_line_length = 140
 
 # Indentation and spacing
 indent_size = 4
@@ -19,13 +21,10 @@ tab_width = 4
 
 # New line preferences
 end_of_line = crlf
-insert_final_newline = false
-
-#### .NET Coding Conventions ####
-[*.{cs,vb}]
+insert_final_newline = true
 
 # Organize usings
-dotnet_separate_import_directive_groups = true
+dotnet_separate_import_directive_groups = false
 dotnet_sort_system_directives_first = true
 file_header_template = unset
 
@@ -40,13 +39,13 @@ dotnet_style_predefined_type_for_locals_parameters_members = true:silent
 dotnet_style_predefined_type_for_member_access = true:silent
 
 # Parentheses preferences
-dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:silent
-dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:silent
-dotnet_style_parentheses_in_other_operators = never_if_unnecessary:silent
-dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:silent
+dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_other_operators = never_if_unnecessary:suggestion
+dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:suggestion
 
 # Modifier preferences
-dotnet_style_require_accessibility_modifiers = for_non_interface_members:silent
+dotnet_style_require_accessibility_modifiers = omit_if_default:suggestion
 
 # Expression-level preferences
 dotnet_style_coalesce_expression = true:suggestion
@@ -72,31 +71,79 @@ dotnet_style_readonly_field = true:warning
 dotnet_code_quality_unused_parameters = all:suggestion
 
 # Suppression preferences
-dotnet_remove_unnecessary_suppression_exclusions = none
+dotnet_remove_unnecessary_suppression_exclusions = all:suggestion
+
+# Unnecessary code rules
+dotnet_diagnostic.IDE0001.severity = warning # Simplify name
+dotnet_diagnostic.IDE0002.severity = warning # Simplify member access
+dotnet_diagnostic.IDE0004.severity = warning # Remove unnecessary cast
+dotnet_diagnostic.IDE0005.severity = warning # Remove unnecessary using directives
+dotnet_diagnostic.IDE0035.severity = warning # Remove unreachable code
+dotnet_diagnostic.IDE0051.severity = warning # Remove unused private member 
+dotnet_diagnostic.IDE0080.severity = warning # Remove unnecessary suppression operator
+dotnet_diagnostic.IDE0082.severity = warning # Convert typeof to nameof
+dotnet_diagnostic.IDE0100.severity = warning # Remove unnecessary equality operator
+dotnet_diagnostic.IDE0110.severity = warning # Remove unnecessary discard
+dotnet_diagnostic.IDE0120.severity = warning # Simplify LINQ expression
+
+# code quality / design rules
+dotnet_diagnostic.CS1591.severity = none # XML comments are optional
+dotnet_diagnostic.CA1050.severity = warning # Declare types in namespaces
+dotnet_diagnostic.CA1051.severity = warning # Do not declare visible instance fields
+dotnet_diagnostic.CA1064.severity = warning # Exceptions should be public
+dotnet_diagnostic.CA1068.severity = warning # CancellationToken parameters must come las
+dotnet_diagnostic.CA1069.severity = warning # Enums should not have duplicate values
+
+# code quality / maintainability rules
+dotnet_diagnostic.CA1501.severity = warning # Avoid excessive inheritance
+dotnet_diagnostic.CA1502.severity = warning # Avoid excessive complexity
+dotnet_diagnostic.CA1505.severity = warning # Avoid unmaintainable code
+dotnet_diagnostic.CA1506.severity = warning # Avoid excessive class coupling
+dotnet_diagnostic.CA1507.severity = warning # Use nameof in place of string
+dotnet_diagnostic.CA1508.severity = warning # Avoid dead conditional code
+dotnet_diagnostic.CA1509.severity = warning # Invalid entry in code metrics configuration file
+dotnet_diagnostic.CA1514.severity = warning # Avoid redundant length argument
+
+# code quality / naming rules
+dotnet_diagnostic.CA1708.severity = warning # Identifiers should differ by more than case
+
+# code quality / performance rules
+dotnet_diagnostic.CA1802.severity = warning # Use Literals Where Appropriate
+dotnet_diagnostic.CA1806.severity = warning # Do not ignore method results
+
+# code quality / reliability rules
+dotnet_diagnostic.CA2016.severity = warning # Forward the CancellationToken parameter to methods that take one
+
+# code quality / usage rules
+dotnet_diagnostic.CA2200.severity = warning # Rethrow to preserve stack details
+dotnet_diagnostic.CA2211.severity = warning # Non-constant fields should not be visible
+dotnet_diagnostic.CA2213.severity = warning # Disposable fields should be disposed
+dotnet_diagnostic.CA2215.severity = warning # Dispose methods should call base class dispose
+dotnet_diagnostic.CA2254.severity = warning # Template should be a static expression
 
 #### C# Coding Conventions ####
 [*.cs]
 
 # var preferences
-csharp_style_var_elsewhere = false:silent
-csharp_style_var_for_built_in_types = false:silent
-csharp_style_var_when_type_is_apparent = false:silent
+csharp_style_var_elsewhere = true:suggestion
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
 
 # Expression-bodied members
-csharp_style_expression_bodied_accessors = true:silent
-csharp_style_expression_bodied_constructors = false:silent
-csharp_style_expression_bodied_indexers = true:silent
+csharp_style_expression_bodied_accessors = true:suggestion
+csharp_style_expression_bodied_constructors = false:suggestion
+csharp_style_expression_bodied_indexers = true:suggestion
 csharp_style_expression_bodied_lambdas = true:suggestion
-csharp_style_expression_bodied_local_functions = false:silent
-csharp_style_expression_bodied_methods = false:silent
-csharp_style_expression_bodied_operators = false:silent
-csharp_style_expression_bodied_properties = true:silent
+csharp_style_expression_bodied_local_functions = false:suggestion
+csharp_style_expression_bodied_methods = false:suggestion
+csharp_style_expression_bodied_operators = false:suggestion
+csharp_style_expression_bodied_properties = true:suggestion
 
 # Pattern matching preferences
 csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
 csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
 csharp_style_prefer_not_pattern = true:suggestion
-csharp_style_prefer_pattern_matching = true:silent
+csharp_style_prefer_pattern_matching = true:suggestion
 csharp_style_prefer_switch_expression = true:suggestion
 
 # Null-checking preferences
@@ -107,7 +154,7 @@ csharp_prefer_static_local_function = true:warning
 csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async:silent
 
 # Code-block preferences
-csharp_prefer_braces = true:silent
+csharp_prefer_braces = true:suggestion
 csharp_prefer_simple_using_statement = true:suggestion
 
 # Expression-level preferences
@@ -119,10 +166,10 @@ csharp_style_prefer_index_operator = true:suggestion
 csharp_style_prefer_range_operator = true:suggestion
 csharp_style_throw_expression = true:suggestion
 csharp_style_unused_value_assignment_preference = discard_variable:suggestion
-csharp_style_unused_value_expression_statement_preference = discard_variable:silent
+csharp_style_unused_value_expression_statement_preference = discard_variable:suggestion
 
 # 'using' directive preferences
-csharp_using_directive_placement = outside_namespace:silent
+csharp_using_directive_placement = outside_namespace:suggestion
 
 #### C# Formatting Rules ####
 
@@ -168,8 +215,11 @@ csharp_space_between_parentheses = false
 csharp_space_between_square_brackets = false
 
 # Wrapping preferences
-csharp_preserve_single_line_blocks = true
-csharp_preserve_single_line_statements = true
+csharp_preserve_single_line_blocks = false
+csharp_preserve_single_line_statements = false
+
+# Other
+csharp_style_namespace_declarations = file_scoped
 
 #### Naming styles ####
 [*.{cs,vb}]
@@ -361,4 +411,3 @@ dotnet_naming_style.s_camelcase.required_prefix = s_
 dotnet_naming_style.s_camelcase.required_suffix = 
 dotnet_naming_style.s_camelcase.word_separator = 
 dotnet_naming_style.s_camelcase.capitalization = camel_case
-

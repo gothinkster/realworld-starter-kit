@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Conduit.RestAPI.ViewModels;
 
@@ -7,5 +7,8 @@ namespace Conduit.RestAPI.ViewModels;
 /// </summary>
 public record TagsResponse
 {
-    public required IEnumerable<string> Tags { get; set; }
+    public required IEnumerable<string> Tags
+    {
+        get; set;
+    }
 }

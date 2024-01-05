@@ -1,11 +1,6 @@
-﻿using System;
-
 using Conduit.RestAPI.ViewModels;
-
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace Conduit.RestAPI.Controllers;
 

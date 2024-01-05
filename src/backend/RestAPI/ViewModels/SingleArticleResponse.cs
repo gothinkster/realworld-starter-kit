@@ -1,6 +1,9 @@
-﻿namespace Conduit.RestAPI.ViewModels;
+namespace Conduit.RestAPI.ViewModels;
 
 public record SingleArticleResponse
 {
-    public required Article Article { get; init; }
+    public required Article Article
+    {
+        get; init;
+    }
 }

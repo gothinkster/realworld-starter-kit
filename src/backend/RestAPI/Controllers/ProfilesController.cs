@@ -1,5 +1,4 @@
-﻿using Conduit.RestAPI.ViewModels;
-
+using Conduit.RestAPI.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

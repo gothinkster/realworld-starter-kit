@@ -1,15 +1,13 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-
 using Microsoft.OpenApi.Models;
-
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Conduit.RestAPI.Configuration;
 
-public class OpenApiRequiredMemberFilter : ISchemaFilter
+class OpenApiRequiredMemberFilter : ISchemaFilter
 {
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {

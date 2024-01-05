@@ -1,7 +1,5 @@
-﻿using System;
-
+using System;
 using Conduit.RestAPI.ViewModels;
-
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

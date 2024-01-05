@@ -1,4 +1,3 @@
-﻿using System;
 namespace Conduit.RestAPI.ViewModels;
 
 /// <summary>
@@ -6,5 +5,8 @@ namespace Conduit.RestAPI.ViewModels;
 /// </summary>
 public record UserResponse
 {
-    public required User User { get; init; }
+    public required User User
+    {
+        get; init;
+    }
 }

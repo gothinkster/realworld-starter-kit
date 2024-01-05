@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Conduit.RestAPI.ViewModels;
@@ -8,15 +8,24 @@ public record GetArticlesRequest
     /// <summary>
     /// Filter by tag
     /// </summary>
-    public string? Tag { get; init; }
+    public string? Tag
+    {
+        get; init;
+    }
     /// <summary>
     /// Filter by author (username)
     /// </summary>
-    public string? Author { get; init; }
+    public string? Author
+    {
+        get; init;
+    }
     /// <summary>
     /// Filter by favorites of a user (username)
     /// </summary>
-    public string? Favorited { get; init; }
+    public string? Favorited
+    {
+        get; init;
+    }
     /// <summary>
     /// The number of items to skip before starting to collect the result set.
     /// </summary>
