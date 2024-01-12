@@ -31,7 +31,7 @@ For more information on how to this works with other frontends/backends, head ov
 ## Usage
 
 ```sh
-git clone git@github.com:niyaco/vue3-realworld-app.git
+git clone git@github.com:rofixro/vue3-realworld-app.git
 
 cd vue3-realworld-app
 
@@ -50,10 +50,6 @@ pnpm build
 * [vue-ts-realworld-app](https://github.com/AlexBrohshtut/vue-ts-realworld-app) - 🏆Full fledged implementation of Real World App written in Vue + TypeScript.
 * [vue-realworld-example-app](https://github.com/khaledosman/vue-realworld-example-app) - An exemplary real-world application built with Vue.js, Vuex, axios and different other technologies. This is a good example to discover Vue for beginners.
 
-## Maintainers
-
-[@Niyaco](https://github.com/niyaco)
-
 ## License
 
-[MIT](https://github.com/niyaco/vue3-realworld-app/blob/master/LICENSE) © Niyaco
+[MIT](https://github.com/rofixro/vue3-realworld-app/blob/master/LICENSE)
