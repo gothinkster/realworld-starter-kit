@@ -20,15 +20,62 @@ jobs:
         
     steps:
     - uses: actions/checkout@v3
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 8.0.x
+    
     - name: Restore dependencies
       run: dotnet restore
+    
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --configuration Release --no-restore
+    
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity minimal --configuration Release --collect:"XPlat Code Coverage" --results-directory ./coverage
+
+    - name: Restore coverage history
+      uses: actions/cache/restore@v3
+      with:
+        path: src/backend/coveragehistory
+        key: CoverageHistory
+      continue-on-error: true
+
+    - name: Coverage Report
+      uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
+      with:
+        reports: 'src/backend/**/coverage.cobertura.xml'
+        targetdir: 'src/backend/coveragereport'
+        historydir: 'src/backend/coveragehistory'
+        reporttypes: 'MarkdownSummaryGithub;HtmlInline;Cobertura'
+
+    - name: Change report headlines
+      run: |
+        sed -i 's/# Summary/## Code Coverage/g' coveragereport/SummaryGithub.md
+        sed -i 's/## Coverage/### Code Coverage details/g' coveragereport/SummaryGithub.md
+
+    - name: Add coverage to job summary
+      run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+
+    - name: Add coverage pr comment
+      uses: marocchino/sticky-pull-request-comment@v2
+      if: github.event_name == 'pull_request'
+      with:
+        path: src/backend/coveragereport/SummaryGithub.md
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v4
+      with:
+        name: CoverageReport
+        path: src/backend/coveragereport
+
+    - name: Upload coverage history
+      uses: actions/cache/save@v3
+      if: github.ref == 'refs/heads/master'
+      with:
+        path: src/backend/coveragehistory
+        key: CoverageHistory
+
     - name: Format
       run: dotnet format --verify-no-changes --verbosity diagnostic
