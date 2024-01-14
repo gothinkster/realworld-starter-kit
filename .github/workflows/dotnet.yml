@@ -35,19 +35,11 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity minimal --configuration Release --collect:"XPlat Code Coverage" --results-directory ./coverage
 
-    - name: Restore coverage history
-      uses: actions/cache/restore@v3
-      with:
-        path: src/backend/coveragehistory
-        key: CoverageHistory
-      continue-on-error: true
-
     - name: Coverage Report
       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
       with:
         reports: 'src/backend/**/coverage.cobertura.xml'
         targetdir: 'src/backend/coveragereport'
-        historydir: 'src/backend/coveragehistory'
         reporttypes: 'MarkdownSummaryGithub;HtmlInline;Cobertura'
 
     - name: Change report headlines
@@ -69,13 +61,6 @@ jobs:
       with:
         name: CoverageReport
         path: src/backend/coveragereport
-
-    - name: Upload coverage history
-      uses: actions/cache/save@v3
-      if: github.ref == 'refs/heads/master'
-      with:
-        path: src/backend/coveragehistory
-        key: CoverageHistory
 
     - name: Format
       run: dotnet format --verify-no-changes --verbosity diagnostic
