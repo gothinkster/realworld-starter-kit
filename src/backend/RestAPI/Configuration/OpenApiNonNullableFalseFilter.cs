@@ -2,7 +2,7 @@ using System.Linq;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Conduit.RestAPI;
+namespace Conduit.RestAPI.Configuration;
 
 class OpenApiNonNullableFalseFilter : ISchemaFilter
 {
