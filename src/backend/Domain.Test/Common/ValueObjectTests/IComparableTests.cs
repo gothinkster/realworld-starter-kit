@@ -26,6 +26,26 @@ public class IComparableTests
     }
 
     [Fact]
+    public void Compare_against_null_object_returns_1()
+    {
+        NameSuffix name = new(3);
+
+        int result = name.CompareTo(null);
+
+        result.Should().Be(1);
+    }
+
+    [Fact]
+    public void Compare_same_objects_returns_0()
+    {
+        NameSuffix name = new(3);
+
+        int result = name.CompareTo(name);
+
+        result.Should().Be(0);
+    }
+
+    [Fact]
     public void Can_sort_complex_value_objects()
     {
         Name name112 = new("111", "111", new NameSuffix(2));
@@ -52,14 +72,20 @@ public class IComparableTests
     [Fact]
     public void Can_sort_value_objects_containing_nulls()
     {
-        Name name2 = new("1", "1", new NameSuffix(1));
+        Name name0 = new("0", "0", new NameSuffix(0));
+        Name name3 = new("1", "1", new NameSuffix(1));
         Name name1 = new("1", null, new NameSuffix(1));
+        Name name2 = new("1", null, new NameSuffix(2));
+        Name name4 = new("1", "2", new NameSuffix(2));
 
-        Name?[] names = [.. new[] { name1, name2, null }.OrderBy(x => x)];
+        Name?[] names = [.. new[] { name0, name1, name2, name3, name4, null }.OrderBy(x => x)];
 
         names[0].Should().BeNull();
-        names[1].Should().BeSameAs(name1);
-        names[2].Should().BeSameAs(name2);
+        names[1].Should().BeSameAs(name0);
+        names[2].Should().BeSameAs(name1);
+        names[3].Should().BeSameAs(name2);
+        names[4].Should().BeSameAs(name3);
+        names[5].Should().BeSameAs(name4);
     }
 
     [Fact]

@@ -4,9 +4,9 @@ using Conduit.Domain.Common;
 using FluentAssertions;
 using Xunit;
 
-namespace Conduit.Domain.Test.Common;
+namespace Conduit.Domain.Test.Common.EntityTests;
 
-public class EntityTests
+public class BasicTests
 {
     [Fact]
     public void Derived_entities_are_not_equal()
@@ -96,12 +96,43 @@ public class EntityTests
     }
 
     [Fact]
+    public void Comparing_same_entity()
+    {
+        MyEntity? entity = new(new IntId(1));
+
+#pragma warning disable CS1718 // Vergleich erfolgte mit derselben Variable
+        (entity == entity).Should().BeTrue();
+        (entity != entity).Should().BeFalse();
+#pragma warning restore CS1718 // Vergleich erfolgte mit derselben Variable
+        (entity.Equals(entity)).Should().BeTrue();
+    }
+
+    [Fact]
     public void Two_entities_with_nullable_id_are_not_equal()
     {
         MyEntityWithStringId entity1 = MyEntityWithStringId.Create();
         MyEntityWithStringId entity2 = MyEntityWithStringId.Create();
 
         (entity1 == entity2).Should().BeFalse();
+    }
+
+    [Fact]
+    public void Entities_with_same_id_have_same_hash_code()
+    {
+
+        MyEntityWithStringId entity1 = MyEntityWithStringId.Create("1");
+        MyEntityWithStringId entity2 = MyEntityWithStringId.Create("1");
+
+        (entity1.GetHashCode() == entity2.GetHashCode()).Should().BeTrue();
+    }
+
+    [Fact]
+    public void Entities_with_null_id_have_diffrent_hash_code()
+    {
+        MyEntityWithStringId entity1 = MyEntityWithStringId.Create();
+        MyEntityWithStringId entity2 = MyEntityWithStringId.Create();
+
+        (entity1.GetHashCode() == entity2.GetHashCode()).Should().BeFalse();
     }
 
     public class MyEntityWithStringId : Entity<StringId>
@@ -114,6 +145,11 @@ public class EntityTests
         public static MyEntityWithStringId Create()
         {
             return new MyEntityWithStringId(null);
+        }
+
+        public static MyEntityWithStringId Create(string id)
+        {
+            return new MyEntityWithStringId(new StringId(id));
         }
     }
 
