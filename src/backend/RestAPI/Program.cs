@@ -10,6 +10,7 @@ builder.Services
     .AddConduitPersistence()
     .AddConduitMediatR()
     .AddConduitControllers()
+    .AddConduitCors()
     .AddConduitOpenApiSetup();
 
 var app = builder.Build();
@@ -17,6 +18,7 @@ var app = builder.Build();
 app
     .UseConduitPersistence()
     .UseConduitControllers()
+    .UseConduitCors()
     .UseConduitOpenApi();
 
 app.Run();
