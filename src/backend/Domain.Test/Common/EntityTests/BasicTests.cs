@@ -179,10 +179,7 @@ public class BasicTests
 
     public class IntId : ValueObject
     {
-        public int Value
-        {
-            get;
-        }
+        public int Value { get; }
 
         public IntId(int value)
         {
@@ -197,10 +194,7 @@ public class BasicTests
 
     public class StringId : ValueObject
     {
-        public string Value
-        {
-            get;
-        }
+        public string Value { get; }
 
         public StringId(string value)
         {
@@ -215,14 +209,8 @@ public class BasicTests
 
     public class ComplexId : ValueObject
     {
-        public string Value1
-        {
-            get;
-        }
-        public Guid Value2
-        {
-            get;
-        }
+        public string Value1 { get; }
+        public Guid Value2 { get; }
 
         public ComplexId(string value1, Guid value2)
         {

@@ -119,10 +119,7 @@ public class IComparableTests
 
     public class IntId : ValueObject
     {
-        public int Value
-        {
-            get;
-        }
+        public int Value { get; }
 
         public IntId(int value)
         {
@@ -137,10 +134,7 @@ public class IComparableTests
 
     public class GuidId : ValueObject
     {
-        public Guid Value
-        {
-            get;
-        }
+        public Guid Value { get; }
 
         public GuidId(Guid value)
         {
@@ -155,10 +149,7 @@ public class IComparableTests
 
     public class NullableId : ValueObject
     {
-        public int? Value
-        {
-            get;
-        }
+        public int? Value { get; }
 
         public NullableId()
         {

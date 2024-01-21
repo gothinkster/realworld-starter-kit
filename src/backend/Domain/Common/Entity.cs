@@ -5,10 +5,7 @@ namespace Conduit.Domain.Common;
 public abstract class Entity<TId> : IComparable
     where TId : ValueObject
 {
-    public virtual TId? Id
-    {
-        get; protected set;
-    }
+    public virtual TId? Id { get; protected set; }
 
     protected Entity(TId? id)
     {

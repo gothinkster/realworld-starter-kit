@@ -172,10 +172,7 @@ public class BasicTests
 
     public class VO1 : ValueObject
     {
-        public string Value
-        {
-            get;
-        }
+        public string Value { get; }
 
         public VO1(string value)
         {
@@ -190,10 +187,7 @@ public class BasicTests
 
     public class VO2 : ValueObject
     {
-        public string Value
-        {
-            get;
-        }
+        public string Value { get; }
 
         public VO2(string value)
         {
@@ -208,10 +202,7 @@ public class BasicTests
 
     public class VO3 : ValueObject
     {
-        public string? Value
-        {
-            get;
-        }
+        public string? Value { get; }
 
         public VO3()
         {
@@ -231,14 +222,8 @@ public class BasicTests
 
     public class Money : ValueObject
     {
-        public string Currency
-        {
-            get;
-        }
-        public decimal Amount
-        {
-            get;
-        }
+        public string Currency { get; }
+        public decimal Amount { get; }
 
         public Money(string currency, decimal amount)
         {
@@ -255,14 +240,8 @@ public class BasicTests
 
     public class Address : ValueObject
     {
-        public string Street
-        {
-            get;
-        }
-        public string City
-        {
-            get;
-        }
+        public string Street { get; }
+        public string City { get; }
 
         public Address(string street, string city)
         {
@@ -280,13 +259,9 @@ public class BasicTests
 
     public class DerivedAddress : Address
     {
-        public string Country
-        {
-            get;
-        }
+        public string Country { get; }
 
-        public DerivedAddress(string country, string street, string city)
-            : base(street, city)
+        public DerivedAddress(string country, string street, string city) : base(street, city)
         {
             Country = country;
         }

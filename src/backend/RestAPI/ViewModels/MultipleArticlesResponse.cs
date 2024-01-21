@@ -7,12 +7,6 @@ namespace Conduit.RestAPI.ViewModels;
 /// </summary>
 public record MultipleArticlesResponse
 {
-    public required IEnumerable<Article> Articles
-    {
-        get; init;
-    }
-    public required int ArticlesCount
-    {
-        get; init;
-    }
+    public required IEnumerable<Article> Articles { get; init; }
+    public required int ArticlesCount { get; init; }
 }

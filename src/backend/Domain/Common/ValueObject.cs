@@ -92,4 +92,12 @@ public abstract class ValueObject : IComparable
                     left?.CompareTo(right) ?? (right is null ? 0 : -1))
             .FirstOrDefault(cmp => cmp != 0);
     }
+
+    protected void CheckRule(IBusinessRule rule)
+    {
+        if (rule.IsBroken())
+        {
+            throw new BusinessRuleValidationException(rule);
+        }
+    }
 }

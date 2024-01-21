@@ -5,8 +5,5 @@ namespace Conduit.RestAPI.ViewModels;
 /// </summary>
 public record SingleCommentResponse
 {
-    public required Comment Comment
-    {
-        get; set;
-    }
+    public required Comment Comment { get; set; }
 }

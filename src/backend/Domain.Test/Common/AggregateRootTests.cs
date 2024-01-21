@@ -121,13 +121,7 @@ public class AggregateRootTests
             _error = error;
         }
 
-        public string Message
-        {
-            get
-            {
-                return "Error";
-            }
-        }
+        public string Message => "Error";
 
         public bool IsBroken()
         {

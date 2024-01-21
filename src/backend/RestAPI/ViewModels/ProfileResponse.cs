@@ -5,8 +5,5 @@ namespace Conduit.RestAPI.ViewModels;
 /// </summary>
 public record ProfileResponse
 {
-    public required Profile Profile
-    {
-        get; init;
-    }
+    public required Profile Profile { get; init; }
 }

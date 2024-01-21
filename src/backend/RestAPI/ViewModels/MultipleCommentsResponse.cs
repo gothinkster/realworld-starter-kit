@@ -7,8 +7,5 @@ namespace Conduit.RestAPI.ViewModels;
 /// </summary>
 public record MultipleCommentsResponse
 {
-    public required IEnumerable<Comment> Comments
-    {
-        get; init;
-    }
+    public required IEnumerable<Comment> Comments { get; init; }
 }

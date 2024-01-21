@@ -1,5 +1,12 @@
+using System.Threading;
+using System.Threading.Tasks;
+using Conduit.Application.Users.Commands.Dtos;
+using Conduit.Application.Users.Commands.RegisterNewUser;
+using Conduit.Domain.Common;
 using Conduit.RestAPI.ViewModels;
+using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -12,6 +19,13 @@ namespace Conduit.RestAPI.Controllers;
 [Produces("application/json")]
 public class UsersController : ControllerBase
 {
+    readonly IMediator _mediator;
+
+    public UsersController(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+
     /// <summary>
     /// Register a new user
     /// </summary>
@@ -19,26 +33,51 @@ public class UsersController : ControllerBase
     /// <a href="https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints/#registration">Conduit Spec for registration endpoint</a>
     /// </remarks>
     /// <param name="request">Details of the new user to register</param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     /// <response code="201">User</response>
     /// <response code="422">Unexpected error</response>
     [HttpPost]
     [ProducesResponseType<UserResponse>(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-    public IActionResult CreateUser([FromBody, SwaggerRequestBody(Required = true)] NewUserRequest request)
+    [ProducesResponseType<GenericErrorModel>(StatusCodes.Status422UnprocessableEntity)]
+    public async Task<Results<UnprocessableEntity<GenericErrorModel>, Created<UserResponse>>> CreateUser([FromBody, SwaggerRequestBody(Required = true)] NewUserRequest request, CancellationToken cancellationToken)
     {
-        return Ok(
-            new UserResponse
+        try
+        {
+            UserDto registrationResult = await _mediator.Send(new RegisterNewUserCommand
             {
-                User = new User
+                Email = request.User.Email,
+                Username = request.User.Username,
+                Password = request.User.Password
+            }, cancellationToken);
+
+            return TypedResults.Created(
+                (string?)null,
+                new UserResponse
                 {
-                    Email = request.User.Email,
-                    Username = request.User.Email,
-                    Token = "Test Token",
-                    Bio = "Test Bio",
-                    Image = "Test"
-                }
-            });
+                    User = new User
+                    {
+                        Email = registrationResult.Email,
+                        Username = registrationResult.Username,
+                        Token = registrationResult.Token,
+                        Bio = registrationResult.Bio,
+                        Image = registrationResult.Image
+                    }
+                });
+        }
+        catch (BusinessRuleValidationException ex)
+        {
+            return TypedResults.UnprocessableEntity(
+                new GenericErrorModel
+                {
+                    Errors = new Errors
+                    {
+                        Body = new[] {
+                            ex.BrokenRule.Message
+                        }
+                    }
+                });
+        }
     }
 
     /// <summary>

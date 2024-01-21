@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Conduit.Domain.Common;
 
-public abstract class AggregateRoot<TId> : Entity<TId>
+public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot
     where TId : ValueObject
 {
     readonly List<IDomainEvent> _domainEvents = [];

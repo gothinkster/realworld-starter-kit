@@ -7,8 +7,5 @@ namespace Conduit.RestAPI.ViewModels;
 /// </summary>
 public record TagsResponse
 {
-    public required IEnumerable<string> Tags
-    {
-        get; set;
-    }
+    public required IEnumerable<string> Tags { get; set; }
 }

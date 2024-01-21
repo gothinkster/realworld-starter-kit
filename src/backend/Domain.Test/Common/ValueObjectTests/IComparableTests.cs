@@ -165,10 +165,7 @@ public class IComparableTests
 
     private class VOWithObjectProperty : ValueObject
     {
-        public object SomeProperty
-        {
-            get;
-        }
+        public object SomeProperty { get; }
 
         public VOWithObjectProperty(object someProperty)
         {
@@ -183,14 +180,9 @@ public class IComparableTests
 
     private class Name : ValueObject
     {
-        public string First
-        {
-            get;
-        }
-        public string? Last
-        {
-            get;
-        }
+        public string First { get; }
+        public string? Last { get; }
+
         public NameSuffix Suffix
         {
             get;
@@ -214,10 +206,7 @@ public class IComparableTests
 
     private class NameSuffix : ValueObject
     {
-        public int Value
-        {
-            get;
-        }
+        public int Value { get; }
 
         public NameSuffix(int value)
         {
@@ -232,10 +221,7 @@ public class IComparableTests
 
     private class VOIntType : ValueObject
     {
-        public int Value
-        {
-            get;
-        }
+        public int Value { get; }
 
         public VOIntType(int value)
         {
@@ -250,10 +236,7 @@ public class IComparableTests
 
     private class VOStringType : ValueObject
     {
-        public string Value
-        {
-            get;
-        }
+        public string Value { get; }
 
         public VOStringType(string value)
         {

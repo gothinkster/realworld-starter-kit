@@ -2,9 +2,7 @@ namespace Conduit.Domain;
 
 public interface IBusinessRule
 {
-    string Message
-    {
-        get;
-    }
+    string Message { get; }
+
     bool IsBroken();
 }
