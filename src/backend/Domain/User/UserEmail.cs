@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Conduit.Domain.Common;
+using Conduit.Domain.User.Rules;
 using CSharpFunctionalExtensions;
 
 namespace Conduit.Domain.User;
@@ -13,10 +15,15 @@ public class UserEmail : ValueObject
         Value = email;
     }
 
-    public static UserEmail Create(string email)
+    public static Result<UserEmail, RuleError> Create(string email)
     {
         string emailLowerCase = email.ToLower();
-        //CheckRule(new UserEmailMustBeValidRule(emailLowerCase));
+        UnitResult<RuleError> checkResult = UserRules.EmailIsValid(emailLowerCase);
+
+        if (checkResult.IsFailure)
+        {
+            return Result.Failure<UserEmail, RuleError>(checkResult.Error);
+        }
 
         return new UserEmail(emailLowerCase);
     }

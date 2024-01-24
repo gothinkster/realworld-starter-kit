@@ -9,9 +9,9 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        ValueConverter<UserEmail?, string> userIdConverter = new(
+        ValueConverter<UserEmail, string> userIdConverter = new(
             v => v!.Value,
-            v => new UserEmail(v));
+            v => UserEmail.Create(v).Value);
 
         builder
             .ToTable(name: "Users", schema: "Conduit")
