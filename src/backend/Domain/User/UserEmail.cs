@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Conduit.Domain.Common;
+using CSharpFunctionalExtensions;
 
 namespace Conduit.Domain.User;
 
@@ -10,12 +10,12 @@ public class UserEmail : ValueObject
 
     public UserEmail(string email)
     {
-        CheckRule(new UserEmailMustBeValidRule(email));
+        //CheckRule(new UserEmailMustBeValidRule(email));
 
-        Value = email;
+        Value = email.ToLower();
     }
 
-    protected override IEnumerable<IComparable?> GetAtomicValues()
+    protected override IEnumerable<IComparable> GetEqualityComponents()
     {
         yield return Value;
     }
