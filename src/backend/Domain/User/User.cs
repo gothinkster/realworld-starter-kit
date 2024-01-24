@@ -21,8 +21,8 @@ public class User : AggregateRoot<UserEmail>
 
     public static User RegisterNewUser(string email, string username, string clearTextPassword, IUsersCounter usersCounter, IPasswordHasher passwordHasher)
     {
-        string emailLowercase = email.ToLower();
-        UserEmail id = new(emailLowercase);
+        UserEmail id = UserEmail.Create(email);
+
         string hashedPassword = passwordHasher.HashPassword(clearTextPassword);
 
         User newUser = new(id, username, hashedPassword, string.Empty, string.Empty);
@@ -34,7 +34,7 @@ public class User : AggregateRoot<UserEmail>
         newUser.CheckRule(new UserEmailMustBeUniqueRule(id, usersCounter));
         newUser.CheckRule(new UsernameMustBeUniqueRule(username, usersCounter));
 
-        newUser.AddDomainEvent(new NewUserRegisteredDomainEvent(emailLowercase, username));
+        newUser.AddDomainEvent(new NewUserRegisteredDomainEvent(id.Value, username));
 
         return newUser;
     }

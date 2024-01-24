@@ -8,11 +8,17 @@ public class UserEmail : ValueObject
 {
     public string Value { get; }
 
-    public UserEmail(string email)
+    protected UserEmail(string email)
     {
-        //CheckRule(new UserEmailMustBeValidRule(email));
+        Value = email;
+    }
 
-        Value = email.ToLower();
+    public static UserEmail Create(string email)
+    {
+        string emailLowerCase = email.ToLower();
+        //CheckRule(new UserEmailMustBeValidRule(emailLowerCase));
+
+        return new UserEmail(emailLowerCase);
     }
 
     protected override IEnumerable<IComparable> GetEqualityComponents()
