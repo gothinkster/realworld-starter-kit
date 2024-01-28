@@ -18,14 +18,9 @@ public class UserEmail : ValueObject
     public static Result<UserEmail, Error> Create(string email)
     {
         string emailLowerCase = email.ToLower();
-        UnitResult<Error> checkResult = UserRules.EmailIsValidRule(emailLowerCase);
 
-        if (checkResult.IsFailure)
-        {
-            return Result.Failure<UserEmail, Error>(checkResult.Error);
-        }
-
-        return new UserEmail(emailLowerCase);
+        return UserRules.EmailIsValidRule(emailLowerCase)
+            .Bind<UserEmail, Error>(() => new UserEmail(emailLowerCase));
     }
 
     protected override IEnumerable<IComparable> GetEqualityComponents()
