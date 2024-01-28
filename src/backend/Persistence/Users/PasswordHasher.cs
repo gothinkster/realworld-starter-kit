@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
-using Conduit.Domain;
+using Conduit.Domain.User;
 
 namespace Conduit.Persistence.Users;
 

@@ -1,5 +1,4 @@
 using Conduit.Application.Common;
-using Conduit.Domain;
 using Conduit.Domain.User;
 using Conduit.Persistence;
 using Conduit.Persistence.Users;
