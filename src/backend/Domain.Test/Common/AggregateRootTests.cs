@@ -77,21 +77,4 @@ public class AggregateRootTests
             OccurredOn = DateTime.Now;
         }
     }
-
-    public class TestRule : IBusinessRule
-    {
-        readonly bool _error;
-
-        public TestRule(bool error)
-        {
-            _error = error;
-        }
-
-        public string Message => "Error";
-
-        public bool IsBroken()
-        {
-            return _error;
-        }
-    }
 }

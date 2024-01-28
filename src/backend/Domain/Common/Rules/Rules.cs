@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace Conduit.Domain.Common;
 
-static partial class GeneralRules
+static partial class Rules
 {
     public static bool EmailIsValidRule(string email)
     {

@@ -15,14 +15,14 @@ public class UserEmail : ValueObject
         Value = email;
     }
 
-    public static Result<UserEmail, RuleError> Create(string email)
+    public static Result<UserEmail, Error> Create(string email)
     {
         string emailLowerCase = email.ToLower();
-        UnitResult<RuleError> checkResult = UserRules.EmailIsValidRule(emailLowerCase);
+        UnitResult<Error> checkResult = UserRules.EmailIsValidRule(emailLowerCase);
 
         if (checkResult.IsFailure)
         {
-            return Result.Failure<UserEmail, RuleError>(checkResult.Error);
+            return Result.Failure<UserEmail, Error>(checkResult.Error);
         }
 
         return new UserEmail(emailLowerCase);

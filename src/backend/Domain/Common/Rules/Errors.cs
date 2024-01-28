@@ -1,8 +1,8 @@
 namespace Conduit.Domain.Common;
 
-static class GeneralErrors
+static class Errors
 {
-    public static RuleError ValueIsInvalid(string entityName, string propertyName)
+    public static Error ValueIsInvalid(string entityName, string propertyName)
     {
         return new()
         {
@@ -11,7 +11,7 @@ static class GeneralErrors
         };
     }
 
-    public static RuleError ValueIsRequired(string entityName, string propertyName)
+    public static Error ValueIsRequired(string entityName, string propertyName)
     {
         return new()
         {
@@ -20,7 +20,7 @@ static class GeneralErrors
         };
     }
 
-    public static RuleError NotFound(string? id = null)
+    public static Error NotFound(string? id = null)
     {
         string forId = id == null ? "" : $" for Id '{id}'";
 

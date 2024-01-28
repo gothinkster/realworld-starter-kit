@@ -11,7 +11,7 @@ using MediatR;
 
 namespace Conduit.Application.Users.Commands.RegisterNewUser;
 
-public class RegisterNewUserHandler : IRequestHandler<RegisterNewUserCommand, Result<UserDto, RuleError>>
+public class RegisterNewUserHandler : IRequestHandler<RegisterNewUserCommand, Result<UserDto, Error>>
 {
     readonly IUnitOfWork _unitOfWork;
     readonly IUsersCounter _usersCounter;
@@ -25,7 +25,7 @@ public class RegisterNewUserHandler : IRequestHandler<RegisterNewUserCommand, Re
         _passwordHasher = passwordHasher;
         _unitOfWork = unitOfWork;
     }
-    public async Task<Result<UserDto, RuleError>> Handle(RegisterNewUserCommand request, CancellationToken cancellationToken = default)
+    public async Task<Result<UserDto, Error>> Handle(RegisterNewUserCommand request, CancellationToken cancellationToken = default)
     {
         return await Task.FromResult(UserEmail.Create(request.Email))
             .Bind((email) => User.RegisterNewUser(email, request.Username, request.Password, _usersCounter, _passwordHasher))

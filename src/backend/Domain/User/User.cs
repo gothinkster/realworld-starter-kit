@@ -20,7 +20,7 @@ public class User : AggregateRoot<UserEmail>
         Image = image;
     }
 
-    public static Result<User, RuleError> RegisterNewUser(UserEmail email, string username, string clearTextPassword, IUsersCounter usersCounter, IPasswordHasher passwordHasher)
+    public static Result<User, Error> RegisterNewUser(UserEmail email, string username, string clearTextPassword, IUsersCounter usersCounter, IPasswordHasher passwordHasher)
     {
         return CanRegisterNewUser(email, username, clearTextPassword, usersCounter)
             .Match(
@@ -33,13 +33,13 @@ public class User : AggregateRoot<UserEmail>
 
                     newUser.AddDomainEvent(new NewUserRegisteredDomainEvent(email.Value, username));
 
-                    return Result.Success<User, RuleError>(newUser);
+                    return Result.Success<User, Error>(newUser);
                 });
     }
 
-    static UnitResult<RuleError> CanRegisterNewUser(UserEmail email, string username, string clearTextPassword, IUsersCounter usersCounter)
+    static UnitResult<Error> CanRegisterNewUser(UserEmail email, string username, string clearTextPassword, IUsersCounter usersCounter)
     {
-        return Result.Combine(UserErrors.ComposeRuleError,
+        return Result.Combine(UserErrors.ComposeRegistrationValidationError,
             UserRules.UsernameMustBeProvidedRule(username),
             UserRules.UsernameCanOnlyContainLettersAndNumbersRule(username),
             UserRules.PasswordMustBeOfMinimumLengthRule(clearTextPassword.Length),
@@ -48,7 +48,7 @@ public class User : AggregateRoot<UserEmail>
             UserRules.EmailMustBeUniqueRule(email, usersCounter));
     }
 
-    public UnitResult<RuleError> ChangePassword(string newClearTextPassword, IPasswordHasher passwordHasher)
+    public UnitResult<Error> ChangePassword(string newClearTextPassword, IPasswordHasher passwordHasher)
     {
         return CanChangePassword(newClearTextPassword, passwordHasher)
             .Match(
@@ -58,18 +58,18 @@ public class User : AggregateRoot<UserEmail>
                     HashedPassword = passwordHasher.HashPassword(newClearTextPassword);
                     AddDomainEvent(new PasswordChangedDomainEvent(Username));
 
-                    return UnitResult.Success<RuleError>();
+                    return UnitResult.Success<Error>();
                 });
     }
 
-    UnitResult<RuleError> CanChangePassword(string newClearTextPassword, IPasswordHasher passwordHasher)
+    UnitResult<Error> CanChangePassword(string newClearTextPassword, IPasswordHasher passwordHasher)
     {
-        return Result.Combine(UserErrors.ComposeRuleError,
+        return Result.Combine(UserErrors.ComposePasswordValidationError,
             UserRules.PasswordMustBeOfMinimumLengthRule(newClearTextPassword.Length),
             UserRules.PasswordIsNotInBlacklistRule(newClearTextPassword));
     }
 
-    public UnitResult<RuleError> ChangeUsername(string newUsername, IUsersCounter usersCounter)
+    public UnitResult<Error> ChangeUsername(string newUsername, IUsersCounter usersCounter)
     {
         return CanChangeUsername(newUsername, usersCounter)
             .Match(
@@ -81,13 +81,13 @@ public class User : AggregateRoot<UserEmail>
 
                     AddDomainEvent(new UsernameChangedDomainEvent(oldUsername, Username));
 
-                    return UnitResult.Success<RuleError>();
+                    return UnitResult.Success<Error>();
                 });
     }
 
-    UnitResult<RuleError> CanChangeUsername(string newUsername, IUsersCounter usersCounter)
+    UnitResult<Error> CanChangeUsername(string newUsername, IUsersCounter usersCounter)
     {
-        return Result.Combine(UserErrors.ComposeRuleError,
+        return Result.Combine(UserErrors.ComposeUsernameValidationError,
             UserRules.UsernameMustBeProvidedRule(newUsername),
             UserRules.UsernameCanOnlyContainLettersAndNumbersRule(newUsername),
             UserRules.UsernameMustBeUniqueRule(newUsername, usersCounter));

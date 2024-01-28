@@ -11,11 +11,11 @@ static partial class UserRules
     internal const int MinimumPasswordLenght = 4;
     static readonly string[] BlacklistedPasswords = ["password", "qwerty", "simple", "test"];
 
-    public static UnitResult<RuleError> EmailMustBeUniqueRule(UserEmail email, IUsersCounter usersCounter)
+    public static UnitResult<Error> EmailMustBeUniqueRule(UserEmail email, IUsersCounter usersCounter)
     {
-        if (usersCounter.CountUsersWithEmailAsync(email).GetAwaiter().GetResult() > 0)
+        if (usersCounter.CountUsersWithEmailAsync(email).GetAwaiter().GetResult() == 0)
         {
-            return UnitResult.Success<RuleError>();
+            return UnitResult.Success<Error>();
         }
         else
         {
@@ -23,11 +23,11 @@ static partial class UserRules
         }
     }
 
-    public static UnitResult<RuleError> EmailIsValidRule(string email)
+    public static UnitResult<Error> EmailIsValidRule(string email)
     {
-        if (GeneralRules.EmailIsValidRule(email))
+        if (Common.Rules.EmailIsValidRule(email))
         {
-            return UnitResult.Success<RuleError>();
+            return UnitResult.Success<Error>();
         }
         else
         {
@@ -35,11 +35,11 @@ static partial class UserRules
         }
     }
 
-    public static UnitResult<RuleError> UsernameMustBeUniqueRule(string username, IUsersCounter usersCounter)
+    public static UnitResult<Error> UsernameMustBeUniqueRule(string username, IUsersCounter usersCounter)
     {
-        if (usersCounter.CountUsersWithUsernameAsync(username).GetAwaiter().GetResult() > 0)
+        if (usersCounter.CountUsersWithUsernameAsync(username).GetAwaiter().GetResult() == 0)
         {
-            return UnitResult.Success<RuleError>();
+            return UnitResult.Success<Error>();
         }
         else
         {
@@ -47,23 +47,23 @@ static partial class UserRules
         }
     }
 
-    public static UnitResult<RuleError> UsernameMustBeProvidedRule(string username)
+    public static UnitResult<Error> UsernameMustBeProvidedRule(string username)
     {
         if (string.IsNullOrEmpty(username))
         {
-            return UnitResult.Success<RuleError>();
+            return UserErrors.UsernameIsNotProvided();
         }
         else
         {
-            return UserErrors.UsernameIsNotProvided();
+            return UnitResult.Success<Error>();
         }
     }
 
-    public static UnitResult<RuleError> UsernameCanOnlyContainLettersAndNumbersRule(string username)
+    public static UnitResult<Error> UsernameCanOnlyContainLettersAndNumbersRule(string username)
     {
         if (ValidUsernameRegEx().IsMatch(username))
         {
-            return UnitResult.Success<RuleError>();
+            return UnitResult.Success<Error>();
         }
         else
         {
@@ -71,11 +71,11 @@ static partial class UserRules
         }
     }
 
-    public static UnitResult<RuleError> PasswordMustBeOfMinimumLengthRule(int passwordLength)
+    public static UnitResult<Error> PasswordMustBeOfMinimumLengthRule(int passwordLength)
     {
-        if (passwordLength < MinimumPasswordLenght)
+        if (passwordLength >= MinimumPasswordLenght)
         {
-            return UnitResult.Success<RuleError>();
+            return UnitResult.Success<Error>();
         }
         else
         {
@@ -83,15 +83,15 @@ static partial class UserRules
         }
     }
 
-    public static UnitResult<RuleError> PasswordIsNotInBlacklistRule(string clearTextPassword)
+    public static UnitResult<Error> PasswordIsNotInBlacklistRule(string clearTextPassword)
     {
         if (BlacklistedPasswords.Contains(clearTextPassword, StringComparer.InvariantCultureIgnoreCase))
         {
-            return UnitResult.Success<RuleError>();
+            return UserErrors.PasswordIsBlacklisted();
         }
         else
         {
-            return UserErrors.PasswordIsBlacklisted();
+            return UnitResult.Success<Error>();
         }
     }
 
