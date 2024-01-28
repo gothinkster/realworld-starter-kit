@@ -1,4 +1,3 @@
-using System.Linq;
 using Conduit.Domain.Common;
 using Conduit.Domain.User.Events;
 using Conduit.Domain.User.Rules;
@@ -21,55 +20,76 @@ public class User : AggregateRoot<UserEmail>
         Image = image;
     }
 
-    public static Result<User, RuleError> RegisterNewUser(string email, string username, string clearTextPassword, IUsersCounter usersCounter, IPasswordHasher passwordHasher)
+    public static Result<User, RuleError> RegisterNewUser(UserEmail email, string username, string clearTextPassword, IUsersCounter usersCounter, IPasswordHasher passwordHasher)
     {
-        Result<UserEmail, RuleError> emailResult = UserEmail.Create(email);
+        return CanRegisterNewUser(email, username, clearTextPassword, usersCounter)
+            .Match(
+                onFailure: error => error,
+                onSuccess: () =>
+                {
+                    string hashedPassword = passwordHasher.HashPassword(clearTextPassword);
 
-        UnitResult<RuleError>[] checkResult =
-        [
-            emailResult,
-            UserRules.UsernameCanOnlyContainLettersAndNumbers(username)
-            //Result<UserEmail, RuleError> userEmailResult = newUser.CheckRule(new UserEmailMustBeUniqueRule(id, usersCounter))
-            //newUser.CheckRule(new UsernameMustBeProvidedRule(username));
-            //newUser.CheckRule(new UserPasswordIsToShortRule(clearTextPassword.Length));
-            //newUser.CheckRule(new UserPasswordIsBlacklistedRule(clearTextPassword));
-            //newUser.CheckRule(new UsernameMustBeUniqueRule(username, usersCounter));
-        ];
-        RuleError[] errors = checkResult.Where(c => c.IsFailure).Select(c => c.Error).ToArray();
+                    User newUser = new(email, username, hashedPassword, string.Empty, string.Empty);
 
-        if (errors.Length > 0)
-        {
-            return Result.Failure<User, RuleError>(UserErrors.ValidationError(errors));
-        }
+                    newUser.AddDomainEvent(new NewUserRegisteredDomainEvent(email.Value, username));
 
-        string hashedPassword = passwordHasher.HashPassword(clearTextPassword);
-
-        User newUser = new(emailResult.Value, username, hashedPassword, string.Empty, string.Empty);
-
-        newUser.AddDomainEvent(new NewUserRegisteredDomainEvent(emailResult.Value.Value, username));
-
-        return newUser;
+                    return Result.Success<User, RuleError>(newUser);
+                });
     }
 
-    public void ChangePassword(string newClearTextPassword, IPasswordHasher passwordHasher)
+    static UnitResult<RuleError> CanRegisterNewUser(UserEmail email, string username, string clearTextPassword, IUsersCounter usersCounter)
     {
-        //CheckRule(new UserPasswordIsToShortRule(newClearTextPassword.Length));
-        //CheckRule(new UserPasswordIsBlacklistedRule(newClearTextPassword));
-
-        HashedPassword = passwordHasher.HashPassword(newClearTextPassword);
-
-        AddDomainEvent(new PasswordChangedDomainEvent(Username));
+        return Result.Combine(UserErrors.ComposeRuleError,
+            UserRules.UsernameMustBeProvidedRule(username),
+            UserRules.UsernameCanOnlyContainLettersAndNumbersRule(username),
+            UserRules.PasswordMustBeOfMinimumLengthRule(clearTextPassword.Length),
+            UserRules.PasswordIsNotInBlacklistRule(clearTextPassword),
+            UserRules.UsernameMustBeUniqueRule(username, usersCounter),
+            UserRules.EmailMustBeUniqueRule(email, usersCounter));
     }
 
-    public void ChangeUsername(string newUsername, IUsersCounter usersCounter)
+    public UnitResult<RuleError> ChangePassword(string newClearTextPassword, IPasswordHasher passwordHasher)
     {
-        //CheckRule(new UsernameMustBeProvidedRule(newUsername));
-        //CheckRule(new UsernameCanOnlyContainLettersAndNumbersRule(newUsername));
-        //CheckRule(new UsernameMustBeUniqueRule(newUsername, usersCounter));
+        return CanChangePassword(newClearTextPassword, passwordHasher)
+            .Match(
+                onFailure: error => error,
+                onSuccess: () =>
+                {
+                    HashedPassword = passwordHasher.HashPassword(newClearTextPassword);
+                    AddDomainEvent(new PasswordChangedDomainEvent(Username));
 
-        string oldUsername = Username;
-        Username = newUsername;
+                    return UnitResult.Success<RuleError>();
+                });
+    }
 
-        AddDomainEvent(new UsernameChangedDomainEvent(oldUsername, Username));
+    UnitResult<RuleError> CanChangePassword(string newClearTextPassword, IPasswordHasher passwordHasher)
+    {
+        return Result.Combine(UserErrors.ComposeRuleError,
+            UserRules.PasswordMustBeOfMinimumLengthRule(newClearTextPassword.Length),
+            UserRules.PasswordIsNotInBlacklistRule(newClearTextPassword));
+    }
+
+    public UnitResult<RuleError> ChangeUsername(string newUsername, IUsersCounter usersCounter)
+    {
+        return CanChangeUsername(newUsername, usersCounter)
+            .Match(
+                onFailure: error => error,
+                onSuccess: () =>
+                {
+                    string oldUsername = Username;
+                    Username = newUsername;
+
+                    AddDomainEvent(new UsernameChangedDomainEvent(oldUsername, Username));
+
+                    return UnitResult.Success<RuleError>();
+                });
+    }
+
+    UnitResult<RuleError> CanChangeUsername(string newUsername, IUsersCounter usersCounter)
+    {
+        return Result.Combine(UserErrors.ComposeRuleError,
+            UserRules.UsernameMustBeProvidedRule(newUsername),
+            UserRules.UsernameCanOnlyContainLettersAndNumbersRule(newUsername),
+            UserRules.UsernameMustBeUniqueRule(newUsername, usersCounter));
     }
 }

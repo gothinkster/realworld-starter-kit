@@ -2,9 +2,9 @@ using System.Text.RegularExpressions;
 
 namespace Conduit.Domain.Common;
 
-public static partial class GeneralRules
+static partial class GeneralRules
 {
-    public static bool EmailIsValid(string email)
+    public static bool EmailIsValidRule(string email)
     {
         return ValidEmailRegEx().IsMatch(email);
     }

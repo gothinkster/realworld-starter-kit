@@ -18,7 +18,7 @@ public class UserEmail : ValueObject
     public static Result<UserEmail, RuleError> Create(string email)
     {
         string emailLowerCase = email.ToLower();
-        UnitResult<RuleError> checkResult = UserRules.EmailIsValid(emailLowerCase);
+        UnitResult<RuleError> checkResult = UserRules.EmailIsValidRule(emailLowerCase);
 
         if (checkResult.IsFailure)
         {

@@ -1,6 +1,6 @@
 namespace Conduit.Domain.Common;
 
-public static class GeneralErrors
+static class GeneralErrors
 {
     public static RuleError ValueIsInvalid(string entityName, string propertyName)
     {

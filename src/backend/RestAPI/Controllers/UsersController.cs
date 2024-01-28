@@ -63,7 +63,7 @@ public class UsersController : ControllerBase
         }
 
         UserDto newUser = registrationResult.Value;
-        
+
         return TypedResults.Created(
             (string?)null,
             new UserResponse

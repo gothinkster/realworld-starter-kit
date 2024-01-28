@@ -1,12 +1,32 @@
+using System.Collections.Generic;
+using System.Linq;
 using Conduit.Domain.Common;
 
-namespace Conduit.Domain;
+namespace Conduit.Domain.User.Rules;
 
-public static class UserErrors
+static class UserErrors
 {
     public static RuleError UserEmailIsNotValid()
     {
-        return GeneralErrors.ValueIsInvalid(nameof(User.User), $"{nameof(User.User.Id)}(email)");
+        return GeneralErrors.ValueIsInvalid(nameof(User), $"{nameof(User.Id)}(email)");
+    }
+
+    public static RuleError EmailIsNotUnique()
+    {
+        return new()
+        {
+            ErrorCode = "user.id.is.not.unique",
+            Message = "Email must be unique"
+        };
+    }
+
+    public static RuleError UsernameIsNotProvided()
+    {
+        return new()
+        {
+            ErrorCode = "user.username.is.not.provided",
+            Message = "Username must be provieded"
+        };
     }
 
     public static RuleError UsernameIsNotValid()
@@ -14,7 +34,16 @@ public static class UserErrors
         return new()
         {
             ErrorCode = "user.username.is.invalid",
-            Message = "Username can only contain letters and number"
+            Message = "Username may only contain letters and number"
+        };
+    }
+
+    public static RuleError UsernameIsNotUnique()
+    {
+        return new()
+        {
+            ErrorCode = "user.username.is.not.unique",
+            Message = "Username must be unique"
         };
     }
 
@@ -23,8 +52,31 @@ public static class UserErrors
         return new()
         {
             ErrorCode = "user.validation.error",
-            Message = "user validation error",
+            Message = "user validation failed",
             Details = details
         };
+    }
+
+    public static RuleError PasswordIsToShort()
+    {
+        return new()
+        {
+            ErrorCode = "user.password.is.to.short",
+            Message = $"Password must have at least {UserRules.MinimumPasswordLenght} characters"
+        };
+    }
+
+    public static RuleError PasswordIsBlacklisted()
+    {
+        return new()
+        {
+            ErrorCode = "user.password.is.blacklisted",
+            Message = "The chosen password is blacklisted"
+        };
+    }
+
+    public static RuleError ComposeRuleError(IEnumerable<RuleError> errors)
+    {
+        return ValidationError(errors.ToArray());
     }
 }

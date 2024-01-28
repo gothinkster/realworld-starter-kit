@@ -6,6 +6,7 @@ using Conduit.Domain;
 using Conduit.Domain.Common;
 using Conduit.Domain.User;
 using CSharpFunctionalExtensions;
+using CSharpFunctionalExtensions.ValueTasks;
 using MediatR;
 
 namespace Conduit.Application.Users.Commands.RegisterNewUser;
@@ -26,23 +27,21 @@ public class RegisterNewUserHandler : IRequestHandler<RegisterNewUserCommand, Re
     }
     public async Task<Result<UserDto, RuleError>> Handle(RegisterNewUserCommand request, CancellationToken cancellationToken = default)
     {
-        Result<User, RuleError> registerUserResult = User.RegisterNewUser(request.Email, request.Username, request.Password, _usersCounter, _passwordHasher);
+        return await Task.FromResult(UserEmail.Create(request.Email))
+            .Bind((email) => User.RegisterNewUser(email, request.Username, request.Password, _usersCounter, _passwordHasher))
+            .Map(async (newUser) =>
+            {
+                await _userRepository.AddAsync(newUser, cancellationToken);
+                await _unitOfWork.CommitAsync();
 
-        if (registerUserResult.IsFailure)
-        {
-            return Result.Failure<UserDto, RuleError>(registerUserResult.Error);
-        }
-
-        await _userRepository.AddAsync(registerUserResult.Value, cancellationToken);
-        await _unitOfWork.CommitAsync();
-
-        return new UserDto
-        {
-            Email = registerUserResult.Value.Id!.Value,
-            Username = registerUserResult.Value.Username,
-            Bio = string.Empty,
-            Image = string.Empty,
-            Token = string.Empty
-        };
+                return new UserDto
+                {
+                    Email = newUser.Id!.Value,
+                    Username = newUser.Username,
+                    Bio = string.Empty,
+                    Image = string.Empty,
+                    Token = string.Empty
+                };
+            });
     }
 }
