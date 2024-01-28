@@ -26,8 +26,11 @@ public class RegisterNewUserHandler : IRequestHandler<RegisterNewUserCommand, Re
     }
     public async Task<Result<UserDto, Error>> Handle(RegisterNewUserCommand request, CancellationToken cancellationToken = default)
     {
-        return await Task.FromResult(UserEmail.Create(request.Email))
-            .Bind((email) => User.RegisterNewUser(email, request.Username, request.Password, _usersCounter, _passwordHasher))
+        Result<UserEmail, Error> email = UserEmail.Create(request.Email);
+        Result<Username, Error> username = Username.Create(request.Username);
+
+        return await Task.FromResult(Result.Combine<Error>(email, username))
+            .Bind(() => User.RegisterNewUser(email.Value, username.Value, request.Password, _usersCounter, _passwordHasher))
             .Map(async (newUser) =>
             {
                 await _userRepository.AddAsync(newUser, cancellationToken);
@@ -35,8 +38,8 @@ public class RegisterNewUserHandler : IRequestHandler<RegisterNewUserCommand, Re
 
                 return new UserDto
                 {
-                    Email = newUser.Id!.Value,
-                    Username = newUser.Username,
+                    Email = newUser.Id.Value,
+                    Username = newUser.Username.Value,
                     Bio = string.Empty,
                     Image = string.Empty,
                     Token = string.Empty

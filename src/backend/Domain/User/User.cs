@@ -7,12 +7,12 @@ namespace Conduit.Domain.User;
 
 public class User : AggregateRoot<UserEmail>
 {
-    public string Username { get; private set; }
+    public Username Username { get; private set; }
     public string HashedPassword { get; private set; }
     public string Bio { get; }
     public string Image { get; }
 
-    User(UserEmail id, string username, string hashedPassword, string bio, string image) : base(id)
+    User(UserEmail id, Username username, string hashedPassword, string bio, string image) : base(id)
     {
         Username = username;
         HashedPassword = hashedPassword;
@@ -20,7 +20,7 @@ public class User : AggregateRoot<UserEmail>
         Image = image;
     }
 
-    public static Result<User, Error> RegisterNewUser(UserEmail email, string username, string clearTextPassword, IUsersCounter usersCounter, IPasswordHasher passwordHasher)
+    public static Result<User, Error> RegisterNewUser(UserEmail email, Username username, string clearTextPassword, IUsersCounter usersCounter, IPasswordHasher passwordHasher)
     {
         return CanRegisterNewUser(email, username, clearTextPassword, usersCounter)
             .Match(
@@ -31,17 +31,15 @@ public class User : AggregateRoot<UserEmail>
 
                     User newUser = new(email, username, hashedPassword, string.Empty, string.Empty);
 
-                    newUser.AddDomainEvent(new NewUserRegisteredDomainEvent(email.Value, username));
+                    newUser.AddDomainEvent(new NewUserRegisteredDomainEvent(email.Value, username.Value));
 
                     return Result.Success<User, Error>(newUser);
                 });
     }
 
-    static UnitResult<Error> CanRegisterNewUser(UserEmail email, string username, string clearTextPassword, IUsersCounter usersCounter)
+    static UnitResult<Error> CanRegisterNewUser(UserEmail email, Username username, string clearTextPassword, IUsersCounter usersCounter)
     {
-        return Result.Combine(UserErrors.ComposeRegistrationValidationError,
-            UserRules.UsernameMustBeProvidedRule(username),
-            UserRules.UsernameCanOnlyContainLettersAndNumbersRule(username),
+        return Result.Combine(
             UserRules.PasswordMustBeOfMinimumLengthRule(clearTextPassword.Length),
             UserRules.PasswordIsNotInBlacklistRule(clearTextPassword),
             UserRules.UsernameMustBeUniqueRule(username, usersCounter),
@@ -56,40 +54,37 @@ public class User : AggregateRoot<UserEmail>
                 onSuccess: () =>
                 {
                     HashedPassword = passwordHasher.HashPassword(newClearTextPassword);
-                    AddDomainEvent(new PasswordChangedDomainEvent(Username));
+                    AddDomainEvent(new PasswordChangedDomainEvent(Username.Value));
 
                     return UnitResult.Success<Error>();
                 });
     }
 
-    UnitResult<Error> CanChangePassword(string newClearTextPassword, IPasswordHasher passwordHasher)
+    static UnitResult<Error> CanChangePassword(string newClearTextPassword, IPasswordHasher passwordHasher)
     {
-        return Result.Combine(UserErrors.ComposePasswordValidationError,
+        return Result.Combine(
             UserRules.PasswordMustBeOfMinimumLengthRule(newClearTextPassword.Length),
             UserRules.PasswordIsNotInBlacklistRule(newClearTextPassword));
     }
 
-    public UnitResult<Error> ChangeUsername(string newUsername, IUsersCounter usersCounter)
+    public UnitResult<Error> ChangeUsername(Username newUsername, IUsersCounter usersCounter)
     {
         return CanChangeUsername(newUsername, usersCounter)
             .Match(
                 onFailure: error => error,
                 onSuccess: () =>
                 {
-                    string oldUsername = Username;
+                    string oldUsername = Username.Value;
                     Username = newUsername;
 
-                    AddDomainEvent(new UsernameChangedDomainEvent(oldUsername, Username));
+                    AddDomainEvent(new UsernameChangedDomainEvent(oldUsername, Username.Value));
 
                     return UnitResult.Success<Error>();
                 });
     }
 
-    UnitResult<Error> CanChangeUsername(string newUsername, IUsersCounter usersCounter)
+    static UnitResult<Error> CanChangeUsername(Username newUsername, IUsersCounter usersCounter)
     {
-        return Result.Combine(UserErrors.ComposeUsernameValidationError,
-            UserRules.UsernameMustBeProvidedRule(newUsername),
-            UserRules.UsernameCanOnlyContainLettersAndNumbersRule(newUsername),
-            UserRules.UsernameMustBeUniqueRule(newUsername, usersCounter));
+        return UserRules.UsernameMustBeUniqueRule(newUsername, usersCounter);
     }
 }

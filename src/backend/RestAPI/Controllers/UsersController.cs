@@ -74,17 +74,10 @@ public class UsersController : ControllerBase
                 return (Results<UnprocessableEntity<GenericErrorModel>, Created<UserResponse>>)TypedResults.UnprocessableEntity(
                     new GenericErrorModel
                     {
-                        Errors = error is ErrorWithDetails errorWithDetails ?
-                            new()
-                            {
-                                Body = new[] { errorWithDetails.Message }
-                                                               .Concat(errorWithDetails.Details.Select(d => d.Message))
-                                                               .ToArray()
-                            } :
-                            new()
-                            {
-                                Body = new[] { error.Message }
-                            }
+                        Errors = new()
+                        {
+                            Body = error.Messages.Select(m => m.Message).ToArray()
+                        }
                     });
             });
     }

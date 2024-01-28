@@ -35,7 +35,7 @@ static partial class UserRules
         }
     }
 
-    public static UnitResult<Error> UsernameMustBeUniqueRule(string username, IUsersCounter usersCounter)
+    public static UnitResult<Error> UsernameMustBeUniqueRule(Username username, IUsersCounter usersCounter)
     {
         if (usersCounter.CountUsersWithUsernameAsync(username).GetAwaiter().GetResult() == 0)
         {

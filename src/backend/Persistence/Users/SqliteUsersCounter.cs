@@ -19,7 +19,7 @@ public class SqliteUsersCounter : IUsersCounter
         return _context.Users.CountAsync(u => u.Id == email, cancellationToken);
     }
 
-    public Task<int> CountUsersWithUsernameAsync(string username, CancellationToken cancellationToken = default)
+    public Task<int> CountUsersWithUsernameAsync(Username username, CancellationToken cancellationToken = default)
     {
         return _context.Users.CountAsync(u => u.Username == username, cancellationToken);
     }

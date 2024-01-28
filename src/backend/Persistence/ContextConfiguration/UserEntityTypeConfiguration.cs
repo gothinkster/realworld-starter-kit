@@ -13,6 +13,10 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
             v => v!.Value,
             v => UserEmail.Create(v).Value);
 
+        ValueConverter<Username, string> usernameConverter = new(
+            v => v!.Value,
+            v => Username.Create(v).Value);
+
         builder
             .ToTable(name: "Users", schema: "Conduit")
             .HasKey(u => u.Id);
@@ -22,6 +26,7 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
             .HasConversion(userIdConverter);
         builder
             .Property(u => u.Username)
+            .HasConversion(usernameConverter)
             .IsRequired();
         builder
             .Property(u => u.Image)

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Conduit.Domain.Common;
 using Conduit.Domain.User.Rules;
@@ -18,7 +18,6 @@ public class Username : ValueObject
     public static Result<Username, Error> Create(string username)
     {
         return Result.Combine(
-            UserErrors.ComposeUsernameValidationError,
             UserRules.UsernameMustBeProvidedRule(username),
             UserRules.UsernameCanOnlyContainLettersAndNumbersRule(username))
             .Bind<Username, Error>(() => new Username(username));
