@@ -1,18 +1,14 @@
-using System;
+using Conduit.Domain.Common;
 
 namespace Conduit.Domain.User.Events;
 
-public class NewUserRegisteredDomainEvent : IDomainEvent
+public class NewUserRegisteredDomainEvent : DomainEvent
 {
-    public Guid Id { get; }
-    public DateTime OccurredOn { get; }
     public string Email { get; }
     public string Username { get; }
 
-    public NewUserRegisteredDomainEvent(string email, string username)
+    public NewUserRegisteredDomainEvent(string email, string username) : base()
     {
-        Id = Guid.NewGuid();
-        OccurredOn = DateTime.Now;
         Email = email;
         Username = username;
     }

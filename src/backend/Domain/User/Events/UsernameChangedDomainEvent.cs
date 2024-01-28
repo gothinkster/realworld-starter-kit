@@ -1,18 +1,14 @@
-using System;
+using Conduit.Domain.Common;
 
 namespace Conduit.Domain.User.Events;
 
-public class UsernameChangedDomainEvent : IDomainEvent
+public class UsernameChangedDomainEvent : DomainEvent
 {
-    public Guid Id { get; }
-    public DateTime OccurredOn { get; }
     public string OldUsername { get; }
     public string NewUsername { get; }
 
-    public UsernameChangedDomainEvent(string oldUsername, string newUsername)
+    public UsernameChangedDomainEvent(string oldUsername, string newUsername) : base()
     {
-        Id = Guid.NewGuid();
-        OccurredOn = DateTime.Now;
         NewUsername = newUsername;
         OldUsername = oldUsername;
     }
