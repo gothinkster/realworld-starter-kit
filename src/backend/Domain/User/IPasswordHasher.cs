@@ -1,4 +1,4 @@
-namespace Conduit.Domain;
+namespace Conduit.Domain.User;
 
 public interface IPasswordHasher
 {

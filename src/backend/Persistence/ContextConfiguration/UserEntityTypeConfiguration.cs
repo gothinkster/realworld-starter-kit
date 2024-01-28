@@ -9,9 +9,13 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        ValueConverter<UserEmail?, string> userIdConverter = new(
+        ValueConverter<UserEmail, string> userIdConverter = new(
             v => v!.Value,
-            v => new UserEmail(v));
+            v => UserEmail.Create(v).Value);
+
+        ValueConverter<Username, string> usernameConverter = new(
+            v => v!.Value,
+            v => Username.Create(v).Value);
 
         builder
             .ToTable(name: "Users", schema: "Conduit")
@@ -22,6 +26,7 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
             .HasConversion(userIdConverter);
         builder
             .Property(u => u.Username)
+            .HasConversion(usernameConverter)
             .IsRequired();
         builder
             .Property(u => u.Image)

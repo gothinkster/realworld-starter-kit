@@ -6,21 +6,21 @@ using CSharpFunctionalExtensions;
 
 namespace Conduit.Domain.User;
 
-public class UserEmail : ValueObject
+public class Username : ValueObject
 {
     public string Value { get; }
 
-    protected UserEmail(string email)
+    protected Username(string email)
     {
         Value = email;
     }
 
-    public static Result<UserEmail, Error> Create(string email)
+    public static Result<Username, Error> Create(string username)
     {
-        string emailLowerCase = email.ToLower();
-
-        return UserRules.EmailIsValidRule(emailLowerCase)
-            .Bind<UserEmail, Error>(() => new UserEmail(emailLowerCase));
+        return Result.Combine(
+            UserRules.UsernameMustBeProvidedRule(username),
+            UserRules.UsernameCanOnlyContainLettersAndNumbersRule(username))
+            .Bind<Username, Error>(() => new Username(username));
     }
 
     protected override IEnumerable<IComparable> GetEqualityComponents()

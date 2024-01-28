@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Conduit.Domain.Common;
+using CSharpFunctionalExtensions;
 using FluentAssertions;
 using Xunit;
 
@@ -29,50 +30,15 @@ public class AggregateRootTests
         aggregate.DomainEvents.Should().HaveCount(1);
     }
 
-    [Fact]
-    public void Valid_rule_doesnt_emit_exception()
-    {
-        MyAggregate aggregate = new(new MyId(1));
-
-        Action act = () => aggregate.ActionWithValidRule();
-
-        act.Should().NotThrow();
-    }
-
-    [Fact]
-    public void Broken_rule_emits_exception()
-    {
-        MyAggregate aggregate = new(new MyId(1));
-
-        Action act = () => aggregate.ActionWithBrokenRule();
-
-        act.Should().Throw<BusinessRuleValidationException>();
-    }
-
-
     public class MyAggregate : AggregateRoot<MyId>
     {
-        public MyAggregate(MyId? id) : base(id)
+        public MyAggregate(MyId id) : base(id)
         {
         }
 
         public void ActionWithEvent()
         {
             AddDomainEvent(new TestEvent());
-        }
-
-        public void ActionWithBrokenRule()
-        {
-            TestRule brokenRule = new(true);
-
-            CheckRule(brokenRule);
-        }
-
-        public void ActionWithValidRule()
-        {
-            TestRule validRule = new(false);
-
-            CheckRule(validRule);
         }
     }
 
@@ -88,7 +54,7 @@ public class AggregateRootTests
             Value = value;
         }
 
-        protected override IEnumerable<IComparable?> GetAtomicValues()
+        protected override IEnumerable<IComparable> GetEqualityComponents()
         {
             yield return Value;
         }
@@ -109,23 +75,6 @@ public class AggregateRootTests
         {
             Id = Guid.NewGuid();
             OccurredOn = DateTime.Now;
-        }
-    }
-
-    public class TestRule : IBusinessRule
-    {
-        readonly bool _error;
-
-        public TestRule(bool error)
-        {
-            _error = error;
-        }
-
-        public string Message => "Error";
-
-        public bool IsBroken()
-        {
-            return _error;
         }
     }
 }

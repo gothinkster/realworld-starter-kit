@@ -1,9 +1,12 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Conduit.Application.Users.Commands.Dtos;
 using Conduit.Application.Users.Commands.RegisterNewUser;
 using Conduit.Domain.Common;
 using Conduit.RestAPI.ViewModels;
+using CSharpFunctionalExtensions;
+using CSharpFunctionalExtensions.ValueTasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -42,42 +45,41 @@ public class UsersController : ControllerBase
     [ProducesResponseType<GenericErrorModel>(StatusCodes.Status422UnprocessableEntity)]
     public async Task<Results<UnprocessableEntity<GenericErrorModel>, Created<UserResponse>>> CreateUser([FromBody, SwaggerRequestBody(Required = true)] NewUserRequest request, CancellationToken cancellationToken)
     {
-        try
+        Result<UserDto, Error> registrationResult = await _mediator.Send(new RegisterNewUserCommand
         {
-            UserDto registrationResult = await _mediator.Send(new RegisterNewUserCommand
-            {
-                Email = request.User.Email,
-                Username = request.User.Username,
-                Password = request.User.Password
-            }, cancellationToken);
+            Email = request.User.Email,
+            Username = request.User.Username,
+            Password = request.User.Password
+        }, cancellationToken);
 
-            return TypedResults.Created(
-                (string?)null,
-                new UserResponse
-                {
-                    User = new User
+        return registrationResult.Match(
+            onSuccess: (newUser) =>
+            {
+                return (Results<UnprocessableEntity<GenericErrorModel>, Created<UserResponse>>)TypedResults.Created(
+                    (string?)null,
+                    new UserResponse
                     {
-                        Email = registrationResult.Email,
-                        Username = registrationResult.Username,
-                        Token = registrationResult.Token,
-                        Bio = registrationResult.Bio,
-                        Image = registrationResult.Image
-                    }
-                });
-        }
-        catch (BusinessRuleValidationException ex)
-        {
-            return TypedResults.UnprocessableEntity(
-                new GenericErrorModel
-                {
-                    Errors = new Errors
-                    {
-                        Body = new[] {
-                            ex.BrokenRule.Message
+                        User = new User
+                        {
+                            Email = newUser.Email,
+                            Username = newUser.Username,
+                            Token = newUser.Token,
+                            Bio = newUser.Bio,
+                            Image = newUser.Image
                         }
-                    }
-                });
-        }
+                    });
+            },
+            onFailure: (error) =>
+            {
+                return (Results<UnprocessableEntity<GenericErrorModel>, Created<UserResponse>>)TypedResults.UnprocessableEntity(
+                    new GenericErrorModel
+                    {
+                        Errors = new()
+                        {
+                            Body = error.Messages.Select(m => m.Message).ToArray()
+                        }
+                    });
+            });
     }
 
     /// <summary>

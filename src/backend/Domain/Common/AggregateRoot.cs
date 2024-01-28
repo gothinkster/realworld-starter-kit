@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CSharpFunctionalExtensions;
 
 namespace Conduit.Domain.Common;
 
@@ -8,7 +9,11 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot
     readonly List<IDomainEvent> _domainEvents = [];
     public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-    public AggregateRoot(TId? id) : base(id)
+    public AggregateRoot(TId id) : base(id)
+    {
+    }
+
+    public AggregateRoot() : base()
     {
     }
 
@@ -24,13 +29,5 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot
     protected void AddDomainEvent(IDomainEvent domainEvent)
     {
         _domainEvents.Add(domainEvent);
-    }
-
-    protected void CheckRule(IBusinessRule rule)
-    {
-        if (rule.IsBroken())
-        {
-            throw new BusinessRuleValidationException(rule);
-        }
     }
 }

@@ -1,17 +1,13 @@
-using System;
+using Conduit.Domain.Common;
 
 namespace Conduit.Domain.User.Events;
 
-public class PasswordChangedDomainEvent : IDomainEvent
+public class PasswordChangedDomainEvent : DomainEvent
 {
-    public Guid Id { get; }
-    public DateTime OccurredOn { get; }
     public string Username { get; }
 
-    public PasswordChangedDomainEvent(string username)
+    public PasswordChangedDomainEvent(string username) : base()
     {
-        Id = Guid.NewGuid();
-        OccurredOn = DateTime.Now;
         Username = username;
     }
 }
