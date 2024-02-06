@@ -1,5 +1,7 @@
+using Conduit.Application.Dtos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Conduit.RestAPI.Configuration;
 
@@ -12,6 +14,9 @@ static class ConfigurationExtension
             .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
             .AddUserSecrets<Program>()
             .AddEnvironmentVariables();
+
+        builder.Services.Configure<JwtOptions>(
+            builder.Configuration.GetSection("JWT"));
 
         return builder;
     }

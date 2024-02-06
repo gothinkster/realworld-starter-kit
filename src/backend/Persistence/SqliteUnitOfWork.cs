@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Conduit.Application.Common;
+using Conduit.Domain.Common;
 
 namespace Conduit.Persistence;
 

@@ -28,11 +28,16 @@ static class ControllersExtension
 
     public static WebApplication UseConduitControllers(this WebApplication app)
     {
+        app.MapControllers();
+
+        return app;
+    }
+
+    public static WebApplication UseConduitRouting(this WebApplication app)
+    {
         app
             .UsePathBase("/api")
             .UseRouting();
-
-        app.MapControllers();
 
         return app;
     }

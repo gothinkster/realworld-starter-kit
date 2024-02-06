@@ -16,11 +16,11 @@ public class SqliteUsersCounter : IUsersCounter
 
     public Task<int> CountUsersWithEmailAsync(UserEmail email, CancellationToken cancellationToken = default)
     {
-        return _context.Users.CountAsync(u => u.Id == email, cancellationToken);
+        return _context.Users.CountAsync(u => u.Id == email.Value, cancellationToken);
     }
 
     public Task<int> CountUsersWithUsernameAsync(Username username, CancellationToken cancellationToken = default)
     {
-        return _context.Users.CountAsync(u => u.Username == username, cancellationToken);
+        return _context.Users.CountAsync(u => u.Username.Value == username.Value, cancellationToken);
     }
 }

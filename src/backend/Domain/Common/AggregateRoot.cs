@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using CSharpFunctionalExtensions;
 
 namespace Conduit.Domain.Common;
 
 public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot
-    where TId : ValueObject
+    where TId : IComparable<TId>
 {
     readonly List<IDomainEvent> _domainEvents = [];
     public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();

@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddConduitConfiguration();
 
 builder.Services
+    .AddConduitAuthenticationSetup(builder.Configuration)
     .AddConduitServices()
     .AddConduitPersistence()
     .AddConduitMediatR()
@@ -17,8 +18,11 @@ var app = builder.Build();
 
 app
     .UseConduitPersistence()
+    .UseConduitAuthentication()
+    .UseConduitRouting()
+    .UseConduitOpenApi()
+    .UseConduitAuthorization()
     .UseConduitControllers()
-    .UseConduitCors()
-    .UseConduitOpenApi();
+    .UseConduitCors();
 
 app.Run();

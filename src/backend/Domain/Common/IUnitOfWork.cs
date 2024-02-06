@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Conduit.Application.Common;
+namespace Conduit.Domain.Common;
 
 public interface IUnitOfWork
 {

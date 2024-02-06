@@ -1,7 +1,6 @@
 using Conduit.Domain.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Conduit.Persistence.ContextConfiguration;
 
@@ -9,25 +8,28 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        ValueConverter<UserEmail, string> userIdConverter = new(
-            v => v!.Value,
-            v => UserEmail.Create(v).Value);
-
-        ValueConverter<Username, string> usernameConverter = new(
-            v => v!.Value,
-            v => Username.Create(v).Value);
-
         builder
             .ToTable(name: "Users", schema: "Conduit")
             .HasKey(u => u.Id);
 
         builder
             .Property(u => u.Id)
-            .HasConversion(userIdConverter);
+            .UsePropertyAccessMode(PropertyAccessMode.Property)
+            .HasColumnName(nameof(User.Email));
         builder
-            .Property(u => u.Username)
-            .HasConversion(usernameConverter)
-            .IsRequired();
+            .Ignore(u => u.Email);
+        builder
+            .OwnsOne(
+                u => u.Username,
+                name =>
+                {
+                    name.Property(name => name.Value)
+                        .HasColumnName(nameof(User.Username));
+
+                    name.HasIndex(name => new { name.Value })
+                        .IsUnique();
+                }
+            );
         builder
             .Property(u => u.Image)
             .IsRequired();
@@ -37,10 +39,5 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
         builder
             .Property(u => u.HashedPassword)
             .IsRequired();
-
-        builder
-            .HasIndex(u => new { u.Username })
-            .IsUnique();
-
     }
 }
