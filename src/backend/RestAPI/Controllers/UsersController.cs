@@ -153,7 +153,7 @@ public class UsersController : ControllerBase
     public async Task<IActionResult> UpdateCurrentUser([FromBody, SwaggerRequestBody(Required = true)] UpdateUserRequest request, CancellationToken cancellationToken)
     {
         Result<UserDto, Error> registrationResult = await _mediator.Send(new UpdateUserCommand
-        { 
+        {
             Email = request.User.Email,
             Username = request.User.Username,
             Password = request.User.Password,

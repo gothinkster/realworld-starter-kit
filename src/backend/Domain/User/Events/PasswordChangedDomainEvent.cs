@@ -4,10 +4,10 @@ namespace Conduit.Domain.User.Events;
 
 public class PasswordChangedDomainEvent : DomainEvent
 {
-    public string Username { get; }
+    public string Email { get; }
 
-    public PasswordChangedDomainEvent(string username) : base()
+    public PasswordChangedDomainEvent(string email) : base()
     {
-        Username = username;
+        Email = email;
     }
 }
