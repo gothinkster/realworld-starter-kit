@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Conduit.Application.Dtos;
 using Conduit.Application.Services;
@@ -7,6 +6,7 @@ using Conduit.Application.Users.Dtos;
 using Conduit.Domain.Common;
 using Conduit.Domain.User;
 using CSharpFunctionalExtensions;
+using CSharpFunctionalExtensions.ValueTasks;
 using MediatR;
 
 namespace Conduit.Application.Users.Commands.UpdateUser;
@@ -44,40 +44,29 @@ public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, Result<UserD
             return Result.Failure<UserDto, Error>(AuthenticationErrors.UserIsNotAuthorized());
         }
 
-        Result<User, Error> user = await Task.FromResult(UserEmail.Create(authUser.EMail))
-            .Map(async (authEMail) => await _userRepository.GetByIdAsync(authEMail, cancellationToken));
+        return await Task.FromResult(UserEmail.Create(authUser.EMail))
+            .Map(async (authEMail) => await _userRepository.GetByIdAsync(authEMail, cancellationToken))
+            .Finally((userResult) =>
+                userResult.Check((user) =>
+                    Result.Combine(
+                        userResult.CheckIf(request.Username != null, (user) => Username.Create(request.Username!)
+                            .Bind((newUsername) => user.ChangeUsername(newUsername, _usersCounter))),
+                        userResult.CheckIf(request.Email != null, (user) => UserEmail.Create(request.Email!)
+                            .Bind((newEmail) => user.ChangeEMail(newEmail, _usersCounter))),
+                        userResult.CheckIf(request.Password != null, (user) => user.ChangePassword(request.Password!, _passwordHasher)))))
+            .TapIf(request.Image != null, (user) => user.ChangeImage(request.Image!))
+            .TapIf(request.Bio != null, (user) => user.ChangeBio(request.Bio!))
+            .Map(async (user) => {
+                await _unitOfWork.CommitAsync();
 
-        if (request.Username != null)
-        {
-            UnitResult<Error> result = Username.Create(request.Username)
-                .Bind((newUsername) => user.Value.ChangeUsername(newUsername, _usersCounter));
-
-        }
-        if (request.Email != null)
-        {
-            UnitResult<Error> result = UserEmail.Create(request.Email)
-                .Bind((newEmail) => user.Value.ChangeEMail(newEmail, _usersCounter));
-        }
-        if (request.Password != null)
-        {
-            user.Value.ChangePassword(request.Password, _passwordHasher);
-        }
-        if (request.Image != null)
-        {
-            user.Value.ChangeImage(request.Image);
-        }
-        if (request.Bio != null)
-        {
-            user.Value.ChangeBio(request.Bio);
-        }
-
-        return new UserDto
-            {
-                Email = user.Value.Email.Value,
-                Username = user.Value.Username.Value,
-                Bio = user.Value.Bio,
-                Image = user.Value.Image,
-                Token = _authenticationService.GenerateJwtToken(user.Value.Email.Value)
-            };
+                return new UserDto
+                {
+                    Email = user.Email.Value,
+                    Username = user.Username.Value,
+                    Bio = user.Bio,
+                    Image = user.Image,
+                    Token = _authenticationService.GenerateJwtToken(user.Email.Value)
+                };
+            });
     }
 }

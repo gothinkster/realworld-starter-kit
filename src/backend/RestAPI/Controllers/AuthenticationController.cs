@@ -1,9 +1,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Conduit.Application.Users.Dtos;
 using Conduit.Application.Users.Queries.Login;
-using Conduit.Domain.Common;
 using Conduit.RestAPI.ViewModels;
 using CSharpFunctionalExtensions;
 using MediatR;
@@ -44,16 +42,13 @@ public class AuthenticationController : ControllerBase
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     public async Task<IActionResult> Login([FromBody, SwaggerRequestBody(Required = true)] LoginUserRequest request, CancellationToken cancellationToken)
     {
-        Result<UserDto, Error> loginResult = await _mediator.Send(new LoginQuery
+        return await _mediator.Send(new LoginQuery
         {
             Email = request.User.Email,
             Password = request.User.Password
-        }, cancellationToken);
-
-        return loginResult.Match(
-            onSuccess: (user) =>
-            {
-                return (IActionResult)Ok(
+        }, cancellationToken)
+            .Match(
+                onSuccess: (user) => (IActionResult)Ok(
                     new UserResponse
                     {
                         User = new User
@@ -64,18 +59,14 @@ public class AuthenticationController : ControllerBase
                             Bio = user.Bio,
                             Image = user.Image
                         }
-                    });
-            },
-            onFailure: (error) =>
-            {
-                return UnprocessableEntity(
+                    }),
+                onFailure: (error) => UnprocessableEntity(
                     new GenericErrorModel
                     {
                         Errors = new()
                         {
                             Body = error.Messages.Select(m => m.Message).ToArray()
                         }
-                    });
-            });
+                    }));
     }
 }

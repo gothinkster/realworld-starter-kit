@@ -3,9 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Conduit.Application.Users.Commands.RegisterNewUser;
 using Conduit.Application.Users.Commands.UpdateUser;
-using Conduit.Application.Users.Dtos;
 using Conduit.Application.Users.Queries.CurrentUser;
-using Conduit.Domain.Common;
 using Conduit.RestAPI.ViewModels;
 using CSharpFunctionalExtensions;
 using CSharpFunctionalExtensions.ValueTasks;
@@ -47,17 +45,14 @@ public class UsersController : ControllerBase
     [ProducesResponseType<GenericErrorModel>(StatusCodes.Status422UnprocessableEntity)]
     public async Task<IActionResult> CreateUser([FromBody, SwaggerRequestBody(Required = true)] NewUserRequest request, CancellationToken cancellationToken)
     {
-        Result<UserDto, Error> registrationResult = await _mediator.Send(new RegisterNewUserCommand
+        return await _mediator.Send(new RegisterNewUserCommand
         {
             Email = request.User.Email,
             Username = request.User.Username,
             Password = request.User.Password
-        }, cancellationToken);
-
-        return registrationResult.Match(
-            onSuccess: (newUser) =>
-            {
-                return (IActionResult)Created(
+        }, cancellationToken)
+            .Match(
+                onSuccess: (newUser) => (IActionResult)Created(
                     (string?)null,
                     new UserResponse
                     {
@@ -69,19 +64,15 @@ public class UsersController : ControllerBase
                             Bio = newUser.Bio,
                             Image = newUser.Image
                         }
-                    });
-            },
-            onFailure: (error) =>
-            {
-                return UnprocessableEntity(
+                    }),
+                onFailure: (error) => UnprocessableEntity(
                     new GenericErrorModel
                     {
                         Errors = new()
                         {
                             Body = error.Messages.Select(m => m.Message).ToArray()
                         }
-                    });
-            });
+                    }));
     }
 
     /// <summary>
@@ -102,13 +93,9 @@ public class UsersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     public async Task<IActionResult> GetCurrentUser(CancellationToken cancellationToken)
     {
-        Result<UserDto, Error> registrationResult = await _mediator.Send(new CurrentUserQuery
-        { }, cancellationToken);
-
-        return registrationResult.Match(
-            onSuccess: (newUser) =>
-            {
-                return (IActionResult)Ok(
+        return await _mediator.Send(new CurrentUserQuery { }, cancellationToken)
+            .Match(
+                onSuccess: (newUser) => (IActionResult)Ok(
                     new UserResponse
                     {
                         User = new User
@@ -119,19 +106,15 @@ public class UsersController : ControllerBase
                             Bio = newUser.Bio,
                             Image = newUser.Image
                         }
-                    });
-            },
-            onFailure: (error) =>
-            {
-                return UnprocessableEntity(
+                    }),
+                onFailure: (error) => UnprocessableEntity(
                     new GenericErrorModel
                     {
                         Errors = new()
                         {
                             Body = error.Messages.Select(m => m.Message).ToArray()
                         }
-                    });
-            });
+                    }));
     }
 
     /// <summary>
@@ -152,19 +135,16 @@ public class UsersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     public async Task<IActionResult> UpdateCurrentUser([FromBody, SwaggerRequestBody(Required = true)] UpdateUserRequest request, CancellationToken cancellationToken)
     {
-        Result<UserDto, Error> registrationResult = await _mediator.Send(new UpdateUserCommand
+        return await _mediator.Send(new UpdateUserCommand
         {
             Email = request.User.Email,
             Username = request.User.Username,
             Password = request.User.Password,
             Bio = request.User.Bio,
             Image = request.User.Image
-        }, cancellationToken);
-
-        return registrationResult.Match(
-            onSuccess: (newUser) =>
-            {
-                return (IActionResult)Ok(
+        }, cancellationToken)
+            .Match(
+                onSuccess: (newUser) => (IActionResult)Ok(
                     new UserResponse
                     {
                         User = new User
@@ -175,18 +155,14 @@ public class UsersController : ControllerBase
                             Bio = newUser.Bio,
                             Image = newUser.Image
                         }
-                    });
-            },
-            onFailure: (error) =>
-            {
-                return UnprocessableEntity(
+                    }),
+                onFailure: (error) => UnprocessableEntity(
                     new GenericErrorModel
                     {
                         Errors = new()
                         {
                             Body = error.Messages.Select(m => m.Message).ToArray()
                         }
-                    });
-            });
+                    }));
     }
 }
