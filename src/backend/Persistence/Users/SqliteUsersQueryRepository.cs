@@ -20,16 +20,24 @@ public class SqliteUsersQueryRepository : IUsersQueryRepository
     public Task<LoginDto?> FindLoginByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
         return _context.Users
-            .Where(u => u.Id == email)
+            .Where(u => u.Email.Value == email)
             .Select(u => new LoginDto { Email = u.Email.Value, HashedPassword = u.HashedPassword })
             .SingleOrDefaultAsync(cancellationToken);
+    }
+
+    public Task<UserDto> GetByIdAsync(string id, CancellationToken cancellationToken = default)
+    {
+        return _context.Users
+            .Where(u => u.Id == id)
+            .Select(u => new UserDto { Id = u.Id, Email = u.Email.Value, Bio = u.Bio, Image = u.Image, Token = string.Empty, Username = u.Username.Value })
+            .SingleAsync(cancellationToken);
     }
 
     public Task<UserDto> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
         return _context.Users
-            .Where(u => u.Id == email)
-            .Select(u => new UserDto { Email = u.Email.Value, Bio = u.Bio, Image = u.Image, Token = string.Empty, Username = u.Username.Value })
+            .Where(u => u.Email.Value == email)
+            .Select(u => new UserDto { Id = u.Id, Email = u.Email.Value, Bio = u.Bio, Image = u.Image, Token = string.Empty, Username = u.Username.Value })
             .SingleAsync(cancellationToken);
     }
 }

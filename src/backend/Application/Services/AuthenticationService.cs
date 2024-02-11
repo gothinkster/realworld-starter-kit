@@ -40,11 +40,11 @@ public class AuthenticationService : IAuthenticationService
         return _passwordHasher.VerifyPassword(password, persistedLogin.HashedPassword);
     }
 
-    public string GenerateJwtToken(string email)
+    public string GenerateJwtToken(string id)
     {
         Claim[] claims =
         [
-            new(JwtRegisteredClaimNames.Sub, email)
+            new(JwtRegisteredClaimNames.Sub, id)
         ];
         ClaimsIdentity identity = new(claims);
 

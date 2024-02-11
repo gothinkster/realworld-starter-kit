@@ -1,3 +1,4 @@
+using Conduit.Domain;
 using Conduit.Domain.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -14,19 +15,31 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
 
         builder
             .Property(u => u.Id)
-            .UsePropertyAccessMode(PropertyAccessMode.Property)
-            .HasColumnName(nameof(User.Email));
+            .HasConversion(id => id.Value, id => UserId.Create(id))
+            .HasColumnName(nameof(User.Id));
         builder
-            .Ignore(u => u.Email);
+            .OwnsOne(
+                u => u.Email,
+                userEmail =>
+                {
+                    userEmail.Property(email => email.Value)
+                        .HasColumnName(nameof(User.Email))
+                        .IsRequired();
+
+                    userEmail.HasIndex(email => new { email.Value })
+                        .IsUnique();
+                }
+            );
         builder
             .OwnsOne(
                 u => u.Username,
-                name =>
+                username =>
                 {
-                    name.Property(name => name.Value)
-                        .HasColumnName(nameof(User.Username));
+                    username.Property(name => name.Value)
+                        .HasColumnName(nameof(User.Username))
+                        .IsRequired();
 
-                    name.HasIndex(name => new { name.Value })
+                    username.HasIndex(name => new { name.Value })
                         .IsUnique();
                 }
             );

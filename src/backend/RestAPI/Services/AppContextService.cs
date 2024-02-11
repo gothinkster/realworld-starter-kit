@@ -22,11 +22,11 @@ public class AppContextService : IAuthenticatedUserService
             return null;
         }
 
-        string userEMail = user.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        string id = user.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
         return new AuthenticatedUserDto
         {
-            EMail = userEMail
+            UserId = id
         };
     }
 }

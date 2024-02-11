@@ -2,5 +2,5 @@ namespace Conduit.Application.Dtos;
 
 public record AuthenticatedUserDto
 {
-    public required string EMail { get; init; }
+    public required string UserId { get; init; }
 }

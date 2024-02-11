@@ -33,7 +33,7 @@ public class LoginHandler : IRequestHandler<LoginQuery, Result<UserDto, Error>>
         }
 
         UserDto user = await _usersQueryRepository.GetByEmailAsync(emailLowerCase, cancellationToken);
-        user.Token = _authenticationService.GenerateJwtToken(user.Email);
+        user.Token = _authenticationService.GenerateJwtToken(user.Id);
 
         return user;
     }

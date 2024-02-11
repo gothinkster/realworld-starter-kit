@@ -1,8 +1,9 @@
-﻿using System.Threading;
+using System.Threading;
 using System.Threading.Tasks;
 using Conduit.Application.Dtos;
 using Conduit.Application.Services;
 using Conduit.Application.Users.Dtos;
+using Conduit.Domain;
 using Conduit.Domain.Common;
 using Conduit.Domain.User;
 using CSharpFunctionalExtensions;
@@ -44,8 +45,9 @@ public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, Result<UserD
             return Result.Failure<UserDto, Error>(AuthenticationErrors.UserIsNotAuthorized());
         }
 
-        return await Task.FromResult(UserEmail.Create(authUser.EMail))
-            .Map(async (authEMail) => await _userRepository.GetByIdAsync(authEMail, cancellationToken))
+        UserId id = UserId.Create(authUser.UserId);
+
+        return await Task.FromResult(Result.Success<User, Error>(await _userRepository.GetByIdAsync(id, cancellationToken)))
             .Finally((userResult) =>
                 userResult.Check((user) =>
                     Result.Combine(
@@ -56,16 +58,18 @@ public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, Result<UserD
                         userResult.CheckIf(request.Password != null, (user) => user.ChangePassword(request.Password!, _passwordHasher)))))
             .TapIf(request.Image != null, (user) => user.ChangeImage(request.Image!))
             .TapIf(request.Bio != null, (user) => user.ChangeBio(request.Bio!))
-            .Map(async (user) => {
+            .Map(async (user) =>
+            {
                 await _unitOfWork.CommitAsync();
 
                 return new UserDto
                 {
+                    Id = user.Id,
                     Email = user.Email.Value,
                     Username = user.Username.Value,
                     Bio = user.Bio,
                     Image = user.Image,
-                    Token = _authenticationService.GenerateJwtToken(user.Email.Value)
+                    Token = _authenticationService.GenerateJwtToken(user.Id.Value)
                 };
             });
     }

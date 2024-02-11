@@ -1,4 +1,3 @@
-using System;
 using Conduit.Domain.Common;
 using Conduit.Domain.User.Events;
 using Conduit.Domain.User.Rules;
@@ -6,20 +5,8 @@ using CSharpFunctionalExtensions;
 
 namespace Conduit.Domain.User;
 
-public class User : AggregateRoot<string>
+public class User : AggregateRoot<UserId>
 {
-    public override string Id
-    {
-        get => Email.Value;
-        protected set
-        {
-            UserEmail.Create(value)
-                .Match(
-                    onSuccess: (userEmail) => Email = userEmail,
-                    onFailure: (error) => throw new ArgumentException("The persisted email is invalid", "Email")
-                );
-        }
-    }
     public UserEmail Email { get; protected set; }
     public Username Username { get; protected set; }
     public string HashedPassword { get; private set; }
@@ -33,7 +20,7 @@ public class User : AggregateRoot<string>
     }
 #pragma warning restore CS8618 // Ein Non-Nullable-Feld muss beim Beenden des Konstruktors einen Wert ungleich NULL enthalten. Erwägen Sie die Deklaration als Nullable.
 
-    User(UserEmail userEmail, Username username, string hashedPassword, string bio, string image)
+    User(UserId id, UserEmail userEmail, Username username, string hashedPassword, string bio, string image) : base(id)
     {
         Email = userEmail;
         Username = username;
@@ -50,8 +37,9 @@ public class User : AggregateRoot<string>
                 onSuccess: () =>
                 {
                     string hashedPassword = passwordHasher.HashPassword(clearTextPassword);
+                    UserId id = UserId.Create();
 
-                    User newUser = new(email, username, hashedPassword, string.Empty, string.Empty);
+                    User newUser = new(id, email, username, hashedPassword, string.Empty, string.Empty);
 
                     newUser.AddDomainEvent(new NewUserRegisteredDomainEvent(email.Value, username.Value));
 

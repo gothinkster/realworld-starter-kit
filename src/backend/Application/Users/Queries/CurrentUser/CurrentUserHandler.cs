@@ -34,8 +34,8 @@ public class CurrentUserHandler : IRequestHandler<CurrentUserQuery, Result<UserD
             return Result.Failure<UserDto, Error>(AuthenticationErrors.UserIsNotAuthorized());
         }
 
-        UserDto user = await _usersQueryRepository.GetByEmailAsync(authUser.EMail, cancellationToken);
-        user.Token = _authenticationService.GenerateJwtToken(user.Email);
+        UserDto user = await _usersQueryRepository.GetByIdAsync(authUser.UserId, cancellationToken);
+        user.Token = _authenticationService.GenerateJwtToken(user.Id);
 
         return user;
     }

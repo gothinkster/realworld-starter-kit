@@ -41,11 +41,12 @@ public class RegisterNewUserHandler : IRequestHandler<RegisterNewUserCommand, Re
 
                 return new UserDto
                 {
+                    Id = newUser.Id,
                     Email = newUser.Email.Value,
                     Username = newUser.Username.Value,
                     Bio = newUser.Bio,
                     Image = newUser.Image,
-                    Token = _authenticationService.GenerateJwtToken(newUser.Email.Value)
+                    Token = _authenticationService.GenerateJwtToken(newUser.Id.Value)
                 };
             });
     }
