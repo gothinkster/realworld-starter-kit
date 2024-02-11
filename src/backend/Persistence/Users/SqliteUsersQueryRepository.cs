@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,7 +30,7 @@ public class SqliteUsersQueryRepository : IUsersQueryRepository
     {
         return _context.Users
             .Where(u => u.Id == UserId.Create(id))
-            .Select(u => new UserDto { Id = u.Id, Email = u.Email.Value, Bio = u.Bio, Image = u.Image, Token = string.Empty, Username = u.Username.Value })
+            .Select(u => new UserDto { Id = u.Id.Value, Email = u.Email.Value, Bio = u.Bio, Image = u.Image, Token = string.Empty, Username = u.Username.Value })
             .SingleAsync(cancellationToken);
     }
 
@@ -39,7 +38,7 @@ public class SqliteUsersQueryRepository : IUsersQueryRepository
     {
         return _context.Users
             .Where(u => u.Email.Value == email)
-            .Select(u => new UserDto { Id = u.Id, Email = u.Email.Value, Bio = u.Bio, Image = u.Image, Token = string.Empty, Username = u.Username.Value })
+            .Select(u => new UserDto { Id = u.Id.Value, Email = u.Email.Value, Bio = u.Bio, Image = u.Image, Token = string.Empty, Username = u.Username.Value })
             .SingleAsync(cancellationToken);
     }
 }

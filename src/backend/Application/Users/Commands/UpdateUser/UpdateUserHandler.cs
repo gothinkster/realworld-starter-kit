@@ -64,7 +64,7 @@ public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, Result<UserD
 
                 return new UserDto
                 {
-                    Id = user.Id,
+                    Id = user.Id.Value,
                     Email = user.Email.Value,
                     Username = user.Username.Value,
                     Bio = user.Bio,

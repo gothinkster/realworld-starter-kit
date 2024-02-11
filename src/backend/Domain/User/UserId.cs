@@ -30,16 +30,6 @@ public class UserId : ValueObject
         return new UserId(id);
     }
 
-    public static implicit operator string(UserId userId)
-    {
-        return userId.Value;
-    }
-
-    public static implicit operator UserId(string id)
-    {
-        return new UserId(id);
-    }
-
     protected override IEnumerable<IComparable> GetEqualityComponents()
     {
         yield return Value;

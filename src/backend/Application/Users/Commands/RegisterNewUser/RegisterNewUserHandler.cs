@@ -41,7 +41,7 @@ public class RegisterNewUserHandler : IRequestHandler<RegisterNewUserCommand, Re
 
                 return new UserDto
                 {
-                    Id = newUser.Id,
+                    Id = newUser.Id.Value,
                     Email = newUser.Email.Value,
                     Username = newUser.Username.Value,
                     Bio = newUser.Bio,
