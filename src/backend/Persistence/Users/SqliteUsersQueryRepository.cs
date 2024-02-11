@@ -1,8 +1,10 @@
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Conduit.Application.Users.Dtos;
 using Conduit.Application.Users.Repositories;
+using Conduit.Domain;
 using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,7 +30,7 @@ public class SqliteUsersQueryRepository : IUsersQueryRepository
     public Task<UserDto> GetByIdAsync(string id, CancellationToken cancellationToken = default)
     {
         return _context.Users
-            .Where(u => u.Id == id)
+            .Where(u => u.Id == UserId.Create(id))
             .Select(u => new UserDto { Id = u.Id, Email = u.Email.Value, Bio = u.Bio, Image = u.Image, Token = string.Empty, Username = u.Username.Value })
             .SingleAsync(cancellationToken);
     }
