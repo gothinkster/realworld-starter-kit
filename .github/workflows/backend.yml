@@ -15,7 +15,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Lint codebase using Rubocop
+      - name: Build linting container
       - run: docker build -t lint-backend -f ./Dockerfile.lint .
+      - name: Run linting container
       - run: docker run lint-backend
       
