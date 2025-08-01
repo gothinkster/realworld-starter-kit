@@ -1,0 +1,38 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - real-world-network
+
+  frontend:
+    build:
+      context: ./angular-conduit-signals
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "80:80"
+    networks:
+      - real-world-network
+
+  cypress:
+    build:
+      context: ./angular-conduit-signals/cypress
+      dockerfile: Dockerfile.cypress
+    depends_on:
+      - frontend
+      - backend
+    environment:
+      - CYPRESS_BASE_URL=http://frontend
+    volumes:
+      - ./angular-conduit-signals:/e2e
+    networks:
+      - real-world-network
+
+
+networks:
+  real-world-network:
+    driver: bridge

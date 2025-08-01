@@ -1,0 +1,314 @@
+name: Continuous Deployment Pipeline
+
+on:
+  workflow_dispatch:
+
+# concurrency required to avoid terraform lock contention during ECR provisioning
+concurrency: cd-${{ github.repository }}-pipeline
+
+jobs:
+  provision-capella:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v4.1.7
+
+      - name: Setup CBShell
+        uses: ldoguin/setup-cbsh@develop
+        with:
+          version: 'v1.0.0'
+          enable-plugins: true
+          config:  ${{ secrets.CBSHELL_CONFIG }}
+
+      - name: Print Couchbase Environment
+        run: |
+          echo "Printing Couchbase environment variables..."
+          cb-env
+          echo "Environment variables printed successfully."
+        shell: cbsh --script {0}
+
+      - name: Ensure conduit bucket
+        run: |
+          echo "Attempting to create 'conduit' bucket..."
+          if cbsh --command "buckets create conduit 512"; then
+            echo "'conduit' bucket created successfully."
+          else
+            echo "Failed to create 'conduit' bucket or it already exists."
+          fi
+        shell: bash
+
+      - name: Set 'conduit' bucket as active bucket
+        run: |
+          echo "Setting 'conduit' as the active bucket..."
+          cb-env bucket conduit
+          echo "'conduit' bucket set as active successfully."
+        shell: cbsh --script {0}
+
+      - name: Ensure ${{ vars.ENVIRONMENT }} scope
+        run: |
+          echo "Attempting to create '${{ vars.ENVIRONMENT }}' scope..."
+          if cbsh --command "scopes create --clusters ${{ vars.CB_CLUSTER }} --bucket conduit ${{ vars.ENVIRONMENT }}"; then
+            echo "'${{ vars.ENVIRONMENT }}' scope created successfully."
+          else
+            echo "Failed to create '${{ vars.ENVIRONMENT }}' scope or it already exists."
+          fi
+        shell: bash
+
+      - name: Set ${{ vars.ENVIRONMENT }} scope as active scope
+        run: |
+          echo "Setting '${{ vars.ENVIRONMENT }}' as the active scope..."
+          cb-env scope ${{ vars.ENVIRONMENT }}
+          echo "'${{ vars.ENVIRONMENT }}' scope set as active successfully."
+        shell: cbsh --script {0}
+
+      - name: Ensure collections and primary indices
+        run: |
+          echo "Starting collection creation & indexing process..."
+
+          create_collection() {
+            local COLLECTION=$1
+            echo "Attempting to create collection: $COLLECTION"
+
+            if cbsh --command "collections create --clusters \"$CB_CLUSTER\" --bucket conduit --scope \"$ENVIRONMENT\" $COLLECTION"; then
+              echo "Creating primary index for $COLLECTION..."
+              if cbsh --command "CREATE PRIMARY INDEX ON conduit.$ENVIRONMENT.$COLLECTION"; then
+                echo "Primary index for $COLLECTION created successfully."
+              else
+                echo "Failed to create primary index for $COLLECTION."
+              fi
+              echo "$COLLECTION collection created successfully."
+            else
+              echo "Failed to create $COLLECTION collection or it already exists."
+            fi
+          }
+
+          for collection in article comment user; do
+            create_collection "$collection"
+          done
+
+          echo "Collection creation and indexing process completed."
+        shell: bash
+        env:
+          CB_CLUSTER: ${{ vars.CB_CLUSTER }}
+          ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+
+  provision-aws:
+    needs: provision-capella
+    runs-on: ubuntu-22.04
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ap-southeast-2
+
+    steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v4.1.7
+
+      - name: Install less pager
+        run: |
+          echo "Installing less pager..."
+          apt-get update && apt-get install -y less
+          echo "Less pager installed successfully."
+
+      - name: Install AWS CLI
+        run: |
+          echo "Installing AWS CLI..."
+          apt-get update && apt-get install -y unzip
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          ./aws/install
+          aws --version
+          echo "AWS CLI installed successfully."
+        shell: bash
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+  
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
+  
+      - name: Provision TF Backend S3 Bucket
+        run: |
+          echo "Provisioning Terraform backend S3 bucket..."
+          set -eux
+          BUCKET_NAME=conduit-${{ vars.ENVIRONMENT }}-tfbackend-bucket-${{ secrets.AWS_ACCOUNT_ID }}
+          REGION=${{ vars.AWS_REGION }}
+          if ! aws s3api head-bucket --bucket "$BUCKET_NAME" 2>/dev/null; then
+            aws s3api create-bucket --bucket "$BUCKET_NAME" --region "$REGION" --create-bucket-configuration LocationConstraint="$REGION"
+            echo "Bucket $BUCKET_NAME created in $REGION."
+          else
+            echo "Bucket $BUCKET_NAME already exists."
+          fi
+        shell: bash
+  
+      - name: Provision TF State Lock DynamoDB Table
+        run: |
+          echo "Provisioning Terraform state lock DynamoDB table..."
+          set -eux
+          TABLE_NAME=conduit-${{ vars.ENVIRONMENT }}-tfbackend-table
+          REGION=${{ vars.AWS_REGION }}
+          if ! aws dynamodb describe-table --table-name "$TABLE_NAME" --region "$REGION" &>/dev/null; then
+            aws dynamodb create-table \
+              --table-name "$TABLE_NAME" \
+              --attribute-definitions AttributeName=LockID,AttributeType=S \
+              --key-schema AttributeName=LockID,KeyType=HASH \
+              --billing-mode PAY_PER_REQUEST \
+              --region "$REGION"
+            echo "DynamoDB table $TABLE_NAME created in $REGION."
+          else
+            echo "DynamoDB table $TABLE_NAME already exists."
+          fi
+        shell: bash
+
+      - name: TF init
+        run: |
+          echo "Initializing Terraform..."
+          set -eux
+          terraform init -upgrade -reconfigure \
+            -backend-config='skip_metadata_api_check=true' \
+            -backend-config='skip_region_validation=true' \
+            -backend-config='skip_credentials_validation=true' \
+            -backend-config='region=${{ vars.AWS_REGION }}' \
+            -backend-config='bucket=conduit-${{ vars.ENVIRONMENT }}-tfbackend-bucket-${{ secrets.AWS_ACCOUNT_ID }}' \
+            -backend-config='key=tf-${{ vars.ENVIRONMENT }}.tfstate' \
+            -backend-config='dynamodb_table=conduit-${{ vars.ENVIRONMENT }}-tfbackend-table'
+          echo "Terraform initialized successfully."
+        shell: bash
+        working-directory: ./infrastructure
+  
+      - name: TF apply
+        run: |
+          echo "Applying Terraform configuration..."
+          set -eux
+          terraform apply \
+            -var 'project_prefix=conduit-${{ vars.ENVIRONMENT }}' \
+            -var 'task_cpu=256' \
+            -var 'task_memory=512' \
+            -var 'lifecycle_policy=./policy.json' \
+            -var 'iam_role=${{ secrets.AWS_BACKEND_ACCESS_ROLE }}' \
+            -var 'aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}' \
+            -auto-approve
+          echo "Terraform configuration applied successfully."
+        working-directory: ./infrastructure
+        shell: bash
+
+  push-images-to-aws:
+    needs: provision-aws
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        image_type: [backend, frontend, cypress]
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ap-southeast-2
+
+    steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v4.1.7
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          registries: ${{ secrets.AWS_ACCOUNT_ID }}
+          mask-password: "true"
+      
+      - name: Build, tag, and push ${{ matrix.image_type }} image
+        run: |
+          echo "Preparing to build and push ${{ matrix.image_type }} image..."
+
+          case "${{ matrix.image_type }}" in
+            backend)
+              BUILD_PATH="./api"
+              DOCKERFILE="./api/Dockerfile.api"
+              ;;
+            frontend)
+              BUILD_PATH="./angular-conduit-signals"
+              DOCKERFILE="./angular-conduit-signals/Dockerfile.frontend"
+              ;;
+            cypress)
+              BUILD_PATH="./angular-conduit-signals/cypress"
+              DOCKERFILE="./angular-conduit-signals/cypress/Dockerfile.cypress"
+              ;;
+          esac
+
+          echo "Building Docker image from $BUILD_PATH with Dockerfile $DOCKERFILE..."
+          docker build "$BUILD_PATH" -f "$DOCKERFILE" -t "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+          echo "Pushing Docker image to $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG..."
+          docker push "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          echo "Docker image $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG pushed successfully."
+        shell: bash
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: "conduit-${{ vars.ENVIRONMENT }}-${{ matrix.image_type }}-repo"
+          IMAGE_TAG: "conduit-${{ vars.ENVIRONMENT }}-${{ matrix.image_type }}-image"
+
+  update-ecs-services:
+    needs: push-images-to-aws
+    runs-on: ubuntu-22.04
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ap-southeast-2
+
+    steps:
+
+      - name: Install less pager
+        run: |
+          echo "Installing less pager..."
+          apt-get update && apt-get install -y less
+          echo "Less pager installed successfully."
+
+      - name: Install AWS CLI
+        run: |
+          echo "Installing AWS CLI..."
+          apt-get update && apt-get install -y unzip
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          ./aws/install
+          aws --version
+          echo "AWS CLI installed successfully."
+        shell: bash
+
+      - name: Update ECS Service with new backend image
+        id: update-ecs-backend
+        run: |
+          echo "Updating ECS backend service with the new image..."
+          aws ecs update-service \
+            --cluster "conduit-${{ vars.ENVIRONMENT }}-ecs-cluster" \
+            --service "conduit-${{ vars.ENVIRONMENT }}-backend-service" \
+            --force-new-deployment
+          echo "ECS backend service updated successfully."
+        shell: bash
+    
+      - name: Update ECS Service with new frontend image
+        id: update-ecs-frontend
+        run: |
+          echo "Updating ECS frontend service with the new image..."
+          aws ecs update-service \
+            --cluster "conduit-${{ vars.ENVIRONMENT }}-ecs-cluster" \
+            --service "conduit-${{ vars.ENVIRONMENT }}-frontend-service" \
+            --force-new-deployment
+          echo "ECS frontend service updated successfully."
+        shell: bash
+      
+      - name: Update ECS Service with new cypress image
+        id: update-ecs-cypress
+        run: |
+          echo "Updating ECS cypress service with the new image..."
+          aws ecs update-service \
+            --cluster "conduit-${{ vars.ENVIRONMENT }}-ecs-cluster" \
+            --service "conduit-${{ vars.ENVIRONMENT }}-cypress-service" \
+            --force-new-deployment
+          echo "ECS cypress service updated successfully."
+        shell: bash

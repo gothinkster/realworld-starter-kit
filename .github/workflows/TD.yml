@@ -1,0 +1,171 @@
+name: Teardown Pipeline
+
+on:
+  workflow_dispatch:
+
+# concurrency required to avoid terraform lock contention during ECR deprovisioning
+concurrency: cd-${{ github.repository }}-teardown
+
+jobs:
+  aws-teardown:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ap-southeast-2
+        
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Install less pager
+        run: |
+          echo "Installing less pager..."
+          apt-get update && apt-get install -y less
+          echo "Less pager installed successfully."
+
+      - name: Install AWS CLI
+        run: |
+          echo "Installing AWS CLI..."
+          apt-get update && apt-get install -y unzip
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          ./aws/install
+          aws --version
+          echo "AWS CLI installed successfully."
+        shell: bash
+    
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_GITHUB_ACCESS_ROLE }}
+          aws-region: ${{ vars.AWS_REGION }}
+          role-session-name: GitHub-OIDC-Terraform
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
+      
+      - name: Provision TF Backend S3 Bucket
+        run: |
+          echo "Provisioning Terraform backend S3 bucket..."
+          set -eux
+          BUCKET_NAME=conduit-${{ vars.ENVIRONMENT }}-tfbackend-bucket-${{ secrets.AWS_ACCOUNT_ID }}
+          REGION=${{ vars.AWS_REGION }}
+          if ! aws s3api head-bucket --bucket "$BUCKET_NAME" 2>/dev/null; then
+            aws s3api create-bucket --bucket "$BUCKET_NAME" --region "$REGION" --create-bucket-configuration LocationConstraint="$REGION"
+            echo "Bucket $BUCKET_NAME created in $REGION."
+          else
+            echo "Bucket $BUCKET_NAME already exists."
+          fi
+        shell: bash
+  
+      - name: Provision TF State Lock DynamoDB Table
+        run: |
+          echo "Provisioning Terraform state lock DynamoDB table..."
+          set -eux
+          TABLE_NAME=conduit-${{ vars.ENVIRONMENT }}-tfbackend-table
+          REGION=${{ vars.AWS_REGION }}
+          if ! aws dynamodb describe-table --table-name "$TABLE_NAME" --region "$REGION" &>/dev/null; then
+            aws dynamodb create-table \
+              --table-name "$TABLE_NAME" \
+              --attribute-definitions AttributeName=LockID,AttributeType=S \
+              --key-schema AttributeName=LockID,KeyType=HASH \
+              --billing-mode PAY_PER_REQUEST \
+              --region "$REGION"
+            echo "DynamoDB table $TABLE_NAME created in $REGION."
+          else
+            echo "DynamoDB table $TABLE_NAME already exists."
+          fi
+        shell: bash
+
+      - name: TF init
+        run: |
+          echo "Initializing Terraform..."
+          set -eux
+          terraform init -upgrade -reconfigure \
+            -backend-config='skip_metadata_api_check=true' \
+            -backend-config='skip_region_validation=true' \
+            -backend-config='skip_credentials_validation=true' \
+            -backend-config='region=${{ vars.AWS_REGION }}' \
+            -backend-config='bucket=conduit-${{ vars.ENVIRONMENT }}-tfbackend-bucket-${{ secrets.AWS_ACCOUNT_ID }}' \
+            -backend-config='key=tf-${{ vars.ENVIRONMENT }}.tfstate' \
+            -backend-config='dynamodb_table=conduit-${{ vars.ENVIRONMENT }}-tfbackend-table'
+          echo "Terraform initialized successfully."
+        shell: bash
+        working-directory: ./infrastructure
+
+      - name: Delete images in ECR repositories
+        shell: bash
+        run: |
+          set -eux
+          repos=(
+            "conduit-${{ vars.ENVIRONMENT }}-backend-repo"
+            "conduit-${{ vars.ENVIRONMENT }}-frontend-repo"
+            "conduit-${{ vars.ENVIRONMENT }}-cypress-repo"
+          )
+          for repo in "${repos[@]}"; do
+            if aws ecr describe-repositories --repository-names "$repo" &>/dev/null; then
+              images=$(aws ecr list-images --repository-name "$repo" --query 'imageIds[*]' --output json)
+              if [ "$images" != "[]" ]; then
+                aws ecr batch-delete-image --repository-name "$repo" --image-ids "$images"
+                echo "Deleted images from $repo"
+              else
+                echo "No images to delete in $repo"
+              fi
+            else
+              echo "Repository $repo does not exist"
+            fi
+          done
+    
+      - name: TF destroy
+        shell: bash
+        run: |
+          set -eux
+          terraform destroy \
+            -var 'project_prefix=conduit-${{ vars.ENVIRONMENT }}' \
+            -var 'lifecycle_policy=./policy.json' \
+            -var 'iam_role=${{ secrets.AWS_BACKEND_ACCESS_ROLE }}' \
+            -var 'aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}' \
+            -auto-approve
+        working-directory: ./infrastructure
+  
+  capella-teardown:
+    needs: aws-teardown
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v4.1.7
+
+      - name: Setup CBShell
+        uses: ldoguin/setup-cbsh@develop
+        with:
+          version: 'v1.0.0'
+          enable-plugins: true
+          config: ${{ secrets.CBSHELL_CONFIG }}
+
+      - name: Print Couchbase Environment
+        run: |
+          echo "Printing Couchbase environment variables..."
+          cb-env
+          echo "Environment variables printed successfully."
+        shell: cbsh --script {0}
+
+      - name: Delete ${{ vars.ENVIRONMENT }} scope
+        run: |
+          echo "Attempting to delete '${{ vars.ENVIRONMENT }}' scope..."
+          if cbsh --command "scopes drop --clusters ${{ vars.CB_CLUSTER }} --bucket conduit ${{ vars.ENVIRONMENT }}"; then
+            echo "'${{ vars.ENVIRONMENT }}' scope deleted successfully."
+          else
+            echo "Failed to delete '${{ vars.ENVIRONMENT }}' scope or it does not exist."
+          fi
+        shell: bash
+        env:
+          CB_CLUSTER: ${{ vars.CB_CLUSTER }}
+          ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+      
