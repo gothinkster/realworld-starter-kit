@@ -86,7 +86,7 @@ public class GetArticles : HandlerTestBase, IAsyncLifetime
         var countResult = okResult.Value?.ArticlesCount;
 
         returnedArticles.ShouldNotBeNull().Count.ShouldBe(10);
-        countResult.ShouldBe(10);
+        countResult.ShouldBe(20); // Total count of all articles
     }
 
     [Fact]

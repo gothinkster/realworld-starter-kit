@@ -39,6 +39,8 @@ public static partial class ArticleHandlers
             query = query.Where(x => x.FavoritedByUsers.Any(u => u.UserName == request.Favorited));
         }
 
+        var totalCount = await query.CountAsync();
+
         var articles = await query
             .Include(x => x.Author)
             .OrderByDescending(x => x.CreatedAt)
@@ -64,6 +66,6 @@ public static partial class ArticleHandlers
             })
             .ToListAsync();
 
-        return TypedResults.Ok(new GetArticlesResponse { Articles = articles, ArticlesCount = articles.Count });
+        return TypedResults.Ok(new GetArticlesResponse { Articles = articles, ArticlesCount = totalCount });
     }
 }
