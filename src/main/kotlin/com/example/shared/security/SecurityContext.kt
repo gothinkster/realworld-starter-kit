@@ -16,6 +16,5 @@ class SecurityContext {
     val isAuthenticated: Boolean
         get() = currentUserId != null
 
-    fun requireCurrentUserId(): Long =
-        currentUserId ?: throw UnauthorizedException("Authentication required")
+    fun requireCurrentUserId(): Long = currentUserId ?: throw UnauthorizedException("Authentication required")
 }

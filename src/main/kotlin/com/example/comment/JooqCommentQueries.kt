@@ -24,14 +24,16 @@ class JooqCommentQueries : CommentQueries {
                 .and(FOLLOWERS.FOLLOWER_ID.eq(viewerId))
                 .asField<Int>("following")
         } else {
-            org.jooq.impl.DSL.`val`(0).`as`("following")
+            org.jooq.impl.DSL
+                .`val`(0)
+                .`as`("following")
         }
 
     override fun getCommentsBySlug(
         slug: String,
         viewerId: Long?,
-    ): List<ApiComment> {
-        return dsl
+    ): List<ApiComment> =
+        dsl
             .select(
                 COMMENTS.ID,
                 COMMENTS.BODY,
@@ -68,7 +70,6 @@ class JooqCommentQueries : CommentQueries {
                             .following(record.get("following", Int::class.java) > 0),
                     )
             }
-    }
 
     override fun getCommentById(
         commentId: Long,
