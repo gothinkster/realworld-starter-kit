@@ -145,7 +145,7 @@ class UserTest {
     }
 
     @Test
-    fun `should clear bio and image when null provided`() {
+    fun `should keep existing bio and image when null provided`() {
         val originalUser =
             User(
                 email = "test@example.com",
@@ -161,8 +161,8 @@ class UserTest {
                 image = null,
             )
 
-        assertNull(updatedUser.bio)
-        assertNull(updatedUser.image)
+        assertEquals("Original bio", updatedUser.bio)
+        assertEquals("https://example.com/original.jpg", updatedUser.image)
     }
 
     @Test

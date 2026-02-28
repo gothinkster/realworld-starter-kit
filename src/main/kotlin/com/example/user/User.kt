@@ -44,8 +44,8 @@ data class User(
         return copy(
             email = updatedEmail,
             username = updatedUsername,
-            bio = bio,
-            image = image,
+            bio = bio ?: this.bio,
+            image = image ?: this.image,
             updatedAt = OffsetDateTime.now(),
         )
     }
