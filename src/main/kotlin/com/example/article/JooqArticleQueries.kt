@@ -126,6 +126,29 @@ class JooqArticleQueries : ArticleQueries {
             .fetch()
             .map { it.toApiArticle() }
 
+    override fun countArticles(
+        tag: String?,
+        author: String?,
+        favorited: String?,
+    ): Int =
+        dsl
+            .selectCount()
+            .from(ARTICLES)
+            .where(buildConditions(tag, author, favorited))
+            .fetchOne(0, Int::class.java) ?: 0
+
+    override fun countArticlesFeed(viewerId: Long): Int =
+        dsl
+            .selectCount()
+            .from(ARTICLES)
+            .where(
+                ARTICLES.AUTHOR_ID.`in`(
+                    select(FOLLOWERS.FOLLOWEE_ID)
+                        .from(FOLLOWERS)
+                        .where(FOLLOWERS.FOLLOWER_ID.eq(viewerId)),
+                ),
+            ).fetchOne(0, Int::class.java) ?: 0
+
     private fun articleFields(viewerId: Long?): List<Field<*>> {
         val favoritedField =
             if (viewerId != null) {

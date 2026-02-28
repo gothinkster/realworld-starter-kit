@@ -23,4 +23,12 @@ interface ArticleQueries : Queries {
         offset: Int = 0,
         viewerId: Long,
     ): List<ApiArticle>
+
+    fun countArticles(
+        tag: String? = null,
+        author: String? = null,
+        favorited: String? = null,
+    ): Int
+
+    fun countArticlesFeed(viewerId: Long): Int
 }

@@ -84,7 +84,7 @@ class ArticleResource : ArticlesApi {
             .ok(
                 GetArticlesFeed200Response()
                     .articles(articles as List<com.example.api.model.GetArticlesFeed200ResponseArticlesInner>)
-                    .articlesCount(articles.size),
+                    .articlesCount(articleQueries.countArticles(tag, author, favorited)),
             ).build()
     }
 
@@ -106,7 +106,7 @@ class ArticleResource : ArticlesApi {
             .ok(
                 GetArticlesFeed200Response()
                     .articles(articles as List<com.example.api.model.GetArticlesFeed200ResponseArticlesInner>)
-                    .articlesCount(articles.size),
+                    .articlesCount(articleQueries.countArticlesFeed(viewerId)),
             ).build()
     }
 
