@@ -21,21 +21,24 @@ class PasswordHasher {
             HASH_LENGTH,
         )
 
-    fun hash(password: String): String =
-        argon2.hash(
-            ITERATIONS,
-            MEMORY_KB,
-            PARALLELISM,
-            password.toCharArray(),
-        )
+    fun hash(password: String): String {
+        val chars = password.toCharArray()
+        return try {
+            argon2.hash(ITERATIONS, MEMORY_KB, PARALLELISM, chars)
+        } finally {
+            argon2.wipeArray(chars)
+        }
+    }
 
     fun verify(
         hash: String,
         password: String,
-    ): Boolean =
-        try {
-            argon2.verify(hash, password.toCharArray())
+    ): Boolean {
+        val chars = password.toCharArray()
+        return try {
+            argon2.verify(hash, chars)
         } finally {
-            argon2.wipeArray(password.toCharArray())
+            argon2.wipeArray(chars)
         }
+    }
 }
