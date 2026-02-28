@@ -38,6 +38,9 @@ logs/
 .env
 secrets.*
 
+# Worktrees
+.worktrees/
+
 # Test artifacts
 .testcontainers/
 *.class
