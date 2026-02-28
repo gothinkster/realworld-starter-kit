@@ -24,7 +24,7 @@ class SlugGenerator {
             counter++
         }
 
-        throw IllegalStateException("Could not generate unique slug after $MAX_SLUG_ATTEMPTS attempts")
+        error("Could not generate unique slug after $MAX_SLUG_ATTEMPTS attempts")
     }
 
     private fun generateBaseSlug(title: String): String {
