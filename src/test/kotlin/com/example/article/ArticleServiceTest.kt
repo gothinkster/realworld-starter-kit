@@ -38,7 +38,7 @@ class ArticleServiceTest {
         val tags = listOf("tag1", "tag2")
         val generatedSlug = "test-article"
 
-        every { securityContext.currentUserId } returns userId
+        every { securityContext.requireCurrentUserId() } returns userId
 
         every {
             slugGenerator.generateUniqueSlug(
@@ -76,7 +76,7 @@ class ArticleServiceTest {
         val newBody = "New body"
         val newSlug = "new-title"
 
-        every { securityContext.currentUserId } returns userId
+        every { securityContext.requireCurrentUserId() } returns userId
 
         val existingArticle =
             Article(
@@ -119,7 +119,7 @@ class ArticleServiceTest {
         val userId = 1L
         val slug = "test-slug"
 
-        every { securityContext.currentUserId } returns userId
+        every { securityContext.requireCurrentUserId() } returns userId
 
         val existingArticle =
             Article(
@@ -156,7 +156,7 @@ class ArticleServiceTest {
         val userId = 1L
         val slug = "non-existent"
 
-        every { securityContext.currentUserId } returns userId
+        every { securityContext.requireCurrentUserId() } returns userId
         every { articleRepository.findBySlug(slug) } returns null
 
         assertThrows<NotFoundException> {
@@ -170,7 +170,7 @@ class ArticleServiceTest {
         val differentUserId = 2L
         val slug = "test-slug"
 
-        every { securityContext.currentUserId } returns userId
+        every { securityContext.requireCurrentUserId() } returns userId
 
         val existingArticle =
             Article(
@@ -194,7 +194,7 @@ class ArticleServiceTest {
         val userId = 1L
         val slug = "test-slug"
 
-        every { securityContext.currentUserId } returns userId
+        every { securityContext.requireCurrentUserId() } returns userId
 
         val article =
             Article(
@@ -220,7 +220,7 @@ class ArticleServiceTest {
         val userId = 1L
         val slug = "non-existent"
 
-        every { securityContext.currentUserId } returns userId
+        every { securityContext.requireCurrentUserId() } returns userId
         every { articleRepository.findBySlug(slug) } returns null
 
         assertThrows<NotFoundException> {
@@ -234,7 +234,7 @@ class ArticleServiceTest {
         val differentUserId = 2L
         val slug = "test-slug"
 
-        every { securityContext.currentUserId } returns userId
+        every { securityContext.requireCurrentUserId() } returns userId
 
         val article =
             Article(
@@ -258,7 +258,7 @@ class ArticleServiceTest {
         val userId = 1L
         val slug = "test-slug"
 
-        every { securityContext.currentUserId } returns userId
+        every { securityContext.requireCurrentUserId() } returns userId
 
         val article =
             Article(
@@ -284,7 +284,7 @@ class ArticleServiceTest {
         val userId = 1L
         val slug = "non-existent"
 
-        every { securityContext.currentUserId } returns userId
+        every { securityContext.requireCurrentUserId() } returns userId
         every { articleRepository.findBySlug(slug) } returns null
 
         assertThrows<NotFoundException> {
@@ -297,7 +297,7 @@ class ArticleServiceTest {
         val userId = 1L
         val slug = "test-slug"
 
-        every { securityContext.currentUserId } returns userId
+        every { securityContext.requireCurrentUserId() } returns userId
 
         val article =
             Article(

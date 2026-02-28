@@ -2,7 +2,6 @@ package com.example.article
 
 import com.example.shared.exceptions.ForbiddenException
 import com.example.shared.exceptions.NotFoundException
-import com.example.shared.exceptions.UnauthorizedException
 import com.example.shared.security.SecurityContext
 import com.example.shared.utils.SlugGenerator
 import jakarta.enterprise.context.ApplicationScoped
@@ -20,10 +19,6 @@ class ArticleService {
     @Inject
     lateinit var securityContext: SecurityContext
 
-    private fun getCurrentUserId(): Long =
-        securityContext.currentUserId
-            ?: throw UnauthorizedException("Authentication required")
-
     @Transactional
     fun createArticle(
         title: String,
@@ -31,7 +26,7 @@ class ArticleService {
         body: String,
         tags: List<String>,
     ): Article {
-        val userId = getCurrentUserId()
+        val userId = securityContext.requireCurrentUserId()
         val slug =
             slugGenerator.generateUniqueSlug(
                 title = title,
@@ -58,7 +53,7 @@ class ArticleService {
         description: String?,
         body: String?,
     ): Article {
-        val userId = getCurrentUserId()
+        val userId = securityContext.requireCurrentUserId()
         val article =
             articleRepository.findBySlug(slug)
                 ?: throw NotFoundException("Article not found")
@@ -91,7 +86,7 @@ class ArticleService {
 
     @Transactional
     fun deleteArticle(slug: String) {
-        val userId = getCurrentUserId()
+        val userId = securityContext.requireCurrentUserId()
         val article =
             articleRepository.findBySlug(slug)
                 ?: throw NotFoundException("Article not found")
@@ -105,7 +100,7 @@ class ArticleService {
 
     @Transactional
     fun favoriteArticle(slug: String) {
-        val userId = getCurrentUserId()
+        val userId = securityContext.requireCurrentUserId()
         val article =
             articleRepository.findBySlug(slug)
                 ?: throw NotFoundException("Article not found")
@@ -115,7 +110,7 @@ class ArticleService {
 
     @Transactional
     fun unfavoriteArticle(slug: String) {
-        val userId = getCurrentUserId()
+        val userId = securityContext.requireCurrentUserId()
         val article =
             articleRepository.findBySlug(slug)
                 ?: throw NotFoundException("Article not found")

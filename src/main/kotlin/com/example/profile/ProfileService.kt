@@ -2,7 +2,6 @@ package com.example.profile
 
 import com.example.shared.exceptions.BadRequestException
 import com.example.shared.exceptions.NotFoundException
-import com.example.shared.exceptions.UnauthorizedException
 import com.example.shared.security.SecurityContext
 import com.example.user.UserRepository
 import jakarta.enterprise.context.ApplicationScoped
@@ -20,13 +19,9 @@ class ProfileService {
     @Inject
     lateinit var securityContext: SecurityContext
 
-    private fun getCurrentUserId(): Long =
-        securityContext.currentUserId
-            ?: throw UnauthorizedException("Authentication required")
-
     @Transactional
     fun followUser(username: String) {
-        val followerId = getCurrentUserId()
+        val followerId = securityContext.requireCurrentUserId()
         val followee =
             userRepository.findByUsername(username)
                 ?: throw NotFoundException("User not found")
@@ -40,7 +35,7 @@ class ProfileService {
 
     @Transactional
     fun unfollowUser(username: String) {
-        val followerId = getCurrentUserId()
+        val followerId = securityContext.requireCurrentUserId()
         val followee =
             userRepository.findByUsername(username)
                 ?: throw NotFoundException("User not found")

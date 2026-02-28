@@ -1,5 +1,6 @@
 package com.example.shared.security
 
+import com.example.shared.exceptions.UnauthorizedException
 import jakarta.enterprise.context.RequestScoped
 import jakarta.inject.Inject
 import org.eclipse.microprofile.jwt.JsonWebToken
@@ -14,4 +15,7 @@ class SecurityContext {
 
     val isAuthenticated: Boolean
         get() = currentUserId != null
+
+    fun requireCurrentUserId(): Long =
+        currentUserId ?: throw UnauthorizedException("Authentication required")
 }
