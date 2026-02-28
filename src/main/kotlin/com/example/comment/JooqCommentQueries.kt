@@ -16,23 +16,21 @@ class JooqCommentQueries : CommentQueries {
     @Inject
     lateinit var dsl: DSLContext
 
+    private fun followingField(viewerId: Long?): org.jooq.Field<*> =
+        if (viewerId != null) {
+            select(count())
+                .from(FOLLOWERS)
+                .where(FOLLOWERS.FOLLOWEE_ID.eq(COMMENTS.AUTHOR_ID))
+                .and(FOLLOWERS.FOLLOWER_ID.eq(viewerId))
+                .asField<Int>("following")
+        } else {
+            org.jooq.impl.DSL.`val`(0).`as`("following")
+        }
+
     override fun getCommentsBySlug(
         slug: String,
         viewerId: Long?,
     ): List<ApiComment> {
-        val followingField =
-            if (viewerId != null) {
-                select(count())
-                    .from(FOLLOWERS)
-                    .where(FOLLOWERS.FOLLOWEE_ID.eq(COMMENTS.AUTHOR_ID))
-                    .and(FOLLOWERS.FOLLOWER_ID.eq(viewerId))
-                    .asField<Int>("following")
-            } else {
-                org.jooq.impl.DSL
-                    .`val`(0)
-                    .`as`("following")
-            }
-
         return dsl
             .select(
                 COMMENTS.ID,
@@ -43,7 +41,7 @@ class JooqCommentQueries : CommentQueries {
                 USERS.USERNAME,
                 USERS.BIO,
                 USERS.IMAGE,
-                followingField,
+                followingField(viewerId),
             ).from(COMMENTS)
             .join(USERS)
             .on(USERS.ID.eq(COMMENTS.AUTHOR_ID))
@@ -76,19 +74,6 @@ class JooqCommentQueries : CommentQueries {
         commentId: Long,
         viewerId: Long?,
     ): ApiComment {
-        val followingField =
-            if (viewerId != null) {
-                select(count())
-                    .from(FOLLOWERS)
-                    .where(FOLLOWERS.FOLLOWEE_ID.eq(COMMENTS.AUTHOR_ID))
-                    .and(FOLLOWERS.FOLLOWER_ID.eq(viewerId))
-                    .asField<Int>("following")
-            } else {
-                org.jooq.impl.DSL
-                    .`val`(0)
-                    .`as`("following")
-            }
-
         val record =
             dsl
                 .select(
@@ -100,7 +85,7 @@ class JooqCommentQueries : CommentQueries {
                     USERS.USERNAME,
                     USERS.BIO,
                     USERS.IMAGE,
-                    followingField,
+                    followingField(viewerId),
                 ).from(COMMENTS)
                 .join(USERS)
                 .on(USERS.ID.eq(COMMENTS.AUTHOR_ID))
