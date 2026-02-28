@@ -177,20 +177,7 @@ class JooqArticleRepository : ArticleRepository {
     }
 
     override fun deleteById(id: Long) {
-        dsl
-            .deleteFrom(ARTICLE_TAGS)
-            .where(ARTICLE_TAGS.ARTICLE_ID.eq(id))
-            .execute()
-
-        dsl
-            .deleteFrom(FAVORITES)
-            .where(FAVORITES.ARTICLE_ID.eq(id))
-            .execute()
-
-        dsl
-            .deleteFrom(ARTICLES)
-            .where(ARTICLES.ID.eq(id))
-            .execute()
+        dsl.deleteFrom(ARTICLES).where(ARTICLES.ID.eq(id)).execute()
     }
 
     override fun favorite(
