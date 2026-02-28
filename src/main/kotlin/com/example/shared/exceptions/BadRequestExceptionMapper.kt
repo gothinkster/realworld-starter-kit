@@ -9,6 +9,6 @@ class BadRequestExceptionMapper : ExceptionMapper<BadRequestException> {
     override fun toResponse(exception: BadRequestException): Response =
         Response
             .status(Response.Status.BAD_REQUEST)
-            .entity(mapOf("error" to exception.message))
+            .entity(mapOf("errors" to mapOf("body" to listOf(exception.message))))
             .build()
 }
