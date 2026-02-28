@@ -4,6 +4,10 @@ import jakarta.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
 class SlugGenerator {
+    companion object {
+        private const val MAX_SLUG_ATTEMPTS = 100
+    }
+
     fun generateUniqueSlug(
         title: String,
         existingSlugChecker: (String) -> Boolean,
@@ -12,14 +16,15 @@ class SlugGenerator {
         var candidateSlug = baseSlug
         var counter = 2
 
-        while (true) {
-            val slugExists = existingSlugChecker(candidateSlug)
-            if (!slugExists) {
+        repeat(MAX_SLUG_ATTEMPTS) {
+            if (!existingSlugChecker(candidateSlug)) {
                 return candidateSlug
             }
             candidateSlug = "$baseSlug-$counter"
             counter++
         }
+
+        throw IllegalStateException("Could not generate unique slug after $MAX_SLUG_ATTEMPTS attempts")
     }
 
     private fun generateBaseSlug(title: String): String {

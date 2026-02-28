@@ -1,7 +1,9 @@
 package com.example.shared.utils
 
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class SlugGeneratorTest {
     private val slugGenerator = SlugGenerator()
@@ -129,5 +131,17 @@ class SlugGeneratorTest {
             )
 
         assertEquals("hello-world", slug)
+    }
+
+    @Test
+    fun `should throw exception when max attempts exhausted`() {
+        val exception =
+            assertThrows<IllegalStateException> {
+                slugGenerator.generateUniqueSlug(
+                    title = "Hello World",
+                    existingSlugChecker = { true },
+                )
+            }
+        assertTrue(exception.message!!.contains("Could not generate unique slug"))
     }
 }
